@@ -1,0 +1,11 @@
+*~
+.*sw[pqrsto]
+*.orig
+target/**
+*/target/**
+*/.settings/*
+.factorypath
+.settings/*
+.project
+.classpath
+billy/src/main/filters/*.properties
