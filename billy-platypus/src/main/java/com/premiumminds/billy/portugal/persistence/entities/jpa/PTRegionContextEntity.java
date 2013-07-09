@@ -1,0 +1,66 @@
+/*******************************************************************************
+ * Copyright (C) 2013 Premium Minds.
+ *  
+ * This file is part of billy-platypus.
+ * 
+ * billy-platypus is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published 
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * billy-platypus is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with billy-platypus.  If not, see <http://www.gnu.org/licenses/>.
+ ******************************************************************************/
+package com.premiumminds.billy.portugal.persistence.entities.jpa;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.premiumminds.billy.portugal.Config;
+import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+
+@Entity
+@Table(name = Config.TABLE_PREFIX + "REGION_CONTEXT")
+public class PTRegionContextEntity extends ContextEntity
+implements IPTRegionContextEntity {
+	private static final long serialVersionUID = 1L;
+
+	@Column(name = "REGION_CODE", nullable = true, insertable = true, updatable = true)
+	private String regionCode;
+	
+	
+	public PTRegionContextEntity(){}
+	
+	public PTRegionContextEntity(
+			String name,
+			String description,
+			ContextEntity parent,
+			String regionCode){
+		
+		super(name, description, parent);
+		
+		setRegionCode(regionCode);
+	}
+
+	
+	//GETTERS
+	
+	@Override
+	public String getRegionCode() {
+		return regionCode;
+	}
+
+	
+	//SETTERS
+	
+	public void setRegionCode(String regionCode) {
+		this.regionCode = regionCode;
+	}
+	
+}

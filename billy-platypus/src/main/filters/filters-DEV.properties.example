@@ -1,0 +1,13 @@
+jdbc.driver=org.postgresql.Driver
+jdbc.debug=true
+jdbc.debug_extended=false
+jdbc.user=billy
+jdbc.password=
+jdbc.host=localhost
+jdbc.port=5432
+jdbc.database=billy
+jdbc.url=jdbc:postgresql://localhost:5432/billy
+jdbc.schema=public
+hibernate.show_sql=true
+hibernate.hbm2ddl.auto=create
+hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
