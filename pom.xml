@@ -34,6 +34,13 @@
         <module>billy-gin</module>
     </modules>
     
+    <licenses>
+    	<license>
+    		<name>GNU LESSER GENERAL PUBLIC LICENSE</name>
+			<url>http://www.gnu.org/licenses/lgpl.html</url>
+		</license>
+	</licenses>
+    
     <scm>
     	<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
     	<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
