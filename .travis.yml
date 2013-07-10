@@ -13,4 +13,7 @@ before_script:
 jdk: openjdk6
 
 notifications:
-    email: estagio1@premium-minds.com
+    email:
+        recipients:
+            - estagio1@premium-minds.com
+        on_failure: always
