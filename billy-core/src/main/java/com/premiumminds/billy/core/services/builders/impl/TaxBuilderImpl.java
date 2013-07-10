@@ -50,7 +50,7 @@ implements TaxBuilder<TBuilder, TTax> {
 	public TaxBuilderImpl(
 			DAOTax daoTax,
 			DAOContext daoContext) {
-		super((EntityFactory<? extends TTax>) daoContext);
+		super((EntityFactory<? extends TTax>) daoTax);
 	}
 
 	@Override

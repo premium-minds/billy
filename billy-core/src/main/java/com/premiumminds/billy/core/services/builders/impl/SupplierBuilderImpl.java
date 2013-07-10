@@ -48,8 +48,8 @@ implements SupplierBuilder<TBuilder, TSupplier> {
 	@SuppressWarnings("unchecked")
 	@Inject
 	public SupplierBuilderImpl(
-			DAOShippingPoint daoShippingPoint) {
-		super((EntityFactory<? extends TSupplier>) daoShippingPoint);
+			DAOSupplier daoSupplier) {
+		super((EntityFactory<? extends TSupplier>) daoSupplier);
 	}
 
 
