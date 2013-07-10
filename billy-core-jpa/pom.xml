@@ -21,10 +21,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy-core-jpa</artifactId>
 	<name>billy core JPA</name>
-	<groupId>com.premiumminds</groupId>
-	<version>0.0.1-SNAPSHOT</version>
 	<description>The JPA implementation for billy core persistence</description>
 
+	<parent>
+		<groupId>com.premiumminds</groupId>
+		<artifactId>billy</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
 	<properties>
 		<java.version>1.6</java.version>
 		<guice.version>3.0</guice.version>

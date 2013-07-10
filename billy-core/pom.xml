@@ -21,10 +21,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy-core</artifactId>
 	<name>billy core</name>
-	<groupId>com.premiumminds</groupId>
-	<version>0.0.1-SNAPSHOT</version>
 	<description>A project to aid in dealing with financial data</description>
 
+
+	<parent>
+		<groupId>com.premiumminds</groupId>
+		<artifactId>billy</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
 	<properties>
 		<java.version>1.6</java.version>
 		<guice.version>3.0</guice.version>
@@ -191,5 +196,6 @@
 			</properties>
 		</profile>
 	</profiles>
+
 
 </project>
