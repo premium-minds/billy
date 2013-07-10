@@ -1,18 +1,18 @@
 #Billy
 Billy is an opensource invoicing engine.
 
-#Project Goals
+##Project Goals
 
-#Getting Started
+##Getting Started
 
-#Documentation & Examples
+##Documentation & Examples
 
-#Continuous Integration
+##Continuous Integration
 CI is hosted by [travis-ci.org](https://travis-ci.org/)
 
-#Development
+##Development
 
-#Licence
+##Licence
 Copyright (C) 2013 [Premium Minds](http://www.premium-minds.com/)
 
 Licensed under the [GNU Lesser General Public Licence](http://www.gnu.org/licenses/lgpl.html)
