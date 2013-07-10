@@ -11,3 +11,6 @@ before_script:
 
 # Avoid default OracleJDK7. Complies with Eclipse environment used
 jdk: openjdk6
+
+notifications:
+    email: estagio1@premium-minds.com
