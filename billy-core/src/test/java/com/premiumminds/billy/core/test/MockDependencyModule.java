@@ -16,26 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy-core.  If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package com.premiumminds.billy.core;
+package com.premiumminds.billy.core.test;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.persist.PersistService;
-import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class MockDependencyModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		JpaPersistModule persistModule = new JpaPersistModule("BillyPersistenceUnit");
-		install(persistModule);
 	}
 
-	public static class Initializer {
-		
-		@Inject public Initializer(PersistService persistService) {
-			persistService.start();
-		}
-	}
-	
 }

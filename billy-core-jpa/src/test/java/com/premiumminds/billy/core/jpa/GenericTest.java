@@ -40,6 +40,7 @@ import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 public class GenericTest {
@@ -127,17 +128,14 @@ public class GenericTest {
 		injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
 		
 		
-		GenericInvoiceEntry entry = entryBuilder
-			.setDescription("desc")
-			.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("100"), Currency.getInstance("EUR"))
-			.setQuantity(new BigDecimal("12"))
-			.build();
-		
-		DAOGenericInvoiceEntry daoEntry = injector.getInstance(DAOGenericInvoiceEntry.class);
-		daoEntry.create((GenericInvoiceEntryEntity) entry);
-		
-		
-		daoContext.commit();
+//		GenericInvoice.Builder invoiceBuilder = injector.getInstance(GenericInvoice.Builder.class);
+//		invoiceBuilder.set
+//		
+//		
+//		
+//		
+//		
+//		daoContext.commit();
 		
 		return;
 //		builder
