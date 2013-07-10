@@ -34,4 +34,10 @@
         <module>billy-gin</module>
     </modules>
     
+    <scm>
+    	<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
+    	<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
+    	<url>git@github.com:premium-minds/billy.git</url>
+    </scm>
+    
 </project>
