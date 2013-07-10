@@ -82,16 +82,16 @@ GenericInvoiceEntity {
 	@Column(name = "DATE")
 	protected Date date;
 
-	@Column(name = "AMOUNT_WITH_TAX", precision = 10, scale = 10)
+	@Column(name = "AMOUNT_WITH_TAX", scale = 7)
 	protected BigDecimal amountWithTax;
 
-	@Column(name = "TAX_AMOUNT", precision = 10, scale = 10)
+	@Column(name = "TAX_AMOUNT", scale = 7)
 	protected BigDecimal taxAmount;
 
-	@Column(name = "AMOUNT_WITHOUT_TAX", precision = 10, scale = 10)
+	@Column(name = "AMOUNT_WITHOUT_TAX", scale = 7)
 	protected BigDecimal amountWithoutTax;
 	
-	@Column(name = "DISCOUNTS_AMOUNT", precision = 10, scale = 10)
+	@Column(name = "DISCOUNTS_AMOUNT", scale = 7)
 	protected BigDecimal discountsAmount;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -127,7 +127,7 @@ GenericInvoiceEntity {
 	@Column(name = "SETTLEMENT_DESCRIPTION")
 	protected String settlementDescription;
 
-	@Column(name = "SETTLEMENT_DISCOUNT", precision = 10, scale = 10)
+	@Column(name = "SETTLEMENT_DISCOUNT", scale = 7)
 	protected BigDecimal settlementDiscount;
 
 	@Temporal(TemporalType.TIMESTAMP)

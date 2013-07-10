@@ -23,6 +23,11 @@ import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
+import com.premiumminds.billy.core.persistence.dao.DAOProduct;
+import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Entity;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
@@ -31,6 +36,16 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 
 public interface GenericInvoiceEntry extends Entity {
 
+	public static class Builder extends GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry> {
+		@javax.inject.Inject
+		public Builder(DAOGenericInvoiceEntry daoEntry,
+				DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
+				DAOProduct daoProduct) {
+			super(daoEntry, daoGenericInvoice, daoTax, daoProduct);
+		}
+	}
+	
+	
 	public Integer getEntryNumber();
 	
 	public <T extends ShippingPoint> T getShippingOrigin();
@@ -43,17 +58,21 @@ public interface GenericInvoiceEntry extends Entity {
 	
 	public String getUnitOfMeasure();
 
-	public BigDecimal getUnitNetAmount();
+	public BigDecimal getUnitAmountWithTax();
 	
-	public BigDecimal getUnitGrossAmount();
+	public BigDecimal getUnitAmountWithoutTax();
 	
 	public BigDecimal getUnitTaxAmount();
 	
-	public BigDecimal getNetAmount();
+	public BigDecimal getUnitDiscountAmount();
 	
-	public BigDecimal getGrossAmount();
+	public BigDecimal getAmountWithTax();
+	
+	public BigDecimal getAmountWithoutTax();
 	
 	public BigDecimal getTaxAmount();
+	
+	public BigDecimal getDiscountAmount();
 	
 	public Date getTaxPointDate();
 	

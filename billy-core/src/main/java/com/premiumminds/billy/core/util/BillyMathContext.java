@@ -19,7 +19,6 @@
 package com.premiumminds.billy.core.util;
 
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 public class BillyMathContext {
 	
@@ -27,7 +26,7 @@ public class BillyMathContext {
 	
 	public static MathContext get() {
 		if(instance == null) {
-			instance = new MathContext(10, RoundingMode.HALF_EVEN);
+			instance = MathContext.DECIMAL32;
 		}
 		return instance;
 	}

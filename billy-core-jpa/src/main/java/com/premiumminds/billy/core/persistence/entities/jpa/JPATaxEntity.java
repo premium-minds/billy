@@ -59,10 +59,10 @@ implements TaxEntity {
 	@Column(name = "DESIGNATION")
 	protected String designation;
 
-	@Column(name = "FLAT_RATE_AMOUNT", precision = 10, scale = 10)
+	@Column(name = "FLAT_RATE_AMOUNT", scale = 7)
 	protected BigDecimal flatRateAmount;
 
-	@Column(name = "PERCENT_RATE_VALUE", precision = 10, scale = 10)
+	@Column(name = "PERCENT_RATE_VALUE", scale = 7)
 	protected BigDecimal percentageRateValue;
 
 	@Enumerated(EnumType.STRING)
@@ -77,7 +77,7 @@ implements TaxEntity {
 	@Column(name = "VALID_TO")
 	protected Date validTo;
 
-	@Column(name = "VALUE", precision = 10, scale = 10)
+	@Column(name = "VALUE", scale = 7)
 	protected BigDecimal value;
 
 

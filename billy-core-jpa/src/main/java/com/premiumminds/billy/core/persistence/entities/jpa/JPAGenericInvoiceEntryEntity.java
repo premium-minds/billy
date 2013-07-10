@@ -72,29 +72,29 @@ GenericInvoiceEntryEntity {
 	@Column(name = "NUMBER")
 	protected Integer number;
 
-	@Column(name = "EXCHANGE_RATE_TO_DOCUMENT_CURRENCY", precision = 10)
+	@Column(name = "EXCHANGE_RATE_TO_DOCUMENT_CURRENCY", scale = 7)
 	protected BigDecimal exchangeRateToDocumentCurrency;
 
-	@Column(name = "AMOUNT_WITHOUT_TAX", precision = 10)
+	@Column(name = "AMOUNT_WITHOUT_TAX", scale = 7)
 	protected BigDecimal amountWithoutTax;
 
-	@Column(name = "AMOUNT_WITH_TAX", precision = 10)
+	@Column(name = "AMOUNT_WITH_TAX", scale = 7)
 	protected BigDecimal amountWithTax;
 
-	@Column(name = "TAX_AMOUNT", precision = 10)
+	@Column(name = "TAX_AMOUNT", scale = 7)
 	protected BigDecimal taxAmount;
 
-	@Column(name = "DISCOUNT_AMOUNT", precision = 10)
+	@Column(name = "DISCOUNT_AMOUNT", scale = 7)
 	protected BigDecimal discountAmount;
 
 	@ManyToOne(targetEntity = JPAProductEntity.class)
 	@JoinColumn(name = "ID_PRODUCT", referencedColumnName = "ID")
 	protected Product product;
 
-	@Column(name = "QUANTITY", precision = 10)
+	@Column(name = "QUANTITY", scale = 7)
 	protected BigDecimal quantity;
 
-	@Column(name = "SHIPPING_COSTS_AMOUNT", precision = 10)
+	@Column(name = "SHIPPING_COSTS_AMOUNT", scale = 7)
 	protected BigDecimal shippingCostsAmount;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -119,16 +119,16 @@ GenericInvoiceEntryEntity {
 	@Column(name = "TAX_POINT_DATE")
 	protected Date taxPointDate;
 
-	@Column(name = "UNIT_AMOUNT_WITHOUT_TAX", precision = 10)
+	@Column(name = "UNIT_AMOUNT_WITHOUT_TAX", scale = 7)
 	protected BigDecimal unitAmountWithoutTax;
 
-	@Column(name = "UNIT_AMOUNT_WITH_TAX", precision = 10)
+	@Column(name = "UNIT_AMOUNT_WITH_TAX", scale = 7)
 	protected BigDecimal unitAmountWithTax;
 
-	@Column(name = "UNIT_TAX_AMOUNT", precision = 10)
+	@Column(name = "UNIT_TAX_AMOUNT", scale = 7)
 	protected BigDecimal unitTaxAmount;
 
-	@Column(name = "UNIT_DISCOUNT_AMOUNT", precision = 10)
+	@Column(name = "UNIT_DISCOUNT_AMOUNT", scale = 7)
 	protected BigDecimal unitDiscountAmount;
 
 	@Column(name = "UNIT_OF_MEASURE")

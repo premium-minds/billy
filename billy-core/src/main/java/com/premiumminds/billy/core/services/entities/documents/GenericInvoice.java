@@ -23,17 +23,37 @@ import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 
+import javax.inject.Inject;
+
+import com.premiumminds.billy.core.persistence.dao.DAOApplication;
+import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
+import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
+import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
+import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
+import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.Entity;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.core.services.entities.Application.Builder;
 
 public interface GenericInvoice extends Entity {
 
 	public static enum CreditOrDebit {
 		CREDIT,
 		DEBIT
+	}
+	
+	public static class Builder extends GenericInvoiceBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoice> {
+		@Inject
+		public Builder(DAOGenericInvoice daoGenericInvoice,
+				DAOBusiness daoBusiness, DAOCustomer daoCustomer,
+				DAOSupplier daoSupplier) {
+			super(daoGenericInvoice, daoBusiness, daoCustomer, daoSupplier);
+		}
 	}
 	
 	public String getNumber();
