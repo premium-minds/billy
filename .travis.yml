@@ -1,0 +1,13 @@
+# Premium-minds - Billy .travis.yml
+
+language: java
+
+before_script:
+
+# Deletes existing DB (Drop user may be removed)
+        - sh -c "if ['$DB' = 'pgsql']; then psql -c 'DROP DATABASE IF EXISTS billy;' -U postgres; psql -c 'DROP USER IF EXISTS billy;' -U postgres; fi"
+        - psql -c "CREATE USER billy WITH PASSWORD 'billy';" -U postgres
+        - psql -c 'CREATE DATABASE billy WITH OWNER billy;' -U postgres
+
+# Avoid default OracleJDK7. Complies with Eclipse environment used
+jdk: openjdk6
