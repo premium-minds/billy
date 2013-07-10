@@ -68,65 +68,71 @@ GenericInvoiceEntryEntity {
 			joinColumns={@JoinColumn(name="ID_ENTRY", referencedColumnName="ID")},
 			inverseJoinColumns={@JoinColumn(name="ID_REFERENCE", referencedColumnName="ID")})
 	protected List<GenericInvoice> references;
-	
+
 	@Column(name = "NUMBER")
 	protected Integer number;
-	
-	@Column(name = "EXCHANGE_RATE_TO_DOCUMENT_CURRENCY", precision = 10, scale = 10)
+
+	@Column(name = "EXCHANGE_RATE_TO_DOCUMENT_CURRENCY", precision = 10)
 	protected BigDecimal exchangeRateToDocumentCurrency;
-	
-	@Column(name = "GROSS_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal grossAmount;
-	
-	@Column(name = "NET_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal netAmount;
-	
+
+	@Column(name = "AMOUNT_WITHOUT_TAX", precision = 10)
+	protected BigDecimal amountWithoutTax;
+
+	@Column(name = "AMOUNT_WITH_TAX", precision = 10)
+	protected BigDecimal amountWithTax;
+
+	@Column(name = "TAX_AMOUNT", precision = 10)
+	protected BigDecimal taxAmount;
+
+	@Column(name = "DISCOUNT_AMOUNT", precision = 10)
+	protected BigDecimal discountAmount;
+
 	@ManyToOne(targetEntity = JPAProductEntity.class)
 	@JoinColumn(name = "ID_PRODUCT", referencedColumnName = "ID")
 	protected Product product;
-	
-	@Column(name = "QUANTITY", precision = 10, scale = 10)
+
+	@Column(name = "QUANTITY", precision = 10)
 	protected BigDecimal quantity;
-	
-	@Column(name = "SHIPPING_COSTS_AMOUNT", precision = 10, scale = 10)
+
+	@Column(name = "SHIPPING_COSTS_AMOUNT", precision = 10)
 	protected BigDecimal shippingCostsAmount;
-	
+
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_SHIPPING_DESTINATION")
 	protected ShippingPoint shippingDestination;
-	
+
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_SHIPPING_ORIGIN")
 	protected ShippingPoint shippingOrigin;
-	
-	@Column(name = "TAX_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal taxAmount;
-	
+
 	@ManyToMany(targetEntity = JPATaxEntity.class)
 	@JoinTable(
 			name=Config.TABLE_PREFIX + "ENTRY_TAX",
 			joinColumns={@JoinColumn(name="ID_ENTRY", referencedColumnName="ID")},
 			inverseJoinColumns={@JoinColumn(name="ID_TAX", referencedColumnName="ID")})
 	protected List<Tax> taxes;
-	
+
 	@Column(name = "TAX_EXEMPTION_REASON")
 	protected String taxExemptionReason;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TAX_POINT_DATE")
 	protected Date taxPointDate;
-	
-	@Column(name = "UNIT_GROSS_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal unitGrossAmount;
-	
-	@Column(name = "UNIT_NET_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal unitNetAmount;
-	
+
+	@Column(name = "UNIT_AMOUNT_WITHOUT_TAX", precision = 10)
+	protected BigDecimal unitAmountWithoutTax;
+
+	@Column(name = "UNIT_AMOUNT_WITH_TAX", precision = 10)
+	protected BigDecimal unitAmountWithTax;
+
+	@Column(name = "UNIT_TAX_AMOUNT", precision = 10)
+	protected BigDecimal unitTaxAmount;
+
+	@Column(name = "UNIT_DISCOUNT_AMOUNT", precision = 10)
+	protected BigDecimal unitDiscountAmount;
+
 	@Column(name = "UNIT_OF_MEASURE")
 	protected String unitOfMeasure;
-	
-	@Column(name = "UNIT_TAX_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal unitTaxAmount;
 
 
 	public JPAGenericInvoiceEntryEntity() {
@@ -168,13 +174,18 @@ GenericInvoiceEntryEntity {
 	}
 
 	@Override
-	public BigDecimal getUnitNetAmount() {
-		return unitNetAmount;
+	public BigDecimal getUnitAmountWithTax() {
+		return unitAmountWithTax;
 	}
 
 	@Override
-	public BigDecimal getUnitGrossAmount() {
-		return unitGrossAmount;
+	public BigDecimal getUnitAmountWithoutTax() {
+		return unitAmountWithoutTax;
+	}
+
+	@Override
+	public BigDecimal getUnitDiscountAmount() {
+		return unitDiscountAmount;
 	}
 
 	@Override
@@ -183,13 +194,18 @@ GenericInvoiceEntryEntity {
 	}
 
 	@Override
-	public BigDecimal getNetAmount() {
-		return netAmount;
+	public BigDecimal getAmountWithTax() {
+		return amountWithTax;
 	}
 
 	@Override
-	public BigDecimal getGrossAmount() {
-		return grossAmount;
+	public BigDecimal getAmountWithoutTax() {
+		return amountWithoutTax;
+	}
+
+	@Override
+	public BigDecimal getDiscountAmount() {
+		return discountAmount;
 	}
 
 	@Override
@@ -263,13 +279,18 @@ GenericInvoiceEntryEntity {
 	}
 
 	@Override
-	public void setUnitNetAmount(BigDecimal amount) {
-		this.unitNetAmount = amount;
+	public void setUnitAmountWithTax(BigDecimal amount) {
+		this.unitAmountWithTax = amount;
 	}
 
 	@Override
-	public void setUnitGrossAmount(BigDecimal amount) {
-		this.unitGrossAmount = amount;
+	public void setUnitAmountWithoutTax(BigDecimal amount) {
+		this.unitAmountWithoutTax = amount;		
+	}
+
+	@Override
+	public void setUnitDiscountAmount(BigDecimal amount) {
+		this.unitDiscountAmount = amount;		
 	}
 
 	@Override
@@ -278,13 +299,18 @@ GenericInvoiceEntryEntity {
 	}
 
 	@Override
-	public void setNetAmount(BigDecimal amount) {
-		this.netAmount = amount;
+	public void setAmountWithTax(BigDecimal amount) {
+		this.amountWithTax = amount;
 	}
 
 	@Override
-	public void setGrossAmount(BigDecimal amount) {
-		this.grossAmount = amount;
+	public void setAmountWithoutTax(BigDecimal amount) {
+		this.amountWithoutTax = amount;		
+	}
+
+	@Override
+	public void setDiscountAmount(BigDecimal amount) {
+		this.discountAmount = amount;		
 	}
 
 	@Override

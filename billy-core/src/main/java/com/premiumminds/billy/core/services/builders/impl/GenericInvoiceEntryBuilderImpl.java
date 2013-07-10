@@ -20,13 +20,13 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 
 import javax.inject.Inject;
 import javax.validation.ValidationException;
 
+import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
@@ -52,16 +52,16 @@ import com.premiumminds.billy.core.util.NotImplemented;
 @NotImplemented
 @Deprecated
 public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry> 
-	extends AbstractBuilder<TBuilder, TEntry>
-	implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
+extends AbstractBuilder<TBuilder, TEntry>
+implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
-	
+
 	protected DAOGenericInvoiceEntry daoEntry;
 	protected DAOGenericInvoice daoGenericInvoice;
 	protected DAOTax daoTax;
 	protected DAOProduct daoProduct;
-	
+
 	@SuppressWarnings("unchecked")
 	@Inject
 	public GenericInvoiceEntryBuilderImpl(
@@ -75,7 +75,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		this.daoTax = daoTax;
 		this.daoProduct = daoProduct;
 	}
-	
+
 	@Override
 	public <T extends ShippingPoint> TBuilder setShippingOrigin(Builder<T> originBuilder) {
 		BillyValidator.notNull(originBuilder, LOCALIZER.getString("field.shipping_origin"));
@@ -97,6 +97,11 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		ProductEntity p = daoProduct.get(productUID);
 		BillyValidator.found(p, "field.product");
 		getTypeInstance().setProduct(p);
+		
+		//Adds the product taxes to the invoice line
+		for(Tax t : p.getTaxes()) {
+			getTypeInstance().getTaxes().add(t);
+		}
 		return getBuilder();
 	}
 
@@ -151,12 +156,22 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		getTypeInstance().setShippingCostsAmount(amount);
 		return getBuilder();
 	}
-	
+
 	@Override
-	public TBuilder setUnitGrossAmount(BigDecimal amount, Currency currency) {
+	public TBuilder setUnitAmount(AmountType type, BigDecimal amount, Currency currency) {
+		BillyValidator.mandatory(type, LOCALIZER.getString("field.unit_amount_type"));
 		BillyValidator.mandatory(amount, LOCALIZER.getString("field.unit_gross_amount"));
 		BillyValidator.mandatory(currency, LOCALIZER.getString("field.currency"));
-		getTypeInstance().setUnitGrossAmount(amount);
+		switch(type) {
+		case WITH_TAX:
+			getTypeInstance().setUnitAmountWithTax(amount);
+			getTypeInstance().setUnitAmountWithoutTax(null);
+			break;
+		case WITHOUT_TAX:
+			getTypeInstance().setUnitAmountWithoutTax(amount);
+			getTypeInstance().setUnitAmountWithTax(null);
+			break;
+		}
 		getTypeInstance().setCurrency(currency);
 		return getBuilder();
 	}
@@ -177,7 +192,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		getTypeInstance().setTaxExemptionReason(exemptionReason);
 		return getBuilder();
 	}
-	
+
 	@NotImplemented
 	@Deprecated
 	@Override
@@ -187,7 +202,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		BillyValidator.notEmpty(discounts, LOCALIZER.getString("field.discount_type"));
 
 		//TODO
-		
+
 		return getBuilder();
 	}
 
@@ -196,22 +211,48 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		// TODO Auto-generated method stub
 		validateValues();
 	}
-	
+
 	@Deprecated
 	protected void validateValues() throws ValidationException {
 		//TODO check mandatories
-		
+
 		MathContext mc = BillyMathContext.get();
-		
+
 		GenericInvoiceEntryEntity e = getTypeInstance();
-		BigDecimal unitGross = e.getGrossAmount();
+		e.setUnitDiscountAmount(BigDecimal.ZERO); //TODO
 		
-//		e.setUnitGrossAmount(unitGross.multiply(e.getQuantity(), mc));
-		
-		Collection<Tax> taxes = e.getProduct().getTaxes();
-		
+		if(e.getUnitAmountWithTax() != null) {
+			BigDecimal unitAmountWithoutTax = e.getUnitAmountWithTax();
+			BigDecimal unitTaxAmount = BigDecimal.ZERO;
+
+			for(Tax t : getTypeInstance().getTaxes()) {
+				switch(t.getTaxRateType()) {
+				case FLAT:
+					unitAmountWithoutTax = unitAmountWithoutTax.subtract(t.getValue(), mc);
+					unitTaxAmount.add(t.getValue(), mc);
+					break;
+				case PERCENTAGE:
+					unitAmountWithoutTax = e.getUnitAmountWithTax()
+												.divide(BigDecimal.ONE.add(t.getValue().divide(new BigDecimal("100"), mc), mc), mc);
+					unitTaxAmount.add(e.getUnitAmountWithTax().subtract(unitAmountWithoutTax, mc), mc);
+					break;
+				}
+			}
+			e.setUnitAmountWithoutTax(unitAmountWithoutTax);
+			e.setUnitTaxAmount(unitTaxAmount);
+
+			//Minus discounts
+			e.setUnitAmountWithoutTax(unitAmountWithoutTax.subtract(e.getUnitDiscountAmount(), mc));
+		} else {
+			throw new NotImplementedException("Cannot calculate from value without tax... yet");
+		}
+
+		e.setAmountWithTax(getTypeInstance().getUnitAmountWithTax().multiply(e.getQuantity(), mc));
+		e.setAmountWithoutTax(getTypeInstance().getUnitAmountWithoutTax().multiply(e.getQuantity(), mc));
+		e.setTaxAmount(getTypeInstance().getUnitTaxAmount().multiply(e.getQuantity(), mc));
+		e.setDiscountAmount(getTypeInstance().getUnitDiscountAmount().multiply(e.getQuantity(), mc));
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected GenericInvoiceEntryEntity getTypeInstance() {

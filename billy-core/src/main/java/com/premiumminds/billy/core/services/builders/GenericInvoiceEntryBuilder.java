@@ -31,6 +31,12 @@ import com.premiumminds.billy.core.util.DiscountType;
 
 public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry> extends Builder<TEntry> {
 
+	public static enum AmountType {
+		WITH_TAX,
+		WITHOUT_TAX
+	}
+
+
 	public <T extends ShippingPoint> TBuilder setShippingOrigin(Builder<T> originBuilder);
 
 	public <T extends ShippingPoint> TBuilder setShippingDestination(Builder<T> destinationBuilder);
@@ -39,7 +45,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
 	public TBuilder setQuantity(BigDecimal quantity);
 
-	public TBuilder setUnitGrossAmount(BigDecimal price, Currency currency);
+	public TBuilder setUnitAmount(AmountType type, BigDecimal amount, Currency currency);
 	
 	public TBuilder setUnitOfMeasure(String unit);
 

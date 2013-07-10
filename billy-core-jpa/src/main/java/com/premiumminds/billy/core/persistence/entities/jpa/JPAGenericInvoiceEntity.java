@@ -82,14 +82,17 @@ GenericInvoiceEntity {
 	@Column(name = "DATE")
 	protected Date date;
 
-	@Column(name = "NET_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal netAmount;
+	@Column(name = "AMOUNT_WITH_TAX", precision = 10, scale = 10)
+	protected BigDecimal amountWithTax;
 
 	@Column(name = "TAX_AMOUNT", precision = 10, scale = 10)
 	protected BigDecimal taxAmount;
 
-	@Column(name = "GROSS_AMOUNT", precision = 10, scale = 10)
-	protected BigDecimal grossAmount;
+	@Column(name = "AMOUNT_WITHOUT_TAX", precision = 10, scale = 10)
+	protected BigDecimal amountWithoutTax;
+	
+	@Column(name = "DISCOUNTS_AMOUNT", precision = 10, scale = 10)
+	protected BigDecimal discountsAmount;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name = "ID_SHIPPING_POINT_ORIGIN", referencedColumnName = "ID")
@@ -193,8 +196,8 @@ GenericInvoiceEntity {
 	}
 
 	@Override
-	public BigDecimal getNetAmount() {
-		return netAmount;
+	public BigDecimal getAmountWithTax() {
+		return amountWithTax;
 	}
 
 	@Override
@@ -203,8 +206,13 @@ GenericInvoiceEntity {
 	}
 
 	@Override
-	public BigDecimal getGrossAmount() {
-		return grossAmount;
+	public BigDecimal getAmountWithoutTax() {
+		return amountWithoutTax;
+	}
+	
+	@Override
+	public BigDecimal getDiscountsAmount() {
+		return discountsAmount;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -311,8 +319,8 @@ GenericInvoiceEntity {
 	}
 
 	@Override
-	public void setNetAmount(BigDecimal netAmount) {
-		this.netAmount = netAmount;
+	public void setAmountWithTax(BigDecimal amount) {
+		this.amountWithTax = amount;
 	}
 
 	@Override
@@ -321,8 +329,13 @@ GenericInvoiceEntity {
 	}
 
 	@Override
-	public void setGrossAmount(BigDecimal grossAmount) {
-		this.grossAmount = grossAmount;
+	public void setAmountWithoutTax(BigDecimal amount) {
+		this.amountWithoutTax = amount;
+	}
+	
+	@Override
+	public void setDiscountsAmount(BigDecimal amount) {
+		this.discountsAmount = amount;
 	}
 
 	@Override

@@ -48,11 +48,13 @@ public interface GenericInvoice extends Entity {
 	
 	public Date getDate();
 	
-	public BigDecimal getNetAmount();
+	public BigDecimal getAmountWithTax();
+	
+	public BigDecimal getAmountWithoutTax();
 	
 	public BigDecimal getTaxAmount();
 	
-	public BigDecimal getGrossAmount();
+	public BigDecimal getDiscountsAmount();
 	
 	public <T extends ShippingPoint> T getShippingOrigin();
 	

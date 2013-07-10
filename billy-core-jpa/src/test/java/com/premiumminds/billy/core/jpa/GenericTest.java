@@ -18,6 +18,9 @@
  ******************************************************************************/
 package com.premiumminds.billy.core.jpa;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,13 +30,17 @@ import com.premiumminds.billy.core.CoreJPADependencyModule;
 import com.premiumminds.billy.core.CoreJPAPersistenceDependencyModule;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 public class GenericTest {
 
@@ -48,6 +55,7 @@ public class GenericTest {
 	@Test
 	public void test1() {
 		Business.Builder builder = injector.getInstance(Business.Builder.class);
+		GenericInvoiceEntry.Builder entryBuilder = injector.getInstance(GenericInvoiceEntry.Builder.class);
 		Contact.Builder contactBuilder = injector.getInstance(Contact.Builder.class);
 		Contact.Builder contactBuilder2 = injector.getInstance(Contact.Builder.class);
 		Context.Builder contextBuilder = injector.getInstance(Context.Builder.class);
@@ -117,6 +125,17 @@ public class GenericTest {
 									.setWebsite("website")))
 			.setFinancialID("financial id");
 		injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
+		
+		
+		GenericInvoiceEntry entry = entryBuilder
+			.setDescription("desc")
+			.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("100"), Currency.getInstance("EUR"))
+			.setQuantity(new BigDecimal("12"))
+			.build();
+		
+		DAOGenericInvoiceEntry daoEntry = injector.getInstance(DAOGenericInvoiceEntry.class);
+		daoEntry.create((GenericInvoiceEntryEntity) entry);
+		
 		
 		daoContext.commit();
 		

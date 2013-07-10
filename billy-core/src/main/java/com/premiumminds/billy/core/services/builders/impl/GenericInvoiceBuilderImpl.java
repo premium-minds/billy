@@ -242,37 +242,37 @@ implements GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 		
 		MathContext mc = BillyMathContext.get();
 		
-		BigDecimal netAmount = new BigDecimal("0", mc);
+		BigDecimal amountWithTax = new BigDecimal("0", mc);
 		BigDecimal taxAmount = new BigDecimal("0", mc);
-		BigDecimal grossAmount = new BigDecimal("0", mc);
+		BigDecimal amountWithoutTax = new BigDecimal("0", mc);
 		
 		for(GenericInvoiceEntry e : getTypeInstance().getEntries()) {
-			netAmount = netAmount.add(e.getNetAmount(), mc);
+			amountWithTax = amountWithTax.add(e.getAmountWithTax(), mc);
 			taxAmount = taxAmount.add(e.getTaxAmount(), mc);
-			grossAmount = grossAmount.add(e.getGrossAmount(), mc);
+			amountWithoutTax = amountWithoutTax.add(e.getAmountWithoutTax(), mc);
 		}
 		
-		i.setNetAmount(netAmount);
+		i.setAmountWithTax(amountWithTax);
 		i.setTaxAmount(taxAmount);
-		i.setGrossAmount(grossAmount);
+		i.setAmountWithoutTax(amountWithoutTax);
 		
 		BillyValidator.isTrue(
-				i.getNetAmount()
-				.add(i.getTaxAmount(), mc)
-				.compareTo(i.getGrossAmount()) == 0,
+				i.getAmountWithTax()
+				.add(i.getAmountWithoutTax(), mc)
+				.compareTo(i.getTaxAmount()) == 0,
 				"The invoice values are invalid", //TODO message
-				i.getNetAmount(),
-				i.getTaxAmount(),
-				i.getGrossAmount()); 
+				i.getAmountWithTax(),
+				i.getAmountWithoutTax(),
+				i.getTaxAmount()); 
 
 		BillyValidator.isTrue(
-				i.getNetAmount().compareTo(BigDecimal.ZERO) > 0 &&
-				i.getTaxAmount().compareTo(BigDecimal.ZERO) >= 0 &&
-				i.getGrossAmount().compareTo(BigDecimal.ZERO) > 0,
+				i.getAmountWithTax().compareTo(BigDecimal.ZERO) > 0 &&
+				i.getAmountWithoutTax().compareTo(BigDecimal.ZERO) >= 0 &&
+				i.getTaxAmount().compareTo(BigDecimal.ZERO) > 0,
 				"The invoice values are lower than zero", //TODO message
-				i.getNetAmount(),
-				i.getTaxAmount(),
-				i.getGrossAmount());
+				i.getAmountWithTax(),
+				i.getAmountWithoutTax(),
+				i.getTaxAmount());
 	}
 	
 	@Deprecated

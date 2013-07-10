@@ -44,17 +44,21 @@ public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry, BaseEnti
 
 	public void setUnitOfMeasure(String unit);
 
-	public void setUnitNetAmount(BigDecimal amount);
+	public void setUnitAmountWithTax(BigDecimal amount);
 
-	public void setUnitGrossAmount(BigDecimal amount);
+	public void setUnitAmountWithoutTax(BigDecimal amount);
 
 	public void setUnitTaxAmount(BigDecimal amount);
+	
+	public void setUnitDiscountAmount(BigDecimal amount);
 
-	public void setNetAmount(BigDecimal amount);
+	public void setAmountWithTax(BigDecimal amount);
 
-	public void setGrossAmount(BigDecimal amount);
+	public void setAmountWithoutTax(BigDecimal amount);
 
 	public void setTaxAmount(BigDecimal amount);
+	
+	public void setDiscountAmount(BigDecimal amount);
 
 	public void setTaxPointDate(Date date);
 

@@ -41,12 +41,14 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
 	public void setDate(Date date);
 	
-	public void setNetAmount(BigDecimal netAmount);
+	public void setAmountWithTax(BigDecimal amount);
 	
-	public void setTaxAmount(BigDecimal taxAmount);
+	public void setAmountWithoutTax(BigDecimal amount);
 	
-	public void setGrossAmount(BigDecimal grossAmount);
-
+	public void setTaxAmount(BigDecimal amount);
+	
+	public void setDiscountsAmount(BigDecimal amount);
+	
 	public <T extends ShippingPointEntity> void setShippingOrigin(T origin);
 
 	public <T extends ShippingPointEntity> void setShippingDestination(T destination);
