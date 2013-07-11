@@ -1,5 +1,6 @@
 package com.premiumminds.billy.core.test.fixtures;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
@@ -18,6 +19,10 @@ public class MockApplicationEntity extends MockBaseEntity implements
 	private String websiteAddress;
 	private ContactEntity mainContact;
 	private List<ContactEntity> contacts;
+
+	public MockApplicationEntity() {
+		this.contacts = new ArrayList<ContactEntity>();
+	}
 
 	@Override
 	public String getName() {
@@ -72,7 +77,7 @@ public class MockApplicationEntity extends MockBaseEntity implements
 
 	@Override
 	public List<ContactEntity> getContacts() {
-		return contacts;
+		return this.contacts;
 	}
 
 	@Override
