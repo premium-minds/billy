@@ -40,6 +40,8 @@ public interface BusinessEntity extends Business, BaseEntity {
 
 	public void setCommercialName(String name);
 
+	public void setWebsiteAddress(String address);
+
 	public <T extends AddressEntity> void setAddress(T address);
 
 	public <T extends AddressEntity> void setBillingAddress(T address);
