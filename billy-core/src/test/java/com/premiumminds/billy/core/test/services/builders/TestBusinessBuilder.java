@@ -1,5 +1,7 @@
 package com.premiumminds.billy.core.test.services.builders;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -19,6 +21,11 @@ import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
 public class TestBusinessBuilder extends AbstractTest {
+
+	private static final String WEBSITE = "website";
+	private static final String COMMERCIAL_NAME = "commercial_name";
+	private static final String NAME = "name";
+	private static final String TAX_ID = "tax_id";
 
 	@Test
 	public void doTest() {
@@ -53,6 +60,7 @@ public class TestBusinessBuilder extends AbstractTest {
 
 		builder.setOperationalContextUID(Mockito.mock(UID.class))
 				.setName(mockBusiness.getName())
+				.setWebsite(mockBusiness.getWebsiteAddress())
 				.setCommercialName(mockBusiness.getCommercialName())
 				.addContact(mockContactBuilder).addContact(mockContactBuilder)
 				.addContact(mockContactBuilder).setAddress(mockAddressBuilder)
@@ -64,17 +72,21 @@ public class TestBusinessBuilder extends AbstractTest {
 
 		Business business = builder.build();
 
-		assert (business != null); // TODO verify result
+		assert (business != null);
+		assertEquals(TAX_ID, business.getFinancialID());
+		assertEquals(NAME, business.getName());
+		assertEquals(WEBSITE, business.getWebsiteAddress());
+		assertEquals(COMMERCIAL_NAME, business.getCommercialName());
 	}
 
 	// TODO load from YAML
 	public MockBusinessEntity loadFixture(Class<BusinessEntity> clazz) {
 		MockBusinessEntity result = new MockBusinessEntity();
 
-		result.taxId = "tax_id";
-		result.name = "name";
-		result.commercialName = "commercial_name";
-		result.website = "website";
+		result.taxId = TAX_ID;
+		result.name = NAME;
+		result.commercialName = COMMERCIAL_NAME;
+		result.website = WEBSITE;
 
 		return result;
 	}
