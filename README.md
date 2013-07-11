@@ -1,16 +1,16 @@
 #Billy
-Billy is an opensource invoicing engine.
-
-##Project Goals
+Billy is Java invoicing engine. Its goal is to provide applications with the
+creation, management and persistence of invoices and at the same time
+it provides a mechanism to export them to different formats.
 
 ##Getting Started
 
 ##Documentation & Examples
 
 ##Continuous Integration
-CI is hosted by [travis-ci.org](https://travis-ci.org/)
+[![Build Status](https://travis-ci.org/premium-minds/billy.png?branch=master)](https://travis-ci.org/premium-minds/billy)
 
-##Development
+CI is hosted by [travis-ci.org](https://travis-ci.org/)
 
 ##Licence
 Copyright (C) 2013 [Premium Minds](http://www.premium-minds.com/)

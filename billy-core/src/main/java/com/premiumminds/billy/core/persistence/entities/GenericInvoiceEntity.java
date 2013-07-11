@@ -1,20 +1,20 @@
 /*******************************************************************************
  * Copyright (C) 2013 Premium Minds.
- *  
+ * 
  * This file is part of billy-core.
  * 
- * billy-core is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * billy-core is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * billy-core is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * billy-core is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy-core.  If not, see <http://www.gnu.org/licenses/>.
+ * along with billy-core. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package com.premiumminds.billy.core.persistence.entities;
 
@@ -32,7 +32,7 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 	public void setNumber(String number);
 
 	public <T extends Business> void setBusiness(T business);
-	
+
 	public <T extends CustomerEntity> void setCustomer(T customer);
 
 	public <T extends SupplierEntity> void setSupplier(T supplier);
@@ -40,18 +40,19 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 	public void setOfficeNumber(String number);
 
 	public void setDate(Date date);
-	
+
 	public void setAmountWithTax(BigDecimal amount);
-	
+
 	public void setAmountWithoutTax(BigDecimal amount);
-	
+
 	public void setTaxAmount(BigDecimal amount);
-	
+
 	public void setDiscountsAmount(BigDecimal amount);
-	
+
 	public <T extends ShippingPointEntity> void setShippingOrigin(T origin);
 
-	public <T extends ShippingPointEntity> void setShippingDestination(T destination);
+	public <T extends ShippingPointEntity> void setShippingDestination(
+			T destination);
 
 	public void setPaymentTerms(String terms);
 
@@ -70,7 +71,7 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
-	
+
 	public void setCurrency(Currency currency);
 
 	public void setSettlementDescription(String description);

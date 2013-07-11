@@ -1,20 +1,20 @@
 /*******************************************************************************
  * Copyright (C) 2013 Premium Minds.
- *  
+ * 
  * This file is part of billy-core.
  * 
- * billy-core is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * billy-core is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * billy-core is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * billy-core is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy-core.  If not, see <http://www.gnu.org/licenses/>.
+ * along with billy-core. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package com.premiumminds.billy.core.services.builders.impl;
 
@@ -29,69 +29,70 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TContact>, TContact extends Contact>
-extends AbstractBuilder<TBuilder, TContact>
-implements ContactBuilder<TBuilder, TContact> {
+		extends AbstractBuilder<TBuilder, TContact> implements
+		ContactBuilder<TBuilder, TContact> {
 
-	protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
-	
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
+
 	protected DAOContact daoContact;
-	
+
 	@SuppressWarnings("unchecked")
 	@Inject
-	public ContactBuilderImpl(
-			DAOContact daoContact) {
+	public ContactBuilderImpl(DAOContact daoContact) {
 		super((EntityFactory<? extends TContact>) daoContact);
 		this.daoContact = daoContact;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name, LOCALIZER.getString("field.name"));
-		getTypeInstance().setName(name);
-		return getBuilder();
+		BillyValidator.mandatory(name,
+				ContactBuilderImpl.LOCALIZER.getString("field.name"));
+		this.getTypeInstance().setName(name);
+		return this.getBuilder();
 	}
-	
+
 	@Override
 	public TBuilder setTelephone(String telephone) {
-		getTypeInstance().setTelephone(telephone);
-		return getBuilder();
+		this.getTypeInstance().setTelephone(telephone);
+		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setMobile(String mobile) {
-		getTypeInstance().setMobile(mobile);
-		return getBuilder();
+		this.getTypeInstance().setMobile(mobile);
+		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setFax(String fax) {
-		getTypeInstance().setFax(fax);
-		return getBuilder();
+		this.getTypeInstance().setFax(fax);
+		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setEmail(String email) {
-		getTypeInstance().setEmail(email);
-		return getBuilder();
+		this.getTypeInstance().setEmail(email);
+		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setWebsite(String website) {
-		getTypeInstance().setWebsite(website);
-		return getBuilder();
+		this.getTypeInstance().setWebsite(website);
+		return this.getBuilder();
 	}
 
 	@Override
 	protected void validateInstance()
 			throws javax.validation.ValidationException {
-		Contact c = getTypeInstance();
+		Contact c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getName(), "field.name");
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected ContactEntity getTypeInstance() {
 		return (ContactEntity) super.getTypeInstance();
 	}
-	
+
 }
