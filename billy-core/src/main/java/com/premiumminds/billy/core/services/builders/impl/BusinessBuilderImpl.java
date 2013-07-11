@@ -91,7 +91,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 
 	@Override
 	public TBuilder setWebsite(String name) {
-		BillyValidator.notNull(name,
+		BillyValidator.notBlank(name,
 				BusinessBuilderImpl.LOCALIZER.getString("field.website"));
 		this.getTypeInstance().setWebsiteAddress(name);
 		return this.getBuilder();
