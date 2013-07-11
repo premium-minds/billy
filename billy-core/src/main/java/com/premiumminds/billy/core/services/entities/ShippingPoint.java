@@ -20,7 +20,17 @@ package com.premiumminds.billy.core.services.entities;
 
 import java.util.Date;
 
+import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
+import com.premiumminds.billy.core.services.builders.impl.ShippingPointBuilderImpl;
+
 public interface ShippingPoint extends Entity {
+	
+	public static class Builder extends ShippingPointBuilderImpl<Builder, ShippingPoint> {
+		
+		public Builder(DAOShippingPoint daoShippingPoint) {
+			super(daoShippingPoint);
+		}
+	}
 
 	public String getDeliveryId();
 
