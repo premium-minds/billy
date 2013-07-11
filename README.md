@@ -1,5 +1,5 @@
 #Billy
-Billy is Java invoicing engine. Its goal is to provide applications with the
+Billy is a Java invoicing engine. Its goal is to provide applications with the
 creation, management and persistence of invoices and at the same time
 it provides a mechanism to export them to different formats.
 
