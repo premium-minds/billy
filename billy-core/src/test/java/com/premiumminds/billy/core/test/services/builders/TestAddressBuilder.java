@@ -3,7 +3,6 @@ package com.premiumminds.billy.core.test.services.builders;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOAddress;

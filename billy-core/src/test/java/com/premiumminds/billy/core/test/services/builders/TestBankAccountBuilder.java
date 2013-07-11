@@ -8,7 +8,6 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 import com.premiumminds.billy.core.services.entities.BankAccount;
-import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity;
 
