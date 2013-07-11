@@ -36,7 +36,7 @@ public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBus
 
 	public TBuilder setCommercialName(String name);
 
-	public TBuilder setWebsite(String name);
+	public TBuilder setWebsite(String website);
 
 	public <T extends Address> TBuilder setAddress(Builder<T> addressBuilder);
 
