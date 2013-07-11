@@ -39,7 +39,7 @@ public class TestApplicationBuilder extends AbstractTest {
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(Mockito.mock(ContactEntity.class));
 		
 		
-		builder.addContact(mockContactBuilder).addContact(mockMainContactBuilder).setDeveloperCompanyName(DEVELOPER_COMPANY_NAME).setDeveloperCompanyTaxIdentifier(DEVELOPER_COMPANY_TAX_ID).setMainContact(mockMainContactBuilder).setName(NAME).setVersion(VERSION).setWebsiteAddress(WEBSITE);
+		builder.addContact(mockContactBuilder).addContact(mockMainContactBuilder).setDeveloperCompanyName(mockApplication.getDeveloperCompanyName()).setDeveloperCompanyTaxIdentifier(mockApplication.getDeveloperCompanyTaxIdentifier()).setMainContact(mockMainContactBuilder).setName(mockApplication.getName()).setVersion(mockApplication.getVersion()).setWebsiteAddress(mockApplication.getWebsiteAddress());
 		
 		Application application = builder.build();
 		
