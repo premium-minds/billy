@@ -8,6 +8,8 @@ it provides a mechanism to export them to different formats.
 ##Documentation & Examples
 
 ##Continuous Integration
+[![Build Status](https://travis-ci.org/premium-minds/billy.png?branch=master)](https://travis-ci.org/premium-minds/billy)
+
 CI is hosted by [travis-ci.org](https://travis-ci.org/)
 
 ##Licence
