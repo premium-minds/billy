@@ -1,20 +1,20 @@
 /*******************************************************************************
  * Copyright (C) 2013 Premium Minds.
- *  
+ * 
  * This file is part of billy-core.
  * 
- * billy-core is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * billy-core is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
  * 
- * billy-core is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * billy-core is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy-core.  If not, see <http://www.gnu.org/licenses/>.
+ * along with billy-core. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package com.premiumminds.billy.core.services.entities;
 
@@ -27,25 +27,25 @@ import com.premiumminds.billy.core.services.builders.impl.BusinessBuilderImpl;
 
 /**
  * @author Francisco Vargas
- *
- * The Billy services entity for a Business.
- * The business is the entity for which the financial data is
- * being managed.
+ * 
+ *         The Billy services entity for a Business. The business is the entity
+ *         for which the financial data is being managed.
  */
 public interface Business extends Entity {
 
 	/**
 	 * @author Francisco Vargas
-	 *
-	 * A builder class for {@link Business} entities.
+	 * 
+	 *         A builder class for {@link Business} entities.
 	 */
 	public static class Builder extends BusinessBuilderImpl<Builder, Business> {
+
 		@Inject
 		public Builder(DAOBusiness daoBusiness, DAOContext daoContext) {
 			super(daoBusiness, daoContext);
 		}
 	}
-	
+
 	public <T extends Context> T getOperationalContext();
 
 	public String getFinancialID();
@@ -53,19 +53,19 @@ public interface Business extends Entity {
 	public String getName();
 
 	public String getCommercialName();
-	
+
 	public <T extends Address> T getAddress();
 
 	public <T extends Address> T getBillingAddress();
-	
+
 	public <T extends Address> T getShippingAddress();
 
 	public <T extends Contact> Collection<T> getContacts();
-	
+
 	public <T extends Contact> T getMainContact();
-	
+
 	public String getWebsiteAddress();
 
 	public <T extends Application> Collection<T> getApplications();
-	
+
 }

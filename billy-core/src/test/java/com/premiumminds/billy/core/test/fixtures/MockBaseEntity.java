@@ -16,12 +16,12 @@ public class MockBaseEntity implements BaseEntity {
 
 	@Override
 	public boolean isNew() {
-		return isNew;
+		return this.isNew;
 	}
 
 	@Override
 	public UID getUID() {
-		return uid;
+		return this.uid;
 	}
 
 	@Override

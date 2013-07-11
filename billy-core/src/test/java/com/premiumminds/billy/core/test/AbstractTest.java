@@ -10,18 +10,19 @@ import com.premiumminds.billy.core.CoreDependencyModule;
 public class AbstractTest {
 
 	private static Injector injector;
-	
-	@BeforeClass 
-	public static void setUpClass() {      
-		injector = Guice.createInjector(new CoreDependencyModule());
+
+	@BeforeClass
+	public static void setUpClass() {
+		AbstractTest.injector = Guice
+				.createInjector(new CoreDependencyModule());
 	}
-	
+
 	public <T> T getInstance(Class<T> clazz) {
-		return injector.getInstance(clazz);
+		return AbstractTest.injector.getInstance(clazz);
 	}
-	
+
 	public <T> T getMock(Class<T> clazz) {
 		return Mockito.mock(clazz);
 	}
-	
+
 }

@@ -12,7 +12,9 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 
-public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity {
+public class MockBusinessEntity extends MockBaseEntity implements
+		BusinessEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	public ContextEntity operationalContext;
@@ -28,57 +30,57 @@ public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity
 	public List<ApplicationEntity> applications;
 
 	public MockBusinessEntity() {
-		contacts = new ArrayList<ContactEntity>();
-		applications = new ArrayList<ApplicationEntity>();
+		this.contacts = new ArrayList<ContactEntity>();
+		this.applications = new ArrayList<ApplicationEntity>();
 	}
-	
+
 	@Override
 	public Context getOperationalContext() {
-		return operationalContext;
+		return this.operationalContext;
 	}
 
 	@Override
 	public String getFinancialID() {
-		return taxId;
+		return this.taxId;
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getCommercialName() {
-		return commercialName;
+		return this.commercialName;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getAddress() {
-		return address;
+		return this.address;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getShippingAddress() {
-		return shippingAddress;
+		return this.shippingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Contact getMainContact() {
-		return mainContact;
+		return this.mainContact;
 	}
 
 	@Override
 	public String getWebsiteAddress() {
-		return website;
+		return this.website;
 	}
 
 	@Override
@@ -118,7 +120,7 @@ public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity
 
 	@Override
 	public List<ContactEntity> getContacts() {
-		return contacts;
+		return this.contacts;
 	}
 
 	@Override
