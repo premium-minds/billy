@@ -119,6 +119,11 @@ public class MockBusinessEntity extends MockBaseEntity implements
 	}
 
 	@Override
+	public void setWebsiteAddress(String website) {
+		this.website = website;
+	}
+
+	@Override
 	public List<ContactEntity> getContacts() {
 		return this.contacts;
 	}

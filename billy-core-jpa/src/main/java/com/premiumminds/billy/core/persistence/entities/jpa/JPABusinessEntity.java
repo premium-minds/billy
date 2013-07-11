@@ -1,20 +1,20 @@
 /*******************************************************************************
  * Copyright (C) 2013 Premium Minds.
- *  
+ * 
  * This file is part of billy-core-jpa.
  * 
- * billy-core-jpa is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published 
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * billy-core-jpa is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
  * 
- * billy-core-jpa is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ * billy-core-jpa is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
  * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy-core-jpa.  If not, see <http://www.gnu.org/licenses/>.
+ * along with billy-core-jpa. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 package com.premiumminds.billy.core.persistence.entities.jpa;
 
@@ -44,8 +44,8 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
-public class JPABusinessEntity extends JPABaseEntity
-implements BusinessEntity {
+public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@ManyToOne(targetEntity = JPAContextEntity.class)
@@ -61,39 +61,38 @@ implements BusinessEntity {
 	@Column(name = "COMMERCIAL_NAME")
 	protected String commercialName;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_ADDRESS", referencedColumnName="ID")
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
 	protected Address address;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName="ID")
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
 	protected Address billingAddress;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName="ID")
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
 	protected Address shippingAddress;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName="ID")
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
 	protected Contact mainContact;
 
-	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "BUSINESS_CONTACT",
-			joinColumns={ @JoinColumn(name="ID_BUSINESS", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_CONTACT", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_CONTACT", joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
 	protected List<Contact> contacts;
 
 	@Column(name = "WEBSITE")
 	protected String website;
 
-	@OneToMany(targetEntity = JPAApplicationEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "BUSINESS_APPLICATION",
-			joinColumns={ @JoinColumn(name="ID_BUSINESS", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_APPLICATION", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAApplicationEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_APPLICATION", joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_APPLICATION", referencedColumnName = "ID", unique = true) })
 	protected List<Application> applications;
-
 
 	public JPABusinessEntity() {
 		this.contacts = new ArrayList<Contact>();
@@ -163,6 +162,11 @@ implements BusinessEntity {
 	@Override
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public void setWebsiteAddress(String address) {
+		this.website = address;
 	}
 
 	@Override
