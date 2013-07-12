@@ -1,0 +1,7 @@
+productCode : product_code
+productGroup : product_group
+unitOfMeasure : unit
+valuationMethod : valuation_method
+numberCode : number_code
+comodityCode : comodity_code
+description : description
