@@ -12,13 +12,13 @@ public class MockApplicationEntity extends MockBaseEntity implements
 
 	private static final long serialVersionUID = 1L;
 
-	private String name;
-	private String version;
-	private String developerCompanyName;
-	private String developerCompanyTaxIdentifier;
-	private String websiteAddress;
-	private ContactEntity mainContact;
-	private List<ContactEntity> contacts;
+	public String name;
+	public String version;
+	public String developerCompanyName;
+	public String developerCompanyTaxIdentifier;
+	public String websiteAddress;
+	public ContactEntity mainContact;
+	public List<ContactEntity> contacts;
 
 	public MockApplicationEntity() {
 		this.contacts = new ArrayList<ContactEntity>();

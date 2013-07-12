@@ -1,17 +1,19 @@
 package com.premiumminds.billy.core.test;
 
+import static org.mockito.Mockito.mock;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.junit.BeforeClass;
-import org.mockito.Mockito;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.CoreDependencyModule;
 import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
 import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
@@ -22,8 +24,8 @@ public class AbstractTest {
 
 	@BeforeClass
 	public static void setUpClass() {
-		AbstractTest.injector = Guice
-				.createInjector(new CoreDependencyModule());
+		AbstractTest.injector = Guice.createInjector(Modules.override(
+				new CoreDependencyModule()).with(new MockDependencyModule()));
 	}
 
 	public <T> T getInstance(Class<T> clazz) {
@@ -31,7 +33,7 @@ public class AbstractTest {
 	}
 
 	public <T> T getMock(Class<T> clazz) {
-		return Mockito.mock(clazz);
+		return mock(clazz);
 	}
 
 	public <T extends MockBaseEntity> MockBaseEntity createMockEntityFromYaml(

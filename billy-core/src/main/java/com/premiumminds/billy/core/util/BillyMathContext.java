@@ -26,7 +26,7 @@ public class BillyMathContext {
 
 	public static MathContext get() {
 		if (BillyMathContext.instance == null) {
-			BillyMathContext.instance = MathContext.DECIMAL32;
+			BillyMathContext.instance = MathContext.DECIMAL128;
 		}
 		return BillyMathContext.instance;
 	}

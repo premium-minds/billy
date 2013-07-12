@@ -199,7 +199,6 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		return this.getBuilder();
 	}
 
-	@NotImplemented
 	@Override
 	public TBuilder addTaxUID(UID taxUID) {
 		BillyValidator
@@ -272,7 +271,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 										t.getValue().divide(
 												new BigDecimal("100"), mc), mc),
 										mc);
-						unitTaxAmount.add(
+						unitTaxAmount = unitTaxAmount.add(
 								e.getUnitAmountWithTax().subtract(
 										unitAmountWithoutTax, mc), mc);
 						break;

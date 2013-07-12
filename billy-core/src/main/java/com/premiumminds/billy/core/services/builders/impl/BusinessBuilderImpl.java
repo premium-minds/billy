@@ -90,10 +90,10 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public TBuilder setWebsite(String name) {
-		BillyValidator.notBlank(name,
+	public TBuilder setWebsite(String website) {
+		BillyValidator.notBlank(website,
 				BusinessBuilderImpl.LOCALIZER.getString("field.website"));
-		this.getTypeInstance().setWebsiteAddress(name);
+		this.getTypeInstance().setWebsiteAddress(website);
 		return this.getBuilder();
 	}
 
