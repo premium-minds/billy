@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <!--
-  ~ Copyright (C) 2013 Premium Minds.
-  ~  
-  ~ This file is part of billy-platypus.
-  ~ 
-  ~ billy-platypus is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Lesser General Public License as published 
-  ~ by the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~ 
-  ~ billy-platypus is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU Lesser General Public License for more details.
-  ~ 
-  ~ You should have received a copy of the GNU Lesser General Public License
-  ~ along with billy-platypus.  If not, see <http://www.gnu.org/licenses/>.
+
+    Copyright (C) 2013 Premium Minds.
+
+    This file is part of billy.
+
+    billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+
 -->
 <xs:schema xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation" xmlns:ns="urn:OECD:StandardAuditFile-Tax:PT_1.01_01" xmlns="urn:OECD:StandardAuditFile-Tax:PT_1.01_01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:OECD:StandardAuditFile-Tax:PT_1.01_01" version="1.01_01" id="SAF-T_PT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
@@ -76,7 +78,7 @@
       <xs:field xpath="ns:ProductCode" />
     </xs:keyref>
   </xs:element>
-  <!-- Estrutura de cabeçalho (AuditFile.Header) -->
+  <!-- Estrutura de cabeï¿½alho (AuditFile.Header) -->
   <xs:element name="Header">
     <xs:complexType>
       <xs:sequence>
@@ -376,7 +378,7 @@
       <xs:element minOccurs="0" ref="Address" />
     </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de Nota de Crédito -->
+  <!-- Estrutura de Nota de Crï¿½dito -->
   <xs:element name="CreditNote">
     <xs:complexType>
       <xs:sequence>
@@ -385,7 +387,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <!-- Estrutura de valor monetário -->
+  <!-- Estrutura de valor monetï¿½rio -->
   <xs:element name="Currency">
     <xs:complexType>
       <xs:sequence>
@@ -397,7 +399,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <!-- Estrutura de Referências a Encomendas-->
+  <!-- Estrutura de Referï¿½ncias a Encomendas-->
   <xs:element name="OrderReferences">
     <xs:complexType>
       <xs:sequence>
@@ -406,7 +408,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <!-- Estrutura de Referências a Notas de Crédito-->
+  <!-- Estrutura de Referï¿½ncias a Notas de Crï¿½dito-->
   <xs:element name="References">
     <xs:complexType>
       <xs:sequence>
@@ -506,7 +508,7 @@
   <xs:element name="HashControl" type="SAFPTtextTypeMandatoryMax40Car" />
   <xs:element name="PostalCode" type="SAFPTtextTypeMandatoryMax20Car" />
   <xs:element name="DocArchivalNumber" type="SAFPTtextTypeMandatoryMax20Car" />
-  <!-- ELEMENTOS SIMPLES COM RESTRIÇÕES ADICIONAIS-->
+  <!-- ELEMENTOS SIMPLES COM RESTRIï¿½ï¿½ES ADICIONAIS-->
   <!-- Tipo de Imposto -->
   <xs:element name="TaxType">
     <xs:simpleType>
@@ -525,7 +527,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código de Imposto -->
+  <!-- Cï¿½digo de Imposto -->
   <xs:element name="TaxCountryRegion">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -535,7 +537,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código único do documento -->
+  <!-- Cï¿½digo ï¿½nico do documento -->
   <xs:element name="InvoiceNo">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -545,7 +547,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código da Conta -->
+  <!-- Cï¿½digo da Conta -->
   <xs:element name="AccountID">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -558,7 +560,7 @@
   <!-- Tipos de produto -->
   <xs:element name="ProductType">
     <xs:annotation>
-      <xs:documentation>Restrição: Tipo de produto: P - Produtos, S - Serviços, O - Outros, I - Impostos, taxas e encargos parafiscais</xs:documentation>
+      <xs:documentation>Restriï¿½ï¿½o: Tipo de produto: P - Produtos, S - Serviï¿½os, O - Outros, I - Impostos, taxas e encargos parafiscais</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -572,7 +574,7 @@
   <!-- Meio de pagamento -->
   <xs:element name="PaymentMechanism">
     <xs:annotation>
-      <xs:documentation>Restrição: Meio de pagamento: NU - Numerário, CH - Cheque, CC - Cartão de Crédito, CD - Cartão de Débito, TB - Transferência Bancária, TR - Ticket Restaurante</xs:documentation>
+      <xs:documentation>Restriï¿½ï¿½o: Meio de pagamento: NU - Numerï¿½rio, CH - Cheque, CC - Cartï¿½o de Crï¿½dito, CD - Cartï¿½o de Dï¿½bito, TB - Transferï¿½ncia Bancï¿½ria, TR - Ticket Restaurante</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -588,7 +590,7 @@
   <!-- Tipos de Movimento Contabilistico -->
   <xs:element name="TransactionType">
     <xs:annotation>
-      <xs:documentation>Restrição: Tipificação dos movimentos contabilísticos - N - Normal, R - Regularizações do período de tributação, A - Apuramento de resultados, J - Movimentos de Ajustamento </xs:documentation>
+      <xs:documentation>Restriï¿½ï¿½o: Tipificaï¿½ï¿½o dos movimentos contabilï¿½sticos - N - Normal, R - Regularizaï¿½ï¿½es do perï¿½odo de tributaï¿½ï¿½o, A - Apuramento de resultados, J - Movimentos de Ajustamento </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -608,7 +610,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Identificador de Auto-Facturação -->
+  <!-- Identificador de Auto-Facturaï¿½ï¿½o -->
   <xs:element name="SelfBillingIndicator">
     <xs:simpleType>
       <xs:restriction base="xs:integer">
@@ -620,7 +622,7 @@
   <!-- Estado do documento -->
   <xs:element name="InvoiceStatus">
     <xs:annotation>
-      <xs:documentation>N para Normal, A para Anulado, F para Facturado, S para autofacturação</xs:documentation>
+      <xs:documentation>N para Normal, A para Anulado, F para Facturado, S para autofacturaï¿½ï¿½o</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -631,7 +633,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código do país (ISO 3166 1-alpha-2) -->
+  <!-- Cï¿½digo do paï¿½s (ISO 3166 1-alpha-2) -->
   <xs:element name="Country">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -640,7 +642,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código da moeda (ISO 4217) -->
+  <!-- Cï¿½digo da moeda (ISO 4217) -->
   <xs:element name="CurrencyCode">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -652,7 +654,7 @@
   <!-- Tipo de sistema que exportou o SAFT -->
   <xs:element name="TaxAccountingBasis">
     <xs:annotation>
-      <xs:documentation>C para Contabilidade, F para Facturação, I para Contabilidade-Facturação, P para Facturação Parcial, S para Autofacturação</xs:documentation>
+      <xs:documentation>C para Contabilidade, F para Facturaï¿½ï¿½o, I para Contabilidade-Facturaï¿½ï¿½o, P para Facturaï¿½ï¿½o Parcial, S para Autofacturaï¿½ï¿½o</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -664,10 +666,10 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Identificação da empresa que exportou o SAFT-->
+  <!-- Identificaï¿½ï¿½o da empresa que exportou o SAFT-->
   <xs:element name="CompanyID">
     <xs:annotation>
-      <xs:documentation>Obtém-se pela concatenação da Conservatória do Registo Comercial com o número do registo comercial separados pelo carácter espaço. Nos casos em que não existe o registo comercial, deve ser indicado o NIF.</xs:documentation>
+      <xs:documentation>Obtï¿½m-se pela concatenaï¿½ï¿½o da Conservatï¿½ria do Registo Comercial com o nï¿½mero do registo comercial separados pelo carï¿½cter espaï¿½o. Nos casos em que nï¿½o existe o registo comercial, deve ser indicado o NIF.</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -681,9 +683,9 @@
   <xs:element name="InvoiceType">
     <xs:annotation>
       <xs:documentation>
-        Restrição: Tipos de Documento (FT-Factura ou documento equivalente, FS-Factura simplificada, ND-Nota de débito, NC-Nota de Crédito,VD-Venda a dinheiro e Factura/Recibo, TV-Talão de Venda,
-        TD-Talão de devolução,AA-Alienação Activos,DA-Devolução Activos, RP-Prémio ou Recibo Prémio, RE-Estorno ou Recibo de Estorno, CS-Imputação a Co-Seguradoras,
-        LD-Imputação a Co-Seguradora Líder, RA-Resseguro Aceite)
+        Restriï¿½ï¿½o: Tipos de Documento (FT-Factura ou documento equivalente, FS-Factura simplificada, ND-Nota de dï¿½bito, NC-Nota de Crï¿½dito,VD-Venda a dinheiro e Factura/Recibo, TV-Talï¿½o de Venda,
+        TD-Talï¿½o de devoluï¿½ï¿½o,AA-Alienaï¿½ï¿½o Activos,DA-Devoluï¿½ï¿½o Activos, RP-Prï¿½mio ou Recibo Prï¿½mio, RE-Estorno ou Recibo de Estorno, CS-Imputaï¿½ï¿½o a Co-Seguradoras,
+        LD-Imputaï¿½ï¿½o a Co-Seguradora Lï¿½der, RA-Resseguro Aceite)
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -697,7 +699,7 @@
         <xs:enumeration value="TD" />
         <xs:enumeration value="AA" />
         <xs:enumeration value="DA" />
-        <!-- Menções para o sector segurador-->
+        <!-- Menï¿½ï¿½es para o sector segurador-->
         <xs:enumeration value="RP" />
         <xs:enumeration value="RE" />
         <xs:enumeration value="CS" />
@@ -750,7 +752,7 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <!-- Código do país (ISO 3166 1-alpha-2) -->
+  <!-- Cï¿½digo do paï¿½s (ISO 3166 1-alpha-2) -->
   <xs:simpleType name="SupplierCountry">
     <xs:restriction base="xs:string">
       <xs:pattern value="AF|AX|AL|DZ|AS|AD|AO|AI|AQ|AG|AR|AM|AW|AU|AT|AZ|BS|BH|BD|BB|BY|BE|BZ|BJ|BM|BT|BO|BA|BW|BV|BR|IO|BN|BG|BF|BI|KH|CM|CA|CV|KY|CF|TD|CL|CN|CX|CC|CO|KM|CG|CD|CK|CR|CI|HR|CU|CY|CZ|DK|DJ|DM|DO|EC|EG|SV|GQ|ER|EE|ET|FK|FO|FJ|FI|FR|GF|PF|TF|GA|GM|GE|DE|GH|GI|GR|GL|GD|GP|GU|GT|GG|GN|GW|GY|HT|HM|VA|HN|HK|HU|IS|IN|ID|IR|IQ|IE|IM|IL|IT|JM|JP|JE|JO|KZ|KE|KI|KP|KR|KW|KG|LA|LV|LB|LS|LR|LY|LI|LT|LU|MO|MK|MG|MW|MY|MV|ML|MT|MH|MQ|MR|MU|YT|MX|FM|MD|MC|MN|ME|MS|MA|MZ|MM|NA|NR|NP|NL|AN|NC|NZ|NI|NE|NG|NU|NF|MP|NO|OM|PK|PW|PS|PA|PG|PY|PE|PH|PN|PL|PT|PR|QA|RE|RO|RU|RW|BL|SH|KN|LC|MF|PM|VC|WS|SM|ST|SA|SN|RS|SC|SL|SG|SK|SI|SB|SO|ZA|GS|ES|LK|SD|SR|SJ|SZ|SE|CH|SY|TW|TJ|TZ|TH|TL|TG|TK|TO|TT|TN|TR|TM|TC|TV|UG|UA|AE|GB|US|UM|UY|UZ|VU|VE|VN|VG|VI|WF|EH|YE|ZM|ZW|" />
@@ -842,7 +844,7 @@
       <xs:maxLength value="200" />
     </xs:restriction>
   </xs:simpleType>
-  <!-- Código Postal Português -->
+  <!-- Cï¿½digo Postal Portuguï¿½s -->
   <xs:simpleType name="PostalCodePT">
     <xs:restriction base="xs:string">
       <xs:pattern value="([0-9]{4}-[0-9]{3})" />

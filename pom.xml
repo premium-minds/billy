@@ -29,7 +29,10 @@
 
 
 	<properties>
-		<main.basedir>${project.basedir}</main.basedir>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<main.dir>${basedir}</main.dir>
 	</properties>
 
 	<modules>
@@ -74,10 +77,11 @@
 	<build>
 		<plugins>
 			<plugin>
+				<inherited>true</inherited>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
 				<configuration>
-					<header>${main.basedir}/licence-preamble.txt</header>
+					<header>${main.dir}/licence-preamble.txt</header>
 					<strictCheck>true</strictCheck>
 					<failIfMissing>true</failIfMissing>
 					<includes>
@@ -87,12 +91,24 @@
 					<excludes>
 						<exclude>target/**</exclude>
 					</excludes>
+					<mapping>
+						<yml>SCRIPT_STYLE</yml>
+					</mapping>
 					<properties>
 						<project-name>${name}</project-name>
-						<year>${project.inceptionYear}</year>
+						<year>2013</year>
 						<owner>Premium Minds</owner>
 					</properties>
 				</configuration>
+				<executions>
+					<execution>
+						<id>format-headers</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

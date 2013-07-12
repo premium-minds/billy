@@ -31,13 +31,16 @@
 	</parent>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<main.dir>${project.parent.basedir}</main.dir>
+
 		<java.version>1.6</java.version>
 		<guice.version>3.0</guice.version>
 		<!-- <env>DEV</env> -->
 
 		<!-- plugins versions -->
 		<plugins.maven-war.version>2.2</plugins.maven-war.version>
-		<main.basedir>${project.parent.basedir}</main.basedir>
 	</properties>
 
 	<dependencies>
