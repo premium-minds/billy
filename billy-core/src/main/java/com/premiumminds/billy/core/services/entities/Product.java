@@ -23,6 +23,7 @@ import java.util.Collection;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
+import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.builders.impl.ProductBuilderImpl;
 
 public interface Product extends Entity {
@@ -30,8 +31,8 @@ public interface Product extends Entity {
 	public static class Builder extends ProductBuilderImpl<Builder, Product> {
 
 		@Inject
-		public Builder(DAOProduct daoProduct) {
-			super(daoProduct);
+		public Builder(DAOProduct daoProduct, DAOTax daoTax) {
+			super(daoProduct, daoTax);
 		}
 
 	}

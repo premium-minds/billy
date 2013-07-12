@@ -44,9 +44,9 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
 
 	@SuppressWarnings("unchecked")
 	@Inject
-	public ProductBuilderImpl(DAOProduct daoProduct) {
+	public ProductBuilderImpl(DAOProduct daoProduct, DAOTax daoTax) {
 		super((EntityFactory<? extends TProduct>) daoProduct);
-		this.daoProduct = daoProduct;
+		this.daoTax = daoTax;
 	}
 
 	@Override

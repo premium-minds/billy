@@ -48,10 +48,12 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 	protected DAOTax daoTax;
 	protected DAOContext daoContext;
 
+
 	@SuppressWarnings("unchecked")
 	@Inject
 	public TaxBuilderImpl(DAOTax daoTax, DAOContext daoContext) {
 		super((EntityFactory<? extends TTax>) daoTax);
+		this.daoContext = daoContext;
 	}
 
 	@Override
@@ -150,7 +152,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 						TaxBuilderImpl.LOCALIZER.getString("field.currency"));
 				break;
 			case PERCENTAGE:
-				Validate.exclusiveBetween(BigDecimal.ZERO,
+				BillyValidator.inclusiveBetween(BigDecimal.ZERO,
 						new BigDecimal("100"), t.getPercentageRateValue());
 				break;
 			default:

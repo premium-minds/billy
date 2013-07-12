@@ -66,7 +66,9 @@ public class TestCustomerBuilder extends AbstractTest {
 		Contact.Builder mockContactBuilder = this.getMock(Contact.Builder.class);
 		Mockito.when(mockContactBuilder.build()).thenReturn(Mockito.mock(ContactEntity.class));
 		
-		builder.addBankAccount(mockBankAccountBuilder).addAddress(mockAddressBuilder, true).addContact(mockContactBuilder).setBillingAddress(mockAddressBuilder).setHasSelfBillingAgreement(false).setMainContactUID(mockCustomer.getMainContact().getUID()).setName(mockCustomer.getName()).setShippingAddress(mockAddressBuilder).setTaxRegistrationNumber(mockCustomer.getTaxRegistrationNumber());
+		
+		// TODO Missing Main Contact
+		builder.addBankAccount(mockBankAccountBuilder).addAddress(mockAddressBuilder, true).addContact(mockContactBuilder).setBillingAddress(mockAddressBuilder).setHasSelfBillingAgreement(false).setName(mockCustomer.getName()).setShippingAddress(mockAddressBuilder).setTaxRegistrationNumber(mockCustomer.getTaxRegistrationNumber());
 		
 		Customer customer = builder.build();
 		
