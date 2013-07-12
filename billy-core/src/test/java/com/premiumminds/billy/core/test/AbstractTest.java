@@ -16,7 +16,6 @@ import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.CoreDependencyModule;
 import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
-import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
 public class AbstractTest {
 
@@ -36,6 +35,7 @@ public class AbstractTest {
 		return mock(clazz);
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T extends MockBaseEntity> MockBaseEntity createMockEntityFromYaml(
 			Class<T> clazz, String path) {
 		Constructor constructor = new Constructor(clazz);
@@ -44,8 +44,7 @@ public class AbstractTest {
 		Yaml yaml = new Yaml(constructor);
 
 		try {
-			return (MockBusinessEntity) yaml.load(new BufferedReader(
-					new FileReader(path)));
+			return (T) yaml.load(new BufferedReader(new FileReader(path)));
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
