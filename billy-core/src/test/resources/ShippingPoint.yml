@@ -1,0 +1,4 @@
+deliveryId : delivery_id
+warehouseId : warehouse_id
+locationId : location_id 
+UCR : ucr
