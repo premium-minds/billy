@@ -9,7 +9,6 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.UID;
@@ -22,15 +21,12 @@ import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
 public class TestBusinessBuilder extends AbstractTest {
 
-	private static final String WEBSITE = "website";
-	private static final String COMMERCIAL_NAME = "commercial_name";
-	private static final String NAME = "name";
-	private static final String TAX_ID = "tax_id";
+	private static final String BUSINESS_YML = "src/test/resources/Business.yml";
 
 	@Test
 	public void doTest() {
-		MockBusinessEntity mockBusiness = this
-				.loadFixture(BusinessEntity.class);
+		MockBusinessEntity mockBusiness = (MockBusinessEntity) createMockEntityFromYaml(
+				MockBusinessEntity.class, BUSINESS_YML);
 
 		DAOBusiness mockDaoBusiness = this.getMock(DAOBusiness.class);
 		DAOContext mockDaoContext = this.getMock(DAOContext.class);
@@ -73,22 +69,13 @@ public class TestBusinessBuilder extends AbstractTest {
 		Business business = builder.build();
 
 		assert (business != null);
-		assertEquals(TAX_ID, business.getFinancialID());
-		assertEquals(NAME, business.getName());
-		assertEquals(WEBSITE, business.getWebsiteAddress());
-		assertEquals(COMMERCIAL_NAME, business.getCommercialName());
-	}
 
-	// TODO load from YAML
-	public MockBusinessEntity loadFixture(Class<BusinessEntity> clazz) {
-		MockBusinessEntity result = new MockBusinessEntity();
-
-		result.taxId = TAX_ID;
-		result.name = NAME;
-		result.commercialName = COMMERCIAL_NAME;
-		result.website = WEBSITE;
-
-		return result;
+		assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+		assertEquals(mockBusiness.getName(), business.getName());
+		assertEquals(mockBusiness.getWebsiteAddress(),
+				business.getWebsiteAddress());
+		assertEquals(mockBusiness.getCommercialName(),
+				business.getCommercialName());
 	}
 
 }
