@@ -22,6 +22,7 @@ import java.util.Date;
 
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 
 public interface ShippingPointBuilder<TBuilder extends ShippingPointBuilder<TBuilder, TShippingPoint>, TShippingPoint extends ShippingPoint>
@@ -37,6 +38,6 @@ public interface ShippingPointBuilder<TBuilder extends ShippingPointBuilder<TBui
 
 	public TBuilder setUCR(String UCR);
 
-	public <T extends AddressEntity> TBuilder setAddress(Builder<T> address);
+	public <T extends Address> TBuilder setAddress(Builder<T> address);
 
 }

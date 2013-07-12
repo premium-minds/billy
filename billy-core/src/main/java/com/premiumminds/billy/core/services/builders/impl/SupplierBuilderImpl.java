@@ -65,7 +65,7 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public <T extends AddressEntity> TBuilder addAddress(
+	public <T extends Address> TBuilder addAddress(
 			Builder<T> addressBuilder) {
 		this.getTypeInstance().getAddresses().add(addressBuilder.build());
 		return this.getBuilder();

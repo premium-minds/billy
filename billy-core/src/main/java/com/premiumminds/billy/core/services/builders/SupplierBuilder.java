@@ -18,7 +18,6 @@
  ******************************************************************************/
 package com.premiumminds.billy.core.services.builders;
 
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
@@ -32,7 +31,7 @@ public interface SupplierBuilder<TBuilder extends SupplierBuilder<TBuilder, TSup
 
 	public TBuilder setTaxRegistrationNumber(String number);
 
-	public <T extends AddressEntity> TBuilder addAddress(
+	public <T extends Address> TBuilder addAddress(
 			Builder<T> addressBuilder);
 
 	public TBuilder setMainAddress(Builder<Address> addressBuilder);

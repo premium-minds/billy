@@ -28,6 +28,7 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.ShippingPointBuilder;
+import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.Localizer;
@@ -78,8 +79,8 @@ public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<
 	}
 
 	@Override
-	public <T extends AddressEntity> TBuilder setAddress(Builder<T> address) {
-		this.getTypeInstance().setAddress(address.build());
+	public <T extends Address> TBuilder setAddress(Builder<T> address) {
+		this.getTypeInstance().setAddress((AddressEntity) address.build());
 		return this.getBuilder();
 	}
 
