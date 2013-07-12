@@ -54,10 +54,15 @@
     </developers>
     
 	<distributionManagement>
+        <repository>
+        	<id>premium-repository</id>
+        	<name>premium-repository-releases</name>
+        	<url>http://maven.premium-minds.local/libs-release-local</url>
+        </repository>
         <snapshotRepository>
-            <id>premium-SNAPSHOT-repository</id>
-            <name>premium-repository-snapshots</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        	<id>premium-repository</id>
+        	<name>premium-repository-snapshots</name>
+        	<url>http://maven.premium-minds.local/libs-snapshot-local</url>
         </snapshotRepository>
 	</distributionManagement>
     
