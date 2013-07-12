@@ -20,6 +20,8 @@ package com.premiumminds.billy.core.services.entities;
 
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.services.builders.impl.ShippingPointBuilderImpl;
 
@@ -27,6 +29,7 @@ public interface ShippingPoint extends Entity {
 	
 	public static class Builder extends ShippingPointBuilderImpl<Builder, ShippingPoint> {
 		
+		@Inject
 		public Builder(DAOShippingPoint daoShippingPoint) {
 			super(daoShippingPoint);
 		}

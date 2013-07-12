@@ -28,16 +28,12 @@ public class TestBusinessBuilder extends AbstractTest {
 		MockBusinessEntity mockBusiness = (MockBusinessEntity) createMockEntityFromYaml(
 				MockBusinessEntity.class, BUSINESS_YML);
 
-		DAOBusiness mockDaoBusiness = this.getMock(DAOBusiness.class);
-		DAOContext mockDaoContext = this.getMock(DAOContext.class);
-
-		Mockito.when(mockDaoBusiness.getEntityInstance()).thenReturn(
+		Mockito.when(getInstance(DAOBusiness.class).getEntityInstance()).thenReturn(
 				new MockBusinessEntity());
-		Mockito.when(mockDaoContext.get((UID) Matchers.anyObject()))
+		Mockito.when(getInstance(DAOContext.class).get((UID) Matchers.anyObject()))
 				.thenReturn(this.getMock(ContextEntity.class));
 
-		Business.Builder builder = new Business.Builder(mockDaoBusiness,
-				mockDaoContext);
+		Business.Builder builder = getInstance(Business.Builder.class);
 
 		Contact.Builder mockContactBuilder = this
 				.getMock(Contact.Builder.class);

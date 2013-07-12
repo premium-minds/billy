@@ -20,6 +20,8 @@ package com.premiumminds.billy.core.services.entities;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.services.builders.impl.CustomerBuilderImpl;
@@ -34,6 +36,7 @@ public interface Customer extends Entity {
 
 	public static class Builder extends CustomerBuilderImpl<Builder, Customer> {
 
+		@Inject
 		public Builder(DAOCustomer daoCustomer, DAOContact daoContact) {
 			super(daoCustomer, daoContact);
 		}

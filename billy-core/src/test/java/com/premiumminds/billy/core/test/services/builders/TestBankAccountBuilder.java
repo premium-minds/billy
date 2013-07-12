@@ -19,11 +19,9 @@ public class TestBankAccountBuilder extends AbstractTest {
 	public void doTest() {
 		MockBankAccountEntity mockBankAccount = (MockBankAccountEntity) createMockEntityFromYaml(MockBankAccountEntity.class, BANK_ACCOUNT_YML);
 		
-		DAOBankAccount mockDaoBankAccount = this.getMock(DAOBankAccount.class);
+		Mockito.when(getInstance(DAOBankAccount.class).getEntityInstance()).thenReturn(new MockBankAccountEntity());
 		
-		Mockito.when(mockDaoBankAccount.getEntityInstance()).thenReturn(new MockBankAccountEntity());
-		
-		BankAccount.Builder builder = new BankAccount.Builder(mockDaoBankAccount);
+		BankAccount.Builder builder = getInstance(BankAccount.Builder.class);
 		
 		builder.setBankAccountNumber(mockBankAccount.getBankAccountNumber()).setBankIdentifier(mockBankAccount.getBankIdentifier()).setIBANNumber(mockBankAccount.getIBANNumber()).setOwnerName(mockBankAccount.getOwnerName());
 		

@@ -20,6 +20,8 @@ package com.premiumminds.billy.core.services.entities;
 
 import java.util.Collection;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.services.builders.impl.SupplierBuilderImpl;
 
@@ -27,6 +29,7 @@ public interface Supplier {
 	
 	public static class Builder extends SupplierBuilderImpl<Builder, Supplier> {
 		
+		@Inject
 		public Builder(DAOSupplier daoSupplier) {
 			super(daoSupplier);
 		}

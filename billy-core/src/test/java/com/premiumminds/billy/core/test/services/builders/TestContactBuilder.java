@@ -20,11 +20,9 @@ public class TestContactBuilder extends AbstractTest {
 		
 		MockContactEntity mockContact = (MockContactEntity) createMockEntityFromYaml(MockContactEntity.class, CONTACT_YML);
 		
-		DAOContact mockDaoContact = this.getMock(DAOContact.class);
+		Mockito.when(getInstance(DAOContact.class).getEntityInstance()).thenReturn(new MockContactEntity());
 		
-		Mockito.when(mockDaoContact.getEntityInstance()).thenReturn(new MockContactEntity());
-		
-		Contact.Builder builder = new Contact.Builder(mockDaoContact);
+		Contact.Builder builder = getInstance(Contact.Builder.class);
 		
 		builder.setEmail(mockContact.getEmail()).setFax(mockContact.getFax()).setMobile(mockContact.getMobile()).setName(mockContact.getName()).setTelephone(mockContact.getTelephone()).setWebsite(mockContact.getWebsite());
 		

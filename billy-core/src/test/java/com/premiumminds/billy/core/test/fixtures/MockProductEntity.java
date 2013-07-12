@@ -10,15 +10,15 @@ public class MockProductEntity extends MockBaseEntity implements ProductEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	private String productCode;
-	private String productGroup;
-	private String unitOfMeasure;
-	private String valuationMethod;
-	private String numberCode;
-	private String comodityCode;
-	private ProductType type;
-	private String description;
-	private List<Tax> taxes;
+	public String productCode;
+	public String productGroup;
+	public String unitOfMeasure;
+	public String valuationMethod;
+	public String numberCode;
+	public String comodityCode;
+	public ProductType type;
+	public String description;
+	public List<Tax> taxes;
 
 	public MockProductEntity() {
 		this.taxes = new ArrayList<Tax>();

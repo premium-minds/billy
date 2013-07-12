@@ -18,11 +18,9 @@ public class TestAddressBuilder extends AbstractTest {
 	public void doTest() {
 		MockAddressEntity mockAddress = (MockAddressEntity) createMockEntityFromYaml(MockAddressEntity.class, ADDRESS_YML);
 		
-		DAOAddress mockDaoAddress = this.getMock(DAOAddress.class);
+		Mockito.when(getInstance(DAOAddress.class).getEntityInstance()).thenReturn(new MockAddressEntity());
 		
-		Mockito.when(mockDaoAddress.getEntityInstance()).thenReturn(new MockAddressEntity());
-		
-		Address.Builder builder = new Address.Builder(mockDaoAddress);
+		Address.Builder builder = getInstance(Address.Builder.class);
 		
 		builder.setBuilding(mockAddress.getBuilding()).setCity(mockAddress.getCity()).setDetails(mockAddress.getDetails()).setISOCountry(mockAddress.getISOCountry()).setNumber(mockAddress.getNumber()).setPostalCode(mockAddress.getPostalCode()).setRegion(mockAddress.getRegion()).setStreetName(mockAddress.getStreetName());
 		

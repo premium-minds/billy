@@ -21,9 +21,7 @@ public class TestContextBuilder extends AbstractTest {
 		MockContextEntity mockContext = (MockContextEntity) createMockEntityFromYaml(
 				MockContextEntity.class, CONTEXT_YML);
 
-		DAOContext mockDaoContext = this.getInstance(DAOContext.class);
-
-		Mockito.when(mockDaoContext.getEntityInstance()).thenReturn(
+		Mockito.when(getInstance(DAOContext.class).getEntityInstance()).thenReturn(
 				new MockContextEntity());
 		
 		MockContextEntity mockParentContext = new MockContextEntity();
@@ -31,7 +29,7 @@ public class TestContextBuilder extends AbstractTest {
 		Mockito.when(getInstance(DAOContext.class).get(Matchers.any(UID.class))).thenReturn(mockParentContext);
 		mockContext.parentContext = mockParentContext;
 
-		Context.Builder builder = new Context.Builder(mockDaoContext);
+		Context.Builder builder = getInstance(Context.Builder.class);
 
 		builder.setDescription(mockContext.getDescription())
 				.setName(mockContext.getName()).setParentContextUID(mockContext.getParentContext().getUID());

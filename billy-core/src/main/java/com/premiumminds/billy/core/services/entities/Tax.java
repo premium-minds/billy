@@ -22,6 +22,8 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
@@ -30,6 +32,7 @@ public interface Tax extends Entity {
 
 	public static class Builder extends TaxBuilderImpl<Builder, Tax> {
 
+		@Inject
 		public Builder(DAOTax daoTax, DAOContext daoContext) {
 			super(daoTax, daoContext);
 		}

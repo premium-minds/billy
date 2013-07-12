@@ -18,11 +18,11 @@
  ******************************************************************************/
 package com.premiumminds.billy.core.services.builders;
 
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
-import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.BankAccount;
+import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 
 public interface CustomerBuilder<TBuilder extends CustomerBuilder<TBuilder, TCustomer>, TCustomer extends Customer>
@@ -32,21 +32,21 @@ public interface CustomerBuilder<TBuilder extends CustomerBuilder<TBuilder, TCus
 
 	public TBuilder setTaxRegistrationNumber(String number);
 
-	public <T extends AddressEntity> TBuilder addAddress(
+	public <T extends Address> TBuilder addAddress(
 			Builder<T> addressBuilder, boolean mainAddress);
 
-	public <T extends AddressEntity> TBuilder setBillingAddress(
+	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder);
 
-	public <T extends AddressEntity> TBuilder setShippingAddress(
+	public <T extends Address> TBuilder setShippingAddress(
 			Builder<T> addressBuilder);
 
-	public <T extends ContactEntity> TBuilder addContact(
+	public <T extends Contact> TBuilder addContact(
 			Builder<T> contactBuilder);
 
 	public TBuilder setMainContactUID(UID contactUID);
 
-	public <T extends BankAccountEntity> TBuilder addBankAccount(
+	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder);
 
 	public TBuilder setHasSelfBillingAgreement(boolean selfBiling);

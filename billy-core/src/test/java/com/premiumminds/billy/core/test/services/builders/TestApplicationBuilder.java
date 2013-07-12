@@ -15,24 +15,16 @@ import com.premiumminds.billy.core.test.fixtures.MockApplicationEntity;
 public class TestApplicationBuilder extends AbstractTest {
 
 	private static final String APPLICATION_YML = "src/test/resources/Application.yml";
-	private static final String NAME = "name";
-	private static final String VERSION = "version";
-	private static final String DEVELOPER_COMPANY_NAME = "company_name";
-	private static final String DEVELOPER_COMPANY_TAX_ID = "company_tax_id";
-	private static final String WEBSITE = "website";
 
 	@Test
 	public void doTest() {
 		MockApplicationEntity mockApplication = (MockApplicationEntity) createMockEntityFromYaml(
 				MockApplicationEntity.class, APPLICATION_YML);
 
-		DAOApplication mockDaoApplication = this.getMock(DAOApplication.class);
-
-		Mockito.when(mockDaoApplication.getEntityInstance()).thenReturn(
+		Mockito.when(getInstance(DAOApplication.class).getEntityInstance()).thenReturn(
 				new MockApplicationEntity());
 
-		Application.Builder builder = new Application.Builder(
-				mockDaoApplication);
+		Application.Builder builder = getInstance(Application.Builder.class);
 
 		Contact.Builder mockContactBuilder = this
 				.getMock(Contact.Builder.class);

@@ -23,12 +23,13 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.CustomerBuilder;
+import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
@@ -70,7 +71,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public <T extends AddressEntity> TBuilder addAddress(
+	public <T extends Address> TBuilder addAddress(
 			Builder<T> addressBuilder, boolean mainAddress) {
 		BillyValidator.notNull(addressBuilder,
 				CustomerBuilderImpl.LOCALIZER.getString("field.address"));
@@ -79,25 +80,25 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public <T extends AddressEntity> TBuilder setBillingAddress(
+	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.notNull(addressBuilder, CustomerBuilderImpl.LOCALIZER
 				.getString("field.billing_address"));
-		this.getTypeInstance().setBillingAddress(addressBuilder.build());
+		this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
-	public <T extends AddressEntity> TBuilder setShippingAddress(
+	public <T extends Address> TBuilder setShippingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.notNull(addressBuilder, CustomerBuilderImpl.LOCALIZER
 				.getString("field.shipping_address"));
-		this.getTypeInstance().setShippingAddress(addressBuilder.build());
+		this.getTypeInstance().setShippingAddress((AddressEntity)addressBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
-	public <T extends ContactEntity> TBuilder addContact(
+	public <T extends Contact> TBuilder addContact(
 			Builder<T> contactBuilder) {
 		BillyValidator.notNull(contactBuilder,
 				CustomerBuilderImpl.LOCALIZER.getString("field.contact"));
@@ -124,7 +125,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public <T extends BankAccountEntity> TBuilder addBankAccount(
+	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder) {
 		BillyValidator.notNull(accountBuilder,
 				CustomerBuilderImpl.LOCALIZER.getString("field.bank_account"));
