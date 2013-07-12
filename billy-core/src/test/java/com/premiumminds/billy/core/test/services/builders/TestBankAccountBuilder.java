@@ -13,14 +13,11 @@ import com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity;
 
 public class TestBankAccountBuilder extends AbstractTest {
 	
-	private static final String IBAN = "iban";
-	private static final String BANKID = "bank_id";
-	private static final String ACCOUNT_NUMBER = "account_number";
-	private static final String OWNER_NAME = "owner_name";
+	private static final String BANK_ACCOUNT_YML = "src/test/resources/BankAccount.yml";
 	
 	@Test
 	public void doTest() {
-		MockBankAccountEntity mockBankAccount = this.loadFixture(BankAccountEntity.class);
+		MockBankAccountEntity mockBankAccount = (MockBankAccountEntity) createMockEntityFromYaml(MockBankAccountEntity.class, BANK_ACCOUNT_YML);
 		
 		DAOBankAccount mockDaoBankAccount = this.getMock(DAOBankAccount.class);
 		
@@ -33,21 +30,9 @@ public class TestBankAccountBuilder extends AbstractTest {
 		BankAccount bankAccount = builder.build();
 		
 		assert(bankAccount != null);
-		assertEquals(IBAN, bankAccount.getIBANNumber());
-		assertEquals(BANKID, bankAccount.getBankIdentifier());
-		assertEquals(ACCOUNT_NUMBER, bankAccount.getBankAccountNumber());
-		assertEquals(OWNER_NAME, bankAccount.getOwnerName());
+		assertEquals(mockBankAccount.getIBANNumber(), bankAccount.getIBANNumber());
+		assertEquals(mockBankAccount.getBankIdentifier(), bankAccount.getBankIdentifier());
+		assertEquals(mockBankAccount.getBankAccountNumber(), bankAccount.getBankAccountNumber());
+		assertEquals(mockBankAccount.getOwnerName(), bankAccount.getOwnerName());
 	}
-	
-	public MockBankAccountEntity loadFixture(Class<BankAccountEntity> clazz) {
-		MockBankAccountEntity result = new MockBankAccountEntity();
-		
-		result.iban = IBAN;
-		result.bankId = BANKID;
-		result.accountNumber = ACCOUNT_NUMBER;
-		result.ownerName = OWNER_NAME;
-		
-		return result;
-	}
-
 }

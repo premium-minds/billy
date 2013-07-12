@@ -1,0 +1,4 @@
+iban : iban
+bankId : bank_id
+accountNumber : account_number
+ownerName : owner_name

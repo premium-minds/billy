@@ -13,17 +13,12 @@ import com.premiumminds.billy.core.test.fixtures.MockContactEntity;
 
 public class TestContactBuilder extends AbstractTest {
 	
-	private static final String NAME = "name";
-	private static final String TELEPHONE = "telephone";
-	private static final String MOBILE = "mobile";
-	private static final String FAX = "fax";
-	private static final String EMAIL = "email";
-	private static final String WEBSITE = "website";
+	private static final String CONTACT_YML = "src/test/resources/Contact.yml";
 	
 	@Test
 	public void doTest() {
 		
-		MockContactEntity mockContact = this.loadFixture(ContactEntity.class);
+		MockContactEntity mockContact = (MockContactEntity) createMockEntityFromYaml(MockContactEntity.class, CONTACT_YML);
 		
 		DAOContact mockDaoContact = this.getMock(DAOContact.class);
 		
@@ -36,25 +31,11 @@ public class TestContactBuilder extends AbstractTest {
 		Contact contact = builder.build();
 		
 		assert(contact != null);
-		assertEquals(NAME, contact.getName());
-		assertEquals(TELEPHONE, contact.getTelephone());
-		assertEquals(MOBILE, contact.getMobile());
-		assertEquals(FAX, contact.getFax());
-		assertEquals(EMAIL, contact.getEmail());
-		assertEquals(WEBSITE, contact.getWebsite());
+		assertEquals(mockContact.getName(), contact.getName());
+		assertEquals(mockContact.getTelephone(), contact.getTelephone());
+		assertEquals(mockContact.getMobile(), contact.getMobile());
+		assertEquals(mockContact.getFax(), contact.getFax());
+		assertEquals(mockContact.getEmail(), contact.getEmail());
+		assertEquals(mockContact.getWebsite(), contact.getWebsite());
 	}
-	
-	public MockContactEntity loadFixture(Class<ContactEntity> clazz) {
-		MockContactEntity result = new MockContactEntity();
-		
-		result.email = EMAIL;
-		result.fax = FAX;
-		result.mobile = MOBILE;
-		result.name = NAME;
-		result.telephone = TELEPHONE;
-		result.website = WEBSITE;
-		
-		return result;
-	}
-
 }

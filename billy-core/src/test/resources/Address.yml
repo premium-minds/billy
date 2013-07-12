@@ -1,0 +1,8 @@
+streetName : street_name
+number : number
+details : details
+building : building
+city : city
+postalCode : postal_code 
+region : region
+country : country
