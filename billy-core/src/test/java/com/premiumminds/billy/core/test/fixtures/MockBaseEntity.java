@@ -12,7 +12,7 @@ public class MockBaseEntity implements BaseEntity {
 	public UID uid;
 	public Date createTimestamp;
 	public Date updateTimestamp;
-	public Boolean isNew;
+	public boolean isNew;
 
 	@Override
 	public boolean isNew() {
