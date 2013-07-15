@@ -17,6 +17,14 @@
 # along with billy core. If not, see <http://www.gnu.org/licenses/>.
 #
 
-designation : designation
+designation : desgination
 description : description
-code : VAT
+code : code
+value : 20
+validFrom: 2013-01-01
+validTo: 2013-12-12
+taxRateType : PERCENTAGE
+percentageRateValue : 23
+flatRateAmount : 10
+#currency : EUR
+
