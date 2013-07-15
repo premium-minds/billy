@@ -23,6 +23,8 @@ import static org.mockito.Mockito.mock;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.yaml.snakeyaml.TypeDescription;
@@ -93,5 +95,25 @@ public class AbstractTest {
 		Constructor constructor = new Constructor(clazz);
 		constructor.addTypeDescription(typeDescription);
 		return constructor;
+	}
+
+	public Constructor generateMockEntityConstructor(
+			Class<? extends MockBaseEntity> clazz,
+			List<TypeDescription> typeDescriptions) {
+		Constructor constructor = new Constructor(clazz);
+		for (TypeDescription type : typeDescriptions) {
+			constructor.addTypeDescription(type);
+		}
+		return constructor;
+	}
+
+	public List<TypeDescription> generateTypeDescription(Class<?>... classes) {
+		ArrayList<TypeDescription> descriptions = new ArrayList<TypeDescription>();
+		for (Class<?> clazz : classes) {
+			TypeDescription type = new TypeDescription(clazz);
+			descriptions.add(type);
+		}
+		return descriptions;
+
 	}
 }

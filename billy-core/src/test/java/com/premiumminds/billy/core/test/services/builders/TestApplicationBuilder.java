@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core.
- *
+ * 
  * billy core is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * 
  * billy core is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,24 +33,16 @@ import com.premiumminds.billy.core.test.fixtures.MockApplicationEntity;
 public class TestApplicationBuilder extends AbstractTest {
 
 	private static final String APPLICATION_YML = "src/test/resources/Application.yml";
-	private static final String NAME = "name";
-	private static final String VERSION = "version";
-	private static final String DEVELOPER_COMPANY_NAME = "company_name";
-	private static final String DEVELOPER_COMPANY_TAX_ID = "company_tax_id";
-	private static final String WEBSITE = "website";
 
 	@Test
 	public void doTest() {
 		MockApplicationEntity mockApplication = (MockApplicationEntity) createMockEntityFromYaml(
 				MockApplicationEntity.class, APPLICATION_YML);
 
-		DAOApplication mockDaoApplication = this.getMock(DAOApplication.class);
+		Mockito.when(getInstance(DAOApplication.class).getEntityInstance())
+				.thenReturn(new MockApplicationEntity());
 
-		Mockito.when(mockDaoApplication.getEntityInstance()).thenReturn(
-				new MockApplicationEntity());
-
-		Application.Builder builder = new Application.Builder(
-				mockDaoApplication);
+		Application.Builder builder = getInstance(Application.Builder.class);
 
 		Contact.Builder mockContactBuilder = this
 				.getMock(Contact.Builder.class);

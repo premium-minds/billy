@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core.
- *
+ * 
  * billy core is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * 
  * billy core is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -33,6 +33,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 
 public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 		GenericInvoiceEntryEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	public CreditOrDebit creditOrDebit;
@@ -58,7 +59,6 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 	public BigDecimal unitTaxAmount;
 	public BigDecimal unitDiscountAmount;
 	public String unitOfMeasure;
-
 
 	public MockGenericInvoiceEntryEntity() {
 		this.references = new ArrayList<GenericInvoice>();
@@ -207,12 +207,12 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 
 	@Override
 	public void setUnitAmountWithoutTax(BigDecimal amount) {
-		this.unitAmountWithoutTax = amount;		
+		this.unitAmountWithoutTax = amount;
 	}
 
 	@Override
 	public void setUnitDiscountAmount(BigDecimal amount) {
-		this.unitDiscountAmount = amount;		
+		this.unitDiscountAmount = amount;
 	}
 
 	@Override
@@ -227,12 +227,12 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 
 	@Override
 	public void setAmountWithoutTax(BigDecimal amount) {
-		this.amountWithoutTax = amount;		
+		this.amountWithoutTax = amount;
 	}
 
 	@Override
 	public void setDiscountAmount(BigDecimal amount) {
-		this.discountAmount = amount;		
+		this.discountAmount = amount;
 	}
 
 	@Override

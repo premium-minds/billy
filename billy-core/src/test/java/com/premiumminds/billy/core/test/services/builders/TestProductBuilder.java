@@ -43,15 +43,13 @@ public class TestProductBuilder extends AbstractTest {
 				generateMockEntityConstructor(MockProductEntity.class, type),
 				PRODUCT_YML);
 
-		DAOProduct mockDaoProduct = this.getMock(DAOProduct.class);
+		Mockito.when(getInstance(DAOProduct.class).getEntityInstance())
+				.thenReturn(new MockProductEntity());
 
-		Mockito.when(mockDaoProduct.getEntityInstance()).thenReturn(
-				new MockProductEntity());
+		Product.Builder builder = getInstance(Product.Builder.class);
 
-		Product.Builder builder = new Product.Builder(mockDaoProduct);
-
-		builder.setDescription(mockProduct.getDescription())
-				.setCommodityCode(mockProduct.getCommodityCode())
+		builder.setCommodityCode(mockProduct.getCommodityCode())
+				.setDescription(mockProduct.getDescription())
 				.setNumberCode(mockProduct.getNumberCode())
 				.setProductCode(mockProduct.getProductCode())
 				.setProductGroup(mockProduct.getProductGroup())
@@ -62,15 +60,16 @@ public class TestProductBuilder extends AbstractTest {
 		Product product = builder.build();
 
 		assert (product != null);
+
 		assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
 		assertEquals(mockProduct.getDescription(), product.getDescription());
 		assertEquals(mockProduct.getNumberCode(), product.getNumberCode());
 		assertEquals(mockProduct.getProductCode(), product.getProductCode());
 		assertEquals(mockProduct.getProductGroup(), product.getProductGroup());
-		assertEquals(mockProduct.getType(), product.getType());
 		assertEquals(mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
 		assertEquals(mockProduct.getValuationMethod(),
 				product.getValuationMethod());
 
 	}
+
 }

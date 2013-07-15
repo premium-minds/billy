@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core.
- *
+ * 
  * billy core is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * 
  * billy core is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,17 +26,18 @@ import com.premiumminds.billy.core.services.entities.Address;
 
 public class MockShippingPointEntity extends MockBaseEntity implements
 		ShippingPointEntity {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	public String deliveryId;
 	public Date date;
 	public String warehouseId;
 	public String locationId;
 	public String UCR;
 	public AddressEntity address;
-	
+
 	public MockShippingPointEntity() {
-		
+
 	}
 
 	@Override

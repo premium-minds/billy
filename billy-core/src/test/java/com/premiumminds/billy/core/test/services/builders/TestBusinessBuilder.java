@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core.
- *
+ * 
  * billy core is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * 
  * billy core is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -46,16 +46,13 @@ public class TestBusinessBuilder extends AbstractTest {
 		MockBusinessEntity mockBusiness = (MockBusinessEntity) createMockEntityFromYaml(
 				MockBusinessEntity.class, BUSINESS_YML);
 
-		DAOBusiness mockDaoBusiness = this.getMock(DAOBusiness.class);
-		DAOContext mockDaoContext = this.getMock(DAOContext.class);
-
-		Mockito.when(mockDaoBusiness.getEntityInstance()).thenReturn(
-				new MockBusinessEntity());
-		Mockito.when(mockDaoContext.get((UID) Matchers.anyObject()))
+		Mockito.when(getInstance(DAOBusiness.class).getEntityInstance())
+				.thenReturn(new MockBusinessEntity());
+		Mockito.when(
+				getInstance(DAOContext.class).get((UID) Matchers.anyObject()))
 				.thenReturn(this.getMock(ContextEntity.class));
 
-		Business.Builder builder = new Business.Builder(mockDaoBusiness,
-				mockDaoContext);
+		Business.Builder builder = getInstance(Business.Builder.class);
 
 		Contact.Builder mockContactBuilder = this
 				.getMock(Contact.Builder.class);
