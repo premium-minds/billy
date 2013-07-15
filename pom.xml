@@ -1,21 +1,13 @@
-<!--
-  ~ Copyright (C) 2013 Premium Minds.
-  ~
-  ~ This file is part of billy.
-  ~
-  ~ billy is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Lesser General Public License as published
-  ~ by the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ billy is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public License
-  ~ along with billy.  If not, see <http://www.gnu.org/licenses/>.
--->
+<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy. 
+	~ ~ billy is free software: you can redistribute it and/or modify ~ it under 
+	the terms of the GNU Lesser General Public License as published ~ by the 
+	Free Software Foundation, either version 3 of the License, or ~ (at your 
+	option) any later version. ~ ~ billy is distributed in the hope that it will 
+	be useful, ~ but WITHOUT ANY WARRANTY; without even the implied warranty 
+	of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the ~ GNU Lesser 
+	General Public License for more details. ~ ~ You should have received a copy 
+	of the GNU Lesser General Public License ~ along with billy. If not, see 
+	<http://www.gnu.org/licenses/>. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
@@ -26,7 +18,6 @@
 	<description>An opensource invoicing engine</description>
 	<packaging>pom</packaging>
 	<groupId>com.premiumminds</groupId>
-
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,29 +39,29 @@
 			<url>http://www.gnu.org/licenses/lgpl.html</url>
 		</license>
 	</licenses>
-	
+
 	<scm>
-    	<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
-    	<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
-    	<url>git@github.com:premium-minds/billy.git</url>
-    </scm>
-    
-    <url>http://premium-minds.github.io/billy/</url>
-    
-    <developers>
-    </developers>
-    
+		<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
+		<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
+		<url>git@github.com:premium-minds/billy.git</url>
+	</scm>
+
+	<url>http://premium-minds.github.io/billy/</url>
+
+	<developers>
+	</developers>
+
 	<distributionManagement>
-        <repository>
-        	<id>premium-repository</id>
-        	<name>premium-repository-releases</name>
-        	<url>http://maven.premium-minds.local/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-        	<id>premium-repository</id>
-        	<name>premium-repository-snapshots</name>
-        	<url>http://maven.premium-minds.local/libs-snapshot-local</url>
-        </snapshotRepository>
+		<repository>
+			<id>premium-repository</id>
+			<name>premium-repository-releases</name>
+			<url>http://maven.premium-minds.local/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>premiumminds-nexus-snapshots</id>
+			<name>premium-repository-snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 
 	<pluginRepositories>
@@ -126,8 +117,8 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. 
-					It has no influence on the Maven build itself.-->
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>

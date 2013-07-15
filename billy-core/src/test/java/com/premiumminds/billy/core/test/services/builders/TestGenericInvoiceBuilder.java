@@ -29,6 +29,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
@@ -53,12 +54,16 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 		Mockito.when(getInstance(DAOGenericInvoice.class).getEntityInstance())
 				.thenReturn(new MockGenericInvoiceEntity());
 
+		Mockito.when(getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
+		.thenReturn(new MockGenericInvoiceEntryEntity());
+		
 		GenericInvoice.Builder builder = getInstance(GenericInvoice.Builder.class);
 
 		GenericInvoiceEntry.Builder mockGenericInvoiceEntry = this
 				.getMock(GenericInvoiceEntry.Builder.class);
+		
 		Mockito.when(mockGenericInvoiceEntry.build()).thenReturn(
-				Mockito.mock(GenericInvoiceEntry.class));
+				Mockito.mock(GenericInvoiceEntryEntity.class));
 
 		ShippingPoint.Builder mockShippingPoint = this
 				.getMock(ShippingPoint.Builder.class);
