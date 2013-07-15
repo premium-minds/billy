@@ -20,8 +20,6 @@ package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
-
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -69,6 +67,7 @@ public class TestShippingPointBuilder extends AbstractTest {
 		assertEquals(mockShippingPoint.getUCR(), shippingPoint.getUCR());
 		assertEquals(mockShippingPoint.getWarehouseId(),
 				shippingPoint.getWarehouseId());
+		assertEquals(mockShippingPoint.getDate(), shippingPoint.getDate());
 	}
 
 	public MockShippingPointEntity loadFixture(
@@ -78,7 +77,6 @@ public class TestShippingPointBuilder extends AbstractTest {
 				SHIPPINGPOINT_YML);
 
 		result.address = new MockAddressEntity();
-		result.date = new Date();
 
 		return result;
 	}
