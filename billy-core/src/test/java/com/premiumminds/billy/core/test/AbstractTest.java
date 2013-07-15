@@ -23,7 +23,6 @@ import static org.mockito.Mockito.mock;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.BeforeClass;
@@ -107,13 +106,4 @@ public class AbstractTest {
 		return constructor;
 	}
 
-	public List<TypeDescription> generateTypeDescription(Class<?>... classes) {
-		ArrayList<TypeDescription> descriptions = new ArrayList<TypeDescription>();
-		for (Class<?> clazz : classes) {
-			TypeDescription type = new TypeDescription(clazz);
-			descriptions.add(type);
-		}
-		return descriptions;
-
-	}
 }
