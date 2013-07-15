@@ -20,9 +20,7 @@ package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
 
-import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Currency;
 
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -32,9 +30,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product;
-import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax;
-import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
 import com.premiumminds.billy.core.test.fixtures.MockProductEntity;
@@ -43,6 +39,8 @@ import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
 public class TestProductBuilder extends AbstractTest {
 
 	private static final String PRODUCT_YML = "src/test/resources/Product.yml";
+	private static final String TAX_YML = "src/test/resources/Tax.yml";
+	private static final String CONTEXT_YML = "src/test/resources/Context.yml";
 
 	@Test
 	public void doTest() {
@@ -83,17 +81,16 @@ public class TestProductBuilder extends AbstractTest {
 				generateMockEntityConstructor(MockProductEntity.class),
 				PRODUCT_YML);
 
-		result.type = ProductType.GOODS;
+		MockTaxEntity tax = (MockTaxEntity) createMockEntity(
+				generateMockEntityConstructor(MockTaxEntity.class), TAX_YML);
 
-		MockTaxEntity tax = new MockTaxEntity();
 		tax.uid = new UID("uid_tax");
-		tax.code = "VAT";
-		tax.context = new MockContextEntity();
-		tax.currency = Currency.getInstance("EUR");
-		tax.taxRateType = TaxRateType.PERCENTAGE;
-		tax.percentageRateValue = new BigDecimal("23"); // mistake
-		tax.value = new BigDecimal("23");
+		tax.context = (MockContextEntity) createMockEntity(
+				generateMockEntityConstructor(MockContextEntity.class),
+				CONTEXT_YML);
+
 		result.taxes = Arrays.asList(new Tax[] { tax });
+
 		Mockito.when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
 				.thenReturn(tax);
 

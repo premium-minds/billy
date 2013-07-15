@@ -24,19 +24,6 @@ numberCode : number_code
 comodityCode : comodity_code
 type : GOODS
 description : description
-valuationMethod : valuation_method
-#taxes:
-#  - { designation : desgination,
-#      description : description,
-#      code : code,
-#      value : 20,
-#      validFrom: 2013-01-01,
-#      validTo: 2013-12-12 -> Date,
-#      taxRateType : PERCENTAGE,
-#      percentageRateValue : 23 -> BigDecimal,
-#      flatRateAmount : 10 -> BigDecimal,
-#      currency : EUR
-#    }
-#      
+valuationMethod : valuation_method   
       
       
