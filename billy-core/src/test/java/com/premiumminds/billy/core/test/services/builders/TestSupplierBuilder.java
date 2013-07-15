@@ -42,6 +42,9 @@ import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 public class TestSupplierBuilder extends AbstractTest {
 
 	private static final String SUPPLIER_YML = "src/test/resources/Supplier.yml";
+	private static final String ADDRESS_YML = "src/test/resources/Address.yml";
+	private static final String CONTACT_YML = "src/test/resources/Contact.yml";
+	private static final String BANK_YML = "src/test/resources/BankAccount.yml";
 
 	@Test
 	public void doTest() {
@@ -84,7 +87,6 @@ public class TestSupplierBuilder extends AbstractTest {
 		assertEquals(mockSupplier.getName(), supplier.getName());
 		assertEquals(mockSupplier.getTaxRegistrationNumber(),
 				supplier.getTaxRegistrationNumber());
-
 	}
 
 	public MockSupplierEntity loadFixture(Class<MockSupplierEntity> clazz) {
@@ -92,17 +94,23 @@ public class TestSupplierBuilder extends AbstractTest {
 				generateMockEntityConstructor(MockSupplierEntity.class),
 				SUPPLIER_YML);
 
-		MockAddressEntity mockAddress = new MockAddressEntity();
+		MockAddressEntity mockAddress = (MockAddressEntity) createMockEntity(
+				generateMockEntityConstructor(MockAddressEntity.class),
+				ADDRESS_YML);
 		result.mainAddress = mockAddress;
 		result.billingAddress = mockAddress;
 		result.shippingAddress = mockAddress;
 		result.addresses = Arrays.asList(new Address[] { mockAddress });
 
-		MockContactEntity mockContact = new MockContactEntity();
+		MockContactEntity mockContact = (MockContactEntity) createMockEntity(
+				generateMockEntityConstructor(MockContactEntity.class),
+				CONTACT_YML);
 		result.mainContact = mockContact;
 		result.contacts = Arrays.asList(new Contact[] { mockContact });
 
-		MockBankAccountEntity mockBankAccount = new MockBankAccountEntity();
+		MockBankAccountEntity mockBankAccount = (MockBankAccountEntity) createMockEntity(
+				generateMockEntityConstructor(MockBankAccountEntity.class),
+				BANK_YML);
 		result.bankAccounts = Arrays
 				.asList(new BankAccount[] { mockBankAccount });
 
