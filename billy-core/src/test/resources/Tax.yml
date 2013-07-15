@@ -20,11 +20,11 @@
 designation : desgination
 description : description
 code : code
-value : 20
+value : 201
 validFrom: 2013-01-01
 validTo: 2013-12-12
-taxRateType : PERCENTAGE
+taxRateType : FLAT
 percentageRateValue : 23
-flatRateAmount : 10
+flatRateAmount : 50
 #currency : EUR
 

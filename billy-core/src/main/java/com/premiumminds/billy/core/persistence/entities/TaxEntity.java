@@ -46,4 +46,6 @@ public interface TaxEntity extends Tax, BaseEntity {
 
 	public void setCurrency(Currency currency);
 
+	public void setValue(BigDecimal value);
+
 }

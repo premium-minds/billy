@@ -46,4 +46,5 @@ public interface TaxBuilder<TBuilder extends TaxBuilder<TBuilder, TTax>, TTax ex
 
 	public TBuilder setCurrency(Currency currency);
 
+	public TBuilder setValue(BigDecimal value);
 }

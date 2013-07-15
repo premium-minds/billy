@@ -137,8 +137,8 @@ public class MockTaxEntity extends MockBaseEntity implements TaxEntity {
 	}
 
 	@Override
-	public void setPercentageRateValue(BigDecimal value) {
-		this.percentageRateValue = value;
+	public void setPercentageRateValue(BigDecimal percentage) {
+		this.percentageRateValue = percentage;
 	}
 
 	@Override
@@ -151,4 +151,8 @@ public class MockTaxEntity extends MockBaseEntity implements TaxEntity {
 		this.currency = currency;
 	}
 
+	@Override
+	public void setValue(BigDecimal value) {
+		this.value = value;
+	}
 }
