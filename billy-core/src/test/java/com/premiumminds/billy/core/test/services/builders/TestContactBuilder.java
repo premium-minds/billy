@@ -18,13 +18,12 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
-import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockContactEntity;
@@ -36,8 +35,9 @@ public class TestContactBuilder extends AbstractTest {
 	@Test
 	public void doTest() {
 
-		MockContactEntity mockContact = (MockContactEntity) createMockEntityFromYaml(
-				MockContactEntity.class, CONTACT_YML);
+		MockContactEntity mockContact = (MockContactEntity) createMockEntity(
+				generateMockEntityConstructor(MockContactEntity.class),
+				CONTACT_YML);
 
 		Mockito.when(getInstance(DAOContact.class).getEntityInstance())
 				.thenReturn(new MockContactEntity());

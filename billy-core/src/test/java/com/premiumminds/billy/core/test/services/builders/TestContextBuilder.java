@@ -36,8 +36,9 @@ public class TestContextBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockContextEntity mockContext = (MockContextEntity) createMockEntityFromYaml(
-				MockContextEntity.class, CONTEXT_YML);
+		MockContextEntity mockContext = (MockContextEntity) createMockEntity(
+				generateMockEntityConstructor(MockContextEntity.class),
+				CONTEXT_YML);
 
 		Mockito.when(getInstance(DAOContext.class).getEntityInstance())
 				.thenReturn(new MockContextEntity());

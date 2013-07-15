@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Date;
 
@@ -31,7 +31,6 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
-import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 import com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity;
 
 public class TestShippingPointBuilder extends AbstractTest {
@@ -74,8 +73,9 @@ public class TestShippingPointBuilder extends AbstractTest {
 
 	public MockShippingPointEntity loadFixture(
 			Class<MockShippingPointEntity> clazz) {
-		MockShippingPointEntity result = (MockShippingPointEntity) createMockEntityFromYaml(
-				MockShippingPointEntity.class, SHIPPINGPOINT_YML);
+		MockShippingPointEntity result = (MockShippingPointEntity) createMockEntity(
+				generateMockEntityConstructor(MockShippingPointEntity.class),
+				SHIPPINGPOINT_YML);
 
 		result.address = new MockAddressEntity();
 		result.date = new Date();

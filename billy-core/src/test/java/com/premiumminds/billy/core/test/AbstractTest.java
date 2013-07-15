@@ -55,21 +55,6 @@ public class AbstractTest {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends MockBaseEntity> MockBaseEntity createMockEntityFromYaml(
-			Class<T> clazz, String path) {
-		Constructor constructor = new Constructor(clazz);
-		TypeDescription typeDescription = new TypeDescription(clazz);
-		constructor.addTypeDescription(typeDescription);
-		Yaml yaml = new Yaml(constructor);
-
-		try {
-			return (T) yaml.load(new BufferedReader(new FileReader(path)));
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	@SuppressWarnings("unchecked")
 	public <T extends MockBaseEntity> MockBaseEntity createMockEntity(
 			Constructor constructor, String path) {
 		Yaml yaml = new Yaml(constructor);

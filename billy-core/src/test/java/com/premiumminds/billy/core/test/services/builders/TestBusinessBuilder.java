@@ -43,8 +43,9 @@ public class TestBusinessBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockBusinessEntity mockBusiness = (MockBusinessEntity) createMockEntityFromYaml(
-				MockBusinessEntity.class, BUSINESS_YML);
+		MockBusinessEntity mockBusiness = (MockBusinessEntity) createMockEntity(
+				generateMockEntityConstructor(MockBusinessEntity.class),
+				BUSINESS_YML);
 
 		Mockito.when(getInstance(DAOBusiness.class).getEntityInstance())
 				.thenReturn(new MockBusinessEntity());

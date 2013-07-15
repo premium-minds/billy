@@ -18,13 +18,12 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
-import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity;
@@ -35,8 +34,9 @@ public class TestBankAccountBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockBankAccountEntity mockBankAccount = (MockBankAccountEntity) createMockEntityFromYaml(
-				MockBankAccountEntity.class, BANK_ACCOUNT_YML);
+		MockBankAccountEntity mockBankAccount = (MockBankAccountEntity) createMockEntity(
+				generateMockEntityConstructor(MockBankAccountEntity.class),
+				BANK_ACCOUNT_YML);
 
 		Mockito.when(getInstance(DAOBankAccount.class).getEntityInstance())
 				.thenReturn(new MockBankAccountEntity());

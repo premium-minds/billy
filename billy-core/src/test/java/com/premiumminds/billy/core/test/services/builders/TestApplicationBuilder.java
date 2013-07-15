@@ -36,8 +36,9 @@ public class TestApplicationBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockApplicationEntity mockApplication = (MockApplicationEntity) createMockEntityFromYaml(
-				MockApplicationEntity.class, APPLICATION_YML);
+		MockApplicationEntity mockApplication = (MockApplicationEntity) createMockEntity(
+				generateMockEntityConstructor(MockApplicationEntity.class),
+				APPLICATION_YML);
 
 		Mockito.when(getInstance(DAOApplication.class).getEntityInstance())
 				.thenReturn(new MockApplicationEntity());

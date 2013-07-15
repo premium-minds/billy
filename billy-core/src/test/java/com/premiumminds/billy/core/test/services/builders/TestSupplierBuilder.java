@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 
@@ -88,8 +88,9 @@ public class TestSupplierBuilder extends AbstractTest {
 	}
 
 	public MockSupplierEntity loadFixture(Class<MockSupplierEntity> clazz) {
-		MockSupplierEntity result = (MockSupplierEntity) createMockEntityFromYaml(
-				MockSupplierEntity.class, SUPPLIER_YML);
+		MockSupplierEntity result = (MockSupplierEntity) createMockEntity(
+				generateMockEntityConstructor(MockSupplierEntity.class),
+				SUPPLIER_YML);
 
 		MockAddressEntity mockAddress = new MockAddressEntity();
 		result.mainAddress = mockAddress;

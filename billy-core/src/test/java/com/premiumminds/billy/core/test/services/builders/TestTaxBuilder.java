@@ -62,8 +62,8 @@ public class TestTaxBuilder extends AbstractTest {
 	}
 
 	public MockTaxEntity loadFixture(Class<MockTaxEntity> clazz) {
-		MockTaxEntity result = (MockTaxEntity) createMockEntityFromYaml(
-				MockTaxEntity.class, TAX_YML);
+		MockTaxEntity result = (MockTaxEntity) createMockEntity(
+				generateMockEntityConstructor(MockTaxEntity.class), TAX_YML);
 
 		result.uid = new UID("uid_tax");
 
