@@ -24,6 +24,7 @@ import java.util.Date;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -42,10 +43,10 @@ public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TB
 
 	public TBuilder setDate(Date date);
 
-	public <T extends ShippingPointEntity> TBuilder setShippingOrigin(
+	public <T extends ShippingPoint> TBuilder setShippingOrigin(
 			Builder<T> originBuilder);
 
-	public <T extends ShippingPointEntity> TBuilder setShippingDestination(
+	public <T extends ShippingPoint> TBuilder setShippingDestination(
 			Builder<T> destinationBuilder);
 
 	public TBuilder setPaymentTerms(String terms);

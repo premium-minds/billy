@@ -40,6 +40,7 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -132,17 +133,18 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
-	public <T extends ShippingPointEntity> TBuilder setShippingOrigin(
+	public <T extends ShippingPoint> TBuilder setShippingOrigin(
 			Builder<T> originBuilder) {
-		this.getTypeInstance().setShippingOrigin(originBuilder.build());
+		this.getTypeInstance().setShippingOrigin(
+				(ShippingPointEntity) originBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
-	public <T extends ShippingPointEntity> TBuilder setShippingDestination(
+	public <T extends ShippingPoint> TBuilder setShippingDestination(
 			Builder<T> destinationBuilder) {
 		this.getTypeInstance().setShippingDestination(
-				destinationBuilder.build());
+				(ShippingPointEntity) destinationBuilder.build());
 		return this.getBuilder();
 	}
 
