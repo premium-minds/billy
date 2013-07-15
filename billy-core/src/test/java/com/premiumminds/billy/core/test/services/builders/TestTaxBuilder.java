@@ -18,9 +18,13 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
 import java.math.BigDecimal;
 import java.util.Currency;
-import java.util.Date;
 
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -38,48 +42,65 @@ import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
 public class TestTaxBuilder extends AbstractTest {
 
 	private static final String TAX_YML = "src/test/resources/Tax.yml";
+	private static final String CONTEXT_YML = "src/test/resources/Context.yml";
 
 	@Test
-	public void doTest() {
-		MockTaxEntity mockTax = loadFixture(MockTaxEntity.class);
+	public void doTestFlat() {
+		MockTaxEntity mockTax = loadFixture(MockTaxEntity.class, TAX_YML);
 		Mockito.when(getInstance(DAOTax.class).getEntityInstance()).thenReturn(
 				new MockTaxEntity());
 
 		Tax.Builder builder = getInstance(Tax.Builder.class);
+		BigDecimal amount = (mockTax.getTaxRateType() == TaxRateType.FLAT) ? mockTax
+				.getFlatRateAmount() : mockTax.getPercentageRateValue();
 
 		builder.setCode(mockTax.getCode())
 				.setContextUID(mockTax.getContext().getUID())
 				.setCurrency(mockTax.getCurrency())
 				.setDescription(mockTax.getDescription())
 				.setDesignation(mockTax.getDesignation())
-				.setTaxRate(mockTax.getTaxRateType(), mockTax.getValue())
 				.setValidFrom(mockTax.getValidFrom())
-				.setValidTo(mockTax.getValidTo());
+				.setValidTo(mockTax.getValidTo())
+				.setTaxRate(mockTax.getTaxRateType(), amount);
 
 		Tax tax = builder.build();
 
 		assert (tax != null);
+		assertEquals(mockTax.getCode(), tax.getCode());
+		assertEquals(mockTax.getContext(), tax.getContext());
+		assertEquals(mockTax.getCurrency(), tax.getCurrency());
+		assertEquals(mockTax.getDescription(), tax.getDescription());
+		assertEquals(mockTax.getDesignation(), tax.getDesignation());
+		assertEquals(mockTax.getTaxRateType(), tax.getTaxRateType());
+
+		if (mockTax.getTaxRateType() == Tax.TaxRateType.FLAT) {
+			assertEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
+			assertThat(mockTax.getPercentageRateValue(),
+					is(not(tax.getPercentageRateValue())));
+		} else {
+			assertEquals(mockTax.getPercentageRateValue(),
+					tax.getPercentageRateValue());
+			assertThat(mockTax.getFlatRateAmount(),
+					is(not(tax.getFlatRateAmount())));
+		}
 	}
 
-	public MockTaxEntity loadFixture(Class<MockTaxEntity> clazz) {
+	public MockTaxEntity loadFixture(Class<MockTaxEntity> clazz, String path) {
 		MockTaxEntity result = (MockTaxEntity) createMockEntity(
-				generateMockEntityConstructor(MockTaxEntity.class), TAX_YML);
+				generateMockEntityConstructor(MockTaxEntity.class), path);
 
 		result.uid = new UID("uid_tax");
 
-		MockContextEntity mockContext = new MockContextEntity();
+		MockContextEntity mockContext = (MockContextEntity) createMockEntity(
+				generateMockEntityConstructor(MockContextEntity.class),
+				CONTEXT_YML);
+
 		mockContext.uid = new UID("uid_context");
 		Mockito.when(getInstance(DAOContext.class).get(Matchers.any(UID.class)))
 				.thenReturn(mockContext);
 		result.context = mockContext;
 
 		result.currency = Currency.getInstance("EUR");
-		result.taxRateType = TaxRateType.PERCENTAGE;
-		result.percentageRateValue = new BigDecimal("23"); // mistake
-		result.flatRateAmount = new BigDecimal("23");
-		result.value = new BigDecimal("23");
-		result.validFrom = new Date();
-		result.validTo = new Date();
 
 		return result;
 	}
