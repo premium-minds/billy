@@ -20,8 +20,6 @@ package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Date;
-
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -36,6 +34,7 @@ import com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity;
 public class TestShippingPointBuilder extends AbstractTest {
 
 	private static final String SHIPPINGPOINT_YML = "src/test/resources/ShippingPoint.yml";
+	private static final String ADDRESS_YML = "src/test/resources/Address.yml";
 
 	@Test
 	public void doTest() {
@@ -69,16 +68,19 @@ public class TestShippingPointBuilder extends AbstractTest {
 		assertEquals(mockShippingPoint.getUCR(), shippingPoint.getUCR());
 		assertEquals(mockShippingPoint.getWarehouseId(),
 				shippingPoint.getWarehouseId());
+		assertEquals(mockShippingPoint.getDate(), shippingPoint.getDate());
 	}
 
 	public MockShippingPointEntity loadFixture(
 			Class<MockShippingPointEntity> clazz) {
+
 		MockShippingPointEntity result = (MockShippingPointEntity) createMockEntity(
 				generateMockEntityConstructor(MockShippingPointEntity.class),
 				SHIPPINGPOINT_YML);
 
-		result.address = new MockAddressEntity();
-		result.date = new Date();
+		result.address = (MockAddressEntity) createMockEntity(
+				generateMockEntityConstructor(MockAddressEntity.class),
+				ADDRESS_YML);
 
 		return result;
 	}
