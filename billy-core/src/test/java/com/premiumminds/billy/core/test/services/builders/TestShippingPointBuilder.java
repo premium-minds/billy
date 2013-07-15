@@ -34,6 +34,7 @@ import com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity;
 public class TestShippingPointBuilder extends AbstractTest {
 
 	private static final String SHIPPINGPOINT_YML = "src/test/resources/ShippingPoint.yml";
+	private static final String ADDRESS_YML = "src/test/resources/Address.yml";
 
 	@Test
 	public void doTest() {
@@ -72,11 +73,14 @@ public class TestShippingPointBuilder extends AbstractTest {
 
 	public MockShippingPointEntity loadFixture(
 			Class<MockShippingPointEntity> clazz) {
+
 		MockShippingPointEntity result = (MockShippingPointEntity) createMockEntity(
 				generateMockEntityConstructor(MockShippingPointEntity.class),
 				SHIPPINGPOINT_YML);
 
-		result.address = new MockAddressEntity();
+		result.address = (MockAddressEntity) createMockEntity(
+				generateMockEntityConstructor(MockAddressEntity.class),
+				ADDRESS_YML);
 
 		return result;
 	}
