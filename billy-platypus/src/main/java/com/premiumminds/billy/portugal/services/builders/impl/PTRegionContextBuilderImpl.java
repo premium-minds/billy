@@ -20,42 +20,37 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.Validate;
-
-import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.services.builders.impl.ContextBuilderImpl;
+import com.premiumminds.billy.core.util.BillyValidator;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.builders.PTRegionContextBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
-import com.premiumminds.billy.portugal.services.entities.impl.PTRegionContextImpl;
 
 public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderImpl<TBuilder, TContext>, TContext extends PTRegionContext>
 extends ContextBuilderImpl<TBuilder, TContext>
 implements PTRegionContextBuilder<TBuilder, TContext> {
 
-	protected DAOPTRegionContext daoPTRegionContext;
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
+
 	
 	@Inject
-	public PTRegionContextBuilderImpl(
-			DAOContext daoContext,
-			DAOPTRegionContext daoPTRegionContext) {
-
-		super(daoContext);
-		Validate.notNull(daoPTRegionContext);
-		this.daoPTRegionContext = daoPTRegionContext;
-		this.context = daoPTRegionContext.getEntityInstance();
+	public PTRegionContextBuilderImpl(DAOPTRegionContext daoPTContext) {
+		super(daoPTContext);
 	}
-
-	protected PTRegionContextImpl getContextImpl() {
-		return (PTRegionContextImpl) this.context;
-	}
-
+	
 	@Override
 	public TBuilder setRegionCode(String regionCode) {
-		Validate.notNull(regionCode);
-		Validate.notBlank(regionCode);
-		getContextImpl().setRegionCode(regionCode);
+		BillyValidator.mandatory(regionCode, LOCALIZER.getString("field.region_code"));
+		getTypeInstance().setRegionCode(regionCode);
 		return getBuilder();
+	}
+	
+	@Override
+	protected PTRegionContextEntity getTypeInstance() {
+		return (PTRegionContextEntity) super.getTypeInstance();
 	}
 	
 }

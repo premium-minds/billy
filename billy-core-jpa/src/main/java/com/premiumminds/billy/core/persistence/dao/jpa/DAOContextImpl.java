@@ -35,7 +35,7 @@ public class DAOContextImpl extends AbstractDAO<ContextEntity, JPAContextEntity>
 	}
 	
 	@Override
-	protected Class<JPAContextEntity> getEntityClass() {
+	protected Class<? extends JPAContextEntity> getEntityClass() {
 		return JPAContextEntity.class;
 	}
 

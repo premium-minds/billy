@@ -54,7 +54,7 @@ import com.premiumminds.billy.portugal.persistence.entities.IPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTFinancialDocumentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTFinancialDocumentEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTTaxEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTFinancialDocumentEntity.DocumentState;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
@@ -152,7 +152,7 @@ AbstractPTFinancialDocumentIssuingHandler {
 						}
 
 						@Override
-						protected IPTRegionContextEntity getPersistenceRegionContext(
+						protected PTRegionContextEntity getPersistenceRegionContext(
 								UID contextUID) {
 							if(contextUID == null) {
 								return null;
@@ -267,15 +267,15 @@ AbstractPTFinancialDocumentIssuingHandler {
 		entry.setTaxes(entryTaxes);
 	}
 
-	private IPTRegionContextEntity getCreditNoteContext(IPTCreditNoteEntity creditNoteEntity) {
-		IPTRegionContextEntity context = null;
+	private PTRegionContextEntity getCreditNoteContext(IPTCreditNoteEntity creditNoteEntity) {
+		PTRegionContextEntity context = null;
 
 		if(creditNoteEntity.getPTRegionContext() != null) { //Credit Note context
 			context = creditNoteEntity.getPTRegionContext();
 		} else if(creditNoteEntity.getBusinessOffice() != null) { //Office context
-			context = (IPTRegionContextEntity) creditNoteEntity.getBusinessOffice().getOperationalContext();
+			context = (PTRegionContextEntity) creditNoteEntity.getBusinessOffice().getOperationalContext();
 		} else { //Business context
-			context = (IPTRegionContextEntity) creditNoteEntity.getBusiness().getOperationalContext();
+			context = (PTRegionContextEntity) creditNoteEntity.getBusiness().getOperationalContext();
 		}
 		return context;
 	}

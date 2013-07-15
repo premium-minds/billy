@@ -61,8 +61,8 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
 	public TBuilder setShippingCostsAmount(BigDecimal amount);
 
-	public TBuilder addTaxUID(UID taxUID);
-
+	public TBuilder setContextUID(UID uidContext);
+	
 	public TBuilder setTaxExemptionReason(String exemptionReason);
 
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);

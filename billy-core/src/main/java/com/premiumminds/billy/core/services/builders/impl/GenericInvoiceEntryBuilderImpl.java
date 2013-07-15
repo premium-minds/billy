@@ -29,17 +29,19 @@ import javax.validation.ValidationException;
 import org.apache.commons.lang3.Validate;
 
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
+import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
-import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
@@ -64,17 +66,22 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	protected DAOGenericInvoice daoGenericInvoice;
 	protected DAOTax daoTax;
 	protected DAOProduct daoProduct;
+	protected DAOContext daoContext;
+	
+	protected Context context;
 
 	@SuppressWarnings("unchecked")
 	@Inject
 	public GenericInvoiceEntryBuilderImpl(DAOGenericInvoiceEntry daoEntry,
 			DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
-			DAOProduct daoProduct) {
+			DAOProduct daoProduct,
+			DAOContext daoContext) {
 		super((EntityFactory<? extends TEntry>) daoEntry);
 		this.daoEntry = daoEntry;
 		this.daoGenericInvoice = daoGenericInvoice;
 		this.daoTax = daoTax;
 		this.daoProduct = daoProduct;
+		this.daoContext = daoContext;
 	}
 
 	@Override
@@ -200,18 +207,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
-	public TBuilder addTaxUID(UID taxUID) {
-		BillyValidator
-				.notNull(taxUID, GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax"));
-		TaxEntity t = this.daoTax.get(taxUID);
-		BillyValidator
-				.found(t, GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax"));
-		this.getTypeInstance().getTaxes().add(t);
-		return this.getBuilder();
+	public TBuilder setContextUID(UID uidContext) {
+		BillyValidator.mandatory(uidContext, LOCALIZER.getString("field.context"));
+		ContextEntity c = this.daoContext.get(uidContext);
+		BillyValidator.found(c, LOCALIZER.getString("field.reference"));
+		this.context = c;
+		return getBuilder();
 	}
-
+	
 	@Override
 	public TBuilder setTaxExemptionReason(String exemptionReason) {
 		BillyValidator.notBlank(exemptionReason,
@@ -233,7 +236,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		Validate.notEmpty(discounts, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.discount_type"));
 
-		// TODO
+//		for(BigDecimal d : discounts) {
+//			
+//		}
 
 		return this.getBuilder();
 	}
@@ -251,6 +256,12 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		MathContext mc = BillyMathContext.get();
 
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
+		for(Tax t : e.getProduct().getTaxes()) {
+			if(daoContext.isSubContext(t.getContext(), this.context)) { //TODO verify tax expiration date
+				e.getTaxes().add(t);
+			}
+		}
+		
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
 
 		if (e.getUnitAmountWithTax() != null) {

@@ -231,6 +231,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@NotImplemented
+	@Deprecated
 	@Override
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts) {
 		// TODO Auto-generated method stub

@@ -27,4 +27,8 @@ public interface PTRegionContext extends Context {
 	 */
 	public String getRegionCode();
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public PTRegionContext getParentContext();
+	
 }

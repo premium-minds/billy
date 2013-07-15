@@ -22,37 +22,27 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.AbstractDAO;
-import com.premiumminds.billy.core.persistence.entities.jpa.ContextEntity;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOContextImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.PTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity;
 
-public class DAOPTRegionContextImpl extends AbstractDAO<IPTRegionContextEntity, PTRegionContextEntity> implements
+public class DAOPTRegionContextImpl extends DAOContextImpl implements
 		DAOPTRegionContext {
 
 	@Inject
 	public DAOPTRegionContextImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
-	
-	@Override
-	public IPTRegionContextEntity getPTRegionContextInstance(
-			String name,
-			String description,
-			ContextEntity parent,
-			String regionCode) {
 
-		return new PTRegionContextEntity(
-				name, 
-				description, 
-				checkEntity(parent, ContextEntity.class), 
-				regionCode);
+	@Override
+	public PTRegionContextEntity getEntityInstance() {
+		return new JPAPTRegionContextEntity();
 	}
 
 	@Override
-	protected Class<PTRegionContextEntity> getEntityClass() {
-		return PTRegionContextEntity.class;
+	protected Class<JPAPTRegionContextEntity> getEntityClass() {
+		return JPAPTRegionContextEntity.class;
 	}
 
 }

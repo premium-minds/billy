@@ -39,7 +39,7 @@
 		<module>billy-core</module>
 		<module>billy-core-jpa</module>
 		<module>billy-gin</module>
-		<!-- ><module>billy-platypus</module> -->
+		<module>billy-platypus</module>
 	</modules>
 
 	<licenses>

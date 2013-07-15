@@ -18,49 +18,42 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity;
 import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
+import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "REGION_CONTEXT")
-public class PTRegionContextEntity extends ContextEntity
-implements IPTRegionContextEntity {
+public class JPAPTRegionContextEntity extends JPAContextEntity
+implements PTRegionContextEntity {
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "REGION_CODE", nullable = true, insertable = true, updatable = true)
-	private String regionCode;
+	@Basic(optional = false)
+	@Column(name = "REGION_CODE")
+	protected String regionCode;
 	
-	
-	public PTRegionContextEntity(){}
-	
-	public PTRegionContextEntity(
-			String name,
-			String description,
-			ContextEntity parent,
-			String regionCode){
-		
-		super(name, description, parent);
-		
-		setRegionCode(regionCode);
-	}
 
-	
-	//GETTERS
-	
+	public JPAPTRegionContextEntity() {}
+
 	@Override
 	public String getRegionCode() {
 		return regionCode;
 	}
 
-	
-	//SETTERS
-	
+	@Override
 	public void setRegionCode(String regionCode) {
 		this.regionCode = regionCode;
 	}
 	
+	@Override
+	public PTRegionContext getParentContext() {
+		return (PTRegionContext) super.getParentContext();
+	}
+
 }

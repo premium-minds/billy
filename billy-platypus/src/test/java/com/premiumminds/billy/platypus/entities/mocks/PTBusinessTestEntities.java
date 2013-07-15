@@ -30,7 +30,7 @@ import com.premiumminds.billy.platypus.PlatypusBaseTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.IPTBusinessEntity;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 
 public class PTBusinessTestEntities extends PlatypusBaseTest {
 
@@ -61,7 +61,7 @@ public class PTBusinessTestEntities extends PlatypusBaseTest {
 				"conservatória tal e tal", 
 				"numero");
 
-		daoContext.create((IPTRegionContextEntity) result.getOperationalContext());
+		daoContext.create((PTRegionContextEntity) result.getOperationalContext());
 		daoAddress.create(result.getAddress());
 		daoAddress.create(result.getBillingAddress());
 		daoAddress.create(result.getShippingAddress());

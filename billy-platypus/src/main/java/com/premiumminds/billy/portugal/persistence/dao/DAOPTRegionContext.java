@@ -18,13 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
-import com.premiumminds.billy.core.persistence.dao.DAO;
-import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+import com.premiumminds.billy.core.persistence.dao.DAOContext;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 
-public interface DAOPTRegionContext extends DAO<IPTRegionContextEntity> {
+public interface DAOPTRegionContext extends DAOContext {
 
-	IPTRegionContextEntity getPTRegionContextInstance(String name,
-			String description, ContextEntity parent, String regionCode);
+	@Override
+	public PTRegionContextEntity getEntityInstance();
 	
 }

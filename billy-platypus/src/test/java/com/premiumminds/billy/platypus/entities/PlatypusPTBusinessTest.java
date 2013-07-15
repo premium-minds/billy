@@ -40,7 +40,7 @@ import com.premiumminds.billy.platypus.entities.mocks.PTBusinessTestEntities;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.IPTBusinessEntity;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.configuration.PTBusinessService;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.services.entities.converters.PTBusinessConverter;
@@ -89,7 +89,7 @@ public class PlatypusPTBusinessTest extends PlatypusEntityTest<PTBusiness, IPTBu
 		return new PTBusinessConverter(businessDAO, addressDAO, contactDAO, applicationDAO) {
 			
 			@Override
-			public IPTRegionContextEntity getPersistenceContext(
+			public PTRegionContextEntity getPersistenceContext(
 					UID contextUID) {
 				return contextDAO.get(contextUID.getValue());
 			}

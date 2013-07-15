@@ -24,23 +24,23 @@ import java.util.List;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.platypus.PlatypusBaseTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 
 public class PTRegionContextTestEntities
 		extends
 		PlatypusBaseTest {
 
-	public static List<IPTRegionContextEntity> getEntities() {
-		List<IPTRegionContextEntity> result = new ArrayList<IPTRegionContextEntity>();
+	public static List<PTRegionContextEntity> getEntities() {
+		List<PTRegionContextEntity> result = new ArrayList<PTRegionContextEntity>();
 		result.add(getInstance1());
 		return result;
 	}
 
-	public static IPTRegionContextEntity getInstance1() {
+	public static PTRegionContextEntity getInstance1() {
 		DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
 		DAOContext daoContext = getInstance(DAOContext.class);
 
-		IPTRegionContextEntity result = dao.getPTRegionContextInstance(
+		PTRegionContextEntity result = dao.getPTRegionContextInstance(
 				"Aveiro", 
 				"blablabla", 
 				getInstance3(), 
@@ -50,7 +50,7 @@ public class PTRegionContextTestEntities
 		return result;
 	}
 
-	public static IPTRegionContextEntity getInstance2() {
+	public static PTRegionContextEntity getInstance2() {
 		DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
 		return dao.getPTRegionContextInstance(
 				"Lisboa", 
@@ -59,7 +59,7 @@ public class PTRegionContextTestEntities
 				"PT-20");
 	}
 	
-	public static IPTRegionContextEntity getInstance3() {
+	public static PTRegionContextEntity getInstance3() {
 		DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
 		return dao.getPTRegionContextInstance(
 				"Faro", 

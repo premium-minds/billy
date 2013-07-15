@@ -20,7 +20,6 @@ package com.premiumminds.billy.core.services.builders;
 
 import java.util.Date;
 
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;

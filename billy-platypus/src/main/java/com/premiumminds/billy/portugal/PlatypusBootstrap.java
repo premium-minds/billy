@@ -36,7 +36,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTFinancialDocument;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.IPTTaxEntity.PTVatCode;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.PTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.PTTaxEntity;
 
 public class PlatypusBootstrap {
@@ -77,113 +77,113 @@ public class PlatypusBootstrap {
 					daoCustomer.create(GENERIC_CUSTOMER);
 
 					//Portugal Contexts
-					final PTRegionContextEntity CONTEXT_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Portugal", "The context for the country Portugal", null, "PT"),
+					final JPAPTRegionContextEntity CONTEXT_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Portugal", "The context for the country Portugal", null, "PT"),
 							configuration.getUUID(Config.Key.Context.Portugal.UUID));
 					daoPTRegionContext.create(CONTEXT_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_CONTINENTAL_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Portugal Continental", "The context for Continental Portugal", CONTEXT_PORTUGAL, "PT"),
+					final JPAPTRegionContextEntity CONTEXT_CONTINENTAL_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Portugal Continental", "The context for Continental Portugal", CONTEXT_PORTUGAL, "PT"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.UUID));
 					daoPTRegionContext.create(CONTEXT_CONTINENTAL_PORTUGAL);
 
-					final PTRegionContextEntity CONTEXT_AVEIRO_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Aveiro", "The context for the Portuguese Aveiro region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-01"),
+					final JPAPTRegionContextEntity CONTEXT_AVEIRO_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Aveiro", "The context for the Portuguese Aveiro region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-01"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Aveiro.UUID));
 					daoPTRegionContext.create(CONTEXT_AVEIRO_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_BEJA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Beja", "The context for the Portuguese Beja region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-02"),
+					final JPAPTRegionContextEntity CONTEXT_BEJA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Beja", "The context for the Portuguese Beja region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-02"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Beja.UUID));
 					daoPTRegionContext.create(CONTEXT_BEJA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_BRAGA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Braga", "The context for the Portuguese Braga region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-03"),
+					final JPAPTRegionContextEntity CONTEXT_BRAGA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Braga", "The context for the Portuguese Braga region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-03"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Braga.UUID));
 					daoPTRegionContext.create(CONTEXT_BRAGA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_BRAGANCA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Bragança", "The context for the Portuguese Bragança region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-04"),
+					final JPAPTRegionContextEntity CONTEXT_BRAGANCA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Bragança", "The context for the Portuguese Bragança region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-04"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Braganca.UUID));
 					daoPTRegionContext.create(CONTEXT_BRAGANCA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_CASTELO_BRANCO_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Castelo Branco", "The context for the Portuguese Castelo Branco region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-05"),
+					final JPAPTRegionContextEntity CONTEXT_CASTELO_BRANCO_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Castelo Branco", "The context for the Portuguese Castelo Branco region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-05"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.CasteloBranco.UUID));
 					daoPTRegionContext.create(CONTEXT_CASTELO_BRANCO_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_COIMBRA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Coimbra", "The context for the Portuguese Coimbra region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-06"),
+					final JPAPTRegionContextEntity CONTEXT_COIMBRA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Coimbra", "The context for the Portuguese Coimbra region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-06"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Coimbra.UUID));
 					daoPTRegionContext.create(CONTEXT_COIMBRA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_EVORA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Évora", "The context for the Portuguese Évora region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-07"),
+					final JPAPTRegionContextEntity CONTEXT_EVORA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Évora", "The context for the Portuguese Évora region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-07"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Evora.UUID));
 					daoPTRegionContext.create(CONTEXT_EVORA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_FARO_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Faro", "The context for the Portuguese Faro region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-08"),
+					final JPAPTRegionContextEntity CONTEXT_FARO_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Faro", "The context for the Portuguese Faro region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-08"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Faro.UUID));
 					daoPTRegionContext.create(CONTEXT_FARO_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_GUARDA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Guarda", "The context for the Portuguese Guarda region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-09"),
+					final JPAPTRegionContextEntity CONTEXT_GUARDA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Guarda", "The context for the Portuguese Guarda region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-09"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Guarda.UUID));
 					daoPTRegionContext.create(CONTEXT_GUARDA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_LEIRIA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Leiria", "The context for the Portuguese Leiria region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-10"),
+					final JPAPTRegionContextEntity CONTEXT_LEIRIA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Leiria", "The context for the Portuguese Leiria region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-10"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Leiria.UUID));
 					daoPTRegionContext.create(CONTEXT_LEIRIA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_LISBOA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Lisboa", "The context for the Portuguese Lisboa region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-11"),
+					final JPAPTRegionContextEntity CONTEXT_LISBOA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Lisboa", "The context for the Portuguese Lisboa region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-11"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Lisboa.UUID));
 					daoPTRegionContext.create(CONTEXT_LISBOA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_PORTALEGRE_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Portalegre", "The context for the Portuguese Portalegre region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-12"),
+					final JPAPTRegionContextEntity CONTEXT_PORTALEGRE_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Portalegre", "The context for the Portuguese Portalegre region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-12"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Portalegre.UUID));
 					daoPTRegionContext.create(CONTEXT_PORTALEGRE_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_PORTO_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Porto", "The context for the Portuguese Porto region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-13"),
+					final JPAPTRegionContextEntity CONTEXT_PORTO_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Porto", "The context for the Portuguese Porto region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-13"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Porto.UUID));
 					daoPTRegionContext.create(CONTEXT_PORTO_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_SANTAREM_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Santarém", "The context for the Portuguese Santarém region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-14"),
+					final JPAPTRegionContextEntity CONTEXT_SANTAREM_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Santarém", "The context for the Portuguese Santarém region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-14"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Santarem.UUID));
 					daoPTRegionContext.create(CONTEXT_SANTAREM_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_SETUBAL_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Setúbal", "The context for the Portuguese Setúbal region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-15"),
+					final JPAPTRegionContextEntity CONTEXT_SETUBAL_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Setúbal", "The context for the Portuguese Setúbal region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-15"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Setubal.UUID));
 					daoPTRegionContext.create(CONTEXT_SETUBAL_PORTUGAL);
 
-					final PTRegionContextEntity CONTEXT_VIANA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Viana do Castelo", "The context for the Portuguese Viana do Castelo region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-16"),
+					final JPAPTRegionContextEntity CONTEXT_VIANA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Viana do Castelo", "The context for the Portuguese Viana do Castelo region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-16"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Viana.UUID));
 					daoPTRegionContext.create(CONTEXT_VIANA_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_VILA_REAL_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Vila Real", "The context for the Portuguese Vila Real region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-17"),
+					final JPAPTRegionContextEntity CONTEXT_VILA_REAL_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Vila Real", "The context for the Portuguese Vila Real region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-17"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.VilaReal.UUID));
 					daoPTRegionContext.create(CONTEXT_VILA_REAL_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_VISEU_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Viseu", "The context for the Portuguese Viseu region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-18"),
+					final JPAPTRegionContextEntity CONTEXT_VISEU_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Viseu", "The context for the Portuguese Viseu region", CONTEXT_CONTINENTAL_PORTUGAL, "PT-18"),
 							configuration.getUUID(Config.Key.Context.Portugal.Continental.Viseu.UUID));
 					daoPTRegionContext.create(CONTEXT_VISEU_PORTUGAL);
 
-					final PTRegionContextEntity CONTEXT_AZORES_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Azores Autonomous Region", "The context for the Portuguese Azores", CONTEXT_CONTINENTAL_PORTUGAL, "PT-20"),
+					final JPAPTRegionContextEntity CONTEXT_AZORES_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Azores Autonomous Region", "The context for the Portuguese Azores", CONTEXT_CONTINENTAL_PORTUGAL, "PT-20"),
 							configuration.getUUID(Config.Key.Context.Portugal.Azores.UUID));
 					daoPTRegionContext.create(CONTEXT_AZORES_PORTUGAL);
 					
-					final PTRegionContextEntity CONTEXT_MADEIRA_PORTUGAL = EntityBootstrapper.bootstrap(
-							new PTRegionContextEntity("Madeira Autonomous Region", "The context for the Portuguese Madeira island", CONTEXT_CONTINENTAL_PORTUGAL, "PT-30"),
+					final JPAPTRegionContextEntity CONTEXT_MADEIRA_PORTUGAL = EntityBootstrapper.bootstrap(
+							new JPAPTRegionContextEntity("Madeira Autonomous Region", "The context for the Portuguese Madeira island", CONTEXT_CONTINENTAL_PORTUGAL, "PT-30"),
 							configuration.getUUID(Config.Key.Context.Portugal.Madeira.UUID));
 					daoPTRegionContext.create(CONTEXT_MADEIRA_PORTUGAL);
 					

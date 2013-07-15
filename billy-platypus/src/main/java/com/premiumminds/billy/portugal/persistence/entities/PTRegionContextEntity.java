@@ -16,16 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.persistence.entities;
 
-import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderImpl;
+import com.premiumminds.billy.core.persistence.entities.ContextEntity;
+import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
-public interface PTInvoice extends PTFinancialDocument {
+public interface PTRegionContextEntity extends ContextEntity, PTRegionContext {
+
+	public void setRegionCode(String regionCode);
 	
-	public static class Builder extends PTInvoiceBuilderImpl<Builder, PTFinancialDocumentEntry, PTInvoice> {
-		public static Builder create() {
-			return new Builder();
-		}
-	}
-		
 }

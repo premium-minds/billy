@@ -114,7 +114,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 
 	protected TEntity getEntity(UID uid) throws NoResultException {
 		TEntity result = null;
-		Class<TEntity> entityClass = getEntityClass();
+		Class<? extends TEntity> entityClass = getEntityClass();
 		try {
 			result = getEntityManager().createQuery(
 					"select e from " + entityClass.getCanonicalName() + " e " +
@@ -191,7 +191,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 
 	@Override
 	public boolean exists(UID uid) {
-		Class<TEntity> entityClass = getEntityClass();
+		Class<? extends TEntity> entityClass = getEntityClass();
 		TEntity entity = null;
 		try {
 			entity = getEntityManager().createQuery(
@@ -206,6 +206,6 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		return entity != null;
 	}
 
-	protected abstract Class<TEntity> getEntityClass();
+	protected abstract Class<? extends TEntity> getEntityClass();
 
 }

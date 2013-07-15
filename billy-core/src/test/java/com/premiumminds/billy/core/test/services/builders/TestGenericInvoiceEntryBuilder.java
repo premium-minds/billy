@@ -29,6 +29,7 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.mockito.Matchers;
+import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 
@@ -38,6 +39,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -59,6 +61,10 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 				.loadFixture(MockGenericInvoiceEntryEntity.class);
 		when(getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
 				.thenReturn(new MockGenericInvoiceEntryEntity());
+		
+//		Product mockProduct = this.loadFixture(Product.class);
+//		when(getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
+//			.thenReturn(mockProduct);
 
 		GenericInvoiceEntry.Builder builder = getInstance(GenericInvoiceEntry.Builder.class);
 		builder.setCreditOrDebit(mock.getCreditOrDebit())
@@ -68,7 +74,7 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 				.setProductUID(mock.getProduct().getUID())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
-				.addTaxUID(mock.getTaxes().get(0).getUID())
+//				.addTaxUID(mock.getTaxes().get(0).getUID())
 				.setUnitAmount(AmountType.WITH_TAX,
 						mock.getUnitAmountWithTax(),
 						Currency.getInstance("EUR"))
@@ -151,6 +157,29 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 		result.unitOfMeasure = "Kg";
 
 		return result;
+	}
+	
+	public Product loadFixture(
+			Class<Product> clazz) {
+//		MockProductEntity result = (MockProductEntity) createMockEntity(
+//				generateMockEntityConstructor(MockProductEntity.class),
+//				PRODUCT_YML);
+//
+//		MockTaxEntity tax = (MockTaxEntity) createMockEntity(
+//				generateMockEntityConstructor(MockTaxEntity.class), TAX_YML);
+//
+//		tax.uid = new UID("uid_tax");
+//		tax.context = (MockContextEntity) createMockEntity(
+//				generateMockEntityConstructor(MockContextEntity.class),
+//				CONTEXT_YML);
+//
+//		result.taxes = Arrays.asList(new Tax[] { tax });
+//
+//		Mockito.when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
+//				.thenReturn(tax);
+//
+//		return result
+		return null;
 	}
 
 }

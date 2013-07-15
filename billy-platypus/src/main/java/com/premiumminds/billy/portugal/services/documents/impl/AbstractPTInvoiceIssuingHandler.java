@@ -54,7 +54,7 @@ import com.premiumminds.billy.portugal.persistence.entities.IPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTFinancialDocumentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTFinancialDocumentEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.IPTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTTaxEntity;
 import com.premiumminds.billy.portugal.persistence.entities.IPTFinancialDocumentEntity.DocumentState;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
@@ -151,7 +151,7 @@ AbstractPTFinancialDocumentIssuingHandler {
 						}
 
 						@Override
-						protected IPTRegionContextEntity getPersistenceRegionContext(
+						protected PTRegionContextEntity getPersistenceRegionContext(
 								UID contextUID) {
 							if(contextUID == null) {
 								return null;
@@ -249,15 +249,15 @@ AbstractPTFinancialDocumentIssuingHandler {
 		invoiceEntity.setGrossTotal(grossTotal);
 	}
 
-	private IPTRegionContextEntity getInvoiceContext(IPTInvoiceEntity invoiceEntity) {
-		IPTRegionContextEntity context = null;
+	private PTRegionContextEntity getInvoiceContext(IPTInvoiceEntity invoiceEntity) {
+		PTRegionContextEntity context = null;
 		
 		if(invoiceEntity.getPTRegionContext() != null) { //Invoice context
 			context = invoiceEntity.getPTRegionContext();
 		} else if(invoiceEntity.getBusinessOffice() != null) { //Office context
-			context = (IPTRegionContextEntity) invoiceEntity.getBusinessOffice().getOperationalContext();
+			context = (PTRegionContextEntity) invoiceEntity.getBusinessOffice().getOperationalContext();
 		} else { //Business context
-			context = (IPTRegionContextEntity) invoiceEntity.getBusiness().getOperationalContext();
+			context = (PTRegionContextEntity) invoiceEntity.getBusiness().getOperationalContext();
 		}
 		return context;
 	}
