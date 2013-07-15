@@ -39,8 +39,8 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "TAX")
-public class JPATaxEntity extends JPABaseEntity
-implements TaxEntity {
+public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "CODE")
@@ -80,8 +80,8 @@ implements TaxEntity {
 	@Column(name = "VALUE", scale = 7)
 	protected BigDecimal value;
 
-
-	public JPATaxEntity() {}
+	public JPATaxEntity() {
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -167,6 +167,11 @@ implements TaxEntity {
 	@Override
 	public void setValidTo(Date to) {
 		this.validTo = to;
+	}
+
+	@Override
+	public void setValue(BigDecimal value) {
+		this.value = value;
 	}
 
 	@Override

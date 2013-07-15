@@ -61,7 +61,8 @@ public class TestTaxBuilder extends AbstractTest {
 				.setDesignation(mockTax.getDesignation())
 				.setValidFrom(mockTax.getValidFrom())
 				.setValidTo(mockTax.getValidTo())
-				.setTaxRate(mockTax.getTaxRateType(), amount);
+				.setTaxRate(mockTax.getTaxRateType(), amount)
+				.setValue(mockTax.getValue());
 
 		Tax tax = builder.build();
 
@@ -72,6 +73,7 @@ public class TestTaxBuilder extends AbstractTest {
 		assertEquals(mockTax.getDescription(), tax.getDescription());
 		assertEquals(mockTax.getDesignation(), tax.getDesignation());
 		assertEquals(mockTax.getTaxRateType(), tax.getTaxRateType());
+		assertEquals(mockTax.getValue(), tax.getValue());
 
 		if (mockTax.getTaxRateType() == Tax.TaxRateType.FLAT) {
 			assertEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());

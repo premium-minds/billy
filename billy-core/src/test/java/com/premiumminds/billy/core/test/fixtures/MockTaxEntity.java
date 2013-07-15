@@ -151,4 +151,8 @@ public class MockTaxEntity extends MockBaseEntity implements TaxEntity {
 		this.currency = currency;
 	}
 
+	@Override
+	public void setValue(BigDecimal value) {
+		this.value = value;
+	}
 }

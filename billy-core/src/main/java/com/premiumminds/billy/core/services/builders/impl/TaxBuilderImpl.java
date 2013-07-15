@@ -100,6 +100,12 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 	}
 
 	@Override
+	public TBuilder setValue(BigDecimal value) {
+		this.getTypeInstance().setValue(value);
+		return this.getBuilder();
+	}
+
+	@Override
 	public TBuilder setTaxRate(TaxRateType rateType, BigDecimal amount) {
 		BillyValidator.mandatory(rateType,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
