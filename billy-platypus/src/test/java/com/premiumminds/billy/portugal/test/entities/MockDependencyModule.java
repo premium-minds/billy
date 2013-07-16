@@ -1,4 +1,4 @@
-package com.premiumminds.billy.platypus.entities;
+package com.premiumminds.billy.portugal.test.entities;
 public class MockDependencyModule extends AbstractModule {
 
 	@Override
