@@ -8,6 +8,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity;
 
@@ -33,5 +34,15 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 
 		mockRegionContextEntity.parentContext = mockParentContext;
 
+		PTRegionContext.Builder builder = getInstance(PTRegionContext.Builder.class);
+
+		builder.setDescription(mockRegionContextEntity.getDescription())
+				.setName(mockRegionContextEntity.getName())
+				.setRegionCode(mockRegionContextEntity.getRegionCode())
+				.setParentContextUID(mockParentContext.getUID());
+
+		PTRegionContext regionContex = builder.build();
+
+		assert (regionContex != null);
 	}
 }
