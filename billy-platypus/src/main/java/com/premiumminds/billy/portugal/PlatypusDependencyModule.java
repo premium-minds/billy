@@ -24,6 +24,8 @@ import com.google.inject.Inject;
 import com.premiumminds.billy.core.CoreDependencyModule;
 import com.premiumminds.billy.core.CoreJPADependencyModule;
 import com.premiumminds.billy.gin.GINDependencyModule;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTRegionContextImpl;
 
 public class PlatypusDependencyModule extends AbstractModule {
 
@@ -33,15 +35,13 @@ public class PlatypusDependencyModule extends AbstractModule {
 		install(new CoreJPADependencyModule());
 		install(new GINDependencyModule());
 
-		// bind(PTBusinessService.class).to(PTBusinessServiceImpl.class);
-		//
 		// bind(DAOPTFinancialDocument.class).to(DAOPTFinancialDocumentImpl.class);
 		// bind(DAOPTInvoice.class).to(DAOPTInvoiceImpl.class);
 		// bind(DAOPTSimpleInvoice.class).to(DAOPTSimpleInvoiceImpl.class);
 		// bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
 		// bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
 		// bind(DAOPTFinancialDocumentEntry.class).to(DAOPTFinancialDocumentEntryImpl.class);
-		// bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
+		bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
 		// bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
 	}
 

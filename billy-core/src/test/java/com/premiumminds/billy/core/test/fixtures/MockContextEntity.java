@@ -43,6 +43,7 @@ public class MockContextEntity extends MockBaseEntity implements ContextEntity {
 		return description;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Context getParentContext() {
 		return parentContext;
