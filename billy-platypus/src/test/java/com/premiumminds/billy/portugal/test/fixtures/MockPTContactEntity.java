@@ -21,12 +21,9 @@ package com.premiumminds.billy.portugal.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 
+public class MockPTContactEntity extends MockBaseEntity implements
+		PTContactEntity {
 
-public class MockPTContactEntity extends MockBaseEntity implements PTContactEntity {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public String name;

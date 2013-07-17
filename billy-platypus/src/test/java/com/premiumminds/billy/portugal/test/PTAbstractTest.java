@@ -18,9 +18,27 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import com.premiumminds.billy.core.test.AbstractTest;
+import org.junit.BeforeClass;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.util.Modules;
+import com.premiumminds.billy.core.test.AbstractTest;
+import com.premiumminds.billy.portugal.PlatypusDependencyModule;
 
 public class PTAbstractTest extends AbstractTest {
+
+	private static Injector injector;
+
+	@BeforeClass
+	public static void setUpClass() {
+		PTAbstractTest.injector = Guice.createInjector(Modules.override(
+				new PlatypusDependencyModule()).with(
+				new PTMockDependencyModule()));
+	}
+
+	public <T> T getInstance(Class<T> clazz) {
+		return PTAbstractTest.injector.getInstance(clazz);
+	}
 
 }

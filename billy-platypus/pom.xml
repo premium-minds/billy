@@ -1,12 +1,12 @@
-<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-platypus. 
-	~ ~ billy-platypus is free software: you can redistribute it and/or modify 
-	~ it under the terms of the GNU Lesser General Public License as published 
-	~ by the Free Software Foundation, either version 3 of the License, or ~ 
-	(at your option) any later version. ~ ~ billy-platypus is distributed in 
-	the hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even 
-	the implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-	See the ~ GNU Lesser General Public License for more details. ~ ~ You should 
-	have received a copy of the GNU Lesser General Public License ~ along with 
+<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-platypus.
+	~ ~ billy-platypus is free software: you can redistribute it and/or modify
+	~ it under the terms of the GNU Lesser General Public License as published
+	~ by the Free Software Foundation, either version 3 of the License, or ~
+	(at your option) any later version. ~ ~ billy-platypus is distributed in
+	the hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even
+	the implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+	See the ~ GNU Lesser General Public License for more details. ~ ~ You should
+	have received a copy of the GNU Lesser General Public License ~ along with
 	billy-platypus. If not, see <http://www.gnu.org/licenses/>. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -44,6 +44,8 @@
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+			<type>test-jar</type>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
@@ -183,27 +185,27 @@
 				</configuration>
 			</plugin>
 			<!-- <plugin> -->
-			<!-- <groupId>com.mysema.maven</groupId> -->
-			<!-- <artifactId>maven-apt-plugin</artifactId> -->
-			<!-- <version>1.0.2</version> -->
-			<!-- <executions> -->
-			<!-- <execution> -->
-			<!-- <goals> -->
-			<!-- <goal>process</goal> -->
-			<!-- </goals> -->
-			<!-- <configuration> -->
-			<!-- <outputDirectory>target/generated-sources/java</outputDirectory> -->
-			<!-- <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor> -->
-			<!-- </configuration> -->
-			<!-- </execution> -->
-			<!-- </executions> -->
-			<!-- </plugin> -->
+				<!-- <groupId>com.mysema.maven</groupId> -->
+				<!-- <artifactId>maven-apt-plugin</artifactId> -->
+				<!-- <version>1.0.2</version> -->
+				<!-- <executions> -->
+					<!-- <execution> -->
+						<!-- <goals> -->
+							<!-- <goal>process</goal> -->
+							<!-- </goals> -->
+						<!-- <configuration> -->
+							<!-- <outputDirectory>target/generated-sources/java</outputDirectory> -->
+							<!-- <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor> -->
+							<!-- </configuration> -->
+						<!-- </execution> -->
+					<!-- </executions> -->
+				<!-- </plugin> -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>hibernate3-maven-plugin</artifactId>
-				<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration 
-					persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false" 
-					create="true" update="true" format="format" outputfilename="schemaDiff.sql" 
+				<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration
+					persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false"
+					create="true" update="true" format="format" outputfilename="schemaDiff.sql"
 					/> </hibernatetool> </configuration> -->
 				<version>2.2</version>
 				<configuration>
