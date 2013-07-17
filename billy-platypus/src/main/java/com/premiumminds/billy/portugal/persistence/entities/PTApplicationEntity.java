@@ -16,12 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.builders;
+package com.premiumminds.billy.portugal.persistence.entities;
 
-import com.premiumminds.billy.core.services.builders.AddressBuilder;
-import com.premiumminds.billy.portugal.services.entities.PTAddress;
+import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
-public interface PTAddressBuilder<TBuilder extends PTAddressBuilder<TBuilder, TAddress>, TAddress extends PTAddress>
-		extends AddressBuilder<TBuilder, TAddress> {
+
+public interface PTApplicationEntity extends ApplicationEntity, PTApplication {
 
 }

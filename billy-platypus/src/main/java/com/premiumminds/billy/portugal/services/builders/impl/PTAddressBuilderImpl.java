@@ -18,8 +18,10 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOAddress;
 import com.premiumminds.billy.core.services.builders.impl.AddressBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.services.builders.PTAddressBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 
@@ -30,5 +32,15 @@ public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder
 
 	protected PTAddressBuilderImpl(DAOAddress daoAddress) {
 		super(daoAddress);
+	}
+	
+	@Override
+	protected PTAddressEntity getTypeInstance() {
+		return (PTAddressEntity) super.getTypeInstance();
+	}
+	
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
 	}
 }

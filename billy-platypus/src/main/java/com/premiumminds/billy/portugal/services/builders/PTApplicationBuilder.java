@@ -18,10 +18,10 @@
  */
 package com.premiumminds.billy.portugal.services.builders;
 
-import com.premiumminds.billy.core.services.builders.AddressBuilder;
-import com.premiumminds.billy.portugal.services.entities.PTAddress;
+import com.premiumminds.billy.core.services.builders.ApplicationBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
-public interface PTAddressBuilder<TBuilder extends PTAddressBuilder<TBuilder, TAddress>, TAddress extends PTAddress>
-		extends AddressBuilder<TBuilder, TAddress> {
+public interface PTApplicationBuilder<TBuilder extends PTApplicationBuilder<TBuilder, TApplication>, TApplication extends PTApplication>
+		extends ApplicationBuilder<TBuilder, TApplication> {
 
 }

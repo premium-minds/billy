@@ -17,10 +17,8 @@
 # along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-streetName : street_name
-number : 999
-details : details
-city : City
-postalCode : 9999-999
-region : PT-11
-country : PT
+name : name
+version : 0
+developerCompanyName : company_name
+developerCompanyTaxIdentifier : company_tax_id
+websiteAddress : website.web

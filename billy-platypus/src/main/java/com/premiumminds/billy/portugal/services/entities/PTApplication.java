@@ -16,12 +16,23 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.builders;
+package com.premiumminds.billy.portugal.services.entities;
 
-import com.premiumminds.billy.core.services.builders.AddressBuilder;
-import com.premiumminds.billy.portugal.services.entities.PTAddress;
+import com.google.inject.Inject;
+import com.premiumminds.billy.core.persistence.dao.DAOApplication;
+import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.portugal.services.builders.impl.PTApplicationBuilderImpl;
 
-public interface PTAddressBuilder<TBuilder extends PTAddressBuilder<TBuilder, TAddress>, TAddress extends PTAddress>
-		extends AddressBuilder<TBuilder, TAddress> {
+public interface PTApplication extends Application {
 
+	public static class Builder extends
+			PTApplicationBuilderImpl<Builder, PTApplication> {
+
+		@Inject
+		public Builder(DAOApplication daoApplication) {
+			super(daoApplication);
+		}
+
+		
+	}
 }
