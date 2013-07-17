@@ -34,7 +34,7 @@ public class DAOGenericInvoiceImpl extends AbstractDAO<GenericInvoiceEntity, JPA
 	}
 	
 	@Override
-	protected Class<JPAGenericInvoiceEntity> getEntityClass() {
+	protected Class<? extends JPAGenericInvoiceEntity> getEntityClass() {
 		return JPAGenericInvoiceEntity.class;
 	}
 

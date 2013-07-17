@@ -35,9 +35,10 @@ public class DAOProductImpl extends AbstractDAO<ProductEntity, JPAProductEntity>
 		super(emProvider);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductEntity> getAllActiveProducts() {
-		List<JPAProductEntity> result = getEntityManager().createQuery(
+		List<JPAProductEntity> result = (List<JPAProductEntity>) getEntityManager().createQuery(
 				"select p from "+getEntityClass().getCanonicalName()+" p " +
 						"where p.active=true",
 						getEntityClass())
@@ -46,7 +47,7 @@ public class DAOProductImpl extends AbstractDAO<ProductEntity, JPAProductEntity>
 	}
 	
 	@Override
-	protected Class<JPAProductEntity> getEntityClass() {
+	protected Class<? extends JPAProductEntity> getEntityClass() {
 		return JPAProductEntity.class;
 	}
 

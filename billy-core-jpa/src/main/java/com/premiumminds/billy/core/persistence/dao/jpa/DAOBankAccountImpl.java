@@ -34,7 +34,7 @@ public class DAOBankAccountImpl extends AbstractDAO<BankAccountEntity, JPABankAc
 	}
 	
 	@Override
-	protected Class<JPABankAccountEntity> getEntityClass() {
+	protected Class<? extends JPABankAccountEntity> getEntityClass() {
 		return JPABankAccountEntity.class;
 	}
 
