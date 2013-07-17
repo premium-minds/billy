@@ -4,8 +4,8 @@ language: java
 
 before_script:
 
-#Test with openjdk6 and no DB initialization
-jdk: openjdk6
+#Test with no DB initialization
+jdk: openjdk7
 
 notifications:
     email:
