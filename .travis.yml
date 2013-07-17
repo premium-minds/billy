@@ -4,9 +4,16 @@ language: java
 
 before_script:
 
-#Test with no DB initialization
+# Deletes existing DB (Drop user may be removed)
+        - sh -c "if ['$DB' = 'pgsql']; then psql -c 'DROP DATABASE IF EXISTS billy;' -U postgres; psql -c 'DROP USER IF EXISTS billy;' -U postgres; fi"
+        - psql -c "CREATE USER billy WITH PASSWORD 'billy';" -U postgres
+        - psql -c 'CREATE DATABASE billy WITH OWNER billy;' -U postgres
+
+# Avoid default OracleJDK7. Complies with Eclipse environment used
 jdk: openjdk7
 
 notifications:
     email:
-        - estagio1@premium-minds.com
+        recipients:
+            - estagio1@premium-minds.com
+        on_failure: always
