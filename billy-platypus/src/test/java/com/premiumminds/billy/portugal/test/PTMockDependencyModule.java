@@ -21,8 +21,10 @@ package com.premiumminds.billy.portugal.test;
 import static org.mockito.Mockito.mock;
 
 import com.premiumminds.billy.core.test.MockDependencyModule;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTAddressImpl;
 
 public class PTMockDependencyModule extends MockDependencyModule {
 
@@ -32,6 +34,7 @@ public class PTMockDependencyModule extends MockDependencyModule {
 		bind(DAOPTRegionContext.class).toInstance(
 				mock(DAOPTRegionContext.class));
 		bind(DAOPTContact.class).toInstance(mock(DAOPTContact.class));
+		bind(DAOPTAddress.class).toInstance(mock(DAOPTAddress.class));
 	}
 
 }

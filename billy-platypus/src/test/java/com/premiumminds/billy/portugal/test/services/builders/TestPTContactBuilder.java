@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -48,6 +50,14 @@ public class TestPTContactBuilder extends PTAbstractTest {
 				.setWebsite(mockContact.getWebsite());
 
 		PTContact contact = (PTContact) builder.build();
+		
+		assert(contact != null);
+		assertEquals(mockContact.getEmail(), contact.getEmail());
+		assertEquals(mockContact.getFax(), contact.getFax());
+		assertEquals(mockContact.getMobile(), contact.getMobile());
+		assertEquals(mockContact.getName(), contact.getName());
+		assertEquals(mockContact.getTelephone(), contact.getTelephone());
+		assertEquals(mockContact.getWebsite(), contact.getWebsite());
 
 	}
 }
