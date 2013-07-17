@@ -1,22 +1,4 @@
-/**
- * Copyright (C) 2013 Premium Minds.
- * 
- * This file is part of billy core.
- * 
- * billy core is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- * 
- * billy core is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with billy core. If not, see <http://www.gnu.org/licenses/>.
- */
-package com.premiumminds.billy.core.test.services.builders;
+package com.premiumminds.billy.portugal.test.services.builders;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.not;
@@ -30,27 +12,28 @@ import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.persistence.dao.DAOContext;
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
-import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
-import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
+import com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity;
+import com.premiumminds.billy.portugal.test.fixtures.MockPTTaxEntity;
 
-public class TestTaxBuilder extends AbstractTest {
+public class TestPTTaxBuilder extends PTAbstractTest {
 
-	private static final String TAX_YML = "src/test/resources/Tax.yml";
-	private static final String CONTEXT_YML = "src/test/resources/Context.yml";
+	private static final String PTTAX_YML = "src/test/resources/PTTax.yml";
+	private static final String REGIONCONTEXT_YML = "src/test/resources/PTContext.yml";
 
 	@Test
 	public void doTestFlat() {
-		MockTaxEntity mockTax = loadFixture(MockTaxEntity.class, TAX_YML);
-		Mockito.when(getInstance(DAOTax.class).getEntityInstance()).thenReturn(
-				new MockTaxEntity());
+		MockPTTaxEntity mockTax = loadFixture(MockPTTaxEntity.class, PTTAX_YML);
+		Mockito.when(getInstance(DAOPTTax.class).getEntityInstance())
+				.thenReturn(new MockPTTaxEntity());
 
-		Tax.Builder builder = getInstance(Tax.Builder.class);
+		PTTax.Builder builder = getInstance(PTTax.Builder.class);
 		BigDecimal amount = (mockTax.getTaxRateType() == TaxRateType.FLAT) ? mockTax
 				.getFlatRateAmount() : mockTax.getPercentageRateValue();
 
@@ -64,7 +47,7 @@ public class TestTaxBuilder extends AbstractTest {
 				.setTaxRate(mockTax.getTaxRateType(), amount)
 				.setValue(mockTax.getValue());
 
-		Tax tax = builder.build();
+		PTTax tax = builder.build();
 
 		assert (tax != null);
 		assertEquals(mockTax.getCode(), tax.getCode());
@@ -87,20 +70,20 @@ public class TestTaxBuilder extends AbstractTest {
 		}
 	}
 
-	public MockTaxEntity loadFixture(Class<MockTaxEntity> clazz, String path) {
-		MockTaxEntity result = (MockTaxEntity) createMockEntity(
-				generateMockEntityConstructor(MockTaxEntity.class), path);
+	public MockPTTaxEntity loadFixture(Class<MockPTTaxEntity> clazz, String path) {
+		MockPTTaxEntity result = (MockPTTaxEntity) createMockEntity(
+				generateMockEntityConstructor(MockPTTaxEntity.class), path);
 
-		System.out.println(result.getCode());
 		result.uid = new UID("uid_tax");
 
-		MockContextEntity mockContext = (MockContextEntity) createMockEntity(
-				generateMockEntityConstructor(MockContextEntity.class),
-				CONTEXT_YML);
+		MockPTRegionContextEntity mockContext = (MockPTRegionContextEntity) createMockEntity(
+				generateMockEntityConstructor(MockPTRegionContextEntity.class),
+				REGIONCONTEXT_YML);
 
 		mockContext.uid = new UID("uid_context");
-		Mockito.when(getInstance(DAOContext.class).get(Matchers.any(UID.class)))
-				.thenReturn(mockContext);
+		Mockito.when(
+				getInstance(DAOPTRegionContext.class).get(
+						Matchers.any(UID.class))).thenReturn(mockContext);
 		result.context = mockContext;
 
 		result.currency = Currency.getInstance("EUR");
