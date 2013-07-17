@@ -9,4 +9,4 @@ jdk: openjdk6
 
 notifications:
     email:
-	- estagio1@premium-minds.com
+        - estagio1@premium-minds.com
