@@ -1,7 +1,7 @@
 #Billy
-Billy is a Java invoicing engine. Its goal is to provide applications with the
-creation, management and persistence of invoices and at the same time
-it provides a mechanism to export them to different formats.
+Billy is an open source Java library, which's aim is to be a certified billing library for applications,
+providing them with the ability to create, manage, store and export billing related artifacts
+such as invoices and credit notes.
 
 ##Getting Started
 

@@ -34,7 +34,7 @@ public class DAOContactImpl extends AbstractDAO<ContactEntity, JPAContactEntity>
 	}
 
 	@Override
-	protected Class<JPAContactEntity> getEntityClass() {
+	protected Class<? extends JPAContactEntity> getEntityClass() {
 		return JPAContactEntity.class;
 	}
 

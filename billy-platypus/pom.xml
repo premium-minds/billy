@@ -42,12 +42,12 @@
 		<!-- BILLY -->
 		<dependency>
 			<groupId>com.premiumminds</groupId>
-			<artifactId>billy-core-jpa</artifactId>
+			<artifactId>billy-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
-			<artifactId>billy-core</artifactId>
+			<artifactId>billy-core-jpa</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

@@ -17,16 +17,9 @@
 # along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-jdbc.driver=
-jdbc.debug=
-jdbc.debug_extended=
-jdbc.user=
-jdbc.password=
-jdbc.host=
-jdbc.port=
-jdbc.database=
-jdbc.url=
-jdbc.schema=
-hibernate.show_sql=
-hibernate.hbm2ddl.auto=
-hibernate.dialect=
+name : name
+telephone : telephone
+mobile : mobile
+fax : fax
+email : email
+website : website
