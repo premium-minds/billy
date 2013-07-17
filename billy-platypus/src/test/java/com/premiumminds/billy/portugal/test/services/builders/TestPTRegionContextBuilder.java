@@ -32,20 +32,20 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity;
 
 public class TestPTRegionContextBuilder extends PTAbstractTest {
 
-	private static final String CONTEXT_YML = null;
+	private static final String PTCONTEXT_YML = "src/test/resources/PTContext.yml";
 
 	@Test
 	public void testRegionCode() {
 		MockPTRegionContextEntity mockRegionContextEntity = (MockPTRegionContextEntity) createMockEntity(
 				generateMockEntityConstructor(MockPTRegionContextEntity.class),
-				CONTEXT_YML);
+				PTCONTEXT_YML);
 
 		Mockito.when(getInstance(DAOPTRegionContext.class).getEntityInstance())
 				.thenReturn(new MockPTRegionContextEntity());
 
 		MockContextEntity mockParentContext = (MockContextEntity) createMockEntity(
 				generateMockEntityConstructor(MockContextEntity.class),
-				CONTEXT_YML);
+				PTCONTEXT_YML);
 
 		Mockito.when(getInstance(DAOContext.class).get(Matchers.any(UID.class)))
 				.thenReturn(mockParentContext);
