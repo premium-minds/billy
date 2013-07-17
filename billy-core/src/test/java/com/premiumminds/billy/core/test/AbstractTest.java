@@ -92,7 +92,8 @@ public class AbstractTest {
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz, String path) {
+	public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz,
+			String path) {
 		Yaml yaml = new Yaml(new Constructor(clazz));
 
 		try {
