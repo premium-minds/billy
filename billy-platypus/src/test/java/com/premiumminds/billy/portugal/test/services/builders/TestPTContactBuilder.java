@@ -32,7 +32,6 @@ public class TestPTContactBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-
 		MockPTContactEntity mockContact = (MockPTContactEntity) createMockEntity(
 				generateMockEntityConstructor(MockPTContactEntity.class),
 				PTCONTACT_YML);

@@ -31,7 +31,6 @@ public class PTMockDependencyModule extends MockDependencyModule {
 		super.configure();
 		bind(DAOPTRegionContext.class).toInstance(
 				mock(DAOPTRegionContext.class));
-
 		bind(DAOPTContact.class).toInstance(mock(DAOPTContact.class));
 	}
 
