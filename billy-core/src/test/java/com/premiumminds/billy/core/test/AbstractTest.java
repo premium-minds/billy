@@ -91,4 +91,15 @@ public class AbstractTest {
 		return constructor;
 	}
 
+	@SuppressWarnings("unchecked")
+	public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz, String path) {
+		Yaml yaml = new Yaml(new Constructor(clazz));
+
+		try {
+			return (T) yaml.load(new BufferedReader(new FileReader(path)));
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }

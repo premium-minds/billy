@@ -17,7 +17,11 @@
 # along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-
+uid : region_uid
 name : name
 description : description
 regionCode : 3166-2:PT
+parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+  uid : region_parent_uid
+  name : parent_name
+  description : parent_description
