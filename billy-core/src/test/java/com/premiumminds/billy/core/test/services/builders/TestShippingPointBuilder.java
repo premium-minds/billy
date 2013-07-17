@@ -19,16 +19,15 @@
 package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
 import com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity;
 
 public class TestShippingPointBuilder extends AbstractTest {
@@ -38,7 +37,8 @@ public class TestShippingPointBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockShippingPointEntity mockShippingPoint = loadFixture(MockShippingPointEntity.class);
+		MockShippingPointEntity mockShippingPoint = createMockEntity(
+				MockShippingPointEntity.class, SHIPPINGPOINT_YML);
 
 		Mockito.when(getInstance(DAOShippingPoint.class).getEntityInstance())
 				.thenReturn(new MockShippingPointEntity());
@@ -48,7 +48,7 @@ public class TestShippingPointBuilder extends AbstractTest {
 		Address.Builder mockAddressBuilder = this
 				.getMock(Address.Builder.class);
 		Mockito.when(mockAddressBuilder.build()).thenReturn(
-				Mockito.mock(AddressEntity.class));
+				mockShippingPoint.getAddress());
 
 		builder.setAddress(mockAddressBuilder)
 				.setDate(mockShippingPoint.getDate())
@@ -59,7 +59,7 @@ public class TestShippingPointBuilder extends AbstractTest {
 
 		ShippingPoint shippingPoint = builder.build();
 
-		assert (shippingPoint != null);
+		assertTrue(shippingPoint != null);
 
 		assertEquals(mockShippingPoint.getDeliveryId(),
 				shippingPoint.getDeliveryId());
@@ -69,19 +69,7 @@ public class TestShippingPointBuilder extends AbstractTest {
 		assertEquals(mockShippingPoint.getWarehouseId(),
 				shippingPoint.getWarehouseId());
 		assertEquals(mockShippingPoint.getDate(), shippingPoint.getDate());
+		assertEquals(mockShippingPoint.getAddress(), shippingPoint.getAddress());
 	}
 
-	public MockShippingPointEntity loadFixture(
-			Class<MockShippingPointEntity> clazz) {
-
-		MockShippingPointEntity result = (MockShippingPointEntity) createMockEntity(
-				generateMockEntityConstructor(MockShippingPointEntity.class),
-				SHIPPINGPOINT_YML);
-
-		result.address = (MockAddressEntity) createMockEntity(
-				generateMockEntityConstructor(MockAddressEntity.class),
-				ADDRESS_YML);
-
-		return result;
-	}
 }

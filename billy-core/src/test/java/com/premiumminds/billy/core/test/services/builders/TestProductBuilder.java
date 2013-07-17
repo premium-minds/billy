@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Currency;
 
@@ -66,7 +67,7 @@ public class TestProductBuilder extends AbstractTest {
 
 		Product product = builder.build();
 
-		assert (product != null);
+		assertTrue(product != null);
 
 		assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
 		assertEquals(mockProduct.getDescription(), product.getDescription());
