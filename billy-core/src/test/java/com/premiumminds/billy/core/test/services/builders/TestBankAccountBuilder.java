@@ -34,9 +34,8 @@ public class TestBankAccountBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockBankAccountEntity mockBankAccount = (MockBankAccountEntity) createMockEntity(
-				generateMockEntityConstructor(MockBankAccountEntity.class),
-				BANK_ACCOUNT_YML);
+		MockBankAccountEntity mockBankAccount = createMockEntity(
+				MockBankAccountEntity.class, BANK_ACCOUNT_YML);
 
 		Mockito.when(getInstance(DAOBankAccount.class).getEntityInstance())
 				.thenReturn(new MockBankAccountEntity());
