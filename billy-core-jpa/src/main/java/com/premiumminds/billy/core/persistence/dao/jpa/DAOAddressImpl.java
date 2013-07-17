@@ -34,7 +34,7 @@ public class DAOAddressImpl extends AbstractDAO<AddressEntity, JPAAddressEntity>
 	}
 	
 	@Override
-	protected Class<JPAAddressEntity> getEntityClass() {
+	protected Class<? extends JPAAddressEntity> getEntityClass() {
 		return JPAAddressEntity.class;
 	}
 
