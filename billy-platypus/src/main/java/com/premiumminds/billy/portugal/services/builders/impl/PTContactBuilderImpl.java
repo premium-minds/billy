@@ -21,8 +21,8 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.services.builders.impl.ContactBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.services.builders.PTContactBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
@@ -33,8 +33,8 @@ extends ContactBuilderImpl<TBuilder, TContact> implements
 PTContactBuilder<TBuilder, TContact> {
 	
 	@Inject
-	public PTContactBuilderImpl(DAOContact daoContact) {
-		super(daoContact);
+	public PTContactBuilderImpl(DAOPTContact daoPTContact) {
+		super(daoPTContact);
 	}
 
 	@Override

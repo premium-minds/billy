@@ -19,8 +19,8 @@
 package com.premiumminds.billy.portugal.services.entities;
 
 import com.google.inject.Inject;
-import com.premiumminds.billy.core.persistence.dao.DAOApplication;
 import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.services.builders.impl.PTApplicationBuilderImpl;
 
 public interface PTApplication extends Application {
@@ -29,8 +29,8 @@ public interface PTApplication extends Application {
 			PTApplicationBuilderImpl<Builder, PTApplication> {
 
 		@Inject
-		public Builder(DAOApplication daoApplication) {
-			super(daoApplication);
+		public Builder(DAOPTApplication daoPTApplication) {
+			super(daoPTApplication);
 		}
 
 		

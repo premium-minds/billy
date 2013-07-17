@@ -30,8 +30,8 @@ public interface PTRegionContext extends Context {
 			PTRegionContextBuilderImpl<Builder, PTRegionContext> {
 
 		@Inject
-		public Builder(DAOPTRegionContext daoRegionContext) {
-			super(daoRegionContext);
+		public Builder(DAOPTRegionContext daoPTRegionContext) {
+			super(daoPTRegionContext);
 		}
 	}
 

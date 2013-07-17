@@ -19,8 +19,8 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.persistence.dao.DAOAddress;
 import com.premiumminds.billy.core.services.builders.impl.AddressBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.services.builders.PTAddressBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
@@ -30,8 +30,8 @@ public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder
 		AddressBuilderImpl<TBuilder, TAddress> implements
 		PTAddressBuilder<TBuilder, TAddress> {
 
-	protected PTAddressBuilderImpl(DAOAddress daoAddress) {
-		super(daoAddress);
+	protected PTAddressBuilderImpl(DAOPTAddress daoPTAddress) {
+		super(daoPTAddress);
 	}
 	
 	@Override

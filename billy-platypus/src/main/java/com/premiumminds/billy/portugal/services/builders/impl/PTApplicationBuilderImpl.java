@@ -19,8 +19,8 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.persistence.dao.DAOApplication;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.services.builders.PTApplicationBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
@@ -29,8 +29,8 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 		extends ApplicationBuilderImpl<TBuilder, TApplication> implements
 		PTApplicationBuilder<TBuilder, TApplication> {
 
-	public PTApplicationBuilderImpl(DAOApplication daoApplication) {
-		super(daoApplication);
+	public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {
+		super(daoPTApplication);
 	}
 
 	@Override
