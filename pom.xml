@@ -108,7 +108,7 @@
 						<yml>SCRIPT_STYLE</yml>
 					</mapping>
 					<properties>
-						<project-name>${name}</project-name>
+						<project-name>${project.name}</project-name>
 						<year>2013</year>
 						<owner>Premium Minds</owner>
 					</properties>
@@ -122,6 +122,13 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<testFailureIgnore>true</testFailureIgnore>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
