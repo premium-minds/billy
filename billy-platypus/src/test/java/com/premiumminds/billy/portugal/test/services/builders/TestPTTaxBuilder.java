@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2013 Premium Minds.
+ *
+ * This file is part of billy platypus (PT Pack).
+ *
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.premiumminds.billy.portugal.test.services.builders;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -13,7 +31,6 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -58,7 +75,7 @@ public class TestPTTaxBuilder extends PTAbstractTest {
 		assertEquals(mockTax.getTaxRateType(), tax.getTaxRateType());
 		assertEquals(mockTax.getValue(), tax.getValue());
 
-		if (mockTax.getTaxRateType() == Tax.TaxRateType.FLAT) {
+		if (mockTax.getTaxRateType() == PTTax.TaxRateType.FLAT) {
 			assertEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
 			assertThat(mockTax.getPercentageRateValue(),
 					is(not(tax.getPercentageRateValue())));
@@ -80,7 +97,7 @@ public class TestPTTaxBuilder extends PTAbstractTest {
 				generateMockEntityConstructor(MockPTRegionContextEntity.class),
 				REGIONCONTEXT_YML);
 
-		mockContext.uid = new UID("uid_context");
+		mockContext.uid = new UID("uid_region_context");
 		Mockito.when(
 				getInstance(DAOPTRegionContext.class).get(
 						Matchers.any(UID.class))).thenReturn(mockContext);

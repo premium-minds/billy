@@ -91,7 +91,6 @@ public class TestTaxBuilder extends AbstractTest {
 		MockTaxEntity result = (MockTaxEntity) createMockEntity(
 				generateMockEntityConstructor(MockTaxEntity.class), path);
 
-		System.out.println(result.getCode());
 		result.uid = new UID("uid_tax");
 
 		MockContextEntity mockContext = (MockContextEntity) createMockEntity(
