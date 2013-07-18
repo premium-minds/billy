@@ -23,9 +23,11 @@ import static org.mockito.Mockito.mock;
 import com.premiumminds.billy.core.test.MockDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 
 public class PTMockDependencyModule extends MockDependencyModule {
@@ -40,6 +42,9 @@ public class PTMockDependencyModule extends MockDependencyModule {
 		bind(DAOPTApplication.class).toInstance(mock(DAOPTApplication.class));
 		bind(DAOPTTax.class).toInstance(mock(DAOPTTax.class));
 		bind(DAOPTProduct.class).toInstance(mock(DAOPTProduct.class));
+		bind(DAOPTBusiness.class).toInstance(mock(DAOPTBusiness.class));
+		bind(DAOPTShippingPoint.class).toInstance(
+				mock(DAOPTShippingPoint.class));
 	}
 
 }

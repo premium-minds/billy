@@ -16,32 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao.jpa;
+package com.premiumminds.billy.portugal.services.entities;
 
 import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.services.builders.impl.PTBusinessBuilderImpl;
 
-public class DAOPTAddressImpl extends DAOAddressImpl implements DAOPTAddress {
+public interface PTBusiness extends Business {
 
-	@Inject
-	public DAOPTAddressImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
+	public static class Builder extends
+			PTBusinessBuilderImpl<Builder, PTBusiness> {
+
+		@Inject
+		public Builder(DAOPTBusiness daoPTBusiness,
+				DAOPTRegionContext daoPTRegionContext) {
+			super(daoPTBusiness, daoPTRegionContext);
+		}
 	}
-
-	@Override
-	public PTAddressEntity getEntityInstance() {
-		return new JPAPTAddressEntity();
-	}
-
-	@Override
-	protected Class<JPAPTAddressEntity> getEntityClass() {
-		return JPAPTAddressEntity.class;
-	}
-
 }

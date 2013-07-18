@@ -16,14 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities.jpa;
+package com.premiumminds.billy.portugal.services.builders;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
+import com.premiumminds.billy.core.services.builders.BusinessBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
-public class JPAPTAddressEntity extends JPAAddressEntity implements
-		PTAddressEntity {
-
-	private static final long serialVersionUID = 1L;
+public interface PTBusinessBuilder<TBuilder extends PTBusinessBuilder<TBuilder, TBusiness>, TBusiness extends PTBusiness>
+		extends BusinessBuilder<TBuilder, TBusiness> {
 
 }

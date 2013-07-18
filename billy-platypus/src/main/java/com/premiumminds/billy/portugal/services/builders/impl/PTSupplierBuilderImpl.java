@@ -18,9 +18,12 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.services.builders.impl.SupplierBuilderImpl;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.builders.PTSupplierBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
@@ -29,6 +32,10 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 		extends SupplierBuilderImpl<TBuilder, TSupplier> implements
 		PTSupplierBuilder<TBuilder, TSupplier> {
 
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
+
+	@Inject
 	public PTSupplierBuilderImpl(DAOSupplier daoSupplier) {
 		super(daoSupplier);
 	}

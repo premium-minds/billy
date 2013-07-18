@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
@@ -31,6 +32,9 @@ import com.premiumminds.billy.portugal.services.entities.PTTax;
 public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
 		extends TaxBuilderImpl<TBuilder, TTax> implements
 		PTTaxBuilder<TBuilder, TTax> {
+
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
 
 	@Inject
 	public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {

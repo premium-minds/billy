@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 
-public class JPAPTAddressEntity extends JPAAddressEntity implements
-		PTAddressEntity {
+public class JPAPTBusinessEntity extends JPABusinessEntity implements
+		PTBusinessEntity {
 
 	private static final long serialVersionUID = 1L;
 
