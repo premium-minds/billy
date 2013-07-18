@@ -75,7 +75,13 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 			boolean mainAddress) {
 		BillyValidator.notNull(addressBuilder,
 				CustomerBuilderImpl.LOCALIZER.getString("field.address"));
-		this.getTypeInstance().getAddresses().add(addressBuilder.build());
+
+		Address address = addressBuilder.build();
+		if (mainAddress) {
+			this.getTypeInstance().setMainAddress((AddressEntity) address);
+		}
+		this.getTypeInstance().getAddresses().add(address);
+
 		return this.getBuilder();
 	}
 

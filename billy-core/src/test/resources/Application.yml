@@ -22,3 +22,26 @@ version : version
 developerCompanyName : company_name
 developerCompanyTaxIdentifier : company_tax_id
 websiteAddress : website
+mainContact : !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
+  name : contact_main
+  telephone : telephone_main
+  mobile : mobile_main
+  fax : fax_main
+  email : email_main
+  website : website_main
+contacts :
+  - !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
+    name : contact_1
+    telephone : telephone_1
+    mobile : mobile_1
+    fax : fax_1
+    email : email_1
+    website : website_1
+  - !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
+    name : contact_2
+    telephone : telephone_2
+    mobile : mobile_2
+    fax : fax_2
+    email : email_2
+    website : website_2
+  

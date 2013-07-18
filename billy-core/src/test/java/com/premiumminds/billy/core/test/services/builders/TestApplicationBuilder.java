@@ -19,6 +19,10 @@
 package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -36,26 +40,32 @@ public class TestApplicationBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockApplicationEntity mockApplication = (MockApplicationEntity) createMockEntity(
-				generateMockEntityConstructor(MockApplicationEntity.class),
-				APPLICATION_YML);
+		MockApplicationEntity mockApplication = createMockEntity(
+				MockApplicationEntity.class, APPLICATION_YML);
 
 		Mockito.when(getInstance(DAOApplication.class).getEntityInstance())
 				.thenReturn(new MockApplicationEntity());
 
 		Application.Builder builder = getInstance(Application.Builder.class);
 
-		Contact.Builder mockContactBuilder = this
+		ArrayList<ContactEntity> contacts = (ArrayList<ContactEntity>) mockApplication
+				.getContacts();
+
+		Contact.Builder mockContactBuilder1 = this
 				.getMock(Contact.Builder.class);
-		Mockito.when(mockContactBuilder.build()).thenReturn(
-				Mockito.mock(ContactEntity.class));
+		Mockito.when(mockContactBuilder1.build()).thenReturn(contacts.get(0));
+
+		Contact.Builder mockContactBuilder2 = this
+				.getMock(Contact.Builder.class);
+		Mockito.when(mockContactBuilder2.build()).thenReturn(contacts.get(1));
 
 		Contact.Builder mockMainContactBuilder = this
 				.getMock(Contact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
-				Mockito.mock(ContactEntity.class));
+				mockApplication.getMainContact());
 
-		builder.addContact(mockContactBuilder)
+		builder.addContact(mockContactBuilder1)
+				.addContact(mockContactBuilder2)
 				.addContact(mockMainContactBuilder)
 				.setDeveloperCompanyName(
 						mockApplication.getDeveloperCompanyName())
@@ -68,7 +78,7 @@ public class TestApplicationBuilder extends AbstractTest {
 
 		Application application = builder.build();
 
-		assert (application != null);
+		assertTrue(application != null);
 		assertEquals(mockApplication.getName(), application.getName());
 		assertEquals(mockApplication.getVersion(), application.getVersion());
 		assertEquals(mockApplication.getDeveloperCompanyName(),
@@ -77,7 +87,22 @@ public class TestApplicationBuilder extends AbstractTest {
 				application.getDeveloperCompanyTaxIdentifier());
 		assertEquals(mockApplication.getWebsiteAddress(),
 				application.getWebsiteAddress());
-		assert (application.getContacts() != null);
-		assert (application.getMainContact() != null);
+
+		assertTrue(application.getMainContact() != null);
+		assertEquals(application.getMainContact().getName(), mockApplication
+				.getMainContact().getName());
+
+		assertTrue(application.getContacts() != null);
+		assertEquals(application.getContacts().size(), mockApplication
+				.getContacts().size() + 1);
+
+		for (int i = 0; i < application.getContacts().size() - 1; i++) {
+			List<Contact> appContacts = (List<Contact>) application
+					.getContacts();
+			assertEquals(appContacts.get(i).getName(), mockApplication
+					.getContacts().get(i).getName());
+		}
+
 	}
+
 }

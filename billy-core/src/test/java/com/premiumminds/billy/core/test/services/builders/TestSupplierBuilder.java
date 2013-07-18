@@ -19,101 +19,96 @@
 package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
-import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
-import com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity;
-import com.premiumminds.billy.core.test.fixtures.MockContactEntity;
 import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 
 public class TestSupplierBuilder extends AbstractTest {
 
 	private static final String SUPPLIER_YML = "src/test/resources/Supplier.yml";
-	private static final String ADDRESS_YML = "src/test/resources/Address.yml";
-	private static final String CONTACT_YML = "src/test/resources/Contact.yml";
-	private static final String BANK_YML = "src/test/resources/BankAccount.yml";
 
 	@Test
 	public void doTest() {
-		MockSupplierEntity mockSupplier = loadFixture(MockSupplierEntity.class);
+		MockSupplierEntity mockSupplier = createMockEntity(
+				MockSupplierEntity.class, SUPPLIER_YML);
+
 		Mockito.when(getInstance(DAOSupplier.class).getEntityInstance())
 				.thenReturn(new MockSupplierEntity());
 
+		Address.Builder mockMainAddressBuilder = this
+				.getMock(Address.Builder.class);
+		Mockito.when(mockMainAddressBuilder.build()).thenReturn(
+				mockSupplier.getMainAddress());
+
+		Address.Builder mockBillingAddressBuilder = this
+				.getMock(Address.Builder.class);
+		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
+				mockSupplier.getBillingAddress());
+
+		Address.Builder mockShippingAddressBuilder = this
+				.getMock(Address.Builder.class);
+		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
+				mockSupplier.getShippingAddress());
+
+		BankAccount.Builder mockBankAccountBuilder1 = this
+				.getMock(BankAccount.Builder.class);
+		Mockito.when(mockBankAccountBuilder1.build()).thenReturn(
+				mockSupplier.getBankAccounts().get(0));
+
+		BankAccount.Builder mockBankAccountBuilder2 = this
+				.getMock(BankAccount.Builder.class);
+		Mockito.when(mockBankAccountBuilder2.build()).thenReturn(
+				mockSupplier.getBankAccounts().get(1));
+
+		Contact.Builder mockMainContactBuilder = this
+				.getMock(Contact.Builder.class);
+		Mockito.when(mockMainContactBuilder.build()).thenReturn(
+				mockSupplier.getMainContact());
+
+		Contact.Builder mockContactBuilder1 = this
+				.getMock(Contact.Builder.class);
+		Mockito.when(mockContactBuilder1.build()).thenReturn(
+				mockSupplier.getContacts().get(0));
+
+		Contact.Builder mockContactBuilder2 = this
+				.getMock(Contact.Builder.class);
+		Mockito.when(mockContactBuilder2.build()).thenReturn(
+				mockSupplier.getContacts().get(1));
+
 		Supplier.Builder builder = getInstance(Supplier.Builder.class);
 
-		Address.Builder mockAddressBuilder = this
-				.getMock(Address.Builder.class);
-		Mockito.when(mockAddressBuilder.build()).thenReturn(
-				Mockito.mock(AddressEntity.class));
-
-		BankAccount.Builder mockBankAccountBuilder = this
-				.getMock(BankAccount.Builder.class);
-		Mockito.when(mockBankAccountBuilder.build()).thenReturn(
-				Mockito.mock(BankAccountEntity.class));
-
-		Contact.Builder mockContactBuilder = this
-				.getMock(Contact.Builder.class);
-		Mockito.when(mockContactBuilder.build()).thenReturn(
-				Mockito.mock(ContactEntity.class));
-
-		builder.addAddress(mockAddressBuilder)
-				.addContact(mockContactBuilder)
-				.setBankAccount(mockBankAccountBuilder)
-				.setBillingAddress(mockAddressBuilder)
-				.setMainAddress(mockAddressBuilder)
-				.setMainContact(mockContactBuilder)
+		builder.addAddress(mockMainAddressBuilder)
+				.addAddress(mockShippingAddressBuilder)
+				.addAddress(mockBillingAddressBuilder)
+				.addContact(mockMainContactBuilder)
+				.addBankAccount(mockBankAccountBuilder1)
+				.setBillingAddress(mockBillingAddressBuilder)
+				.setMainAddress(mockMainAddressBuilder)
+				.setMainContact(mockMainContactBuilder)
 				.setName(mockSupplier.getName())
-				.setSelfBillingAgreement(false)
-				.setShippingAddress(mockAddressBuilder)
+				.setSelfBillingAgreement(mockSupplier.hasSelfBillingAgreement())
 				.setTaxRegistrationNumber(
-						mockSupplier.getTaxRegistrationNumber());
+						mockSupplier.getTaxRegistrationNumber())
+				.setShippingAddress(mockShippingAddressBuilder);
 
 		Supplier supplier = builder.build();
 
-		assert (supplier != null);
+		assertTrue(supplier != null);
 		assertEquals(mockSupplier.getName(), supplier.getName());
 		assertEquals(mockSupplier.getTaxRegistrationNumber(),
 				supplier.getTaxRegistrationNumber());
+		assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
+		assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier
+				.getBankAccounts().size());
 	}
 
-	public MockSupplierEntity loadFixture(Class<MockSupplierEntity> clazz) {
-		MockSupplierEntity result = (MockSupplierEntity) createMockEntity(
-				generateMockEntityConstructor(MockSupplierEntity.class),
-				SUPPLIER_YML);
-
-		MockAddressEntity mockAddress = (MockAddressEntity) createMockEntity(
-				generateMockEntityConstructor(MockAddressEntity.class),
-				ADDRESS_YML);
-		result.mainAddress = mockAddress;
-		result.billingAddress = mockAddress;
-		result.shippingAddress = mockAddress;
-		result.addresses = Arrays.asList(new Address[] { mockAddress });
-
-		MockContactEntity mockContact = (MockContactEntity) createMockEntity(
-				generateMockEntityConstructor(MockContactEntity.class),
-				CONTACT_YML);
-		result.mainContact = mockContact;
-		result.contacts = Arrays.asList(new Contact[] { mockContact });
-
-		MockBankAccountEntity mockBankAccount = (MockBankAccountEntity) createMockEntity(
-				generateMockEntityConstructor(MockBankAccountEntity.class),
-				BANK_YML);
-		result.bankAccounts = Arrays
-				.asList(new BankAccount[] { mockBankAccount });
-
-		return result;
-	}
 }
