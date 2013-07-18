@@ -1,6 +1,6 @@
 #Billy
-Billy is an open source Java library, which's aim is to be a certified billing library for applications,
-providing them with the ability to create, manage, store and export billing related artifacts
+Billy is an open source Java library, which aims to be a certified billing library
+that provides the ability to create, manage, store and export billing related artifacts
 such as invoices and credit notes.
 
 ##Getting Started
