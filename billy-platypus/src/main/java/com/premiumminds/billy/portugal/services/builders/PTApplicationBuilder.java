@@ -18,10 +18,16 @@
  */
 package com.premiumminds.billy.portugal.services.builders;
 
+import java.net.URL;
+
 import com.premiumminds.billy.core.services.builders.ApplicationBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
 public interface PTApplicationBuilder<TBuilder extends PTApplicationBuilder<TBuilder, TApplication>, TApplication extends PTApplication>
 		extends ApplicationBuilder<TBuilder, TApplication> {
+
+	public TBuilder setSoftwareCertificationNumber(Integer number);
+
+	public TBuilder setApplicationKeysPath(URL path);
 
 }

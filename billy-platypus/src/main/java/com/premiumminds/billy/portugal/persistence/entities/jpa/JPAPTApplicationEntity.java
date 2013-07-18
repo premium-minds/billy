@@ -18,12 +18,16 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
 
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
-
 
 public class JPAPTApplicationEntity extends JPAApplicationEntity implements
 		PTApplicationEntity {
@@ -33,9 +37,40 @@ public class JPAPTApplicationEntity extends JPAApplicationEntity implements
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Basic(optional = false)
+	@Column(name = "NUMBER")
+	protected Integer number;
+
+	@Basic(optional = false)
+	@Column(name = "KEYS_PATH")
+	protected String path;
+
+	public JPAPTApplicationEntity() {
+
+	}
+
 	@Override
 	public List<Contact> getContacts() {
 		return super.getContacts();
+	}
+
+	@Override
+	public Integer getSoftwareCertificationNumber() {
+		return this.number;
+	}
+
+	@Override
+	public void setSoftwareCertificateNum(Integer number) {
+		this.number = number;
+	}
+
+	@Override
+	public URL getApplicationKeysPath() throws MalformedURLException {
+		return new URL(path);
+	}
+
+	public void setApplicationKeysPath(URL path) {
+		this.path = path.toExternalForm();
 	}
 
 }

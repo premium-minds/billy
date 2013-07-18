@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
@@ -30,6 +32,7 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 		extends TaxBuilderImpl<TBuilder, TTax> implements
 		PTTaxBuilder<TBuilder, TTax> {
 
+	@Inject
 	public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {
 		super(daoPTTax, daoPTContext);
 	}

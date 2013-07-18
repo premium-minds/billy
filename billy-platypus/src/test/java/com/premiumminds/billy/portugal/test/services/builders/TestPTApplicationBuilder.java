@@ -20,12 +20,14 @@ package com.premiumminds.billy.portugal.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.MalformedURLException;
+
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.persistence.dao.DAOApplication;
-import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTApplicationEntity;
@@ -35,15 +37,15 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 	private static final String PTAPPLICATION_YML = "src/test/resources/PTApplication.yml";
 
 	@Test
-	public void doTest() {
+	public void doTest() throws MalformedURLException {
 
 		MockPTApplicationEntity mockApplication = createMockEntity(
 				MockPTApplicationEntity.class, PTAPPLICATION_YML);
 
-		Mockito.when(getInstance(DAOApplication.class).getEntityInstance())
+		Mockito.when(getInstance(DAOPTApplication.class).getEntityInstance())
 				.thenReturn(new MockPTApplicationEntity());
 
-		Application.Builder builder = getInstance(Application.Builder.class);
+		PTApplication.Builder builder = getInstance(PTApplication.Builder.class);
 
 		PTContact.Builder mockContactBuilder = this
 				.getMock(PTContact.Builder.class);
@@ -64,9 +66,13 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 				.setMainContact(mockMainContactBuilder)
 				.setName(mockApplication.getName())
 				.setVersion(mockApplication.getVersion())
-				.setWebsiteAddress(mockApplication.getWebsiteAddress());
+				.setWebsiteAddress(mockApplication.getWebsiteAddress())
+				.setSoftwareCertificationNumber(
+						mockApplication.getSoftwareCertificationNumber())
+				.setApplicationKeysPath(
+						mockApplication.getApplicationKeysPath());
 
-		Application application = builder.build();
+		PTApplication application = builder.build();
 
 		assert (application != null);
 		assertEquals(mockApplication.getName(), application.getName());
@@ -77,6 +83,10 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 				application.getDeveloperCompanyTaxIdentifier());
 		assertEquals(mockApplication.getWebsiteAddress(),
 				application.getWebsiteAddress());
+		assertEquals(mockApplication.getSoftwareCertificationNumber(),
+				application.getSoftwareCertificationNumber());
+		assertEquals(mockApplication.getApplicationKeysPath(),
+				application.getApplicationKeysPath());
 		assert (application.getContacts() != null);
 		assert (application.getMainContact() != null);
 
