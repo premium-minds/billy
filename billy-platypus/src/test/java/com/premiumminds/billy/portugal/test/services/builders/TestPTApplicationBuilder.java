@@ -80,6 +80,8 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 				application.getDeveloperCompanyTaxIdentifier());
 		assertEquals(mockApplication.getWebsiteAddress(),
 				application.getWebsiteAddress());
+		assertEquals(mockApplication.getSoftwareCertificationNumber(),
+				application.getSoftwareCertificationNumber());
 		assert (application.getContacts() != null);
 		assert (application.getMainContact() != null);
 
