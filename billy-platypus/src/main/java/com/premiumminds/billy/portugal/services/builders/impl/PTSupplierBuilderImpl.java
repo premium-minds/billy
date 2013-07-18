@@ -19,14 +19,16 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.impl.SupplierBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.builders.PTSupplierBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
@@ -35,8 +37,9 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 		extends SupplierBuilderImpl<TBuilder, TSupplier> implements
 		PTSupplierBuilder<TBuilder, TSupplier> {
 
-	public PTSupplierBuilderImpl(DAOSupplier daoSupplier) {
-		super(daoSupplier);
+	@Inject
+	public PTSupplierBuilderImpl(DAOPTSupplier daoPTSupplier) {
+		super(daoPTSupplier);
 	}
 
 	@Override

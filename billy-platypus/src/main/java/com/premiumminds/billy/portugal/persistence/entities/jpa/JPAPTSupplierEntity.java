@@ -21,7 +21,7 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 
-public class JPAPTSupplier extends JPASupplierEntity implements
+public class JPAPTSupplierEntity extends JPASupplierEntity implements
 		PTSupplierEntity {
 
 	/**
