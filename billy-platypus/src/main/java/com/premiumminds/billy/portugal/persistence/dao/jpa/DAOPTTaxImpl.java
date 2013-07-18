@@ -16,22 +16,30 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.services.builders.impl.PTAddressBuilderImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
 
-public interface PTAddress extends Address {
 
-	public static class Builder extends
-			PTAddressBuilderImpl<Builder, PTAddress> {
+public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
-		@Inject
-		public Builder(DAOPTAddress daoPTAddress) {
-			super(daoPTAddress);
-		}
+	public DAOPTTaxImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
+
+	@Override
+	public PTTaxEntity getEntityInstance() {
+		return new JPAPTTaxEntity();
+	}
+
+	@Override
+	protected Class<JPAPTTaxEntity> getEntityClass() {
+		return JPAPTTaxEntity.class;
 	}
 }

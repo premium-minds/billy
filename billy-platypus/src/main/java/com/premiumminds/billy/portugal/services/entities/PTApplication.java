@@ -18,7 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.services.builders.impl.PTApplicationBuilderImpl;
@@ -33,6 +34,5 @@ public interface PTApplication extends Application {
 			super(daoPTApplication);
 		}
 
-		
 	}
 }

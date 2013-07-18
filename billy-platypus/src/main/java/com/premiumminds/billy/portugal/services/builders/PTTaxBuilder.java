@@ -16,22 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.services.builders;
 
-import javax.inject.Inject;
+import com.premiumminds.billy.core.services.builders.TaxBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.services.builders.impl.PTAddressBuilderImpl;
+public interface PTTaxBuilder<TBuilder extends PTTaxBuilder<TBuilder, TTax>, TTax extends PTTax>
+		extends TaxBuilder<TBuilder, TTax> {
 
-public interface PTAddress extends Address {
-
-	public static class Builder extends
-			PTAddressBuilderImpl<Builder, PTAddress> {
-
-		@Inject
-		public Builder(DAOPTAddress daoPTAddress) {
-			super(daoPTAddress);
-		}
-	}
 }

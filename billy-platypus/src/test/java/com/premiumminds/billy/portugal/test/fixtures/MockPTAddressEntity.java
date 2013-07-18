@@ -21,7 +21,6 @@ package com.premiumminds.billy.portugal.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 
-
 public class MockPTAddressEntity extends MockBaseEntity implements
 		PTAddressEntity {
 
@@ -29,7 +28,7 @@ public class MockPTAddressEntity extends MockBaseEntity implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public String streetName;
 	public String number;
 	public String details;
@@ -44,37 +43,37 @@ public class MockPTAddressEntity extends MockBaseEntity implements
 
 	@Override
 	public String getStreetName() {
-		return streetName;
+		return this.streetName;
 	}
 
 	@Override
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	@Override
 	public String getDetails() {
-		return details;
+		return this.details;
 	}
 
 	@Override
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	@Override
 	public String getPostalCode() {
-		return postalCode;
+		return this.postalCode;
 	}
 
 	@Override
 	public String getRegion() {
-		return region;
+		return this.region;
 	}
 
 	@Override
 	public String getISOCountry() {
-		return country;
+		return this.country;
 	}
 
 	@Override

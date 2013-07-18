@@ -16,30 +16,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.test;
+package com.premiumminds.billy.portugal.services.builders.impl;
 
-import static org.mockito.Mockito.mock;
-
-import com.premiumminds.billy.core.test.MockDependencyModule;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
+import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-public class PTMockDependencyModule extends MockDependencyModule {
+public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
+		extends TaxBuilderImpl<TBuilder, TTax> implements
+		PTTaxBuilder<TBuilder, TTax> {
+
+	public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {
+		super(daoPTTax, daoPTContext);
+	}
 
 	@Override
-	protected void configure() {
-		super.configure();
-		bind(DAOPTRegionContext.class).toInstance(
-				mock(DAOPTRegionContext.class));
-		bind(DAOPTContact.class).toInstance(mock(DAOPTContact.class));
-		bind(DAOPTAddress.class).toInstance(mock(DAOPTAddress.class));
-		bind(DAOPTApplication.class).toInstance(mock(DAOPTApplication.class));
-		bind(DAOPTTax.class).toInstance(mock(DAOPTTax.class));
-		bind(DAOPTProduct.class).toInstance(mock(DAOPTProduct.class));
+	protected PTTaxEntity getTypeInstance() {
+		return (PTTaxEntity) super.getTypeInstance();
+	}
+
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
 	}
 
 }

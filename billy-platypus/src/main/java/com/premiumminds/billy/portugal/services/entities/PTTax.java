@@ -20,18 +20,20 @@ package com.premiumminds.billy.portugal.services.entities;
 
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.services.builders.impl.PTAddressBuilderImpl;
+import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.services.builders.impl.PTTaxBuilderImpl;
 
-public interface PTAddress extends Address {
+public interface PTTax extends Tax {
 
-	public static class Builder extends
-			PTAddressBuilderImpl<Builder, PTAddress> {
+	public static class Builder extends PTTaxBuilderImpl<Builder, PTTax> {
 
 		@Inject
-		public Builder(DAOPTAddress daoPTAddress) {
-			super(daoPTAddress);
+		public Builder(DAOPTTax daoPTTax, DAOPTRegionContext daoPTRegionContext) {
+			super(daoPTTax, daoPTRegionContext);
 		}
+
 	}
+
 }

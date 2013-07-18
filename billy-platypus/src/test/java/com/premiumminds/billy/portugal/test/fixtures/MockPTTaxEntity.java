@@ -16,11 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.test.fixtures;
 
-import com.premiumminds.billy.core.persistence.dao.DAOContext;
+import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 
+public class MockPTTaxEntity extends MockTaxEntity implements PTTaxEntity {
 
-public interface DAOPTContext extends DAOContext {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	public MockPTTaxEntity() {
+		super();
+	}
 }

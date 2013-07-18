@@ -8,7 +8,7 @@ such as invoices and credit notes.
 ##Documentation & Examples
 
 ##Continuous Integration
-[![Build Status](https://travis-ci.org/premium-minds/billy.png?branch=master)](https://travis-ci.org/premium-minds/billy)
+[![Build Status](https://travis-ci.org/premium-minds/billy.png?branch=platypus-fix)](https://travis-ci.org/premium-minds/billy)
 
 CI is hosted by [travis-ci.org](https://travis-ci.org/)
 
