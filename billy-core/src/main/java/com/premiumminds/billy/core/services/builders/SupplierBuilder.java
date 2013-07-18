@@ -45,7 +45,7 @@ public interface SupplierBuilder<TBuilder extends SupplierBuilder<TBuilder, TSup
 
 	public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder);
 
-	public <T extends BankAccount> TBuilder setBankAccount(
+	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder);
 
 	public TBuilder setSelfBillingAgreement(boolean selfBilling);

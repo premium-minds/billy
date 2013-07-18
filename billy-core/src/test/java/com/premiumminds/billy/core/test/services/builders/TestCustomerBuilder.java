@@ -94,6 +94,7 @@ public class TestCustomerBuilder extends AbstractTest {
 				mockCustomer.getContacts().get(1));
 
 		builder.addBankAccount(mockBankAccountBuilder1)
+				.addBankAccount(mockBankAccountBuilder2)
 				.addAddress(mockMainAddressBuilder, true)
 				.addContact(mockMainContactBuilder)
 				.addContact(mockContactBuilder1)

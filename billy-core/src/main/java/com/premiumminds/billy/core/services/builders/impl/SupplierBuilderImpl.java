@@ -109,7 +109,7 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public <T extends BankAccount> TBuilder setBankAccount(
+	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder) {
 		this.getTypeInstance().getBankAccounts().add(accountBuilder.build());
 		return this.getBuilder();
