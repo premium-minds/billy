@@ -18,28 +18,24 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.services.builders.impl.ContactBuilderImpl;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
-import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
-import com.premiumminds.billy.portugal.services.builders.PTContactBuilder;
-import com.premiumminds.billy.portugal.services.entities.PTContact;
+import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
+import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
+import com.premiumminds.billy.portugal.services.builders.PTApplicationBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
+public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<TBuilder, TApplication>, TApplication extends PTApplication>
+		extends ApplicationBuilderImpl<TBuilder, TApplication> implements
+		PTApplicationBuilder<TBuilder, TApplication> {
 
-public class PTContactBuilderImpl<TBuilder extends PTContactBuilderImpl<TBuilder, TContact>, TContact extends PTContact>
-extends ContactBuilderImpl<TBuilder, TContact> implements
-PTContactBuilder<TBuilder, TContact> {
-	
-	@Inject
-	public PTContactBuilderImpl(DAOPTContact daoPTContact) {
-		super(daoPTContact);
+	public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {
+		super(daoPTApplication);
 	}
 
 	@Override
-	protected PTContactEntity getTypeInstance() {
-		return (PTContactEntity) super.getTypeInstance();
+	protected PTApplicationEntity getTypeInstance() {
+		return (PTApplicationEntity) super.getTypeInstance();
 	}
 	
 	@Override

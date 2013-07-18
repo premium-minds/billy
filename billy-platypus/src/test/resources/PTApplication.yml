@@ -18,8 +18,7 @@
 #
 
 name : name
-telephone : 299321456
-mobile : 995632741
-fax : 299321457
-email : email@email.em
-website : website.web
+version : 0
+developerCompanyName : company_name
+developerCompanyTaxIdentifier : company_tax_id
+websiteAddress : website.web

@@ -16,24 +16,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
-import com.premiumminds.billy.portugal.services.builders.impl.PTContactBuilderImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
+import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity;
 
-public interface PTContact extends Contact {
 
-	public static class Builder extends
-			PTContactBuilderImpl<Builder, PTContact> {
+public class DAOPTAddressImpl extends DAOAddressImpl implements DAOPTAddress {
 
-		@Inject
-		public Builder(DAOPTContact daoPTContact) {
-			super(daoPTContact);
-		}
+	public DAOPTAddressImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
+	
+	@Override
+	public PTAddressEntity getEntityInstance() {
+		return new JPAPTAddressEntity();
+	}
 
+	@Override
+	protected Class<JPAPTAddressEntity> getEntityClass() {
+		return JPAPTAddressEntity.class;
 	}
 
 }

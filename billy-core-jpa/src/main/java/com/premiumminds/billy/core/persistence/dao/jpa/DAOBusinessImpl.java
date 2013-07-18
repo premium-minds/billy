@@ -34,7 +34,7 @@ public class DAOBusinessImpl extends AbstractDAO<BusinessEntity, JPABusinessEnti
 	}
 
 	@Override
-	protected Class<JPABusinessEntity> getEntityClass() {
+	protected Class<? extends JPABusinessEntity> getEntityClass() {
 		return JPABusinessEntity.class;
 	}
 

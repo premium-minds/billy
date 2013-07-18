@@ -34,7 +34,7 @@ public class DAOTaxImpl extends AbstractDAO<TaxEntity, JPATaxEntity> implements 
 	}
 	
 	@Override
-	protected Class<JPATaxEntity> getEntityClass() {
+	protected Class<? extends JPATaxEntity> getEntityClass() {
 		return JPATaxEntity.class;
 	}
 

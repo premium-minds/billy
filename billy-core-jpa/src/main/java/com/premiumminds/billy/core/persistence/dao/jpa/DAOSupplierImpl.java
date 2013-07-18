@@ -34,7 +34,7 @@ public class DAOSupplierImpl extends AbstractDAO<SupplierEntity, JPASupplierEnti
 	}
 	
 	@Override
-	protected Class<JPASupplierEntity> getEntityClass() {
+	protected Class<? extends JPASupplierEntity> getEntityClass() {
 		return JPASupplierEntity.class;
 	}
 

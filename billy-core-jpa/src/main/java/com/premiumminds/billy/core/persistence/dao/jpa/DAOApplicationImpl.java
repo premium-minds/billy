@@ -34,7 +34,7 @@ public class DAOApplicationImpl extends AbstractDAO<ApplicationEntity, JPAApplic
 	}
 
 	@Override
-	protected Class<JPAApplicationEntity> getEntityClass() {
+	protected Class<? extends JPAApplicationEntity> getEntityClass() {
 		return JPAApplicationEntity.class;
 	}
 

@@ -23,8 +23,12 @@ import com.google.inject.Inject;
 import com.premiumminds.billy.core.CoreDependencyModule;
 import com.premiumminds.billy.core.CoreJPADependencyModule;
 import com.premiumminds.billy.gin.GINDependencyModule;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTAddressImpl;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTApplicationImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTContactImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTRegionContextImpl;
 
@@ -42,9 +46,12 @@ public class PlatypusDependencyModule extends AbstractModule {
 		// bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
 		// bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
 		// bind(DAOPTFinancialDocumentEntry.class).to(DAOPTFinancialDocumentEntryImpl.class);
+		// bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
+		
 		bind(DAOPTContact.class).to(DAOPTContactImpl.class);
 		bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
-		// bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
+		bind(DAOPTAddress.class).to(DAOPTAddressImpl.class);
+		bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
 	}
 
 	public static class Initializer {

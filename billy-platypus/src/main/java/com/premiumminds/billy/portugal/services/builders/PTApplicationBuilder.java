@@ -16,24 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.services.builders;
 
-import javax.inject.Inject;
+import com.premiumminds.billy.core.services.builders.ApplicationBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
-import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
-import com.premiumminds.billy.portugal.services.builders.impl.PTContactBuilderImpl;
-
-public interface PTContact extends Contact {
-
-	public static class Builder extends
-			PTContactBuilderImpl<Builder, PTContact> {
-
-		@Inject
-		public Builder(DAOPTContact daoPTContact) {
-			super(daoPTContact);
-		}
-
-	}
+public interface PTApplicationBuilder<TBuilder extends PTApplicationBuilder<TBuilder, TApplication>, TApplication extends PTApplication>
+		extends ApplicationBuilder<TBuilder, TApplication> {
 
 }

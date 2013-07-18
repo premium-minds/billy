@@ -34,7 +34,7 @@ public class DAOShippingPointImpl extends AbstractDAO<ShippingPointEntity, JPASh
 	}
 	
 	@Override
-	protected Class<JPAShippingPointEntity> getEntityClass() {
+	protected Class<? extends JPAShippingPointEntity> getEntityClass() {
 		return JPAShippingPointEntity.class;
 	}
 

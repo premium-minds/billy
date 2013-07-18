@@ -16,24 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import javax.inject.Inject;
+import java.util.List;
 
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
-import com.premiumminds.billy.portugal.services.builders.impl.PTContactBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
-public interface PTContact extends Contact {
 
-	public static class Builder extends
-			PTContactBuilderImpl<Builder, PTContact> {
+public class JPAPTApplicationEntity extends JPAApplicationEntity implements
+		PTApplicationEntity {
 
-		@Inject
-		public Builder(DAOPTContact daoPTContact) {
-			super(daoPTContact);
-		}
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	@Override
+	public List<Contact> getContacts() {
+		return super.getContacts();
 	}
 
 }

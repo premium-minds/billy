@@ -18,22 +18,19 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
-import javax.inject.Inject;
+import com.google.inject.Inject;
+import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
+import com.premiumminds.billy.portugal.services.builders.impl.PTAddressBuilderImpl;
 
-import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
-import com.premiumminds.billy.portugal.services.builders.impl.PTContactBuilderImpl;
-
-public interface PTContact extends Contact {
+public interface PTAddress extends Address {
 
 	public static class Builder extends
-			PTContactBuilderImpl<Builder, PTContact> {
+			PTAddressBuilderImpl<Builder, PTAddress> {
 
 		@Inject
-		public Builder(DAOPTContact daoPTContact) {
-			super(daoPTContact);
+		public Builder(DAOPTAddress daoPTAddress) {
+			super(daoPTAddress);
 		}
-
 	}
-
 }
