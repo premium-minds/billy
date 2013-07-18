@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -34,9 +34,8 @@ public class TestPTContactBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTContactEntity mockContact = (MockPTContactEntity) createMockEntity(
-				generateMockEntityConstructor(MockPTContactEntity.class),
-				PTCONTACT_YML);
+		MockPTContactEntity mockContact = createMockEntity(
+				MockPTContactEntity.class, PTCONTACT_YML);
 
 		Mockito.when(getInstance(DAOPTContact.class).getEntityInstance())
 				.thenReturn(new MockPTContactEntity());
@@ -50,8 +49,8 @@ public class TestPTContactBuilder extends PTAbstractTest {
 				.setWebsite(mockContact.getWebsite());
 
 		PTContact contact = (PTContact) builder.build();
-		
-		assert(contact != null);
+
+		assert (contact != null);
 		assertEquals(mockContact.getEmail(), contact.getEmail());
 		assertEquals(mockContact.getFax(), contact.getFax());
 		assertEquals(mockContact.getMobile(), contact.getMobile());

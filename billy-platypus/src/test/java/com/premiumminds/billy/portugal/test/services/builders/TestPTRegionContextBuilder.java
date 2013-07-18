@@ -38,9 +38,8 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 
 	@Test
 	public void testRegionCode() {
-		MockPTRegionContextEntity mockRegionContextEntity = (MockPTRegionContextEntity) createMockEntity(
-				generateMockEntityConstructor(MockPTRegionContextEntity.class),
-				PTCONTEXT_YML);
+		MockPTRegionContextEntity mockRegionContextEntity = createMockEntity(
+				MockPTRegionContextEntity.class, PTCONTEXT_YML);
 
 		Mockito.when(getInstance(DAOPTRegionContext.class).getEntityInstance())
 				.thenReturn(new MockPTRegionContextEntity());

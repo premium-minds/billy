@@ -37,9 +37,8 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 	@Test
 	public void doTest() {
 
-		MockPTApplicationEntity mockApplication = (MockPTApplicationEntity) createMockEntity(
-				generateMockEntityConstructor(MockPTApplicationEntity.class),
-				PTAPPLICATION_YML);
+		MockPTApplicationEntity mockApplication = createMockEntity(
+				MockPTApplicationEntity.class, PTAPPLICATION_YML);
 
 		Mockito.when(getInstance(DAOApplication.class).getEntityInstance())
 				.thenReturn(new MockPTApplicationEntity());

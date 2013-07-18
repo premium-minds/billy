@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -35,9 +35,8 @@ public class TestPTAddressBuilder extends PTAbstractTest {
 	@Test
 	public void doTest() {
 
-		MockPTAddressEntity mockAddress = (MockPTAddressEntity) createMockEntity(
-				generateMockEntityConstructor(MockPTAddressEntity.class),
-				PTADDRESS_YML);
+		MockPTAddressEntity mockAddress = createMockEntity(
+				MockPTAddressEntity.class, PTADDRESS_YML);
 
 		Mockito.when(getInstance(DAOPTAddress.class).getEntityInstance())
 				.thenReturn(new MockPTAddressEntity());
@@ -51,10 +50,10 @@ public class TestPTAddressBuilder extends PTAbstractTest {
 				.setPostalCode(mockAddress.getPostalCode())
 				.setRegion(mockAddress.getRegion())
 				.setStreetName(mockAddress.getStreetName());
-		
+
 		PTAddress address = builder.build();
-		
-		assert(address != null);
+
+		assert (address != null);
 		assertEquals(mockAddress.getCity(), address.getCity());
 		assertEquals(mockAddress.getDetails(), address.getDetails());
 		assertEquals(mockAddress.getISOCountry(), address.getISOCountry());

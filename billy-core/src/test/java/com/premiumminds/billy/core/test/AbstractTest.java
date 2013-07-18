@@ -23,10 +23,8 @@ import static org.mockito.Mockito.mock;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.List;
 
 import org.junit.BeforeClass;
-import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -52,43 +50,6 @@ public class AbstractTest {
 
 	public <T> T getMock(Class<T> clazz) {
 		return mock(clazz);
-	}
-
-	@SuppressWarnings("unchecked")
-	public <T extends MockBaseEntity> MockBaseEntity createMockEntity(
-			Constructor constructor, String path) {
-		Yaml yaml = new Yaml(constructor);
-
-		try {
-			return (T) yaml.load(new BufferedReader(new FileReader(path)));
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	public Constructor generateMockEntityConstructor(
-			Class<? extends MockBaseEntity> clazz) {
-		Constructor constructor = new Constructor(clazz);
-		constructor.addTypeDescription(new TypeDescription(clazz));
-		return constructor;
-	}
-
-	public Constructor generateMockEntityConstructor(
-			Class<? extends MockBaseEntity> clazz,
-			TypeDescription typeDescription) {
-		Constructor constructor = new Constructor(clazz);
-		constructor.addTypeDescription(typeDescription);
-		return constructor;
-	}
-
-	public Constructor generateMockEntityConstructor(
-			Class<? extends MockBaseEntity> clazz,
-			List<TypeDescription> typeDescriptions) {
-		Constructor constructor = new Constructor(clazz);
-		for (TypeDescription type : typeDescriptions) {
-			constructor.addTypeDescription(type);
-		}
-		return constructor;
 	}
 
 	@SuppressWarnings("unchecked")
