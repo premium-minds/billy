@@ -16,13 +16,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOShippingPointImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
 import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTShippingPointEntity;
 
-public interface DAOPTShippingPoint extends DAOShippingPoint {
+public class DAOPTShippingPointImpl extends DAOShippingPointImpl implements
+		DAOPTShippingPoint {
+
+	@Inject
+	public DAOPTShippingPointImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
 	@Override
-	public PTShippingPointEntity getEntityInstance();
+	public PTShippingPointEntity getEntityInstance() {
+		return new JPAPTShippingPointEntity();
+	}
+
+	@Override
+	protected Class<JPAPTShippingPointEntity> getEntityClass() {
+		return JPAPTShippingPointEntity.class;
+	}
 }
