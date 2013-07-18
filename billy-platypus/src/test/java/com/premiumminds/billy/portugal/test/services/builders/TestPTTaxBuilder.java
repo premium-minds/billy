@@ -88,14 +88,12 @@ public class TestPTTaxBuilder extends PTAbstractTest {
 	}
 
 	public MockPTTaxEntity loadFixture(Class<MockPTTaxEntity> clazz, String path) {
-		MockPTTaxEntity result = (MockPTTaxEntity) createMockEntity(
-				generateMockEntityConstructor(MockPTTaxEntity.class), path);
+		MockPTTaxEntity result = createMockEntity(MockPTTaxEntity.class, path);
 
 		result.uid = new UID("uid_tax");
 
-		MockPTRegionContextEntity mockContext = (MockPTRegionContextEntity) createMockEntity(
-				generateMockEntityConstructor(MockPTRegionContextEntity.class),
-				REGIONCONTEXT_YML);
+		MockPTRegionContextEntity mockContext = createMockEntity(
+				MockPTRegionContextEntity.class, REGIONCONTEXT_YML);
 
 		mockContext.uid = new UID("uid_region_context");
 		Mockito.when(
