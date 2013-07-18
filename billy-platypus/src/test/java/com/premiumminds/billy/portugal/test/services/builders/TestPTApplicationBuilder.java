@@ -67,7 +67,9 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 				.setVersion(mockApplication.getVersion())
 				.setWebsiteAddress(mockApplication.getWebsiteAddress())
 				.setSoftwareCertificationNumber(
-						mockApplication.getSoftwareCertificationNumber());
+						mockApplication.getSoftwareCertificationNumber())
+				.setApplicationKeysPath(
+						mockApplication.getApplicationKeysPath());
 
 		PTApplication application = builder.build();
 
@@ -82,6 +84,8 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 				application.getWebsiteAddress());
 		assertEquals(mockApplication.getSoftwareCertificationNumber(),
 				application.getSoftwareCertificationNumber());
+		assertEquals(mockApplication.getApplicationKeysPath(),
+				application.getApplicationKeysPath());
 		assert (application.getContacts() != null);
 		assert (application.getMainContact() != null);
 
