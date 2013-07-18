@@ -16,13 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.services.builders;
 
-import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
-import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
+import com.premiumminds.billy.core.services.builders.BusinessBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
-public interface DAOPTShippingPoint extends DAOShippingPoint {
+public interface PTBusinessBuilder<TBuilder extends PTBusinessBuilder<TBuilder, TBusiness>, TBusiness extends PTBusiness>
+		extends BusinessBuilder<TBuilder, TBusiness> {
 
-	@Override
-	public PTShippingPointEntity getEntityInstance();
 }

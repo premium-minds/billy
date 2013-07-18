@@ -22,26 +22,25 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOBusinessImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
+import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity;
 
-public class DAOPTAddressImpl extends DAOAddressImpl implements DAOPTAddress {
+public class DAOPTBusinessImpl extends DAOBusinessImpl implements DAOPTBusiness {
 
 	@Inject
-	public DAOPTAddressImpl(Provider<EntityManager> emProvider) {
+	public DAOPTBusinessImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
 	@Override
-	public PTAddressEntity getEntityInstance() {
-		return new JPAPTAddressEntity();
+	public PTBusinessEntity getEntityInstance() {
+		return new JPAPTBusinessEntity();
 	}
 
 	@Override
-	protected Class<JPAPTAddressEntity> getEntityClass() {
-		return JPAPTAddressEntity.class;
+	protected Class<JPAPTBusinessEntity> getEntityClass() {
+		return JPAPTBusinessEntity.class;
 	}
-
 }

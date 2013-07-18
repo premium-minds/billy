@@ -22,26 +22,26 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOShippingPointImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
+import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTShippingPointEntity;
 
-public class DAOPTAddressImpl extends DAOAddressImpl implements DAOPTAddress {
+public class DAOPTShippingPointImpl extends DAOShippingPointImpl implements
+		DAOPTShippingPoint {
 
 	@Inject
-	public DAOPTAddressImpl(Provider<EntityManager> emProvider) {
+	public DAOPTShippingPointImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
 	@Override
-	public PTAddressEntity getEntityInstance() {
-		return new JPAPTAddressEntity();
+	public PTShippingPointEntity getEntityInstance() {
+		return new JPAPTShippingPointEntity();
 	}
 
 	@Override
-	protected Class<JPAPTAddressEntity> getEntityClass() {
-		return JPAPTAddressEntity.class;
+	protected Class<JPAPTShippingPointEntity> getEntityClass() {
+		return JPAPTShippingPointEntity.class;
 	}
-
 }
