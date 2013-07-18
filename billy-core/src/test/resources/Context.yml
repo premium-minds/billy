@@ -17,5 +17,10 @@
 # along with billy core. If not, see <http://www.gnu.org/licenses/>.
 #
 
+uid : context_uid
 name : name
 description : description
+parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+  uid : context_parent_uid
+  name : parent_name
+  description : parent_description

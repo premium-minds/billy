@@ -23,7 +23,45 @@ unitOfMeasure : unit_of_measure
 numberCode : number_code
 comodityCode : comodity_code
 type : GOODS
-description : description
-valuationMethod : valuation_method   
-      
+description : product_description  
+valuationMethod : valuation_method
+taxes:
+  - !!com.premiumminds.billy.core.test.fixtures.MockTaxEntity
+    uid : tax_uid_1
+    designation : desgination_1
+    description : description_1
+    code : code_1
+    value : 201
+    validFrom: 2013-01-01
+    validTo: 2013-12-12
+    taxRateType : FLAT
+    percentageRateValue : 23
+    flatRateAmount : 13
+    context : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+      uid : context_uid
+      name : name
+      description : description
+      parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+        uid : context_parent_uid
+        name : parent_name
+        description : parent_description
+  - !!com.premiumminds.billy.core.test.fixtures.MockTaxEntity
+    uid : tax_uid_2
+    designation : desgination_2
+    description : description_2
+    code : code_1
+    value : 202
+    validFrom: 2013-01-02
+    validTo: 2013-12-12
+    taxRateType : FLAT
+    percentageRateValue : 23
+    flatRateAmount : 12
+    context : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+      uid : context_uid
+      name : name
+      description : description
+      parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+        uid : context_parent_uid
+        name : parent_name
+        description : parent_description
       

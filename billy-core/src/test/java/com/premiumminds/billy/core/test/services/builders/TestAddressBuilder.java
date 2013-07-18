@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -34,9 +35,8 @@ public class TestAddressBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockAddressEntity mockAddress = (MockAddressEntity) createMockEntity(
-				generateMockEntityConstructor(MockAddressEntity.class),
-				ADDRESS_YML);
+		MockAddressEntity mockAddress = createMockEntity(
+				MockAddressEntity.class, ADDRESS_YML);
 
 		Mockito.when(getInstance(DAOAddress.class).getEntityInstance())
 				.thenReturn(new MockAddressEntity());
@@ -54,7 +54,8 @@ public class TestAddressBuilder extends AbstractTest {
 
 		Address address = builder.build();
 
-		assert (address != null);
+		assertTrue(address != null);
+
 		assertEquals(mockAddress.getStreetName(), address.getStreetName());
 		assertEquals(mockAddress.getNumber(), address.getNumber());
 		assertEquals(mockAddress.getDetails(), address.getDetails());

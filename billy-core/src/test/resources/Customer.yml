@@ -19,3 +19,67 @@
 
 name : name
 taxRegistrationNumber : taxRegistrationNumber
+mainAddress : !!com.premiumminds.billy.core.test.fixtures.MockAddressEntity
+  streetName : street_name
+  number : number
+  details : details
+  building : building
+  city : city
+  postalCode : postal_code
+  region : region
+  country : country
+billingAddress : !!com.premiumminds.billy.core.test.fixtures.MockAddressEntity
+  streetName : street_name_billing
+  number : number_billing
+  details : details_billing
+  building : building_billing
+  city : city_billing
+  postalCode : postal_code_billing
+  region : region_billing
+  country : country_billing
+shippingAddress : !!com.premiumminds.billy.core.test.fixtures.MockAddressEntity
+  streetName : street_name_shipping
+  number : number_shipping
+  details : details_shipping
+  building : building_shipping
+  city : city_shipping
+  postalCode : postal_code_shipping
+  region : region_shipping
+  country : country_shipping
+mainContact : !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
+  uid : uid_mainContact
+  name : contact_main
+  telephone : telephone_main
+  mobile : mobile_main
+  fax : fax_main
+  email : email_main
+  website : website_main
+bankAccounts : 
+  - !!com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity
+    iban : iban_1
+    bankId : bank_id_1
+    accountNumber : account_number_1
+    ownerName : owner_name_1
+  - !!com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity
+    iban : iban_2
+    bankId : bank_id_2
+    accountNumber : account_number_2
+    ownerName : owner_name_2
+contacts :
+  - !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
+    uid : uid_contact_1
+    name : contact_1
+    telephone : telephone_1
+    mobile : mobile_1
+    fax : fax_1
+    email : email_1
+    website : website_1
+  - !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
+    uid : uid_contact_2
+    name : contact_2
+    telephone : telephone_2
+    mobile : mobile_2
+    fax : fax_2
+    email : email_2
+    website : website_2
+hasSelfBillingAgreement : false

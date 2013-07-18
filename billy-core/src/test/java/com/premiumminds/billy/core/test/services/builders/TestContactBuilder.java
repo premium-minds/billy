@@ -35,9 +35,8 @@ public class TestContactBuilder extends AbstractTest {
 	@Test
 	public void doTest() {
 
-		MockContactEntity mockContact = (MockContactEntity) createMockEntity(
-				generateMockEntityConstructor(MockContactEntity.class),
-				CONTACT_YML);
+		MockContactEntity mockContact = createMockEntity(
+				MockContactEntity.class, CONTACT_YML);
 
 		Mockito.when(getInstance(DAOContact.class).getEntityInstance())
 				.thenReturn(new MockContactEntity());

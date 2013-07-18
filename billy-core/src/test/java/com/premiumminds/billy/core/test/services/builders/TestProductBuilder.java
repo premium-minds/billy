@@ -19,8 +19,9 @@
 package com.premiumminds.billy.core.test.services.builders;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
+import java.util.Currency;
 
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -28,26 +29,29 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product;
-import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
 import com.premiumminds.billy.core.test.fixtures.MockProductEntity;
-import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
 
 public class TestProductBuilder extends AbstractTest {
 
 	private static final String PRODUCT_YML = "src/test/resources/Product.yml";
-	private static final String TAX_YML = "src/test/resources/Tax.yml";
-	private static final String CONTEXT_YML = "src/test/resources/Context.yml";
 
 	@Test
 	public void doTest() {
-		MockProductEntity mockProduct = loadFixture(MockProductEntity.class);
+		MockProductEntity mockProduct = createMockEntity(
+				MockProductEntity.class, PRODUCT_YML);
 
 		Mockito.when(getInstance(DAOProduct.class).getEntityInstance())
 				.thenReturn(new MockProductEntity());
+
+		for (TaxEntity tax : mockProduct.getTaxes()) {
+			tax.setCurrency(Currency.getInstance("EUR"));
+			Mockito.when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
+					.thenReturn(tax);
+		}
 
 		Product.Builder builder = getInstance(Product.Builder.class);
 
@@ -63,7 +67,7 @@ public class TestProductBuilder extends AbstractTest {
 
 		Product product = builder.build();
 
-		assert (product != null);
+		assertTrue(product != null);
 
 		assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
 		assertEquals(mockProduct.getDescription(), product.getDescription());
@@ -74,26 +78,5 @@ public class TestProductBuilder extends AbstractTest {
 		assertEquals(mockProduct.getValuationMethod(),
 				product.getValuationMethod());
 
-	}
-
-	public MockProductEntity loadFixture(Class<MockProductEntity> clazz) {
-		MockProductEntity result = (MockProductEntity) createMockEntity(
-				generateMockEntityConstructor(MockProductEntity.class),
-				PRODUCT_YML);
-
-		MockTaxEntity tax = (MockTaxEntity) createMockEntity(
-				generateMockEntityConstructor(MockTaxEntity.class), TAX_YML);
-
-		tax.uid = new UID("uid_tax");
-		tax.context = (MockContextEntity) createMockEntity(
-				generateMockEntityConstructor(MockContextEntity.class),
-				CONTEXT_YML);
-
-		result.taxes = Arrays.asList(new Tax[] { tax });
-
-		Mockito.when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
-				.thenReturn(tax);
-
-		return result;
 	}
 }

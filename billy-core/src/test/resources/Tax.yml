@@ -26,5 +26,12 @@ validTo: 2013-12-12
 taxRateType : FLAT
 percentageRateValue : 23
 flatRateAmount : 50
-#currency : EUR
-
+uid : uid_tax
+context : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+      uid : context_uid
+      name : name
+      description : description
+      parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
+        uid : context_parent_uid
+        name : parent_name
+        description : parent_description
