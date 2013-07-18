@@ -35,4 +35,6 @@ public interface PTApplication extends Application {
 		}
 
 	}
+
+	public Integer getSoftwareCertificationNumber();
 }

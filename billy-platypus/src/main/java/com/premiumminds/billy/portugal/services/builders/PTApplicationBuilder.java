@@ -24,4 +24,6 @@ import com.premiumminds.billy.portugal.services.entities.PTApplication;
 public interface PTApplicationBuilder<TBuilder extends PTApplicationBuilder<TBuilder, TApplication>, TApplication extends PTApplication>
 		extends ApplicationBuilder<TBuilder, TApplication> {
 
+	public TBuilder setSoftwareCertificationNumber(Integer number);
+
 }

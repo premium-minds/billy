@@ -18,96 +18,28 @@
  */
 package com.premiumminds.billy.portugal.test.fixtures;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.premiumminds.billy.core.persistence.entities.ContactEntity;
-import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
+import com.premiumminds.billy.core.test.fixtures.MockApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
-
-public class MockPTApplicationEntity extends MockBaseEntity implements PTApplicationEntity{
+public class MockPTApplicationEntity extends MockApplicationEntity implements
+		PTApplicationEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	public String name;
-	public String version;
-	public String developerCompanyName;
-	public String developerCompanyTaxIdentifier;
-	public String websiteAddress;
-	public ContactEntity mainContact;
-	public List<ContactEntity> contacts;
+	public Integer number;
 
 	public MockPTApplicationEntity() {
-		this.contacts = new ArrayList<ContactEntity>();
-	}
-
-	@Override
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public String getVersion() {
-		return this.version;
-	}
-
-	@Override
-	public String getDeveloperCompanyName() {
-		return this.developerCompanyName;
-	}
-
-	@Override
-	public String getDeveloperCompanyTaxIdentifier() {
-		return this.developerCompanyTaxIdentifier;
-	}
-
-	@Override
-	public String getWebsiteAddress() {
-		return this.websiteAddress;
-	}
-
-	@Override
-	public <T extends Contact> Contact getMainContact() {
-		return this.mainContact;
-	}
-
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@Override
-	public void setVersion(String version) {
-		this.version = version;
 
 	}
 
 	@Override
-	public void setDeveloperCompanyName(String name) {
-		this.developerCompanyName = name;
+	public Integer getSoftwareCertificationNumber() {
+		return number;
 	}
 
 	@Override
-	public void setDeveloperCompanyTaxIdentifier(String id) {
-		this.developerCompanyTaxIdentifier = id;
-	}
-
-	@Override
-	public List<ContactEntity> getContacts() {
-		return this.contacts;
-	}
-
-	@Override
-	public <T extends ContactEntity> void setMainContact(T contact) {
-		this.mainContact = contact;
-	}
-
-	@Override
-	public void setWebsiteAddress(String website) {
-		this.websiteAddress = website;
+	public void setSoftwareCertificateNum(Integer number) {
+		this.number = number;
 	}
 
 }
-

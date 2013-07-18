@@ -18,8 +18,12 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
+import com.premiumminds.billy.core.util.BillyValidator;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.services.builders.PTApplicationBuilder;
@@ -29,6 +33,10 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 		extends ApplicationBuilderImpl<TBuilder, TApplication> implements
 		PTApplicationBuilder<TBuilder, TApplication> {
 
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
+
+	@Inject
 	public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {
 		super(daoPTApplication);
 	}
@@ -37,9 +45,16 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 	protected PTApplicationEntity getTypeInstance() {
 		return (PTApplicationEntity) super.getTypeInstance();
 	}
-	
+
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
+	}
+
+	@Override
+	public TBuilder setSoftwareCertificationNumber(Integer number) {
+		BillyValidator.mandatory(number, LOCALIZER.getString("field.number"));
+		getTypeInstance().setSoftwareCertificateNum(number);
+		return getBuilder();
 	}
 }
