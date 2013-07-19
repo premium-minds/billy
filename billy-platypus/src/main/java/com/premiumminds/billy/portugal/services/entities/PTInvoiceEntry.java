@@ -22,6 +22,5 @@ public interface PTInvoiceEntry extends GenericInvoiceEntry {
 			super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct,
 					daoPTRegionContext);
 		}
-
 	}
 }
