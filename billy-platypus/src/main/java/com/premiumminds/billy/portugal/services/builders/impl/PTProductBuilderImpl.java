@@ -56,10 +56,20 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 	}
 
 	@Override
+	public TBuilder setUnitOfMeasure(String unit) {
+		BillyValidator.mandatory(unit, PTProductBuilderImpl.LOCALIZER
+				.getString("field.unit_of_measure"));
+		this.getTypeInstance().setUnitOfMeasure(unit);
+		return this.getBuilder();
+	}
+
+	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
 		PTProduct p = this.getTypeInstance();
 		BillyValidator.mandatory(p.getNumberCode(),
 				PTProductBuilderImpl.LOCALIZER.getString("field.number_code"));
+		BillyValidator.mandatory(p.getUnitOfMeasure(),
+				PTProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
 	}
 }
