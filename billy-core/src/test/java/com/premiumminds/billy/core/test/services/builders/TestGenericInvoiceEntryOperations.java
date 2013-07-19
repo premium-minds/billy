@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
+import com.premiumminds.billy.core.services.entities.Context;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -32,11 +33,14 @@ import java.util.List;
 
 import org.junit.Test;
 import org.mockito.Matchers;
+import org.mockito.Mockito;
 
+import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
@@ -62,29 +66,30 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 	public void doTest() {
 		MockGenericInvoiceEntryEntity mock = this
 				.loadEntryFixture(MockGenericInvoiceEntryEntity.class);
+		
 		when(getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
 				.thenReturn(new MockGenericInvoiceEntryEntity());
-
+		
+		when(getInstance(DAOContext.class).isSubContext(Matchers.any(Context.class), Matchers.any(Context.class))).thenReturn(true);
+		
 		GenericInvoiceEntry.Builder builder = getInstance(GenericInvoiceEntry.Builder.class);
 		builder.setCreditOrDebit(mock.getCreditOrDebit())
-				.setDescription(mock.getDescription())
-				.addDocumentReferenceUID(
-						mock.getDocumentReferences().get(0).getUID())
-				.setProductUID(mock.getProduct().getUID())
-				.setQuantity(mock.getQuantity())
-				.setShippingCostsAmount(mock.getShippingCostsAmount())
-//				.addTaxUID(mock.getTaxes().get(0).getUID())
-				.setUnitAmount(AmountType.WITH_TAX,
-						mock.getUnitAmountWithTax(),
-						Currency.getInstance("EUR"))
-				.setUnitOfMeasure(mock.getUnitOfMeasure())
-				.setTaxPointDate(mock.getTaxPointDate());
+		.setDescription(mock.getDescription())
+		.addDocumentReferenceUID(
+				mock.getDocumentReferences().get(0).getUID())
+		.setQuantity(mock.getQuantity())
+		.setShippingCostsAmount(mock.getShippingCostsAmount())
+		.setUnitAmount(AmountType.WITH_TAX,
+				mock.getUnitAmountWithTax(),
+				Currency.getInstance("EUR"))
+		.setUnitOfMeasure(mock.getUnitOfMeasure())
+		.setProductUID(mock.getProduct().getUID())
+		.setTaxPointDate(mock.getTaxPointDate());
 
 		GenericInvoiceEntry entry = builder.build();
-
 		
-		assertTrue(entry.getAmountWithoutTax().compareTo(
-				mock.getAmountWithoutTax()) == 0);
+		assertTrue(entry.getAmountWithoutTax().setScale(7, mc.getRoundingMode()).compareTo(
+				mock.getAmountWithoutTax().setScale(7, mc.getRoundingMode())) == 0);
 		
 		assertTrue(entry.getAmountWithoutTax().compareTo(
 				mock.getUnitAmountWithoutTax().multiply(qnt, mc)) == 0);
@@ -102,7 +107,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		
 		assertTrue(entry.getAmountWithTax().setScale(7, mc.getRoundingMode()).compareTo(
 					(mock.getTaxAmount().add(mock.getAmountWithoutTax(), mc)).setScale(7, mc.getRoundingMode())
-					) == 0);
+					) == 0);	
 		
 		assertTrue(entry.getTaxAmount().setScale(7, mc.getRoundingMode()).compareTo(
 				mock.getTaxAmount().setScale(7, mc.getRoundingMode())
@@ -193,6 +198,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		product.setNumberCode("Number Code");
 		product.setValuationMethod("Validation Method");
 		product.setUnitOfMeasure("Kg");
+		product.taxes.add(loadTaxFixture(MockTaxEntity.class));
 		
 		return product;
 	}
@@ -216,6 +222,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		result.number = 143;
 		result.exchangeRateToDocumentCurrency = BigDecimal.ONE;
 		
+		//init vars
 		BigDecimal taxValue = new BigDecimal("0.23");
 		BigDecimal b1 = new BigDecimal("1");
 		BigDecimal b2 = new BigDecimal("7");
@@ -237,11 +244,11 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		result.shippingDestination = new MockShippingPointEntity();
 		result.shippingOrigin = new MockShippingPointEntity();
 		
-		MockTaxEntity tax = this.loadTaxFixture(MockTaxEntity.class);
-		result.taxes= Arrays.asList(new Tax[] { tax });
+		//MockTaxEntity tax = this.loadTaxFixture(MockTaxEntity.class);
+		//result.taxes= Arrays.asList(new Tax[] { tax });
 		
-		when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
-				.thenReturn(tax);
+		//when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
+			//	.thenReturn(tax);
 		
 		MockProductEntity prod = this.loadProductFixture(MockProductEntity.class);
 		
