@@ -25,6 +25,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
@@ -45,6 +46,7 @@ public class PTMockDependencyModule extends MockDependencyModule {
 		bind(DAOPTBusiness.class).toInstance(mock(DAOPTBusiness.class));
 		bind(DAOPTShippingPoint.class).toInstance(
 				mock(DAOPTShippingPoint.class));
+		bind(DAOPTCustomer.class).toInstance(mock(DAOPTCustomer.class));
 	}
 
 }
