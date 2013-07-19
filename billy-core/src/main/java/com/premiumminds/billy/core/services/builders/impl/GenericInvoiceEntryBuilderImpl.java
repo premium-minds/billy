@@ -166,7 +166,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.notNull(creditOrDebit,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.description"));
+						.getString("field.credit_or_debit"));
 		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
 		return this.getBuilder();
 	}
@@ -179,7 +179,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		this.getTypeInstance().setShippingCostsAmount(amount);
 		return this.getBuilder();
 	}
-	
+
 	@Override
 	public TBuilder setAmountType(AmountType type) {
 		this.getTypeInstance().setAmountType(type);
@@ -197,7 +197,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		BillyValidator.mandatory(currency,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.currency"));
-		
+
 		switch (type) {
 			case WITH_TAX:
 				this.getTypeInstance().setUnitAmountWithTax(amount);
@@ -208,6 +208,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 				this.getTypeInstance().setUnitAmountWithTax(null);
 				break;
 		}
+		this.getTypeInstance().setAmountType(type);
 		this.getTypeInstance().setCurrency(currency);
 		return this.getBuilder();
 	}
@@ -252,8 +253,36 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 	@Override
 	protected void validateInstance() throws ValidationException {
-		// TODO Auto-generated method stub
 		this.validateValues();
+
+		GenericInvoiceEntry i = this.getTypeInstance();
+		BillyValidator.mandatory(i.getProduct(),
+				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.product"));
+		BillyValidator
+				.mandatory(i.getQuantity(), GenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.quantity"));
+		BillyValidator.mandatory(i.getUnitOfMeasure(),
+				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit"));
+		BillyValidator.mandatory(i.getDescription(),
+				GenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.description"));
+		BillyValidator.mandatory(i.getAmountType(),
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.unit_amount_type"));
+
+		if (i.getAmountType().compareTo(AmountType.WITH_TAX) == 0) {
+			BillyValidator.mandatory(i.getAmountWithTax(),
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("field.unit_gross_amount"));
+		} else {
+			BillyValidator.mandatory(i.getAmountWithoutTax(),
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("field.unit_gross_amount"));
+		}
+
+		BillyValidator.mandatory(i.getCurrency(),
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.currency"));
 	}
 
 	@Deprecated
@@ -323,6 +352,5 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	protected GenericInvoiceEntryEntity getTypeInstance() {
 		return (GenericInvoiceEntryEntity) super.getTypeInstance();
 	}
-
 
 }
