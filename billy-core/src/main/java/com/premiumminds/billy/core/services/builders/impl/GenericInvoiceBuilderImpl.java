@@ -206,8 +206,8 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 																		// message
 		GenericInvoiceEntity i = this.getTypeInstance();
 		GenericInvoiceEntryEntity e = (GenericInvoiceEntryEntity) entry;
-		e.setEntryNumber(i.getEntries().size());
 		i.getEntries().add(e);
+		e.setEntryNumber(i.getEntries().size());
 		this.validateValues();
 		return this.getBuilder();
 	}
