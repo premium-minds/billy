@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.services.builders.impl.SupplierBuilderImpl;
 
-public interface Supplier {
+public interface Supplier extends Entity {
 
 	public static class Builder extends SupplierBuilderImpl<Builder, Supplier> {
 

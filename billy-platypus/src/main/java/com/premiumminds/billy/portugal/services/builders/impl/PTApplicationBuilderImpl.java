@@ -18,11 +18,12 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.inject.Inject;
+import javax.validation.ValidationException;
 
-import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -49,21 +50,32 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 	}
 
 	@Override
-	protected void validateInstance() throws BillyValidationException {
-		super.validateInstance();
-	}
-
-	@Override
 	public TBuilder setSoftwareCertificationNumber(Integer number) {
 		BillyValidator.mandatory(number, LOCALIZER.getString("field.number"));
 		getTypeInstance().setSoftwareCertificateNum(number);
 		return getBuilder();
 	}
 
+	@Override
 	public TBuilder setApplicationKeysPath(URL path) {
 		BillyValidator.mandatory(path, LOCALIZER.getString("field.keys_path"));
 		getTypeInstance().setApplicationKeysPath(path);
 		return getBuilder();
+	}
+
+	@Override
+	protected void validateInstance() throws ValidationException {
+		super.validateInstance();
+		PTApplicationEntity c = this.getTypeInstance();
+		BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
+				LOCALIZER.getString("field.number"));
+		try {
+			BillyValidator.mandatory(c.getApplicationKeysPath(),
+					PTApplicationBuilderImpl.LOCALIZER
+							.getString("field.keys_path"));
+		} catch (MalformedURLException e) {
+			throw new ValidationException(e.getMessage());
+		}
 	}
 
 }

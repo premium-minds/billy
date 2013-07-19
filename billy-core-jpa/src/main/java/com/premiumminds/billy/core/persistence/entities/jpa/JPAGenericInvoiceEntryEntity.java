@@ -40,6 +40,7 @@ import javax.persistence.TemporalType;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
@@ -133,6 +134,9 @@ GenericInvoiceEntryEntity {
 
 	@Column(name = "UNIT_OF_MEASURE")
 	protected String unitOfMeasure;
+	
+	@Column(name = "AMOUNT_TYPE")
+	protected AmountType type;
 
 
 	public JPAGenericInvoiceEntryEntity() {
@@ -246,6 +250,10 @@ GenericInvoiceEntryEntity {
 	@Override
 	public String getTaxExemptionReason() {
 		return taxExemptionReason;
+	}
+	
+	public AmountType getAmountType() {
+		return type;
 	}
 
 	@Override
@@ -361,6 +369,10 @@ GenericInvoiceEntryEntity {
 	@Override
 	public void setTaxExemptionReason(String exemptionReason) {
 		this.taxExemptionReason = exemptionReason;
+	}
+	
+	public void setAmountType(AmountType type) {
+		this.type = type;
 	}
 
 }

@@ -24,7 +24,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
 	version="2.0">
 
-	<persistence-unit name="BillyPlatypusPersistenceUnit">
+	<persistence-unit name="BillyPortugalPersistenceUnit">
 		<description>billy persistence unit</description>
 
 <!-- 		<non-jta-data-source>java:/comp/env/jdbc/billy-datasource</non-jta-data-source> -->
@@ -43,7 +43,7 @@
 		</properties>
 	</persistence-unit>
 	
-	<persistence-unit name="BillyPlatypusTestPersistenceUnit">
+	<persistence-unit name="BillyPortugalTestPersistenceUnit">
 		<description>billy persistence unit for tests</description>
 
 		<mapping-file>META-INF/orm-platypus.xml</mapping-file>

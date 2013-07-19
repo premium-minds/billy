@@ -67,15 +67,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	protected DAOTax daoTax;
 	protected DAOProduct daoProduct;
 	protected DAOContext daoContext;
-	
+
 	protected Context context;
 
 	@SuppressWarnings("unchecked")
 	@Inject
 	public GenericInvoiceEntryBuilderImpl(DAOGenericInvoiceEntry daoEntry,
 			DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
-			DAOProduct daoProduct,
-			DAOContext daoContext) {
+			DAOProduct daoProduct, DAOContext daoContext) {
 		super((EntityFactory<? extends TEntry>) daoEntry);
 		this.daoEntry = daoEntry;
 		this.daoGenericInvoice = daoGenericInvoice;
@@ -180,6 +179,12 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		this.getTypeInstance().setShippingCostsAmount(amount);
 		return this.getBuilder();
 	}
+	
+	@Override
+	public TBuilder setAmountType(AmountType type) {
+		this.getTypeInstance().setAmountType(type);
+		return this.getBuilder();
+	}
 
 	@Override
 	public TBuilder setUnitAmount(AmountType type, BigDecimal amount,
@@ -192,6 +197,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		BillyValidator.mandatory(currency,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.currency"));
+		
 		switch (type) {
 			case WITH_TAX:
 				this.getTypeInstance().setUnitAmountWithTax(amount);
@@ -208,13 +214,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 	@Override
 	public TBuilder setContextUID(UID uidContext) {
-		BillyValidator.mandatory(uidContext, LOCALIZER.getString("field.context"));
+		BillyValidator.mandatory(uidContext,
+				LOCALIZER.getString("field.context"));
 		ContextEntity c = this.daoContext.get(uidContext);
 		BillyValidator.found(c, LOCALIZER.getString("field.reference"));
 		this.context = c;
 		return getBuilder();
 	}
-	
+
 	@Override
 	public TBuilder setTaxExemptionReason(String exemptionReason) {
 		BillyValidator.notBlank(exemptionReason,
@@ -236,9 +243,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		Validate.notEmpty(discounts, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.discount_type"));
 
-//		for(BigDecimal d : discounts) {
-//			
-//		}
+		// for(BigDecimal d : discounts) {
+		//
+		// }
 
 		return this.getBuilder();
 	}
@@ -256,12 +263,16 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		MathContext mc = BillyMathContext.get();
 
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
-		for(Tax t : e.getProduct().getTaxes()) {
-			if(daoContext.isSubContext(t.getContext(), this.context)) { //TODO verify tax expiration date
+		for (Tax t : e.getProduct().getTaxes()) {
+			if (daoContext.isSubContext(t.getContext(), this.context)) { // TODO
+																			// verify
+																			// tax
+																			// expiration
+																			// date
 				e.getTaxes().add(t);
 			}
 		}
-		
+
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
 
 		if (e.getUnitAmountWithTax() != null) {
@@ -273,7 +284,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 					case FLAT:
 						unitAmountWithoutTax = unitAmountWithoutTax.subtract(
 								t.getValue(), mc);
-						unitTaxAmount.add(t.getValue(), mc);
+						unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
 						break;
 					case PERCENTAGE:
 						unitAmountWithoutTax = e
@@ -314,5 +325,6 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	protected GenericInvoiceEntryEntity getTypeInstance() {
 		return (GenericInvoiceEntryEntity) super.getTypeInstance();
 	}
+
 
 }

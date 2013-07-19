@@ -19,8 +19,10 @@
 package com.premiumminds.billy.portugal.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
-
+import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
 
 public interface DAOPTShippingPoint extends DAOShippingPoint {
 
+	@Override
+	public PTShippingPointEntity getEntityInstance();
 }

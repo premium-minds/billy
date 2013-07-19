@@ -22,16 +22,19 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ContactBuilderImpl;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.services.builders.PTContactBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 
-
 public class PTContactBuilderImpl<TBuilder extends PTContactBuilderImpl<TBuilder, TContact>, TContact extends PTContact>
-extends ContactBuilderImpl<TBuilder, TContact> implements
-PTContactBuilder<TBuilder, TContact> {
-	
+		extends ContactBuilderImpl<TBuilder, TContact> implements
+		PTContactBuilder<TBuilder, TContact> {
+
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
+
 	@Inject
 	public PTContactBuilderImpl(DAOPTContact daoPTContact) {
 		super(daoPTContact);
@@ -41,7 +44,7 @@ PTContactBuilder<TBuilder, TContact> {
 	protected PTContactEntity getTypeInstance() {
 		return (PTContactEntity) super.getTypeInstance();
 	}
-	
+
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();

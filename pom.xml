@@ -108,7 +108,7 @@
 						<yml>SCRIPT_STYLE</yml>
 					</mapping>
 					<properties>
-						<project-name>${name}</project-name>
+						<project-name>${project.name}</project-name>
 						<year>2013</year>
 						<owner>Premium Minds</owner>
 					</properties>
