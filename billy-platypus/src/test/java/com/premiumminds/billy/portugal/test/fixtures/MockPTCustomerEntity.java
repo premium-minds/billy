@@ -18,16 +18,12 @@
  */
 package com.premiumminds.billy.portugal.test.fixtures;
 
-import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
+import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 
-public class MockPTAddressEntity extends MockAddressEntity implements
-		PTAddressEntity {
+public class MockPTCustomerEntity extends MockCustomerEntity implements
+		PTCustomerEntity {
 
 	private static final long serialVersionUID = 1L;
-
-	public MockPTAddressEntity() {
-
-	}
 
 }

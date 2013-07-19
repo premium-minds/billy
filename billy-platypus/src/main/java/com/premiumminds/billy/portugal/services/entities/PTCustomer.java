@@ -16,18 +16,23 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.test.fixtures;
+package com.premiumminds.billy.portugal.services.entities;
 
-import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
+import javax.inject.Inject;
 
-public class MockPTAddressEntity extends MockAddressEntity implements
-		PTAddressEntity {
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.services.builders.impl.PTCustomerBuilderImpl;
 
-	private static final long serialVersionUID = 1L;
+public interface PTCustomer extends Customer {
 
-	public MockPTAddressEntity() {
+	public static class Builder extends
+			PTCustomerBuilderImpl<Builder, PTCustomer> {
 
+		@Inject
+		public Builder(DAOPTCustomer daoPTCustomer, DAOPTContact daoPTContact) {
+			super(daoPTCustomer, daoPTContact);
+		}
 	}
-
 }

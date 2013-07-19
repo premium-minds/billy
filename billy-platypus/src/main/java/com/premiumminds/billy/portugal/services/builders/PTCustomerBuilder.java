@@ -16,18 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.test.fixtures;
+package com.premiumminds.billy.portugal.services.builders;
 
-import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
+import com.premiumminds.billy.core.services.builders.CustomerBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 
-public class MockPTAddressEntity extends MockAddressEntity implements
-		PTAddressEntity {
-
-	private static final long serialVersionUID = 1L;
-
-	public MockPTAddressEntity() {
-
-	}
-
+public interface PTCustomerBuilder<TBuilder extends PTCustomerBuilder<TBuilder, TCustomer>, TCustomer extends PTCustomer>
+		extends CustomerBuilder<TBuilder, TCustomer> {
 }

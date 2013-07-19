@@ -27,6 +27,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
@@ -36,6 +37,7 @@ import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTAddressImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTApplicationImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTBusinessImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTContactImpl;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCustomerImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTProductImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTRegionContextImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTShippingPointImpl;
@@ -50,13 +52,6 @@ public class PlatypusDependencyModule extends AbstractModule {
 		install(new CoreJPADependencyModule());
 		install(new GINDependencyModule());
 
-		// bind(DAOPTFinancialDocument.class).to(DAOPTFinancialDocumentImpl.class);
-		// bind(DAOPTInvoice.class).to(DAOPTInvoiceImpl.class);
-		// bind(DAOPTSimpleInvoice.class).to(DAOPTSimpleInvoiceImpl.class);
-		// bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
-		// bind(DAOPTFinancialDocumentEntry.class).to(DAOPTFinancialDocumentEntryImpl.class);
-		// bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
-
 		bind(DAOPTContact.class).to(DAOPTContactImpl.class);
 		bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
 		bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
@@ -66,6 +61,7 @@ public class PlatypusDependencyModule extends AbstractModule {
 		bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
 		bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
 		bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
+		bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
 	}
 
 	public static class Initializer {
