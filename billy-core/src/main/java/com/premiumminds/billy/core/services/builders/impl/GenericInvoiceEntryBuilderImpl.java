@@ -112,9 +112,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		this.getTypeInstance().setProduct(p);
 
 		// Adds the product taxes to the invoice line
-		for (Tax t : p.getTaxes()) {
-			this.getTypeInstance().getTaxes().add(t);
-		}
+		//for (Tax t : p.getTaxes()) {
+		//	this.getTypeInstance().getTaxes().add(t);
+		//}
 		return this.getBuilder();
 	}
 
@@ -292,16 +292,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		MathContext mc = BillyMathContext.get();
 
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
+
 		for (Tax t : e.getProduct().getTaxes()) {
 			if (daoContext.isSubContext(t.getContext(), this.context)) { // TODO
-																			// verify
-																			// tax
-																			// expiration
-																			// date
+						//Todo verify tax expiration date
 				e.getTaxes().add(t);
 			}
 		}
-
+		
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
 
 		if (e.getUnitAmountWithTax() != null) {
