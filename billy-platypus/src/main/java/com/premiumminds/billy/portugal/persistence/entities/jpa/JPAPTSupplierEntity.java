@@ -16,23 +16,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import javax.inject.Inject;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 
-import com.premiumminds.billy.core.services.entities.Supplier;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTSupplierBuilderImpl;
+public class JPAPTSupplierEntity extends JPASupplierEntity implements
+		PTSupplierEntity {
 
-public interface PTSupplier extends Supplier {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-	public static class Builder extends
-			PTSupplierBuilderImpl<Builder, PTSupplier> {
-
-		@Inject
-		public Builder(DAOPTSupplier daoPTSupplier) {
-			super(daoPTSupplier);
-		}
-
-	}
 }

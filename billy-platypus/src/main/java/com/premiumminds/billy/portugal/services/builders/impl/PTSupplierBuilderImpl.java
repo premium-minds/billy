@@ -21,9 +21,14 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
+import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.impl.SupplierBuilderImpl;
+import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.builders.PTSupplierBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
@@ -36,8 +41,8 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 			"com/premiumminds/billy/portugal/i18n/FieldNames");
 
 	@Inject
-	public PTSupplierBuilderImpl(DAOSupplier daoSupplier) {
-		super(daoSupplier);
+	public PTSupplierBuilderImpl(DAOPTSupplier daoPTSupplier) {
+		super(daoPTSupplier);
 	}
 
 	@Override
@@ -46,7 +51,49 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	}
 
 	@Override
+	public TBuilder setTaxRegistrationNumber(String number) {
+		BillyValidator.mandatory(number,
+				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
+		this.getTypeInstance().setTaxRegistrationNumber(number);
+		return this.getBuilder();
+	}
+
+	@Override
+	public <T extends Address> TBuilder setBillingAddress(
+			Builder<T> addressBuilder) {
+		BillyValidator.mandatory(addressBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.billing_address"));
+		this.getTypeInstance().setBillingAddress(
+				(AddressEntity) addressBuilder.build());
+		return this.getBuilder();
+	}
+
+	@Override
+	public TBuilder setSelfBillingAgreement(boolean selfBilling) {
+		BillyValidator.mandatory(selfBilling, PTSupplierBuilderImpl.LOCALIZER
+				.getString("field.self_billing_agreement"));
+		this.getTypeInstance().setSelfBillingAgreement(selfBilling);
+		return this.getBuilder();
+	}
+
+	@Deprecated
+	@NotImplemented
+	public TBuilder setAccountID(String accountID) {
+		// TODO Accounting support
+		return null;
+	}
+
+	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
+		PTSupplier s = this.getTypeInstance();
+		BillyValidator.mandatory(s.getTaxRegistrationNumber(),
+				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
+		BillyValidator.mandatory(s.getBillingAddress(),
+				SupplierBuilderImpl.LOCALIZER
+						.getString("field.billing_address"));
+		BillyValidator.mandatory(s.hasSelfBillingAgreement(),
+				PTSupplierBuilderImpl.LOCALIZER
+						.getString("field.self_billing_agreement"));
 	}
 }

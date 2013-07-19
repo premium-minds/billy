@@ -16,23 +16,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOSupplierImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTSupplierBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSupplierEntity;
 
-public interface PTSupplier extends Supplier {
+public class DAOPTSupplierImpl extends DAOSupplierImpl implements DAOPTSupplier {
 
-	public static class Builder extends
-			PTSupplierBuilderImpl<Builder, PTSupplier> {
+	public DAOPTSupplierImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-		@Inject
-		public Builder(DAOPTSupplier daoPTSupplier) {
-			super(daoPTSupplier);
-		}
+	@Override
+	public PTSupplierEntity getEntityInstance() {
+		return new JPAPTSupplierEntity();
+	}
 
+	@Override
+	protected Class<JPAPTSupplierEntity> getEntityClass() {
+		return JPAPTSupplierEntity.class;
 	}
 }

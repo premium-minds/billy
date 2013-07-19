@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ProductBuilderImpl;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -47,8 +48,18 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 	}
 
 	@Override
-	protected void validateInstance() throws BillyValidationException {
-		super.validateInstance();
+	public TBuilder setNumberCode(String code) {
+		BillyValidator.mandatory(code,
+				PTProductBuilderImpl.LOCALIZER.getString("field.number_code"));
+		this.getTypeInstance().setNumberCode(code);
+		return this.getBuilder();
 	}
 
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
+		PTProduct p = this.getTypeInstance();
+		BillyValidator.mandatory(p.getNumberCode(),
+				PTProductBuilderImpl.LOCALIZER.getString("field.number_code"));
+	}
 }

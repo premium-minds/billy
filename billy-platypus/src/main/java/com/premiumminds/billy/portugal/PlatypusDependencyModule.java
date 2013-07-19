@@ -31,6 +31,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTAddressImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTApplicationImpl;
@@ -40,6 +41,7 @@ import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCustomerImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTProductImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTRegionContextImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTShippingPointImpl;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTSupplierImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTTaxImpl;
 
 public class PlatypusDependencyModule extends AbstractModule {
@@ -57,6 +59,7 @@ public class PlatypusDependencyModule extends AbstractModule {
 		bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
 		bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
 		bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
+		bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
 		bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
 		bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
 	}
