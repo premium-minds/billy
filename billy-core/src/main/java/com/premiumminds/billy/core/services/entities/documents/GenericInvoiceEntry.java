@@ -28,6 +28,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Entity;
 import com.premiumminds.billy.core.services.entities.Product;
@@ -93,5 +94,7 @@ public interface GenericInvoiceEntry extends Entity {
 	public <T extends Tax> Collection<T> getTaxes();
 
 	public String getTaxExemptionReason();
+	
+	public AmountType  getAmountType();
 
 }

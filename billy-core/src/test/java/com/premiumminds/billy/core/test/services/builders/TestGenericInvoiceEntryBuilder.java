@@ -80,14 +80,18 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 
 		GenericInvoiceEntry entry = builder.build();
 
-		assertTrue(mock.getUnitAmountWithTax().compareTo(
-				entry.getUnitAmountWithTax()) == 0);
-
+		if(entry.getAmountType() == AmountType.WITHOUT_TAX) {
 		assertTrue(mock.getUnitAmountWithoutTax().compareTo(
 				entry.getUnitAmountWithoutTax()) == 0);
+		}
+		else {
+			assertTrue(mock.getUnitAmountWithTax().compareTo(
+					entry.getUnitAmountWithTax()) == 0);
+		}
 
 		assertTrue(mock.getUnitDiscountAmount().compareTo(
 				entry.getUnitDiscountAmount()) == 0);
+		
 		assertTrue(mock.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
 		assertTrue(mock.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
 		assertTrue(mock.getAmountWithoutTax().compareTo(

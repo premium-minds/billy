@@ -25,6 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
@@ -59,6 +60,7 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 	public BigDecimal unitTaxAmount;
 	public BigDecimal unitDiscountAmount;
 	public String unitOfMeasure;
+	public AmountType type;
 
 	public MockGenericInvoiceEntryEntity() {
 		this.references = new ArrayList<GenericInvoice>();
@@ -168,6 +170,11 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 	@Override
 	public String getTaxExemptionReason() {
 		return taxExemptionReason;
+	}
+	
+	@Override
+	public AmountType getAmountType() {
+		return type;
 	}
 
 	@Override
@@ -285,4 +292,8 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 		this.taxExemptionReason = exemptionReason;
 	}
 
+	@Override
+	public void setAmountType(AmountType type) {
+		this.type = type;
+	}
 }

@@ -179,6 +179,12 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		this.getTypeInstance().setShippingCostsAmount(amount);
 		return this.getBuilder();
 	}
+	
+	@Override
+	public TBuilder setAmountType(AmountType type) {
+		this.getTypeInstance().setAmountType(type);
+		return this.getBuilder();
+	}
 
 	@Override
 	public TBuilder setUnitAmount(AmountType type, BigDecimal amount,
@@ -191,6 +197,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		BillyValidator.mandatory(currency,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.currency"));
+		
 		switch (type) {
 			case WITH_TAX:
 				this.getTypeInstance().setUnitAmountWithTax(amount);
@@ -277,7 +284,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 					case FLAT:
 						unitAmountWithoutTax = unitAmountWithoutTax.subtract(
 								t.getValue(), mc);
-						unitTaxAmount.add(t.getValue(), mc);
+						unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
 						break;
 					case PERCENTAGE:
 						unitAmountWithoutTax = e
@@ -318,5 +325,6 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	protected GenericInvoiceEntryEntity getTypeInstance() {
 		return (GenericInvoiceEntryEntity) super.getTypeInstance();
 	}
+
 
 }
