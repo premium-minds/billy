@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
@@ -54,8 +55,8 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder, CustomerBuilderImpl.LOCALIZER
-				.getString("field.billing_address"));
+		BillyValidator.mandatory(addressBuilder,
+				LOCALIZER.getString("field.billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -63,8 +64,8 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
-		BillyValidator.mandatory(selfBiling, CustomerBuilderImpl.LOCALIZER
-				.getString("field.self_billing_agreement"));
+		BillyValidator.mandatory(selfBiling,
+				LOCALIZER.getString("field.self_billing_agreement"));
 		this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
 		return this.getBuilder();
 	}
@@ -72,19 +73,17 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTCustomerEntity c = this.getTypeInstance();
-		BillyValidator.mandatory(c.getName(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.name"));
+		BillyValidator
+				.mandatory(c.getName(), LOCALIZER.getString("field.name"));
 		BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.tax_number"));
+				LOCALIZER.getString("field.tax_number"));
 		BillyValidator.mandatory(c.getMainAddress(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.main_address"));
+				LOCALIZER.getString("field.main_address"));
 		BillyValidator.mandatory(c.getBillingAddress(),
-				CustomerBuilderImpl.LOCALIZER
-						.getString("field.billing_address"));
+				LOCALIZER.getString("field.billing_address"));
 		BillyValidator.mandatory(c.hasSelfBillingAgreement(),
-				CustomerBuilderImpl.LOCALIZER
-						.getString("field.self_billing_agreement"));
+				LOCALIZER.getString("field.self_billing_agreement"));
 		BillyValidator.notEmpty(c.getAddresses(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.addresses"));
+				LOCALIZER.getString("field.addresses"));
 	}
 }

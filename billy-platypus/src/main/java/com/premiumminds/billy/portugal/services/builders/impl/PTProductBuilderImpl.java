@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
@@ -49,16 +50,16 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 
 	@Override
 	public TBuilder setNumberCode(String code) {
-		BillyValidator.mandatory(code,
-				PTProductBuilderImpl.LOCALIZER.getString("field.number_code"));
+		BillyValidator
+				.mandatory(code, LOCALIZER.getString("field.number_code"));
 		this.getTypeInstance().setNumberCode(code);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setUnitOfMeasure(String unit) {
-		BillyValidator.mandatory(unit, PTProductBuilderImpl.LOCALIZER
-				.getString("field.unit_of_measure"));
+		BillyValidator.mandatory(unit,
+				LOCALIZER.getString("field.unit_of_measure"));
 		this.getTypeInstance().setUnitOfMeasure(unit);
 		return this.getBuilder();
 	}
@@ -68,8 +69,8 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 		super.validateInstance();
 		PTProduct p = this.getTypeInstance();
 		BillyValidator.mandatory(p.getNumberCode(),
-				PTProductBuilderImpl.LOCALIZER.getString("field.number_code"));
+				LOCALIZER.getString("field.number_code"));
 		BillyValidator.mandatory(p.getUnitOfMeasure(),
-				PTProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
+				LOCALIZER.getString("field.unit_of_measure"));
 	}
 }

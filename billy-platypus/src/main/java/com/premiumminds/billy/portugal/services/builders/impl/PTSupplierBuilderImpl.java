@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
@@ -52,8 +53,7 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setTaxRegistrationNumber(String number) {
-		BillyValidator.mandatory(number,
-				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
+		BillyValidator.mandatory(number, LOCALIZER.getString("field.tax_id"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
@@ -61,8 +61,8 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder, SupplierBuilderImpl.LOCALIZER
-				.getString("field.billing_address"));
+		BillyValidator.mandatory(addressBuilder,
+				LOCALIZER.getString("field.billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -70,8 +70,8 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setSelfBillingAgreement(boolean selfBilling) {
-		BillyValidator.mandatory(selfBilling, PTSupplierBuilderImpl.LOCALIZER
-				.getString("field.self_billing_agreement"));
+		BillyValidator.mandatory(selfBilling,
+				LOCALIZER.getString("field.self_billing_agreement"));
 		this.getTypeInstance().setSelfBillingAgreement(selfBilling);
 		return this.getBuilder();
 	}
@@ -88,12 +88,10 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 		super.validateInstance();
 		PTSupplier s = this.getTypeInstance();
 		BillyValidator.mandatory(s.getTaxRegistrationNumber(),
-				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
+				LOCALIZER.getString("field.tax_id"));
 		BillyValidator.mandatory(s.getBillingAddress(),
-				SupplierBuilderImpl.LOCALIZER
-						.getString("field.billing_address"));
+				LOCALIZER.getString("field.billing_address"));
 		BillyValidator.mandatory(s.hasSelfBillingAgreement(),
-				PTSupplierBuilderImpl.LOCALIZER
-						.getString("field.self_billing_agreement"));
+				LOCALIZER.getString("field.self_billing_agreement"));
 	}
 }

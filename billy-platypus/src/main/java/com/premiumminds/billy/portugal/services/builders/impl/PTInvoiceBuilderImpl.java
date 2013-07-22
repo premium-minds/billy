@@ -3,6 +3,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
@@ -16,6 +17,9 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 		extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
 		implements PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
+
 	public PTInvoiceBuilderImpl(DAOPTInvoice daoPTInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 			DAOPTSupplier daoPTSupplier) {
@@ -25,16 +29,8 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	@Override
 	public TBuilder setSelfBilled(boolean selfBilled) {
 		BillyValidator.mandatory(selfBilled,
-				GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.self_billed"));
+				LOCALIZER.getString("field.self_billed"));
 		this.getTypeInstance().setSelfBilled(selfBilled);
-		return this.getBuilder();
-	}
-
-	@Override
-	public TBuilder setSourceId(String source) {
-		BillyValidator.mandatory(source,
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
 		return this.getBuilder();
 	}
 
@@ -46,5 +42,8 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
+		PTInvoiceEntity i = this.getTypeInstance();
+		BillyValidator.mandatory(i.isSelfBilled(),
+				LOCALIZER.getString("field.self_billed"));
 	}
 }

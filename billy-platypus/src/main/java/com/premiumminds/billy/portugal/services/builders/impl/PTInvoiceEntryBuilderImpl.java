@@ -31,8 +31,8 @@ public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImp
 
 	@Override
 	public TBuilder setTaxPointDate(Date date) {
-		BillyValidator.mandatory(date, GenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.tax_point_date"));
+		BillyValidator.mandatory(date,
+				LOCALIZER.getString("field.tax_point_date"));
 		this.getTypeInstance().setTaxPointDate(date);
 		return this.getBuilder();
 	}
@@ -40,8 +40,7 @@ public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImp
 	@Override
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.mandatory(creditOrDebit,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.credit_or_debit"));
+				LOCALIZER.getString("field.credit_or_debit"));
 		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
 		return this.getBuilder();
 	}
@@ -56,12 +55,10 @@ public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImp
 		super.validateInstance();
 		PTInvoiceEntryEntity i = this.getTypeInstance();
 		BillyValidator.mandatory(i.getTaxPointDate(),
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax_point_date"));
+				LOCALIZER.getString("field.tax_point_date"));
 
 		BillyValidator.mandatory(i.getCreditOrDebit(),
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.credit_or_debit"));
+				LOCALIZER.getString("field.credit_or_debit"));
 	}
 
 }

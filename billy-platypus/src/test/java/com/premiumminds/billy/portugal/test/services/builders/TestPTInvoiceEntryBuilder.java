@@ -10,9 +10,11 @@ import org.mockito.Matchers;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
@@ -42,6 +44,11 @@ public class TestPTInvoiceEntryBuilder extends PTAbstractTest {
 
 		when(getInstance(DAOPTProduct.class).get(Matchers.any(UID.class)))
 				.thenReturn((PTProductEntity) mock.getProduct());
+
+		when(
+				getInstance(DAOPTRegionContext.class).isSubContext(
+						Matchers.any(Context.class),
+						Matchers.any(Context.class))).thenReturn(true);
 
 		mock.getDocumentReferences().add(mockInvoice);
 
