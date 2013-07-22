@@ -29,8 +29,7 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	@Override
 	public TBuilder setSelfBilled(boolean selfBilled) {
 		BillyValidator.mandatory(selfBilled,
-				GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.self_billed"));
+				LOCALIZER.getString("field.self_billed"));
 		this.getTypeInstance().setSelfBilled(selfBilled);
 		return this.getBuilder();
 	}
@@ -45,6 +44,6 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 		super.validateInstance();
 		PTInvoiceEntity i = this.getTypeInstance();
 		BillyValidator.mandatory(i.isSelfBilled(),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+				LOCALIZER.getString("field.self_billed"));
 	}
 }
