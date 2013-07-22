@@ -19,6 +19,12 @@ public class JPAPTInvoiceEntity extends JPAGenericInvoiceEntity implements
 	@Column(name = "BILLED")
 	protected Boolean billed;
 
+	@Column(name = "HASH")
+	protected String hash;
+
+	@Column(name = "SOURCE_HASH")
+	protected String sourceHash;
+
 	@Override
 	public boolean isCancelled() {
 		return cancelled;
@@ -30,6 +36,16 @@ public class JPAPTInvoiceEntity extends JPAGenericInvoiceEntity implements
 	}
 
 	@Override
+	public String getHash() {
+		return hash;
+	}
+
+	@Override
+	public String getSourceHash() {
+		return sourceHash;
+	}
+
+	@Override
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
 	}
@@ -37,6 +53,16 @@ public class JPAPTInvoiceEntity extends JPAGenericInvoiceEntity implements
 	@Override
 	public void setBilled(boolean billed) {
 		this.billed = billed;
+	}
+
+	@Override
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	@Override
+	public void setSourceHash(String source) {
+		this.sourceHash = source;
 	}
 
 }

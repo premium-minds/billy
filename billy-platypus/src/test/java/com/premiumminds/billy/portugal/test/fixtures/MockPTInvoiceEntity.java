@@ -10,6 +10,8 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 
 	protected Boolean cancelled;
 	protected Boolean billed;
+	protected String hash;
+	protected String sourceHash;
 
 	public MockPTInvoiceEntity() {
 
@@ -26,6 +28,16 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	}
 
 	@Override
+	public String getHash() {
+		return hash;
+	}
+
+	@Override
+	public String getSourceHash() {
+		return sourceHash;
+	}
+
+	@Override
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
 	}
@@ -33,6 +45,16 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	@Override
 	public void setBilled(boolean billed) {
 		this.billed = billed;
+	}
+
+	@Override
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	@Override
+	public void setSourceHash(String source) {
+		this.sourceHash = source;
 	}
 
 }
