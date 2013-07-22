@@ -82,11 +82,11 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 		entryMock3.setCurrency(Currency.getInstance("EUR"));
 		entryMock3.getDocumentReferences().add(mock);
 		entryMock3.unitAmountWithoutTax = (new BigDecimal("1")).divide(new BigDecimal("7"), mc);
-		entryMock3.unitTaxAmount = entryMock1.unitAmountWithoutTax.multiply(tax, mc);
-		entryMock3.unitAmountWithTax = entryMock1.unitAmountWithoutTax.add(entryMock1.unitTaxAmount, mc);
-		entryMock3.amountWithoutTax = entryMock1.unitAmountWithoutTax.multiply(qnt, mc);
-		entryMock3.amountWithTax = entryMock1.unitAmountWithTax.multiply(qnt, mc);
-		entryMock3.taxAmount = entryMock1.unitTaxAmount.multiply(qnt, mc);
+		entryMock3.unitTaxAmount = entryMock3.unitAmountWithoutTax.multiply(tax, mc);
+		entryMock3.unitAmountWithTax = entryMock3.unitAmountWithoutTax.add(entryMock3.unitTaxAmount, mc);
+		entryMock3.amountWithoutTax = entryMock3.unitAmountWithoutTax.multiply(qnt, mc);
+		entryMock3.amountWithTax = entryMock3.unitAmountWithTax.multiply(qnt, mc);
+		entryMock3.taxAmount = entryMock3.unitTaxAmount.multiply(qnt, mc);
 		
 		mock.getEntries().add(entryMock1);
 		mock.getEntries().add(entryMock2);
