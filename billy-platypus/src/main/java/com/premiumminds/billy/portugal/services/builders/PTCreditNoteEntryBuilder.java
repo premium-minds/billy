@@ -16,13 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.services.builders;
 
-import com.premiumminds.billy.core.persistence.dao.DAOContact;
-import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public interface DAOPTContact extends DAOContact {
+public interface PTCreditNoteEntryBuilder<TBuilder extends PTCreditNoteEntryBuilder<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
+		extends PTInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	@Override
-	public PTContactEntity getEntityInstance();
 }

@@ -77,7 +77,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	@Override
 	public TBuilder setBusinessUID(UID businessUID) {
 		BillyValidator
-				.mandatory(businessUID, GenericInvoiceBuilderImpl.LOCALIZER
+				.notNull(businessUID, GenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.business"));
 		BusinessEntity b = this.daoBusiness.get(businessUID);
 		BillyValidator
@@ -264,10 +264,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	protected void validateInstance() throws ValidationException {
-		GenericInvoiceEntity i = this.getTypeInstance();
-		BillyValidator
-		.mandatory(i.getBusiness(), GenericInvoiceBuilderImpl.LOCALIZER
-				.getString("field.business"));
 		this.validateValues();
 		this.validateDates();
 	}

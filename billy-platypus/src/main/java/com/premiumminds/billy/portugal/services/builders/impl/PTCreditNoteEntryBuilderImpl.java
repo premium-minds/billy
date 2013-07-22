@@ -16,28 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
-
-import javax.inject.Inject;
+package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
-import com.premiumminds.billy.portugal.services.builders.impl.PTCreditNoteEntryBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public interface PTCreditNoteEntry extends PTInvoiceEntry {
+public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
+		extends PTInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+		PTCreditNoteEntryBuilder<TBuilder, TEntry> {
 
-	public static class Builder extends
-			PTCreditNoteEntryBuilderImpl<Builder, PTCreditNoteEntry> {
-
-		@Inject
-		public Builder(DAOPTCreditNoteEntry daoPTCreditNoteEntry,
-				DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-				DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
-			super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct,
-					daoPTRegionContext);
-		}
+	public PTCreditNoteEntryBuilderImpl(
+			DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+			DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
+			DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+		super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct,
+				daoPTRegionContext);
 	}
+
 }

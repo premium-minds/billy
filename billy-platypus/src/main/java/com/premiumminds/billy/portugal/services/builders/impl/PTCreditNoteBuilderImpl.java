@@ -16,31 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
-
-import javax.inject.Inject;
+package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTCreditNoteBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.PTCreditNoteBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public interface PTCreditNote extends PTInvoice {
+public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
+		extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
+		PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-	public static class Builder extends
-			PTCreditNoteBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
-
-		@Inject
-		public Builder(DAOPTCreditNote daoPTCreditNote,
-				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-				DAOPTSupplier daoPTSupplier) {
-			super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-		}
+	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
+			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
+			DAOPTSupplier daoPTSupplier) {
+		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
-
-	public String getReference();
-
-	public String getReason();
 
 }
