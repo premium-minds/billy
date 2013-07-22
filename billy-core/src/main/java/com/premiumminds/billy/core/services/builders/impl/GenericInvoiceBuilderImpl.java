@@ -264,7 +264,10 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	protected void validateInstance() throws ValidationException {
-		// TODO Auto-generated method stub
+		GenericInvoiceEntity i = this.getTypeInstance();
+		BillyValidator
+		.mandatory(i.getBusiness(), GenericInvoiceBuilderImpl.LOCALIZER
+				.getString("field.business"));
 		this.validateValues();
 		this.validateDates();
 	}
