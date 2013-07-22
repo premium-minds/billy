@@ -22,6 +22,8 @@ uid : uid_invoice
 number : invoice_1 
 officeNumber : office_1
 date : 2013-08-30
+cancelled : false 
+billed : false
 amountWithTax : !!java.math.BigDecimal
   10
 amountWithoutTax : !!java.math.BigDecimal
