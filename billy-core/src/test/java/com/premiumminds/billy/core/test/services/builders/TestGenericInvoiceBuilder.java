@@ -58,9 +58,9 @@ public class TestGenericInvoiceBuilder extends AbstractTest{
 	
 	mock.getEntries().add(mockInvoice);
 	
-	GenericInvoice.Builder builder = getInstance(GenericInvoice.Builder.class);
-	
 	ArrayList<GenericInvoiceEntry> invoiceEntrys = (ArrayList<GenericInvoiceEntry>) mock.getEntries();
+	
+	GenericInvoice.Builder builder = getInstance(GenericInvoice.Builder.class);
 	
 	GenericInvoiceEntry.Builder invoice1 = this.getMock(GenericInvoiceEntry.Builder.class);
 	Mockito.when(invoice1.build()).thenReturn(invoiceEntrys.get(0));

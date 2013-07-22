@@ -55,8 +55,8 @@ import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
 import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceEntryOperations extends AbstractTest {
-	MathContext mc = BillyMathContext.get();
-	BigDecimal qnt = new BigDecimal("46");
+	private MathContext mc = BillyMathContext.get();
+	private BigDecimal qnt = new BigDecimal("46");
 
 	@Test
 	public void doTest() {
