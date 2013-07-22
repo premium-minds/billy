@@ -50,8 +50,6 @@ import com.premiumminds.billy.core.util.DiscountType;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 
-@Deprecated
-@NotImplemented
 public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
 		extends AbstractBuilder<TBuilder, TDocument> implements
 		GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
@@ -164,6 +162,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	public TBuilder setSourceId(String source) {
 		Validate.notEmpty(source,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+		this.getTypeInstance().setSourceId(source);
 		return this.getBuilder();
 	}
 

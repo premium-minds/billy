@@ -6,9 +6,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 		PTInvoiceEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public MockPTInvoiceEntity() {
