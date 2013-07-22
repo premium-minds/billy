@@ -23,11 +23,11 @@ number : invoice_1
 officeNumber : office_1
 date : 2013-08-30
 amountWithTax : !!java.math.BigDecimal
-  10
+  1955.80086
 amountWithoutTax : !!java.math.BigDecimal
-  20
+  1590.082
 taxAmount : !!java.math.BigDecimal
-  100
+  365.71886
 discountsAmount : !!java.math.BigDecimal
   0
 shippingDestination : !!com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity

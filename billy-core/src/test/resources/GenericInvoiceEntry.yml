@@ -43,24 +43,25 @@ product : !!com.premiumminds.billy.core.test.fixtures.MockProductEntity
     valuationMethod : valuation_method
     taxes:
       - !!com.premiumminds.billy.core.test.fixtures.MockTaxEntity
-        uid : tax_uid_1
+        uid : UID_TAX
         designation : desgination_1
         description : description_1
-        code : code_1
-        value : 7.95041
+        code : VAT
+        value : 23
         validFrom: 2013-01-01
         validTo: 2013-12-12
-        taxRateType : FLAT
+        taxRateType : PERCENTAGE
         percentageRateValue : 23
         flatRateAmount : 13
         context : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
-          uid : context_uid
-          name : name
-          description : description
+          uid : Context_uid
+          name : PT
+          description : PT
           parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
             uid : context_parent_uid
-            name : parent_name
-            description : parent_description
+            name : PT
+            description : PT
+            
 quantity : !!java.math.BigDecimal
   46
 shippingCostsAmount : !!java.math.BigDecimal

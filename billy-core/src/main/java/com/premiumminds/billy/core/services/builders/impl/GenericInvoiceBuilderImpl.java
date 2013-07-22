@@ -290,7 +290,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		i.setTaxAmount(taxAmount);
 		i.setAmountWithoutTax(amountWithoutTax);
 
-		Validate.isTrue(i.getAmountWithTax().add(i.getAmountWithoutTax(), mc)
+		Validate.isTrue(i.getAmountWithTax().subtract(i.getAmountWithoutTax(), mc)
 				.compareTo(i.getTaxAmount()) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());

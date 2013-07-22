@@ -26,12 +26,14 @@ import java.util.Currency;
 import org.junit.Test;
 import org.mockito.Matchers;
 
+import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
@@ -60,12 +62,14 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 
 		when(getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
 				.thenReturn((ProductEntity) mock.getProduct());
-
+		
+		when(getInstance(DAOContext.class).isSubContext(Matchers.any(Context.class), Matchers.any(Context.class))).thenReturn(true);
+		
 		mock.getDocumentReferences().add(mockInvoice);
-
+		
 		GenericInvoiceEntry.Builder builder = getInstance(GenericInvoiceEntry.Builder.class);
 
-		builder.setCreditOrDebit(mock.getCreditOrDebit())
+		builder	.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDescription(mock.getDescription())
 				.addDocumentReferenceUID(
 						mock.getDocumentReferences().get(0).getUID())
@@ -91,7 +95,7 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 
 		assertTrue(mock.getUnitDiscountAmount().compareTo(
 				entry.getUnitDiscountAmount()) == 0);
-		
+				
 		assertTrue(mock.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
 		assertTrue(mock.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
 		assertTrue(mock.getAmountWithoutTax().compareTo(
