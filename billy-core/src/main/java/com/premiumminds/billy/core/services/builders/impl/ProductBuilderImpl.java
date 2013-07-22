@@ -47,6 +47,7 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
 	public ProductBuilderImpl(DAOProduct daoProduct, DAOTax daoTax) {
 		super((EntityFactory<? extends TProduct>) daoProduct);
 		this.daoTax = daoTax;
+		this.daoProduct = daoProduct;
 	}
 
 	@Override

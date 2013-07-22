@@ -52,6 +52,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 	@Inject
 	public TaxBuilderImpl(DAOTax daoTax, DAOContext daoContext) {
 		super((EntityFactory<? extends TTax>) daoTax);
+		this.daoTax = daoTax;
 		this.daoContext = daoContext;
 	}
 
