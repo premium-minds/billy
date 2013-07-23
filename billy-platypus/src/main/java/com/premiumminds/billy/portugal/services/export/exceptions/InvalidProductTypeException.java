@@ -18,12 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.export.exceptions;
 
-public class InvalidProductTypeException extends Exception
-{
+public class InvalidProductTypeException extends Exception {
+
 	private static final long serialVersionUID = 1L;
 
-	public InvalidProductTypeException(String type)
-	{
+	public InvalidProductTypeException(String type) {
 		super("Invalid product type: " + type);
 	}
 }

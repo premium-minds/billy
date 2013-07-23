@@ -35,158 +35,160 @@ import com.premiumminds.billy.portugal.services.entities.PTTax;
 public class BillyPortugal {
 
 	public class Builders {
-		
+
 		public class Invoices {
-			
-			//TODO invoice, credit note, simple invoice, manual invoice, etc...
-			
+
+			// TODO invoice, credit note, simple invoice, manual invoice, etc...
+
 		}
-		
+
 		public PTAddress.Builder createAddressBuilder() {
-			return getInstance(PTAddress.Builder.class);
+			return BillyPortugal.this.getInstance(PTAddress.Builder.class);
 		}
 
 		public PTContact.Builder createContactBuilder() {
-			return getInstance(PTContact.Builder.class);
+			return BillyPortugal.this.getInstance(PTContact.Builder.class);
 		}
 
 		public PTProduct.Builder createProductBuilder() {
-			return getInstance(PTProduct.Builder.class);
+			return BillyPortugal.this.getInstance(PTProduct.Builder.class);
 		}
 
 		public PTShippingPoint.Builder createShippingPointBuilder() {
-			return getInstance(PTShippingPoint.Builder.class);
+			return BillyPortugal.this
+					.getInstance(PTShippingPoint.Builder.class);
 		}
 
 		public PTSupplier.Builder createSupplierBuilder() {
-			return getInstance(PTSupplier.Builder.class);
+			return BillyPortugal.this.getInstance(PTSupplier.Builder.class);
 		}
 
 		public class Configuration {
 
 			public PTApplication.Builder createApplicationBuilder() {
-				return getInstance(PTApplication.Builder.class);
+				return BillyPortugal.this
+						.getInstance(PTApplication.Builder.class);
 			}
 
 			public PTRegionContext.Builder createRegionContextBuilder() {
-				return getInstance(PTRegionContext.Builder.class);
+				return BillyPortugal.this
+						.getInstance(PTRegionContext.Builder.class);
 			}
 
 			public PTTax.Builder createTaxBuilder() {
-				return getInstance(PTTax.Builder.class);
+				return BillyPortugal.this.getInstance(PTTax.Builder.class);
 			}
 
 			public PTBusiness.Builder createBusinessBuilder() {
-				return getInstance(PTBusiness.Builder.class);
+				return BillyPortugal.this.getInstance(PTBusiness.Builder.class);
 			}
 
 		}
 
 		private final Configuration configurationBuilders;
 		private final Invoices invoiceBuilders;
-		
+
 		private Builders() {
-			configurationBuilders = new Configuration();
-			invoiceBuilders = new Invoices();
+			this.configurationBuilders = new Configuration();
+			this.invoiceBuilders = new Invoices();
 		}
-		
+
 		public Configuration configuration() {
-			return configurationBuilders;
+			return this.configurationBuilders;
 		}
-		
+
 		public Invoices invoices() {
-			return invoiceBuilders;
+			return this.invoiceBuilders;
 		}
 	}
-	
-	public class Taxes { //TODO
-	
+
+	public class Taxes { // TODO
+
 		public class Continent {
-			
+
 			public PTTax normal() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 			public PTTax intermediate() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 			public PTTax reduced() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 		}
-		
+
 		public class Madeira {
-			
+
 			public PTTax normal() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 			public PTTax intermediate() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 			public PTTax reduced() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 		}
-		
+
 		public class Azores {
-			
+
 			public PTTax normal() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 			public PTTax intermediate() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 			public PTTax reduced() {
-				//TODO
+				// TODO
 				return null;
 			}
-			
+
 		}
 
 		public PTTax exempt() {
-			//TODO
+			// TODO
 			return null;
 		}
-		
+
 		private final Continent continent;
 		private final Madeira madeira;
 		private final Azores azores;
-		
+
 		public Taxes() {
-			continent = new Continent();
-			madeira = new Madeira();
-			azores = new Azores();
+			this.continent = new Continent();
+			this.madeira = new Madeira();
+			this.azores = new Azores();
 		}
-		
+
 		public Continent continent() {
-			return continent;
+			return this.continent;
 		}
-		
+
 		public Madeira madeira() {
-			return madeira;
+			return this.madeira;
 		}
 
 		public Azores azores() {
-			return azores;
+			return this.azores;
 		}
-		
-	}
 
+	}
 
 	private static final String DEFAULT_PERSISTENCE_UNIT = "BillyPlatypusPersistenceUnit";
 
@@ -195,25 +197,26 @@ public class BillyPortugal {
 	private final Taxes taxes;
 
 	public BillyPortugal() {
-		this(new JpaPersistModule(DEFAULT_PERSISTENCE_UNIT));
+		this(new JpaPersistModule(BillyPortugal.DEFAULT_PERSISTENCE_UNIT));
 	}
 
 	public BillyPortugal(PersistModule persistModule) {
-		injector = Guice.createInjector(new PlatypusDependencyModule(), persistModule);
-		builders = new Builders();
-		taxes = new Taxes();
+		this.injector = Guice.createInjector(new PlatypusDependencyModule(),
+				persistModule);
+		this.builders = new Builders();
+		this.taxes = new Taxes();
 	}
 
 	public Builders builders() {
 		return this.builders;
 	}
-	
+
 	public Taxes taxes() {
-		return taxes;
+		return this.taxes;
 	}
 
 	private <T> T getInstance(Class<T> clazz) {
-		return injector.getInstance(clazz);
+		return this.injector.getInstance(clazz);
 	}
 
 }

@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -38,18 +36,21 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 
 	@Test
 	public void testRegionCode() {
-		MockPTRegionContextEntity mockRegionContextEntity = createMockEntity(
-				MockPTRegionContextEntity.class, PTCONTEXT_YML);
+		MockPTRegionContextEntity mockRegionContextEntity = this
+				.createMockEntity(MockPTRegionContextEntity.class,
+						TestPTRegionContextBuilder.PTCONTEXT_YML);
 
-		Mockito.when(getInstance(DAOPTRegionContext.class).getEntityInstance())
+		Mockito.when(
+				this.getInstance(DAOPTRegionContext.class).getEntityInstance())
 				.thenReturn(new MockPTRegionContextEntity());
 
 		Mockito.when(
-				getInstance(DAOPTRegionContext.class).get(
+				this.getInstance(DAOPTRegionContext.class).get(
 						Matchers.any(UID.class))).thenReturn(
 				(ContextEntity) mockRegionContextEntity.getParentContext());
 
-		PTRegionContext.Builder builder = getInstance(PTRegionContext.Builder.class);
+		PTRegionContext.Builder builder = this
+				.getInstance(PTRegionContext.Builder.class);
 
 		builder.setDescription(mockRegionContextEntity.getDescription())
 				.setName(mockRegionContextEntity.getName())
@@ -59,16 +60,17 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 
 		PTRegionContext regionContex = builder.build();
 
-		assertTrue(regionContex != null);
-		assertTrue(regionContex.getParentContext() != null);
+		Assert.assertTrue(regionContex != null);
+		Assert.assertTrue(regionContex.getParentContext() != null);
 
-		assertEquals(regionContex.getRegionCode(),
+		Assert.assertEquals(regionContex.getRegionCode(),
 				mockRegionContextEntity.getRegionCode());
-		assertEquals(regionContex.getDescription(),
+		Assert.assertEquals(regionContex.getDescription(),
 				mockRegionContextEntity.getDescription());
-		assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
+		Assert.assertEquals(regionContex.getName(),
+				mockRegionContextEntity.getName());
 
-		assertEquals(regionContex.getParentContext().getUID(),
+		Assert.assertEquals(regionContex.getParentContext().getUID(),
 				mockRegionContextEntity.getParentContext().getUID());
 	}
 }

@@ -48,20 +48,20 @@ public class PlatypusDependencyModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		install(new CoreDependencyModule());
-		install(new CoreJPADependencyModule());
-		install(new GINDependencyModule());
+		this.install(new CoreDependencyModule());
+		this.install(new CoreJPADependencyModule());
+		this.install(new GINDependencyModule());
 
-		bind(DAOPTContact.class).to(DAOPTContactImpl.class);
-		bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
-		bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
-		bind(DAOPTAddress.class).to(DAOPTAddressImpl.class);
-		bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
-		bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
-		bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
-		bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
-		bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
-		bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
+		this.bind(DAOPTContact.class).to(DAOPTContactImpl.class);
+		this.bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
+		this.bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
+		this.bind(DAOPTAddress.class).to(DAOPTAddressImpl.class);
+		this.bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
+		this.bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
+		this.bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
+		this.bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
+		this.bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
+		this.bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
 	}
 
 	public static class Initializer {

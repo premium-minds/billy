@@ -18,8 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -35,13 +34,13 @@ public class TestPTAddressBuilder extends PTAbstractTest {
 	@Test
 	public void doTest() {
 
-		MockPTAddressEntity mockAddress = createMockEntity(
-				MockPTAddressEntity.class, PTADDRESS_YML);
+		MockPTAddressEntity mockAddress = this.createMockEntity(
+				MockPTAddressEntity.class, TestPTAddressBuilder.PTADDRESS_YML);
 
-		Mockito.when(getInstance(DAOPTAddress.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOPTAddress.class).getEntityInstance())
 				.thenReturn(new MockPTAddressEntity());
 
-		PTAddress.Builder builder = getInstance(PTAddress.Builder.class);
+		PTAddress.Builder builder = this.getInstance(PTAddress.Builder.class);
 
 		builder.setCity(mockAddress.getCity())
 				.setDetails(mockAddress.getDetails())
@@ -54,12 +53,15 @@ public class TestPTAddressBuilder extends PTAbstractTest {
 		PTAddress address = builder.build();
 
 		assert (address != null);
-		assertEquals(mockAddress.getCity(), address.getCity());
-		assertEquals(mockAddress.getDetails(), address.getDetails());
-		assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
-		assertEquals(mockAddress.getNumber(), address.getNumber());
-		assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
-		assertEquals(mockAddress.getRegion(), address.getRegion());
-		assertEquals(mockAddress.getStreetName(), address.getStreetName());
+		Assert.assertEquals(mockAddress.getCity(), address.getCity());
+		Assert.assertEquals(mockAddress.getDetails(), address.getDetails());
+		Assert.assertEquals(mockAddress.getISOCountry(),
+				address.getISOCountry());
+		Assert.assertEquals(mockAddress.getNumber(), address.getNumber());
+		Assert.assertEquals(mockAddress.getPostalCode(),
+				address.getPostalCode());
+		Assert.assertEquals(mockAddress.getRegion(), address.getRegion());
+		Assert.assertEquals(mockAddress.getStreetName(),
+				address.getStreetName());
 	}
 }

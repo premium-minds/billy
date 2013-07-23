@@ -18,10 +18,9 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
 import java.net.MalformedURLException;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -39,13 +38,16 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 	@Test
 	public void doTest() throws MalformedURLException {
 
-		MockPTApplicationEntity mockApplication = createMockEntity(
-				MockPTApplicationEntity.class, PTAPPLICATION_YML);
+		MockPTApplicationEntity mockApplication = this.createMockEntity(
+				MockPTApplicationEntity.class,
+				TestPTApplicationBuilder.PTAPPLICATION_YML);
 
-		Mockito.when(getInstance(DAOPTApplication.class).getEntityInstance())
+		Mockito.when(
+				this.getInstance(DAOPTApplication.class).getEntityInstance())
 				.thenReturn(new MockPTApplicationEntity());
 
-		PTApplication.Builder builder = getInstance(PTApplication.Builder.class);
+		PTApplication.Builder builder = this
+				.getInstance(PTApplication.Builder.class);
 
 		PTContact.Builder mockContactBuilder = this
 				.getMock(PTContact.Builder.class);
@@ -75,17 +77,18 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 		PTApplication application = builder.build();
 
 		assert (application != null);
-		assertEquals(mockApplication.getName(), application.getName());
-		assertEquals(mockApplication.getVersion(), application.getVersion());
-		assertEquals(mockApplication.getDeveloperCompanyName(),
+		Assert.assertEquals(mockApplication.getName(), application.getName());
+		Assert.assertEquals(mockApplication.getVersion(),
+				application.getVersion());
+		Assert.assertEquals(mockApplication.getDeveloperCompanyName(),
 				application.getDeveloperCompanyName());
-		assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
+		Assert.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
 				application.getDeveloperCompanyTaxIdentifier());
-		assertEquals(mockApplication.getWebsiteAddress(),
+		Assert.assertEquals(mockApplication.getWebsiteAddress(),
 				application.getWebsiteAddress());
-		assertEquals(mockApplication.getSoftwareCertificationNumber(),
+		Assert.assertEquals(mockApplication.getSoftwareCertificationNumber(),
 				application.getSoftwareCertificationNumber());
-		assertEquals(mockApplication.getApplicationKeysPath(),
+		Assert.assertEquals(mockApplication.getApplicationKeysPath(),
 				application.getApplicationKeysPath());
 		assert (application.getContacts() != null);
 		assert (application.getMainContact() != null);

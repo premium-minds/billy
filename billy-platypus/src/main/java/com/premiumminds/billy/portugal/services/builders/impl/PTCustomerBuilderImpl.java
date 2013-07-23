@@ -55,7 +55,8 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.mandatory(addressBuilder,
-				LOCALIZER.getString("field.billing_address"));
+				PTCustomerBuilderImpl.LOCALIZER
+						.getString("field.billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -63,8 +64,8 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
-		BillyValidator.mandatory(selfBiling,
-				LOCALIZER.getString("field.self_billing_agreement"));
+		BillyValidator.mandatory(selfBiling, PTCustomerBuilderImpl.LOCALIZER
+				.getString("field.self_billing_agreement"));
 		this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
 		return this.getBuilder();
 	}
@@ -72,17 +73,20 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTCustomerEntity c = this.getTypeInstance();
-		BillyValidator
-				.mandatory(c.getName(), LOCALIZER.getString("field.name"));
+		BillyValidator.mandatory(c.getName(),
+				PTCustomerBuilderImpl.LOCALIZER.getString("field.name"));
 		BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-				LOCALIZER.getString("field.tax_number"));
-		BillyValidator.mandatory(c.getMainAddress(),
-				LOCALIZER.getString("field.main_address"));
+				PTCustomerBuilderImpl.LOCALIZER.getString("field.tax_number"));
+		BillyValidator
+				.mandatory(c.getMainAddress(), PTCustomerBuilderImpl.LOCALIZER
+						.getString("field.main_address"));
 		BillyValidator.mandatory(c.getBillingAddress(),
-				LOCALIZER.getString("field.billing_address"));
+				PTCustomerBuilderImpl.LOCALIZER
+						.getString("field.billing_address"));
 		BillyValidator.mandatory(c.hasSelfBillingAgreement(),
-				LOCALIZER.getString("field.self_billing_agreement"));
+				PTCustomerBuilderImpl.LOCALIZER
+						.getString("field.self_billing_agreement"));
 		BillyValidator.notEmpty(c.getAddresses(),
-				LOCALIZER.getString("field.addresses"));
+				PTCustomerBuilderImpl.LOCALIZER.getString("field.addresses"));
 	}
 }

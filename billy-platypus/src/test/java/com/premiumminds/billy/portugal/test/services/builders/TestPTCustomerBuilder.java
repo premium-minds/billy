@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -43,17 +41,19 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTCustomerEntity mockCustomer = createMockEntity(
-				MockPTCustomerEntity.class, PTCUSTOMER_YML);
+		MockPTCustomerEntity mockCustomer = this.createMockEntity(
+				MockPTCustomerEntity.class,
+				TestPTCustomerBuilder.PTCUSTOMER_YML);
 
-		Mockito.when(getInstance(DAOPTCustomer.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOPTCustomer.class).getEntityInstance())
 				.thenReturn(new MockPTCustomerEntity());
 
 		Mockito.when(
-				getInstance(DAOPTContact.class).get(Matchers.any(UID.class)))
-				.thenReturn((PTContactEntity) mockCustomer.getMainContact());
+				this.getInstance(DAOPTContact.class).get(
+						Matchers.any(UID.class))).thenReturn(
+				(PTContactEntity) mockCustomer.getMainContact());
 
-		PTCustomer.Builder builder = getInstance(PTCustomer.Builder.class);
+		PTCustomer.Builder builder = this.getInstance(PTCustomer.Builder.class);
 
 		PTAddress.Builder mockMainAddressBuilder = this
 				.getMock(PTAddress.Builder.class);
@@ -100,15 +100,16 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 
 		Customer customer = builder.build();
 
-		assertTrue(customer != null);
+		Assert.assertTrue(customer != null);
 
-		assertEquals(mockCustomer.getName(), customer.getName());
-		assertEquals(mockCustomer.getTaxRegistrationNumber(),
+		Assert.assertEquals(mockCustomer.getName(), customer.getName());
+		Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(),
 				customer.getTaxRegistrationNumber());
-		assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
-		assertEquals(mockCustomer.getShippingAddress(),
+		Assert.assertEquals(mockCustomer.getMainAddress(),
+				customer.getMainAddress());
+		Assert.assertEquals(mockCustomer.getShippingAddress(),
 				customer.getShippingAddress());
-		assertEquals(mockCustomer.hasSelfBillingAgreement(),
+		Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(),
 				customer.hasSelfBillingAgreement());
 	}
 }

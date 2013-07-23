@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import static org.mockito.Mockito.mock;
+import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.MockDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
@@ -39,20 +39,29 @@ public class PTMockDependencyModule extends MockDependencyModule {
 	@Override
 	protected void configure() {
 		super.configure();
-		bind(DAOPTRegionContext.class).toInstance(
-				mock(DAOPTRegionContext.class));
-		bind(DAOPTContact.class).toInstance(mock(DAOPTContact.class));
-		bind(DAOPTAddress.class).toInstance(mock(DAOPTAddress.class));
-		bind(DAOPTApplication.class).toInstance(mock(DAOPTApplication.class));
-		bind(DAOPTTax.class).toInstance(mock(DAOPTTax.class));
-		bind(DAOPTProduct.class).toInstance(mock(DAOPTProduct.class));
-		bind(DAOPTSupplier.class).toInstance(mock(DAOPTSupplier.class));
-		bind(DAOPTBusiness.class).toInstance(mock(DAOPTBusiness.class));
-		bind(DAOPTShippingPoint.class).toInstance(
-				mock(DAOPTShippingPoint.class));
-		bind(DAOPTCustomer.class).toInstance(mock(DAOPTCustomer.class));
-		bind(DAOPTInvoiceEntry.class).toInstance(mock(DAOPTInvoiceEntry.class));
-		bind(DAOPTInvoice.class).toInstance(mock(DAOPTInvoice.class));
+		this.bind(DAOPTRegionContext.class).toInstance(
+				Mockito.mock(DAOPTRegionContext.class));
+		this.bind(DAOPTContact.class).toInstance(
+				Mockito.mock(DAOPTContact.class));
+		this.bind(DAOPTAddress.class).toInstance(
+				Mockito.mock(DAOPTAddress.class));
+		this.bind(DAOPTApplication.class).toInstance(
+				Mockito.mock(DAOPTApplication.class));
+		this.bind(DAOPTTax.class).toInstance(Mockito.mock(DAOPTTax.class));
+		this.bind(DAOPTProduct.class).toInstance(
+				Mockito.mock(DAOPTProduct.class));
+		this.bind(DAOPTSupplier.class).toInstance(
+				Mockito.mock(DAOPTSupplier.class));
+		this.bind(DAOPTBusiness.class).toInstance(
+				Mockito.mock(DAOPTBusiness.class));
+		this.bind(DAOPTShippingPoint.class).toInstance(
+				Mockito.mock(DAOPTShippingPoint.class));
+		this.bind(DAOPTCustomer.class).toInstance(
+				Mockito.mock(DAOPTCustomer.class));
+		this.bind(DAOPTInvoiceEntry.class).toInstance(
+				Mockito.mock(DAOPTInvoiceEntry.class));
+		this.bind(DAOPTInvoice.class).toInstance(
+				Mockito.mock(DAOPTInvoice.class));
 	}
 
 }
