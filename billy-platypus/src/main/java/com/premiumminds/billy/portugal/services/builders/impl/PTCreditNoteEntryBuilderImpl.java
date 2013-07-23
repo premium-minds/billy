@@ -69,6 +69,16 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 
 		BillyValidator.mandatory(cn.getReason(),
 				LOCALIZER.getString("field.reason"));
+
+		ValidatePTCreditNoteEntry(cn);
+	}
+
+	private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
+		DAOPTCreditNoteEntry daoPTCreditNoteEntry = (DAOPTCreditNoteEntry) daoEntry;
+
+		if (daoPTCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
+			throw new BillyValidationException();
+		}
 	}
 
 	@Override
