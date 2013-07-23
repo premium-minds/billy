@@ -44,9 +44,10 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
 	@Override
 	public TBuilder setRegionCode(String regionCode) {
 		BillyValidator.mandatory(regionCode,
-				LOCALIZER.getString("field.region_code"));
-		getTypeInstance().setRegionCode(regionCode);
-		return getBuilder();
+				PTRegionContextBuilderImpl.LOCALIZER
+						.getString("field.region_code"));
+		this.getTypeInstance().setRegionCode(regionCode);
+		return this.getBuilder();
 	}
 
 	@Override
@@ -59,7 +60,8 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
 		super.validateInstance();
 		PTRegionContextEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getRegionCode(),
-				LOCALIZER.getString("field.region_code"));
+				PTRegionContextBuilderImpl.LOCALIZER
+						.getString("field.region_code"));
 	}
 
 }

@@ -135,5 +135,14 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 		assertTrue(invoice.getTaxAmount().setScale(7, mc.getRoundingMode()).compareTo(
 				(entryMock1.getTaxAmount().add(entryMock2.getTaxAmount(), mc).add(entryMock3.taxAmount, mc)).setScale(7, mc.getRoundingMode())) == 0);
 		
+		assertTrue(invoice.getAmountWithoutTax().add(invoice.getTaxAmount()).setScale(7, mc.getRoundingMode()).compareTo(
+				(entryMock1.getAmountWithTax().add(entryMock2.getAmountWithTax(), mc).add(entryMock3.amountWithTax, mc)).setScale(7, mc.getRoundingMode())) == 0);
+		
+		assertTrue(invoice.getAmountWithTax().subtract(invoice.getTaxAmount()).setScale(7, mc.getRoundingMode()).compareTo(
+				(entryMock1.getAmountWithoutTax().add(entryMock2.getAmountWithoutTax()).add(entryMock3.amountWithoutTax, mc)).setScale(7, mc.getRoundingMode())) == 0);
+		
+		assertTrue(invoice.getAmountWithTax().subtract(invoice.getAmountWithoutTax()).setScale(7, mc.getRoundingMode()).compareTo(
+				(entryMock1.getTaxAmount().add(entryMock2.getTaxAmount(), mc).add(entryMock3.taxAmount, mc)).setScale(7, mc.getRoundingMode())) == 0);
+		
 	}
 }

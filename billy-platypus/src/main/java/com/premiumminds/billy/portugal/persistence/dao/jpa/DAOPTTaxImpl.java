@@ -26,7 +26,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
 
-
 public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
 	public DAOPTTaxImpl(Provider<EntityManager> emProvider) {

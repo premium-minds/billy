@@ -49,16 +49,16 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 
 	@Override
 	public TBuilder setNumberCode(String code) {
-		BillyValidator
-				.mandatory(code, LOCALIZER.getString("field.number_code"));
+		BillyValidator.mandatory(code,
+				PTProductBuilderImpl.LOCALIZER.getString("field.number_code"));
 		this.getTypeInstance().setNumberCode(code);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setUnitOfMeasure(String unit) {
-		BillyValidator.mandatory(unit,
-				LOCALIZER.getString("field.unit_of_measure"));
+		BillyValidator.mandatory(unit, PTProductBuilderImpl.LOCALIZER
+				.getString("field.unit_of_measure"));
 		this.getTypeInstance().setUnitOfMeasure(unit);
 		return this.getBuilder();
 	}
@@ -68,8 +68,9 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 		super.validateInstance();
 		PTProduct p = this.getTypeInstance();
 		BillyValidator.mandatory(p.getNumberCode(),
-				LOCALIZER.getString("field.number_code"));
+				PTProductBuilderImpl.LOCALIZER.getString("field.number_code"));
 		BillyValidator.mandatory(p.getUnitOfMeasure(),
-				LOCALIZER.getString("field.unit_of_measure"));
+				PTProductBuilderImpl.LOCALIZER
+						.getString("field.unit_of_measure"));
 	}
 }

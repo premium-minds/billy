@@ -34,16 +34,16 @@ public class CertificationManager {
 
 	private PrivateKey privateKey;
 	private PublicKey publicKey;
-	private Signature signature; 
+	private Signature signature;
 	private boolean autoVerifyHash;
 
 	public CertificationManager() {
-		privateKey = null;
-		publicKey = null;
-		autoVerifyHash = false;
+		this.privateKey = null;
+		this.publicKey = null;
+		this.autoVerifyHash = false;
 
 		try {
-			signature = Signature.getInstance("SHA1withRSA");
+			this.signature = Signature.getInstance("SHA1withRSA");
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -51,36 +51,41 @@ public class CertificationManager {
 	}
 
 	public void setAutoVerifyHash(boolean verify) {
-		autoVerifyHash = verify;
+		this.autoVerifyHash = verify;
 	}
 
-	public String getHashBase64(String source)
-			throws InvalidHashException, InvalidKeyException {
-		String hashBase64 = Base64.encodeBase64String(getHashBinary(source));
-		if (autoVerifyHash) {
-			if ((!verifyHashBase64(source, hashBase64)) || (hashBase64.length() != EXPECTED_HASH_LENGTH)) 
+	public String getHashBase64(String source) throws InvalidHashException,
+			InvalidKeyException {
+		String hashBase64 = Base64.encodeBase64String(this
+				.getHashBinary(source));
+		if (this.autoVerifyHash) {
+			if ((!this.verifyHashBase64(source, hashBase64))
+					|| (hashBase64.length() != CertificationManager.EXPECTED_HASH_LENGTH)) {
 				throw new InvalidHashException();
+			}
 		}
-		return hashBase64; 
+		return hashBase64;
 
 	}
 
-	public byte[] getHashBinary(String source) 
-			throws InvalidHashException, InvalidKeyException {
+	public byte[] getHashBinary(String source) throws InvalidHashException,
+			InvalidKeyException {
 
 		byte[] hash;
 
 		try {
-			signature.initSign(privateKey);
-			signature.update(source.getBytes());			
-			hash = signature.sign();
-			if (autoVerifyHash) { 
-				if (!verifyHashBinary(source, hash)) 
+			this.signature.initSign(this.privateKey);
+			this.signature.update(source.getBytes());
+			hash = this.signature.sign();
+			if (this.autoVerifyHash) {
+				if (!this.verifyHashBinary(source, hash)) {
 					throw new InvalidHashException();
+				}
 
 			}
 		} catch (SignatureException e) {
-			throw new InvalidHashException("Signature exception - should not happen");
+			throw new InvalidHashException(
+					"Signature exception - should not happen");
 		}
 
 		return hash;
@@ -88,28 +93,27 @@ public class CertificationManager {
 
 	public boolean verifyHashBase64(String source, String hashBase64)
 			throws InvalidKeyException {
-		return (verifyHashBinary(source, Base64.decodeBase64(hashBase64)) && (hashBase64.length() == EXPECTED_HASH_LENGTH));
+		return (this.verifyHashBinary(source, Base64.decodeBase64(hashBase64)) && (hashBase64
+				.length() == CertificationManager.EXPECTED_HASH_LENGTH));
 	}
 
 	public boolean verifyHashBinary(String source, byte[] hash)
 			throws InvalidKeyException {
 		try {
-			signature.initVerify(publicKey);
-			signature.update(source.getBytes());
-			return signature.verify(hash);
+			this.signature.initVerify(this.publicKey);
+			this.signature.update(source.getBytes());
+			return this.signature.verify(hash);
 		} catch (SignatureException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public void setPrivateKey(PrivateKey key) 
-			throws InvalidKeySpecException {
+	public void setPrivateKey(PrivateKey key) throws InvalidKeySpecException {
 		this.privateKey = key;
 	}
 
-	public void setPublicKey(PublicKey key) 
-			throws InvalidKeySpecException {
+	public void setPublicKey(PublicKey key) throws InvalidKeySpecException {
 		this.publicKey = key;
 	}
 

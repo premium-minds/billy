@@ -18,11 +18,12 @@
  */
 package com.premiumminds.billy.portugal.services.certification;
 
-
 public class InvalidHashException extends Exception {
+
 	private static final long serialVersionUID = 1L;
 
-	public InvalidHashException() {}
+	public InvalidHashException() {
+	}
 
 	public InvalidHashException(String arg0) {
 		super(arg0);

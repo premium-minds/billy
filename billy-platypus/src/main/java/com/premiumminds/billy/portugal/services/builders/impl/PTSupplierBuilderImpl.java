@@ -52,7 +52,8 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setTaxRegistrationNumber(String number) {
-		BillyValidator.mandatory(number, LOCALIZER.getString("field.tax_id"));
+		BillyValidator.mandatory(number,
+				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
@@ -61,7 +62,8 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.mandatory(addressBuilder,
-				LOCALIZER.getString("field.billing_address"));
+				PTSupplierBuilderImpl.LOCALIZER
+						.getString("field.billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -69,8 +71,8 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setSelfBillingAgreement(boolean selfBilling) {
-		BillyValidator.mandatory(selfBilling,
-				LOCALIZER.getString("field.self_billing_agreement"));
+		BillyValidator.mandatory(selfBilling, PTSupplierBuilderImpl.LOCALIZER
+				.getString("field.self_billing_agreement"));
 		this.getTypeInstance().setSelfBillingAgreement(selfBilling);
 		return this.getBuilder();
 	}
@@ -87,10 +89,12 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 		super.validateInstance();
 		PTSupplier s = this.getTypeInstance();
 		BillyValidator.mandatory(s.getTaxRegistrationNumber(),
-				LOCALIZER.getString("field.tax_id"));
+				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
 		BillyValidator.mandatory(s.getBillingAddress(),
-				LOCALIZER.getString("field.billing_address"));
+				PTSupplierBuilderImpl.LOCALIZER
+						.getString("field.billing_address"));
 		BillyValidator.mandatory(s.hasSelfBillingAgreement(),
-				LOCALIZER.getString("field.self_billing_agreement"));
+				PTSupplierBuilderImpl.LOCALIZER
+						.getString("field.self_billing_agreement"));
 	}
 }

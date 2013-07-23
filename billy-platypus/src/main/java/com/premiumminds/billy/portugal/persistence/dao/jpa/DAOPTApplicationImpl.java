@@ -26,7 +26,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTApplicationEntity;
 
-
 public class DAOPTApplicationImpl extends DAOApplicationImpl implements
 		DAOPTApplication {
 

@@ -25,5 +25,5 @@ public interface DAOPTRegionContext extends DAOContext {
 
 	@Override
 	public PTRegionContextEntity getEntityInstance();
-	
+
 }

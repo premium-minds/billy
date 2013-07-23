@@ -21,7 +21,6 @@ package com.premiumminds.billy.portugal.persistence.entities;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 
-
 public interface PTAddressEntity extends AddressEntity, PTAddress {
 
 }

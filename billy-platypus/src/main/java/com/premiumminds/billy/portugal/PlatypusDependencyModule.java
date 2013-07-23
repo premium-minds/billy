@@ -60,9 +60,9 @@ public class PlatypusDependencyModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		install(new CoreDependencyModule());
-		install(new CoreJPADependencyModule());
-		install(new GINDependencyModule());
+		this.install(new CoreDependencyModule());
+		this.install(new CoreJPADependencyModule());
+		this.install(new GINDependencyModule());
 
 		bind(DAOPTContact.class).to(DAOPTContactImpl.class);
 		bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
@@ -81,7 +81,6 @@ public class PlatypusDependencyModule extends AbstractModule {
 		bind(DAOPTGenericInvoice.class).to(DAOPTGenericInvoiceImpl.class);
 		bind(DAOPTGenericInvoiceEntry.class).to(
 				DAOPTGenericInvoiceEntryImpl.class);
-
 	}
 
 	public static class Initializer {

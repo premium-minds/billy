@@ -66,7 +66,7 @@ public class JPAPTApplicationEntity extends JPAApplicationEntity implements
 
 	@Override
 	public URL getApplicationKeysPath() throws MalformedURLException {
-		return new URL(path);
+		return new URL(this.path);
 	}
 
 	public void setApplicationKeysPath(URL path) {

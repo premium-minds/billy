@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -39,10 +37,11 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTSupplierEntity mockSupplier = createMockEntity(
-				MockPTSupplierEntity.class, PTSUPPLIER_YML);
+		MockPTSupplierEntity mockSupplier = this.createMockEntity(
+				MockPTSupplierEntity.class,
+				TestPTSupplierBuilder.PTSUPPLIER_YML);
 
-		Mockito.when(getInstance(DAOPTSupplier.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOPTSupplier.class).getEntityInstance())
 				.thenReturn(new MockPTSupplierEntity());
 
 		PTAddress.Builder mockMainAddressBuilder = this
@@ -75,7 +74,7 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
 		Mockito.when(mockContactBuilder2.build()).thenReturn(
 				(PTContactEntity) mockSupplier.getContacts().get(1));
 
-		PTSupplier.Builder builder = getInstance(PTSupplier.Builder.class);
+		PTSupplier.Builder builder = this.getInstance(PTSupplier.Builder.class);
 
 		builder.addAddress(mockMainAddressBuilder)
 				.addAddress(mockShippingAddressBuilder)
@@ -92,12 +91,13 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
 
 		PTSupplier supplier = builder.build();
 
-		assertTrue(supplier != null);
-		assertEquals(mockSupplier.getName(), supplier.getName());
-		assertEquals(mockSupplier.getTaxRegistrationNumber(),
+		Assert.assertTrue(supplier != null);
+		Assert.assertEquals(mockSupplier.getName(), supplier.getName());
+		Assert.assertEquals(mockSupplier.getTaxRegistrationNumber(),
 				supplier.getTaxRegistrationNumber());
-		assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
-		assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier
+		Assert.assertEquals(mockSupplier.getMainAddress(),
+				supplier.getMainAddress());
+		Assert.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier
 				.getBankAccounts().size());
 	}
 

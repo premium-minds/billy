@@ -22,7 +22,6 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 
-
 public class JPAPTTaxEntity extends JPATaxEntity implements PTTaxEntity {
 
 	/**

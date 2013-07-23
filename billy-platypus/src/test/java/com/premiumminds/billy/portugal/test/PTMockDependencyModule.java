@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import static org.mockito.Mockito.mock;
+import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.MockDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
@@ -47,27 +47,31 @@ public class PTMockDependencyModule extends MockDependencyModule {
 	@Override
 	protected void configure() {
 		super.configure();
+
 		bind(DAOPTRegionContext.class).toInstance(
-				mock(DAOPTRegionContext.class));
-		bind(DAOPTContact.class).toInstance(mock(DAOPTContact.class));
-		bind(DAOPTAddress.class).toInstance(mock(DAOPTAddress.class));
-		bind(DAOPTApplication.class).toInstance(mock(DAOPTApplication.class));
-		bind(DAOPTTax.class).toInstance(mock(DAOPTTax.class));
-		bind(DAOPTProduct.class).toInstance(mock(DAOPTProduct.class));
-		bind(DAOPTSupplier.class).toInstance(mock(DAOPTSupplier.class));
-		bind(DAOPTBusiness.class).toInstance(mock(DAOPTBusiness.class));
+				Mockito.mock(DAOPTRegionContext.class));
+		bind(DAOPTContact.class).toInstance(Mockito.mock(DAOPTContact.class));
+		bind(DAOPTAddress.class).toInstance(Mockito.mock(DAOPTAddress.class));
+		bind(DAOPTApplication.class).toInstance(
+				Mockito.mock(DAOPTApplication.class));
+		bind(DAOPTTax.class).toInstance(Mockito.mock(DAOPTTax.class));
+		bind(DAOPTProduct.class).toInstance(Mockito.mock(DAOPTProduct.class));
+		bind(DAOPTSupplier.class).toInstance(Mockito.mock(DAOPTSupplier.class));
+		bind(DAOPTBusiness.class).toInstance(Mockito.mock(DAOPTBusiness.class));
 		bind(DAOPTShippingPoint.class).toInstance(
-				mock(DAOPTShippingPoint.class));
-		bind(DAOPTCustomer.class).toInstance(mock(DAOPTCustomer.class));
-		bind(DAOPTInvoiceEntry.class).toInstance(mock(DAOPTInvoiceEntry.class));
-		bind(DAOPTInvoice.class).toInstance(mock(DAOPTInvoice.class));
-		bind(DAOPTCreditNote.class).toInstance(mock(DAOPTCreditNoteImpl.class));
+				Mockito.mock(DAOPTShippingPoint.class));
+		bind(DAOPTCustomer.class).toInstance(Mockito.mock(DAOPTCustomer.class));
+		bind(DAOPTInvoiceEntry.class).toInstance(
+				Mockito.mock(DAOPTInvoiceEntry.class));
+		bind(DAOPTInvoice.class).toInstance(Mockito.mock(DAOPTInvoice.class));
+		bind(DAOPTCreditNote.class).toInstance(
+				Mockito.mock(DAOPTCreditNoteImpl.class));
 		bind(DAOPTCreditNoteEntry.class).toInstance(
-				mock(DAOPTCreditNoteEntryImpl.class));
+				Mockito.mock(DAOPTCreditNoteEntryImpl.class));
 		bind(DAOPTGenericInvoice.class).toInstance(
-				mock(DAOPTGenericInvoiceImpl.class));
+				Mockito.mock(DAOPTGenericInvoiceImpl.class));
 		bind(DAOPTGenericInvoiceEntry.class).toInstance(
-				mock(DAOPTGenericInvoiceEntryImpl.class));
+				Mockito.mock(DAOPTGenericInvoiceEntryImpl.class));
 	}
 
 }
