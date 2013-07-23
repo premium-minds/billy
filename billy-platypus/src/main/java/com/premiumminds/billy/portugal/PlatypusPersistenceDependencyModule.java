@@ -28,7 +28,7 @@ public class PlatypusPersistenceDependencyModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		JpaPersistModule persistModule = new JpaPersistModule(
-				"BillyPlatypusPersistenceUnit");
+				"BillyPortugalPersistenceUnit");
 		this.install(persistModule);
 	}
 
