@@ -16,34 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.entities;
+package com.premiumminds.billy.portugal.services.builders.impl;
 
-import javax.inject.Inject;
-
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.PTCreditNoteBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public interface PTInvoice extends GenericInvoice {
+public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
+		extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
+		PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-	public static class Builder extends
-			PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
-
-		@Inject
-		public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
-				DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-		}
+	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
+			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
+			DAOPTSupplier daoPTSupplier) {
+		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 
-	public boolean isCancelled();
-
-	public boolean isBilled();
-
-	public String getHash();
-
-	public String getSourceHash();
 }

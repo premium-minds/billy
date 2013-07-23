@@ -77,7 +77,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	@Override
 	public TBuilder setBusinessUID(UID businessUID) {
 		BillyValidator
-				.mandatory(businessUID, GenericInvoiceBuilderImpl.LOCALIZER
+				.notNull(businessUID, GenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.business"));
 		BusinessEntity b = this.daoBusiness.get(businessUID);
 		BillyValidator
@@ -264,7 +264,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	protected void validateInstance() throws ValidationException {
-		// TODO Auto-generated method stub
 		this.validateValues();
 		this.validateDates();
 	}
@@ -277,7 +276,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		BigDecimal amountWithTax = new BigDecimal("0", mc);
 		BigDecimal taxAmount = new BigDecimal("0", mc);
 		BigDecimal amountWithoutTax = new BigDecimal("0", mc);
-
+		
 		for (GenericInvoiceEntry e : this.getTypeInstance().getEntries()) {
 			amountWithTax = amountWithTax.add(e.getAmountWithTax(), mc);
 			taxAmount = taxAmount.add(e.getTaxAmount(), mc);
@@ -288,9 +287,10 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		i.setAmountWithTax(amountWithTax);
 		i.setTaxAmount(taxAmount);
 		i.setAmountWithoutTax(amountWithoutTax);
-
-		Validate.isTrue(i.getAmountWithTax().subtract(i.getAmountWithoutTax(), mc)
-				.compareTo(i.getTaxAmount()) == 0,
+		
+		Validate.isTrue(i.getAmountWithTax().subtract(
+				i.getAmountWithoutTax(), mc).setScale(7, mc.getRoundingMode())
+				.compareTo(i.getTaxAmount().setScale(7, mc.getRoundingMode())) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
 

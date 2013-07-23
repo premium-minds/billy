@@ -32,11 +32,13 @@ import java.util.List;
 
 import org.junit.Test;
 import org.mockito.Matchers;
+import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
+import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Context;
@@ -55,20 +57,42 @@ import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
 import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceEntryOperations extends AbstractTest {
-	MathContext mc = BillyMathContext.get();
-	BigDecimal qnt = new BigDecimal("46");
+	private MathContext mc = BillyMathContext.get();
+	private BigDecimal qnt = new BigDecimal("46");
+	private static final String INVOICE_YML = "src/test/resources/GenericInvoice.yml";
+	private static final String ENTRY_YML = "src/test/resources/GenericInvoiceEntry.yml";
+	private BigDecimal tax = new BigDecimal("0.23");
 
 	@Test
 	public void doTest() {
-		MockGenericInvoiceEntryEntity mock = this
-				.loadEntryFixture(MockGenericInvoiceEntryEntity.class);
+		MockGenericInvoiceEntryEntity mock= createMockEntity(MockGenericInvoiceEntryEntity.class, ENTRY_YML);
+		mock.setCurrency(Currency.getInstance("EUR"));
+		mock.unitAmountWithoutTax = (new BigDecimal("1")).divide(new BigDecimal("3"), mc);
+		mock.unitTaxAmount = mock.unitAmountWithoutTax.multiply(tax, mc);
+		mock.unitAmountWithTax = mock.unitAmountWithoutTax.add(mock.unitTaxAmount, mc);
+		mock.amountWithoutTax = mock.unitAmountWithoutTax.multiply(qnt, mc);
+		mock.amountWithTax = mock.unitAmountWithTax.multiply(qnt, mc);
+		mock.taxAmount = mock.unitTaxAmount.multiply(qnt, mc);
+		
 		
 		when(getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
 				.thenReturn(new MockGenericInvoiceEntryEntity());
 		
 		when(getInstance(DAOContext.class).isSubContext(Matchers.any(Context.class), Matchers.any(Context.class))).thenReturn(true);
 		
+		MockGenericInvoiceEntity invoiceMock = createMockEntity(MockGenericInvoiceEntity.class, INVOICE_YML);
+		invoiceMock.setCurrency(Currency.getInstance("EUR"));
+
+		mock.getDocumentReferences().add(invoiceMock);
+		
+		Mockito.when(getInstance(DAOGenericInvoice.class).getEntityInstance()).thenReturn(invoiceMock);
+		Mockito.when(getInstance(DAOContext.class).isSubContext(Matchers.any(Context.class), Matchers.any(Context.class))).thenReturn(true);
+		Mockito.when(getInstance(DAOGenericInvoice.class).get(Matchers.any(UID.class))).thenReturn(invoiceMock);
+		when(getInstance(DAOProduct.class).get(Matchers.any(UID.class))).thenReturn((ProductEntity)mock.getProduct());
+		
+		
 		GenericInvoiceEntry.Builder builder = getInstance(GenericInvoiceEntry.Builder.class);
+		
 		builder.setCreditOrDebit(mock.getCreditOrDebit())
 		.setDescription(mock.getDescription())
 		.addDocumentReferenceUID(
@@ -136,7 +160,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		assertTrue(entry.getUnitTaxAmount().setScale(7, mc.getRoundingMode()).compareTo(
 				mock.getUnitTaxAmount().setScale(7, mc.getRoundingMode())
 				) == 0);
-		
+
 		assertTrue(entry.getUnitTaxAmount().setScale(7, mc.getRoundingMode()).compareTo(
 				(mock.getUnitAmountWithTax().subtract(mock.getUnitAmountWithoutTax(), mc)).setScale(7, mc.getRoundingMode())
 				) == 0);	
@@ -153,115 +177,6 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		}
 		
 		return;
-	}
-	
-	MockContextEntity loadContextFixture(Class<MockContextEntity> clazz){
-		MockContextEntity context = new MockContextEntity();
-		
-		context.setDescription("PT");
-		context.setName("PT");
-		context.setUID(new UID("Context_uid"));
-		return context;
-	}
-	
-	MockTaxEntity loadTaxFixture (Class<MockTaxEntity> clazz){
-		MockTaxEntity tax = new MockTaxEntity();
-		tax.setUID(new UID("UID_TAX"));
-		tax.setCode("VAT");
-		tax.setContext(this.loadContextFixture(MockContextEntity.class));
-		tax.setCurrency(Currency.getInstance("EUR"));
-		tax.setTaxRateType(TaxRateType.PERCENTAGE);
-		tax.setPercentageRateValue(new BigDecimal("23"));
-		tax.setValue(new BigDecimal("23"));
-		tax.setDescription("Tax Description");
-		tax.setDesignation("Tax designation");
-		tax.setValidTo(Date.valueOf("2013-12-12"));
-		tax.setValidFrom(Date.valueOf("2013-01-01"));
-		
-		return tax;
-		
-		
-	}
-	
-	MockProductEntity loadProductFixture (Class<MockProductEntity> clazz){
-		MockProductEntity product = new MockProductEntity();
-		product.setUID(new UID("UID_Prod"));
-		product.setProductCode("Product Code");
-		product.setProductGroup("Product Group");
-		product.setDescription("Description");
-		product.setType(ProductType.GOODS);
-		product.setCommodityCode("Commodity code");
-		product.setNumberCode("Number Code");
-		product.setValuationMethod("Validation Method");
-		product.setUnitOfMeasure("Kg");
-		product.taxes.add(loadTaxFixture(MockTaxEntity.class));
-		
-		return product;
-	}
-
-	public MockGenericInvoiceEntryEntity loadEntryFixture(
-			Class<MockGenericInvoiceEntryEntity> clazz) {
-		MockGenericInvoiceEntryEntity result = new MockGenericInvoiceEntryEntity();
-
-		result.creditOrDebit = CreditOrDebit.CREDIT;
-		result.currency = Currency.getInstance("EUR");
-		result.description = "Description";
-
-		MockGenericInvoiceEntity invoiceRef = new MockGenericInvoiceEntity();
-		invoiceRef.uid = new UID("uid_ref");
-		when(getInstance(DAOGenericInvoice.class).get(Matchers.any(UID.class)))
-				.thenReturn(invoiceRef);
-		List<GenericInvoice> references = Arrays
-				.asList(new GenericInvoice[] { invoiceRef });
-		result.references = references;
-
-		result.number = 143;
-		result.exchangeRateToDocumentCurrency = BigDecimal.ONE;
-		
-		//init vars
-		BigDecimal taxValue = new BigDecimal("0.23");
-		BigDecimal b1 = new BigDecimal("1");
-		BigDecimal b2 = new BigDecimal("7");
-		BigDecimal prodWithoutTax = b1.divide(b2, mc);
-		BigDecimal unitValueTax = prodWithoutTax.multiply(taxValue, mc);
-		BigDecimal prodWithTax = prodWithoutTax.add(unitValueTax, mc);
-		BigDecimal totalTax = unitValueTax.multiply(qnt, mc);
-		BigDecimal totalValueWithTax = prodWithTax.multiply(qnt, mc);
-		BigDecimal totalValueWithoutTax = prodWithoutTax.multiply(qnt, mc);
-		
-		result.amountWithoutTax = totalValueWithoutTax;
-		result.amountWithTax = totalValueWithTax;
-		result.taxAmount = totalTax;
-		result.discountAmount = BigDecimal.ZERO; // TODO add support for
-													// discounts
-		result.quantity = new BigDecimal("46");
-		result.shippingCostsAmount = BigDecimal.ZERO; // TODO add support for
-														// shipping costs
-		result.shippingDestination = new MockShippingPointEntity();
-		result.shippingOrigin = new MockShippingPointEntity();
-		
-		//MockTaxEntity tax = this.loadTaxFixture(MockTaxEntity.class);
-		//result.taxes= Arrays.asList(new Tax[] { tax });
-		
-		//when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
-			//	.thenReturn(tax);
-		
-		MockProductEntity prod = this.loadProductFixture(MockProductEntity.class);
-		
-		result.product = prod;
-		when(getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
-				.thenReturn(prod);
-
-		result.taxExemptionReason = "exemption reason";
-		result.taxPointDate = new java.util.Date();
-		result.unitAmountWithoutTax = prodWithoutTax;
-		result.unitAmountWithTax = prodWithTax;
-		result.unitTaxAmount = unitValueTax;
-		result.unitDiscountAmount = BigDecimal.ZERO; // TODO add support for
-														// shipping discounts;
-		result.unitOfMeasure = "Kg";
-
-		return result;
 	}
 
 }

@@ -18,16 +18,11 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public interface PTInvoiceEntity extends GenericInvoiceEntity, PTInvoice {
+public interface PTCreditNoteEntity extends PTInvoiceEntity, PTCreditNote {
 
-	public void setCancelled(boolean cancelled);
+	public void setReference(String reference);
 
-	public void setBilled(boolean billed);
-
-	public void setHash(String hash);
-
-	public void setSourceHash(String source);
+	public void setReason(String reason);
 }

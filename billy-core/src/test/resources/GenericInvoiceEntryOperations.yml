@@ -19,7 +19,7 @@
 
 uid : genericEntry_uid
 creditOrDebit : CREDIT
-description : description
+description : Description
 number : 143
 exchangeRateToDocumentCurrency : !!java.math.BigDecimal
   1
@@ -32,35 +32,36 @@ taxAmount : !!java.math.BigDecimal
 discountAmount : !!java.math.BigDecimal
   0
 product : !!com.premiumminds.billy.core.test.fixtures.MockProductEntity
-    uid : product_uid
-    productCode : product_code
-    productGroup : product_group
-    unitOfMeasure : unit_of_measure
-    numberCode : number_code
-    comodityCode : comodity_code
+    uid : UID_Product
+    productCode : Product_Code
+    productGroup : Product_Group
+    unitOfMeasure : Kg
+    numberCode : Number_Code
+    comodityCode : Comodity_Code
     type : GOODS
-    description : product_description
-    valuationMethod : valuation_method
+    description : Product_Description
+    valuationMethod : Valuation_Method
     taxes:
       - !!com.premiumminds.billy.core.test.fixtures.MockTaxEntity
-        uid : tax_uid_1
-        designation : desgination_1
-        description : description_1
-        code : code_1
-        value : 7.95041
-        validFrom: 2013-01-01
-        validTo: 2013-12-12
-        taxRateType : FLAT
+        uid : UID_TAX
+        designation : Tax designation
+        description : Tax Description
+        code : VAT
+        value : !!java.math.BigDecimal 
+          23
+        validFrom : 2013-01-01
+        validTo : 2013-12-12
+        taxRateType : PERCENTAGE
         percentageRateValue : 23
         flatRateAmount : 13
         context : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
           uid : context_uid
-          name : name
-          description : description
+          name : PT
+          description : PT
           parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
             uid : context_parent_uid
-            name : parent_name
-            description : parent_description
+            name : PT
+            description : PT
 quantity : !!java.math.BigDecimal
   46
 shippingCostsAmount : !!java.math.BigDecimal

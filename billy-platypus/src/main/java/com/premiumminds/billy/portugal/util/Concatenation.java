@@ -16,18 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.util;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+public class Concatenation {
 
-public interface PTInvoiceEntity extends GenericInvoiceEntity, PTInvoice {
+	public static String concatenatePTSourceHash(String invoiceDate,
+			String entryDate, String invoiceNo, String amountWithTax,
+			String previousHash) {
 
-	public void setCancelled(boolean cancelled);
+		String separator = ";";
 
-	public void setBilled(boolean billed);
+		return invoiceDate + separator + entryDate + separator + invoiceNo
+				+ separator + amountWithTax + separator + previousHash;
 
-	public void setHash(String hash);
-
-	public void setSourceHash(String source);
+	}
 }

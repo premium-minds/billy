@@ -16,18 +16,30 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
-public interface PTInvoiceEntity extends GenericInvoiceEntity, PTInvoice {
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
 
-	public void setCancelled(boolean cancelled);
+public class DAOPTCreditNoteImpl extends DAOPTInvoiceImpl implements
+		DAOPTCreditNote {
 
-	public void setBilled(boolean billed);
+	public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-	public void setHash(String hash);
+	@Override
+	public PTCreditNoteEntity getEntityInstance() {
+		return new JPAPTCreditNoteEntity();
+	}
 
-	public void setSourceHash(String source);
+	@Override
+	protected Class<JPAPTCreditNoteEntity> getEntityClass() {
+		return JPAPTCreditNoteEntity.class;
+	}
+
 }

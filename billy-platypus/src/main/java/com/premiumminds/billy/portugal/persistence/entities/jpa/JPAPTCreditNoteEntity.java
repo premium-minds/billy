@@ -16,18 +16,41 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import javax.persistence.Column;
 
-public interface PTInvoiceEntity extends GenericInvoiceEntity, PTInvoice {
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 
-	public void setCancelled(boolean cancelled);
+public class JPAPTCreditNoteEntity extends JPAPTInvoiceEntity implements
+		PTCreditNoteEntity {
 
-	public void setBilled(boolean billed);
+	private static final long serialVersionUID = 1L;
 
-	public void setHash(String hash);
+	@Column(name = "REFERENCE")
+	protected String reference;
 
-	public void setSourceHash(String source);
+	@Column(name = "REASON")
+	protected String reason;
+
+	@Override
+	public String getReason() {
+		return reason;
+	}
+
+	@Override
+	public String getReference() {
+		return reference;
+	}
+
+	@Override
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+
+	@Override
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 }
