@@ -21,10 +21,12 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTGenericInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
@@ -40,7 +42,23 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
+	public TBuilder setSelfBilled(boolean selfBilled) {
+		BillyValidator.mandatory(selfBilled,
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+		this.getTypeInstance().setSelfBilled(selfBilled);
+		return this.getBuilder();
+	}
+
+	@Override
+	protected PTGenericInvoiceEntity getTypeInstance() {
+		return (PTGenericInvoiceEntity) super.getTypeInstance();
+	}
+
+	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
+		PTGenericInvoiceEntity i = this.getTypeInstance();
+		BillyValidator.mandatory(i.isSelfBilled(),
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
 	}
 }
