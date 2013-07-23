@@ -19,8 +19,13 @@
 package com.premiumminds.billy.portugal.services.builders;
 
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public interface PTCreditNoteEntryBuilder<TBuilder extends PTCreditNoteEntryBuilder<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-		extends PTInvoiceEntryBuilder<TBuilder, TEntry> {
+		extends PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+
+	public TBuilder setReference(PTInvoice reference);
+
+	public TBuilder setReason(String reason);
 
 }

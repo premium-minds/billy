@@ -18,22 +18,23 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.PTCreditNoteBuilder;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.builders.PTGenericInvoiceBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
-public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
-		extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-		implements PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
+		extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+		implements PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
+	public PTGenericInvoiceBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 			DAOPTSupplier daoPTSupplier) {
-		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+		super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 
 }

@@ -18,39 +18,18 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import javax.persistence.Column;
+import java.util.List;
 
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public class JPAPTCreditNoteEntity extends JPAPTInvoiceEntity implements
+public class JPAPTCreditNoteEntity extends JPAPTGenericInvoiceEntity implements
 		PTCreditNoteEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "REFERENCE")
-	protected String reference;
-
-	@Column(name = "REASON")
-	protected String reason;
-
 	@Override
-	public String getReason() {
-		return reason;
+	public List<PTCreditNoteEntry> getEntries() {
+		return (List<PTCreditNoteEntry>) super.getEntries();
 	}
-
-	@Override
-	public String getReference() {
-		return reference;
-	}
-
-	@Override
-	public void setReference(String reference) {
-		this.reference = reference;
-	}
-
-	@Override
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
-
 }

@@ -20,14 +20,13 @@ package com.premiumminds.billy.portugal.services.entities;
 
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderImpl;
 
-public interface PTInvoice extends GenericInvoice {
+public interface PTInvoice extends PTGenericInvoice {
 
 	public static class Builder extends
 			PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
@@ -38,12 +37,4 @@ public interface PTInvoice extends GenericInvoice {
 			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}
 	}
-
-	public boolean isCancelled();
-
-	public boolean isBilled();
-
-	public String getHash();
-
-	public String getSourceHash();
 }

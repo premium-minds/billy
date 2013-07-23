@@ -16,12 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.builders;
+package com.premiumminds.billy.portugal.persistence.dao;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 
-public interface PTInvoiceBuilder<TBuilder extends PTInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTInvoice>
-		extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+public interface DAOPTGenericInvoice extends DAOGenericInvoice {
 
+	@Override
+	public PTGenericInvoiceEntity getEntityInstance();
 }

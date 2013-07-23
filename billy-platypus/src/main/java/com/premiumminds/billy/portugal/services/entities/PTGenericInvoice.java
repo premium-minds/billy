@@ -20,23 +20,33 @@ package com.premiumminds.billy.portugal.services.entities;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTCreditNoteBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceBuilderImpl;
 
-public interface PTCreditNote extends PTGenericInvoice {
+public interface PTGenericInvoice extends GenericInvoice {
 
-	public static class Builder extends
-			PTCreditNoteBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
+	public static class Builder
+			extends
+			PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
 
 		@Inject
-		public Builder(DAOPTCreditNote daoPTCreditNote,
+		public Builder(DAOPTGenericInvoice daoPTGenericInvoice,
 				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 				DAOPTSupplier daoPTSupplier) {
-			super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+			super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer,
+					daoPTSupplier);
 		}
 	}
 
+	public boolean isCancelled();
+
+	public boolean isBilled();
+
+	public String getHash();
+
+	public String getSourceHash();
 }

@@ -16,12 +16,17 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.builders;
+package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 
-public interface PTInvoiceBuilder<TBuilder extends PTInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTInvoice>
-		extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+public class JPAPTGenericInvoiceEntryEntity extends
+		JPAGenericInvoiceEntryEntity implements PTGenericInvoiceEntryEntity {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 }

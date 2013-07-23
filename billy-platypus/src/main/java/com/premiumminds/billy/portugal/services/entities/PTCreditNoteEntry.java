@@ -27,7 +27,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.services.builders.impl.PTCreditNoteEntryBuilderImpl;
 
-public interface PTCreditNoteEntry extends PTInvoiceEntry {
+public interface PTCreditNoteEntry extends PTGenericInvoiceEntry {
 
 	public static class Builder extends
 			PTCreditNoteEntryBuilderImpl<Builder, PTCreditNoteEntry> {
@@ -40,4 +40,8 @@ public interface PTCreditNoteEntry extends PTInvoiceEntry {
 					daoPTRegionContext);
 		}
 	}
+
+	public PTInvoice getReference();
+
+	public String getReason();
 }

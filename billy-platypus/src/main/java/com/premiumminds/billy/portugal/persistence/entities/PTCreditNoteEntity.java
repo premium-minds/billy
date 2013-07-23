@@ -20,9 +20,7 @@ package com.premiumminds.billy.portugal.persistence.entities;
 
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public interface PTCreditNoteEntity extends PTInvoiceEntity, PTCreditNote {
+public interface PTCreditNoteEntity extends PTGenericInvoiceEntity,
+		PTCreditNote {
 
-	public void setReference(String reference);
-
-	public void setReason(String reason);
 }

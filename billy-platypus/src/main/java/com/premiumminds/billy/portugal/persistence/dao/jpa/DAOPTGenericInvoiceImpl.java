@@ -18,29 +18,28 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
-import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntryEntity;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity;
 
-public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
-		implements DAOPTCreditNoteEntry {
+public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
+		DAOPTGenericInvoice {
 
-	@Inject
-	public DAOPTCreditNoteEntryImpl(Provider<EntityManager> emProvider) {
+	public DAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
 	@Override
-	public PTCreditNoteEntryEntity getEntityInstance() {
-		return new JPAPTCreditNoteEntryEntity();
+	public PTGenericInvoiceEntity getEntityInstance() {
+		return new JPAPTGenericInvoiceEntity();
 	}
 
 	@Override
-	protected Class<JPAPTCreditNoteEntryEntity> getEntityClass() {
-		return JPAPTCreditNoteEntryEntity.class;
+	protected Class<? extends JPAPTGenericInvoiceEntity> getEntityClass() {
+		return JPAPTGenericInvoiceEntity.class;
 	}
 }

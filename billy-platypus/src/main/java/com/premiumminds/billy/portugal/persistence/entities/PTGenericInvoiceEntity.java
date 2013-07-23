@@ -16,12 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.builders;
+package com.premiumminds.billy.portugal.persistence.entities;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 
-public interface PTInvoiceBuilder<TBuilder extends PTInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTInvoice>
-		extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
+		PTGenericInvoice {
 
+	public void setCancelled(boolean cancelled);
+
+	public void setBilled(boolean billed);
+
+	public void setHash(String hash);
+
+	public void setSourceHash(String source);
 }
