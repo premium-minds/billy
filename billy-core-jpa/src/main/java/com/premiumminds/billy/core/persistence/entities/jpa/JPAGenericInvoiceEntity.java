@@ -385,7 +385,7 @@ GenericInvoiceEntity {
 	}
 
 	@Override
-	public List<GenericInvoiceEntry> getEntries() {
+	public List<? extends GenericInvoiceEntry> getEntries() {
 		return this.entries;
 	}
 

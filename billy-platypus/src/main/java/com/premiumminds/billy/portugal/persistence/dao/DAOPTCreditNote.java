@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.persistence.dao;
 
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 
-public interface DAOPTCreditNote extends DAOPTInvoice {
+public interface DAOPTCreditNote extends DAOPTGenericInvoice {
 
 	@Override
 	public PTCreditNoteEntity getEntityInstance();

@@ -18,10 +18,9 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
 
-public interface DAOPTInvoiceEntry extends DAOGenericInvoiceEntry {
+public interface DAOPTInvoiceEntry extends DAOPTGenericInvoiceEntry {
 
 	@Override
 	public PTInvoiceEntryEntity getEntityInstance();

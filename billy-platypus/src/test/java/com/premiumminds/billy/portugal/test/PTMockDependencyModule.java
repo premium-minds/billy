@@ -25,7 +25,11 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -33,6 +37,10 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCreditNoteEntryImpl;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCreditNoteImpl;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceEntryImpl;
+import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceImpl;
 
 public class PTMockDependencyModule extends MockDependencyModule {
 
@@ -53,6 +61,13 @@ public class PTMockDependencyModule extends MockDependencyModule {
 		bind(DAOPTCustomer.class).toInstance(mock(DAOPTCustomer.class));
 		bind(DAOPTInvoiceEntry.class).toInstance(mock(DAOPTInvoiceEntry.class));
 		bind(DAOPTInvoice.class).toInstance(mock(DAOPTInvoice.class));
+		bind(DAOPTCreditNote.class).toInstance(mock(DAOPTCreditNoteImpl.class));
+		bind(DAOPTCreditNoteEntry.class).toInstance(
+				mock(DAOPTCreditNoteEntryImpl.class));
+		bind(DAOPTGenericInvoice.class).toInstance(
+				mock(DAOPTGenericInvoiceImpl.class));
+		bind(DAOPTGenericInvoiceEntry.class).toInstance(
+				mock(DAOPTGenericInvoiceEntryImpl.class));
 	}
 
 }

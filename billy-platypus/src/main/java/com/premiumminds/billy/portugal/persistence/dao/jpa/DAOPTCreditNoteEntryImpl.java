@@ -25,8 +25,8 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntryEntity;
 
-public class DAOPTCreditNoteEntryImpl extends DAOPTInvoiceEntryImpl implements
-		DAOPTCreditNoteEntry {
+public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
+		implements DAOPTCreditNoteEntry {
 
 	public DAOPTCreditNoteEntryImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);

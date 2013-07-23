@@ -21,12 +21,11 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity;
 
-public class DAOPTInvoiceImpl extends DAOGenericInvoiceImpl implements
+public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 		DAOPTInvoice {
 
 	public DAOPTInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -39,7 +38,7 @@ public class DAOPTInvoiceImpl extends DAOGenericInvoiceImpl implements
 	}
 
 	@Override
-	protected Class<? extends JPAPTInvoiceEntity> getEntityClass() {
+	protected Class<JPAPTInvoiceEntity> getEntityClass() {
 		return JPAPTInvoiceEntity.class;
 	}
 

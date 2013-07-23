@@ -18,49 +18,68 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
-import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 
-public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity
-		implements PTCreditNoteEntryEntity {
+public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
+		implements PTGenericInvoiceEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_PTINVOICE", referencedColumnName = "ID")
-	protected PTInvoice reference;
+	@Column(name = "CANCELLED")
+	protected Boolean cancelled;
 
-	@Column(name = "REASON")
-	protected String reason;
+	@Column(name = "BILLED")
+	protected Boolean billed;
+
+	@Column(name = "HASH")
+	protected String hash;
+
+	@Column(name = "SOURCE_HASH")
+	protected String sourceHash;
 
 	@Override
-	public String getReason() {
-		return reason;
+	public boolean isCancelled() {
+		return cancelled;
 	}
 
 	@Override
-	public PTInvoice getReference() {
-		return reference;
+	public boolean isBilled() {
+		return billed;
 	}
 
 	@Override
-	public void setReference(PTInvoice reference) {
-		this.reference = reference;
+	public String getHash() {
+		return hash;
 	}
 
 	@Override
-	public void setReason(String reason) {
-		this.reason = reason;
+	public String getSourceHash() {
+		return sourceHash;
 	}
 
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.cancelled = cancelled;
+	}
+
+	@Override
+	public void setBilled(boolean billed) {
+		this.billed = billed;
+	}
+
+	@Override
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	@Override
+	public void setSourceHash(String source) {
+		this.sourceHash = source;
+	}
 }

@@ -18,10 +18,9 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
 
-public class JPAPTInvoiceEntryEntity extends JPAGenericInvoiceEntryEntity
+public class JPAPTInvoiceEntryEntity extends JPAPTGenericInvoiceEntryEntity
 		implements PTInvoiceEntryEntity {
 
 	/**
