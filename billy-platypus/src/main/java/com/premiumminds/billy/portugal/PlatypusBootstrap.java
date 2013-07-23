@@ -24,6 +24,7 @@ import java.util.Date;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.persist.jpa.JpaPersistModule;
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.UID;
@@ -71,7 +72,7 @@ public class PlatypusBootstrap {
 	private static void execute() {
 		// Load dependency injector
 		Injector injector = Guice
-				.createInjector(new PlatypusDependencyModule());
+				.createInjector(new PlatypusDependencyModule(), new JpaPersistModule("BillyPortugalPersistenceUnit"));
 		injector.getInstance(PlatypusDependencyModule.Initializer.class);
 		PlatypusBootstrap.execute(injector);
 

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
@@ -29,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEnti
 public class DAOPTInvoiceImpl extends DAOGenericInvoiceImpl implements
 		DAOPTInvoice {
 
+	@Inject
 	public DAOPTInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}

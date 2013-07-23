@@ -20,6 +20,7 @@ package com.premiumminds.billy.core;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class CoreJPABootstrap {
 
@@ -29,7 +30,7 @@ public class CoreJPABootstrap {
 
 	public static void execute() {
 		//Load dependency injector
-		Injector injector = Guice.createInjector(new CoreJPADependencyModule());
+		Injector injector = Guice.createInjector(new CoreJPADependencyModule(), new JpaPersistModule("BillyCoreJPAPersistenceUnit"));
 		injector.getInstance(CoreDependencyModule.Initializer.class);
 		execute(injector);
 	}
