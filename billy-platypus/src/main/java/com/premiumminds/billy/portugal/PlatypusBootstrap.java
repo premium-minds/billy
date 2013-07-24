@@ -28,14 +28,17 @@ import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
+import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
@@ -70,9 +73,11 @@ public class PlatypusBootstrap {
 
 	private static void execute() {
 		// Load dependency injector
-		Injector injector = Guice
-				.createInjector(new PlatypusDependencyModule());
+		Injector injector = Guice.createInjector(
+				new PlatypusDependencyModule(),
+				new PlatypusPersistenceDependencyModule());
 		injector.getInstance(PlatypusDependencyModule.Initializer.class);
+		injector.getInstance(PlatypusPersistenceDependencyModule.Initializer.class);
 		PlatypusBootstrap.execute(injector);
 
 	}
@@ -93,6 +98,8 @@ public class PlatypusBootstrap {
 							.getInstance(DAOPTRegionContext.class);
 					DAOPTTax daoPTTax = dependencyInjector
 							.getInstance(DAOPTTax.class);
+					DAOPTContact daoPTContact = dependencyInjector
+							.getInstance(DAOPTContact.class);
 
 					// Builders
 					PTCustomer.Builder customerBuilder = dependencyInjector
@@ -101,18 +108,31 @@ public class PlatypusBootstrap {
 							.getInstance(PTRegionContext.Builder.class);
 					PTTax.Builder taxBuilder = dependencyInjector
 							.getInstance(PTTax.Builder.class);
+					PTAddress.Builder addressBuilder = dependencyInjector
+							.getInstance(PTAddress.Builder.class);
+					PTContact.Builder contactBuilder = dependencyInjector
+							.getInstance(PTContact.Builder.class);
 
-					// Start transaction
-					daoPTCustomer.beginTransaction();
-					daoPTRegionContext.beginTransaction();
-					daoPTTax.beginTransaction();
+					addressBuilder.setBuilding("1").setCity("Lisboa")
+							.setDetails("An address in Lisboa")
+							.setISOCountry("PT").setNumber("1").setRegion("PT")
+							.setStreetName("First Street")
+							.setPostalCode("1000-001");
 
-					// Generic Customer
+					// Generic contact
+					final PTContactEntity GENERIC_CONTACT = this
+							.buildContactEntity(daoPTContact, contactBuilder,
+									"John Doe", "111222333", "123123123",
+									"doe@example.com", "321321321",
+									"www.doe.io");
+
+					// // Generic Customer
 					final PTCustomerEntity GENERIC_CUSTOMER = this
 							.buildCustomerEntity(daoPTCustomer,
-									customerBuilder, "Final Consumer", "",
-									null, null, null, false,
-									Config.Key.Customer.Generic.UUID);
+									customerBuilder, "Final Consumer",
+									"997971477", addressBuilder,
+									addressBuilder, GENERIC_CONTACT.getUID(),
+									false, Config.Key.Customer.Generic.UUID);
 
 					// Portugal Contexts
 					final PTRegionContextEntity CONTEXT_PORTUGAL = this
@@ -343,8 +363,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Continental.VAT.NORMAL_PERCENT),
+									Config.Key.Context.Portugal.Continental.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.NORMAL_UUID);
 
 					final PTTaxEntity VAT_INTERMEDIATE_CONTINENTAL_PORTUGAL = this
@@ -359,8 +378,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_PERCENT),
+									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_UUID);
 
 					final PTTaxEntity VAT_REDUCED_CONTINENTAL_PORTUGAL = this
@@ -375,8 +393,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Continental.VAT.REDUCED_PERCENT),
+									Config.Key.Context.Portugal.Continental.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.REDUCED_UUID);
 
 					// Madeira
@@ -392,8 +409,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Madeira.VAT.NORMAL_PERCENT),
+									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_UUID);
 
 					final PTTaxEntity VAT_INTERMEDIATE_MADEIRA_PORTUGAL = this
@@ -408,8 +424,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_PERCENT),
+									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_UUID);
 
 					final PTTaxEntity VAT_REDUCED_MADEIRA_PORTUGAL = this
@@ -424,8 +439,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Madeira.VAT.REDUCED_PERCENT),
+									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_UUID);
 
 					final PTTaxEntity VAT_NORMAL_AZORES_PORTUGAL = this
@@ -440,8 +454,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Azores.VAT.NORMAL_PERCENT),
+									Config.Key.Context.Portugal.Azores.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.NORMAL_UUID);
 
 					// Azores
@@ -457,8 +470,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_PERCENT),
+									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_UUID);
 
 					final PTTaxEntity VAT_REDUCED_AZORES_PORTUGAL = this
@@ -473,11 +485,32 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									new Date(),
 									new Date(),
-									new BigDecimal(
-											Config.Key.Context.Portugal.Azores.VAT.REDUCED_PERCENT),
+									Config.Key.Context.Portugal.Azores.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID);
 
 					return null;
+				}
+
+				private PTContactEntity buildContactEntity(
+						DAOPTContact daoPTContact,
+						PTContact.Builder contactBuilder, String name,
+						String telephone, String mobile, String email,
+						String fax, String website) {
+
+					contactBuilder.setName(name).setEmail(email)
+							.setMobile(mobile).setFax(fax)
+							.setTelephone(telephone).setWebsite(website);
+
+					final PTContactEntity contact = (PTContactEntity) contactBuilder
+							.build();
+
+					contact.setUID(new UID("random"));
+
+					daoPTContact.create(contact);
+
+					contactBuilder.clear();
+
+					return contact;
 				}
 
 				private PTTaxEntity buildTaxEntity(DAOPTTax daoPTTax,
@@ -485,21 +518,24 @@ public class PlatypusBootstrap {
 						PTRegionContextEntity context, Currency currency,
 						String description, String designation,
 						Tax.TaxRateType type, Date validFrom, Date validTo,
-						BigDecimal value, String key) {
+						String valueKey, String key) {
+
+					taxBuilder.clear();
+
+					BigDecimal amount = new BigDecimal(
+							configuration.get(valueKey));
 
 					taxBuilder.setCode(taxCode).setContextUID(context.getUID())
 							.setCurrency(currency).setDescription(description)
 							.setDesignation(designation)
-							.setTaxRate(type, value).setValidFrom(validFrom)
-							.setValidTo(validTo).setValue(value);
+							.setTaxRate(type, amount).setValidFrom(validFrom)
+							.setValidTo(validTo).setValue(amount);
 
 					final PTTaxEntity tax = (PTTaxEntity) taxBuilder.build();
 
 					tax.setUID(configuration.getUID(key));
 
 					daoPTTax.create(tax);
-
-					taxBuilder.clear();
 
 					return tax;
 				}
@@ -509,6 +545,8 @@ public class PlatypusBootstrap {
 						PTRegionContext.Builder contextBuilder, String name,
 						String description, UID parentUID, String regionCode,
 						String key) {
+
+					contextBuilder.clear();
 
 					contextBuilder.setName(name).setDescription(description)
 							.setRegionCode(regionCode)
@@ -521,7 +559,6 @@ public class PlatypusBootstrap {
 
 					daoPTRegionContext.create(context);
 
-					contextBuilder.clear();
 					return context;
 				}
 
@@ -532,6 +569,8 @@ public class PlatypusBootstrap {
 						PTAddress.Builder billingAddressBuilder,
 						PTAddress.Builder shippingAddressBuilder, UID uid,
 						boolean hasSelfAgreement, String key) {
+
+					customerBuilder.clear();
 
 					customerBuilder.setName(name)
 							.setHasSelfBillingAgreement(hasSelfAgreement)
@@ -546,8 +585,6 @@ public class PlatypusBootstrap {
 					customer.setUID(configuration.getUID(key));
 
 					daoPTCustomer.create(customer);
-
-					customerBuilder.clear();
 
 					return customer;
 				}

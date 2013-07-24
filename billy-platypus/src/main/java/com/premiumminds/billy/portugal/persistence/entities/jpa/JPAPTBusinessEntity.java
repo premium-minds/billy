@@ -18,9 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 
+@Entity
+@Table(name = Config.TABLE_PREFIX + "BUSINESS")
 public class JPAPTBusinessEntity extends JPABusinessEntity implements
 		PTBusinessEntity {
 

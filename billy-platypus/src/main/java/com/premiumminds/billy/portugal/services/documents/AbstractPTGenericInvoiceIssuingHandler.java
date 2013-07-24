@@ -16,18 +16,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.util;
+package com.premiumminds.billy.portugal.services.documents;
 
-public class Concatenation {
+import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
-	public static String concatenatePTSourceHash(String invoiceDate,
-			String entryDate, String invoiceNo, String amountWithTax,
-			String previousHash) {
+public abstract class AbstractPTGenericInvoiceIssuingHandler implements
+		DocumentIssuingHandler {
 
-		String separator = ";";
-
-		return invoiceDate + separator + entryDate + separator + invoiceNo
-				+ separator + amountWithTax + separator + previousHash;
-
-	}
+	@Override
+	public abstract <T extends GenericInvoice> T issue(T document)
+			throws DocumentIssuingException;
 }

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
@@ -28,6 +29,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteE
 public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 		DAOPTCreditNote {
 
+	@Inject
 	public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}

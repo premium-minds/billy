@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
@@ -44,14 +43,6 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	}
 
 	@Override
-	public TBuilder setSelfBilled(boolean selfBilled) {
-		BillyValidator.mandatory(selfBilled,
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
-		this.getTypeInstance().setSelfBilled(selfBilled);
-		return this.getBuilder();
-	}
-
-	@Override
 	protected PTInvoiceEntity getTypeInstance() {
 		return (PTInvoiceEntity) super.getTypeInstance();
 	}
@@ -59,8 +50,5 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
-		PTInvoiceEntity i = this.getTypeInstance();
-		BillyValidator.mandatory(i.isSelfBilled(),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
 	}
 }

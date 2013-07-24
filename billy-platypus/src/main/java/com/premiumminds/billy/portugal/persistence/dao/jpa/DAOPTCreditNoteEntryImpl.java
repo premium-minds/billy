@@ -18,16 +18,28 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import java.util.List;
+
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
 		implements DAOPTCreditNoteEntry {
 
+	@Inject
 	public DAOPTCreditNoteEntryImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
@@ -40,5 +52,33 @@ public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
 	@Override
 	protected Class<JPAPTCreditNoteEntryEntity> getEntityClass() {
 		return JPAPTCreditNoteEntryEntity.class;
+	}
+
+	@Override
+	public PTCreditNoteEntity checkCreditNote(PTInvoice invoice) {
+		CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<JPAPTCreditNoteEntity> cq = cb
+				.createQuery(JPAPTCreditNoteEntity.class);
+
+		Root<JPAPTCreditNoteEntity> cn = cq.from(JPAPTCreditNoteEntity.class);
+
+		cq.select(cn);
+
+		TypedQuery<JPAPTCreditNoteEntity> q = getEntityManager()
+				.createQuery(cq);
+
+		List<JPAPTCreditNoteEntity> allCns = q.getResultList();
+
+		// TODO make a query to do this
+		for (JPAPTCreditNoteEntity cne : allCns) {
+			for (PTCreditNoteEntry cnee : cne.getEntries()) {
+				if (cnee.getReference().getNumber()
+						.compareTo(invoice.getNumber()) == 0) {
+					return cne;
+				}
+			}
+		}
+
+		return null;
 	}
 }

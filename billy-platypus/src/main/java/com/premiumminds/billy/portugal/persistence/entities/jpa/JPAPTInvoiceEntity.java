@@ -20,9 +20,15 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
+@Entity
+@Table(name = Config.TABLE_PREFIX + "INVOICE")
 public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 		PTInvoiceEntity {
 

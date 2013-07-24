@@ -19,15 +19,38 @@
 package com.premiumminds.billy.core;
 
 import com.google.inject.AbstractModule;
-import com.premiumminds.billy.core.persistence.dao.*;
-import com.premiumminds.billy.core.persistence.dao.jpa.*;
-
+import com.premiumminds.billy.core.persistence.dao.DAOAddress;
+import com.premiumminds.billy.core.persistence.dao.DAOApplication;
+import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
+import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
+import com.premiumminds.billy.core.persistence.dao.DAOContact;
+import com.premiumminds.billy.core.persistence.dao.DAOContext;
+import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
+import com.premiumminds.billy.core.persistence.dao.DAOProduct;
+import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
+import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
+import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOApplicationImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOBankAccountImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOBusinessImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOContactImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOContextImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOCustomerImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceEntryImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOProductImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOShippingPointImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOSupplierImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
 
 public class CoreJPADependencyModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		//DAOs
+		// DAOs
 		bind(DAOAddress.class).to(DAOAddressImpl.class);
 		bind(DAOApplication.class).to(DAOApplicationImpl.class);
 		bind(DAOBankAccount.class).to(DAOBankAccountImpl.class);
@@ -44,9 +67,9 @@ public class CoreJPADependencyModule extends AbstractModule {
 	}
 
 	public static class Initializer {
-		
+
 		public Initializer() {
-			//Nothing to initialize
+			// Nothing to initialize
 		}
 	}
 

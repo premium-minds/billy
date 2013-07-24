@@ -26,13 +26,14 @@
   version="2.0">
  
 	<!-- PLATYPUS -->
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTFinancialDocumentEntity"></entity>
+	<!-- <entity class="com.premiumminds.billy.persistence.entities.jpa.PTFinancialDocumentEntity"></entity>
 	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTFinancialDocumentEntryEntity"></entity>
 	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTRegionContextEntity"></entity>
 	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTTaxEntity"></entity>
 	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTBusinessEntity"></entity>
 	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTCreditNoteEntity"></entity>
 	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTInvoiceEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTSimpleInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTSimpleInvoiceEntity"></entity> -->
+	<package>com.premiumminds.billy.portugal.persistence.entites.jpa</package>
 	
 </entity-mappings>

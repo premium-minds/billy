@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
@@ -36,4 +37,8 @@ public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TB
 		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
+	}
 }

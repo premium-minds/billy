@@ -20,10 +20,15 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-
+@Entity
+@Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE")
 public class JPAPTCreditNoteEntity extends JPAPTGenericInvoiceEntity implements
 		PTCreditNoteEntity {
 
