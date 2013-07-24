@@ -20,6 +20,8 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.Date;
 
@@ -27,6 +29,7 @@ import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
+import org.joda.time.field.DividedDateTimeField;
 
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -290,11 +293,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
 		
 		for (Tax t : e.getProduct().getTaxes()) {
-			if (daoContext.isSubContext(t.getContext(), this.context)) { // TODO
-						//Todo verify tax expiration date
-				e.getTaxes().add(t);
+			if (daoContext.isSubContext(t.getContext(), this.context)) {
+				if(!t.getValidTo().before(new Date()))
+					e.getTaxes().add(t);
 			}
 		}
+		if(e.getTaxes().isEmpty())
+			throw new ValidationException(LOCALIZER
+					.getString("exception.invalid_taxes"));
 		
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
 
@@ -328,8 +334,26 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 			e.setUnitAmountWithoutTax(unitAmountWithoutTax.subtract(
 					e.getUnitDiscountAmount(), mc));
 		} else {
-			throw new NotImplementedException(
-					"Cannot calculate from value without tax... yet");
+			BigDecimal unitAmountWithTax = e.getUnitAmountWithoutTax();
+			BigDecimal unitTaxAmount = BigDecimal.ZERO;
+
+			for (Tax t : this.getTypeInstance().getTaxes()) {
+				switch (t.getTaxRateType()) {
+					case FLAT:
+						unitAmountWithTax = unitAmountWithTax.add(
+								t.getValue(), mc);
+						unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
+						break;
+					case PERCENTAGE:
+						unitTaxAmount = unitTaxAmount.add(e.getUnitAmountWithoutTax().multiply(t.getPercentageRateValue(), mc).divide(new BigDecimal("100"), mc),mc);
+						unitAmountWithTax = unitAmountWithTax.add(unitTaxAmount, mc);
+						break;
+				}
+			}
+			
+			e.setUnitAmountWithTax(unitAmountWithTax);
+			e.setUnitTaxAmount(unitTaxAmount);
+			
 		}
 
 		e.setAmountWithTax(this.getTypeInstance().getUnitAmountWithTax()

@@ -67,12 +67,12 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 	public void doTest() {
 		MockGenericInvoiceEntryEntity mock= createMockEntity(MockGenericInvoiceEntryEntity.class, ENTRY_YML);
 		mock.setCurrency(Currency.getInstance("EUR"));
-		mock.unitAmountWithoutTax = (new BigDecimal("1")).divide(new BigDecimal("3"), mc);
+		/*mock.unitAmountWithoutTax = (new BigDecimal("1")).divide(new BigDecimal("3"), mc);
 		mock.unitTaxAmount = mock.unitAmountWithoutTax.multiply(tax, mc);
 		mock.unitAmountWithTax = mock.unitAmountWithoutTax.add(mock.unitTaxAmount, mc);
 		mock.amountWithoutTax = mock.unitAmountWithoutTax.multiply(qnt, mc);
 		mock.amountWithTax = mock.unitAmountWithTax.multiply(qnt, mc);
-		mock.taxAmount = mock.unitTaxAmount.multiply(qnt, mc);
+		mock.taxAmount = mock.unitTaxAmount.multiply(qnt, mc);*/
 		
 		
 		when(getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
@@ -99,15 +99,15 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 				mock.getDocumentReferences().get(0).getUID())
 		.setQuantity(mock.getQuantity())
 		.setShippingCostsAmount(mock.getShippingCostsAmount())
-		.setUnitAmount(AmountType.WITH_TAX,
-				mock.getUnitAmountWithTax(),
+		.setUnitAmount(AmountType.WITHOUT_TAX,
+				mock.getUnitAmountWithoutTax(),
 				Currency.getInstance("EUR"))
 		.setUnitOfMeasure(mock.getUnitOfMeasure())
 		.setProductUID(mock.getProduct().getUID())
 		.setTaxPointDate(mock.getTaxPointDate());
 
 		GenericInvoiceEntry entry = builder.build();
-		
+
 		assertTrue(entry.getAmountWithoutTax().setScale(7, mc.getRoundingMode()).compareTo(
 				mock.getAmountWithoutTax().setScale(7, mc.getRoundingMode())) == 0);
 		
@@ -117,7 +117,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		assertTrue(entry.getAmountWithoutTax().setScale(7, mc.getRoundingMode()).compareTo(
 				(mock.getAmountWithTax().subtract(mock.getTaxAmount(), mc)).setScale(7, mc.getRoundingMode())) == 0);
 		
-		assertTrue(entry.getAmountWithTax().setScale(7, mc.getRoundingMode()).compareTo(
+			assertTrue(entry.getAmountWithTax().setScale(7, mc.getRoundingMode()).compareTo(
 				mock.getAmountWithTax().setScale(7, mc.getRoundingMode())
 				) == 0);
 		
