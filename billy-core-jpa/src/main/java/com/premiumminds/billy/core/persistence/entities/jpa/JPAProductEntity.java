@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy core JPA.
- * 
- * billy core JPA is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- * 
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * billy core JPA is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,6 +26,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -37,7 +38,7 @@ import com.premiumminds.billy.core.services.entities.Tax;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
-@Inheritance
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
 
 	private static final long serialVersionUID = 1L;

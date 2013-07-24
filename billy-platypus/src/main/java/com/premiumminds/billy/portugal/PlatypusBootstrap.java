@@ -526,6 +526,8 @@ public class PlatypusBootstrap {
 						String telephone, String mobile, String email,
 						String fax, String website, String key) {
 
+					contactBuilder.clear();
+
 					contactBuilder.setName(name).setEmail(email)
 							.setMobile(mobile).setFax(fax)
 							.setTelephone(telephone).setWebsite(website);
@@ -550,6 +552,8 @@ public class PlatypusBootstrap {
 					BigDecimal amount = new BigDecimal(
 							configuration.get(valueKey));
 
+					taxBuilder.clear();
+
 					taxBuilder.setCode(taxCode).setContextUID(context.getUID())
 							.setCurrency(currency).setDescription(description)
 							.setDesignation(designation)
@@ -570,6 +574,8 @@ public class PlatypusBootstrap {
 						PTRegionContext.Builder contextBuilder, String name,
 						String description, UID parentUID, String regionCode,
 						String key) {
+
+					contextBuilder.clear();
 
 					contextBuilder.setName(name).setDescription(description)
 							.setRegionCode(regionCode)
@@ -592,6 +598,8 @@ public class PlatypusBootstrap {
 						PTAddress.Builder addressBuilder,
 						PTContact.Builder contactBuilder,
 						boolean hasSelfAgreement, String key) {
+
+					customerBuilder.clear();
 
 					customerBuilder.setName(name).addContact(contactBuilder)
 							.setMainContactUID(contactBuilder.build().getUID())
