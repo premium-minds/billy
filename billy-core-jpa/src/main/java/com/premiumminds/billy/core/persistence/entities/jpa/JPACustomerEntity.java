@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -24,6 +24,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -40,8 +41,9 @@ import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "CUSTOMER")
-public class JPACustomerEntity extends JPABaseEntity
-implements CustomerEntity {
+@Inheritance
+public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "NAME")
@@ -50,47 +52,44 @@ implements CustomerEntity {
 	@Column(name = "TAX_ID")
 	protected String taxId;
 
-	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "CUSTOMER_ADDRESS",
-			joinColumns={ @JoinColumn(name="ID_CUSTOMER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_ADDRESS", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_ADDRESS", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID", unique = true) })
 	protected List<Address> addresses;
-	
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
 	protected Address mainAddress;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
 	protected Address billingAddress;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
 	protected Address shippingAddress;
 
-	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID")
 	protected Contact mainContact;
 
-	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "CUSTOMER_CONTACT",
-			joinColumns={ @JoinColumn(name="ID_CUSTOMER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_CONTACT", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_CONTACT", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
 	protected List<Contact> contacts;
-	
+
 	@Column(name = "SELF_BILLING")
 	protected Boolean selfBilling;
-	
-	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "CUSTOMER_BANK_ACCOUNT",
-			joinColumns={ @JoinColumn(name="ID_CUSTOMER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_BANK_ACCOUNT", referencedColumnName="ID", unique=true) })
+
+	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_BANK_ACCOUNT", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_BANK_ACCOUNT", referencedColumnName = "ID", unique = true) })
 	protected List<BankAccount> bankAccounts;
 
-	
 	public JPACustomerEntity() {
 		this.addresses = new ArrayList<Address>();
 		this.contacts = new ArrayList<Contact>();

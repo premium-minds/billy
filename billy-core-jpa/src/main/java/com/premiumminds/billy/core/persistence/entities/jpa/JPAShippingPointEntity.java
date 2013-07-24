@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -23,6 +23,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -36,33 +37,36 @@ import com.premiumminds.billy.core.services.entities.Address;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
+@Inheritance
 public class JPAShippingPointEntity extends JPABaseEntity implements
 		ShippingPointEntity {
+
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
 	protected Address address;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATE")
 	protected Date date;
-	
+
 	@Column(name = "DELIVERY_ID")
 	protected String deliveryId;
-	
+
 	@Column(name = "LOCATION_ID")
 	protected String locationId;
-	
+
 	@Column(name = "UCR")
 	protected String ucr;
-	
+
 	@Column(name = "WAREHOUSE_ID")
 	protected String warehouseId;
-	
-	
-	public JPAShippingPointEntity() {}
-	
+
+	public JPAShippingPointEntity() {
+	}
+
 	@Override
 	public Date getDate() {
 		return date;
@@ -117,7 +121,7 @@ public class JPAShippingPointEntity extends JPABaseEntity implements
 	public <T extends AddressEntity> void setAddress(T address) {
 		this.address = address;
 	}
-	
+
 	@Override
 	public void setDeliveryId(String deliveryId) {
 		this.deliveryId = deliveryId;

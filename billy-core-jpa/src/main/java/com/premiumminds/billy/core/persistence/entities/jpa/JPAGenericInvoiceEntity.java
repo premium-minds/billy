@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -31,6 +31,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -53,8 +54,10 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
+@Inheritance
 public class JPAGenericInvoiceEntity extends JPABaseEntity implements
-GenericInvoiceEntity {
+		GenericInvoiceEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "NUMBER")
@@ -90,15 +93,17 @@ GenericInvoiceEntity {
 
 	@Column(name = "AMOUNT_WITHOUT_TAX", scale = 7)
 	protected BigDecimal amountWithoutTax;
-	
+
 	@Column(name = "DISCOUNTS_AMOUNT", scale = 7)
 	protected BigDecimal discountsAmount;
 
-	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_POINT_ORIGIN", referencedColumnName = "ID")
 	protected ShippingPoint shippingOrigin;
 
-	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_POINT_DESTINATION", referencedColumnName = "ID")
 	protected ShippingPoint shippingDestination;
 
@@ -143,25 +148,20 @@ GenericInvoiceEntity {
 	protected CreditOrDebit creditOrDebit;
 
 	@ElementCollection
-	@CollectionTable(
-			name=Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER",
-			joinColumns=@JoinColumn(name="ID_INVOICE"))
-	@Column(name="RECEIPT_NUMBER")
+	@CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER", joinColumns = @JoinColumn(name = "ID_INVOICE"))
+	@Column(name = "RECEIPT_NUMBER")
 	protected List<String> receiptNumbers;
 
-	@OneToMany(targetEntity = JPAGenericInvoiceEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "INVOICE_ENTRY",
-			joinColumns={ @JoinColumn(name="ID_INVOICE", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_ENTRY", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAGenericInvoiceEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID", unique = true) })
 	protected List<GenericInvoiceEntry> entries;
-
 
 	public JPAGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();
 		this.receiptNumbers = new ArrayList<String>();
 	}
-	
+
 	@Override
 	public String getNumber() {
 		return number;
@@ -209,7 +209,7 @@ GenericInvoiceEntity {
 	public BigDecimal getAmountWithoutTax() {
 		return amountWithoutTax;
 	}
-	
+
 	@Override
 	public BigDecimal getDiscountsAmount() {
 		return discountsAmount;
@@ -332,7 +332,7 @@ GenericInvoiceEntity {
 	public void setAmountWithoutTax(BigDecimal amount) {
 		this.amountWithoutTax = amount;
 	}
-	
+
 	@Override
 	public void setDiscountsAmount(BigDecimal amount) {
 		this.discountsAmount = amount;
