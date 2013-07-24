@@ -81,6 +81,22 @@ public class Config {
 			}
 		}
 
+		public static class Contact {
+
+			public static class Generic {
+
+				public static final String UUID = "contact.generic.uuid";
+			}
+		}
+
+		public static class Address {
+
+			public static class Generic {
+
+				public static final String UUID = "address.generic.uuid";
+			}
+		}
+
 		public static class Context {
 
 			public static class Portugal {

@@ -20,6 +20,8 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -30,23 +32,24 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "CONTEXT")
-public class JPAContextEntity extends JPABaseEntity
-implements ContextEntity {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "NAME")
 	protected String name;
-	
+
 	@Column(name = "DESCRIPTION")
 	protected String description;
-	
+
 	@ManyToOne(targetEntity = JPAContextEntity.class)
 	@JoinColumn(name = "ID_CONTEXT_PARENT", referencedColumnName = "ID")
 	protected Context parent;
-	
-	
-	public JPAContextEntity() {}
-	
+
+	public JPAContextEntity() {
+	}
+
 	@Override
 	public String getName() {
 		return name;
@@ -77,7 +80,5 @@ implements ContextEntity {
 	public <T extends ContextEntity> void setParentContext(T parent) {
 		this.parent = parent;
 	}
-
-	
 
 }

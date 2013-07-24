@@ -20,6 +20,8 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.core.Config;
@@ -27,6 +29,7 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
 
 	private static final long serialVersionUID = 1L;

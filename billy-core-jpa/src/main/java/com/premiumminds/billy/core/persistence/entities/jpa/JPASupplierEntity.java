@@ -24,6 +24,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -40,6 +42,7 @@ import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 
 	private static final long serialVersionUID = 1L;

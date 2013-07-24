@@ -135,6 +135,9 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	@SuppressWarnings("unchecked")
 	public TInterface create(final TInterface entity) throws PersistenceException {
+		if(!entity.isNew()) {
+			throw new PersistenceException("Cannot create. The entity is maked as not new.");
+		}
 		try{
 			return new TransactionWrapper<TInterface>(this) {
 
@@ -162,6 +165,9 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	@SuppressWarnings("unchecked")
 	public final synchronized TInterface update(final TInterface entity) throws PersistenceException {
+		if(entity.isNew()) {
+			throw new PersistenceException("Cannot update. The entity is maked as new.");
+		}
 		try {
 			return new TransactionWrapper<TInterface>(this) {
 

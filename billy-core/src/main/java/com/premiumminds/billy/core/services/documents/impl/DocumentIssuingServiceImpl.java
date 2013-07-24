@@ -22,6 +22,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -36,8 +37,15 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 	}
 
 	@Override
-	public <T extends GenericInvoice> T issue(T document)
+	public void addHandler(Class<? extends GenericInvoice> handledClass,
+			DocumentIssuingHandler handler) {
+		this.handlers.put(handledClass, handler);
+	}
+
+	@Override
+	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder)
 			throws DocumentIssuingException {
+		T document = documentBuilder.build();
 		Type[] types = document.getClass().getGenericInterfaces();
 		for (Type type : types) {
 			if (this.handlers.containsKey(type)) {
@@ -46,12 +54,6 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 		}
 		throw new RuntimeException("Cannot handle document : "
 				+ document.getClass().getCanonicalName());
-	}
-
-	@Override
-	public void addHandler(Class<? extends GenericInvoice> handledClass,
-			DocumentIssuingHandler handler) {
-		this.handlers.put(handledClass, handler);
 	}
 
 }
