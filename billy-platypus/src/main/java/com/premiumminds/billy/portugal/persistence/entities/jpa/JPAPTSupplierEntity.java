@@ -30,9 +30,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 public class JPAPTSupplierEntity extends JPASupplierEntity implements
 		PTSupplierEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 }

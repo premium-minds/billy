@@ -28,16 +28,19 @@ import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
+import com.premiumminds.billy.portugal.services.entities.PTAddress.Builder;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
@@ -89,6 +92,7 @@ public class PlatypusBootstrap {
 		try {
 			new TransactionWrapper<Void>(dao) {
 
+				@SuppressWarnings("unused")
 				@Override
 				public Void runTransaction() throws Exception {
 					// Dao creation
@@ -100,6 +104,8 @@ public class PlatypusBootstrap {
 							.getInstance(DAOPTTax.class);
 					DAOPTContact daoPTContact = dependencyInjector
 							.getInstance(DAOPTContact.class);
+					DAOPTAddress daoPTAddress = dependencyInjector
+							.getInstance(DAOPTAddress.class);
 
 					// Builders
 					PTCustomer.Builder customerBuilder = dependencyInjector
@@ -113,26 +119,28 @@ public class PlatypusBootstrap {
 					PTContact.Builder contactBuilder = dependencyInjector
 							.getInstance(PTContact.Builder.class);
 
-					addressBuilder.setBuilding("1").setCity("Lisboa")
-							.setDetails("An address in Lisboa")
-							.setISOCountry("PT").setNumber("1").setRegion("PT")
-							.setStreetName("First Street")
-							.setPostalCode("1000-001");
+					// Generic Address
+					final PTAddressEntity GENERIC_ADDRESS = this
+							.buildAddressEntity(daoPTAddress, addressBuilder,
+									"1", "Street", "Building", "City",
+									"region", "PT", "details", "1000-001",
+									Config.Key.Address.Generic.UUID);
 
 					// Generic contact
 					final PTContactEntity GENERIC_CONTACT = this
 							.buildContactEntity(daoPTContact, contactBuilder,
 									"John Doe", "111222333", "123123123",
 									"doe@example.com", "321321321",
-									"www.doe.io");
+									"www.doe.io",
+									Config.Key.Contact.Generic.UUID);
 
-					// // Generic Customer
+					// Generic Customer
 					final PTCustomerEntity GENERIC_CUSTOMER = this
 							.buildCustomerEntity(daoPTCustomer,
 									customerBuilder, "Final Consumer",
 									"997971477", addressBuilder,
-									addressBuilder, GENERIC_CONTACT.getUID(),
-									false, Config.Key.Customer.Generic.UUID);
+									contactBuilder, false,
+									Config.Key.Customer.Generic.UUID);
 
 					// Portugal Contexts
 					final PTRegionContextEntity CONTEXT_PORTUGAL = this
@@ -491,11 +499,32 @@ public class PlatypusBootstrap {
 					return null;
 				}
 
+				private PTAddressEntity buildAddressEntity(
+						DAOPTAddress daoPTAddress, Builder addressBuilder,
+						String number, String street, String building,
+						String city, String region, String isoCode,
+						String details, String postalCode, String key) {
+
+					addressBuilder.setBuilding(building).setCity(city)
+							.setDetails(details).setISOCountry(isoCode)
+							.setNumber(number).setRegion(region)
+							.setStreetName(street).setPostalCode(postalCode);
+
+					PTAddressEntity address = (PTAddressEntity) addressBuilder
+							.build();
+
+					address.setUID(configuration.getUID(key));
+
+					daoPTAddress.create(address);
+
+					return address;
+				}
+
 				private PTContactEntity buildContactEntity(
 						DAOPTContact daoPTContact,
 						PTContact.Builder contactBuilder, String name,
 						String telephone, String mobile, String email,
-						String fax, String website) {
+						String fax, String website, String key) {
 
 					contactBuilder.setName(name).setEmail(email)
 							.setMobile(mobile).setFax(fax)
@@ -504,11 +533,9 @@ public class PlatypusBootstrap {
 					final PTContactEntity contact = (PTContactEntity) contactBuilder
 							.build();
 
-					contact.setUID(new UID("random"));
+					contact.setUID(configuration.getUID(key));
 
 					daoPTContact.create(contact);
-
-					contactBuilder.clear();
 
 					return contact;
 				}
@@ -519,8 +546,6 @@ public class PlatypusBootstrap {
 						String description, String designation,
 						Tax.TaxRateType type, Date validFrom, Date validTo,
 						String valueKey, String key) {
-
-					taxBuilder.clear();
 
 					BigDecimal amount = new BigDecimal(
 							configuration.get(valueKey));
@@ -546,8 +571,6 @@ public class PlatypusBootstrap {
 						String description, UID parentUID, String regionCode,
 						String key) {
 
-					contextBuilder.clear();
-
 					contextBuilder.setName(name).setDescription(description)
 							.setRegionCode(regionCode)
 							.setParentContextUID(parentUID);
@@ -566,18 +589,17 @@ public class PlatypusBootstrap {
 						DAOPTCustomer daoPTCustomer,
 						PTCustomer.Builder customerBuilder, String name,
 						String taxRegistrationID,
-						PTAddress.Builder billingAddressBuilder,
-						PTAddress.Builder shippingAddressBuilder, UID uid,
+						PTAddress.Builder addressBuilder,
+						PTContact.Builder contactBuilder,
 						boolean hasSelfAgreement, String key) {
 
-					customerBuilder.clear();
-
-					customerBuilder.setName(name)
+					customerBuilder.setName(name).addContact(contactBuilder)
+							.setMainContactUID(contactBuilder.build().getUID())
 							.setHasSelfBillingAgreement(hasSelfAgreement)
 							.setTaxRegistrationNumber(taxRegistrationID)
-							.setBillingAddress(billingAddressBuilder)
-							.setShippingAddress(shippingAddressBuilder)
-							.setMainContactUID(uid);
+							.setBillingAddress(addressBuilder)
+							.setShippingAddress(addressBuilder)
+							.addAddress(addressBuilder, true);
 
 					PTCustomerEntity customer = (PTCustomerEntity) customerBuilder
 							.build();
