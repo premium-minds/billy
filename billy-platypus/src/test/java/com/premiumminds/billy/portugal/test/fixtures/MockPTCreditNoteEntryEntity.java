@@ -16,27 +16,40 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities.jpa;
+package com.premiumminds.billy.portugal.test.fixtures;
 
-import java.util.List;
+import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-
-@Entity
-@Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE")
-public class JPAPTCreditNoteEntity extends JPAPTGenericInvoiceEntity implements
-		PTCreditNoteEntity {
-
+public class MockPTCreditNoteEntryEntity extends MockGenericInvoiceEntryEntity implements PTCreditNoteEntryEntity{
+	
 	private static final long serialVersionUID = 1L;
-
-	@SuppressWarnings({ "unchecked"})
-	@Override
-	public List<PTCreditNoteEntry> getEntries() {
-		return (List<PTCreditNoteEntry>) super.getEntries();
+	private PTInvoice reference;
+	private String reason;
+	
+	public MockPTCreditNoteEntryEntity(){
+		
 	}
+	
+	@Override
+	public PTInvoice getReference(){
+		return reference;
+	}
+	
+	@Override
+	public String getReason(){
+		return reason;
+	}
+	
+	@Override
+	public void setReference(PTInvoice reference){
+		this.reference = reference;
+	}
+	
+	@Override
+	public void setReason(String reason){
+		this.reason = reason;
+	}
+
 }

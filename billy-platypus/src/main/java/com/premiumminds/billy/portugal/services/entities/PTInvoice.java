@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -37,4 +39,8 @@ public interface PTInvoice extends PTGenericInvoice {
 			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<PTInvoiceEntry> getEntries();
 }

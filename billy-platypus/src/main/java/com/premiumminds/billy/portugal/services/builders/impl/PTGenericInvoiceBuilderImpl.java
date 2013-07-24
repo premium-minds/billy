@@ -54,10 +54,46 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
+	public TBuilder setCancelled(boolean cancelled) {
+		BillyValidator.mandatory(cancelled,
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+		this.getTypeInstance().setCancelled(cancelled);
+		return this.getBuilder();
+	}
+
+	@Override
+	public TBuilder setBilled(boolean billed) {
+		BillyValidator.mandatory(billed,
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+		this.getTypeInstance().setBilled(billed);
+		return this.getBuilder();
+	}
+
+	@Override
+	public TBuilder setHash(String hash) {
+		BillyValidator.mandatory(hash,
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.hash"));
+		this.getTypeInstance().setHash(hash);
+		return this.getBuilder();
+	}
+
+	@Override
+	public TBuilder setSourceHash(String source) {
+		this.getTypeInstance().setSourceHash(source);
+		return this.getBuilder();
+	}
+
+	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
 		PTGenericInvoiceEntity i = this.getTypeInstance();
 		BillyValidator.mandatory(i.isSelfBilled(),
 				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+		BillyValidator.mandatory(i.isCancelled(),
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+		BillyValidator.mandatory(i.isBilled(),
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+		BillyValidator.mandatory(i.getHash(),
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.hash"));
 	}
 }

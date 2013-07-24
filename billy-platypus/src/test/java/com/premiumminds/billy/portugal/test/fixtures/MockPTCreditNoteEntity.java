@@ -16,81 +16,65 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities.jpa;
+package com.premiumminds.billy.portugal.test.fixtures;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
-import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
-
-@Entity
-@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
-public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
-		implements PTGenericInvoiceEntity {
+public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements PTCreditNoteEntity{
 
 	private static final long serialVersionUID = 1L;
-
-	@Column(name = "CANCELLED")
-	protected Boolean cancelled;
-
-	@Column(name = "BILLED")
-	protected Boolean billed;
-
-	@Column(name = "HASH")
+	
+	protected boolean billed;
+	protected boolean cancelled;
 	protected String hash;
-
-	@Column(name = "SOURCE_HASH")
 	protected String sourceHash;
-
+	
+	
 	@Override
-	public boolean isCancelled() {
-		return cancelled;
+	public List<PTCreditNoteEntry> getEntries() {
+		return (List<PTCreditNoteEntry>) (List<?>) super.getEntries();
 	}
-
-	@Override
-	public boolean isBilled() {
-		return billed;
-	}
-
-	@Override
-	public String getHash() {
-		return hash;
-	}
-
-	@Override
-	public String getSourceHash() {
-		return sourceHash;
-	}
-
+	
 	@Override
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
 	}
-
 	@Override
 	public void setBilled(boolean billed) {
 		this.billed = billed;
 	}
-
 	@Override
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
-
 	@Override
 	public void setSourceHash(String source) {
 		this.sourceHash = source;
 	}
-	
-	@SuppressWarnings({"unchecked"})
 	@Override
-	public List<? extends PTGenericInvoiceEntry> getEntries(){
-		return (List<PTGenericInvoiceEntry>) super.getEntries();
+	public boolean isCancelled() {
+		return cancelled;
 	}
+	@Override
+	public boolean isBilled() {
+		return billed;
+	}
+	@Override
+	public String getHash() {
+		return hash;
+	}
+	@Override
+	public String getSourceHash() {
+		return sourceHash;
+	}
+	
 }

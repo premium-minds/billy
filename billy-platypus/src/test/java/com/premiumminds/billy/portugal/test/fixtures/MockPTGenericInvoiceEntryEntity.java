@@ -16,20 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.builders;
+package com.premiumminds.billy.portugal.test.fixtures;
 
-import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
+import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 
-public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
-		extends GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+public class MockPTGenericInvoiceEntryEntity extends MockGenericInvoiceEntryEntity implements PTGenericInvoiceEntryEntity{
+	private static final long serialVersionUID = 1L;
 
-	public TBuilder setCancelled(boolean cancelled);
-
-	public TBuilder setBilled(boolean billed);
-
-	public TBuilder setHash(String hash);
-
-	public TBuilder setSourceHash(String source);
+	public MockPTGenericInvoiceEntryEntity(){
+		
+	}
 }

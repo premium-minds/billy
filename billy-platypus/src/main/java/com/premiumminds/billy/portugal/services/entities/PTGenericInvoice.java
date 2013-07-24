@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -49,4 +51,8 @@ public interface PTGenericInvoice extends GenericInvoice {
 	public String getHash();
 
 	public String getSourceHash();
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<? extends PTGenericInvoiceEntry> getEntries();
 }

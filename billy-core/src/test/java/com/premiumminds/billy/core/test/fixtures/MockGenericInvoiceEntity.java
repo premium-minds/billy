@@ -288,8 +288,8 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public List<GenericInvoiceEntry> getEntries() {
-		return entries;
+	public <T extends GenericInvoiceEntry> List<T> getEntries() {
+		return (List<T>) entries;
 	}
 
 	@Override

@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
+import java.util.Collection;
+
 import javax.inject.Inject;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -39,4 +41,8 @@ public interface PTCreditNote extends PTGenericInvoice {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<PTCreditNoteEntry> getEntries();
+	
 }

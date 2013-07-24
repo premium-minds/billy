@@ -16,20 +16,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.builders;
+package com.premiumminds.billy.portugal.services.documents;
 
-import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
-public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
-		extends GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	public TBuilder setCancelled(boolean cancelled);
+public class PTCreditNoteIssuingHandler extends
+		AbstractPTGenericInvoiceIssuingHandler {
 
-	public TBuilder setBilled(boolean billed);
+	@Override
+	public <T extends GenericInvoice> T issue(T document)
+			throws DocumentIssuingException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-	public TBuilder setHash(String hash);
-
-	public TBuilder setSourceHash(String source);
 }

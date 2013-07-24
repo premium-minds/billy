@@ -18,8 +18,11 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities;
 
+import java.util.List;
+
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
 		PTGenericInvoice {
@@ -31,4 +34,8 @@ public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
 	public void setHash(String hash);
 
 	public void setSourceHash(String source);
+	
+	@SuppressWarnings({"unchecked"})
+	@Override
+	public List<? extends PTGenericInvoiceEntry> getEntries();
 }
