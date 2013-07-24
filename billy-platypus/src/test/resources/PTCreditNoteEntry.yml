@@ -17,7 +17,7 @@
 # along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-uid : genericEntry_uid
+uid : CreditNoteEntry_uid
 creditOrDebit : CREDIT
 description : description
 number : 143
@@ -126,3 +126,6 @@ unitTaxAmount : !!java.math.BigDecimal
 unitDiscountAmount : !!java.math.BigDecimal
   0
 unitOfMeasure : kg
+
+reason: Reason_for_credit_note
+

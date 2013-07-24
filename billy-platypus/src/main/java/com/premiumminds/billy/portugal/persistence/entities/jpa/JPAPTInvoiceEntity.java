@@ -18,7 +18,10 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import java.util.List;
+
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 		PTInvoiceEntity {
@@ -27,5 +30,11 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@SuppressWarnings({"unchecked"})
+	@Override
+	public List<PTInvoiceEntry> getEntries(){
+		return (List<PTInvoiceEntry>) super.getEntries();
+	}
 
 }

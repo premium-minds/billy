@@ -18,8 +18,11 @@
  */
 package com.premiumminds.billy.portugal.test.fixtures;
 
+import java.util.List;
+
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 		PTInvoiceEntity {
@@ -33,6 +36,11 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 
 	public MockPTInvoiceEntity() {
 
+	}
+	
+	@Override
+	public List<PTInvoiceEntry> getEntries(){
+		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
 	}
 
 	@Override

@@ -23,11 +23,13 @@ import java.util.List;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
+
 public class JPAPTCreditNoteEntity extends JPAPTGenericInvoiceEntity implements
 		PTCreditNoteEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings({ "unchecked"})
 	@Override
 	public List<PTCreditNoteEntry> getEntries() {
 		return (List<PTCreditNoteEntry>) super.getEntries();

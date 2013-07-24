@@ -18,9 +18,16 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities;
 
+import java.util.List;
+
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public interface PTCreditNoteEntity extends PTGenericInvoiceEntity,
 		PTCreditNote {
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PTCreditNoteEntry> getEntries();
+	
 }

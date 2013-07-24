@@ -18,8 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities;
 
+import java.util.List;
+
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
+	
+	@SuppressWarnings({"unchecked"})
+	@Override
+	public List<PTInvoiceEntry> getEntries();
 
 }
