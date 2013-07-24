@@ -18,15 +18,18 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 
+@Entity
+@Table(name = Config.TABLE_PREFIX + "SUPPLIER")
 public class JPAPTSupplierEntity extends JPASupplierEntity implements
 		PTSupplierEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 }

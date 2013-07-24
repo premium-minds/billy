@@ -51,7 +51,7 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setCommercialName(String name) {
-		BillyValidator.notBlank(name, BusinessBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(name, PTBusinessBuilderImpl.LOCALIZER
 				.getString("field.commercial_name"));
 		this.getTypeInstance().setCommercialName(name);
 		return this.getBuilder();

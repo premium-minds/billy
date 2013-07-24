@@ -24,6 +24,8 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -40,8 +42,9 @@ import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "CUSTOMER")
-public class JPACustomerEntity extends JPABaseEntity
-implements CustomerEntity {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "NAME")
@@ -50,47 +53,44 @@ implements CustomerEntity {
 	@Column(name = "TAX_ID")
 	protected String taxId;
 
-	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "CUSTOMER_ADDRESS",
-			joinColumns={ @JoinColumn(name="ID_CUSTOMER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_ADDRESS", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_ADDRESS", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID", unique = true) })
 	protected List<Address> addresses;
-	
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
 	protected Address mainAddress;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
 	protected Address billingAddress;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
 	protected Address shippingAddress;
 
-	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID")
 	protected Contact mainContact;
 
-	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "CUSTOMER_CONTACT",
-			joinColumns={ @JoinColumn(name="ID_CUSTOMER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_CONTACT", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_CONTACT", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
 	protected List<Contact> contacts;
-	
+
 	@Column(name = "SELF_BILLING")
 	protected Boolean selfBilling;
-	
-	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "CUSTOMER_BANK_ACCOUNT",
-			joinColumns={ @JoinColumn(name="ID_CUSTOMER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_BANK_ACCOUNT", referencedColumnName="ID", unique=true) })
+
+	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_BANK_ACCOUNT", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_BANK_ACCOUNT", referencedColumnName = "ID", unique = true) })
 	protected List<BankAccount> bankAccounts;
 
-	
 	public JPACustomerEntity() {
 		this.addresses = new ArrayList<Address>();
 		this.contacts = new ArrayList<Contact>();

@@ -20,43 +20,47 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 
 @Entity
-@Table(name=Config.TABLE_PREFIX + "ADDRESS")
+@Table(name = Config.TABLE_PREFIX + "ADDRESS")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
+
 	private static final long serialVersionUID = 1L;
 
-	@Column(name="NUMBER")
+	@Column(name = "NUMBER")
 	protected String number;
-	
-	@Column(name="DETAILS")
+
+	@Column(name = "DETAILS")
 	protected String details;
-	
-	@Column(name="BUILDING")
+
+	@Column(name = "BUILDING")
 	protected String building;
-	
-	@Column(name="CITY")
+
+	@Column(name = "CITY")
 	protected String city;
-	
-	@Column(name="POSTAL_CODE")
+
+	@Column(name = "POSTAL_CODE")
 	protected String postalCode;
-	
-	@Column(name="REGION")
+
+	@Column(name = "REGION")
 	protected String region;
-	
-	@Column(name="COUNTRY")
+
+	@Column(name = "COUNTRY")
 	protected String country;
-	
-	@Column(name="STREET_NAME")
+
+	@Column(name = "STREET_NAME")
 	protected String streetName;
-	
-	
-	public JPAAddressEntity() {}
-	
+
+	public JPAAddressEntity() {
+	}
+
 	@Override
 	public String getNumber() {
 		return number;
@@ -131,10 +135,10 @@ public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
 	public void setISOCountry(String country) {
 		this.country = country;
 	}
-	
+
 	@Override
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
 	}
-	
+
 }

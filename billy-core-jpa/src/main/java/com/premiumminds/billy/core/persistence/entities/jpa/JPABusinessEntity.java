@@ -25,6 +25,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -44,6 +46,7 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
 	private static final long serialVersionUID = 1L;

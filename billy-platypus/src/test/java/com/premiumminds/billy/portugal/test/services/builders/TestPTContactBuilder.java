@@ -18,8 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -34,13 +33,13 @@ public class TestPTContactBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTContactEntity mockContact = createMockEntity(
-				MockPTContactEntity.class, PTCONTACT_YML);
+		MockPTContactEntity mockContact = this.createMockEntity(
+				MockPTContactEntity.class, TestPTContactBuilder.PTCONTACT_YML);
 
-		Mockito.when(getInstance(DAOPTContact.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOPTContact.class).getEntityInstance())
 				.thenReturn(new MockPTContactEntity());
 
-		PTContact.Builder builder = getInstance(PTContact.Builder.class);
+		PTContact.Builder builder = this.getInstance(PTContact.Builder.class);
 
 		builder.setEmail(mockContact.getEmail()).setFax(mockContact.getFax())
 				.setMobile(mockContact.getMobile())
@@ -48,15 +47,15 @@ public class TestPTContactBuilder extends PTAbstractTest {
 				.setTelephone(mockContact.getTelephone())
 				.setWebsite(mockContact.getWebsite());
 
-		PTContact contact = (PTContact) builder.build();
+		PTContact contact = builder.build();
 
 		assert (contact != null);
-		assertEquals(mockContact.getEmail(), contact.getEmail());
-		assertEquals(mockContact.getFax(), contact.getFax());
-		assertEquals(mockContact.getMobile(), contact.getMobile());
-		assertEquals(mockContact.getName(), contact.getName());
-		assertEquals(mockContact.getTelephone(), contact.getTelephone());
-		assertEquals(mockContact.getWebsite(), contact.getWebsite());
+		Assert.assertEquals(mockContact.getEmail(), contact.getEmail());
+		Assert.assertEquals(mockContact.getFax(), contact.getFax());
+		Assert.assertEquals(mockContact.getMobile(), contact.getMobile());
+		Assert.assertEquals(mockContact.getName(), contact.getName());
+		Assert.assertEquals(mockContact.getTelephone(), contact.getTelephone());
+		Assert.assertEquals(mockContact.getWebsite(), contact.getWebsite());
 
 	}
 }

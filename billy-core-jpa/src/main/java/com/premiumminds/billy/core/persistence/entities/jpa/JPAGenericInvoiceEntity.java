@@ -31,6 +31,8 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -53,8 +55,10 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAGenericInvoiceEntity extends JPABaseEntity implements
-GenericInvoiceEntity {
+		GenericInvoiceEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "NUMBER")
@@ -90,15 +94,17 @@ GenericInvoiceEntity {
 
 	@Column(name = "AMOUNT_WITHOUT_TAX", scale = 7)
 	protected BigDecimal amountWithoutTax;
-	
+
 	@Column(name = "DISCOUNTS_AMOUNT", scale = 7)
 	protected BigDecimal discountsAmount;
 
-	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_POINT_ORIGIN", referencedColumnName = "ID")
 	protected ShippingPoint shippingOrigin;
 
-	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_POINT_DESTINATION", referencedColumnName = "ID")
 	protected ShippingPoint shippingDestination;
 
@@ -143,25 +149,20 @@ GenericInvoiceEntity {
 	protected CreditOrDebit creditOrDebit;
 
 	@ElementCollection
-	@CollectionTable(
-			name=Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER",
-			joinColumns=@JoinColumn(name="ID_INVOICE"))
-	@Column(name="RECEIPT_NUMBER")
+	@CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER", joinColumns = @JoinColumn(name = "ID_INVOICE"))
+	@Column(name = "RECEIPT_NUMBER")
 	protected List<String> receiptNumbers;
 
-	@OneToMany(targetEntity = JPAGenericInvoiceEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "INVOICE_ENTRY",
-			joinColumns={ @JoinColumn(name="ID_INVOICE", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_ENTRY", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAGenericInvoiceEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID", unique = true) })
 	protected List<GenericInvoiceEntry> entries;
-
 
 	public JPAGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();
 		this.receiptNumbers = new ArrayList<String>();
 	}
-	
+
 	@Override
 	public String getNumber() {
 		return number;
@@ -209,7 +210,7 @@ GenericInvoiceEntity {
 	public BigDecimal getAmountWithoutTax() {
 		return amountWithoutTax;
 	}
-	
+
 	@Override
 	public BigDecimal getDiscountsAmount() {
 		return discountsAmount;
@@ -332,7 +333,7 @@ GenericInvoiceEntity {
 	public void setAmountWithoutTax(BigDecimal amount) {
 		this.amountWithoutTax = amount;
 	}
-	
+
 	@Override
 	public void setDiscountsAmount(BigDecimal amount) {
 		this.discountsAmount = amount;
@@ -385,7 +386,7 @@ GenericInvoiceEntity {
 	}
 
 	@Override
-	public List<GenericInvoiceEntry> getEntries() {
+	public List<? extends GenericInvoiceEntry> getEntries() {
 		return this.entries;
 	}
 

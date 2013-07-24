@@ -250,6 +250,30 @@
 				<env>DEV</env>
 			</properties>
 		</profile>
+		<profile>
+			<id>bootstrap</id>
+			<activation>
+				<property>
+					<name>bootstrap</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<configuration>
+							<mainClass>com.premiumminds.billy.core.CoreJPABootstrap</mainClass>
+							<classpathScope>test</classpathScope>
+							<includeProjectDependencies>true</includeProjectDependencies>
+							<includePluginDependencies>false</includePluginDependencies>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 
 </project>

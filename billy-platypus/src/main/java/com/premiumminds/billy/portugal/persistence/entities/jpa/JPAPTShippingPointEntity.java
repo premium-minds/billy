@@ -18,9 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity;
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
 
+@Entity
+@Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
 public class JPAPTShippingPointEntity extends JPAShippingPointEntity implements
 		PTShippingPointEntity {
 

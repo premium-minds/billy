@@ -18,12 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.export.exceptions;
 
-public class InvalidDocumentStateException extends Exception
-{
+public class InvalidDocumentStateException extends Exception {
+
 	private static final long serialVersionUID = 1L;
 
-	public InvalidDocumentStateException(String state)
-	{
+	public InvalidDocumentStateException(String state) {
 		super("Invalid document state: " + state);
 	}
 }

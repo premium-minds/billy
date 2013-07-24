@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -37,13 +35,16 @@ public class TestPTShippingPointBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTShippingPointEntity mockShippingPoint = createMockEntity(
-				MockPTShippingPointEntity.class, PTSHIPPINGPOINT_YML);
+		MockPTShippingPointEntity mockShippingPoint = this.createMockEntity(
+				MockPTShippingPointEntity.class,
+				TestPTShippingPointBuilder.PTSHIPPINGPOINT_YML);
 
-		Mockito.when(getInstance(DAOPTShippingPoint.class).getEntityInstance())
+		Mockito.when(
+				this.getInstance(DAOPTShippingPoint.class).getEntityInstance())
 				.thenReturn(new MockPTShippingPointEntity());
 
-		PTShippingPoint.Builder builder = getInstance(PTShippingPoint.Builder.class);
+		PTShippingPoint.Builder builder = this
+				.getInstance(PTShippingPoint.Builder.class);
 
 		PTAddress.Builder mockAddressBuilder = this
 				.getMock(PTAddress.Builder.class);
@@ -58,16 +59,18 @@ public class TestPTShippingPointBuilder extends PTAbstractTest {
 
 		PTShippingPoint shippingPoint = builder.build();
 
-		assertTrue(shippingPoint != null);
+		Assert.assertTrue(shippingPoint != null);
 
-		assertEquals(mockShippingPoint.getDeliveryId(),
+		Assert.assertEquals(mockShippingPoint.getDeliveryId(),
 				shippingPoint.getDeliveryId());
-		assertEquals(mockShippingPoint.getLocationId(),
+		Assert.assertEquals(mockShippingPoint.getLocationId(),
 				shippingPoint.getLocationId());
-		assertEquals(mockShippingPoint.getWarehouseId(),
+		Assert.assertEquals(mockShippingPoint.getWarehouseId(),
 				shippingPoint.getWarehouseId());
-		assertEquals(mockShippingPoint.getDate(), shippingPoint.getDate());
-		assertEquals(mockShippingPoint.getAddress(), shippingPoint.getAddress());
+		Assert.assertEquals(mockShippingPoint.getDate(),
+				shippingPoint.getDate());
+		Assert.assertEquals(mockShippingPoint.getAddress(),
+				shippingPoint.getAddress());
 	}
 
 }

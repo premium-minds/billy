@@ -37,7 +37,7 @@ public class MockPTApplicationEntity extends MockApplicationEntity implements
 
 	@Override
 	public Integer getSoftwareCertificationNumber() {
-		return number;
+		return this.number;
 	}
 
 	@Override
@@ -46,7 +46,7 @@ public class MockPTApplicationEntity extends MockApplicationEntity implements
 	}
 
 	public URL getApplicationKeysPath() {
-		return keysPath;
+		return this.keysPath;
 	}
 
 	public void setApplicationKeysPath(URL keysPath) {

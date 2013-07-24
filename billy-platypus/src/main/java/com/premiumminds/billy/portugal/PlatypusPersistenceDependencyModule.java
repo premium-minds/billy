@@ -27,15 +27,17 @@ public class PlatypusPersistenceDependencyModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		JpaPersistModule persistModule = new JpaPersistModule("BillyPlatypusPersistenceUnit");
-		install(persistModule);
+		JpaPersistModule persistModule = new JpaPersistModule(
+				"BillyPortugalPersistenceUnit");
+		this.install(persistModule);
 	}
 
 	public static class Initializer {
-		
-		@Inject public Initializer(PersistService persistService) {
+
+		@Inject
+		public Initializer(PersistService persistService) {
 			persistService.start();
 		}
 	}
-	
+
 }

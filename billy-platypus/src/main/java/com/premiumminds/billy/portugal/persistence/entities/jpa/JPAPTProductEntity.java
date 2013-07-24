@@ -18,11 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity;
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 
+@Entity
+@Table(name = Config.TABLE_PREFIX + "PRODUCT")
 public class JPAPTProductEntity extends JPAProductEntity implements
 		PTProductEntity {
 

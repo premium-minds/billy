@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -46,18 +44,19 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTBusinessEntity mockBusiness = createMockEntity(
-				MockPTBusinessEntity.class, PTBUSINESS_YML);
+		MockPTBusinessEntity mockBusiness = this.createMockEntity(
+				MockPTBusinessEntity.class,
+				TestPTBusinessBuilder.PTBUSINESS_YML);
 
-		Mockito.when(getInstance(DAOPTBusiness.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOPTBusiness.class).getEntityInstance())
 				.thenReturn(new MockPTBusinessEntity());
 
 		Mockito.when(
-				getInstance(DAOPTRegionContext.class).get(
+				this.getInstance(DAOPTRegionContext.class).get(
 						Matchers.any(UID.class))).thenReturn(
 				(PTRegionContextEntity) mockBusiness.getOperationalContext());
 
-		PTBusiness.Builder builder = getInstance(PTBusiness.Builder.class);
+		PTBusiness.Builder builder = this.getInstance(PTBusiness.Builder.class);
 
 		PTContact.Builder mockMainContactBuilder = this
 				.getMock(PTContact.Builder.class);
@@ -97,19 +96,20 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 
 		Business business = builder.build();
 
-		assertTrue(business != null);
+		Assert.assertTrue(business != null);
 
-		assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
-		assertEquals(mockBusiness.getName(), business.getName());
-		assertEquals(mockBusiness.getWebsiteAddress(),
+		Assert.assertEquals(mockBusiness.getFinancialID(),
+				business.getFinancialID());
+		Assert.assertEquals(mockBusiness.getName(), business.getName());
+		Assert.assertEquals(mockBusiness.getWebsiteAddress(),
 				business.getWebsiteAddress());
-		assertEquals(mockBusiness.getAddress().getNumber(), business
+		Assert.assertEquals(mockBusiness.getAddress().getNumber(), business
 				.getAddress().getNumber());
 
-		assertTrue(business.getContacts() != null);
+		Assert.assertTrue(business.getContacts() != null);
 
-		assertTrue(business.getApplications() != null);
-		assertEquals(mockBusiness.getApplications().size(), business
+		Assert.assertTrue(business.getApplications() != null);
+		Assert.assertEquals(mockBusiness.getApplications().size(), business
 				.getApplications().size());
 	}
 }

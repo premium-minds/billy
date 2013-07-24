@@ -19,8 +19,10 @@
 package com.premiumminds.billy.portugal.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
-
+import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 
 public interface DAOPTTax extends DAOTax {
 
+	@Override
+	public PTTaxEntity getEntityInstance();
 }

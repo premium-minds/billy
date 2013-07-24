@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
@@ -26,9 +27,9 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
 
-
 public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
+	@Inject
 	public DAOPTTaxImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}

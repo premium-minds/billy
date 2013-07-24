@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
@@ -26,10 +27,10 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTApplicationEntity;
 
-
 public class DAOPTApplicationImpl extends DAOApplicationImpl implements
 		DAOPTApplication {
 
+	@Inject
 	public DAOPTApplicationImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}

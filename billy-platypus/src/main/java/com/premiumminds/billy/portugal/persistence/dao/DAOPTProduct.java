@@ -19,8 +19,10 @@
 package com.premiumminds.billy.portugal.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
-
+import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 
 public interface DAOPTProduct extends DAOProduct {
 
+	@Override
+	public PTProductEntity getEntityInstance();
 }

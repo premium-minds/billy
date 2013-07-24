@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.test.fixtures;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
@@ -65,6 +66,11 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public Enum<?> paymentMechanism;
 	public CreditOrDebit creditOrDebit;
 
+	public MockGenericInvoiceEntity(){
+		this.entries = new ArrayList<GenericInvoiceEntry>();
+		this.receiptNumbers = new ArrayList<String>();
+	}
+	
 	@Override
 	public String getNumber() {
 		return number;
@@ -282,8 +288,8 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public List<GenericInvoiceEntry> getEntries() {
-		return entries;
+	public <T extends GenericInvoiceEntry> List<T> getEntries() {
+		return (List<T>) entries;
 	}
 
 	@Override

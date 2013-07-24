@@ -29,6 +29,7 @@
 
 <!-- 		<non-jta-data-source>java:/comp/env/jdbc/billy-datasource</non-jta-data-source> -->
 
+		<!--  <mapping-file>META-INF/orm-core.xml</mapping-file> -->
 		<mapping-file>META-INF/orm-platypus.xml</mapping-file>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
@@ -38,7 +39,7 @@
 			<property name="javax.persistence.jdbc.password" value="billy" />
 
 			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="validate" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 		</properties>
 	</persistence-unit>

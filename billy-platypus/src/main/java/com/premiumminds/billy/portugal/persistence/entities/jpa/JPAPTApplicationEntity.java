@@ -24,11 +24,16 @@ import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
+@Entity
+@Table(name = Config.TABLE_PREFIX + "APPLICATION")
 public class JPAPTApplicationEntity extends JPAApplicationEntity implements
 		PTApplicationEntity {
 
@@ -66,7 +71,7 @@ public class JPAPTApplicationEntity extends JPAApplicationEntity implements
 
 	@Override
 	public URL getApplicationKeysPath() throws MalformedURLException {
-		return new URL(path);
+		return new URL(this.path);
 	}
 
 	public void setApplicationKeysPath(URL path) {

@@ -19,34 +19,44 @@
     along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<entity-mappings 
+<entity-mappings
   xmlns="http://java.sun.com/xml/ns/persistence/orm"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
   version="2.0">
- 
-	<!-- CORE -->
-	<mapped-superclass class="com.premiumminds.billy.persistence.entities.jpa.BaseEntity"></mapped-superclass>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.AddressEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.BusinessEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.BusinessOfficeEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.ContactEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.ContextEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.CustomerEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.FinancialDocumentEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.FinancialDocumentEntryEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.ProductEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.ApplicationEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.TaxEntity"></entity>
 
-	<!-- PLATYPUS -->
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTFinancialDocumentEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTFinancialDocumentEntryEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTRegionContextEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTTaxEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTBusinessEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTCreditNoteEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTInvoiceEntity"></entity>
-	<entity class="com.premiumminds.billy.persistence.entities.jpa.PTSimpleInvoiceEntity"></entity>
-	
+  	<!-- Core -->
+ <mapped-superclass class="com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity"></mapped-superclass>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAAddressEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPABankAccountEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAContactEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity"></entity>
+
+	<!-- Platypus -->
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTApplicationEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTContactEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCustomerEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTProductEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTShippingPointEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSupplierEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity"></entity>
+
 </entity-mappings>

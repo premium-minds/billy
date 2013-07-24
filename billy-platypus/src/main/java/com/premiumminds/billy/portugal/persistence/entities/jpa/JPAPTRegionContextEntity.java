@@ -44,7 +44,7 @@ public class JPAPTRegionContextEntity extends JPAContextEntity implements
 
 	@Override
 	public String getRegionCode() {
-		return regionCode;
+		return this.regionCode;
 	}
 
 	@Override

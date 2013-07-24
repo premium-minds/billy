@@ -46,6 +46,7 @@ public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<
 	@Inject
 	public ShippingPointBuilderImpl(DAOShippingPoint daoShippingPoint) {
 		super((EntityFactory<? extends TShippingPoint>) daoShippingPoint);
+		this.daoShippingPoint = daoShippingPoint;
 	}
 
 	@Override

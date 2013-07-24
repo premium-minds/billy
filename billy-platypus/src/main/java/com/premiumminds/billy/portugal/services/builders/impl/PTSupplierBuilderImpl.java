@@ -61,8 +61,9 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder, SupplierBuilderImpl.LOCALIZER
-				.getString("field.billing_address"));
+		BillyValidator.mandatory(addressBuilder,
+				PTSupplierBuilderImpl.LOCALIZER
+						.getString("field.billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -90,7 +91,7 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 		BillyValidator.mandatory(s.getTaxRegistrationNumber(),
 				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
 		BillyValidator.mandatory(s.getBillingAddress(),
-				SupplierBuilderImpl.LOCALIZER
+				PTSupplierBuilderImpl.LOCALIZER
 						.getString("field.billing_address"));
 		BillyValidator.mandatory(s.hasSelfBillingAgreement(),
 				PTSupplierBuilderImpl.LOCALIZER

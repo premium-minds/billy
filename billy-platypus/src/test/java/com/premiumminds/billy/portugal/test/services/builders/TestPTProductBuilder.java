@@ -18,11 +18,9 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Currency;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -42,20 +40,20 @@ public class TestPTProductBuilder extends PTAbstractTest {
 	@Test
 	public void doTest() {
 
-		MockPTProductEntity mockProduct = createMockEntity(
-				MockPTProductEntity.class, PTPRODUCT_YML);
+		MockPTProductEntity mockProduct = this.createMockEntity(
+				MockPTProductEntity.class, TestPTProductBuilder.PTPRODUCT_YML);
 
-		Mockito.when(getInstance(DAOPTProduct.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOPTProduct.class).getEntityInstance())
 				.thenReturn(new MockPTProductEntity());
 
 		for (TaxEntity tax : mockProduct.getTaxes()) {
 			tax.setCurrency(Currency.getInstance("EUR"));
 			Mockito.when(
-					getInstance(DAOPTTax.class).get(Matchers.any(UID.class)))
-					.thenReturn(tax);
+					this.getInstance(DAOPTTax.class).get(
+							Matchers.any(UID.class))).thenReturn(tax);
 		}
 
-		PTProduct.Builder builder = getInstance(PTProduct.Builder.class);
+		PTProduct.Builder builder = this.getInstance(PTProduct.Builder.class);
 
 		builder.addTaxUID(mockProduct.getTaxes().get(0).getUID())
 				.setCommodityCode(mockProduct.getCommodityCode())
@@ -69,15 +67,21 @@ public class TestPTProductBuilder extends PTAbstractTest {
 
 		PTProduct product = builder.build();
 
-		assertTrue(product != null);
+		Assert.assertTrue(product != null);
 
-		assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
-		assertEquals(mockProduct.getDescription(), product.getDescription());
-		assertEquals(mockProduct.getNumberCode(), product.getNumberCode());
-		assertEquals(mockProduct.getProductCode(), product.getProductCode());
-		assertEquals(mockProduct.getProductGroup(), product.getProductGroup());
-		assertEquals(mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
-		assertEquals(mockProduct.getValuationMethod(),
+		Assert.assertEquals(mockProduct.getCommodityCode(),
+				product.getCommodityCode());
+		Assert.assertEquals(mockProduct.getDescription(),
+				product.getDescription());
+		Assert.assertEquals(mockProduct.getNumberCode(),
+				product.getNumberCode());
+		Assert.assertEquals(mockProduct.getProductCode(),
+				product.getProductCode());
+		Assert.assertEquals(mockProduct.getProductGroup(),
+				product.getProductGroup());
+		Assert.assertEquals(mockProduct.getUnitOfMeasure(),
+				product.getUnitOfMeasure());
+		Assert.assertEquals(mockProduct.getValuationMethod(),
 				product.getValuationMethod());
 	}
 

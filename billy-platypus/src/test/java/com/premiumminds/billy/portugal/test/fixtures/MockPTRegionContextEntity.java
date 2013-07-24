@@ -35,7 +35,7 @@ public class MockPTRegionContextEntity extends MockContextEntity implements
 
 	@Override
 	public String getRegionCode() {
-		return regionCode;
+		return this.regionCode;
 	}
 
 	@Override

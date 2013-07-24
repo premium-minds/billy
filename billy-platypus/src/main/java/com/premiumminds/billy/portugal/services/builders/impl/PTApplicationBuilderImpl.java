@@ -51,16 +51,19 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 
 	@Override
 	public TBuilder setSoftwareCertificationNumber(Integer number) {
-		BillyValidator.mandatory(number, LOCALIZER.getString("field.number"));
-		getTypeInstance().setSoftwareCertificateNum(number);
-		return getBuilder();
+		BillyValidator.mandatory(number,
+				PTApplicationBuilderImpl.LOCALIZER.getString("field.number"));
+		this.getTypeInstance().setSoftwareCertificateNum(number);
+		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setApplicationKeysPath(URL path) {
-		BillyValidator.mandatory(path, LOCALIZER.getString("field.keys_path"));
-		getTypeInstance().setApplicationKeysPath(path);
-		return getBuilder();
+		BillyValidator
+				.mandatory(path, PTApplicationBuilderImpl.LOCALIZER
+						.getString("field.keys_path"));
+		this.getTypeInstance().setApplicationKeysPath(path);
+		return this.getBuilder();
 	}
 
 	@Override
@@ -68,7 +71,7 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 		super.validateInstance();
 		PTApplicationEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
-				LOCALIZER.getString("field.number"));
+				PTApplicationBuilderImpl.LOCALIZER.getString("field.number"));
 		try {
 			BillyValidator.mandatory(c.getApplicationKeysPath(),
 					PTApplicationBuilderImpl.LOCALIZER
