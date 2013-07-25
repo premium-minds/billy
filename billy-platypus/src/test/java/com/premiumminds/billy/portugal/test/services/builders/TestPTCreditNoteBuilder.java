@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import java.util.ArrayList;
-import java.util.Currency;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Currency;
 
 import org.junit.Test;
 import org.mockito.Matchers;

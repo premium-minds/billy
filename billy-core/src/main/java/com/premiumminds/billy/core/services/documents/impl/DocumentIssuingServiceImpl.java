@@ -25,6 +25,7 @@ import java.util.Map;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
+import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
@@ -45,11 +46,16 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 	@Override
 	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder)
 			throws DocumentIssuingException {
+		return issue(documentBuilder, new IssuingParamsImpl());
+	}
+
+	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder,
+			IssuingParams parameters) throws DocumentIssuingException {
 		T document = documentBuilder.build();
 		Type[] types = document.getClass().getGenericInterfaces();
 		for (Type type : types) {
 			if (this.handlers.containsKey(type)) {
-				return this.handlers.get(type).issue(document);
+				return this.handlers.get(type).issue(document, parameters);
 			}
 		}
 		throw new RuntimeException("Cannot handle document : "

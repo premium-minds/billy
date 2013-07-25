@@ -38,7 +38,8 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
 		return (TBuilder) this;
 	}
 
-	protected abstract void validateInstance() throws BillyValidationException, ValidationException;
+	protected abstract void validateInstance() throws BillyValidationException,
+			ValidationException;
 
 	protected <T extends TType> void setTypeInstance(T instance) {
 		this.typeInstance = instance;

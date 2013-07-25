@@ -18,10 +18,10 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.Currency;
 
-import org.junit.Assert;
-import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -29,7 +29,6 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Context;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -38,7 +37,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
-import com.premiumminds.billy.portugal.test.fixtures.MockPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
 

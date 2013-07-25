@@ -18,19 +18,11 @@
  */
 package com.premiumminds.billy.core.services.documents;
 
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
 
-public interface DocumentIssuingService {
+public interface IssuingParams {
 
-	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder)
-			throws DocumentIssuingException;
+	public Object getParameter(String key) throws ParameterNotFoundException;
 
-	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder,
-			IssuingParams parameters) throws DocumentIssuingException;
-
-	public void addHandler(Class<? extends GenericInvoice> handledClass,
-			DocumentIssuingHandler handler);
-
+	public void setParameter(String key, Object obj);
 }
