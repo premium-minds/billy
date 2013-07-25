@@ -37,32 +37,32 @@ public class MockContactEntity extends MockBaseEntity implements ContactEntity {
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getTelephone() {
-		return telephone;
+		return this.telephone;
 	}
 
 	@Override
 	public String getMobile() {
-		return mobile;
+		return this.mobile;
 	}
 
 	@Override
 	public String getFax() {
-		return fax;
+		return this.fax;
 	}
 
 	@Override
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	@Override
 	public String getWebsite() {
-		return website;
+		return this.website;
 	}
 
 	@Override

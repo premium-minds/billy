@@ -31,23 +31,23 @@ public class Taxes {
 	public class Continent {
 
 		public PTTax normal() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.VAT.NORMAL_UUID));
 		}
 
 		public PTTax intermediate() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_UUID));
 		}
 
 		public PTTax reduced() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.VAT.REDUCED_UUID));
 		}
 
@@ -56,23 +56,23 @@ public class Taxes {
 	public class Madeira {
 
 		public PTTax normal() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Madeira.VAT.NORMAL_UUID));
 		}
 
 		public PTTax intermediate() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_UUID));
 		}
 
 		public PTTax reduced() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Madeira.VAT.REDUCED_UUID));
 		}
 
@@ -81,31 +81,31 @@ public class Taxes {
 	public class Azores {
 
 		public PTTax normal() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Azores.VAT.NORMAL_UUID));
 		}
 
 		public PTTax intermediate() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_UUID));
 		}
 
 		public PTTax reduced() {
-			DAOPTTax dao = getInstance(DAOPTTax.class);
+			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
 			return (PTTax) dao
-					.get(configuration
+					.get(Taxes.this.configuration
 							.getUID(Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID));
 		}
 
 	}
 
 	public PTTax exempt() {
-		DAOPTTax dao = getInstance(DAOPTTax.class);
-		return (PTTax) dao.get(configuration
+		DAOPTTax dao = this.getInstance(DAOPTTax.class);
+		return (PTTax) dao.get(this.configuration
 				.getUID(Config.Key.Context.Portugal.TAX_EXEMPT_UUID));
 	}
 
@@ -115,25 +115,25 @@ public class Taxes {
 	private final Injector injector;
 
 	public Taxes(Injector injector) {
-		continent = new Continent();
-		madeira = new Madeira();
-		azores = new Azores();
+		this.continent = new Continent();
+		this.madeira = new Madeira();
+		this.azores = new Azores();
 		this.injector = injector;
 	}
 
 	public Continent continent() {
-		return continent;
+		return this.continent;
 	}
 
 	public Madeira madeira() {
-		return madeira;
+		return this.madeira;
 	}
 
 	public Azores azores() {
-		return azores;
+		return this.azores;
 	}
 
 	private <T> T getInstance(Class<T> clazz) {
-		return injector.getInstance(clazz);
+		return this.injector.getInstance(clazz);
 	}
 }

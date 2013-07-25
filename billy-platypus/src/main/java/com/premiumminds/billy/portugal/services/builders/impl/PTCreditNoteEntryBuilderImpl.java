@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
@@ -48,14 +49,15 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 
 	public TBuilder setReference(PTInvoice reference) {
 		BillyValidator.mandatory(reference,
-				LOCALIZER.getString("field.reference"));
+				PTCreditNoteEntryBuilderImpl.LOCALIZER
+						.getString("field.reference"));
 		this.getTypeInstance().setReference(reference);
 		return this.getBuilder();
 	}
 
 	public TBuilder setReason(String reason) {
-		BillyValidator
-				.mandatory(reason, LOCALIZER.getString("field.reference"));
+		BillyValidator.mandatory(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER
+				.getString("field.reference"));
 		this.getTypeInstance().setReason(reason);
 		return this.getBuilder();
 	}
@@ -65,16 +67,18 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 		super.validateInstance();
 		PTCreditNoteEntryEntity cn = this.getTypeInstance();
 		BillyValidator.mandatory(cn.getReference(),
-				LOCALIZER.getString("field.reference"));
+				PTCreditNoteEntryBuilderImpl.LOCALIZER
+						.getString("field.reference"));
 
 		BillyValidator.mandatory(cn.getReason(),
-				LOCALIZER.getString("field.reason"));
+				PTCreditNoteEntryBuilderImpl.LOCALIZER
+						.getString("field.reason"));
 
-		ValidatePTCreditNoteEntry(cn);
+		this.ValidatePTCreditNoteEntry(cn);
 	}
 
 	private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
-		DAOPTCreditNoteEntry daoPTCreditNoteEntry = (DAOPTCreditNoteEntry) daoEntry;
+		DAOPTCreditNoteEntry daoPTCreditNoteEntry = (DAOPTCreditNoteEntry) this.daoEntry;
 
 		System.out.println(daoPTCreditNoteEntry.checkCreditNote(cn
 				.getReference()));

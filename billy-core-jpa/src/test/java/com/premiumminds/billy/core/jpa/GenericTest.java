@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -49,32 +49,37 @@ public class GenericTest {
 
 	@BeforeClass
 	public static void setUpClass() {
-		injector = Guice.createInjector(new CoreJPADependencyModule(),
+		GenericTest.injector = Guice.createInjector(
+				new CoreJPADependencyModule(),
 				new CoreJPAPersistenceDependencyModule());
-		injector.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
+		GenericTest.injector
+				.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
 	}
 
 	@Test
 	public void test1() {
-		Business.Builder builder = injector.getInstance(Business.Builder.class);
-		GenericInvoiceEntry.Builder entryBuilder = injector
+		Business.Builder builder = GenericTest.injector
+				.getInstance(Business.Builder.class);
+		GenericInvoiceEntry.Builder entryBuilder = GenericTest.injector
 				.getInstance(GenericInvoiceEntry.Builder.class);
-		Contact.Builder contactBuilder = injector
+		Contact.Builder contactBuilder = GenericTest.injector
 				.getInstance(Contact.Builder.class);
-		Contact.Builder contactBuilder2 = injector
+		Contact.Builder contactBuilder2 = GenericTest.injector
 				.getInstance(Contact.Builder.class);
-		Context.Builder contextBuilder = injector
+		Context.Builder contextBuilder = GenericTest.injector
 				.getInstance(Context.Builder.class);
-		Address.Builder addressBuilder = injector
+		Address.Builder addressBuilder = GenericTest.injector
 				.getInstance(Address.Builder.class);
-		Address.Builder addressBuilder2 = injector
+		Address.Builder addressBuilder2 = GenericTest.injector
 				.getInstance(Address.Builder.class);
-		Application.Builder applicationBuilder = injector
+		Application.Builder applicationBuilder = GenericTest.injector
 				.getInstance(Application.Builder.class);
-		Tax.Builder taxBuilder = injector.getInstance(Tax.Builder.class);
+		Tax.Builder taxBuilder = GenericTest.injector
+				.getInstance(Tax.Builder.class);
 
-		DAOContext daoContext = injector.getInstance(DAOContext.class);
-		DAOTax daoTax = injector.getInstance(DAOTax.class);
+		DAOContext daoContext = GenericTest.injector
+				.getInstance(DAOContext.class);
+		DAOTax daoTax = GenericTest.injector.getInstance(DAOTax.class);
 
 		daoContext.beginTransaction();
 
@@ -121,7 +126,7 @@ public class GenericTest {
 												.setWebsite("website")))
 				.setFinancialID("financial id");
 
-		injector.getInstance(DAOBusiness.class).create(
+		GenericTest.injector.getInstance(DAOBusiness.class).create(
 				(BusinessEntity) builder.build());
 
 		taxBuilder.setCode("PT").setContextUID(child.getUID())

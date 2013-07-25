@@ -39,42 +39,42 @@ public class MockAddressEntity extends MockBaseEntity implements AddressEntity {
 
 	@Override
 	public String getStreetName() {
-		return streetName;
+		return this.streetName;
 	}
 
 	@Override
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	@Override
 	public String getDetails() {
-		return details;
+		return this.details;
 	}
 
 	@Override
 	public String getBuilding() {
-		return building;
+		return this.building;
 	}
 
 	@Override
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	@Override
 	public String getPostalCode() {
-		return postalCode;
+		return this.postalCode;
 	}
 
 	@Override
 	public String getRegion() {
-		return region;
+		return this.region;
 	}
 
 	@Override
 	public String getISOCountry() {
-		return country;
+		return this.country;
 	}
 
 	@Override

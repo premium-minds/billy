@@ -69,112 +69,112 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 
 	@Override
 	public Integer getEntryNumber() {
-		return number;
+		return this.number;
 	}
 
 	@Override
 	public ShippingPoint getShippingOrigin() {
-		return shippingOrigin;
+		return this.shippingOrigin;
 	}
 
 	@Override
 	public ShippingPoint getShippingDestination() {
-		return shippingDestination;
+		return this.shippingDestination;
 	}
 
 	@Override
 	public Product getProduct() {
-		return product;
+		return this.product;
 	}
 
 	@Override
 	public BigDecimal getQuantity() {
-		return quantity;
+		return this.quantity;
 	}
 
 	@Override
 	public String getUnitOfMeasure() {
-		return unitOfMeasure;
+		return this.unitOfMeasure;
 	}
 
 	@Override
 	public BigDecimal getUnitAmountWithTax() {
-		return unitAmountWithTax;
+		return this.unitAmountWithTax;
 	}
 
 	@Override
 	public BigDecimal getUnitAmountWithoutTax() {
-		return unitAmountWithoutTax;
+		return this.unitAmountWithoutTax;
 	}
 
 	@Override
 	public BigDecimal getUnitDiscountAmount() {
-		return unitDiscountAmount;
+		return this.unitDiscountAmount;
 	}
 
 	@Override
 	public BigDecimal getUnitTaxAmount() {
-		return unitTaxAmount;
+		return this.unitTaxAmount;
 	}
 
 	@Override
 	public BigDecimal getAmountWithTax() {
-		return amountWithTax;
+		return this.amountWithTax;
 	}
 
 	@Override
 	public BigDecimal getAmountWithoutTax() {
-		return amountWithoutTax;
+		return this.amountWithoutTax;
 	}
 
 	@Override
 	public BigDecimal getDiscountAmount() {
-		return discountAmount;
+		return this.discountAmount;
 	}
 
 	@Override
 	public BigDecimal getTaxAmount() {
-		return taxAmount;
+		return this.taxAmount;
 	}
 
 	@Override
 	public Date getTaxPointDate() {
-		return taxPointDate;
+		return this.taxPointDate;
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	@Override
 	public CreditOrDebit getCreditOrDebit() {
-		return creditOrDebit;
+		return this.creditOrDebit;
 	}
 
 	@Override
 	public BigDecimal getShippingCostsAmount() {
-		return shippingCostsAmount;
+		return this.shippingCostsAmount;
 	}
 
 	@Override
 	public Currency getCurrency() {
-		return currency;
+		return this.currency;
 	}
 
 	@Override
 	public BigDecimal getExchangeRateToDocumentCurrency() {
-		return exchangeRateToDocumentCurrency;
+		return this.exchangeRateToDocumentCurrency;
 	}
 
 	@Override
 	public String getTaxExemptionReason() {
-		return taxExemptionReason;
+		return this.taxExemptionReason;
 	}
-	
+
 	@Override
 	public AmountType getAmountType() {
-		return type;
+		return this.type;
 	}
 
 	@Override
@@ -284,7 +284,7 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
 
 	@Override
 	public List<Tax> getTaxes() {
-		return taxes;
+		return this.taxes;
 	}
 
 	@Override

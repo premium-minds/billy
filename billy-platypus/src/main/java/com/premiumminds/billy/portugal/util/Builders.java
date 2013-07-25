@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.util;
 
@@ -38,41 +39,41 @@ public class Builders {
 	}
 
 	public PTAddress.Builder createAddressBuilder() {
-		return getInstance(PTAddress.Builder.class);
+		return this.getInstance(PTAddress.Builder.class);
 	}
 
 	public PTContact.Builder createContactBuilder() {
-		return getInstance(PTContact.Builder.class);
+		return this.getInstance(PTContact.Builder.class);
 	}
 
 	public PTProduct.Builder createProductBuilder() {
-		return getInstance(PTProduct.Builder.class);
+		return this.getInstance(PTProduct.Builder.class);
 	}
 
 	public PTShippingPoint.Builder createShippingPointBuilder() {
-		return getInstance(PTShippingPoint.Builder.class);
+		return this.getInstance(PTShippingPoint.Builder.class);
 	}
 
 	public PTSupplier.Builder createSupplierBuilder() {
-		return getInstance(PTSupplier.Builder.class);
+		return this.getInstance(PTSupplier.Builder.class);
 	}
 
 	public class Configuration {
 
 		public PTApplication.Builder createApplicationBuilder() {
-			return getInstance(PTApplication.Builder.class);
+			return Builders.this.getInstance(PTApplication.Builder.class);
 		}
 
 		public PTRegionContext.Builder createRegionContextBuilder() {
-			return getInstance(PTRegionContext.Builder.class);
+			return Builders.this.getInstance(PTRegionContext.Builder.class);
 		}
 
 		public PTTax.Builder createTaxBuilder() {
-			return getInstance(PTTax.Builder.class);
+			return Builders.this.getInstance(PTTax.Builder.class);
 		}
 
 		public PTBusiness.Builder createBusinessBuilder() {
-			return getInstance(PTBusiness.Builder.class);
+			return Builders.this.getInstance(PTBusiness.Builder.class);
 		}
 
 	}
@@ -82,21 +83,21 @@ public class Builders {
 	private final Injector injector;
 
 	public Builders(Injector injector) {
-		configurationBuilders = new Configuration();
-		invoiceBuilders = new Invoices();
+		this.configurationBuilders = new Configuration();
+		this.invoiceBuilders = new Invoices();
 		this.injector = injector;
 	}
 
 	public Configuration configuration() {
-		return configurationBuilders;
+		return this.configurationBuilders;
 	}
 
 	public Invoices invoices() {
-		return invoiceBuilders;
+		return this.invoiceBuilders;
 	}
 
 	private <T> T getInstance(Class<T> clazz) {
-		return injector.getInstance(clazz);
+		return this.injector.getInstance(clazz);
 	}
 
 }

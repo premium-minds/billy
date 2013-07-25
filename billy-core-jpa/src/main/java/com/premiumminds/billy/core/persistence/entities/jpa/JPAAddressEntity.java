@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -63,42 +63,42 @@ public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
 
 	@Override
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	@Override
 	public String getDetails() {
-		return details;
+		return this.details;
 	}
 
 	@Override
 	public String getBuilding() {
-		return building;
+		return this.building;
 	}
 
 	@Override
 	public String getCity() {
-		return city;
+		return this.city;
 	}
 
 	@Override
 	public String getPostalCode() {
-		return postalCode;
+		return this.postalCode;
 	}
 
 	@Override
 	public String getRegion() {
-		return region;
+		return this.region;
 	}
 
 	@Override
 	public String getISOCountry() {
-		return country;
+		return this.country;
 	}
 
 	@Override
 	public String getStreetName() {
-		return streetName;
+		return this.streetName;
 	}
 
 	@Override

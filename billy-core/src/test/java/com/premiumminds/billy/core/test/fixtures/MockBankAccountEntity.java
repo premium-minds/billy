@@ -36,22 +36,22 @@ public class MockBankAccountEntity extends MockBaseEntity implements
 
 	@Override
 	public String getIBANNumber() {
-		return iban;
+		return this.iban;
 	}
 
 	@Override
 	public String getBankIdentifier() {
-		return bankId;
+		return this.bankId;
 	}
 
 	@Override
 	public String getBankAccountNumber() {
-		return accountNumber;
+		return this.accountNumber;
 	}
 
 	@Override
 	public String getOwnerName() {
-		return ownerName;
+		return this.ownerName;
 	}
 
 	@Override

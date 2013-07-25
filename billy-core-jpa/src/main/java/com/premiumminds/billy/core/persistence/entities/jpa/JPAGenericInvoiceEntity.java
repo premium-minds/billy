@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -168,138 +168,138 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 
 	@Override
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	@Override
 	public String getSeries() {
-		return series;
+		return this.series;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Business getBusiness() {
-		return business;
+		return this.business;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Customer getCustomer() {
-		return customer;
+		return this.customer;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Supplier getSupplier() {
-		return supplier;
+		return this.supplier;
 	}
 
 	@Override
 	public String getOfficeNumber() {
-		return officeNumber;
+		return this.officeNumber;
 	}
 
 	@Override
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 
 	@Override
 	public BigDecimal getAmountWithTax() {
-		return amountWithTax;
+		return this.amountWithTax;
 	}
 
 	@Override
 	public BigDecimal getTaxAmount() {
-		return taxAmount;
+		return this.taxAmount;
 	}
 
 	@Override
 	public BigDecimal getAmountWithoutTax() {
-		return amountWithoutTax;
+		return this.amountWithoutTax;
 	}
 
 	@Override
 	public BigDecimal getDiscountsAmount() {
-		return discountsAmount;
+		return this.discountsAmount;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ShippingPoint getShippingOrigin() {
-		return shippingOrigin;
+		return this.shippingOrigin;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ShippingPoint getShippingDestination() {
-		return shippingDestination;
+		return this.shippingDestination;
 	}
 
 	@Override
 	public String getPaymentTerms() {
-		return paymentTerms;
+		return this.paymentTerms;
 	}
 
 	@Override
 	public boolean isSelfBilled() {
-		return selfBilled;
+		return this.selfBilled;
 	}
 
 	@Override
 	public String getSourceId() {
-		return sourceId;
+		return this.sourceId;
 	}
 
 	@Override
 	public Date getGeneralLedgerDate() {
-		return generalLedgerDate;
+		return this.generalLedgerDate;
 	}
 
 	@Override
 	public String getBatchId() {
-		return batchId;
+		return this.batchId;
 	}
 
 	@Override
 	public String getTransactionId() {
-		return transactionId;
+		return this.transactionId;
 	}
 
 	@Override
 	public Currency getCurrency() {
-		return currency;
+		return this.currency;
 	}
 
 	@Override
 	public String getSettlementDescription() {
-		return settlementDescription;
+		return this.settlementDescription;
 	}
 
 	@Override
 	public BigDecimal getSettlementDiscount() {
-		return settlementDiscount;
+		return this.settlementDiscount;
 	}
 
 	@Override
 	public Date getSettlementDate() {
-		return settlementDate;
+		return this.settlementDate;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Enum<?> getPaymentMechanism() {
-		return paymentMechanism;
+		return this.paymentMechanism;
 	}
 
 	@Override
 	public CreditOrDebit getCreditOrDebit() {
-		return creditOrDebit;
+		return this.creditOrDebit;
 	}
 
 	@Override
 	public String getSeriesNumber() {
-		return seriesNumber;
+		return this.seriesNumber;
 	}
 
 	@Override

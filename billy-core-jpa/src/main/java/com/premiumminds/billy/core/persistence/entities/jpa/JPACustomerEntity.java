@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -99,41 +99,41 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getTaxRegistrationNumber() {
-		return taxId;
+		return this.taxId;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getMainAddress() {
-		return mainAddress;
+		return this.mainAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getShippingAddress() {
-		return shippingAddress;
+		return this.shippingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Contact getMainContact() {
-		return mainContact;
+		return this.mainContact;
 	}
 
 	@Override
 	public boolean hasSelfBillingAgreement() {
-		return selfBilling;
+		return this.selfBilling;
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 
 	@Override
 	public List<Address> getAddresses() {
-		return addresses;
+		return this.addresses;
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 
 	@Override
 	public List<Contact> getContacts() {
-		return contacts;
+		return this.contacts;
 	}
 
 	@Override

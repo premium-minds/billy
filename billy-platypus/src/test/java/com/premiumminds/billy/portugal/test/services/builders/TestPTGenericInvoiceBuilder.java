@@ -1,28 +1,27 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -43,16 +42,17 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTGenericInvoiceEntity mock = createMockEntity(
-				MockPTGenericInvoiceEntity.class, PT_GENERIC_INVOICE_YML);
+		MockPTGenericInvoiceEntity mock = this.createMockEntity(
+				MockPTGenericInvoiceEntity.class,
+				TestPTGenericInvoiceBuilder.PT_GENERIC_INVOICE_YML);
 
 		Mockito.when(
 				this.getInstance(DAOPTGenericInvoice.class).getEntityInstance())
 				.thenReturn(new MockPTGenericInvoiceEntity());
 
-		MockPTGenericInvoiceEntryEntity entryMock = createMockEntity(
+		MockPTGenericInvoiceEntryEntity entryMock = this.createMockEntity(
 				MockPTGenericInvoiceEntryEntity.class,
-				PT_GENERIC_INVOICE_ENTRY_YML);
+				TestPTGenericInvoiceBuilder.PT_GENERIC_INVOICE_ENTRY_YML);
 
 		Mockito.when(
 				this.getInstance(DAOPTGenericInvoiceEntry.class).get(
@@ -63,7 +63,8 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 		ArrayList<PTGenericInvoiceEntry> entries = (ArrayList<PTGenericInvoiceEntry>) mock
 				.getEntries();
 
-		PTGenericInvoice.Builder builder = getInstance(PTGenericInvoice.Builder.class);
+		PTGenericInvoice.Builder builder = this
+				.getInstance(PTGenericInvoice.Builder.class);
 
 		PTGenericInvoiceEntry.Builder entry = this
 				.getMock(PTGenericInvoiceEntry.Builder.class);
@@ -87,24 +88,25 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 
 		PTGenericInvoice invoice = builder.build();
 
-		assertTrue(invoice != null);
-		assertTrue(invoice.getEntries() != null);
-		assertEquals(invoice.getEntries().size(), mock.getEntries().size());
+		Assert.assertTrue(invoice != null);
+		Assert.assertTrue(invoice.getEntries() != null);
+		Assert.assertEquals(invoice.getEntries().size(), mock.getEntries()
+				.size());
 
-		assertTrue(invoice.isBilled() == mock.isBilled());
-		assertTrue(invoice.isCancelled() == mock.isCancelled());
+		Assert.assertTrue(invoice.isBilled() == mock.isBilled());
+		Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
 
-		assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
-		assertEquals(mock.getGeneralLedgerDate(),
+		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
+		Assert.assertEquals(mock.getGeneralLedgerDate(),
 				invoice.getGeneralLedgerDate());
-		assertEquals(mock.getBatchId(), invoice.getBatchId());
-		assertEquals(mock.getDate(), invoice.getDate());
-		assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
+		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
+		Assert.assertEquals(mock.getDate(), invoice.getDate());
+		Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
 
-		assertTrue(mock.getAmountWithoutTax().compareTo(
+		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
 				invoice.getAmountWithoutTax()) == 0);
-		assertTrue(mock.getAmountWithTax()
-				.compareTo(invoice.getAmountWithTax()) == 0);
-		assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
+		Assert.assertTrue(mock.getAmountWithTax().compareTo(
+				invoice.getAmountWithTax()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
 	}
 }

@@ -18,13 +18,12 @@
  */
 package com.premiumminds.billy.core.test;
 
-import static org.mockito.Mockito.mock;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 import org.junit.BeforeClass;
+import org.mockito.Mockito;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -49,7 +48,7 @@ public class AbstractTest {
 	}
 
 	public <T> T getMock(Class<T> clazz) {
-		return mock(clazz);
+		return Mockito.mock(clazz);
 	}
 
 	@SuppressWarnings("unchecked")

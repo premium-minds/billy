@@ -45,44 +45,44 @@ public class MockCustomerEntity extends MockBaseEntity implements
 	public boolean hasSelfBillingAgreement;
 
 	public MockCustomerEntity() {
-		addresses = new ArrayList<Address>();
-		contacts = new ArrayList<Contact>();
-		bankAccounts = new ArrayList<BankAccount>();
+		this.addresses = new ArrayList<Address>();
+		this.contacts = new ArrayList<Contact>();
+		this.bankAccounts = new ArrayList<BankAccount>();
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getTaxRegistrationNumber() {
-		return taxRegistrationNumber;
+		return this.taxRegistrationNumber;
 	}
 
 	@Override
 	public Address getMainAddress() {
-		return mainAddress;
+		return this.mainAddress;
 	}
 
 	@Override
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
 	}
 
 	@Override
 	public Address getShippingAddress() {
-		return shippingAddress;
+		return this.shippingAddress;
 	}
 
 	@Override
 	public Contact getMainContact() {
-		return mainContact;
+		return this.mainContact;
 	}
 
 	@Override
 	public boolean hasSelfBillingAgreement() {
-		return hasSelfBillingAgreement;
+		return this.hasSelfBillingAgreement;
 	}
 
 	@Override
@@ -97,7 +97,7 @@ public class MockCustomerEntity extends MockBaseEntity implements
 
 	@Override
 	public List<Address> getAddresses() {
-		return addresses;
+		return this.addresses;
 	}
 
 	@Override
@@ -117,7 +117,7 @@ public class MockCustomerEntity extends MockBaseEntity implements
 
 	@Override
 	public List<Contact> getContacts() {
-		return contacts;
+		return this.contacts;
 	}
 
 	@Override
@@ -127,7 +127,7 @@ public class MockCustomerEntity extends MockBaseEntity implements
 
 	@Override
 	public List<BankAccount> getBankAccounts() {
-		return bankAccounts;
+		return this.bankAccounts;
 	}
 
 	@Override

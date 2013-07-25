@@ -18,11 +18,9 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.util.Currency;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -41,19 +39,20 @@ public class TestProductBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockProductEntity mockProduct = createMockEntity(
-				MockProductEntity.class, PRODUCT_YML);
+		MockProductEntity mockProduct = this.createMockEntity(
+				MockProductEntity.class, TestProductBuilder.PRODUCT_YML);
 
-		Mockito.when(getInstance(DAOProduct.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOProduct.class).getEntityInstance())
 				.thenReturn(new MockProductEntity());
 
 		for (TaxEntity tax : mockProduct.getTaxes()) {
 			tax.setCurrency(Currency.getInstance("EUR"));
-			Mockito.when(getInstance(DAOTax.class).get(Matchers.any(UID.class)))
+			Mockito.when(
+					this.getInstance(DAOTax.class).get(Matchers.any(UID.class)))
 					.thenReturn(tax);
 		}
 
-		Product.Builder builder = getInstance(Product.Builder.class);
+		Product.Builder builder = this.getInstance(Product.Builder.class);
 
 		builder.addTaxUID(mockProduct.getTaxes().get(0).getUID())
 				.setCommodityCode(mockProduct.getCommodityCode())
@@ -67,15 +66,21 @@ public class TestProductBuilder extends AbstractTest {
 
 		Product product = builder.build();
 
-		assertTrue(product != null);
+		Assert.assertTrue(product != null);
 
-		assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
-		assertEquals(mockProduct.getDescription(), product.getDescription());
-		assertEquals(mockProduct.getNumberCode(), product.getNumberCode());
-		assertEquals(mockProduct.getProductCode(), product.getProductCode());
-		assertEquals(mockProduct.getProductGroup(), product.getProductGroup());
-		assertEquals(mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
-		assertEquals(mockProduct.getValuationMethod(),
+		Assert.assertEquals(mockProduct.getCommodityCode(),
+				product.getCommodityCode());
+		Assert.assertEquals(mockProduct.getDescription(),
+				product.getDescription());
+		Assert.assertEquals(mockProduct.getNumberCode(),
+				product.getNumberCode());
+		Assert.assertEquals(mockProduct.getProductCode(),
+				product.getProductCode());
+		Assert.assertEquals(mockProduct.getProductGroup(),
+				product.getProductGroup());
+		Assert.assertEquals(mockProduct.getUnitOfMeasure(),
+				product.getUnitOfMeasure());
+		Assert.assertEquals(mockProduct.getValuationMethod(),
 				product.getValuationMethod());
 
 	}

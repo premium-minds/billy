@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -105,51 +105,51 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Context getOperationalContext() {
-		return operationalContext;
+		return this.operationalContext;
 	}
 
 	@Override
 	public String getFinancialID() {
-		return taxId;
+		return this.taxId;
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getCommercialName() {
-		return commercialName;
+		return this.commercialName;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getAddress() {
-		return address;
+		return this.address;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getShippingAddress() {
-		return shippingAddress;
+		return this.shippingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Contact getMainContact() {
-		return mainContact;
+		return this.mainContact;
 	}
 
 	@Override
 	public String getWebsiteAddress() {
-		return website;
+		return this.website;
 	}
 
 	@Override
@@ -194,7 +194,7 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
 	@Override
 	public List<Contact> getContacts() {
-		return contacts;
+		return this.contacts;
 	}
 
 	@Override

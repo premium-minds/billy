@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -79,8 +79,8 @@ public abstract class JPABaseEntity implements BaseEntity {
 	 * Constructor
 	 */
 	public JPABaseEntity() {
-		uid = generateUUID().toString();
-		updateTimestamp = createTimestamp = new Date();
+		this.uid = this.generateUUID().toString();
+		this.updateTimestamp = this.createTimestamp = new Date();
 	}
 
 	@Override
@@ -90,16 +90,16 @@ public abstract class JPABaseEntity implements BaseEntity {
 
 	@PrePersist
 	protected void onPersist() {
-		if (isNew()) {
-			uidRow = generateUUID().toString();
-			entityVersion = 1;
-			active = true;
+		if (this.isNew()) {
+			this.uidRow = this.generateUUID().toString();
+			this.entityVersion = 1;
+			this.active = true;
 		}
 	}
 
 	@PreUpdate
 	protected void onUpdate() {
-		updateTimestamp = new Date();
+		this.updateTimestamp = new Date();
 	}
 
 	@Override

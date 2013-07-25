@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.documents;
 
@@ -33,31 +34,31 @@ public class PTIssuingParamsImpl extends IssuingParamsImpl implements
 
 	@Override
 	public String getInvoiceSeries() throws ParameterNotFoundException {
-		return (String) getParameter(Keys.INVOICE_SERIES);
+		return (String) this.getParameter(Keys.INVOICE_SERIES);
 	}
 
 	@Override
 	public PrivateKey getPrivateKey() throws ParameterNotFoundException {
-		return (PrivateKey) getParameter(Keys.PRIVATE_KEY);
+		return (PrivateKey) this.getParameter(Keys.PRIVATE_KEY);
 	}
 
 	@Override
 	public PublicKey getPublicKey() throws ParameterNotFoundException {
-		return (PublicKey) getParameter(Keys.PUBLIC_KEY);
+		return (PublicKey) this.getParameter(Keys.PUBLIC_KEY);
 	}
 
 	@Override
 	public void setPublicKey(PublicKey publicKey) {
-		setParameter(Keys.PUBLIC_KEY, publicKey);
+		this.setParameter(Keys.PUBLIC_KEY, publicKey);
 	}
 
 	@Override
 	public void setPrivateKey(PrivateKey privateKey) {
-		setParameter(Keys.PRIVATE_KEY, privateKey);
+		this.setParameter(Keys.PRIVATE_KEY, privateKey);
 	}
 
 	@Override
 	public void setInvoiceSeries(String series) {
-		setParameter(Keys.INVOICE_SERIES, series);
+		this.setParameter(Keys.INVOICE_SERIES, series);
 	}
 }

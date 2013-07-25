@@ -48,7 +48,7 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	@Inject
 	public SupplierBuilderImpl(DAOSupplier daoSupplier) {
 		super((EntityFactory<? extends TSupplier>) daoSupplier);
-		this.daoSupplier = daoSupplier; 
+		this.daoSupplier = daoSupplier;
 	}
 
 	@Override

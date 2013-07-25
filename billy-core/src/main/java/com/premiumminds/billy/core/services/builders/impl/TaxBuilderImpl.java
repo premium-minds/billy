@@ -158,7 +158,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 						TaxBuilderImpl.LOCALIZER.getString("field.currency"));
 				break;
 			case PERCENTAGE:
-				BillyValidator.inclusiveBetween(BigDecimal.ZERO,
+				Validate.inclusiveBetween(BigDecimal.ZERO,
 						new BigDecimal("100"), t.getPercentageRateValue());
 				break;
 			default:

@@ -46,7 +46,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 	@Override
 	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder)
 			throws DocumentIssuingException {
-		return issue(documentBuilder, new IssuingParamsImpl());
+		return this.issue(documentBuilder, new IssuingParamsImpl());
 	}
 
 	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder,

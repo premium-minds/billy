@@ -209,11 +209,13 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	public TBuilder setContextUID(UID uidContext) {
 		BillyValidator.mandatory(uidContext,
-				LOCALIZER.getString("field.context"));
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.context"));
 		ContextEntity c = this.daoContext.get(uidContext);
-		BillyValidator.found(c, LOCALIZER.getString("field.reference"));
+		BillyValidator.found(c, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.reference"));
 		this.context = c;
-		return getBuilder();
+		return this.getBuilder();
 	}
 
 	@Override
@@ -280,14 +282,17 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
 
 		for (Tax t : e.getProduct().getTaxes()) {
-			if (daoContext.isSubContext(t.getContext(), this.context)) {
-				if (!t.getValidTo().before(new Date()))
+			if (this.daoContext.isSubContext(t.getContext(), this.context)) {
+				if (!t.getValidTo().before(new Date())) {
 					e.getTaxes().add(t);
+				}
 			}
 		}
-		if (e.getTaxes().isEmpty())
+		if (e.getTaxes().isEmpty()) {
 			throw new ValidationException(
-					LOCALIZER.getString("exception.invalid_taxes"));
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("exception.invalid_taxes"));
+		}
 
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
 

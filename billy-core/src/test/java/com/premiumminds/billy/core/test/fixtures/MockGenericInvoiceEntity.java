@@ -76,122 +76,122 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 
 	@Override
 	public String getNumber() {
-		return number;
+		return this.number;
 	}
 
 	@Override
 	public Business getBusiness() {
-		return business;
+		return this.business;
 	}
 
 	@Override
 	public Customer getCustomer() {
-		return customer;
+		return this.customer;
 	}
 
 	@Override
 	public Supplier getSupplier() {
-		return supplier;
+		return this.supplier;
 	}
 
 	@Override
 	public String getOfficeNumber() {
-		return officeNumber;
+		return this.officeNumber;
 	}
 
 	@Override
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 
 	@Override
 	public BigDecimal getAmountWithTax() {
-		return amountWithTax;
+		return this.amountWithTax;
 	}
 
 	@Override
 	public BigDecimal getAmountWithoutTax() {
-		return amountWithoutTax;
+		return this.amountWithoutTax;
 	}
 
 	@Override
 	public BigDecimal getTaxAmount() {
-		return taxAmount;
+		return this.taxAmount;
 	}
 
 	@Override
 	public BigDecimal getDiscountsAmount() {
-		return discountsAmount;
+		return this.discountsAmount;
 	}
 
 	@Override
 	public ShippingPoint getShippingOrigin() {
-		return shippingOrigin;
+		return this.shippingOrigin;
 	}
 
 	@Override
 	public ShippingPoint getShippingDestination() {
-		return shippingDestination;
+		return this.shippingDestination;
 	}
 
 	@Override
 	public String getPaymentTerms() {
-		return paymentTerms;
+		return this.paymentTerms;
 	}
 
 	@Override
 	public boolean isSelfBilled() {
-		return selfBilled;
+		return this.selfBilled;
 	}
 
 	@Override
 	public String getSourceId() {
-		return sourceId;
+		return this.sourceId;
 	}
 
 	@Override
 	public Date getGeneralLedgerDate() {
-		return generalLedgerDate;
+		return this.generalLedgerDate;
 	}
 
 	@Override
 	public String getBatchId() {
-		return batchId;
+		return this.batchId;
 	}
 
 	@Override
 	public String getTransactionId() {
-		return transactionsId;
+		return this.transactionsId;
 	}
 
 	@Override
 	public Currency getCurrency() {
-		return currency;
+		return this.currency;
 	}
 
 	@Override
 	public String getSettlementDescription() {
-		return settlementDescription;
+		return this.settlementDescription;
 	}
 
 	@Override
 	public BigDecimal getSettlementDiscount() {
-		return settlementDiscount;
+		return this.settlementDiscount;
 	}
 
 	@Override
 	public Date getSettlementDate() {
-		return settlementDate;
+		return this.settlementDate;
 	}
 
 	@Override
 	public Enum<?> getPaymentMechanism() {
-		return paymentMechanism;
+		return this.paymentMechanism;
 	}
 
 	@Override
 	public CreditOrDebit getCreditOrDebit() {
-		return creditOrDebit;
+		return this.creditOrDebit;
 	}
 
 	@Override
@@ -287,12 +287,12 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 
 	@Override
 	public List<String> getReceiptNumbers() {
-		return receiptNumbers;
+		return this.receiptNumbers;
 	}
 
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries() {
-		return (List<T>) entries;
+		return (List<T>) this.entries;
 	}
 
 	@Override
@@ -327,7 +327,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 
 	@Override
 	public String getSeries() {
-		return series;
+		return this.series;
 	}
 
 	@Override
@@ -337,7 +337,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 
 	@Override
 	public String getSeriesNumber() {
-		return seriesNumber;
+		return this.seriesNumber;
 	}
 
 	@Override

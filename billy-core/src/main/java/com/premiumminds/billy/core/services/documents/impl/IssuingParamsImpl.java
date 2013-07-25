@@ -33,8 +33,8 @@ public class IssuingParamsImpl implements IssuingParams {
 	}
 
 	public Object getParameter(String key) throws ParameterNotFoundException {
-		if (parameters.containsKey(key)) {
-			return parameters.get(key);
+		if (this.parameters.containsKey(key)) {
+			return this.parameters.get(key);
 		} else {
 			throw new ParameterNotFoundException("No such parameter " + key
 					+ "!");
@@ -42,7 +42,7 @@ public class IssuingParamsImpl implements IssuingParams {
 	}
 
 	public void setParameter(String key, Object obj) {
-		parameters.put(key, obj);
+		this.parameters.put(key, obj);
 	}
 
 }

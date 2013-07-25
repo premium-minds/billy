@@ -42,32 +42,32 @@ public class MockShippingPointEntity extends MockBaseEntity implements
 
 	@Override
 	public String getDeliveryId() {
-		return deliveryId;
+		return this.deliveryId;
 	}
 
 	@Override
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 
 	@Override
 	public String getWarehouseId() {
-		return warehouseId;
+		return this.warehouseId;
 	}
 
 	@Override
 	public String getLocationId() {
-		return locationId;
+		return this.locationId;
 	}
 
 	@Override
 	public String getUCR() {
-		return UCR;
+		return this.UCR;
 	}
 
 	@Override
 	public Address getAddress() {
-		return address;
+		return this.address;
 	}
 
 	@Override

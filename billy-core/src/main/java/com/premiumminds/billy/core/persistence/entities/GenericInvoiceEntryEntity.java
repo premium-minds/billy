@@ -81,7 +81,7 @@ public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry,
 	public <T extends Tax> List<T> getTaxes();
 
 	public void setTaxExemptionReason(String exemptionReason);
-	
+
 	public void setAmountType(AmountType type);
 
 }

@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -38,10 +36,10 @@ public class TestSupplierBuilder extends AbstractTest {
 
 	@Test
 	public void doTest() {
-		MockSupplierEntity mockSupplier = createMockEntity(
-				MockSupplierEntity.class, SUPPLIER_YML);
+		MockSupplierEntity mockSupplier = this.createMockEntity(
+				MockSupplierEntity.class, TestSupplierBuilder.SUPPLIER_YML);
 
-		Mockito.when(getInstance(DAOSupplier.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOSupplier.class).getEntityInstance())
 				.thenReturn(new MockSupplierEntity());
 
 		Address.Builder mockMainAddressBuilder = this
@@ -84,7 +82,7 @@ public class TestSupplierBuilder extends AbstractTest {
 		Mockito.when(mockContactBuilder2.build()).thenReturn(
 				mockSupplier.getContacts().get(1));
 
-		Supplier.Builder builder = getInstance(Supplier.Builder.class);
+		Supplier.Builder builder = this.getInstance(Supplier.Builder.class);
 
 		builder.addAddress(mockMainAddressBuilder)
 				.addAddress(mockShippingAddressBuilder)
@@ -102,12 +100,13 @@ public class TestSupplierBuilder extends AbstractTest {
 
 		Supplier supplier = builder.build();
 
-		assertTrue(supplier != null);
-		assertEquals(mockSupplier.getName(), supplier.getName());
-		assertEquals(mockSupplier.getTaxRegistrationNumber(),
+		Assert.assertTrue(supplier != null);
+		Assert.assertEquals(mockSupplier.getName(), supplier.getName());
+		Assert.assertEquals(mockSupplier.getTaxRegistrationNumber(),
 				supplier.getTaxRegistrationNumber());
-		assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
-		assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier
+		Assert.assertEquals(mockSupplier.getMainAddress(),
+				supplier.getMainAddress());
+		Assert.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier
 				.getBankAccounts().size());
 	}
 

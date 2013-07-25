@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal;
 
@@ -64,22 +65,23 @@ public class PlatypusDependencyModule extends AbstractModule {
 		this.install(new CoreJPADependencyModule());
 		this.install(new GINDependencyModule());
 
-		bind(DAOPTContact.class).to(DAOPTContactImpl.class);
-		bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
-		bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
-		bind(DAOPTAddress.class).to(DAOPTAddressImpl.class);
-		bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
-		bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
-		bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
-		bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
-		bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
-		bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
-		bind(DAOPTInvoice.class).to(DAOPTInvoiceImpl.class);
-		bind(DAOPTInvoiceEntry.class).to(DAOPTInvoiceEntryImpl.class);
-		bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
-		bind(DAOPTCreditNoteEntry.class).to(DAOPTCreditNoteEntryImpl.class);
-		bind(DAOPTGenericInvoice.class).to(DAOPTGenericInvoiceImpl.class);
-		bind(DAOPTGenericInvoiceEntry.class).to(
+		this.bind(DAOPTContact.class).to(DAOPTContactImpl.class);
+		this.bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
+		this.bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
+		this.bind(DAOPTAddress.class).to(DAOPTAddressImpl.class);
+		this.bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
+		this.bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
+		this.bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
+		this.bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
+		this.bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
+		this.bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
+		this.bind(DAOPTInvoice.class).to(DAOPTInvoiceImpl.class);
+		this.bind(DAOPTInvoiceEntry.class).to(DAOPTInvoiceEntryImpl.class);
+		this.bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
+		this.bind(DAOPTCreditNoteEntry.class)
+				.to(DAOPTCreditNoteEntryImpl.class);
+		this.bind(DAOPTGenericInvoice.class).to(DAOPTGenericInvoiceImpl.class);
+		this.bind(DAOPTGenericInvoiceEntry.class).to(
 				DAOPTGenericInvoiceEntryImpl.class);
 	}
 
