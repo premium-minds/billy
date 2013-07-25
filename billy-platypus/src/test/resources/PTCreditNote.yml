@@ -66,6 +66,7 @@ shippingOrigin : !!com.premiumminds.billy.portugal.test.fixtures.MockPTShippingP
 paymentTerms : terms_1
 selfBilled : false
 sourceId : source_1
+sourceBilling : P
 generalLedgerDate : 2013-10-10
 batchId : batch_1
 transactionsId : transId_1
