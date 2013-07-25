@@ -18,18 +18,80 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
+import com.google.inject.Injector;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
+import com.premiumminds.billy.core.services.documents.IssuingParams;
+import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingHandlerImpl;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.portugal.services.certification.CertificationManager;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.util.GenerateHash;
 
-public class PTInvoiceIssuingHandler implements DocumentIssuingHandler {
+public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
+		implements DocumentIssuingHandler {
 
-	@Override
-	public <T extends GenericInvoice> T issue(T document)
-			throws DocumentIssuingException {
-		CertificationManager m = new CertificationManager();
-		return document;
+	public final static String INVOICE_TYPE = "FT";
+
+	public PTInvoiceIssuingHandler(Injector injector) {
+		super(injector);
 	}
 
+	@Override
+	public <T extends GenericInvoice> T issue(final T document,
+			IssuingParams parameters) throws DocumentIssuingException {
+
+		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
+
+		final DAOPTInvoice daoInvoice = this.injector
+				.getInstance(DAOPTInvoice.class);
+
+		try {
+			return new TransactionWrapper<T>(daoInvoice) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					Date invoiceDate = document.getDate();
+					Date systemDate = document.getCreateTimestamp();
+
+					// get from DAO this info!
+					String invoiceNumber = "";
+					byte[] previousHash = new byte[] {};
+
+					BigDecimal grossTotal = document.getAmountWithTax();
+
+					byte[] newHash = GenerateHash
+							.generateHash(parametersPT.getPrivateKey(),
+									parametersPT.getPublicKey(), invoiceDate,
+									systemDate, invoiceNumber, grossTotal,
+									previousHash);
+
+					PTInvoiceEntity documentEntity = (PTInvoiceEntity) document;
+
+					String formatedNumber = INVOICE_TYPE + " "
+							+ parametersPT.getInvoiceSeries() + "/"
+							+ invoiceNumber;
+
+					documentEntity.setNumber(formatedNumber);
+					documentEntity.setHash(newHash.toString());
+					documentEntity.setBilled(true);
+					documentEntity.setNumber(invoiceNumber);
+					documentEntity.setSourceHash(GenerateHash
+							.generateSourceHash(invoiceDate, systemDate,
+									invoiceNumber, grossTotal, previousHash));
+
+					daoInvoice.create(documentEntity);
+
+					return document;
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new DocumentIssuingException(e);
+		}
+	}
 }

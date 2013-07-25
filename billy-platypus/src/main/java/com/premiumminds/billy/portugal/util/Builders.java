@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2013 Premium Minds.
+ *
+ * This file is part of billy platypus (PT Pack).
+ *
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
@@ -12,13 +30,13 @@ import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
 public class Builders {
-	
+
 	public class Invoices {
-		
-		//TODO invoice, credit note, simple invoice, manual invoice, etc...
-		
+
+		// TODO invoice, credit note, simple invoice, manual invoice, etc...
+
 	}
-	
+
 	public PTAddress.Builder createAddressBuilder() {
 		return getInstance(PTAddress.Builder.class);
 	}
@@ -62,23 +80,23 @@ public class Builders {
 	private final Configuration configurationBuilders;
 	private final Invoices invoiceBuilders;
 	private final Injector injector;
-	
+
 	public Builders(Injector injector) {
 		configurationBuilders = new Configuration();
 		invoiceBuilders = new Invoices();
 		this.injector = injector;
 	}
-	
+
 	public Configuration configuration() {
 		return configurationBuilders;
 	}
-	
+
 	public Invoices invoices() {
 		return invoiceBuilders;
 	}
-	
+
 	private <T> T getInstance(Class<T> clazz) {
 		return injector.getInstance(clazz);
 	}
-	
+
 }

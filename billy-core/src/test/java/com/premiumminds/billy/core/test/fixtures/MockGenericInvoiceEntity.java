@@ -40,6 +40,9 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	private static final long serialVersionUID = 1L;
 
 	public String number;
+
+	public String series;
+	public String seriesNumber;
 	public Business business;
 	public CustomerEntity customer;
 	public SupplierEntity supplier;
@@ -66,11 +69,11 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public Enum<?> paymentMechanism;
 	public CreditOrDebit creditOrDebit;
 
-	public MockGenericInvoiceEntity(){
+	public MockGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();
 		this.receiptNumbers = new ArrayList<String>();
 	}
-	
+
 	@Override
 	public String getNumber() {
 		return number;
@@ -320,6 +323,26 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	@Override
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		this.creditOrDebit = creditOrDebit;
+	}
+
+	@Override
+	public String getSeries() {
+		return series;
+	}
+
+	@Override
+	public void setSeries(String series) {
+		this.series = series;
+	}
+
+	@Override
+	public String getSeriesNumber() {
+		return seriesNumber;
+	}
+
+	@Override
+	public void setSeriesNumber(String seriesNumber) {
+		this.seriesNumber = seriesNumber;
 	}
 
 }

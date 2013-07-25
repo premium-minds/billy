@@ -35,12 +35,27 @@ import com.premiumminds.billy.portugal.services.certification.InvalidHashExcepti
 
 public class GenerateHash {
 
-	protected static byte[] generateHash(@NotNull PrivateKey privateKey,
+	public static byte[] generateHash(@NotNull PrivateKey privateKey,
 			@NotNull PublicKey publicKey, @NotNull Date invoiceDate,
 			@NotNull Date systemEntryDate, @NotNull String invoiceNumber,
 			@NotNull BigDecimal grossTotal, byte[] previousInvoiceHash)
 			throws InvalidHashException, InvalidKeySpecException,
 			InvalidKeyException {
+
+		String sourceString = generateSourceHash(invoiceDate, systemEntryDate,
+				invoiceNumber, grossTotal, previousInvoiceHash);
+
+		CertificationManager certificationManager = new CertificationManager();
+		certificationManager.setAutoVerifyHash(true);
+		certificationManager.setPrivateKey(privateKey);
+		certificationManager.setPublicKey(publicKey);
+
+		return certificationManager.getHashBinary(sourceString);
+	}
+
+	public static String generateSourceHash(Date invoiceDate,
+			Date systemEntryDate, String invoiceNumber, BigDecimal grossTotal,
+			byte[] previousInvoiceHash) {
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat dateTime = new SimpleDateFormat(
@@ -59,12 +74,7 @@ public class GenerateHash {
 						.encodeBase64String(previousInvoiceHash));
 
 		String sourceString = builder.toString();
-
-		CertificationManager certificationManager = new CertificationManager();
-		certificationManager.setAutoVerifyHash(true);
-		certificationManager.setPrivateKey(privateKey);
-		certificationManager.setPublicKey(publicKey);
-
-		return certificationManager.getHashBinary(sourceString);
+		return sourceString;
 	}
+
 }

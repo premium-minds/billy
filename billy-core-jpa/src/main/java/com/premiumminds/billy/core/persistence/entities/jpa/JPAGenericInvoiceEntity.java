@@ -67,6 +67,9 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	@Column(name = "SERIES")
 	protected String series;
 
+	@Column(name = "SERIES_NUMBER")
+	protected String seriesNumber;
+
 	@ManyToOne(targetEntity = JPABusinessEntity.class)
 	@JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
 	protected Business business;
@@ -168,6 +171,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		return number;
 	}
 
+	@Override
 	public String getSeries() {
 		return series;
 	}
@@ -294,10 +298,21 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
+	public String getSeriesNumber() {
+		return seriesNumber;
+	}
+
+	@Override
+	public void setSeriesNumber(String seriesNumber) {
+		this.seriesNumber = seriesNumber;
+	}
+
+	@Override
 	public void setNumber(String number) {
 		this.number = number;
 	}
-	
+
+	@Override
 	public void setSeries(String series) {
 		this.series = series;
 	}

@@ -37,14 +37,14 @@ import org.apache.commons.lang3.Validate;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
-
 /**
  * @author Francisco Vargas
- *
- * The Billy JPA implementation of {@link JPABaseEntity}
+ * 
+ *         The Billy JPA implementation of {@link JPABaseEntity}
  */
 @MappedSuperclass
 public abstract class JPABaseEntity implements BaseEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -52,51 +52,51 @@ public abstract class JPABaseEntity implements BaseEntity {
 	@Column(name = "ID")
 	protected Integer id;
 
-	@Basic(optional=false)
+	@Basic(optional = false)
 	@Column(name = "UID", nullable = false, insertable = true, updatable = false, unique = false)
 	protected String uid;
-	
-	@Basic(optional=false)
+
+	@Basic(optional = false)
 	@Column(name = "UID_ROW", nullable = false, insertable = true, updatable = false, unique = true)
 	protected String uidRow;
-	
-	@Basic(optional=false)
+
+	@Basic(optional = false)
 	@Column(name = "ENTITY_VERSION", nullable = false, insertable = true, updatable = false, unique = false)
 	protected int entityVersion;
 
-	@Column(name="CREATE_TIMESTAMP", updatable = false)
+	@Column(name = "CREATE_TIMESTAMP", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date createTimestamp;
 
 	@Column(name = "UPDATE_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
 	protected Date updateTimestamp;
-	
+
 	@Column(name = "ACTIVE")
 	protected Boolean active;
-	
+
 	/**
 	 * Constructor
 	 */
 	public JPABaseEntity() {
 		uid = generateUUID().toString();
+		updateTimestamp = createTimestamp = new Date();
 	}
 
 	@Override
 	public boolean isNew() {
 		return this.id == null;
 	}
-	
+
 	@PrePersist
 	protected void onPersist() {
-		if(isNew()) {
+		if (isNew()) {
 			uidRow = generateUUID().toString();
-			updateTimestamp = createTimestamp = new Date();
 			entityVersion = 1;
 			active = true;
 		}
 	}
-	
+
 	@PreUpdate
 	protected void onUpdate() {
 		updateTimestamp = new Date();
@@ -106,7 +106,7 @@ public abstract class JPABaseEntity implements BaseEntity {
 	public UID getUID() {
 		return new UID(this.uid);
 	}
-	
+
 	@Override
 	public void setUID(UID uid) {
 		Validate.notNull(uid);
