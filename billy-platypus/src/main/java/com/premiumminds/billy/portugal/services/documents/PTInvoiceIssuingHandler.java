@@ -21,6 +21,8 @@ package com.premiumminds.billy.portugal.services.documents;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
@@ -38,6 +40,7 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 	public final static String INVOICE_TYPE = "FT";
 	public final static String SOURCE_BILLING = "P";
 
+	@Inject
 	public PTInvoiceIssuingHandler(Injector injector) {
 		super(injector);
 	}

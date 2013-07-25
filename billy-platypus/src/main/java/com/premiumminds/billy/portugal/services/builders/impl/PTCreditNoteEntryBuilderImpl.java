@@ -76,6 +76,8 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 	private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
 		DAOPTCreditNoteEntry daoPTCreditNoteEntry = (DAOPTCreditNoteEntry) daoEntry;
 
+		System.out.println(daoPTCreditNoteEntry.checkCreditNote(cn
+				.getReference()));
 		if (daoPTCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
 			throw new BillyValidationException();
 		}
