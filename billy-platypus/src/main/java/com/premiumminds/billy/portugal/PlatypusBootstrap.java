@@ -496,6 +496,21 @@ public class PlatypusBootstrap {
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID);
 
+					final PTTaxEntity TAX_EXEMPT_PORTUGAL = this
+							.buildTaxEntity(
+									daoPTTax,
+									taxBuilder,
+									"IVA",
+									CONTEXT_PORTUGAL,
+									Currency.getInstance("EUR"),
+									"Isento de IVA",
+									"IVA",
+									Tax.TaxRateType.FLAT,
+									new Date(),
+									new Date(),
+									Config.Key.Context.Portugal.TAX_EXEMPT_VALUE,
+									Config.Key.Context.Portugal.TAX_EXEMPT_UUID);
+
 					return null;
 				}
 

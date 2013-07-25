@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.persist.PersistModule;
+import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 import com.premiumminds.billy.portugal.util.Builders;
 import com.premiumminds.billy.portugal.util.Services;
@@ -28,7 +29,7 @@ import com.premiumminds.billy.portugal.util.Taxes;
 
 public class BillyPortugal {
 
-	private static final String DEFAULT_PERSISTENCE_UNIT = "BillyPlatypusPersistenceUnit";
+	private static final String DEFAULT_PERSISTENCE_UNIT = "BillyPortugalPersistenceUnit";
 
 	private final Injector injector;
 	private final Builders builders;
@@ -40,7 +41,9 @@ public class BillyPortugal {
 	}
 
 	public BillyPortugal(PersistModule persistModule) {
-		injector = Guice.createInjector(new PlatypusDependencyModule(), persistModule);
+		injector = Guice.createInjector(new PlatypusDependencyModule(),
+				persistModule);
+		injector.getInstance(PersistService.class).start();
 		builders = new Builders(injector);
 		taxes = new Taxes(injector);
 		services = new Services(injector);
@@ -49,11 +52,11 @@ public class BillyPortugal {
 	public Builders builders() {
 		return this.builders;
 	}
-	
+
 	public Taxes taxes() {
 		return taxes;
 	}
-	
+
 	public Services services() {
 		return services;
 	}

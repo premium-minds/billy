@@ -103,6 +103,7 @@ public class Config {
 
 				public static final String UUID = "context.portugal.uuid";
 				public static final String TAX_EXEMPT_UUID = "context.portugal.tax.exempt.uuid";
+				public static final String TAX_EXEMPT_VALUE = "context.portugal.tax.exempt.value";
 
 				public static class Continental {
 
