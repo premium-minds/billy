@@ -264,8 +264,16 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	protected void validateInstance() throws ValidationException {
+		this.validateDate();
 		this.validateValues();
-		this.validateDates();
+	}
+
+	private void validateDate() {
+		// needed to avoid no date in the invoice
+		GenericInvoiceEntity i = this.getTypeInstance();
+		if (i.getDate() == null) {
+			i.setDate(new Date());
+		}
 	}
 
 	protected void validateValues() throws ValidationException {
@@ -276,7 +284,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		BigDecimal amountWithTax = new BigDecimal("0", mc);
 		BigDecimal taxAmount = new BigDecimal("0", mc);
 		BigDecimal amountWithoutTax = new BigDecimal("0", mc);
-		
+
 		for (GenericInvoiceEntry e : this.getTypeInstance().getEntries()) {
 			amountWithTax = amountWithTax.add(e.getAmountWithTax(), mc);
 			taxAmount = taxAmount.add(e.getTaxAmount(), mc);
@@ -287,10 +295,14 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		i.setAmountWithTax(amountWithTax);
 		i.setTaxAmount(taxAmount);
 		i.setAmountWithoutTax(amountWithoutTax);
-		
-		Validate.isTrue(i.getAmountWithTax().subtract(
-				i.getAmountWithoutTax(), mc).setScale(7, mc.getRoundingMode())
-				.compareTo(i.getTaxAmount().setScale(7, mc.getRoundingMode())) == 0,
+
+		Validate.isTrue(
+				i.getAmountWithTax()
+						.subtract(i.getAmountWithoutTax(), mc)
+						.setScale(7, mc.getRoundingMode())
+						.compareTo(
+								i.getTaxAmount().setScale(7,
+										mc.getRoundingMode())) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
 
@@ -310,10 +322,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	protected void applyDiscounts() {
 		GenericInvoiceEntity i = this.getTypeInstance();
 		i.getSettlementDiscount();
-	}
-
-	protected void validateDates() throws ValidationException {
-		// TODO
 	}
 
 	@SuppressWarnings("unchecked")

@@ -36,6 +36,7 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 		implements DocumentIssuingHandler {
 
 	public final static String INVOICE_TYPE = "FT";
+	public final static String SOURCE_BILLING = "P";
 
 	public PTInvoiceIssuingHandler(Injector injector) {
 		super(injector);
@@ -57,32 +58,36 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 				public T runTransaction() throws Exception {
 					Date invoiceDate = document.getDate();
 					Date systemDate = document.getCreateTimestamp();
+					String series = parametersPT.getInvoiceSeries();
 
 					// get from DAO this info!
-					String invoiceNumber = "";
+					String seriesNumber = "";
 					byte[] previousHash = new byte[] {};
 
 					BigDecimal grossTotal = document.getAmountWithTax();
 
-					byte[] newHash = GenerateHash
-							.generateHash(parametersPT.getPrivateKey(),
-									parametersPT.getPublicKey(), invoiceDate,
-									systemDate, invoiceNumber, grossTotal,
-									previousHash);
+					String formatedNumber = INVOICE_TYPE + " "
+							+ parametersPT.getInvoiceSeries() + "/"
+							+ seriesNumber;
+
+					byte[] newHash = GenerateHash.generateHash(
+							parametersPT.getPrivateKey(),
+							parametersPT.getPublicKey(), invoiceDate,
+							systemDate, formatedNumber, grossTotal,
+							previousHash);
 
 					PTInvoiceEntity documentEntity = (PTInvoiceEntity) document;
 
-					String formatedNumber = INVOICE_TYPE + " "
-							+ parametersPT.getInvoiceSeries() + "/"
-							+ invoiceNumber;
-
 					documentEntity.setNumber(formatedNumber);
+					documentEntity.setSeries(series);
+					documentEntity.setSeriesNumber(seriesNumber);
 					documentEntity.setHash(newHash.toString());
 					documentEntity.setBilled(true);
-					documentEntity.setNumber(invoiceNumber);
 					documentEntity.setSourceHash(GenerateHash
 							.generateSourceHash(invoiceDate, systemDate,
-									invoiceNumber, grossTotal, previousHash));
+									formatedNumber, grossTotal, previousHash));
+
+					// TODO: documentEntity.setSourceBilling(SOURCE_BILLING);
 
 					daoInvoice.create(documentEntity);
 

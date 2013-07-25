@@ -87,6 +87,11 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
 		PTGenericInvoiceEntity i = this.getTypeInstance();
+
+		BillyValidator.mandatory(i.getSourceId(),
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.source_id"));
+		BillyValidator.mandatory(i.getDate(),
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.date_id"));
 		BillyValidator.mandatory(i.isSelfBilled(),
 				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
 		BillyValidator.mandatory(i.isCancelled(),

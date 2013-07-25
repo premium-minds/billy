@@ -120,6 +120,7 @@ public class GenericTest {
 												.setTelephone("phone")
 												.setWebsite("website")))
 				.setFinancialID("financial id");
+
 		injector.getInstance(DAOBusiness.class).create(
 				(BusinessEntity) builder.build());
 

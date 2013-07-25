@@ -20,8 +20,6 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.Date;
 
@@ -29,9 +27,7 @@ import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
-import org.joda.time.field.DividedDateTimeField;
 
-import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
@@ -56,8 +52,6 @@ import com.premiumminds.billy.core.util.DiscountType;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 
-@NotImplemented
-@Deprecated
 public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
 		extends AbstractBuilder<TBuilder, TEntry> implements
 		GenericInvoiceEntryBuilder<TBuilder, TEntry> {
@@ -243,10 +237,6 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		Validate.notEmpty(discounts, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.discount_type"));
 
-		// for(BigDecimal d : discounts) {
-		//
-		// }
-
 		return this.getBuilder();
 	}
 
@@ -284,24 +274,21 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 						.getString("field.currency"));
 	}
 
-	@Deprecated
 	protected void validateValues() throws ValidationException {
-		// TODO check mandatories
-
 		MathContext mc = BillyMathContext.get();
 
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
-		
+
 		for (Tax t : e.getProduct().getTaxes()) {
 			if (daoContext.isSubContext(t.getContext(), this.context)) {
-				if(!t.getValidTo().before(new Date()))
+				if (!t.getValidTo().before(new Date()))
 					e.getTaxes().add(t);
 			}
 		}
-		if(e.getTaxes().isEmpty())
-			throw new ValidationException(LOCALIZER
-					.getString("exception.invalid_taxes"));
-		
+		if (e.getTaxes().isEmpty())
+			throw new ValidationException(
+					LOCALIZER.getString("exception.invalid_taxes"));
+
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
 
 		if (e.getUnitAmountWithTax() != null) {
@@ -340,20 +327,25 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 			for (Tax t : this.getTypeInstance().getTaxes()) {
 				switch (t.getTaxRateType()) {
 					case FLAT:
-						unitAmountWithTax = unitAmountWithTax.add(
-								t.getValue(), mc);
+						unitAmountWithTax = unitAmountWithTax.add(t.getValue(),
+								mc);
 						unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
 						break;
 					case PERCENTAGE:
-						unitTaxAmount = unitTaxAmount.add(e.getUnitAmountWithoutTax().multiply(t.getPercentageRateValue(), mc).divide(new BigDecimal("100"), mc),mc);
-						unitAmountWithTax = unitAmountWithTax.add(unitTaxAmount, mc);
+						unitTaxAmount = unitTaxAmount.add(
+								e.getUnitAmountWithoutTax()
+										.multiply(t.getPercentageRateValue(),
+												mc)
+										.divide(new BigDecimal("100"), mc), mc);
+						unitAmountWithTax = unitAmountWithTax.add(
+								unitTaxAmount, mc);
 						break;
 				}
 			}
-			
+
 			e.setUnitAmountWithTax(unitAmountWithTax);
 			e.setUnitTaxAmount(unitTaxAmount);
-			
+
 		}
 
 		e.setAmountWithTax(this.getTypeInstance().getUnitAmountWithTax()
