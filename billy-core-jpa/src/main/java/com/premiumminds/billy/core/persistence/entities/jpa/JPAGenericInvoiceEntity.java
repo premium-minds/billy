@@ -168,6 +168,10 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		return number;
 	}
 
+	public String getSeries() {
+		return series;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Business getBusiness() {
@@ -292,6 +296,10 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	@Override
 	public void setNumber(String number) {
 		this.number = number;
+	}
+	
+	public void setSeries(String series) {
+		this.series = series;
 	}
 
 	@Override
