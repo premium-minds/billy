@@ -32,6 +32,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity_;
+import com.premiumminds.billy.core.util.NotImplemented;
 
 public class DAOGenericInvoiceImpl extends
 		AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
@@ -52,6 +53,8 @@ public class DAOGenericInvoiceImpl extends
 		return new JPAGenericInvoiceEntity();
 	}
 
+	@Deprecated
+	@NotImplemented
 	public GenericInvoiceEntity getLatestInvoiceFromSeries(String series) {
 		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
@@ -71,10 +74,14 @@ public class DAOGenericInvoiceImpl extends
 			List<Object[]> list = this.getEntityManager().createQuery(query)
 					.getResultList();
 
+			for (Object[] obj : list) {
+				System.out.println("\n\n###### THIS IS THE UID: " + obj[0]
+						+ "\n\n");
+			}
+
 		} catch (Exception e) {
 			System.out.println("######## No one home :P");
 		}
-
 		return null;
 	}
 }

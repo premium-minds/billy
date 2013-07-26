@@ -24,4 +24,7 @@ public interface DAOPTInvoice extends DAOPTGenericInvoice {
 
 	@Override
 	public PTInvoiceEntity getEntityInstance();
+
+	@Override
+	public PTInvoiceEntity getLatestInvoiceFromSeries(String series);
 }
