@@ -20,20 +20,77 @@ package com.premiumminds.billy.portugal.test.fixtures;
 
 import java.util.List;
 
+import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public class MockPTCreditNoteEntity extends MockPTGenericInvoiceEntity
-		implements PTCreditNoteEntity {
+public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
+		PTCreditNoteEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	public MockPTCreditNoteEntity() {
+	protected Boolean cancelled;
+	protected Boolean billed;
+	protected String hash;
+	protected String sourceHash;
+	protected String sourceBilling;
+
+	@Override
+	public String getSourceBilling() {
+		return sourceBilling;
 	}
 
 	@Override
-	public List getEntries() {
-		return (List<PTCreditNoteEntry>) getEntries();
+	public void setSourceBilling(String soureceBilling) {
+		this.sourceBilling = soureceBilling;
 	}
 
+	public MockPTCreditNoteEntity() {
+
+	}
+
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.cancelled = cancelled;
+	}
+
+	@Override
+	public void setBilled(boolean billed) {
+		this.billed = billed;
+	}
+
+	@Override
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
+
+	@Override
+	public void setSourceHash(String source) {
+		this.sourceHash = source;
+	}
+
+	@Override
+	public boolean isCancelled() {
+		return this.cancelled;
+	}
+
+	@Override
+	public boolean isBilled() {
+		return this.billed;
+	}
+
+	@Override
+	public String getHash() {
+		return this.hash;
+	}
+
+	@Override
+	public String getSourceHash() {
+		return this.sourceHash;
+	}
+
+	@Override
+	public List<PTCreditNoteEntry> getEntries() {
+		return (List<PTCreditNoteEntry>) (List<?>) super.getEntries();
+	}
 }

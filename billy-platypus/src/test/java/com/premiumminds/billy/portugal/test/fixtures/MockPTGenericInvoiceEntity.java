@@ -50,7 +50,7 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
 
 	@Override
 	public List<PTGenericInvoiceEntry> getEntries() {
-		return (List<PTGenericInvoiceEntry>) getEntries();
+		return (List<PTGenericInvoiceEntry>) (List<?>) super.getEntries();
 	}
 
 	@Override
