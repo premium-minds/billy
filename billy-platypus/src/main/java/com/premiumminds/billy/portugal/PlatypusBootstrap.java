@@ -43,6 +43,8 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
@@ -556,6 +558,13 @@ public class PlatypusBootstrap {
 							PRODUCT_PORTUGAL.getUID(), daoPTInvoiceEntry,
 							CONTEXT_PORTUGAL.getUID());
 
+					final PTCreditNoteEntity CREDIT_NOTE_ENTITY = this
+							.buildCreditNote(daoPTCreditNote,
+									creditNoteBuilder, creditNoteEntryBuilder,
+									PRODUCT_PORTUGAL.getUID(),
+									daoPTCreditNoteEntry,
+									CONTEXT_PORTUGAL.getUID(), INVOICE_ENTITY);
+
 					return null;
 				}
 
@@ -748,29 +757,56 @@ public class PlatypusBootstrap {
 							.setContextUID(contextUID);
 				}
 
-				// private PTCreditNoteEntity buildCreditNote(
-				// DAOPTCreditNote daoPTCreditNote,
-				// PTCreditNote.Builder creditNoteBuilder) {
-				//
-				// creditNoteBuilder.clear();
-				//
-				// creditNoteBuilder.setBilled(false).setCancelled(false)
-				// .setSelfBilled(false).setHash("HASH")
-				// .setDate(new Date());
-				//
-				// return null;
-				// }
-				//
-				// private PTCreditNoteEntryEntity buildCreditNoteEntry(
-				// DAOPTCreditNoteEntry daoPTCreditNoteEntry,
-				// PTCreditNoteEntry.Builder creditNoteEntryBuilder) {
-				//
-				// creditNoteEntryBuilder.clear();
-				//
-				// creditNoteEntryBuilder
-				// .setAmountType(AmountType.WITHOUT_TAX);
-				// return null;
-				// }
+				private PTCreditNoteEntity buildCreditNote(
+						DAOPTCreditNote daoPTCreditNote,
+						PTCreditNote.Builder creditNoteBuilder,
+						PTCreditNoteEntry.Builder creditNoteEntryBuilder,
+						UID productUID,
+						DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+						UID contextUID, PTInvoice reference) {
+
+					buidCreditNoteEntry(creditNoteEntryBuilder, productUID,
+							contextUID, reference);
+
+					creditNoteBuilder.clear();
+
+					creditNoteBuilder.setBilled(false).setCancelled(false)
+							.setSelfBilled(false).setHash("HASH")
+							.setDate(new Date()).setSourceId("EU")
+							.addEntry(creditNoteEntryBuilder);
+
+					PTCreditNoteEntity creditNote = (PTCreditNoteEntity) creditNoteBuilder
+							.build();
+
+					creditNote.setUID(new UID("CREDIT_NOTE"));
+
+					PTCreditNoteEntryEntity creditNoteEntry = (PTCreditNoteEntryEntity) creditNote
+							.getEntries().get(0);
+					creditNoteEntry.setUID(new UID("CREDIT_NOTE_ENTRY"));
+					creditNoteEntry.getDocumentReferences().add(creditNote);
+					daoPTCreditNote.create(creditNote);
+
+					return creditNote;
+				}
+
+				private void buidCreditNoteEntry(
+						PTCreditNoteEntry.Builder creditNoteEntryBuilder,
+						UID productUID, UID contextUID, PTInvoice reference) {
+					creditNoteEntryBuilder.clear();
+
+					creditNoteEntryBuilder
+							.setUnitAmount(AmountType.WITH_TAX,
+									new BigDecimal(20),
+									Currency.getInstance("EUR"))
+							.setTaxPointDate(new Date())
+							.setCreditOrDebit(CreditOrDebit.DEBIT)
+							.setDescription("Description")
+							.setQuantity(new BigDecimal(1))
+							.setUnitOfMeasure("Kg").setProductUID(productUID)
+							.setContextUID(contextUID)
+							.setReason("Rotten potatoes")
+							.setReference(reference);
+				}
 
 			}.execute();
 		} catch (Exception e) {
