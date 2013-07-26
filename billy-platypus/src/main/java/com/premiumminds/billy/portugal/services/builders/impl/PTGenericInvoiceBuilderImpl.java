@@ -93,6 +93,14 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
+	public TBuilder setSourceId(String source) {
+		BillyValidator.mandatory(source,
+				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+		this.getTypeInstance().setSourceId(source);
+		return this.getBuilder();
+	}
+
+	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
 		PTGenericInvoiceEntity i = this.getTypeInstance();

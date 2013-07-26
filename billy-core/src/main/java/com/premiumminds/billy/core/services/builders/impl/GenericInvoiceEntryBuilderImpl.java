@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
@@ -283,7 +284,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 		for (Tax t : e.getProduct().getTaxes()) {
 			if (this.daoContext.isSubContext(t.getContext(), this.context)) {
-				if (!t.getValidTo().before(new Date())) {
+				Date actualDate = new Date();
+				if(DateUtils.isSameDay(t.getValidTo(), actualDate) || t.getValidTo().after(actualDate)){
 					e.getTaxes().add(t);
 				}
 			}

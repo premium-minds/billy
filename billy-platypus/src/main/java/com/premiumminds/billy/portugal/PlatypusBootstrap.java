@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal;
 
@@ -27,22 +28,37 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTAddress.Builder;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
@@ -106,6 +122,16 @@ public class PlatypusBootstrap {
 							.getInstance(DAOPTContact.class);
 					DAOPTAddress daoPTAddress = dependencyInjector
 							.getInstance(DAOPTAddress.class);
+					DAOPTProduct daoPTProduct = dependencyInjector
+							.getInstance(DAOPTProduct.class);
+					DAOPTInvoiceEntry daoPTInvoiceEntry = dependencyInjector
+							.getInstance(DAOPTInvoiceEntry.class);
+					DAOPTInvoice daoPTInvoice = dependencyInjector
+							.getInstance(DAOPTInvoice.class);
+					DAOPTCreditNote daoPTCreditNote = dependencyInjector
+							.getInstance(DAOPTCreditNote.class);
+					DAOPTCreditNoteEntry daoPTCreditNoteEntry = dependencyInjector
+							.getInstance(DAOPTCreditNoteEntry.class);
 
 					// Builders
 					PTCustomer.Builder customerBuilder = dependencyInjector
@@ -118,6 +144,16 @@ public class PlatypusBootstrap {
 							.getInstance(PTAddress.Builder.class);
 					PTContact.Builder contactBuilder = dependencyInjector
 							.getInstance(PTContact.Builder.class);
+					PTProduct.Builder productBuilder = dependencyInjector
+							.getInstance(PTProduct.Builder.class);
+					PTInvoiceEntry.Builder invoiceEntryBuilder = dependencyInjector
+							.getInstance(PTInvoiceEntry.Builder.class);
+					PTInvoice.Builder invoiceBuilder = dependencyInjector
+							.getInstance(PTInvoice.Builder.class);
+					PTCreditNote.Builder creditNoteBuilder = dependencyInjector
+							.getInstance(PTCreditNote.Builder.class);
+					PTCreditNoteEntry.Builder creditNoteEntryBuilder = dependencyInjector
+							.getInstance(PTCreditNoteEntry.Builder.class);
 
 					// Generic Address
 					final PTAddressEntity GENERIC_ADDRESS = this
@@ -511,6 +547,16 @@ public class PlatypusBootstrap {
 									Config.Key.Context.Portugal.TAX_EXEMPT_VALUE,
 									Config.Key.Context.Portugal.TAX_EXEMPT_UUID);
 
+					// Dumbest side
+					final PTProductEntity PRODUCT_PORTUGAL = this.buildProduct(
+							daoPTProduct, productBuilder,
+							VAT_NORMAL_CONTINENTAL_PORTUGAL.getUID());
+
+					final PTInvoiceEntity INVOICE_ENTITY = this.buildInvoice(
+							daoPTInvoice, invoiceBuilder, invoiceEntryBuilder,
+							PRODUCT_PORTUGAL.getUID(), daoPTInvoiceEntry,
+							CONTEXT_PORTUGAL.getUID());
+
 					return null;
 				}
 
@@ -633,6 +679,97 @@ public class PlatypusBootstrap {
 
 					return customer;
 				}
+
+				// Dummy side
+
+				private PTProductEntity buildProduct(DAOPTProduct daoPTProduct,
+						PTProduct.Builder productBuilder, UID taxUID) {
+					productBuilder.clear();
+					productBuilder.addTaxUID(taxUID).setNumberCode("123")
+							.setUnitOfMeasure("Kg").setProductCode("123")
+							.setDescription("description")
+							.setType(ProductType.GOODS);
+
+					PTProductEntity product = (PTProductEntity) productBuilder
+							.build();
+
+					product.setUID(new UID("POTATOES"));
+
+					daoPTProduct.create(product);
+
+					return product;
+				}
+
+				private PTInvoiceEntity buildInvoice(DAOPTInvoice daoPTInvoice,
+						PTInvoice.Builder invoiceBuilder,
+						PTInvoiceEntry.Builder invoiceEntryBuilder,
+						UID productUID, DAOPTInvoiceEntry daoPTInvoiceEntry,
+						UID contextUID) {
+
+					buidInvoiceEntry(invoiceEntryBuilder, productUID,
+							contextUID);
+
+					invoiceBuilder.clear();
+
+					invoiceBuilder.setBilled(false).setCancelled(false)
+							.setSelfBilled(false).setHash("HASH")
+							.setDate(new Date()).setSourceId("EU")
+							.addEntry(invoiceEntryBuilder);
+
+					PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder
+							.build();
+
+					invoice.setUID(new UID("INVOICE"));
+
+					PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) invoice
+							.getEntries().get(0);
+					invoiceEntry.setUID(new UID("INVOICE_ENTRY"));
+					invoiceEntry.getDocumentReferences().add(invoice);
+					daoPTInvoice.create(invoice);
+
+					return invoice;
+				}
+
+				private void buidInvoiceEntry(
+						PTInvoiceEntry.Builder invoiceEntryBuilder,
+						UID productUID, UID contextUID) {
+					invoiceEntryBuilder.clear();
+
+					invoiceEntryBuilder
+							.setUnitAmount(AmountType.WITH_TAX,
+									new BigDecimal(20),
+									Currency.getInstance("EUR"))
+							.setTaxPointDate(new Date())
+							.setCreditOrDebit(CreditOrDebit.DEBIT)
+							.setDescription("Description")
+							.setQuantity(new BigDecimal(1))
+							.setUnitOfMeasure("Kg").setProductUID(productUID)
+							.setContextUID(contextUID);
+				}
+
+				// private PTCreditNoteEntity buildCreditNote(
+				// DAOPTCreditNote daoPTCreditNote,
+				// PTCreditNote.Builder creditNoteBuilder) {
+				//
+				// creditNoteBuilder.clear();
+				//
+				// creditNoteBuilder.setBilled(false).setCancelled(false)
+				// .setSelfBilled(false).setHash("HASH")
+				// .setDate(new Date());
+				//
+				// return null;
+				// }
+				//
+				// private PTCreditNoteEntryEntity buildCreditNoteEntry(
+				// DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+				// PTCreditNoteEntry.Builder creditNoteEntryBuilder) {
+				//
+				// creditNoteEntryBuilder.clear();
+				//
+				// creditNoteEntryBuilder
+				// .setAmountType(AmountType.WITHOUT_TAX);
+				// return null;
+				// }
 
 			}.execute();
 		} catch (Exception e) {
