@@ -64,7 +64,7 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 					String series = parametersPT.getInvoiceSeries();
 
 					// get from DAO this info!
-					String seriesNumber = "";
+					Integer seriesNumber = -1;
 					byte[] previousHash = new byte[] {};
 
 					BigDecimal grossTotal = document.getAmountWithTax();
@@ -91,8 +91,7 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 					documentEntity.setSourceHash(GenerateHash
 							.generateSourceHash(invoiceDate, systemDate,
 									formatedNumber, grossTotal, previousHash));
-
-					// TODO: documentEntity.setSourceBilling(SOURCE_BILLING);
+					documentEntity.setSourceBilling(SOURCE_BILLING);
 
 					daoInvoice.create(documentEntity);
 

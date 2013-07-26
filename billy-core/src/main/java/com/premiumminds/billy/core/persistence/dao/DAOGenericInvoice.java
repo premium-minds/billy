@@ -22,4 +22,5 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 
 public interface DAOGenericInvoice extends DAO<GenericInvoiceEntity> {
 
+	public GenericInvoiceEntity getLatestInvoiceFromSeries(String series);
 }

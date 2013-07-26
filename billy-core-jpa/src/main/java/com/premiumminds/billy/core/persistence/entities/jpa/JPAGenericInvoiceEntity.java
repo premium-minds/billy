@@ -68,7 +68,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	protected String series;
 
 	@Column(name = "SERIES_NUMBER")
-	protected String seriesNumber;
+	protected Integer seriesNumber;
 
 	@ManyToOne(targetEntity = JPABusinessEntity.class)
 	@JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
@@ -298,12 +298,12 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public String getSeriesNumber() {
+	public Integer getSeriesNumber() {
 		return this.seriesNumber;
 	}
 
 	@Override
-	public void setSeriesNumber(String seriesNumber) {
+	public void setSeriesNumber(Integer seriesNumber) {
 		this.seriesNumber = seriesNumber;
 	}
 

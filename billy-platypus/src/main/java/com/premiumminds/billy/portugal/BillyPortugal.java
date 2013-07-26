@@ -23,6 +23,8 @@ import com.google.inject.Injector;
 import com.google.inject.persist.PersistModule;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.portugal.util.Builders;
 import com.premiumminds.billy.portugal.util.Services;
 import com.premiumminds.billy.portugal.util.Taxes;
@@ -65,4 +67,9 @@ public class BillyPortugal {
 		return this.injector.getInstance(clazz);
 	}
 
+	public static void main(String[] args) {
+		BillyPortugal b = new BillyPortugal();
+		DAOGenericInvoice dao = b.getInstance(DAOGenericInvoice.class);
+		GenericInvoiceEntity invoice = dao.getLatestInvoiceFromSeries("Hello");
+	}
 }

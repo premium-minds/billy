@@ -56,7 +56,7 @@ public interface GenericInvoice extends Entity {
 
 	public String getNumber();
 
-	public String getSeriesNumber();
+	public Integer getSeriesNumber();
 
 	public String getSeries();
 

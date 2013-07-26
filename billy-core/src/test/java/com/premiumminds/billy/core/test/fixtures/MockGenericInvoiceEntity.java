@@ -42,7 +42,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public String number;
 
 	public String series;
-	public String seriesNumber;
+	public Integer seriesNumber;
 	public Business business;
 	public CustomerEntity customer;
 	public SupplierEntity supplier;
@@ -336,12 +336,12 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public String getSeriesNumber() {
+	public Integer getSeriesNumber() {
 		return this.seriesNumber;
 	}
 
 	@Override
-	public void setSeriesNumber(String seriesNumber) {
+	public void setSeriesNumber(Integer seriesNumber) {
 		this.seriesNumber = seriesNumber;
 	}
 

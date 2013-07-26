@@ -29,7 +29,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 
 public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
-	public void setSeriesNumber(String seriesNumber);
+	public void setSeriesNumber(Integer seriesNumber);
 
 	public void setNumber(String number);
 
