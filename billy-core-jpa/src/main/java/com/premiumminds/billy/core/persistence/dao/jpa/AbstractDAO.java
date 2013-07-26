@@ -143,7 +143,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 			throws PersistenceException {
 		if (!entity.isNew()) {
 			throw new PersistenceException(
-					"Cannot create. The entity is maked as not new.");
+					"Cannot create. The entity is marked as not new.");
 		}
 		try {
 			return new TransactionWrapper<TInterface>(this) {

@@ -156,7 +156,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	@Column(name = "RECEIPT_NUMBER")
 	protected List<String> receiptNumbers;
 
-	@OneToMany(targetEntity = JPAGenericInvoiceEntity.class, cascade = {
+	@OneToMany(targetEntity = JPAGenericInvoiceEntryEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID", unique = true) })
 	protected List<GenericInvoiceEntry> entries;
