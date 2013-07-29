@@ -44,4 +44,5 @@ public class DAOPTGenericInvoiceEntryImpl extends DAOGenericInvoiceEntryImpl
 	protected Class<? extends JPAPTGenericInvoiceEntryEntity> getEntityClass() {
 		return JPAPTGenericInvoiceEntryEntity.class;
 	}
+
 }

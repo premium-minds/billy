@@ -32,9 +32,6 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 		PTInvoiceEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings({ "unchecked" })
