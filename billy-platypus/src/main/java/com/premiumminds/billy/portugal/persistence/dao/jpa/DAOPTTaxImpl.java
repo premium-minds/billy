@@ -18,14 +18,24 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity_;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity_;
 
 public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
@@ -42,5 +52,26 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 	@Override
 	protected Class<JPAPTTaxEntity> getEntityClass() {
 		return JPAPTTaxEntity.class;
+	}
+
+	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom,
+			Date validTo, String type) {
+		EntityManager em = this.getEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		
+		CriteriaQuery<JPAPTTaxEntity> cq = cb.createQuery(JPAPTTaxEntity.class);
+		
+		Root<JPAPTTaxEntity> tax = cq.from(JPAPTTaxEntity.class);
+
+		cq.select(tax);
+		cq.where(cb.and(cb.equal(tax.get(JPATaxEntity_.description), type), 
+				cb.equal(tax.get(JPATaxEntity_.validFrom), validFrom), 
+				cb.equal(tax.get(JPATaxEntity_.validTo), validTo), 
+				cb.equal(tax.get(JPATaxEntity_.active), true),
+				cb.equal(tax.get(JPAPTTaxEntity_.context), context)
+				));
+		TypedQuery<JPAPTTaxEntity> q = em.createQuery(cq);
+		List<JPAPTTaxEntity> list = q.getResultList();
+		return list;
 	}
 }

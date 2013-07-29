@@ -19,8 +19,11 @@
 package com.premiumminds.billy.portugal;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Currency;
 import java.util.Date;
+
+import org.joda.time.DateTime;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -396,6 +399,8 @@ public class PlatypusBootstrap {
 									Config.Key.Context.Portugal.Madeira.UUID);
 
 					// Taxes
+					Date from = new DateTime(2013, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
+					Date to = new DateTime(2014, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
 					final PTTaxEntity VAT_NORMAL_CONTINENTAL_PORTUGAL = this
 							.buildTaxEntity(
 									daoPTTax,
@@ -406,8 +411,8 @@ public class PlatypusBootstrap {
 									"IVA Normal Continente",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Continental.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.NORMAL_UUID);
 
@@ -421,8 +426,8 @@ public class PlatypusBootstrap {
 									"IVA Intermedio Continente",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_UUID);
 
@@ -436,8 +441,8 @@ public class PlatypusBootstrap {
 									"IVA Reduzido Continente",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Continental.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.REDUCED_UUID);
 
@@ -452,8 +457,8 @@ public class PlatypusBootstrap {
 									"IVA Normal Madeira",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_UUID);
 
@@ -467,8 +472,8 @@ public class PlatypusBootstrap {
 									"IVA Intermedio Madeira",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_UUID);
 
@@ -482,8 +487,8 @@ public class PlatypusBootstrap {
 									"IVA Reduzido Madeira",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_UUID);
 
@@ -497,8 +502,8 @@ public class PlatypusBootstrap {
 									"IVA Normal Azores",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Azores.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.NORMAL_UUID);
 
@@ -513,8 +518,8 @@ public class PlatypusBootstrap {
 									"IVA Intermedio Azores",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_UUID);
 
@@ -528,8 +533,8 @@ public class PlatypusBootstrap {
 									"IVA Reduzido Azores",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID);
 
@@ -543,8 +548,8 @@ public class PlatypusBootstrap {
 									"Isento de IVA",
 									"IVA",
 									Tax.TaxRateType.FLAT,
-									new Date(),
-									new Date(),
+									from,
+									to,
 									Config.Key.Context.Portugal.TAX_EXEMPT_VALUE,
 									Config.Key.Context.Portugal.TAX_EXEMPT_UUID);
 
