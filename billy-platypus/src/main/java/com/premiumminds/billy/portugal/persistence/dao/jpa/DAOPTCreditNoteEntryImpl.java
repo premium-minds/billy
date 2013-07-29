@@ -56,6 +56,7 @@ public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
 
 	@Override
 	public PTCreditNoteEntity checkCreditNote(PTInvoice invoice) {
+
 		CriteriaBuilder cb = this.getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<JPAPTCreditNoteEntity> cq = cb
 				.createQuery(JPAPTCreditNoteEntity.class);
@@ -78,7 +79,6 @@ public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
 				}
 			}
 		}
-
 		return null;
 	}
 }

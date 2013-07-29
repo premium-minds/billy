@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy core JPA.
- *
- * billy core JPA is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * 
+ * billy core JPA is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ * 
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -28,11 +28,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity_;
-import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.core.services.UID;
 
 public class DAOGenericInvoiceImpl extends
 		AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
@@ -53,35 +54,34 @@ public class DAOGenericInvoiceImpl extends
 		return new JPAGenericInvoiceEntity();
 	}
 
-	@Deprecated
-	@NotImplemented
-	public GenericInvoiceEntity getLatestInvoiceFromSeries(String series) {
+	@Override
+	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
+			String series) throws BillyRuntimeException {
+
+		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
+
+		if (list.size() != 0)
+			return (T) this.get(new UID((String) list.get(0)[0]));
+		else
+			throw new BillyRuntimeException();
+	}
+
+	protected <T extends JPAGenericInvoiceEntity> List<Object[]> findLastestUID(
+			Class<T> rootClass, String series) {
 		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
 
-		Root<JPAGenericInvoiceEntity> invoiceRoot = query
-				.from(JPAGenericInvoiceEntity.class);
+		Root<T> invoiceRoot = query.from(rootClass);
 
-		Path<String> uid = invoiceRoot.get(JPAGenericInvoiceEntity_.uid);
+		Path<String> uidPath = invoiceRoot.get(JPAGenericInvoiceEntity_.uid);
 
-		query.multiselect(uid, builder.max(invoiceRoot
+		query.multiselect(uidPath, builder.max(invoiceRoot
 				.get(JPAGenericInvoiceEntity_.seriesNumber)));
+
 		query.where(builder.equal(
 				invoiceRoot.get(JPAGenericInvoiceEntity_.series), series));
-		query.groupBy(uid);
+		query.groupBy(uidPath);
 
-		try {
-			List<Object[]> list = this.getEntityManager().createQuery(query)
-					.getResultList();
-
-			for (Object[] obj : list) {
-				System.out.println("\n\n###### THIS IS THE UID: " + obj[0]
-						+ "\n\n");
-			}
-
-		} catch (Exception e) {
-			System.out.println("######## No one home :P");
-		}
-		return null;
+		return this.getEntityManager().createQuery(query).getResultList();
 	}
 }

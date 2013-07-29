@@ -23,15 +23,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
 
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity_;
 
 public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 		DAOPTInvoice {
@@ -52,27 +49,14 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 	}
 
 	@Override
-	public PTInvoiceEntity getLatestInvoiceFromSeries(String series) {
-		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
+	public PTInvoiceEntity getLatestInvoiceFromSeries(String series)
+			throws BillyRuntimeException {
 
-		Root<JPAPTInvoiceEntity> invoiceRoot = query
-				.from(JPAPTInvoiceEntity.class);
+		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
 
-		Path<String> uid = invoiceRoot.get(JPAPTInvoiceEntity_.uid);
-
-		query.multiselect(uid,
-				builder.max(invoiceRoot.get(JPAPTInvoiceEntity_.seriesNumber)));
-		query.where(builder.equal(invoiceRoot.get(JPAPTInvoiceEntity_.series),
-				series));
-		query.groupBy(uid);
-
-		try {
-			List<Object[]> list = this.getEntityManager().createQuery(query)
-					.getResultList();
-		} catch (Exception e) {
-			return null;
-		}
-		return null;
+		if (list.size() != 0)
+			return (PTInvoiceEntity) this.get(new UID((String) list.get(0)[0]));
+		else
+			throw new BillyRuntimeException();
 	}
 }

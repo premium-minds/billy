@@ -49,19 +49,16 @@
 
 		<mapping-file>META-INF/orm-platypus.xml</mapping-file>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/billytest" />
+				value="jdbc:h2:/tmp/h2db" />
 			<property name="javax.persistence.jdbc.user" value="billytest" />
 			<property name="javax.persistence.jdbc.password" value="billytest" />
 
+	
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-
-			<property name="hibernate.show_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 		</properties>
 	</persistence-unit>
 
