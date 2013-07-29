@@ -32,7 +32,6 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.portugal.PlatypusBootstrap;
 import com.premiumminds.billy.portugal.PlatypusDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
@@ -54,21 +53,20 @@ import com.premiumminds.billy.portugal.util.Taxes;
 
 public class TestJPAPTCreditNote extends PTAbstractTest {
 
-	@Test
-	public void doTest() {
+	@Test(expected = com.premiumminds.billy.core.exceptions.BillyValidationException.class)
+	public void doTest() throws Exception {
 		Injector injector = Guice.createInjector(
 				new PlatypusDependencyModule(),
 				new PlatypusTestPersistenceDependencyModule());
 		injector.getInstance(PlatypusDependencyModule.Initializer.class);
 		injector.getInstance(PlatypusTestPersistenceDependencyModule.Initializer.class);
-		PlatypusBootstrap.execute(injector);
 		TestJPAPTInvoice.execute(injector);
 		execute(injector);
 		execute(injector);
 		// assert
 	}
 
-	public static void execute(final Injector injector) {
+	public static void execute(final Injector injector) throws Exception {
 		DAO<?> dao = injector.getInstance(DAOPTInvoice.class);
 		final Taxes taxes = new Taxes(injector);
 		final Contexts contexts = new Contexts(injector);
@@ -166,7 +164,7 @@ public class TestJPAPTCreditNote extends PTAbstractTest {
 
 			}.execute();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		}
 	}
 }
