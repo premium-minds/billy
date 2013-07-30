@@ -54,7 +54,7 @@ public class PTInvoiceEntryTestUtil {
 		DAOPTProduct daoPTProduct = injector.getInstance(DAOPTProduct.class);
 		context = contexts.portugal().portugal();
 
-		PTProductEntity newProduct = product.buildProduct();
+		PTProductEntity newProduct = product.getProductEntity();
 		daoPTProduct.create(newProduct);
 
 		invoiceEntryBuilder.clear();
