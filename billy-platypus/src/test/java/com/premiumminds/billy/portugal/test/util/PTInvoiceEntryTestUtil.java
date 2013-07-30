@@ -51,18 +51,15 @@ public class PTInvoiceEntryTestUtil {
 		shippingPoint = new PTShippingPointTestUtil(injector);
 	}
 
-	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
+	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(PTProductEntity product) {
 		PTInvoiceEntry.Builder invoiceEntryBuilder = injector
 				.getInstance(PTInvoiceEntry.Builder.class);
 		PTShippingPoint.Builder originBuilder = shippingPoint
 				.getShippingPointBuilder();
-		PTShippingPoint.Builder destinationBuilder = shippingPoint
-				.getShippingPointBuilder();
 		DAOPTProduct daoPTProduct = injector.getInstance(DAOPTProduct.class);
 		context = contexts.portugal().portugal();
 
-		PTProductEntity newProduct = product.getProductEntity();
-		daoPTProduct.create(newProduct);
+		daoPTProduct.create(product);
 
 		invoiceEntryBuilder.clear();
 
@@ -70,13 +67,24 @@ public class PTInvoiceEntryTestUtil {
 				.setUnitAmount(AmountType.WITH_TAX, amount, currency)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
-				.setDescription(newProduct.getDescription())
-				.setQuantity(quantity)
-				.setUnitOfMeasure(newProduct.getUnitOfMeasure())
-				.setProductUID(newProduct.getUID())
+				.setDescription(product.getDescription()).setQuantity(quantity)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
 				.setContextUID(context.getUID())
 				.setShippingOrigin(originBuilder);
 
 		return invoiceEntryBuilder;
+
+	}
+
+	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
+
+		PTProductEntity newProduct = product.getProductEntity();
+		return getInvoiceEntryBuilder(newProduct);
+	}
+
+	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(String productUID) {
+		PTProductEntity newProduct = product.getProductEntity(productUID);
+		return getInvoiceEntryBuilder(newProduct);
 	}
 }

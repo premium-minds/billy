@@ -40,6 +40,7 @@ public class PTInvoiceTestUtil {
 	private static final String FORMATED_NUMBER = "FS A/1";
 	private static final Integer SERIE_NUMBER = 1;
 	private static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
+	private static final String PRODUCT_UID = "PRODUCT_UID";
 
 	private Injector injector;
 	private PTInvoiceEntryTestUtil invoiceEntry;
@@ -51,16 +52,22 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
-		return getInvoiceEntity(SERIE, UID, SERIE_NUMBER, INVOICE_ENTRY_UID);
+		return getInvoiceEntity(SERIE, UID, SERIE_NUMBER, INVOICE_ENTRY_UID,
+				PRODUCT_UID);
+	}
+
+	public PTInvoiceEntity getInvoiceEntity(String productUID) {
+		return getInvoiceEntity(SERIE, UID, SERIE_NUMBER, INVOICE_ENTRY_UID,
+				productUID);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(String serie, String uid,
-			Integer seriesNumber, String entryUID) {
+			Integer seriesNumber, String entryUID, String productUID) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
 
 		PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
-				.getInvoiceEntryBuilder();
+				.getInvoiceEntryBuilder(productUID);
 
 		invoiceBuilder.clear();
 
