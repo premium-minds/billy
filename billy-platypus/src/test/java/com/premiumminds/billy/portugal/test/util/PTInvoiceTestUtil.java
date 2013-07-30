@@ -54,7 +54,7 @@ public class PTInvoiceTestUtil {
 				.getInstance(PTInvoice.Builder.class);
 
 		PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
-				.getInvoiceEntry();
+				.getInvoiceEntryBuilder();
 
 		invoiceBuilder.clear();
 

@@ -23,43 +23,48 @@ import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.util.Contexts;
 
-public class PTInvoiceEntryTestUtil {
+public class PTCreditNoteEntryTestUtil {
 
+	private final String product = "POTATOES";
+	private final String invoiceReference = "INVOICE";
 	private final BigDecimal amount = new BigDecimal(20);
 	private final Currency currency = Currency.getInstance("EUR");
 	private final BigDecimal quantity = new BigDecimal(1);
+	private final String reason = "Rotten potatoes";
 
 	private Injector injector;
-	private PTProductTestUtil product;
 	private Contexts contexts;
 	private PTRegionContext context;
 
-	public PTInvoiceEntryTestUtil(Injector injector) {
+	public PTCreditNoteEntryTestUtil(Injector injector) {
 		this.injector = injector;
-		product = new PTProductTestUtil(injector);
 		contexts = new Contexts(injector);
 	}
 
-	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
-		PTInvoiceEntry.Builder invoiceEntryBuilder = injector
-				.getInstance(PTInvoiceEntry.Builder.class);
-		DAOPTProduct daoPTProduct = injector.getInstance(DAOPTProduct.class);
+	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder() {
+		PTCreditNoteEntry.Builder creditNoteEntryBuilder = injector
+				.getInstance(PTCreditNoteEntry.Builder.class);
+
+		final PTProductEntity newProduct = (PTProductEntity) injector
+				.getInstance(DAOPTProduct.class).get(new UID(product));
+		final PTInvoiceEntity reference = (PTInvoiceEntity) injector
+				.getInstance(DAOPTInvoice.class).get(new UID(invoiceReference));
 		context = contexts.portugal().portugal();
 
-		PTProductEntity newProduct = product.buildProduct();
-		daoPTProduct.create(newProduct);
+		creditNoteEntryBuilder.clear();
 
-		invoiceEntryBuilder.clear();
-
-		invoiceEntryBuilder
+		creditNoteEntryBuilder
 				.setUnitAmount(AmountType.WITH_TAX, amount, currency)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
@@ -67,8 +72,9 @@ public class PTInvoiceEntryTestUtil {
 				.setQuantity(quantity)
 				.setUnitOfMeasure(newProduct.getUnitOfMeasure())
 				.setProductUID(newProduct.getUID())
-				.setContextUID(context.getUID());
+				.setContextUID(context.getUID()).setReason(reason)
+				.setReference(reference);
 
-		return invoiceEntryBuilder;
+		return creditNoteEntryBuilder;
 	}
 }

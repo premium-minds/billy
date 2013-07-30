@@ -18,14 +18,61 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Date;
+
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTCreditNoteTestUtil {
 
+	private final Boolean billed = false;
+	private final Boolean cancelled = false;
+	private final Boolean selfBill = false;
+	private final String hash = "HASH";
+	private final String sourceID = "SOURCE";
+	private final String uid = "CREDIT_NOTE";
+	private final String serie = "B";
+	private final String number = "FS B/1";
+	private final Integer seriesNumber = 1;
+	private final String creditNoteEntryUID = "CREDIT_NOTE_ENTRY";
+
 	private Injector injector;
+	private PTCreditNoteEntryTestUtil creditNoteEntry;
 
 	public PTCreditNoteTestUtil(Injector injector) {
 		this.injector = injector;
+		creditNoteEntry = new PTCreditNoteEntryTestUtil(injector);
 	}
 
+	public PTCreditNoteEntity getCreditNoteEntity() {
+		PTCreditNote.Builder creditNoteBuilder = injector
+				.getInstance(PTCreditNote.Builder.class);
+
+		PTCreditNoteEntry.Builder creditNoteEntryBuilder = creditNoteEntry
+				.getCreditNoteEntryBuilder();
+
+		creditNoteBuilder.clear();
+
+		creditNoteBuilder.setBilled(billed).setCancelled(cancelled)
+				.setSelfBilled(selfBill).setHash(hash).setDate(new Date())
+				.setSourceId(sourceID).addEntry(creditNoteEntryBuilder);
+
+		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) creditNoteBuilder
+				.build();
+		creditNote.setUID(new UID(uid));
+		creditNote.setSeries(serie);
+		creditNote.setSeriesNumber(seriesNumber);
+		creditNote.setNumber(number);
+
+		PTCreditNoteEntryEntity creditNoteEntry = (PTCreditNoteEntryEntity) creditNote
+				.getEntries().get(0);
+		creditNoteEntry.setUID(new UID(creditNoteEntryUID));
+		creditNoteEntry.getDocumentReferences().add(creditNote);
+
+		return creditNote;
+	}
 }
