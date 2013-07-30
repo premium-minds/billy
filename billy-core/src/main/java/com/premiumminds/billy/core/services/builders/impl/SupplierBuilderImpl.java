@@ -61,12 +61,16 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 
 	@Override
 	public TBuilder setTaxRegistrationNumber(String number) {
+		BillyValidator.notBlank(number,
+				SupplierBuilderImpl.LOCALIZER.getString("field.number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
 
 	@Override
 	public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder) {
+		BillyValidator.notNull(addressBuilder,
+				SupplierBuilderImpl.LOCALIZER.getString("field.address"));
 		this.getTypeInstance().getAddresses().add(addressBuilder.build());
 		return this.getBuilder();
 	}
@@ -74,7 +78,7 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder setMainAddress(Builder<T> addressBuilder) {
 		BillyValidator.mandatory(addressBuilder,
-				SupplierBuilderImpl.LOCALIZER.getString("field.address"));
+				SupplierBuilderImpl.LOCALIZER.getString("field.main_address"));
 		this.getTypeInstance().setMainAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -83,6 +87,8 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
+		BillyValidator.notNull(addressBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -91,6 +97,8 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder setShippingAddress(
 			Builder<T> addressBuilder) {
+		BillyValidator.notNull(addressBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.shipping_address"));
 		this.getTypeInstance().setShippingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -98,12 +106,16 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 
 	@Override
 	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
+		BillyValidator.notNull(contactBuilder,
+				SupplierBuilderImpl.LOCALIZER.getString("field.contact"));
 		this.getTypeInstance().getContacts().add(contactBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
 	public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder) {
+		BillyValidator.notNull(contactBuilder,
+				SupplierBuilderImpl.LOCALIZER.getString("field.main_contact"));
 		this.getTypeInstance().setMainContact(
 				(ContactEntity) contactBuilder.build());
 		return this.getBuilder();
@@ -112,6 +124,8 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	@Override
 	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder) {
+		BillyValidator.notNull(accountBuilder,
+				SupplierBuilderImpl.LOCALIZER.getString("field.account"));
 		this.getTypeInstance().getBankAccounts().add(accountBuilder.build());
 		return this.getBuilder();
 	}

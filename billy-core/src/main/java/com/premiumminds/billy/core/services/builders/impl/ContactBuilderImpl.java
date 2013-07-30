@@ -54,30 +54,40 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setTelephone(String telephone) {
+		BillyValidator.notBlank(telephone,
+				ContactBuilderImpl.LOCALIZER.getString("field.telephone"));
 		this.getTypeInstance().setTelephone(telephone);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setMobile(String mobile) {
+		BillyValidator.notBlank(mobile,
+				ContactBuilderImpl.LOCALIZER.getString("field.mobile"));
 		this.getTypeInstance().setMobile(mobile);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setFax(String fax) {
+		BillyValidator.notBlank(fax,
+				ContactBuilderImpl.LOCALIZER.getString("field.fax"));
 		this.getTypeInstance().setFax(fax);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setEmail(String email) {
+		BillyValidator.notBlank(email,
+				ContactBuilderImpl.LOCALIZER.getString("field.email"));
 		this.getTypeInstance().setEmail(email);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setWebsite(String website) {
+		BillyValidator.notBlank(website,
+				ContactBuilderImpl.LOCALIZER.getString("field.website"));
 		this.getTypeInstance().setWebsite(website);
 		return this.getBuilder();
 	}
