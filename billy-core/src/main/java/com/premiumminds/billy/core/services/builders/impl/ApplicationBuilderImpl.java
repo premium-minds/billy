@@ -102,6 +102,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setWebsiteAddress(String website) {
+		BillyValidator.notBlank(website,
+				ApplicationBuilderImpl.LOCALIZER.getString("field.website"));
 		this.getTypeInstance().setWebsiteAddress(website);
 		return this.getBuilder();
 	}

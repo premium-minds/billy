@@ -79,6 +79,8 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
 	@Override
 	public TBuilder setSourceHash(String source) {
+		BillyValidator.notBlank(source,
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.source_hash"));
 		this.getTypeInstance().setSourceHash(source);
 		return this.getBuilder();
 	}

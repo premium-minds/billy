@@ -54,6 +54,8 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 
 	@Override
 	public TBuilder setBankIdentifier(String bankId) {
+		BillyValidator.notBlank(bankId,
+				BankAccountBuilderImpl.LOCALIZER.getString("field.bank_id"));
 		this.getTypeInstance().setBankIdentifier(bankId);
 		return this.getBuilder();
 	}
@@ -69,6 +71,8 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 
 	@Override
 	public TBuilder setOwnerName(String ownerName) {
+		BillyValidator.notBlank(ownerName, BankAccountBuilderImpl.LOCALIZER
+				.getString("field.bank_owner_name"));
 		this.getTypeInstance().setOwnerName(ownerName);
 		return this.getBuilder();
 	}
@@ -80,6 +84,11 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 		BillyValidator.mandatory(b.getIBANNumber(), "field.iban");
 		BillyValidator.mandatory(b.getBankAccountNumber(),
 				"field.bank_account_number");
+		BillyValidator.notBlank(b.getOwnerName(),
+				BankAccountBuilderImpl.LOCALIZER
+						.getString("field.bank_owner_name"));
+		BillyValidator.notBlank(b.getBankIdentifier(),
+				BankAccountBuilderImpl.LOCALIZER.getString("field.bank_id"));
 	}
 
 	@SuppressWarnings("unchecked")

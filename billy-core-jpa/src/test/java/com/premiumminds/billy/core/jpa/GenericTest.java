@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.jpa;
 
 import java.math.BigDecimal;
 import java.util.Currency;
+import java.util.Date;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -133,7 +134,8 @@ public class GenericTest {
 				.setCurrency(Currency.getInstance("EUR"))
 				.setDescription("description").setDesignation("designation")
 				.setTaxRate(TaxRateType.PERCENTAGE, BigDecimal.TEN)
-				.setValidFrom(null).setValidTo(null).setValue(BigDecimal.TEN);
+				.setValidFrom(new Date()).setValidTo(new Date())
+				.setValue(BigDecimal.TEN);
 
 		daoTax.create((TaxEntity) taxBuilder.build());
 	}
