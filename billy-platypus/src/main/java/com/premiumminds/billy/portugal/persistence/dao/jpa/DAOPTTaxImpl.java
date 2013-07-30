@@ -67,6 +67,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 		cq.where(cb.and(cb.equal(tax.get(JPATaxEntity_.description), type), 
 				cb.equal(tax.get(JPATaxEntity_.validFrom), validFrom), 
 				cb.equal(tax.get(JPATaxEntity_.validTo), validTo), 
+				cb.lessThanOrEqualTo(tax.get(JPATaxEntity_.validTo), validFrom), 
 				cb.equal(tax.get(JPATaxEntity_.active), true),
 				cb.equal(tax.get(JPAPTTaxEntity_.context), context)
 				));
