@@ -40,8 +40,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntryEntity;
 
 public class TestPTInvoiceEntryBuilder extends PTAbstractTest {
 
-	private static final String PT_INVOICE_ENTRY_YML = "src/test/resources/PTInvoiceEntry.yml";
-	private static final String PT_INVOICE_YML = "src/test/resources/PTInvoice.yml";
+	private static final String PT_INVOICE_ENTRY_YML = YML_CONFIGS_DIR + "PTInvoiceEntry.yml";
+	private static final String PT_INVOICE_YML = YML_CONFIGS_DIR + "PTInvoice.yml";
 
 	@Test
 	public void doTest() {

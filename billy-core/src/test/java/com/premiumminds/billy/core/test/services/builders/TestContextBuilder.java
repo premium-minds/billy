@@ -32,7 +32,7 @@ import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
 
 public class TestContextBuilder extends AbstractTest {
 
-	private static final String CONTEXT_YML = "src/test/resources/Context.yml";
+	private static final String CONTEXT_YML = YML_CONFIGS_DIR + "Context.yml";
 
 	@Test
 	public void doTest() {

@@ -38,8 +38,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTTaxEntity;
 
 public class TestPTTaxBuilder extends PTAbstractTest {
 
-	private static final String PTTAX_YML = "src/test/resources/PTTax.yml";
-	private static final String REGIONCONTEXT_YML = "src/test/resources/PTContext.yml";
+	private static final String PTTAX_YML = YML_CONFIGS_DIR + "PTTax.yml";
+	private static final String REGIONCONTEXT_YML = YML_CONFIGS_DIR + "PTContext.yml";
 
 	@Test
 	public void doTestFlat() {

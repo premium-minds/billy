@@ -1,0 +1,34 @@
+====
+    Copyright (C) 2013 Premium Minds.
+
+    This file is part of billy platypus (PT Pack).
+
+    billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+====
+
+-----BEGIN RSA PRIVATE KEY-----
+MIICXQIBAAKBgQDGGuRPCdFS+KHUaMWAj/4BvgUz12GkNnHdWKJHk+EQ3CWgWE+6
+nC+T/+XrNnmrdcoDQxbKZ/mu0i+kBXhg5vWfjbmO7CFTwVhfzmOOtHkaSMJbtTtZ
+9BkRChkv/Yi6b+cWZIHwslRSZCMk+jctkv3SST9+7TGxQIBIforX6CfvRQIDAQAB
+AoGBALHh7cWm3CWziaRwG3/wS7WGyaceK9fG54FImBbLi1mXQ9Xx1k2K9xHewrXs
+6V1zW9yH/kvrBwDaTNrr6oagfEWek5bbiCCJWYajqJ4+2t+Hbdd0JH/prWyylIyv
+gjc3df32XgJnjLr2m7Gv1BD1YeVGWbx45X//2WZ7mXubit9BAkEA7IPm4Nk5Wjl3
+vo4QucqFzwC6jQYm2BwDJ2wqdDpLUTPuT++lYCIixdTtoR0g0ZFol65RrTWEgPOZ
+Y9teqrf4cQJBANZs65gtloXBSNUqSJT/lIof8rdENlCQdzWthmz8kVB82bIbkni4
+rTIsKTqrGyB7U7pikZy06vz14o8lgidQbhUCQH3q32E35OPXEpw9sEPpwYFqhucL
+rmSBzWAQoy2L14tc1XRzRp0+rzqZ2QVcp5tLCd8vLEbF5kxs5G4YXXcQSNECQE+R
+RW9H42Yozh0DvsFDgdwrdMaa0kjdAs9xX8OLiWTDn4ifAKA5b1OB3Z6+padM/Ena
+j8wFunk5yONzeLOb/e0CQQCBaxpttHB+KpdrzqgLdc7Hm/JG51JywavbVqLMNquB
+DUyqn3qn5je3NQ6o+lB1CXHNGXwxonsqLwTyM97JFVuN
+-----END RSA PRIVATE KEY-----

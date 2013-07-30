@@ -36,6 +36,7 @@ import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
 public class AbstractTest {
 
 	private static Injector injector;
+	protected final static String YML_CONFIGS_DIR = "src/test/resources/yml/";
 
 	@BeforeClass
 	public static void setUpClass() {

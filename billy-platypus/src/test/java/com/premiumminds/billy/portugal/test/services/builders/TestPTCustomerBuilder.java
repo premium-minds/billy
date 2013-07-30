@@ -37,7 +37,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTCustomerEntity;
 
 public class TestPTCustomerBuilder extends PTAbstractTest {
 
-	private static final String PTCUSTOMER_YML = "src/test/resources/PTCustomer.yml";
+	private static final String PTCUSTOMER_YML = YML_CONFIGS_DIR + "PTCustomer.yml";
 
 	@Test
 	public void doTest() {
