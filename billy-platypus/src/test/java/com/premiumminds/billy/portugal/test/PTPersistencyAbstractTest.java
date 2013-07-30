@@ -18,34 +18,27 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
-import com.google.inject.persist.PersistService;
-import com.google.inject.persist.jpa.JpaPersistModule;
+import org.junit.After;
+import org.junit.Before;
 
-public class PlatypusTestPersistenceDependencyModule extends AbstractModule {
+import com.google.inject.Guice;
+import com.premiumminds.billy.portugal.PlatypusBootstrap;
+import com.premiumminds.billy.portugal.PlatypusDependencyModule;
 
-	@Override
-	protected void configure() {
-		JpaPersistModule persistModule = new JpaPersistModule(
-				"BillyPortugalTestPersistenceUnit");
-		this.install(persistModule);
+public class PTPersistencyAbstractTest extends PTAbstractTest {
+
+	@Before
+	public void setUpModules() {
+		injector = Guice.createInjector(new PlatypusDependencyModule(),
+				new PlatypusTestPersistenceDependencyModule());
+		injector.getInstance(PlatypusDependencyModule.Initializer.class);
+		injector.getInstance(PlatypusTestPersistenceDependencyModule.Initializer.class);
+		PlatypusBootstrap.execute(injector);
 	}
 
-	public static class Initializer {
-
-		@Inject
-		public Initializer(PersistService persistService) {
-			persistService.start();
-		}
-	}
-
-	public static class Finalizer {
-
-		@Inject
-		public Finalizer(PersistService persistService) {
-			persistService.stop();
-		}
+	@After
+	public void tearDown() {
+		injector.getInstance(PlatypusTestPersistenceDependencyModule.Finalizer.class);
 	}
 
 }

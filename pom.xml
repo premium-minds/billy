@@ -48,18 +48,18 @@
 			<url>http://www.gnu.org/licenses/lgpl.html</url>
 		</license>
 	</licenses>
-	
+
 	<scm>
     	<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
     	<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
     	<url>git@github.com:premium-minds/billy.git</url>
     </scm>
-    
+
     <url>http://premium-minds.github.io/billy/</url>
-    
+
     <developers>
     </developers>
-    
+
 	<distributionManagement>
         <repository>
         	<id>premium-repository</id>
@@ -103,6 +103,7 @@
 					</includes>
 					<excludes>
 						<exclude>target/**</exclude>
+						<exclude>**/test/resources/keys/**</exclude>
 					</excludes>
 					<mapping>
 						<yml>SCRIPT_STYLE</yml>
@@ -126,7 +127,7 @@
 		</plugins>
 		<pluginManagement>
 			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. 
+				<!--This plugin's configuration is used to store Eclipse m2e settings only.
 					It has no influence on the Maven build itself.-->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
