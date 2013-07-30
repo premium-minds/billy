@@ -1,22 +1,3 @@
-/**
- * Copyright (C) 2013 Premium Minds.
- * 
- * This file is part of billy platypus (PT Pack).
- * 
- * billy platypus (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy platypus (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
- */
 package com.premiumminds.billy.portugal.test.services.jpa;
 
 import org.junit.Test;
@@ -27,13 +8,14 @@ import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.portugal.PlatypusBootstrap;
 import com.premiumminds.billy.portugal.PlatypusDependencyModule;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PlatypusTestPersistenceDependencyModule;
-import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTCustomerTestUtil;
 
-public class TestJPAPTInvoice extends PTAbstractTest {
+public class TestJPAPTCustomer extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
@@ -49,19 +31,19 @@ public class TestJPAPTInvoice extends PTAbstractTest {
 	public static void execute(final Injector injector) {
 		PlatypusBootstrap.execute(injector);
 		DAO<?> dao = injector.getInstance(DAOPTInvoice.class);
-		final PTInvoiceTestUtil invoice = new PTInvoiceTestUtil(injector);
+		final PTCustomerTestUtil customer = new PTCustomerTestUtil(injector);
 
 		try {
 			new TransactionWrapper<Void>(dao) {
 
 				@Override
 				public Void runTransaction() throws Exception {
-					DAOPTInvoice daoPTInvoice = injector
-							.getInstance(DAOPTInvoice.class);
+					DAOPTCustomer daoPTCustomer = injector
+							.getInstance(DAOPTCustomer.class);
 
-					PTInvoiceEntity newInvoice = invoice.getInvoiceEntity();
+					PTCustomerEntity newCustomer = customer.getCustomerEntity();
 
-					daoPTInvoice.create(newInvoice);
+					daoPTCustomer.create(newCustomer);
 
 					return null;
 				}
@@ -71,4 +53,5 @@ public class TestJPAPTInvoice extends PTAbstractTest {
 			e.printStackTrace();
 		}
 	}
+
 }

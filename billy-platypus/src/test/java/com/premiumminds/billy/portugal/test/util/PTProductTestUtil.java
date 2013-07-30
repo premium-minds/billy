@@ -43,7 +43,7 @@ public class PTProductTestUtil {
 		taxes = new Taxes(injector);
 	}
 
-	public PTProductEntity buildProduct() {
+	public PTProductEntity getProductEntity() {
 		PTProduct.Builder productBuilder = injector
 				.getInstance(PTProduct.Builder.class);
 		tax = (PTTaxEntity) taxes.continent().normal();
