@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.inject.Inject;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
@@ -62,12 +62,24 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 					Date invoiceDate = document.getDate();
 					Date systemDate = document.getCreateTimestamp();
 					String series = parametersPT.getInvoiceSeries();
+					Integer seriesNumber;
+					String previousHash;
 
-					// get from DAO this info!
-					Integer seriesNumber = -1;
-					byte[] previousHash = new byte[] {};
+					try {
+						PTInvoiceEntity entity = daoInvoice
+								.getLatestInvoiceFromSeries(series);
+						Date entityDate = entity.getDate();
 
-					BigDecimal grossTotal = document.getAmountWithTax();
+						if (entityDate.after(invoiceDate)) {
+							invoiceDate.setTime(entityDate.getTime() + 100);
+						}
+
+						seriesNumber = entity.getSeriesNumber() + 1;
+						previousHash = entity.getHash();
+					} catch (BillyRuntimeException bre) {
+						previousHash = null;
+						seriesNumber = 1;
+					}
 
 					String formatedNumber = PTInvoiceIssuingHandler.INVOICE_TYPE
 							+ " "
@@ -75,27 +87,28 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 							+ "/"
 							+ seriesNumber;
 
-					byte[] newHash = GenerateHash.generateHash(
+					String newHash = GenerateHash.generateHash(
 							parametersPT.getPrivateKey(),
 							parametersPT.getPublicKey(), invoiceDate,
-							systemDate, formatedNumber, grossTotal,
-							previousHash);
+							systemDate, formatedNumber,
+							document.getAmountWithTax(), previousHash);
 
 					PTInvoiceEntity documentEntity = (PTInvoiceEntity) document;
 
 					documentEntity.setNumber(formatedNumber);
 					documentEntity.setSeries(series);
 					documentEntity.setSeriesNumber(seriesNumber);
-					documentEntity.setHash(newHash.toString());
+					documentEntity.setHash(newHash);
 					documentEntity.setBilled(true);
 					documentEntity.setSourceHash(GenerateHash
 							.generateSourceHash(invoiceDate, systemDate,
-									formatedNumber, grossTotal, previousHash));
+									formatedNumber,
+									document.getAmountWithTax(), previousHash));
 					documentEntity.setSourceBilling(SOURCE_BILLING);
 
 					daoInvoice.create(documentEntity);
 
-					return document;
+					return (T) documentEntity;
 				}
 
 			}.execute();

@@ -29,16 +29,17 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceTestUtil {
 
-	private final Boolean billed = false;
-	private final Boolean cancelled = false;
-	private final Boolean selfBill = false;
-	private final String hash = "HASH";
-	private final String sourceID = "SOURCE";
-	private final String uid = "INVOICE";
-	private final String serie = "A";
-	private final String number = "FS A/1";
-	private final Integer seriesNumber = 1;
-	private final String invoiceEntryUID = "INVOICE_ENTRY";
+	private static final Date DATE = new Date();
+	private static final Boolean BILLED = false;
+	private static final Boolean CANCELLED = false;
+	private static final Boolean SELFBILL = false;
+	private static final String HASH = "HASH";
+	private static final String SOURCE_ID = "SOURCE";
+	private static final String UID = "INVOICE";
+	private static final String SERIE = "A";
+	private static final String FORMATED_NUMBER = "FS A/1";
+	private static final Integer SERIE_NUMBER = 1;
+	private static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
 
 	private Injector injector;
 	private PTInvoiceEntryTestUtil invoiceEntry;
@@ -50,6 +51,11 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
+		return getInvoiceEntity(SERIE, UID, SERIE_NUMBER, INVOICE_ENTRY_UID);
+	}
+
+	public PTInvoiceEntity getInvoiceEntity(String serie, String uid,
+			Integer seriesNumber, String entryUID) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -58,20 +64,22 @@ public class PTInvoiceTestUtil {
 
 		invoiceBuilder.clear();
 
-		invoiceBuilder.setBilled(billed).setCancelled(cancelled)
-				.setSelfBilled(selfBill).setHash(hash).setDate(new Date())
-				.setSourceId(sourceID).addEntry(invoiceEntryBuilder);
+		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
+				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
+				.setSourceId(SOURCE_ID).addEntry(invoiceEntryBuilder);
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
+
+		String formatedNumber = "FS " + serie + "/" + seriesNumber;
 
 		invoice.setUID(new UID(uid));
 		invoice.setSeries(serie);
 		invoice.setSeriesNumber(seriesNumber);
-		invoice.setNumber(number);
+		invoice.setNumber(formatedNumber);
 
 		PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) invoice
 				.getEntries().get(0);
-		invoiceEntry.setUID(new UID(invoiceEntryUID));
+		invoiceEntry.setUID(new UID(entryUID));
 		invoiceEntry.getDocumentReferences().add(invoice);
 
 		return invoice;

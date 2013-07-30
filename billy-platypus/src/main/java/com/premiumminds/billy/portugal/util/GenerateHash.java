@@ -28,17 +28,15 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.premiumminds.billy.portugal.services.certification.CertificationManager;
 import com.premiumminds.billy.portugal.services.certification.InvalidHashException;
 
 public class GenerateHash {
 
-	public static byte[] generateHash(@NotNull PrivateKey privateKey,
+	public static String generateHash(@NotNull PrivateKey privateKey,
 			@NotNull PublicKey publicKey, @NotNull Date invoiceDate,
 			@NotNull Date systemEntryDate, @NotNull String invoiceNumber,
-			@NotNull BigDecimal grossTotal, byte[] previousInvoiceHash)
+			@NotNull BigDecimal grossTotal, String previousInvoiceHash)
 			throws InvalidHashException, InvalidKeySpecException,
 			InvalidKeyException {
 
@@ -51,28 +49,23 @@ public class GenerateHash {
 		certificationManager.setPrivateKey(privateKey);
 		certificationManager.setPublicKey(publicKey);
 
-		return certificationManager.getHashBinary(sourceString);
+		return certificationManager.getHashBase64(sourceString);
 	}
 
 	public static String generateSourceHash(Date invoiceDate,
 			Date systemEntryDate, String invoiceNumber, BigDecimal grossTotal,
-			byte[] previousInvoiceHash) {
+			String previousInvoiceHash) {
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat dateTime = new SimpleDateFormat(
 				"yyyy-MM-dd'T'HH:mm:ss");
 
 		StringBuilder builder = new StringBuilder();
-		builder.append(date.format(invoiceDate))
-				.append(';')
-				.append(dateTime.format(systemEntryDate))
-				.append(';')
-				.append(invoiceNumber)
-				.append(';')
-				.append(grossTotal.setScale(2))
-				.append(';')
-				.append(previousInvoiceHash == null ? "" : Base64
-						.encodeBase64String(previousInvoiceHash));
+		builder.append(date.format(invoiceDate)).append(';')
+				.append(dateTime.format(systemEntryDate)).append(';')
+				.append(invoiceNumber).append(';')
+				.append(grossTotal.setScale(2)).append(';')
+				.append(previousInvoiceHash == null ? "" : previousInvoiceHash);
 
 		String sourceString = builder.toString();
 		return sourceString;
