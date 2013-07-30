@@ -18,13 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.inject.Inject;
-
-import org.joda.time.DateTime;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
@@ -33,7 +27,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
 import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
