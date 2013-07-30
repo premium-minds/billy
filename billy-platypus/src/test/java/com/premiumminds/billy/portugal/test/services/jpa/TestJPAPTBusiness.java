@@ -1,5 +1,6 @@
 package com.premiumminds.billy.portugal.test.services.jpa;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.inject.Guice;
@@ -17,19 +18,24 @@ import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 
 public class TestJPAPTBusiness extends PTAbstractTest {
 
-	@Test
-	public void doTest() {
-		Injector injector = Guice.createInjector(
-				new PlatypusDependencyModule(),
+	private Injector injector;
+
+	@Before
+	public void initialize() {
+		injector = Guice.createInjector(new PlatypusDependencyModule(),
 				new PlatypusTestPersistenceDependencyModule());
 		injector.getInstance(PlatypusDependencyModule.Initializer.class);
 		injector.getInstance(PlatypusTestPersistenceDependencyModule.Initializer.class);
+		PlatypusBootstrap.execute(injector);
+	}
+
+	@Test
+	public void doTest() {
 		execute(injector);
 		// assert
 	}
 
 	public static void execute(final Injector injector) {
-		PlatypusBootstrap.execute(injector);
 		DAO<?> dao = injector.getInstance(DAOPTInvoice.class);
 		final PTBusinessTestUtil business = new PTBusinessTestUtil(injector);
 
