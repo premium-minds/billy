@@ -68,6 +68,8 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setDesignation(String designation) {
+		BillyValidator.notBlank(designation,
+				TaxBuilderImpl.LOCALIZER.getString("field.de signation"));
 		this.getTypeInstance().setDesignation(designation);
 		return this.getBuilder();
 	}
@@ -90,18 +92,24 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setValidFrom(Date from) {
+		BillyValidator.notNull(from,
+				TaxBuilderImpl.LOCALIZER.getString("field.valid_from"));
 		this.getTypeInstance().setValidFrom(from);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setValidTo(Date to) {
+		BillyValidator.notNull(to,
+				TaxBuilderImpl.LOCALIZER.getString("field.valid_to"));
 		this.getTypeInstance().setValidTo(to);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setValue(BigDecimal value) {
+		BillyValidator.notNull(value,
+				TaxBuilderImpl.LOCALIZER.getString("field.value"));
 		this.getTypeInstance().setValue(value);
 		return this.getBuilder();
 	}
@@ -132,6 +140,8 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setCurrency(Currency currency) {
+		BillyValidator.notNull(currency,
+				TaxBuilderImpl.LOCALIZER.getString("field.currency"));
 		this.getTypeInstance().setCurrency(currency);
 		return this.getBuilder();
 	}
