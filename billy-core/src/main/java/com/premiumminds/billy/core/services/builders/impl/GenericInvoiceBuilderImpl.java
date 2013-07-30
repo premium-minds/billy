@@ -144,8 +144,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		Validate.notNull(destinationBuilder,
 				GenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.shipping_destination"));
-		this.getTypeInstance().setShippingDestination(
-				destinationBuilder.build());
+		this.getTypeInstance().setShippingDestination(destinationBuilder.build());
 		return this.getBuilder();
 	}
 
