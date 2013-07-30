@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
@@ -64,10 +65,12 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
 		cq.select(tax);
 		cq.where(cb.and(cb.equal(tax.get(JPAPTTaxEntity_.description), type),
-				cb.equal(tax.get(JPAPTTaxEntity_.validFrom), validFrom),
-				cb.equal(tax.get(JPAPTTaxEntity_.validTo), validTo),
-				cb.equal(tax.get(JPAPTTaxEntity_.active), true),
-				cb.equal(tax.get(JPAPTTaxEntity_.context), context)));
+				cb.equal(tax.get(JPAPTTaxEntity_.validFrom), validFrom), cb
+						.equal(tax.get(JPAPTTaxEntity_.validTo), validTo), cb
+						.lessThanOrEqualTo(tax.get(JPAPTTaxEntity_.validTo),
+								validFrom), cb.equal(
+						tax.get(JPAPTTaxEntity_.active), true), cb.equal(
+						tax.get(JPAPTTaxEntity_.context), context)));
 		TypedQuery<JPAPTTaxEntity> q = em.createQuery(cq);
 		List<JPAPTTaxEntity> list = q.getResultList();
 		return list;
