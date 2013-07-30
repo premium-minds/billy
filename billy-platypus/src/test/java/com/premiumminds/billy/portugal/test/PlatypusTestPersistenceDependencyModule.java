@@ -16,18 +16,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.test;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
+import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.persist.PersistService;
+import com.google.inject.persist.jpa.JpaPersistModule;
 
-public interface DAOPTGenericInvoice extends DAOGenericInvoice {
-
-	@Override
-	public PTGenericInvoiceEntity getEntityInstance();
+public class PlatypusTestPersistenceDependencyModule extends AbstractModule {
 
 	@Override
-	public PTGenericInvoiceEntity getLatestInvoiceFromSeries(String series)
-			throws BillyRuntimeException;
+	protected void configure() {
+		JpaPersistModule persistModule = new JpaPersistModule(
+				"BillyPortugalTestPersistenceUnit");
+		this.install(persistModule);
+	}
+
+	public static class Initializer {
+
+		@Inject
+		public Initializer(PersistService persistService) {
+			persistService.start();
+		}
+	}
+
 }

@@ -312,7 +312,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 										mc.getRoundingMode())) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
-
+		
 		Validate.isTrue(i.getAmountWithTax().compareTo(BigDecimal.ZERO) > 0
 				&& i.getAmountWithoutTax().compareTo(BigDecimal.ZERO) >= 0
 				&& i.getTaxAmount().compareTo(BigDecimal.ZERO) > 0,

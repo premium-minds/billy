@@ -9,3 +9,4 @@ target/**
 .project
 .classpath
 billy/src/main/filters/*.properties
+data-sources.xml
