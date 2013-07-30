@@ -32,7 +32,7 @@ import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 
 public class TestSupplierBuilder extends AbstractTest {
 
-	private static final String SUPPLIER_YML = "src/test/resources/Supplier.yml";
+	private static final String SUPPLIER_YML = YML_CONFIGS_DIR + "Supplier.yml";
 
 	@Test
 	public void doTest() {

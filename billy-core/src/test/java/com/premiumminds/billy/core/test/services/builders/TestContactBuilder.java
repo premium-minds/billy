@@ -29,7 +29,7 @@ import com.premiumminds.billy.core.test.fixtures.MockContactEntity;
 
 public class TestContactBuilder extends AbstractTest {
 
-	private static final String CONTACT_YML = "src/test/resources/Contact.yml";
+	private static final String CONTACT_YML = YML_CONFIGS_DIR + "Contact.yml";
 
 	@Test
 	public void doTest() {

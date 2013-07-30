@@ -45,8 +45,8 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 
 	private MathContext mc = BillyMathContext.get();
 	private BigDecimal qnt = new BigDecimal("46");
-	private static final String INVOICE_YML = "src/test/resources/GenericInvoice.yml";
-	private static final String ENTRY_YML = "src/test/resources/GenericInvoiceEntry.yml";
+	private static final String INVOICE_YML = YML_CONFIGS_DIR + "GenericInvoice.yml";
+	private static final String ENTRY_YML = YML_CONFIGS_DIR + "GenericInvoiceEntry.yml";
 	private BigDecimal tax = new BigDecimal("0.23");
 
 	@Test
