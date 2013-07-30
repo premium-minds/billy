@@ -16,7 +16,6 @@ public class PTApplicationTestUtil {
 	private final Integer number = 1;
 	private final String version = "1";
 	private final String website = "http://app.ex";
-	private final String uid = "APPLICATION";
 
 	private Injector injector;
 	private PTContactTestUtil contact;
