@@ -46,6 +46,9 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 		dao.create(invoiceEntity);
 		dao.create(invoiceUtil.getInvoiceEntity(invoiceEntity.getSeries(),
 				"test uid", LAST_NUMBER, "entry uid", "limoes"));
+		// dao.create(invoiceUtil.getInvoiceEntity(invoiceEntity.getSeries(),
+		// "test uid", LAST_NUMBER, "entry uid",
+		// Arrays.asList("Limoes", "Cenouras", "Carapaus")));
 	}
 
 	@Test

@@ -1,24 +1,26 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -61,20 +63,43 @@ public class PTInvoiceTestUtil {
 				productUID);
 	}
 
+	public PTInvoiceEntity getInvoiceEntity(List<String> productsUID) {
+		return getInvoiceEntity(SERIE, UID, SERIE_NUMBER, INVOICE_ENTRY_UID,
+				productsUID);
+	}
+
+	public PTInvoiceEntity getInvoiceEntity(String serie, String uid,
+			Integer seriesNumber, String entryUID, List<String> productsUID) {
+		PTInvoice.Builder invoiceBuilder = getInvoiceBuilder();
+
+		PTInvoiceEntry.Builder invoiceEntryBuilder = null;
+
+		for (String s : productsUID) {
+			invoiceEntryBuilder = invoiceEntry.getInvoiceEntryBuilder(s);
+
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+
+		return completeInvoice(serie, uid, seriesNumber, entryUID,
+				invoiceBuilder);
+	}
+
 	public PTInvoiceEntity getInvoiceEntity(String serie, String uid,
 			Integer seriesNumber, String entryUID, String productUID) {
-		PTInvoice.Builder invoiceBuilder = injector
-				.getInstance(PTInvoice.Builder.class);
+		PTInvoice.Builder invoiceBuilder = getInvoiceBuilder();
 
 		PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
 				.getInvoiceEntryBuilder(productUID);
 
-		invoiceBuilder.clear();
+		invoiceBuilder.addEntry(invoiceEntryBuilder);
 
-		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
-				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
-				.setSourceId(SOURCE_ID).addEntry(invoiceEntryBuilder);
+		return completeInvoice(serie, uid, seriesNumber, entryUID,
+				invoiceBuilder);
+	}
 
+	private PTInvoiceEntity completeInvoice(String serie, String uid,
+			Integer seriesNumber, String entryUID,
+			PTInvoice.Builder invoiceBuilder) {
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
 
 		String formatedNumber = "FS " + serie + "/" + seriesNumber;
@@ -88,7 +113,17 @@ public class PTInvoiceTestUtil {
 				.getEntries().get(0);
 		invoiceEntry.setUID(new UID(entryUID));
 		invoiceEntry.getDocumentReferences().add(invoice);
-
 		return invoice;
+	}
+
+	private PTInvoice.Builder getInvoiceBuilder() {
+		PTInvoice.Builder invoiceBuilder = injector
+				.getInstance(PTInvoice.Builder.class);
+		invoiceBuilder.clear();
+
+		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
+				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
+				.setSourceId(SOURCE_ID);
+		return invoiceBuilder;
 	}
 }
