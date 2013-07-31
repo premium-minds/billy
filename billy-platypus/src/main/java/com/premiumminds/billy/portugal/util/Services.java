@@ -23,7 +23,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
-import com.premiumminds.billy.portugal.services.documents.PTIssuingParams;
+import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class Services {
