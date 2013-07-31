@@ -26,5 +26,6 @@ validTo: 2013-12-12
 taxRateType : FLAT
 percentageRateValue : 23
 flatRateAmount : 50
+vatCode : EXEMPT
 #currency : EUR
 

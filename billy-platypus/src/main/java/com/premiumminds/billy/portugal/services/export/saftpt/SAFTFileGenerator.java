@@ -1,21 +1,20 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
- * This file is part of billy.
- * 
- * billy platypus (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy platypus (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
+ *
+ * This file is part of billy platypus (PT Pack).
+ *
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.export.saftpt;
 
@@ -189,7 +188,9 @@ public class SAFTFileGenerator {
 					}
 
 					// Taxes
-					List<PTTaxEntity> taxes = daoPTTax.getAllTaxes();
+					@SuppressWarnings("unchecked")
+					List<PTTaxEntity> taxes = (List<PTTaxEntity>) (List<?>) daoPTTax
+							.getAllTaxes();
 					TaxTable SAFTTaxTable = generateTaxTable(taxes);
 					mf.getGeneralLedgerOrCustomerOrSupplier().add(SAFTTaxTable);
 					SAFTFile.setMasterFiles(mf);
@@ -439,13 +440,13 @@ public class SAFTFileGenerator {
 				tte.setTaxExpirationDate(formatDate(taxEntity.getValidTo()));
 			}
 
-			if (taxEntity.getTaxRateType().equals(TaxType.STAMP_DUTY)
-					&& taxEntity.getUnit().equals(Unit.VALUE)) {
-				tte.setTaxAmount(taxEntity.getValue());
-			} else if (taxEntity.getType().equals(TaxType.VAT)
-					&& taxEntity.getUnit().equals(Unit.PERCENTAGE)) {
-				tte.setTaxPercentage(taxEntity.getValue());
-			}
+			// if (taxEntity.getTaxRateType().equals(TaxType.STAMP_DUTY)
+			// && taxEntity.getUnit().equals(Unit.VALUE)) {
+			// tte.setTaxAmount(taxEntity.getValue());
+			// } else if (taxEntity.getType().equals(TaxType.VAT)
+			// && taxEntity.getUnit().equals(Unit.PERCENTAGE)) {
+			// tte.setTaxPercentage(taxEntity.getValue());
+			// }
 
 			taxTable.getTaxTableEntry().add(tte);
 		}

@@ -39,7 +39,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTTaxEntity;
 public class TestPTTaxBuilder extends PTAbstractTest {
 
 	private static final String PTTAX_YML = YML_CONFIGS_DIR + "PTTax.yml";
-	private static final String REGIONCONTEXT_YML = YML_CONFIGS_DIR + "PTContext.yml";
+	private static final String REGIONCONTEXT_YML = YML_CONFIGS_DIR
+			+ "PTContext.yml";
 
 	@Test
 	public void doTestFlat() {
@@ -60,7 +61,7 @@ public class TestPTTaxBuilder extends PTAbstractTest {
 				.setValidFrom(mockTax.getValidFrom())
 				.setValidTo(mockTax.getValidTo())
 				.setTaxRate(mockTax.getTaxRateType(), amount)
-				.setValue(mockTax.getValue());
+				.setValue(mockTax.getValue()).setVATCode(mockTax.getVATCode());
 
 		PTTax tax = builder.build();
 
