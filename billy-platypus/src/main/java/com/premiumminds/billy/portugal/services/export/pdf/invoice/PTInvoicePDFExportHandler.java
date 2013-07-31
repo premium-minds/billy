@@ -69,9 +69,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 		public static final String BUSINESS_FINANCIAL_ID = "financialId";
 		public static final String BUSINESS_ADDRESS = "address";
 		public static final String BUSINESS_ADDRESS_COUNTRY = "country";
-		public static final String BUSINESS_ADDRESS_LINE1 = "lineone";
-		public static final String BUSINESS_ADDRESS_LINE2 = "linetwo";
-		public static final String BUSINESS_ADDRESS_LINE3 = "linethree";
+		public static final String BUSINESS_ADDRESS_DETAILS = "details";
 		public static final String BUSINESS_ADDRESS_CITY = "city";
 		public static final String BUSINESS_ADDRESS_REGION = "region";
 		public static final String BUSINESS_ADDRESS_POSTAL_CODE = "postalcode";
@@ -88,9 +86,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 
 		public static final String CUSTOMER_BILLING_ADDRESS = "address";
 		public static final String CUSTOMER_BILLING_ADDRESS_COUNTRY = "country";
-		public static final String CUSTOMER_BILLING_ADDRESS_LINE1 = "lineone";
-		public static final String CUSTOMER_BILLING_ADDRESS_LINE2 = "linetwo";
-		public static final String CUSTOMER_BILLING_ADDRESS_LINE3 = "linethree";
+		public static final String CUSTOMER_BILLING_ADDRESS_DETAILS = "details";
 		public static final String CUSTOMER_BILLING_ADDRESS_CITY = "city";
 		public static final String CUSTOMER_BILLING_ADDRESS_REGION = "region";
 		public static final String CUSTOMER_BILLING_ADDRESS_POSTAL_CODE = "postalcode";
@@ -172,12 +168,8 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 		Node<String, String> businessAddress = businessInfo.addChild(ParamKeys.BUSINESS_ADDRESS);
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_COUNTRY
 				, entity.getBusiness().getAddress().getISOCountry());
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_LINE1
+		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_DETAILS
 				, entity.getBusiness().getAddress().getDetails());
-//		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_LINE2
-//				, entity.getBusiness().getAddress().getAddressLine2());
-//		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_LINE3
-//				, entity.getBusiness().getAddress().getAddressLine3());
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_CITY
 				, entity.getBusiness().getAddress().getCity());
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_REGION
@@ -206,12 +198,8 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 			Node<String, String> customerAddress = customer.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS);
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY
 					, entity.getCustomer().getBillingAddress().getISOCountry());
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_LINE1
+			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS
 					, entity.getCustomer().getBillingAddress().getDetails());
-			//customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_LINE2
-				//	, entity.getCustomer().getBillingAddress().getAddressLine2());
-			//customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_LINE3
-				//	, entity.getCustomer().getBillingAddress().getAddressLine3());
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY
 					, entity.getCustomer().getBillingAddress().getCity());
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_REGION
