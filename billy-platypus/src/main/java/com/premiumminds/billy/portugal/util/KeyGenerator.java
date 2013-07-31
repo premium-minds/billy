@@ -79,7 +79,7 @@ public class KeyGenerator {
 		return getKeyPair().getPrivate();
 	}
 
-	public PublicKey getPublicKey(String fullPath) {
+	public PublicKey getPublicKey() {
 		return getKeyPair().getPublic();
 	}
 
