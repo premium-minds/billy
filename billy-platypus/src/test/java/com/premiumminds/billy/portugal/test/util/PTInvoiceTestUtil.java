@@ -57,15 +57,17 @@ public class PTInvoiceTestUtil {
 				INVOICE_ENTRY_UID, PRODUCT_UID);
 	}
 
-	public PTInvoiceEntity getInvoiceEntity(String productUID) {
+	public PTInvoiceEntity getInvoiceEntity(String... productUIDs) {
 		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
-				INVOICE_ENTRY_UID, productUID);
+				INVOICE_ENTRY_UID, productUIDs);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
-			String uid, Integer seriesNumber, String entryUID, String productUID) {
-		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType,
-				productUID, entryUID, uid);
+			String uid, Integer seriesNumber, String entryUID,
+			String... productUIDs) {
+
+		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType, entryUID,
+				uid, productUIDs);
 
 		String formatedNumber = invoiceType.toString() + " " + serie + "/"
 				+ seriesNumber;
@@ -78,18 +80,21 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
-			String productUID, String entryUID, String uid) {
+			String entryUID, String uid, String... productUIDs) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
 
-		PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
-				.getInvoiceEntryBuilder(productUID);
-
 		invoiceBuilder.clear();
+
+		for (String productUID : productUIDs) {
+			PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
+					.getInvoiceEntryBuilder(productUID);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
 
 		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
 				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
-				.setSourceId(SOURCE_ID).addEntry(invoiceEntryBuilder);
+				.setSourceId(SOURCE_ID);
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
 		invoice.setUID(new UID(uid));
@@ -102,4 +107,5 @@ public class PTInvoiceTestUtil {
 
 		return invoice;
 	}
+
 }

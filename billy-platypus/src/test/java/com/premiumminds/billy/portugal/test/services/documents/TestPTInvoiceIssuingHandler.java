@@ -68,7 +68,7 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 		PTInvoiceIssuingHandler handler = getInstance(PTInvoiceIssuingHandler.class);
 		parameters.setInvoiceSeries(series);
 		handler.issue(new PTInvoiceTestUtil(injector).getSimpleInvoiceEntity(
-				type, productUID, ENTRY_UID, uid), parameters);
+				type, ENTRY_UID, uid, productUID), parameters);
 	}
 
 	@Test
