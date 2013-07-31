@@ -18,38 +18,85 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
-import com.premiumminds.billy.portugal.test.PTAbstractTest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-public class TestPTInvoiceIssuingHandler extends PTAbstractTest {
+import org.junit.Before;
+import org.junit.Test;
 
-	// private PTIssuingParams handlerParameters = new PTIssuingParamsImpl();
-	// private PTInvoice invoice;
-	//
-	// @Before
-	// public void setUpParamenters() {
-	// handlerParameters.setInvoiceSeries("A");
-	// handlerParameters.setPrivateKey(null);
-	// handlerParameters.setPublicKey(null);
-	// }
-	//
-	// @Before
-	// public void setUpInvoice() {
-	// }
-	//
-	// private void issueInvoice() {
-	// PTInvoiceIssuingHandler handler =
-	// getInstance(PTInvoiceIssuingHandler.class);
-	//
-	// try {
-	// handler.issue(invoice, handlerParameters);
-	// } catch (DocumentIssuingException e) {
-	// // fail();
-	// }
-	// }
-	//
-	// @Test
-	// public void testIssuingHandler() {
-	// issueInvoice();
-	// }
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
+import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
+import com.premiumminds.billy.portugal.services.documents.PTIssuingParams;
+import com.premiumminds.billy.portugal.services.documents.PTIssuingParamsImpl;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
+import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.util.KeyGenerator;
 
+public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
+
+	private static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
+	private PTIssuingParams parameters;
+	private final static String PRODUCT_UID = "Prod_invoiceHandle_uid";
+	private final static String ENTRY_UID = "Entry_invoiceHandle_uid";
+	private final static TYPE DEFAULT_TYPE = TYPE.FT;
+	private final static String SOURCE_ID = "P";
+	private static final String INVOICE_UID = "invoice_issueHandler_uid";
+	private static final String DEFAULT_SERIES = "DEFAULT";
+
+	@Before
+	public void setUpParamenters() {
+		KeyGenerator generator = new KeyGenerator(PRIVATE_KEY_DIR);
+
+		parameters = new PTIssuingParamsImpl();
+		parameters.setPrivateKey(generator.getPrivateKey());
+		parameters.setPublicKey(generator.getPublicKey());
+
+		try {
+			issueNewInvoice(INVOICE_UID, PRODUCT_UID, DEFAULT_SERIES,
+					DEFAULT_TYPE);
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void issueNewInvoice(String uid, String productUID, String series,
+			TYPE type) throws DocumentIssuingException {
+		PTInvoiceIssuingHandler handler = getInstance(PTInvoiceIssuingHandler.class);
+		parameters.setInvoiceSeries(series);
+		handler.issue(new PTInvoiceTestUtil(injector).getSimpleInvoiceEntity(
+				type, productUID, ENTRY_UID, uid), parameters);
+	}
+
+	@Test
+	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+		PTInvoice issuedInvoice = (PTInvoice) getInstance(DAOPTInvoice.class)
+				.get(new UID(INVOICE_UID));
+
+		assertEquals(DEFAULT_SERIES, issuedInvoice.getSeries());
+		assertTrue(1 == issuedInvoice.getSeriesNumber());
+		String formatedNumber = DEFAULT_TYPE + " " + DEFAULT_SERIES + "/1";
+		assertEquals(formatedNumber, issuedInvoice.getNumber());
+	}
+
+	/**
+	 * Test issue of invoice of different type in same series
+	 * 
+	 * @throws DocumentIssuingException
+	 */
+	@Test(expected = DocumentIssuingException.class)
+	public void testIssuedInvoiceFailure() throws DocumentIssuingException {
+		String series = "NEW_SERIES";
+		String type = "FS";
+		String UID1 = "invoice_uid_1";
+		String UID2 = "invoice_uid_2";
+		String PUID1 = "product_uid_1";
+		String PUID2 = "product_uid_2";
+
+		issueNewInvoice(UID1, PUID1, series, DEFAULT_TYPE);
+		issueNewInvoice(UID2, PUID2, series, TYPE.FS);
+	}
 }
