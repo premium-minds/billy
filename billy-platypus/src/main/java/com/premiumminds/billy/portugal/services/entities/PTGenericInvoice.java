@@ -31,6 +31,10 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceBu
 
 public interface PTGenericInvoice extends GenericInvoice {
 
+	public static enum TYPE {
+		FT, FS, NC, ND
+	}
+
 	public static class Builder
 			extends
 			PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
@@ -43,6 +47,8 @@ public interface PTGenericInvoice extends GenericInvoice {
 					daoPTSupplier);
 		}
 	}
+
+	public TYPE getType();
 
 	public boolean isCancelled();
 

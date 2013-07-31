@@ -16,28 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.services.documents.exceptions;
 
-import java.util.List;
+public class InvalidInvoiceDateException extends PTDocumentIssuingException {
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+	private static final long serialVersionUID = 1L;
 
-public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
-		PTGenericInvoice {
+	public InvalidInvoiceDateException() {
+		super("Invoice creation timestamp must before than the invoice date");
+	}
 
-	public void setType(TYPE type);
-
-	public void setCancelled(boolean cancelled);
-
-	public void setBilled(boolean billed);
-
-	public void setHash(String hash);
-
-	public void setSourceHash(String source);
-
-	public void setSourceBilling(String sourceBilling);
-
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
 }

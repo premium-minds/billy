@@ -16,33 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.documents;
+package com.premiumminds.billy.portugal.services.documents.util;
 
-import java.security.PrivateKey;
-import java.security.PublicKey;
-
-import com.premiumminds.billy.core.services.documents.IssuingParams;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
 
-public interface PTIssuingParams extends IssuingParams {
+public interface PTCreditNoteParams extends PTIssuingParams {
 
-	public static class Keys {
+	public void setCreditNoteRef(UID uid);
 
-		public static final String PRIVATE_KEY = "private_key";
-		public static final String PUBLIC_KEY = "public_key";
-		public static final String INVOICE_SERIES = "invoice_series";
-	}
+	public void setCreditNoteReason(String reason);
 
-	public String getInvoiceSeries() throws ParameterNotFoundException;
+	public UID getCreditNoteRef() throws ParameterNotFoundException;
 
-	public PrivateKey getPrivateKey() throws ParameterNotFoundException;
-
-	public PublicKey getPublicKey() throws ParameterNotFoundException;
-
-	public void setPublicKey(PublicKey privateKey);
-
-	public void setPrivateKey(PrivateKey privateKey);
-
-	public void setInvoiceSeries(String series);
+	public String getCreditNoteReason() throws ParameterNotFoundException;
 
 }

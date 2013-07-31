@@ -16,28 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.services.documents.exceptions;
 
-import java.util.List;
+public class InvalidInvoiceTypeException extends PTDocumentIssuingException {
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+	private static final long serialVersionUID = 1L;
 
-public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
-		PTGenericInvoice {
-
-	public void setType(TYPE type);
-
-	public void setCancelled(boolean cancelled);
-
-	public void setBilled(boolean billed);
-
-	public void setHash(String hash);
-
-	public void setSourceHash(String source);
-
-	public void setSourceBilling(String sourceBilling);
-
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
+	public InvalidInvoiceTypeException(String series, String type,
+			String expectedType) {
+		super("Invalid invoice type " + type + "in series " + series
+				+ " when expected " + expectedType);
+	}
 }

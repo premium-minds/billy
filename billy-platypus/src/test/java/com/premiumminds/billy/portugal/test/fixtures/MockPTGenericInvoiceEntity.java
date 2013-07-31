@@ -33,6 +33,17 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
 	protected String hash;
 	protected String sourceHash;
 	protected String sourceBilling;
+	protected TYPE type;
+
+	@Override
+	public TYPE getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(TYPE type) {
+		this.type = type;
+	}
 
 	@Override
 	public String getSourceBilling() {

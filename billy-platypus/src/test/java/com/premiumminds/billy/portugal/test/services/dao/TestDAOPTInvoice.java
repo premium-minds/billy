@@ -26,6 +26,7 @@ import org.junit.Test;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
@@ -35,7 +36,8 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 	private PTInvoiceTestUtil invoiceUtil;
 	private PTInvoiceEntity invoiceEntity;
 	private DAOPTInvoice dao;
-	private final Integer LAST_NUMBER = 20;
+	private final static Integer LAST_NUMBER = 20;
+	private final static TYPE INVOICE_TYPE = TYPE.FT;
 
 	@Before
 	public void setUp() {
@@ -43,11 +45,9 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 		this.invoiceEntity = invoiceUtil.getInvoiceEntity();
 		this.dao = getInstance(DAOPTInvoice.class);
 		dao.create(invoiceEntity);
-		dao.create(invoiceUtil.getInvoiceEntity(invoiceEntity.getSeries(),
-				"test uid", LAST_NUMBER, "entry uid", "limoes"));
-		// dao.create(invoiceUtil.getInvoiceEntity(invoiceEntity.getSeries(),
-		// "test uid", LAST_NUMBER, "entry uid",
-		// Arrays.asList("Limoes", "Cenouras", "Carapaus")));
+		dao.create(invoiceUtil.getInvoiceEntity(INVOICE_TYPE,
+				invoiceEntity.getSeries(), "test uid", LAST_NUMBER,
+				"entry uid", "limoes"));
 	}
 
 	@Test

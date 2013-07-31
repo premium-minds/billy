@@ -16,28 +16,33 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.services.documents.util;
 
-import java.util.List;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+public class PTCreditNoteParamsImpl extends PTIssuingParamsImpl implements
+		PTCreditNoteParams {
 
-public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
-		PTGenericInvoice {
+	@Override
+	public void setCreditNoteRef(UID uid) {
+		this.setParameter(Keys.INVOICE_SERIES, uid);
 
-	public void setType(TYPE type);
+	}
 
-	public void setCancelled(boolean cancelled);
+	@Override
+	public void setCreditNoteReason(String reason) {
+		this.setParameter(Keys.CREDIT_NOTE_REASON, reason);
 
-	public void setBilled(boolean billed);
+	}
 
-	public void setHash(String hash);
+	@Override
+	public UID getCreditNoteRef() throws ParameterNotFoundException {
+		return (UID) this.getParameter(Keys.INVOICE_REF_UID);
+	}
 
-	public void setSourceHash(String source);
-
-	public void setSourceBilling(String sourceBilling);
-
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
+	@Override
+	public String getCreditNoteReason() throws ParameterNotFoundException {
+		return (String) this.getParameter(Keys.CREDIT_NOTE_REASON);
+	}
 }

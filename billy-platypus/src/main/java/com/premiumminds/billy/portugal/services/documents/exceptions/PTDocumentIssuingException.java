@@ -16,28 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.services.documents.exceptions;
 
-import java.util.List;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+public class PTDocumentIssuingException extends DocumentIssuingException {
 
-public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
-		PTGenericInvoice {
+	private static final long serialVersionUID = 1L;
 
-	public void setType(TYPE type);
+	public PTDocumentIssuingException() {
+	}
 
-	public void setCancelled(boolean cancelled);
+	public PTDocumentIssuingException(String message) {
+		super(message);
+	}
 
-	public void setBilled(boolean billed);
+	public PTDocumentIssuingException(Throwable t) {
+		super(t);
+	}
 
-	public void setHash(String hash);
-
-	public void setSourceHash(String source);
-
-	public void setSourceBilling(String sourceBilling);
-
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
+	public PTDocumentIssuingException(String message, Throwable t) {
+		super(message, t);
+	}
 }
