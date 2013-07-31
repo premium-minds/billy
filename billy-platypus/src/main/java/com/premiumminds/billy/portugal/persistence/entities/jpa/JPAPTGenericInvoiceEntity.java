@@ -51,6 +51,19 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Column(name = "SOURCE_BILLING")
 	protected String sourceBilling;
 
+	@Column(name = "INVOICE_TYPE")
+	protected TYPE type;
+
+	@Override
+	public TYPE getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(TYPE type) {
+		this.type = type;
+	}
+
 	@Override
 	public boolean isCancelled() {
 		return this.cancelled;

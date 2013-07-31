@@ -16,23 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.services.documents.exceptions;
 
-import java.util.Date;
-import java.util.List;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
+public class PTDocumentIssuingException extends DocumentIssuingException {
 
-public interface DAOPTTax extends DAOTax {
+	private static final long serialVersionUID = 1L;
 
-	@Override
-	public PTTaxEntity getEntityInstance();
-	
-	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo, UID uid);
-	
-	public List<JPAPTTaxEntity> getAllTaxes();
+	public PTDocumentIssuingException() {
+	}
+
+	public PTDocumentIssuingException(String message) {
+		super(message);
+	}
+
+	public PTDocumentIssuingException(Throwable t) {
+		super(t);
+	}
+
+	public PTDocumentIssuingException(String message, Throwable t) {
+		super(message, t);
+	}
 }

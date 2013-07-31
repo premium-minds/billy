@@ -23,6 +23,7 @@ import java.util.List;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 		PTInvoiceEntity {
@@ -34,6 +35,17 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	protected String hash;
 	protected String sourceHash;
 	protected String sourceBilling;
+	protected TYPE type;
+
+	@Override
+	public TYPE getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(TYPE type) {
+		this.type = type;
+	}
 
 	@Override
 	public String getSourceBilling() {
@@ -92,5 +104,9 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
+	}
+	
+	public PaymentMechanism getPaymentMechanism(){
+		return null;
 	}
 }

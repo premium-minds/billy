@@ -60,12 +60,14 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTTaxEntity e = this.getTypeInstance();
+
 		BillyValidator.mandatory(e.getVATCode(),
 				LOCALIZER.getString("field.VATCode"));
 
 		if (!((DAOPTTax) daoTax).getTaxes(
 				(PTRegionContextEntity) e.getContext(), e.getValidFrom(),
-				e.getValidTo(), e.getDescription()).isEmpty())
+				e.getValidTo(), e.getUID()).isEmpty())
+
 			throw new BillyValidationException();
 		super.validateInstance();
 	}

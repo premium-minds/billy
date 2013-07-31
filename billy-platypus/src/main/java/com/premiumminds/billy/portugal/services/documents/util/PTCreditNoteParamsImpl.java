@@ -16,23 +16,33 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.services.documents.util;
 
-import java.util.Date;
-import java.util.List;
-
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
+import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
 
-public interface DAOPTTax extends DAOTax {
+public class PTCreditNoteParamsImpl extends PTIssuingParamsImpl implements
+		PTCreditNoteParams {
 
 	@Override
-	public PTTaxEntity getEntityInstance();
-	
-	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo, UID uid);
-	
-	public List<JPAPTTaxEntity> getAllTaxes();
+	public void setCreditNoteRef(UID uid) {
+		this.setParameter(Keys.INVOICE_SERIES, uid);
+
+	}
+
+	@Override
+	public void setCreditNoteReason(String reason) {
+		this.setParameter(Keys.CREDIT_NOTE_REASON, reason);
+
+	}
+
+	@Override
+	public UID getCreditNoteRef() throws ParameterNotFoundException {
+		return (UID) this.getParameter(Keys.INVOICE_REF_UID);
+	}
+
+	@Override
+	public String getCreditNoteReason() throws ParameterNotFoundException {
+		return (String) this.getParameter(Keys.CREDIT_NOTE_REASON);
+	}
 }
