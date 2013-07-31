@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.documents;
 
@@ -32,9 +33,10 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
+import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
-import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentTypeException;
 import com.premiumminds.billy.portugal.util.GenerateHash;
 
 public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
@@ -69,25 +71,30 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 					Integer seriesNumber;
 					String previousHash;
 
-					try {
-						PTInvoiceEntity entity = daoInvoice
-								.getLatestInvoiceFromSeries(series);
+					if (systemDate.after(invoiceDate)) {
+						throw new InvalidInvoiceDateException();
+					}
 
-						Date entityDate = entity.getDate();
+					try {
+						PTInvoiceEntity latestInvoice = daoInvoice
+								.getLatestInvoiceFromSeries(series);
+						Date latestInvoiceDate = latestInvoice.getDate();
 
 						if (documentType != TYPE.FT) {
-							throw new InvalidDocumentTypeException(
-									documentType.toString());
+							throw new InvalidInvoiceTypeException(series,
+									documentType.toString(),
+									INVOICE_TYPE.toString());
 						}
 
-						if (entityDate.after(invoiceDate)) {
-							invoiceDate.setTime(entityDate.getTime() + 100);
+						if (latestInvoiceDate.after(invoiceDate)) {
+							invoiceDate
+									.setTime(latestInvoiceDate.getTime() + 100);
 						}
 
-						seriesNumber = entity.getSeriesNumber() + 1;
-						previousHash = entity.getHash();
-					} catch (InvalidDocumentTypeException idte) {
-						throw new DocumentIssuingException(idte);
+						seriesNumber = latestInvoice.getSeriesNumber() + 1;
+						previousHash = latestInvoice.getHash();
+					} catch (DocumentIssuingException e) {
+						throw e;
 					} catch (BillyRuntimeException bre) {
 						previousHash = null;
 						seriesNumber = 1;
@@ -123,7 +130,10 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 				}
 
 			}.execute();
+		} catch (DocumentIssuingException e) {
+			throw e;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new DocumentIssuingException(e);
 		}
 	}
