@@ -32,12 +32,15 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentTypeException;
 import com.premiumminds.billy.portugal.util.GenerateHash;
 
 public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 		implements DocumentIssuingHandler {
 
-	public final static String INVOICE_TYPE = "FT";
+	public final static TYPE INVOICE_TYPE = TYPE.FT;
 	public final static String SOURCE_BILLING = "P";
 
 	@Inject
@@ -59,6 +62,7 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 
 				@Override
 				public T runTransaction() throws Exception {
+					TYPE documentType = ((PTGenericInvoice) document).getType();
 					Date invoiceDate = document.getDate();
 					Date systemDate = document.getCreateTimestamp();
 					String series = parametersPT.getInvoiceSeries();
@@ -68,7 +72,13 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 					try {
 						PTInvoiceEntity entity = daoInvoice
 								.getLatestInvoiceFromSeries(series);
+
 						Date entityDate = entity.getDate();
+
+						if (documentType != TYPE.FT) {
+							throw new InvalidDocumentTypeException(
+									documentType.toString());
+						}
 
 						if (entityDate.after(invoiceDate)) {
 							invoiceDate.setTime(entityDate.getTime() + 100);
@@ -76,15 +86,15 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 
 						seriesNumber = entity.getSeriesNumber() + 1;
 						previousHash = entity.getHash();
+					} catch (InvalidDocumentTypeException idte) {
+						throw new DocumentIssuingException(idte);
 					} catch (BillyRuntimeException bre) {
 						previousHash = null;
 						seriesNumber = 1;
 					}
 
-					String formatedNumber = PTInvoiceIssuingHandler.INVOICE_TYPE
-							+ " "
-							+ parametersPT.getInvoiceSeries()
-							+ "/"
+					String formatedNumber = INVOICE_TYPE.toString() + " "
+							+ parametersPT.getInvoiceSeries() + "/"
 							+ seriesNumber;
 
 					String newHash = GenerateHash.generateHash(
@@ -100,6 +110,7 @@ public class PTInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
 					documentEntity.setSeriesNumber(seriesNumber);
 					documentEntity.setHash(newHash);
 					documentEntity.setBilled(true);
+					documentEntity.setType(TYPE.FT);
 					documentEntity.setSourceHash(GenerateHash
 							.generateSourceHash(invoiceDate, systemDate,
 									formatedNumber,

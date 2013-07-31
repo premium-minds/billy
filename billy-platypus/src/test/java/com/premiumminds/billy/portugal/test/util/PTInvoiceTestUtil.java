@@ -24,6 +24,7 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
@@ -37,10 +38,10 @@ public class PTInvoiceTestUtil {
 	private static final String SOURCE_ID = "SOURCE";
 	private static final String UID = "INVOICE";
 	private static final String SERIE = "A";
-	private static final String FORMATED_NUMBER = "FS A/1";
 	private static final Integer SERIE_NUMBER = 1;
 	private static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
 	private static final String PRODUCT_UID = "PRODUCT_UID";
+	private static final TYPE INVOICE_TYPE = TYPE.FT;
 
 	private Injector injector;
 	private PTInvoiceEntryTestUtil invoiceEntry;
@@ -52,17 +53,32 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
-		return getInvoiceEntity(SERIE, UID, SERIE_NUMBER, INVOICE_ENTRY_UID,
-				PRODUCT_UID);
+		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
+				INVOICE_ENTRY_UID, PRODUCT_UID);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(String productUID) {
-		return getInvoiceEntity(SERIE, UID, SERIE_NUMBER, INVOICE_ENTRY_UID,
-				productUID);
+		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
+				INVOICE_ENTRY_UID, productUID);
 	}
 
-	public PTInvoiceEntity getInvoiceEntity(String serie, String uid,
-			Integer seriesNumber, String entryUID, String productUID) {
+	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
+			String uid, Integer seriesNumber, String entryUID, String productUID) {
+		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType,
+				productUID, entryUID, uid);
+
+		String formatedNumber = invoiceType.toString() + " " + serie + "/"
+				+ seriesNumber;
+
+		invoice.setSeries(serie);
+		invoice.setSeriesNumber(seriesNumber);
+		invoice.setNumber(formatedNumber);
+
+		return invoice;
+	}
+
+	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
+			String productUID, String entryUID, String uid) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -76,13 +92,8 @@ public class PTInvoiceTestUtil {
 				.setSourceId(SOURCE_ID).addEntry(invoiceEntryBuilder);
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
-
-		String formatedNumber = "FS " + serie + "/" + seriesNumber;
-
 		invoice.setUID(new UID(uid));
-		invoice.setSeries(serie);
-		invoice.setSeriesNumber(seriesNumber);
-		invoice.setNumber(formatedNumber);
+		invoice.setType(invoiceType);
 
 		PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) invoice
 				.getEntries().get(0);

@@ -27,6 +27,8 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
 		PTGenericInvoice {
 
+	public void setType(TYPE type);
+
 	public void setCancelled(boolean cancelled);
 
 	public void setBilled(boolean billed);
