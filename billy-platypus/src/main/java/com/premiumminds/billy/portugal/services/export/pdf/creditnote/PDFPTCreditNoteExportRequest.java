@@ -16,23 +16,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
-import java.util.Date;
-import java.util.List;
-
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
+import com.premiumminds.billy.gin.services.ExportServiceRequest;
 
-public interface DAOPTTax extends DAOTax {
+public class PDFPTCreditNoteExportRequest  implements ExportServiceRequest {
+	
+	protected UID uid;
+	protected PTCreditNoteTemplateBundle bundle;
+	
+	public PDFPTCreditNoteExportRequest(UID uid, PTCreditNoteTemplateBundle bundle) {
+		this.uid = uid;
+		this.bundle = bundle;
+	}
+	
+	public UID getCreditNoteUID() {
+		return uid;
+	}
 
 	@Override
-	public PTTaxEntity getEntityInstance();
-	
-	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo, UID uid);
-	
-	public List<JPAPTTaxEntity> getAllTaxes();
+	public PTCreditNoteTemplateBundle getBundle() {
+		return this.bundle;
+	}
 }

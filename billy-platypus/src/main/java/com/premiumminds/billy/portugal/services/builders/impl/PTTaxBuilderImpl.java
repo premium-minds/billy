@@ -51,7 +51,7 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	protected void validateInstance() throws BillyValidationException{
 		PTTaxEntity e = this.getTypeInstance();
 		
-			if(!((DAOPTTax) daoTax).getTaxes((PTRegionContextEntity)e.getContext(),e.getValidFrom(), e.getValidTo(), e.getDescription()).isEmpty())
+			if(!((DAOPTTax) daoTax).getTaxes((PTRegionContextEntity)e.getContext(),e.getValidFrom(), e.getValidTo(), e.getUID()).isEmpty())
 			throw new BillyValidationException();
 		super.validateInstance();
 	}
