@@ -16,12 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.persistence.dao;
 
-import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.portugal.services.entities.PTTax;
+import java.util.Date;
+import java.util.List;
 
-public interface PTTaxEntity extends TaxEntity, PTTax {
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 
-	public void setVATCode(PTVATCode code);
+public interface DAOPTSimpleInvoice extends DAOPTInvoice {
+
+	@Override
+	public PTSimpleInvoiceEntity getEntityInstance();
+
+	@Override
+	public PTSimpleInvoiceEntity getLatestInvoiceFromSeries(String series)
+			throws BillyRuntimeException;
+
+	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(
+			UID uid, Date from, Date to);
 }

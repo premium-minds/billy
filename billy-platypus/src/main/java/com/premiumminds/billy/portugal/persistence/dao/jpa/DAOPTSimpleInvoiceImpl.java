@@ -32,64 +32,67 @@ import javax.persistence.criteria.Root;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
-import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity_;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity_;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity_;
 
-public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
-		DAOPTCreditNote {
+public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
+		DAOPTSimpleInvoice {
 
 	@Inject
-	public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
+	public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
 	@Override
-	public PTCreditNoteEntity getEntityInstance() {
-		return new JPAPTCreditNoteEntity();
+	public PTSimpleInvoiceEntity getEntityInstance() {
+		return new JPAPTSimpleInvoiceEntity();
 	}
 
 	@Override
-	protected Class<JPAPTCreditNoteEntity> getEntityClass() {
-		return JPAPTCreditNoteEntity.class;
+	protected Class<JPAPTSimpleInvoiceEntity> getEntityClass() {
+		return JPAPTSimpleInvoiceEntity.class;
 	}
 
-	public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid,
-			Date from, Date to) {
+	@SuppressWarnings("unchecked")
+	@Override
+	public PTSimpleInvoiceEntity getLatestInvoiceFromSeries(String series)
+			throws BillyRuntimeException {
+
+		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
+
+		if (list.size() != 0)
+			return (PTSimpleInvoiceEntity) this.get(new UID((String) list
+					.get(0)[0]));
+		else
+			throw new BillyRuntimeException();
+	}
+
+	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(
+			UID uid, Date from, Date to) {
 		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<JPAPTCreditNoteEntity> query = builder
-				.createQuery(JPAPTCreditNoteEntity.class);
+		CriteriaQuery<JPAPTSimpleInvoiceEntity> query = builder
+				.createQuery(JPAPTSimpleInvoiceEntity.class);
 
-		Root<JPAPTCreditNoteEntity> root = query
-				.from(JPAPTCreditNoteEntity.class);
+		Root<JPAPTSimpleInvoiceEntity> root = query
+				.from(JPAPTSimpleInvoiceEntity.class);
 
-		Join<JPAPTCreditNoteEntity, JPABusinessEntity> businesses = root
-				.join(JPAPTCreditNoteEntity_.business);
+		Join<JPAPTSimpleInvoiceEntity, JPABusinessEntity> businesses = root
+				.join(JPAPTSimpleInvoiceEntity_.business);
 
 		query.select(root);
 
 		query.where(builder.and(
 				builder.equal(businesses.get(JPAPTBusinessEntity_.uid),
 						uid.getValue()),
-				builder.equal(root.get(JPAPTCreditNoteEntity_.active), true),
-				builder.between(root.get(JPAPTCreditNoteEntity_.date), from, to)));
+				builder.equal(root.get(JPAPTSimpleInvoiceEntity_.active), true),
+				builder.between(root.get(JPAPTSimpleInvoiceEntity_.date), from,
+						to)));
 
 		return checkEntityList(this.getEntityManager().createQuery(query)
-				.getResultList(), PTCreditNoteEntity.class);
+				.getResultList(), PTSimpleInvoiceEntity.class);
 	}
 
-	@Override
-	public PTCreditNoteEntity getLatestInvoiceFromSeries(String series)
-			throws BillyRuntimeException {
-
-		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
-
-		if (list.size() != 0)
-			return (PTCreditNoteEntity) this.get(new UID(
-					(String) list.get(0)[0]));
-		else
-			throw new BillyRuntimeException();
-	}
 }

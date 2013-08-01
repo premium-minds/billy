@@ -22,6 +22,7 @@ import java.util.List;
 
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface PTCreditNoteEntity extends PTGenericInvoiceEntity,
 		PTCreditNote {
@@ -29,4 +30,7 @@ public interface PTCreditNoteEntity extends PTGenericInvoiceEntity,
 	@Override
 	public List<PTCreditNoteEntry> getEntries();
 
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public PaymentMechanism getPaymentMechanism();
 }

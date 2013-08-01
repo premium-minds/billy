@@ -26,4 +26,16 @@ public class MockPTCustomerEntity extends MockCustomerEntity implements
 
 	private static final long serialVersionUID = 1L;
 
+	private String referralName;
+
+	@Override
+	public String getReferralName() {
+		return referralName;
+	}
+
+	@Override
+	public void setReferralName(String referralName) {
+		this.referralName = referralName;
+	}
+
 }

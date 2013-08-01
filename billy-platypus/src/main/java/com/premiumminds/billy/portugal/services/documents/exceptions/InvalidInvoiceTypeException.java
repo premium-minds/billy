@@ -27,4 +27,8 @@ public class InvalidInvoiceTypeException extends PTDocumentIssuingException {
 		super("Invalid invoice type " + type + "in series " + series
 				+ " when expected " + expectedType);
 	}
+
+	public InvalidInvoiceTypeException(String series, String type) {
+		super("Invalid invoice type " + type + "in series " + series);
+	}
 }

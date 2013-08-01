@@ -18,17 +18,25 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity_;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity_;
 
 public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 		DAOPTInvoice {
@@ -44,10 +52,11 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 	}
 
 	@Override
-	protected Class<JPAPTInvoiceEntity> getEntityClass() {
+	protected Class<? extends JPAPTInvoiceEntity> getEntityClass() {
 		return JPAPTInvoiceEntity.class;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public PTInvoiceEntity getLatestInvoiceFromSeries(String series)
 			throws BillyRuntimeException {
@@ -58,5 +67,28 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 			return (PTInvoiceEntity) this.get(new UID((String) list.get(0)[0]));
 		else
 			throw new BillyRuntimeException();
+	}
+
+	public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid,
+			Date from, Date to) {
+		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<JPAPTInvoiceEntity> query = builder
+				.createQuery(JPAPTInvoiceEntity.class);
+
+		Root<JPAPTInvoiceEntity> root = query.from(JPAPTInvoiceEntity.class);
+
+		Join<JPAPTInvoiceEntity, JPABusinessEntity> businesses = root
+				.join(JPAPTInvoiceEntity_.business);
+
+		query.select(root);
+
+		query.where(builder.and(
+				builder.equal(businesses.get(JPAPTBusinessEntity_.uid),
+						uid.getValue()),
+				builder.equal(root.get(JPAPTInvoiceEntity_.active), true),
+				builder.between(root.get(JPAPTInvoiceEntity_.date), from, to)));
+
+		return checkEntityList(this.getEntityManager().createQuery(query)
+				.getResultList(), PTInvoiceEntity.class);
 	}
 }

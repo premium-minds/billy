@@ -18,10 +18,24 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities;
 
-import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.portugal.services.entities.PTTax;
+import java.util.List;
 
-public interface PTTaxEntity extends TaxEntity, PTTax {
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTManualInvoice;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-	public void setVATCode(PTVATCode code);
+public interface PTManualInvoiceEntity extends PTGenericInvoiceEntity,
+		PTManualInvoice {
+
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<PTInvoiceEntry> getEntries();
+
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public PaymentMechanism getPaymentMechanism();
+
+	public void setManualInvoiceNumber(String number);
+
+	public void setManualInvoiceSeries(String series);
 }

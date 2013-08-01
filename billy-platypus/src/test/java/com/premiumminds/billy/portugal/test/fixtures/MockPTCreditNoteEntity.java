@@ -23,6 +23,7 @@ import java.util.List;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
 		PTCreditNoteEntity {
@@ -100,8 +101,15 @@ public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
 		return this.sourceHash;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PTCreditNoteEntry> getEntries() {
 		return (List<PTCreditNoteEntry>) (List<?>) super.getEntries();
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public PaymentMechanism getPaymentMechanism() {
+		return (PaymentMechanism) super.getPaymentMechanism();
 	}
 }

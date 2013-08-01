@@ -23,25 +23,31 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTManualInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTCreditNoteBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.impl.PTManualInvoiceBuilderImpl;
 
-public interface PTCreditNote extends PTGenericInvoice {
+public interface PTManualInvoice extends PTGenericInvoice {
 
-	public static class Builder extends
-			PTCreditNoteBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
+	public static class Builder
+			extends
+			PTManualInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTManualInvoice> {
 
 		@Inject
-		public Builder(DAOPTCreditNote daoPTCreditNote,
+		public Builder(DAOPTManualInvoice daoPTManualInvoice,
 				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 				DAOPTSupplier daoPTSupplier) {
-			super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+			super(daoPTManualInvoice, daoPTBusiness, daoPTCustomer,
+					daoPTSupplier);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<? extends PTGenericInvoiceEntry> getEntries();
 
+	public String getManualInvoiceNumber();
+
+	public String getManualInvoiceSeries();
 }

@@ -37,7 +37,7 @@ public abstract class DocumentIssuingHandlerImpl implements
 	}
 
 	@Override
-	public abstract <T extends GenericInvoice> T issue(T document,
-			IssuingParams parameters) throws DocumentIssuingException;
+	public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(
+			T document, P parameters) throws DocumentIssuingException;
 
 }

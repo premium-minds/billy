@@ -16,12 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.services.builders;
 
-import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTManualInvoice;
 
-public interface PTTaxEntity extends TaxEntity, PTTax {
+public interface PTManualInvoiceBuilder<TBuilder extends PTManualInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTManualInvoice>
+		extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	public void setVATCode(PTVATCode code);
+	public TBuilder setManualInvoiceNumber(String number);
+
+	public TBuilder setManualInvoiceSeries(String series);
 }

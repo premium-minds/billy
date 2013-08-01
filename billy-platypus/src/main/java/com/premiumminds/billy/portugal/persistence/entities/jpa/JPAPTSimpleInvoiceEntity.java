@@ -16,30 +16,37 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.test.fixtures;
+package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
+import java.util.List;
 
-public class MockPTTaxEntity extends MockTaxEntity implements PTTaxEntity {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.premiumminds.billy.portugal.Config;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
+
+@Entity
+@Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
+public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
+		PTSimpleInvoiceEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public PTVATCode vatCode;
-
-	public MockPTTaxEntity() {
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<PTInvoiceEntry> getEntries() {
+		return (List<PTInvoiceEntry>) super.getEntries();
 	}
 
+	@SuppressWarnings({ "unchecked" })
 	@Override
-	public PTVATCode getVATCode() {
-		return vatCode;
-	}
-
-	@Override
-	public void setVATCode(PTVATCode code) {
-		this.vatCode = code;
+	public PaymentMechanism getPaymentMechanism() {
+		return (PaymentMechanism) super.getPaymentMechanism();
 	}
 }

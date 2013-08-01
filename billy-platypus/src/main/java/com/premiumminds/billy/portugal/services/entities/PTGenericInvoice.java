@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
-import java.util.Collection;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -62,5 +62,5 @@ public interface PTGenericInvoice extends GenericInvoice {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Collection<? extends PTGenericInvoiceEntry> getEntries();
+	public List<? extends PTGenericInvoiceEntry> getEntries();
 }

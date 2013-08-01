@@ -28,6 +28,7 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEnt
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
@@ -118,6 +119,12 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Override
 	public void setSourceBilling(String sourceBilling) {
 		this.sourceBilling = sourceBilling;
+	}
+
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public PaymentMechanism getPaymentMechanism() {
+		return (PaymentMechanism) super.getPaymentMechanism();
 	}
 
 }

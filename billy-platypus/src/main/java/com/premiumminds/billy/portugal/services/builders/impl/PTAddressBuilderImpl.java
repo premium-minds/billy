@@ -41,6 +41,24 @@ public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder
 	}
 
 	@Override
+	public TBuilder setNumber(String number) {
+		this.getTypeInstance().setNumber(number);
+		return this.getBuilder();
+	}
+
+	@Override
+	public TBuilder setStreetName(String streetName) {
+		this.getTypeInstance().setStreetName(streetName);
+		return this.getBuilder();
+	}
+
+	@Override
+	public TBuilder setRegion(String region) {
+		this.getTypeInstance().setRegion(region);
+		return this.getBuilder();
+	}
+
+	@Override
 	protected PTAddressEntity getTypeInstance() {
 		return (PTAddressEntity) super.getTypeInstance();
 	}

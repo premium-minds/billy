@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -32,4 +33,16 @@ public class JPAPTCustomerEntity extends JPACustomerEntity implements
 
 	private static final long serialVersionUID = 1L;
 
+	@Column(name = "REFERRAL_NAME")
+	protected String referralName;
+
+	@Override
+	public String getReferralName() {
+		return referralName;
+	}
+
+	@Override
+	public void setReferralName(String referralName) {
+		this.referralName = referralName;
+	}
 }

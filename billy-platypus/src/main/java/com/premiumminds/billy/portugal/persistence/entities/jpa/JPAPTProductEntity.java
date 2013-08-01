@@ -30,9 +30,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 public class JPAPTProductEntity extends JPAProductEntity implements
 		PTProductEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 }

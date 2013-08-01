@@ -16,19 +16,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.documents.util;
+package com.premiumminds.billy.portugal.persistence.entities;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
+import java.util.List;
 
-public interface PTCreditNoteParams extends PTIssuingParams {
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-	public void setCreditNoteRef(UID uid);
+public interface PTSimpleInvoiceEntity extends PTInvoiceEntity, PTSimpleInvoice {
 
-	public void setCreditNoteReason(String reason);
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<PTInvoiceEntry> getEntries();
 
-	public UID getCreditNoteRef() throws ParameterNotFoundException;
-
-	public String getCreditNoteReason() throws ParameterNotFoundException;
-
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public PaymentMechanism getPaymentMechanism();
 }
