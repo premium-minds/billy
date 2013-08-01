@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
@@ -49,6 +50,8 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 	private final static TYPE DEFAULT_TYPE = TYPE.FT;
 	private static final String INVOICE_UID = "invoice_issueHandler_uid";
 	private static final String DEFAULT_SERIES = "DEFAULT";
+	private static final String BUSINESS_UID = "BUSINESS_UID_TEST";
+	private static final String Customer_UID = "CUSTOMER_UID_TEST";
 
 	@Before
 	public void setUpParamenters() {
@@ -60,29 +63,33 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 
 		try {
 			issueNewInvoice(INVOICE_UID, PRODUCT_UID, DEFAULT_SERIES,
-					DEFAULT_TYPE);
+					DEFAULT_TYPE, BUSINESS_UID, Customer_UID);
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private void issueNewInvoice(String uid, String productUID, String series,
-			TYPE type) throws DocumentIssuingException {
+			TYPE type, String businessUID, String customerUID)
+			throws DocumentIssuingException {
 		PTInvoiceIssuingHandler handler = getInstance(PTInvoiceIssuingHandler.class);
 		parameters.setInvoiceSeries(series);
 		PTInvoiceEntity invoice = new PTInvoiceTestUtil(injector)
-				.getSimpleInvoiceEntity(type, ENTRY_UID, uid, productUID);
+				.getSimpleInvoiceEntity(type, ENTRY_UID, uid, businessUID,
+						customerUID, productUID);
 
 		invoice.setDate(new Date(invoice.getCreateTimestamp().getTime() + 100));
 		handler.issue(invoice, parameters);
 	}
 
 	private void issueNewInvoice(String uid, String productUID, String series,
-			TYPE type, Date invoiceDate) throws DocumentIssuingException {
+			TYPE type, Date invoiceDate, String businessUID, String customerUID)
+			throws DocumentIssuingException {
 		PTInvoiceIssuingHandler handler = getInstance(PTInvoiceIssuingHandler.class);
 		parameters.setInvoiceSeries(series);
 		PTInvoiceEntity invoice = new PTInvoiceTestUtil(injector)
-				.getSimpleInvoiceEntity(type, ENTRY_UID, uid, productUID);
+				.getSimpleInvoiceEntity(type, ENTRY_UID, uid, businessUID,
+						customerUID, productUID);
 
 		invoice.setDate(invoiceDate);
 
@@ -104,8 +111,10 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 	public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
 		String UID1 = "invoice_uid_1";
 		String PUID1 = "product_uid_1";
+		String BUID1 = "business_uid_1";
+		String CUID1 = "customer_uid_1";
 		Integer nextNumber = 2;
-		issueNewInvoice(UID1, PUID1, DEFAULT_SERIES, DEFAULT_TYPE);
+		issueNewInvoice(UID1, PUID1, DEFAULT_SERIES, DEFAULT_TYPE, BUID1, CUID1);
 
 		PTInvoice issuedInvoice = (PTInvoice) getInstance(DAOPTInvoice.class)
 				.get(new UID(UID1));
@@ -122,9 +131,11 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 			throws DocumentIssuingException {
 		String UID1 = "invoice_uid_1";
 		String PUID1 = "product_uid_1";
+		String BUID1 = "business_uid_1";
+		String CUID1 = "customer_uid_1";
 		Integer nextNumber = 1;
 		String newSeries = "NEW_SERIES";
-		issueNewInvoice(UID1, PUID1, newSeries, DEFAULT_TYPE);
+		issueNewInvoice(UID1, PUID1, newSeries, DEFAULT_TYPE, BUID1, CUID1);
 
 		PTInvoice issuedInvoice = (PTInvoice) getInstance(DAOPTInvoice.class)
 				.get(new UID(UID1));
@@ -148,9 +159,11 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 		String UID2 = "invoice_uid_2";
 		String PUID1 = "product_uid_1";
 		String PUID2 = "product_uid_2";
+		String BUID1 = "business_uid_1";
+		String CUID1 = "customer_uid_1";
 
-		issueNewInvoice(UID1, PUID1, series, DEFAULT_TYPE);
-		issueNewInvoice(UID2, PUID2, series, TYPE.FS);
+		issueNewInvoice(UID1, PUID1, series, DEFAULT_TYPE, BUID1, CUID1);
+		issueNewInvoice(UID2, PUID2, series, TYPE.FS, BUID1, CUID1);
 	}
 
 	@Test(expected = InvalidInvoiceDateException.class)
@@ -158,7 +171,10 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 		String series = "NEW_SERIES";
 		String UID1 = "invoice_uid_1";
 		String PUID1 = "product_uid_1";
+		String BUID1 = "business_uid_1";
+		String CUID1 = "customer_uid_1";
 
-		issueNewInvoice(UID1, PUID1, series, DEFAULT_TYPE, new Date(0));
+		issueNewInvoice(UID1, PUID1, series, DEFAULT_TYPE, new Date(0), BUID1,
+				CUID1);
 	}
 }

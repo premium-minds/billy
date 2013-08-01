@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
@@ -35,7 +36,7 @@ public class PTBusinessTestUtil {
 	private final String name = "Business";
 	private final String id = "123456789";
 	private final String website = "http://business.com";
-	private final String uid = "BUSINESS";
+	private final String UID = "BUSINESS";
 
 	private Injector injector;
 	private PTApplicationTestUtil application;
@@ -52,11 +53,15 @@ public class PTBusinessTestUtil {
 		contexts = new Contexts(injector);
 	}
 
-	public PTBusinessEntity getBusinessEntity() throws MalformedURLException {
+	public PTBusinessEntity getBusinessEntity(String uid) {
 		PTBusiness.Builder businessBuilder = injector
 				.getInstance(PTBusiness.Builder.class);
-		PTApplication.Builder applicationBuilder = application
-				.getApplicationBuilder();
+		PTApplication.Builder applicationBuilder = null;
+		try {
+			applicationBuilder = application.getApplicationBuilder();
+		} catch (MalformedURLException e) {
+
+		}
 		PTContact.Builder contactBuilder = contact.getContactBuilder();
 		PTAddress.Builder addressBuilder = address.getAddressBuilder();
 		context = contexts.portugal().portugal();
@@ -74,8 +79,12 @@ public class PTBusinessTestUtil {
 
 		return business;
 	}
-	
-	public PTBusiness.Builder getBusinessBuilder() throws MalformedURLException{
+
+	public PTBusinessEntity getBusinessEntity() {
+		return getBusinessEntity(UID);
+	}
+
+	public PTBusiness.Builder getBusinessBuilder() throws MalformedURLException {
 		PTBusiness.Builder businessBuilder = injector
 				.getInstance(PTBusiness.Builder.class);
 		PTApplication.Builder applicationBuilder = application
@@ -91,8 +100,6 @@ public class PTBusinessTestUtil {
 				.setBillingAddress(addressBuilder).setCommercialName(name)
 				.setFinancialID(id).setOperationalContextUID(context.getUID())
 				.setWebsite(website).setName(name);
-
-		
 
 		return businessBuilder;
 	}

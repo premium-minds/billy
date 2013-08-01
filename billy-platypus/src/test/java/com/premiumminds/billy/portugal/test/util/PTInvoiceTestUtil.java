@@ -1,30 +1,32 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
-import java.net.MalformedURLException;
 import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -47,6 +49,7 @@ public class PTInvoiceTestUtil {
 	private static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
 	private static final String PRODUCT_UID = "PRODUCT_UID";
 	private static final String BUSINESS_UID = "BUSINESS_UID";
+	private static final String CUSTOMER_UID = "CUSTOMER_UID";
 	private static final TYPE INVOICE_TYPE = TYPE.FT;
 
 	private Injector injector;
@@ -62,21 +65,21 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
-		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
-				INVOICE_ENTRY_UID, BUSINESS_UID,PRODUCT_UID);
+		return getInvoiceEntity(BUSINESS_UID, CUSTOMER_UID, PRODUCT_UID);
 	}
 
-	public PTInvoiceEntity getInvoiceEntity(String... productUIDs) {
+	public PTInvoiceEntity getInvoiceEntity(String businessUID,
+			String customerUID, String... productUIDs) {
 		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
-				INVOICE_ENTRY_UID, BUSINESS_UID, productUIDs);
+				INVOICE_ENTRY_UID, businessUID, customerUID, productUIDs);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
-			String uid, Integer seriesNumber, String entryUID, String businessUID,
-			String... productUIDs) {
+			String uid, Integer seriesNumber, String entryUID,
+			String businessUID, String customerUID, String... productUIDs) {
 
 		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType, entryUID,
-				uid, businessUID, productUIDs);
+				uid, businessUID, customerUID, productUIDs);
 
 		String formatedNumber = invoiceType.toString() + " " + serie + "/"
 				+ seriesNumber;
@@ -89,9 +92,12 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
-			String entryUID, String uid, String businessUID, String... productUIDs) {
+			String entryUID, String uid, String businessUID,
+			String customerUID, String... productUIDs) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
+		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
+		DAOPTCustomer daoPTCustomer = injector.getInstance(DAOPTCustomer.class);
 
 		invoiceBuilder.clear();
 
@@ -101,35 +107,36 @@ public class PTInvoiceTestUtil {
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 
+		PTBusinessEntity businessEntity = business
+				.getBusinessEntity(businessUID);
+		daoPTBusiness.create(businessEntity);
+
+		PTCustomerEntity customerEntity = customer
+				.getCustomerEntity(customerUID);
+		daoPTCustomer.create(customerEntity);
+
 		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
 				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
-				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT);
+				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT)
+				.setCustomerUID(new UID(customerUID))
+				.setBusinessUID(new UID(businessUID));
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
+		// FIXME do a foreach
 		PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) invoice
 				.getEntries().get(0);
 		invoiceEntry.setUID(new UID(entryUID));
 		invoiceEntry.getDocumentReferences().add(invoice);
-		
-		PTBusinessEntity businessEntity = null;
-		try{
-			businessEntity = business.getBusinessEntity();
-		}
-		catch(MalformedURLException e){
-			System.out.println(e.getMessage());}
-		
+
 		invoice.setBusiness(businessEntity);
-		
-		PTCustomerEntity customerEntity = customer.getCustomerEntity();
+
 		invoice.setCustomer(customerEntity);
-		
+
 		invoice.setCurrency(Currency.getInstance("EUR"));
-		
-		
-		
+
 		return invoice;
 	}
 
