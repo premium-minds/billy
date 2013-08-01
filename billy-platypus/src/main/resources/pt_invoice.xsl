@@ -47,12 +47,12 @@
           <xsl:value-of select="./business/name" />
         </fo:block >
         <!--Address-->
-        <xsl:value-of select="./business/address/lineone" />
+        <xsl:value-of select="./business/address/details" />
         <fo:block />
-        <xsl:value-of select="./business/address/linetwo" />
+        <!--<xsl:value-of select="./business/address/linetwo" />
         <fo:block />
         <xsl:value-of select="./business/address/linethree" />
-        <fo:block />
+        <fo:block />-->
         <xsl:value-of select="./business/address/postalcode" />
         &#xa0;<xsl:value-of select="./business/address/region" />
         <fo:block />
@@ -100,12 +100,12 @@
                     <fo:block padding="2mm" border-width="1px" border-style="solid">
                       <xsl:value-of select="./customer/name" />
                       <fo:block margin-top="1mm"/>
-                      <xsl:value-of select="./customer/address/lineone" />
+                      <xsl:value-of select="./customer/address/details" />
                       <fo:block />
-                      <xsl:value-of select="./customer/address/linetwo" />
+                     <!-- <xsl:value-of select="./customer/address/linetwo" />
                       <fo:block />
                       <xsl:value-of select="./customer/address/linethree" />
-                      <fo:block />
+                      <fo:block />-->
                       <xsl:value-of select="./customer/address/postalcode" /> &#xa0;
                       <xsl:value-of select="./customer/address/region" /> &#xa0; 
                       <xsl:value-of select="./customer/address/country" />

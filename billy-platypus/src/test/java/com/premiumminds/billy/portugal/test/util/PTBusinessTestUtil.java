@@ -74,4 +74,26 @@ public class PTBusinessTestUtil {
 
 		return business;
 	}
+	
+	public PTBusiness.Builder getBusinessBuilder() throws MalformedURLException{
+		PTBusiness.Builder businessBuilder = injector
+				.getInstance(PTBusiness.Builder.class);
+		PTApplication.Builder applicationBuilder = application
+				.getApplicationBuilder();
+		PTContact.Builder contactBuilder = contact.getContactBuilder();
+		PTAddress.Builder addressBuilder = address.getAddressBuilder();
+		context = contexts.portugal().portugal();
+
+		businessBuilder.clear();
+
+		businessBuilder.addApplication(applicationBuilder)
+				.addContact(contactBuilder).setAddress(addressBuilder)
+				.setBillingAddress(addressBuilder).setCommercialName(name)
+				.setFinancialID(id).setOperationalContextUID(context.getUID())
+				.setWebsite(website).setName(name);
+
+		
+
+		return businessBuilder;
+	}
 }

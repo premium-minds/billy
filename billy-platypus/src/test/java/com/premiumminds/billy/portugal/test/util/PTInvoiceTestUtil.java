@@ -18,10 +18,15 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.net.MalformedURLException;
+import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
@@ -41,33 +46,37 @@ public class PTInvoiceTestUtil {
 	private static final Integer SERIE_NUMBER = 1;
 	private static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
 	private static final String PRODUCT_UID = "PRODUCT_UID";
+	private static final String BUSINESS_UID = "BUSINESS_UID";
 	private static final TYPE INVOICE_TYPE = TYPE.FT;
 
 	private Injector injector;
 	private PTInvoiceEntryTestUtil invoiceEntry;
+	private PTBusinessTestUtil business;
+	private PTCustomerTestUtil customer;
 
 	public PTInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
 		invoiceEntry = new PTInvoiceEntryTestUtil(injector);
-
+		business = new PTBusinessTestUtil(injector);
+		customer = new PTCustomerTestUtil(injector);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
 		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
-				INVOICE_ENTRY_UID, PRODUCT_UID);
+				INVOICE_ENTRY_UID, BUSINESS_UID,PRODUCT_UID);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(String... productUIDs) {
 		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
-				INVOICE_ENTRY_UID, productUIDs);
+				INVOICE_ENTRY_UID, BUSINESS_UID, productUIDs);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
-			String uid, Integer seriesNumber, String entryUID,
+			String uid, Integer seriesNumber, String entryUID, String businessUID,
 			String... productUIDs) {
 
 		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType, entryUID,
-				uid, productUIDs);
+				uid, businessUID, productUIDs);
 
 		String formatedNumber = invoiceType.toString() + " " + serie + "/"
 				+ seriesNumber;
@@ -80,7 +89,7 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
-			String entryUID, String uid, String... productUIDs) {
+			String entryUID, String uid, String businessUID, String... productUIDs) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -94,7 +103,7 @@ public class PTInvoiceTestUtil {
 
 		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
 				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
-				.setSourceId(SOURCE_ID);
+				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT);
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
 		invoice.setUID(new UID(uid));
@@ -104,7 +113,23 @@ public class PTInvoiceTestUtil {
 				.getEntries().get(0);
 		invoiceEntry.setUID(new UID(entryUID));
 		invoiceEntry.getDocumentReferences().add(invoice);
-
+		
+		PTBusinessEntity businessEntity = null;
+		try{
+			businessEntity = business.getBusinessEntity();
+		}
+		catch(MalformedURLException e){
+			System.out.println(e.getMessage());}
+		
+		invoice.setBusiness(businessEntity);
+		
+		PTCustomerEntity customerEntity = customer.getCustomerEntity();
+		invoice.setCustomer(customerEntity);
+		
+		invoice.setCurrency(Currency.getInstance("EUR"));
+		
+		
+		
 		return invoice;
 	}
 

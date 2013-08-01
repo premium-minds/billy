@@ -122,6 +122,8 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 	}
 
 	public File toFile(PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle) throws ExportServiceException {
+		
+		System.out.println("=========================ZEEEEEEEE=========================" + bundle.getXSLTFileStream());
 		return super.toFile(bundle.getXSLTFileStream(), this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
@@ -156,10 +158,10 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 					, date.format(entity.getSettlementDate()));
 		}
 
-
 		Node<String, String> businessInfo = params.getRoot().addChild(ParamKeys.BUSINESS);
 		businessInfo.addChild(ParamKeys.BUSINESS_LOGO
 				, bundle.getLogoImagePath());
+		
 		businessInfo.addChild(ParamKeys.BUSINESS_NAME
 				, entity.getBusiness().getName());
 		businessInfo.addChild(ParamKeys.BUSINESS_FINANCIAL_ID
@@ -244,10 +246,10 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 
 	private String getVerificationHashString(byte[] hash) {
 		String hashString = Base64.encodeBytes(hash);
-		String rval = hashString.substring(0, 1)
-				+ hashString.substring(10, 11)
-				+ hashString.substring(20, 21)
-				+ hashString.substring(30, 31); 
+		String rval = hashString.substring(0, 1);
+				//+ hashString.substring(10, 11)
+				//+ hashString.substring(20, 21)
+				//+ hashString.substring(30, 31); 
 
 		return rval;
 	}
