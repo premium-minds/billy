@@ -25,18 +25,16 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTManualInvoice;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
-public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
-		implements DocumentIssuingHandler {
+public class PTManualInvoiceIssuingHandler extends
+		PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
 
-	public final static TYPE INVOICE_TYPE = TYPE.NC;
-	public final static String SOURCE_BILLING = "P";
+	public final static String SOURCE_BILLING = "M";
 
 	@Inject
-	public PTCreditNoteIssuingHandler(Injector injector) {
+	public PTManualInvoiceIssuingHandler(Injector injector) {
 		super(injector);
 	}
 
@@ -46,10 +44,10 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
 
 		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
 
-		final DAOPTCreditNote daoInvoice = this.injector
-				.getInstance(DAOPTCreditNote.class);
+		final DAOPTManualInvoice daoInvoice = this.injector
+				.getInstance(DAOPTManualInvoice.class);
 
-		return issue(document, parametersPT, daoInvoice, INVOICE_TYPE,
-				SOURCE_BILLING);
+		return issue(document, parametersPT, daoInvoice,
+				parametersPT.getManualInvoiceType(), SOURCE_BILLING);
 	}
 }

@@ -16,33 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.documents.util;
+package com.premiumminds.billy.portugal.services.builders;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTManualInvoice;
 
-public class PTCreditNoteParamsImpl extends PTIssuingParamsImpl implements
-		PTCreditNoteParams {
+public interface PTManualInvoiceBuilder<TBuilder extends PTManualInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTManualInvoice>
+		extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	@Override
-	public void setCreditNoteRef(UID uid) {
-		this.setParameter(Keys.INVOICE_SERIES, uid);
+	public TBuilder setManualInvoiceNumber(String number);
 
-	}
-
-	@Override
-	public void setCreditNoteReason(String reason) {
-		this.setParameter(Keys.CREDIT_NOTE_REASON, reason);
-
-	}
-
-	@Override
-	public UID getCreditNoteRef() throws ParameterNotFoundException {
-		return (UID) this.getParameter(Keys.INVOICE_REF_UID);
-	}
-
-	@Override
-	public String getCreditNoteReason() throws ParameterNotFoundException {
-		return (String) this.getParameter(Keys.CREDIT_NOTE_REASON);
-	}
+	public TBuilder setManualInvoiceSeries(String series);
 }

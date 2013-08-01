@@ -16,37 +16,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities.jpa;
+package com.premiumminds.billy.portugal.persistence.entities;
 
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTManualInvoice;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-@Entity
-@Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
-public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
-		PTSimpleInvoiceEntity {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public interface PTManualInvoiceEntity extends PTGenericInvoiceEntity,
+		PTManualInvoice {
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
-	public List<PTInvoiceEntry> getEntries() {
-		return (List<PTInvoiceEntry>) super.getEntries();
-	}
+	public List<PTInvoiceEntry> getEntries();
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
-	}
+	public PaymentMechanism getPaymentMechanism();
+
+	public void setManualInvoiceNumber(String number);
+
+	public void setManualInvoiceSeries(String series);
 }

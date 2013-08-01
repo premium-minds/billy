@@ -18,7 +18,10 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.math.BigDecimal;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
@@ -46,6 +49,11 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
+		PTSimpleInvoiceEntity i = this.getTypeInstance();
+
+		BillyValidator.mandatory(
+				(i.getAmountWithTax().compareTo(new BigDecimal(1000)) == 1),
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.source_id"));
 	}
 
 }

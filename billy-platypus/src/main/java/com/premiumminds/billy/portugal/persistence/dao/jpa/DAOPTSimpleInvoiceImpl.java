@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -35,10 +36,12 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity_;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity_;
 
 public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 		DAOPTSimpleInvoice {
 
+	@Inject
 	public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}

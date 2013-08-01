@@ -20,23 +20,26 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTManualInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
-public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
-		PTSimpleInvoiceEntity {
+@Table(name = Config.TABLE_PREFIX + "MANUAL_INVOICE")
+public class JPAPTManualInvoiceEntity extends JPAPTGenericInvoiceEntity
+		implements PTManualInvoiceEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	@Column(name = "MANUAL_INVOICE_NUMBER")
+	protected String manualInvoiceNumber;
+
+	@Column(name = "MANUAL_INVOICE_SERIESprotected")
+	protected String manualInvoiceSeries;
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
@@ -48,5 +51,25 @@ public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
 	@Override
 	public PaymentMechanism getPaymentMechanism() {
 		return (PaymentMechanism) super.getPaymentMechanism();
+	}
+
+	@Override
+	public String getManualInvoiceNumber() {
+		return manualInvoiceNumber;
+	}
+
+	@Override
+	public String getManualInvoiceSeries() {
+		return manualInvoiceSeries;
+	}
+
+	@Override
+	public void setManualInvoiceSeries(String series) {
+		this.manualInvoiceSeries = series;
+	}
+
+	@Override
+	public void setManualInvoiceNumber(String number) {
+		this.manualInvoiceNumber = number;
 	}
 }

@@ -24,5 +24,5 @@ import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 public interface PTCustomerBuilder<TBuilder extends PTCustomerBuilder<TBuilder, TCustomer>, TCustomer extends PTCustomer>
 		extends CustomerBuilder<TBuilder, TCustomer> {
 
-	public TBuilder setRerralName(String referralName);
+	public TBuilder setReferralName(String referralName);
 }

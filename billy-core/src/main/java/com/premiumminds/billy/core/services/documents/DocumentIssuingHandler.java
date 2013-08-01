@@ -23,7 +23,7 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public interface DocumentIssuingHandler {
 
-	public <T extends GenericInvoice> T issue(T document,
-			IssuingParams parameters) throws DocumentIssuingException;
+	public <T extends GenericInvoice, P extends IssuingParams> T issue(
+			T document, P parameters) throws DocumentIssuingException;
 
 }

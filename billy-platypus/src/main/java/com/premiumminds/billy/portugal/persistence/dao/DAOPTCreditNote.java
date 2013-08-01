@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.persistence.dao;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 
@@ -31,4 +32,8 @@ public interface DAOPTCreditNote extends DAOPTGenericInvoice {
 
 	public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid,
 			Date from, Date to);
+
+	@Override
+	public PTCreditNoteEntity getLatestInvoiceFromSeries(String series)
+			throws BillyRuntimeException;
 }

@@ -538,10 +538,10 @@ public class PlatypusBootstrap {
 						String city, String region, String isoCode,
 						String details, String postalCode, String key) {
 
-					addressBuilder.setBuilding(building).setCity(city)
-							.setDetails(details).setISOCountry(isoCode)
-							.setNumber(number).setRegion(region)
-							.setStreetName(street).setPostalCode(postalCode);
+					addressBuilder.setCity(city).setDetails(details)
+							.setISOCountry(isoCode).setNumber(number)
+							.setRegion(region).setStreetName(street)
+							.setPostalCode(postalCode);
 
 					PTAddressEntity address = (PTAddressEntity) addressBuilder
 							.build();
