@@ -130,7 +130,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 
 					return (T) documentEntity;
 				}
-
 			}.execute();
 		} catch (DocumentIssuingException e) {
 			throw e;
