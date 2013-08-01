@@ -20,16 +20,20 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
 
-public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl {
+public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
+		DAOPTSimpleInvoice {
 
+	@Inject
 	public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}

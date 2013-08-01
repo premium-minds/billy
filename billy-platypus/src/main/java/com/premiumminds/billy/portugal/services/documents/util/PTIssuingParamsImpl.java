@@ -23,12 +23,18 @@ import java.security.PublicKey;
 
 import com.premiumminds.billy.core.services.documents.impl.IssuingParamsImpl;
 import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTIssuingParamsImpl extends IssuingParamsImpl implements
 		PTIssuingParams {
 
 	public PTIssuingParamsImpl() {
 		super();
+	}
+
+	@Override
+	public TYPE getManualInvoiceType() throws ParameterNotFoundException {
+		return (TYPE) this.getParameter(Keys.MANUAL_INVOICE_TYPE);
 	}
 
 	@Override
@@ -59,5 +65,11 @@ public class PTIssuingParamsImpl extends IssuingParamsImpl implements
 	@Override
 	public void setInvoiceSeries(String series) {
 		this.setParameter(Keys.INVOICE_SERIES, series);
+	}
+
+	@Override
+	public void setManualInvoiceType(TYPE type)
+			throws ParameterNotFoundException {
+		this.setParameter(Keys.MANUAL_INVOICE_TYPE, type);
 	}
 }

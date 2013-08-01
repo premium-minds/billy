@@ -20,10 +20,16 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
+@Entity
+@Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
 public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
 		PTSimpleInvoiceEntity {
 

@@ -20,11 +20,12 @@ package com.premiumminds.billy.portugal.persistence.entities;
 
 import java.util.List;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTManualInvoice;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public interface PTManualInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
+public interface PTManualInvoiceEntity extends PTGenericInvoiceEntity,
+		PTManualInvoice {
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
@@ -33,4 +34,8 @@ public interface PTManualInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public PaymentMechanism getPaymentMechanism();
+
+	public void setManualInvoiceNumber(String number);
+
+	public void setManualInvoiceSeries(String series);
 }

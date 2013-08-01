@@ -23,6 +23,7 @@ import java.security.PublicKey;
 
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public interface PTIssuingParams extends IssuingParams {
 
@@ -31,13 +32,19 @@ public interface PTIssuingParams extends IssuingParams {
 		public static final String PRIVATE_KEY = "private_key";
 		public static final String PUBLIC_KEY = "public_key";
 		public static final String INVOICE_SERIES = "invoice_series";
+		public static final String MANUAL_INVOICE_TYPE = "manual_invoice_type";
 	}
 
 	public String getInvoiceSeries() throws ParameterNotFoundException;
 
+	public TYPE getManualInvoiceType() throws ParameterNotFoundException;
+
 	public PrivateKey getPrivateKey() throws ParameterNotFoundException;
 
 	public PublicKey getPublicKey() throws ParameterNotFoundException;
+
+	public void setManualInvoiceType(TYPE type)
+			throws ParameterNotFoundException;
 
 	public void setPublicKey(PublicKey privateKey);
 
