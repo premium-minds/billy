@@ -18,17 +18,26 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Root;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity_;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
 
-public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl {
+public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
+		DAOPTSimpleInvoice {
 
 	public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
@@ -56,6 +65,31 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl {
 					.get(0)[0]));
 		else
 			throw new BillyRuntimeException();
+	}
+
+	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(
+			UID uid, Date from, Date to) {
+		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<JPAPTSimpleInvoiceEntity> query = builder
+				.createQuery(JPAPTSimpleInvoiceEntity.class);
+
+		Root<JPAPTSimpleInvoiceEntity> root = query
+				.from(JPAPTSimpleInvoiceEntity.class);
+
+		Join<JPAPTSimpleInvoiceEntity, JPABusinessEntity> businesses = root
+				.join(JPAPTSimpleInvoiceEntity_.business);
+
+		query.select(root);
+
+		query.where(builder.and(
+				builder.equal(businesses.get(JPAPTBusinessEntity_.uid),
+						uid.getValue()),
+				builder.equal(root.get(JPAPTSimpleInvoiceEntity_.active), true),
+				builder.between(root.get(JPAPTSimpleInvoiceEntity_.date), from,
+						to)));
+
+		return checkEntityList(this.getEntityManager().createQuery(query)
+				.getResultList(), PTSimpleInvoiceEntity.class);
 	}
 
 }

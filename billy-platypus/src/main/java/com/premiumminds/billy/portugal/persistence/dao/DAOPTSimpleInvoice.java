@@ -18,7 +18,11 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 
 public interface DAOPTSimpleInvoice extends DAOPTInvoice {
@@ -29,4 +33,7 @@ public interface DAOPTSimpleInvoice extends DAOPTInvoice {
 	@Override
 	public PTSimpleInvoiceEntity getLatestInvoiceFromSeries(String series)
 			throws BillyRuntimeException;
+
+	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(
+			UID uid, Date from, Date to);
 }

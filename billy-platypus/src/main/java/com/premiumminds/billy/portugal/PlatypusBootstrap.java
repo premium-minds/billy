@@ -125,8 +125,9 @@ public class PlatypusBootstrap {
 					// Generic Address
 					final PTAddressEntity GENERIC_ADDRESS = this
 							.buildAddressEntity(daoPTAddress, addressBuilder,
-									"1", "Street", "Building", "City",
-									"region", "PT", "details", "1000-001",
+									"", "", "", "Desconhecido", "",
+									"Desconhecido", "Desconhecido",
+									"Desconhecido",
 									Config.Key.Address.Generic.UUID);
 
 					// Generic contact
@@ -140,8 +141,8 @@ public class PlatypusBootstrap {
 					// Generic Customer
 					final PTCustomerEntity GENERIC_CUSTOMER = this
 							.buildCustomerEntity(daoPTCustomer,
-									customerBuilder, "Final Consumer",
-									"997971477", addressBuilder,
+									customerBuilder, "Consumidor final",
+									"999999990", addressBuilder,
 									contactBuilder, false,
 									Config.Key.Customer.Generic.UUID);
 

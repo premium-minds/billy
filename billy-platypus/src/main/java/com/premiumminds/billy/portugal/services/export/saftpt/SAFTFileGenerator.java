@@ -20,6 +20,9 @@ package com.premiumminds.billy.portugal.services.export.saftpt;
 
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -35,14 +38,27 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
+import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AddressStructure;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AddressStructurePT;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AuditFile;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AuditFile.MasterFiles;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.CreditNote;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.Currency;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Customer;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Header;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Product;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.References;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.Settlement;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.ShippingPointStructure;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.Line;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.Tax;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.TaxTable;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.TaxTableEntry;
 import com.premiumminds.billy.portugal.Config;
@@ -58,16 +74,29 @@ import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
+import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidContactTypeException;
+import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentStateException;
+import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentTypeException;
+import com.premiumminds.billy.portugal.services.export.exceptions.InvalidPaymentMechanismException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidProductTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidTaxCodeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidTaxTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class SAFTFileGenerator {
 
@@ -196,26 +225,24 @@ public class SAFTFileGenerator {
 					SAFTFile.setMasterFiles(mf);
 
 					/* SOURCE DOCUMENTS */
-					// List<PTInvoiceEntity> invoices = daoPTInvoice
-					// .getBusinessInvoicesForSAFTPT(
-					// businessEntity.getUUID(), fromDate, toDate);
-					// List<PTSimpleInvoiceEntity> simpleInvoices =
-					// daoPTSimpleInvoice
-					// .getBusinessSimpleInvoicesForSAFTPT(
-					// businessEntity.getUUID(), fromDate, toDate);
-					// List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
-					// .getBusinessCreditNotesForSAFTPT(
-					// businessEntity.getUUID(), fromDate, toDate);
-					//
-					// SourceDocuments sd = generateSourceDocuments(
-					// invoices == null ? new ArrayList<PTInvoiceEntity>()
-					// : invoices,
-					// simpleInvoices == null ? new
-					// ArrayList<PTSimpleInvoiceEntity>()
-					// : simpleInvoices,
-					// creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
-					// : creditNotes);
-					// SAFTFile.setSourceDocuments(sd);
+					List<PTInvoiceEntity> invoices = daoPTInvoice
+							.getBusinessInvoicesForSAFTPT(
+									businessEntity.getUID(), fromDate, toDate);
+					List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
+							.getBusinessSimpleInvoicesForSAFTPT(
+									businessEntity.getUID(), fromDate, toDate);
+					List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
+							.getBusinessCreditNotesForSAFTPT(
+									businessEntity.getUID(), fromDate, toDate);
+
+					SourceDocuments sd = generateSourceDocuments(
+							invoices == null ? new ArrayList<PTInvoiceEntity>()
+									: invoices,
+							simpleInvoices == null ? new ArrayList<PTSimpleInvoiceEntity>()
+									: simpleInvoices,
+							creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
+									: creditNotes);
+					SAFTFile.setSourceDocuments(sd);
 
 					exportSAFTFile(SAFTFile, targetStream);
 
@@ -329,18 +356,11 @@ public class SAFTFileGenerator {
 			throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		this.context = "Customer.";
 		Customer customer = new Customer();
+
 		if (config.getUID(Key.Customer.Generic.UUID).equals(
 				customerEntity.getUID())) {
-			// updateCustomerGeneralInfo(customer, "Consumidor final",
-			// "999999990", "Consumidor final", new PTAddressEntity(
-			// "Desconhecido", "Desconhecido", "", "",
-			// "Desconhecido", "", "Desconhecido"));
+			customerEntity.setUID(new UID("Consumidor final"));
 		} else {
-			updateCustomerGeneralInfo(customer, customerEntity.getUID()
-					.getValue(), customerEntity.getTaxRegistrationNumber(),
-					customerEntity.getName(),
-					(PTAddressEntity) customerEntity.getBillingAddress());
-
 			if ((optionalParam = validateString("Contact",
 					customerEntity.getReferralName(), MAX_LENGTH_50, false))
 					.length() > 0) {
@@ -355,6 +375,10 @@ public class SAFTFileGenerator {
 					(List<PTContactEntity>) (List<?>) customerEntity
 							.getContacts());
 		}
+		updateCustomerGeneralInfo(customer, customerEntity.getUID().getValue(),
+				customerEntity.getTaxRegistrationNumber(),
+				customerEntity.getName(),
+				(PTAddressEntity) customerEntity.getBillingAddress());
 
 		customer.setAccountID(validateString("AccountID", ACCOUNT_ID,
 				MAX_LENGTH_30, true));
@@ -440,13 +464,13 @@ public class SAFTFileGenerator {
 				tte.setTaxExpirationDate(formatDate(taxEntity.getValidTo()));
 			}
 
-			// if (taxEntity.getTaxRateType().equals(TaxType.STAMP_DUTY)
-			// && taxEntity.getUnit().equals(Unit.VALUE)) {
-			// tte.setTaxAmount(taxEntity.getValue());
-			// } else if (taxEntity.getType().equals(TaxType.VAT)
-			// && taxEntity.getUnit().equals(Unit.PERCENTAGE)) {
-			// tte.setTaxPercentage(taxEntity.getValue());
-			// }
+			// TODO Check this
+			if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
+				tte.setTaxAmount(taxEntity.getValue());
+			} else if (taxEntity.getTaxRateType()
+					.equals(TaxRateType.PERCENTAGE)) {
+				tte.setTaxPercentage(taxEntity.getValue());
+			}
 
 			taxTable.getTaxTableEntry().add(tte);
 		}
@@ -471,66 +495,66 @@ public class SAFTFileGenerator {
 	 * @throws InvalidTaxTypeException
 	 * @throws InvalidTaxCodeException
 	 * @throws InvalidPaymentMechanismException
+	 * @throws InvalidInvoiceTypeException
 	 */
-	// private SourceDocuments generateSourceDocuments(List<IPTInvoiceEntity>
-	// invoices, List<IPTSimpleInvoiceEntity> simpleInvoices,
-	// List<IPTCreditNoteEntity> creditNotes)
-	// throws DatatypeConfigurationException, RequiredFieldNotFoundException,
-	// InvalidDocumentTypeException, InvalidDocumentStateException,
-	// InvalidTaxTypeException,
-	// InvalidTaxCodeException, InvalidPaymentMechanismException
-	// {
-	// this.context = "SourceDocuments.";
-	//
-	// SourceDocuments srcDocs = new SourceDocuments();
-	// SalesInvoices salesInvoices = new SalesInvoices();
-	// salesInvoices.setNumberOfEntries(new
-	// BigInteger(Integer.toString(invoices.size() + simpleInvoices.size() +
-	// creditNotes.size())));
-	//
-	// BigDecimal totalDebit = BigDecimal.ZERO;
-	// BigDecimal totalCredit = BigDecimal.ZERO;
-	//
-	// Invoice saftInvoice;
-	// for(IPTInvoiceEntity invoice : invoices) {
-	// saftInvoice = generateSAFTInvoice(invoice);
-	// processDocument(saftInvoice, invoice, true);
-	// salesInvoices.getInvoice().add(saftInvoice);
-	//
-	// if (!invoice.getDocumentState().equals(DocumentState.BILLED) &&
-	// !invoice.getDocumentState().equals(DocumentState.VOID)) {
-	// totalCredit = totalCredit.add(invoice.getNetTotal());
-	// }
-	// }
-	//
-	// for(IPTSimpleInvoiceEntity simpleInvoice : simpleInvoices) {
-	// saftInvoice = generateSAFTInvoice(simpleInvoice);
-	// processDocument(saftInvoice, simpleInvoice, true);
-	// salesInvoices.getInvoice().add(saftInvoice);
-	//
-	// if (!simpleInvoice.getDocumentState().equals(DocumentState.BILLED) &&
-	// !simpleInvoice.getDocumentState().equals(DocumentState.VOID)) {
-	// totalCredit = totalCredit.add(simpleInvoice.getNetTotal());
-	// }
-	// }
-	//
-	// for(IPTCreditNoteEntity creditNote : creditNotes) {
-	// saftInvoice = generateSAFTInvoice(creditNote);
-	// processDocument(saftInvoice, creditNote, false);
-	// salesInvoices.getInvoice().add(saftInvoice);
-	//
-	// if (!creditNote.getDocumentState().equals(DocumentState.BILLED) &&
-	// !creditNote.getDocumentState().equals(DocumentState.VOID)) {
-	// totalDebit = totalDebit.add(creditNote.getNetTotal());
-	// }
-	// }
-	//
-	// salesInvoices.setTotalDebit(validateBigDecimal(totalDebit));
-	// salesInvoices.setTotalCredit(validateBigDecimal(totalCredit));
-	// srcDocs.setSalesInvoices(salesInvoices);
-	//
-	// return srcDocs;
-	// }
+	private SourceDocuments generateSourceDocuments(
+			List<PTInvoiceEntity> invoices,
+			List<PTSimpleInvoiceEntity> simpleInvoices,
+			List<PTCreditNoteEntity> creditNotes)
+			throws DatatypeConfigurationException,
+			RequiredFieldNotFoundException, InvalidDocumentTypeException,
+			InvalidDocumentStateException, InvalidTaxTypeException,
+			InvalidTaxCodeException, InvalidPaymentMechanismException,
+			InvalidInvoiceTypeException {
+		this.context = "SourceDocuments.";
+
+		SourceDocuments srcDocs = new SourceDocuments();
+		SalesInvoices salesInvoices = new SalesInvoices();
+		salesInvoices.setNumberOfEntries(new BigInteger(Integer
+				.toString(invoices.size() + simpleInvoices.size()
+						+ creditNotes.size())));
+
+		BigDecimal totalDebit = BigDecimal.ZERO;
+		BigDecimal totalCredit = BigDecimal.ZERO;
+
+		Invoice saftInvoice;
+		for (PTInvoiceEntity invoice : invoices) {
+			saftInvoice = generateSAFTInvoice(invoice);
+			processDocument(saftInvoice, invoice, true);
+			salesInvoices.getInvoice().add(saftInvoice);
+
+			if (!invoice.isBilled() && !invoice.isCancelled()) {
+				totalCredit = totalCredit.add(invoice.getAmountWithoutTax());
+			}
+		}
+
+		for (PTSimpleInvoiceEntity simpleInvoice : simpleInvoices) {
+			saftInvoice = generateSAFTInvoice(simpleInvoice);
+			processDocument(saftInvoice, simpleInvoice, true);
+			salesInvoices.getInvoice().add(saftInvoice);
+
+			if (!simpleInvoice.isBilled() && !simpleInvoice.isCancelled()) {
+				totalCredit = totalCredit.add(simpleInvoice
+						.getAmountWithoutTax());
+			}
+		}
+
+		for (PTCreditNoteEntity creditNote : creditNotes) {
+			saftInvoice = generateSAFTInvoice(creditNote);
+			processDocument(saftInvoice, creditNote, false);
+			salesInvoices.getInvoice().add(saftInvoice);
+
+			if (!creditNote.isBilled() && !creditNote.isCancelled()) {
+				totalDebit = totalDebit.add(creditNote.getAmountWithoutTax());
+			}
+		}
+
+		salesInvoices.setTotalDebit(validateBigDecimal(totalDebit));
+		salesInvoices.setTotalCredit(validateBigDecimal(totalCredit));
+		srcDocs.setSalesInvoices(salesInvoices);
+
+		return srcDocs;
+	}
 
 	/**
 	 * Generates a financial document that will be inserted in the
@@ -546,51 +570,55 @@ public class SAFTFileGenerator {
 	 * @throws RequiredFieldNotFoundException
 	 * @throws InvalidDocumentTypeException
 	 * @throws InvalidDocumentStateException
+	 * @throws InvalidInvoiceTypeException
 	 */
-	// private Invoice generateSAFTInvoice(IPTFinancialDocumentEntity document)
-	// throws DatatypeConfigurationException, RequiredFieldNotFoundException,
-	// InvalidDocumentTypeException, InvalidDocumentStateException
-	// {
-	// Invoice saftInv = new Invoice();
-	//
-	// saftInv.setInvoiceNo(validateString("InvoiceNo",
-	// document.getDocumentNumberSAFTPT(), MAX_LENGTH_60, true));
-	// saftInv.setInvoiceStatus(validateString("InvoiceStatus",
-	// getDocumentStatus(document), MAX_LENGTH_1, true));
-	// saftInv.setInvoiceType(validateString("InvoiceType",
-	// Documents.getDocumentTypeAcronym(document.getDocumentNumberSAFTPT()),
-	// MAX_LENGTH_2, true));
-	// saftInv.setHash(validateString("Hash",
-	// Base64.encodeBase64String(document.getHash()), MAX_LENGTH_200, true));
-	//
-	// saftInv.setPeriod(validateInteger("Period",
-	// Integer.toString(getDateField(document.getIssueDate(), Calendar.MONTH)),
-	// MAX_LENGTH_2, true));
-	// saftInv.setInvoiceDate(formatDate(document.getIssueDate()));
-	// saftInv.setSelfBillingIndicator(validateInteger("SelfBillingIndicator",
-	// document.isSelfBilling() ? "1" : "0", MAX_LENGTH_1, true));
-	// saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
-	// UUID customerUUID = document.getCustomer().getUUID();
-	// String customerID =
-	// customerUUID.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ?
-	// "Consumidor final" : customerUUID.toString();
-	//
-	// saftInv.setCustomerID(validateString("CustomerID", customerID,
-	// MAX_LENGTH_30, true));
-	//
-	// /* NOT REQUIRED */
-	// if (document.getDeliveryDestinationAddress() != null) {
-	// saftInv.setShipTo(getShippingPointStructure(document.getDeliveryId(),
-	// document.getDeliveryDate(), document.getDeliveryDestinationAddress()));
-	// }
-	// if (document.getDeliveryOriginAddress() != null) {
-	// saftInv.setShipFrom(getShippingPointStructure(document.getDeliveryOriginId(),
-	// document.getDeliveryShippingDate(),
-	// document.getDeliveryOriginAddress()));
-	// }
-	//
-	// return saftInv;
-	// }
+	private Invoice generateSAFTInvoice(PTGenericInvoiceEntity document)
+			throws DatatypeConfigurationException,
+			RequiredFieldNotFoundException, InvalidDocumentTypeException,
+			InvalidDocumentStateException, InvalidInvoiceTypeException {
+		Invoice saftInv = new Invoice();
+
+		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
+				MAX_LENGTH_60, true));
+		saftInv.setInvoiceStatus(validateString("InvoiceStatus",
+				getDocumentStatus(document), MAX_LENGTH_1, true));
+		saftInv.setInvoiceType(validateString("InvoiceType",
+				getDocumentType(document), MAX_LENGTH_2, true));
+		saftInv.setHash(validateString("Hash", document.getHash(),
+				MAX_LENGTH_200, true));
+
+		saftInv.setPeriod(validateInteger("Period", Integer
+				.toString(getDateField(document.getDate(), Calendar.MONTH)),
+				MAX_LENGTH_2, true));
+		saftInv.setInvoiceDate(formatDate(document.getDate()));
+		saftInv.setSelfBillingIndicator(validateInteger("SelfBillingIndicator",
+				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
+		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
+		UID customerUID = document.getCustomer().getUID();
+		String customerID = customerUID.equals(config
+				.getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
+				: customerUID.toString();
+
+		saftInv.setCustomerID(validateString("CustomerID", customerID,
+				MAX_LENGTH_30, true));
+
+		/* NOT REQUIRED */
+		if (document.getShippingDestination() != null) {
+			saftInv.setShipTo(getShippingPointStructure(document
+					.getShippingDestination().getDeliveryId(), document
+					.getShippingDestination().getDate(),
+					(PTAddressEntity) document.getShippingDestination()
+							.getAddress()));
+		}
+		if (document.getShippingOrigin() != null) {
+			saftInv.setShipFrom(getShippingPointStructure(document
+					.getShippingDestination().getDeliveryId(), document
+					.getShippingDestination().getDate(),
+					(PTAddressEntity) document.getShippingOrigin().getAddress()));
+		}
+
+		return saftInv;
+	}
 
 	/**
 	 * Process a financial document to generate its DocumentTotals and the
@@ -613,103 +641,107 @@ public class SAFTFileGenerator {
 	 * @throws InvalidTaxCodeException
 	 * @throws InvalidPaymentMechanismException
 	 */
-	// private void processDocument(Invoice saftInvoice,
-	// IPTFinancialDocumentEntity document, boolean isCredit)
-	// throws RequiredFieldNotFoundException, DatatypeConfigurationException,
-	// InvalidDocumentTypeException, InvalidTaxTypeException,
-	// InvalidTaxCodeException, InvalidPaymentMechanismException
-	// {
-	// List<? extends IPTFinancialDocumentEntryEntity> entries =
-	// document.getDocumentEntries();
-	// if(entries == null || entries.size() < 1) {
-	// throw new RequiredFieldNotFoundException(this.context + "Line");
-	// }
-	//
-	// for (IPTFinancialDocumentEntryEntity entry : entries)
-	// {
-	// /* REQUIRED - One Invoice.Line per IPTFinancialDocumentEntryEntity */
-	// Line line = new Line();
-	// line.setLineNumber(new
-	// BigInteger(Integer.toString(entry.getSequenceNumber() + 1)));
-	//
-	// /* NOT REQUIRED - Invoice.Line.OrderReferences */
-	// OrderReferences or = getOrderReferencesForDocumentEntry(entry);
-	// if (or != null) {
-	// line.getOrderReferences().add(or);
-	// }
-	//
-	// /* REQUIRED */
-	// line.setProductCode(validateString("ProductCode",
-	// validateUUID(entry.getProduct().getUUID()), MAX_LENGTH_30, true));
-	// line.setProductDescription(validateString("ProductDescription",
-	// entry.getProduct().getDescription(), MAX_LENGTH_60, true));
-	// line.setQuantity(validateBigDecimal(entry.getProductQuantity()));
-	// line.setUnitOfMeasure(validateString("UnitOfMeasure", UNIT_OF_MEASURE,
-	// MAX_LENGTH_20, true));
-	// line.setUnitPrice(validateBigDecimal(entry.getNetTotal().divide(entry.getProductQuantity(),
-	// RoundingMode.HALF_UP)));
-	// line.setTaxPointDate(formatDate(entry.getTaxPointDate()));
-	//
-	// /* NOT REQUIRED - Invoice.Line.References */
-	// References ref = getReferencesForDocumentEntry(entry, document);
-	// if (ref != null) {
-	// line.setReferences(ref);
-	// }
-	//
-	// /* REQUIRED */
-	// line.setDescription(validateString("Description", entry.getDescription(),
-	// MAX_LENGTH_60, true));
-	// if (isCredit) {
-	// line.setCreditAmount(validateBigDecimal(entry.getNetTotal()));
-	// } else {
-	// line.setDebitAmount(validateBigDecimal(entry.getNetTotal()));
-	// }
-	//
-	// /* NOT REQUIRED Invoice.Line.Tax */
-	// if (entry.getTaxes().size() > 0)
-	// {
-	// IPTTaxEntity taxEntity = (IPTTaxEntity) entry.getTaxes().get(0);
-	// Tax tax = new Tax();
-	// tax.setTaxType(validateString("TaxType", getTaxType(taxEntity),
-	// MAX_LENGTH_3, true));
-	// tax.setTaxCode(validateString("TaxCode", getTaxCode(taxEntity),
-	// MAX_LENGTH_10, true));
-	// tax.setTaxCountryRegion(validateString("TaxCountryRegion",
-	// getRegionCodeFromISOCode(taxEntity.getRegionContext().getRegionCode()),
-	// MAX_LENGTH_5, true));
-	//
-	// if (taxEntity.getType().equals(TaxType.STAMP_DUTY) &&
-	// taxEntity.getUnit().equals(Unit.VALUE)) {
-	// tax.setTaxAmount(validateBigDecimal(taxEntity.getValue()));
-	// } else if (taxEntity.getType().equals(TaxType.VAT) &&
-	// taxEntity.getUnit().equals(Unit.PERCENTAGE)) {
-	// tax.setTaxPercentage(taxEntity.getValue());
-	// }
-	// line.setTax(tax);
-	//
-	// if ((tax.getTaxPercentage() != null &&
-	// tax.getTaxPercentage().equals(BigDecimal.ZERO)) || (tax.getTaxAmount() !=
-	// null && tax.getTaxAmount().equals(BigDecimal.ZERO))) {
-	// line.setTaxExemptionReason(validateString("TaxExemptionReason",
-	// entry.getExemptionLegalMotiveDescription(), MAX_LENGTH_60, true));
-	// }
-	// }
-	//
-	// /* NOT REQUIRED */
-	// if (entry.getDiscountTotal() != null &&
-	// !entry.getDiscountTotal().equals(BigDecimal.ZERO)) {
-	// line.setSettlementAmount(entry.getDiscountTotal());
-	// }
-	//
-	// saftInvoice.getLine().add(line);
-	// }
-	//
-	// /* NOT REQUIRED */
-	// DocumentTotals dt = getDocumentTotals(document, isCredit);
-	// if (dt != null) {
-	// saftInvoice.setDocumentTotals(dt);
-	// }
-	// }
+	private void processDocument(Invoice saftInvoice,
+			PTGenericInvoiceEntity document, boolean isCredit)
+			throws RequiredFieldNotFoundException,
+			DatatypeConfigurationException, InvalidDocumentTypeException,
+			InvalidTaxTypeException, InvalidTaxCodeException,
+			InvalidPaymentMechanismException {
+		@SuppressWarnings("unchecked")
+		List<? extends PTGenericInvoiceEntryEntity> entries = (List<? extends PTGenericInvoiceEntryEntity>) document
+				.getEntries();
+		if (entries == null || entries.size() < 1) {
+			throw new RequiredFieldNotFoundException(this.context + "Line");
+		}
+
+		for (PTGenericInvoiceEntryEntity entry : entries) {
+			/* REQUIRED - One Invoice.Line per IPTFinancialDocumentEntryEntity */
+			Line line = new Line();
+			line.setLineNumber(new BigInteger(Integer.toString(entry
+					.getEntryNumber())));
+
+			/* NOT REQUIRED - Invoice.Line.OrderReferences */
+			// OrderReferences or = getOrderReferencesForDocumentEntry(entry);
+			// if (or != null) {
+			// line.getOrderReferences().add(or);
+			// }
+
+			/* REQUIRED */
+			line.setProductCode(validateString("ProductCode", entry
+					.getProduct().getUID().getValue(), MAX_LENGTH_30, true));
+			line.setProductDescription(validateString("ProductDescription",
+					entry.getProduct().getDescription(), MAX_LENGTH_60, true));
+			line.setQuantity(validateBigDecimal(entry.getQuantity()));
+			line.setUnitOfMeasure(validateString("UnitOfMeasure",
+					UNIT_OF_MEASURE, MAX_LENGTH_20, true));
+			line.setUnitPrice(validateBigDecimal(entry.getAmountWithoutTax()
+					.divide(entry.getQuantity(), RoundingMode.HALF_UP)));
+			line.setTaxPointDate(formatDate(entry.getTaxPointDate()));
+
+			/* NOT REQUIRED - Invoice.Line.References */
+			References ref = getReferencesForDocumentEntry(entry, document);
+			if (ref != null) {
+				line.setReferences(ref);
+			}
+
+			/* REQUIRED */
+			line.setDescription(validateString("Description",
+					entry.getDescription(), MAX_LENGTH_60, true));
+			if (isCredit) {
+				line.setCreditAmount(validateBigDecimal(entry
+						.getAmountWithoutTax()));
+			} else {
+				line.setDebitAmount(validateBigDecimal(entry
+						.getAmountWithoutTax()));
+			}
+
+			/* NOT REQUIRED Invoice.Line.Tax */
+			if (entry.getTaxes().size() > 0) {
+				PTTaxEntity taxEntity = (PTTaxEntity) entry.getTaxes().get(0);
+				Tax tax = new Tax();
+				tax.setTaxType(validateString("TaxType", getTaxType(taxEntity),
+						MAX_LENGTH_3, true));
+				tax.setTaxCode(validateString("TaxCode", getTaxCode(taxEntity),
+						MAX_LENGTH_10, true));
+				tax.setTaxCountryRegion(validateString("TaxCountryRegion",
+						getRegionCodeFromISOCode(((PTRegionContext) taxEntity
+								.getContext()).getRegionCode()), MAX_LENGTH_5,
+						true));
+
+				// TODO Check this
+				if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
+					tax.setTaxAmount(validateBigDecimal(taxEntity.getValue()));
+				} else if (taxEntity.getTaxRateType().equals(
+						TaxRateType.PERCENTAGE)) {
+					tax.setTaxPercentage(taxEntity.getValue());
+				}
+				line.setTax(tax);
+
+				if ((tax.getTaxPercentage() != null && tax.getTaxPercentage()
+						.equals(BigDecimal.ZERO))
+						|| (tax.getTaxAmount() != null && tax.getTaxAmount()
+								.equals(BigDecimal.ZERO))) {
+					line.setTaxExemptionReason(validateString(
+							"TaxExemptionReason",
+							entry.getTaxExemptionReason(), MAX_LENGTH_60, true));
+				}
+			}
+
+			/* NOT REQUIRED */
+			if (entry.getDiscountAmount() != null
+					&& !entry.getDiscountAmount().equals(BigDecimal.ZERO)) {
+				line.setSettlementAmount(entry.getDiscountAmount());
+			}
+
+			saftInvoice.getLine().add(line);
+		}
+
+		/* NOT REQUIRED */
+		DocumentTotals dt = getDocumentTotals(document, isCredit);
+		if (dt != null) {
+			saftInvoice.setDocumentTotals(dt);
+		}
+	}
 
 	/**
 	 * Generates the field OrderReferences (4.1.4.14.2) of document entry
@@ -720,13 +752,13 @@ public class SAFTFileGenerator {
 	 * @throws RequiredFieldNotFoundException
 	 * @throws DatatypeConfigurationException
 	 */
-	// private OrderReferences
-	// getOrderReferencesForDocumentEntry(IPTFinancialDocumentEntryEntity entry)
-	// throws RequiredFieldNotFoundException, DatatypeConfigurationException
-	// {
+	// private OrderReferences getOrderReferencesForDocumentEntry(
+	// PTGenericInvoiceEntryEntity entry)
+	// throws RequiredFieldNotFoundException,
+	// DatatypeConfigurationException {
 	// OrderReferences or = new OrderReferences();
-	// if ((optionalParam = validateString("OriginatingON", entry.getOrderId(),
-	// MAX_LENGTH_30, false)).length() > 0) {
+	// if ((optionalParam = validateString("OriginatingON",
+	// entry.getOrderId(), MAX_LENGTH_30, false)).length() > 0) {
 	// or.setOriginatingON(optionalParam);
 	// }
 	// if (entry.getOrderDate() != null) {
@@ -749,48 +781,43 @@ public class SAFTFileGenerator {
 	 * @throws DatatypeConfigurationException
 	 * @throws InvalidDocumentTypeException
 	 */
-	// private References
-	// getReferencesForDocumentEntry(IPTFinancialDocumentEntryEntity entry,
-	// IPTFinancialDocumentEntity document) throws
-	// RequiredFieldNotFoundException, DatatypeConfigurationException,
-	// InvalidDocumentTypeException
-	// {
-	// References ref = null;
-	// IPTFinancialDocumentEntity referencedDocument =
-	// entry.getReferencedDocument();
-	//
-	// /* FIXME ONLY SUPPORTS ONE REFERENCED DOCUMENT */
-	// if (referencedDocument != null)
-	// {
-	// ref = new References();
-	// CreditNote cn = new CreditNote();
-	// String reasonForCredit;
-	//
-	// if (document.getType().equals(DocumentType.CREDIT_NOTE)) {
-	// /* then referencedDocument is an invoice/simple invoice */
-	// reasonForCredit = ((IPTCreditNoteEntity) document).getReasonForCredit();
-	// } else {
-	// /* then referencedDocument is a credit note */
-	// reasonForCredit = ((IPTCreditNoteEntity)
-	// referencedDocument).getReasonForCredit();
-	// }
-	//
-	// if ((optionalParam = validateString("References.CreditNote.Reference",
-	// referencedDocument.getDocumentNumberSAFTPT(), MAX_LENGTH_60,
-	// false)).length() > 0) {
-	// cn.setReference(optionalParam);
-	// }
-	//
-	// if ((optionalParam = validateString("References.CreditNote.Reason",
-	// reasonForCredit, MAX_LENGTH_50, false)).length() > 0) {
-	// cn.setReason(optionalParam);
-	// }
-	//
-	// ref.setCreditNote(cn);
-	// }
-	//
-	// return ref;
-	// }
+	private References getReferencesForDocumentEntry(
+			PTGenericInvoiceEntryEntity entry, PTGenericInvoiceEntity document)
+			throws RequiredFieldNotFoundException,
+			DatatypeConfigurationException, InvalidDocumentTypeException {
+		References ref = null;
+		PTInvoice referencedDocument = ((PTCreditNoteEntryEntity) entry)
+				.getReference();
+
+		/* FIXME ONLY SUPPORTS ONE REFERENCED DOCUMENT */
+		if (referencedDocument != null) {
+			ref = new References();
+
+			CreditNote cn = new CreditNote();
+			String reasonForCredit = "";
+
+			if (document.getType().equals(TYPE.NC)) {
+				/* then referencedDocument is an invoice/simple invoice */
+				reasonForCredit = ((PTCreditNoteEntryEntity) entry).getReason();
+			}
+
+			if ((optionalParam = validateString(
+					"References.CreditNote.Reference",
+					referencedDocument.getNumber(), MAX_LENGTH_60, false))
+					.length() > 0) {
+				cn.setReference(optionalParam);
+			}
+
+			if ((optionalParam = validateString("References.CreditNote.Reason",
+					reasonForCredit, MAX_LENGTH_50, false)).length() > 0) {
+				cn.setReason(optionalParam);
+			}
+
+			ref.setCreditNote(cn);
+		}
+
+		return ref;
+	}
 
 	/**
 	 * Constructs an instance of ShippingPointStructure needed in the
@@ -806,23 +833,23 @@ public class SAFTFileGenerator {
 	 * @throws RequiredFieldNotFoundException
 	 * @throws DatatypeConfigurationException
 	 */
-	// private ShippingPointStructure getShippingPointStructure(String
-	// deliveryID, Date deliveryDate, AddressEntity address) throws
-	// RequiredFieldNotFoundException, DatatypeConfigurationException
-	// {
-	// ShippingPointStructure sps = new ShippingPointStructure();
-	//
-	// if((optionalParam = validateString("DeliveryID", deliveryID,
-	// MAX_LENGTH_30, false)).length() > 0) {
-	// sps.setDeliveryID(optionalParam);
-	// }
-	// if(deliveryDate != null) {
-	// sps.setDeliveryDate(formatDate(deliveryDate));
-	// }
-	// sps.setAddress(generateAddressStructure(address));
-	//
-	// return sps;
-	// }
+	private ShippingPointStructure getShippingPointStructure(String deliveryID,
+			Date deliveryDate, PTAddressEntity address)
+			throws RequiredFieldNotFoundException,
+			DatatypeConfigurationException {
+		ShippingPointStructure sps = new ShippingPointStructure();
+
+		if ((optionalParam = validateString("DeliveryID", deliveryID,
+				MAX_LENGTH_30, false)).length() > 0) {
+			sps.setDeliveryID(optionalParam);
+		}
+		if (deliveryDate != null) {
+			sps.setDeliveryDate(formatDate(deliveryDate));
+		}
+		sps.setAddress(generateAddressStructure(address));
+
+		return sps;
+	}
 
 	/**
 	 * Generates the field Currency (4.1.4.15.4) of DocumentTotals of a SAFT
@@ -832,24 +859,24 @@ public class SAFTFileGenerator {
 	 * @param isCredit
 	 * @return
 	 */
-	// private Currency getCurrency(IPTFinancialDocumentEntity document, boolean
-	// isCredit)
-	// {
-	// Currency cur = null;
-	//
-	// if (!document.getCurrency().getCurrencyCode().equals(CURRENCY_CODE))
-	// {
-	// cur = new Currency();
-	// cur.setCurrencyCode(document.getCurrency().getCurrencyCode());
-	// if (isCredit) {
-	// cur.setCurrencyCreditAmount(validateBigDecimal(document.getNetTotal()));
-	// } else {
-	// cur.setCurrencyDebitAmount(validateBigDecimal(document.getNetTotal()));
-	// }
-	// }
-	//
-	// return cur;
-	// }
+	private Currency getCurrency(PTGenericInvoiceEntity document,
+			boolean isCredit) {
+		Currency cur = null;
+
+		if (!document.getCurrency().getCurrencyCode().equals(CURRENCY_CODE)) {
+			cur = new Currency();
+			cur.setCurrencyCode(document.getCurrency().getCurrencyCode());
+			if (isCredit) {
+				cur.setCurrencyCreditAmount(validateBigDecimal(document
+						.getAmountWithoutTax()));
+			} else {
+				cur.setCurrencyDebitAmount(validateBigDecimal(document
+						.getAmountWithoutTax()));
+			}
+		}
+
+		return cur;
+	}
 
 	/**
 	 * Generates the field Settlement (4.1.4.15.5) of DocumentTotals of a SAFT
@@ -861,35 +888,36 @@ public class SAFTFileGenerator {
 	 * @throws DatatypeConfigurationException
 	 * @throws InvalidPaymentMechanismException
 	 */
-	// private Settlement getSettlement(IPTFinancialDocumentEntity document)
-	// throws RequiredFieldNotFoundException, DatatypeConfigurationException,
-	// InvalidPaymentMechanismException
-	// {
-	// if(document.getSettlementTotal() != null) {
-	// Settlement settlement = new Settlement();
-	// settlement.setSettlementAmount(validateBigDecimal(document.getSettlementTotal()));
-	// settlement.setSettlementDate(formatDate(document.getSettlementDate()));
-	// if ((optionalParam = validateString("SettlementDiscount",
-	// document.getSettlementDescription(), MAX_LENGTH_30, false)).length() > 0)
-	// {
-	// settlement.setSettlementDiscount(optionalParam);
-	// }
-	// if ((optionalParam = validateString("PaymentMechanism",
-	// getPaymentMechanism(document.getPaymentMechanism()), MAX_LENGTH_2,
-	// false)).length() > 0) {
-	// settlement.setPaymentMechanism(optionalParam);
-	// }
-	//
-	// if (settlement.getSettlementAmount() != null &&
-	// !settlement.getSettlementAmount().equals(validateBigDecimal(BigDecimal.ZERO)))
-	// {
-	// return settlement;
-	// } else {
-	// return null;
-	// }
-	// }
-	// return null;
-	// }
+	private Settlement getSettlement(PTGenericInvoiceEntity document)
+			throws RequiredFieldNotFoundException,
+			DatatypeConfigurationException, InvalidPaymentMechanismException {
+		if (document.getSettlementDiscount() != null) {
+			Settlement settlement = new Settlement();
+			settlement.setSettlementAmount(validateBigDecimal(document
+					.getSettlementDiscount()));
+			settlement.setSettlementDate(formatDate(document
+					.getSettlementDate()));
+			if ((optionalParam = validateString("SettlementDiscount",
+					document.getSettlementDescription(), MAX_LENGTH_30, false))
+					.length() > 0) {
+				settlement.setSettlementDiscount(optionalParam);
+			}
+			if ((optionalParam = validateString("PaymentMechanism",
+					getPaymentMechanism(document.getPaymentMechanism()),
+					MAX_LENGTH_2, false)).length() > 0) {
+				settlement.setPaymentMechanism(optionalParam);
+			}
+
+			if (settlement.getSettlementAmount() != null
+					&& !settlement.getSettlementAmount().equals(
+							validateBigDecimal(BigDecimal.ZERO))) {
+				return settlement;
+			} else {
+				return null;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Generates the DocumentTotals (4.1.4.15) of a SAFT Invoice
@@ -901,37 +929,63 @@ public class SAFTFileGenerator {
 	 * @throws DatatypeConfigurationException
 	 * @throws InvalidPaymentMechanismException
 	 */
-	// private DocumentTotals getDocumentTotals(IPTFinancialDocumentEntity
-	// document, boolean isCredit) throws RequiredFieldNotFoundException,
-	// DatatypeConfigurationException, InvalidPaymentMechanismException
-	// {
-	// DocumentTotals dt = null;
-	//
-	// if
-	// (!validateBigDecimal(document.getNetTotal()).equals(validateBigDecimal(BigDecimal.ZERO)))
-	// {
-	// dt = new DocumentTotals(); //4.1.4.15
-	// /* REQUIRED */
-	// dt.setTaxPayable(validateBigDecimal(document.getTaxTotal()));
-	// //4.1.4.15.1
-	// dt.setNetTotal(validateBigDecimal(document.getNetTotal())); //4.1.4.15.2
-	// dt.setGrossTotal(validateBigDecimal(document.getGrossTotal()));
-	// //4.1.4.15.3
-	//
-	// /* NOT REQUIRED - I guess it's only required if it has another currency*/
-	// Currency cur = getCurrency(document, isCredit); //4.1.4.15.4
-	// if (cur != null) {
-	// dt.setCurrency(cur);
-	// }
-	// /* NOT REQUIRED - Invoice.DocumentTotals.Settlements */
-	// Settlement stlment = getSettlement(document); //4.1.4.15.5
-	// if (stlment != null) {
-	// dt.setSettlement(stlment);
-	// }
-	// }
-	//
-	// return dt;
-	// }
+	private DocumentTotals getDocumentTotals(PTGenericInvoiceEntity document,
+			boolean isCredit) throws RequiredFieldNotFoundException,
+			DatatypeConfigurationException, InvalidPaymentMechanismException {
+		DocumentTotals dt = null;
+
+		if (!validateBigDecimal(document.getAmountWithoutTax()).equals(
+				validateBigDecimal(BigDecimal.ZERO))) {
+			dt = new DocumentTotals(); // 4.1.4.15
+			/* REQUIRED */
+			dt.setTaxPayable(validateBigDecimal(document.getTaxAmount()));
+			// 4.1.4.15.1
+			dt.setNetTotal(validateBigDecimal(document.getAmountWithoutTax())); // 4.1.4.15.2
+			dt.setGrossTotal(validateBigDecimal(document.getAmountWithTax()));
+			// 4.1.4.15.3
+
+			/*
+			 * NOT REQUIRED - I guess it's only required if it has another
+			 * currency
+			 */
+			Currency cur = getCurrency(document, isCredit); // 4.1.4.15.4
+			if (cur != null) {
+				dt.setCurrency(cur);
+			}
+			/* NOT REQUIRED - Invoice.DocumentTotals.Settlements */
+			Settlement stlment = getSettlement(document); // 4.1.4.15.5
+			if (stlment != null) {
+				dt.setSettlement(stlment);
+			}
+		}
+
+		return dt;
+	}
+
+	/**
+	 * Generates the InvoiceType (4.1.4.7) of a SAFT Invoice
+	 * 
+	 * @param document
+	 * @return
+	 * @throws InvalidInvoiceTypeException
+	 */
+	private String getDocumentType(PTGenericInvoiceEntity document)
+			throws InvalidInvoiceTypeException {
+		switch (document.getType()) {
+			case FS:
+				return "FS";
+			case FT:
+				return "FT";
+			case NC:
+				return "NC";
+			case ND:
+				return "ND";
+			default:
+				throw new InvalidInvoiceTypeException(document.getType()
+						.toString(), document.getSeries());
+
+		}
+	}
 
 	/*************
 	 * CUSTOMERS *
@@ -974,19 +1028,18 @@ public class SAFTFileGenerator {
 	 * @return
 	 * @throws InvalidDocumentStateException
 	 */
-	// private String getDocumentStatus(IPTFinancialDocumentEntity document)
-	// throws InvalidDocumentStateException
-	// {
-	// switch(document.getDocumentState())
-	// {
-	// case BILLED: return "F";
-	// case NORMAL: return "N";
-	// case SELF_BILLING: return "S";
-	// case VOID: return "A";
-	// default: throw new
-	// InvalidDocumentStateException(document.getDocumentState().toString());
-	// }
-	// }
+	private String getDocumentStatus(PTGenericInvoiceEntity document)
+			throws InvalidDocumentStateException {
+		if (document.isCancelled()) {
+			return "A";
+		} else if (document.isBilled()) {
+			return "F";
+		} else if (document.isSelfBilled()) {
+			return "S";
+		} else {
+			return "N";
+		}
+	}
 
 	/**
 	 * Converts the payment mechanism to an acronym according to the SAFT file
@@ -996,20 +1049,31 @@ public class SAFTFileGenerator {
 	 * @return
 	 * @throws InvalidPaymentMechanismException
 	 */
-	// private String getPaymentMechanism(PaymentMechanism pm) throws
-	// InvalidPaymentMechanismException
-	// {
-	// switch(pm)
-	// {
-	// case BANK_TRANSFER: return "TB";
-	// case CASH: return "NU";
-	// case CHECK: return "CH";
-	// case CREDIT_CARD: return "CC";
-	// case DEBIT_CARD: return "CD";
-	// case RESTAURANT_TICKET: return "TR";
-	// default: throw new InvalidPaymentMechanismException(pm.toString());
-	// }
-	// }
+	private String getPaymentMechanism(PaymentMechanism pm)
+			throws InvalidPaymentMechanismException {
+		switch (pm) {
+			case BANK_TRANSFER:
+				return "TB";
+			case CASH:
+				return "NU";
+			case CHECK:
+				return "CH";
+			case CREDIT_CARD:
+				return "CC";
+			case DEBIT_CARD:
+				return "CD";
+			case RESTAURANT_TICKET:
+				return "TR";
+			case COMPENSATION:
+				return "CS";
+			case COMMERCIAL_LETTER:
+				return "LC";
+			case ATM:
+				return "MB";
+			default:
+				throw new InvalidPaymentMechanismException(pm.toString());
+		}
+	}
 
 	/***********************
 	 * ADDRESSES & REGIONS *
