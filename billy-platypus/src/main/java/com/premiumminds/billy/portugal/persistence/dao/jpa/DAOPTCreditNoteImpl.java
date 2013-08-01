@@ -18,10 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
@@ -44,4 +48,16 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 		return JPAPTCreditNoteEntity.class;
 	}
 
+	@Override
+	public PTCreditNoteEntity getLatestInvoiceFromSeries(String series)
+			throws BillyRuntimeException {
+
+		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
+
+		if (list.size() != 0)
+			return (PTCreditNoteEntity) this.get(new UID(
+					(String) list.get(0)[0]));
+		else
+			throw new BillyRuntimeException();
+	}
 }

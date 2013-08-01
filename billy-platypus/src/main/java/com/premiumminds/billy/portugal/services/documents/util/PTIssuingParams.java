@@ -31,8 +31,6 @@ public interface PTIssuingParams extends IssuingParams {
 		public static final String PRIVATE_KEY = "private_key";
 		public static final String PUBLIC_KEY = "public_key";
 		public static final String INVOICE_SERIES = "invoice_series";
-		public static final String INVOICE_REF_UID = "inoive_ref_uid";
-		public static final String CREDIT_NOTE_REASON = "credit_note_reason";
 	}
 
 	public String getInvoiceSeries() throws ParameterNotFoundException;
