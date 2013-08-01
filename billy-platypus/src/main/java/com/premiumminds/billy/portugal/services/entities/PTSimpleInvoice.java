@@ -20,26 +20,24 @@ package com.premiumminds.billy.portugal.services.entities;
 
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.entities.Tax;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
-import com.premiumminds.billy.portugal.services.builders.impl.PTTaxBuilderImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
+import com.premiumminds.billy.portugal.services.builders.impl.PTSimpleInvoiceBuilderImpl;
 
-public interface PTTax extends Tax {
+public interface PTSimpleInvoice extends PTInvoice {
 
-	public static class Builder extends PTTaxBuilderImpl<Builder, PTTax> {
+	public static class Builder
+			extends
+			PTSimpleInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTSimpleInvoice> {
 
 		@Inject
-		public Builder(DAOPTTax daoPTTax, DAOPTRegionContext daoPTRegionContext) {
-			super(daoPTTax, daoPTRegionContext);
+		public Builder(DAOPTSimpleInvoice daoPTSimpleInvoice,
+				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
+				DAOPTSupplier daoPTSupplier) {
+			super(daoPTSimpleInvoice, daoPTBusiness, daoPTCustomer,
+					daoPTSupplier);
 		}
-
 	}
-
-	public enum PTVATCode {
-		REDUCED, INTERMEDIATE, NORMAL, EXEMPT, OTHER
-	}
-
-	public PTVATCode getVATCode();
-
 }

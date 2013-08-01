@@ -18,7 +18,10 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity;
@@ -32,11 +35,23 @@ public class JPAPTTaxEntity extends JPATaxEntity implements PTTaxEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "VAT_CODE")
+	private PTVATCode vatCode;
+
 	@Override
 	public Context getContext() {
 		return super.getContext();
 	}
-	
-	
+
+	@Override
+	public PTVATCode getVATCode() {
+		return vatCode;
+	}
+
+	@Override
+	public void setVATCode(PTVATCode code) {
+		this.vatCode = code;
+	}
 
 }

@@ -47,6 +47,7 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PlatypusBootstrap {
 
@@ -361,8 +362,10 @@ public class PlatypusBootstrap {
 									Config.Key.Context.Portugal.Madeira.UUID);
 
 					// Taxes
-					Date from = new DateTime(2013, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
-					Date to = new DateTime(2014, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
+					Date from = new DateTime(2013, 1, 1, 0, 0).toDateMidnight()
+							.toDateTime().toDate();
+					Date to = new DateTime(2014, 1, 1, 0, 0).toDateMidnight()
+							.toDateTime().toDate();
 					final PTTaxEntity VAT_NORMAL_CONTINENTAL_PORTUGAL = this
 							.buildTaxEntity(
 									daoPTTax,
@@ -375,6 +378,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.NORMAL,
 									Config.Key.Context.Portugal.Continental.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.NORMAL_UUID);
 
@@ -390,6 +394,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.INTERMEDIATE,
 									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_UUID);
 
@@ -405,6 +410,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.REDUCED,
 									Config.Key.Context.Portugal.Continental.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.REDUCED_UUID);
 
@@ -421,6 +427,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.NORMAL,
 									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_UUID);
 
@@ -436,6 +443,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.INTERMEDIATE,
 									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_UUID);
 
@@ -451,6 +459,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.REDUCED,
 									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_UUID);
 
@@ -466,6 +475,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.NORMAL,
 									Config.Key.Context.Portugal.Azores.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.NORMAL_UUID);
 
@@ -482,6 +492,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.INTERMEDIATE,
 									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_UUID);
 
@@ -497,6 +508,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.PERCENTAGE,
 									from,
 									to,
+									PTVATCode.REDUCED,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID);
 
@@ -512,6 +524,7 @@ public class PlatypusBootstrap {
 									Tax.TaxRateType.FLAT,
 									from,
 									to,
+									PTVATCode.EXEMPT,
 									Config.Key.Context.Portugal.TAX_EXEMPT_VALUE,
 									Config.Key.Context.Portugal.TAX_EXEMPT_UUID);
 
@@ -566,7 +579,7 @@ public class PlatypusBootstrap {
 						PTRegionContextEntity context, Currency currency,
 						String description, String designation,
 						Tax.TaxRateType type, Date validFrom, Date validTo,
-						String valueKey, String key) {
+						PTVATCode code, String valueKey, String key) {
 
 					BigDecimal amount = new BigDecimal(
 							configuration.get(valueKey));
@@ -577,7 +590,8 @@ public class PlatypusBootstrap {
 							.setCurrency(currency).setDescription(description)
 							.setDesignation(designation)
 							.setTaxRate(type, amount).setValidFrom(validFrom)
-							.setValidTo(validTo).setValue(amount);
+							.setValidTo(validTo).setValue(amount)
+							.setVATCode(code);
 
 					final PTTaxEntity tax = (PTTaxEntity) taxBuilder.build();
 

@@ -18,21 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
-import java.util.Date;
-import java.util.List;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
-
-public interface DAOPTTax extends DAOTax {
+public interface DAOPTSimpleInvoice extends DAOPTInvoice {
 
 	@Override
-	public PTTaxEntity getEntityInstance();
-	
-	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo, UID uid);
-	
-	public List<JPAPTTaxEntity> getAllTaxes();
+	public PTSimpleInvoiceEntity getEntityInstance();
+
+	@Override
+	public PTSimpleInvoiceEntity getLatestInvoiceFromSeries(String series)
+			throws BillyRuntimeException;
 }

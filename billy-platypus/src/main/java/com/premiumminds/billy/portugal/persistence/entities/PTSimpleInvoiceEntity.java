@@ -16,23 +16,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.persistence.entities;
 
-import java.util.Date;
 import java.util.List;
 
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public interface DAOPTTax extends DAOTax {
+public interface PTSimpleInvoiceEntity extends PTInvoiceEntity, PTSimpleInvoice {
 
+	@SuppressWarnings({ "unchecked" })
 	@Override
-	public PTTaxEntity getEntityInstance();
-	
-	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo, UID uid);
-	
-	public List<JPAPTTaxEntity> getAllTaxes();
+	public List<PTInvoiceEntry> getEntries();
+
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public PaymentMechanism getPaymentMechanism();
 }

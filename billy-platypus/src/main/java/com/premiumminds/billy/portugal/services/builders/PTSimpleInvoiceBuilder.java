@@ -16,23 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.services.builders;
 
-import java.util.Date;
-import java.util.List;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
+public interface PTSimpleInvoiceBuilder<TBuilder extends PTSimpleInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTSimpleInvoice>
+		extends PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-public interface DAOPTTax extends DAOTax {
-
-	@Override
-	public PTTaxEntity getEntityInstance();
-	
-	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo, UID uid);
-	
-	public List<JPAPTTaxEntity> getAllTaxes();
 }

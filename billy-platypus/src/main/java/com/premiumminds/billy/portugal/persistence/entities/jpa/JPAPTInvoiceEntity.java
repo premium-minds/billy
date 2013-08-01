@@ -26,6 +26,7 @@ import javax.persistence.Table;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "INVOICE")
@@ -38,6 +39,12 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) super.getEntries();
+	}
+	
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public  PaymentMechanism getPaymentMechanism(){
+		return (PaymentMechanism) super.getPaymentMechanism();
 	}
 
 }

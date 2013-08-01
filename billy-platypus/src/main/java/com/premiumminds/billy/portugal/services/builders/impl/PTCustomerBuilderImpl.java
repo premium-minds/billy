@@ -70,6 +70,11 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 		return this.getBuilder();
 	}
 
+	public TBuilder setRerralName(String referralName) {
+		this.getTypeInstance().setReferralName(referralName);
+		return this.getBuilder();
+	}
+
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTCustomerEntity c = this.getTypeInstance();

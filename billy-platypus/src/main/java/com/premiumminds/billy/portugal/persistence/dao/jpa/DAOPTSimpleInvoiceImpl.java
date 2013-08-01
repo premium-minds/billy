@@ -20,43 +20,42 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
 
-public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
-		DAOPTInvoice {
+public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl {
 
-	@Inject
-	public DAOPTInvoiceImpl(Provider<EntityManager> emProvider) {
+	public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
 	@Override
-	public PTInvoiceEntity getEntityInstance() {
-		return new JPAPTInvoiceEntity();
+	public PTSimpleInvoiceEntity getEntityInstance() {
+		return new JPAPTSimpleInvoiceEntity();
 	}
 
 	@Override
-	protected Class<? extends JPAPTInvoiceEntity> getEntityClass() {
-		return JPAPTInvoiceEntity.class;
+	protected Class<JPAPTSimpleInvoiceEntity> getEntityClass() {
+		return JPAPTSimpleInvoiceEntity.class;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public PTInvoiceEntity getLatestInvoiceFromSeries(String series)
+	public PTSimpleInvoiceEntity getLatestInvoiceFromSeries(String series)
 			throws BillyRuntimeException {
 
 		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
 
 		if (list.size() != 0)
-			return (PTInvoiceEntity) this.get(new UID((String) list.get(0)[0]));
+			return (PTSimpleInvoiceEntity) this.get(new UID((String) list
+					.get(0)[0]));
 		else
 			throw new BillyRuntimeException();
 	}
+
 }

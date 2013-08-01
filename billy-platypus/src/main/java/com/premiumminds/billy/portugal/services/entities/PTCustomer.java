@@ -35,4 +35,6 @@ public interface PTCustomer extends Customer {
 			super(daoPTCustomer, daoPTContact);
 		}
 	}
+
+	public String getReferralName();
 }

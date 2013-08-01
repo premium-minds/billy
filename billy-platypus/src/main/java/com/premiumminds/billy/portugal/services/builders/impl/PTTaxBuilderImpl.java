@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -29,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntit
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
 		extends TaxBuilderImpl<TBuilder, TTax> implements
@@ -43,15 +45,28 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	}
 
 	@Override
+	public TBuilder setVATCode(PTVATCode code) {
+		BillyValidator.mandatory(code, LOCALIZER.getString("field.VATCode"));
+		this.getTypeInstance().setVATCode(code);
+		return this.getBuilder();
+	}
+
+	@Override
 	protected PTTaxEntity getTypeInstance() {
 		return (PTTaxEntity) super.getTypeInstance();
 	}
 
 	@Override
-	protected void validateInstance() throws BillyValidationException{
+	protected void validateInstance() throws BillyValidationException {
 		PTTaxEntity e = this.getTypeInstance();
-		
-			if(!((DAOPTTax) daoTax).getTaxes((PTRegionContextEntity)e.getContext(),e.getValidFrom(), e.getValidTo(), e.getDescription()).isEmpty())
+
+		BillyValidator.mandatory(e.getVATCode(),
+				LOCALIZER.getString("field.VATCode"));
+
+		if (!((DAOPTTax) daoTax).getTaxes(
+				(PTRegionContextEntity) e.getContext(), e.getValidFrom(),
+				e.getValidTo(), e.getUID()).isEmpty())
+
 			throw new BillyValidationException();
 		super.validateInstance();
 	}
