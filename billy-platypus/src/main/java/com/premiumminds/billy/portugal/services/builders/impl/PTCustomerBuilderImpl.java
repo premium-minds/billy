@@ -70,7 +70,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 		return this.getBuilder();
 	}
 
-	public TBuilder setRerralName(String referralName) {
+	public TBuilder setReferralName(String referralName) {
 		this.getTypeInstance().setReferralName(referralName);
 		return this.getBuilder();
 	}
