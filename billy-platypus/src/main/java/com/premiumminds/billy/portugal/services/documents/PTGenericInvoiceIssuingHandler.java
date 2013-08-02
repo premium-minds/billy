@@ -34,6 +34,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
+import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidSourceBillingException;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
@@ -68,6 +69,7 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 
 				@Override
 				public T runTransaction() throws Exception {
+					PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
 					TYPE documentType = ((PTGenericInvoice) document).getType();
 					Date invoiceDate = document.getDate();
 					Date systemDate = document.getCreateTimestamp();
@@ -87,6 +89,13 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 						validateDocumentType(documentType, invoiceType, series);
 						validateDocumentType(documentType,
 								latestInvoice.getType(), series);
+
+						if (!latestInvoice.getSourceBilling().equals(
+								sourceBilling)) {
+							throw new InvalidSourceBillingException(series,
+									sourceBilling,
+									latestInvoice.getSourceBilling());
+						}
 
 						if (latestInvoiceDate.after(invoiceDate)) {
 							invoiceDate
@@ -111,8 +120,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 							parametersPT.getPublicKey(), invoiceDate,
 							systemDate, formatedNumber,
 							document.getAmountWithTax(), previousHash);
-
-					PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
 
 					documentEntity.setNumber(formatedNumber);
 					documentEntity.setSeries(series);

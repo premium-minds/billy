@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
@@ -78,6 +79,7 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 						customerUID, productUID);
 
 		invoice.setDate(new Date(invoice.getCreateTimestamp().getTime() + 100));
+
 		handler.issue(invoice, parameters);
 	}
 
@@ -130,10 +132,10 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 			throws DocumentIssuingException {
 		String UID1 = "invoice_uid_1";
 		String PUID1 = "product_uid_1";
-		String BUID1 = "business_uid_1";
-		String CUID1 = "customer_uid_1";
 		Integer nextNumber = 1;
 		String newSeries = "NEW_SERIES";
+		String BUID1 = "business_uid_1";
+		String CUID1 = "customer_uid_1";
 		issueNewInvoice(UID1, PUID1, newSeries, DEFAULT_TYPE, BUID1, CUID1);
 
 		PTInvoice issuedInvoice = (PTInvoice) getInstance(DAOPTInvoice.class)
@@ -167,13 +169,23 @@ public class TestPTInvoiceIssuingHandler extends PTPersistencyAbstractTest {
 
 	@Test(expected = InvalidInvoiceDateException.class)
 	public void testIssuedInvoiceBeforeDate() throws DocumentIssuingException {
-		String series = "NEW_SERIES";
 		String UID1 = "invoice_uid_1";
 		String PUID1 = "product_uid_1";
 		String BUID1 = "business_uid_1";
 		String CUID1 = "customer_uid_1";
 
-		issueNewInvoice(UID1, PUID1, series, DEFAULT_TYPE, new Date(0), BUID1,
-				CUID1);
+		issueNewInvoice(UID1, PUID1, DEFAULT_SERIES, DEFAULT_TYPE, new Date(0),
+				BUID1, CUID1);
 	}
+
+	public void testIssuedInvoiceSameSourceBilling()
+			throws DocumentIssuingException {
+		String UID1 = "invoice_uid_1";
+		String PUID1 = "product_uid_1";
+		String BUID1 = "business_uid_1";
+		String CUID1 = "customer_uid_1";
+
+		issueNewInvoice(UID1, PUID1, DEFAULT_SERIES, DEFAULT_TYPE, BUID1, CUID1);
+	}
+
 }
