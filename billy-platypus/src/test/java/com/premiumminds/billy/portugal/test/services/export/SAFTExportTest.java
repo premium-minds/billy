@@ -19,6 +19,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
+import java.io.PrintStream;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 	private static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
+	private static final String SAFT_OUTPUT = "src/test/resources/documents/";
 
 	private static final String BUSINESS_UID = "BUSINESS_UID";
 	private static final String CUSTOMER_UID = "CUSTOMER_UID";
@@ -215,7 +217,9 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTSimpleInvoice daoPTSimpleInvoice = injector
 					.getInstance(DAOPTSimpleInvoice.class);
 			SAFTFileGenerator generator = new SAFTFileGenerator();
-			generator.generateSAFTFile(System.out, businessEntity,
+
+			PrintStream stream = new PrintStream(SAFT_OUTPUT + "SAFT.xml");
+			generator.generateSAFTFile(stream, businessEntity,
 					applicationEntity, "1234", new Date(0), new Date(),
 					daoPTCustomer, daoPTProduct, daoPTTax, daoPTInvoice,
 					daoPTSimpleInvoice, daoPTCreditNote);
