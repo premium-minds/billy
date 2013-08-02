@@ -67,7 +67,6 @@ public abstract class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series, Date date)
 			throws DocumentIssuingException {
-
 		parameters.setInvoiceSeries(series);
 		invoice.setDate(date);
 		handler.issue(invoice, parameters);

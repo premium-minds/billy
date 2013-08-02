@@ -111,4 +111,5 @@ public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 				invoice.getAmountWithTax()) == 0);
 		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
 	}
+
 }
