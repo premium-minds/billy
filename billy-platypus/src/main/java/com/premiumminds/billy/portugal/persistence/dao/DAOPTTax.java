@@ -31,8 +31,9 @@ public interface DAOPTTax extends DAOTax {
 
 	@Override
 	public PTTaxEntity getEntityInstance();
-	
-	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo, UID uid);
-	
+
+	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context,
+			Date validFrom, Date validTo, UID uid);
+
 	public List<JPAPTTaxEntity> getAllTaxes();
 }

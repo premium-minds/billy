@@ -20,6 +20,8 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import java.math.BigDecimal;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -35,6 +37,7 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
 		extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
 		PTSimpleInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
+	@Inject
 	public PTSimpleInvoiceBuilderImpl(DAOPTSimpleInvoice daoPTSimpleInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 			DAOPTSupplier daoPTSupplier) {

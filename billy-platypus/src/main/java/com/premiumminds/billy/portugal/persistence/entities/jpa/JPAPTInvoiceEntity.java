@@ -40,10 +40,10 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) super.getEntries();
 	}
-	
+
 	@SuppressWarnings({ "unchecked" })
 	@Override
-	public  PaymentMechanism getPaymentMechanism(){
+	public PaymentMechanism getPaymentMechanism() {
 		return (PaymentMechanism) super.getPaymentMechanism();
 	}
 

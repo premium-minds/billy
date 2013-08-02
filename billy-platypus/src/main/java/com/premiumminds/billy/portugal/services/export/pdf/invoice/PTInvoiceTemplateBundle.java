@@ -23,8 +23,8 @@ import java.io.InputStream;
 import com.premiumminds.billy.portugal.services.export.pdf.AbstractPTTemplateBundle;
 import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
 
-
-public class PTInvoiceTemplateBundle extends AbstractPTTemplateBundle implements IBillyPTTemplateBundle {
+public class PTInvoiceTemplateBundle extends AbstractPTTemplateBundle implements
+		IBillyPTTemplateBundle {
 
 	private final String logoImagePath;
 	private final InputStream xsltFileStream;
@@ -33,9 +33,11 @@ public class PTInvoiceTemplateBundle extends AbstractPTTemplateBundle implements
 	private final String businessPhone;
 	private final String businessFax;
 	private final String softwareCertificationId;
-	
-	public PTInvoiceTemplateBundle(String logoImagePath, InputStream xsltFileStream, String pdfFilePath
-			, String businessEmail , String businessPhone , String businessFax, String softwareCertificationId) {
+
+	public PTInvoiceTemplateBundle(String logoImagePath,
+			InputStream xsltFileStream, String pdfFilePath,
+			String businessEmail, String businessPhone, String businessFax,
+			String softwareCertificationId) {
 		this.logoImagePath = logoImagePath;
 		this.xsltFileStream = xsltFileStream;
 		this.pdfFilePath = pdfFilePath;
@@ -44,7 +46,7 @@ public class PTInvoiceTemplateBundle extends AbstractPTTemplateBundle implements
 		this.businessFax = businessFax;
 		this.softwareCertificationId = softwareCertificationId;
 	}
-	
+
 	@Override
 	public String getLogoImagePath() {
 		return logoImagePath;
@@ -74,7 +76,7 @@ public class PTInvoiceTemplateBundle extends AbstractPTTemplateBundle implements
 	public String getSoftwareCertificationId() {
 		return softwareCertificationId;
 	}
-	
+
 	@Override
 	public String getResultingPdfFilePath() {
 		return this.pdfFilePath;

@@ -75,9 +75,9 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 		List<JPAPTTaxEntity> list = q.getResultList();
 		return list;
 	}
-	
+
 	@Override
-	public List<JPAPTTaxEntity> getAllTaxes(){
+	public List<JPAPTTaxEntity> getAllTaxes() {
 		EntityManager em = this.getEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 

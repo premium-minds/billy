@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
@@ -34,6 +36,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 		extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
 		implements PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
+	@Inject
 	public PTGenericInvoiceBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 			DAOPTSupplier daoPTSupplier) {

@@ -144,7 +144,8 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		Validate.notNull(destinationBuilder,
 				GenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.shipping_destination"));
-		this.getTypeInstance().setShippingDestination(destinationBuilder.build());
+		this.getTypeInstance().setShippingDestination(
+				destinationBuilder.build());
 		return this.getBuilder();
 	}
 
@@ -311,7 +312,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 										mc.getRoundingMode())) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
-		
+
 		Validate.isTrue(i.getAmountWithTax().compareTo(BigDecimal.ZERO) > 0
 				&& i.getAmountWithoutTax().compareTo(BigDecimal.ZERO) >= 0
 				&& i.getTaxAmount().compareTo(BigDecimal.ZERO) > 0,

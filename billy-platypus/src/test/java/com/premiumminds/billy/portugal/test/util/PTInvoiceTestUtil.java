@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
@@ -37,28 +38,37 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceTestUtil {
 
-	private static final Date DATE = new Date();
-	private static final Boolean BILLED = false;
-	private static final Boolean CANCELLED = false;
-	private static final Boolean SELFBILL = false;
-	private static final String HASH = "HASH";
-	private static final String SOURCE_ID = "SOURCE";
-	private static final String UID = "INVOICE";
-	private static final String SERIE = "A";
-	private static final Integer SERIE_NUMBER = 1;
-	private static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
-	private static final String PRODUCT_UID = "PRODUCT_UID";
-	private static final String BUSINESS_UID = "BUSINESS_UID";
-	private static final String CUSTOMER_UID = "CUSTOMER_UID";
-	private static final TYPE INVOICE_TYPE = TYPE.FT;
+	protected static final Date DATE = new Date();
+	protected static final Boolean BILLED = false;
+	protected static final Boolean CANCELLED = false;
+	protected static final Boolean SELFBILL = false;
+	protected static final String HASH = "HASH";
+	protected static final String SOURCE_ID = "SOURCE";
+	protected static final String UID = "INVOICE";
+	protected static final String SERIE = "A";
+	protected static final Integer SERIE_NUMBER = 1;
+	protected static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
+	protected static final String PRODUCT_UID = "PRODUCT_UID";
+	protected static final String BUSINESS_UID = "BUSINESS_UID";
+	protected static final String CUSTOMER_UID = "CUSTOMER_UID";
 
-	private Injector injector;
-	private PTInvoiceEntryTestUtil invoiceEntry;
-	private PTBusinessTestUtil business;
-	private PTCustomerTestUtil customer;
+	protected TYPE INVOICE_TYPE;
+	protected Injector injector;
+	protected PTInvoiceEntryTestUtil invoiceEntry;
+	protected PTBusinessTestUtil business;
+	protected PTCustomerTestUtil customer;
 
 	public PTInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
+		this.INVOICE_TYPE = TYPE.FT;
+		invoiceEntry = new PTInvoiceEntryTestUtil(injector);
+		business = new PTBusinessTestUtil(injector);
+		customer = new PTCustomerTestUtil(injector);
+	}
+
+	public PTInvoiceTestUtil(Injector injector, TYPE type) {
+		this.injector = injector;
+		this.INVOICE_TYPE = type;
 		invoiceEntry = new PTInvoiceEntryTestUtil(injector);
 		business = new PTBusinessTestUtil(injector);
 		customer = new PTCustomerTestUtil(injector);

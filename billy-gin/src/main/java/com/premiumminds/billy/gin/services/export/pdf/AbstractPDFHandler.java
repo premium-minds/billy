@@ -81,9 +81,9 @@ public abstract class AbstractPDFHandler {
 	protected ByteArrayOutputStream getStream(InputStream templateStream,
 			ParamsTree<String, String> documentParams,
 			IBillyTemplateBundle bundle) throws ExportServiceException {
-		System.out.println("==========ENTREI?=================" + bundle + " outro " + templateStream);
+		System.out.println("==========ENTREI?=================" + bundle
+				+ " outro " + templateStream);
 
-		
 		return (ByteArrayOutputStream) this.getStream(templateStream,
 				documentParams, null, bundle);
 	}
@@ -97,15 +97,17 @@ public abstract class AbstractPDFHandler {
 		Source source = this.mapParamsToSource(documentParams);
 		System.out.println("===========================" + bundle);
 		System.out.println("===========================" + templateStream);
-		if(templateStream == null)
+		if (templateStream == null)
 			System.out.println("TOMATES");
-		else System.out.println("BATATAS");
+		else
+			System.out.println("BATATAS");
 		// creation of transform source
 		StreamSource transformSource = new StreamSource(templateStream);
-		
-		if(transformSource == null)
+
+		if (transformSource == null)
 			System.out.println("nabos");
-		else System.out.println("alface");
+		else
+			System.out.println("alface");
 		// create an instance of fop factory
 		FopFactory fopFactory = FopFactory.newInstance();
 		// a user agent is needed for transformation
@@ -124,7 +126,7 @@ public abstract class AbstractPDFHandler {
 			// Resulting SAX events (the generated FO)
 			// must be piped through to FOP
 			Result res = new SAXResult(fop.getDefaultHandler());
-			
+
 			// Start XSLT transformation and FOP processing
 			// everything will happen here..
 			xslfoTransformer.transform(source, res);
@@ -146,7 +148,8 @@ public abstract class AbstractPDFHandler {
 		File pdffile = new File(bundle.getResultingPdfFilePath());
 		OutputStream out;
 		try {
-			System.out.println("============EEEEEEEEEEEEEEEEEE=============" + templateStream);
+			System.out.println("============EEEEEEEEEEEEEEEEEE============="
+					+ templateStream);
 			out = new FileOutputStream(pdffile);
 			out = new java.io.BufferedOutputStream(out);
 			FileOutputStream str = new FileOutputStream(pdffile);

@@ -47,9 +47,11 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements ExportServiceHandler {
+public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements
+		ExportServiceHandler {
 
 	private @interface ParamKeys {
+
 		public static final String ROOT = "invoice";
 		public static final String INVOICE_ID = "id";
 		public static final String INVOICE_HASH = "hash";
@@ -96,7 +98,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 		public static final String ENTRY_ID = "id";
 		public static final String ENTRY_DESCRIPTION = "description";
 		public static final String ENTRY_QUANTITY = "qty";
-		//public static final String PRODUCT_DISCOUNT = "entries";
+		// public static final String PRODUCT_DISCOUNT = "entries";
 		public static final String ENTRY_UNIT_PRICE = "unitPrice";
 		public static final String ENTRY_TOTAL = "total";
 		public static final String ENTRY_TAX = "tax";
@@ -117,139 +119,192 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 	}
 
 	@Inject
-	protected void setDAOPTInvoice(DAOPTInvoice daoPTInvoice){
+	protected void setDAOPTInvoice(DAOPTInvoice daoPTInvoice) {
 		this.daoPTInvoice = daoPTInvoice;
 	}
 
-	public File toFile(PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle) throws ExportServiceException {
-		
-		System.out.println("=========================ZEEEEEEEE=========================" + bundle.getXSLTFileStream());
-		return super.toFile(bundle.getXSLTFileStream(), this.mapDocumentToParamsTree(invoice, bundle), bundle);
+	public File toFile(PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle)
+			throws ExportServiceException {
+
+		System.out
+				.println("=========================ZEEEEEEEE========================="
+						+ bundle.getXSLTFileStream());
+		return super.toFile(bundle.getXSLTFileStream(),
+				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
-	protected void toStream(PTInvoiceEntity invoice, OutputStream targetStream, PTInvoiceTemplateBundle bundle) throws ExportServiceException {
-		super.getStream(bundle.getXSLTFileStream(), this.mapDocumentToParamsTree(invoice, bundle), targetStream, bundle);
+	protected void toStream(PTInvoiceEntity invoice, OutputStream targetStream,
+			PTInvoiceTemplateBundle bundle) throws ExportServiceException {
+		super.getStream(bundle.getXSLTFileStream(),
+				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
+				bundle);
 	}
 
 	protected ParamsTree<String, String> mapDocumentToParamsTree(
 			PTInvoiceEntity entity, PTInvoiceTemplateBundle bundle) {
-		ParamsTree<String, String> params = new ParamsTree<String, String>(ParamKeys.ROOT);
+		ParamsTree<String, String> params = new ParamsTree<String, String>(
+				ParamKeys.ROOT);
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
-		params.getRoot().addChild(ParamKeys.INVOICE_ID
-				, entity.getNumber());
-		params.getRoot().addChild(ParamKeys.INVOICE_HASH
-				, this.getVerificationHashString(entity.getHash().getBytes()));
-		params.getRoot().addChild(ParamKeys.SOFTWARE_CERTIFICATE_NUMBER
-				, bundle.getSoftwareCertificationId());
+		params.getRoot().addChild(ParamKeys.INVOICE_ID, entity.getNumber());
+		params.getRoot().addChild(ParamKeys.INVOICE_HASH,
+				this.getVerificationHashString(entity.getHash().getBytes()));
+		params.getRoot().addChild(ParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
+				bundle.getSoftwareCertificationId());
 
-		if(null != entity.getPaymentMechanism()) {
-			params.getRoot().addChild(ParamKeys.INVOICE_PAYMETHOD
-					, bundle.getPaymentMechanismTranslation(entity.getPaymentMechanism()));
+		if (null != entity.getPaymentMechanism()) {
+			params.getRoot().addChild(
+					ParamKeys.INVOICE_PAYMETHOD,
+					bundle.getPaymentMechanismTranslation(entity
+							.getPaymentMechanism()));
 		}
-		if(null != entity.getSettlementDescription()) {
-			params.getRoot().addChild(ParamKeys.INVOICE_PAYSETTLEMENT
-					, entity.getSettlementDescription());
+		if (null != entity.getSettlementDescription()) {
+			params.getRoot().addChild(ParamKeys.INVOICE_PAYSETTLEMENT,
+					entity.getSettlementDescription());
 		}
-		params.getRoot().addChild(ParamKeys.INVOICE_EMISSION_DATE
-				, date.format(entity.getDate()));
-		if(null != entity.getSettlementDate()) {
-			params.getRoot().addChild(ParamKeys.INVOICE_DUE_DATE
-					, date.format(entity.getSettlementDate()));
+		params.getRoot().addChild(ParamKeys.INVOICE_EMISSION_DATE,
+				date.format(entity.getDate()));
+		if (null != entity.getSettlementDate()) {
+			params.getRoot().addChild(ParamKeys.INVOICE_DUE_DATE,
+					date.format(entity.getSettlementDate()));
 		}
 
-		Node<String, String> businessInfo = params.getRoot().addChild(ParamKeys.BUSINESS);
-		businessInfo.addChild(ParamKeys.BUSINESS_LOGO
-				, bundle.getLogoImagePath());
-		
-		businessInfo.addChild(ParamKeys.BUSINESS_NAME
-				, entity.getBusiness().getName());
-		businessInfo.addChild(ParamKeys.BUSINESS_FINANCIAL_ID
-				, entity.getBusiness().getFinancialID());
+		Node<String, String> businessInfo = params.getRoot().addChild(
+				ParamKeys.BUSINESS);
+		businessInfo.addChild(ParamKeys.BUSINESS_LOGO,
+				bundle.getLogoImagePath());
 
-		Node<String, String> businessAddress = businessInfo.addChild(ParamKeys.BUSINESS_ADDRESS);
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_COUNTRY
-				, entity.getBusiness().getAddress().getISOCountry());
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_DETAILS
-				, entity.getBusiness().getAddress().getDetails());
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_CITY
-				, entity.getBusiness().getAddress().getCity());
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_REGION
-				, entity.getBusiness().getAddress().getRegion());
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_POSTAL_CODE
-				, entity.getBusiness().getAddress().getPostalCode());
+		businessInfo.addChild(ParamKeys.BUSINESS_NAME, entity.getBusiness()
+				.getName());
+		businessInfo.addChild(ParamKeys.BUSINESS_FINANCIAL_ID, entity
+				.getBusiness().getFinancialID());
 
-		Node<String, String> businessContacts = businessInfo.addChild(ParamKeys.BUSINESS_CONTACTS);
-		businessContacts.addChild(ParamKeys.BUSINESS_PHONE
-				, bundle.getBusinessPhoneContact());
-		businessContacts.addChild(ParamKeys.BUSINESS_FAX
-				, bundle.getBusinessFaxContact());
-		businessContacts.addChild(ParamKeys.BUSINESS_EMAIL
-				, bundle.getBusinessEmailContact());
+		Node<String, String> businessAddress = businessInfo
+				.addChild(ParamKeys.BUSINESS_ADDRESS);
+		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_COUNTRY, entity
+				.getBusiness().getAddress().getISOCountry());
+		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_DETAILS, entity
+				.getBusiness().getAddress().getDetails());
+		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_CITY, entity
+				.getBusiness().getAddress().getCity());
+		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_REGION, entity
+				.getBusiness().getAddress().getRegion());
+		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_POSTAL_CODE, entity
+				.getBusiness().getAddress().getPostalCode());
 
-		Node<String, String> customer = params.getRoot().addChild(ParamKeys.CUSTOMER);
-//		if(false) {
-//			customer.addChild(ParamKeys.CUSTOMER_ID
-//					, bundle.getCustomerId());
-//		}
-		customer.addChild(ParamKeys.CUSTOMER_NAME
-				, entity.getCustomer().getName());
-		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID
-				, (entity.getCustomer().getUID().equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? bundle.getGenericCustomer() : entity.getCustomer().getTaxRegistrationNumber()));
-		if(entity.getCustomer().getBillingAddress() != null) {
-			Node<String, String> customerAddress = customer.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS);
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY
-					, entity.getCustomer().getBillingAddress().getISOCountry());
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS
-					, entity.getCustomer().getBillingAddress().getDetails());
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY
-					, entity.getCustomer().getBillingAddress().getCity());
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_REGION
-					, entity.getCustomer().getBillingAddress().getRegion());
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_POSTAL_CODE
-					, entity.getCustomer().getBillingAddress().getPostalCode());
+		Node<String, String> businessContacts = businessInfo
+				.addChild(ParamKeys.BUSINESS_CONTACTS);
+		businessContacts.addChild(ParamKeys.BUSINESS_PHONE,
+				bundle.getBusinessPhoneContact());
+		businessContacts.addChild(ParamKeys.BUSINESS_FAX,
+				bundle.getBusinessFaxContact());
+		businessContacts.addChild(ParamKeys.BUSINESS_EMAIL,
+				bundle.getBusinessEmailContact());
+
+		Node<String, String> customer = params.getRoot().addChild(
+				ParamKeys.CUSTOMER);
+		// if(false) {
+		// customer.addChild(ParamKeys.CUSTOMER_ID
+		// , bundle.getCustomerId());
+		// }
+		customer.addChild(ParamKeys.CUSTOMER_NAME, entity.getCustomer()
+				.getName());
+		customer.addChild(
+				ParamKeys.CUSTOMER_FINANCIAL_ID,
+				(entity.getCustomer()
+						.getUID()
+						.equals(config
+								.getUUID(Config.Key.Customer.Generic.UUID)) ? bundle
+						.getGenericCustomer() : entity.getCustomer()
+						.getTaxRegistrationNumber()));
+		if (entity.getCustomer().getBillingAddress() != null) {
+			Node<String, String> customerAddress = customer
+					.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS);
+			customerAddress.addChild(
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY, entity
+							.getCustomer().getBillingAddress().getISOCountry());
+			customerAddress.addChild(
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS, entity
+							.getCustomer().getBillingAddress().getDetails());
+			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY,
+					entity.getCustomer().getBillingAddress().getCity());
+			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_REGION,
+					entity.getCustomer().getBillingAddress().getRegion());
+			customerAddress.addChild(
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_POSTAL_CODE, entity
+							.getCustomer().getBillingAddress().getPostalCode());
 		}
 
 		TaxTotals taxTotals = new TaxTotals();
-		Node<String, String> entries = params.getRoot().addChild(ParamKeys.ENTRIES);
-		for(PTGenericInvoiceEntry entry : entity.getEntries()) {
+		Node<String, String> entries = params.getRoot().addChild(
+				ParamKeys.ENTRIES);
+		for (PTGenericInvoiceEntry entry : entity.getEntries()) {
 			Node<String, String> entryNode = entries.addChild(ParamKeys.ENTRY);
-			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct().getProductCode());
-			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct().getDescription());
-			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity().setScale(2, RoundingMode.HALF_UP).toPlainString());
-			entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry.getUnitAmountWithTax().setScale(2, RoundingMode.HALF_UP).toPlainString());
-			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax().setScale(2, RoundingMode.HALF_UP).toPlainString());
+			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct()
+					.getProductCode());
+			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
+					.getDescription());
+			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
+					.setScale(2, RoundingMode.HALF_UP).toPlainString());
+			entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry
+					.getUnitAmountWithTax().setScale(2, RoundingMode.HALF_UP)
+					.toPlainString());
+			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
+					.setScale(2, RoundingMode.HALF_UP).toPlainString());
 			Collection<PTTax> list = entry.getTaxes();
-			for(PTTax tax : list) {
-				entryNode.addChild(ParamKeys.ENTRY_TAX, 
-						tax.getValue() + (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%" : "&#8364;"));
-				taxTotals.add((tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true : false), tax.getValue(), entry.getTaxAmount(), tax.getUID().toString());
+			for (PTTax tax : list) {
+				entryNode
+						.addChild(
+								ParamKeys.ENTRY_TAX,
+								tax.getValue()
+										+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
+												: "&#8364;"));
+				taxTotals.add(
+						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
+								: false), tax.getValue(), entry.getTaxAmount(),
+						tax.getUID().toString());
 			}
 		}
 
-		Node<String, String> taxDetails = params.getRoot().addChild(ParamKeys.TAX_DETAILS);
-		for(PTInvoicePDFExportHandler.TaxTotals.TaxTotalEntry  taxDetail : taxTotals.getEntries()) {
-			Node<String, String> taxDetailNode = taxDetails.addChild(ParamKeys.TAX_DETAIL);
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_TAX, taxDetail.getTaxValue().setScale(2, RoundingMode.HALF_UP).toPlainString() + (taxDetail.isPercentage() ? "%" : "&#8364;"));
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_NET_VALUE, taxDetail.getNetValue().setScale(2, RoundingMode.HALF_UP).toPlainString());
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_VALUE, taxDetail.getAppliedTaxValue().setScale(2, RoundingMode.HALF_UP).toPlainString());
+		Node<String, String> taxDetails = params.getRoot().addChild(
+				ParamKeys.TAX_DETAILS);
+		for (PTInvoicePDFExportHandler.TaxTotals.TaxTotalEntry taxDetail : taxTotals
+				.getEntries()) {
+			Node<String, String> taxDetailNode = taxDetails
+					.addChild(ParamKeys.TAX_DETAIL);
+			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_TAX, taxDetail
+					.getTaxValue().setScale(2, RoundingMode.HALF_UP)
+					.toPlainString()
+					+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
+			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_NET_VALUE, taxDetail
+					.getNetValue().setScale(2, RoundingMode.HALF_UP)
+					.toPlainString());
+			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_VALUE, taxDetail
+					.getAppliedTaxValue().setScale(2, RoundingMode.HALF_UP)
+					.toPlainString());
 		}
 
-		params.getRoot().addChild(ParamKeys.INVOICE_TOTAL_BEFORE_TAX
-				, entity.getAmountWithoutTax().setScale(2, RoundingMode.HALF_UP).toPlainString());
-		params.getRoot().addChild(ParamKeys.INVOICE_TOTAL_TAX
-				, entity.getTaxAmount().setScale(2, RoundingMode.HALF_UP).toPlainString());
-		params.getRoot().addChild(ParamKeys.INVOICE_TOTAL
-				, entity.getAmountWithTax().setScale(2, RoundingMode.HALF_UP).toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.INVOICE_TOTAL_BEFORE_TAX,
+				entity.getAmountWithoutTax().setScale(2, RoundingMode.HALF_UP)
+						.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.INVOICE_TOTAL_TAX,
+				entity.getTaxAmount().setScale(2, RoundingMode.HALF_UP)
+						.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.INVOICE_TOTAL,
+				entity.getAmountWithTax().setScale(2, RoundingMode.HALF_UP)
+						.toPlainString());
 		return params;
 	}
 
 	private String getVerificationHashString(byte[] hash) {
 		String hashString = Base64.encodeBytes(hash);
 		String rval = hashString.substring(0, 1);
-				//+ hashString.substring(10, 11)
-				//+ hashString.substring(20, 21)
-				//+ hashString.substring(30, 31); 
+		// + hashString.substring(10, 11)
+		// + hashString.substring(20, 21)
+		// + hashString.substring(30, 31);
 
 		return rval;
 	}
@@ -259,11 +314,13 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 		Map<String, TaxTotalEntry> entries;
 
 		private class TaxTotalEntry {
+
 			BigDecimal baseValue;
 			BigDecimal taxValue;
 			Boolean percentageValued;
 
-			public TaxTotalEntry(boolean perc, BigDecimal taxValue, BigDecimal baseValue) {
+			public TaxTotalEntry(boolean perc, BigDecimal taxValue,
+					BigDecimal baseValue) {
 				this.baseValue = baseValue;
 				this.taxValue = taxValue;
 				this.percentageValued = perc;
@@ -280,6 +337,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 			public boolean isPercentage() {
 				return this.percentageValued;
 			}
+
 			public void addBaseValue(BigDecimal val) {
 				this.baseValue = this.baseValue.add(val);
 			}
@@ -287,10 +345,10 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 			public BigDecimal getAppliedTaxValue() {
 				BigDecimal appliedTaxVal;
 
-				if(percentageValued) {
+				if (percentageValued) {
 					BigDecimal tax = taxValue.divide(new BigDecimal("100"));
 					appliedTaxVal = baseValue.multiply(tax);
-				}else {
+				} else {
 					appliedTaxVal = taxValue;
 				}
 				return appliedTaxVal;
@@ -301,11 +359,13 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 			entries = new HashMap<String, TaxTotalEntry>();
 		}
 
-		public void add(boolean isPercentage, BigDecimal taxValue, BigDecimal baseValue, String taxUid) {
-			TaxTotalEntry currentEntry = new TaxTotalEntry(isPercentage, taxValue, baseValue);
-			if(entries.containsKey(taxUid)) {
+		public void add(boolean isPercentage, BigDecimal taxValue,
+				BigDecimal baseValue, String taxUid) {
+			TaxTotalEntry currentEntry = new TaxTotalEntry(isPercentage,
+					taxValue, baseValue);
+			if (entries.containsKey(taxUid)) {
 				this.entries.get(taxUid).addBaseValue(baseValue);
-			}else {
+			} else {
 				entries.put(taxUid, currentEntry);
 			}
 		}
@@ -319,16 +379,18 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements Exp
 	public <T extends ExportServiceRequest> void export(T request,
 			OutputStream targetStream) throws ExportServiceException {
 
-		if(!(request instanceof PDFPTInvoiceExportRequest)) {
-			throw new ExportServiceException("Cannot handle request of type " + request.getClass().getCanonicalName());
+		if (!(request instanceof PDFPTInvoiceExportRequest)) {
+			throw new ExportServiceException("Cannot handle request of type "
+					+ request.getClass().getCanonicalName());
 		}
 		PDFPTInvoiceExportRequest exportRequest = (PDFPTInvoiceExportRequest) request;
 		UID docUid = exportRequest.getInvoiceUID();
 
 		try {
-			PTInvoiceEntity invoice = (PTInvoiceEntity)daoPTInvoice.get(docUid);
+			PTInvoiceEntity invoice = (PTInvoiceEntity) daoPTInvoice
+					.get(docUid);
 			this.toStream(invoice, targetStream, exportRequest.getBundle());
-		} catch(Exception e) {
+		} catch (Exception e) {
 			throw new ExportServiceException(e);
 		}
 	}

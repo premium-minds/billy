@@ -31,7 +31,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTShippingPointEntity;
 
 public class TestPTShippingPointBuilder extends PTAbstractTest {
 
-	private static final String PTSHIPPINGPOINT_YML = YML_CONFIGS_DIR + "PTShippingPoint.yml";
+	private static final String PTSHIPPINGPOINT_YML = YML_CONFIGS_DIR
+			+ "PTShippingPoint.yml";
 
 	@Test
 	public void doTest() {

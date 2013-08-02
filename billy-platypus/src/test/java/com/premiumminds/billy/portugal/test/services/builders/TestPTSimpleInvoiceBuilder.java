@@ -26,15 +26,15 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
-import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.test.fixtures.MockPTSimpleInvoiceEntity;
 
-public class TestPTInvoiceBuilder extends PTAbstractTest {
+public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 
 	private static final String PT_INVOICE_YML = YML_CONFIGS_DIR
 			+ "PTInvoice.yml";
@@ -43,15 +43,17 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 
 	@Test
 	public void doTest() {
-		MockPTInvoiceEntity mock = this.createMockEntity(
-				MockPTInvoiceEntity.class, TestPTInvoiceBuilder.PT_INVOICE_YML);
+		MockPTSimpleInvoiceEntity mock = this.createMockEntity(
+				MockPTSimpleInvoiceEntity.class,
+				TestPTSimpleInvoiceBuilder.PT_INVOICE_YML);
 
-		Mockito.when(this.getInstance(DAOPTInvoice.class).getEntityInstance())
-				.thenReturn(new MockPTInvoiceEntity());
+		Mockito.when(
+				this.getInstance(DAOPTSimpleInvoice.class).getEntityInstance())
+				.thenReturn(new MockPTSimpleInvoiceEntity());
 
 		MockPTInvoiceEntryEntity entryMock = this.createMockEntity(
 				MockPTInvoiceEntryEntity.class,
-				TestPTInvoiceBuilder.PT_INVOICE_ENTRY_YML);
+				TestPTSimpleInvoiceBuilder.PT_INVOICE_ENTRY_YML);
 
 		Mockito.when(
 				this.getInstance(DAOPTInvoiceEntry.class).get(
@@ -62,7 +64,8 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 		ArrayList<PTInvoiceEntry> entries = (ArrayList<PTInvoiceEntry>) mock
 				.getEntries();
 
-		PTInvoice.Builder builder = this.getInstance(PTInvoice.Builder.class);
+		PTSimpleInvoice.Builder builder = this
+				.getInstance(PTSimpleInvoice.Builder.class);
 
 		PTInvoiceEntry.Builder entry = this
 				.getMock(PTInvoiceEntry.Builder.class);
@@ -85,7 +88,7 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 				.setTransactionId(mock.getTransactionId())
 				.setSourceBilling(mock.getSourceBilling());
 
-		PTInvoice invoice = builder.build();
+		PTSimpleInvoice invoice = builder.build();
 
 		Assert.assertTrue(invoice != null);
 		Assert.assertTrue(invoice.getEntries() != null);

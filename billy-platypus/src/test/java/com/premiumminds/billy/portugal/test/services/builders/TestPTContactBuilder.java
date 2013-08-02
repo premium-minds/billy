@@ -29,7 +29,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTContactEntity;
 
 public class TestPTContactBuilder extends PTAbstractTest {
 
-	private static final String PTCONTACT_YML = YML_CONFIGS_DIR + "PTContact.yml";
+	private static final String PTCONTACT_YML = YML_CONFIGS_DIR
+			+ "PTContact.yml";
 
 	@Test
 	public void doTest() {

@@ -16,28 +16,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
+package com.premiumminds.billy.portugal.services.documents.exceptions;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.gin.services.ExportServiceRequest;
+public class InvalidSourceBillingException extends PTDocumentIssuingException {
 
-public class PDFPTCreditNoteExportRequest implements ExportServiceRequest {
+	private static final long serialVersionUID = 1L;
 
-	protected UID uid;
-	protected PTCreditNoteTemplateBundle bundle;
-
-	public PDFPTCreditNoteExportRequest(UID uid,
-			PTCreditNoteTemplateBundle bundle) {
-		this.uid = uid;
-		this.bundle = bundle;
-	}
-
-	public UID getCreditNoteUID() {
-		return uid;
-	}
-
-	@Override
-	public PTCreditNoteTemplateBundle getBundle() {
-		return this.bundle;
+	public InvalidSourceBillingException(String series, String sourceBilling,
+			String expectedSourceBilling) {
+		super("Expected source billing " + expectedSourceBilling
+				+ " in series " + series + " but received " + sourceBilling);
 	}
 }

@@ -36,8 +36,10 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntryEn
 
 public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 
-	private static final String PT_GENERIC_INVOICE_YML = YML_CONFIGS_DIR + "PTGenericInvoice.yml";
-	private static final String PT_GENERIC_INVOICE_ENTRY_YML = YML_CONFIGS_DIR + "PTGenericInvoiceEntry.yml";
+	private static final String PT_GENERIC_INVOICE_YML = YML_CONFIGS_DIR
+			+ "PTGenericInvoice.yml";
+	private static final String PT_GENERIC_INVOICE_ENTRY_YML = YML_CONFIGS_DIR
+			+ "PTGenericInvoiceEntry.yml";
 
 	@Test
 	public void doTest() {
