@@ -36,12 +36,12 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTCreditNoteEntryTestUtil {
 
-	private final String product = "PRODUCT_UID";
-	private final String invoiceReference = "INVOICE";
-	private final BigDecimal amount = new BigDecimal(20);
-	private final Currency currency = Currency.getInstance("EUR");
-	private final BigDecimal quantity = new BigDecimal(1);
-	private final String reason = "Rotten potatoes";
+	private static final String PRODUCT = "PRODUCT_UID";
+	private static final String INVOICEREFERENCE = "INVOICE";
+	private static final BigDecimal AMOUNT = new BigDecimal(20);
+	private static final Currency CURRENCY = Currency.getInstance("EUR");
+	private static final BigDecimal QUANTITY = new BigDecimal(1);
+	private static final String REASON = "Rotten potatoes";
 
 	private Injector injector;
 	private Contexts contexts;
@@ -52,12 +52,13 @@ public class PTCreditNoteEntryTestUtil {
 		contexts = new Contexts(injector);
 	}
 
-	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder() {
+	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder(
+			String productUID, String invoiceReference) {
 		PTCreditNoteEntry.Builder creditNoteEntryBuilder = injector
 				.getInstance(PTCreditNoteEntry.Builder.class);
 
 		final PTProductEntity newProduct = (PTProductEntity) injector
-				.getInstance(DAOPTProduct.class).get(new UID(product));
+				.getInstance(DAOPTProduct.class).get(new UID(productUID));
 		final PTInvoiceEntity reference = (PTInvoiceEntity) injector
 				.getInstance(DAOPTInvoice.class).get(new UID(invoiceReference));
 		context = contexts.portugal().portugal();
@@ -65,16 +66,20 @@ public class PTCreditNoteEntryTestUtil {
 		creditNoteEntryBuilder.clear();
 
 		creditNoteEntryBuilder
-				.setUnitAmount(AmountType.WITH_TAX, amount, currency)
+				.setUnitAmount(AmountType.WITH_TAX, AMOUNT, CURRENCY)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(newProduct.getDescription())
-				.setQuantity(quantity)
+				.setQuantity(QUANTITY)
 				.setUnitOfMeasure(newProduct.getUnitOfMeasure())
 				.setProductUID(newProduct.getUID())
-				.setContextUID(context.getUID()).setReason(reason)
+				.setContextUID(context.getUID()).setReason(REASON)
 				.setReference(reference);
 
 		return creditNoteEntryBuilder;
+	}
+
+	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder() {
+		return getCreditNoteEntryBuilder(PRODUCT, INVOICEREFERENCE);
 	}
 }

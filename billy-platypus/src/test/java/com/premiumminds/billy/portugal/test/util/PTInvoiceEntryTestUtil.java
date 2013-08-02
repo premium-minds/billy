@@ -22,7 +22,10 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
+import javax.persistence.NoResultException;
+
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -34,9 +37,9 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTInvoiceEntryTestUtil {
 
-	private final BigDecimal amount = new BigDecimal(20);
-	private final Currency currency = Currency.getInstance("EUR");
-	private final BigDecimal quantity = new BigDecimal(1);
+	private static final BigDecimal AMOUNT = new BigDecimal(20);
+	private static final Currency CURRENCY = Currency.getInstance("EUR");
+	private static final BigDecimal QUANTITY = new BigDecimal(1);
 
 	private Injector injector;
 	private PTProductTestUtil product;
@@ -56,18 +59,15 @@ public class PTInvoiceEntryTestUtil {
 				.getInstance(PTInvoiceEntry.Builder.class);
 		PTShippingPoint.Builder originBuilder = shippingPoint
 				.getShippingPointBuilder();
-		DAOPTProduct daoPTProduct = injector.getInstance(DAOPTProduct.class);
 		context = contexts.portugal().portugal();
-
-		daoPTProduct.create(product);
 
 		invoiceEntryBuilder.clear();
 
 		invoiceEntryBuilder
-				.setUnitAmount(AmountType.WITH_TAX, amount, currency)
+				.setUnitAmount(AmountType.WITH_TAX, AMOUNT, CURRENCY)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
-				.setDescription(product.getDescription()).setQuantity(quantity)
+				.setDescription(product.getDescription()).setQuantity(QUANTITY)
 				.setUnitOfMeasure(product.getUnitOfMeasure())
 				.setProductUID(product.getUID())
 				.setContextUID(context.getUID())
@@ -84,7 +84,18 @@ public class PTInvoiceEntryTestUtil {
 	}
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(String productUID) {
-		PTProductEntity newProduct = product.getProductEntity(productUID);
+		DAOPTProduct daoPTProduct = injector.getInstance(DAOPTProduct.class);
+		PTProductEntity newProduct = null;
+		try {
+			newProduct = (PTProductEntity) daoPTProduct
+					.get(new UID(productUID));
+		} catch (NoResultException e) {
+		}
+
+		if (newProduct == null) {
+			newProduct = product.getProductEntity(productUID);
+			daoPTProduct.create(newProduct);
+		}
 		return getInvoiceEntryBuilder(newProduct);
 	}
 }

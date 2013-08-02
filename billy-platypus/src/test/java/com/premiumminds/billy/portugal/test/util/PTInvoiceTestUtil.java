@@ -31,7 +31,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
@@ -131,9 +130,13 @@ public class PTInvoiceTestUtil {
 			daoPTCustomer.create(customerEntity);
 		}
 
-		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
-				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
-				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT)
+		invoiceBuilder
+				.setBilled(BILLED)
+				.setCancelled(CANCELLED)
+				.setSelfBilled(SELFBILL)
+				// FIXME WRONG
+				.setHash(HASH).setDate(DATE).setSourceId(SOURCE_ID)
+				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID))
 				.setBusinessUID(new UID(businessUID));
 
@@ -141,11 +144,11 @@ public class PTInvoiceTestUtil {
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
-		// FIXME do a foreach
-		PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) invoice
-				.getEntries().get(0);
-		invoiceEntry.setUID(new UID(entryUID));
-		invoiceEntry.getDocumentReferences().add(invoice);
+		// FIXME it's only working for one entry. Change methods above
+		for (PTInvoiceEntry invoiceEntry : invoice.getEntries()) {
+			invoiceEntry.setUID(new UID(new Date().toString()));
+			invoiceEntry.getDocumentReferences().add(invoice);
+		}
 
 		invoice.setBusiness(businessEntity);
 

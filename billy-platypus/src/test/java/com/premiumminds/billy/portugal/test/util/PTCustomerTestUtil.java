@@ -27,12 +27,10 @@ import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 
 public class PTCustomerTestUtil {
 
-	private final String name = "Name";
-	private final String taxNumber = "123456789";
-	private final Boolean selfBillingAgree = false;
-	private final String addressUID = "CUSTOMER_ADDRESS";
-	private final String contactUID = "CUSTOMER_CONTACT";
-	private final String uid = "CUSTOMER";
+	private static final String NAME = "Name";
+	private static final String TAX_NUMBER = "123456789";
+	private static final Boolean SELF_BILLING_AGREE = false;
+	private static final String uid = "CUSTOMER";
 
 	private Injector injector;
 	private PTAddressTestUtil address;
@@ -44,24 +42,30 @@ public class PTCustomerTestUtil {
 		contact = new PTContactTestUtil(injector);
 	}
 
-	public PTCustomerEntity getCustomerEntity(String customerUID) {
+	public PTCustomerEntity getCustomerEntity(String customerUID, String name,
+			String taxNumber, boolean selfBillingAgree,
+			PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder) {
 		PTCustomer.Builder customerBuilder = injector
 				.getInstance(PTCustomer.Builder.class);
-		PTAddress.Builder addressBuilder = address.getAddressBuilder();
-		PTContact.Builder contactBuilder = contact.getContactBuilder();
-
 		customerBuilder.clear();
 		customerBuilder.addAddress(addressBuilder, true)
 				.addContact(contactBuilder).setBillingAddress(addressBuilder)
 				.setName(name).setHasSelfBillingAgreement(selfBillingAgree)
 				.setTaxRegistrationNumber(taxNumber);
 
+		// TODO Check this
 		PTCustomerEntity customer = (PTCustomerEntity) customerBuilder.build();
-		customer.getAddresses().get(0).setUID(new UID(addressUID));
-		customer.getContacts().get(0).setUID(new UID(contactUID));
 		customer.setUID(new UID(customerUID));
 
 		return customer;
+	}
+
+	public PTCustomerEntity getCustomerEntity(String customerUID) {
+		PTAddress.Builder addressBuilder = address.getAddressBuilder();
+		PTContact.Builder contactBuilder = contact.getContactBuilder();
+
+		return getCustomerEntity(customerUID, NAME, TAX_NUMBER,
+				SELF_BILLING_AGREE, addressBuilder, contactBuilder);
 	}
 
 	public PTCustomerEntity getCustomerEntity() {

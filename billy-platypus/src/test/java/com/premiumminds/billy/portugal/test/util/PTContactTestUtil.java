@@ -23,12 +23,12 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class PTContactTestUtil {
 
-	private final String name = "name";
-	private final String telephone = "998887999";
-	private final String mobile = "999999999";
-	private final String email = "email@email.em";
-	private final String fax = "9999999122";
-	private final String website = "website@website.web";
+	private static final String NAME = "name";
+	private static final String TELEPHONE = "998887999";
+	private static final String MOBILE = "999999999";
+	private static final String EMAIL = "email@email.em";
+	private static final String FAX = "9999999122";
+	private static final String WEBSITE = "website@website.web";
 
 	private Injector injector;
 
@@ -36,7 +36,8 @@ public class PTContactTestUtil {
 		this.injector = injector;
 	}
 
-	public PTContact.Builder getContactBuilder() {
+	public PTContact.Builder getContactBuilder(String name, String telephone,
+			String mobile, String fax, String email, String website) {
 		PTContact.Builder contactBuilder = injector
 				.getInstance(PTContact.Builder.class);
 
@@ -44,5 +45,10 @@ public class PTContactTestUtil {
 				.setFax(fax).setTelephone(telephone).setWebsite(website);
 
 		return contactBuilder;
+
+	}
+
+	public PTContact.Builder getContactBuilder() {
+		return getContactBuilder(NAME, TELEPHONE, MOBILE, FAX, EMAIL, WEBSITE);
 	}
 }

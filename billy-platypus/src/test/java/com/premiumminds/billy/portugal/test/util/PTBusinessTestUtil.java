@@ -50,11 +50,30 @@ public class PTBusinessTestUtil {
 		contact = new PTContactTestUtil(injector);
 		address = new PTAddressTestUtil(injector);
 		contexts = new Contexts(injector);
+		context = contexts.portugal().portugal();
+	}
+
+	public PTBusinessEntity getBusinessEntity(String uid, UID contextUID,
+			PTContact.Builder contactBuilder, PTAddress.Builder addressBuilder,
+			PTApplication.Builder applicationBuilder) {
+		PTBusiness.Builder businessBuilder = injector
+				.getInstance(PTBusiness.Builder.class);
+
+		businessBuilder.clear();
+
+		businessBuilder.addApplication(applicationBuilder)
+				.addContact(contactBuilder).setAddress(addressBuilder)
+				.setBillingAddress(addressBuilder).setCommercialName(name)
+				.setFinancialID(id).setOperationalContextUID(contextUID)
+				.setWebsite(website).setName(name);
+
+		PTBusinessEntity business = (PTBusinessEntity) businessBuilder.build();
+		business.setUID(new UID(uid));
+
+		return business;
 	}
 
 	public PTBusinessEntity getBusinessEntity(String uid) {
-		PTBusiness.Builder businessBuilder = injector
-				.getInstance(PTBusiness.Builder.class);
 		PTApplication.Builder applicationBuilder = null;
 		try {
 			applicationBuilder = application.getApplicationBuilder();
@@ -63,20 +82,10 @@ public class PTBusinessTestUtil {
 		}
 		PTContact.Builder contactBuilder = contact.getContactBuilder();
 		PTAddress.Builder addressBuilder = address.getAddressBuilder();
-		context = contexts.portugal().portugal();
 
-		businessBuilder.clear();
+		return getBusinessEntity(uid, context.getUID(), contactBuilder,
+				addressBuilder, applicationBuilder);
 
-		businessBuilder.addApplication(applicationBuilder)
-				.addContact(contactBuilder).setAddress(addressBuilder)
-				.setBillingAddress(addressBuilder).setCommercialName(name)
-				.setFinancialID(id).setOperationalContextUID(context.getUID())
-				.setWebsite(website).setName(name);
-
-		PTBusinessEntity business = (PTBusinessEntity) businessBuilder.build();
-		business.setUID(new UID(uid));
-
-		return business;
 	}
 
 	public PTBusinessEntity getBusinessEntity() {
