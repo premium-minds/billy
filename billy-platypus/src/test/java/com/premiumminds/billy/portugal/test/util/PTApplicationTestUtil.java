@@ -27,13 +27,13 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class PTApplicationTestUtil {
 
-	private final String path = "http://url";
-	private final String name = "company_name";
-	private final String id = "12432353426435";
-	private final String appName = "APP";
-	private final Integer number = 1;
-	private final String version = "1";
-	private final String website = "http://app.ex";
+	private static final String KEYS_PATH = "http://url";
+	private static final String COMPANY_NAME = "company_name";
+	private static final String COMPANY_TAX_ID = "12432353426435";
+	private static final String APP_NAME = "APP";
+	private static final Integer SW_CERTIFICATE_NUMBER = 1;
+	private static final String VERSION = "1";
+	private static final String WEBSITE = "http://app.ex";
 
 	private Injector injector;
 	private PTContactTestUtil contact;
@@ -43,21 +43,32 @@ public class PTApplicationTestUtil {
 		contact = new PTContactTestUtil(injector);
 	}
 
-	public PTApplication.Builder getApplicationBuilder()
-			throws MalformedURLException {
+	public PTApplication.Builder getApplicationBuilder(String appName,
+			String version, String companyName, String companyTaxId,
+			String website, Integer swCertificateNumber, String keysPath,
+			PTContact.Builder contactBuilder) throws MalformedURLException {
 		PTApplication.Builder applicationBuilder = injector
 				.getInstance(PTApplication.Builder.class);
-		PTContact.Builder contactBuilder = contact.getContactBuilder();
 
 		applicationBuilder.clear();
 
 		applicationBuilder.addContact(contactBuilder)
-				.setApplicationKeysPath(new URL(path))
-				.setDeveloperCompanyName(name)
-				.setDeveloperCompanyTaxIdentifier(id).setName(appName)
-				.setSoftwareCertificationNumber(number).setVersion(version)
-				.setWebsiteAddress(website);
+				.setApplicationKeysPath(new URL(keysPath))
+				.setDeveloperCompanyName(companyName)
+				.setDeveloperCompanyTaxIdentifier(companyTaxId)
+				.setName(appName)
+				.setSoftwareCertificationNumber(swCertificateNumber)
+				.setVersion(version).setWebsiteAddress(website);
 
 		return applicationBuilder;
+	}
+
+	public PTApplication.Builder getApplicationBuilder()
+			throws MalformedURLException {
+		PTContact.Builder contactBuilder = contact.getContactBuilder();
+
+		return getApplicationBuilder(APP_NAME, VERSION, COMPANY_NAME,
+				COMPANY_TAX_ID, WEBSITE, SW_CERTIFICATE_NUMBER, KEYS_PATH,
+				contactBuilder);
 	}
 }

@@ -39,6 +39,8 @@ public class PTCreditNoteTestUtil {
 	private final String number = "FS B/1";
 	private final Integer seriesNumber = 1;
 	private final String creditNoteEntryUID = "CREDIT_NOTE_ENTRY";
+	private static final String PRODUCT = "PRODUCT_UID";
+	private static final String INVOICEREFERENCE = "INVOICE";
 
 	private Injector injector;
 	private PTCreditNoteEntryTestUtil creditNoteEntry;
@@ -48,12 +50,13 @@ public class PTCreditNoteTestUtil {
 		creditNoteEntry = new PTCreditNoteEntryTestUtil(injector);
 	}
 
-	public PTCreditNoteEntity getCreditNoteEntity() {
+	public PTCreditNoteEntity getCreditNoteEntity(String productUID,
+			String invoiceReference) {
 		PTCreditNote.Builder creditNoteBuilder = injector
 				.getInstance(PTCreditNote.Builder.class);
 
 		PTCreditNoteEntry.Builder creditNoteEntryBuilder = creditNoteEntry
-				.getCreditNoteEntryBuilder();
+				.getCreditNoteEntryBuilder(productUID, invoiceReference);
 
 		creditNoteBuilder.clear();
 
@@ -74,5 +77,9 @@ public class PTCreditNoteTestUtil {
 		creditNoteEntry.getDocumentReferences().add(creditNote);
 
 		return creditNote;
+	}
+
+	public PTCreditNoteEntity getCreditNoteEntity() {
+		return getCreditNoteEntity(PRODUCT, INVOICEREFERENCE);
 	}
 }

@@ -1,26 +1,26 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
 import java.util.Currency;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -32,7 +32,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
@@ -141,9 +140,13 @@ public class PTInvoiceTestUtil {
 			daoPTCustomer.create(customerEntity);
 		}
 
-		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
-				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
-				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT)
+		invoiceBuilder
+				.setBilled(BILLED)
+				.setCancelled(CANCELLED)
+				.setSelfBilled(SELFBILL)
+				// FIXME WRONG
+				.setHash(HASH).setDate(DATE).setSourceId(SOURCE_ID)
+				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID))
 				.setBusinessUID(new UID(businessUID));
 
@@ -151,12 +154,9 @@ public class PTInvoiceTestUtil {
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
-		List<PTInvoiceEntry> entries = invoice.getEntries();
-		for (int i = 0; i < entries.size(); i++) {
-			PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) entries
-					.get(i);
-
-			invoiceEntry.setUID(new UID(entryUID));
+		// FIXME it's only working for one entry. Change methods above
+		for (PTInvoiceEntry invoiceEntry : invoice.getEntries()) {
+			invoiceEntry.setUID(new UID(new Date().toString()));
 			invoiceEntry.getDocumentReferences().add(invoice);
 		}
 

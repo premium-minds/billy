@@ -59,6 +59,12 @@ public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder
 	}
 
 	@Override
+	public TBuilder setBuilding(String building) {
+		this.getTypeInstance().setBuilding(building);
+		return this.getBuilder();
+	}
+
+	@Override
 	protected PTAddressEntity getTypeInstance() {
 		return (PTAddressEntity) super.getTypeInstance();
 	}

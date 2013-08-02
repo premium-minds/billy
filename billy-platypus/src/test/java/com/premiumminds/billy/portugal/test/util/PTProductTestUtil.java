@@ -28,11 +28,12 @@ import com.premiumminds.billy.portugal.util.Taxes;
 
 public class PTProductTestUtil {
 
-	private final String numberCode = "123";
-	private final String unitOfMeasure = "Kg";
-	private final String productCode = "12345";
-	private final String description = "DESCRIPTION";
-	private final String uid = "POTATOES";
+	private static final String NUMBER_CODE = "123";
+	private static final String UNIT_OF_MEASURE = "Kg";
+	private static final String PRODUCT_CODE = "12345";
+	private static final String DESCRIPTION = "DESCRIPTION";
+	private static final String UID = "POTATOES";
+	private static final ProductType TYPE = ProductType.GOODS;
 
 	private Injector injector;
 	private Taxes taxes;
@@ -41,17 +42,19 @@ public class PTProductTestUtil {
 	public PTProductTestUtil(Injector injector) {
 		this.injector = injector;
 		taxes = new Taxes(injector);
+		tax = (PTTaxEntity) taxes.continent().normal();
 	}
 
-	public PTProductEntity getProductEntity(String uid) {
+	public PTProductEntity getProductEntity(String uid, String numberCode,
+			String unitOfMeasure, String productCode, String description,
+			ProductType type) {
 		PTProduct.Builder productBuilder = injector
 				.getInstance(PTProduct.Builder.class);
-		tax = (PTTaxEntity) taxes.continent().normal();
 
 		productBuilder.clear();
 		productBuilder.addTaxUID(tax.getUID()).setNumberCode(numberCode)
 				.setUnitOfMeasure(unitOfMeasure).setProductCode(productCode)
-				.setDescription(description).setType(ProductType.GOODS);
+				.setDescription(description).setType(type);
 
 		PTProductEntity product = (PTProductEntity) productBuilder.build();
 
@@ -60,7 +63,12 @@ public class PTProductTestUtil {
 		return product;
 	}
 
+	public PTProductEntity getProductEntity(String uid) {
+		return getProductEntity(uid, NUMBER_CODE, UNIT_OF_MEASURE,
+				PRODUCT_CODE, DESCRIPTION, TYPE);
+	}
+
 	public PTProductEntity getProductEntity() {
-		return getProductEntity(uid);
+		return getProductEntity(UID);
 	}
 }

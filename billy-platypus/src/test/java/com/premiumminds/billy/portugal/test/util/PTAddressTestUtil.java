@@ -23,14 +23,14 @@ import com.premiumminds.billy.portugal.services.entities.PTAddress;
 
 public class PTAddressTestUtil {
 
-	private final String number = "1";
-	private final String street = "street";
-	private final String building = "building";
-	private final String city = "city";
-	private final String region = "region";
-	private final String isoCode = "PT";
-	private final String details = "details";
-	private final String postalCode = "1000-000";
+	private static final String NUMBER = "1";
+	private static final String STREET = "street";
+	private static final String BUILDING = "building";
+	private static final String CITY = "city";
+	private static final String REGION = "region";
+	private static final String ISOCODE = "PT";
+	private static final String DETAILS = "details";
+	private static final String POSTAL_CODE = "1000-000";
 
 	private Injector injector;
 
@@ -38,16 +38,24 @@ public class PTAddressTestUtil {
 		this.injector = injector;
 	}
 
-	public PTAddress.Builder getAddressBuilder() {
+	public PTAddress.Builder getAddressBuilder(String streetName,
+			String number, String details, String building, String city,
+			String postalCode, String region, String isoCountry) {
+
 		PTAddress.Builder addressBuilder = injector
 				.getInstance(PTAddress.Builder.class);
 
 		addressBuilder.clear();
 
 		addressBuilder.setBuilding(building).setCity(city).setDetails(details)
-				.setISOCountry(isoCode).setNumber(number).setRegion(region)
-				.setStreetName(street).setPostalCode(postalCode);
+				.setISOCountry(isoCountry).setNumber(number).setRegion(region)
+				.setStreetName(streetName).setPostalCode(postalCode);
 
 		return addressBuilder;
+	}
+
+	public PTAddress.Builder getAddressBuilder() {
+		return getAddressBuilder(STREET, NUMBER, DETAILS, BUILDING, CITY,
+				POSTAL_CODE, REGION, ISOCODE);
 	}
 }
