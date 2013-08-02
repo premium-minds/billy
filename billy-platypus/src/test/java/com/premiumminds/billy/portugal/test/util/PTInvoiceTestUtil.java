@@ -1,26 +1,27 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy platypus (PT Pack).
- * 
- * billy platypus (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy platypus (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
+ *
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
 import java.util.Currency;
 import java.util.Date;
+
+import javax.persistence.NoResultException;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -107,13 +108,28 @@ public class PTInvoiceTestUtil {
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 
-		PTBusinessEntity businessEntity = business
-				.getBusinessEntity(businessUID);
-		daoPTBusiness.create(businessEntity);
+		PTBusinessEntity businessEntity = null;
+		try {
+			businessEntity = (PTBusinessEntity) daoPTBusiness.get(new UID(
+					businessUID));
+		} catch (NoResultException e) {
+		}
+		if (businessEntity == null) {
+			businessEntity = business.getBusinessEntity(businessUID);
+			daoPTBusiness.create(businessEntity);
+		}
 
-		PTCustomerEntity customerEntity = customer
-				.getCustomerEntity(customerUID);
-		daoPTCustomer.create(customerEntity);
+		PTCustomerEntity customerEntity = null;
+		try {
+			customerEntity = (PTCustomerEntity) daoPTCustomer.get(new UID(
+					customerUID));
+		} catch (NoResultException e) {
+		}
+
+		if (customerEntity == null) {
+			customerEntity = customer.getCustomerEntity(customerUID);
+			daoPTCustomer.create(customerEntity);
+		}
 
 		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
 				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
@@ -139,5 +155,4 @@ public class PTInvoiceTestUtil {
 
 		return invoice;
 	}
-
 }
