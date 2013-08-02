@@ -65,7 +65,6 @@ import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.Config.Key;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
@@ -176,13 +175,12 @@ public class SAFTFileGenerator {
 			final String certificateNumber, final Date fromDate,
 			final Date toDate, final DAOPTCustomer daoCustomer,
 			final DAOPTProduct daoProduct, final DAOPTTax daoPTTax,
-			final DAOPTGenericInvoice daoPTGenericInvoice,
 			final DAOPTInvoice daoPTInvoice,
 			final DAOPTSimpleInvoice daoPTSimpleInvoice,
 			final DAOPTCreditNote daoPTCreditNote) throws SAFTPTExportException {
 
 		try {
-			return new TransactionWrapper<AuditFile>(daoPTGenericInvoice) {
+			return new TransactionWrapper<AuditFile>(daoPTInvoice) {
 
 				@Override
 				public AuditFile runTransaction() throws Exception {
@@ -786,8 +784,11 @@ public class SAFTFileGenerator {
 			throws RequiredFieldNotFoundException,
 			DatatypeConfigurationException, InvalidDocumentTypeException {
 		References ref = null;
-		PTInvoice referencedDocument = ((PTCreditNoteEntryEntity) entry)
-				.getReference();
+		PTInvoice referencedDocument = null;
+		if (PTCreditNoteEntryEntity.class.isInstance(entry)) {
+			referencedDocument = ((PTCreditNoteEntryEntity) entry)
+					.getReference();
+		}
 
 		/* FIXME ONLY SUPPORTS ONE REFERENCED DOCUMENT */
 		if (referencedDocument != null) {

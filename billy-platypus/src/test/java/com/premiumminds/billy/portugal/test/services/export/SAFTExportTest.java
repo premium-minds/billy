@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
@@ -38,7 +39,9 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
@@ -48,6 +51,7 @@ import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.services.export.saftpt.SAFTFileGenerator;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTAddressTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTApplicationTestUtil;
@@ -125,6 +129,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					.getApplicationBuilder("APP", "1.0", "My Business",
 							"523456789", "hhtp://www.app.mybusiness.web", 1,
 							"http://here", contactBuilder);
+			PTApplicationEntity applicationEntity = (PTApplicationEntity) applicationBuilder
+					.build();
 
 			/* BUSINESS */
 			DAOPTBusiness daoPTBusiness = injector
@@ -195,8 +201,10 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTCreditNote daoPTCreditNote = injector
 					.getInstance(DAOPTCreditNote.class);
 			PTCreditNoteEntity creditNoteEntity = creditNote
-					.getCreditNoteEntity(productEntity1.getUID().getValue(),
-							invoices.get(0).getUID().getValue());
+					.getCreditNoteEntity(TYPE.NC, businessEntity.getUID()
+							.getValue(), customerEntity.getUID().getValue(),
+							productEntity1.getUID().getValue(), invoices.get(0)
+									.getUID().getValue());
 			creditNoteEntity.setHash(GenerateHash.generateHash(privateKey,
 					publicKey, creditNoteEntity.getDate(),
 					creditNoteEntity.getCreateTimestamp(),
@@ -204,10 +212,13 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					creditNoteEntity.getAmountWithTax(), null));
 			daoPTCreditNote.create(creditNoteEntity);
 
-			/* SAFTFileGenerator generator = new SAFTFileGenerator(); */
-			// generator.generateSAFTFile(be, customers, products, taxes,
-			// invoices, null, creditNotes, new Date(), new Date());
-			System.out.println("ALL OK");
+			DAOPTSimpleInvoice daoPTSimpleInvoice = injector
+					.getInstance(DAOPTSimpleInvoice.class);
+			SAFTFileGenerator generator = new SAFTFileGenerator();
+			generator.generateSAFTFile(System.out, businessEntity,
+					applicationEntity, "1234", new Date(0), new Date(),
+					daoPTCustomer, daoPTProduct, daoPTTax, daoPTInvoice,
+					daoPTSimpleInvoice, daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

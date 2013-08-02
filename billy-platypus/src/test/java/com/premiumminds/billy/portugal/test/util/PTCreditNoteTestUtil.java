@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -26,6 +27,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTCreditNoteTestUtil {
 
@@ -36,11 +38,13 @@ public class PTCreditNoteTestUtil {
 	private final String sourceID = "SOURCE";
 	private final String uid = "CREDIT_NOTE";
 	private final String serie = "B";
-	private final String number = "FS B/1";
+	private final String number = "NC C/1";
 	private final Integer seriesNumber = 1;
 	private final String creditNoteEntryUID = "CREDIT_NOTE_ENTRY";
 	private static final String PRODUCT = "PRODUCT_UID";
 	private static final String INVOICEREFERENCE = "INVOICE";
+	private static final String BUSINESS_UID = "BUSINESS_UID";
+	protected static final String CUSTOMER_UID = "CUSTOMER_UID";
 
 	private Injector injector;
 	private PTCreditNoteEntryTestUtil creditNoteEntry;
@@ -50,7 +54,8 @@ public class PTCreditNoteTestUtil {
 		creditNoteEntry = new PTCreditNoteEntryTestUtil(injector);
 	}
 
-	public PTCreditNoteEntity getCreditNoteEntity(String productUID,
+	public PTCreditNoteEntity getCreditNoteEntity(TYPE type,
+			String businessUID, String customerUID, String productUID,
 			String invoiceReference) {
 		PTCreditNote.Builder creditNoteBuilder = injector
 				.getInstance(PTCreditNote.Builder.class);
@@ -62,7 +67,9 @@ public class PTCreditNoteTestUtil {
 
 		creditNoteBuilder.setBilled(billed).setCancelled(cancelled)
 				.setSelfBilled(selfBill).setHash(hash).setDate(new Date())
-				.setSourceId(sourceID).addEntry(creditNoteEntryBuilder);
+				.setSourceId(sourceID).addEntry(creditNoteEntryBuilder)
+				.setBusinessUID(new UID(businessUID))
+				.setCustomerUID(new UID(customerUID));
 
 		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) creditNoteBuilder
 				.build();
@@ -70,6 +77,8 @@ public class PTCreditNoteTestUtil {
 		creditNote.setSeries(serie);
 		creditNote.setSeriesNumber(seriesNumber);
 		creditNote.setNumber(number);
+		creditNote.setType(type);
+		creditNote.setCurrency(Currency.getInstance("EUR"));
 
 		PTCreditNoteEntryEntity creditNoteEntry = (PTCreditNoteEntryEntity) creditNote
 				.getEntries().get(0);
@@ -80,6 +89,7 @@ public class PTCreditNoteTestUtil {
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity() {
-		return getCreditNoteEntity(PRODUCT, INVOICEREFERENCE);
+		return getCreditNoteEntity(TYPE.NC, BUSINESS_UID, CUSTOMER_UID,
+				PRODUCT, INVOICEREFERENCE);
 	}
 }
