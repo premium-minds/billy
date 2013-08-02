@@ -22,19 +22,19 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 
 public class PDFPTInvoiceExportRequest implements ExportServiceRequest {
-	
+
 	protected UID uid;
 	protected PTInvoiceTemplateBundle bundle;
-	
+
 	public PDFPTInvoiceExportRequest(UID uid, PTInvoiceTemplateBundle bundle) {
 		this.uid = uid;
 		this.bundle = bundle;
 	}
-	
+
 	public UID getInvoiceUID() {
 		return uid;
 	}
-	
+
 	public PTInvoiceTemplateBundle getBundle() {
 		return this.bundle;
 	}

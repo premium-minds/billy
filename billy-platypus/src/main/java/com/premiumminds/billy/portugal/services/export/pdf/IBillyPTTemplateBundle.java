@@ -21,7 +21,9 @@ package com.premiumminds.billy.portugal.services.export.pdf;
 import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public interface IBillyPTTemplateBundle extends IBillyTemplateBundle{
+public interface IBillyPTTemplateBundle extends IBillyTemplateBundle {
+
 	public String getPaymentMechanismTranslation(PaymentMechanism pmc);
+
 	public String getGenericCustomer();
 }

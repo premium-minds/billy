@@ -71,7 +71,6 @@ public abstract class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 		parameters.setInvoiceSeries(series);
 		invoice.setDate(date);
 		handler.issue(invoice, parameters);
-
 	}
 
 }

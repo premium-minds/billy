@@ -32,7 +32,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity;
 
 public class TestPTRegionContextBuilder extends PTAbstractTest {
 
-	private static final String PTCONTEXT_YML = YML_CONFIGS_DIR + "PTContext.yml";
+	private static final String PTCONTEXT_YML = YML_CONFIGS_DIR
+			+ "PTContext.yml";
 
 	@Test
 	public void testRegionCode() {

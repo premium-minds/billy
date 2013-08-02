@@ -33,9 +33,6 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
 		PTSimpleInvoiceEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings({ "unchecked" })

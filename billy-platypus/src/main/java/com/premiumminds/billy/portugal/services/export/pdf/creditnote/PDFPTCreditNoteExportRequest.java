@@ -21,16 +21,17 @@ package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 
-public class PDFPTCreditNoteExportRequest  implements ExportServiceRequest {
-	
+public class PDFPTCreditNoteExportRequest implements ExportServiceRequest {
+
 	protected UID uid;
 	protected PTCreditNoteTemplateBundle bundle;
-	
-	public PDFPTCreditNoteExportRequest(UID uid, PTCreditNoteTemplateBundle bundle) {
+
+	public PDFPTCreditNoteExportRequest(UID uid,
+			PTCreditNoteTemplateBundle bundle) {
 		this.uid = uid;
 		this.bundle = bundle;
 	}
-	
+
 	public UID getCreditNoteUID() {
 		return uid;
 	}

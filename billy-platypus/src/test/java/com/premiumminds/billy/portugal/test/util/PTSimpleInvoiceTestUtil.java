@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.test.util;
 
 import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -33,64 +32,36 @@ import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
-public class PTInvoiceTestUtil {
+public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 
-	protected static final Date DATE = new Date();
-	protected static final Boolean BILLED = false;
-	protected static final Boolean CANCELLED = false;
-	protected static final Boolean SELFBILL = false;
-	protected static final String HASH = "HASH";
-	protected static final String SOURCE_ID = "SOURCE";
-	protected static final String UID = "INVOICE";
-	protected static final String SERIE = "A";
-	protected static final Integer SERIE_NUMBER = 1;
-	protected static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
-	protected static final String PRODUCT_UID = "PRODUCT_UID";
-	protected static final String BUSINESS_UID = "BUSINESS_UID";
-	protected static final String CUSTOMER_UID = "CUSTOMER_UID";
-
-	protected TYPE INVOICE_TYPE;
-	protected Injector injector;
-	protected PTInvoiceEntryTestUtil invoiceEntry;
-	protected PTBusinessTestUtil business;
-	protected PTCustomerTestUtil customer;
-
-	public PTInvoiceTestUtil(Injector injector) {
-		this.injector = injector;
-		this.INVOICE_TYPE = TYPE.FT;
-		invoiceEntry = new PTInvoiceEntryTestUtil(injector);
-		business = new PTBusinessTestUtil(injector);
-		customer = new PTCustomerTestUtil(injector);
+	public PTSimpleInvoiceTestUtil(Injector injector) {
+		super(injector, TYPE.FS);
 	}
 
-	public PTInvoiceTestUtil(Injector injector, TYPE type) {
-		this.injector = injector;
-		this.INVOICE_TYPE = type;
-		invoiceEntry = new PTInvoiceEntryTestUtil(injector);
-		business = new PTBusinessTestUtil(injector);
-		customer = new PTCustomerTestUtil(injector);
-	}
-
+	@Override
 	public PTInvoiceEntity getInvoiceEntity() {
 		return getInvoiceEntity(BUSINESS_UID, CUSTOMER_UID, PRODUCT_UID);
 	}
 
-	public PTInvoiceEntity getInvoiceEntity(String businessUID,
+	@Override
+	public PTSimpleInvoiceEntity getInvoiceEntity(String businessUID,
 			String customerUID, String... productUIDs) {
 		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
 				INVOICE_ENTRY_UID, businessUID, customerUID, productUIDs);
 	}
 
-	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
-			String uid, Integer seriesNumber, String entryUID,
+	@Override
+	public PTSimpleInvoiceEntity getInvoiceEntity(TYPE invoiceType,
+			String serie, String uid, Integer seriesNumber, String entryUID,
 			String businessUID, String customerUID, String... productUIDs) {
 
-		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType, entryUID,
-				uid, businessUID, customerUID, productUIDs);
+		PTSimpleInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType,
+				entryUID, uid, businessUID, customerUID, productUIDs);
 
 		String formatedNumber = invoiceType.toString() + " " + serie + "/"
 				+ seriesNumber;
@@ -102,11 +73,12 @@ public class PTInvoiceTestUtil {
 		return invoice;
 	}
 
-	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
+	@Override
+	public PTSimpleInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
 			String entryUID, String uid, String businessUID,
 			String customerUID, String... productUIDs) {
-		PTInvoice.Builder invoiceBuilder = injector
-				.getInstance(PTInvoice.Builder.class);
+		PTSimpleInvoice.Builder invoiceBuilder = injector
+				.getInstance(PTSimpleInvoice.Builder.class);
 		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
 		DAOPTCustomer daoPTCustomer = injector.getInstance(DAOPTCustomer.class);
 
@@ -147,7 +119,8 @@ public class PTInvoiceTestUtil {
 				.setCustomerUID(new UID(customerUID))
 				.setBusinessUID(new UID(businessUID));
 
-		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
+		PTSimpleInvoiceEntity invoice = (PTSimpleInvoiceEntity) invoiceBuilder
+				.build();
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
@@ -168,4 +141,5 @@ public class PTInvoiceTestUtil {
 
 		return invoice;
 	}
+
 }

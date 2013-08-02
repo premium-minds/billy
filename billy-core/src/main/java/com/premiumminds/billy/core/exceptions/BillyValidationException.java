@@ -24,6 +24,6 @@ public class BillyValidationException extends BillyRuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
-	public  BillyValidationException() {
+	public BillyValidationException() {
 	}
 }

@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -36,6 +38,7 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	protected static final Localizer LOCALIZER = new Localizer(
 			"com/premiumminds/billy/portugal/i18n/FieldNames");
 
+	@Inject
 	public PTInvoiceBuilderImpl(DAOPTInvoice daoPTInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 			DAOPTSupplier daoPTSupplier) {

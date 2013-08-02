@@ -105,8 +105,8 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
 	}
-	
-	public PaymentMechanism getPaymentMechanism(){
+
+	public PaymentMechanism getPaymentMechanism() {
 		return null;
 	}
 }
