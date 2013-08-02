@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.test.util;
 
 import java.util.Currency;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -141,11 +142,14 @@ public class PTInvoiceTestUtil {
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
-		// FIXME do a foreach
-		PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) invoice
-				.getEntries().get(0);
-		invoiceEntry.setUID(new UID(entryUID));
-		invoiceEntry.getDocumentReferences().add(invoice);
+		List<PTInvoiceEntry> entries = invoice.getEntries();
+		for (int i = 0; i < entries.size(); i++) {
+			PTInvoiceEntryEntity invoiceEntry = (PTInvoiceEntryEntity) entries
+					.get(i);
+
+			invoiceEntry.setUID(new UID(entryUID));
+			invoiceEntry.getDocumentReferences().add(invoice);
+		}
 
 		invoice.setBusiness(businessEntity);
 
