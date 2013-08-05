@@ -27,10 +27,14 @@ import org.junit.Test;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTManualInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTManualInvoiceEntity;
+import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.PTManualInvoiceIssuingHandler;
+import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidSourceBillingException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTManualInvoice;
+import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTManualInvoiceTestUtil;
 
 public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
@@ -47,7 +51,13 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		return new PTManualInvoiceTestUtil(injector).getSimpleInvoiceEntity(
 				type, ENTRY_UID, invoiceUID, businessUID, customerUID,
 				productUID);
+	}
 
+	protected PTInvoiceEntity newNormalInvoice(String invoiceUID,
+			String productUID, TYPE type, String businessUID, String customerUID) {
+
+		return new PTInvoiceTestUtil(injector).getSimpleInvoiceEntity(type,
+				ENTRY_UID, invoiceUID, businessUID, customerUID, productUID);
 	}
 
 	@Before
@@ -66,7 +76,7 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	}
 
 	@Test
-	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+	public void testIssuedManualInvoiceSimple() throws DocumentIssuingException {
 		PTManualInvoice issuedInvoice = (PTManualInvoice) getInstance(
 				DAOPTManualInvoice.class).get(new UID(INVOICE_UID));
 
@@ -77,4 +87,11 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		assertEquals(SOURCE_BILLING, issuedInvoice.getSourceBilling());
 	}
 
+	@Test(expected = InvalidSourceBillingException.class)
+	public void testIssuedDifferentType() throws DocumentIssuingException {
+		PTInvoiceEntity invoice = newNormalInvoice("normal_inv", "normal_prod",
+				TYPE.FT, "busi_id", "cust_id");
+		PTInvoiceIssuingHandler newHandler = getInstance(PTInvoiceIssuingHandler.class);
+		issueNewInvoice(newHandler, invoice, DEFAULT_SERIES);
+	}
 }
