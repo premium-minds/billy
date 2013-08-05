@@ -84,7 +84,7 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 	public PTCreditNoteEntity getLatestInvoiceFromSeries(String series)
 			throws BillyRuntimeException {
 
-		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
+		List<Object[]> list = findLastestUID(series);
 
 		if (list.size() != 0)
 			return (PTCreditNoteEntity) this.get(new UID(

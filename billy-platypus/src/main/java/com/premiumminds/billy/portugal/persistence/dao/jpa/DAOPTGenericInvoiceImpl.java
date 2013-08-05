@@ -53,7 +53,7 @@ public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
 	public PTGenericInvoiceEntity getLatestInvoiceFromSeries(String series)
 			throws BillyRuntimeException {
 
-		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
+		List<Object[]> list = findLastestUID(series);
 
 		if (list.size() != 0)
 			return (PTGenericInvoiceEntity) this.get(new UID((String) list

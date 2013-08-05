@@ -61,7 +61,7 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 	public PTSimpleInvoiceEntity getLatestInvoiceFromSeries(String series)
 			throws BillyRuntimeException {
 
-		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
+		List<Object[]> list = findLastestUID(series);
 
 		if (list.size() != 0)
 			return (PTSimpleInvoiceEntity) this.get(new UID((String) list

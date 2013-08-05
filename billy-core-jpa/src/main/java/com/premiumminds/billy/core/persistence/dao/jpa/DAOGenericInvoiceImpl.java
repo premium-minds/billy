@@ -58,7 +58,7 @@ public class DAOGenericInvoiceImpl extends
 	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
 			String series) throws BillyRuntimeException {
 
-		List<Object[]> list = findLastestUID(this.getEntityClass(), series);
+		List<Object[]> list = findLastestUID(series);
 
 		if (list.size() != 0)
 			return (T) this.get(new UID((String) list.get(0)[0]));
@@ -66,12 +66,12 @@ public class DAOGenericInvoiceImpl extends
 			throw new BillyRuntimeException();
 	}
 
-	protected <T extends JPAGenericInvoiceEntity> List<Object[]> findLastestUID(
-			Class<T> rootClass, String series) {
+	protected List<Object[]> findLastestUID(String series) {
 		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
 
-		Root<T> invoiceRoot = query.from(rootClass);
+		Root<JPAGenericInvoiceEntity> invoiceRoot = query
+				.from(JPAGenericInvoiceEntity.class);
 
 		Path<String> uidPath = invoiceRoot.get(JPAGenericInvoiceEntity_.uid);
 
