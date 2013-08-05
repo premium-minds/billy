@@ -96,7 +96,7 @@ import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldN
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public class SAFTFileGenerator {
+public class PTSAFTFileGenerator {
 
 	private Config config = null;
 	private JAXBContext jaxbContext;
@@ -133,7 +133,7 @@ public class SAFTFileGenerator {
 	private final String SELF_BILLING_INDICATOR = "0";
 	private final String UNIT_OF_MEASURE = "Unidade";
 
-	public SAFTFileGenerator() {
+	public PTSAFTFileGenerator() {
 		this.config = new Config();
 
 		try {
@@ -215,6 +215,7 @@ public class SAFTFileGenerator {
 
 					// Taxes
 					@SuppressWarnings("unchecked")
+					// TODO dates for the taxes
 					List<PTTaxEntity> taxes = (List<PTTaxEntity>) (List<?>) daoPTTax
 							.getAllTaxes();
 					TaxTable SAFTTaxTable = generateTaxTable(taxes);
@@ -225,10 +226,13 @@ public class SAFTFileGenerator {
 					List<PTInvoiceEntity> invoices = daoPTInvoice
 							.getBusinessInvoicesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
+
+					// TODO Invoice gets Simple invoice
 					// List<PTSimpleInvoiceEntity> simpleInvoices =
 					// daoPTSimpleInvoice
 					// .getBusinessSimpleInvoicesForSAFTPT(
 					// businessEntity.getUID(), fromDate, toDate);
+
 					List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
 							.getBusinessCreditNotesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
@@ -1396,6 +1400,7 @@ public class SAFTFileGenerator {
 	 * @param uuid
 	 * @return
 	 */
+	// TODO Check this with Francisco
 	private String validateUUID(UUID uuid) {
 		return Long.toString(Math.abs(uuid.getMostSignificantBits()
 				^ uuid.getLeastSignificantBits()));

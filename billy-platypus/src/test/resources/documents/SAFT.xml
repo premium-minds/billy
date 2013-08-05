@@ -8,7 +8,7 @@
         <CompanyName>Business</CompanyName>
         <BusinessName>Business</BusinessName>
         <CompanyAddress>
-            <BuildingNumber>Nº 3 - 3º</BuildingNumber>
+            <BuildingNumber>Nº 3 - 3ºE</BuildingNumber>
             <StreetName>Av. Republica</StreetName>
             <AddressDetail>Av. Republica Nº 3 - 3º Esq.</AddressDetail>
             <City>Lisboa</City>
@@ -50,7 +50,7 @@
             <CustomerTaxID>26949843873</CustomerTaxID>
             <CompanyName>Zé</CompanyName>
             <BillingAddress>
-                <BuildingNumber>Nº 4 - 5º</BuildingNumber>
+                <BuildingNumber>Nº 4 - 5ºD</BuildingNumber>
                 <StreetName>Av. Liberdade</StreetName>
                 <AddressDetail>Av. Liberdade, Nº 4 - 5º Dir.</AddressDetail>
                 <City>Lisboa</City>
@@ -164,16 +164,16 @@
         <SalesInvoices>
             <NumberOfEntries>4</NumberOfEntries>
             <TotalDebit>16.26</TotalDebit>
-            <TotalCredit>81.30</TotalCredit>
+            <TotalCredit>227.64</TotalCredit>
             <Invoice>
                 <InvoiceNo>FT A/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>q5slmascLYAtpu1sQHpK003lxvy8JA1S0YlullhJAudr+CvAEs56tzOUAD+znUjqJeMLUHP0saKPfS3ymY1eujDUFLR4cFLPB0ppaTlsc+FpA9E+2q92NEzhixUoB0j6ktare6lH4IBUh5CdzqSJHxFO+WHUQVamy4lPTUXTF5A=</Hash>
+                <Hash>lRnJ+f+WfxMQdOd9y6ebJ38W8n/RaOgRMfrKlbg98EwDaW8joGNmfPadi893+1X4Pfz4okwhwPSf+v2xGBJHg5adYHcrOEy4//3tEEMxQfKXsEoqKfQDJ16MfZ2sfybH3si81ElRZOFYUIUAuj0u7bDHZiY7BCNbk+hruFqb+ho=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T13:32:58</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T13:53:24</SystemEntryDate>
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -209,21 +209,207 @@
                         <TaxPercentage>23</TaxPercentage>
                     </Tax>
                 </Line>
+                <Line>
+                    <LineNumber>3</LineNumber>
+                    <ProductCode>PRODUCT_UID1</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>4</LineNumber>
+                    <ProductCode>PRODUCT_UID2</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>5</LineNumber>
+                    <ProductCode>PRODUCT_UID1</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>6</LineNumber>
+                    <ProductCode>PRODUCT_UID2</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
                 <DocumentTotals>
-                    <TaxPayable>7.48</TaxPayable>
-                    <NetTotal>32.52</NetTotal>
-                    <GrossTotal>40.00</GrossTotal>
+                    <TaxPayable>22.44</TaxPayable>
+                    <NetTotal>97.56</NetTotal>
+                    <GrossTotal>120.00</GrossTotal>
                 </DocumentTotals>
             </Invoice>
             <Invoice>
                 <InvoiceNo>FT A/2</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>YLfOt9AsvmjOTlVkyEmcrAH+Lq2+9xGC/iK57RnpJHksKBxr0LsGDRnf7rBsGultZhUmdWb6UJPElOow4+L0Q1RjXeTBC+qCvy+H+bUIufK7rAwwSMT0LzLTK4rxyDmy0J0Arc0tkzkKenFYQih7YLPICSu+T/5GPG2jaeYF0Ko=</Hash>
+                <Hash>cFFRyokqn0OQcTX2uPkhGnYiVHomwMXPNhRivgAO1H9i83/haAzweST8F9y1X+lfgASVhy+j7eWE9/GMkco61MUKgsOmucXtuU6DAceXrQF2eCXBP0mxfBLCTU2qWvfMWglw7yDZ2I8Bfy9CCPNiXQ2jjbanDmzaUwWMHgSFZEM=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T13:32:58</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T13:53:25</SystemEntryDate>
+                <CustomerID>CUSTOMER_UID</CustomerID>
+                <Line>
+                    <LineNumber>1</LineNumber>
+                    <ProductCode>PRODUCT_UID1</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>2</LineNumber>
+                    <ProductCode>PRODUCT_UID2</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>3</LineNumber>
+                    <ProductCode>PRODUCT_UID1</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>4</LineNumber>
+                    <ProductCode>PRODUCT_UID2</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>5</LineNumber>
+                    <ProductCode>PRODUCT_UID1</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <Line>
+                    <LineNumber>6</LineNumber>
+                    <ProductCode>PRODUCT_UID2</ProductCode>
+                    <ProductDescription>DESCRIPTION</ProductDescription>
+                    <Quantity>1.00</Quantity>
+                    <UnitOfMeasure>Unidade</UnitOfMeasure>
+                    <UnitPrice>16.26</UnitPrice>
+                    <TaxPointDate>2013-08-05</TaxPointDate>
+                    <Description>DESCRIPTION</Description>
+                    <CreditAmount>16.26</CreditAmount>
+                    <Tax>
+                        <TaxType>IVA</TaxType>
+                        <TaxCountryRegion>PT</TaxCountryRegion>
+                        <TaxCode>NOR</TaxCode>
+                        <TaxPercentage>23</TaxPercentage>
+                    </Tax>
+                </Line>
+                <DocumentTotals>
+                    <TaxPayable>22.44</TaxPayable>
+                    <NetTotal>97.56</NetTotal>
+                    <GrossTotal>120.00</GrossTotal>
+                </DocumentTotals>
+            </Invoice>
+            <Invoice>
+                <InvoiceNo>FS S/1</InvoiceNo>
+                <InvoiceStatus>N</InvoiceStatus>
+                <Hash>QRcf9PWw2lszjQ/Osmzt4fojV1xoL7L9a/T8NmjVl0zl6xOKBF2C/T+O5JmsoJHAqYq+xARZn/utw56DKD6f/IlyWuaN4BzVZQY0JFJUCAzmi3qOae7J+Pw8x+SV9GccG82EAACyOuRyNPUMzKba0N9HXgiTg85JoL4bR9P5Y5Q=</Hash>
+                <Period>7</Period>
+                <InvoiceDate>2013-08-05</InvoiceDate>
+                <InvoiceType>FS</InvoiceType>
+                <SelfBillingIndicator>0</SelfBillingIndicator>
+                <SystemEntryDate>2013-08-05T13:53:25</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -266,47 +452,14 @@
                 </DocumentTotals>
             </Invoice>
             <Invoice>
-                <InvoiceNo>FS S/1</InvoiceNo>
-                <InvoiceStatus>N</InvoiceStatus>
-                <Hash>gCg5O18vYQagEjXqkV6Rb+Ja0iVhYNP8DCOP/zOhgk5YY3K8uun2d0W0XanxyZn8alqSzyLS66nR7Ti2lcjV/960GWk1R/Iahe9j88+YOk1E8qz/EgXdS9cf5wT5+ISx8GDsL1lLP67z6U8uf/UfX/0D4BuZnA16tIGs8z16j7M=</Hash>
-                <Period>7</Period>
-                <InvoiceDate>2013-08-05</InvoiceDate>
-                <InvoiceType>FS</InvoiceType>
-                <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T13:32:58</SystemEntryDate>
-                <CustomerID>CUSTOMER_UID</CustomerID>
-                <Line>
-                    <LineNumber>1</LineNumber>
-                    <ProductCode>PRODUCT_UID1</ProductCode>
-                    <ProductDescription>DESCRIPTION</ProductDescription>
-                    <Quantity>1.00</Quantity>
-                    <UnitOfMeasure>Unidade</UnitOfMeasure>
-                    <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-05</TaxPointDate>
-                    <Description>DESCRIPTION</Description>
-                    <CreditAmount>16.26</CreditAmount>
-                    <Tax>
-                        <TaxType>IVA</TaxType>
-                        <TaxCountryRegion>PT</TaxCountryRegion>
-                        <TaxCode>NOR</TaxCode>
-                        <TaxPercentage>23</TaxPercentage>
-                    </Tax>
-                </Line>
-                <DocumentTotals>
-                    <TaxPayable>3.74</TaxPayable>
-                    <NetTotal>16.26</NetTotal>
-                    <GrossTotal>20.00</GrossTotal>
-                </DocumentTotals>
-            </Invoice>
-            <Invoice>
                 <InvoiceNo>NC C/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>nHXz8rZJ8m3vfkQtM3PYgk8mNxRMObW7JJF4E+VpisNm5BrJmv5Pzcy2l+/AZT1iKxRqbD+t5BGoGJUfBdQkRInz7dVw2RmTWFpd6Ob7J5pSQzY4OnAteA5Z/mxp9FSCtij1xrRORQaJbPhXGSkxr1d6B9m6izueKsxh9yo3lIE=</Hash>
+                <Hash>EsDMY7YJX3Rdm/NzyRD2cp5LLLi4is+Z9QQpvC2escqusRrhpweMEsfIiT2GoNpYMWqtIFJVV3GyHZ9py47eZDxdxNnoYxETl7wtWTsr672ATy/gN2/gNh7+NAImG7da4kaCdc/O4nw2LlQ0MZT6gA662pRxOaPftZVwSK1Gvm4=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T13:32:58</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T13:53:25</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>

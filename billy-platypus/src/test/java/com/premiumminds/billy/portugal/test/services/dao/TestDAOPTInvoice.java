@@ -20,6 +20,8 @@ package com.premiumminds.billy.portugal.test.services.dao;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,7 +49,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 		dao.create(invoiceEntity);
 		dao.create(invoiceUtil.getInvoiceEntity(INVOICE_TYPE,
 				invoiceEntity.getSeries(), "test uid", LAST_NUMBER,
-				"entry uid", "buid", "cuid", "limoes"));
+				"entry uid", "buid", "cuid", Arrays.asList("limoes")));
 	}
 
 	@Test

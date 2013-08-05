@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.List;
 
@@ -45,12 +46,13 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 
 	@Override
 	public PTInvoiceEntity getInvoiceEntity() {
-		return getInvoiceEntity(BUSINESS_UID, CUSTOMER_UID, PRODUCT_UID);
+		return getInvoiceEntity(BUSINESS_UID, CUSTOMER_UID,
+				Arrays.asList(PRODUCT_UID));
 	}
 
 	@Override
 	public PTSimpleInvoiceEntity getInvoiceEntity(String businessUID,
-			String customerUID, String... productUIDs) {
+			String customerUID, List<String> productUIDs) {
 		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
 				INVOICE_ENTRY_UID, businessUID, customerUID, productUIDs);
 	}
@@ -58,7 +60,7 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 	@Override
 	public PTSimpleInvoiceEntity getInvoiceEntity(TYPE invoiceType,
 			String serie, String uid, Integer seriesNumber, String entryUID,
-			String businessUID, String customerUID, String... productUIDs) {
+			String businessUID, String customerUID, List<String> productUIDs) {
 
 		PTSimpleInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType,
 				entryUID, uid, businessUID, customerUID, productUIDs);
@@ -76,7 +78,7 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 	@Override
 	public PTSimpleInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
 			String entryUID, String uid, String businessUID,
-			String customerUID, String... productUIDs) {
+			String customerUID, List<String> productUIDs) {
 		PTSimpleInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTSimpleInvoice.Builder.class);
 		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
