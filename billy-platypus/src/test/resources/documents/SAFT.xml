@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="yes"?>
+<!--
+
+    Copyright (C) 2013 Premium Minds.
+
+    This file is part of billy platypus (PT Pack).
+
+    billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+
+-->
 <AuditFile xmlns="urn:OECD:StandardAuditFile-Tax:PT_1.01_01">
     <Header>
         <AuditFileVersion>1.01_01</AuditFileVersion>
@@ -8,9 +28,9 @@
         <CompanyName>Business</CompanyName>
         <BusinessName>Business</BusinessName>
         <CompanyAddress>
-            <BuildingNumber>Nº 3 - 3ºE</BuildingNumber>
+            <BuildingNumber>Nï¿½ 3 - 3ï¿½E</BuildingNumber>
             <StreetName>Av. Republica</StreetName>
-            <AddressDetail>Av. Republica Nº 3 - 3º Esq.</AddressDetail>
+            <AddressDetail>Av. Republica Nï¿½ 3 - 3ï¿½ Esq.</AddressDetail>
             <City>Lisboa</City>
             <PostalCode>1700-232</PostalCode>
             <Country xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">PT</Country>
@@ -48,11 +68,11 @@
             <CustomerID>CUSTOMER_UID</CustomerID>
             <AccountID>Desconhecido</AccountID>
             <CustomerTaxID>26949843873</CustomerTaxID>
-            <CompanyName>Zé</CompanyName>
+            <CompanyName>Zï¿½</CompanyName>
             <BillingAddress>
-                <BuildingNumber>Nº 4 - 5ºD</BuildingNumber>
+                <BuildingNumber>Nï¿½ 4 - 5ï¿½D</BuildingNumber>
                 <StreetName>Av. Liberdade</StreetName>
-                <AddressDetail>Av. Liberdade, Nº 4 - 5º Dir.</AddressDetail>
+                <AddressDetail>Av. Liberdade, Nï¿½ 4 - 5ï¿½ Dir.</AddressDetail>
                 <City>Lisboa</City>
                 <PostalCode>1500-123</PostalCode>
                 <Country>PT</Country>
@@ -168,12 +188,12 @@
             <Invoice>
                 <InvoiceNo>FT A/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>kbTNPVGfEC0pcGBhNlAEBMs+fspr5hB32NrOIPDo7XID/yFjZYq1K2bmTTQRxhyRdlSq23MvLLg41vAOrNPlQAR+5iI+GFbmCr69n+jsH/HcF5Gthwn49bOQ3fTf5lSSJd24TW6/7q5+C/VI89dUTPG+0Oh8rdb3J21VvoVMKho=</Hash>
+                <Hash>o2ou+oZSusQnXOfHZuWfvRy3cgsWM7nSEYhKjs3gjEv8PpGvo8OyUGELxAgNuEY/L6i4Xr2u07in5K9/xLOpbpOhoGABBFrHYfc5zXRRfgcvLf4j1/SYkrDXR7zV6c993jP2WbFY4hP1pcX379No8zR+oqRH/rbr3aY7+6QOV5Y=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T17:32:27</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -286,12 +306,12 @@
             <Invoice>
                 <InvoiceNo>FT A/2</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>g6FDtmOrgS2mFJuOVA/Lq6eU9IrGlsQGxUolOnxLdnVBtzeQLa9cf0MKqXM7kXv4XqFYM0HU5n2m+SkaFaDsXVhpSVE5gRPROsxdwsKvKC4va1POLf7XeQHPxNGUUxF4Sp7l0Y4HdXEPn5BUcOdp+62NYWvoyEEs65TwxjvLpnQ=</Hash>
+                <Hash>js2O6eEgab3qeZsgEXiCAeDU63Ix7AiO8SCLnuR62TvMBKWt76CVCKlutuV0ETWw1ska6J3svsyvgzxV1HVs2orRXy6wH5ldz9gw8enRApgtUGRiovQzot39BZzDAcTY31tAVP9r0Lq+ULN8Y8l3R1YlMJIs5+UK1rtBCwQ42/8=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T17:32:27</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -404,12 +424,12 @@
             <Invoice>
                 <InvoiceNo>FS S/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>vVJMZqTwLfpZr863l6TTPQ/div3hghbpN3Ea/fIMVX14dNCp1iokWzOA5aC673pB4Fop//+NAYwItohJTHrO1n07TD0JZ9PEpRI5daORjWK9KBLi5nIYwnnIK/N6Qj005V44N26eRmfQuhgnA6QhTLWtQq+m42JlKiMCQgM4Hew=</Hash>
+                <Hash>QoZKZIvN8Uvu5GMzMZD8E7UXLIqI4xmnu7GhzGL1U5uMD2RD/pYGxBTOSPGc89lVoL86rNWb6WKUUlUwt1OIFKSObnW4Q4MWFcHC4T9ThHhwGV5aD2Nh/O0N/uuVSPmrLYhHTA95hmfkDc4Bv1VyLFXX0fVsaMtz94iKaVZO3l4=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FS</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T17:32:27</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -454,12 +474,12 @@
             <Invoice>
                 <InvoiceNo>NC C/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>g4NXpK0pX65TkWP2x+5HFfmPGF2HTybtcf8RsxLf+BOiLmZu7w4uW9FjiRQHBI18hktXEWlxZG7xyNRfZNUizjvksYRXsJF0zV7LXnpWkP2hcXqhAYzyh/ae7HCr3in8H/PONtbIvQLb0gyroaMAZvTQ18D6nA45bp3LQV8kMUg=</Hash>
+                <Hash>XVnyI5aR89gvzyJUX+vmkM3oXdFW8jSkbqJDpQ9Fmz1TL5MEzv1dUjLgtl7+74QDoJqIvh97aDChiwGanKMbb/jAU8vTADlZuxqvvTg0OohIOZ1xhVuNdAb+WtjGd4GbKKSwSWWeTT2534XQLkwAq75abIAerG1D/1OSRb4yWmU=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T17:32:27</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
