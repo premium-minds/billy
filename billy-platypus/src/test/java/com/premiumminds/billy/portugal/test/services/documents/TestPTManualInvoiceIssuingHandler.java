@@ -21,6 +21,8 @@ package com.premiumminds.billy.portugal.test.services.documents;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,7 +59,8 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 			String productUID, TYPE type, String businessUID, String customerUID) {
 
 		return new PTInvoiceTestUtil(injector).getSimpleInvoiceEntity(type,
-				ENTRY_UID, invoiceUID, businessUID, customerUID, productUID);
+				ENTRY_UID, invoiceUID, businessUID, customerUID,
+				Arrays.asList(productUID));
 	}
 
 	@Before

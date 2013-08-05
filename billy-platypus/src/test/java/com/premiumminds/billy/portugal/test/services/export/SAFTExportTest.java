@@ -22,6 +22,7 @@ import java.io.PrintStream;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +54,7 @@ import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
-import com.premiumminds.billy.portugal.services.export.saftpt.SAFTFileGenerator;
+import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTAddressTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTApplicationTestUtil;
@@ -190,7 +191,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 						BUSINESS_UID,
 						(i % 2 == 0) ? CUSTOMER_UID : c.getUID(
 								Config.Key.Customer.Generic.UUID).getValue(),
-						PRODUCT_UID1, PRODUCT_UID2);
+						Arrays.asList(PRODUCT_UID1, PRODUCT_UID2, PRODUCT_UID1,
+								PRODUCT_UID2, PRODUCT_UID1, PRODUCT_UID2));
 				prevHash = GenerateHash.generateHash(privateKey, publicKey,
 						invoiceEntity.getDate(),
 						invoiceEntity.getCreateTimestamp(),
@@ -208,7 +210,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			PTSimpleInvoiceEntity simpleInvoiceEntity = simpleInvoice
 					.getInvoiceEntity(TYPE.FS, "S", SIMPLE_INVOICE_UID, 1,
 							new Date().toString(), BUSINESS_UID, CUSTOMER_UID,
-							PRODUCT_UID1);
+							Arrays.asList(PRODUCT_UID1, PRODUCT_UID2));
 			simpleInvoiceEntity.setHash(GenerateHash.generateHash(privateKey,
 					publicKey, simpleInvoiceEntity.getDate(),
 					simpleInvoiceEntity.getCreateTimestamp(),
@@ -231,7 +233,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					creditNoteEntity.getAmountWithTax(), null));
 			daoPTCreditNote.create(creditNoteEntity);
 
-			SAFTFileGenerator generator = new SAFTFileGenerator();
+			PTSAFTFileGenerator generator = new PTSAFTFileGenerator();
 
 			Calendar calendar = Calendar.getInstance();
 			calendar.set(2013, 1, 1);

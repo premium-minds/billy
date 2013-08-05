@@ -18,8 +18,10 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Arrays;
 import java.util.Currency;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 
@@ -74,18 +76,19 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
-		return getInvoiceEntity(BUSINESS_UID, CUSTOMER_UID, PRODUCT_UID);
+		return getInvoiceEntity(BUSINESS_UID, CUSTOMER_UID,
+				Arrays.asList(PRODUCT_UID));
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(String businessUID,
-			String customerUID, String... productUIDs) {
+			String customerUID, List<String> productUIDs) {
 		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
 				INVOICE_ENTRY_UID, businessUID, customerUID, productUIDs);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
 			String uid, Integer seriesNumber, String entryUID,
-			String businessUID, String customerUID, String... productUIDs) {
+			String businessUID, String customerUID, List<String> productUIDs) {
 
 		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType, entryUID,
 				uid, businessUID, customerUID, productUIDs);
@@ -102,7 +105,7 @@ public class PTInvoiceTestUtil {
 
 	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
 			String entryUID, String uid, String businessUID,
-			String customerUID, String... productUIDs) {
+			String customerUID, List<String> productUIDs) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
 		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
@@ -153,7 +156,6 @@ public class PTInvoiceTestUtil {
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
-		// FIXME it's only working for one entry. Change methods above
 		for (PTInvoiceEntry invoiceEntry : invoice.getEntries()) {
 			invoiceEntry.setUID(new UID(new Date().toString()));
 			invoiceEntry.getDocumentReferences().add(invoice);
