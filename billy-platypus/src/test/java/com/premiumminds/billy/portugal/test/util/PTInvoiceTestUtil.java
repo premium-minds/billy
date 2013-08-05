@@ -33,6 +33,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
@@ -146,6 +147,7 @@ public class PTInvoiceTestUtil {
 				.setSelfBilled(SELFBILL).setDate(DATE).setSourceId(SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID))
+				.setSourceBilling(SourceBilling.P)
 				.setBusinessUID(new UID(businessUID));
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();

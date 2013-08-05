@@ -31,6 +31,7 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
@@ -38,7 +39,7 @@ import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	private static final TYPE DEFAULT_TYPE = TYPE.FS;
-	private static final String SOURCE_BILLING = "P";
+	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
 	private PTSimpleInvoiceIssuingHandler handler;
 

@@ -33,7 +33,7 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
 	protected Boolean billed;
 	protected String hash;
 	protected String sourceHash;
-	protected String sourceBilling;
+	protected SourceBilling sourceBilling;
 	protected TYPE type;
 
 	@Override
@@ -47,12 +47,12 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
 	}
 
 	@Override
-	public String getSourceBilling() {
+	public SourceBilling getSourceBilling() {
 		return sourceBilling;
 	}
 
 	@Override
-	public void setSourceBilling(String soureceBilling) {
+	public void setSourceBilling(SourceBilling soureceBilling) {
 		this.sourceBilling = soureceBilling;
 	}
 

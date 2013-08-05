@@ -32,7 +32,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTManualInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
@@ -43,7 +42,6 @@ import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCreditNoteEntryI
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCreditNoteImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceEntryImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTManualInvoiceImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTSimpleInvoiceImpl;
 
 public class PTMockDependencyModule extends MockDependencyModule {
@@ -83,8 +81,6 @@ public class PTMockDependencyModule extends MockDependencyModule {
 				Mockito.mock(DAOPTGenericInvoiceImpl.class));
 		this.bind(DAOPTGenericInvoiceEntry.class).toInstance(
 				Mockito.mock(DAOPTGenericInvoiceEntryImpl.class));
-		this.bind(DAOPTManualInvoice.class).toInstance(
-				Mockito.mock(DAOPTManualInvoiceImpl.class));
 		this.bind(DAOPTSimpleInvoice.class).toInstance(
 				Mockito.mock(DAOPTSimpleInvoiceImpl.class));
 	}

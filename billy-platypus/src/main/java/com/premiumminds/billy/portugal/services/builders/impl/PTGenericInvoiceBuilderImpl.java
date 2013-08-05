@@ -30,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTGenericInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
@@ -89,7 +90,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
-	public TBuilder setSourceBilling(String sourceBilling) {
+	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
 		BillyValidator
 				.mandatory(sourceBilling, PTInvoiceBuilderImpl.LOCALIZER
 						.getString("field.sourceBilling"));
@@ -107,14 +108,22 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
-		super.validateInstance();
-		this.validatePTInstance();
-	}
-
-	protected void validatePTInstance() {
-		super.validateDate();
 		PTGenericInvoiceEntity i = this.getTypeInstance();
 
+		switch (i.getSourceBilling()) {
+			case M:
+				this.validatePTInstance(i);
+				break;
+			case P:
+				super.validateInstance();
+				break;
+			default:
+				break;
+		}
+	}
+
+	private void validatePTInstance(PTGenericInvoiceEntity i) {
+		super.validateDate();
 		BillyValidator.mandatory(i.getSourceId(),
 				PTInvoiceBuilderImpl.LOCALIZER.getString("field.source_id"));
 		BillyValidator.mandatory(i.getDate(),
@@ -126,4 +135,5 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 		BillyValidator.mandatory(i.isBilled(),
 				PTInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
 	}
+
 }

@@ -34,7 +34,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTManualInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
@@ -52,7 +51,6 @@ import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceEn
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTInvoiceEntryImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTInvoiceImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTManualInvoiceImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTProductImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTRegionContextImpl;
 import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTShippingPointImpl;
@@ -88,7 +86,6 @@ public class PlatypusDependencyModule extends AbstractModule {
 				DAOPTGenericInvoiceEntryImpl.class);
 
 		this.bind(DAOPTSimpleInvoice.class).to(DAOPTSimpleInvoiceImpl.class);
-		this.bind(DAOPTManualInvoice.class).to(DAOPTManualInvoiceImpl.class);
 	}
 
 	public static class Initializer {

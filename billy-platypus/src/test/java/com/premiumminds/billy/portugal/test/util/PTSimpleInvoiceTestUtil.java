@@ -34,6 +34,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
@@ -119,6 +120,7 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
 				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID))
+				.setSourceBilling(SourceBilling.P)
 				.setBusinessUID(new UID(businessUID));
 
 		PTSimpleInvoiceEntity invoice = (PTSimpleInvoiceEntity) invoiceBuilder

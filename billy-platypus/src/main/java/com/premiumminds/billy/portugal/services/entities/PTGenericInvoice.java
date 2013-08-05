@@ -35,6 +35,17 @@ public interface PTGenericInvoice extends GenericInvoice {
 		FT, FS, NC, ND
 	}
 
+	/**
+	 * Represents if an invoice was emitted by the application or manually
+	 * emitted.
+	 * 
+	 * @author Hugo Correia
+	 * 
+	 */
+	public static enum SourceBilling {
+		P, M
+	}
+
 	public static class Builder
 			extends
 			PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
@@ -58,7 +69,7 @@ public interface PTGenericInvoice extends GenericInvoice {
 
 	public String getSourceHash();
 
-	public String getSourceBilling();
+	public SourceBilling getSourceBilling();
 
 	@SuppressWarnings("unchecked")
 	@Override

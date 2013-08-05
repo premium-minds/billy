@@ -171,12 +171,12 @@
                     <InvoiceStatus>N</InvoiceStatus>
                     <SourceID>SOURCE</SourceID>
                 </DocumentStatus>
-                <Hash>Pc+DWMHmPX9BpdDzy5Sr1+TRzEsWQFPM3qyGyWMiABgwc1RmqunQx5G0WV7MQbDXO7bAcyfgQmcehAqv9Uk8IArufOyYoSHozAt6GBNcWcKyGoJD1ni+uYj7ZB+cPu5XBPNBs8J1imz3fmUBEoNLEHXuMlq/AopIS74sBGHKbKw=</Hash>
+                <Hash>f2MW6QlNU6rxEUAj+IYEll98lu+YKy1rudhua81p0GMbinR+pVD0P/GB79UF3KjNrZRl/rPuiUYD5UXBD80+UwWHtZ0pRgR+imE8QLZzqjy9thOf5Txv66NZ5hxpELm9cbiOWK9yUz+3OaZ6dMHUHZ4YzDdH6imYxRbJuv7tCys=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:18:05</SystemEntryDate>
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -292,12 +292,12 @@
                     <InvoiceStatus>N</InvoiceStatus>
                     <SourceID>SOURCE</SourceID>
                 </DocumentStatus>
-                <Hash>r5adMymD8m5NhdpO3RvnCTyoqGT9otImFmhVyhw0CG3ySKRdvYfQ3+VWRVeqbCHbX5YQn9gQq6T71e3iTizJvyqnPdqdHCDbASl1bYxDQ8qxRctSRpmCpPmqR+gGKjjK/bOLHbwvz0XdWR5Hs1XhkpAGtgiTVjDJiT4OXO7NgUU=</Hash>
+                <Hash>fLU+/0mGZwxjd0OIEmSHtYZDjMPwk7Yb8w2YMvHEEum+5+Cmb8JYLSj0O54fpSI6oO+Nfa+KCgMG8LwghPqRyCQW44CBZl2jEGc/DmuNRkLEIUtEsfRa5USoyIwJKEmRCpZGcqYYbOoUe6Lm6md/tIc0t1+3iGw4/CrDw2aFyko=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:18:06</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -413,12 +413,12 @@
                     <InvoiceStatus>N</InvoiceStatus>
                     <SourceID>SOURCE</SourceID>
                 </DocumentStatus>
-                <Hash>bxHB43dlTg2+gCCBj2Fna1t35T680kBV3q1HUIpVcQjoV9lsbfZFPRVgyhkDGD+hKfe7n2x9BtaKBewiqD+0Nr3WVvlCX5D0moty1vU0EvX5W10XbrCa/qYPwbKTAvX2hMw/NskRT72hGLk7KQw8ySVpvfXN309PhjNKHnRI22E=</Hash>
+                <Hash>jW0zm2CgB1x2+Ggpg9ZkfIOfKhnMWJdljOBWSbTkdphvMevSflJ2oMCN9LF535k6SKqOVlceC45yiFoMEv0r0709Ow5pEtwYIyK9tIx12HkCK99x98QAaXUZJHaCDefgvZc/hrDPb4tsukF2wJs66+2sLgVZ0h7DiB+dcfJK3Pw=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FS</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:18:06</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -466,12 +466,12 @@
                     <InvoiceStatus>N</InvoiceStatus>
                     <SourceID>SOURCE</SourceID>
                 </DocumentStatus>
-                <Hash>AnZkn3r0BaYscZPjk83BNDhsUF1388ufgEikaNCF0FVtB0YW+akLi6aHoCkm4vGjVg97OVL8LDFTSZYBvnFpRahOevNGKIH4pZ6SAThDJkP3LdIepC7zXr3uxd7val+Cl5cPiFmpXcGsewidlOHzPv1MbTcMrkbNmDRr/REYZs0=</Hash>
+                <Hash>wIzRq2Bh5W1HwW6Xd2iSy2ZRcF+i7nDwjMk0Vsz+ZFlv5ULskcTLNR1j+Isbxm4rCTB7Twl1kivCSwPCxILM9vQm/EZfKRcwWRceOZ5eBj8qz9L/ZPYg7TfyiVzdWGvf5NWdrmhP5d11JyNiB1nuKyinQQie0cAAguYuem5D+Q4=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:18:06</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
