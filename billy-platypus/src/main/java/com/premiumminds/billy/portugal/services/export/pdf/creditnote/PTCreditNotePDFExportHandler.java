@@ -74,12 +74,10 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFHandler implements
 		public static final String BUSINESS_FINANCIAL_ID = "financialId";
 		public static final String BUSINESS_ADDRESS = "address";
 		public static final String BUSINESS_ADDRESS_COUNTRY = "country";
-		public static final String BUSINESS_ADDRESS_LINE1 = "lineone";
-		public static final String BUSINESS_ADDRESS_LINE2 = "linetwo";
-		public static final String BUSINESS_ADDRESS_LINE3 = "linethree";
-		public static final String BUSINESS_ADDRESS_CITY = "city";
+		public static final String BUSINESS_ADDRESS_DETAILS = "details";
 		public static final String BUSINESS_ADDRESS_REGION = "region";
 		public static final String BUSINESS_ADDRESS_POSTAL_CODE = "postalcode";
+		public static final String BUSINESS_ADDRESS_CITY = "city";
 
 		public static final String BUSINESS_CONTACTS = "contacts";
 		public static final String BUSINESS_PHONE = "phNo";
@@ -93,9 +91,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFHandler implements
 
 		public static final String CUSTOMER_BILLING_ADDRESS = "address";
 		public static final String CUSTOMER_BILLING_ADDRESS_COUNTRY = "country";
-		public static final String CUSTOMER_BILLING_ADDRESS_LINE1 = "lineone";
-		public static final String CUSTOMER_BILLING_ADDRESS_LINE2 = "linetwo";
-		public static final String CUSTOMER_BILLING_ADDRESS_LINE3 = "linethree";
+		public static final String CUSTOMER_BILLING_ADDRESS_DETAILS = "details";
 		public static final String CUSTOMER_BILLING_ADDRESS_CITY = "city";
 		public static final String CUSTOMER_BILLING_ADDRESS_REGION = "region";
 		public static final String CUSTOMER_BILLING_ADDRESS_POSTAL_CODE = "postalcode";
@@ -178,14 +174,8 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFHandler implements
 				.addChild(ParamKeys.BUSINESS_ADDRESS);
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_COUNTRY, creditNote
 				.getBusiness().getAddress().getISOCountry());
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_LINE1, creditNote
+		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_DETAILS, creditNote
 				.getBusiness().getAddress().getDetails());
-		/*
-		 * businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_LINE2 ,
-		 * creditNote.getBusiness().getAddress().getAddressLine2());
-		 * businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_LINE3 ,
-		 * creditNote.getBusiness().getAddress().getAddressLine3());
-		 */
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_CITY, creditNote
 				.getBusiness().getAddress().getCity());
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_REGION, creditNote
@@ -222,16 +212,8 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFHandler implements
 			customerAddress.addChild(
 					ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY, creditNote
 							.getCustomer().getBillingAddress().getISOCountry());
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_LINE1,
+			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS,
 					creditNote.getCustomer().getBillingAddress().getDetails());
-			/*
-			 * customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_LINE2
-			 * ,
-			 * creditNote.getCustomer().getBillingAddress().getAddressLine2());
-			 * customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_LINE3
-			 * ,
-			 * creditNote.getCustomer().getBillingAddress().getAddressLine3());
-			 */
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY,
 					creditNote.getCustomer().getBillingAddress().getCity());
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_REGION,

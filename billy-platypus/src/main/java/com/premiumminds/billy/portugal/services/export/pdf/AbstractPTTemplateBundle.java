@@ -23,15 +23,16 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 public abstract class AbstractPTTemplateBundle implements
 		IBillyPTTemplateBundle {
 
-	private static final String BANK_TRANSFER = "TB";
-	private static final String CASH = "NU";
-	private static final String CREDIT_CARD = "CC";
-	private static final String CHECK = "CH";
-	private static final String DEBIT_CARD = "CD";
-	private static final String COMPENSATION = "CS";
-	private static final String COMMERCIAL_LETTER = "LT";
-	private static final String RESTAURANT_TICKET = "TR";
-	private static final String ATM = "MB";
+	private static final String BANK_TRANSFER = "Transferência bancária";
+	private static final String CASH = "Numerário";
+	private static final String CREDIT_CARD = "Cartão crédito";
+	private static final String CHECK = "Cheque";
+	private static final String DEBIT_CARD = "Cartão débito";
+	private static final String COMPENSATION = "Compensação de saldos em conta corrente";
+	private static final String COMMERCIAL_LETTER = " Letra comercial";
+	private static final String RESTAURANT_TICKET = "Ticket restaurante";
+	private static final String ATM = "Multibanco";
+	private static final String EXCHANGE = "Permuta";
 
 	private static final String GENERIC_CUSTOMER = "Consumidor Final";
 
@@ -60,6 +61,8 @@ public abstract class AbstractPTTemplateBundle implements
 				return ATM;
 			case RESTAURANT_TICKET:
 				return RESTAURANT_TICKET;
+			case EXCHANGE:
+				return EXCHANGE;
 			default:
 				return null;
 		}
