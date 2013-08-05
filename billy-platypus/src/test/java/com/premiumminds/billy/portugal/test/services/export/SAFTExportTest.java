@@ -63,6 +63,7 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 	private static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
+	private static final String SAFT_OUTPUT = "src/test/resources/documents/";
 
 	private static final String BUSINESS_UID = "BUSINESS_UID";
 	private static final String CUSTOMER_UID = "CUSTOMER_UID";
@@ -125,6 +126,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					.getApplicationBuilder("APP", "1.0", "My Business",
 							"523456789", "hhtp://www.app.mybusiness.web", 1,
 							"http://here", contactBuilder);
+			PTApplicationEntity applicationEntity = (PTApplicationEntity) applicationBuilder
+					.build();
 
 			/* BUSINESS */
 			DAOPTBusiness daoPTBusiness = injector
@@ -195,8 +198,10 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTCreditNote daoPTCreditNote = injector
 					.getInstance(DAOPTCreditNote.class);
 			PTCreditNoteEntity creditNoteEntity = creditNote
-					.getCreditNoteEntity(productEntity1.getUID().getValue(),
-							invoices.get(0).getUID().getValue());
+					.getCreditNoteEntity(TYPE.NC, businessEntity.getUID()
+							.getValue(), customerEntity.getUID().getValue(),
+							productEntity1.getUID().getValue(), invoices.get(0)
+									.getUID().getValue());
 			creditNoteEntity.setHash(GenerateHash.generateHash(privateKey,
 					publicKey, creditNoteEntity.getDate(),
 					creditNoteEntity.getCreateTimestamp(),
@@ -204,9 +209,15 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					creditNoteEntity.getAmountWithTax(), null));
 			daoPTCreditNote.create(creditNoteEntity);
 
-			/* SAFTFileGenerator generator = new SAFTFileGenerator(); */
-			// generator.generateSAFTFile(be, customers, products, taxes,
-			// invoices, null, creditNotes, new Date(), new Date());
+			DAOPTSimpleInvoice daoPTSimpleInvoice = injector
+					.getInstance(DAOPTSimpleInvoice.class);
+			SAFTFileGenerator generator = new SAFTFileGenerator();
+
+			PrintStream stream = new PrintStream(SAFT_OUTPUT + "SAFT.xml");
+			generator.generateSAFTFile(stream, businessEntity,
+					applicationEntity, "1234", new Date(0), new Date(),
+					daoPTCustomer, daoPTProduct, daoPTTax, daoPTInvoice,
+					daoPTSimpleInvoice, daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
