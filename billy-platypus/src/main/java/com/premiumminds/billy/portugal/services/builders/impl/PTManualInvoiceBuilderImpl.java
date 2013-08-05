@@ -50,7 +50,7 @@ public class PTManualInvoiceBuilderImpl<TBuilder extends PTManualInvoiceBuilderI
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
-		super.validateInstance();
+		super.validatePTInstance();
 
 		BillyValidator.mandatory(getTypeInstance().getManualInvoiceNumber(),
 				PTInvoiceBuilderImpl.LOCALIZER.getString("field.man_number"));
