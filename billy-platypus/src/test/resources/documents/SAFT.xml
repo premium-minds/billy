@@ -168,12 +168,20 @@
             <Invoice>
                 <InvoiceNo>FT A/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
+<<<<<<< HEAD
                 <Hash>GWEiz1heG+DvEAwFGdMUeJq5H2/jWPg2LnJMipkgp+NYSoEBghFKJ8lqDviz8zPFMUlMzTjkztSIp5Og8kZ2bvlXx0s9OM9qGmsxgw01HN1TcgsbZNm3+5Ih1C4+0xEAU4V0X3Pgvv9L9+UJ8b8Bw5asHkAR6ULVpGQ22SfmCY4=</Hash>
+=======
+                <Hash>e45DJlNHaxBy4FCeaH2tK+9HbX4nqjEESsD/RjiJbY3+1aHXa8bmqV64MdOE0A/+csiScL7/JcpbCE/QepzIqMXoAacm7qLQWMf7yLmaZMU0X0/OLVsoAZqjazc94NqQrbzas/bWi1vU82wZR2PUrSpxTdh4+ArLNz/Y6iKmZmU=</Hash>
+>>>>>>> 5cc28de5524f381faff0ca7e048e06c11aa12215
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
+<<<<<<< HEAD
                 <SystemEntryDate>2013-08-05T09:37:30</SystemEntryDate>
+=======
+                <SystemEntryDate>2013-08-05T09:28:49</SystemEntryDate>
+>>>>>>> 5cc28de5524f381faff0ca7e048e06c11aa12215
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -218,12 +226,20 @@
             <Invoice>
                 <InvoiceNo>FT A/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
+<<<<<<< HEAD
                 <Hash>k2Ai/2xVSrmWr89dKT6MUgzkJsjU1sJ1E5FcsXAvWhgt9NhRyH45I4YN1nqOpOwqgjx1orWbooWYw8bn9TsjdlScwWeToZQNynKkLaxCGBg5A8SC4B6B/2SxQlr4RkJS9V3VMz3/dJ1fVcn+5M/1cClPUKbLuA+woh5Jqpk80P8=</Hash>
+=======
+                <Hash>UAz22++ZMEPhf7SMsMd746C7Ty55epA7WK2SN77490/20Mv6iiNTYXjvcqJRNKe9N3mPx6Sj1IYMq3r2sBAM4DFGHEyC9V452r16O2HnpAzdoDsL7ey6q/+zUbAM1OIn0TXdQcX7MMrIM8Hlr65gMEFjz/BjsFZJJ1NsKAbtAcg=</Hash>
+>>>>>>> 5cc28de5524f381faff0ca7e048e06c11aa12215
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
+<<<<<<< HEAD
                 <SystemEntryDate>2013-08-05T09:37:30</SystemEntryDate>
+=======
+                <SystemEntryDate>2013-08-05T09:28:49</SystemEntryDate>
+>>>>>>> 5cc28de5524f381faff0ca7e048e06c11aa12215
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -268,12 +284,20 @@
             <Invoice>
                 <InvoiceNo>NC C/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
+<<<<<<< HEAD
                 <Hash>azSxOPtIpc+SE1IPMfncPpB0JNRgGSy4TqvDFYlsJBphNQEgDmJOKYdPcCfzAWHDbOnvhZUz3+5Nw+BTAI8Re3jlenG7/5e6Ygnd+Ed5zbEpmvcrXlN9NqgGcAlWFPPJ1NdfauGhx4TNzaZKBgDZFtj8pmXhh0g504E1T6xmFzM=</Hash>
+=======
+                <Hash>R0NnJictMJ32iDw3LvV88cxiSHDL+cJhKKOu1rCB+4cHT0U38CgIiD7i9SqCIejfHVhU7GfBu1FIvytRcEGpP+joM3D9AKmn/uH8mHA1zmXD/pT+iWn8Cq5P3DzQ/DPHL4EK0XqgtebEBZgk63zh0hu5HkLXLBsqoAryDD63pEU=</Hash>
+>>>>>>> 5cc28de5524f381faff0ca7e048e06c11aa12215
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
+<<<<<<< HEAD
                 <SystemEntryDate>2013-08-05T09:37:30</SystemEntryDate>
+=======
+                <SystemEntryDate>2013-08-05T09:28:49</SystemEntryDate>
+>>>>>>> 5cc28de5524f381faff0ca7e048e06c11aa12215
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
