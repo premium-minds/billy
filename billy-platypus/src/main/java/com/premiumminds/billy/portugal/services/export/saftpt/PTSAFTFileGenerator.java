@@ -45,7 +45,6 @@ import com.premiumminds.billy.platypus.services.export.saftpt.schema.AddressStru
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AddressStructurePT;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AuditFile;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AuditFile.MasterFiles;
-import com.premiumminds.billy.platypus.services.export.saftpt.schema.CreditNote;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Currency;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Customer;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Header;
@@ -56,6 +55,7 @@ import com.premiumminds.billy.platypus.services.export.saftpt.schema.ShippingPoi
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.Line;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Tax;
@@ -199,8 +199,7 @@ public class PTSAFTFileGenerator {
 							.getAllActiveCustomers();
 					for (PTCustomerEntity customer : customers) {
 						Customer SAFTCustomer = generateCustomer(customer);
-						mf.getGeneralLedgerOrCustomerOrSupplier().add(
-								SAFTCustomer);
+						mf.getCustomer().add(SAFTCustomer);
 					}
 
 					// Products
@@ -209,8 +208,7 @@ public class PTSAFTFileGenerator {
 							.getAllActiveProducts();
 					for (PTProductEntity prod : products) {
 						Product SAFTProduct = generateProduct(prod);
-						mf.getGeneralLedgerOrCustomerOrSupplier().add(
-								SAFTProduct);
+						mf.getProduct().add(SAFTProduct);
 					}
 
 					// Taxes
@@ -219,7 +217,7 @@ public class PTSAFTFileGenerator {
 					List<PTTaxEntity> taxes = (List<PTTaxEntity>) (List<?>) daoPTTax
 							.getAllTaxes();
 					TaxTable SAFTTaxTable = generateTaxTable(taxes);
-					mf.getGeneralLedgerOrCustomerOrSupplier().add(SAFTTaxTable);
+					mf.setTaxTable(SAFTTaxTable);
 					SAFTFile.setMasterFiles(mf);
 
 					/* SOURCE DOCUMENTS */
@@ -329,7 +327,7 @@ public class PTSAFTFileGenerator {
 		hdr.setProductCompanyTaxID(validateString("ProductCompanyTaxID",
 				application.getDeveloperCompanyTaxIdentifier(), MAX_LENGTH_20,
 				true));
-		hdr.setSoftwareCertificateNumber(validateString(
+		hdr.setSoftwareCertificateNumber(validateBigInteger(
 				"SoftwareCertificateNumber", certificateNumber, MAX_LENGTH_20,
 				true));
 		hdr.setProductID(validateString("ProductID", application.getName()
@@ -371,7 +369,7 @@ public class PTSAFTFileGenerator {
 			}
 
 			if (customerEntity.getShippingAddress() != null) {
-				customer.setShipToAddress(generateAddressStructure((PTAddressEntity) customerEntity
+				customer.setBillingAddress(generateAddressStructure((PTAddressEntity) customerEntity
 						.getShippingAddress()));
 			}
 			setContacts(customer,
@@ -581,11 +579,20 @@ public class PTSAFTFileGenerator {
 			RequiredFieldNotFoundException, InvalidDocumentTypeException,
 			InvalidDocumentStateException, InvalidInvoiceTypeException {
 		Invoice saftInv = new Invoice();
+		DocumentStatus status = new DocumentStatus();
+
+		// TODO Refactor. Missing parameters
+		status.setInvoiceStatus(validateString("InvoiceStatus",
+				getDocumentStatus(document), MAX_LENGTH_1, true));
+		// status.setInvoiceStatusDate(document.getDate());
+		// status.setSourceBilling(validateString("InvoiceSourceBilling",
+		// document.getSourceBilling(), MAX_LENGTH_1, true));
+		status.setSourceID(validateString("InvoiceSourceID",
+				document.getSourceId(), MAX_LENGTH_30, true));
+		saftInv.setDocumentStatus(status);
 
 		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
 				MAX_LENGTH_60, true));
-		saftInv.setInvoiceStatus(validateString("InvoiceStatus",
-				getDocumentStatus(document), MAX_LENGTH_1, true));
 		saftInv.setInvoiceType(validateString("InvoiceType",
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),
@@ -683,10 +690,10 @@ public class PTSAFTFileGenerator {
 			line.setTaxPointDate(formatDate(entry.getTaxPointDate()));
 
 			/* NOT REQUIRED - Invoice.Line.References */
-			References ref = getReferencesForDocumentEntry(entry, document);
-			if (ref != null) {
-				line.setReferences(ref);
-			}
+			// References ref = getReferencesForDocumentEntry(entry, document);
+			// if (ref != null) {
+			// line.setReferences(ref);
+			// }
 
 			/* REQUIRED */
 			line.setDescription(validateString("Description",
@@ -800,7 +807,6 @@ public class PTSAFTFileGenerator {
 		if (referencedDocument != null) {
 			ref = new References();
 
-			CreditNote cn = new CreditNote();
 			String reasonForCredit = "";
 
 			if (document.getType().equals(TYPE.NC)) {
@@ -812,17 +818,14 @@ public class PTSAFTFileGenerator {
 					"References.CreditNote.Reference",
 					referencedDocument.getNumber(), MAX_LENGTH_60, false))
 					.length() > 0) {
-				cn.setReference(optionalParam);
+				ref.setReference(optionalParam);
 			}
 
 			if ((optionalParam = validateString("References.CreditNote.Reason",
 					reasonForCredit, MAX_LENGTH_50, false)).length() > 0) {
-				cn.setReason(optionalParam);
+				ref.setReason(optionalParam);
 			}
-
-			ref.setCreditNote(cn);
 		}
-
 		return ref;
 	}
 
@@ -848,7 +851,7 @@ public class PTSAFTFileGenerator {
 
 		if ((optionalParam = validateString("DeliveryID", deliveryID,
 				MAX_LENGTH_30, false)).length() > 0) {
-			sps.setDeliveryID(optionalParam);
+			sps.getDeliveryID().add(optionalParam);
 		}
 		if (deliveryDate != null) {
 			sps.setDeliveryDate(formatDate(deliveryDate));
@@ -873,13 +876,8 @@ public class PTSAFTFileGenerator {
 		if (!document.getCurrency().getCurrencyCode().equals(CURRENCY_CODE)) {
 			cur = new Currency();
 			cur.setCurrencyCode(document.getCurrency().getCurrencyCode());
-			if (isCredit) {
-				cur.setCurrencyCreditAmount(validateBigDecimal(document
-						.getAmountWithoutTax()));
-			} else {
-				cur.setCurrencyDebitAmount(validateBigDecimal(document
-						.getAmountWithoutTax()));
-			}
+			cur.setCurrencyAmount(validateBigDecimal(document
+					.getAmountWithoutTax()));
 		}
 
 		return cur;
@@ -908,11 +906,6 @@ public class PTSAFTFileGenerator {
 					document.getSettlementDescription(), MAX_LENGTH_30, false))
 					.length() > 0) {
 				settlement.setSettlementDiscount(optionalParam);
-			}
-			if ((optionalParam = validateString("PaymentMechanism",
-					getPaymentMechanism(document.getPaymentMechanism()),
-					MAX_LENGTH_2, false)).length() > 0) {
-				settlement.setPaymentMechanism(optionalParam);
 			}
 
 			if (settlement.getSettlementAmount() != null
@@ -959,11 +952,12 @@ public class PTSAFTFileGenerator {
 			if (cur != null) {
 				dt.setCurrency(cur);
 			}
-			/* NOT REQUIRED - Invoice.DocumentTotals.Settlements */
-			Settlement stlment = getSettlement(document); // 4.1.4.15.5
-			if (stlment != null) {
-				dt.setSettlement(stlment);
-			}
+			// /* NOT REQUIRED - Invoice.DocumentTotals.Settlements */
+			// Settlement stlment = getSettlement(document); // 4.1.4.15.5
+			// if (stlment != null) {
+			// dt.se
+			// dt.setSettlement(stlment);
+			// }
 		}
 
 		return dt;
@@ -1380,6 +1374,24 @@ public class PTSAFTFileGenerator {
 			boolean isRequired) throws RequiredFieldNotFoundException {
 		return Integer.parseInt(validateString(field, str, maxLength,
 				isRequired));
+	}
+
+	/**
+	 * Validates a BigInteger, considering the max length of that field that
+	 * will be assigned and if that field is required
+	 * 
+	 * @param field
+	 * @param str
+	 *            - a string that represents a BigInteger
+	 * @param maxLength
+	 * @param isRequired
+	 * @return
+	 * @throws RequiredFieldNotFoundException
+	 */
+	private BigInteger validateBigInteger(String field, String str,
+			int maxLength, boolean isRequired)
+			throws RequiredFieldNotFoundException {
+		return new BigInteger(validateString(field, str, maxLength, isRequired));
 	}
 
 	/**

@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="Windows-1252"?>
+<!--
+
+    Copyright (C) 2013 Premium Minds.
+
+    This file is part of billy platypus (PT Pack).
+
+    billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+
+-->
 <xs:schema xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation" xmlns:ns="urn:OECD:StandardAuditFile-Tax:PT_1.02_01" xmlns="urn:OECD:StandardAuditFile-Tax:PT_1.02_01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:OECD:StandardAuditFile-Tax:PT_1.02_01" version="1.02_01" id="SAF-T_PT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
     <xs:documentation>
@@ -9,7 +29,7 @@
         <doc:Number>1.02_01</doc:Number>
         <doc:Status>Production</doc:Status>
       </doc:Version>
-      <doc:Author>Autoridade Tributária e Aduaneira</doc:Author>
+      <doc:Author>Autoridade Tributï¿½ria e Aduaneira</doc:Author>
       <doc:ModificationDate>2013-07-01</doc:ModificationDate>
     </xs:documentation>
   </xs:annotation>
@@ -103,7 +123,7 @@
       <xs:field xpath="ns:ProductCode" />
     </xs:keyref>
   </xs:element>
-  <!-- Estrutura de cabeçalho (AuditFile.Header) -->
+  <!-- Estrutura de cabeï¿½alho (AuditFile.Header) -->
   <xs:element name="Header">
     <xs:complexType>
       <xs:sequence>
@@ -295,12 +315,12 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element ref="InvoiceNo" />
-                    <!-- Estrutura da situação do documento -->
+                    <!-- Estrutura da situaï¿½ï¿½o do documento -->
                     <xs:element name="DocumentStatus">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element ref="InvoiceStatus" />
-                          <!-- Na exportação de dados relativos a exercícios anteriores em que esta informação seja desconhecida, este campo deverá ser preenchido com a data do documento e hora como 00:00:00 -->
+                          <!-- Na exportaï¿½ï¿½o de dados relativos a exercï¿½cios anteriores em que esta informaï¿½ï¿½o seja desconhecida, este campo deverï¿½ ser preenchido com a data do documento e hora como 00:00:00 -->
                           <xs:element ref="InvoiceStatusDate" />
                           <xs:element minOccurs="0" ref="Reason" />
                           <xs:element ref="SourceID" />
@@ -374,12 +394,12 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element ref="DocumentNumber" />
-                    <!-- Estrutura da situação do documento -->
+                    <!-- Estrutura da situaï¿½ï¿½o do documento -->
                     <xs:element name="DocumentStatus">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element ref="MovementStatus" />
-                          <!-- Na exportação de dados relativos a exercícios anteriores em que esta informação seja desconhecida, este campo deverá ser preenchido com a data do documento e hora como 00:00:00 -->
+                          <!-- Na exportaï¿½ï¿½o de dados relativos a exercï¿½cios anteriores em que esta informaï¿½ï¿½o seja desconhecida, este campo deverï¿½ ser preenchido com a data do documento e hora como 00:00:00 -->
                           <xs:element ref="MovementStatusDate" />
                           <xs:element minOccurs="0" ref="Reason" />
                           <xs:element ref="SourceID" />
@@ -405,7 +425,7 @@
                     <xs:element minOccurs="0" maxOccurs="1" ref="ShipFrom" />
                     <xs:element minOccurs="0" maxOccurs="1" ref="MovementEndTime" />
                     <xs:element maxOccurs="1" ref="MovementStartTime" />
-                    <!-- Nos documentos resumo (MovementStatus "R"), na ausência de informação concreta, a hora de inicio de transporte (MovementStartTime) pode ser indicada com a concatenação da data constante no campo MovementDate com a hora 00:00:00-->
+                    <!-- Nos documentos resumo (MovementStatus "R"), na ausï¿½ncia de informaï¿½ï¿½o concreta, a hora de inicio de transporte (MovementStartTime) pode ser indicada com a concatenaï¿½ï¿½o da data constante no campo MovementDate com a hora 00:00:00-->
                     <xs:element minOccurs="0" maxOccurs="1" ref="ATDocCodeID" />
                     <xs:element maxOccurs="unbounded" name="Line">
                       <xs:complexType>
@@ -454,12 +474,12 @@
                 <xs:complexType>
                   <xs:sequence>
                     <xs:element ref="DocumentNumber" />
-                    <!-- Estrutura da situação do documento -->
+                    <!-- Estrutura da situaï¿½ï¿½o do documento -->
                     <xs:element name="DocumentStatus">
                       <xs:complexType>
                         <xs:sequence>
                           <xs:element ref="WorkStatus" />
-                          <!-- Na exportação de dados relativos a exercícios anteriores em que esta informação seja desconhecida, este campo deverá ser preenchido com a data do documento e hora como 00:00:00 -->
+                          <!-- Na exportaï¿½ï¿½o de dados relativos a exercï¿½cios anteriores em que esta informaï¿½ï¿½o seja desconhecida, este campo deverï¿½ ser preenchido com a data do documento e hora como 00:00:00 -->
                           <xs:element ref="WorkStatusDate" />
                           <xs:element minOccurs="0" ref="Reason" />
                           <xs:element ref="SourceID" />
@@ -541,7 +561,7 @@
       <xs:element fixed="PT" name="Country" />
     </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de valor monetário -->
+  <!-- Estrutura de valor monetï¿½rio -->
   <!-- Este elemento apenas deve ser gerado quando a moeda original do documento for diferente de euro -->
   <xs:complexType name="Currency">
       <xs:sequence>
@@ -550,7 +570,7 @@
         <xs:element minOccurs="0" ref="ExchangeRate" />
       </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de Taxa de documentos de movimentação de mercadorias-->
+  <!-- Estrutura de Taxa de documentos de movimentaï¿½ï¿½o de mercadorias-->
   <xs:complexType name="MovementTax">
     <xs:sequence>
       <xs:element name="TaxType" type="SAFTPTMovementTaxType" />
@@ -559,7 +579,7 @@
       <xs:element ref="TaxPercentage" />
     </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de Referências ao documento de origem-->
+  <!-- Estrutura de Referï¿½ncias ao documento de origem-->
   <xs:complexType name="OrderReferences">
       <xs:sequence>
         <xs:element minOccurs="0" ref="OriginatingON" />
@@ -574,7 +594,7 @@
         <xs:element name="PaymentDate" type="SAFdateType" />
       </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de referências a outros documentos em documentos retificativos de faturas-->
+  <!-- Estrutura de referï¿½ncias a outros documentos em documentos retificativos de faturas-->
   <xs:complexType name="References">
       <xs:sequence>
         <xs:element minOccurs="0" ref="Reference" />
@@ -626,7 +646,7 @@
         </xs:choice>
       </xs:sequence>
   </xs:complexType>
-  <!-- Estrutura de Retenção na fonte-->
+  <!-- Estrutura de Retenï¿½ï¿½o na fonte-->
   <xs:complexType name="WithholdingTax">
       <xs:sequence>
         <xs:element minOccurs="0" ref="WithholdingTaxType" />
@@ -730,8 +750,8 @@
   <xs:element name="Website" type="SAFPTtextTypeMandatoryMax60Car" />
   <xs:element name="WorkDate" type="SAFdateType" />
   <xs:element name="WorkStatusDate" type="SAFdateTimeType" />
-  <!-- ELEMENTOS SIMPLES COM RESTRIÇÕES ADICIONAIS-->
-  <!-- Código da Conta -->
+  <!-- ELEMENTOS SIMPLES COM RESTRIï¿½ï¿½ES ADICIONAIS-->
+  <!-- Cï¿½digo da Conta -->
   <xs:element name="AccountID">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -748,10 +768,10 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Identificação da empresa que exportou o SAFT-->
+  <!-- Identificaï¿½ï¿½o da empresa que exportou o SAFT-->
   <xs:element name="CompanyID">
     <xs:annotation>
-      <xs:documentation>Obtém-se pela concatenação da Conservatória do Registo Comercial com o número do registo comercial separados pelo carácter espaço. Nos casos em que não existe o registo comercial, deve ser indicado o NIF.</xs:documentation>
+      <xs:documentation>Obtï¿½m-se pela concatenaï¿½ï¿½o da Conservatï¿½ria do Registo Comercial com o nï¿½mero do registo comercial separados pelo carï¿½cter espaï¿½o. Nos casos em que nï¿½o existe o registo comercial, deve ser indicado o NIF.</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -761,7 +781,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código do país (ISO 3166 1-alpha-2) -->
+  <!-- Cï¿½digo do paï¿½s (ISO 3166 1-alpha-2) -->
   <xs:element name="Country">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -770,9 +790,9 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código da moeda (ISO 4217) -->
+  <!-- Cï¿½digo da moeda (ISO 4217) -->
   <xs:element name="CurrencyCode">
-    <!-- Não consta o EUR por não existirem situações que requeiram este código de moeda -->
+    <!-- Nï¿½o consta o EUR por nï¿½o existirem situaï¿½ï¿½es que requeiram este cï¿½digo de moeda -->
     <xs:simpleType>
       <xs:restriction base="xs:string">
         <xs:pattern value="AED|AFN|ALL|AMD|ANG|AOA|ARS|AUD|AWG|AZN|BAM|BBD|BDT|BGN|BHD|BIF|BMD|BND|BOB|BOV|BRL|BSD|BTN|BWP|BYR|BZD|CAD|CDF|CHE|CHF|CHW|CLF|CLP|CNY|COP|COU|CRC|CUC|CUP|CVE|CZK|DJF|DKK|DOP|DZD|EGP|ERN|ETB|FJD|FKP|GBP|GEL|GHS|GIP|GMD|GNF|GTQ|GYD|HKD|HNL|HRK|HTG|HUF|IDR|ILS|INR|IQD|IRR|ISK|JMD|JOD|JPY|KES|KGS|KHR|KMF|KPW|KRW|KWD|KYD|KZT|LAK|LBP|LKR|LRD|LSL|LTL|LVL|LYD|MAD|MDL|MGA|MKD|MMK|MNT|MOP|MRO|MUR|MVR|MWK|MXN|MXV|MYR|MZN|NAD|NGN|NIO|NOK|NPR|NZD|OMR|PAB|PEN|PGK|PHP|PKR|PLN|PYG|QAR|RON|RSD|RUB|RWF|SAR|SBD|SCR|SDG|SEK|SGD|SHP|SLL|SOS|SRD|SSP|STD|SVC|SYP|SZL|THB|TJS|TMT|TND|TOP|TRY|TTD|TWD|TZS|UAH|UGX|USD|USN|USS|UYI|UYU|UZS|VEF|VND|VUV|WST|XAF|XAG|XAU|XBA|XBB|XBC|XBD|XCD|XDR|XFU|XOF|XPD|XPF|XPT|XSU|XUA|YER|ZAR|ZMW|ZWL|EEK|SKK|TMM|ZMK|ZWD|ZWR|" />
@@ -780,7 +800,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código único do documento de movimentação de mercadorias e de conferência-->
+  <!-- Cï¿½digo ï¿½nico do documento de movimentaï¿½ï¿½o de mercadorias e de conferï¿½ncia-->
   <xs:element name="DocumentNumber">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -790,7 +810,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código CAE -->
+  <!-- Cï¿½digo CAE -->
   <xs:element name="EACCode">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -811,7 +831,7 @@
   <!-- Categoria da conta -->
   <xs:element name="GroupingCategory">
     <xs:annotation>
-      <xs:documentation>GR para conta de 1º grau da contabilidade geral, GA para conta agregadora ou integradora da contabilidade geral, GM para conta de movimento da contabilidade geral, AR para conta de 1º grau da contabilidade analítica, AA para conta agregadora ou integradora da contabilidade analítica, AM para conta de movimento da contabilidade analítica </xs:documentation>
+      <xs:documentation>GR para conta de 1ï¿½ grau da contabilidade geral, GA para conta agregadora ou integradora da contabilidade geral, GM para conta de movimento da contabilidade geral, AR para conta de 1ï¿½ grau da contabilidade analï¿½tica, AA para conta agregadora ou integradora da contabilidade analï¿½tica, AM para conta de movimento da contabilidade analï¿½tica </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -824,7 +844,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código único do documento de venda -->
+  <!-- Cï¿½digo ï¿½nico do documento de venda -->
   <xs:element name="InvoiceNo">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -837,7 +857,7 @@
   <!-- Estado do documento SalesInvoices -->
   <xs:element name="InvoiceStatus">
     <xs:annotation>
-      <xs:documentation>N para Normal, S para autofaturação, A para anulado, R para documento de resumo doutros documentos criados noutras aplicações e gerado nesta aplicação, F para faturado </xs:documentation>
+      <xs:documentation>N para Normal, S para autofaturaï¿½ï¿½o, A para anulado, R para documento de resumo doutros documentos criados noutras aplicaï¿½ï¿½es e gerado nesta aplicaï¿½ï¿½o, F para faturado </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -853,7 +873,7 @@
   <xs:element name="InvoiceType">
     <xs:annotation>
       <xs:documentation>
-        Restrição:  FT-Fatura nos termos do art.º 36º do CIVA, FS-Fatura simplificada nos termos do art.º 40º do CIVA, FR-Fatura-Recibo, ND-Nota de débito, NC-Nota de Crédito,VD-Venda a dinheiro (a), TV-Talão de Venda (a), TD-Talão de devolução (a), AA-Alienação Activos (a),DA-Devolução Activos (a), RP-Prémio ou Recibo Prémio, RE-Estorno ou Recibo de Estorno, CS-Imputação a Co-Seguradoras, LD-Imputação a Co-Seguradora Líder, RA-Resseguro Aceite. (a) Para dados até 2012-12-31
+        Restriï¿½ï¿½o:  FT-Fatura nos termos do art.ï¿½ 36ï¿½ do CIVA, FS-Fatura simplificada nos termos do art.ï¿½ 40ï¿½ do CIVA, FR-Fatura-Recibo, ND-Nota de dï¿½bito, NC-Nota de Crï¿½dito,VD-Venda a dinheiro (a), TV-Talï¿½o de Venda (a), TD-Talï¿½o de devoluï¿½ï¿½o (a), AA-Alienaï¿½ï¿½o Activos (a),DA-Devoluï¿½ï¿½o Activos (a), RP-Prï¿½mio ou Recibo Prï¿½mio, RE-Estorno ou Recibo de Estorno, CS-Imputaï¿½ï¿½o a Co-Seguradoras, LD-Imputaï¿½ï¿½o a Co-Seguradora Lï¿½der, RA-Resseguro Aceite. (a) Para dados atï¿½ 2012-12-31
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -868,7 +888,7 @@
         <xs:enumeration value="TD" />
         <xs:enumeration value="AA" />
         <xs:enumeration value="DA" />
-        <!-- Menções para o sector segurador-->
+        <!-- Menï¿½ï¿½es para o sector segurador-->
         <xs:enumeration value="RP" />
         <xs:enumeration value="RE" />
         <xs:enumeration value="CS" />
@@ -880,7 +900,7 @@
   <!-- Estado do documento MovementOfGoods -->
   <xs:element name="MovementStatus">
     <xs:annotation>
-      <xs:documentation>N para Normal, T por conta de terceiros, A para Anulado, R para documento de resumo doutros documentos criados noutras aplicações e gerado nesta aplicação. </xs:documentation>
+      <xs:documentation>N para Normal, T por conta de terceiros, A para Anulado, R para documento de resumo doutros documentos criados noutras aplicaï¿½ï¿½es e gerado nesta aplicaï¿½ï¿½o. </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -891,11 +911,11 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Tipo de documento de movimentação de mercadorias-->
+  <!-- Tipo de documento de movimentaï¿½ï¿½o de mercadorias-->
   <xs:element name="MovementType">
     <xs:annotation>
       <xs:documentation>
-        Restrição: Tipos de Documento (GR para Guia de remessa, GT para Guia de transporte, GA para Guia de movimentação de ativos próprios, GC para Guia de consignação, GD para Guia ou nota de devolução)
+        Restriï¿½ï¿½o: Tipos de Documento (GR para Guia de remessa, GT para Guia de transporte, GA para Guia de movimentaï¿½ï¿½o de ativos prï¿½prios, GC para Guia de consignaï¿½ï¿½o, GD para Guia ou nota de devoluï¿½ï¿½o)
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -912,7 +932,7 @@
   <xs:element name="PaymentMechanism">
     <xs:annotation>
       <xs:documentation>
-         Restrição: Meio de pagamento (CC para Cartão de Crédito, CD para Cartão de Débito, CH para Cheque, CS para Compensação de saldos em conta corrente, LC para Letra comercial, MB para Multibanco, NU para Numerário, PR para Permuta, TB para Transferência Bancária, TR para Ticket Restaurante)
+         Restriï¿½ï¿½o: Meio de pagamento (CC para Cartï¿½o de Crï¿½dito, CD para Cartï¿½o de Dï¿½bito, CH para Cheque, CS para Compensaï¿½ï¿½o de saldos em conta corrente, LC para Letra comercial, MB para Multibanco, NU para Numerï¿½rio, PR para Permuta, TB para Transferï¿½ncia Bancï¿½ria, TR para Ticket Restaurante)
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -942,7 +962,7 @@
   <!-- Tipos de produto -->
   <xs:element name="ProductType">
     <xs:annotation>
-      <xs:documentation>Restrição: Tipo de produto: P - Produtos, S - Serviços, O - Outros, I - Impostos, taxas e encargos parafiscais excepto IVA e IS uma vez que se encontram reflectidos na tabela de impostos</xs:documentation>
+      <xs:documentation>Restriï¿½ï¿½o: Tipo de produto: P - Produtos, S - Serviï¿½os, O - Outros, I - Impostos, taxas e encargos parafiscais excepto IVA e IS uma vez que se encontram reflectidos na tabela de impostos</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -953,7 +973,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Identificador de Autofaturação -->
+  <!-- Identificador de Autofaturaï¿½ï¿½o -->
   <xs:element name="SelfBillingIndicator">
     <xs:simpleType>
       <xs:restriction base="xs:integer">
@@ -965,7 +985,7 @@
   <!-- Origem do documento -->
   <xs:element name="SourceBilling">
     <xs:annotation>
-      <xs:documentation>P para documento produzido na aplicação, I para documento integrado e produzido noutra aplicação, M para documento proveniente de recuperação de emissão manual </xs:documentation>
+      <xs:documentation>P para documento produzido na aplicaï¿½ï¿½o, I para documento integrado e produzido noutra aplicaï¿½ï¿½o, M para documento proveniente de recuperaï¿½ï¿½o de emissï¿½o manual </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -978,7 +998,7 @@
   <!-- Tipo de sistema que exportou o SAFT -->
   <xs:element name="TaxAccountingBasis">
     <xs:annotation>
-      <xs:documentation>C para Contabilidade, F para Faturação incluindo os documentos de transporte, I para Contabilidade-Faturação incluindo os documentos de transporte, S para Autofaturação, E – Faturação, incluindo documentos de transporte, emitida por terceiros, P para Faturação parcial incluindo os documentos de transporte</xs:documentation>
+      <xs:documentation>C para Contabilidade, F para Faturaï¿½ï¿½o incluindo os documentos de transporte, I para Contabilidade-Faturaï¿½ï¿½o incluindo os documentos de transporte, S para Autofaturaï¿½ï¿½o, E ï¿½ Faturaï¿½ï¿½o, incluindo documentos de transporte, emitida por terceiros, P para Faturaï¿½ï¿½o parcial incluindo os documentos de transporte</xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1000,7 +1020,7 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código de Imposto -->
+  <!-- Cï¿½digo de Imposto -->
   <xs:element name="TaxCountryRegion">
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1023,7 +1043,7 @@
   <!-- Tipos de Movimento Contabilistico -->
   <xs:element name="TransactionType">
     <xs:annotation>
-      <xs:documentation>Restrição: Tipificação dos movimentos contabilísticos - N - Normal, R - Regularizações do período de tributação, A - Apuramento de resultados, J - Movimentos de Ajustamento </xs:documentation>
+      <xs:documentation>Restriï¿½ï¿½o: Tipificaï¿½ï¿½o dos movimentos contabilï¿½sticos - N - Normal, R - Regularizaï¿½ï¿½es do perï¿½odo de tributaï¿½ï¿½o, A - Apuramento de resultados, J - Movimentos de Ajustamento </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1034,10 +1054,10 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Código do tipo de imposto retido -->
+  <!-- Cï¿½digo do tipo de imposto retido -->
   <xs:element name="WithholdingTaxType">
     <xs:annotation>
-      <xs:documentation>Restrição: IRS para Imposto Sobre o Rendimento das Pessoas Singulares, IRC para Imposto Sobre o Rendimento das Pessoas colectivas, IS para Imposto de selo </xs:documentation>
+      <xs:documentation>Restriï¿½ï¿½o: IRS para Imposto Sobre o Rendimento das Pessoas Singulares, IRC para Imposto Sobre o Rendimento das Pessoas colectivas, IS para Imposto de selo </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1050,7 +1070,7 @@
   <!-- Estado do documento WorkingDocuments -->
   <xs:element name="WorkStatus">
     <xs:annotation>
-      <xs:documentation>N para Normal, A para Anulado, F para faturado (quando para este documento também existe na tabela 4.1. o correspondente do tipo fatura ou fatura simplificada) </xs:documentation>
+      <xs:documentation>N para Normal, A para Anulado, F para faturado (quando para este documento tambï¿½m existe na tabela 4.1. o correspondente do tipo fatura ou fatura simplificada) </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
@@ -1060,11 +1080,11 @@
       </xs:restriction>
     </xs:simpleType>
   </xs:element>
-  <!-- Tipo de documento de conferência de entrega de mercadorias ou da prestação de serviços -->
+  <!-- Tipo de documento de conferï¿½ncia de entrega de mercadorias ou da prestaï¿½ï¿½o de serviï¿½os -->
   <xs:element name="WorkType">
     <xs:annotation>
       <xs:documentation>
-        Restrição: DC para documentos suscetíveis de apresentação ao cliente para conferência de entrega de mercadorias ou da prestação de serviços
+        Restriï¿½ï¿½o: DC para documentos suscetï¿½veis de apresentaï¿½ï¿½o ao cliente para conferï¿½ncia de entrega de mercadorias ou da prestaï¿½ï¿½o de serviï¿½os
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
@@ -1091,13 +1111,13 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- TIPOS DE DADOS BASE SAFT Portugal -->
-  <!-- Código Postal Português -->
+  <!-- Cï¿½digo Postal Portuguï¿½s -->
   <xs:simpleType name="PostalCodePT">
     <xs:restriction base="xs:string">
       <xs:pattern value="([0-9]{4}-[0-9]{3})" />
     </xs:restriction>
   </xs:simpleType>
-  <!-- Periodo do movimento contabilístico -->
+  <!-- Periodo do movimento contabilï¿½stico -->
   <xs:simpleType name="SAFPTAccountingPeriod">
     <xs:restriction base="xs:integer">
       <xs:minInclusive value="1" />
@@ -1255,7 +1275,7 @@
       <xs:maxLength value="70" />
     </xs:restriction>
   </xs:simpleType>
-  <!-- Código do país (ISO 3166 1-alpha-2) -->
+  <!-- Cï¿½digo do paï¿½s (ISO 3166 1-alpha-2) -->
   <xs:simpleType name="SupplierCountry">
     <xs:restriction base="xs:string">
       <xs:pattern value="AD|AE|AF|AG|AI|AL|AM|AO|AQ|AR|AS|AT|AU|AW|AX|AZ|BA|BB|BD|BE|BF|BG|BH|BI|BJ|BL|BM|BN|BO|BQ|BR|BS|BT|BV|BW|BY|BZ|CA|CC|CD|CF|CG|CH|CI|CK|CL|CM|CN|CO|CR|CU|CV|CW|CX|CY|CZ|DE|DJ|DK|DM|DO|DZ|EC|EE|EG|EH|ER|ES|ET|FI|FJ|FK|FM|FO|FR|GA|GB|GD|GE|GF|GG|GH|GI|GL|GM|GN|GP|GQ|GR|GS|GT|GU|GW|GY|HK|HM|HN|HR|HT|HU|ID|IE|IL|IM|IN|IO|IQ|IR|IS|IT|JE|JM|JO|JP|KE|KG|KH|KI|KM|KN|KP|KR|KW|KY|KZ|LA|LB|LC|LI|LK|LR|LS|LT|LU|LV|LY|MA|MC|MD|ME|MF|MG|MH|MK|ML|MM|MN|MO|MP|MQ|MR|MS|MT|MU|MV|MW|MX|MY|MZ|NA|NC|NE|NF|NG|NI|NL|NO|NP|NR|NU|NZ|OM|PA|PE|PF|PG|PH|PK|PL|PM|PN|PR|PS|PT|PW|PY|QA|RE|RO|RS|RU|RW|SA|SB|SC|SD|SE|SG|SH|SI|SJ|SK|SL|SM|SN|SO|SR|SS|ST|SV|SX|SY|SZ|TC|TD|TF|TG|TH|TJ|TK|TL|TM|TN|TO|TR|TT|TV|TW|TZ|UA|UG|UM|US|UY|UZ|VA|VC|VE|VG|VI|VN|VU|WF|WS|XK|YE|YT|ZA|ZM|ZW|" />

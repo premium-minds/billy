@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="WINDOWS-1252" standalone="yes"?>
-<!--
-
-    Copyright (C) 2013 Premium Minds.
-
-    This file is part of billy platypus (PT Pack).
-
-    billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
-    the terms of the GNU Lesser General Public License as published by the Free
-    Software Foundation, either version 3 of the License, or (at your option) any
-    later version.
-
-    billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
-    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
-    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
-    details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
-
--->
-<AuditFile xmlns="urn:OECD:StandardAuditFile-Tax:PT_1.01_01">
+<AuditFile xmlns="urn:OECD:StandardAuditFile-Tax:PT_1.02_01">
     <Header>
         <AuditFileVersion>1.01_01</AuditFileVersion>
         <CompanyID>123456789</CompanyID>
@@ -28,9 +8,9 @@
         <CompanyName>Business</CompanyName>
         <BusinessName>Business</BusinessName>
         <CompanyAddress>
-            <BuildingNumber>Nï¿½ 3 - 3ï¿½E</BuildingNumber>
+            <BuildingNumber>Nº 3 - 3ºE</BuildingNumber>
             <StreetName>Av. Republica</StreetName>
-            <AddressDetail>Av. Republica Nï¿½ 3 - 3ï¿½ Esq.</AddressDetail>
+            <AddressDetail>Av. Republica Nº 3 - 3º Esq.</AddressDetail>
             <City>Lisboa</City>
             <PostalCode>1700-232</PostalCode>
             <Country xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">PT</Country>
@@ -38,7 +18,7 @@
         <FiscalYear>2013</FiscalYear>
         <StartDate>2013-02-01</StartDate>
         <EndDate>2013-08-05</EndDate>
-        <CurrencyCode>EUR</CurrencyCode>
+        <CurrencyCode xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">EUR</CurrencyCode>
         <DateCreated>2013-08-05</DateCreated>
         <TaxEntity>Global</TaxEntity>
         <ProductCompanyTaxID>523456789</ProductCompanyTaxID>
@@ -68,11 +48,11 @@
             <CustomerID>CUSTOMER_UID</CustomerID>
             <AccountID>Desconhecido</AccountID>
             <CustomerTaxID>26949843873</CustomerTaxID>
-            <CompanyName>Zï¿½</CompanyName>
+            <CompanyName>Zé</CompanyName>
             <BillingAddress>
-                <BuildingNumber>Nï¿½ 4 - 5ï¿½D</BuildingNumber>
+                <BuildingNumber>Nº 4 - 5ºD</BuildingNumber>
                 <StreetName>Av. Liberdade</StreetName>
-                <AddressDetail>Av. Liberdade, Nï¿½ 4 - 5ï¿½ Dir.</AddressDetail>
+                <AddressDetail>Av. Liberdade, Nº 4 - 5º Dir.</AddressDetail>
                 <City>Lisboa</City>
                 <PostalCode>1500-123</PostalCode>
                 <Country>PT</Country>
@@ -187,13 +167,16 @@
             <TotalCredit>227.64</TotalCredit>
             <Invoice>
                 <InvoiceNo>FT A/1</InvoiceNo>
-                <InvoiceStatus>N</InvoiceStatus>
-                <Hash>o2ou+oZSusQnXOfHZuWfvRy3cgsWM7nSEYhKjs3gjEv8PpGvo8OyUGELxAgNuEY/L6i4Xr2u07in5K9/xLOpbpOhoGABBFrHYfc5zXRRfgcvLf4j1/SYkrDXR7zV6c993jP2WbFY4hP1pcX379No8zR+oqRH/rbr3aY7+6QOV5Y=</Hash>
+                <DocumentStatus>
+                    <InvoiceStatus>N</InvoiceStatus>
+                    <SourceID>SOURCE</SourceID>
+                </DocumentStatus>
+                <Hash>Pc+DWMHmPX9BpdDzy5Sr1+TRzEsWQFPM3qyGyWMiABgwc1RmqunQx5G0WV7MQbDXO7bAcyfgQmcehAqv9Uk8IArufOyYoSHozAt6GBNcWcKyGoJD1ni+uYj7ZB+cPu5XBPNBs8J1imz3fmUBEoNLEHXuMlq/AopIS74sBGHKbKw=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -305,13 +288,16 @@
             </Invoice>
             <Invoice>
                 <InvoiceNo>FT A/2</InvoiceNo>
-                <InvoiceStatus>N</InvoiceStatus>
-                <Hash>js2O6eEgab3qeZsgEXiCAeDU63Ix7AiO8SCLnuR62TvMBKWt76CVCKlutuV0ETWw1ska6J3svsyvgzxV1HVs2orRXy6wH5ldz9gw8enRApgtUGRiovQzot39BZzDAcTY31tAVP9r0Lq+ULN8Y8l3R1YlMJIs5+UK1rtBCwQ42/8=</Hash>
+                <DocumentStatus>
+                    <InvoiceStatus>N</InvoiceStatus>
+                    <SourceID>SOURCE</SourceID>
+                </DocumentStatus>
+                <Hash>r5adMymD8m5NhdpO3RvnCTyoqGT9otImFmhVyhw0CG3ySKRdvYfQ3+VWRVeqbCHbX5YQn9gQq6T71e3iTizJvyqnPdqdHCDbASl1bYxDQ8qxRctSRpmCpPmqR+gGKjjK/bOLHbwvz0XdWR5Hs1XhkpAGtgiTVjDJiT4OXO7NgUU=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -423,13 +409,16 @@
             </Invoice>
             <Invoice>
                 <InvoiceNo>FS S/1</InvoiceNo>
-                <InvoiceStatus>N</InvoiceStatus>
-                <Hash>QoZKZIvN8Uvu5GMzMZD8E7UXLIqI4xmnu7GhzGL1U5uMD2RD/pYGxBTOSPGc89lVoL86rNWb6WKUUlUwt1OIFKSObnW4Q4MWFcHC4T9ThHhwGV5aD2Nh/O0N/uuVSPmrLYhHTA95hmfkDc4Bv1VyLFXX0fVsaMtz94iKaVZO3l4=</Hash>
+                <DocumentStatus>
+                    <InvoiceStatus>N</InvoiceStatus>
+                    <SourceID>SOURCE</SourceID>
+                </DocumentStatus>
+                <Hash>bxHB43dlTg2+gCCBj2Fna1t35T680kBV3q1HUIpVcQjoV9lsbfZFPRVgyhkDGD+hKfe7n2x9BtaKBewiqD+0Nr3WVvlCX5D0moty1vU0EvX5W10XbrCa/qYPwbKTAvX2hMw/NskRT72hGLk7KQw8ySVpvfXN309PhjNKHnRI22E=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FS</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -473,13 +462,16 @@
             </Invoice>
             <Invoice>
                 <InvoiceNo>NC C/1</InvoiceNo>
-                <InvoiceStatus>N</InvoiceStatus>
-                <Hash>XVnyI5aR89gvzyJUX+vmkM3oXdFW8jSkbqJDpQ9Fmz1TL5MEzv1dUjLgtl7+74QDoJqIvh97aDChiwGanKMbb/jAU8vTADlZuxqvvTg0OohIOZ1xhVuNdAb+WtjGd4GbKKSwSWWeTT2534XQLkwAq75abIAerG1D/1OSRb4yWmU=</Hash>
+                <DocumentStatus>
+                    <InvoiceStatus>N</InvoiceStatus>
+                    <SourceID>SOURCE</SourceID>
+                </DocumentStatus>
+                <Hash>AnZkn3r0BaYscZPjk83BNDhsUF1388ufgEikaNCF0FVtB0YW+akLi6aHoCkm4vGjVg97OVL8LDFTSZYBvnFpRahOevNGKIH4pZ6SAThDJkP3LdIepC7zXr3uxd7val+Cl5cPiFmpXcGsewidlOHzPv1MbTcMrkbNmDRr/REYZs0=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T14:53:05</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T18:15:17</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -489,12 +481,6 @@
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
                     <TaxPointDate>2013-08-05</TaxPointDate>
-                    <References>
-                        <CreditNote>
-                            <Reference>FT A/1</Reference>
-                            <Reason>Rotten potatoes</Reason>
-                        </CreditNote>
-                    </References>
                     <Description>DESCRIPTION</Description>
                     <DebitAmount>16.26</DebitAmount>
                     <Tax>
