@@ -106,11 +106,11 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTAddress daoPTAddress = injector
 					.getInstance(DAOPTAddress.class);
 			PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
-					"Av. Republica", "Nº 3 - 3º Esq.",
+					"Av. Republica", "Nº 3 - 3ºE",
 					"Av. Republica Nº 3 - 3º Esq.", "", "Lisboa", "1700-232",
 					"", "PT");
 			PTAddress.Builder addressBuilder2 = address.getAddressBuilder(
-					"Av. Liberdade", "Nº 4 - 5º Dir.",
+					"Av. Liberdade", "Nº 4 - 5ºD",
 					"Av. Liberdade, Nº 4 - 5º Dir.", "", "Lisboa", "1500-123",
 					"", "PT");
 			PTAddress.Builder addressBuilder3 = address.getAddressBuilder(
