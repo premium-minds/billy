@@ -25,7 +25,6 @@ import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -33,7 +32,6 @@ import javax.inject.Inject;
 import org.postgresql.util.Base64;
 
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.gin.services.ExportServiceHandler;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
@@ -126,9 +124,6 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements
 	public File toFile(PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle)
 			throws ExportServiceException {
 
-		System.out
-				.println("=========================ZEEEEEEEE========================="
-						+ bundle.getXSLTFileStream());
 		return super.toFile(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}

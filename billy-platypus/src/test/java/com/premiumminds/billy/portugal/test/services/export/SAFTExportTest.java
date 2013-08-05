@@ -207,7 +207,6 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			/* SAFTFileGenerator generator = new SAFTFileGenerator(); */
 			// generator.generateSAFTFile(be, customers, products, taxes,
 			// invoices, null, creditNotes, new Date(), new Date());
-			System.out.println("ALL OK");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

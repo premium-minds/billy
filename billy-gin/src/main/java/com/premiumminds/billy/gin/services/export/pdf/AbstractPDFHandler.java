@@ -148,8 +148,6 @@ public abstract class AbstractPDFHandler {
 		File pdffile = new File(bundle.getResultingPdfFilePath());
 		OutputStream out;
 		try {
-			System.out.println("============EEEEEEEEEEEEEEEEEE============="
-					+ templateStream);
 			out = new FileOutputStream(pdffile);
 			out = new java.io.BufferedOutputStream(out);
 			FileOutputStream str = new FileOutputStream(pdffile);
