@@ -38,7 +38,7 @@ public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
 
 	public void setSourceHash(String source);
 
-	public void setSourceBilling(String sourceBilling);
+	public void setSourceBilling(SourceBilling sourceBilling);
 
 	@SuppressWarnings("unchecked")
 	@Override

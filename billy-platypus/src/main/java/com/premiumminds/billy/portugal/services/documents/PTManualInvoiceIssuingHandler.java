@@ -25,9 +25,9 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTManualInvoice;
-import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
+import com.premiumminds.billy.core.util.NotImplemented;
 
+@Deprecated
 public class PTManualInvoiceIssuingHandler extends
 		PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
 
@@ -39,15 +39,18 @@ public class PTManualInvoiceIssuingHandler extends
 	}
 
 	@Override
+	@Deprecated
+	@NotImplemented
 	public <T extends GenericInvoice, P extends IssuingParams> T issue(
 			final T document, P parameters) throws DocumentIssuingException {
 
-		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
-
-		final DAOPTManualInvoice daoInvoice = this.injector
-				.getInstance(DAOPTManualInvoice.class);
-
-		return issue(document, parametersPT, daoInvoice,
-				parametersPT.getManualInvoiceType(), SOURCE_BILLING);
+		// final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
+		//
+		// final DAOPTManualInvoice daoInvoice = this.injector
+		// .getInstance(DAOPTManualInvoice.class);
+		//
+		// return issue(document, parametersPT, daoInvoice,
+		// parametersPT.getManualInvoiceType(), SOURCE_BILLING);
+		return null;
 	}
 }

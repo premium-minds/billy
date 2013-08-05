@@ -34,7 +34,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
-import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidSourceBillingException;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
@@ -90,12 +89,12 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 						validateDocumentType(documentType,
 								latestInvoice.getType(), series);
 
-						if (!latestInvoice.getSourceBilling().equals(
-								sourceBilling)) {
-							throw new InvalidSourceBillingException(series,
-									sourceBilling,
-									latestInvoice.getSourceBilling());
-						}
+						// if (!latestInvoice.getSourceBilling().equals(
+						// sourceBilling)) {
+						// throw new InvalidSourceBillingException(series,
+						// sourceBilling,
+						// latestInvoice.getSourceBilling());
+						// }
 
 						if (latestInvoiceDate.after(invoiceDate)) {
 							invoiceDate
@@ -131,7 +130,7 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 							.generateSourceHash(invoiceDate, systemDate,
 									formatedNumber,
 									document.getAmountWithTax(), previousHash));
-					documentEntity.setSourceBilling(sourceBilling);
+					// documentEntity.setSourceBilling(sourceBilling);
 
 					daoInvoice.create(documentEntity);
 

@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.services.builders;
 
 import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
@@ -33,5 +34,5 @@ public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilde
 
 	public TBuilder setSourceHash(String source);
 
-	public TBuilder setSourceBilling(String sourceBilling);
+	public TBuilder setSourceBilling(SourceBilling sourceBilling);
 }

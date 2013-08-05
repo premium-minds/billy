@@ -27,6 +27,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTCreditNoteTestUtil {
@@ -69,6 +70,7 @@ public class PTCreditNoteTestUtil {
 				.setSelfBilled(selfBill).setHash(hash).setDate(new Date())
 				.setSourceId(sourceID).addEntry(creditNoteEntryBuilder)
 				.setBusinessUID(new UID(businessUID))
+				.setSourceBilling(SourceBilling.P)
 				.setCustomerUID(new UID(customerUID));
 
 		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) creditNoteBuilder

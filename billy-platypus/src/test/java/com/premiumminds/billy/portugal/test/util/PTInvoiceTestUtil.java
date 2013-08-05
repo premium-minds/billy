@@ -1,21 +1,20 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy platypus (PT Pack).
- * 
- * billy platypus (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy platypus (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
+ *
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
@@ -34,6 +33,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
@@ -147,6 +147,7 @@ public class PTInvoiceTestUtil {
 				.setSelfBilled(SELFBILL).setDate(DATE).setSourceId(SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID))
+				.setSourceBilling(SourceBilling.P)
 				.setBusinessUID(new UID(businessUID));
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();

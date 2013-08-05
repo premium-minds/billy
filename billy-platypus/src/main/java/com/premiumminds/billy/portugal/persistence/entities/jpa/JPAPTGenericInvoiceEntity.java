@@ -50,7 +50,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	protected String sourceHash;
 
 	@Column(name = "SOURCE_BILLING")
-	protected String sourceBilling;
+	protected SourceBilling sourceBilling;
 
 	@Column(name = "INVOICE_TYPE")
 	protected TYPE type;
@@ -86,7 +86,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	}
 
 	@Override
-	public String getSourceBilling() {
+	public SourceBilling getSourceBilling() {
 		return this.sourceBilling;
 	}
 
@@ -117,7 +117,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	}
 
 	@Override
-	public void setSourceBilling(String sourceBilling) {
+	public void setSourceBilling(SourceBilling sourceBilling) {
 		this.sourceBilling = sourceBilling;
 	}
 

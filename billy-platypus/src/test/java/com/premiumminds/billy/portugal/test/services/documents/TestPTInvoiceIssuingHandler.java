@@ -34,6 +34,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
@@ -41,7 +42,7 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	private static final TYPE DEFAULT_TYPE = TYPE.FT;
-	private static final String SOURCE_BILLING = "P";
+	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
 	private PTInvoiceIssuingHandler handler;
 
