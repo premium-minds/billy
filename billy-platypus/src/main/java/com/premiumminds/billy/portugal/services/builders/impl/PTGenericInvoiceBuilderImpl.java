@@ -108,6 +108,11 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
+		this.validatePTInstance();
+	}
+
+	protected void validatePTInstance() {
+		super.validateDate();
 		PTGenericInvoiceEntity i = this.getTypeInstance();
 
 		BillyValidator.mandatory(i.getSourceId(),

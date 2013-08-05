@@ -275,7 +275,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		this.validateValues();
 	}
 
-	private void validateDate() {
+	protected void validateDate() {
 		// needed to avoid no date in the invoice
 		GenericInvoiceEntity i = this.getTypeInstance();
 		if (i.getDate() == null) {
