@@ -81,8 +81,6 @@ public abstract class AbstractPDFHandler {
 	protected ByteArrayOutputStream getStream(InputStream templateStream,
 			ParamsTree<String, String> documentParams,
 			IBillyTemplateBundle bundle) throws ExportServiceException {
-		System.out.println("==========ENTREI?=================" + bundle
-				+ " outro " + templateStream);
 
 		return (ByteArrayOutputStream) this.getStream(templateStream,
 				documentParams, null, bundle);
@@ -95,19 +93,9 @@ public abstract class AbstractPDFHandler {
 
 		// the XML file from which we take the name
 		Source source = this.mapParamsToSource(documentParams);
-		System.out.println("===========================" + bundle);
-		System.out.println("===========================" + templateStream);
-		if (templateStream == null)
-			System.out.println("TOMATES");
-		else
-			System.out.println("BATATAS");
 		// creation of transform source
 		StreamSource transformSource = new StreamSource(templateStream);
 
-		if (transformSource == null)
-			System.out.println("nabos");
-		else
-			System.out.println("alface");
 		// create an instance of fop factory
 		FopFactory fopFactory = FopFactory.newInstance();
 		// a user agent is needed for transformation
