@@ -25,7 +25,6 @@ import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -33,7 +32,6 @@ import javax.inject.Inject;
 import org.postgresql.util.Base64;
 
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.gin.services.ExportServiceHandler;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
@@ -125,10 +123,6 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements
 
 	public File toFile(PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle)
 			throws ExportServiceException {
-
-		System.out
-				.println("=========================ZEEEEEEEE========================="
-						+ bundle.getXSLTFileStream());
 		return super.toFile(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
@@ -251,6 +245,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements
 					.toPlainString());
 			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
 					.setScale(2, RoundingMode.HALF_UP).toPlainString());
+			
 			Collection<PTTax> list = entry.getTaxes();
 			for (PTTax tax : list) {
 				entryNode
@@ -261,7 +256,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements
 												: "&#8364;"));
 				taxTotals.add(
 						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
-								: false), tax.getValue(), entry.getTaxAmount(),
+								: false), tax.getValue(), entry.getAmountWithoutTax(),
 						tax.getUID().toString());
 			}
 		}
@@ -301,10 +296,10 @@ public class PTInvoicePDFExportHandler extends AbstractPDFHandler implements
 
 	private String getVerificationHashString(byte[] hash) {
 		String hashString = Base64.encodeBytes(hash);
-		String rval = hashString.substring(0, 1);
-		// + hashString.substring(10, 11)
-		// + hashString.substring(20, 21)
-		// + hashString.substring(30, 31);
+		String rval = hashString.substring(0, 1)
+		 + hashString.substring(10, 11)
+		 + hashString.substring(20, 21)
+		 + hashString.substring(30, 31);
 
 		return rval;
 	}

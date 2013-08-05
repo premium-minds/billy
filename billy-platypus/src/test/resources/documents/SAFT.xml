@@ -168,12 +168,12 @@
             <Invoice>
                 <InvoiceNo>FT A/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>Ri+Lusd4l3zIsu51KkAJO8shMvFO7Ly46dU0inxBaI4c9yAgm2K+ua59B7fSGW75FTtlaNFSxqYCTGlwn8tm3CIc2vjCKhnhU/uVx4ifFb0iB2vLcBJOb2IjVP6NZfu5UZk/fCuPn04L+ioc4g7jen7WoW2RxviNsheLg0oPkVc=</Hash>
+                <Hash>OlkyWA3N5g7sJJ+Er4cFDbPR3nVUGyCkkjICT03hSEaI0lpVF5Sl0348+NmDQwSLgB/6JVXHXgnorgJvG4tc626zgoa/6lsAH1Cs6x8K4DS6BLcTYTnmi/MJxG6+WrLN3JRvLUpe7mMoLHmzlcchHQ1fR8aZrZCc+zDQUpezGJ8=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T10:10:46</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T10:12:26</SystemEntryDate>
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -218,12 +218,12 @@
             <Invoice>
                 <InvoiceNo>FT A/2</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>Nj+f1fuZg79wT/C4C55kbh5IGn5h6PTcR83v8GgslnPdHj55LDihjVjIrnjGnrDVJvWZ7dhm/ZIIBRP88KbG43hDzXO1VnAapYXdeC6SMs68qNykxWUI/vttzGCCGVF5WCBr2m7nfpPk28NrJM15TVJxYJQw5Mhm+JKaW3ZLzOY=</Hash>
+                <Hash>YekzaHosG0j1F63+72TcqLAGRGD2WXJx3iYsTn/QzLccL3YC4/y8ffQ8Gn9SnbS4qJTHodMTCVYTQrj9xDRALTeF7AW2FJrpkef3XgTvFJgRkjO0u7BOePYeKKVtSmDtx0H1WKbC164/i91WlNy2xxl4Q9QBHiog//gW2V056tw=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T10:10:47</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T10:12:26</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -268,12 +268,12 @@
             <Invoice>
                 <InvoiceNo>FS S/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>cR59D3utmPeQysUBbI5bSKVTKi6vcg0RTtitTQPZXfqIJxvXM39B/XNtYmo4QgrT8B3VWKf4sJzFEFSf33OhnwsUmC2zIotmigNEm1KcKMGsKHU2YHMan/7pZJF4qy38F7FeE0fiuVRvajfy2RHo2+US7jUeXdb6nY26riGrRzg=</Hash>
+                <Hash>GCMnAdIqW2V04e36hoLNEqZ36LNNX6sv43+mNKRh3keXAg4b4IDxVFXMC5kiqX+hTSW5G9QSP9xmINrUiZOfH3Iuv8VCHLf8iSB+T2ODrTecd7q/o9+BNmma0FPUCFxe5349w+1WvqEyduuFg2QP+2l1yx6zB5/AqWP5VNsTrGQ=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>FS</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T10:10:47</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T10:12:26</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -301,12 +301,12 @@
             <Invoice>
                 <InvoiceNo>NC C/1</InvoiceNo>
                 <InvoiceStatus>N</InvoiceStatus>
-                <Hash>DekiE0l3V+Gv16W2rFNcjlpm9Bn+JY5AnSC610pGwxnowfqgA/6vx8GQktQFis/trj+rFJIiCKLlkl5+CTdDjKeJMAFHJW84yv6Q/qYmF0ln4empHDE/cghr6D1qIIdO3Og51fOddCygfJj1pkMGl1KcKnlFjMhDj/LsmC/3KxY=</Hash>
+                <Hash>KefUt79ke59LgqSLpTmXpZ5ttNZYUrvrLan7+xNIiSwPhDbW/rbkXFjEy34IgHtLaBN8+VwIt7z7CTah4JbNb0DZeejvspYe7+gJWvKUOnj/AWzeFqNWFpKrJUIUZjEWCW2rDXyuj3tDk64FfkXSnGawr+FalEs89FFzZnphzmA=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-05</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
-                <SystemEntryDate>2013-08-05T10:10:47</SystemEntryDate>
+                <SystemEntryDate>2013-08-05T10:12:27</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
