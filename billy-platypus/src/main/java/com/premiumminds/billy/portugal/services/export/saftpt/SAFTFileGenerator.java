@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.export.saftpt;
 
@@ -80,7 +81,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEnti
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
@@ -226,9 +226,10 @@ public class SAFTFileGenerator {
 					List<PTInvoiceEntity> invoices = daoPTInvoice
 							.getBusinessInvoicesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
-					List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
-							.getBusinessSimpleInvoicesForSAFTPT(
-									businessEntity.getUID(), fromDate, toDate);
+					// List<PTSimpleInvoiceEntity> simpleInvoices =
+					// daoPTSimpleInvoice
+					// .getBusinessSimpleInvoicesForSAFTPT(
+					// businessEntity.getUID(), fromDate, toDate);
 					List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
 							.getBusinessCreditNotesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
@@ -236,8 +237,9 @@ public class SAFTFileGenerator {
 					SourceDocuments sd = generateSourceDocuments(
 							invoices == null ? new ArrayList<PTInvoiceEntity>()
 									: invoices,
-							simpleInvoices == null ? new ArrayList<PTSimpleInvoiceEntity>()
-									: simpleInvoices,
+							// simpleInvoices == null ? new
+							// ArrayList<PTSimpleInvoiceEntity>()
+							// : simpleInvoices,
 							creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
 									: creditNotes);
 					SAFTFile.setSourceDocuments(sd);
@@ -497,7 +499,7 @@ public class SAFTFileGenerator {
 	 */
 	private SourceDocuments generateSourceDocuments(
 			List<PTInvoiceEntity> invoices,
-			List<PTSimpleInvoiceEntity> simpleInvoices,
+			// List<PTSimpleInvoiceEntity> simpleInvoices,
 			List<PTCreditNoteEntity> creditNotes)
 			throws DatatypeConfigurationException,
 			RequiredFieldNotFoundException, InvalidDocumentTypeException,
@@ -509,8 +511,9 @@ public class SAFTFileGenerator {
 		SourceDocuments srcDocs = new SourceDocuments();
 		SalesInvoices salesInvoices = new SalesInvoices();
 		salesInvoices.setNumberOfEntries(new BigInteger(Integer
-				.toString(invoices.size() + simpleInvoices.size()
-						+ creditNotes.size())));
+				.toString(invoices.size() +
+				// simpleInvoices.size()+
+						creditNotes.size())));
 
 		BigDecimal totalDebit = BigDecimal.ZERO;
 		BigDecimal totalCredit = BigDecimal.ZERO;
@@ -526,16 +529,16 @@ public class SAFTFileGenerator {
 			}
 		}
 
-		for (PTSimpleInvoiceEntity simpleInvoice : simpleInvoices) {
-			saftInvoice = generateSAFTInvoice(simpleInvoice);
-			processDocument(saftInvoice, simpleInvoice, true);
-			salesInvoices.getInvoice().add(saftInvoice);
-
-			if (!simpleInvoice.isBilled() && !simpleInvoice.isCancelled()) {
-				totalCredit = totalCredit.add(simpleInvoice
-						.getAmountWithoutTax());
-			}
-		}
+		// for (PTSimpleInvoiceEntity simpleInvoice : simpleInvoices) {
+		// saftInvoice = generateSAFTInvoice(simpleInvoice);
+		// processDocument(saftInvoice, simpleInvoice, true);
+		// salesInvoices.getInvoice().add(saftInvoice);
+		//
+		// if (!simpleInvoice.isBilled() && !simpleInvoice.isCancelled()) {
+		// totalCredit = totalCredit.add(simpleInvoice
+		// .getAmountWithoutTax());
+		// }
+		// }
 
 		for (PTCreditNoteEntity creditNote : creditNotes) {
 			saftInvoice = generateSAFTInvoice(creditNote);

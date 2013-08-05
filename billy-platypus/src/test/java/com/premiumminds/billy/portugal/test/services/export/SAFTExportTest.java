@@ -23,6 +23,7 @@ import java.io.PrintStream;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -48,6 +49,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
@@ -62,6 +64,7 @@ import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTCustomerTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTProductTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.GenerateHash;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 
@@ -75,6 +78,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 	private static final String PRODUCT_UID1 = "PRODUCT_UID1";
 	private static final String PRODUCT_UID2 = "PRODUCT_UID2";
 	private static final String INVOICE_UID = "INVOICE_UID";
+	private static final String SIMPLE_INVOICE_UID = "SIMPLE_INVOICE_UID";
 	private static final int MAX_INVOICES = 3;
 
 	@Test
@@ -90,8 +94,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			PTProductTestUtil product = new PTProductTestUtil(injector);
 			PTInvoiceTestUtil invoice = new PTInvoiceTestUtil(injector);
 			PTCreditNoteTestUtil creditNote = new PTCreditNoteTestUtil(injector);
-			// TODO PTSimpleInvoiceTestUtil simpleInvoice = new
-			// PTSimpleInvoiceTestUtil(injector);
+			PTSimpleInvoiceTestUtil simpleInvoice = new PTSimpleInvoiceTestUtil(
+					injector);
 
 			DAOPTRegionContext daoPTRegionContext = injector
 					.getInstance(DAOPTRegionContext.class);
@@ -182,7 +186,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 						TYPE.FT,
 						"A",
 						INVOICE_UID + i,
-						1,
+						i,
 						new Date().toString(),
 						BUSINESS_UID,
 						(i % 2 == 0) ? CUSTOMER_UID : c.getUID(
@@ -199,6 +203,20 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 				invoices.add(invoiceEntity);
 			}
 
+			// SIMPLE INVOICE
+			DAOPTSimpleInvoice daoPTSimpleInvoice = injector
+					.getInstance(DAOPTSimpleInvoice.class);
+			PTSimpleInvoiceEntity simpleInvoiceEntity = simpleInvoice
+					.getInvoiceEntity(TYPE.FS, "S", SIMPLE_INVOICE_UID, 1,
+							new Date().toString(), BUSINESS_UID, CUSTOMER_UID,
+							PRODUCT_UID1);
+			simpleInvoiceEntity.setHash(GenerateHash.generateHash(privateKey,
+					publicKey, simpleInvoiceEntity.getDate(),
+					simpleInvoiceEntity.getCreateTimestamp(),
+					simpleInvoiceEntity.getNumber(),
+					simpleInvoiceEntity.getAmountWithTax(), null));
+			daoPTSimpleInvoice.create(simpleInvoiceEntity);
+
 			// CREDIT NOTE
 			DAOPTCreditNote daoPTCreditNote = injector
 					.getInstance(DAOPTCreditNote.class);
@@ -214,13 +232,14 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					creditNoteEntity.getAmountWithTax(), null));
 			daoPTCreditNote.create(creditNoteEntity);
 
-			DAOPTSimpleInvoice daoPTSimpleInvoice = injector
-					.getInstance(DAOPTSimpleInvoice.class);
 			SAFTFileGenerator generator = new SAFTFileGenerator();
+
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(2013, 1, 1);
 
 			PrintStream stream = new PrintStream(SAFT_OUTPUT + "SAFT.xml");
 			generator.generateSAFTFile(stream, businessEntity,
-					applicationEntity, "1234", new Date(0), new Date(),
+					applicationEntity, "1234", calendar.getTime(), new Date(),
 					daoPTCustomer, daoPTProduct, daoPTTax, daoPTInvoice,
 					daoPTSimpleInvoice, daoPTCreditNote);
 		} catch (Exception e) {
