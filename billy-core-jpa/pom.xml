@@ -37,9 +37,11 @@
 		<java.version>1.6</java.version>
 		<guice.version>3.0</guice.version>
 		<env>DEV</env>
+
 		<querydsl.version>2.9.0</querydsl.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<hibernate.version>4.1.6.Final</hibernate.version>
+		<querydsl.version>3.2.2</querydsl.version>
 
 		<!-- plugins versions -->
 		<plugins.maven-war.version>2.2</plugins.maven-war.version>
@@ -113,6 +115,20 @@
 			<version>1.6.4</version>
 		</dependency>
 
+		<!-- Query DSL -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -181,7 +197,7 @@
 					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
 			</plugin>
-			<plugin>
+<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
 				<executions>
@@ -217,26 +233,26 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- <plugin> -->
-				<!-- <groupId>com.mysema.maven</groupId> -->
-				<!-- <artifactId>maven-apt-plugin</artifactId> -->
-				<!-- <version>1.0.2</version> -->
-				<!-- <executions> -->
-					<!-- <execution> -->
-						<!-- <goals> -->
-							<!-- <goal>process</goal> -->
-							<!-- </goals> -->
-						<!-- <configuration> -->
-							<!-- <outputDirectory>target/generated-sources/java</outputDirectory> -->
-							<!-- <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor> -->
-							<!-- </configuration> -->
-						<!-- </execution> -->
-					<!-- </executions> -->
-				<!-- </plugin> -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>hibernate3-maven-plugin</artifactId>
-				<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration
+				<plugin>
+					<groupId>com.mysema.maven</groupId>
+					<artifactId>apt-maven-plugin</artifactId>
+					<version>1.0.9</version>
+					<executions>
+						<execution>
+							<goals>
+								<goal>process</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>target/generated-sources/java</outputDirectory>
+								<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>hibernate3-maven-plugin</artifactId>
+					<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration
 					persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false"
 					create="true" update="true" format="format" outputfilename="schemaDiff.sql"
 					/> </hibernatetool> </configuration> -->
