@@ -39,19 +39,33 @@ public class JPAPTTaxEntity extends JPATaxEntity implements PTTaxEntity {
 	@Column(name = "VAT_CODE")
 	private PTVATCode vatCode;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "PT_TAX_TYPE")
+	private PTTaxType taxType;
+
 	@Override
 	public Context getContext() {
 		return super.getContext();
 	}
 
 	@Override
-	public PTVATCode getVATCode() {
+	public PTVATCode getPTVATCode() {
 		return vatCode;
+	}
+
+	@Override
+	public PTTaxType getPTTaxType() {
+		return taxType;
 	}
 
 	@Override
 	public void setVATCode(PTVATCode code) {
 		this.vatCode = code;
+	}
+
+	@Override
+	public void setPTTaxType(PTTaxType taxType) {
+		this.taxType = taxType;
 	}
 
 }

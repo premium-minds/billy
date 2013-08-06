@@ -35,4 +35,6 @@ public interface DAOPTTax extends DAOTax {
 	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context,
 			Date validFrom, Date validTo);
 
+	public List<JPAPTTaxEntity> getTaxesForSAFTPT(
+			PTRegionContextEntity context, Date validFrom, Date validTo);
 }

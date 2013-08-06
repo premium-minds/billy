@@ -61,7 +61,7 @@ public class TestPTTaxBuilder extends PTAbstractTest {
 				.setValidFrom(mockTax.getValidFrom())
 				.setValidTo(mockTax.getValidTo())
 				.setTaxRate(mockTax.getTaxRateType(), amount)
-				.setValue(mockTax.getValue()).setVATCode(mockTax.getVATCode());
+				.setValue(mockTax.getValue()).setVATCode(mockTax.getPTVATCode());
 
 		PTTax tax = builder.build();
 

@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal;
 
@@ -47,6 +48,7 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.services.entities.PTTax.PTTaxType;
 import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PlatypusBootstrap {
@@ -159,7 +161,7 @@ public class PlatypusBootstrap {
 									daoPTRegionContext,
 									contextBuilder,
 									"Portugal Continental",
-									"The Context for the country Portugal",
+									"The Context for mainland Portugal",
 									CONTEXT_PORTUGAL.getUID(),
 									PlatypusBootstrap.CODE_PT,
 									Config.Key.Context.Portugal.Continental.UUID);
@@ -348,7 +350,7 @@ public class PlatypusBootstrap {
 							.buildContextEntity(daoPTRegionContext,
 									contextBuilder, "Azores",
 									"The Context for the Portuguese Azores",
-									CONTEXT_CONTINENTAL_PORTUGAL.getUID(),
+									CONTEXT_PORTUGAL.getUID(),
 									PlatypusBootstrap.CODE_PT_AZORES,
 									Config.Key.Context.Portugal.Azores.UUID);
 
@@ -358,7 +360,7 @@ public class PlatypusBootstrap {
 									contextBuilder,
 									"Madeira Autonomous Region",
 									"The Context for the Portuguese Madeira island",
-									CONTEXT_CONTINENTAL_PORTUGAL.getUID(),
+									CONTEXT_PORTUGAL.getUID(),
 									PlatypusBootstrap.CODE_PT_MADEIRA,
 									Config.Key.Context.Portugal.Madeira.UUID);
 
@@ -371,7 +373,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"NOR",
 									CONTEXT_CONTINENTAL_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Normal Continente",
@@ -380,6 +382,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.NORMAL,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Continental.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.NORMAL_UUID);
 
@@ -387,7 +390,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"INT",
 									CONTEXT_CONTINENTAL_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Intermedio Continente",
@@ -396,6 +399,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.INTERMEDIATE,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_UUID);
 
@@ -403,7 +407,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"RED",
 									CONTEXT_CONTINENTAL_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Reduzido Continente",
@@ -412,6 +416,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.REDUCED,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Continental.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Continental.VAT.REDUCED_UUID);
 
@@ -420,7 +425,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"NOR",
 									CONTEXT_MADEIRA_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Normal Madeira",
@@ -429,6 +434,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.NORMAL,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.NORMAL_UUID);
 
@@ -436,7 +442,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"INT",
 									CONTEXT_MADEIRA_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Intermedio Madeira",
@@ -445,6 +451,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.INTERMEDIATE,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_UUID);
 
@@ -452,7 +459,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"RED",
 									CONTEXT_MADEIRA_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Reduzido Madeira",
@@ -461,6 +468,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.REDUCED,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Madeira.VAT.REDUCED_UUID);
 
@@ -468,7 +476,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"NOR",
 									CONTEXT_AZORES_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Normal Azores",
@@ -477,6 +485,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.NORMAL,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Azores.VAT.NORMAL_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.NORMAL_UUID);
 
@@ -485,7 +494,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"INT",
 									CONTEXT_AZORES_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Intermedio Azores",
@@ -494,6 +503,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.INTERMEDIATE,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_UUID);
 
@@ -501,7 +511,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"RED",
 									CONTEXT_AZORES_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"IVA Reduzido Azores",
@@ -510,6 +520,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.REDUCED,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_PERCENT,
 									Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID);
 
@@ -517,7 +528,7 @@ public class PlatypusBootstrap {
 							.buildTaxEntity(
 									daoPTTax,
 									taxBuilder,
-									"IVA",
+									"ISE",
 									CONTEXT_PORTUGAL,
 									Currency.getInstance("EUR"),
 									"Isento de IVA",
@@ -526,6 +537,7 @@ public class PlatypusBootstrap {
 									from,
 									to,
 									PTVATCode.EXEMPT,
+									PTTaxType.VAT,
 									Config.Key.Context.Portugal.TAX_EXEMPT_VALUE,
 									Config.Key.Context.Portugal.TAX_EXEMPT_UUID);
 
@@ -580,7 +592,8 @@ public class PlatypusBootstrap {
 						PTRegionContextEntity context, Currency currency,
 						String description, String designation,
 						Tax.TaxRateType type, Date validFrom, Date validTo,
-						PTVATCode code, String valueKey, String key) {
+						PTVATCode code, PTTaxType taxType, String valueKey,
+						String key) {
 
 					BigDecimal amount = new BigDecimal(
 							configuration.get(valueKey));
@@ -592,7 +605,7 @@ public class PlatypusBootstrap {
 							.setDesignation(designation)
 							.setTaxRate(type, amount).setValidFrom(validFrom)
 							.setValidTo(validTo).setValue(amount)
-							.setVATCode(code);
+							.setVATCode(code).setPTTaxtType(taxType);
 
 					final PTTaxEntity tax = (PTTaxEntity) taxBuilder.build();
 

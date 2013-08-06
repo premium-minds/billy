@@ -40,6 +40,12 @@ public interface PTTax extends Tax {
 		REDUCED, INTERMEDIATE, NORMAL, EXEMPT, OTHER
 	}
 
-	public PTVATCode getVATCode();
+	public enum PTTaxType {
+		VAT, STAMP_DUTY, NONE
+	}
+
+	public PTVATCode getPTVATCode();
+
+	public PTTaxType getPTTaxType();
 
 }
