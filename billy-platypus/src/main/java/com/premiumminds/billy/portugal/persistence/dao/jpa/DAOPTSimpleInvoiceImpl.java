@@ -29,7 +29,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
@@ -54,20 +53,6 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 	@Override
 	protected Class<JPAPTSimpleInvoiceEntity> getEntityClass() {
 		return JPAPTSimpleInvoiceEntity.class;
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public PTSimpleInvoiceEntity getLatestInvoiceFromSeries(String series)
-			throws BillyRuntimeException {
-
-		List<Object[]> list = findLastestUID(series);
-
-		if (list.size() != 0)
-			return (PTSimpleInvoiceEntity) this.get(new UID((String) list
-					.get(0)[0]));
-		else
-			throw new BillyRuntimeException();
 	}
 
 	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(

@@ -18,15 +18,11 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceImpl;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity;
@@ -49,16 +45,4 @@ public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
 		return JPAPTGenericInvoiceEntity.class;
 	}
 
-	@Override
-	public PTGenericInvoiceEntity getLatestInvoiceFromSeries(String series)
-			throws BillyRuntimeException {
-
-		List<Object[]> list = findLastestUID(series);
-
-		if (list.size() != 0)
-			return (PTGenericInvoiceEntity) this.get(new UID((String) list
-					.get(0)[0]));
-		else
-			throw new BillyRuntimeException();
-	}
 }

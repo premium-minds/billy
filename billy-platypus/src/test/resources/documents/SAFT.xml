@@ -169,17 +169,17 @@
                 <InvoiceNo>FT A/1</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-06T14:54:59.035+01:00</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-06T15:50:27.382+01:00</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>nSA8jmErz1mKeELBmZ57Hts5n/F9RA2JLzVmtEdDOmq9rs9F2xoo4PH+SvWFOeZJWF1XydjDPfHopKywSZL4YE0AJzwwBu/0KE2UY9PCLGL3nhyovLcHDIOtSm9ZHITnzN/QU/KHgGQ4jctp6p8cTGuUHSP/KvNb2c1gWjAppfs=</Hash>
+                <Hash>LQDO4TfZKZpBMmQQLtCGpv1Q2PPokiT5uSzJ5Ios2J4YWt+GmgS+IOzRazh0imhej75gDBSa54fe6k5tKdbJtDPXX12IQmm8McfRY7VXLKlIzKjM1MqBCetgrBhrQUgQvy3W8L5y7gcJmmrUWmio7+A8hnZF0iXeZi45STD63yY=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-06</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-06T14:54:59</SystemEntryDate>
+                <SystemEntryDate>2013-08-06T15:50:34</SystemEntryDate>
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -293,17 +293,17 @@
                 <InvoiceNo>FT A/2</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-06T14:54:59.035+01:00</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-06T15:50:27.382+01:00</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>ak4NBSLbkopg80tHLkzPJ5pT7Bb9rop8MApvz06+LUGUsJZVeHwGksk+49dA2S+BKzKxrQKeTSGunmX8qRfSuyzwbtqMn3qlUP7rn4NR+HFb1blnzBSc2/Xmy7DZjVjITZGS7czmok7Rq3+QA7pOvOt/3+MWteEgkcWNGobsAfo=</Hash>
+                <Hash>SYFhLRXQnUQl1ZLHQDTH5DpvMLzuRKBIv13AkEc766RCHsaFqv58i9yEeUpwmJwwIBVea0PWekAJPc+u/55iTrmdZEE7IaS4iSkGAM29cKlXQ3RqsOPWmFuakvRMnZ3mVMAPc4qsil2aSZPjp1s64N/SqBjW3QOjVn+iLsCBFBg=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-06</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-06T14:54:59</SystemEntryDate>
+                <SystemEntryDate>2013-08-06T15:50:34</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -417,17 +417,17 @@
                 <InvoiceNo>FS S/1</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-06T14:54:59.035+01:00</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-06T15:50:27.382+01:00</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>fETNb2bP0RtA010690EjR8XF5//akGNXNpAbyUWo7G6AAoWryHaiHrcI5Rs4NVz+NVUVxaL5GMwf9YDmAFKkK62Yz0s/2491d4Sq1XPultoANZPNM+z14Y31EIlr8W5F7YWrkzyXX/2DkfQnUfFOVMrPk5ycmGiR0GPL6ZUkNLs=</Hash>
+                <Hash>tw/wWuA6/x3lZB0kmHFoOEbrAwZKa4w3WR5q755HtN68hCyosE+2U4PEi4zGiXoHydBhM90O4CkJjPFe4CaGHbDW+NeaVcrUah+f8io8sB6aZpdBGq5dneX9cbtAZUMvPyMKiPqufVcFE+hyhZoltkaKZtVRtDnafN7vxVb1khQ=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-06</InvoiceDate>
                 <InvoiceType>FS</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-06T14:54:59</SystemEntryDate>
+                <SystemEntryDate>2013-08-06T15:50:34</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -473,17 +473,17 @@
                 <InvoiceNo>NC C/1</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-06T14:54:59.838+01:00</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-06T15:50:34.516+01:00</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>NIUZvtqNfmUZjXc/sJWL85prAVXDqvXLepvhasmgyQfsGVIW4KdRjLU6fytbiKjmDzrvq/Ae2xvcJSXamAYcHK/fvGcsbuMqurqb6yz8zDTXd3VinGPTTlFEdWdCdMgmLYCslDjMj7syW3ciggfHvnvzQUVd/ReQHRZUIMSUSis=</Hash>
+                <Hash>qhVT6SlsWeXdNM6xBcEC7iHViaT/QqswrK8IRcU+oXtLYOXhA3yVc4ndKH6joI+EWZcSTRobMTn/nB56yN548Henatd/4HOTIzGL0fF3+HVe/UEuTHP1crrimNUQx0xuwHnDl0HgHF6UfHMAykK4J3LxGMG0G+WPS0jSsVhhzt4=</Hash>
                 <Period>7</Period>
                 <InvoiceDate>2013-08-06</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-06T14:54:59</SystemEntryDate>
+                <SystemEntryDate>2013-08-06T15:50:34</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
