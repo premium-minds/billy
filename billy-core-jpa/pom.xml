@@ -251,8 +251,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>hibernate3-maven-plugin</artifactId>
-					<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false" create="true" update="true" format="format" outputfilename="schemaDiff.sql"
-					 /> </hibernatetool> </configuration> -->
+					<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false" create="true" update="true" format="format" outputfilename="schemaDiff.sql" /> </hibernatetool> </configuration> -->
 				<version>2.2</version>
 				<configuration>
 					<components>
