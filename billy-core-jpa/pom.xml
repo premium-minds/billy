@@ -14,10 +14,9 @@
   ~ GNU Lesser General Public License for more details.
   ~
   ~ You should have received a copy of the GNU Lesser General Public License
-  ~ along with billy-core-jpa.  If not, see <http://www.gnu.org/licenses/>.
+  ~ along with billy-core-jpa.  If not, see <http://www.gnu.org/licenses />.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy-core-jpa</artifactId>
 	<name>billy core JPA</name>
@@ -26,7 +25,7 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0</version>
 	</parent>
 
 	<properties>
@@ -51,7 +50,7 @@
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- PERSISTENCE -->
@@ -252,10 +251,7 @@
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>hibernate3-maven-plugin</artifactId>
-					<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration
-					persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false"
-					create="true" update="true" format="format" outputfilename="schemaDiff.sql"
-					/> </hibernatetool> </configuration> -->
+					<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false" create="true" update="true" format="format" outputfilename="schemaDiff.sql" /> </hibernatetool> </configuration> -->
 				<version>2.2</version>
 				<configuration>
 					<components>
