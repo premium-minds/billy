@@ -7,9 +7,8 @@
 	the implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 	See the ~ GNU Lesser General Public License for more details. ~ ~ You should
 	have received a copy of the GNU Lesser General Public License ~ along with
-	billy-platypus. If not, see <http://www.gnu.org/licenses/>. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	billy-platypus. If not, see <http://www.gnu.org/licenses />. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy-platypus</artifactId>
 	<name>billy platypus (PT Pack)</name>
@@ -18,7 +17,7 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>1.0</version>
 	</parent>
 	<properties>
 
@@ -44,19 +43,19 @@
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core-jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-gin</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- PERSISTENCE -->
@@ -300,7 +299,7 @@
 				<configuration>
 					<schemaDirectory>src/main/resources/documents</schemaDirectory>
 					<bindingDirectory>src/main/resources/documents</bindingDirectory>
-					<generateDirectory></generateDirectory>
+					<generateDirectory />
 					<generatePackage>com.premiumminds.billy.platypus.services.export.saftpt.schema</generatePackage>
 					<strict>false</strict>
 					<extension>true</extension>
