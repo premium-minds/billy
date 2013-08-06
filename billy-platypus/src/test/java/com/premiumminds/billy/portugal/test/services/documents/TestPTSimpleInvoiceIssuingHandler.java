@@ -21,8 +21,6 @@ package com.premiumminds.billy.portugal.test.services.documents;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,7 +32,6 @@ import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuing
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
-import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 
 public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
@@ -43,21 +40,14 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	private PTSimpleInvoiceIssuingHandler handler;
 
-	protected PTSimpleInvoiceEntity newInvoice(String invoiceUID,
-			String productUID, TYPE type, String businessUID, String customerUID) {
-
-		return new PTSimpleInvoiceTestUtil(injector).getSimpleInvoiceEntity(
-				type, ENTRY_UID, invoiceUID, businessUID, customerUID,
-				Arrays.asList(productUID));
-	}
-
 	@Before
 	public void setUpNewSimpleInvoice() {
 		handler = getInstance(PTSimpleInvoiceIssuingHandler.class);
 
 		try {
-			PTSimpleInvoiceEntity invoice = newInvoice(INVOICE_UID,
-					PRODUCT_UID, DEFAULT_TYPE, BUSINESS_UID, CUSTOMER_UID);
+			PTSimpleInvoiceEntity invoice = newInvoice(DEFAULT_TYPE,
+					INVOICE_UID, PRODUCT_UID, BUSINESS_UID, CUSTOMER_UID,
+					SOURCE_BILLING);
 
 			issueNewInvoice(handler, invoice, DEFAULT_SERIES);
 		} catch (DocumentIssuingException e) {
@@ -76,4 +66,5 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		assertEquals(formatedNumber, issuedInvoice.getNumber());
 		assertEquals(SOURCE_BILLING, issuedInvoice.getSourceBilling());
 	}
+
 }

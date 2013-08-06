@@ -34,8 +34,10 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
+import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidSourceBillingException;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.util.GenerateHash;
 
@@ -61,8 +63,8 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 
 	protected <T extends GenericInvoice, D extends DAOPTGenericInvoice> T issue(
 			final T document, final PTIssuingParams parametersPT,
-			final D daoInvoice, final TYPE invoiceType,
-			final String sourceBilling) throws DocumentIssuingException {
+			final D daoInvoice, final TYPE invoiceType)
+			throws DocumentIssuingException {
 		try {
 			return new TransactionWrapper<T>(daoInvoice) {
 
@@ -70,9 +72,12 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 				public T runTransaction() throws Exception {
 					PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
 					TYPE documentType = ((PTGenericInvoice) document).getType();
+					SourceBilling sourceBilling = ((PTGenericInvoice) document)
+							.getSourceBilling();
 					Date invoiceDate = document.getDate();
 					Date systemDate = document.getCreateTimestamp();
 					String series = parametersPT.getInvoiceSeries();
+
 					Integer seriesNumber;
 					String previousHash;
 
@@ -89,12 +94,12 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 						validateDocumentType(documentType,
 								latestInvoice.getType(), series);
 
-						// if (!latestInvoice.getSourceBilling().equals(
-						// sourceBilling)) {
-						// throw new InvalidSourceBillingException(series,
-						// sourceBilling,
-						// latestInvoice.getSourceBilling());
-						// }
+						if (!latestInvoice.getSourceBilling().equals(
+								sourceBilling)) {
+							throw new InvalidSourceBillingException(series,
+									sourceBilling.toString(), latestInvoice
+											.getSourceBilling().toString());
+						}
 
 						if (latestInvoiceDate.after(invoiceDate)) {
 							invoiceDate

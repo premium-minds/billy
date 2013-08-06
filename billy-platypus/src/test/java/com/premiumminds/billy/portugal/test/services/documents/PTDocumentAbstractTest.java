@@ -18,20 +18,25 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
+import java.util.Arrays;
 import java.util.Date;
 
 import org.junit.Before;
 
+import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
+import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 
-public abstract class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
+public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	protected static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
 	protected static final String PRODUCT_UID = "PRODUCT_ISSUE_UID";
@@ -53,9 +58,30 @@ public abstract class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	}
 
-	protected abstract <T extends PTGenericInvoiceEntity> T newInvoice(
-			String invoiceUID, String productUID, TYPE type,
-			String businessUID, String customerUID);
+	@SuppressWarnings("unchecked")
+	protected <T extends PTGenericInvoiceEntity> T newInvoice(TYPE type,
+			String invoiceUID, String productUID, String businessUID,
+			String customerUID, SourceBilling billing) {
+
+		switch (type) {
+			case FT:
+				return (T) new PTInvoiceTestUtil(injector)
+						.getSimpleInvoiceEntity(type, ENTRY_UID, invoiceUID,
+								businessUID, customerUID,
+								Arrays.asList(productUID), billing);
+			case FS:
+				return (T) new PTSimpleInvoiceTestUtil(injector)
+						.getSimpleInvoiceEntity(type, ENTRY_UID, invoiceUID,
+								businessUID, customerUID,
+								Arrays.asList(productUID), billing);
+			case NC:
+				throw new NotImplementedException();
+			case ND:
+				throw new NotImplementedException();
+			default:
+				return null;
+		}
+	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)

@@ -33,7 +33,6 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
 		implements DocumentIssuingHandler {
 
 	public final static TYPE INVOICE_TYPE = TYPE.NC;
-	public final static String SOURCE_BILLING = "P";
 
 	@Inject
 	public PTCreditNoteIssuingHandler(Injector injector) {
@@ -49,7 +48,6 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
 		final DAOPTCreditNote daoInvoice = this.injector
 				.getInstance(DAOPTCreditNote.class);
 
-		return issue(document, parametersPT, daoInvoice, INVOICE_TYPE,
-				SOURCE_BILLING);
+		return issue(document, parametersPT, daoInvoice, INVOICE_TYPE);
 	}
 }

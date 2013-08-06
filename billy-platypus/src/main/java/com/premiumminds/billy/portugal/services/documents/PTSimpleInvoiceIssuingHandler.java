@@ -33,7 +33,6 @@ public class PTSimpleInvoiceIssuingHandler extends
 		PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
 
 	public final static TYPE INVOICE_TYPE = TYPE.FS;
-	public final static String SOURCE_BILLING = "P";
 
 	@Inject
 	public PTSimpleInvoiceIssuingHandler(Injector injector) {
@@ -48,8 +47,7 @@ public class PTSimpleInvoiceIssuingHandler extends
 		final DAOPTSimpleInvoice daoInvoice = this.injector
 				.getInstance(DAOPTSimpleInvoice.class);
 
-		return issue(document, parametersPT, daoInvoice, INVOICE_TYPE,
-				SOURCE_BILLING);
+		return issue(document, parametersPT, daoInvoice, INVOICE_TYPE);
 	}
 
 }
