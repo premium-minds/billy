@@ -20,66 +20,29 @@ package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
 import java.io.InputStream;
 
-import com.premiumminds.billy.portugal.services.export.pdf.AbstractPTTemplateBundle;
+import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
 import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
 
-public class PTCreditNoteTemplateBundle extends AbstractPTTemplateBundle
-		implements IBillyPTTemplateBundle {
-
-	private final String logoImagePath;
-	private final InputStream xsltFileStream;
-	private final String pdfFilePath;
-	private final String businessEmail;
-	private final String businessPhone;
-	private final String businessFax;
+public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle implements
+		IBillyPTTemplateBundle {
+	private static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
 	private final String softwareCertificationId;
 
 	public PTCreditNoteTemplateBundle(String logoImagePath,
-			InputStream xsltFileStream, String pdfFilePath,
-			String businessEmail, String businessPhone, String businessFax,
-			String softwareCertificationId) {
-		this.logoImagePath = logoImagePath;
-		this.xsltFileStream = xsltFileStream;
-		this.pdfFilePath = pdfFilePath;
-		this.businessEmail = businessEmail;
-		this.businessPhone = businessPhone;
-		this.businessFax = businessFax;
+			InputStream xsltFileStream, String softwareCertificationId) {
+
+		super(logoImagePath, xsltFileStream);
 		this.softwareCertificationId = softwareCertificationId;
-
 	}
 
 	@Override
-	public String getLogoImagePath() {
-		return this.logoImagePath;
-	}
-
-	@Override
-	public InputStream getXSLTFileStream() {
-		return this.xsltFileStream;
-	}
-
-	@Override
-	public String getResultingPdfFilePath() {
-		return this.pdfFilePath;
-	}
-
-	@Override
-	public String getBusinessEmailContact() {
-		return this.businessEmail;
-	}
-
-	@Override
-	public String getBusinessPhoneContact() {
-		return this.businessPhone;
-	}
-
-	@Override
-	public String getBusinessFaxContact() {
-		return this.businessFax;
+	public String getGenericCustomer() {
+		return GENERIC_CUSTOMER_TEXT;
 	}
 
 	@Override
 	public String getSoftwareCertificationId() {
-		return this.softwareCertificationId;
+		return softwareCertificationId;
 	}
+
 }

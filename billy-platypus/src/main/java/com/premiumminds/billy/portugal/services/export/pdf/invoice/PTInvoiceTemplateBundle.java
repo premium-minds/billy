@@ -20,66 +20,29 @@ package com.premiumminds.billy.portugal.services.export.pdf.invoice;
 
 import java.io.InputStream;
 
-import com.premiumminds.billy.portugal.services.export.pdf.AbstractPTTemplateBundle;
+import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
 import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
 
-public class PTInvoiceTemplateBundle extends AbstractPTTemplateBundle implements
+public class PTInvoiceTemplateBundle extends AbstractTemplateBundle implements
 		IBillyPTTemplateBundle {
-
-	private final String logoImagePath;
-	private final InputStream xsltFileStream;
-	private final String pdfFilePath;
-	private final String businessEmail;
-	private final String businessPhone;
-	private final String businessFax;
+	private static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
 	private final String softwareCertificationId;
 
+
 	public PTInvoiceTemplateBundle(String logoImagePath,
-			InputStream xsltFileStream, String pdfFilePath,
-			String businessEmail, String businessPhone, String businessFax,
-			String softwareCertificationId) {
-		this.logoImagePath = logoImagePath;
-		this.xsltFileStream = xsltFileStream;
-		this.pdfFilePath = pdfFilePath;
-		this.businessEmail = businessEmail;
-		this.businessPhone = businessPhone;
-		this.businessFax = businessFax;
+			InputStream xsltFileStream,	String softwareCertificationId) {
+		
+		super(logoImagePath, xsltFileStream);
 		this.softwareCertificationId = softwareCertificationId;
 	}
-
 	@Override
-	public String getLogoImagePath() {
-		return logoImagePath;
-	}
-
-	@Override
-	public InputStream getXSLTFileStream() {
-		return xsltFileStream;
-	}
-
-	@Override
-	public String getBusinessEmailContact() {
-		return businessEmail;
-	}
-
-	@Override
-	public String getBusinessPhoneContact() {
-		return businessPhone;
-	}
-
-	@Override
-	public String getBusinessFaxContact() {
-		return businessFax;
+	public String getGenericCustomer() {
+		return GENERIC_CUSTOMER_TEXT;
 	}
 
 	@Override
 	public String getSoftwareCertificationId() {
 		return softwareCertificationId;
-	}
-
-	@Override
-	public String getResultingPdfFilePath() {
-		return this.pdfFilePath;
 	}
 
 }

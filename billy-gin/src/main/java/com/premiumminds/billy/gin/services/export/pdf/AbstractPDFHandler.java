@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
+import java.net.URI;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
@@ -47,9 +48,6 @@ import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 
 public abstract class AbstractPDFHandler {
-
-	public AbstractPDFHandler() {
-	}
 
 	private Source mapParamsToSource(ParamsTree<String, String> documentParams) {
 		StreamSource source = new StreamSource(new StringReader(
@@ -129,11 +127,13 @@ public abstract class AbstractPDFHandler {
 		}
 	}
 
-	public File toFile(InputStream templateStream,
+	public File toFile(
+			URI fileURI,
+			InputStream templateStream,
 			ParamsTree<String, String> documentParams,
 			IBillyTemplateBundle bundle) throws ExportServiceException {
 		// if you want to save PDF file use the following code
-		File pdffile = new File(bundle.getResultingPdfFilePath());
+		File pdffile = new File(fileURI);
 		OutputStream out;
 		try {
 			out = new FileOutputStream(pdffile);
@@ -149,14 +149,6 @@ public abstract class AbstractPDFHandler {
 			throw new ExportServiceException(
 					"IO error while saving the pdf file", e);
 		}
-		// to write the content to out put stream
-		// byte[] pdfBytes = outStream.toByteArray();
-		// response.setContentLength(pdfBytes.length);
-		// response.setContentType("application/pdf");
-		// response.addHeader("Content-Disposition",
-		// "attachment;filename=pdffile.pdf");
-		// response.getOutputStream().write(pdfBytes);
-		// response.getOutputStream().flush();
 	}
 
 	private Transformer getTransformer(StreamSource streamSource) {

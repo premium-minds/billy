@@ -19,25 +19,19 @@
 package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.gin.services.ExportServiceRequest;
+import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
+import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoiceTemplateBundle;
 
-public class PDFPTCreditNoteExportRequest implements ExportServiceRequest {
+public class PDFPTCreditNoteExportRequest extends AbstractExportRequest{
 
-	protected UID uid;
-	protected PTCreditNoteTemplateBundle bundle;
+	private PTInvoiceTemplateBundle bundle;
 
-	public PDFPTCreditNoteExportRequest(UID uid,
-			PTCreditNoteTemplateBundle bundle) {
-		this.uid = uid;
-		this.bundle = bundle;
-	}
-
-	public UID getCreditNoteUID() {
-		return uid;
+	public PDFPTCreditNoteExportRequest(UID uid, PTCreditNoteTemplateBundle bundle) {
+		super(uid, bundle);
 	}
 
 	@Override
-	public PTCreditNoteTemplateBundle getBundle() {
+	public PTInvoiceTemplateBundle getBundle() {
 		return this.bundle;
 	}
 }

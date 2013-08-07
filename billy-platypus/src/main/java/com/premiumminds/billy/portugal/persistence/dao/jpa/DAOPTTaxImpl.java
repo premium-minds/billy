@@ -56,6 +56,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
 	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context,
 			Date validFrom, Date validTo) {
+		List<JPAPTTaxEntity> list = null;
 		EntityManager em = this.getEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 
@@ -64,7 +65,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 		Root<JPAPTTaxEntity> tax = cq.from(JPAPTTaxEntity.class);
 
 		cq.select(tax);
-		cq.where(cb.and(null, cb.equal(tax.get(JPAPTTaxEntity_.validFrom),
+		cq.where(cb.and(cb.equal(tax.get(JPAPTTaxEntity_.validFrom),
 				validFrom),
 				cb.equal(tax.get(JPAPTTaxEntity_.validTo), validTo), cb
 						.lessThanOrEqualTo(tax.get(JPAPTTaxEntity_.validTo),
@@ -72,7 +73,11 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 						tax.get(JPAPTTaxEntity_.active), true), cb.equal(
 						tax.get(JPAPTTaxEntity_.context), context)));
 		TypedQuery<JPAPTTaxEntity> q = em.createQuery(cq);
-		List<JPAPTTaxEntity> list = q.getResultList();
+		list = q.getResultList();
+		if(context.getParentContext() != null){
+			list.addAll(getTaxes((PTRegionContextEntity)context.getParentContext(), validFrom, validTo));
+		}
+		
 		return list;
 	}
 

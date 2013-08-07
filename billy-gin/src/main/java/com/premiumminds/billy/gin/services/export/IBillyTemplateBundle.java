@@ -37,18 +37,4 @@ public interface IBillyTemplateBundle {
 	 */
 	public InputStream getXSLTFileStream();
 
-	/**
-	 * returns the path for the resulting pdf file, if applicable.
-	 * 
-	 * @return The path of the destination file.
-	 */
-	public String getResultingPdfFilePath();
-
-	public String getBusinessEmailContact();
-
-	public String getBusinessPhoneContact();
-
-	public String getBusinessFaxContact();
-
-	public String getSoftwareCertificationId();
 }

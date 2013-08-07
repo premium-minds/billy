@@ -21,6 +21,8 @@ package com.premiumminds.billy.portugal.test.services.export;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
@@ -29,6 +31,7 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -42,13 +45,8 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest{
 	public static final int NUM_ENTRIES = 10; 
 	public static final String XSL_PATH = "src/main/resources/pt_creditnote.xsl";
-	public static final String PDF_PATH = "src/main/resources/Result.pdf";
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-
-	public static final String BUSINESS_EMAIL = "testmail@premium-minds.com";
-	public static final String BUSINESS_PHONE = "21 123 1234";
-	public static final String BUSINESS_FAX = "21 321 4321";
-	public static final String CUSTOMER_NUMBER = "123456";
+	
 	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 	public static final byte[] SAMPLE_HASH = {0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
 		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
@@ -61,13 +59,14 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest{
 		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf};
 	
 	@Test
-	public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, FileNotFoundException {
+	public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, FileNotFoundException, URISyntaxException {
 		InputStream xsl = new FileInputStream(XSL_PATH);
 		
 		PTCreditNoteTemplateBundle bundle = 
-				new PTCreditNoteTemplateBundle(LOGO_PATH, xsl, PDF_PATH, BUSINESS_EMAIL, BUSINESS_PHONE, BUSINESS_FAX, SOFTWARE_CERTIFICATE_NUMBER);
-		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler();
-		handler.toFile(generatePTCreditNote(PaymentMechanism.CASH), bundle);
+				new PTCreditNoteTemplateBundle(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
+		
+		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(injector.getInstance(DAOPTCreditNote.class));
+		handler.toFile(new URI("src/main/resources/Result.pdf"), generatePTCreditNote(PaymentMechanism.CASH), bundle);
 	}
 
 	private PTCreditNoteEntity generatePTCreditNote(PaymentMechanism paymentMechanism) {
