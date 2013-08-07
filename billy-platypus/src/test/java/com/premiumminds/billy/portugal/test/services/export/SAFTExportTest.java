@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
@@ -31,16 +32,14 @@ import org.junit.Test;
 
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
@@ -50,6 +49,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
@@ -65,6 +65,7 @@ import com.premiumminds.billy.portugal.test.util.PTCustomerTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTProductTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTSupplierTestUtil;
 import com.premiumminds.billy.portugal.util.GenerateHash;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 
@@ -75,6 +76,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 	private static final String BUSINESS_UID = "BUSINESS_UID";
 	private static final String CUSTOMER_UID = "CUSTOMER_UID";
+	private static final String SUPPLIER_UID = "SUPPLIER_UID";
 	private static final String PRODUCT_UID1 = "PRODUCT_UID1";
 	private static final String PRODUCT_UID2 = "PRODUCT_UID2";
 	private static final String INVOICE_UID = "INVOICE_UID";
@@ -91,6 +93,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					injector);
 			PTBusinessTestUtil business = new PTBusinessTestUtil(injector);
 			PTCustomerTestUtil customer = new PTCustomerTestUtil(injector);
+			PTSupplierTestUtil supplier = new PTSupplierTestUtil(injector);
 			PTProductTestUtil product = new PTProductTestUtil(injector);
 			PTInvoiceTestUtil invoice = new PTInvoiceTestUtil(injector);
 			PTCreditNoteTestUtil creditNote = new PTCreditNoteTestUtil(injector);
@@ -103,8 +106,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					.get(c.getUID(Config.Key.Context.Portugal.UUID));
 
 			/* ADDRESSES */
-			DAOPTAddress daoPTAddress = injector
-					.getInstance(DAOPTAddress.class);
+			// DAOPTAddress daoPTAddress = injector
+			// .getInstance(DAOPTAddress.class);
 			PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
 					"Av. Republica", "Nº 3 - 3º Esq.",
 					"Av. Republica Nº 3 - 3º Esq.", "", "Lisboa", "1700-232",
@@ -118,8 +121,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					"Lisboa", "1000-253", "", "PT");
 
 			/* CONTACTS */
-			DAOPTContact daoPTContact = injector
-					.getInstance(DAOPTContact.class);
+			// DAOPTContact daoPTContact = injector
+			// .getInstance(DAOPTContact.class);
 			PTContact.Builder contactBuilder = contact.getContactBuilder(
 					"My Business", "299999999", "999999999", "299999998",
 					"mybusiness@email.me", "http://www.mybusiness.web");
@@ -128,9 +131,14 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					"299999991", "999999991", "299999992", "maildoze@email.me",
 					"http://www.zenaweb.web");
 
+			PTContact.Builder contactBuilder3 = contact.getContactBuilder(
+					"YourSupplier", "299999993", "999999993", "299999994",
+					"maildoyourbusiness@email.me",
+					"http://www.yourbusinessnaweb.web");
+
 			/* APPLICATION */
-			DAOPTApplication daoPTApplication = injector
-					.getInstance(DAOPTApplication.class);
+			// DAOPTApplication daoPTApplication = injector
+			// .getInstance(DAOPTApplication.class);
 			PTApplication.Builder applicationBuilder = application
 					.getApplicationBuilder("APP", "1.0", "My Business",
 							"523456789", "hhtp://www.app.mybusiness.web", 1,
@@ -156,6 +164,15 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 			PTCustomerEntity genericCustomerEntity = (PTCustomerEntity) daoPTCustomer
 					.get(c.getUID(Config.Key.Customer.Generic.UUID));
+
+			/* SUPPLIERS */
+			DAOPTSupplier daoPTSupplier = injector
+					.getInstance(DAOPTSupplier.class);
+
+			PTSupplierEntity supplierEntity = supplier.getSupplierEntity(
+					SUPPLIER_UID, "YourSupplier", "5324532453", false,
+					addressBuilder3, contactBuilder3);
+			daoPTSupplier.create(supplierEntity);
 
 			/* TAXES */
 			DAOPTTax daoPTTax = injector.getInstance(DAOPTTax.class);
@@ -241,8 +258,9 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			PrintStream stream = new PrintStream(SAFT_OUTPUT + "SAFT.xml");
 			generator.generateSAFTFile(stream, businessEntity,
 					applicationEntity, "1234", calendar.getTime(), new Date(),
-					daoPTCustomer, daoPTProduct, daoPTTax, daoPTRegionContext,
-					daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
+					daoPTCustomer, daoPTSupplier, daoPTProduct, daoPTTax,
+					daoPTRegionContext, daoPTInvoice, daoPTSimpleInvoice,
+					daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

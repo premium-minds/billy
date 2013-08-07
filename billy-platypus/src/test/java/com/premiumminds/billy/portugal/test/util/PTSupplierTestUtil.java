@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
@@ -43,22 +44,31 @@ public class PTSupplierTestUtil {
 	}
 
 	public PTSupplierEntity getSupplierEntity() {
-		PTSupplier.Builder supplierBuilder = injector
-				.getInstance(PTSupplier.Builder.class);
+
 		PTAddress.Builder addressBuilder = address.getAddressBuilder();
 		PTContact.Builder contactBuilder = contact.getContactBuilder();
+
+		return getSupplierEntity(uid, name, number, selfBilling,
+				addressBuilder, contactBuilder);
+	}
+
+	public PTSupplierEntity getSupplierEntity(String supplierUID, String name,
+			String taxNumber, boolean selfBillingAgree,
+			PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder) {
+		PTSupplier.Builder supplierBuilder = injector
+				.getInstance(PTSupplier.Builder.class);
 
 		supplierBuilder.clear();
 
 		supplierBuilder.addAddress(addressBuilder).addContact(contactBuilder)
 				.setBillingAddress(addressBuilder)
 				.setMainContact(contactBuilder)
-				.setSelfBillingAgreement(selfBilling)
-				.setTaxRegistrationNumber(number).setName(name)
+				.setSelfBillingAgreement(selfBillingAgree)
+				.setTaxRegistrationNumber(taxNumber).setName(name)
 				.setMainAddress(addressBuilder);
 
 		PTSupplierEntity supplier = (PTSupplierEntity) supplierBuilder.build();
-		supplier.setUID(new UID(uid));
+		supplier.setUID(new UID(supplierUID));
 
 		return supplier;
 	}

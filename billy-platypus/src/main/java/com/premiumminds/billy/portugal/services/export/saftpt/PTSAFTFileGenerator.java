@@ -60,6 +60,8 @@ import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocum
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.SourceDocuments.SalesInvoices.Invoice.Line;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.Supplier;
+import com.premiumminds.billy.platypus.services.export.saftpt.schema.SupplierAddressStructure;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.Tax;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.TaxTable;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.TaxTableEntry;
@@ -71,6 +73,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
@@ -84,6 +87,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntr
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
@@ -125,6 +129,7 @@ public class PTSAFTFileGenerator {
 	private final int MAX_LENGTH_50 = 50;
 	private final int MAX_LENGTH_60 = 60;
 	private final int MAX_LENGTH_90 = 90;
+	private final int MAX_LENGTH_100 = 100;
 	private final int MAX_LENGTH_200 = 200;
 	private final int MAX_LENGTH_255 = 255;
 
@@ -178,7 +183,8 @@ public class PTSAFTFileGenerator {
 			final PTApplicationEntity application,
 			final String certificateNumber, final Date fromDate,
 			final Date toDate, final DAOPTCustomer daoCustomer,
-			final DAOPTProduct daoProduct, final DAOPTTax daoPTTax,
+			final DAOPTSupplier daoSupplier, final DAOPTProduct daoProduct,
+			final DAOPTTax daoPTTax,
 			final DAOPTRegionContext daoPTRegionContext,
 			final DAOPTInvoice daoPTInvoice,
 			final DAOPTSimpleInvoice daoPTSimpleInvoice,
@@ -206,6 +212,15 @@ public class PTSAFTFileGenerator {
 					for (PTCustomerEntity customer : customers) {
 						Customer SAFTCustomer = generateCustomer(customer);
 						mf.getCustomer().add(SAFTCustomer);
+					}
+
+					// Suppliers
+					@SuppressWarnings("unchecked")
+					List<PTSupplierEntity> suppliers = (List<PTSupplierEntity>) (List<?>) daoSupplier
+							.getAllActiveSuppliers();
+					for (PTSupplierEntity sup : suppliers) {
+						Supplier SAFTSupplier = generateSupplier(sup);
+						mf.getSupplier().add(SAFTSupplier);
 					}
 
 					// Products
@@ -380,9 +395,8 @@ public class PTSAFTFileGenerator {
 				customer.setBillingAddress(generateAddressStructure((PTAddressEntity) customerEntity
 						.getShippingAddress()));
 			}
-			setContacts(customer,
-					(List<PTContactEntity>) (List<?>) customerEntity
-							.getContacts());
+			List<PTContactEntity> contacts = customerEntity.getContacts();
+			setContacts(customer, contacts);
 		}
 		updateCustomerGeneralInfo(customer, customerEntity.getUID().getValue(),
 				customerEntity.getTaxRegistrationNumber(),
@@ -396,6 +410,32 @@ public class PTSAFTFileGenerator {
 				true));
 
 		return customer;
+	}
+
+	private Supplier generateSupplier(PTSupplierEntity supplierEntity)
+			throws RequiredFieldNotFoundException, InvalidContactTypeException {
+		Supplier supplier = new Supplier();
+		supplier.setSupplierID(validateString("SupplierID", supplierEntity
+				.getUID().getValue(), MAX_LENGTH_30, true));
+		// No accounting support
+		supplier.setAccountID("Desconhecido");
+		supplier.setSupplierTaxID(validateString("SupplierTaxID",
+				supplierEntity.getTaxRegistrationNumber(), MAX_LENGTH_20, true));
+		supplier.setCompanyName(validateString("CompanyName",
+				supplierEntity.getName(), MAX_LENGTH_100, true));
+		supplier.setBillingAddress(generateSupplierAddressStructure((PTAddressEntity) supplierEntity
+				.getBillingAddress()));
+		if (supplierEntity.getShippingAddress() != null) {
+			supplier.getShipFromAddress()
+					.add(generateSupplierAddressStructure((PTAddressEntity) supplierEntity
+							.getShippingAddress()));
+		}
+		supplier.setSelfBillingIndicator(validateInteger(
+				"SelfBillingIndicator", SELF_BILLING_INDICATOR, MAX_LENGTH_1,
+				true));
+		List<PTContactEntity> contacts = supplierEntity.getContacts();
+		setContacts(supplier, contacts);
+		return supplier;
 	}
 
 	/**
@@ -477,6 +517,8 @@ public class PTSAFTFileGenerator {
 			} else if (taxEntity.getTaxRateType()
 					.equals(TaxRateType.PERCENTAGE)) {
 				tte.setTaxPercentage(taxEntity.getValue());
+			} else if (taxEntity.getTaxRateType().equals(TaxRateType.NONE)) {
+				tte.setTaxPercentage(BigDecimal.ZERO);
 			}
 
 			taxTable.getTaxTableEntry().add(tte);
@@ -1164,6 +1206,47 @@ public class PTSAFTFileGenerator {
 	}
 
 	/**
+	 * Constructs an AddressStructures that is used in almost every fields of
+	 * SAFT file that represent addresses
+	 * 
+	 * @param addressEntity
+	 * @return
+	 * @throws RequiredFieldNotFoundException
+	 */
+	private SupplierAddressStructure generateSupplierAddressStructure(
+			PTAddressEntity addressEntity)
+			throws RequiredFieldNotFoundException {
+		SupplierAddressStructure address = new SupplierAddressStructure();
+
+		if ((optionalParam = validateString("StreetName",
+				addressEntity.getStreetName(), MAX_LENGTH_90, false)).length() > 0) {
+			address.setStreetName(optionalParam);
+		}
+		if ((optionalParam = validateString("BuildingNumber",
+				addressEntity.getNumber(), MAX_LENGTH_10, false)).length() > 0) {
+			address.setBuildingNumber(optionalParam);
+		}
+
+		address.setAddressDetail(validateString("AddressDetail",
+				addressEntity.getDetails(), MAX_LENGTH_100, true));
+
+		address.setCity(validateString("City", addressEntity.getCity(),
+				MAX_LENGTH_50, true));
+
+		address.setPostalCode(validateString("PostalCode",
+				addressEntity.getPostalCode(), MAX_LENGTH_20, true));
+
+		address.setCountry(validateString("Country",
+				addressEntity.getISOCountry(), MAX_LENGTH_2, true));
+
+		if ((optionalParam = validateString("Region",
+				addressEntity.getRegion(), MAX_LENGTH_50, false)).length() > 0) {
+			address.setRegion(optionalParam);
+		}
+		return address;
+	}
+
+	/**
 	 * Converts the ISO code of a region to the code defined in the SAFT file
 	 * rules
 	 * 
@@ -1253,6 +1336,42 @@ public class PTSAFTFileGenerator {
 			if ((optionalParam = validateString("Website", ce.getWebsite(),
 					MAX_LENGTH_60, false)).length() > 0)
 				customer.setWebsite(optionalParam);
+		}
+	}
+
+	/**
+	 * Sets the contacts of a supplier
+	 * 
+	 * @param supplier
+	 * @param contacts
+	 *            - the supplier's list of contacts
+	 * @throws RequiredFieldNotFoundException
+	 * @throws InvalidContactTypeException
+	 */
+	private void setContacts(Supplier supplier, List<PTContactEntity> contacts)
+			throws RequiredFieldNotFoundException, InvalidContactTypeException {
+		for (PTContactEntity ce : contacts) {
+			if ((optionalParam = validateString("Email", ce.getEmail(),
+					MAX_LENGTH_60, false)).length() > 0)
+				supplier.setEmail(optionalParam);
+
+			if ((optionalParam = validateString("Fax", ce.getFax(),
+					MAX_LENGTH_20, false)).length() > 0)
+				supplier.setFax(optionalParam);
+
+			if ((optionalParam = validateString("Telephone", ce.getTelephone(),
+					MAX_LENGTH_20, false)).length() > 0)
+				supplier.setTelephone(optionalParam);
+
+			else {
+				if ((optionalParam = validateString("Telephone",
+						ce.getMobile(), MAX_LENGTH_20, false)).length() > 0)
+					supplier.setTelephone(optionalParam);
+			}
+
+			if ((optionalParam = validateString("Website", ce.getWebsite(),
+					MAX_LENGTH_60, false)).length() > 0)
+				supplier.setWebsite(optionalParam);
 		}
 	}
 
