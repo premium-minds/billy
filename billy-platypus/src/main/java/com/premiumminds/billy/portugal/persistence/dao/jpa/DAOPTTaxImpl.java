@@ -25,10 +25,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.expr.BooleanExpression;
@@ -38,7 +34,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntit
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity_;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTTaxEntity;
 
@@ -115,24 +110,29 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
 	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context,
 			Date validFrom, Date validTo) {
+
+		QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
+
+		query.from(tax);
+		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
+		BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
+		predicates.add(validFromPredicate);
+		BooleanExpression validToPredicate = tax.validTo.eq(validTo);
+		predicates.add(validToPredicate);
+		BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
+		predicates.add(lessOrEqual);
+		BooleanExpression active = tax.active.eq(true);
+		predicates.add(active);
+		BooleanExpression contextPredicate = tax.context.eq(context);
+		predicates.add(contextPredicate);
+
+		for (BooleanExpression e : predicates) {
+			query.where(e);
+		}
+
 		List<JPAPTTaxEntity> list = null;
-		EntityManager em = this.getEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-
-		CriteriaQuery<JPAPTTaxEntity> cq = cb.createQuery(JPAPTTaxEntity.class);
-
-		Root<JPAPTTaxEntity> tax = cq.from(JPAPTTaxEntity.class);
-
-		cq.select(tax);
-		cq.where(cb.and(
-				cb.equal(tax.get(JPAPTTaxEntity_.validFrom), validFrom), cb
-						.equal(tax.get(JPAPTTaxEntity_.validTo), validTo), cb
-						.lessThanOrEqualTo(tax.get(JPAPTTaxEntity_.validTo),
-								validFrom), cb.equal(
-						tax.get(JPAPTTaxEntity_.active), true), cb.equal(
-						tax.get(JPAPTTaxEntity_.context), context)));
-		TypedQuery<JPAPTTaxEntity> q = em.createQuery(cq);
-		list = q.getResultList();
+		list = query.list(tax);
 		if (context.getParentContext() != null) {
 			list.addAll(getTaxes(
 					(PTRegionContextEntity) context.getParentContext(),
@@ -141,5 +141,4 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
 		return list;
 	}
-
 }

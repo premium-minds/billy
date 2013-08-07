@@ -18,24 +18,22 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity_;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity_;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
 
 public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 		DAOPTCreditNote {
@@ -57,26 +55,25 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 
 	public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid,
 			Date from, Date to) {
-		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<JPAPTCreditNoteEntity> query = builder
-				.createQuery(JPAPTCreditNoteEntity.class);
+		QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
+		PTBusinessEntity business = getBusinessEntity(uid);
 
-		Root<JPAPTCreditNoteEntity> root = query
-				.from(JPAPTCreditNoteEntity.class);
+		query.from(creditNote);
 
-		Join<JPAPTCreditNoteEntity, JPABusinessEntity> businesses = root
-				.join(JPAPTCreditNoteEntity_.business);
+		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
+		BooleanExpression creditNoteBusiness = creditNote.business.eq(business);
+		predicates.add(creditNoteBusiness);
+		BooleanExpression active = creditNote.active.eq(true);
+		predicates.add(active);
+		BooleanExpression valid = creditNote.date.between(from, to);
+		predicates.add(valid);
 
-		query.select(root);
+		for (BooleanExpression e : predicates) {
+			query.where(e);
+		}
 
-		query.where(builder.and(
-				builder.equal(businesses.get(JPAPTBusinessEntity_.uid),
-						uid.getValue()),
-				builder.equal(root.get(JPAPTCreditNoteEntity_.active), true),
-				builder.between(root.get(JPAPTCreditNoteEntity_.date), from, to)));
-
-		return checkEntityList(this.getEntityManager().createQuery(query)
-				.getResultList(), PTCreditNoteEntity.class);
+		return checkEntityList(query.list(creditNote), PTCreditNoteEntity.class);
 	}
 
 }
