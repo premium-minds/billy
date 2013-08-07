@@ -132,6 +132,8 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 				this.getTypeInstance().setPercentageRateValue(amount);
 				this.getTypeInstance().setFlatRateAmount(BigDecimal.ZERO);
 				break;
+			case NONE:
+				break;
 			default:
 				throw new RuntimeException("The tax rate type is unknown");
 		}
@@ -170,6 +172,8 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 			case PERCENTAGE:
 				Validate.inclusiveBetween(BigDecimal.ZERO,
 						new BigDecimal("100"), t.getPercentageRateValue());
+				break;
+			case NONE:
 				break;
 			default:
 				throw new RuntimeException("The tax rate type is unknown");

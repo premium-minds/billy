@@ -18,12 +18,16 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
+import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
 
 public class DAOSupplierImpl extends
@@ -42,6 +46,19 @@ public class DAOSupplierImpl extends
 	@Override
 	public SupplierEntity getEntityInstance() {
 		return new JPASupplierEntity();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<SupplierEntity> getAllActiveSuppliers() {
+		List<JPASupplierEntity> result = (List<JPASupplierEntity>) this
+				.getEntityManager()
+				.createQuery(
+						"select c from "
+								+ this.getEntityClass().getCanonicalName()
+								+ " c " + "where c.active=true",
+						this.getEntityClass()).getResultList();
+		return this.checkEntityList(result, SupplierEntity.class);
 	}
 
 }

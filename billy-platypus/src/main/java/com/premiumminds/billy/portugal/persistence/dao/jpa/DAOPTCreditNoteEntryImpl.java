@@ -23,16 +23,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
@@ -57,18 +55,13 @@ public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
 	@Override
 	public PTCreditNoteEntity checkCreditNote(PTInvoice invoice) {
 
-		CriteriaBuilder cb = this.getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<JPAPTCreditNoteEntity> cq = cb
-				.createQuery(JPAPTCreditNoteEntity.class);
+		QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 
-		Root<JPAPTCreditNoteEntity> cn = cq.from(JPAPTCreditNoteEntity.class);
+		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		cq.select(cn);
+		query.from(creditNoteEntity);
 
-		TypedQuery<JPAPTCreditNoteEntity> q = this.getEntityManager()
-				.createQuery(cq);
-
-		List<JPAPTCreditNoteEntity> allCns = q.getResultList();
+		List<JPAPTCreditNoteEntity> allCns = query.list(creditNoteEntity);
 
 		// TODO make a query to do this
 		for (JPAPTCreditNoteEntity cne : allCns) {

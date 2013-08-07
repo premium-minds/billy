@@ -18,10 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity;
@@ -35,37 +32,8 @@ public class JPAPTTaxEntity extends JPATaxEntity implements PTTaxEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "VAT_CODE")
-	private PTVATCode vatCode;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "PT_TAX_TYPE")
-	private PTTaxType taxType;
-
 	@Override
 	public Context getContext() {
 		return super.getContext();
 	}
-
-	@Override
-	public PTVATCode getPTVATCode() {
-		return vatCode;
-	}
-
-	@Override
-	public PTTaxType getPTTaxType() {
-		return taxType;
-	}
-
-	@Override
-	public void setVATCode(PTVATCode code) {
-		this.vatCode = code;
-	}
-
-	@Override
-	public void setPTTaxType(PTTaxType taxType) {
-		this.taxType = taxType;
-	}
-
 }

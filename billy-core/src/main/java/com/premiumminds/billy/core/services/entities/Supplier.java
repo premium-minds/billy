@@ -47,7 +47,7 @@ public interface Supplier extends Entity {
 
 	public Address getShippingAddress();
 
-	public Collection<Contact> getContacts();
+	public <T extends Contact> Collection<T> getContacts();
 
 	public Contact getMainContact();
 

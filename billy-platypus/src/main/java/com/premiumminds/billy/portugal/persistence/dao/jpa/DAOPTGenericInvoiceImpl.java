@@ -22,10 +22,14 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceImpl;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 
 public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
 		DAOPTGenericInvoice {
@@ -45,4 +49,13 @@ public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
 		return JPAPTGenericInvoiceEntity.class;
 	}
 
+	protected PTBusinessEntity getBusinessEntity(UID uid) {
+
+		QJPAPTBusinessEntity business = QJPAPTBusinessEntity.jPAPTBusinessEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
+
+		query.from(business).where(business.uid.eq(uid.getValue()));
+
+		return checkEntity(query.singleResult(business), PTBusinessEntity.class);
+	}
 }

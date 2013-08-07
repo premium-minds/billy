@@ -22,7 +22,6 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
-import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -30,8 +29,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntit
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
-import com.premiumminds.billy.portugal.services.entities.PTTax.PTTaxType;
-import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
 		extends TaxBuilderImpl<TBuilder, TTax> implements
@@ -46,20 +43,6 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	}
 
 	@Override
-	public TBuilder setVATCode(PTVATCode code) {
-		BillyValidator.mandatory(code, LOCALIZER.getString("field.VATCode"));
-		this.getTypeInstance().setVATCode(code);
-		return this.getBuilder();
-	}
-
-	@Override
-	public TBuilder setPTTaxtType(PTTaxType taxType) {
-		BillyValidator.mandatory(taxType, LOCALIZER.getString("field.TaxType"));
-		this.getTypeInstance().setPTTaxType(taxType);
-		return this.getBuilder();
-	}
-
-	@Override
 	protected PTTaxEntity getTypeInstance() {
 		return (PTTaxEntity) super.getTypeInstance();
 	}
@@ -67,9 +50,6 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTTaxEntity e = this.getTypeInstance();
-
-		BillyValidator.mandatory(e.getPTVATCode(),
-				LOCALIZER.getString("field.VATCode"));
 
 		if (!((DAOPTTax) daoTax).getTaxes(
 				(PTRegionContextEntity) e.getContext(), e.getValidFrom(),

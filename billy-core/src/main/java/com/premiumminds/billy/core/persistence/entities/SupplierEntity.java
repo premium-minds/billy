@@ -41,7 +41,7 @@ public interface SupplierEntity extends Supplier, BaseEntity {
 	public <T extends AddressEntity> void setShippingAddress(T address);
 
 	@Override
-	public List<Contact> getContacts();
+	public <T extends Contact> List<T> getContacts();
 
 	public <T extends ContactEntity> void setMainContact(T contact);
 
