@@ -16,11 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.export.pdf.invoice;
+package com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice;
 
 import java.io.File;
 import java.io.OutputStream;
 import java.net.URI;
+import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 
@@ -32,13 +33,14 @@ import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
+import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractPDFExportHandler;
 import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
 
-public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
+public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
 		public static final String INVOICE_HASH = "hash";
@@ -46,39 +48,41 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
 	}
 
-	private DAOPTInvoice daoPTInvoice;
+	private DAOPTSimpleInvoice daoPTSimpleInvoice;
 	private Config config;
 
 	@Inject
-	public PTInvoicePDFExportHandler(DAOPTInvoice daoPTInvoice) {
-		super(daoPTInvoice);
-		this.daoPTInvoice = daoPTInvoice;
+	public PTSimpleInvoicePDFExportHandler(DAOPTSimpleInvoice daoPTSimpleInvoice) {
+		super(daoPTSimpleInvoice);
+		this.daoPTSimpleInvoice = daoPTSimpleInvoice;
 		config = new Config();
 	}
 
-	public File toFile(URI fileURI, PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle)
-			throws ExportServiceException {
+	public File toFile(URI fileURI, PTSimpleInvoiceEntity invoice,
+			PTSimpleInvoiceTemplateBundle bundle) throws ExportServiceException {
 		return super.toFile(fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
-	protected void toStream(PTInvoiceEntity invoice, OutputStream targetStream,
-			PTInvoiceTemplateBundle bundle) throws ExportServiceException {
+	protected void toStream(PTSimpleInvoiceEntity invoice,
+			OutputStream targetStream, PTSimpleInvoiceTemplateBundle bundle)
+			throws ExportServiceException {
 		super.getStream(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
 				bundle);
 	}
-	
+
 	protected ParamsTree<String, String> mapDocumentToParamsTree(
-			PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle) {
-		
+			PTSimpleInvoiceEntity invoice, PTSimpleInvoiceTemplateBundle bundle) {
+
 		ParamKeys.ROOT = "invoice";
-		
-		ParamsTree<String, String> params = super.mapDocumentToParamsTree(invoice, bundle);
-		
+
+		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
+				invoice, bundle);
+
 		params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
 				this.getVerificationHashString(invoice.getHash().getBytes()));
-		
+
 		params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
 				bundle.getSoftwareCertificationId());
 		return params;
@@ -86,52 +90,75 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	private String getVerificationHashString(byte[] hash) {
 		String hashString = Base64.encodeBytes(hash);
-		String rval = hashString.substring(0, 1)
-		 + hashString.substring(10, 11)
-		 + hashString.substring(20, 21)
-		 + hashString.substring(30, 31);
+		String rval = hashString.substring(0, 1) + hashString.substring(10, 11)
+				+ hashString.substring(20, 21) + hashString.substring(30, 31);
 
 		return rval;
 	}
-	
+
 	@Override
 	public <T extends ExportServiceRequest> void export(T request,
 			OutputStream targetStream) throws ExportServiceException {
 
-		if (!(request instanceof PDFPTInvoiceExportRequest)) {
+		if (!(request instanceof PDFPTSimpleInvoiceExportRequest)) {
 			throw new ExportServiceException("Cannot handle request of type "
 					+ request.getClass().getCanonicalName());
 		}
-		PDFPTInvoiceExportRequest exportRequest = (PDFPTInvoiceExportRequest) request;
+		PDFPTSimpleInvoiceExportRequest exportRequest = (PDFPTSimpleInvoiceExportRequest) request;
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
-			PTInvoiceEntity invoice = (PTInvoiceEntity) daoPTInvoice
+			PTSimpleInvoiceEntity simpleInvoice = (PTSimpleInvoiceEntity) daoPTSimpleInvoice
 					.get(docUid);
-			this.toStream(invoice, targetStream, exportRequest.getBundle());
+			this.toStream(simpleInvoice, targetStream,
+					exportRequest.getBundle());
 		} catch (Exception e) {
 			throw new ExportServiceException(e);
 		}
 	}
-	
+
 	@Override
 	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
-			ParamsTree<String, String> params, K document, T bundle){
+			ParamsTree<String, String> params, K document, T bundle) {
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
-		if (null != document.getSettlementDescription()) {
-			params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT,
-					document.getSettlementDescription());
-		
-		}	
-		super.setHeader(params, document, bundle);
-		
+		if (null != document.getPaymentMechanism()) {
+			params.getRoot().addChild(
+					ParamKeys.INVOICE_PAYMETHOD,
+					getPaymentMechanismTranslation(
+							document.getPaymentMechanism(), bundle));
+		}
+
+		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
+				date.format(document.getDate()));
+		return;
+
+	}
+	@Override
+	protected void setCustomer(ParamsTree<String, String> params,
+			GenericInvoiceEntity document, IBillyTemplateBundle bundle) {
+
+		Node<String, String> customer = params.getRoot().addChild(
+				ParamKeys.CUSTOMER);
+
+		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID,
+				getCustomerFinancialId(document, bundle));
 		return;
 	}
-	
 	@Override
-	public	<T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(K invoice, T bundle){
+	protected void setTaxDetails(TaxTotals taxTotals, Node<String, String> taxDetails){
+		return;
+	}
+
+	@Override
+	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
+			K invoice, T bundle) {
 		IBillyPTTemplateBundle template = (IBillyPTTemplateBundle) bundle;
-		return (invoice.getCustomer().getUID().equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? 
-				template.getGenericCustomer() : invoice.getCustomer().getTaxRegistrationNumber());
+		return (invoice.getCustomer().getUID()
+				.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
+				.getGenericCustomer() : invoice.getCustomer()
+				.getTaxRegistrationNumber());
 	}
 }

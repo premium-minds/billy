@@ -23,7 +23,7 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface IBillyPTTemplateBundle extends IBillyTemplateBundle {
 
-	public String getPaymentMechanismTranslation(PaymentMechanism pmc);
-
 	public String getGenericCustomer();
+	
+	public String getSoftwareCertificationId();
 }

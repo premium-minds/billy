@@ -138,7 +138,6 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 					(PTRegionContextEntity) context.getParentContext(),
 					validFrom, validTo));
 		}
-
 		return list;
 	}
 }

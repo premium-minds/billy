@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
+package com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice;
 
 import java.io.InputStream;
 
@@ -24,9 +24,8 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
 import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle implements
-		IBillyPTTemplateBundle {
-	
+public class PTSimpleInvoiceTemplateBundle extends AbstractTemplateBundle
+		implements IBillyPTTemplateBundle {
 	private static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
 	private static final String BANK_TRANSFER_TEXT = "Transferência bancária";
 	private static final String CASH_TEXT = "Numerário";
@@ -40,7 +39,7 @@ public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle implement
 	private static final String EXCHANGE_TEXT = "Permuta";
 	private final String softwareCertificationId;
 
-	public PTCreditNoteTemplateBundle(String logoImagePath,
+	public PTSimpleInvoiceTemplateBundle(String logoImagePath,
 			InputStream xsltFileStream, String softwareCertificationId) {
 
 		super(logoImagePath, xsltFileStream);
@@ -56,38 +55,36 @@ public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle implement
 	public String getSoftwareCertificationId() {
 		return softwareCertificationId;
 	}
-	
+
 	@Override
-	public String getPaymentMechanismTranslation(Enum<?> pmc){
+	public String getPaymentMechanismTranslation(Enum<?> pmc) {
 		if (null == pmc) {
 			return null;
 		}
 		PaymentMechanism payment = (PaymentMechanism) pmc;
 		switch (payment) {
-			case BANK_TRANSFER:
-				return BANK_TRANSFER_TEXT;
-			case CASH:
-				return CASH_TEXT;
-			case CREDIT_CARD:
-				return CREDIT_CARD_TEXT;
-			case CHECK:
-				return CHECK_TEXT;
-			case DEBIT_CARD:
-				return DEBIT_CARD_TEXT;
-			case COMPENSATION:
-				return COMPENSATION_TEXT;
-			case COMMERCIAL_LETTER:
-				return COMMERCIAL_LETTER_TEXT;
-			case ATM:
-				return ATM_TEXT;
-			case RESTAURANT_TICKET:
-				return RESTAURANT_TICKET_TEXT;
-			case EXCHANGE:
-				return EXCHANGE_TEXT;
-			default:
-				return null;
+		case BANK_TRANSFER:
+			return BANK_TRANSFER_TEXT;
+		case CASH:
+			return CASH_TEXT;
+		case CREDIT_CARD:
+			return CREDIT_CARD_TEXT;
+		case CHECK:
+			return CHECK_TEXT;
+		case DEBIT_CARD:
+			return DEBIT_CARD_TEXT;
+		case COMPENSATION:
+			return COMPENSATION_TEXT;
+		case COMMERCIAL_LETTER:
+			return COMMERCIAL_LETTER_TEXT;
+		case ATM:
+			return ATM_TEXT;
+		case RESTAURANT_TICKET:
+			return RESTAURANT_TICKET_TEXT;
+		case EXCHANGE:
+			return EXCHANGE_TEXT;
+		default:
+			return null;
 		}
 	}
-	
-	
 }

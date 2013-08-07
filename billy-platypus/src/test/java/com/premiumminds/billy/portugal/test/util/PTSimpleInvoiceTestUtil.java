@@ -136,7 +136,9 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 			invoiceEntry.setUID(new UID(entryUID));
 			invoiceEntry.getDocumentReferences().add(invoice);
 		}
-
+		
+		String formatedNumber = invoiceType.toString();
+		invoice.setNumber(formatedNumber);
 		invoice.setBusiness(businessEntity);
 
 		invoice.setCustomer(customerEntity);
