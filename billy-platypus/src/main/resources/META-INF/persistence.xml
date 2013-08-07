@@ -34,7 +34,7 @@
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:postgresql://localhost:5432/billy" />
+				value="${jdbc.url}" />
 			<property name="javax.persistence.jdbc.user" value="billy" />
 			<property name="javax.persistence.jdbc.password" value="billy" />
 
