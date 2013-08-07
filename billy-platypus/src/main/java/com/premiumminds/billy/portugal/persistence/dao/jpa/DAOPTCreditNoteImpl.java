@@ -29,7 +29,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
@@ -80,16 +79,4 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 				.getResultList(), PTCreditNoteEntity.class);
 	}
 
-	@Override
-	public PTCreditNoteEntity getLatestInvoiceFromSeries(String series)
-			throws BillyRuntimeException {
-
-		List<Object[]> list = findLastestUID(series);
-
-		if (list.size() != 0)
-			return (PTCreditNoteEntity) this.get(new UID(
-					(String) list.get(0)[0]));
-		else
-			throw new BillyRuntimeException();
-	}
 }

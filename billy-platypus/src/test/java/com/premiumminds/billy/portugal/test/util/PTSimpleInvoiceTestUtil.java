@@ -64,7 +64,8 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 			String businessUID, String customerUID, List<String> productUIDs) {
 
 		PTSimpleInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType,
-				entryUID, uid, businessUID, customerUID, productUIDs);
+				entryUID, uid, businessUID, customerUID, productUIDs,
+				SourceBilling.P);
 
 		String formatedNumber = invoiceType.toString() + " " + serie + "/"
 				+ seriesNumber;
@@ -79,7 +80,7 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 	@Override
 	public PTSimpleInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
 			String entryUID, String uid, String businessUID,
-			String customerUID, List<String> productUIDs) {
+			String customerUID, List<String> productUIDs, SourceBilling billing) {
 		PTSimpleInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTSimpleInvoice.Builder.class);
 		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
@@ -119,8 +120,7 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
 				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
 				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT)
-				.setCustomerUID(new UID(customerUID))
-				.setSourceBilling(SourceBilling.P)
+				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)
 				.setBusinessUID(new UID(businessUID));
 
 		PTSimpleInvoiceEntity invoice = (PTSimpleInvoiceEntity) invoiceBuilder
@@ -136,7 +136,9 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 			invoiceEntry.setUID(new UID(entryUID));
 			invoiceEntry.getDocumentReferences().add(invoice);
 		}
-
+		
+		String formatedNumber = invoiceType.toString();
+		invoice.setNumber(formatedNumber);
 		invoice.setBusiness(businessEntity);
 
 		invoice.setCustomer(customerEntity);

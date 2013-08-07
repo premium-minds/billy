@@ -30,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntit
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.services.entities.PTTax.PTTaxType;
 import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
@@ -52,6 +53,13 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	}
 
 	@Override
+	public TBuilder setPTTaxtType(PTTaxType taxType) {
+		BillyValidator.mandatory(taxType, LOCALIZER.getString("field.TaxType"));
+		this.getTypeInstance().setPTTaxType(taxType);
+		return this.getBuilder();
+	}
+
+	@Override
 	protected PTTaxEntity getTypeInstance() {
 		return (PTTaxEntity) super.getTypeInstance();
 	}
@@ -60,12 +68,12 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	protected void validateInstance() throws BillyValidationException {
 		PTTaxEntity e = this.getTypeInstance();
 
-		BillyValidator.mandatory(e.getVATCode(),
+		BillyValidator.mandatory(e.getPTVATCode(),
 				LOCALIZER.getString("field.VATCode"));
 
 		if (!((DAOPTTax) daoTax).getTaxes(
 				(PTRegionContextEntity) e.getContext(), e.getValidFrom(),
-				e.getValidTo(), e.getUID()).isEmpty())
+				e.getValidTo()).isEmpty())
 
 			throw new BillyValidationException();
 		super.validateInstance();

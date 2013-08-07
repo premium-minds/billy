@@ -29,12 +29,13 @@ public class MockPTTaxEntity extends MockTaxEntity implements PTTaxEntity {
 	private static final long serialVersionUID = 1L;
 
 	public PTVATCode vatCode;
+	public PTTaxType type;
 
 	public MockPTTaxEntity() {
 	}
 
 	@Override
-	public PTVATCode getVATCode() {
+	public PTVATCode getPTVATCode() {
 		return vatCode;
 	}
 
@@ -42,4 +43,15 @@ public class MockPTTaxEntity extends MockTaxEntity implements PTTaxEntity {
 	public void setVATCode(PTVATCode code) {
 		this.vatCode = code;
 	}
+
+	@Override
+	public PTTaxType getPTTaxType() {
+		return type;
+	}
+
+	@Override
+	public void setPTTaxType(PTTaxType type) {
+		this.type = type;
+	}
+
 }

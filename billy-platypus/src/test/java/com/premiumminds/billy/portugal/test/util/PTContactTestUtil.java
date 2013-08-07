@@ -19,6 +19,8 @@
 package com.premiumminds.billy.portugal.test.util;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class PTContactTestUtil {
@@ -29,6 +31,7 @@ public class PTContactTestUtil {
 	private static final String EMAIL = "email@email.em";
 	private static final String FAX = "9999999122";
 	private static final String WEBSITE = "website@website.web";
+	private final String UID = "CONTACT";
 
 	private Injector injector;
 
@@ -45,6 +48,14 @@ public class PTContactTestUtil {
 				.setFax(fax).setTelephone(telephone).setWebsite(website);
 
 		return contactBuilder;
+
+	}
+	
+	public PTContactEntity getContactEntity() {
+		PTContact.Builder contactBuilder = getContactBuilder();
+		PTContactEntity contact = (PTContactEntity)contactBuilder.build();
+		contact.setUID(new UID(UID));
+		return contact;
 
 	}
 

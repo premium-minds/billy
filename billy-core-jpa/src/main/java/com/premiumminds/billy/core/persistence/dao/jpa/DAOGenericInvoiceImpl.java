@@ -18,22 +18,17 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
 
+import com.mysema.query.jpa.JPASubQuery;
+import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity_;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 
 public class DAOGenericInvoiceImpl extends
 		AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
@@ -58,30 +53,22 @@ public class DAOGenericInvoiceImpl extends
 	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
 			String series) throws BillyRuntimeException {
 
-		List<Object[]> list = findLastestUID(series);
+		QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
 
-		if (list.size() != 0)
-			return (T) this.get(new UID((String) list.get(0)[0]));
-		else
+		JPAQuery query = new JPAQuery(this.getEntityManager());
+
+		GenericInvoiceEntity invoice = query
+				.from(genericInvoice)
+				.where(genericInvoice.series.eq(series))
+				.where(genericInvoice.seriesNumber.eq(new JPASubQuery().from(
+						genericInvoice).unique(
+						genericInvoice.seriesNumber.max())))
+				.uniqueResult(genericInvoice);
+
+		if (invoice != null) {
+			return (T) invoice;
+		} else
 			throw new BillyRuntimeException();
 	}
 
-	protected List<Object[]> findLastestUID(String series) {
-		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
-		CriteriaQuery<Object[]> query = builder.createQuery(Object[].class);
-
-		Root<JPAGenericInvoiceEntity> invoiceRoot = query
-				.from(JPAGenericInvoiceEntity.class);
-
-		Path<String> uidPath = invoiceRoot.get(JPAGenericInvoiceEntity_.uid);
-
-		query.multiselect(uidPath, builder.max(invoiceRoot
-				.get(JPAGenericInvoiceEntity_.seriesNumber)));
-
-		query.where(builder.equal(
-				invoiceRoot.get(JPAGenericInvoiceEntity_.series), series));
-		query.groupBy(uidPath);
-
-		return this.getEntityManager().createQuery(query).getResultList();
-	}
 }

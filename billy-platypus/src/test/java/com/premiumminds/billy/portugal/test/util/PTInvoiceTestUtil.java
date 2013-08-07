@@ -92,7 +92,7 @@ public class PTInvoiceTestUtil {
 			String businessUID, String customerUID, List<String> productUIDs) {
 
 		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType, entryUID,
-				uid, businessUID, customerUID, productUIDs);
+				uid, businessUID, customerUID, productUIDs, SourceBilling.P);
 
 		String formatedNumber = invoiceType.toString() + " " + serie + "/"
 				+ seriesNumber;
@@ -106,7 +106,7 @@ public class PTInvoiceTestUtil {
 
 	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
 			String entryUID, String uid, String businessUID,
-			String customerUID, List<String> productUIDs) {
+			String customerUID, List<String> productUIDs, SourceBilling billing) {
 		PTInvoice.Builder invoiceBuilder = injector
 				.getInstance(PTInvoice.Builder.class);
 		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
@@ -146,8 +146,7 @@ public class PTInvoiceTestUtil {
 		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
 				.setSelfBilled(SELFBILL).setDate(DATE).setSourceId(SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
-				.setCustomerUID(new UID(customerUID))
-				.setSourceBilling(SourceBilling.P)
+				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)
 				.setBusinessUID(new UID(businessUID));
 
 		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();

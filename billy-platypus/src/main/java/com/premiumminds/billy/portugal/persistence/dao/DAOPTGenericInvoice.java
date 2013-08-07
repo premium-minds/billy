@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 
@@ -27,7 +26,4 @@ public interface DAOPTGenericInvoice extends DAOGenericInvoice {
 	@Override
 	public PTGenericInvoiceEntity getEntityInstance();
 
-	@Override
-	public PTGenericInvoiceEntity getLatestInvoiceFromSeries(String series)
-			throws BillyRuntimeException;
 }

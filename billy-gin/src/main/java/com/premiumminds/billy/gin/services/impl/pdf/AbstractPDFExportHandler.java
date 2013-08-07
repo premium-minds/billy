@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2013 Premium Minds.
+ *
+ * This file is part of billy GIN.
+ *
+ * billy GIN is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy GIN is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with billy GIN. If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
 import java.io.File;
@@ -32,7 +50,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 	
 	protected static class ParamKeys {
 
-		public static final String ROOT = "invoice";
+		public static String ROOT = "invoice";
 
 		public static final String INVOICE_PAYMETHOD = "paymentMechanism";
 		public static final String ID = "id";
@@ -41,13 +59,6 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 		public static final String TOTAL_BEFORE_TAX = "totalBeforeTax";
 		public static final String TOTAL_TAX = "totalTax";
 		public static final String TOTAL = "totalPrice";
-		//=========Only for invoices=========
-		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
-		//==================================
-		
-		//=========Only for CreditNotes======
-		public static final String INVOICE = "invoice";
-		//==================================
 		
 		public static final String BUSINESS = "business";
 		public static final String BUSINESS_LOGO = "logoPath";
@@ -66,7 +77,6 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 		public static final String BUSINESS_EMAIL = "email";
 
 		public static final String CUSTOMER = "customer";
-		public static final String CUSTOMER_ID = "id";
 		public static final String CUSTOMER_NAME = "name";
 		public static final String CUSTOMER_FINANCIAL_ID = "financialId";
 
@@ -119,22 +129,42 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 	protected ParamsTree<String, String> mapDocumentToParamsTree(
 			GenericInvoiceEntity document, IBillyTemplateBundle bundle) {
 
-		ParamsTree<String, String> params = new ParamsTree<String, String>(
-				ParamKeys.ROOT);
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-	
-		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
+		ParamsTree<String, String> params = new ParamsTree<String, String>(ParamKeys.ROOT);
 		
-		setFields(params, document, bundle);
+		TaxTotals taxTotals = new TaxTotals();
+		
+		Node<String, String> entries = params.getRoot().addChild(
+				ParamKeys.ENTRIES);
+		
+
+		Node<String, String> taxDetails = params.getRoot().addChild(
+				ParamKeys.TAX_DETAILS);
+		
+		setHeader(params, document, bundle);
 		
 		setBussiness(params, document, bundle);
 
+		setCustomer(params, document, bundle);
+		
+		setEntries(taxTotals, entries, document);
+
+		setTaxDetails(taxTotals, taxDetails);
+		
+		setTaxValues(params, document);
+		
+		return params;
+	}
+	
+	protected <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(ParamsTree<String, String> params, K document, T bundle){
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
+		
 		if (null != document.getPaymentMechanism()) {
 			params.getRoot().addChild(
 					ParamKeys.INVOICE_PAYMETHOD,
-					getPaymentMechanismTranslation((document.getPaymentMechanism())));
+					getPaymentMechanismTranslation(document.getPaymentMechanism(), bundle));
 		}
-
 		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
 				date.format(document.getDate()));
 		
@@ -142,52 +172,24 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 			params.getRoot().addChild(ParamKeys.DUE_DATE,
 					date.format(document.getSettlementDate()));
 		}
-
-		setCustomer(params, document, bundle);
-		
-		
-
-		TaxTotals taxTotals = new TaxTotals();
-		
-		Node<String, String> entries = params.getRoot().addChild(
-				ParamKeys.ENTRIES);
-		
-		setEntries(taxTotals, entries, document);
-		
-
-		Node<String, String> taxDetails = params.getRoot().addChild(
-				ParamKeys.TAX_DETAILS);
-		
-		setTaxDetails(taxTotals, taxDetails);
-		
-
-		params.getRoot().addChild(
-				ParamKeys.TOTAL_BEFORE_TAX,
-				document.getAmountWithoutTax().setScale(2, mc.getRoundingMode())
-						.toPlainString());
-		params.getRoot().addChild(
-				ParamKeys.TOTAL_TAX,
-				document.getTaxAmount().setScale(2, mc.getRoundingMode())
-						.toPlainString());
-		params.getRoot().addChild(
-				ParamKeys.TOTAL,
-				document.getAmountWithTax().setScale(2, mc.getRoundingMode())
-						.toPlainString());
-		return params;
 	}
 	
 	protected void setTaxDetails(TaxTotals taxTotals, Node<String, String> taxDetails){
 		
 		for (TaxTotals.TaxTotalEntry taxDetail : taxTotals.getEntries()) {
+			
 			Node<String, String> taxDetailNode = taxDetails
 					.addChild(ParamKeys.TAX_DETAIL);
+			
 			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_TAX, taxDetail
 					.getTaxValue().setScale(2, mc.getRoundingMode())
 					.toPlainString()
 					+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
+			
 			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_NET_VALUE, taxDetail
 					.getNetValue().setScale(2, mc.getRoundingMode())
 					.toPlainString());
+			
 			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_VALUE, taxDetail
 					.getAppliedTaxValue().setScale(2, mc.getRoundingMode())
 					.toPlainString());
@@ -201,17 +203,24 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 
 		List<GenericInvoiceEntryEntity> genericInvoiceList = document
 				.getEntries();
+		
 		for (GenericInvoiceEntryEntity entry : genericInvoiceList) {
+			
 			Node<String, String> entryNode = entries.addChild(ParamKeys.ENTRY);
+			
 			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct()
 					.getProductCode());
+			
 			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
 					.getDescription());
+			
 			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
 					.setScale(2, mc.getRoundingMode()).toPlainString());
+			
 			entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry
 					.getUnitAmountWithTax().setScale(2, mc.getRoundingMode())
 					.toPlainString());
+			
 			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
 					.setScale(2, mc.getRoundingMode()).toPlainString());
 
@@ -234,11 +243,13 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 	protected void setBussiness(ParamsTree<String, String> params, GenericInvoiceEntity document, IBillyTemplateBundle bundle){
 		Node<String, String> businessInfo = params.getRoot().addChild(
 				ParamKeys.BUSINESS);
+		
 		businessInfo.addChild(ParamKeys.BUSINESS_LOGO,
 				bundle.getLogoImagePath());
 
 		businessInfo.addChild(ParamKeys.BUSINESS_NAME, document.getBusiness()
 				.getName());
+		
 		businessInfo.addChild(ParamKeys.BUSINESS_FINANCIAL_ID, document
 				.getBusiness().getFinancialID());
 
@@ -247,21 +258,28 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_COUNTRY, document
 				.getBusiness().getAddress().getISOCountry());
+		
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_DETAILS, document
 				.getBusiness().getAddress().getDetails());
+		
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_CITY, document
 				.getBusiness().getAddress().getCity());
+		
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_REGION, document
 				.getBusiness().getAddress().getRegion());
+		
 		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_POSTAL_CODE,
 				document.getBusiness().getAddress().getPostalCode());
 
 		Node<String, String> businessContacts = businessInfo
 				.addChild(ParamKeys.BUSINESS_CONTACTS);
+		
 		businessContacts.addChild(ParamKeys.BUSINESS_PHONE, document
 				.getBusiness().getMainContact().getTelephone());
+		
 		businessContacts.addChild(ParamKeys.BUSINESS_FAX, document.getBusiness()
 				.getMainContact().getFax());
+		
 		businessContacts.addChild(ParamKeys.BUSINESS_EMAIL, document
 				.getBusiness().getMainContact().getEmail());
 		
@@ -269,32 +287,62 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 	}
 	
 	protected void setCustomer(ParamsTree<String, String> params, GenericInvoiceEntity document, IBillyTemplateBundle bundle){
+		
 		Node<String, String> customer = params.getRoot().addChild(
 				ParamKeys.CUSTOMER);
-		customer.addChild(ParamKeys.CUSTOMER_ID, "");
+		
 		customer.addChild(ParamKeys.CUSTOMER_NAME, document.getCustomer()
 				.getName());
+		
 		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, getCustomerFinancialId(document, bundle));
 
 		if (document.getCustomer().getBillingAddress() != null) {
 			Node<String, String> customerAddress = customer
 					.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS);
+			
 			customerAddress.addChild(
 					ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY, document
 							.getCustomer().getBillingAddress().getISOCountry());
+			
 			customerAddress.addChild(
 					ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS, document
 							.getCustomer().getBillingAddress().getDetails());
+			
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY,
 					document.getCustomer().getBillingAddress().getCity());
+			
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_REGION,
 					document.getCustomer().getBillingAddress().getRegion());
+			
 			customerAddress.addChild(
 					ParamKeys.CUSTOMER_BILLING_ADDRESS_POSTAL_CODE, document
 							.getCustomer().getBillingAddress().getPostalCode());
 		}
 		return;
 	}
+	
+	protected <T extends GenericInvoiceEntity> void setTaxValues(ParamsTree<String, String> params, T document){
+		
+		params.getRoot().addChild(
+				ParamKeys.TOTAL_BEFORE_TAX,
+				document.getAmountWithoutTax().setScale(2, mc.getRoundingMode())
+						.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.TOTAL_TAX,
+				document.getTaxAmount().setScale(2, mc.getRoundingMode())
+						.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.TOTAL,
+				document.getAmountWithTax().setScale(2, mc.getRoundingMode())
+						.toPlainString());
+		return;
+	}
+	
+	protected <T extends IBillyTemplateBundle> String getPaymentMechanismTranslation(Enum<?> pmc, T bundle){
+		return bundle.getPaymentMechanismTranslation(pmc);
+	}
+	
+	protected abstract <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(K document, T bundle);
 
 	protected class TaxTotals {
 
@@ -380,10 +428,4 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler implem
 			throw new ExportServiceException(e);
 		}
 	}
-	
-	public abstract <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setFields(ParamsTree<String, String> params, K document, T bundle);
-	
-	public abstract String getPaymentMechanismTranslation(Enum<?> pmc);
-	
-	public abstract <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(K document, T bundle);
 }

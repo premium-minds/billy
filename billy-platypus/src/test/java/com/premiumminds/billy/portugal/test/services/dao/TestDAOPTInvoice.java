@@ -61,6 +61,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
 	@Test(expected = BillyRuntimeException.class)
 	public void testWithNoInvoice() {
-		dao.getLatestInvoiceFromSeries("NON EXISTING SERIES");
+		System.out.println(dao
+				.getLatestInvoiceFromSeries("NON EXISTING SERIES"));
 	}
 }

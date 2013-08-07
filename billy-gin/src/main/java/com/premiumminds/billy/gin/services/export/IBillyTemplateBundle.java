@@ -36,5 +36,8 @@ public interface IBillyTemplateBundle {
 	 * @return The path of the xslt template file.
 	 */
 	public InputStream getXSLTFileStream();
+	
+	public String getPaymentMechanismTranslation(Enum<?> pmc);
+
 
 }

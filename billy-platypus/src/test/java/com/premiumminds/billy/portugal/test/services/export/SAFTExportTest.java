@@ -29,7 +29,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
@@ -49,6 +48,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
@@ -99,18 +99,18 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 			DAOPTRegionContext daoPTRegionContext = injector
 					.getInstance(DAOPTRegionContext.class);
-			ContextEntity myContext = daoPTRegionContext.get(c
-					.getUID(Config.Key.Context.Portugal.UUID));
+			PTRegionContextEntity myContext = (PTRegionContextEntity) daoPTRegionContext
+					.get(c.getUID(Config.Key.Context.Portugal.UUID));
 
 			/* ADDRESSES */
 			DAOPTAddress daoPTAddress = injector
 					.getInstance(DAOPTAddress.class);
 			PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
-					"Av. Republica", "Nº 3 - 3ºE",
+					"Av. Republica", "Nº 3 - 3º Esq.",
 					"Av. Republica Nº 3 - 3º Esq.", "", "Lisboa", "1700-232",
 					"", "PT");
 			PTAddress.Builder addressBuilder2 = address.getAddressBuilder(
-					"Av. Liberdade", "Nº 4 - 5ºD",
+					"Av. Liberdade", "Nº 4 - 5º Dir.",
 					"Av. Liberdade, Nº 4 - 5º Dir.", "", "Lisboa", "1500-123",
 					"", "PT");
 			PTAddress.Builder addressBuilder3 = address.getAddressBuilder(
@@ -241,8 +241,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			PrintStream stream = new PrintStream(SAFT_OUTPUT + "SAFT.xml");
 			generator.generateSAFTFile(stream, businessEntity,
 					applicationEntity, "1234", calendar.getTime(), new Date(),
-					daoPTCustomer, daoPTProduct, daoPTTax, daoPTInvoice,
-					daoPTSimpleInvoice, daoPTCreditNote);
+					daoPTCustomer, daoPTProduct, daoPTTax, daoPTRegionContext,
+					daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

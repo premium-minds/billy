@@ -37,23 +37,13 @@ import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
 		public static final String INVOICE_HASH = "hash";
 		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
-		public static final String BANK_TRANSFER_TEXT = "Transferência bancária";
-		public static final String CASH_TEXT = "Numerário";
-		public static final String CREDIT_CARD_TEXT = "Cartão crédito";
-		public static final String CHECK_TEXT = "Cheque";
-		public static final String DEBIT_CARD_TEXT = "Cartão débito";
-		public static final String COMPENSATION_TEXT = "Compensação de saldos em conta corrente";
-		public static final String COMMERCIAL_LETTER_TEXT = " Letra comercial";
-		public static final String RESTAURANT_TICKET_TEXT = "Ticket restaurante";
-		public static final String ATM_TEXT = "Multibanco";
-		public static final String EXCHANGE_TEXT = "Permuta";
+		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
 	}
 
 	private DAOPTInvoice daoPTInvoice;
@@ -82,9 +72,13 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	protected ParamsTree<String, String> mapDocumentToParamsTree(
 			PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle) {
 		
+		ParamKeys.ROOT = "invoice";
+		
 		ParamsTree<String, String> params = super.mapDocumentToParamsTree(invoice, bundle);
+		
 		params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
 				this.getVerificationHashString(invoice.getHash().getBytes()));
+		
 		params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
 				bundle.getSoftwareCertificationId());
 		return params;
@@ -121,46 +115,17 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	}
 	
 	@Override
-	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setFields(
+	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
 			ParamsTree<String, String> params, K document, T bundle){
-		
+
 		if (null != document.getSettlementDescription()) {
-		params.getRoot().addChild(ParamKeys.INVOICE_PAYSETTLEMENT,
-				document.getSettlementDescription());
-		}	
+			params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT,
+					document.getSettlementDescription());
 		
-	}
-			
-	@Override
-	public String getPaymentMechanismTranslation(Enum<?> pmc){
-			if (null == pmc) {
-				return null;
-			}
-			PaymentMechanism payment = (PaymentMechanism) pmc;
-			switch (payment) {
-				case BANK_TRANSFER:
-					return PTParamKeys.BANK_TRANSFER_TEXT;
-				case CASH:
-					return PTParamKeys.CASH_TEXT;
-				case CREDIT_CARD:
-					return PTParamKeys.CREDIT_CARD_TEXT;
-				case CHECK:
-					return PTParamKeys.CHECK_TEXT;
-				case DEBIT_CARD:
-					return PTParamKeys.DEBIT_CARD_TEXT;
-				case COMPENSATION:
-					return PTParamKeys.COMPENSATION_TEXT;
-				case COMMERCIAL_LETTER:
-					return PTParamKeys.COMMERCIAL_LETTER_TEXT;
-				case ATM:
-					return PTParamKeys.ATM_TEXT;
-				case RESTAURANT_TICKET:
-					return PTParamKeys.RESTAURANT_TICKET_TEXT;
-				case EXCHANGE:
-					return PTParamKeys.EXCHANGE_TEXT;
-				default:
-					return null;
-			}
+		}	
+		super.setHeader(params, document, bundle);
+		
+		return;
 	}
 	
 	@Override

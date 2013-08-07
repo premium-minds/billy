@@ -47,11 +47,7 @@
           <xsl:value-of select="./business/name" />
         </fo:block >
         <!--Address-->
-        <xsl:value-of select="./business/address/lineone" />
-        <fo:block />
-        <xsl:value-of select="./business/address/linetwo" />
-        <fo:block />
-        <xsl:value-of select="./business/address/linethree" />
+        <xsl:value-of select="./business/address/details" />
         <fo:block />
         <xsl:value-of select="./business/address/postalcode" /> - <xsl:value-of select="./business/address/region" />
         <fo:block />
@@ -75,8 +71,6 @@
             <fo:table-row>
               <fo:table-cell display-align="after">
                 <fo:block font-size="8pt" margin-bottom="3mm">
-                  Cliente nº: <xsl:value-of select="./customer/id" />
-                <fo:block />
                   Contribuinte nº: <xsl:value-of select="./customer/financialId" />
                   <fo:block />
                   <xsl:choose>
@@ -99,11 +93,7 @@
                     <fo:block padding="2mm" border-width="1px" border-style="solid">
                       <xsl:value-of select="./customer/name" />
                       <fo:block margin-top="1mm"/>
-                      <xsl:value-of select="./customer/address/lineone" />
-                      <fo:block />
-                      <xsl:value-of select="./customer/address/linetwo" />
-                      <fo:block />
-                      <xsl:value-of select="./customer/address/linethree" />
+                      <xsl:value-of select="./customer/address/details" />
                       <fo:block />
                       <xsl:value-of select="./customer/address/postalcode" /> &#xa0;
                       <xsl:value-of select="./customer/address/region" /> &#xa0; 

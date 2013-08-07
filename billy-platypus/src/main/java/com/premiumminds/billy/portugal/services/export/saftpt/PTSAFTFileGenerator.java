@@ -21,10 +21,11 @@ package com.premiumminds.billy.portugal.services.export.saftpt;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,6 +42,7 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
+import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AddressStructure;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AddressStructurePT;
 import com.premiumminds.billy.platypus.services.export.saftpt.schema.AuditFile;
@@ -67,6 +69,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
@@ -80,6 +83,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEnti
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
@@ -101,6 +105,7 @@ public class PTSAFTFileGenerator {
 	private Config config = null;
 	private JAXBContext jaxbContext;
 	private Marshaller marshaller;
+	private MathContext mc = BillyMathContext.get();
 
 	private String context = null;
 	private String optionalParam;
@@ -123,7 +128,7 @@ public class PTSAFTFileGenerator {
 	private final int MAX_LENGTH_200 = 200;
 	private final int MAX_LENGTH_255 = 255;
 
-	private final String XML_SCHEMA_VERSION = "1.01_01";
+	private final String XML_SCHEMA_VERSION = "1.02_01";
 	private final String TAX_ACCOUNTING_BASIS = "F";
 	private final String COUNTRY_CODE = "PT";
 	private final String CURRENCY_CODE = "EUR";
@@ -174,6 +179,7 @@ public class PTSAFTFileGenerator {
 			final String certificateNumber, final Date fromDate,
 			final Date toDate, final DAOPTCustomer daoCustomer,
 			final DAOPTProduct daoProduct, final DAOPTTax daoPTTax,
+			final DAOPTRegionContext daoPTRegionContext,
 			final DAOPTInvoice daoPTInvoice,
 			final DAOPTSimpleInvoice daoPTSimpleInvoice,
 			final DAOPTCreditNote daoPTCreditNote) throws SAFTPTExportException {
@@ -211,11 +217,13 @@ public class PTSAFTFileGenerator {
 						mf.getProduct().add(SAFTProduct);
 					}
 
+					PTRegionContextEntity context = (PTRegionContextEntity) daoPTRegionContext
+							.get(config
+									.getUID(Config.Key.Context.Portugal.UUID));
 					// Taxes
 					@SuppressWarnings("unchecked")
-					// TODO dates for the taxes
 					List<PTTaxEntity> taxes = (List<PTTaxEntity>) (List<?>) daoPTTax
-							.getAllTaxes();
+							.getTaxesForSAFTPT(context, null, null);
 					TaxTable SAFTTaxTable = generateTaxTable(taxes);
 					mf.setTaxTable(SAFTTaxTable);
 					SAFTFile.setMasterFiles(mf);
@@ -579,17 +587,8 @@ public class PTSAFTFileGenerator {
 			RequiredFieldNotFoundException, InvalidDocumentTypeException,
 			InvalidDocumentStateException, InvalidInvoiceTypeException {
 		Invoice saftInv = new Invoice();
-		DocumentStatus status = new DocumentStatus();
 
-		// TODO Refactor. Missing parameters
-		status.setInvoiceStatus(validateString("InvoiceStatus",
-				getDocumentStatus(document), MAX_LENGTH_1, true));
-		// status.setInvoiceStatusDate(document.getDate());
-		// status.setSourceBilling(validateString("InvoiceSourceBilling",
-		// document.getSourceBilling(), MAX_LENGTH_1, true));
-		status.setSourceID(validateString("InvoiceSourceID",
-				document.getSourceId(), MAX_LENGTH_30, true));
-		saftInv.setDocumentStatus(status);
+		saftInv.setDocumentStatus(getDocumentStatus(document));
 
 		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
 				MAX_LENGTH_60, true));
@@ -604,6 +603,8 @@ public class PTSAFTFileGenerator {
 		saftInv.setInvoiceDate(formatDate(document.getDate()));
 		saftInv.setSelfBillingIndicator(validateInteger("SelfBillingIndicator",
 				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
+		saftInv.setSourceID(validateString("InvoiceSourceID",
+				document.getSourceId(), MAX_LENGTH_30, true));
 		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(config
@@ -671,12 +672,6 @@ public class PTSAFTFileGenerator {
 			line.setLineNumber(new BigInteger(Integer.toString(entry
 					.getEntryNumber())));
 
-			/* NOT REQUIRED - Invoice.Line.OrderReferences */
-			// OrderReferences or = getOrderReferencesForDocumentEntry(entry);
-			// if (or != null) {
-			// line.getOrderReferences().add(or);
-			// }
-
 			/* REQUIRED */
 			line.setProductCode(validateString("ProductCode", entry
 					.getProduct().getUID().getValue(), MAX_LENGTH_30, true));
@@ -686,14 +681,14 @@ public class PTSAFTFileGenerator {
 			line.setUnitOfMeasure(validateString("UnitOfMeasure",
 					UNIT_OF_MEASURE, MAX_LENGTH_20, true));
 			line.setUnitPrice(validateBigDecimal(entry.getAmountWithoutTax()
-					.divide(entry.getQuantity(), RoundingMode.HALF_UP)));
+					.divide(entry.getQuantity(), mc.getRoundingMode())));
 			line.setTaxPointDate(formatDate(entry.getTaxPointDate()));
 
 			/* NOT REQUIRED - Invoice.Line.References */
-			// References ref = getReferencesForDocumentEntry(entry, document);
-			// if (ref != null) {
-			// line.setReferences(ref);
-			// }
+			References ref = getReferencesForDocumentEntry(entry, document);
+			if (ref != null) {
+				line.getReferences().add(ref);
+			}
 
 			/* REQUIRED */
 			line.setDescription(validateString("Description",
@@ -803,7 +798,6 @@ public class PTSAFTFileGenerator {
 					.getReference();
 		}
 
-		/* FIXME ONLY SUPPORTS ONE REFERENCED DOCUMENT */
 		if (referencedDocument != null) {
 			ref = new References();
 
@@ -1028,18 +1022,30 @@ public class PTSAFTFileGenerator {
 	 * @param document
 	 * @return
 	 * @throws InvalidDocumentStateException
+	 * @throws DatatypeConfigurationException
 	 */
-	private String getDocumentStatus(PTGenericInvoiceEntity document)
-			throws InvalidDocumentStateException {
+	private DocumentStatus getDocumentStatus(PTGenericInvoiceEntity document)
+			throws InvalidDocumentStateException,
+			DatatypeConfigurationException {
+		DocumentStatus status = new DocumentStatus();
+
 		if (document.isCancelled()) {
-			return "A";
+			status.setInvoiceStatus("A");
 		} else if (document.isBilled()) {
-			return "F";
+			status.setInvoiceStatus("F");
 		} else if (document.isSelfBilled()) {
-			return "S";
+			status.setInvoiceStatus("S");
 		} else {
-			return "N";
+			status.setInvoiceStatus("N");
 		}
+
+		GregorianCalendar gregory = new GregorianCalendar();
+		gregory.setTime(document.getDate());
+		status.setInvoiceStatusDate(DatatypeFactory.newInstance()
+				.newXMLGregorianCalendar(gregory));
+		status.setSourceID(document.getSourceId());
+		status.setSourceBilling(document.getSourceBilling().toString());
+		return status;
 	}
 
 	/**
@@ -1313,7 +1319,7 @@ public class PTSAFTFileGenerator {
 			throws InvalidTaxCodeException {
 
 		/* TODO Check this with Francisco */
-		switch (entity.getVATCode()) {
+		switch (entity.getPTVATCode()) {
 			case EXEMPT:
 				return "ISE";
 			case INTERMEDIATE:
@@ -1325,7 +1331,7 @@ public class PTSAFTFileGenerator {
 			case REDUCED:
 				return "RED";
 			default:
-				throw new InvalidTaxCodeException(entity.getVATCode()
+				throw new InvalidTaxCodeException(entity.getPTVATCode()
 						.toString());
 		}
 	}
@@ -1402,7 +1408,7 @@ public class PTSAFTFileGenerator {
 	 * @return
 	 */
 	private BigDecimal validateBigDecimal(BigDecimal bd) {
-		return bd.setScale(MAX_LENGTH_2, BigDecimal.ROUND_HALF_UP);
+		return bd.setScale(MAX_LENGTH_2, mc.getRoundingMode());
 	}
 
 	/**

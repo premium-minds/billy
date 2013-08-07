@@ -79,12 +79,12 @@
                       Meio de Pagamento: <xsl:value-of select="paymentMechanism" />
                     </xsl:when>
                   </xsl:choose>
-                  <fo:block />
+                  <!-- <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentSettlement">
                       Condições de Pagamento: <xsl:value-of select="paymentSettlement" />
                     </xsl:when>
-                  </xsl:choose>
+                  </xsl:choose>-->
                 </fo:block>
               </fo:table-cell>
               <!--customer address block-->
@@ -111,7 +111,7 @@
       <!--invoice info block-->
       <fo:block margin-top="6mm" margin-bottom="4mm" font-size="9pt">
         <fo:block margin-bottom="2mm" font-weight="bold">
-          Fatura nº: <xsl:value-of select="id" />
+          Fatura Simplificada nº: <xsl:value-of select="id" />
         </fo:block>
         <fo:table width="100%">
           <fo:table-body>
@@ -251,9 +251,8 @@
           <fo:table-column column-width="50%"/>
           <fo:table-body font-size="8pt">
             <fo:table-row>
-              <fo:table-cell margin-right="2mm">
-              <!-- tax details table -->
-              <fo:table table-layout="fixed" width="100%">
+              <!-- <fo:table-cell margin-right="2mm">
+                     < fo:table table-layout="fixed" width="100%">
                 <fo:table-column column-width="50%"/>
                 <fo:table-column column-width="35%"/>
                 <fo:table-column column-width="15%"/>
@@ -296,7 +295,7 @@
                 </xsl:for-each>
                 </fo:table-body>
               </fo:table>
-              </fo:table-cell>
+              </fo:table-cell>-->
               <fo:table-cell margin-left="4mm">
               <!-- final totals table -->
                 <fo:table table-layout="fixed" width="100%">

@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
@@ -58,6 +59,8 @@ public class PTBusinessTestUtil {
 			PTApplication.Builder applicationBuilder) {
 		PTBusiness.Builder businessBuilder = injector
 				.getInstance(PTBusiness.Builder.class);
+		
+		PTContactEntity contact = (PTContactEntity)contactBuilder.build();
 
 		businessBuilder.clear();
 
@@ -65,7 +68,7 @@ public class PTBusinessTestUtil {
 				.addContact(contactBuilder).setAddress(addressBuilder)
 				.setBillingAddress(addressBuilder).setCommercialName(name)
 				.setFinancialID(id).setOperationalContextUID(contextUID)
-				.setWebsite(website).setName(name);
+				.setMainContactUID(contact.getUID()).setWebsite(website).setName(name);
 
 		PTBusinessEntity business = (PTBusinessEntity) businessBuilder.build();
 		business.setUID(new UID(uid));
