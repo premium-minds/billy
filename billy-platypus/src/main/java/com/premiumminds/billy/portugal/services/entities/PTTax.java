@@ -44,11 +44,4 @@ public interface PTTax extends Tax {
 		public static final String EXEMPT = "ISE";
 		public static final String OTHER = "OUT";
 	}
-
-	public enum PTTaxType {
-		VAT, STAMP_DUTY, NONE
-	}
-
-	public PTTaxType getPTTaxType();
-
 }

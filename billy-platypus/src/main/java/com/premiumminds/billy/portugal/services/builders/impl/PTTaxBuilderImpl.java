@@ -22,7 +22,6 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
-import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -30,7 +29,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntit
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
-import com.premiumminds.billy.portugal.services.entities.PTTax.PTTaxType;
 
 public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
 		extends TaxBuilderImpl<TBuilder, TTax> implements
@@ -42,13 +40,6 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	@Inject
 	public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {
 		super(daoPTTax, daoPTContext);
-	}
-
-	@Override
-	public TBuilder setPTTaxtType(PTTaxType taxType) {
-		BillyValidator.mandatory(taxType, LOCALIZER.getString("field.TaxType"));
-		this.getTypeInstance().setPTTaxType(taxType);
-		return this.getBuilder();
 	}
 
 	@Override

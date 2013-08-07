@@ -28,19 +28,7 @@ public class MockPTTaxEntity extends MockTaxEntity implements PTTaxEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public PTTaxType type;
-
 	public MockPTTaxEntity() {
-	}
-
-	@Override
-	public PTTaxType getPTTaxType() {
-		return type;
-	}
-
-	@Override
-	public void setPTTaxType(PTTaxType type) {
-		this.type = type;
 	}
 
 }

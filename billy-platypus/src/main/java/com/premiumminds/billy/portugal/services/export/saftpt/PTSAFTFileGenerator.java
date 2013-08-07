@@ -465,7 +465,6 @@ public class PTSAFTFileGenerator {
 					getRegionCodeFromISOCode(((PTRegionContext) taxEntity
 							.getContext()).getRegionCode()), MAX_LENGTH_5, true));
 
-			/* TODO STAMP DUTY NOT SUPPORTED IN THIS VERSION */
 			tte.setDescription(validateString("Description",
 					taxEntity.getDesignation(), MAX_LENGTH_255, true));
 
@@ -473,7 +472,6 @@ public class PTSAFTFileGenerator {
 				tte.setTaxExpirationDate(formatDate(taxEntity.getValidTo()));
 			}
 
-			// TODO Check this
 			if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
 				tte.setTaxAmount(taxEntity.getValue());
 			} else if (taxEntity.getTaxRateType()
@@ -714,7 +712,6 @@ public class PTSAFTFileGenerator {
 								.getContext()).getRegionCode()), MAX_LENGTH_5,
 						true));
 
-				// TODO Check this
 				if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
 					tax.setTaxAmount(validateBigDecimal(taxEntity.getValue()));
 				} else if (taxEntity.getTaxRateType().equals(
@@ -1302,39 +1299,13 @@ public class PTSAFTFileGenerator {
 				return "IVA";
 			case FLAT:
 				return "IS";
+			case NONE:
+				return "NS";
 			default:
 				throw new InvalidTaxTypeException(entity.getTaxRateType()
 						.toString());
 		}
 	}
-
-	// /**
-	// * Converts the tax code to an acronym according to the SAFT file rules
-	// *
-	// * @param entity
-	// * @return
-	// * @throws InvalidTaxCodeException
-	// */
-	// private String getTaxCode(PTTaxEntity entity)
-	// throws InvalidTaxCodeException {
-	//
-	// /* TODO Check this with Francisco */
-	// switch (entity.getCode()) {
-	// case EXEMPT:
-	// return "ISE";
-	// case INTERMEDIATE:
-	// return "INT";
-	// case NORMAL:
-	// return "NOR";
-	// case OTHER:
-	// return "OUT";
-	// case REDUCED:
-	// return "RED";
-	// default:
-	// throw new InvalidTaxCodeException(entity.getPTVATCode()
-	// .toString());
-	// }
-	// }
 
 	/********
 	 * MISC *
