@@ -1,22 +1,15 @@
-<!--
-  ~ Copyright (C) 2013 Premium Minds.
-  ~
-  ~ This file is part of billy-core-jpa.
-  ~
-  ~ billy-core-jpa is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Lesser General Public License as published
-  ~ by the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ billy-core-jpa is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public License
-  ~ along with billy-core-jpa.  If not, see <http://www.gnu.org/licenses />.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-core-jpa. 
+	~ ~ billy-core-jpa is free software: you can redistribute it and/or modify 
+	~ it under the terms of the GNU Lesser General Public License as published 
+	~ by the Free Software Foundation, either version 3 of the License, or ~ 
+	(at your option) any later version. ~ ~ billy-core-jpa is distributed in 
+	the hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even 
+	the implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+	See the ~ GNU Lesser General Public License for more details. ~ ~ You should 
+	have received a copy of the GNU Lesser General Public License ~ along with 
+	billy-core-jpa. If not, see <http://www.gnu.org/licenses />. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy-core-jpa</artifactId>
 	<name>billy core JPA</name>
@@ -64,12 +57,7 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-jpamodelgen</artifactId>
-			<version>1.1.1.Final</version>
-		</dependency>
-            
+
 		<!-- GUICE -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -196,62 +184,29 @@
 					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
 			</plugin>
-<plugin>
-				<groupId>org.bsc.maven</groupId>
-				<artifactId>maven-processor-plugin</artifactId>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.0.9</version>
 				<executions>
 					<execution>
-						<id>process</id>
 						<goals>
 							<goal>process</goal>
 						</goals>
-						<phase>generate-sources</phase>
 						<configuration>
-							<!-- source output directory -->
-							<outputDirectory>target/metamodel</outputDirectory>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.3</version>
-				<executions>
-					<execution>
-						<id>add-source</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>add-source</goal>
-						</goals>
-						<configuration>
-							<sources>
-								<source>target/metamodel</source>
-							</sources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-				<plugin>
-					<groupId>com.mysema.maven</groupId>
-					<artifactId>apt-maven-plugin</artifactId>
-					<version>1.0.9</version>
-					<executions>
-						<execution>
-							<goals>
-								<goal>process</goal>
-							</goals>
-							<configuration>
-								<outputDirectory>target/generated-sources/java</outputDirectory>
-								<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>hibernate3-maven-plugin</artifactId>
-					<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false" create="true" update="true" format="format" outputfilename="schemaDiff.sql" /> </hibernatetool> </configuration> -->
+				<artifactId>hibernate3-maven-plugin</artifactId>
+				<!-- <version>3.0</version> <configuration> <hibernatetool> <jpaconfiguration 
+					persistenceunit="application-persistence-unit-export" /> <hbm2ddl export="false" 
+					create="true" update="true" format="format" outputfilename="schemaDiff.sql" 
+					/> </hibernatetool> </configuration> -->
 				<version>2.2</version>
 				<configuration>
 					<components>
