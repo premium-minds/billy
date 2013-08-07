@@ -28,18 +28,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity_;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity_;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTTaxEntity;
 
 public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
@@ -60,84 +61,56 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
 	public List<JPAPTTaxEntity> getTaxesForSAFTPT(
 			PTRegionContextEntity context, Date validFrom, Date validTo) {
-		List<JPAPTTaxEntity> list = null;
-		EntityManager em = this.getEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
+		QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		CriteriaQuery<JPAPTTaxEntity> cq = cb.createQuery(JPAPTTaxEntity.class);
-
-		Root<JPAPTTaxEntity> tax = cq.from(JPAPTTaxEntity.class);
-		List<Predicate> predicates = new ArrayList<Predicate>();
-
+		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
+		BooleanExpression active = tax.active.eq(true);
+		predicates.add(active);
+		BooleanExpression regionContext = tax.context.eq(context);
+		predicates.add(regionContext);
 		if (validFrom != null) {
-			Predicate dateFrom = cb.equal(tax.get(JPAPTTaxEntity_.validFrom),
-					validFrom);
+			BooleanExpression dateFrom = tax.validFrom.eq(validFrom);
 			predicates.add(dateFrom);
 		}
 
 		if (validTo != null) {
-			Predicate dateTo = cb.and(cb.equal(
-					tax.get(JPAPTTaxEntity_.validTo), validTo), cb
-					.lessThanOrEqualTo(tax.get(JPAPTTaxEntity_.validTo),
-							validFrom));
+			BooleanExpression dateTo = tax.validTo.eq(validTo);
 			predicates.add(dateTo);
 		}
 
-		Predicate active = cb.equal(tax.get(JPAPTTaxEntity_.active), true);
-		predicates.add(active);
-
-		Predicate regionContext = cb.equal(tax.get(JPAPTTaxEntity_.context),
-				context);
-		predicates.add(regionContext);
-
-		for (Predicate p : predicates) {
-			cq.where(cb.and(p));
+		query.from(tax);
+		for (BooleanExpression e : predicates) {
+			query.where(e);
 		}
+		List<JPAPTTaxEntity> list = query.list(tax);
+		List<JPAPTRegionContextEntity> childContexts = null;
+		List<JPAPTTaxEntity> taxResult = null;
+		List<JPAPTTaxEntity> taxContextResult = new ArrayList<JPAPTTaxEntity>();
 
-		cq.select(tax);
-		TypedQuery<JPAPTTaxEntity> q = em.createQuery(cq);
-		list = q.getResultList();
-
-		List<JPAPTTaxEntity> result = null;
 		for (JPAPTTaxEntity t : list) {
-			result = getChildTaxes((PTRegionContextEntity) t.getContext());
+			childContexts = getChildContexts((PTRegionContextEntity) t
+					.getContext());
+			for (JPAPTRegionContextEntity c : childContexts) {
+				taxResult = getTaxesForSAFTPT(c, validFrom, validTo);
+				if (taxResult != null) {
+					taxContextResult.addAll(taxResult);
+				}
+			}
 		}
-		if (result != null) {
-			list.addAll(result);
+		if (taxContextResult != null) {
+			list.addAll(taxContextResult);
 		}
-
 		return list;
 	}
 
-	private List<JPAPTTaxEntity> getChildTaxes(
+	private List<JPAPTRegionContextEntity> getChildContexts(
 			PTRegionContextEntity parentContext) {
-		List<JPAPTTaxEntity> list = null;
-		EntityManager em = this.getEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
+		QJPAPTRegionContextEntity contexts = QJPAPTRegionContextEntity.jPAPTRegionContextEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		CriteriaQuery<JPAPTTaxEntity> cq = cb.createQuery(JPAPTTaxEntity.class);
-
-		Root<JPAPTTaxEntity> tax = cq.from(JPAPTTaxEntity.class);
-		Join<JPAPTTaxEntity, JPAContextEntity> contexts = tax
-				.join(JPAPTTaxEntity_.context);
-
-		cq.select(tax);
-		cq.where(cb.and(cb.equal(tax.get(JPAPTTaxEntity_.active), true), cb
-				.equal(contexts.get(JPAPTRegionContextEntity_.parent),
-						parentContext)));
-
-		TypedQuery<JPAPTTaxEntity> q = em.createQuery(cq);
-		list = q.getResultList();
-
-		List<JPAPTTaxEntity> result = null;
-		for (JPAPTTaxEntity t : list) {
-			result = getChildTaxes((PTRegionContextEntity) t.getContext());
-		}
-		if (result != null) {
-			list.addAll(result);
-		}
-
-		return list;
+		query.from(contexts).where(contexts.parent.eq(parentContext));
+		return query.list(contexts);
 	}
 
 	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context,
