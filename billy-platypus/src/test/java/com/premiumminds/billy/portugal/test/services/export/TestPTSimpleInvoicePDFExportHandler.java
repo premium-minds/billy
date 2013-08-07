@@ -46,7 +46,7 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 	public static final String XSL_PATH = "src/main/resources/pt_simpleinvoice.xsl";
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 	public static final String URI_PATH = "file://"
-			+ System.getProperty("user.dir") + "/src/main/resources/Result.pdf";
+			+ System.getProperty("user.dir") + "/src/test/resources/documents/Result.pdf";
 	private static final TYPE DEFAULT_TYPE = TYPE.FS;
 	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 	protected static final String PRODUCT_UID = "PRODUCT_ISSUE_UID";

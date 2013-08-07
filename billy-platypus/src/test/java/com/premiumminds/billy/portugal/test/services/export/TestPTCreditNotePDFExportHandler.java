@@ -46,7 +46,7 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest{
 	public static final int NUM_ENTRIES = 10; 
 	public static final String XSL_PATH = "src/main/resources/pt_creditnote.xsl";
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	public static final String URI_PATH = "file://" + System.getProperty("user.dir")  + "/src/main/resources/Result.pdf";
+	public static final String URI_PATH = "file://" + System.getProperty("user.dir")  + "/src/test/resources/documents/Result.pdf";
 
 	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 	public static final byte[] SAMPLE_HASH = {0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
