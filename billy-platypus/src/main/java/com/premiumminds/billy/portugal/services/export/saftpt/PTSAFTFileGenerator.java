@@ -459,7 +459,7 @@ public class PTSAFTFileGenerator {
 			TaxTableEntry tte = new TaxTableEntry();
 			tte.setTaxType(validateString("TaxType", getTaxType(taxEntity),
 					MAX_LENGTH_3, true));
-			tte.setTaxCode(validateString("TaxCode", getTaxCode(taxEntity),
+			tte.setTaxCode(validateString("TaxCode", taxEntity.getCode(),
 					MAX_LENGTH_10, true));
 			tte.setTaxCountryRegion(validateString("TaxCountryRegion",
 					getRegionCodeFromISOCode(((PTRegionContext) taxEntity
@@ -707,7 +707,7 @@ public class PTSAFTFileGenerator {
 				Tax tax = new Tax();
 				tax.setTaxType(validateString("TaxType", getTaxType(taxEntity),
 						MAX_LENGTH_3, true));
-				tax.setTaxCode(validateString("TaxCode", getTaxCode(taxEntity),
+				tax.setTaxCode(validateString("TaxCode", taxEntity.getCode(),
 						MAX_LENGTH_10, true));
 				tax.setTaxCountryRegion(validateString("TaxCountryRegion",
 						getRegionCodeFromISOCode(((PTRegionContext) taxEntity
@@ -1308,33 +1308,33 @@ public class PTSAFTFileGenerator {
 		}
 	}
 
-	/**
-	 * Converts the tax code to an acronym according to the SAFT file rules
-	 * 
-	 * @param entity
-	 * @return
-	 * @throws InvalidTaxCodeException
-	 */
-	private String getTaxCode(PTTaxEntity entity)
-			throws InvalidTaxCodeException {
-
-		/* TODO Check this with Francisco */
-		switch (entity.getPTVATCode()) {
-			case EXEMPT:
-				return "ISE";
-			case INTERMEDIATE:
-				return "INT";
-			case NORMAL:
-				return "NOR";
-			case OTHER:
-				return "OUT";
-			case REDUCED:
-				return "RED";
-			default:
-				throw new InvalidTaxCodeException(entity.getPTVATCode()
-						.toString());
-		}
-	}
+	// /**
+	// * Converts the tax code to an acronym according to the SAFT file rules
+	// *
+	// * @param entity
+	// * @return
+	// * @throws InvalidTaxCodeException
+	// */
+	// private String getTaxCode(PTTaxEntity entity)
+	// throws InvalidTaxCodeException {
+	//
+	// /* TODO Check this with Francisco */
+	// switch (entity.getCode()) {
+	// case EXEMPT:
+	// return "ISE";
+	// case INTERMEDIATE:
+	// return "INT";
+	// case NORMAL:
+	// return "NOR";
+	// case OTHER:
+	// return "OUT";
+	// case REDUCED:
+	// return "RED";
+	// default:
+	// throw new InvalidTaxCodeException(entity.getPTVATCode()
+	// .toString());
+	// }
+	// }
 
 	/********
 	 * MISC *

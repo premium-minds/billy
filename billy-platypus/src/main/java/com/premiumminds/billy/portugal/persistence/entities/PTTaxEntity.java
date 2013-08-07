@@ -23,7 +23,5 @@ import com.premiumminds.billy.portugal.services.entities.PTTax;
 
 public interface PTTaxEntity extends TaxEntity, PTTax {
 
-	public void setVATCode(PTVATCode code);
-
 	public void setPTTaxType(PTTaxType taxType);
 }

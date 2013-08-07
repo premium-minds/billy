@@ -36,15 +36,18 @@ public interface PTTax extends Tax {
 
 	}
 
-	public enum PTVATCode {
-		REDUCED, INTERMEDIATE, NORMAL, EXEMPT, OTHER
+	public static class PTVATCode {
+
+		public static final String REDUCED = "RED";
+		public static final String INTERMEDIATE = "INT";
+		public static final String NORMAL = "NOR";
+		public static final String EXEMPT = "ISE";
+		public static final String OTHER = "OUT";
 	}
 
 	public enum PTTaxType {
 		VAT, STAMP_DUTY, NONE
 	}
-
-	public PTVATCode getPTVATCode();
 
 	public PTTaxType getPTTaxType();
 

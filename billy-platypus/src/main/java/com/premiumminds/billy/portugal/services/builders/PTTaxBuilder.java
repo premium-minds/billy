@@ -21,12 +21,9 @@ package com.premiumminds.billy.portugal.services.builders;
 import com.premiumminds.billy.core.services.builders.TaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.entities.PTTax.PTTaxType;
-import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public interface PTTaxBuilder<TBuilder extends PTTaxBuilder<TBuilder, TTax>, TTax extends PTTax>
 		extends TaxBuilder<TBuilder, TTax> {
-
-	public TBuilder setVATCode(PTVATCode code);
 
 	public TBuilder setPTTaxtType(PTTaxType taxType);
 }
