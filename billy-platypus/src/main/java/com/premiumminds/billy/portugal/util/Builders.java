@@ -23,9 +23,12 @@ import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTShippingPoint;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
@@ -33,7 +36,17 @@ public class Builders {
 
 	public class Invoices {
 
-		// TODO invoice, credit note, simple invoice, manual invoice, etc...
+		public PTInvoice.Builder createInvoiceBuilder() {
+			return Builders.this.getInstance(PTInvoice.Builder.class);
+		}
+
+		public PTSimpleInvoice.Builder createSimpleInvoiceBuilder() {
+			return Builders.this.getInstance(PTSimpleInvoice.Builder.class);
+		}
+
+		public PTCreditNote.Builder createCreditNoteBuilder() {
+			return Builders.this.getInstance(PTCreditNote.Builder.class);
+		}
 
 	}
 
