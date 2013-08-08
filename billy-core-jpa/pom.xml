@@ -58,6 +58,12 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>4.2.3.Final</version>
+		</dependency>
+
 		<!-- GUICE -->
 		<dependency>
 			<groupId>com.google.inject</groupId>
