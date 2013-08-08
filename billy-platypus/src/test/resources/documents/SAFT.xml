@@ -17,9 +17,9 @@
         </CompanyAddress>
         <FiscalYear>2013</FiscalYear>
         <StartDate>2013-02-01</StartDate>
-        <EndDate>2013-08-07</EndDate>
+        <EndDate>2013-08-08</EndDate>
         <CurrencyCode xsi:type="xs:string" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">EUR</CurrencyCode>
-        <DateCreated>2013-08-07</DateCreated>
+        <DateCreated>2013-08-08</DateCreated>
         <TaxEntity>Global</TaxEntity>
         <ProductCompanyTaxID>523456789</ProductCompanyTaxID>
         <SoftwareCertificateNumber>1234</SoftwareCertificateNumber>
@@ -188,17 +188,17 @@
                 <InvoiceNo>FT A/1</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-07T18:12:58</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-08T11:57:17</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>pqVlxJcgRkBD75wOIkcWTNU43HdmxyyOEXwjFgkKCr60AkTT66Rx6gMxACMZoYBNB333hq1+WTGmRseKaa1MkGsOhTEZ+ztkmUSzLWwGHDXaI9I1yOKLquzpvxmJNiWZ/ciT5Oo8/Tpn6USgk89eZZs9oH8nA+bbYmjhKGO+RSc=</Hash>
+                <Hash>Xig8uLWDLccOX0i/AG0jhRX9ClIe2PZnIXF9t5FKywAepgQkF6SyEuZmkWyqelJ6bIk+sxSp33OtTbGObHwkwxXapbMRvnaSMFuJ3jmzW/yfdYhevtFvBBBj3YhK/jEfDd4ic6L65+iogiz4pPvD75FAJm/5Q1u4p9TpiU5OQug=</Hash>
                 <Period>7</Period>
-                <InvoiceDate>2013-08-07</InvoiceDate>
+                <InvoiceDate>2013-08-08</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-07T18:13:01</SystemEntryDate>
+                <SystemEntryDate>2013-08-08T11:57:22</SystemEntryDate>
                 <CustomerID>Consumidor final</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -207,7 +207,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -224,7 +224,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -241,7 +241,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -258,7 +258,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -275,7 +275,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -292,7 +292,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -312,17 +312,17 @@
                 <InvoiceNo>FT A/2</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-07T18:12:58</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-08T11:57:17</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>WfQX46qokErquGn58or3zHQuCGzlN5Mq3I70DZGdbRpFP+Jo4s1qklCWXEz3VXHiIYGC7NODMS7iCln+GOScs6jImiJt2VQWJhBe8BrcZQbI6SFtdJci8FxiX8+zqUhpeUVrGZUispnh1D9nI3bk+pjxF7ukCDv5zzBe8z1OTb8=</Hash>
+                <Hash>XKlw7/dBVrbh/gzFZnCiso1TVoys0mINaWFBtbfbR/4mi1UC7/bb8vA+7Ur2ghdaj4eYagFW0Vgq7xU7I36DEQdXduQzc6Xk76Lau8LeeL01mo5AmpLXUfN8OfprKrBbIS1nKUCUkupluU5EBq3dizCJVi+AHhDhB+UoOh6zhb4=</Hash>
                 <Period>7</Period>
-                <InvoiceDate>2013-08-07</InvoiceDate>
+                <InvoiceDate>2013-08-08</InvoiceDate>
                 <InvoiceType>FT</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-07T18:13:01</SystemEntryDate>
+                <SystemEntryDate>2013-08-08T11:57:22</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -331,7 +331,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -348,7 +348,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -365,7 +365,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -382,7 +382,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -399,7 +399,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -416,7 +416,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -436,17 +436,17 @@
                 <InvoiceNo>FS S/1</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-07T18:12:58</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-08T11:57:17</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>WjyuEKJDCxxtIBlT+KjwENwlLzK/twVClBlR71dRc2XRi7NpKGji8nA+8e14vTlkWho1IpI1OADi31AuBVWs4lV6tuCm9O6xMjOhV/HVPHckeuqZFDgWN42o1HO10XVx7NUJPXxcZc89PkghXOAfRJveTVJOuVxNFZAYpA1jT6A=</Hash>
+                <Hash>pb9yUZN9ZNOTx3a/XMZmPWlR9yW3fizlVDDgPMHkIaevBdi1wZfWIrUTXHvVrf8ecNGNQC1LyOk6U2/NiAv7R/kYLG72RuZaHumN53hEPf48MyHEI8ctaIaLAnrbyLgg2M3aMv47NT3VfHCbOCi74LGm+51elx6rdi9m0V7mfmQ=</Hash>
                 <Period>7</Period>
-                <InvoiceDate>2013-08-07</InvoiceDate>
+                <InvoiceDate>2013-08-08</InvoiceDate>
                 <InvoiceType>FS</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-07T18:13:01</SystemEntryDate>
+                <SystemEntryDate>2013-08-08T11:57:22</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -455,7 +455,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -472,7 +472,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <Description>DESCRIPTION</Description>
                     <CreditAmount>16.26</CreditAmount>
                     <Tax>
@@ -492,17 +492,17 @@
                 <InvoiceNo>NC C/1</InvoiceNo>
                 <DocumentStatus>
                     <InvoiceStatus>N</InvoiceStatus>
-                    <InvoiceStatusDate>2013-08-07T18:13:01</InvoiceStatusDate>
+                    <InvoiceStatusDate>2013-08-08T11:57:22</InvoiceStatusDate>
                     <SourceID>SOURCE</SourceID>
                     <SourceBilling>P</SourceBilling>
                 </DocumentStatus>
-                <Hash>Wc27UiKm2qU5PoV8eSa0jTi1+FTfB+hsMdgvi352y5tI3TMga/b80hbror/KCnXX8k6SiHj7Bc+0li+YfJpH+z4YVAW90SHyAEKMrc8hdC32g1f7YTTYcZMV/nchc9iGeSSFMzGbHsQo+g1P69dijadW9ixEIvxD4W2GZJCcBnE=</Hash>
+                <Hash>fYmYgmuXGbzjf2FLiW0kTTKnNYAUIGFdIFH2nFs6bPMUa48SNHGxzyO4CA4JQIesAdekC1d9ji9c8o1k2AQD576FYIDYNWcIWj5AR0GhglSMYvtK0V5u8s/QX86D0iHCsoxjHm6YwVkrAhigTHWoX+k627/yJHNHqvGZ6W8u+zw=</Hash>
                 <Period>7</Period>
-                <InvoiceDate>2013-08-07</InvoiceDate>
+                <InvoiceDate>2013-08-08</InvoiceDate>
                 <InvoiceType>NC</InvoiceType>
                 <SelfBillingIndicator>0</SelfBillingIndicator>
                 <SourceID>SOURCE</SourceID>
-                <SystemEntryDate>2013-08-07T18:13:01</SystemEntryDate>
+                <SystemEntryDate>2013-08-08T11:57:22</SystemEntryDate>
                 <CustomerID>CUSTOMER_UID</CustomerID>
                 <Line>
                     <LineNumber>1</LineNumber>
@@ -511,7 +511,7 @@
                     <Quantity>1.00</Quantity>
                     <UnitOfMeasure>Unidade</UnitOfMeasure>
                     <UnitPrice>16.26</UnitPrice>
-                    <TaxPointDate>2013-08-07</TaxPointDate>
+                    <TaxPointDate>2013-08-08</TaxPointDate>
                     <References>
                         <Reference>FT A/1</Reference>
                         <Reason>Rotten potatoes</Reason>

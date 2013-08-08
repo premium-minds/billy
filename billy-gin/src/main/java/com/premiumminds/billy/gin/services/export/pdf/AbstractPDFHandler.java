@@ -127,9 +127,7 @@ public abstract class AbstractPDFHandler {
 		}
 	}
 
-	public File toFile(
-			URI fileURI,
-			InputStream templateStream,
+	public File toFile(URI fileURI, InputStream templateStream,
 			ParamsTree<String, String> documentParams,
 			IBillyTemplateBundle bundle) throws ExportServiceException {
 		// if you want to save PDF file use the following code

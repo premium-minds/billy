@@ -36,7 +36,7 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractPDFExportHandler;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
-import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
+import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 
 public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
@@ -56,8 +56,8 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		config = new Config();
 	}
 
-	public File toFile(URI fileURI, PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle)
-			throws ExportServiceException {
+	public File toFile(URI fileURI, PTInvoiceEntity invoice,
+			PTInvoiceTemplateBundle bundle) throws ExportServiceException {
 		return super.toFile(fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
@@ -68,17 +68,18 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
 				bundle);
 	}
-	
+
 	protected ParamsTree<String, String> mapDocumentToParamsTree(
 			PTInvoiceEntity invoice, PTInvoiceTemplateBundle bundle) {
-		
+
 		ParamKeys.ROOT = "invoice";
-		
-		ParamsTree<String, String> params = super.mapDocumentToParamsTree(invoice, bundle);
-		
+
+		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
+				invoice, bundle);
+
 		params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
 				this.getVerificationHashString(invoice.getHash().getBytes()));
-		
+
 		params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
 				bundle.getSoftwareCertificationId());
 		return params;
@@ -86,23 +87,21 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	private String getVerificationHashString(byte[] hash) {
 		String hashString = Base64.encodeBytes(hash);
-		String rval = hashString.substring(0, 1)
-		 + hashString.substring(10, 11)
-		 + hashString.substring(20, 21)
-		 + hashString.substring(30, 31);
+		String rval = hashString.substring(0, 1) + hashString.substring(10, 11)
+				+ hashString.substring(20, 21) + hashString.substring(30, 31);
 
 		return rval;
 	}
-	
+
 	@Override
 	public <T extends ExportServiceRequest> void export(T request,
 			OutputStream targetStream) throws ExportServiceException {
 
-		if (!(request instanceof PDFPTInvoiceExportRequest)) {
+		if (!(request instanceof PTInvoicePDFExportRequest)) {
 			throw new ExportServiceException("Cannot handle request of type "
 					+ request.getClass().getCanonicalName());
 		}
-		PDFPTInvoiceExportRequest exportRequest = (PDFPTInvoiceExportRequest) request;
+		PTInvoicePDFExportRequest exportRequest = (PTInvoicePDFExportRequest) request;
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
@@ -113,25 +112,28 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 			throw new ExportServiceException(e);
 		}
 	}
-	
+
 	@Override
 	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
-			ParamsTree<String, String> params, K document, T bundle){
+			ParamsTree<String, String> params, K document, T bundle) {
 
 		if (null != document.getSettlementDescription()) {
 			params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT,
 					document.getSettlementDescription());
-		
-		}	
+
+		}
 		super.setHeader(params, document, bundle);
-		
+
 		return;
 	}
-	
+
 	@Override
-	public	<T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(K invoice, T bundle){
-		IBillyPTTemplateBundle template = (IBillyPTTemplateBundle) bundle;
-		return (invoice.getCustomer().getUID().equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? 
-				template.getGenericCustomer() : invoice.getCustomer().getTaxRegistrationNumber());
+	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
+			K invoice, T bundle) {
+		PTTemplateBundle template = (PTTemplateBundle) bundle;
+		return (invoice.getCustomer().getUID()
+				.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
+				.getGenericCustomer() : invoice.getCustomer()
+				.getTaxRegistrationNumber());
 	}
 }

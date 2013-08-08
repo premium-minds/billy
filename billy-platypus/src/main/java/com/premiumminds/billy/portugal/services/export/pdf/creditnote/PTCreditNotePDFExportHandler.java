@@ -43,7 +43,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
+import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 
 public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
@@ -80,24 +80,28 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 	protected ParamsTree<String, String> mapDocumentToParamsTree(
 			PTCreditNoteEntity creditNote, PTCreditNoteTemplateBundle bundle) {
 		ParamKeys.ROOT = "creditnote";
-		
-		ParamsTree<String, String> params = super.mapDocumentToParamsTree(creditNote, bundle);
-		
-		params.getRoot().addChild(PTParamKeys.CN_HASH,
-				this.getVerificationHashString(creditNote.getHash().getBytes()));
-		
+
+		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
+				creditNote, bundle);
+
+		params.getRoot()
+				.addChild(
+						PTParamKeys.CN_HASH,
+						this.getVerificationHashString(creditNote.getHash()
+								.getBytes()));
+
 		params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
 				bundle.getSoftwareCertificationId());
-		
+
 		return params;
 	}
-	
+
 	@Override
-	protected <T extends GenericInvoiceEntity> void setEntries(TaxTotals taxTotals, Node<String, String> entries, T document){
-		List<PTCreditNoteEntryEntity> creditNoteList = document
-				.getEntries();
+	protected <T extends GenericInvoiceEntity> void setEntries(
+			TaxTotals taxTotals, Node<String, String> entries, T document) {
+		List<PTCreditNoteEntryEntity> creditNoteList = document.getEntries();
 		for (PTCreditNoteEntry entry : creditNoteList) {
-			
+
 			Node<String, String> entryNode = entries.addChild(ParamKeys.ENTRY);
 			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct()
 					.getProductCode());
@@ -124,17 +128,15 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 								: false), tax.getValue(), entry
 								.getAmountWithoutTax(), tax.getUID().toString());
 			}
-			entryNode.addChild(PTParamKeys.INVOICE).addChild(
-					ParamKeys.ID, entry.getReference().getNumber());
+			entryNode.addChild(PTParamKeys.INVOICE).addChild(ParamKeys.ID,
+					entry.getReference().getNumber());
 		}
-	} 
+	}
 
 	private String getVerificationHashString(byte[] hash) {
 		String hashString = Base64.encodeBytes(hash);
-		String rval = hashString.substring(0, 1)
-		 + hashString.substring(10, 11)
-		 + hashString.substring(20, 21)
-		 + hashString.substring(30, 31);
+		String rval = hashString.substring(0, 1) + hashString.substring(10, 11)
+				+ hashString.substring(20, 21) + hashString.substring(30, 31);
 
 		return rval;
 	}
@@ -143,11 +145,11 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 	public <T extends ExportServiceRequest> void export(T request,
 			OutputStream targetStream) throws ExportServiceException {
 
-		if (!(request instanceof PDFPTCreditNoteExportRequest)) {
+		if (!(request instanceof PTCreditNotePDFExportRequest)) {
 			throw new ExportServiceException("Cannot handle request of type "
 					+ request.getClass().getCanonicalName());
 		}
-		PDFPTCreditNoteExportRequest exportRequest = (PDFPTCreditNoteExportRequest) request;
+		PTCreditNotePDFExportRequest exportRequest = (PTCreditNotePDFExportRequest) request;
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
@@ -158,11 +160,14 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 			throw new ExportServiceException(e);
 		}
 	}
-	
+
 	@Override
-	public	<T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(K invoice, T bundle){
-		IBillyPTTemplateBundle template = (IBillyPTTemplateBundle) bundle;
-		return (invoice.getCustomer().getUID().equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? 
-				template.getGenericCustomer() : invoice.getCustomer().getTaxRegistrationNumber());
+	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
+			K invoice, T bundle) {
+		PTTemplateBundle template = (PTTemplateBundle) bundle;
+		return (invoice.getCustomer().getUID()
+				.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
+				.getGenericCustomer() : invoice.getCustomer()
+				.getTaxRegistrationNumber());
 	}
 }
