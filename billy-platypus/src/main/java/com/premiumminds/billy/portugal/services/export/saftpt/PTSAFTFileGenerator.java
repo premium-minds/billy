@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy platypus (PT Pack).
- *
- * billy platypus (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy platypus (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy platypus (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy platypus (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy platypus (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.export.saftpt;
 
@@ -128,6 +129,7 @@ public class PTSAFTFileGenerator {
 	private final int MAX_LENGTH_60 = 60;
 	private final int MAX_LENGTH_90 = 90;
 	private final int MAX_LENGTH_100 = 100;
+	private final int MAX_LENGTH_172 = 172;
 	private final int MAX_LENGTH_200 = 200;
 	private final int MAX_LENGTH_255 = 255;
 
@@ -628,7 +630,7 @@ public class PTSAFTFileGenerator {
 		saftInv.setInvoiceType(validateString("InvoiceType",
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),
-				MAX_LENGTH_200, true));
+				MAX_LENGTH_172, true));
 
 		saftInv.setPeriod(validateInteger("Period", Integer
 				.toString(getDateField(document.getDate(), Calendar.MONTH)),
@@ -696,7 +698,7 @@ public class PTSAFTFileGenerator {
 		List<? extends PTGenericInvoiceEntryEntity> entries = (List<? extends PTGenericInvoiceEntryEntity>) document
 				.getEntries();
 		if (entries == null || entries.size() < 1) {
-			throw new RequiredFieldNotFoundException(this.context + "Line");
+			throw new RequiredFieldNotFoundException(this.context + " Line");
 		}
 
 		for (PTGenericInvoiceEntryEntity entry : entries) {
@@ -709,7 +711,7 @@ public class PTSAFTFileGenerator {
 			line.setProductCode(validateString("ProductCode", entry
 					.getProduct().getUID().getValue(), MAX_LENGTH_30, true));
 			line.setProductDescription(validateString("ProductDescription",
-					entry.getProduct().getDescription(), MAX_LENGTH_60, true));
+					entry.getProduct().getDescription(), MAX_LENGTH_200, true));
 			line.setQuantity(validateBigDecimal(entry.getQuantity()));
 			line.setUnitOfMeasure(validateString("UnitOfMeasure",
 					UNIT_OF_MEASURE, MAX_LENGTH_20, true));
@@ -725,7 +727,7 @@ public class PTSAFTFileGenerator {
 
 			/* REQUIRED */
 			line.setDescription(validateString("Description",
-					entry.getDescription(), MAX_LENGTH_60, true));
+					entry.getDescription(), MAX_LENGTH_200, true));
 			if (isCredit) {
 				line.setCreditAmount(validateBigDecimal(entry
 						.getAmountWithoutTax()));
