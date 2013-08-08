@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.export.saftpt;
 
@@ -124,6 +125,7 @@ public class PTSAFTFileGenerator {
 	private final int MAX_LENGTH_12 = 12;
 	private final int MAX_LENGTH_20 = 20;
 	private final int MAX_LENGTH_30 = 30;
+	private final int MAX_LENGTH_40 = 40;
 	private final int MAX_LENGTH_50 = 50;
 	private final int MAX_LENGTH_60 = 60;
 	private final int MAX_LENGTH_90 = 90;
@@ -382,8 +384,9 @@ public class PTSAFTFileGenerator {
 			}
 
 			if (customerEntity.getShippingAddress() != null) {
-				customer.setBillingAddress(generateAddressStructure((PTAddressEntity) customerEntity
-						.getShippingAddress()));
+				customer.getShipToAddress()
+						.add(generateAddressStructure((PTAddressEntity) customerEntity
+								.getShippingAddress()));
 			}
 			List<PTContactEntity> contacts = customerEntity.getContacts();
 			setContacts(customer, contacts);
@@ -420,13 +423,20 @@ public class PTSAFTFileGenerator {
 		supplier.setSupplierID(validateString("SupplierID", supplierEntity
 				.getUID().getValue(), MAX_LENGTH_30, true));
 		// No accounting support
-		supplier.setAccountID("Desconhecido");
+		supplier.setAccountID(validateString("AccountID", ACCOUNT_ID,
+				MAX_LENGTH_30, true));
 
 		supplier.setSupplierTaxID(validateString("SupplierTaxID",
 				supplierEntity.getTaxRegistrationNumber(), MAX_LENGTH_20, true));
 
 		supplier.setCompanyName(validateString("CompanyName",
 				supplierEntity.getName(), MAX_LENGTH_100, true));
+
+		if ((optionalParam = validateString("Contact",
+				supplierEntity.getReferralName(), MAX_LENGTH_50, false))
+				.length() > 0) {
+			supplier.setContact(optionalParam);
+		}
 
 		supplier.setBillingAddress(generateSupplierAddressStructure((PTAddressEntity) supplierEntity
 				.getBillingAddress()));
@@ -631,7 +641,8 @@ public class PTSAFTFileGenerator {
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),
 				MAX_LENGTH_172, true));
-
+		// saftInv.setHashControl(validateString("HashControl",
+		// document.getHashControl(), MAX_LENGTH_40, false));
 		saftInv.setPeriod(validateInteger("Period", Integer
 				.toString(getDateField(document.getDate(), Calendar.MONTH)),
 				MAX_LENGTH_2, true));
@@ -640,6 +651,8 @@ public class PTSAFTFileGenerator {
 				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
 		saftInv.setSourceID(validateString("InvoiceSourceID",
 				document.getSourceId(), MAX_LENGTH_30, true));
+		// saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
+		// MAX_LENGTH_5, false));
 		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(config
@@ -796,8 +809,8 @@ public class PTSAFTFileGenerator {
 	// throws RequiredFieldNotFoundException,
 	// DatatypeConfigurationException {
 	// OrderReferences or = new OrderReferences();
-	// if ((optionalParam = validateString("OriginatingON",
-	// entry.getOrderId(), MAX_LENGTH_30, false)).length() > 0) {
+	// if ((optionalParam = validateString("OriginatingON", entry.get,
+	// MAX_LENGTH_30, false)).length() > 0) {
 	// or.setOriginatingON(optionalParam);
 	// }
 	// if (entry.getOrderDate() != null) {
@@ -982,15 +995,15 @@ public class PTSAFTFileGenerator {
 				dt.setCurrency(cur);
 			}
 
-			Payment payment = getPayment(document);
-			if (payment != null) {
-				dt.getPayment().add(payment);
-			}
-
 			/* NOT REQUIRED - Invoice.DocumentTotals.Settlements */
 			Settlement stlment = getSettlement(document); // 4.1.4.19.5
 			if (stlment != null) {
 				dt.getSettlement().add(stlment);
+			}
+
+			Payment payment = getPayment(document);
+			if (payment != null) {
+				dt.getPayment().add(payment);
 			}
 		}
 
@@ -1080,6 +1093,8 @@ public class PTSAFTFileGenerator {
 		}
 
 		status.setInvoiceStatusDate(formatDateTime(document.getDate()));
+		// status.setReason(validateString("Reason", document.getReason(),
+		// MAX_LENGTH_50, false));
 		status.setSourceID(document.getSourceId());
 		status.setSourceBilling(document.getSourceBilling().toString());
 		return status;
