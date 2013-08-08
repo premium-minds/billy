@@ -86,7 +86,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 			Builder<T> originBuilder) {
 		BillyValidator.notNull(originBuilder,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.shipping_origin"));
+						.getString("field.entry_shipping_origin"));
 		this.getTypeInstance().setShippingOrigin(originBuilder.build());
 		return this.getBuilder();
 	}
@@ -96,7 +96,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 			Builder<T> destinationBuilder) {
 		BillyValidator.notNull(destinationBuilder,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.shipping_destination"));
+						.getString("field.entry_shipping_destination"));
 		this.getTypeInstance().setShippingDestination(
 				destinationBuilder.build());
 		return this.getBuilder();
@@ -160,7 +160,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.notNull(creditOrDebit,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.credit_or_debit"));
+						.getString("field.entry_credit_or_debit"));
 		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
 		return this.getBuilder();
 	}
@@ -190,7 +190,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 						.getString("field.unit_gross_amount"));
 		BillyValidator.mandatory(currency,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.currency"));
+						.getString("field.entry_currency"));
 
 		switch (type) {
 			case WITH_TAX:
@@ -211,10 +211,10 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	public TBuilder setContextUID(UID uidContext) {
 		BillyValidator.mandatory(uidContext,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.context"));
+						.getString("field.entry_context"));
 		ContextEntity c = this.daoContext.get(uidContext);
 		BillyValidator.found(c, GenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.reference"));
+				.getString("field.entry_context"));
 		this.context = c;
 		return this.getBuilder();
 	}
@@ -274,7 +274,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 		BillyValidator.mandatory(i.getCurrency(),
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.currency"));
+						.getString("field.entry_currency"));
 	}
 
 	protected void validateValues() throws ValidationException {

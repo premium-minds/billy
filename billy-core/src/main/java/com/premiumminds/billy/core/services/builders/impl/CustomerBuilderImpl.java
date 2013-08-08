@@ -57,7 +57,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	@Override
 	public TBuilder setName(String name) {
 		BillyValidator.mandatory(name,
-				CustomerBuilderImpl.LOCALIZER.getString("field.name"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
@@ -65,7 +65,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	@Override
 	public TBuilder setTaxRegistrationNumber(String number) {
 		BillyValidator.mandatory(number,
-				CustomerBuilderImpl.LOCALIZER.getString("field.tax_number"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
@@ -74,7 +74,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder,
 			boolean mainAddress) {
 		BillyValidator.notNull(addressBuilder,
-				CustomerBuilderImpl.LOCALIZER.getString("field.address"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
 
 		Address address = addressBuilder.build();
 		if (mainAddress) {
@@ -89,7 +89,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.notNull(addressBuilder, CustomerBuilderImpl.LOCALIZER
-				.getString("field.billing_address"));
+				.getString("field.customer_billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -99,7 +99,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	public <T extends Address> TBuilder setShippingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.notNull(addressBuilder, CustomerBuilderImpl.LOCALIZER
-				.getString("field.shipping_address"));
+				.getString("field.customer_shipping_address"));
 		this.getTypeInstance().setShippingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -108,7 +108,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
 		BillyValidator.notNull(contactBuilder,
-				CustomerBuilderImpl.LOCALIZER.getString("field.contact"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_contact"));
 		this.getTypeInstance().getContacts().add(contactBuilder.build());
 		return this.getBuilder();
 	}
@@ -116,7 +116,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	@Override
 	public TBuilder setMainContactUID(UID contactUID) {
 		BillyValidator.notNull(contactUID,
-				CustomerBuilderImpl.LOCALIZER.getString("field.main_contact"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
 
 		Contact c = null;
 		for (Contact contact : this.getTypeInstance().getContacts()) {
@@ -127,7 +127,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 			}
 		}
 		BillyValidator.found(c,
-				CustomerBuilderImpl.LOCALIZER.getString("field.main_contact"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
 		return this.getBuilder();
 	}
 
@@ -135,7 +135,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder) {
 		BillyValidator.notNull(accountBuilder,
-				CustomerBuilderImpl.LOCALIZER.getString("field.bank_account"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_bank_account"));
 		this.getTypeInstance().getBankAccounts().add(accountBuilder.build());
 		return this.getBuilder();
 	}
@@ -151,11 +151,11 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 			throws javax.validation.ValidationException {
 		CustomerEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getName(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.name"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
 		BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.tax_number"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
 		BillyValidator.notEmpty(c.getAddresses(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.addresses"));
+				CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
 	}
 
 	@SuppressWarnings("unchecked")
