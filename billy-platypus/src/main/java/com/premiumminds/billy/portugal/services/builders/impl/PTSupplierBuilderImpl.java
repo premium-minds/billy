@@ -38,7 +38,7 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 		PTSupplierBuilder<TBuilder, TSupplier> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames");
+			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTSupplierBuilderImpl(DAOPTSupplier daoPTSupplier) {
@@ -52,8 +52,8 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setTaxRegistrationNumber(String number) {
-		BillyValidator.mandatory(number,
-				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
+		BillyValidator.mandatory(number, PTSupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_tax_number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
@@ -63,7 +63,7 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 			Builder<T> addressBuilder) {
 		BillyValidator.mandatory(addressBuilder,
 				PTSupplierBuilderImpl.LOCALIZER
-						.getString("field.billing_address"));
+						.getString("field.supplier_billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -72,7 +72,7 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	@Override
 	public TBuilder setSelfBillingAgreement(boolean selfBilling) {
 		BillyValidator.mandatory(selfBilling, PTSupplierBuilderImpl.LOCALIZER
-				.getString("field.self_billing_agreement"));
+				.getString("field.supplier_self_billing_agreement"));
 		this.getTypeInstance().setSelfBillingAgreement(selfBilling);
 		return this.getBuilder();
 	}
@@ -89,12 +89,13 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 		super.validateInstance();
 		PTSupplier s = this.getTypeInstance();
 		BillyValidator.mandatory(s.getTaxRegistrationNumber(),
-				PTSupplierBuilderImpl.LOCALIZER.getString("field.tax_id"));
+				PTSupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_tax_number"));
 		BillyValidator.mandatory(s.getBillingAddress(),
 				PTSupplierBuilderImpl.LOCALIZER
-						.getString("field.billing_address"));
+						.getString("field.supplier_billing_address"));
 		BillyValidator.mandatory(s.hasSelfBillingAgreement(),
 				PTSupplierBuilderImpl.LOCALIZER
-						.getString("field.self_billing_agreement"));
+						.getString("field.supplier_self_billing_agreement"));
 	}
 }

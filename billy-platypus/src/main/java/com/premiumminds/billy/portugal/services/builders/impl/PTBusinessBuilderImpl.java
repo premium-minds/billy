@@ -36,7 +36,7 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 		PTBusinessBuilder<TBuilder, TBusiness> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames");
+			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTBusinessBuilderImpl(DAOPTBusiness daoBusiness,
@@ -60,13 +60,24 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		BusinessEntity b = this.getTypeInstance();
-		BillyValidator.mandatory(b.getOperationalContext(), "field.context");
-		BillyValidator.mandatory(b.getFinancialID(), "field.financial_id");
-		BillyValidator.mandatory(b.getName(), "field.name");
-		BillyValidator.mandatory(b.getAddress(), "field.address");
+		BillyValidator.mandatory(b.getOperationalContext(),
+				"field.business_context");
 		BillyValidator
-				.mandatory(b.getBillingAddress(), "field.billing_address");
-		BillyValidator.notEmpty(b.getContacts(), "field.contacts");
-		BillyValidator.notEmpty(b.getApplications(), "field.applications");
+				.mandatory(b.getFinancialID(), PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.financial_id"));
+		BillyValidator.mandatory(b.getName(), PTBusinessBuilderImpl.LOCALIZER
+				.getString("field.business_name"));
+		BillyValidator.mandatory(b.getAddress(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_address"));
+		BillyValidator.mandatory(b.getBillingAddress(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_billing_address"));
+		BillyValidator.notEmpty(b.getContacts(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_contact"));
+		BillyValidator.notEmpty(b.getApplications(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_application"));
 	}
 }

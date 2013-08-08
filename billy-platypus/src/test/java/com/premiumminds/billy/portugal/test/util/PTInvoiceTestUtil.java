@@ -44,7 +44,6 @@ public class PTInvoiceTestUtil {
 	protected static final Boolean BILLED = false;
 	protected static final Boolean CANCELLED = false;
 	protected static final Boolean SELFBILL = false;
-	protected static final String HASH = "HASH";
 	protected static final String SOURCE_ID = "SOURCE";
 	protected static final String UID = "INVOICE";
 	protected static final String SERIE = "A";

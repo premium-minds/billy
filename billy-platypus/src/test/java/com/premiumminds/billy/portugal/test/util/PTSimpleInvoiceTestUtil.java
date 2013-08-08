@@ -118,8 +118,8 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 		}
 
 		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
-				.setSelfBilled(SELFBILL).setHash(HASH).setDate(DATE)
-				.setSourceId(SOURCE_ID).setCreditOrDebit(CreditOrDebit.CREDIT)
+				.setSelfBilled(SELFBILL).setDate(DATE).setSourceId(SOURCE_ID)
+				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)
 				.setBusinessUID(new UID(businessUID));
 
@@ -136,7 +136,7 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 			invoiceEntry.setUID(new UID(entryUID));
 			invoiceEntry.getDocumentReferences().add(invoice);
 		}
-		
+
 		String formatedNumber = invoiceType.toString();
 		invoice.setNumber(formatedNumber);
 		invoice.setBusiness(businessEntity);

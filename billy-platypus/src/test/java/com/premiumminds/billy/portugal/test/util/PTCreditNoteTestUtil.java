@@ -35,7 +35,6 @@ public class PTCreditNoteTestUtil {
 	private final Boolean billed = false;
 	private final Boolean cancelled = false;
 	private final Boolean selfBill = false;
-	private final String hash = "HASH";
 	private final String sourceID = "SOURCE";
 	private final String uid = "CREDIT_NOTE";
 	private final String serie = "B";
@@ -67,7 +66,7 @@ public class PTCreditNoteTestUtil {
 		creditNoteBuilder.clear();
 
 		creditNoteBuilder.setBilled(billed).setCancelled(cancelled)
-				.setSelfBilled(selfBill).setHash(hash).setDate(new Date())
+				.setSelfBilled(selfBill).setDate(new Date())
 				.setSourceId(sourceID).addEntry(creditNoteEntryBuilder)
 				.setBusinessUID(new UID(businessUID))
 				.setSourceBilling(SourceBilling.P)

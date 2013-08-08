@@ -54,9 +54,10 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
 		super.validateInstance();
 		PTSimpleInvoiceEntity i = this.getTypeInstance();
 
+		// FIXME 1000 or 100
 		BillyValidator.mandatory(
 				(i.getAmountWithTax().compareTo(new BigDecimal(1000)) == 1),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.source_id"));
+				PTInvoiceBuilderImpl.LOCALIZER.getString("field.amount_value"));
 	}
 
 }

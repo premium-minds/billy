@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
@@ -37,6 +38,9 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 		extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
 		implements PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+
 	@Inject
 	public PTGenericInvoiceBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
@@ -47,7 +51,8 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	@Override
 	public TBuilder setSelfBilled(boolean selfBilled) {
 		BillyValidator.mandatory(selfBilled,
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+				PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.self_billed"));
 		this.getTypeInstance().setSelfBilled(selfBilled);
 		return this.getBuilder();
 	}
@@ -60,48 +65,35 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	@Override
 	public TBuilder setCancelled(boolean cancelled) {
 		BillyValidator.mandatory(cancelled,
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+				PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.cancelled"));
 		this.getTypeInstance().setCancelled(cancelled);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setBilled(boolean billed) {
-		BillyValidator.mandatory(billed,
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+		BillyValidator
+				.mandatory(billed, PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.billed"));
 		this.getTypeInstance().setBilled(billed);
 		return this.getBuilder();
 	}
 
 	@Override
-	public TBuilder setHash(String hash) {
-		BillyValidator.mandatory(hash,
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.hash"));
-		this.getTypeInstance().setHash(hash);
-		return this.getBuilder();
-	}
-
-	@Override
-	public TBuilder setSourceHash(String source) {
-		BillyValidator.notBlank(source,
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.source_hash"));
-		this.getTypeInstance().setSourceHash(source);
-		return this.getBuilder();
-	}
-
-	@Override
 	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
-		BillyValidator
-				.mandatory(sourceBilling, PTInvoiceBuilderImpl.LOCALIZER
-						.getString("field.sourceBilling"));
+		BillyValidator.mandatory(sourceBilling,
+				PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.source_billing"));
 		this.getTypeInstance().setSourceBilling(sourceBilling);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setSourceId(String source) {
-		BillyValidator.mandatory(source,
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+		BillyValidator
+				.mandatory(source, PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.source"));
 		this.getTypeInstance().setSourceId(source);
 		return this.getBuilder();
 	}
@@ -109,6 +101,9 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTGenericInvoiceEntity i = this.getTypeInstance();
+		BillyValidator.mandatory(i.getSourceBilling(),
+				PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("filed.source_billing"));
 
 		switch (i.getSourceBilling()) {
 			case M:
@@ -116,6 +111,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 				break;
 			case P:
 				super.validateInstance();
+				this.validatePTInstance(i);
 				break;
 			default:
 				break;
@@ -124,16 +120,21 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
 	private void validatePTInstance(PTGenericInvoiceEntity i) {
 		super.validateDate();
-		BillyValidator.mandatory(i.getSourceId(),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.source_id"));
+		BillyValidator
+				.mandatory(i.getSourceId(),
+						PTGenericInvoiceBuilderImpl.LOCALIZER
+								.getString("field.source"));
 		BillyValidator.mandatory(i.getDate(),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.date_id"));
+				PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
 		BillyValidator.mandatory(i.isSelfBilled(),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+				PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.self_billed"));
 		BillyValidator.mandatory(i.isCancelled(),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
-		BillyValidator.mandatory(i.isBilled(),
-				PTInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+				PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.cancelled"));
+		BillyValidator
+				.mandatory(i.isBilled(), PTGenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.billed"));
 	}
 
 }

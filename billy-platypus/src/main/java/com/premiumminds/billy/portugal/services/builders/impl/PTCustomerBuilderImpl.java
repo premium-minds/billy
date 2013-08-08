@@ -38,7 +38,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 		PTCustomerBuilder<TBuilder, TCustomer> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames");
+			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	protected PTCustomerBuilderImpl(DAOPTCustomer daoPTCustomer,
@@ -56,7 +56,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 			Builder<T> addressBuilder) {
 		BillyValidator.mandatory(addressBuilder,
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.billing_address"));
+						.getString("field.customer_billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -65,7 +65,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@Override
 	public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
 		BillyValidator.mandatory(selfBiling, PTCustomerBuilderImpl.LOCALIZER
-				.getString("field.self_billing_agreement"));
+				.getString("field.customer_self_billing_agreement"));
 		this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
 		return this.getBuilder();
 	}
@@ -78,20 +78,22 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTCustomerEntity c = this.getTypeInstance();
-		BillyValidator.mandatory(c.getName(),
-				PTCustomerBuilderImpl.LOCALIZER.getString("field.name"));
+		BillyValidator.mandatory(c.getName(), PTCustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_name"));
 		BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-				PTCustomerBuilderImpl.LOCALIZER.getString("field.tax_number"));
-		BillyValidator
-				.mandatory(c.getMainAddress(), PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.main_address"));
+				PTCustomerBuilderImpl.LOCALIZER
+						.getString("field.customer_tax_number"));
+		BillyValidator.mandatory(c.getMainAddress(),
+				PTCustomerBuilderImpl.LOCALIZER
+						.getString("field.customer_main_address"));
 		BillyValidator.mandatory(c.getBillingAddress(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.billing_address"));
+						.getString("field.ustomer_billing_address"));
 		BillyValidator.mandatory(c.hasSelfBillingAgreement(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.self_billing_agreement"));
+						.getString("field.ustomer_self_billing_agreement"));
 		BillyValidator.notEmpty(c.getAddresses(),
-				PTCustomerBuilderImpl.LOCALIZER.getString("field.addresses"));
+				PTCustomerBuilderImpl.LOCALIZER
+						.getString("field.ustomer_address"));
 	}
 }

@@ -24,7 +24,6 @@ officeNumber : office_1
 date : 2013-08-30
 cancelled : false 
 billed : false
-hash: Hash
 amountWithoutTax : !!java.math.BigDecimal
   460
 amountWithTax : !!java.math.BigDecimal

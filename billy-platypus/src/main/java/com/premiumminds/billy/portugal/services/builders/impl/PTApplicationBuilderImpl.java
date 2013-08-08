@@ -37,7 +37,7 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 		PTApplicationBuilder<TBuilder, TApplication> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames");
+			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {
@@ -51,8 +51,8 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 
 	@Override
 	public TBuilder setSoftwareCertificationNumber(Integer number) {
-		BillyValidator.mandatory(number,
-				PTApplicationBuilderImpl.LOCALIZER.getString("field.number"));
+		BillyValidator.mandatory(number, PTApplicationBuilderImpl.LOCALIZER
+				.getString("field.certificate_number"));
 		this.getTypeInstance().setSoftwareCertificateNum(number);
 		return this.getBuilder();
 	}
@@ -71,7 +71,8 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 		super.validateInstance();
 		PTApplicationEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
-				PTApplicationBuilderImpl.LOCALIZER.getString("field.number"));
+				PTApplicationBuilderImpl.LOCALIZER
+						.getString("field.certificate_number"));
 		try {
 			BillyValidator.mandatory(c.getApplicationKeysPath(),
 					PTApplicationBuilderImpl.LOCALIZER

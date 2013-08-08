@@ -37,7 +37,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 		PTCreditNoteEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames");
+			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	public PTCreditNoteEntryBuilderImpl(
 			DAOPTCreditNoteEntry daoPTCreditNoteEntry,
@@ -50,14 +50,14 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 	public TBuilder setReference(PTInvoice reference) {
 		BillyValidator.mandatory(reference,
 				PTCreditNoteEntryBuilderImpl.LOCALIZER
-						.getString("field.reference"));
+						.getString("field.invoice_reference"));
 		this.getTypeInstance().setReference(reference);
 		return this.getBuilder();
 	}
 
 	public TBuilder setReason(String reason) {
 		BillyValidator.mandatory(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER
-				.getString("field.reference"));
+				.getString("field.reason"));
 		this.getTypeInstance().setReason(reason);
 		return this.getBuilder();
 	}
@@ -68,7 +68,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 		PTCreditNoteEntryEntity cn = this.getTypeInstance();
 		BillyValidator.mandatory(cn.getReference(),
 				PTCreditNoteEntryBuilderImpl.LOCALIZER
-						.getString("field.reference"));
+						.getString("field.invoice_reference"));
 
 		BillyValidator.mandatory(cn.getReason(),
 				PTCreditNoteEntryBuilderImpl.LOCALIZER

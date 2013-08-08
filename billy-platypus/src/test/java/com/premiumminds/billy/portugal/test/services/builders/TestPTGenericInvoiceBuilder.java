@@ -73,8 +73,7 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
 		builder.addEntry(entry).setBilled(mock.isBilled())
-				.setCancelled(mock.isCancelled()).setHash(mock.getHash())
-				.setBatchId(mock.getBatchId())
+				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
 				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())
 				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
