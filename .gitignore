@@ -11,5 +11,5 @@ target/**
 billy/src/main/filters/*.properties
 data-sources.xml
 release.properties
-billy-platypus/src/test/resources/documents/SAFT.xml
-billy-platypus/src/main/resources/Result.pdf
+billy-portugal/src/test/resources/documents/SAFT.xml
+billy-portugal/src/main/resources/Result.pdf
