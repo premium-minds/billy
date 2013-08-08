@@ -41,7 +41,7 @@
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity"></entity>
 
-	<!-- Platypus -->
+	<!-- Portugal -->
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTApplicationEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEntity"></entity>
