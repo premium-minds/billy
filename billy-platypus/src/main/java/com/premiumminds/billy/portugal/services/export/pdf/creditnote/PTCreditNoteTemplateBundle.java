@@ -21,11 +21,11 @@ package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 import java.io.InputStream;
 
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
-import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
+import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle implements
-		IBillyPTTemplateBundle {
+		PTTemplateBundle {
 	
 	private static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
 	private static final String BANK_TRANSFER_TEXT = "Transferência bancária";

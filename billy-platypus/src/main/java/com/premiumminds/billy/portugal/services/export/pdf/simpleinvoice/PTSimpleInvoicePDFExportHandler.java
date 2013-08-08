@@ -38,7 +38,7 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractPDFExportHandler;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
-import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
+import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 
 public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
@@ -155,7 +155,7 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	@Override
 	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
-		IBillyPTTemplateBundle template = (IBillyPTTemplateBundle) bundle;
+		PTTemplateBundle template = (PTTemplateBundle) bundle;
 		return (invoice.getCustomer().getUID()
 				.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
 				.getGenericCustomer() : invoice.getCustomer()

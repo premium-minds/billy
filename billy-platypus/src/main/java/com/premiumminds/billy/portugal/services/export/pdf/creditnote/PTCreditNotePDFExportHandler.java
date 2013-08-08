@@ -43,7 +43,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.export.pdf.IBillyPTTemplateBundle;
+import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 
 public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
@@ -164,7 +164,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 	@Override
 	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
-		IBillyPTTemplateBundle template = (IBillyPTTemplateBundle) bundle;
+		PTTemplateBundle template = (PTTemplateBundle) bundle;
 		return (invoice.getCustomer().getUID()
 				.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
 				.getGenericCustomer() : invoice.getCustomer()
