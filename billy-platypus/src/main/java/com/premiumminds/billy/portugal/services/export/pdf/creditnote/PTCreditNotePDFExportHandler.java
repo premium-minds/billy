@@ -145,11 +145,11 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 	public <T extends ExportServiceRequest> void export(T request,
 			OutputStream targetStream) throws ExportServiceException {
 
-		if (!(request instanceof PDFPTCreditNoteExportRequest)) {
+		if (!(request instanceof PTCreditNotePDFExportRequest)) {
 			throw new ExportServiceException("Cannot handle request of type "
 					+ request.getClass().getCanonicalName());
 		}
-		PDFPTCreditNoteExportRequest exportRequest = (PDFPTCreditNoteExportRequest) request;
+		PTCreditNotePDFExportRequest exportRequest = (PTCreditNotePDFExportRequest) request;
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {

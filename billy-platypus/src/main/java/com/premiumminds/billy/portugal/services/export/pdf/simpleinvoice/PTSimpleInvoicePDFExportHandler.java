@@ -100,11 +100,11 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	public <T extends ExportServiceRequest> void export(T request,
 			OutputStream targetStream) throws ExportServiceException {
 
-		if (!(request instanceof PDFPTSimpleInvoiceExportRequest)) {
+		if (!(request instanceof PTSimpleInvoicePDFExportRequest)) {
 			throw new ExportServiceException("Cannot handle request of type "
 					+ request.getClass().getCanonicalName());
 		}
-		PDFPTSimpleInvoiceExportRequest exportRequest = (PDFPTSimpleInvoiceExportRequest) request;
+		PTSimpleInvoicePDFExportRequest exportRequest = (PTSimpleInvoicePDFExportRequest) request;
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {

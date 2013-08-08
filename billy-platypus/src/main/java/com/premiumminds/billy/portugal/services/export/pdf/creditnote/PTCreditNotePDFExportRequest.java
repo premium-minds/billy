@@ -16,22 +16,22 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy platypus (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice;
+package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
+import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoiceTemplateBundle;
 
-public class PDFPTSimpleInvoiceExportRequest extends AbstractExportRequest {
+public class PTCreditNotePDFExportRequest extends AbstractExportRequest{
 
-	private PTSimpleInvoiceTemplateBundle bundle;
+	private PTInvoiceTemplateBundle bundle;
 
-	public PDFPTSimpleInvoiceExportRequest(UID uid,
-			PTSimpleInvoiceTemplateBundle bundle) {
+	public PTCreditNotePDFExportRequest(UID uid, PTCreditNoteTemplateBundle bundle) {
 		super(uid, bundle);
 	}
 
 	@Override
-	public PTSimpleInvoiceTemplateBundle getBundle() {
+	public PTInvoiceTemplateBundle getBundle() {
 		return this.bundle;
 	}
 }
