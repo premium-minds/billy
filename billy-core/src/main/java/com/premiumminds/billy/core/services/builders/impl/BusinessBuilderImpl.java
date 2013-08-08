@@ -58,9 +58,9 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@Override
 	public TBuilder setOperationalContextUID(UID contextUID) {
 		BillyValidator.notNull(contextUID,
-				BusinessBuilderImpl.LOCALIZER.getString("field.context"));
+				BusinessBuilderImpl.LOCALIZER.getString("field.business_context"));
 		ContextEntity c = BillyValidator.found(this.daoContext.get(contextUID),
-				BusinessBuilderImpl.LOCALIZER.getString("field.context"));
+				BusinessBuilderImpl.LOCALIZER.getString("field.business_context"));
 		this.getTypeInstance().setOperationalContext(c);
 		return this.getBuilder();
 	}
@@ -76,7 +76,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@Override
 	public TBuilder setName(String name) {
 		BillyValidator.mandatory(name,
-				BusinessBuilderImpl.LOCALIZER.getString("field.name"));
+				BusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
@@ -92,7 +92,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@Override
 	public TBuilder setWebsite(String website) {
 		BillyValidator.notBlank(website,
-				BusinessBuilderImpl.LOCALIZER.getString("field.website"));
+				BusinessBuilderImpl.LOCALIZER.getString("field.business_website"));
 		this.getTypeInstance().setWebsiteAddress(website);
 		return this.getBuilder();
 	}
@@ -100,7 +100,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder setAddress(Builder<T> addressBuilder) {
 		BillyValidator.mandatory(addressBuilder,
-				BusinessBuilderImpl.LOCALIZER.getString("field.address"));
+				BusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
 		this.getTypeInstance().setAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -110,7 +110,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.mandatory(addressBuilder, BusinessBuilderImpl.LOCALIZER
-				.getString("field.billing_address"));
+				.getString("field.business_billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -120,7 +120,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	public <T extends Address> TBuilder setShippingAddress(
 			Builder<T> addressBuilder) {
 		BillyValidator.notNull(addressBuilder, BusinessBuilderImpl.LOCALIZER
-				.getString("field.shipping_address"));
+				.getString("field.business_shipping_address"));
 		this.getTypeInstance().setShippingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -129,7 +129,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
 		BillyValidator.notNull(contactBuilder,
-				BusinessBuilderImpl.LOCALIZER.getString("field.contact"));
+				BusinessBuilderImpl.LOCALIZER.getString("field.business_contact"));
 		this.getTypeInstance().getContacts().add(contactBuilder.build());
 		return this.getBuilder();
 	}
@@ -137,7 +137,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@Override
 	public TBuilder setMainContactUID(UID contactUID) {
 		BillyValidator.notNull(contactUID,
-				BusinessBuilderImpl.LOCALIZER.getString("field.main_contact"));
+				BusinessBuilderImpl.LOCALIZER.getString("field.business_main_contact"));
 
 		boolean found = false;
 		for (Contact c : this.getTypeInstance().getContacts()) {
@@ -149,7 +149,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 		}
 		if (!found) {
 			BillyValidator.found(null, BusinessBuilderImpl.LOCALIZER
-					.getString("field.main_contact"));
+					.getString("field.business_main_contact"));
 		}
 		return this.getBuilder();
 	}
@@ -170,14 +170,14 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 		BusinessEntity b = this.getTypeInstance();
 		BillyValidator.mandatory(b.getOperationalContext(), "field.context");
 		BillyValidator.mandatory(b.getFinancialID(), "field.financial_id");
-		BillyValidator.mandatory(b.getName(), "field.name");
+		BillyValidator.mandatory(b.getName(), "field.business_name");
 		BillyValidator
 				.mandatory(b.getCommercialName(), "field.commercial_name");
-		BillyValidator.mandatory(b.getAddress(), "field.address");
+		BillyValidator.mandatory(b.getAddress(), "field.business_address");
 		BillyValidator
-				.mandatory(b.getBillingAddress(), "field.billing_address");
-		BillyValidator.notEmpty(b.getContacts(), "field.contacts");
-		BillyValidator.notEmpty(b.getApplications(), "field.applications");
+				.mandatory(b.getBillingAddress(), "field.business_billing_address");
+		BillyValidator.notEmpty(b.getContacts(), "field.business_contact");
+		BillyValidator.notEmpty(b.getApplications(), "field.application");
 	}
 
 	@SuppressWarnings("unchecked")

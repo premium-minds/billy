@@ -46,7 +46,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 	@Override
 	public TBuilder setName(String name) {
 		BillyValidator.mandatory(name,
-				ContextBuilderImpl.LOCALIZER.getString("field.name"));
+				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
@@ -81,7 +81,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 			throws javax.validation.ValidationException {
 		ContextEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getName(),
-				ContextBuilderImpl.LOCALIZER.getString("field.name"));
+				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
 		BillyValidator.mandatory(c.getDescription(),
 				ContextBuilderImpl.LOCALIZER.getString("field.description"));
 	}

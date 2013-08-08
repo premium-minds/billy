@@ -174,7 +174,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	@Override
 	public TBuilder setGeneralLedgerDate(Date date) {
 		Validate.notNull(date,
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
+				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.general_ledger_date"));
 		this.getTypeInstance().setGeneralLedgerDate(date);
 		return this.getBuilder();
 	}
@@ -264,7 +264,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.notNull(creditOrDebit,
 				GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("credit_or_debit"));
+						.getString("field.credit_or_debit"));
 		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
 		return this.getBuilder();
 	}
