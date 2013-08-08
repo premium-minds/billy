@@ -16,6 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;

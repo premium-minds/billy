@@ -40,7 +40,7 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest{
 	public static final int NUM_ENTRIES = 10; 
 	public static final String XSL_PATH = "src/main/resources/pt_invoice.xsl";
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	public static final String URI_PATH = "file://" + System.getProperty("user.dir")  + "/src/test/resources/documents/Result.pdf";
+	public static final String URI_PATH = "file://" + System.getProperty("java.io.tmpdir")+"/Result.pdf";
 
 	
 	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";

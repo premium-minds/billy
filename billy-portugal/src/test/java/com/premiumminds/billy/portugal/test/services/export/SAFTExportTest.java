@@ -71,7 +71,7 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 	private static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
-	private static final String SAFT_OUTPUT = "src/test/resources/documents/";
+	private static final String SAFT_OUTPUT = System.getProperty("java.io.tmpdir")+"/";
 
 	private static final String BUSINESS_UID = "BUSINESS_UID";
 	private static final String CUSTOMER_UID = "CUSTOMER_UID";
