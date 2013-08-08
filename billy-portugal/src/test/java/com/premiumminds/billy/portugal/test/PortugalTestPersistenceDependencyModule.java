@@ -23,7 +23,7 @@ import com.google.inject.Inject;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
 
-public class PlatypusTestPersistenceDependencyModule extends AbstractModule {
+public class PortugalTestPersistenceDependencyModule extends AbstractModule {
 
 	@Override
 	protected void configure() {

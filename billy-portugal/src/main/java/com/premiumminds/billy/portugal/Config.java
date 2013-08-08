@@ -29,7 +29,7 @@ public class Config {
 
 	public static final String TABLE_PREFIX = "BILLY_PT_";
 
-	private static final String CONFIGURATIONS_FILE_NAME = "platypus.properties";
+	private static final String CONFIGURATIONS_FILE_NAME = "portugal.properties";
 
 	private Properties properties;
 

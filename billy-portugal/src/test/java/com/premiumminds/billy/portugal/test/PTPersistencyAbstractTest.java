@@ -30,15 +30,15 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 	@Before
 	public void setUpModules() {
 		injector = Guice.createInjector(new PortugalDependencyModule(),
-				new PlatypusTestPersistenceDependencyModule());
+				new PortugalTestPersistenceDependencyModule());
 		injector.getInstance(PortugalDependencyModule.Initializer.class);
-		injector.getInstance(PlatypusTestPersistenceDependencyModule.Initializer.class);
+		injector.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
 		PortugalBootstrap.execute(injector);
 	}
 
 	@After
 	public void tearDown() {
-		injector.getInstance(PlatypusTestPersistenceDependencyModule.Finalizer.class);
+		injector.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
 	}
 
 }
