@@ -173,8 +173,8 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	public TBuilder setGeneralLedgerDate(Date date) {
-		Validate.notNull(date,
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.general_ledger_date"));
+		Validate.notNull(date, GenericInvoiceBuilderImpl.LOCALIZER
+				.getString("field.general_ledger_date"));
 		this.getTypeInstance().setGeneralLedgerDate(date);
 		return this.getBuilder();
 	}

@@ -36,7 +36,8 @@ import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 
 public class TestCustomerBuilder extends AbstractTest {
 
-	private static final String CUSTOMER_YML = YML_CONFIGS_DIR + "Customer.yml";
+	private static final String CUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Customer.yml";
 
 	@Test
 	public void doTest() {

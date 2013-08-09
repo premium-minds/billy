@@ -60,8 +60,8 @@ public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<
 
 	@Override
 	public TBuilder setDate(Date date) {
-		BillyValidator.notNull(date,
-				ShippingPointBuilderImpl.LOCALIZER.getString("field.shipping_date"));
+		BillyValidator.notNull(date, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.shipping_date"));
 		this.getTypeInstance().setDate(date);
 		return this.getBuilder();
 	}
@@ -92,8 +92,8 @@ public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<
 
 	@Override
 	public <T extends Address> TBuilder setAddress(Builder<T> address) {
-		BillyValidator.notNull(address,
-				ShippingPointBuilderImpl.LOCALIZER.getString("field.shipping_address"));
+		BillyValidator.notNull(address, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.shipping_address"));
 		this.getTypeInstance().setAddress((AddressEntity) address.build());
 		return this.getBuilder();
 	}

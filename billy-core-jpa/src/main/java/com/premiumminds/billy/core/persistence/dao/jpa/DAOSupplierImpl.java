@@ -25,9 +25,7 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
-import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
 
 public class DAOSupplierImpl extends

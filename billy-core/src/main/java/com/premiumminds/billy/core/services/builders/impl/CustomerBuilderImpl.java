@@ -64,8 +64,8 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 
 	@Override
 	public TBuilder setTaxRegistrationNumber(String number) {
-		BillyValidator.mandatory(number,
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+		BillyValidator.mandatory(number, CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_tax_number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
@@ -73,8 +73,8 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder,
 			boolean mainAddress) {
-		BillyValidator.notNull(addressBuilder,
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
+		BillyValidator.notNull(addressBuilder, CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_address"));
 
 		Address address = addressBuilder.build();
 		if (mainAddress) {
@@ -107,16 +107,16 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 
 	@Override
 	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
-		BillyValidator.notNull(contactBuilder,
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_contact"));
+		BillyValidator.notNull(contactBuilder, CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_contact"));
 		this.getTypeInstance().getContacts().add(contactBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setMainContactUID(UID contactUID) {
-		BillyValidator.notNull(contactUID,
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
+		BillyValidator.notNull(contactUID, CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_main_contact"));
 
 		Contact c = null;
 		for (Contact contact : this.getTypeInstance().getContacts()) {
@@ -126,16 +126,16 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 				break;
 			}
 		}
-		BillyValidator.found(c,
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
+		BillyValidator.found(c, CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_main_contact"));
 		return this.getBuilder();
 	}
 
 	@Override
 	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder) {
-		BillyValidator.notNull(accountBuilder,
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_bank_account"));
+		BillyValidator.notNull(accountBuilder, CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_bank_account"));
 		this.getTypeInstance().getBankAccounts().add(accountBuilder.build());
 		return this.getBuilder();
 	}
@@ -153,9 +153,10 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 		BillyValidator.mandatory(c.getName(),
 				CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
 		BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-		BillyValidator.notEmpty(c.getAddresses(),
-				CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
+				CustomerBuilderImpl.LOCALIZER
+						.getString("field.customer_tax_number"));
+		BillyValidator.notEmpty(c.getAddresses(), CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_address"));
 	}
 
 	@SuppressWarnings("unchecked")

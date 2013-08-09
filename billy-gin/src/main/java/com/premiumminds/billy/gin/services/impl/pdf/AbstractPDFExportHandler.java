@@ -1,18 +1,18 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy GIN.
- *
+ * 
  * billy GIN is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
- *
+ * 
  * billy GIN is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- *
+ * 
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy GIN. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -141,17 +141,17 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		Node<String, String> taxDetails = params.getRoot().addChild(
 				ParamKeys.TAX_DETAILS);
 
-		setHeader(params, document, bundle);
+		this.setHeader(params, document, bundle);
 
-		setBussiness(params, document, bundle);
+		this.setBussiness(params, document, bundle);
 
-		setCustomer(params, document, bundle);
+		this.setCustomer(params, document, bundle);
 
-		setEntries(taxTotals, entries, document);
+		this.setEntries(taxTotals, entries, document);
 
-		setTaxDetails(taxTotals, taxDetails);
+		this.setTaxDetails(taxTotals, taxDetails);
 
-		setTaxValues(params, document);
+		this.setTaxValues(params, document);
 
 		return params;
 	}
@@ -165,7 +165,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		if (null != document.getPaymentMechanism()) {
 			params.getRoot().addChild(
 					ParamKeys.INVOICE_PAYMETHOD,
-					getPaymentMechanismTranslation(
+					this.getPaymentMechanismTranslation(
 							document.getPaymentMechanism(), bundle));
 		}
 		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
@@ -186,17 +186,17 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 					.addChild(ParamKeys.TAX_DETAIL);
 
 			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_TAX, taxDetail
-					.getTaxValue().setScale(2, mc.getRoundingMode())
+					.getTaxValue().setScale(2, this.mc.getRoundingMode())
 					.toPlainString()
 					+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
 
 			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_NET_VALUE, taxDetail
-					.getNetValue().setScale(2, mc.getRoundingMode())
+					.getNetValue().setScale(2, this.mc.getRoundingMode())
 					.toPlainString());
 
 			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_VALUE, taxDetail
-					.getAppliedTaxValue().setScale(2, mc.getRoundingMode())
-					.toPlainString());
+					.getAppliedTaxValue()
+					.setScale(2, this.mc.getRoundingMode()).toPlainString());
 		}
 		return;
 	}
@@ -218,14 +218,16 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 					.getDescription());
 
 			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
-					.setScale(2, mc.getRoundingMode()).toPlainString());
+					.setScale(2, this.mc.getRoundingMode()).toPlainString());
 
-			entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry
-					.getUnitAmountWithTax().setScale(2, mc.getRoundingMode())
-					.toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_UNIT_PRICE,
+					entry.getUnitAmountWithTax()
+							.setScale(2, this.mc.getRoundingMode())
+							.toPlainString());
 
 			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
-					.setScale(2, mc.getRoundingMode()).toPlainString());
+					.setScale(2, this.mc.getRoundingMode()).toPlainString());
 
 			List<Tax> taxList = entry.getTaxes();
 			for (Tax tax : taxList) {
@@ -300,7 +302,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 				.getName());
 
 		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID,
-				getCustomerFinancialId(document, bundle));
+				this.getCustomerFinancialId(document, bundle));
 
 		if (document.getCustomer().getBillingAddress() != null) {
 			Node<String, String> customerAddress = customer
@@ -330,18 +332,22 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	protected <T extends GenericInvoiceEntity> void setTaxValues(
 			ParamsTree<String, String> params, T document) {
 
-		params.getRoot().addChild(
-				ParamKeys.TOTAL_BEFORE_TAX,
-				document.getAmountWithoutTax()
-						.setScale(2, mc.getRoundingMode()).toPlainString());
+		params.getRoot()
+				.addChild(
+						ParamKeys.TOTAL_BEFORE_TAX,
+						document.getAmountWithoutTax()
+								.setScale(2, this.mc.getRoundingMode())
+								.toPlainString());
 		params.getRoot().addChild(
 				ParamKeys.TOTAL_TAX,
-				document.getTaxAmount().setScale(2, mc.getRoundingMode())
+				document.getTaxAmount().setScale(2, this.mc.getRoundingMode())
 						.toPlainString());
-		params.getRoot().addChild(
-				ParamKeys.TOTAL,
-				document.getAmountWithTax().setScale(2, mc.getRoundingMode())
-						.toPlainString());
+		params.getRoot()
+				.addChild(
+						ParamKeys.TOTAL,
+						document.getAmountWithTax()
+								.setScale(2, this.mc.getRoundingMode())
+								.toPlainString());
 		return;
 	}
 
@@ -389,33 +395,34 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			public BigDecimal getAppliedTaxValue() {
 				BigDecimal appliedTaxVal;
 
-				if (percentageValued) {
-					BigDecimal tax = taxValue.divide(new BigDecimal("100"));
-					appliedTaxVal = baseValue.multiply(tax);
+				if (this.percentageValued) {
+					BigDecimal tax = this.taxValue
+							.divide(new BigDecimal("100"));
+					appliedTaxVal = this.baseValue.multiply(tax);
 				} else {
-					appliedTaxVal = taxValue;
+					appliedTaxVal = this.taxValue;
 				}
 				return appliedTaxVal;
 			}
 		}
 
 		public TaxTotals() {
-			entries = new HashMap<String, TaxTotalEntry>();
+			this.entries = new HashMap<String, TaxTotalEntry>();
 		}
 
 		public void add(boolean isPercentage, BigDecimal taxValue,
 				BigDecimal baseValue, String taxUid) {
 			TaxTotalEntry currentEntry = new TaxTotalEntry(isPercentage,
 					taxValue, baseValue);
-			if (entries.containsKey(taxUid)) {
+			if (this.entries.containsKey(taxUid)) {
 				this.entries.get(taxUid).addBaseValue(baseValue);
 			} else {
-				entries.put(taxUid, currentEntry);
+				this.entries.put(taxUid, currentEntry);
 			}
 		}
 
 		public Collection<TaxTotalEntry> getEntries() {
-			return entries.values();
+			return this.entries.values();
 		}
 	}
 
@@ -430,8 +437,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
-			GenericInvoiceEntity invoice = (GenericInvoiceEntity) daoGenericInvoice
-					.get(docUid);
+			GenericInvoiceEntity invoice = this.daoGenericInvoice.get(docUid);
 			this.toStream(invoice, targetStream, exportRequest.getBundle());
 		} catch (Exception e) {
 			throw new ExportServiceException(e);

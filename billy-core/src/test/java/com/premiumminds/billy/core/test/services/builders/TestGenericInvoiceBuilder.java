@@ -37,9 +37,9 @@ import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 
 public class TestGenericInvoiceBuilder extends AbstractTest {
 
-	private static final String INVOICE_YML = YML_CONFIGS_DIR
+	private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "GenericInvoice.yml";
-	private static final String ENTRY_YML = YML_CONFIGS_DIR
+	private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "GenericInvoiceEntry.yml";
 
 	@SuppressWarnings("deprecation")

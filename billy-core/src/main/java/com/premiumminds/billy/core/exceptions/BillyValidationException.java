@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.core.exceptions;
 
-import java.util.ResourceBundle;
 
 public class BillyValidationException extends BillyRuntimeException {
 

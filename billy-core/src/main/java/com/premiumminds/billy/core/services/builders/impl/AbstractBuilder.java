@@ -21,7 +21,6 @@ package com.premiumminds.billy.core.services.builders.impl;
 import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 
 public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
