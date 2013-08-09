@@ -640,8 +640,8 @@ public class PTSAFTFileGenerator {
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),
 				MAX_LENGTH_172, true));
-		// saftInv.setHashControl(validateString("HashControl",
-		// document.getHashControl(), MAX_LENGTH_40, false));
+		saftInv.setHashControl(validateString("HashControl",
+				document.getHashControl(), MAX_LENGTH_40, false));
 		saftInv.setPeriod(validateInteger("Period", Integer
 				.toString(getDateField(document.getDate(), Calendar.MONTH)),
 				MAX_LENGTH_2, true));
@@ -650,8 +650,8 @@ public class PTSAFTFileGenerator {
 				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
 		saftInv.setSourceID(validateString("InvoiceSourceID",
 				document.getSourceId(), MAX_LENGTH_30, true));
-		// saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
-		// MAX_LENGTH_5, false));
+		saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
+				MAX_LENGTH_5, false));
 		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(config
@@ -1075,10 +1075,11 @@ public class PTSAFTFileGenerator {
 	 * @return
 	 * @throws InvalidDocumentStateException
 	 * @throws DatatypeConfigurationException
+	 * @throws RequiredFieldNotFoundException
 	 */
 	private DocumentStatus getDocumentStatus(PTGenericInvoiceEntity document)
 			throws InvalidDocumentStateException,
-			DatatypeConfigurationException {
+			DatatypeConfigurationException, RequiredFieldNotFoundException {
 		DocumentStatus status = new DocumentStatus();
 
 		if (document.isCancelled()) {
@@ -1092,8 +1093,8 @@ public class PTSAFTFileGenerator {
 		}
 
 		status.setInvoiceStatusDate(formatDateTime(document.getDate()));
-		// status.setReason(validateString("Reason", document.getReason(),
-		// MAX_LENGTH_50, false));
+		status.setReason(validateString("Reason", document.getChangeReason(),
+				MAX_LENGTH_50, false));
 		status.setSourceID(document.getSourceId());
 		status.setSourceBilling(document.getSourceBilling().toString());
 		return status;

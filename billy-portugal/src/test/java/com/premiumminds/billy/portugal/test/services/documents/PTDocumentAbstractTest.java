@@ -55,6 +55,8 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 		parameters = new PTIssuingParamsImpl();
 		parameters.setPrivateKey(generator.getPrivateKey());
 		parameters.setPublicKey(generator.getPublicKey());
+		parameters.setPrivateKeyVersion("1");
+		parameters.setEACCode("31400");
 
 	}
 

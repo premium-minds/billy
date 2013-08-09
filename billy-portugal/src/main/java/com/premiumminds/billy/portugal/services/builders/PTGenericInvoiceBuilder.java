@@ -30,5 +30,7 @@ public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilde
 
 	public TBuilder setBilled(boolean billed);
 
+	public TBuilder setChangeReason(String reason);
+
 	public TBuilder setSourceBilling(SourceBilling sourceBilling);
 }

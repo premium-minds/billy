@@ -28,8 +28,6 @@ import com.premiumminds.billy.portugal.PortugalDependencyModule;
 
 public class PTAbstractTest extends AbstractTest {
 
-	protected final static String PRIVATE_KEY = "src/test/resources/keys/private.pem";
-
 	protected static Injector injector;
 
 	@BeforeClass

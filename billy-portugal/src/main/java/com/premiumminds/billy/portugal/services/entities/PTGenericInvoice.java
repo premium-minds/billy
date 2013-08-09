@@ -69,7 +69,13 @@ public interface PTGenericInvoice extends GenericInvoice {
 
 	public String getSourceHash();
 
+	public String getHashControl();
+
+	public String getEACCode();
+
 	public SourceBilling getSourceBilling();
+
+	public String getChangeReason();
 
 	@SuppressWarnings("unchecked")
 	@Override

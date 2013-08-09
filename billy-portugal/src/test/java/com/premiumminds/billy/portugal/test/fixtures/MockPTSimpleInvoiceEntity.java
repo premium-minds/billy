@@ -32,9 +32,12 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 
 	protected Boolean cancelled;
 	protected Boolean billed;
+	protected String reason;
 	protected String hash;
 	protected String sourceHash;
+	protected String hashControl;
 	protected SourceBilling sourceBilling;
+	protected String eacCode;
 	protected TYPE type;
 
 	public MockPTSimpleInvoiceEntity() {
@@ -101,13 +104,45 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 		return this.sourceHash;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
 	}
 
+	@SuppressWarnings("unchecked")
 	public PaymentMechanism getPaymentMechanism() {
 		return null;
+	}
+
+	@Override
+	public void setHashControl(String hashControl) {
+		this.hashControl = hashControl;
+	}
+
+	@Override
+	public void setChangeReason(String reason) {
+		this.reason = reason;
+	}
+
+	@Override
+	public void setEACCode(String eacCode) {
+		this.eacCode = eacCode;
+	}
+
+	@Override
+	public String getHashControl() {
+		return hashControl;
+	}
+
+	@Override
+	public String getEACCode() {
+		return eacCode;
+	}
+
+	@Override
+	public String getChangeReason() {
+		return reason;
 	}
 
 }

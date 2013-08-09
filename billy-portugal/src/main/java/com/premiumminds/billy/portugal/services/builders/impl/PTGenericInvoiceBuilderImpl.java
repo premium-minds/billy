@@ -81,6 +81,12 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
+	public TBuilder setChangeReason(String reason) {
+		this.getTypeInstance().setChangeReason(reason);
+		return this.getBuilder();
+	}
+
+	@Override
 	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
 		BillyValidator.mandatory(sourceBilling,
 				PTGenericInvoiceBuilderImpl.LOCALIZER
