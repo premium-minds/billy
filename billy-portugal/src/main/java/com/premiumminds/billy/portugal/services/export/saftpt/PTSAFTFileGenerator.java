@@ -652,7 +652,6 @@ public class PTSAFTFileGenerator {
 
 		saftInv.setDocumentStatus(this.getDocumentStatus(document));
 
-<<<<<<< HEAD
 		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
 				MAX_LENGTH_60, true));
 		saftInv.setInvoiceType(validateString("InvoiceType",
@@ -672,29 +671,6 @@ public class PTSAFTFileGenerator {
 		saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
 				MAX_LENGTH_5, false));
 		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
-=======
-		saftInv.setInvoiceNo(this.validateString("InvoiceNo",
-				document.getNumber(), this.MAX_LENGTH_60, true));
-		saftInv.setInvoiceType(this.validateString("InvoiceType",
-				this.getDocumentType(document), this.MAX_LENGTH_2, true));
-		saftInv.setHash(this.validateString("Hash", document.getHash(),
-				this.MAX_LENGTH_172, true));
-		// saftInv.setHashControl(validateString("HashControl",
-		// document.getHashControl(), MAX_LENGTH_40, false));
-		saftInv.setPeriod(this.validateInteger("Period", Integer.toString(this
-				.getDateField(document.getDate(), Calendar.MONTH)),
-				this.MAX_LENGTH_2, true));
-		saftInv.setInvoiceDate(this.formatDate(document.getDate()));
-		saftInv.setSelfBillingIndicator(this.validateInteger(
-				"SelfBillingIndicator", document.isSelfBilled() ? "1" : "0",
-				this.MAX_LENGTH_1, true));
-		saftInv.setSourceID(this.validateString("InvoiceSourceID",
-				document.getSourceId(), this.MAX_LENGTH_30, true));
-		// saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
-		// MAX_LENGTH_5, false));
-		saftInv.setSystemEntryDate(this.formatDateTime(document
-				.getCreateTimestamp()));
->>>>>>> 4fc48d0644f4c176d8a9fc88305522c7abf77e4a
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(this.config
 				.getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
@@ -1147,15 +1123,9 @@ public class PTSAFTFileGenerator {
 			status.setInvoiceStatus("N");
 		}
 
-<<<<<<< HEAD
 		status.setInvoiceStatusDate(formatDateTime(document.getDate()));
 		status.setReason(validateString("Reason", document.getChangeReason(),
 				MAX_LENGTH_50, false));
-=======
-		status.setInvoiceStatusDate(this.formatDateTime(document.getDate()));
-		// status.setReason(validateString("Reason", document.getReason(),
-		// MAX_LENGTH_50, false));
->>>>>>> 4fc48d0644f4c176d8a9fc88305522c7abf77e4a
 		status.setSourceID(document.getSourceId());
 		status.setSourceBilling(document.getSourceBilling().toString());
 		return status;
