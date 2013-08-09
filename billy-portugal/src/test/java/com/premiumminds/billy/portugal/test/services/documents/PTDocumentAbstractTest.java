@@ -57,7 +57,8 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 		this.parameters = new PTIssuingParamsImpl();
 		this.parameters.setPrivateKey(generator.getPrivateKey());
 		this.parameters.setPublicKey(generator.getPublicKey());
-
+		this.parameters.setPrivateKeyVersion("1");
+		this.parameters.setEACCode("31400");
 	}
 
 	@SuppressWarnings("unchecked")

@@ -652,27 +652,25 @@ public class PTSAFTFileGenerator {
 
 		saftInv.setDocumentStatus(this.getDocumentStatus(document));
 
-		saftInv.setInvoiceNo(this.validateString("InvoiceNo",
-				document.getNumber(), this.MAX_LENGTH_60, true));
-		saftInv.setInvoiceType(this.validateString("InvoiceType",
-				this.getDocumentType(document), this.MAX_LENGTH_2, true));
-		saftInv.setHash(this.validateString("Hash", document.getHash(),
-				this.MAX_LENGTH_172, true));
-		// saftInv.setHashControl(validateString("HashControl",
-		// document.getHashControl(), MAX_LENGTH_40, false));
-		saftInv.setPeriod(this.validateInteger("Period", Integer.toString(this
-				.getDateField(document.getDate(), Calendar.MONTH)),
-				this.MAX_LENGTH_2, true));
-		saftInv.setInvoiceDate(this.formatDate(document.getDate()));
-		saftInv.setSelfBillingIndicator(this.validateInteger(
-				"SelfBillingIndicator", document.isSelfBilled() ? "1" : "0",
-				this.MAX_LENGTH_1, true));
-		saftInv.setSourceID(this.validateString("InvoiceSourceID",
-				document.getSourceId(), this.MAX_LENGTH_30, true));
-		// saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
-		// MAX_LENGTH_5, false));
-		saftInv.setSystemEntryDate(this.formatDateTime(document
-				.getCreateTimestamp()));
+		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
+				MAX_LENGTH_60, true));
+		saftInv.setInvoiceType(validateString("InvoiceType",
+				getDocumentType(document), MAX_LENGTH_2, true));
+		saftInv.setHash(validateString("Hash", document.getHash(),
+				MAX_LENGTH_172, true));
+		saftInv.setHashControl(validateString("HashControl",
+				document.getHashControl(), MAX_LENGTH_40, false));
+		saftInv.setPeriod(validateInteger("Period", Integer
+				.toString(getDateField(document.getDate(), Calendar.MONTH)),
+				MAX_LENGTH_2, true));
+		saftInv.setInvoiceDate(formatDate(document.getDate()));
+		saftInv.setSelfBillingIndicator(validateInteger("SelfBillingIndicator",
+				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
+		saftInv.setSourceID(validateString("InvoiceSourceID",
+				document.getSourceId(), MAX_LENGTH_30, true));
+		saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
+				MAX_LENGTH_5, false));
+		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(this.config
 				.getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
@@ -1108,10 +1106,11 @@ public class PTSAFTFileGenerator {
 	 * @return
 	 * @throws InvalidDocumentStateException
 	 * @throws DatatypeConfigurationException
+	 * @throws RequiredFieldNotFoundException
 	 */
 	private DocumentStatus getDocumentStatus(PTGenericInvoiceEntity document)
 			throws InvalidDocumentStateException,
-			DatatypeConfigurationException {
+			DatatypeConfigurationException, RequiredFieldNotFoundException {
 		DocumentStatus status = new DocumentStatus();
 
 		if (document.isCancelled()) {
@@ -1124,9 +1123,9 @@ public class PTSAFTFileGenerator {
 			status.setInvoiceStatus("N");
 		}
 
-		status.setInvoiceStatusDate(this.formatDateTime(document.getDate()));
-		// status.setReason(validateString("Reason", document.getReason(),
-		// MAX_LENGTH_50, false));
+		status.setInvoiceStatusDate(formatDateTime(document.getDate()));
+		status.setReason(validateString("Reason", document.getChangeReason(),
+				MAX_LENGTH_50, false));
 		status.setSourceID(document.getSourceId());
 		status.setSourceBilling(document.getSourceBilling().toString());
 		return status;

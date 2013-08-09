@@ -47,6 +47,16 @@ public class PTIssuingParamsImpl extends IssuingParamsImpl implements
 	}
 
 	@Override
+	public String getPrivateKeyVersion() throws ParameterNotFoundException {
+		return (String) this.getParameter(Keys.PRIVATE_KEY_VERSION);
+	}
+
+	@Override
+	public String getEACCode() throws ParameterNotFoundException {
+		return (String) this.getParameter(Keys.EAC_CODE);
+	}
+
+	@Override
 	public void setPublicKey(PublicKey publicKey) {
 		this.setParameter(Keys.PUBLIC_KEY, publicKey);
 	}
@@ -59,6 +69,16 @@ public class PTIssuingParamsImpl extends IssuingParamsImpl implements
 	@Override
 	public void setInvoiceSeries(String series) {
 		this.setParameter(Keys.INVOICE_SERIES, series);
+	}
+
+	@Override
+	public void setPrivateKeyVersion(String version) {
+		this.setParameter(Keys.PRIVATE_KEY_VERSION, version);
+	}
+
+	@Override
+	public void setEACCode(String eacCode) {
+		this.setParameter(Keys.EAC_CODE, eacCode);
 	}
 
 }

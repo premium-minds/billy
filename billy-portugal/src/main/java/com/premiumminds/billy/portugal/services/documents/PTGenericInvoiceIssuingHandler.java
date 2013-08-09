@@ -138,7 +138,10 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 							.generateSourceHash(invoiceDate, systemDate,
 									formatedNumber,
 									document.getAmountWithTax(), previousHash));
-					// documentEntity.setSourceBilling(sourceBilling);
+					documentEntity.setHashControl(parametersPT
+							.getPrivateKeyVersion());
+					documentEntity.setEACCode(parametersPT.getEACCode());
+					documentEntity.setSourceBilling(sourceBilling);
 
 					daoInvoice.create(documentEntity);
 

@@ -43,14 +43,23 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Column(name = "CANCELLED")
 	protected Boolean cancelled;
 
+	@Column(name = "EAC_CODE")
+	protected String eacCode;
+
 	@Column(name = "BILLED")
 	protected Boolean billed;
+
+	@Column(name = "CHANGE_REASON")
+	protected String reason;
 
 	@Column(name = "HASH")
 	protected String hash;
 
 	@Column(name = "SOURCE_HASH")
 	protected String sourceHash;
+
+	@Column(name = "HASH_CONTROL")
+	protected String hashControl;
 
 	@Column(name = "SOURCE_BILLING")
 	protected SourceBilling sourceBilling;
@@ -79,6 +88,11 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	}
 
 	@Override
+	public String getChangeReason() {
+		return reason;
+	}
+
+	@Override
 	public String getHash() {
 		return this.hash;
 	}
@@ -89,8 +103,18 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	}
 
 	@Override
+	public String getHashControl() {
+		return hashControl;
+	}
+
+	@Override
 	public SourceBilling getSourceBilling() {
 		return this.sourceBilling;
+	}
+
+	@Override
+	public String getEACCode() {
+		return eacCode;
 	}
 
 	@Override
@@ -104,6 +128,11 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	}
 
 	@Override
+	public void setChangeReason(String reason) {
+		this.reason = reason;
+	}
+
+	@Override
 	public void setHash(String hash) {
 		this.hash = hash;
 	}
@@ -111,6 +140,11 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Override
 	public void setSourceHash(String source) {
 		this.sourceHash = source;
+	}
+
+	@Override
+	public void setHashControl(String hashControl) {
+		this.hashControl = hashControl;
 	}
 
 	@SuppressWarnings({ "unchecked" })
@@ -122,6 +156,11 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Override
 	public void setSourceBilling(SourceBilling sourceBilling) {
 		this.sourceBilling = sourceBilling;
+	}
+
+	@Override
+	public void setEACCode(String eacCode) {
+		this.eacCode = eacCode;
 	}
 
 	@SuppressWarnings({ "unchecked" })
