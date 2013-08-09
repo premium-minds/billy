@@ -167,7 +167,8 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 						TaxBuilderImpl.LOCALIZER
 								.getString("field.tax_rate_flat_amount"));
 				BillyValidator.mandatory(t.getCurrency(),
-						TaxBuilderImpl.LOCALIZER.getString("field.tax_currency"));
+						TaxBuilderImpl.LOCALIZER
+								.getString("field.tax_currency"));
 				break;
 			case PERCENTAGE:
 				Validate.inclusiveBetween(BigDecimal.ZERO,

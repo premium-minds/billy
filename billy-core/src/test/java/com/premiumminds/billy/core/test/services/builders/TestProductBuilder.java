@@ -35,7 +35,8 @@ import com.premiumminds.billy.core.test.fixtures.MockProductEntity;
 
 public class TestProductBuilder extends AbstractTest {
 
-	private static final String PRODUCT_YML = YML_CONFIGS_DIR + "Product.yml";
+	private static final String PRODUCT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Product.yml";
 
 	@Test
 	public void doTest() {

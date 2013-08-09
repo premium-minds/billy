@@ -34,7 +34,7 @@ import com.premiumminds.billy.core.test.fixtures.MockApplicationEntity;
 
 public class TestApplicationBuilder extends AbstractTest {
 
-	private static final String APPLICATION_YML = YML_CONFIGS_DIR
+	private static final String APPLICATION_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "Application.yml";
 
 	@Test

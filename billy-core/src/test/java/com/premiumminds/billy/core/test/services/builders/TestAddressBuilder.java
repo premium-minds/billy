@@ -29,7 +29,8 @@ import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
 
 public class TestAddressBuilder extends AbstractTest {
 
-	private static final String ADDRESS_YML = YML_CONFIGS_DIR + "Address.yml";
+	private static final String ADDRESS_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Address.yml";
 
 	@Test
 	public void doTest() {

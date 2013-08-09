@@ -67,8 +67,9 @@ public class DAOGenericInvoiceImpl extends
 
 		if (invoice != null) {
 			return (T) invoice;
-		} else
+		} else {
 			throw new BillyRuntimeException();
+		}
 	}
 
 }
