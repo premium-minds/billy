@@ -21,11 +21,14 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
 public class JPAPTShippingPointEntity extends JPAShippingPointEntity implements
 		PTShippingPointEntity {

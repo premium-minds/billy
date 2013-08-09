@@ -26,11 +26,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE_ENTRY")
 public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity
 		implements PTCreditNoteEntryEntity {

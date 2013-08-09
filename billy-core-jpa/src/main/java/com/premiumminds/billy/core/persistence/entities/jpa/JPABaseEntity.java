@@ -33,6 +33,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.commons.lang3.Validate;
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.services.UID;
@@ -43,6 +44,7 @@ import com.premiumminds.billy.core.services.UID;
  *         The Billy JPA implementation of {@link JPABaseEntity}
  */
 @MappedSuperclass
+@Audited
 public abstract class JPABaseEntity implements BaseEntity {
 
 	private static final long serialVersionUID = 1L;
