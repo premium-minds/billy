@@ -265,7 +265,7 @@
 				<configuration>
 					<schemaDirectory>src/main/resources/documents</schemaDirectory>
 					<bindingDirectory>src/main/resources/documents</bindingDirectory>
-					<generateDirectory />
+					<generateDirectory>src/main/java</generateDirectory>
 					<generatePackage>com.premiumminds.billy.portugal.services.export.saftpt.schema</generatePackage>
 					<strict>false</strict>
 					<extension>true</extension>
