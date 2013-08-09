@@ -1,3 +1,4 @@
+# Billy
 Billy is a billing library for applications providing them with ability to create, manage,  and store billing artifacts such as invoices and credit notes. It also supports the export of the persisted the persisted data in PDF and SAF-T formats.
 
 Billy was built to be easily extended in order to support additional taxing systems for different countries. 
