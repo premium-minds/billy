@@ -40,14 +40,14 @@ public class PTApplicationTestUtil {
 
 	public PTApplicationTestUtil(Injector injector) {
 		this.injector = injector;
-		contact = new PTContactTestUtil(injector);
+		this.contact = new PTContactTestUtil(injector);
 	}
 
 	public PTApplication.Builder getApplicationBuilder(String appName,
 			String version, String companyName, String companyTaxId,
 			String website, Integer swCertificateNumber, String keysPath,
 			PTContact.Builder contactBuilder) throws MalformedURLException {
-		PTApplication.Builder applicationBuilder = injector
+		PTApplication.Builder applicationBuilder = this.injector
 				.getInstance(PTApplication.Builder.class);
 
 		applicationBuilder.clear();
@@ -65,10 +65,14 @@ public class PTApplicationTestUtil {
 
 	public PTApplication.Builder getApplicationBuilder()
 			throws MalformedURLException {
-		PTContact.Builder contactBuilder = contact.getContactBuilder();
+		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-		return getApplicationBuilder(APP_NAME, VERSION, COMPANY_NAME,
-				COMPANY_TAX_ID, WEBSITE, SW_CERTIFICATE_NUMBER, KEYS_PATH,
-				contactBuilder);
+		return this.getApplicationBuilder(PTApplicationTestUtil.APP_NAME,
+				PTApplicationTestUtil.VERSION,
+				PTApplicationTestUtil.COMPANY_NAME,
+				PTApplicationTestUtil.COMPANY_TAX_ID,
+				PTApplicationTestUtil.WEBSITE,
+				PTApplicationTestUtil.SW_CERTIFICATE_NUMBER,
+				PTApplicationTestUtil.KEYS_PATH, contactBuilder);
 	}
 }

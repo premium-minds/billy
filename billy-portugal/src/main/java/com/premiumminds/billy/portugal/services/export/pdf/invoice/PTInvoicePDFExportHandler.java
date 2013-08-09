@@ -41,6 +41,7 @@ import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
+
 		public static final String INVOICE_HASH = "hash";
 		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
 		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
@@ -53,7 +54,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	public PTInvoicePDFExportHandler(DAOPTInvoice daoPTInvoice) {
 		super(daoPTInvoice);
 		this.daoPTInvoice = daoPTInvoice;
-		config = new Config();
+		this.config = new Config();
 	}
 
 	public File toFile(URI fileURI, PTInvoiceEntity invoice,
@@ -105,7 +106,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
-			PTInvoiceEntity invoice = (PTInvoiceEntity) daoPTInvoice
+			PTInvoiceEntity invoice = (PTInvoiceEntity) this.daoPTInvoice
 					.get(docUid);
 			this.toStream(invoice, targetStream, exportRequest.getBundle());
 		} catch (Exception e) {
@@ -132,7 +133,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
 		return (invoice.getCustomer().getUID()
-				.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
+				.equals(this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
 				.getGenericCustomer() : invoice.getCustomer()
 				.getTaxRegistrationNumber());
 	}

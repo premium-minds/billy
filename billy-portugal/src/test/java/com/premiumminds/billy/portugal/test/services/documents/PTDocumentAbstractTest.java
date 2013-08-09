@@ -31,6 +31,7 @@ import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
@@ -50,11 +51,12 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	@Before
 	public void setUpParamenters() {
-		KeyGenerator generator = new KeyGenerator(PRIVATE_KEY_DIR);
+		KeyGenerator generator = new KeyGenerator(
+				PTDocumentAbstractTest.PRIVATE_KEY_DIR);
 
-		parameters = new PTIssuingParamsImpl();
-		parameters.setPrivateKey(generator.getPrivateKey());
-		parameters.setPublicKey(generator.getPublicKey());
+		this.parameters = new PTIssuingParamsImpl();
+		this.parameters.setPrivateKey(generator.getPrivateKey());
+		this.parameters.setPublicKey(generator.getPublicKey());
 
 	}
 
@@ -65,13 +67,15 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 		switch (type) {
 			case FT:
-				return (T) new PTInvoiceTestUtil(injector)
-						.getSimpleInvoiceEntity(type, ENTRY_UID, invoiceUID,
+				return (T) new PTInvoiceTestUtil(PTAbstractTest.injector)
+						.getSimpleInvoiceEntity(type,
+								PTDocumentAbstractTest.ENTRY_UID, invoiceUID,
 								businessUID, customerUID,
 								Arrays.asList(productUID), billing);
 			case FS:
-				return (T) new PTSimpleInvoiceTestUtil(injector)
-						.getSimpleInvoiceEntity(type, ENTRY_UID, invoiceUID,
+				return (T) new PTSimpleInvoiceTestUtil(PTAbstractTest.injector)
+						.getSimpleInvoiceEntity(type,
+								PTDocumentAbstractTest.ENTRY_UID, invoiceUID,
 								businessUID, customerUID,
 								Arrays.asList(productUID), billing);
 			case NC:
@@ -86,16 +90,16 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
 			throws DocumentIssuingException {
-		issueNewInvoice(handler, invoice, series, new Date(invoice
+		this.issueNewInvoice(handler, invoice, series, new Date(invoice
 				.getCreateTimestamp().getTime() + 100));
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series, Date date)
 			throws DocumentIssuingException {
-		parameters.setInvoiceSeries(series);
+		this.parameters.setInvoiceSeries(series);
 		invoice.setDate(date);
-		handler.issue(invoice, parameters);
+		handler.issue(invoice, this.parameters);
 	}
 
 }

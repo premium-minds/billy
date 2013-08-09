@@ -47,28 +47,29 @@ public class PTBusinessTestUtil {
 
 	public PTBusinessTestUtil(Injector injector) {
 		this.injector = injector;
-		application = new PTApplicationTestUtil(injector);
-		contact = new PTContactTestUtil(injector);
-		address = new PTAddressTestUtil(injector);
-		contexts = new Contexts(injector);
-		context = contexts.portugal().portugal();
+		this.application = new PTApplicationTestUtil(injector);
+		this.contact = new PTContactTestUtil(injector);
+		this.address = new PTAddressTestUtil(injector);
+		this.contexts = new Contexts(injector);
+		this.context = this.contexts.portugal().portugal();
 	}
 
 	public PTBusinessEntity getBusinessEntity(String uid, UID contextUID,
 			PTContact.Builder contactBuilder, PTAddress.Builder addressBuilder,
 			PTApplication.Builder applicationBuilder) {
-		PTBusiness.Builder businessBuilder = injector
+		PTBusiness.Builder businessBuilder = this.injector
 				.getInstance(PTBusiness.Builder.class);
-		
-		PTContactEntity contact = (PTContactEntity)contactBuilder.build();
+
+		PTContactEntity contact = (PTContactEntity) contactBuilder.build();
 
 		businessBuilder.clear();
 
 		businessBuilder.addApplication(applicationBuilder)
 				.addContact(contactBuilder).setAddress(addressBuilder)
-				.setBillingAddress(addressBuilder).setCommercialName(name)
-				.setFinancialID(id).setOperationalContextUID(contextUID)
-				.setMainContactUID(contact.getUID()).setWebsite(website).setName(name);
+				.setBillingAddress(addressBuilder).setCommercialName(this.name)
+				.setFinancialID(this.id).setOperationalContextUID(contextUID)
+				.setMainContactUID(contact.getUID()).setWebsite(this.website)
+				.setName(this.name);
 
 		PTBusinessEntity business = (PTBusinessEntity) businessBuilder.build();
 		business.setUID(new UID(uid));
@@ -79,38 +80,39 @@ public class PTBusinessTestUtil {
 	public PTBusinessEntity getBusinessEntity(String uid) {
 		PTApplication.Builder applicationBuilder = null;
 		try {
-			applicationBuilder = application.getApplicationBuilder();
+			applicationBuilder = this.application.getApplicationBuilder();
 		} catch (MalformedURLException e) {
 
 		}
-		PTContact.Builder contactBuilder = contact.getContactBuilder();
-		PTAddress.Builder addressBuilder = address.getAddressBuilder();
+		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
+		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-		return getBusinessEntity(uid, context.getUID(), contactBuilder,
-				addressBuilder, applicationBuilder);
+		return this.getBusinessEntity(uid, this.context.getUID(),
+				contactBuilder, addressBuilder, applicationBuilder);
 
 	}
 
 	public PTBusinessEntity getBusinessEntity() {
-		return getBusinessEntity(UID);
+		return this.getBusinessEntity(this.UID);
 	}
 
 	public PTBusiness.Builder getBusinessBuilder() throws MalformedURLException {
-		PTBusiness.Builder businessBuilder = injector
+		PTBusiness.Builder businessBuilder = this.injector
 				.getInstance(PTBusiness.Builder.class);
-		PTApplication.Builder applicationBuilder = application
+		PTApplication.Builder applicationBuilder = this.application
 				.getApplicationBuilder();
-		PTContact.Builder contactBuilder = contact.getContactBuilder();
-		PTAddress.Builder addressBuilder = address.getAddressBuilder();
-		context = contexts.portugal().portugal();
+		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
+		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
+		this.context = this.contexts.portugal().portugal();
 
 		businessBuilder.clear();
 
 		businessBuilder.addApplication(applicationBuilder)
 				.addContact(contactBuilder).setAddress(addressBuilder)
-				.setBillingAddress(addressBuilder).setCommercialName(name)
-				.setFinancialID(id).setOperationalContextUID(context.getUID())
-				.setWebsite(website).setName(name);
+				.setBillingAddress(addressBuilder).setCommercialName(this.name)
+				.setFinancialID(this.id)
+				.setOperationalContextUID(this.context.getUID())
+				.setWebsite(this.website).setName(this.name);
 
 		return businessBuilder;
 	}

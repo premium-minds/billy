@@ -62,36 +62,41 @@ public class PTInvoiceTestUtil {
 	public PTInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
 		this.INVOICE_TYPE = TYPE.FT;
-		invoiceEntry = new PTInvoiceEntryTestUtil(injector);
-		business = new PTBusinessTestUtil(injector);
-		customer = new PTCustomerTestUtil(injector);
+		this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
+		this.business = new PTBusinessTestUtil(injector);
+		this.customer = new PTCustomerTestUtil(injector);
 	}
 
 	public PTInvoiceTestUtil(Injector injector, TYPE type) {
 		this.injector = injector;
 		this.INVOICE_TYPE = type;
-		invoiceEntry = new PTInvoiceEntryTestUtil(injector);
-		business = new PTBusinessTestUtil(injector);
-		customer = new PTCustomerTestUtil(injector);
+		this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
+		this.business = new PTBusinessTestUtil(injector);
+		this.customer = new PTCustomerTestUtil(injector);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
-		return getInvoiceEntity(BUSINESS_UID, CUSTOMER_UID,
-				Arrays.asList(PRODUCT_UID));
+		return this.getInvoiceEntity(PTInvoiceTestUtil.BUSINESS_UID,
+				PTInvoiceTestUtil.CUSTOMER_UID,
+				Arrays.asList(PTInvoiceTestUtil.PRODUCT_UID));
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(String businessUID,
 			String customerUID, List<String> productUIDs) {
-		return getInvoiceEntity(INVOICE_TYPE, SERIE, UID, SERIE_NUMBER,
-				INVOICE_ENTRY_UID, businessUID, customerUID, productUIDs);
+		return this.getInvoiceEntity(this.INVOICE_TYPE,
+				PTInvoiceTestUtil.SERIE, PTInvoiceTestUtil.UID,
+				PTInvoiceTestUtil.SERIE_NUMBER,
+				PTInvoiceTestUtil.INVOICE_ENTRY_UID, businessUID, customerUID,
+				productUIDs);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
 			String uid, Integer seriesNumber, String entryUID,
 			String businessUID, String customerUID, List<String> productUIDs) {
 
-		PTInvoiceEntity invoice = getSimpleInvoiceEntity(invoiceType, entryUID,
-				uid, businessUID, customerUID, productUIDs, SourceBilling.P);
+		PTInvoiceEntity invoice = this.getSimpleInvoiceEntity(invoiceType,
+				entryUID, uid, businessUID, customerUID, productUIDs,
+				SourceBilling.P);
 
 		String formatedNumber = invoiceType.toString() + " " + serie + "/"
 				+ seriesNumber;
@@ -107,8 +112,10 @@ public class PTInvoiceTestUtil {
 			String entryUID, String uid, String businessUID,
 			String customerUID, List<String> productUIDs, SourceBilling billing) {
 
-		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
-		DAOPTCustomer daoPTCustomer = injector.getInstance(DAOPTCustomer.class);
+		DAOPTBusiness daoPTBusiness = this.injector
+				.getInstance(DAOPTBusiness.class);
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
 
 		PTBusinessEntity businessEntity = null;
 		try {
@@ -117,7 +124,7 @@ public class PTInvoiceTestUtil {
 		} catch (NoResultException e) {
 		}
 		if (businessEntity == null) {
-			businessEntity = business.getBusinessEntity(businessUID);
+			businessEntity = this.business.getBusinessEntity(businessUID);
 			daoPTBusiness.create(businessEntity);
 		}
 
@@ -130,11 +137,11 @@ public class PTInvoiceTestUtil {
 		}
 
 		if (customerEntity == null) {
-			customerEntity = customer.getCustomerEntity(customerUID);
+			customerEntity = this.customer.getCustomerEntity(customerUID);
 			daoPTCustomer.create(customerEntity);
 		}
 
-		PTInvoiceEntity invoice = (PTInvoiceEntity) getInvoiceBuilder(
+		PTInvoiceEntity invoice = (PTInvoiceEntity) this.getInvoiceBuilder(
 				businessUID, customerUID, billing, productUIDs).build();
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
@@ -155,11 +162,13 @@ public class PTInvoiceTestUtil {
 
 	public PTInvoice.Builder getInvoiceBuilder(String businessUID,
 			String customerUID, SourceBilling billing, List<String> productUIDs) {
-		PTInvoice.Builder invoiceBuilder = injector
+		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
-		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
-		DAOPTCustomer daoPTCustomer = injector.getInstance(DAOPTCustomer.class);
+		DAOPTBusiness daoPTBusiness = this.injector
+				.getInstance(DAOPTBusiness.class);
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
 
 		PTBusinessEntity businessEntity = null;
 		try {
@@ -168,7 +177,7 @@ public class PTInvoiceTestUtil {
 		} catch (NoResultException e) {
 		}
 		if (businessEntity == null) {
-			businessEntity = business.getBusinessEntity(businessUID);
+			businessEntity = this.business.getBusinessEntity(businessUID);
 			daoPTBusiness.create(businessEntity);
 		}
 
@@ -181,19 +190,22 @@ public class PTInvoiceTestUtil {
 		}
 
 		if (customerEntity == null) {
-			customerEntity = customer.getCustomerEntity(customerUID);
+			customerEntity = this.customer.getCustomerEntity(customerUID);
 			daoPTCustomer.create(customerEntity);
 		}
 		invoiceBuilder.clear();
 
 		for (String productUID : productUIDs) {
-			PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 					.getInvoiceEntryBuilder(productUID);
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 
-		return invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
-				.setSelfBilled(SELFBILL).setDate(DATE).setSourceId(SOURCE_ID)
+		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
+				.setDate(PTInvoiceTestUtil.DATE)
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)
 				.setBusinessUID(new UID(businessUID));

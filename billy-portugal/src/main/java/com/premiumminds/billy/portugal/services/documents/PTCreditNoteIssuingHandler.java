@@ -48,6 +48,7 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
 		final DAOPTCreditNote daoInvoice = this.injector
 				.getInstance(DAOPTCreditNote.class);
 
-		return issue(document, parametersPT, daoInvoice, INVOICE_TYPE);
+		return this.issue(document, parametersPT, daoInvoice,
+				PTCreditNoteIssuingHandler.INVOICE_TYPE);
 	}
 }

@@ -198,8 +198,9 @@ public class PTSAFTFileGenerator {
 					AuditFile SAFTFile = new AuditFile();
 
 					/* HEADER */
-					Header hdr = generateHeader(businessEntity, application,
-							certificateNumber, fromDate, toDate);
+					Header hdr = PTSAFTFileGenerator.this.generateHeader(
+							businessEntity, application, certificateNumber,
+							fromDate, toDate);
 					SAFTFile.setHeader(hdr);
 
 					/* MASTER FILES */
@@ -210,7 +211,8 @@ public class PTSAFTFileGenerator {
 					List<PTCustomerEntity> customers = (List<PTCustomerEntity>) (List<?>) daoCustomer
 							.getAllActiveCustomers();
 					for (PTCustomerEntity customer : customers) {
-						Customer SAFTCustomer = generateCustomer(customer);
+						Customer SAFTCustomer = PTSAFTFileGenerator.this
+								.generateCustomer(customer);
 						mf.getCustomer().add(SAFTCustomer);
 					}
 
@@ -219,7 +221,8 @@ public class PTSAFTFileGenerator {
 					List<PTSupplierEntity> suppliers = (List<PTSupplierEntity>) (List<?>) daoSupplier
 							.getAllActiveSuppliers();
 					for (PTSupplierEntity sup : suppliers) {
-						Supplier SAFTSupplier = generateSupplier(sup);
+						Supplier SAFTSupplier = PTSAFTFileGenerator.this
+								.generateSupplier(sup);
 						mf.getSupplier().add(SAFTSupplier);
 					}
 
@@ -228,18 +231,20 @@ public class PTSAFTFileGenerator {
 					List<PTProductEntity> products = (List<PTProductEntity>) (List<?>) daoProduct
 							.getAllActiveProducts();
 					for (PTProductEntity prod : products) {
-						Product SAFTProduct = generateProduct(prod);
+						Product SAFTProduct = PTSAFTFileGenerator.this
+								.generateProduct(prod);
 						mf.getProduct().add(SAFTProduct);
 					}
 
 					PTRegionContextEntity context = (PTRegionContextEntity) daoPTRegionContext
-							.get(config
+							.get(PTSAFTFileGenerator.this.config
 									.getUID(Config.Key.Context.Portugal.UUID));
 					// Taxes
 					@SuppressWarnings("unchecked")
 					List<PTTaxEntity> taxes = (List<PTTaxEntity>) (List<?>) daoPTTax
 							.getTaxesForSAFTPT(context, null, null);
-					TaxTable SAFTTaxTable = generateTaxTable(taxes);
+					TaxTable SAFTTaxTable = PTSAFTFileGenerator.this
+							.generateTaxTable(taxes);
 					mf.setTaxTable(SAFTTaxTable);
 					SAFTFile.setMasterFiles(mf);
 
@@ -252,14 +257,16 @@ public class PTSAFTFileGenerator {
 							.getBusinessCreditNotesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
 
-					SourceDocuments sd = generateSourceDocuments(
-							invoices == null ? new ArrayList<PTInvoiceEntity>()
-									: invoices,
-							creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
-									: creditNotes);
+					SourceDocuments sd = PTSAFTFileGenerator.this
+							.generateSourceDocuments(
+									invoices == null ? new ArrayList<PTInvoiceEntity>()
+											: invoices,
+									creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
+											: creditNotes);
 					SAFTFile.setSourceDocuments(sd);
 
-					exportSAFTFile(SAFTFile, targetStream);
+					PTSAFTFileGenerator.this.exportSAFTFile(SAFTFile,
+							targetStream);
 
 					return SAFTFile;
 				}
@@ -279,7 +286,8 @@ public class PTSAFTFileGenerator {
 	 */
 	private void exportSAFTFile(AuditFile auditFile, OutputStream targetStream) {
 		try {
-			this.marshaller.setProperty("jaxb.encoding", FILE_ENCODING);
+			this.marshaller.setProperty("jaxb.encoding",
+					PTSAFTFileGenerator.FILE_ENCODING);
 			this.marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
 			this.marshaller.marshal(auditFile, targetStream);
 
@@ -310,49 +318,51 @@ public class PTSAFTFileGenerator {
 		this.context = "Header.";
 
 		Header hdr = new Header();
-		hdr.setAuditFileVersion(validateString("AuditFileVersion",
-				XML_SCHEMA_VERSION, MAX_LENGTH_10, true));
-		hdr.setCompanyID(validateString("CompanyID",
-				businessEntity.getFinancialID(), MAX_LENGTH_50, true));
-		hdr.setTaxRegistrationNumber(validateInteger("TaxRegistrationNumber",
-				businessEntity.getFinancialID(), MAX_LENGTH_9, true));
-		hdr.setTaxAccountingBasis(validateString("TaxAccountBasis",
-				TAX_ACCOUNTING_BASIS, MAX_LENGTH_1, true));
-		hdr.setCompanyName(validateString("CompanyName",
-				businessEntity.getName(), MAX_LENGTH_100, true));
+		hdr.setAuditFileVersion(this.validateString("AuditFileVersion",
+				this.XML_SCHEMA_VERSION, this.MAX_LENGTH_10, true));
+		hdr.setCompanyID(this.validateString("CompanyID",
+				businessEntity.getFinancialID(), this.MAX_LENGTH_50, true));
+		hdr.setTaxRegistrationNumber(this.validateInteger(
+				"TaxRegistrationNumber", businessEntity.getFinancialID(),
+				this.MAX_LENGTH_9, true));
+		hdr.setTaxAccountingBasis(this.validateString("TaxAccountBasis",
+				this.TAX_ACCOUNTING_BASIS, this.MAX_LENGTH_1, true));
+		hdr.setCompanyName(this.validateString("CompanyName",
+				businessEntity.getName(), this.MAX_LENGTH_100, true));
 
-		if ((optionalParam = validateString("BusinessName",
-				businessEntity.getCommercialName(), MAX_LENGTH_60, false))
+		if ((this.optionalParam = this.validateString("BusinessName",
+				businessEntity.getCommercialName(), this.MAX_LENGTH_60, false))
 				.length() > 0) {
-			hdr.setBusinessName(optionalParam);
+			hdr.setBusinessName(this.optionalParam);
 		}
 
-		hdr.setCompanyAddress(generateAddressStructurePT((AddressEntity) businessEntity
-				.getAddress()));
+		hdr.setCompanyAddress(this
+				.generateAddressStructurePT((AddressEntity) businessEntity
+						.getAddress()));
 
-		hdr.setFiscalYear(getDateField(startDate, Calendar.YEAR));
-		hdr.setStartDate(formatDate(startDate));
-		hdr.setEndDate(formatDate(endDate));
-		hdr.setCurrencyCode(validateString("CurrencyCode", CURRENCY_CODE,
-				MAX_LENGTH_3, true));
-		hdr.setDateCreated(getXMLGregorianCalendarNow());
+		hdr.setFiscalYear(this.getDateField(startDate, Calendar.YEAR));
+		hdr.setStartDate(this.formatDate(startDate));
+		hdr.setEndDate(this.formatDate(endDate));
+		hdr.setCurrencyCode(this.validateString("CurrencyCode",
+				this.CURRENCY_CODE, this.MAX_LENGTH_3, true));
+		hdr.setDateCreated(this.getXMLGregorianCalendarNow());
 
-		hdr.setTaxEntity(validateString("TaxEntity", TAX_ENTITY, MAX_LENGTH_20,
-				true));
-		hdr.setProductCompanyTaxID(validateString("ProductCompanyTaxID",
-				application.getDeveloperCompanyTaxIdentifier(), MAX_LENGTH_20,
-				true));
-		hdr.setSoftwareCertificateNumber(validateBigInteger(
-				"SoftwareCertificateNumber", certificateNumber, MAX_LENGTH_255,
-				true));
-		hdr.setProductID(validateString("ProductID", application.getName()
-				+ "/" + application.getDeveloperCompanyName(), MAX_LENGTH_255,
-				true));
-		hdr.setProductVersion(validateString("ProductVersion",
-				application.getVersion(), MAX_LENGTH_30, true));
+		hdr.setTaxEntity(this.validateString("TaxEntity", this.TAX_ENTITY,
+				this.MAX_LENGTH_20, true));
+		hdr.setProductCompanyTaxID(this.validateString("ProductCompanyTaxID",
+				application.getDeveloperCompanyTaxIdentifier(),
+				this.MAX_LENGTH_20, true));
+		hdr.setSoftwareCertificateNumber(this.validateBigInteger(
+				"SoftwareCertificateNumber", certificateNumber,
+				this.MAX_LENGTH_255, true));
+		hdr.setProductID(this.validateString("ProductID", application.getName()
+				+ "/" + application.getDeveloperCompanyName(),
+				this.MAX_LENGTH_255, true));
+		hdr.setProductVersion(this.validateString("ProductVersion",
+				application.getVersion(), this.MAX_LENGTH_30, true));
 
 		List<PTContactEntity> list = businessEntity.getContacts();
-		setContacts(hdr, list);
+		this.setContacts(hdr, list);
 
 		return hdr;
 	}
@@ -372,34 +382,36 @@ public class PTSAFTFileGenerator {
 		this.context = "Customer.";
 		Customer customer = new Customer();
 
-		if (config.getUID(Key.Customer.Generic.UUID).equals(
+		if (this.config.getUID(Key.Customer.Generic.UUID).equals(
 				customerEntity.getUID())) {
 			customerEntity.setUID(new UID("Consumidor final"));
 		} else {
-			if ((optionalParam = validateString("Contact",
-					customerEntity.getReferralName(), MAX_LENGTH_50, false))
-					.length() > 0) {
-				customer.setContact(optionalParam);
+			if ((this.optionalParam = this
+					.validateString("Contact",
+							customerEntity.getReferralName(),
+							this.MAX_LENGTH_50, false)).length() > 0) {
+				customer.setContact(this.optionalParam);
 			}
 
 			if (customerEntity.getShippingAddress() != null) {
 				customer.getShipToAddress()
-						.add(generateAddressStructure((PTAddressEntity) customerEntity
-								.getShippingAddress()));
+						.add(this
+								.generateAddressStructure((PTAddressEntity) customerEntity
+										.getShippingAddress()));
 			}
 			List<PTContactEntity> contacts = customerEntity.getContacts();
-			setContacts(customer, contacts);
+			this.setContacts(customer, contacts);
 		}
-		updateCustomerGeneralInfo(customer, customerEntity.getUID().getValue(),
-				customerEntity.getTaxRegistrationNumber(),
-				customerEntity.getName(),
-				(PTAddressEntity) customerEntity.getBillingAddress());
+		this.updateCustomerGeneralInfo(customer, customerEntity.getUID()
+				.getValue(), customerEntity.getTaxRegistrationNumber(),
+				customerEntity.getName(), (PTAddressEntity) customerEntity
+						.getBillingAddress());
 
-		customer.setAccountID(validateString("AccountID", ACCOUNT_ID,
-				MAX_LENGTH_30, true));
-		customer.setSelfBillingIndicator(validateInteger(
-				"SelfBillingIndicator", SELF_BILLING_INDICATOR, MAX_LENGTH_1,
-				true));
+		customer.setAccountID(this.validateString("AccountID", this.ACCOUNT_ID,
+				this.MAX_LENGTH_30, true));
+		customer.setSelfBillingIndicator(this.validateInteger(
+				"SelfBillingIndicator", this.SELF_BILLING_INDICATOR,
+				this.MAX_LENGTH_1, true));
 
 		return customer;
 	}
@@ -419,40 +431,43 @@ public class PTSAFTFileGenerator {
 		this.context = "Supplier.";
 		Supplier supplier = new Supplier();
 
-		supplier.setSupplierID(validateString("SupplierID", supplierEntity
-				.getUID().getValue(), MAX_LENGTH_30, true));
+		supplier.setSupplierID(this.validateString("SupplierID", supplierEntity
+				.getUID().getValue(), this.MAX_LENGTH_30, true));
 		// No accounting support
-		supplier.setAccountID(validateString("AccountID", ACCOUNT_ID,
-				MAX_LENGTH_30, true));
+		supplier.setAccountID(this.validateString("AccountID", this.ACCOUNT_ID,
+				this.MAX_LENGTH_30, true));
 
-		supplier.setSupplierTaxID(validateString("SupplierTaxID",
-				supplierEntity.getTaxRegistrationNumber(), MAX_LENGTH_20, true));
+		supplier.setSupplierTaxID(this.validateString("SupplierTaxID",
+				supplierEntity.getTaxRegistrationNumber(), this.MAX_LENGTH_20,
+				true));
 
-		supplier.setCompanyName(validateString("CompanyName",
-				supplierEntity.getName(), MAX_LENGTH_100, true));
+		supplier.setCompanyName(this.validateString("CompanyName",
+				supplierEntity.getName(), this.MAX_LENGTH_100, true));
 
-		if ((optionalParam = validateString("Contact",
-				supplierEntity.getReferralName(), MAX_LENGTH_50, false))
+		if ((this.optionalParam = this.validateString("Contact",
+				supplierEntity.getReferralName(), this.MAX_LENGTH_50, false))
 				.length() > 0) {
-			supplier.setContact(optionalParam);
+			supplier.setContact(this.optionalParam);
 		}
 
-		supplier.setBillingAddress(generateSupplierAddressStructure((PTAddressEntity) supplierEntity
-				.getBillingAddress()));
+		supplier.setBillingAddress(this
+				.generateSupplierAddressStructure((PTAddressEntity) supplierEntity
+						.getBillingAddress()));
 
 		if (supplierEntity.getShippingAddress() != null) {
 			supplier.getShipFromAddress()
-					.add(generateSupplierAddressStructure((PTAddressEntity) supplierEntity
-							.getShippingAddress()));
+					.add(this
+							.generateSupplierAddressStructure((PTAddressEntity) supplierEntity
+									.getShippingAddress()));
 		}
 
-		supplier.setSelfBillingIndicator(validateInteger(
-				"SelfBillingIndicator", SELF_BILLING_INDICATOR, MAX_LENGTH_1,
-				true));
+		supplier.setSelfBillingIndicator(this.validateInteger(
+				"SelfBillingIndicator", this.SELF_BILLING_INDICATOR,
+				this.MAX_LENGTH_1, true));
 
 		List<PTContactEntity> contacts = supplierEntity.getContacts();
 
-		setContacts(supplier, contacts);
+		this.setContacts(supplier, contacts);
 
 		return supplier;
 	}
@@ -472,25 +487,27 @@ public class PTSAFTFileGenerator {
 		this.context = "Product.";
 
 		Product product = new Product();
-		product.setProductType(validateString("ProductType",
-				getProductType(productEntity.getType()), MAX_LENGTH_1, true));
+		product.setProductType(this.validateString("ProductType",
+				this.getProductType(productEntity.getType()),
+				this.MAX_LENGTH_1, true));
 
-		product.setProductCode(validateString("ProductCode", productEntity
-				.getUID().getValue(), MAX_LENGTH_30, true));
+		product.setProductCode(this.validateString("ProductCode", productEntity
+				.getUID().getValue(), this.MAX_LENGTH_30, true));
 
-		product.setProductGroup(validateString("ProductGroup",
-				productEntity.getProductGroup(), MAX_LENGTH_50, false));
+		product.setProductGroup(this.validateString("ProductGroup",
+				productEntity.getProductGroup(), this.MAX_LENGTH_50, false));
 
-		product.setProductDescription(validateString("ProductDescription",
-				productEntity.getDescription(), MAX_LENGTH_200, true));
+		product.setProductDescription(this.validateString("ProductDescription",
+				productEntity.getDescription(), this.MAX_LENGTH_200, true));
 
 		if (productEntity.getNumberCode() == null
 				|| productEntity.getNumberCode().length() == 0) {
-			product.setProductNumberCode(validateString("ProductCode",
-					productEntity.getUID().getValue(), MAX_LENGTH_50, true));
+			product.setProductNumberCode(this
+					.validateString("ProductCode", productEntity.getUID()
+							.getValue(), this.MAX_LENGTH_50, true));
 		} else {
-			product.setProductNumberCode(validateString("ProductCode",
-					productEntity.getNumberCode(), MAX_LENGTH_50, true));
+			product.setProductNumberCode(this.validateString("ProductCode",
+					productEntity.getNumberCode(), this.MAX_LENGTH_50, true));
 		}
 
 		return product;
@@ -516,19 +533,20 @@ public class PTSAFTFileGenerator {
 		TaxTable taxTable = new TaxTable();
 		for (PTTaxEntity taxEntity : taxEntities) {
 			TaxTableEntry tte = new TaxTableEntry();
-			tte.setTaxType(validateString("TaxType", getTaxType(taxEntity),
-					MAX_LENGTH_3, true));
-			tte.setTaxCode(validateString("TaxCode", taxEntity.getCode(),
-					MAX_LENGTH_10, true));
-			tte.setTaxCountryRegion(validateString("TaxCountryRegion",
-					getRegionCodeFromISOCode(((PTRegionContext) taxEntity
-							.getContext()).getRegionCode()), MAX_LENGTH_5, true));
+			tte.setTaxType(this.validateString("TaxType",
+					this.getTaxType(taxEntity), this.MAX_LENGTH_3, true));
+			tte.setTaxCode(this.validateString("TaxCode", taxEntity.getCode(),
+					this.MAX_LENGTH_10, true));
+			tte.setTaxCountryRegion(this.validateString("TaxCountryRegion",
+					this.getRegionCodeFromISOCode(((PTRegionContext) taxEntity
+							.getContext()).getRegionCode()), this.MAX_LENGTH_5,
+					true));
 
-			tte.setDescription(validateString("Description",
-					taxEntity.getDesignation(), MAX_LENGTH_255, true));
+			tte.setDescription(this.validateString("Description",
+					taxEntity.getDesignation(), this.MAX_LENGTH_255, true));
 
 			if (taxEntity.getValidTo() != null) {
-				tte.setTaxExpirationDate(formatDate(taxEntity.getValidTo()));
+				tte.setTaxExpirationDate(this.formatDate(taxEntity.getValidTo()));
 			}
 
 			if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
@@ -584,8 +602,8 @@ public class PTSAFTFileGenerator {
 
 		Invoice saftInvoice;
 		for (PTInvoiceEntity invoice : invoices) {
-			saftInvoice = generateSAFTInvoice(invoice);
-			processDocument(saftInvoice, invoice, true);
+			saftInvoice = this.generateSAFTInvoice(invoice);
+			this.processDocument(saftInvoice, invoice, true);
 			salesInvoices.getInvoice().add(saftInvoice);
 
 			if (!invoice.isBilled() && !invoice.isCancelled()) {
@@ -594,8 +612,8 @@ public class PTSAFTFileGenerator {
 		}
 
 		for (PTCreditNoteEntity creditNote : creditNotes) {
-			saftInvoice = generateSAFTInvoice(creditNote);
-			processDocument(saftInvoice, creditNote, false);
+			saftInvoice = this.generateSAFTInvoice(creditNote);
+			this.processDocument(saftInvoice, creditNote, false);
 			salesInvoices.getInvoice().add(saftInvoice);
 
 			if (!creditNote.isBilled() && !creditNote.isCancelled()) {
@@ -603,8 +621,8 @@ public class PTSAFTFileGenerator {
 			}
 		}
 
-		salesInvoices.setTotalDebit(validateBigDecimal(totalDebit));
-		salesInvoices.setTotalCredit(validateBigDecimal(totalCredit));
+		salesInvoices.setTotalDebit(this.validateBigDecimal(totalDebit));
+		salesInvoices.setTotalCredit(this.validateBigDecimal(totalCredit));
 		srcDocs.setSalesInvoices(salesInvoices);
 
 		return srcDocs;
@@ -632,48 +650,52 @@ public class PTSAFTFileGenerator {
 			InvalidDocumentStateException, InvalidInvoiceTypeException {
 		Invoice saftInv = new Invoice();
 
-		saftInv.setDocumentStatus(getDocumentStatus(document));
+		saftInv.setDocumentStatus(this.getDocumentStatus(document));
 
-		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
-				MAX_LENGTH_60, true));
-		saftInv.setInvoiceType(validateString("InvoiceType",
-				getDocumentType(document), MAX_LENGTH_2, true));
-		saftInv.setHash(validateString("Hash", document.getHash(),
-				MAX_LENGTH_172, true));
+		saftInv.setInvoiceNo(this.validateString("InvoiceNo",
+				document.getNumber(), this.MAX_LENGTH_60, true));
+		saftInv.setInvoiceType(this.validateString("InvoiceType",
+				this.getDocumentType(document), this.MAX_LENGTH_2, true));
+		saftInv.setHash(this.validateString("Hash", document.getHash(),
+				this.MAX_LENGTH_172, true));
 		// saftInv.setHashControl(validateString("HashControl",
 		// document.getHashControl(), MAX_LENGTH_40, false));
-		saftInv.setPeriod(validateInteger("Period", Integer
-				.toString(getDateField(document.getDate(), Calendar.MONTH)),
-				MAX_LENGTH_2, true));
-		saftInv.setInvoiceDate(formatDate(document.getDate()));
-		saftInv.setSelfBillingIndicator(validateInteger("SelfBillingIndicator",
-				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
-		saftInv.setSourceID(validateString("InvoiceSourceID",
-				document.getSourceId(), MAX_LENGTH_30, true));
+		saftInv.setPeriod(this.validateInteger("Period", Integer.toString(this
+				.getDateField(document.getDate(), Calendar.MONTH)),
+				this.MAX_LENGTH_2, true));
+		saftInv.setInvoiceDate(this.formatDate(document.getDate()));
+		saftInv.setSelfBillingIndicator(this.validateInteger(
+				"SelfBillingIndicator", document.isSelfBilled() ? "1" : "0",
+				this.MAX_LENGTH_1, true));
+		saftInv.setSourceID(this.validateString("InvoiceSourceID",
+				document.getSourceId(), this.MAX_LENGTH_30, true));
 		// saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
 		// MAX_LENGTH_5, false));
-		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
+		saftInv.setSystemEntryDate(this.formatDateTime(document
+				.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
-		String customerID = customerUID.equals(config
+		String customerID = customerUID.equals(this.config
 				.getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
 				: customerUID.toString();
 
-		saftInv.setCustomerID(validateString("CustomerID", customerID,
-				MAX_LENGTH_30, true));
+		saftInv.setCustomerID(this.validateString("CustomerID", customerID,
+				this.MAX_LENGTH_30, true));
 
 		/* NOT REQUIRED */
 		if (document.getShippingDestination() != null) {
-			saftInv.setShipTo(getShippingPointStructure(document
+			saftInv.setShipTo(this.getShippingPointStructure(document
 					.getShippingDestination().getDeliveryId(), document
 					.getShippingDestination().getDate(),
 					(PTAddressEntity) document.getShippingDestination()
 							.getAddress()));
 		}
 		if (document.getShippingOrigin() != null) {
-			saftInv.setShipFrom(getShippingPointStructure(document
-					.getShippingDestination().getDeliveryId(), document
-					.getShippingDestination().getDate(),
-					(PTAddressEntity) document.getShippingOrigin().getAddress()));
+			saftInv.setShipFrom(this
+					.getShippingPointStructure(document
+							.getShippingDestination().getDeliveryId(), document
+							.getShippingDestination().getDate(),
+							(PTAddressEntity) document.getShippingOrigin()
+									.getAddress()));
 		}
 
 		return saftInv;
@@ -720,31 +742,35 @@ public class PTSAFTFileGenerator {
 					.getEntryNumber())));
 
 			/* REQUIRED */
-			line.setProductCode(validateString("ProductCode", entry
-					.getProduct().getUID().getValue(), MAX_LENGTH_30, true));
-			line.setProductDescription(validateString("ProductDescription",
-					entry.getProduct().getDescription(), MAX_LENGTH_200, true));
-			line.setQuantity(validateBigDecimal(entry.getQuantity()));
-			line.setUnitOfMeasure(validateString("UnitOfMeasure",
-					UNIT_OF_MEASURE, MAX_LENGTH_20, true));
-			line.setUnitPrice(validateBigDecimal(entry.getAmountWithoutTax()
-					.divide(entry.getQuantity(), mc.getRoundingMode())));
-			line.setTaxPointDate(formatDate(entry.getTaxPointDate()));
+			line.setProductCode(this
+					.validateString("ProductCode", entry.getProduct().getUID()
+							.getValue(), this.MAX_LENGTH_30, true));
+			line.setProductDescription(this.validateString(
+					"ProductDescription", entry.getProduct().getDescription(),
+					this.MAX_LENGTH_200, true));
+			line.setQuantity(this.validateBigDecimal(entry.getQuantity()));
+			line.setUnitOfMeasure(this.validateString("UnitOfMeasure",
+					this.UNIT_OF_MEASURE, this.MAX_LENGTH_20, true));
+			line.setUnitPrice(this.validateBigDecimal(entry
+					.getAmountWithoutTax().divide(entry.getQuantity(),
+							this.mc.getRoundingMode())));
+			line.setTaxPointDate(this.formatDate(entry.getTaxPointDate()));
 
 			/* NOT REQUIRED - Invoice.Line.References */
-			References ref = getReferencesForDocumentEntry(entry, document);
+			References ref = this
+					.getReferencesForDocumentEntry(entry, document);
 			if (ref != null) {
 				line.getReferences().add(ref);
 			}
 
 			/* REQUIRED */
-			line.setDescription(validateString("Description",
-					entry.getDescription(), MAX_LENGTH_200, true));
+			line.setDescription(this.validateString("Description",
+					entry.getDescription(), this.MAX_LENGTH_200, true));
 			if (isCredit) {
-				line.setCreditAmount(validateBigDecimal(entry
+				line.setCreditAmount(this.validateBigDecimal(entry
 						.getAmountWithoutTax()));
 			} else {
-				line.setDebitAmount(validateBigDecimal(entry
+				line.setDebitAmount(this.validateBigDecimal(entry
 						.getAmountWithoutTax()));
 			}
 
@@ -752,17 +778,19 @@ public class PTSAFTFileGenerator {
 			if (entry.getTaxes().size() > 0) {
 				PTTaxEntity taxEntity = (PTTaxEntity) entry.getTaxes().get(0);
 				Tax tax = new Tax();
-				tax.setTaxType(validateString("TaxType", getTaxType(taxEntity),
-						MAX_LENGTH_3, true));
-				tax.setTaxCode(validateString("TaxCode", taxEntity.getCode(),
-						MAX_LENGTH_10, true));
-				tax.setTaxCountryRegion(validateString("TaxCountryRegion",
-						getRegionCodeFromISOCode(((PTRegionContext) taxEntity
-								.getContext()).getRegionCode()), MAX_LENGTH_5,
-						true));
+				tax.setTaxType(this.validateString("TaxType",
+						this.getTaxType(taxEntity), this.MAX_LENGTH_3, true));
+				tax.setTaxCode(this.validateString("TaxCode",
+						taxEntity.getCode(), this.MAX_LENGTH_10, true));
+				tax.setTaxCountryRegion(this.validateString(
+						"TaxCountryRegion",
+						this.getRegionCodeFromISOCode(((PTRegionContext) taxEntity
+								.getContext()).getRegionCode()),
+						this.MAX_LENGTH_5, true));
 
 				if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
-					tax.setTaxAmount(validateBigDecimal(taxEntity.getValue()));
+					tax.setTaxAmount(this.validateBigDecimal(taxEntity
+							.getValue()));
 				} else if (taxEntity.getTaxRateType().equals(
 						TaxRateType.PERCENTAGE)) {
 					tax.setTaxPercentage(taxEntity.getValue());
@@ -773,9 +801,10 @@ public class PTSAFTFileGenerator {
 						.equals(BigDecimal.ZERO))
 						|| (tax.getTaxAmount() != null && tax.getTaxAmount()
 								.equals(BigDecimal.ZERO))) {
-					line.setTaxExemptionReason(validateString(
+					line.setTaxExemptionReason(this.validateString(
 							"TaxExemptionReason",
-							entry.getTaxExemptionReason(), MAX_LENGTH_60, true));
+							entry.getTaxExemptionReason(), this.MAX_LENGTH_60,
+							true));
 				}
 			}
 
@@ -788,7 +817,7 @@ public class PTSAFTFileGenerator {
 			saftInvoice.getLine().add(line);
 		}
 
-		DocumentTotals dt = getDocumentTotals(document, isCredit);
+		DocumentTotals dt = this.getDocumentTotals(document, isCredit);
 		if (dt != null) {
 			saftInvoice.setDocumentTotals(dt);
 		}
@@ -853,16 +882,17 @@ public class PTSAFTFileGenerator {
 				reasonForCredit = ((PTCreditNoteEntryEntity) entry).getReason();
 			}
 
-			if ((optionalParam = validateString(
+			if ((this.optionalParam = this.validateString(
 					"References.CreditNote.Reference",
-					referencedDocument.getNumber(), MAX_LENGTH_60, false))
+					referencedDocument.getNumber(), this.MAX_LENGTH_60, false))
 					.length() > 0) {
-				ref.setReference(optionalParam);
+				ref.setReference(this.optionalParam);
 			}
 
-			if ((optionalParam = validateString("References.CreditNote.Reason",
-					reasonForCredit, MAX_LENGTH_50, false)).length() > 0) {
-				ref.setReason(optionalParam);
+			if ((this.optionalParam = this.validateString(
+					"References.CreditNote.Reason", reasonForCredit,
+					this.MAX_LENGTH_50, false)).length() > 0) {
+				ref.setReason(this.optionalParam);
 			}
 		}
 		return ref;
@@ -888,14 +918,14 @@ public class PTSAFTFileGenerator {
 			DatatypeConfigurationException {
 		ShippingPointStructure sps = new ShippingPointStructure();
 
-		if ((optionalParam = validateString("DeliveryID", deliveryID,
-				MAX_LENGTH_30, false)).length() > 0) {
-			sps.getDeliveryID().add(optionalParam);
+		if ((this.optionalParam = this.validateString("DeliveryID", deliveryID,
+				this.MAX_LENGTH_30, false)).length() > 0) {
+			sps.getDeliveryID().add(this.optionalParam);
 		}
 		if (deliveryDate != null) {
-			sps.setDeliveryDate(formatDate(deliveryDate));
+			sps.setDeliveryDate(this.formatDate(deliveryDate));
 		}
-		sps.setAddress(generateAddressStructure(address));
+		sps.setAddress(this.generateAddressStructure(address));
 
 		return sps;
 	}
@@ -912,10 +942,11 @@ public class PTSAFTFileGenerator {
 			boolean isCredit) {
 		Currency cur = null;
 
-		if (!document.getCurrency().getCurrencyCode().equals(CURRENCY_CODE)) {
+		if (!document.getCurrency().getCurrencyCode()
+				.equals(this.CURRENCY_CODE)) {
 			cur = new Currency();
 			cur.setCurrencyCode(document.getCurrency().getCurrencyCode());
-			cur.setCurrencyAmount(validateBigDecimal(document
+			cur.setCurrencyAmount(this.validateBigDecimal(document
 					.getAmountWithoutTax()));
 		}
 
@@ -937,19 +968,19 @@ public class PTSAFTFileGenerator {
 			DatatypeConfigurationException, InvalidPaymentMechanismException {
 		if (document.getSettlementDiscount() != null) {
 			Settlement settlement = new Settlement();
-			settlement.setSettlementAmount(validateBigDecimal(document
+			settlement.setSettlementAmount(this.validateBigDecimal(document
 					.getSettlementDiscount()));
-			settlement.setSettlementDate(formatDate(document
+			settlement.setSettlementDate(this.formatDate(document
 					.getSettlementDate()));
-			if ((optionalParam = validateString("SettlementDiscount",
-					document.getSettlementDescription(), MAX_LENGTH_30, false))
-					.length() > 0) {
-				settlement.setSettlementDiscount(optionalParam);
+			if ((this.optionalParam = this.validateString("SettlementDiscount",
+					document.getSettlementDescription(), this.MAX_LENGTH_30,
+					false)).length() > 0) {
+				settlement.setSettlementDiscount(this.optionalParam);
 			}
 
 			if (settlement.getSettlementAmount() != null
 					&& !settlement.getSettlementAmount().equals(
-							validateBigDecimal(BigDecimal.ZERO))) {
+							this.validateBigDecimal(BigDecimal.ZERO))) {
 				return settlement;
 			} else {
 				return null;
@@ -973,34 +1004,36 @@ public class PTSAFTFileGenerator {
 			DatatypeConfigurationException, InvalidPaymentMechanismException {
 		DocumentTotals dt = null;
 
-		if (!validateBigDecimal(document.getAmountWithoutTax()).equals(
-				validateBigDecimal(BigDecimal.ZERO))) {
+		if (!this.validateBigDecimal(document.getAmountWithoutTax()).equals(
+				this.validateBigDecimal(BigDecimal.ZERO))) {
 			dt = new DocumentTotals(); // 4.1.4.19
 			/* REQUIRED */
 			// 4.1.4.19.1
-			dt.setTaxPayable(validateBigDecimal(document.getTaxAmount()));
+			dt.setTaxPayable(this.validateBigDecimal(document.getTaxAmount()));
 			// 4.1.4.19.2
-			dt.setNetTotal(validateBigDecimal(document.getAmountWithoutTax()));
+			dt.setNetTotal(this.validateBigDecimal(document
+					.getAmountWithoutTax()));
 			// 4.1.4.19.3
-			dt.setGrossTotal(validateBigDecimal(document.getAmountWithTax()));
+			dt.setGrossTotal(this.validateBigDecimal(document
+					.getAmountWithTax()));
 
 			/*
 			 * NOT REQUIRED - I guess it's only required if it has another
 			 * currency
 			 */
 			// 4.1.4.19.4
-			Currency cur = getCurrency(document, isCredit);
+			Currency cur = this.getCurrency(document, isCredit);
 			if (cur != null) {
 				dt.setCurrency(cur);
 			}
 
 			/* NOT REQUIRED - Invoice.DocumentTotals.Settlements */
-			Settlement stlment = getSettlement(document); // 4.1.4.19.5
+			Settlement stlment = this.getSettlement(document); // 4.1.4.19.5
 			if (stlment != null) {
 				dt.getSettlement().add(stlment);
 			}
 
-			Payment payment = getPayment(document);
+			Payment payment = this.getPayment(document);
 			if (payment != null) {
 				dt.getPayment().add(payment);
 			}
@@ -1052,16 +1085,16 @@ public class PTSAFTFileGenerator {
 	private void updateCustomerGeneralInfo(Customer customer,
 			String customerID, String customerFinancialID, String companyName,
 			PTAddressEntity address) throws RequiredFieldNotFoundException {
-		customer.setCustomerTaxID(validateString("CustomerTaxID",
-				customerFinancialID, MAX_LENGTH_20, true));
+		customer.setCustomerTaxID(this.validateString("CustomerTaxID",
+				customerFinancialID, this.MAX_LENGTH_20, true));
 
-		customer.setCompanyName(validateString("CompanyName", companyName,
-				MAX_LENGTH_100, true));
+		customer.setCompanyName(this.validateString("CompanyName", companyName,
+				this.MAX_LENGTH_100, true));
 
-		customer.setCustomerID(validateString("CustomerId", customerID,
-				MAX_LENGTH_30, true));
+		customer.setCustomerID(this.validateString("CustomerId", customerID,
+				this.MAX_LENGTH_30, true));
 
-		customer.setBillingAddress(generateAddressStructure(address));
+		customer.setBillingAddress(this.generateAddressStructure(address));
 	}
 
 	/*************
@@ -1091,7 +1124,7 @@ public class PTSAFTFileGenerator {
 			status.setInvoiceStatus("N");
 		}
 
-		status.setInvoiceStatusDate(formatDateTime(document.getDate()));
+		status.setInvoiceStatusDate(this.formatDateTime(document.getDate()));
 		// status.setReason(validateString("Reason", document.getReason(),
 		// MAX_LENGTH_50, false));
 		status.setSourceID(document.getSourceId());
@@ -1105,12 +1138,12 @@ public class PTSAFTFileGenerator {
 		if (document.getPaymentMechanism() != null) {
 			Payment payment = new Payment();
 
-			payment.setPaymentMechanism(validateString("PaymentMechanism",
-					getPaymentMechanism(document.getPaymentMechanism()),
-					MAX_LENGTH_2, true));
-			payment.setPaymentAmount(validateBigDecimal(document
+			payment.setPaymentMechanism(this.validateString("PaymentMechanism",
+					this.getPaymentMechanism(document.getPaymentMechanism()),
+					this.MAX_LENGTH_2, true));
+			payment.setPaymentAmount(this.validateBigDecimal(document
 					.getAmountWithTax()));
-			payment.setPaymentDate(formatDate(document.getDate()));
+			payment.setPaymentDate(this.formatDate(document.getDate()));
 
 			return payment;
 		}
@@ -1167,32 +1200,33 @@ public class PTSAFTFileGenerator {
 			throws RequiredFieldNotFoundException {
 		AddressStructure address = new AddressStructure();
 
-		if ((optionalParam = validateString("BuildingNumber",
-				addressEntity.getNumber(), MAX_LENGTH_10, false)).length() > 0) {
-			address.setBuildingNumber(optionalParam);
+		if ((this.optionalParam = this.validateString("BuildingNumber",
+				addressEntity.getNumber(), this.MAX_LENGTH_10, false)).length() > 0) {
+			address.setBuildingNumber(this.optionalParam);
 		}
 
-		if ((optionalParam = validateString("StreetName",
-				addressEntity.getStreetName(), MAX_LENGTH_90, false)).length() > 0) {
-			address.setStreetName(optionalParam);
+		if ((this.optionalParam = this.validateString("StreetName",
+				addressEntity.getStreetName(), this.MAX_LENGTH_90, false))
+				.length() > 0) {
+			address.setStreetName(this.optionalParam);
 		}
 
-		address.setAddressDetail(validateString("AddressDetail",
-				addressEntity.getDetails(), MAX_LENGTH_100, true));
+		address.setAddressDetail(this.validateString("AddressDetail",
+				addressEntity.getDetails(), this.MAX_LENGTH_100, true));
 
-		address.setCity(validateString("City", addressEntity.getCity(),
-				MAX_LENGTH_50, true));
+		address.setCity(this.validateString("City", addressEntity.getCity(),
+				this.MAX_LENGTH_50, true));
 
-		address.setPostalCode(validateString("PostalCode",
-				addressEntity.getPostalCode(), MAX_LENGTH_20, true));
+		address.setPostalCode(this.validateString("PostalCode",
+				addressEntity.getPostalCode(), this.MAX_LENGTH_20, true));
 
-		if ((optionalParam = validateString("Region",
-				addressEntity.getRegion(), MAX_LENGTH_50, false)).length() > 0) {
-			address.setRegion(optionalParam);
+		if ((this.optionalParam = this.validateString("Region",
+				addressEntity.getRegion(), this.MAX_LENGTH_50, false)).length() > 0) {
+			address.setRegion(this.optionalParam);
 		}
 
-		address.setCountry(validateString("Country",
-				addressEntity.getISOCountry(), MAX_LENGTH_12, true));
+		address.setCountry(this.validateString("Country",
+				addressEntity.getISOCountry(), this.MAX_LENGTH_12, true));
 
 		return address;
 	}
@@ -1209,31 +1243,32 @@ public class PTSAFTFileGenerator {
 			AddressEntity addressEntity) throws RequiredFieldNotFoundException {
 		AddressStructurePT address = new AddressStructurePT();
 
-		if ((optionalParam = validateString("BuildingNumber",
-				addressEntity.getNumber(), MAX_LENGTH_10, false)).length() > 0) {
-			address.setBuildingNumber(optionalParam);
+		if ((this.optionalParam = this.validateString("BuildingNumber",
+				addressEntity.getNumber(), this.MAX_LENGTH_10, false)).length() > 0) {
+			address.setBuildingNumber(this.optionalParam);
 		}
-		if ((optionalParam = validateString("StreetName",
-				addressEntity.getStreetName(), MAX_LENGTH_90, false)).length() > 0) {
-			address.setStreetName(optionalParam);
-		}
-
-		address.setAddressDetail(validateString("AddressDetail",
-				addressEntity.getDetails(), MAX_LENGTH_100, true));
-
-		address.setCity(validateString("City", addressEntity.getCity(),
-				MAX_LENGTH_50, true));
-
-		address.setPostalCode(validateString("PostalCode",
-				addressEntity.getPostalCode(), MAX_LENGTH_8, true));
-
-		if ((optionalParam = validateString("Region",
-				addressEntity.getRegion(), MAX_LENGTH_50, false)).length() > 0) {
-			address.setRegion(optionalParam);
+		if ((this.optionalParam = this.validateString("StreetName",
+				addressEntity.getStreetName(), this.MAX_LENGTH_90, false))
+				.length() > 0) {
+			address.setStreetName(this.optionalParam);
 		}
 
-		address.setCountry(validateString("Country", COUNTRY_CODE,
-				MAX_LENGTH_2, true));
+		address.setAddressDetail(this.validateString("AddressDetail",
+				addressEntity.getDetails(), this.MAX_LENGTH_100, true));
+
+		address.setCity(this.validateString("City", addressEntity.getCity(),
+				this.MAX_LENGTH_50, true));
+
+		address.setPostalCode(this.validateString("PostalCode",
+				addressEntity.getPostalCode(), this.MAX_LENGTH_8, true));
+
+		if ((this.optionalParam = this.validateString("Region",
+				addressEntity.getRegion(), this.MAX_LENGTH_50, false)).length() > 0) {
+			address.setRegion(this.optionalParam);
+		}
+
+		address.setCountry(this.validateString("Country", this.COUNTRY_CODE,
+				this.MAX_LENGTH_2, true));
 		return address;
 	}
 
@@ -1250,30 +1285,31 @@ public class PTSAFTFileGenerator {
 			throws RequiredFieldNotFoundException {
 		SupplierAddressStructure address = new SupplierAddressStructure();
 
-		if ((optionalParam = validateString("StreetName",
-				addressEntity.getStreetName(), MAX_LENGTH_90, false)).length() > 0) {
-			address.setStreetName(optionalParam);
+		if ((this.optionalParam = this.validateString("StreetName",
+				addressEntity.getStreetName(), this.MAX_LENGTH_90, false))
+				.length() > 0) {
+			address.setStreetName(this.optionalParam);
 		}
-		if ((optionalParam = validateString("BuildingNumber",
-				addressEntity.getNumber(), MAX_LENGTH_10, false)).length() > 0) {
-			address.setBuildingNumber(optionalParam);
+		if ((this.optionalParam = this.validateString("BuildingNumber",
+				addressEntity.getNumber(), this.MAX_LENGTH_10, false)).length() > 0) {
+			address.setBuildingNumber(this.optionalParam);
 		}
 
-		address.setAddressDetail(validateString("AddressDetail",
-				addressEntity.getDetails(), MAX_LENGTH_100, true));
+		address.setAddressDetail(this.validateString("AddressDetail",
+				addressEntity.getDetails(), this.MAX_LENGTH_100, true));
 
-		address.setCity(validateString("City", addressEntity.getCity(),
-				MAX_LENGTH_50, true));
+		address.setCity(this.validateString("City", addressEntity.getCity(),
+				this.MAX_LENGTH_50, true));
 
-		address.setPostalCode(validateString("PostalCode",
-				addressEntity.getPostalCode(), MAX_LENGTH_20, true));
+		address.setPostalCode(this.validateString("PostalCode",
+				addressEntity.getPostalCode(), this.MAX_LENGTH_20, true));
 
-		address.setCountry(validateString("Country",
-				addressEntity.getISOCountry(), MAX_LENGTH_2, true));
+		address.setCountry(this.validateString("Country",
+				addressEntity.getISOCountry(), this.MAX_LENGTH_2, true));
 
-		if ((optionalParam = validateString("Region",
-				addressEntity.getRegion(), MAX_LENGTH_50, false)).length() > 0) {
-			address.setRegion(optionalParam);
+		if ((this.optionalParam = this.validateString("Region",
+				addressEntity.getRegion(), this.MAX_LENGTH_50, false)).length() > 0) {
+			address.setRegion(this.optionalParam);
 		}
 		return address;
 	}
@@ -1312,27 +1348,30 @@ public class PTSAFTFileGenerator {
 
 		for (ContactEntity ce : contacts) {
 
-			if ((optionalParam = validateString("Telephone", ce.getTelephone(),
-					MAX_LENGTH_20, false)).length() > 0)
-				hdr.setTelephone(optionalParam);
-
-			else {
-				if ((optionalParam = validateString("Telephone",
-						ce.getMobile(), MAX_LENGTH_20, false)).length() > 0)
-					hdr.setTelephone(optionalParam);
+			if ((this.optionalParam = this.validateString("Telephone",
+					ce.getTelephone(), this.MAX_LENGTH_20, false)).length() > 0) {
+				hdr.setTelephone(this.optionalParam);
+			} else {
+				if ((this.optionalParam = this.validateString("Telephone",
+						ce.getMobile(), this.MAX_LENGTH_20, false)).length() > 0) {
+					hdr.setTelephone(this.optionalParam);
+				}
 			}
 
-			if ((optionalParam = validateString("Fax", ce.getFax(),
-					MAX_LENGTH_20, false)).length() > 0)
-				hdr.setFax(optionalParam);
+			if ((this.optionalParam = this.validateString("Fax", ce.getFax(),
+					this.MAX_LENGTH_20, false)).length() > 0) {
+				hdr.setFax(this.optionalParam);
+			}
 
-			if ((optionalParam = validateString("Email", ce.getEmail(),
-					MAX_LENGTH_60, false)).length() > 0)
-				hdr.setEmail(optionalParam);
+			if ((this.optionalParam = this.validateString("Email",
+					ce.getEmail(), this.MAX_LENGTH_60, false)).length() > 0) {
+				hdr.setEmail(this.optionalParam);
+			}
 
-			if ((optionalParam = validateString("Website", ce.getWebsite(),
-					MAX_LENGTH_60, false)).length() > 0)
-				hdr.setWebsite(optionalParam);
+			if ((this.optionalParam = this.validateString("Website",
+					ce.getWebsite(), this.MAX_LENGTH_60, false)).length() > 0) {
+				hdr.setWebsite(this.optionalParam);
+			}
 		}
 	}
 
@@ -1349,26 +1388,29 @@ public class PTSAFTFileGenerator {
 			throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		for (PTContactEntity ce : contacts) {
 
-			if ((optionalParam = validateString("Telephone", ce.getTelephone(),
-					MAX_LENGTH_20, false)).length() > 0)
-				customer.setTelephone(optionalParam);
-
-			else {
-				if ((optionalParam = validateString("Telephone",
-						ce.getMobile(), MAX_LENGTH_20, false)).length() > 0)
-					customer.setTelephone(optionalParam);
+			if ((this.optionalParam = this.validateString("Telephone",
+					ce.getTelephone(), this.MAX_LENGTH_20, false)).length() > 0) {
+				customer.setTelephone(this.optionalParam);
+			} else {
+				if ((this.optionalParam = this.validateString("Telephone",
+						ce.getMobile(), this.MAX_LENGTH_20, false)).length() > 0) {
+					customer.setTelephone(this.optionalParam);
+				}
 			}
-			if ((optionalParam = validateString("Fax", ce.getFax(),
-					MAX_LENGTH_20, false)).length() > 0)
-				customer.setFax(optionalParam);
+			if ((this.optionalParam = this.validateString("Fax", ce.getFax(),
+					this.MAX_LENGTH_20, false)).length() > 0) {
+				customer.setFax(this.optionalParam);
+			}
 
-			if ((optionalParam = validateString("Email", ce.getEmail(),
-					MAX_LENGTH_60, false)).length() > 0)
-				customer.setEmail(optionalParam);
+			if ((this.optionalParam = this.validateString("Email",
+					ce.getEmail(), this.MAX_LENGTH_60, false)).length() > 0) {
+				customer.setEmail(this.optionalParam);
+			}
 
-			if ((optionalParam = validateString("Website", ce.getWebsite(),
-					MAX_LENGTH_60, false)).length() > 0)
-				customer.setWebsite(optionalParam);
+			if ((this.optionalParam = this.validateString("Website",
+					ce.getWebsite(), this.MAX_LENGTH_60, false)).length() > 0) {
+				customer.setWebsite(this.optionalParam);
+			}
 		}
 	}
 
@@ -1384,27 +1426,30 @@ public class PTSAFTFileGenerator {
 	private void setContacts(Supplier supplier, List<PTContactEntity> contacts)
 			throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		for (PTContactEntity ce : contacts) {
-			if ((optionalParam = validateString("Email", ce.getEmail(),
-					MAX_LENGTH_60, false)).length() > 0)
-				supplier.setEmail(optionalParam);
-
-			if ((optionalParam = validateString("Fax", ce.getFax(),
-					MAX_LENGTH_20, false)).length() > 0)
-				supplier.setFax(optionalParam);
-
-			if ((optionalParam = validateString("Telephone", ce.getTelephone(),
-					MAX_LENGTH_20, false)).length() > 0)
-				supplier.setTelephone(optionalParam);
-
-			else {
-				if ((optionalParam = validateString("Telephone",
-						ce.getMobile(), MAX_LENGTH_20, false)).length() > 0)
-					supplier.setTelephone(optionalParam);
+			if ((this.optionalParam = this.validateString("Email",
+					ce.getEmail(), this.MAX_LENGTH_60, false)).length() > 0) {
+				supplier.setEmail(this.optionalParam);
 			}
 
-			if ((optionalParam = validateString("Website", ce.getWebsite(),
-					MAX_LENGTH_60, false)).length() > 0)
-				supplier.setWebsite(optionalParam);
+			if ((this.optionalParam = this.validateString("Fax", ce.getFax(),
+					this.MAX_LENGTH_20, false)).length() > 0) {
+				supplier.setFax(this.optionalParam);
+			}
+
+			if ((this.optionalParam = this.validateString("Telephone",
+					ce.getTelephone(), this.MAX_LENGTH_20, false)).length() > 0) {
+				supplier.setTelephone(this.optionalParam);
+			} else {
+				if ((this.optionalParam = this.validateString("Telephone",
+						ce.getMobile(), this.MAX_LENGTH_20, false)).length() > 0) {
+					supplier.setTelephone(this.optionalParam);
+				}
+			}
+
+			if ((this.optionalParam = this.validateString("Website",
+					ce.getWebsite(), this.MAX_LENGTH_60, false)).length() > 0) {
+				supplier.setWebsite(this.optionalParam);
+			}
 		}
 	}
 
@@ -1501,7 +1546,7 @@ public class PTSAFTFileGenerator {
 	 */
 	private int validateInteger(String field, String str, int maxLength,
 			boolean isRequired) throws RequiredFieldNotFoundException {
-		return Integer.parseInt(validateString(field, str, maxLength,
+		return Integer.parseInt(this.validateString(field, str, maxLength,
 				isRequired));
 	}
 
@@ -1520,7 +1565,8 @@ public class PTSAFTFileGenerator {
 	private BigInteger validateBigInteger(String field, String str,
 			int maxLength, boolean isRequired)
 			throws RequiredFieldNotFoundException {
-		return new BigInteger(validateString(field, str, maxLength, isRequired));
+		return new BigInteger(this.validateString(field, str, maxLength,
+				isRequired));
 	}
 
 	/**
@@ -1531,7 +1577,7 @@ public class PTSAFTFileGenerator {
 	 * @return
 	 */
 	private BigDecimal validateBigDecimal(BigDecimal bd) {
-		return bd.setScale(MAX_LENGTH_2, mc.getRoundingMode());
+		return bd.setScale(this.MAX_LENGTH_2, this.mc.getRoundingMode());
 	}
 
 	/**
@@ -1542,7 +1588,7 @@ public class PTSAFTFileGenerator {
 	 */
 	private XMLGregorianCalendar getXMLGregorianCalendarNow()
 			throws DatatypeConfigurationException {
-		return formatDate(new Date());
+		return this.formatDate(new Date());
 	}
 
 	/**

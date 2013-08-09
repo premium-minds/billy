@@ -41,7 +41,7 @@ public class JPAPTCustomerEntity extends JPACustomerEntity implements
 
 	@Override
 	public String getReferralName() {
-		return referralName;
+		return this.referralName;
 	}
 
 	@Override

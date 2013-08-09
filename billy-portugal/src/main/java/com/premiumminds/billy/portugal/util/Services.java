@@ -39,7 +39,8 @@ public class Services {
 	public class Persistence {
 
 		public PersistenceService<PTBusiness> business() {
-			return new PTBuisnessPersistenceService<PTBusiness>(injector);
+			return new PTBuisnessPersistenceService<PTBusiness>(
+					Services.this.injector);
 		}
 	}
 

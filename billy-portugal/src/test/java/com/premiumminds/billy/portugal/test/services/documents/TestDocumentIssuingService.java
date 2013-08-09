@@ -29,6 +29,7 @@ import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandle
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
@@ -37,20 +38,22 @@ public class TestDocumentIssuingService extends PTPersistencyAbstractTest {
 
 	@Test
 	public void testIssuingService() throws DocumentIssuingException {
-		DocumentIssuingService service = getInstance(DocumentIssuingService.class);
-		service.addHandler(PTInvoiceEntity.class,
-				injector.getInstance(PTInvoiceIssuingHandler.class));
+		DocumentIssuingService service = this
+				.getInstance(DocumentIssuingService.class);
+		service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
+				.getInstance(PTInvoiceIssuingHandler.class));
 
-		PTIssuingParams params = getInstance(PTIssuingParamsImpl.class);
+		PTIssuingParams params = this.getInstance(PTIssuingParamsImpl.class);
 
 		params.setInvoiceSeries("A");
 
-		KeyGenerator gen = new KeyGenerator(PRIVATE_KEY);
+		KeyGenerator gen = new KeyGenerator(PTAbstractTest.PRIVATE_KEY);
 		params.setPrivateKey(gen.getPrivateKey());
 		params.setPublicKey(gen.getPublicKey());
 
-		service.issue(new PTInvoiceTestUtil(injector).getInvoiceBuilder("b1",
-				"b2", SourceBilling.P, Arrays.asList("prod")), params);
+		service.issue(new PTInvoiceTestUtil(PTAbstractTest.injector)
+				.getInvoiceBuilder("b1", "b2", SourceBilling.P,
+						Arrays.asList("prod")), params);
 
 	}
 }

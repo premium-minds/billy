@@ -42,7 +42,7 @@ public class PTAddressTestUtil {
 			String number, String details, String building, String city,
 			String postalCode, String region, String isoCountry) {
 
-		PTAddress.Builder addressBuilder = injector
+		PTAddress.Builder addressBuilder = this.injector
 				.getInstance(PTAddress.Builder.class);
 
 		addressBuilder.clear();
@@ -55,7 +55,10 @@ public class PTAddressTestUtil {
 	}
 
 	public PTAddress.Builder getAddressBuilder() {
-		return getAddressBuilder(STREET, NUMBER, DETAILS, BUILDING, CITY,
-				POSTAL_CODE, REGION, ISOCODE);
+		return this.getAddressBuilder(PTAddressTestUtil.STREET,
+				PTAddressTestUtil.NUMBER, PTAddressTestUtil.DETAILS,
+				PTAddressTestUtil.BUILDING, PTAddressTestUtil.CITY,
+				PTAddressTestUtil.POSTAL_CODE, PTAddressTestUtil.REGION,
+				PTAddressTestUtil.ISOCODE);
 	}
 }

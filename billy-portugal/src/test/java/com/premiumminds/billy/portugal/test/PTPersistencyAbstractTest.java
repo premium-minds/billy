@@ -29,16 +29,20 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 
 	@Before
 	public void setUpModules() {
-		injector = Guice.createInjector(new PortugalDependencyModule(),
+		PTAbstractTest.injector = Guice.createInjector(
+				new PortugalDependencyModule(),
 				new PortugalTestPersistenceDependencyModule());
-		injector.getInstance(PortugalDependencyModule.Initializer.class);
-		injector.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
-		PortugalBootstrap.execute(injector);
+		PTAbstractTest.injector
+				.getInstance(PortugalDependencyModule.Initializer.class);
+		PTAbstractTest.injector
+				.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
+		PortugalBootstrap.execute(PTAbstractTest.injector);
 	}
 
 	@After
 	public void tearDown() {
-		injector.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
+		PTAbstractTest.injector
+				.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
 	}
 
 }

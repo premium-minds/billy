@@ -36,8 +36,9 @@ public class Contexts {
 	public class Portugal {
 
 		public PTRegionContext portugal() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
-			return (PTRegionContext) dao.get(configuration
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
+			return (PTRegionContext) dao.get(Contexts.this.configuration
 					.getUID(Config.Key.Context.Portugal.UUID));
 		}
 	}
@@ -45,132 +46,151 @@ public class Contexts {
 	public class Continent {
 
 		public PTRegionContext continent() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
-			return (PTRegionContext) dao.get(configuration
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
+			return (PTRegionContext) dao.get(Contexts.this.configuration
 					.getUID(Config.Key.Context.Portugal.Continental.UUID));
 		}
 
 		public PTRegionContext aveiro() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Aveiro.UUID));
 		}
 
 		public PTRegionContext beja() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
-			return (PTRegionContext) dao.get(configuration
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
+			return (PTRegionContext) dao.get(Contexts.this.configuration
 					.getUID(Config.Key.Context.Portugal.Continental.Beja.UUID));
 		}
 
 		public PTRegionContext braga() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Braga.UUID));
 		}
 
 		public PTRegionContext bragança() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Braganca.UUID));
 		}
 
 		public PTRegionContext casteloBranco() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.CasteloBranco.UUID));
 		}
 
 		public PTRegionContext coimbra() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Coimbra.UUID));
 		}
 
 		public PTRegionContext evora() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Evora.UUID));
 		}
 
 		public PTRegionContext faro() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
-			return (PTRegionContext) dao.get(configuration
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
+			return (PTRegionContext) dao.get(Contexts.this.configuration
 					.getUID(Config.Key.Context.Portugal.Continental.Faro.UUID));
 		}
 
 		public PTRegionContext guarda() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Guarda.UUID));
 		}
 
 		public PTRegionContext leiria() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Leiria.UUID));
 		}
 
 		public PTRegionContext lisboa() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Lisboa.UUID));
 		}
 
 		public PTRegionContext portalegre() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Portalegre.UUID));
 		}
 
 		public PTRegionContext porto() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Porto.UUID));
 		}
 
 		public PTRegionContext santarem() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Santarem.UUID));
 		}
 
 		public PTRegionContext setubal() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Setubal.UUID));
 		}
 
 		public PTRegionContext viana() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Viana.UUID));
 		}
 
 		public PTRegionContext vilaReal() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.VilaReal.UUID));
 		}
 
 		public PTRegionContext viseu() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
-					.get(configuration
+					.get(Contexts.this.configuration
 							.getUID(Config.Key.Context.Portugal.Continental.Viseu.UUID));
 		}
 	}
@@ -178,8 +198,9 @@ public class Contexts {
 	public class Azores {
 
 		public PTRegionContext azores() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
-			return (PTRegionContext) dao.get(configuration
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
+			return (PTRegionContext) dao.get(Contexts.this.configuration
 					.getUID(Config.Key.Context.Portugal.Azores.UUID));
 		}
 	}
@@ -187,8 +208,9 @@ public class Contexts {
 	public class Madeira {
 
 		public PTRegionContext madeira() {
-			DAOPTRegionContext dao = getInstance(DAOPTRegionContext.class);
-			return (PTRegionContext) dao.get(configuration
+			DAOPTRegionContext dao = Contexts.this
+					.getInstance(DAOPTRegionContext.class);
+			return (PTRegionContext) dao.get(Contexts.this.configuration
 					.getUID(Config.Key.Context.Portugal.Madeira.UUID));
 		}
 	}

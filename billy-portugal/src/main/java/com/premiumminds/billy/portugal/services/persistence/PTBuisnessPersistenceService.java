@@ -37,7 +37,8 @@ public class PTBuisnessPersistenceService<T extends PTBusiness> extends
 
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		final DAOPTBusiness dao = injector.getInstance(DAOPTBusiness.class);
+		final DAOPTBusiness dao = this.injector
+				.getInstance(DAOPTBusiness.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {

@@ -25,6 +25,7 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
@@ -32,7 +33,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity;
 
 public class TestPTRegionContextBuilder extends PTAbstractTest {
 
-	private static final String PTCONTEXT_YML = YML_CONFIGS_DIR
+	private static final String PTCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTContext.yml";
 
 	@Test

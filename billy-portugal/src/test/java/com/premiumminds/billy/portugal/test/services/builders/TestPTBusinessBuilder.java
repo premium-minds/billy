@@ -25,6 +25,7 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
@@ -40,7 +41,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTBusinessEntity;
 
 public class TestPTBusinessBuilder extends PTAbstractTest {
 
-	private static final String PTBUSINESS_YML = YML_CONFIGS_DIR
+	private static final String PTBUSINESS_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTBusiness.yml";
 
 	@Test

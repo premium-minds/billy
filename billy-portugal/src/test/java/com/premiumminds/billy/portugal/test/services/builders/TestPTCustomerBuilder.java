@@ -25,6 +25,7 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
@@ -37,7 +38,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTCustomerEntity;
 
 public class TestPTCustomerBuilder extends PTAbstractTest {
 
-	private static final String PTCUSTOMER_YML = YML_CONFIGS_DIR
+	private static final String PTCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTCustomer.yml";
 
 	@Test

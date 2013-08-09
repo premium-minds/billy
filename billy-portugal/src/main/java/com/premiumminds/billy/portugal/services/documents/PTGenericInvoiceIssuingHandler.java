@@ -90,9 +90,12 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 								.getLatestInvoiceFromSeries(series);
 						Date latestInvoiceDate = latestInvoice.getDate();
 
-						validateDocumentType(documentType, invoiceType, series);
-						validateDocumentType(documentType,
-								latestInvoice.getType(), series);
+						PTGenericInvoiceIssuingHandler.this
+								.validateDocumentType(documentType,
+										invoiceType, series);
+						PTGenericInvoiceIssuingHandler.this
+								.validateDocumentType(documentType,
+										latestInvoice.getType(), series);
 
 						if (!latestInvoice.getSourceBilling().equals(
 								sourceBilling)) {

@@ -37,53 +37,66 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNoteTemplateBundle;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest{
-	public static final int NUM_ENTRIES = 10; 
+public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest {
+
+	public static final int NUM_ENTRIES = 10;
 	public static final String XSL_PATH = "src/main/resources/pt_creditnote.xsl";
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	public static final String URI_PATH = "file://" + System.getProperty("java.io.tmpdir")+"/Result.pdf";
+	public static final String URI_PATH = "file://"
+			+ System.getProperty("java.io.tmpdir") + "/Result.pdf";
 
 	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
-	public static final byte[] SAMPLE_HASH = {0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf
-		,0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf};
-	
+	public static final byte[] SAMPLE_HASH = { 0xa, 0x1, 0x3, 0xf, 0x7, 0x5,
+			0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4,
+			0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd,
+			0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa,
+			0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1,
+			0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3,
+			0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf,
+			0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa,
+			0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf };
+
 	@Test
-	public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, FileNotFoundException, URISyntaxException {
-		System.out.println(URI_PATH);
-		InputStream xsl = new FileInputStream(XSL_PATH);
-		PTCreditNoteTemplateBundle bundle = 
-				new PTCreditNoteTemplateBundle(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
-		
-		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(injector.getInstance(DAOPTCreditNote.class));
-		handler.toFile(new URI(URI_PATH), generatePTCreditNote(PaymentMechanism.CASH), bundle);
+	public void testPDFcreation() throws NoSuchAlgorithmException,
+			ExportServiceException, FileNotFoundException, URISyntaxException {
+		System.out.println(TestPTCreditNotePDFExportHandler.URI_PATH);
+		InputStream xsl = new FileInputStream(
+				TestPTCreditNotePDFExportHandler.XSL_PATH);
+		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
+				TestPTCreditNotePDFExportHandler.LOGO_PATH, xsl,
+				TestPTCreditNotePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+
+		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
+				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
+		handler.toFile(new URI(TestPTCreditNotePDFExportHandler.URI_PATH),
+				this.generatePTCreditNote(PaymentMechanism.CASH), bundle);
 	}
 
-	private PTCreditNoteEntity generatePTCreditNote(PaymentMechanism paymentMechanism) {
-		PTInvoiceTestUtil invoiceUtil = new PTInvoiceTestUtil(injector);
+	private PTCreditNoteEntity generatePTCreditNote(
+			PaymentMechanism paymentMechanism) {
+		PTInvoiceTestUtil invoiceUtil = new PTInvoiceTestUtil(
+				PTAbstractTest.injector);
 		PTInvoiceEntity invoice = invoiceUtil.getInvoiceEntity();
-		DAOPTInvoice dao = injector.getInstance(DAOPTInvoice.class);
+		DAOPTInvoice dao = PTAbstractTest.injector
+				.getInstance(DAOPTInvoice.class);
 		dao.create(invoice);
-		
-		PTCreditNoteTestUtil creditNoteUtil = new PTCreditNoteTestUtil(injector);
+
+		PTCreditNoteTestUtil creditNoteUtil = new PTCreditNoteTestUtil(
+				PTAbstractTest.injector);
 		PTCreditNoteEntity creditNote = creditNoteUtil.getCreditNoteEntity();
 		creditNote.setPaymentMechanism(paymentMechanism);
-		creditNote.setCustomer((CustomerEntity)invoice.getCustomer());
-		creditNote.setBusiness((BusinessEntity)invoice.getBusiness());
+		creditNote.setCustomer((CustomerEntity) invoice.getCustomer());
+		creditNote.setBusiness((BusinessEntity) invoice.getBusiness());
 		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
-		creditNote.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-		
+		creditNote
+				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+
 		return creditNote;
 	}
 }

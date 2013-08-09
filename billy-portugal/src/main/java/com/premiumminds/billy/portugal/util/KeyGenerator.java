@@ -49,7 +49,7 @@ public class KeyGenerator {
 		String key = "";
 
 		try {
-			inputStream = new FileInputStream(privateKeyPath);
+			inputStream = new FileInputStream(this.privateKeyPath);
 			key = IOUtils.toString(inputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -61,7 +61,8 @@ public class KeyGenerator {
 	}
 
 	private KeyPair getKeyPair() {
-		PEMReader pemReader = new PEMReader(new StringReader(getKeyFromFile()));
+		PEMReader pemReader = new PEMReader(new StringReader(
+				this.getKeyFromFile()));
 		KeyPair pair = null;
 
 		try {
@@ -76,11 +77,11 @@ public class KeyGenerator {
 	}
 
 	public PrivateKey getPrivateKey() {
-		return getKeyPair().getPrivate();
+		return this.getKeyPair().getPrivate();
 	}
 
 	public PublicKey getPublicKey() {
-		return getKeyPair().getPublic();
+		return this.getKeyPair().getPublic();
 	}
 
 }

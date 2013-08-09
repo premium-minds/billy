@@ -27,6 +27,7 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -40,9 +41,9 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntryEn
 
 public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 
-	private static final String PT_GENERIC_INVOICE_ENTRY_YML = YML_CONFIGS_DIR
+	private static final String PT_GENERIC_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTGenericInvoiceEntry.yml";
-	private static final String PT_GENERIC_INVOICE_YML = YML_CONFIGS_DIR
+	private static final String PT_GENERIC_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTGenericInvoice.yml";
 
 	@Test

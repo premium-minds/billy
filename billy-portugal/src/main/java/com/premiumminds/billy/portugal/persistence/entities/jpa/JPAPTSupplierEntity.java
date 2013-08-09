@@ -41,7 +41,7 @@ public class JPAPTSupplierEntity extends JPASupplierEntity implements
 
 	@Override
 	public String getReferralName() {
-		return referralName;
+		return this.referralName;
 	}
 
 	@Override

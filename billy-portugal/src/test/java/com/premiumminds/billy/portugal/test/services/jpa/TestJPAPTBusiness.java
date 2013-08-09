@@ -26,6 +26,7 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 
@@ -33,7 +34,7 @@ public class TestJPAPTBusiness extends PTPersistencyAbstractTest {
 
 	@Test
 	public void doTest() {
-		execute(injector);
+		TestJPAPTBusiness.execute(PTAbstractTest.injector);
 		// assert
 	}
 
