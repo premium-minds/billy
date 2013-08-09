@@ -24,6 +24,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
@@ -33,7 +34,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTApplicationEntity;
 
 public class TestPTApplicationBuilder extends PTAbstractTest {
 
-	private static final String PTAPPLICATION_YML = YML_CONFIGS_DIR
+	private static final String PTAPPLICATION_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTApplication.yml";
 
 	@Test

@@ -61,7 +61,8 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 	protected void validateInstance() throws BillyValidationException {
 		BusinessEntity b = this.getTypeInstance();
 		BillyValidator.mandatory(b.getOperationalContext(),
-				"field.business_context");
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_context"));
 		BillyValidator
 				.mandatory(b.getFinancialID(), PTBusinessBuilderImpl.LOCALIZER
 						.getString("field.financial_id"));

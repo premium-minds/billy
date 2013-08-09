@@ -28,6 +28,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
@@ -36,8 +37,10 @@ public class TestJPAPTCreditNote extends PTPersistencyAbstractTest {
 
 	@Before
 	public void setUp() {
-		final PTInvoiceTestUtil invoice = new PTInvoiceTestUtil(injector);
-		DAOPTInvoice daoPTInvoice = injector.getInstance(DAOPTInvoice.class);
+		final PTInvoiceTestUtil invoice = new PTInvoiceTestUtil(
+				PTAbstractTest.injector);
+		DAOPTInvoice daoPTInvoice = PTAbstractTest.injector
+				.getInstance(DAOPTInvoice.class);
 
 		PTInvoiceEntity newInvoice = invoice.getInvoiceEntity();
 
@@ -47,14 +50,14 @@ public class TestJPAPTCreditNote extends PTPersistencyAbstractTest {
 	// Expect exception caused by two credit notes for the same invoice
 	@Test(expected = com.premiumminds.billy.core.exceptions.BillyValidationException.class)
 	public void doTest() throws Exception {
-		execute(injector);
-		execute(injector);
+		TestJPAPTCreditNote.execute(PTAbstractTest.injector);
+		TestJPAPTCreditNote.execute(PTAbstractTest.injector);
 	}
 
 	// Expect no exception
 	@Test
 	public void doTest2() throws Exception {
-		execute(injector);
+		TestJPAPTCreditNote.execute(PTAbstractTest.injector);
 	}
 
 	public static void execute(final Injector injector) throws Exception {

@@ -38,14 +38,14 @@ public class PTCustomerTestUtil {
 
 	public PTCustomerTestUtil(Injector injector) {
 		this.injector = injector;
-		address = new PTAddressTestUtil(injector);
-		contact = new PTContactTestUtil(injector);
+		this.address = new PTAddressTestUtil(injector);
+		this.contact = new PTContactTestUtil(injector);
 	}
 
 	public PTCustomerEntity getCustomerEntity(String customerUID, String name,
 			String taxNumber, boolean selfBillingAgree,
 			PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder) {
-		PTCustomer.Builder customerBuilder = injector
+		PTCustomer.Builder customerBuilder = this.injector
 				.getInstance(PTCustomer.Builder.class);
 		customerBuilder.clear();
 		customerBuilder.addAddress(addressBuilder, true)
@@ -61,14 +61,16 @@ public class PTCustomerTestUtil {
 	}
 
 	public PTCustomerEntity getCustomerEntity(String customerUID) {
-		PTAddress.Builder addressBuilder = address.getAddressBuilder();
-		PTContact.Builder contactBuilder = contact.getContactBuilder();
+		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
+		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-		return getCustomerEntity(customerUID, NAME, TAX_NUMBER,
-				SELF_BILLING_AGREE, addressBuilder, contactBuilder);
+		return this.getCustomerEntity(customerUID, PTCustomerTestUtil.NAME,
+				PTCustomerTestUtil.TAX_NUMBER,
+				PTCustomerTestUtil.SELF_BILLING_AGREE, addressBuilder,
+				contactBuilder);
 	}
 
 	public PTCustomerEntity getCustomerEntity() {
-		return getCustomerEntity(uid);
+		return this.getCustomerEntity(PTCustomerTestUtil.uid);
 	}
 }

@@ -16,50 +16,44 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.test.services.jpa;
-
-import org.junit.Test;
+package com.premiumminds.billy.portugal.services.persistence;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAO;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
+import com.premiumminds.billy.core.persistence.services.PersistenceService;
+import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
+import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
-import com.premiumminds.billy.portugal.test.PTAbstractTest;
-import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
-import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
+import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
-public class TestJPAPTBusiness extends PTPersistencyAbstractTest {
+public class PTBuisnessPersistenceService<T extends PTBusiness> extends
+		PersistenceServiceImpl<T> implements PersistenceService<T> {
 
-	@Test
-	public void doTest() {
-		TestJPAPTBusiness.execute(PTAbstractTest.injector);
-		// assert
+	public PTBuisnessPersistenceService(Injector injector) {
+		super(injector);
 	}
 
-	public static void execute(final Injector injector) {
-		DAO<?> dao = injector.getInstance(DAOPTInvoice.class);
-		final PTBusinessTestUtil business = new PTBusinessTestUtil(injector);
+	@Override
+	public T createEntity(final Builder<T> builder) {
+		final DAOPTBusiness dao = this.injector
+				.getInstance(DAOPTBusiness.class);
 
 		try {
-			new TransactionWrapper<Void>(dao) {
+			return new TransactionWrapper<T>(dao) {
 
 				@Override
-				public Void runTransaction() throws Exception {
-					DAOPTBusiness daoPTBusiness = injector
-							.getInstance(DAOPTBusiness.class);
-
-					PTBusinessEntity newBusiness = business.getBusinessEntity();
-
-					daoPTBusiness.create(newBusiness);
-
-					return null;
+				public T runTransaction() throws Exception {
+					PTBusinessEntity businessEntity = (PTBusinessEntity) builder
+							.build();
+					return (T) dao.create(businessEntity);
 				}
 
 			}.execute();
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new BillyRuntimeException(e);
 		}
 	}
+
 }

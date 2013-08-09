@@ -35,19 +35,19 @@ public class PTShippingPointTestUtil {
 
 	public PTShippingPointTestUtil(Injector injector) {
 		this.injector = injector;
-		address = new PTAddressTestUtil(injector);
+		this.address = new PTAddressTestUtil(injector);
 	}
 
 	public PTShippingPoint.Builder getShippingPointBuilder() {
-		PTShippingPoint.Builder shippingPointBuilder = injector
+		PTShippingPoint.Builder shippingPointBuilder = this.injector
 				.getInstance(PTShippingPoint.Builder.class);
-		PTAddress.Builder addressBuilder = address.getAddressBuilder();
+		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
 		shippingPointBuilder.clear();
 
 		shippingPointBuilder.setAddress(addressBuilder).setDate(new Date())
-				.setDeliveryId(deliveryId).setLocationId(locationId)
-				.setWarehouseId(warehouseId);
+				.setDeliveryId(this.deliveryId).setLocationId(this.locationId)
+				.setWarehouseId(this.warehouseId);
 
 		return shippingPointBuilder;
 	}

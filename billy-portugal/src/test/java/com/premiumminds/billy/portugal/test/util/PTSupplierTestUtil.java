@@ -38,23 +38,23 @@ public class PTSupplierTestUtil {
 
 	public PTSupplierTestUtil(Injector injector) {
 		this.injector = injector;
-		address = new PTAddressTestUtil(injector);
-		contact = new PTContactTestUtil(injector);
+		this.address = new PTAddressTestUtil(injector);
+		this.contact = new PTContactTestUtil(injector);
 	}
 
 	public PTSupplierEntity getSupplierEntity() {
 
-		PTAddress.Builder addressBuilder = address.getAddressBuilder();
-		PTContact.Builder contactBuilder = contact.getContactBuilder();
+		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
+		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-		return getSupplierEntity(uid, name, number, selfBilling,
-				addressBuilder, contactBuilder);
+		return this.getSupplierEntity(this.uid, this.name, this.number,
+				this.selfBilling, addressBuilder, contactBuilder);
 	}
 
 	public PTSupplierEntity getSupplierEntity(String supplierUID, String name,
 			String taxNumber, boolean selfBillingAgree,
 			PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder) {
-		PTSupplier.Builder supplierBuilder = injector
+		PTSupplier.Builder supplierBuilder = this.injector
 				.getInstance(PTSupplier.Builder.class);
 
 		supplierBuilder.clear();

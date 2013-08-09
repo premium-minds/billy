@@ -51,46 +51,49 @@ public class PTCreditNoteTestUtil {
 
 	public PTCreditNoteTestUtil(Injector injector) {
 		this.injector = injector;
-		creditNoteEntry = new PTCreditNoteEntryTestUtil(injector);
+		this.creditNoteEntry = new PTCreditNoteEntryTestUtil(injector);
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity(TYPE type,
 			String businessUID, String customerUID, String productUID,
 			String invoiceReference) {
-		PTCreditNote.Builder creditNoteBuilder = injector
+		PTCreditNote.Builder creditNoteBuilder = this.injector
 				.getInstance(PTCreditNote.Builder.class);
 
-		PTCreditNoteEntry.Builder creditNoteEntryBuilder = creditNoteEntry
+		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.creditNoteEntry
 				.getCreditNoteEntryBuilder(productUID, invoiceReference);
 
 		creditNoteBuilder.clear();
 
-		creditNoteBuilder.setBilled(billed).setCancelled(cancelled)
-				.setSelfBilled(selfBill).setDate(new Date())
-				.setSourceId(sourceID).addEntry(creditNoteEntryBuilder)
+		creditNoteBuilder.setBilled(this.billed).setCancelled(this.cancelled)
+				.setSelfBilled(this.selfBill).setDate(new Date())
+				.setSourceId(this.sourceID).addEntry(creditNoteEntryBuilder)
 				.setBusinessUID(new UID(businessUID))
 				.setSourceBilling(SourceBilling.P)
 				.setCustomerUID(new UID(customerUID));
 
 		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) creditNoteBuilder
 				.build();
-		creditNote.setUID(new UID(uid));
-		creditNote.setSeries(serie);
-		creditNote.setSeriesNumber(seriesNumber);
-		creditNote.setNumber(number);
+		creditNote.setUID(new UID(this.uid));
+		creditNote.setSeries(this.serie);
+		creditNote.setSeriesNumber(this.seriesNumber);
+		creditNote.setNumber(this.number);
 		creditNote.setType(type);
 		creditNote.setCurrency(Currency.getInstance("EUR"));
 
 		PTCreditNoteEntryEntity creditNoteEntry = (PTCreditNoteEntryEntity) creditNote
 				.getEntries().get(0);
-		creditNoteEntry.setUID(new UID(creditNoteEntryUID));
+		creditNoteEntry.setUID(new UID(this.creditNoteEntryUID));
 		creditNoteEntry.getDocumentReferences().add(creditNote);
 
 		return creditNote;
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity() {
-		return getCreditNoteEntity(TYPE.NC, BUSINESS_UID, CUSTOMER_UID,
-				PRODUCT, INVOICEREFERENCE);
+		return this.getCreditNoteEntity(TYPE.NC,
+				PTCreditNoteTestUtil.BUSINESS_UID,
+				PTCreditNoteTestUtil.CUSTOMER_UID,
+				PTCreditNoteTestUtil.PRODUCT,
+				PTCreditNoteTestUtil.INVOICEREFERENCE);
 	}
 }

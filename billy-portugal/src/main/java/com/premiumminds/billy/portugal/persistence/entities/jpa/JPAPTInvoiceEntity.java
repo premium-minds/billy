@@ -47,7 +47,7 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
+		return super.getPaymentMechanism();
 	}
 
 }

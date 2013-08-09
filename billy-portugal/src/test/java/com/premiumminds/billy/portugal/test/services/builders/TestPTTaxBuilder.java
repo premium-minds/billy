@@ -29,6 +29,7 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
@@ -38,8 +39,9 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTTaxEntity;
 
 public class TestPTTaxBuilder extends PTAbstractTest {
 
-	private static final String PTTAX_YML = YML_CONFIGS_DIR + "PTTax.yml";
-	private static final String REGIONCONTEXT_YML = YML_CONFIGS_DIR
+	private static final String PTTAX_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "PTTax.yml";
+	private static final String REGIONCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTContext.yml";
 
 	@Test

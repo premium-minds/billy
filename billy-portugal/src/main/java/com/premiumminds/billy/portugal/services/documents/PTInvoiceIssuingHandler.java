@@ -48,7 +48,8 @@ public class PTInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandler
 		final DAOPTInvoice daoInvoice = this.injector
 				.getInstance(DAOPTInvoice.class);
 
-		return issue(document, parametersPT, daoInvoice, INVOICE_TYPE);
+		return this.issue(document, parametersPT, daoInvoice,
+				PTInvoiceIssuingHandler.INVOICE_TYPE);
 	}
 
 }

@@ -26,6 +26,7 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTSimpleInvoiceTemplateBundle extends AbstractTemplateBundle
 		implements PTTemplateBundle {
+
 	private static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
 	private static final String BANK_TRANSFER_TEXT = "Transferência bancária";
 	private static final String CASH_TEXT = "Numerário";
@@ -48,12 +49,12 @@ public class PTSimpleInvoiceTemplateBundle extends AbstractTemplateBundle
 
 	@Override
 	public String getGenericCustomer() {
-		return GENERIC_CUSTOMER_TEXT;
+		return PTSimpleInvoiceTemplateBundle.GENERIC_CUSTOMER_TEXT;
 	}
 
 	@Override
 	public String getSoftwareCertificationId() {
-		return softwareCertificationId;
+		return this.softwareCertificationId;
 	}
 
 	@Override
@@ -63,28 +64,28 @@ public class PTSimpleInvoiceTemplateBundle extends AbstractTemplateBundle
 		}
 		PaymentMechanism payment = (PaymentMechanism) pmc;
 		switch (payment) {
-		case BANK_TRANSFER:
-			return BANK_TRANSFER_TEXT;
-		case CASH:
-			return CASH_TEXT;
-		case CREDIT_CARD:
-			return CREDIT_CARD_TEXT;
-		case CHECK:
-			return CHECK_TEXT;
-		case DEBIT_CARD:
-			return DEBIT_CARD_TEXT;
-		case COMPENSATION:
-			return COMPENSATION_TEXT;
-		case COMMERCIAL_LETTER:
-			return COMMERCIAL_LETTER_TEXT;
-		case ATM:
-			return ATM_TEXT;
-		case RESTAURANT_TICKET:
-			return RESTAURANT_TICKET_TEXT;
-		case EXCHANGE:
-			return EXCHANGE_TEXT;
-		default:
-			return null;
+			case BANK_TRANSFER:
+				return PTSimpleInvoiceTemplateBundle.BANK_TRANSFER_TEXT;
+			case CASH:
+				return PTSimpleInvoiceTemplateBundle.CASH_TEXT;
+			case CREDIT_CARD:
+				return PTSimpleInvoiceTemplateBundle.CREDIT_CARD_TEXT;
+			case CHECK:
+				return PTSimpleInvoiceTemplateBundle.CHECK_TEXT;
+			case DEBIT_CARD:
+				return PTSimpleInvoiceTemplateBundle.DEBIT_CARD_TEXT;
+			case COMPENSATION:
+				return PTSimpleInvoiceTemplateBundle.COMPENSATION_TEXT;
+			case COMMERCIAL_LETTER:
+				return PTSimpleInvoiceTemplateBundle.COMMERCIAL_LETTER_TEXT;
+			case ATM:
+				return PTSimpleInvoiceTemplateBundle.ATM_TEXT;
+			case RESTAURANT_TICKET:
+				return PTSimpleInvoiceTemplateBundle.RESTAURANT_TICKET_TEXT;
+			case EXCHANGE:
+				return PTSimpleInvoiceTemplateBundle.EXCHANGE_TEXT;
+			default:
+				return null;
 		}
 	}
 }

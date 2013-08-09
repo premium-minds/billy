@@ -57,7 +57,7 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 			Date from, Date to) {
 		QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 		JPAQuery query = new JPAQuery(this.getEntityManager());
-		PTBusinessEntity business = getBusinessEntity(uid);
+		PTBusinessEntity business = this.getBusinessEntity(uid);
 
 		query.from(creditNote);
 
@@ -73,7 +73,8 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 			query.where(e);
 		}
 
-		return checkEntityList(query.list(creditNote), PTCreditNoteEntity.class);
+		return this.checkEntityList(query.list(creditNote),
+				PTCreditNoteEntity.class);
 	}
 
 }

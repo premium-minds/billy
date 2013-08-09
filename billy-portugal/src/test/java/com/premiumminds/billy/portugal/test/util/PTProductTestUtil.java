@@ -42,21 +42,21 @@ public class PTProductTestUtil {
 
 	public PTProductTestUtil(Injector injector) {
 		this.injector = injector;
-		taxes = new Taxes(injector);
-		tax = (PTTaxEntity) taxes.continent().normal();
+		this.taxes = new Taxes(injector);
+		this.tax = (PTTaxEntity) this.taxes.continent().normal();
 	}
 
 	public PTProductEntity getProductEntity(String uid, String numberCode,
 			String unitOfMeasure, String productCode, String description,
 			ProductType type) {
-		PTProduct.Builder productBuilder = injector
+		PTProduct.Builder productBuilder = this.injector
 				.getInstance(PTProduct.Builder.class);
 
 		productBuilder.clear();
-		productBuilder.addTaxUID(tax.getUID()).setNumberCode(numberCode)
+		productBuilder.addTaxUID(this.tax.getUID()).setNumberCode(numberCode)
 				.setUnitOfMeasure(unitOfMeasure).setProductCode(productCode)
 				.setDescription(description).setType(type)
-				.setProductGroup(GROUP);
+				.setProductGroup(PTProductTestUtil.GROUP);
 
 		PTProductEntity product = (PTProductEntity) productBuilder.build();
 
@@ -66,11 +66,13 @@ public class PTProductTestUtil {
 	}
 
 	public PTProductEntity getProductEntity(String uid) {
-		return getProductEntity(uid, NUMBER_CODE, UNIT_OF_MEASURE,
-				PRODUCT_CODE, DESCRIPTION, TYPE);
+		return this.getProductEntity(uid, PTProductTestUtil.NUMBER_CODE,
+				PTProductTestUtil.UNIT_OF_MEASURE,
+				PTProductTestUtil.PRODUCT_CODE, PTProductTestUtil.DESCRIPTION,
+				PTProductTestUtil.TYPE);
 	}
 
 	public PTProductEntity getProductEntity() {
-		return getProductEntity(UID);
+		return this.getProductEntity(PTProductTestUtil.UID);
 	}
 }

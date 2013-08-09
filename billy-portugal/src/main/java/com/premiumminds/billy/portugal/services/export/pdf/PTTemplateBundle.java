@@ -19,11 +19,10 @@
 package com.premiumminds.billy.portugal.services.export.pdf;
 
 import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface PTTemplateBundle extends IBillyTemplateBundle {
 
 	public String getGenericCustomer();
-	
+
 	public String getSoftwareCertificationId();
 }

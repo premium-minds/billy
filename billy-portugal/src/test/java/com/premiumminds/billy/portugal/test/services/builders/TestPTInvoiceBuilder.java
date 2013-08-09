@@ -26,6 +26,7 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
@@ -36,9 +37,9 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntryEntity;
 
 public class TestPTInvoiceBuilder extends PTAbstractTest {
 
-	private static final String PT_INVOICE_YML = YML_CONFIGS_DIR
+	private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTInvoice.yml";
-	private static final String PT_INVOICE_ENTRY_YML = YML_CONFIGS_DIR
+	private static final String PT_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTInvoiceEntry.yml";
 
 	@Test

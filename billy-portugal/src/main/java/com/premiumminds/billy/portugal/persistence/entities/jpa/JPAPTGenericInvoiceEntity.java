@@ -69,7 +69,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Override
 	public TYPE getType() {
-		return type;
+		return this.type;
 	}
 
 	@Override

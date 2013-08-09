@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
@@ -31,6 +32,7 @@ import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
@@ -50,14 +52,14 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	@Before
 	public void setUpParamenters() {
-		KeyGenerator generator = new KeyGenerator(PRIVATE_KEY_DIR);
+		KeyGenerator generator = new KeyGenerator(
+				PTDocumentAbstractTest.PRIVATE_KEY_DIR);
 
-		parameters = new PTIssuingParamsImpl();
-		parameters.setPrivateKey(generator.getPrivateKey());
-		parameters.setPublicKey(generator.getPublicKey());
-		parameters.setPrivateKeyVersion("1");
-		parameters.setEACCode("31400");
-
+		this.parameters = new PTIssuingParamsImpl();
+		this.parameters.setPrivateKey(generator.getPrivateKey());
+		this.parameters.setPublicKey(generator.getPublicKey());
+		this.parameters.setPrivateKeyVersion("1");
+		this.parameters.setEACCode("31400");
 	}
 
 	@SuppressWarnings("unchecked")
@@ -67,13 +69,15 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 		switch (type) {
 			case FT:
-				return (T) new PTInvoiceTestUtil(injector)
-						.getSimpleInvoiceEntity(type, ENTRY_UID, invoiceUID,
+				return (T) new PTInvoiceTestUtil(PTAbstractTest.injector)
+						.getSimpleInvoiceEntity(type,
+								PTDocumentAbstractTest.ENTRY_UID, invoiceUID,
 								businessUID, customerUID,
 								Arrays.asList(productUID), billing);
 			case FS:
-				return (T) new PTSimpleInvoiceTestUtil(injector)
-						.getSimpleInvoiceEntity(type, ENTRY_UID, invoiceUID,
+				return (T) new PTSimpleInvoiceTestUtil(PTAbstractTest.injector)
+						.getSimpleInvoiceEntity(type,
+								PTDocumentAbstractTest.ENTRY_UID, invoiceUID,
 								businessUID, customerUID,
 								Arrays.asList(productUID), billing);
 			case NC:
@@ -88,16 +92,16 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
 			throws DocumentIssuingException {
-		issueNewInvoice(handler, invoice, series, new Date(invoice
+		this.issueNewInvoice(handler, invoice, series, new Date(invoice
 				.getCreateTimestamp().getTime() + 100));
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series, Date date)
 			throws DocumentIssuingException {
-		parameters.setInvoiceSeries(series);
+		this.parameters.setInvoiceSeries(series);
 		invoice.setDate(date);
-		handler.issue(invoice, parameters);
+		handler.issue(invoice, this.parameters);
 	}
 
 }

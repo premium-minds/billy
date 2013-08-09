@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
@@ -31,7 +32,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTShippingPointEntity;
 
 public class TestPTShippingPointBuilder extends PTAbstractTest {
 
-	private static final String PTSHIPPINGPOINT_YML = YML_CONFIGS_DIR
+	private static final String PTSHIPPINGPOINT_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTShippingPoint.yml";
 
 	@Test

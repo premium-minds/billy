@@ -48,6 +48,7 @@ import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
+
 		public static final String CN_HASH = "hash";
 		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
 		public static final String INVOICE = "invoice";
@@ -108,12 +109,14 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
 					.getDescription());
 			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
-					.setScale(2, mc.getRoundingMode()).toPlainString());
-			entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry
-					.getUnitAmountWithTax().setScale(2, mc.getRoundingMode())
-					.toPlainString());
+					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_UNIT_PRICE,
+					entry.getUnitAmountWithTax()
+							.setScale(2, this.mc.getRoundingMode())
+							.toPlainString());
 			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
-					.setScale(2, mc.getRoundingMode()).toPlainString());
+					.setScale(2, this.mc.getRoundingMode()).toPlainString());
 
 			Collection<PTTaxEntity> list = entry.getTaxes();
 			for (PTTaxEntity tax : list) {
@@ -153,7 +156,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
-			PTCreditNoteEntity creditNote = (PTCreditNoteEntity) daoPTCreditNote
+			PTCreditNoteEntity creditNote = (PTCreditNoteEntity) this.daoPTCreditNote
 					.get(docUid);
 			this.toStream(creditNote, targetStream, exportRequest.getBundle());
 		} catch (Exception e) {
@@ -166,7 +169,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
 		return (invoice.getCustomer().getUID()
-				.equals(config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
+				.equals(this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
 				.getGenericCustomer() : invoice.getCustomer()
 				.getTaxRegistrationNumber());
 	}

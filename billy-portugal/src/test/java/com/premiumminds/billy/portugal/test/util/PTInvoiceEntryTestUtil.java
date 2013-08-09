@@ -49,28 +49,31 @@ public class PTInvoiceEntryTestUtil {
 
 	public PTInvoiceEntryTestUtil(Injector injector) {
 		this.injector = injector;
-		product = new PTProductTestUtil(injector);
-		contexts = new Contexts(injector);
-		shippingPoint = new PTShippingPointTestUtil(injector);
+		this.product = new PTProductTestUtil(injector);
+		this.contexts = new Contexts(injector);
+		this.shippingPoint = new PTShippingPointTestUtil(injector);
 	}
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(PTProductEntity product) {
-		PTInvoiceEntry.Builder invoiceEntryBuilder = injector
+		PTInvoiceEntry.Builder invoiceEntryBuilder = this.injector
 				.getInstance(PTInvoiceEntry.Builder.class);
-		PTShippingPoint.Builder originBuilder = shippingPoint
+		PTShippingPoint.Builder originBuilder = this.shippingPoint
 				.getShippingPointBuilder();
-		context = contexts.portugal().portugal();
+		this.context = this.contexts.portugal().portugal();
 
 		invoiceEntryBuilder.clear();
 
 		invoiceEntryBuilder
-				.setUnitAmount(AmountType.WITH_TAX, AMOUNT, CURRENCY)
+				.setUnitAmount(AmountType.WITH_TAX,
+						PTInvoiceEntryTestUtil.AMOUNT,
+						PTInvoiceEntryTestUtil.CURRENCY)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
-				.setDescription(product.getDescription()).setQuantity(QUANTITY)
+				.setDescription(product.getDescription())
+				.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
 				.setUnitOfMeasure(product.getUnitOfMeasure())
 				.setProductUID(product.getUID())
-				.setContextUID(context.getUID())
+				.setContextUID(this.context.getUID())
 				.setShippingOrigin(originBuilder);
 
 		return invoiceEntryBuilder;
@@ -79,12 +82,13 @@ public class PTInvoiceEntryTestUtil {
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
 
-		PTProductEntity newProduct = product.getProductEntity();
-		return getInvoiceEntryBuilder(newProduct);
+		PTProductEntity newProduct = this.product.getProductEntity();
+		return this.getInvoiceEntryBuilder(newProduct);
 	}
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(String productUID) {
-		DAOPTProduct daoPTProduct = injector.getInstance(DAOPTProduct.class);
+		DAOPTProduct daoPTProduct = this.injector
+				.getInstance(DAOPTProduct.class);
 		PTProductEntity newProduct = null;
 		try {
 			newProduct = (PTProductEntity) daoPTProduct
@@ -93,9 +97,9 @@ public class PTInvoiceEntryTestUtil {
 		}
 
 		if (newProduct == null) {
-			newProduct = product.getProductEntity(productUID);
+			newProduct = this.product.getProductEntity(productUID);
 			daoPTProduct.create(newProduct);
 		}
-		return getInvoiceEntryBuilder(newProduct);
+		return this.getInvoiceEntryBuilder(newProduct);
 	}
 }

@@ -26,6 +26,7 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTInvoiceTemplateBundle extends AbstractTemplateBundle implements
 		PTTemplateBundle {
+
 	private static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
 	private static final String BANK_TRANSFER_TEXT = "Transferência bancária";
 	private static final String CASH_TEXT = "Numerário";
@@ -39,50 +40,50 @@ public class PTInvoiceTemplateBundle extends AbstractTemplateBundle implements
 	private static final String EXCHANGE_TEXT = "Permuta";
 	private final String softwareCertificationId;
 
-
 	public PTInvoiceTemplateBundle(String logoImagePath,
-			InputStream xsltFileStream,	String softwareCertificationId) {
-		
+			InputStream xsltFileStream, String softwareCertificationId) {
+
 		super(logoImagePath, xsltFileStream);
 		this.softwareCertificationId = softwareCertificationId;
 	}
+
 	@Override
 	public String getGenericCustomer() {
-		return GENERIC_CUSTOMER_TEXT;
+		return PTInvoiceTemplateBundle.GENERIC_CUSTOMER_TEXT;
 	}
 
 	@Override
 	public String getSoftwareCertificationId() {
-		return softwareCertificationId;
+		return this.softwareCertificationId;
 	}
-	
+
 	@Override
-	public String getPaymentMechanismTranslation(Enum<?> pmc){
+	public String getPaymentMechanismTranslation(Enum<?> pmc) {
 		if (null == pmc) {
 			return null;
 		}
 		PaymentMechanism payment = (PaymentMechanism) pmc;
 		switch (payment) {
 			case BANK_TRANSFER:
-				return BANK_TRANSFER_TEXT;
+				return PTInvoiceTemplateBundle.BANK_TRANSFER_TEXT;
 			case CASH:
-				return CASH_TEXT;
+				return PTInvoiceTemplateBundle.CASH_TEXT;
 			case CREDIT_CARD:
-				return CREDIT_CARD_TEXT;
+				return PTInvoiceTemplateBundle.CREDIT_CARD_TEXT;
 			case CHECK:
-				return CHECK_TEXT;
+				return PTInvoiceTemplateBundle.CHECK_TEXT;
 			case DEBIT_CARD:
-				return DEBIT_CARD_TEXT;
+				return PTInvoiceTemplateBundle.DEBIT_CARD_TEXT;
 			case COMPENSATION:
-				return COMPENSATION_TEXT;
+				return PTInvoiceTemplateBundle.COMPENSATION_TEXT;
 			case COMMERCIAL_LETTER:
-				return COMMERCIAL_LETTER_TEXT;
+				return PTInvoiceTemplateBundle.COMMERCIAL_LETTER_TEXT;
 			case ATM:
-				return ATM_TEXT;
+				return PTInvoiceTemplateBundle.ATM_TEXT;
 			case RESTAURANT_TICKET:
-				return RESTAURANT_TICKET_TEXT;
+				return PTInvoiceTemplateBundle.RESTAURANT_TICKET_TEXT;
 			case EXCHANGE:
-				return EXCHANGE_TEXT;
+				return PTInvoiceTemplateBundle.EXCHANGE_TEXT;
 			default:
 				return null;
 		}

@@ -58,7 +58,7 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 
 		QJPAPTInvoiceEntity invoice = QJPAPTInvoiceEntity.jPAPTInvoiceEntity;
 		JPAQuery query = new JPAQuery(this.getEntityManager());
-		PTBusinessEntity business = getBusinessEntity(uid);
+		PTBusinessEntity business = this.getBusinessEntity(uid);
 
 		query.from(invoice);
 
@@ -74,6 +74,6 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 			query.where(e);
 		}
 
-		return checkEntityList(query.list(invoice), PTInvoiceEntity.class);
+		return this.checkEntityList(query.list(invoice), PTInvoiceEntity.class);
 	}
 }

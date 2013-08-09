@@ -22,6 +22,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
@@ -33,7 +34,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTSupplierEntity;
 
 public class TestPTSupplierBuilder extends PTAbstractTest {
 
-	private static final String PTSUPPLIER_YML = YML_CONFIGS_DIR
+	private static final String PTSUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTSupplier.yml";
 
 	@Test

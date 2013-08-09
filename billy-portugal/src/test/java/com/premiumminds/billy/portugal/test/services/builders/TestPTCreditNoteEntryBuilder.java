@@ -28,6 +28,7 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -40,9 +41,9 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
 
 public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
-	private static final String PT_CREDIT_NOTE_ENTRY_YML = YML_CONFIGS_DIR
+	private static final String PT_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTCreditNoteEntry.yml";
-	private static final String PT_INVOICE_YML = YML_CONFIGS_DIR
+	private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTInvoice.yml";
 
 	@Test

@@ -41,12 +41,12 @@ public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
-		return (List<PTInvoiceEntry>) super.getEntries();
+		return super.getEntries();
 	}
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
+		return super.getPaymentMechanism();
 	}
 }

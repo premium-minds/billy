@@ -37,7 +37,7 @@ public class MockPTSupplierEntity extends MockSupplierEntity implements
 
 	@Override
 	public String getReferralName() {
-		return referral;
+		return this.referral;
 	}
 
 	@Override

@@ -42,7 +42,7 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 
 	@Override
 	public TYPE getType() {
-		return type;
+		return this.type;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 
 	@Override
 	public SourceBilling getSourceBilling() {
-		return sourceBilling;
+		return this.sourceBilling;
 	}
 
 	@Override

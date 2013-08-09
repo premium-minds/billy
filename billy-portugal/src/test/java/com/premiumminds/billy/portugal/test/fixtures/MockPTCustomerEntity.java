@@ -30,7 +30,7 @@ public class MockPTCustomerEntity extends MockCustomerEntity implements
 
 	@Override
 	public String getReferralName() {
-		return referralName;
+		return this.referralName;
 	}
 
 	@Override

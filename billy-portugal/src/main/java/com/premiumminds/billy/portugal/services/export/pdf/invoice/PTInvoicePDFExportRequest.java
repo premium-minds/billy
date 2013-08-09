@@ -21,7 +21,7 @@ package com.premiumminds.billy.portugal.services.export.pdf.invoice;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
-public class PTInvoicePDFExportRequest extends AbstractExportRequest{
+public class PTInvoicePDFExportRequest extends AbstractExportRequest {
 
 	private PTInvoiceTemplateBundle bundle;
 

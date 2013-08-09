@@ -49,37 +49,42 @@ public class PTCreditNoteEntryTestUtil {
 
 	public PTCreditNoteEntryTestUtil(Injector injector) {
 		this.injector = injector;
-		contexts = new Contexts(injector);
+		this.contexts = new Contexts(injector);
 	}
 
 	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder(
 			String productUID, String invoiceReference) {
-		PTCreditNoteEntry.Builder creditNoteEntryBuilder = injector
+		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector
 				.getInstance(PTCreditNoteEntry.Builder.class);
 
-		final PTProductEntity newProduct = (PTProductEntity) injector
+		final PTProductEntity newProduct = (PTProductEntity) this.injector
 				.getInstance(DAOPTProduct.class).get(new UID(productUID));
-		final PTInvoiceEntity reference = (PTInvoiceEntity) injector
+		final PTInvoiceEntity reference = (PTInvoiceEntity) this.injector
 				.getInstance(DAOPTInvoice.class).get(new UID(invoiceReference));
-		context = contexts.portugal().portugal();
+		this.context = this.contexts.portugal().portugal();
 
 		creditNoteEntryBuilder.clear();
 
 		creditNoteEntryBuilder
-				.setUnitAmount(AmountType.WITH_TAX, AMOUNT, CURRENCY)
+				.setUnitAmount(AmountType.WITH_TAX,
+						PTCreditNoteEntryTestUtil.AMOUNT,
+						PTCreditNoteEntryTestUtil.CURRENCY)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(newProduct.getDescription())
-				.setQuantity(QUANTITY)
+				.setQuantity(PTCreditNoteEntryTestUtil.QUANTITY)
 				.setUnitOfMeasure(newProduct.getUnitOfMeasure())
 				.setProductUID(newProduct.getUID())
-				.setContextUID(context.getUID()).setReason(REASON)
+				.setContextUID(this.context.getUID())
+				.setReason(PTCreditNoteEntryTestUtil.REASON)
 				.setReference(reference);
 
 		return creditNoteEntryBuilder;
 	}
 
 	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder() {
-		return getCreditNoteEntryBuilder(PRODUCT, INVOICEREFERENCE);
+		return this.getCreditNoteEntryBuilder(
+				PTCreditNoteEntryTestUtil.PRODUCT,
+				PTCreditNoteEntryTestUtil.INVOICEREFERENCE);
 	}
 }

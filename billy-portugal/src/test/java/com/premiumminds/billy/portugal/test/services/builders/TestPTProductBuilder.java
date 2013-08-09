@@ -27,6 +27,7 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
@@ -35,7 +36,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity;
 
 public class TestPTProductBuilder extends PTAbstractTest {
 
-	private static final String PTPRODUCT_YML = YML_CONFIGS_DIR
+	private static final String PTPRODUCT_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTProduct.yml";
 
 	@Test
