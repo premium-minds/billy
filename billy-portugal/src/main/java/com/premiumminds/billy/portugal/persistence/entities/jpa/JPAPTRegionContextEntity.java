@@ -23,12 +23,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "REGION_CONTEXT")
 public class JPAPTRegionContextEntity extends JPAContextEntity implements
 		PTRegionContextEntity {

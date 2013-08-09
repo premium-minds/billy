@@ -31,7 +31,7 @@
 		<env>DEV</env>
 		<querydsl.version>2.9.0</querydsl.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
-		<hibernate.version>4.1.6.Final</hibernate.version>
+		<hibernate.version>4.2.3.Final</hibernate.version>
 		<querydsl.version>3.2.2</querydsl.version>
 
 		<!-- plugins versions -->
@@ -74,7 +74,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-envers</artifactId>
-			<version>4.2.3.Final</version>
+			<version>${hibernate.version}</version>
 		</dependency>
 
 		<!-- Query DSL -->

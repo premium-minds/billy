@@ -31,12 +31,15 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.envers.Audited;
+
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAShippingPointEntity extends JPABaseEntity implements

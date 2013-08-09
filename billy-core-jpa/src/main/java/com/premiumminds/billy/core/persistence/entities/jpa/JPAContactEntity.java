@@ -24,10 +24,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAContactEntity extends JPABaseEntity implements ContactEntity {

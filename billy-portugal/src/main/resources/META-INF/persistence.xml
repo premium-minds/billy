@@ -19,16 +19,6 @@
     along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<!-- Copyright (C) 2013 Premium Minds. This file is part of billy portugal 
-	(PT Pack). billy portugal (PT Pack) is free software: you can redistribute 
-	it and/or modify it under the terms of the GNU Lesser General Public License 
-	as published by the Free Software Foundation, either version 3 of the License, 
-	or (at your option) any later version. billy portugal (PT Pack) is distributed 
-	in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even 
-	the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-	See the GNU Lesser General Public License for more details. You should have 
-	received a copy of the GNU Lesser General Public License along with billy 
-	portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>. -->
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
@@ -37,65 +27,38 @@
 	<persistence-unit name="BillyPortugalPersistenceUnit">
 		<description>billy persistence unit</description>
 
-		<!-- <non-jta-data-source>java:/comp/env/jdbc/billy-datasource</non-jta-data-source> -->
+<!-- 		<non-jta-data-source>java:/comp/env/jdbc/billy-datasource</non-jta-data-source> -->
 
-		<!-- <mapping-file>META-INF/orm-core.xml</mapping-file> -->
+		<!--  <mapping-file>META-INF/orm-core.xml</mapping-file> -->
 		<mapping-file>META-INF/orm-portugal.xml</mapping-file>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="${jdbc.url}" />
+			<property name="javax.persistence.jdbc.url"
+				value="${jdbc.url}" />
 			<property name="javax.persistence.jdbc.user" value="billy" />
 			<property name="javax.persistence.jdbc.password" value="billy" />
 
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
-
-
-
-			<!-- property name="hibernate.ejb.event.post-insert"
-				value="org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.post-update"
-				value="org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.post-delete"
-				value="org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.pre-collection-update"
-				value="org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.pre-collection-remove"
-				value="org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.post-collection-recreate"
-				value="org.hibernate.envers.event.AuditEventListener" /-->
 		</properties>
 	</persistence-unit>
-
+	
 	<persistence-unit name="BillyPortugalTestPersistenceUnit">
 		<description>billy persistence unit for tests</description>
 
 		<mapping-file>META-INF/orm-portugal.xml</mapping-file>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:h2:/tmp/h2db" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:h2:/tmp/h2db" />
 			<property name="javax.persistence.jdbc.user" value="billytest" />
 			<property name="javax.persistence.jdbc.password" value="billytest" />
 
-
+	
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-
-
-			<!-- property name="hibernate.ejb.event.post-insert"
-				value="org.hibernate.ejb.event.EJB3PostInsertEventListener,org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.post-update"
-				value="org.hibernate.ejb.event.EJB3PostUpdateEventListener,org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.post-delete"
-				value="org.hibernate.ejb.event.EJB3PostDeleteEventListener,org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.pre-collection-update"
-				value="org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.pre-collection-remove"
-				value="org.hibernate.envers.event.AuditEventListener" />
-			<property name="hibernate.ejb.event.post-collection-recreate"
-				value="org.hibernate.envers.event.AuditEventListener" /-->
 		</properties>
 	</persistence-unit>
 
