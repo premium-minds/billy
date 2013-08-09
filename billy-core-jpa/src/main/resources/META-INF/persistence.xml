@@ -41,14 +41,14 @@
 
 		<mapping-file>META-INF/orm-core.xml</mapping-file>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/billy" />
-			<property name="javax.persistence.jdbc.user" value="billy" />
-			<property name="javax.persistence.jdbc.password" value="billy" />
+			<property name="javax.persistence.jdbc.driver" value="${jdbc.driver}" />
+			<property name="javax.persistence.jdbc.url" value="${jdbc.url}" />
+			<property name="javax.persistence.jdbc.user" value="${jdbc.user}" />
+			<property name="javax.persistence.jdbc.password" value="${jdbc.password}" />
 
-			<property name="hibernate.show_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.show_sql" value="${hibernate.show_sql}" />
+			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
+			<property name="hibernate.dialect" value="${hibernate.dialect}" />
 			<!-- <property name="hibernate.archive.autodetection" value="class, hbm"/> -->
 
 
