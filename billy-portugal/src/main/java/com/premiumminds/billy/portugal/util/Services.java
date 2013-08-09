@@ -16,20 +16,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTCreditNoteIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
 public class Services {
 
@@ -44,11 +44,11 @@ public class Services {
 	}
 
 	private void setupServices() {
-		this.issuingService.addHandler(PTInvoice.class,
+		this.issuingService.addHandler(PTInvoiceEntity.class,
 				this.injector.getInstance(PTInvoiceIssuingHandler.class));
-		this.issuingService.addHandler(PTCreditNote.class,
+		this.issuingService.addHandler(PTCreditNoteEntity.class,
 				this.injector.getInstance(PTCreditNoteIssuingHandler.class));
-		this.issuingService.addHandler(PTSimpleInvoice.class,
+		this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
 				this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
 	}
 

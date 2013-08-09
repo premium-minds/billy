@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.test.services.documents;
+package com.premiumminds.billy.portugal.test.services.documents.handler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -36,6 +36,7 @@ import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvo
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
 
 public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 

@@ -40,7 +40,7 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceTestUtil {
 
-	protected static final Date DATE = new Date();
+	protected static final Date DATE = new Date(new Date().getTime() + 100000);
 	protected static final Boolean BILLED = false;
 	protected static final Boolean CANCELLED = false;
 	protected static final Boolean SELFBILL = false;
@@ -106,18 +106,9 @@ public class PTInvoiceTestUtil {
 	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
 			String entryUID, String uid, String businessUID,
 			String customerUID, List<String> productUIDs, SourceBilling billing) {
-		PTInvoice.Builder invoiceBuilder = injector
-				.getInstance(PTInvoice.Builder.class);
+
 		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
 		DAOPTCustomer daoPTCustomer = injector.getInstance(DAOPTCustomer.class);
-
-		invoiceBuilder.clear();
-
-		for (String productUID : productUIDs) {
-			PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
-					.getInvoiceEntryBuilder(productUID);
-			invoiceBuilder.addEntry(invoiceEntryBuilder);
-		}
 
 		PTBusinessEntity businessEntity = null;
 		try {
@@ -131,6 +122,7 @@ public class PTInvoiceTestUtil {
 		}
 
 		PTCustomerEntity customerEntity = null;
+
 		try {
 			customerEntity = (PTCustomerEntity) daoPTCustomer.get(new UID(
 					customerUID));
@@ -142,13 +134,8 @@ public class PTInvoiceTestUtil {
 			daoPTCustomer.create(customerEntity);
 		}
 
-		invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
-				.setSelfBilled(SELFBILL).setDate(DATE).setSourceId(SOURCE_ID)
-				.setCreditOrDebit(CreditOrDebit.CREDIT)
-				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)
-				.setBusinessUID(new UID(businessUID));
-
-		PTInvoiceEntity invoice = (PTInvoiceEntity) invoiceBuilder.build();
+		PTInvoiceEntity invoice = (PTInvoiceEntity) getInvoiceBuilder(
+				businessUID, customerUID, billing, productUIDs).build();
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
@@ -164,5 +151,51 @@ public class PTInvoiceTestUtil {
 		invoice.setCurrency(Currency.getInstance("EUR"));
 
 		return invoice;
+	}
+
+	public PTInvoice.Builder getInvoiceBuilder(String businessUID,
+			String customerUID, SourceBilling billing, List<String> productUIDs) {
+		PTInvoice.Builder invoiceBuilder = injector
+				.getInstance(PTInvoice.Builder.class);
+
+		DAOPTBusiness daoPTBusiness = injector.getInstance(DAOPTBusiness.class);
+		DAOPTCustomer daoPTCustomer = injector.getInstance(DAOPTCustomer.class);
+
+		PTBusinessEntity businessEntity = null;
+		try {
+			businessEntity = (PTBusinessEntity) daoPTBusiness.get(new UID(
+					businessUID));
+		} catch (NoResultException e) {
+		}
+		if (businessEntity == null) {
+			businessEntity = business.getBusinessEntity(businessUID);
+			daoPTBusiness.create(businessEntity);
+		}
+
+		PTCustomerEntity customerEntity = null;
+
+		try {
+			customerEntity = (PTCustomerEntity) daoPTCustomer.get(new UID(
+					customerUID));
+		} catch (NoResultException e) {
+		}
+
+		if (customerEntity == null) {
+			customerEntity = customer.getCustomerEntity(customerUID);
+			daoPTCustomer.create(customerEntity);
+		}
+		invoiceBuilder.clear();
+
+		for (String productUID : productUIDs) {
+			PTInvoiceEntry.Builder invoiceEntryBuilder = invoiceEntry
+					.getInvoiceEntryBuilder(productUID);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+
+		return invoiceBuilder.setBilled(BILLED).setCancelled(CANCELLED)
+				.setSelfBilled(SELFBILL).setDate(DATE).setSourceId(SOURCE_ID)
+				.setCreditOrDebit(CreditOrDebit.CREDIT)
+				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)
+				.setBusinessUID(new UID(businessUID));
 	}
 }

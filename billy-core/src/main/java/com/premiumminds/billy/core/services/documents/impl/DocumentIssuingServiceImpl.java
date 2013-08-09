@@ -22,6 +22,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
@@ -31,14 +32,14 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
-	protected Map<Class<? extends GenericInvoice>, DocumentIssuingHandler> handlers;
+	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler> handlers;
 
 	public DocumentIssuingServiceImpl() {
-		this.handlers = new HashMap<Class<? extends GenericInvoice>, DocumentIssuingHandler>();
+		this.handlers = new HashMap<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>();
 	}
 
 	@Override
-	public void addHandler(Class<? extends GenericInvoice> handledClass,
+	public void addHandler(Class<? extends GenericInvoiceEntity> handledClass,
 			DocumentIssuingHandler handler) {
 		this.handlers.put(handledClass, handler);
 	}
@@ -53,6 +54,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 			IssuingParams parameters) throws DocumentIssuingException {
 		T document = documentBuilder.build();
 		Type[] types = document.getClass().getGenericInterfaces();
+
 		for (Type type : types) {
 			if (this.handlers.containsKey(type)) {
 				return this.handlers.get(type).issue(document, parameters);
@@ -61,5 +63,4 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 		throw new RuntimeException("Cannot handle document : "
 				+ document.getClass().getCanonicalName());
 	}
-
 }
