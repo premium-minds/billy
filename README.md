@@ -1,17 +1,23 @@
-#Billy
-Billy is an open source Java library, which aims to be a billing library
-that provides the ability to create, manage, store and export billing related artifacts
-such as invoices and credit notes.
+Billy is a billing library for applications providing them with ability to create, manage,  and store billing artifacts such as invoices and credit notes. It also supports the export of the persisted the persisted data in PDF and SAF-T formats.
 
-## Maven Dependency
-Add Billy's Maven dependency to the pom.xml file of your project:
-```
+Billy was built to be easily extended in order to support additional taxing systems for different countries. 
+Billy's core module was based on the OECD's SAF-T schema, providing a standard module from which one can extend and further develop to support new modules for different countries.
+
+The objective is for all modules to be compliant with the existing regulations for their country. However, we do not in any way intend to provide a certified library, it should be the responsibility of applications that use billy to seek certification for themselves.
+
+
+## Maven projects
+Add the following maven dependency to your project `pom.xml`:
+
+```xml
 <dependency>
-    <groupId>com.premiumminds</groupId>
-    <artifactId>billy</artifactId>
-    <version>1.0</version>
+   <groupId>com.premiumminds</groupId>
+   <artifactId>billy-portugal</artifactId>
+   <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
+Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search;quick~billy) for latest snapshots and releases.
+
 ##Getting Started
 Checkout our [getting started guide](http://premium-minds.github.io/billy/getStarted.html).
 
