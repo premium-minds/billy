@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -30,19 +29,9 @@ import com.premiumminds.billy.portugal.services.documents.PTCreditNoteIssuingHan
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
-import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.persistence.PTBuisnessPersistenceService;
 
 public class Services {
-
-	public class Persistence {
-
-		public PersistenceService<PTBusiness> business() {
-			return new PTBuisnessPersistenceService<PTBusiness>(
-					Services.this.injector);
-		}
-	}
 
 	private final Injector injector;
 	private DocumentIssuingService issuingService;
@@ -52,7 +41,7 @@ public class Services {
 		this.injector = injector;
 		this.issuingService = injector
 				.getInstance(DocumentIssuingService.class);
-		this.persistenceService = new Persistence();
+		this.persistenceService = new Persistence(injector);
 		this.setupServices();
 	}
 
@@ -63,6 +52,10 @@ public class Services {
 				this.injector.getInstance(PTCreditNoteIssuingHandler.class));
 		this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
 				this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
+	}
+
+	public Persistence persistence() {
+		return persistenceService;
 	}
 
 	public <T extends PTInvoice> T issueDocument(Builder<T> builder,
