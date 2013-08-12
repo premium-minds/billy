@@ -39,10 +39,9 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 	protected DAOAddress daoAddress;
 	protected AddressEntity address;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	protected AddressBuilderImpl(DAOAddress daoAddress) {
-		super((EntityFactory<? extends TAddress>) daoAddress);
+		super((EntityFactory<?>) daoAddress);
 		this.daoAddress = daoAddress;
 	}
 

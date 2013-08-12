@@ -47,10 +47,9 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	protected DAOBusiness daoBusiness;
 	protected DAOContext daoContext;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public BusinessBuilderImpl(DAOBusiness daoBusiness, DAOContext daoContext) {
-		super((EntityFactory<? extends TBusiness>) daoBusiness);
+		super((EntityFactory<?>) daoBusiness);
 		this.daoBusiness = daoBusiness;
 		this.daoContext = daoContext;
 	}

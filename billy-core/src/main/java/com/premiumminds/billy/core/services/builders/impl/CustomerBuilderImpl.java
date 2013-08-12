@@ -46,10 +46,9 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	protected DAOCustomer daoCustomer;
 	protected DAOContact daoContact;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public CustomerBuilderImpl(DAOCustomer daoCustomer, DAOContact daoContact) {
-		super((EntityFactory<? extends TCustomer>) daoCustomer);
+		super((EntityFactory<?>) daoCustomer);
 		this.daoCustomer = daoCustomer;
 		this.daoContact = daoContact;
 	}

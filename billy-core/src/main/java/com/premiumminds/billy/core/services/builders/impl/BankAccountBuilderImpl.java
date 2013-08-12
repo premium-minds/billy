@@ -37,10 +37,9 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 
 	protected DAOBankAccount daoBankAccount;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public BankAccountBuilderImpl(DAOBankAccount daoBankAccount) {
-		super((EntityFactory<? extends TBankAccount>) daoBankAccount);
+		super((EntityFactory<?>) daoBankAccount);
 		this.daoBankAccount = daoBankAccount;
 	}
 

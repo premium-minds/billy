@@ -48,10 +48,9 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 	protected DAOTax daoTax;
 	protected DAOContext daoContext;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public TaxBuilderImpl(DAOTax daoTax, DAOContext daoContext) {
-		super((EntityFactory<? extends TTax>) daoTax);
+		super((EntityFactory<?>) daoTax);
 		this.daoTax = daoTax;
 		this.daoContext = daoContext;
 	}

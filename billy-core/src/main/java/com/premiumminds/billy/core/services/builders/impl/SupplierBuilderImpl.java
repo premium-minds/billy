@@ -44,10 +44,9 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 
 	protected DAOSupplier daoSupplier;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public SupplierBuilderImpl(DAOSupplier daoSupplier) {
-		super((EntityFactory<? extends TSupplier>) daoSupplier);
+		super((EntityFactory<?>) daoSupplier);
 		this.daoSupplier = daoSupplier;
 	}
 

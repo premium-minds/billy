@@ -43,10 +43,9 @@ public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<
 
 	protected DAOShippingPoint daoShippingPoint;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public ShippingPointBuilderImpl(DAOShippingPoint daoShippingPoint) {
-		super((EntityFactory<? extends TShippingPoint>) daoShippingPoint);
+		super((EntityFactory<?>) daoShippingPoint);
 		this.daoShippingPoint = daoShippingPoint;
 	}
 

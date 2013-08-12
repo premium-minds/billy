@@ -62,12 +62,11 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	protected DAOCustomer daoCustomer;
 	protected DAOSupplier daoSupplier;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public GenericInvoiceBuilderImpl(DAOGenericInvoice daoGenericInvoice,
 			DAOBusiness daoBusiness, DAOCustomer daoCustomer,
 			DAOSupplier daoSupplier) {
-		super((EntityFactory<? extends TDocument>) daoGenericInvoice);
+		super((EntityFactory<?>) daoGenericInvoice);
 		this.daoGenericInvoice = daoGenericInvoice;
 		this.daoBusiness = daoBusiness;
 		this.daoCustomer = daoCustomer;

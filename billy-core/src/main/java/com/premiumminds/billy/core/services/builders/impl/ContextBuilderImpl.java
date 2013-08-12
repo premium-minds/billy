@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
@@ -37,9 +39,9 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 
 	protected DAOContext daoContext;
 
-	@SuppressWarnings("unchecked")
+	@Inject
 	public ContextBuilderImpl(DAOContext daoContext) {
-		super((EntityFactory<? extends TContext>) daoContext);
+		super((EntityFactory<?>) daoContext);
 		this.daoContext = daoContext;
 	}
 

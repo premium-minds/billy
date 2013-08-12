@@ -40,10 +40,9 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	protected DAOApplication daoApplication;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public ApplicationBuilderImpl(DAOApplication daoApplication) {
-		super((EntityFactory<? extends TApplication>) daoApplication);
+		super((EntityFactory<?>) daoApplication);
 		this.daoApplication = daoApplication;
 	}
 

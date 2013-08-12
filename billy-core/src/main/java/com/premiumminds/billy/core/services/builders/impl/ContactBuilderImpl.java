@@ -37,10 +37,9 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	protected DAOContact daoContact;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public ContactBuilderImpl(DAOContact daoContact) {
-		super((EntityFactory<? extends TContact>) daoContact);
+		super((EntityFactory<?>) daoContact);
 		this.daoContact = daoContact;
 	}
 

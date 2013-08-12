@@ -68,12 +68,11 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 	protected Context context;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public GenericInvoiceEntryBuilderImpl(DAOGenericInvoiceEntry daoEntry,
 			DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
 			DAOProduct daoProduct, DAOContext daoContext) {
-		super((EntityFactory<? extends TEntry>) daoEntry);
+		super((EntityFactory<?>) daoEntry);
 		this.daoEntry = daoEntry;
 		this.daoGenericInvoice = daoGenericInvoice;
 		this.daoTax = daoTax;
