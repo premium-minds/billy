@@ -28,6 +28,7 @@ import javax.persistence.NoResultException;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
@@ -145,7 +146,7 @@ public class PTInvoiceTestUtil {
 		invoice.setUID(new UID(uid));
 		invoice.setType(invoiceType);
 
-		for (PTInvoiceEntry invoiceEntry : invoice.getEntries()) {
+		for (GenericInvoiceEntry invoiceEntry : invoice.getEntries()) {
 			invoiceEntry.setUID(new UID(new Date().toString()));
 			invoiceEntry.getDocumentReferences().add(invoice);
 		}

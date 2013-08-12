@@ -185,7 +185,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public Enum getPaymentMechanism() {
+	public Enum<?> getPaymentMechanism() {
 		return this.paymentMechanism;
 	}
 
@@ -316,7 +316,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public <T extends Enum> void setPaymentMechanism(T mechanism) {
+	public void setPaymentMechanism(Enum<?> mechanism) {
 		this.paymentMechanism = mechanism;
 	}
 

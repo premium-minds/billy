@@ -755,8 +755,7 @@ public class PTSAFTFileGenerator {
 			InvalidTaxTypeException, InvalidTaxCodeException,
 			InvalidPaymentMechanismException {
 		@SuppressWarnings("unchecked")
-		List<? extends PTGenericInvoiceEntryEntity> entries = (List<? extends PTGenericInvoiceEntryEntity>) document
-				.getEntries();
+		List<PTGenericInvoiceEntryEntity> entries = document.getEntries();
 		if (entries == null || entries.size() < 1) {
 			throw new RequiredFieldNotFoundException(this.context + " Line");
 		}
@@ -1164,6 +1163,7 @@ public class PTSAFTFileGenerator {
 	private Payment getPayment(PTGenericInvoiceEntity document)
 			throws RequiredFieldNotFoundException,
 			InvalidPaymentMechanismException, DatatypeConfigurationException {
+
 		if (document.getPaymentMechanism() != null) {
 			Payment payment = new Payment();
 
@@ -1187,9 +1187,9 @@ public class PTSAFTFileGenerator {
 	 * @return
 	 * @throws InvalidPaymentMechanismException
 	 */
-	private String getPaymentMechanism(PaymentMechanism pm)
+	private String getPaymentMechanism(Enum<PaymentMechanism> pm)
 			throws InvalidPaymentMechanismException {
-		switch (pm) {
+		switch ((PaymentMechanism) pm) {
 			case BANK_TRANSFER:
 				return "TB";
 			case CASH:
