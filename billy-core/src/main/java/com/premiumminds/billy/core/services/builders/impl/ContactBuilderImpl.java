@@ -37,47 +37,56 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	protected DAOContact daoContact;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public ContactBuilderImpl(DAOContact daoContact) {
-		super((EntityFactory<? extends TContact>) daoContact);
+		super((EntityFactory<?>) daoContact);
 		this.daoContact = daoContact;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
 		BillyValidator.mandatory(name,
-				ContactBuilderImpl.LOCALIZER.getString("field.name"));
+				ContactBuilderImpl.LOCALIZER.getString("field.contact_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setTelephone(String telephone) {
+		BillyValidator.notBlank(telephone,
+				ContactBuilderImpl.LOCALIZER.getString("field.telephone"));
 		this.getTypeInstance().setTelephone(telephone);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setMobile(String mobile) {
+		BillyValidator.notBlank(mobile,
+				ContactBuilderImpl.LOCALIZER.getString("field.mobile"));
 		this.getTypeInstance().setMobile(mobile);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setFax(String fax) {
+		BillyValidator.notBlank(fax,
+				ContactBuilderImpl.LOCALIZER.getString("field.fax"));
 		this.getTypeInstance().setFax(fax);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setEmail(String email) {
+		BillyValidator.notBlank(email,
+				ContactBuilderImpl.LOCALIZER.getString("field.email"));
 		this.getTypeInstance().setEmail(email);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setWebsite(String website) {
+		BillyValidator.notBlank(website,
+				ContactBuilderImpl.LOCALIZER.getString("field.website"));
 		this.getTypeInstance().setWebsite(website);
 		return this.getBuilder();
 	}
@@ -86,7 +95,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 	protected void validateInstance()
 			throws javax.validation.ValidationException {
 		Contact c = this.getTypeInstance();
-		BillyValidator.mandatory(c.getName(), "field.name");
+		BillyValidator.mandatory(c.getName(), "field.contact_name");
 	}
 
 	@SuppressWarnings("unchecked")

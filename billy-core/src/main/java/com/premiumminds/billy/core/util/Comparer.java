@@ -44,27 +44,6 @@ public abstract class Comparer {
 			}
 		}
 		return true;
-		// if(o1.getClass().isAssignableFrom(IBaseEntity.class)) {
-		// return ((IBaseEntity) o1).getUUID().equals(((IBaseEntity)
-		// o2).getUUID());
-		// } else {
-		// return o1.equals(o2);
-		// }
-		// for(Method m : o1.getClass().getMethods()) {
-		// if(m.getName().startsWith("get")) {
-		// Object r1 = m.invoke(o1, (Object[])null);
-		// Object r2 = m.invoke(o2, (Object[])null);
-		// if(null == r1 && null == r2) {
-		// continue;
-		// }else {
-		// if(null == r1 || !r1.equals(r2)) {
-		// throw new Exception("NOT EQUAL: " + m.getName());
-		// //return false;
-		// }
-		// }
-		// }
-		// }
-		// return true;
 	}
 
 }

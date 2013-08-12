@@ -23,11 +23,15 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -35,62 +39,66 @@ import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAShippingPointEntity extends JPABaseEntity implements
 		ShippingPointEntity {
+
 	private static final long serialVersionUID = 1L;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
 	protected Address address;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATE")
 	protected Date date;
-	
+
 	@Column(name = "DELIVERY_ID")
 	protected String deliveryId;
-	
+
 	@Column(name = "LOCATION_ID")
 	protected String locationId;
-	
+
 	@Column(name = "UCR")
 	protected String ucr;
-	
+
 	@Column(name = "WAREHOUSE_ID")
 	protected String warehouseId;
-	
-	
-	public JPAShippingPointEntity() {}
-	
+
+	public JPAShippingPointEntity() {
+	}
+
 	@Override
 	public Date getDate() {
-		return date;
+		return this.date;
 	}
 
 	@Override
 	public String getWarehouseId() {
-		return warehouseId;
+		return this.warehouseId;
 	}
 
 	@Override
 	public String getLocationId() {
-		return locationId;
+		return this.locationId;
 	}
 
 	@Override
 	public String getUCR() {
-		return ucr;
+		return this.ucr;
 	}
 
 	@Override
 	public Address getAddress() {
-		return address;
+		return this.address;
 	}
 
 	@Override
 	public String getDeliveryId() {
-		return deliveryId;
+		return this.deliveryId;
 	}
 
 	@Override
@@ -117,7 +125,7 @@ public class JPAShippingPointEntity extends JPABaseEntity implements
 	public <T extends AddressEntity> void setAddress(T address) {
 		this.address = address;
 	}
-	
+
 	@Override
 	public void setDeliveryId(String deliveryId) {
 		this.deliveryId = deliveryId;

@@ -20,50 +20,57 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "BANK_ACCOUNT")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPABankAccountEntity extends JPABaseEntity implements
 		BankAccountEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "IBAN")
 	protected String iban;
-	
+
 	@Column(name = "BANK_IDENTIFIER")
 	protected String bankIdentifier;
-	
+
 	@Column(name = "BANK_ACCOUNT_NUMBER")
 	protected String bankAccountNumber;
 
 	@Column(name = "OWNER_NAME")
 	protected String ownerName;
 
+	public JPABankAccountEntity() {
+	}
 
-	public JPABankAccountEntity() {}
-	
 	@Override
 	public String getIBANNumber() {
-		return iban;
+		return this.iban;
 	}
 
 	@Override
 	public String getBankIdentifier() {
-		return bankIdentifier;
+		return this.bankIdentifier;
 	}
 
 	@Override
 	public String getBankAccountNumber() {
-		return bankAccountNumber;
+		return this.bankAccountNumber;
 	}
 
 	@Override
 	public String getOwnerName() {
-		return ownerName;
+		return this.ownerName;
 	}
 
 	@Override

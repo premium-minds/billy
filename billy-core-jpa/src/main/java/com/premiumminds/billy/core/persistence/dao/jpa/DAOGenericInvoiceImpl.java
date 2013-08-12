@@ -22,25 +22,54 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.mysema.query.jpa.JPASubQuery;
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 
-public class DAOGenericInvoiceImpl extends AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements DAOGenericInvoice {
+public class DAOGenericInvoiceImpl extends
+		AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
+		DAOGenericInvoice {
 
 	@Inject
 	public DAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
-	
+
 	@Override
-	protected Class<JPAGenericInvoiceEntity> getEntityClass() {
+	protected Class<? extends JPAGenericInvoiceEntity> getEntityClass() {
 		return JPAGenericInvoiceEntity.class;
 	}
 
 	@Override
 	public GenericInvoiceEntity getEntityInstance() {
 		return new JPAGenericInvoiceEntity();
+	}
+
+	@Override
+	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
+			String series) throws BillyRuntimeException {
+
+		QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
+
+		JPAQuery query = new JPAQuery(this.getEntityManager());
+
+		GenericInvoiceEntity invoice = query
+				.from(genericInvoice)
+				.where(genericInvoice.series.eq(series))
+				.where(genericInvoice.seriesNumber.eq(new JPASubQuery().from(
+						genericInvoice).unique(
+						genericInvoice.seriesNumber.max())))
+				.uniqueResult(genericInvoice);
+
+		if (invoice != null) {
+			return (T) invoice;
+		} else {
+			throw new BillyRuntimeException();
+		}
 	}
 
 }

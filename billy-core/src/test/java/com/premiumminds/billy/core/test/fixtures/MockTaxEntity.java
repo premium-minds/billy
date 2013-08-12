@@ -48,57 +48,57 @@ public class MockTaxEntity extends MockBaseEntity implements TaxEntity {
 
 	@Override
 	public Context getContext() {
-		return context;
+		return this.context;
 	}
 
 	@Override
 	public String getDesignation() {
-		return designation;
+		return this.designation;
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	@Override
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
 	@Override
 	public BigDecimal getValue() {
-		return value;
+		return this.value;
 	}
 
 	@Override
 	public Date getValidFrom() {
-		return validFrom;
+		return this.validFrom;
 	}
 
 	@Override
 	public Date getValidTo() {
-		return validTo;
+		return this.validTo;
 	}
 
 	@Override
 	public TaxRateType getTaxRateType() {
-		return taxRateType;
+		return this.taxRateType;
 	}
 
 	@Override
 	public BigDecimal getPercentageRateValue() {
-		return percentageRateValue;
+		return this.percentageRateValue;
 	}
 
 	@Override
 	public BigDecimal getFlatRateAmount() {
-		return flatRateAmount;
+		return this.flatRateAmount;
 	}
 
 	@Override
 	public Currency getCurrency() {
-		return currency;
+		return this.currency;
 	}
 
 	@Override

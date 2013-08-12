@@ -7,17 +7,17 @@
 	of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the ~ GNU Lesser 
 	General Public License for more details. ~ ~ You should have received a copy 
 	of the GNU Lesser General Public License ~ along with billy. If not, see 
-	<http://www.gnu.org/licenses/>. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<http://www.gnu.org/licenses />. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy</artifactId>
 	<name>billy</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<description>An opensource invoicing engine</description>
 	<packaging>pom</packaging>
 	<groupId>com.premiumminds</groupId>
+
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,7 +30,7 @@
 		<module>billy-core</module>
 		<module>billy-core-jpa</module>
 		<module>billy-gin</module>
-		<!-- ><module>billy-platypus</module> -->
+		<module>billy-portugal</module>
 	</modules>
 
 	<licenses>
@@ -42,8 +42,8 @@
 
 	<scm>
 		<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
-		<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
-		<url>git@github.com:premium-minds/billy.git</url>
+		<developerConnection>scm:git:git://github.com/premium-minds/billy.git</developerConnection>
+		<url>https://github.com/premium-minds/billy</url>
 	</scm>
 
 	<url>http://premium-minds.github.io/billy/</url>
@@ -53,14 +53,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>premium-repository</id>
-			<name>premium-repository-releases</name>
-			<url>http://maven.premium-minds.local/libs-release-local</url>
+			<id>premiumminds-nexus-staging</id>
+			<name>premiumminds-nexus-staging</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
 		</repository>
 		<snapshotRepository>
 			<id>premiumminds-nexus-snapshots</id>
-			<name>premium-repository-snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<name>premiumminds-nexus-snapshots</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots </url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -68,7 +68,7 @@
 		<pluginRepository>
 			<id>mc-release</id>
 			<name>Local Maven repository of releases</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
+			<url>http://mc-repo.googlecode.com/svn/maven2/releases </url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -77,36 +77,6 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-	
-	<profiles>
-		<profile>
-			<id>release-sign-artifacts</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.1</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 
 	<build>
 		<plugins>
@@ -124,12 +94,13 @@
 					</includes>
 					<excludes>
 						<exclude>target/**</exclude>
+						<exclude>**/test/resources/keys/**</exclude>
 					</excludes>
 					<mapping>
 						<yml>SCRIPT_STYLE</yml>
 					</mapping>
 					<properties>
-						<project-name>${name}</project-name>
+						<project-name>${project.name}</project-name>
 						<year>2013</year>
 						<owner>Premium Minds</owner>
 					</properties>
@@ -172,7 +143,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>

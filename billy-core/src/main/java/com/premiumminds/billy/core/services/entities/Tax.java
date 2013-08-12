@@ -39,7 +39,7 @@ public interface Tax extends Entity {
 	}
 
 	public static enum TaxRateType {
-		PERCENTAGE, FLAT
+		PERCENTAGE, FLAT, NONE
 	}
 
 	public <T extends Context> T getContext();

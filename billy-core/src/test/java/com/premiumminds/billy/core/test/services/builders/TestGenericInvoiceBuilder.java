@@ -18,126 +18,108 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Currency;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
-import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
-import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
-import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
-import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
-import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 
 public class TestGenericInvoiceBuilder extends AbstractTest {
 
-	private static final String GENERIC_INVOICE_YML = "src/test/resources/GenericInvoice.yml";
+	private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "GenericInvoice.yml";
+	private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "GenericInvoiceEntry.yml";
 
+	@SuppressWarnings("deprecation")
 	@Test
 	public void doTest() {
+		MockGenericInvoiceEntity mock = this.createMockEntity(
+				MockGenericInvoiceEntity.class,
+				TestGenericInvoiceBuilder.INVOICE_YML);
 
-		MockGenericInvoiceEntity mockGenericInvoice = loadFixture(MockGenericInvoiceEntity.class);
+		mock.setCurrency(Currency.getInstance("EUR"));
 
-		Mockito.when(getInstance(DAOGenericInvoice.class).getEntityInstance())
+		Mockito.when(
+				this.getInstance(DAOGenericInvoice.class).getEntityInstance())
 				.thenReturn(new MockGenericInvoiceEntity());
 
-		Mockito.when(getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
-		.thenReturn(new MockGenericInvoiceEntryEntity());
-		
-		GenericInvoice.Builder builder = getInstance(GenericInvoice.Builder.class);
+		MockGenericInvoiceEntryEntity mockInvoice = this.createMockEntity(
+				MockGenericInvoiceEntryEntity.class,
+				TestGenericInvoiceBuilder.ENTRY_YML);
 
-		GenericInvoiceEntry.Builder mockGenericInvoiceEntry = this
+		Mockito.when(
+				this.getInstance(DAOGenericInvoiceEntry.class).get(
+						Matchers.any(UID.class))).thenReturn(mockInvoice);
+
+		mock.getEntries().add(mockInvoice);
+
+		ArrayList<GenericInvoiceEntry> invoiceEntrys = (ArrayList<GenericInvoiceEntry>) mock
+				.getEntries();
+
+		GenericInvoice.Builder builder = this
+				.getInstance(GenericInvoice.Builder.class);
+
+		GenericInvoiceEntry.Builder invoice1 = this
 				.getMock(GenericInvoiceEntry.Builder.class);
-		
-		Mockito.when(mockGenericInvoiceEntry.build()).thenReturn(
-				Mockito.mock(GenericInvoiceEntryEntity.class));
+		Mockito.when(invoice1.build()).thenReturn(invoiceEntrys.get(0));
 
-		ShippingPoint.Builder mockShippingPoint = this
-				.getMock(ShippingPoint.Builder.class);
-		Mockito.when(mockShippingPoint.build()).thenReturn(
-				Mockito.mock(ShippingPointEntity.class));
+		builder.addEntry(invoice1).setCreditOrDebit(mock.getCreditOrDebit())
+				.setBatchId(mock.getBatchId()).setDate(mock.getDate())
+				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
+				.setOfficeNumber(mock.getOfficeNumber())
+				.setPaymentTerms(mock.getPaymentTerms())
+				.setSelfBilled(mock.selfBilled)
+				.setSettlementDate(mock.getSettlementDate())
+				.setSettlementDescription(mock.getSettlementDescription())
+				.setSettlementDiscount(mock.getSettlementDiscount())
+				.setSourceId(mock.getSourceId())
+				.setTransactionId(mock.getTransactionId());
 
-		builder.addEntry(mockGenericInvoiceEntry)
-				.addReceiptNumber(mockGenericInvoice.getReceiptNumbers().get(0))
-				.addReceiptNumber(mockGenericInvoice.getReceiptNumbers().get(1))
-				.setBatchId(mockGenericInvoice.getBatchId())
-				.setBusinessUID(mockGenericInvoice.getBusiness().getUID())
-				.setCreditOrDebit(mockGenericInvoice.getCreditOrDebit())
-				.setCustomerUID(mockGenericInvoice.getCustomer().getUID())
-				.setDate(mockGenericInvoice.getDate())
-//				NOT IMPLEMENTED
-//				.setDiscounts(DiscountType.VALUE,
-//						mockGenericInvoice.getDiscountsAmount())
-				.setGeneralLedgerDate(mockGenericInvoice.getGeneralLedgerDate())
-				.setOfficeNumber(mockGenericInvoice.getOfficeNumber())
-				.setPaymentTerms(mockGenericInvoice.getPaymentTerms())
-				.setSelfBilled(mockGenericInvoice.isSelfBilled())
-				.setSettlementDate(mockGenericInvoice.getSettlementDate())
-				.setSettlementDescription(
-						mockGenericInvoice.getSettlementDescription())
-				.setSettlementDiscount(
-						mockGenericInvoice.getSettlementDiscount())
-				.setShippingDestination(mockShippingPoint)
-				.setShippingOrigin(mockShippingPoint)
-				.setSourceId(mockGenericInvoice.getSourceId())
-				.setSupplierUID(mockGenericInvoice.getSupplier().getUID())
-				.setTransactionId(mockGenericInvoice.getTransactionId());
-		
-		GenericInvoice genericInvoice = builder.build();
-	}
+		GenericInvoice invoice = builder.build();
 
-	public MockGenericInvoiceEntity loadFixture(
-			Class<MockGenericInvoiceEntity> clazz) {
-		MockGenericInvoiceEntity result = (MockGenericInvoiceEntity) createMockEntity(
-				generateMockEntityConstructor(MockGenericInvoiceEntity.class),
-				GENERIC_INVOICE_YML);
+		Assert.assertTrue(invoice != null);
+		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
+				invoice.getAmountWithoutTax()) == 0);
+		Assert.assertTrue(mock.getAmountWithTax().compareTo(
+				invoice.getAmountWithTax()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
 
-		MockBusinessEntity business = new MockBusinessEntity();
-		business.uid = new UID("uid_business");
-		Mockito.when(
-				getInstance(DAOBusiness.class).get(Matchers.any(UID.class)))
-				.thenReturn(business);
-		result.business = business;
+		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
+		Assert.assertEquals(mock.getGeneralLedgerDate(),
+				invoice.getGeneralLedgerDate());
+		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
+		Assert.assertEquals(mock.getDate(), invoice.getDate());
+		Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
 
-		MockCustomerEntity customer = new MockCustomerEntity();
-		customer.uid = new UID("uid_customer");
-		Mockito.when(
-				getInstance(DAOCustomer.class).get(Matchers.any(UID.class)))
-				.thenReturn(customer);
-		result.customer = customer;
+		Assert.assertTrue(invoice.getEntries() != null);
+		Assert.assertEquals(invoice.getEntries().size(), mock.getEntries()
+				.size());
 
-		MockSupplierEntity supplier = new MockSupplierEntity();
-		supplier.uid = new UID("uid_supplier");
-		Mockito.when(
-				getInstance(DAOSupplier.class).get(Matchers.any(UID.class)))
-				.thenReturn(supplier);
-		result.supplier = supplier;
+		for (int i = 0; i < invoice.getEntries().size(); i++) {
+			ArrayList<GenericInvoiceEntry> invoices = (ArrayList<GenericInvoiceEntry>) invoice
+					.getEntries();
+			ArrayList<GenericInvoiceEntry> mockInvoices = (ArrayList<GenericInvoiceEntry>) mock
+					.getEntries();
+			Assert.assertEquals(invoices.get(i).getUnitAmountWithoutTax(),
+					mockInvoices.get(i).getUnitAmountWithoutTax());
+			Assert.assertEquals(invoices.get(i).getUnitAmountWithTax(),
+					mockInvoices.get(i).getUnitAmountWithTax());
+			Assert.assertEquals(invoices.get(i).getUnitTaxAmount(),
+					mockInvoices.get(i).getUnitTaxAmount());
+			Assert.assertTrue(invoices.get(i).equals(mockInvoices.get(i)));
+		}
 
-		result.receiptNumbers = Arrays.asList(new String[] { "123", "124" });
-
-		MockGenericInvoiceEntryEntity invoiceEntry = new MockGenericInvoiceEntryEntity();
-		invoiceEntry.uid = new UID("uid_invoice");
-		Mockito.when(
-				getInstance(DAOGenericInvoiceEntry.class).get(
-						Matchers.any(UID.class))).thenReturn(invoiceEntry);
-		result.entries = Arrays
-				.asList(new GenericInvoiceEntry[] { invoiceEntry });
-
-		result.currency = Currency.getInstance("EUR");
-
-		return result;
 	}
 }

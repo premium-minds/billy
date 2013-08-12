@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
@@ -37,16 +39,16 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 
 	protected DAOContext daoContext;
 
-	@SuppressWarnings("unchecked")
+	@Inject
 	public ContextBuilderImpl(DAOContext daoContext) {
-		super((EntityFactory<? extends TContext>) daoContext);
+		super((EntityFactory<?>) daoContext);
 		this.daoContext = daoContext;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
 		BillyValidator.mandatory(name,
-				ContextBuilderImpl.LOCALIZER.getString("field.name"));
+				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
@@ -81,7 +83,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 			throws javax.validation.ValidationException {
 		ContextEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getName(),
-				ContextBuilderImpl.LOCALIZER.getString("field.name"));
+				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
 		BillyValidator.mandatory(c.getDescription(),
 				ContextBuilderImpl.LOCALIZER.getString("field.description"));
 	}

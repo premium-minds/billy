@@ -18,15 +18,20 @@
  */
 package com.premiumminds.billy.core.services.documents;
 
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
+import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public interface DocumentIssuingService {
 
-	public <T extends GenericInvoice> T issue(T document)
+	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder)
 			throws DocumentIssuingException;
 
-	public void addHandler(Class<? extends GenericInvoice> handledClass,
+	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder,
+			IssuingParams parameters) throws DocumentIssuingException;
+
+	public void addHandler(Class<? extends GenericInvoiceEntity> handledClass,
 			DocumentIssuingHandler handler);
 
 }

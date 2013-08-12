@@ -29,7 +29,11 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 
 public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
+	public void setSeriesNumber(Integer seriesNumber);
+
 	public void setNumber(String number);
+
+	public void setSeries(String series);
 
 	public <T extends Business> void setBusiness(T business);
 
@@ -80,7 +84,7 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
 	public void setSettlementDate(Date date);
 
-	public <T extends Enum<T>> void setPaymentMechanism(T mechanism);
+	public <T extends Enum<?>> void setPaymentMechanism(T mechanism);
 
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit);
 

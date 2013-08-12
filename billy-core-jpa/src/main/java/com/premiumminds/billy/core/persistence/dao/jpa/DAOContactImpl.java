@@ -26,7 +26,8 @@ import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAContactEntity;
 
-public class DAOContactImpl extends AbstractDAO<ContactEntity, JPAContactEntity> implements DAOContact {
+public class DAOContactImpl extends
+		AbstractDAO<ContactEntity, JPAContactEntity> implements DAOContact {
 
 	@Inject
 	public DAOContactImpl(Provider<EntityManager> emProvider) {
@@ -34,7 +35,7 @@ public class DAOContactImpl extends AbstractDAO<ContactEntity, JPAContactEntity>
 	}
 
 	@Override
-	protected Class<JPAContactEntity> getEntityClass() {
+	protected Class<? extends JPAContactEntity> getEntityClass() {
 		return JPAContactEntity.class;
 	}
 

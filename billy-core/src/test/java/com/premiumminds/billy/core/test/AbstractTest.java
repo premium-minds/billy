@@ -18,15 +18,12 @@
  */
 package com.premiumminds.billy.core.test;
 
-import static org.mockito.Mockito.mock;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.List;
 
 import org.junit.BeforeClass;
-import org.yaml.snakeyaml.TypeDescription;
+import org.mockito.Mockito;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -39,6 +36,7 @@ import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
 public class AbstractTest {
 
 	private static Injector injector;
+	protected final static String YML_CONFIGS_DIR = "src/test/resources/yml/";
 
 	@BeforeClass
 	public static void setUpClass() {
@@ -51,44 +49,19 @@ public class AbstractTest {
 	}
 
 	public <T> T getMock(Class<T> clazz) {
-		return mock(clazz);
+		return Mockito.mock(clazz);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <T extends MockBaseEntity> MockBaseEntity createMockEntity(
-			Constructor constructor, String path) {
-		Yaml yaml = new Yaml(constructor);
+	public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz,
+			String path) {
+		Yaml yaml = new Yaml(new Constructor(clazz));
 
 		try {
 			return (T) yaml.load(new BufferedReader(new FileReader(path)));
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	public Constructor generateMockEntityConstructor(
-			Class<? extends MockBaseEntity> clazz) {
-		Constructor constructor = new Constructor(clazz);
-		constructor.addTypeDescription(new TypeDescription(clazz));
-		return constructor;
-	}
-
-	public Constructor generateMockEntityConstructor(
-			Class<? extends MockBaseEntity> clazz,
-			TypeDescription typeDescription) {
-		Constructor constructor = new Constructor(clazz);
-		constructor.addTypeDescription(typeDescription);
-		return constructor;
-	}
-
-	public Constructor generateMockEntityConstructor(
-			Class<? extends MockBaseEntity> clazz,
-			List<TypeDescription> typeDescriptions) {
-		Constructor constructor = new Constructor(clazz);
-		for (TypeDescription type : typeDescriptions) {
-			constructor.addTypeDescription(type);
-		}
-		return constructor;
 	}
 
 }

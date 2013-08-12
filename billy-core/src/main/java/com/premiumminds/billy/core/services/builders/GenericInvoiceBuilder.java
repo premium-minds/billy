@@ -43,10 +43,10 @@ public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TB
 
 	public TBuilder setDate(Date date);
 
-	public <T extends ShippingPoint> TBuilder setShippingOrigin(
+	public <T extends ShippingPointEntity> TBuilder setShippingOrigin(
 			Builder<T> originBuilder);
 
-	public <T extends ShippingPoint> TBuilder setShippingDestination(
+	public <T extends ShippingPointEntity> TBuilder setShippingDestination(
 			Builder<T> destinationBuilder);
 
 	public TBuilder setPaymentTerms(String terms);

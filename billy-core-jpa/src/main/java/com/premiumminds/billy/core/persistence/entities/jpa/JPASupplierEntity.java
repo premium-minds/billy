@@ -24,11 +24,15 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -39,47 +43,48 @@ import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
+
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "SUPPLIER_ADDRESS",
-			joinColumns={ @JoinColumn(name="ID_SUPPLIER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_ADDRESS", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_ADDRESS", joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID", unique = true) })
 	protected List<Address> addresses;
 
-	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "SUPPLIER_BANK_ACCOUNT",
-			joinColumns={ @JoinColumn(name="ID_SUPPLIER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_BANK_ACCOUNT", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_BANK_ACCOUNT", joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_BANK_ACCOUNT", referencedColumnName = "ID", unique = true) })
 	protected List<BankAccount> bankAccounts;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_BILLING_ADDRESS")
 	protected Address billingAddress;
 
-	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "SUPPLIER_CONTACT",
-			joinColumns={ @JoinColumn(name="ID_SUPPLIER", referencedColumnName="ID") },
-			inverseJoinColumns={ @JoinColumn(name="ID_CONTACT", referencedColumnName="ID", unique=true) })
+	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_CONTACT", joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
 	protected List<Contact> contacts;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_MAIN_ADDRESS")
 	protected Address mainAddress;
 
-	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_MAIN_CONTACT")
 	protected Contact mainContact;
 
 	@Column(name = "NAME")
 	protected String name;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_ADDRESS")
 	protected Address shippingAddress;
 
@@ -89,7 +94,6 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 	@Column(name = "SELF_BILLING_AGREEMENT")
 	protected Boolean selfBillingAgreement;
 
-
 	public JPASupplierEntity() {
 		this.addresses = new ArrayList<Address>();
 		this.bankAccounts = new ArrayList<BankAccount>();
@@ -98,42 +102,42 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getTaxRegistrationNumber() {
-		return taxRegistrationNumber;
+		return this.taxRegistrationNumber;
 	}
 
 	@Override
 	public Address getMainAddress() {
-		return mainAddress;
+		return this.mainAddress;
 	}
 
 	@Override
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
 	}
 
 	@Override
 	public Address getShippingAddress() {
-		return shippingAddress;
+		return this.shippingAddress;
 	}
 
 	@Override
 	public Contact getMainContact() {
-		return mainContact;
+		return this.mainContact;
 	}
 
 	@Override
 	public List<BankAccount> getBankAccounts() {
-		return bankAccounts;
+		return this.bankAccounts;
 	}
 
 	@Override
 	public boolean hasSelfBillingAgreement() {
-		return selfBillingAgreement;
+		return this.selfBillingAgreement;
 	}
 
 	@Override
@@ -148,7 +152,7 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 
 	@Override
 	public List<Address> getAddresses() {
-		return addresses;
+		return this.addresses;
 	}
 
 	@Override

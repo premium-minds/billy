@@ -29,6 +29,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -38,8 +40,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.envers.Audited;
+
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
@@ -47,9 +52,12 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "INVOICE_ENTRY")
+@Audited
+@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements
-GenericInvoiceEntryEntity {
+		GenericInvoiceEntryEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Enumerated(EnumType.STRING)
@@ -63,10 +71,7 @@ GenericInvoiceEntryEntity {
 	protected String description;
 
 	@ManyToMany(targetEntity = JPAGenericInvoiceEntity.class)
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "ENTRY_REFERENCE",
-			joinColumns={@JoinColumn(name="ID_ENTRY", referencedColumnName="ID")},
-			inverseJoinColumns={@JoinColumn(name="ID_REFERENCE", referencedColumnName="ID")})
+	@JoinTable(name = Config.TABLE_PREFIX + "ENTRY_REFERENCE", joinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_REFERENCE", referencedColumnName = "ID") })
 	protected List<GenericInvoice> references;
 
 	@Column(name = "NUMBER")
@@ -97,19 +102,18 @@ GenericInvoiceEntryEntity {
 	@Column(name = "SHIPPING_COSTS_AMOUNT", scale = 7)
 	protected BigDecimal shippingCostsAmount;
 
-	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_DESTINATION")
 	protected ShippingPoint shippingDestination;
 
-	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_ORIGIN")
 	protected ShippingPoint shippingOrigin;
 
 	@ManyToMany(targetEntity = JPATaxEntity.class)
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "ENTRY_TAX",
-			joinColumns={@JoinColumn(name="ID_ENTRY", referencedColumnName="ID")},
-			inverseJoinColumns={@JoinColumn(name="ID_TAX", referencedColumnName="ID")})
+	@JoinTable(name = Config.TABLE_PREFIX + "ENTRY_TAX", joinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_TAX", referencedColumnName = "ID") })
 	protected List<Tax> taxes;
 
 	@Column(name = "TAX_EXEMPTION_REASON")
@@ -134,6 +138,8 @@ GenericInvoiceEntryEntity {
 	@Column(name = "UNIT_OF_MEASURE")
 	protected String unitOfMeasure;
 
+	@Column(name = "AMOUNT_TYPE")
+	protected AmountType type;
 
 	public JPAGenericInvoiceEntryEntity() {
 		this.references = new ArrayList<GenericInvoice>();
@@ -142,110 +148,114 @@ GenericInvoiceEntryEntity {
 
 	@Override
 	public Integer getEntryNumber() {
-		return number;
+		return this.number;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ShippingPoint getShippingOrigin() {
-		return shippingOrigin;
+		return this.shippingOrigin;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public ShippingPoint getShippingDestination() {
-		return shippingDestination;
+		return this.shippingDestination;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Product getProduct() {
-		return product;
+		return this.product;
 	}
 
 	@Override
 	public BigDecimal getQuantity() {
-		return quantity;
+		return this.quantity;
 	}
 
 	@Override
 	public String getUnitOfMeasure() {
-		return unitOfMeasure;
+		return this.unitOfMeasure;
 	}
 
 	@Override
 	public BigDecimal getUnitAmountWithTax() {
-		return unitAmountWithTax;
+		return this.unitAmountWithTax;
 	}
 
 	@Override
 	public BigDecimal getUnitAmountWithoutTax() {
-		return unitAmountWithoutTax;
+		return this.unitAmountWithoutTax;
 	}
 
 	@Override
 	public BigDecimal getUnitDiscountAmount() {
-		return unitDiscountAmount;
+		return this.unitDiscountAmount;
 	}
 
 	@Override
 	public BigDecimal getUnitTaxAmount() {
-		return unitTaxAmount;
+		return this.unitTaxAmount;
 	}
 
 	@Override
 	public BigDecimal getAmountWithTax() {
-		return amountWithTax;
+		return this.amountWithTax;
 	}
 
 	@Override
 	public BigDecimal getAmountWithoutTax() {
-		return amountWithoutTax;
+		return this.amountWithoutTax;
 	}
 
 	@Override
 	public BigDecimal getDiscountAmount() {
-		return discountAmount;
+		return this.discountAmount;
 	}
 
 	@Override
 	public BigDecimal getTaxAmount() {
-		return taxAmount;
+		return this.taxAmount;
 	}
 
 	@Override
 	public Date getTaxPointDate() {
-		return taxPointDate;
+		return this.taxPointDate;
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	@Override
 	public CreditOrDebit getCreditOrDebit() {
-		return creditOrDebit;
+		return this.creditOrDebit;
 	}
 
 	@Override
 	public BigDecimal getShippingCostsAmount() {
-		return shippingCostsAmount;
+		return this.shippingCostsAmount;
 	}
 
 	@Override
 	public Currency getCurrency() {
-		return currency;
+		return this.currency;
 	}
 
 	@Override
 	public BigDecimal getExchangeRateToDocumentCurrency() {
-		return exchangeRateToDocumentCurrency;
+		return this.exchangeRateToDocumentCurrency;
 	}
 
 	@Override
 	public String getTaxExemptionReason() {
-		return taxExemptionReason;
+		return this.taxExemptionReason;
+	}
+
+	public AmountType getAmountType() {
+		return this.type;
 	}
 
 	@Override
@@ -285,12 +295,12 @@ GenericInvoiceEntryEntity {
 
 	@Override
 	public void setUnitAmountWithoutTax(BigDecimal amount) {
-		this.unitAmountWithoutTax = amount;		
+		this.unitAmountWithoutTax = amount;
 	}
 
 	@Override
 	public void setUnitDiscountAmount(BigDecimal amount) {
-		this.unitDiscountAmount = amount;		
+		this.unitDiscountAmount = amount;
 	}
 
 	@Override
@@ -305,12 +315,12 @@ GenericInvoiceEntryEntity {
 
 	@Override
 	public void setAmountWithoutTax(BigDecimal amount) {
-		this.amountWithoutTax = amount;		
+		this.amountWithoutTax = amount;
 	}
 
 	@Override
 	public void setDiscountAmount(BigDecimal amount) {
-		this.discountAmount = amount;		
+		this.discountAmount = amount;
 	}
 
 	@Override
@@ -355,12 +365,16 @@ GenericInvoiceEntryEntity {
 
 	@Override
 	public List<Tax> getTaxes() {
-		return taxes;
+		return this.taxes;
 	}
 
 	@Override
 	public void setTaxExemptionReason(String exemptionReason) {
 		this.taxExemptionReason = exemptionReason;
+	}
+
+	public void setAmountType(AmountType type) {
+		this.type = type;
 	}
 
 }

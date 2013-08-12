@@ -27,12 +27,13 @@ public class CoreJPAPersistenceDependencyModule extends AbstractModule {
 
 	@Override
 	protected void configure() {
-		install(new JpaPersistModule("BillyCoreJPAPersistenceUnit"));
+		this.install(new JpaPersistModule("BillyCoreJPAPersistenceUnit"));
 	}
 
 	public static class Initializer {
-		
-		@Inject public Initializer(PersistService persistService) {
+
+		@Inject
+		public Initializer(PersistService persistService) {
 			persistService.start();
 		}
 	}

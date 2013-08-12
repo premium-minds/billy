@@ -24,14 +24,16 @@ import com.google.inject.Injector;
 public class CoreJPABootstrap {
 
 	public static void main(String[] args) {
-		execute();
+		CoreJPABootstrap.execute();
 	}
 
 	public static void execute() {
-		//Load dependency injector
-		Injector injector = Guice.createInjector(new CoreJPADependencyModule());
+		// Load dependency injector
+		Injector injector = Guice.createInjector(new CoreJPADependencyModule(),
+				new CoreJPAPersistenceDependencyModule());
 		injector.getInstance(CoreDependencyModule.Initializer.class);
-		execute(injector);
+		injector.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
+		CoreJPABootstrap.execute(injector);
 	}
 
 	public static void execute(Injector dependencyInjector) {

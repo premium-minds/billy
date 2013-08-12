@@ -33,7 +33,7 @@ public interface SupplierBuilder<TBuilder extends SupplierBuilder<TBuilder, TSup
 
 	public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder);
 
-	public TBuilder setMainAddress(Builder<Address> addressBuilder);
+	public <T extends Address> TBuilder setMainAddress(Builder<T> addressBuilder);
 
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder);
@@ -45,7 +45,7 @@ public interface SupplierBuilder<TBuilder extends SupplierBuilder<TBuilder, TSup
 
 	public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder);
 
-	public <T extends BankAccount> TBuilder setBankAccount(
+	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder);
 
 	public TBuilder setSelfBillingAgreement(boolean selfBilling);

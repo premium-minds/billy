@@ -18,37 +18,38 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
 import com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity;
 
 public class TestShippingPointBuilder extends AbstractTest {
 
-	private static final String SHIPPINGPOINT_YML = "src/test/resources/ShippingPoint.yml";
-	private static final String ADDRESS_YML = "src/test/resources/Address.yml";
+	private static final String SHIPPINGPOINT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ShippingPoint.yml";
 
 	@Test
 	public void doTest() {
-		MockShippingPointEntity mockShippingPoint = loadFixture(MockShippingPointEntity.class);
+		MockShippingPointEntity mockShippingPoint = this.createMockEntity(
+				MockShippingPointEntity.class,
+				TestShippingPointBuilder.SHIPPINGPOINT_YML);
 
-		Mockito.when(getInstance(DAOShippingPoint.class).getEntityInstance())
+		Mockito.when(
+				this.getInstance(DAOShippingPoint.class).getEntityInstance())
 				.thenReturn(new MockShippingPointEntity());
 
-		ShippingPoint.Builder builder = getInstance(ShippingPoint.Builder.class);
+		ShippingPoint.Builder builder = this
+				.getInstance(ShippingPoint.Builder.class);
 
 		Address.Builder mockAddressBuilder = this
 				.getMock(Address.Builder.class);
 		Mockito.when(mockAddressBuilder.build()).thenReturn(
-				Mockito.mock(AddressEntity.class));
+				mockShippingPoint.getAddress());
 
 		builder.setAddress(mockAddressBuilder)
 				.setDate(mockShippingPoint.getDate())
@@ -59,29 +60,19 @@ public class TestShippingPointBuilder extends AbstractTest {
 
 		ShippingPoint shippingPoint = builder.build();
 
-		assert (shippingPoint != null);
+		Assert.assertTrue(shippingPoint != null);
 
-		assertEquals(mockShippingPoint.getDeliveryId(),
+		Assert.assertEquals(mockShippingPoint.getDeliveryId(),
 				shippingPoint.getDeliveryId());
-		assertEquals(mockShippingPoint.getLocationId(),
+		Assert.assertEquals(mockShippingPoint.getLocationId(),
 				shippingPoint.getLocationId());
-		assertEquals(mockShippingPoint.getUCR(), shippingPoint.getUCR());
-		assertEquals(mockShippingPoint.getWarehouseId(),
+		Assert.assertEquals(mockShippingPoint.getUCR(), shippingPoint.getUCR());
+		Assert.assertEquals(mockShippingPoint.getWarehouseId(),
 				shippingPoint.getWarehouseId());
-		assertEquals(mockShippingPoint.getDate(), shippingPoint.getDate());
+		Assert.assertEquals(mockShippingPoint.getDate(),
+				shippingPoint.getDate());
+		Assert.assertEquals(mockShippingPoint.getAddress(),
+				shippingPoint.getAddress());
 	}
 
-	public MockShippingPointEntity loadFixture(
-			Class<MockShippingPointEntity> clazz) {
-
-		MockShippingPointEntity result = (MockShippingPointEntity) createMockEntity(
-				generateMockEntityConstructor(MockShippingPointEntity.class),
-				SHIPPINGPOINT_YML);
-
-		result.address = (MockAddressEntity) createMockEntity(
-				generateMockEntityConstructor(MockAddressEntity.class),
-				ADDRESS_YML);
-
-		return result;
-	}
 }

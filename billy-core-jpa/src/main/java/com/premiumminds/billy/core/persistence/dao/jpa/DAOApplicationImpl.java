@@ -26,7 +26,9 @@ import com.premiumminds.billy.core.persistence.dao.DAOApplication;
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity;
 
-public class DAOApplicationImpl extends AbstractDAO<ApplicationEntity, JPAApplicationEntity> implements DAOApplication {
+public class DAOApplicationImpl extends
+		AbstractDAO<ApplicationEntity, JPAApplicationEntity> implements
+		DAOApplication {
 
 	@Inject
 	public DAOApplicationImpl(Provider<EntityManager> emProvider) {
@@ -34,7 +36,7 @@ public class DAOApplicationImpl extends AbstractDAO<ApplicationEntity, JPAApplic
 	}
 
 	@Override
-	protected Class<JPAApplicationEntity> getEntityClass() {
+	protected Class<? extends JPAApplicationEntity> getEntityClass() {
 		return JPAApplicationEntity.class;
 	}
 

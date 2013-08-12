@@ -18,17 +18,19 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import javax.validation.ValidationException;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 
 public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
 
-	private EntityFactory<? extends TType> factory;
+	private EntityFactory<?> factory;
 	protected TType typeInstance;
 
-	public AbstractBuilder(EntityFactory<? extends TType> entityFactory) {
+	public AbstractBuilder(EntityFactory<?> entityFactory) {
 		this.factory = entityFactory;
-		this.setTypeInstance(entityFactory.getEntityInstance());
+		this.setTypeInstance((TType) entityFactory.getEntityInstance());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -36,14 +38,15 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
 		return (TBuilder) this;
 	}
 
-	protected abstract void validateInstance() throws BillyValidationException;
+	protected abstract void validateInstance() throws BillyValidationException,
+			ValidationException;
 
 	protected <T extends TType> void setTypeInstance(T instance) {
 		this.typeInstance = instance;
 	}
 
 	public void clear() {
-		this.typeInstance = this.factory.getEntityInstance();
+		this.typeInstance = (TType) this.factory.getEntityInstance();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -51,7 +54,7 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
 		return (T) this.typeInstance;
 	}
 
-	public TType build() {
+	public TType build() throws BillyValidationException, ValidationException {
 		this.validateInstance();
 		return this.getTypeInstance();
 	}

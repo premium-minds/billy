@@ -25,12 +25,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -43,7 +47,9 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -102,51 +108,51 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Context getOperationalContext() {
-		return operationalContext;
+		return this.operationalContext;
 	}
 
 	@Override
 	public String getFinancialID() {
-		return taxId;
+		return this.taxId;
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getCommercialName() {
-		return commercialName;
+		return this.commercialName;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getAddress() {
-		return address;
+		return this.address;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getBillingAddress() {
-		return billingAddress;
+		return this.billingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Address getShippingAddress() {
-		return shippingAddress;
+		return this.shippingAddress;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public Contact getMainContact() {
-		return mainContact;
+		return this.mainContact;
 	}
 
 	@Override
 	public String getWebsiteAddress() {
-		return website;
+		return this.website;
 	}
 
 	@Override
@@ -191,7 +197,7 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
 	@Override
 	public List<Contact> getContacts() {
-		return contacts;
+		return this.contacts;
 	}
 
 	@Override

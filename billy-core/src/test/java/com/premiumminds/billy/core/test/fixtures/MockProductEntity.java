@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
-import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 
 public class MockProductEntity extends MockBaseEntity implements ProductEntity {
 
@@ -36,10 +36,10 @@ public class MockProductEntity extends MockBaseEntity implements ProductEntity {
 	public String comodityCode;
 	public ProductType type;
 	public String description;
-	public List<Tax> taxes;
+	public List<TaxEntity> taxes;
 
 	public MockProductEntity() {
-		this.taxes = new ArrayList<Tax>();
+		this.taxes = new ArrayList<TaxEntity>();
 	}
 
 	@Override
@@ -124,7 +124,7 @@ public class MockProductEntity extends MockBaseEntity implements ProductEntity {
 	}
 
 	@Override
-	public List<Tax> getTaxes() {
+	public List<TaxEntity> getTaxes() {
 		return this.taxes;
 	}
 

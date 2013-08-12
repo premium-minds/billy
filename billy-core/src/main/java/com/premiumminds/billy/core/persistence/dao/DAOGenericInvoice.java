@@ -18,8 +18,11 @@
  */
 package com.premiumminds.billy.core.persistence.dao;
 
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 
 public interface DAOGenericInvoice extends DAO<GenericInvoiceEntity> {
 
+	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
+			String series) throws BillyRuntimeException;
 }

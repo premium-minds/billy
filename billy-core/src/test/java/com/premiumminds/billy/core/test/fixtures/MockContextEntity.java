@@ -35,17 +35,18 @@ public class MockContextEntity extends MockBaseEntity implements ContextEntity {
 
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Context getParentContext() {
-		return parentContext;
+		return this.parentContext;
 	}
 
 	@Override

@@ -56,6 +56,10 @@ public interface GenericInvoice extends Entity {
 
 	public String getNumber();
 
+	public Integer getSeriesNumber();
+
+	public String getSeries();
+
 	public <T extends Business> T getBusiness();
 
 	public <T extends Customer> T getCustomer();
@@ -102,7 +106,7 @@ public interface GenericInvoice extends Entity {
 
 	public Date getSettlementDate();
 
-	public <T extends Enum<T>> T getPaymentMechanism();
+	public <T extends Enum<?>> T getPaymentMechanism();
 
 	public CreditOrDebit getCreditOrDebit();
 

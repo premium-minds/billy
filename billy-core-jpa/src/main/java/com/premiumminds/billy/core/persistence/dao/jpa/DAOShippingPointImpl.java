@@ -26,15 +26,17 @@ import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity;
 
-public class DAOShippingPointImpl extends AbstractDAO<ShippingPointEntity, JPAShippingPointEntity> implements DAOShippingPoint {
+public class DAOShippingPointImpl extends
+		AbstractDAO<ShippingPointEntity, JPAShippingPointEntity> implements
+		DAOShippingPoint {
 
 	@Inject
 	public DAOShippingPointImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
-	
+
 	@Override
-	protected Class<JPAShippingPointEntity> getEntityClass() {
+	protected Class<? extends JPAShippingPointEntity> getEntityClass() {
 		return JPAShippingPointEntity.class;
 	}
 

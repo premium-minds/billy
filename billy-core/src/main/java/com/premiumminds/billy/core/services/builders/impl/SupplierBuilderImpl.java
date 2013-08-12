@@ -44,36 +44,40 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 
 	protected DAOSupplier daoSupplier;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public SupplierBuilderImpl(DAOSupplier daoSupplier) {
-		super((EntityFactory<? extends TSupplier>) daoSupplier);
+		super((EntityFactory<?>) daoSupplier);
+		this.daoSupplier = daoSupplier;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
 		BillyValidator.mandatory(name,
-				SupplierBuilderImpl.LOCALIZER.getString("field.name"));
+				SupplierBuilderImpl.LOCALIZER.getString("field.supplier_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setTaxRegistrationNumber(String number) {
+		BillyValidator.notBlank(number, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_tax_number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
 
 	@Override
 	public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder) {
+		BillyValidator.notNull(addressBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_address"));
 		this.getTypeInstance().getAddresses().add(addressBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
-	public TBuilder setMainAddress(Builder<Address> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder,
-				SupplierBuilderImpl.LOCALIZER.getString("field.address"));
+	public <T extends Address> TBuilder setMainAddress(Builder<T> addressBuilder) {
+		BillyValidator.mandatory(addressBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_main_address"));
 		this.getTypeInstance().setMainAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -82,6 +86,8 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
+		BillyValidator.notNull(addressBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -90,6 +96,8 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder setShippingAddress(
 			Builder<T> addressBuilder) {
+		BillyValidator.notNull(addressBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_shipping_address"));
 		this.getTypeInstance().setShippingAddress(
 				(AddressEntity) addressBuilder.build());
 		return this.getBuilder();
@@ -97,20 +105,26 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 
 	@Override
 	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
+		BillyValidator.notNull(contactBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_contact"));
 		this.getTypeInstance().getContacts().add(contactBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
 	public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder) {
+		BillyValidator.notNull(contactBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_main_contact"));
 		this.getTypeInstance().setMainContact(
 				(ContactEntity) contactBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
-	public <T extends BankAccount> TBuilder setBankAccount(
+	public <T extends BankAccount> TBuilder addBankAccount(
 			Builder<T> accountBuilder) {
+		BillyValidator.notNull(accountBuilder, SupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_bank_account"));
 		this.getTypeInstance().getBankAccounts().add(accountBuilder.build());
 		return this.getBuilder();
 	}
@@ -125,9 +139,10 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	protected void validateInstance() throws BillyValidationException {
 		Supplier s = this.getTypeInstance();
 		BillyValidator.mandatory(s.getName(),
-				SupplierBuilderImpl.LOCALIZER.getString("field.name"));
+				SupplierBuilderImpl.LOCALIZER.getString("field.supplier_name"));
 		BillyValidator.mandatory(s.getMainAddress(),
-				SupplierBuilderImpl.LOCALIZER.getString("field.address"));
+				SupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_address"));
 	}
 
 	@SuppressWarnings("unchecked")

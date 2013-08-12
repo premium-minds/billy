@@ -20,68 +20,74 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
-public class JPAContactEntity extends JPABaseEntity
-implements ContactEntity{
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class JPAContactEntity extends JPABaseEntity implements ContactEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "NAME")
 	protected String name;
-	
+
 	@Column(name = "PHONE")
 	protected String phone;
-	
+
 	@Column(name = "MOBILE")
 	protected String mobile;
-	
+
 	@Column(name = "FAX")
 	protected String fax;
-	
+
 	@Column(name = "EMAIL")
 	protected String email;
-	
+
 	@Column(name = "WEBSITE")
 	protected String website;
-	
-	
-	public JPAContactEntity() {}
-	
+
+	public JPAContactEntity() {
+	}
+
 	@Override
 	public String getName() {
-		return name;
+		return this.name;
 	}
-	
+
 	@Override
 	public String getTelephone() {
-		return phone;
+		return this.phone;
 	}
 
 	@Override
 	public String getMobile() {
-		return mobile;
+		return this.mobile;
 	}
 
 	@Override
 	public String getFax() {
-		return fax;
+		return this.fax;
 	}
 
 	@Override
 	public String getEmail() {
-		return email;
+		return this.email;
 	}
 
 	@Override
 	public String getWebsite() {
-		return website;
+		return this.website;
 	}
-	
+
 	@Override
 	public void setName(String name) {
 		this.name = name;

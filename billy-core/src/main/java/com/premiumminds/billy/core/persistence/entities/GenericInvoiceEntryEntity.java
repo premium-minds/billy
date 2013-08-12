@@ -23,6 +23,7 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
@@ -80,5 +81,7 @@ public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry,
 	public <T extends Tax> List<T> getTaxes();
 
 	public void setTaxExemptionReason(String exemptionReason);
+
+	public void setAmountType(AmountType type);
 
 }

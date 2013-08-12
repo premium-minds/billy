@@ -18,8 +18,7 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -30,19 +29,19 @@ import com.premiumminds.billy.core.test.fixtures.MockContactEntity;
 
 public class TestContactBuilder extends AbstractTest {
 
-	private static final String CONTACT_YML = "src/test/resources/Contact.yml";
+	private static final String CONTACT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Contact.yml";
 
 	@Test
 	public void doTest() {
 
-		MockContactEntity mockContact = (MockContactEntity) createMockEntity(
-				generateMockEntityConstructor(MockContactEntity.class),
-				CONTACT_YML);
+		MockContactEntity mockContact = this.createMockEntity(
+				MockContactEntity.class, TestContactBuilder.CONTACT_YML);
 
-		Mockito.when(getInstance(DAOContact.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOContact.class).getEntityInstance())
 				.thenReturn(new MockContactEntity());
 
-		Contact.Builder builder = getInstance(Contact.Builder.class);
+		Contact.Builder builder = this.getInstance(Contact.Builder.class);
 
 		builder.setEmail(mockContact.getEmail()).setFax(mockContact.getFax())
 				.setMobile(mockContact.getMobile())
@@ -53,11 +52,11 @@ public class TestContactBuilder extends AbstractTest {
 		Contact contact = builder.build();
 
 		assert (contact != null);
-		assertEquals(mockContact.getName(), contact.getName());
-		assertEquals(mockContact.getTelephone(), contact.getTelephone());
-		assertEquals(mockContact.getMobile(), contact.getMobile());
-		assertEquals(mockContact.getFax(), contact.getFax());
-		assertEquals(mockContact.getEmail(), contact.getEmail());
-		assertEquals(mockContact.getWebsite(), contact.getWebsite());
+		Assert.assertEquals(mockContact.getName(), contact.getName());
+		Assert.assertEquals(mockContact.getTelephone(), contact.getTelephone());
+		Assert.assertEquals(mockContact.getMobile(), contact.getMobile());
+		Assert.assertEquals(mockContact.getFax(), contact.getFax());
+		Assert.assertEquals(mockContact.getEmail(), contact.getEmail());
+		Assert.assertEquals(mockContact.getWebsite(), contact.getWebsite());
 	}
 }

@@ -28,25 +28,29 @@ import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity;
 
-public class DAOCustomerImpl extends AbstractDAO<CustomerEntity, JPACustomerEntity> implements DAOCustomer {
+public class DAOCustomerImpl extends
+		AbstractDAO<CustomerEntity, JPACustomerEntity> implements DAOCustomer {
 
 	@Inject
 	public DAOCustomerImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<CustomerEntity> getAllActiveCustomers() {
-		List<JPACustomerEntity> result = getEntityManager().createQuery(
-				"select c from "+getEntityClass().getCanonicalName()+" c " +
-						"where c.active=true",
-						getEntityClass())
-						.getResultList();
-		return checkEntityList(result, CustomerEntity.class);
+		List<JPACustomerEntity> result = (List<JPACustomerEntity>) this
+				.getEntityManager()
+				.createQuery(
+						"select c from "
+								+ this.getEntityClass().getCanonicalName()
+								+ " c " + "where c.active=true",
+						this.getEntityClass()).getResultList();
+		return this.checkEntityList(result, CustomerEntity.class);
 	}
 
 	@Override
-	protected Class<JPACustomerEntity> getEntityClass() {
+	protected Class<? extends JPACustomerEntity> getEntityClass() {
 		return JPACustomerEntity.class;
 	}
 

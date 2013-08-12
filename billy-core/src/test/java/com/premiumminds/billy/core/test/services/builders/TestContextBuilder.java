@@ -18,13 +18,13 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
+import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -32,24 +32,22 @@ import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
 
 public class TestContextBuilder extends AbstractTest {
 
-	private static final String CONTEXT_YML = "src/test/resources/Context.yml";
+	private static final String CONTEXT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Context.yml";
 
 	@Test
 	public void doTest() {
-		MockContextEntity mockContext = (MockContextEntity) createMockEntity(
-				generateMockEntityConstructor(MockContextEntity.class),
-				CONTEXT_YML);
+		MockContextEntity mockContext = this.createMockEntity(
+				MockContextEntity.class, TestContextBuilder.CONTEXT_YML);
 
-		Mockito.when(getInstance(DAOContext.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOContext.class).getEntityInstance())
 				.thenReturn(new MockContextEntity());
 
-		MockContextEntity mockParentContext = new MockContextEntity();
-		mockParentContext.uid = new UID("uid_ref");
-		Mockito.when(getInstance(DAOContext.class).get(Matchers.any(UID.class)))
-				.thenReturn(mockParentContext);
-		mockContext.parentContext = mockParentContext;
+		Mockito.when(
+				this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+				.thenReturn((ContextEntity) mockContext.getParentContext());
 
-		Context.Builder builder = getInstance(Context.Builder.class);
+		Context.Builder builder = this.getInstance(Context.Builder.class);
 
 		builder.setDescription(mockContext.getDescription())
 				.setName(mockContext.getName())
@@ -58,9 +56,10 @@ public class TestContextBuilder extends AbstractTest {
 		Context context = builder.build();
 
 		assert (context != null);
-		assertEquals(mockContext.getName(), context.getName());
-		assertEquals(mockContext.getDescription(), context.getDescription());
-		assertEquals(mockContext.getParentContext().getUID(), context
+		Assert.assertEquals(mockContext.getName(), context.getName());
+		Assert.assertEquals(mockContext.getDescription(),
+				context.getDescription());
+		Assert.assertEquals(mockContext.getParentContext().getUID(), context
 				.getParentContext().getUID());
 
 	}

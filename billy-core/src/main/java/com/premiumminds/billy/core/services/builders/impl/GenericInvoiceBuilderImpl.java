@@ -40,7 +40,6 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -51,8 +50,6 @@ import com.premiumminds.billy.core.util.DiscountType;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 
-@Deprecated
-@NotImplemented
 public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
 		extends AbstractBuilder<TBuilder, TDocument> implements
 		GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
@@ -65,12 +62,11 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	protected DAOCustomer daoCustomer;
 	protected DAOSupplier daoSupplier;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public GenericInvoiceBuilderImpl(DAOGenericInvoice daoGenericInvoice,
 			DAOBusiness daoBusiness, DAOCustomer daoCustomer,
 			DAOSupplier daoSupplier) {
-		super((EntityFactory<? extends TDocument>) daoGenericInvoice);
+		super((EntityFactory<?>) daoGenericInvoice);
 		this.daoGenericInvoice = daoGenericInvoice;
 		this.daoBusiness = daoBusiness;
 		this.daoCustomer = daoCustomer;
@@ -80,7 +76,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	@Override
 	public TBuilder setBusinessUID(UID businessUID) {
 		BillyValidator
-				.mandatory(businessUID, GenericInvoiceBuilderImpl.LOCALIZER
+				.notNull(businessUID, GenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.business"));
 		BusinessEntity b = this.daoBusiness.get(businessUID);
 		BillyValidator
@@ -118,7 +114,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	public TBuilder setOfficeNumber(String number) {
-		BillyValidator.notNull(number, GenericInvoiceBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(number, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.office_number"));
 		this.getTypeInstance().setOfficeNumber(number);
 		return this.getBuilder();
@@ -133,24 +129,28 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
-	public <T extends ShippingPoint> TBuilder setShippingOrigin(
+	public <T extends ShippingPointEntity> TBuilder setShippingOrigin(
 			Builder<T> originBuilder) {
-		this.getTypeInstance().setShippingOrigin(
-				(ShippingPointEntity) originBuilder.build());
+		Validate.notNull(originBuilder, GenericInvoiceBuilderImpl.LOCALIZER
+				.getString("field.shipping_origin"));
+		this.getTypeInstance().setShippingOrigin(originBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
-	public <T extends ShippingPoint> TBuilder setShippingDestination(
+	public <T extends ShippingPointEntity> TBuilder setShippingDestination(
 			Builder<T> destinationBuilder) {
+		Validate.notNull(destinationBuilder,
+				GenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.shipping_destination"));
 		this.getTypeInstance().setShippingDestination(
-				(ShippingPointEntity) destinationBuilder.build());
+				destinationBuilder.build());
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setPaymentTerms(String terms) {
-		Validate.notEmpty(terms,
+		Validate.notBlank(terms,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.terms"));
 		this.getTypeInstance().setPaymentTerms(terms);
 		return this.getBuilder();
@@ -164,26 +164,31 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	public TBuilder setSourceId(String source) {
-		Validate.notEmpty(source,
+		Validate.notBlank(source,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+		this.getTypeInstance().setSourceId(source);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setGeneralLedgerDate(Date date) {
+		Validate.notNull(date, GenericInvoiceBuilderImpl.LOCALIZER
+				.getString("field.general_ledger_date"));
 		this.getTypeInstance().setGeneralLedgerDate(date);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setBatchId(String id) {
+		Validate.notBlank(id,
+				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.batch_id"));
 		this.getTypeInstance().setBatchId(id);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setTransactionId(String id) {
-		Validate.notEmpty(id, GenericInvoiceBuilderImpl.LOCALIZER
+		Validate.notBlank(id, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.transaction"));
 		this.getTypeInstance().setTransactionId(id);
 		return this.getBuilder();
@@ -191,8 +196,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	public TBuilder addReceiptNumber(String number) {
-		BillyValidator.notNull(number, GenericInvoiceBuilderImpl.LOCALIZER
-				.getString("field.receipt_number"));
 		BillyValidator.notBlank(number, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.receipt_number"));
 		return this.getBuilder();
@@ -208,15 +211,15 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 																		// message
 		GenericInvoiceEntity i = this.getTypeInstance();
 		GenericInvoiceEntryEntity e = (GenericInvoiceEntryEntity) entry;
-		e.setEntryNumber(i.getEntries().size());
 		i.getEntries().add(e);
+		e.setEntryNumber(i.getEntries().size());
 		this.validateValues();
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setSettlementDescription(String description) {
-		Validate.notEmpty(description, GenericInvoiceBuilderImpl.LOCALIZER
+		Validate.notBlank(description, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.settlement_description"));
 		this.getTypeInstance().setSettlementDescription(description);
 		return this.getBuilder();
@@ -233,6 +236,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@NotImplemented
+	@Deprecated
 	@Override
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts) {
 		// TODO Auto-generated method stub
@@ -259,16 +263,23 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.notNull(creditOrDebit,
 				GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("credit_or_debit"));
+						.getString("field.credit_or_debit"));
 		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
 		return this.getBuilder();
 	}
 
 	@Override
 	protected void validateInstance() throws ValidationException {
-		// TODO Auto-generated method stub
+		this.validateDate();
 		this.validateValues();
-		this.validateDates();
+	}
+
+	protected void validateDate() {
+		// needed to avoid no date in the invoice
+		GenericInvoiceEntity i = this.getTypeInstance();
+		if (i.getDate() == null) {
+			i.setDate(new Date());
+		}
 	}
 
 	protected void validateValues() throws ValidationException {
@@ -291,8 +302,13 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		i.setTaxAmount(taxAmount);
 		i.setAmountWithoutTax(amountWithoutTax);
 
-		Validate.isTrue(i.getAmountWithTax().add(i.getAmountWithoutTax(), mc)
-				.compareTo(i.getTaxAmount()) == 0,
+		Validate.isTrue(
+				i.getAmountWithTax()
+						.subtract(i.getAmountWithoutTax(), mc)
+						.setScale(7, mc.getRoundingMode())
+						.compareTo(
+								i.getTaxAmount().setScale(7,
+										mc.getRoundingMode())) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
 
@@ -312,10 +328,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	protected void applyDiscounts() {
 		GenericInvoiceEntity i = this.getTypeInstance();
 		i.getSettlementDiscount();
-	}
-
-	protected void validateDates() throws ValidationException {
-		// TODO
 	}
 
 	@SuppressWarnings("unchecked")

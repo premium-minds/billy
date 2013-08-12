@@ -28,25 +28,29 @@ import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity;
 
-public class DAOProductImpl extends AbstractDAO<ProductEntity, JPAProductEntity> implements DAOProduct {
+public class DAOProductImpl extends
+		AbstractDAO<ProductEntity, JPAProductEntity> implements DAOProduct {
 
 	@Inject
 	public DAOProductImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ProductEntity> getAllActiveProducts() {
-		List<JPAProductEntity> result = getEntityManager().createQuery(
-				"select p from "+getEntityClass().getCanonicalName()+" p " +
-						"where p.active=true",
-						getEntityClass())
-						.getResultList();
-		return checkEntityList(result, ProductEntity.class);
+		List<JPAProductEntity> result = (List<JPAProductEntity>) this
+				.getEntityManager()
+				.createQuery(
+						"select p from "
+								+ this.getEntityClass().getCanonicalName()
+								+ " p " + "where p.active=true",
+						this.getEntityClass()).getResultList();
+		return this.checkEntityList(result, ProductEntity.class);
 	}
-	
+
 	@Override
-	protected Class<JPAProductEntity> getEntityClass() {
+	protected Class<? extends JPAProductEntity> getEntityClass() {
 		return JPAProductEntity.class;
 	}
 

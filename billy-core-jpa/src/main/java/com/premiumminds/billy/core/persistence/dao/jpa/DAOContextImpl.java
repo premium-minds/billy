@@ -27,15 +27,16 @@ import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 
-public class DAOContextImpl extends AbstractDAO<ContextEntity, JPAContextEntity> implements DAOContext {
+public class DAOContextImpl extends
+		AbstractDAO<ContextEntity, JPAContextEntity> implements DAOContext {
 
 	@Inject
 	public DAOContextImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
-	
+
 	@Override
-	protected Class<JPAContextEntity> getEntityClass() {
+	protected Class<? extends JPAContextEntity> getEntityClass() {
 		return JPAContextEntity.class;
 	}
 
@@ -46,13 +47,13 @@ public class DAOContextImpl extends AbstractDAO<ContextEntity, JPAContextEntity>
 
 	@Override
 	public boolean isSubContext(Context sub, Context context) {
-		if(sub.getParentContext() == null) {
+		if (sub.getParentContext() == null) {
 			return false;
 		}
-		if(sub.getParentContext().getUID().equals(context.getUID())) {
+		if (sub.getParentContext().getUID().equals(context.getUID())) {
 			return true;
 		}
-		return isSubContext(sub.getParentContext(), context);
+		return this.isSubContext(sub.getParentContext(), context);
 	}
 
 }

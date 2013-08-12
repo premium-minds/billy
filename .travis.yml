@@ -10,7 +10,9 @@ before_script:
         - psql -c 'CREATE DATABASE billy WITH OWNER billy;' -U postgres
 
 # Avoid default OracleJDK7. Complies with Eclipse environment used
-jdk: openjdk7
+jdk:
+    - openjdk6
+    - openjdk7
 
 notifications:
     email:

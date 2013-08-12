@@ -18,8 +18,7 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -30,18 +29,18 @@ import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
 
 public class TestAddressBuilder extends AbstractTest {
 
-	private static final String ADDRESS_YML = "src/test/resources/Address.yml";
+	private static final String ADDRESS_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Address.yml";
 
 	@Test
 	public void doTest() {
-		MockAddressEntity mockAddress = (MockAddressEntity) createMockEntity(
-				generateMockEntityConstructor(MockAddressEntity.class),
-				ADDRESS_YML);
+		MockAddressEntity mockAddress = this.createMockEntity(
+				MockAddressEntity.class, TestAddressBuilder.ADDRESS_YML);
 
-		Mockito.when(getInstance(DAOAddress.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOAddress.class).getEntityInstance())
 				.thenReturn(new MockAddressEntity());
 
-		Address.Builder builder = getInstance(Address.Builder.class);
+		Address.Builder builder = this.getInstance(Address.Builder.class);
 
 		builder.setBuilding(mockAddress.getBuilding())
 				.setCity(mockAddress.getCity())
@@ -54,14 +53,18 @@ public class TestAddressBuilder extends AbstractTest {
 
 		Address address = builder.build();
 
-		assert (address != null);
-		assertEquals(mockAddress.getStreetName(), address.getStreetName());
-		assertEquals(mockAddress.getNumber(), address.getNumber());
-		assertEquals(mockAddress.getDetails(), address.getDetails());
-		assertEquals(mockAddress.getBuilding(), address.getBuilding());
-		assertEquals(mockAddress.getCity(), address.getCity());
-		assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
-		assertEquals(mockAddress.getRegion(), address.getRegion());
-		assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
+		Assert.assertTrue(address != null);
+
+		Assert.assertEquals(mockAddress.getStreetName(),
+				address.getStreetName());
+		Assert.assertEquals(mockAddress.getNumber(), address.getNumber());
+		Assert.assertEquals(mockAddress.getDetails(), address.getDetails());
+		Assert.assertEquals(mockAddress.getBuilding(), address.getBuilding());
+		Assert.assertEquals(mockAddress.getCity(), address.getCity());
+		Assert.assertEquals(mockAddress.getPostalCode(),
+				address.getPostalCode());
+		Assert.assertEquals(mockAddress.getRegion(), address.getRegion());
+		Assert.assertEquals(mockAddress.getISOCountry(),
+				address.getISOCountry());
 	}
 }

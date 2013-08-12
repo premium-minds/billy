@@ -18,18 +18,13 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.Arrays;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Address;
@@ -37,87 +32,94 @@ import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
-import com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity;
-import com.premiumminds.billy.core.test.fixtures.MockContactEntity;
 import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 
 public class TestCustomerBuilder extends AbstractTest {
 
-	private static final String CUSTOMER_YML = "src/test/resources/Customer.yml";
+	private static final String CUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Customer.yml";
 
 	@Test
 	public void doTest() {
-		MockCustomerEntity mockCustomer = loadFixture(MockCustomerEntity.class);
+		MockCustomerEntity mockCustomer = this.createMockEntity(
+				MockCustomerEntity.class, TestCustomerBuilder.CUSTOMER_YML);
 
-		Mockito.when(getInstance(DAOCustomer.class).getEntityInstance())
+		Mockito.when(this.getInstance(DAOCustomer.class).getEntityInstance())
 				.thenReturn(new MockCustomerEntity());
+
 		Mockito.when(
-				getInstance(DAOContact.class).get((UID) Matchers.anyObject()))
-				.thenReturn(getMock(ContactEntity.class));
+				this.getInstance(DAOContact.class).get(Matchers.any(UID.class)))
+				.thenReturn((ContactEntity) mockCustomer.getMainContact());
 
-		Customer.Builder builder = getInstance(Customer.Builder.class);
+		Customer.Builder builder = this.getInstance(Customer.Builder.class);
 
-		Address.Builder mockAddressBuilder = this
+		Address.Builder mockMainAddressBuilder = this
 				.getMock(Address.Builder.class);
-		Mockito.when(mockAddressBuilder.build()).thenReturn(
-				Mockito.mock(AddressEntity.class));
+		Mockito.when(mockMainAddressBuilder.build()).thenReturn(
+				mockCustomer.getMainAddress());
 
-		BankAccount.Builder mockBankAccountBuilder = this
+		Address.Builder mockBillingAddressBuilder = this
+				.getMock(Address.Builder.class);
+		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
+				mockCustomer.getBillingAddress());
+
+		Address.Builder mockShippingAddressBuilder = this
+				.getMock(Address.Builder.class);
+		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
+				mockCustomer.getShippingAddress());
+
+		BankAccount.Builder mockBankAccountBuilder1 = this
 				.getMock(BankAccount.Builder.class);
-		Mockito.when(mockBankAccountBuilder.build()).thenReturn(
-				Mockito.mock(BankAccountEntity.class));
+		Mockito.when(mockBankAccountBuilder1.build()).thenReturn(
+				mockCustomer.getBankAccounts().get(0));
 
-		Contact.Builder mockContactBuilder = this
+		BankAccount.Builder mockBankAccountBuilder2 = this
+				.getMock(BankAccount.Builder.class);
+		Mockito.when(mockBankAccountBuilder2.build()).thenReturn(
+				mockCustomer.getBankAccounts().get(1));
+
+		Contact.Builder mockMainContactBuilder = this
 				.getMock(Contact.Builder.class);
-		Mockito.when(mockContactBuilder.build()).thenReturn(
+		Mockito.when(mockMainContactBuilder.build()).thenReturn(
+				mockCustomer.getMainContact());
+
+		Contact.Builder mockContactBuilder1 = this
+				.getMock(Contact.Builder.class);
+		Mockito.when(mockContactBuilder1.build()).thenReturn(
 				mockCustomer.getContacts().get(0));
 
-		builder.addBankAccount(mockBankAccountBuilder)
-				.addAddress(mockAddressBuilder, true)
-				.addContact(mockContactBuilder)
-				.setBillingAddress(mockAddressBuilder)
-				.setHasSelfBillingAgreement(false)
+		Contact.Builder mockContactBuilder2 = this
+				.getMock(Contact.Builder.class);
+		Mockito.when(mockContactBuilder2.build()).thenReturn(
+				mockCustomer.getContacts().get(1));
+
+		builder.addBankAccount(mockBankAccountBuilder1)
+				.addBankAccount(mockBankAccountBuilder2)
+				.addAddress(mockMainAddressBuilder, true)
+				.addContact(mockMainContactBuilder)
+				.addContact(mockContactBuilder1)
+				.addContact(mockContactBuilder2)
+				.setBillingAddress(mockBillingAddressBuilder)
+				.setHasSelfBillingAgreement(
+						mockCustomer.hasSelfBillingAgreement())
 				.setName(mockCustomer.getName())
-				.setShippingAddress(mockAddressBuilder)
+				.setShippingAddress(mockShippingAddressBuilder)
 				.setTaxRegistrationNumber(
 						mockCustomer.getTaxRegistrationNumber())
-				.setMainContactUID(mockCustomer.getContacts().get(0).getUID());
+				.setMainContactUID(mockCustomer.getMainContact().getUID());
 
 		Customer customer = builder.build();
 
-		assert (customer != null);
+		Assert.assertTrue(customer != null);
 
-		assertEquals(mockCustomer.getName(), customer.getName());
-		assertEquals(mockCustomer.getTaxRegistrationNumber(),
+		Assert.assertEquals(mockCustomer.getName(), customer.getName());
+		Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(),
 				customer.getTaxRegistrationNumber());
+		Assert.assertEquals(mockCustomer.getMainAddress(),
+				customer.getMainAddress());
+		Assert.assertEquals(mockCustomer.getShippingAddress(),
+				customer.getShippingAddress());
+		Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(),
+				customer.hasSelfBillingAgreement());
 	}
-
-	public MockCustomerEntity loadFixture(Class<MockCustomerEntity> clazz) {
-		MockCustomerEntity result = (MockCustomerEntity) createMockEntity(
-				generateMockEntityConstructor(MockCustomerEntity.class),
-				CUSTOMER_YML);
-
-		MockContactEntity contactRef = new MockContactEntity();
-		contactRef.uid = new UID("uid_ref");
-		Mockito.when(getInstance(DAOContact.class).get(Matchers.any(UID.class)))
-				.thenReturn(contactRef);
-
-		MockAddressEntity mockAddress = new MockAddressEntity();
-		result.addresses = Arrays.asList(new Address[] { mockAddress });
-
-		MockBankAccountEntity mockBankAccount = new MockBankAccountEntity();
-		result.bankAccounts = Arrays
-				.asList(new BankAccount[] { mockBankAccount });
-
-		result.billingAddress = mockAddress;
-		result.contacts = Arrays.asList(new Contact[] { contactRef });
-		result.hasSelfBillingAgreement = false;
-		result.mainAddress = mockAddress;
-		result.mainContact = contactRef;
-		result.shippingAddress = mockAddress;
-
-		return result;
-	}
-
 }

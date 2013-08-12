@@ -26,11 +26,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
@@ -38,7 +42,9 @@ import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "TAX")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 
 	private static final long serialVersionUID = 1L;
@@ -86,57 +92,57 @@ public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Context getContext() {
-		return context;
+		return this.context;
 	}
 
 	@Override
 	public String getDesignation() {
-		return designation;
+		return this.designation;
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	@Override
 	public String getCode() {
-		return code;
+		return this.code;
 	}
 
 	@Override
 	public BigDecimal getValue() {
-		return value;
+		return this.value;
 	}
 
 	@Override
 	public Date getValidFrom() {
-		return validFrom;
+		return this.validFrom;
 	}
 
 	@Override
 	public Date getValidTo() {
-		return validTo;
+		return this.validTo;
 	}
 
 	@Override
 	public TaxRateType getTaxRateType() {
-		return taxRateType;
+		return this.taxRateType;
 	}
 
 	@Override
 	public BigDecimal getPercentageRateValue() {
-		return percentageRateValue;
+		return this.percentageRateValue;
 	}
 
 	@Override
 	public BigDecimal getFlatRateAmount() {
-		return flatRateAmount;
+		return this.flatRateAmount;
 	}
 
 	@Override
 	public Currency getCurrency() {
-		return currency;
+		return this.currency;
 	}
 
 	@Override

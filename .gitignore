@@ -9,3 +9,7 @@ target/**
 .project
 .classpath
 billy/src/main/filters/*.properties
+data-sources.xml
+release.properties
+billy-portugal/src/test/resources/documents/
+billy-portugal/src/main/java/com/premiumminds/billy/portugal/services/export/saftpt/schema/*

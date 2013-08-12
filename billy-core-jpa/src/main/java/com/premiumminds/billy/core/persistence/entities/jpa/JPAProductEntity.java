@@ -25,19 +25,25 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.services.entities.Tax;
 
 @Entity
+@Audited
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
-public class JPAProductEntity extends JPABaseEntity
-implements ProductEntity {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "PRODUCT_CODE")
@@ -66,12 +72,8 @@ implements ProductEntity {
 	protected String unitOfMeasure;
 
 	@ManyToMany(targetEntity = JPATaxEntity.class)
-	@JoinTable(
-			name=Config.TABLE_PREFIX + "PRODUCT_TAX",
-			joinColumns={@JoinColumn(name="ID_PRODUCT", referencedColumnName="ID")},
-			inverseJoinColumns={@JoinColumn(name="ID_TAX", referencedColumnName="ID")})
+	@JoinTable(name = Config.TABLE_PREFIX + "PRODUCT_TAX", joinColumns = { @JoinColumn(name = "ID_PRODUCT", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_TAX", referencedColumnName = "ID") })
 	protected List<Tax> taxes;
-
 
 	public JPAProductEntity() {
 		this.taxes = new ArrayList<Tax>();
@@ -79,42 +81,42 @@ implements ProductEntity {
 
 	@Override
 	public String getProductCode() {
-		return productCode;
+		return this.productCode;
 	}
 
 	@Override
 	public String getProductGroup() {
-		return group;
+		return this.group;
 	}
 
 	@Override
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	@Override
 	public ProductType getType() {
-		return type;
+		return this.type;
 	}
 
 	@Override
 	public String getCommodityCode() {
-		return commodityCode;
+		return this.commodityCode;
 	}
 
 	@Override
 	public String getNumberCode() {
-		return numberCode;
+		return this.numberCode;
 	}
 
 	@Override
 	public String getValuationMethod() {
-		return valuationMethod;
+		return this.valuationMethod;
 	}
 
 	@Override
 	public String getUnitOfMeasure() {
-		return unitOfMeasure;
+		return this.unitOfMeasure;
 	}
 
 	@Override

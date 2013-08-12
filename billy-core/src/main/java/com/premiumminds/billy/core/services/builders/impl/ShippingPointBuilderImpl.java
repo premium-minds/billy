@@ -31,6 +31,7 @@ import com.premiumminds.billy.core.services.builders.ShippingPointBuilder;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<TBuilder, TShippingPoint>, TShippingPoint extends ShippingPoint>
@@ -42,44 +43,56 @@ public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<
 
 	protected DAOShippingPoint daoShippingPoint;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public ShippingPointBuilderImpl(DAOShippingPoint daoShippingPoint) {
-		super((EntityFactory<? extends TShippingPoint>) daoShippingPoint);
+		super((EntityFactory<?>) daoShippingPoint);
+		this.daoShippingPoint = daoShippingPoint;
 	}
 
 	@Override
 	public TBuilder setDeliveryId(String deliveryId) {
+		BillyValidator.notBlank(deliveryId, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.delivery_id"));
 		this.getTypeInstance().setDeliveryId(deliveryId);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setDate(Date date) {
+		BillyValidator.notNull(date, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.shipping_date"));
 		this.getTypeInstance().setDate(date);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setWarehouseId(String id) {
+		BillyValidator.notBlank(id, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.warehouse_id"));
 		this.getTypeInstance().setWarehouseId(id);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setLocationId(String id) {
+		BillyValidator.notBlank(id, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.location_id"));
 		this.getTypeInstance().setLocationId(id);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setUCR(String UCR) {
+		BillyValidator.notBlank(UCR,
+				ShippingPointBuilderImpl.LOCALIZER.getString("field.ucr"));
 		this.getTypeInstance().setUCR(UCR);
 		return this.getBuilder();
 	}
 
 	@Override
 	public <T extends Address> TBuilder setAddress(Builder<T> address) {
+		BillyValidator.notNull(address, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.shipping_address"));
 		this.getTypeInstance().setAddress((AddressEntity) address.build());
 		return this.getBuilder();
 	}

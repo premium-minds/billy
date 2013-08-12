@@ -40,17 +40,16 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	protected DAOApplication daoApplication;
 
-	@SuppressWarnings("unchecked")
 	@Inject
 	public ApplicationBuilderImpl(DAOApplication daoApplication) {
-		super((EntityFactory<? extends TApplication>) daoApplication);
+		super((EntityFactory<?>) daoApplication);
 		this.daoApplication = daoApplication;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.name"));
+		BillyValidator.mandatory(name, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.application_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
@@ -81,8 +80,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
-		BillyValidator.notNull(contactBuilder,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.contact"));
+		BillyValidator.notNull(contactBuilder, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.application_contact"));
 		ContactEntity contact = (ContactEntity) contactBuilder.build();
 		this.getTypeInstance().getContacts().add(contact);
 		if (this.getTypeInstance().getContacts().size() == 1) {
@@ -94,7 +93,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 	@Override
 	public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder) {
 		BillyValidator.notNull(contactBuilder, ApplicationBuilderImpl.LOCALIZER
-				.getString("field.main_contact"));
+				.getString("field.application_main_contact"));
 		this.getTypeInstance().setMainContact(
 				(ContactEntity) contactBuilder.build());
 		return this.getBuilder();
@@ -102,6 +101,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setWebsiteAddress(String website) {
+		BillyValidator.notBlank(website, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.application_website"));
 		this.getTypeInstance().setWebsiteAddress(website);
 		return this.getBuilder();
 	}
@@ -111,7 +112,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 			throws javax.validation.ValidationException {
 		ApplicationEntity application = this.getTypeInstance();
 		BillyValidator.mandatory(application.getName(),
-				ApplicationBuilderImpl.LOCALIZER.getString("field.name"));
+				ApplicationBuilderImpl.LOCALIZER
+						.getString("field.application_name"));
 		BillyValidator.mandatory(application.getVersion(),
 				ApplicationBuilderImpl.LOCALIZER.getString("field.version"));
 		BillyValidator.mandatory(application.getDeveloperCompanyName(),
@@ -122,7 +124,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 				ApplicationBuilderImpl.LOCALIZER
 						.getString("field.developer_tax_id"));
 		BillyValidator.notEmpty(application.getContacts(),
-				ApplicationBuilderImpl.LOCALIZER.getString("field.contacts"));
+				ApplicationBuilderImpl.LOCALIZER
+						.getString("field.application_contact"));
 	}
 
 	@SuppressWarnings("unchecked")
