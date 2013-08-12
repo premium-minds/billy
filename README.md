@@ -23,7 +23,7 @@ Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search
 Checkout our [getting started guide](http://premium-minds.github.io/billy/getStarted.html).
 
 ##Continuous Integration
-[![Build Status](https://travis-ci.org/premium-minds/billy.png?branch=platypus-fix)](https://travis-ci.org/premium-minds/billy)
+[![Build Status](https://travis-ci.org/premium-minds/billy.png?branch=master)](https://travis-ci.org/premium-minds/billy)
 
 CI is hosted by [travis-ci.org](https://travis-ci.org/)
 
