@@ -26,11 +26,9 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface PTSimpleInvoiceEntity extends PTInvoiceEntity, PTSimpleInvoice {
 
-	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<PTInvoiceEntry> getEntries();
 
-	@SuppressWarnings({ "unchecked" })
 	@Override
-	public PaymentMechanism getPaymentMechanism();
+	public Enum<PaymentMechanism> getPaymentMechanism();
 }
