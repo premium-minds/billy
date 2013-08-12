@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.test.services.documents;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.junit.Test;
 
@@ -42,7 +43,7 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 		parameters.setInvoiceSeries("A");
 
 		service.issue(new PTInvoiceTestUtil(injector).getInvoiceBuilder("b1",
-				"b2", SourceBilling.P, Arrays.asList("prod")), parameters);
+				"b2", SourceBilling.P, Arrays.asList("prod")).setDate(new Date(new Date().getTime() + 100000)), parameters);
 
 	}
 }

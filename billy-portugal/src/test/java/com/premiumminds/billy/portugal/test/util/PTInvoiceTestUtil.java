@@ -40,7 +40,6 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceTestUtil {
 
-	protected static final Date DATE = new Date(new Date().getTime() + 100000);
 	protected static final Boolean BILLED = false;
 	protected static final Boolean CANCELLED = false;
 	protected static final Boolean SELFBILL = false;
@@ -204,7 +203,7 @@ public class PTInvoiceTestUtil {
 		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
 				.setCancelled(PTInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
-				.setDate(PTInvoiceTestUtil.DATE)
+				.setDate(new Date())
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)

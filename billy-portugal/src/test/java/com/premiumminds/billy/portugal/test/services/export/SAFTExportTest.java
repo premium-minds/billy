@@ -278,7 +278,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			generator.generateSAFTFile(stream, businessEntity,
 					applicationEntity, "1234", calendar.getTime(), new Date(),
 					daoPTCustomer, daoPTSupplier, daoPTProduct, daoPTTax,
-					daoPTRegionContext, daoPTInvoice, daoPTCreditNote);
+					daoPTRegionContext, daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

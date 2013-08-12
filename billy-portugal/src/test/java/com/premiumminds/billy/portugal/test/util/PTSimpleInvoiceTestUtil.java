@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.test.util;
 
 import java.util.Arrays;
 import java.util.Currency;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -126,7 +127,7 @@ public class PTSimpleInvoiceTestUtil extends PTInvoiceTestUtil {
 		invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
 				.setCancelled(PTInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
-				.setDate(PTInvoiceTestUtil.DATE)
+				.setDate(new Date())
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)

@@ -75,8 +75,9 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 			query.where(e);
 		}
 
-		return this.checkEntityList(query.list(simpleInvoice),
-				PTSimpleInvoiceEntity.class);
+		List<PTSimpleInvoiceEntity> result = this.checkEntityList(query.list(simpleInvoice),
+				PTSimpleInvoiceEntity.class); 
+		return result;
 	}
 
 }

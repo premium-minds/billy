@@ -73,8 +73,9 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 			query.where(e);
 		}
 
-		return this.checkEntityList(query.list(creditNote),
-				PTCreditNoteEntity.class);
+		List<PTCreditNoteEntity> result = this.checkEntityList(query.list(creditNote),
+				PTCreditNoteEntity.class); 
+		return result;
 	}
 
 }

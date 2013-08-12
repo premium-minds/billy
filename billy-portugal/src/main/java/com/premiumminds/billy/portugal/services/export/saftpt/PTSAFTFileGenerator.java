@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.export.saftpt;
 
@@ -48,6 +49,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
@@ -62,6 +64,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntr
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
@@ -188,6 +191,7 @@ public class PTSAFTFileGenerator {
 			final DAOPTTax daoPTTax,
 			final DAOPTRegionContext daoPTRegionContext,
 			final DAOPTInvoice daoPTInvoice,
+			final DAOPTSimpleInvoice daoPTSimpleInvoice,
 			final DAOPTCreditNote daoPTCreditNote) throws SAFTPTExportException {
 
 		try {
@@ -252,6 +256,11 @@ public class PTSAFTFileGenerator {
 					List<PTInvoiceEntity> invoices = daoPTInvoice
 							.getBusinessInvoicesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
+					// List<PTInvoiceEntity> invoices = null;
+
+					List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
+							.getBusinessSimpleInvoicesForSAFTPT(
+									businessEntity.getUID(), fromDate, toDate);
 
 					List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
 							.getBusinessCreditNotesForSAFTPT(
@@ -261,6 +270,8 @@ public class PTSAFTFileGenerator {
 							.generateSourceDocuments(
 									invoices == null ? new ArrayList<PTInvoiceEntity>()
 											: invoices,
+									simpleInvoices == null ? new ArrayList<PTSimpleInvoiceEntity>()
+											: simpleInvoices,
 									creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
 											: creditNotes);
 					SAFTFile.setSourceDocuments(sd);
@@ -584,7 +595,9 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidInvoiceTypeException
 	 */
 	private SourceDocuments generateSourceDocuments(
-			List<PTInvoiceEntity> invoices, List<PTCreditNoteEntity> creditNotes)
+			List<PTInvoiceEntity> invoices,
+			List<PTSimpleInvoiceEntity> simpleInvoices,
+			List<PTCreditNoteEntity> creditNotes)
 			throws DatatypeConfigurationException,
 			RequiredFieldNotFoundException, InvalidDocumentTypeException,
 			InvalidDocumentStateException, InvalidTaxTypeException,
@@ -608,6 +621,17 @@ public class PTSAFTFileGenerator {
 
 			if (!invoice.isBilled() && !invoice.isCancelled()) {
 				totalCredit = totalCredit.add(invoice.getAmountWithoutTax());
+			}
+		}
+
+		for (PTSimpleInvoiceEntity simpleInvoice : simpleInvoices) {
+			saftInvoice = this.generateSAFTInvoice(simpleInvoice);
+			this.processDocument(saftInvoice, simpleInvoice, true);
+			salesInvoices.getInvoice().add(saftInvoice);
+
+			if (!simpleInvoice.isBilled() && !simpleInvoice.isCancelled()) {
+				totalCredit = totalCredit.add(simpleInvoice
+						.getAmountWithoutTax());
 			}
 		}
 
@@ -658,8 +682,10 @@ public class PTSAFTFileGenerator {
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),
 				MAX_LENGTH_172, true));
-		saftInv.setHashControl(validateString("HashControl",
-				document.getHashControl(), MAX_LENGTH_40, false));
+		if (document.getHashControl() != null) {
+			saftInv.setHashControl(validateString("HashControl",
+					document.getHashControl(), MAX_LENGTH_40, false));
+		}
 		saftInv.setPeriod(validateInteger("Period", Integer
 				.toString(getDateField(document.getDate(), Calendar.MONTH)),
 				MAX_LENGTH_2, true));
@@ -668,8 +694,10 @@ public class PTSAFTFileGenerator {
 				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
 		saftInv.setSourceID(validateString("InvoiceSourceID",
 				document.getSourceId(), MAX_LENGTH_30, true));
-		saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
-				MAX_LENGTH_5, false));
+		if (document.getEACCode() != null) {
+			saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
+					MAX_LENGTH_5, false));
+		}
 		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(this.config
@@ -1124,8 +1152,10 @@ public class PTSAFTFileGenerator {
 		}
 
 		status.setInvoiceStatusDate(formatDateTime(document.getDate()));
-		status.setReason(validateString("Reason", document.getChangeReason(),
-				MAX_LENGTH_50, false));
+		if (document.getChangeReason() != null) {
+			status.setReason(validateString("Reason",
+					document.getChangeReason(), MAX_LENGTH_50, false));
+		}
 		status.setSourceID(document.getSourceId());
 		status.setSourceBilling(document.getSourceBilling().toString());
 		return status;
