@@ -16,24 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.persistence.dao;
 
-import java.util.List;
+import com.premiumminds.billy.core.persistence.dao.DAO;
+import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
+public interface DAOPTPayment extends DAO<PTPaymentEntity> {
 
-	@SuppressWarnings({ "unchecked" })
 	@Override
-	public List<PTInvoiceEntry> getEntries();
-
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public Enum<PaymentMechanism> getPaymentMechanism();
-	
-	public List<PTPayment> getPayments();
+	public PTPaymentEntity getEntityInstance();
 }

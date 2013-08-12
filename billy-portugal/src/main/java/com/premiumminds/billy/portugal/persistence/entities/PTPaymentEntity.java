@@ -18,22 +18,17 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Date;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
+public interface PTPaymentEntity extends BaseEntity, PTPayment {
 
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public List<PTInvoiceEntry> getEntries();
+	public void setPaymentMethod(String method);
 
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public Enum<PaymentMechanism> getPaymentMechanism();
-	
-	public List<PTPayment> getPayments();
+	public void setPaymentAmount(BigDecimal amount);
+
+	public void setPaymentDate(Date paymentDate);
 }

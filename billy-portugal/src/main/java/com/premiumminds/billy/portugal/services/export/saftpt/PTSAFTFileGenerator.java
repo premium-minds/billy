@@ -1079,6 +1079,8 @@ public class PTSAFTFileGenerator {
 				return "FS";
 			case FT:
 				return "FT";
+			case FR:
+				return "FR";
 			case NC:
 				return "NC";
 			case ND:

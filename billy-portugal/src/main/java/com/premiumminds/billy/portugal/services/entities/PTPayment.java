@@ -18,31 +18,30 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.inject.Inject;
 
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderImpl;
+import com.premiumminds.billy.core.services.entities.Entity;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
+import com.premiumminds.billy.portugal.services.builders.impl.PTPaymentBuilderImpl;
 
-public interface PTInvoice extends PTGenericInvoice {
 
-	public static class Builder extends
-		PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
+public interface PTPayment extends Entity {
+	
+	public static class Builder extends PTPaymentBuilderImpl<Builder, PTPayment> {
 
 		@Inject
-		public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
-						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+		public Builder(DAOPTPayment daoPTPayment) {
+			super(daoPTPayment);
 		}
+		
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<? extends PTGenericInvoiceEntry> getEntries();
 	
-	public List<PTPayment> getPayments();
+	public String getPaymentMethod();
+	
+	public BigDecimal getPaymentAmount();
+	
+	public Date getPaymentDate();
 }

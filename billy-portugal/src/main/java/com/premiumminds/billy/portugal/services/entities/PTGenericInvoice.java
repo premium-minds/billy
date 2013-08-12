@@ -33,7 +33,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceBu
 public interface PTGenericInvoice extends GenericInvoice {
 
 	public static enum TYPE {
-		FT, FS, NC, ND
+		FT, FS, FR, NC, ND
 	}
 
 	/**

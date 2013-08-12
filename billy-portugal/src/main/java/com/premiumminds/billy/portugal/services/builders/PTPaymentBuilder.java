@@ -16,24 +16,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.services.builders;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.Date;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
-public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
-
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public List<PTInvoiceEntry> getEntries();
-
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public Enum<PaymentMechanism> getPaymentMechanism();
+public interface PTPaymentBuilder<TBuilder extends PTPaymentBuilder<TBuilder, TPayment>, TPayment extends PTPayment>
+		extends Builder<TPayment> {
 	
-	public List<PTPayment> getPayments();
+	public TBuilder setPaymentMethod(String method);
+	
+	public TBuilder setPaymentAmount(BigDecimal amount);
+	
+	public TBuilder setPaymentDate(Date date);
+
 }
