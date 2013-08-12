@@ -20,13 +20,14 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.util.Date;
 
+import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.persistence.dao.DAOPayment;
 import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 import com.premiumminds.billy.core.services.builders.PaymentBuilder;
 import com.premiumminds.billy.core.services.entities.Payment;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
@@ -37,8 +38,9 @@ public class PaymentBuilderImpl<TBuilder extends PaymentBuilderImpl<TBuilder, TP
 	protected static final Localizer LOCALIZER = new Localizer(
 			"com/premiumminds/billy/portugal/i18n/FieldNames");
 
-	public PaymentBuilderImpl(EntityFactory<?> entityFactory) {
-		super(entityFactory);
+	@Inject
+	public PaymentBuilderImpl(DAOPayment daoPayment) {
+		super(daoPayment);
 	}
 
 	@SuppressWarnings("unchecked")

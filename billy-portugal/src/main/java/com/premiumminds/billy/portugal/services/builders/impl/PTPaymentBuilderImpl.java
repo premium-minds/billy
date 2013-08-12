@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import java.math.BigDecimal;
 
+import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -27,6 +28,7 @@ import com.premiumminds.billy.core.services.builders.impl.PaymentBuilderImpl;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 import com.premiumminds.billy.portugal.services.builders.PTPaymentBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
@@ -38,8 +40,9 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 	protected static final Localizer LOCALIZER = new Localizer(
 			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
-	public PTPaymentBuilderImpl(EntityFactory<?> entityFactory) {
-		super(entityFactory);
+	@Inject
+	public PTPaymentBuilderImpl(DAOPTPayment daoPTPayment) {
+		super(daoPTPayment);
 	}
 
 	@Override

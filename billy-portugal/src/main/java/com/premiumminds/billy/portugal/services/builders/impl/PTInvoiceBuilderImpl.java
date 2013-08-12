@@ -30,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTInvoice>
 	extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
@@ -49,6 +50,12 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	@Override
 	protected PTInvoiceEntity getTypeInstance() {
 		return (PTInvoiceEntity) super.getTypeInstance();
+	}
+	
+	@Override
+	public TBuilder addPayment(PTPayment payment) {
+		this.getTypeInstance().getPayments().add(payment);
+		return this.getBuilder();
 	}
 
 	@Override

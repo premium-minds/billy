@@ -46,7 +46,7 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 
 	@OneToMany(targetEntity = JPAPTPaymentEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "PAYMENT", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true)	})
+	@JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true)	})
 	protected List<PTPayment> payments;
 	
 	public JPAPTInvoiceEntity() {
