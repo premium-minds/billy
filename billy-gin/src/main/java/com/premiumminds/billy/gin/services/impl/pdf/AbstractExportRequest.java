@@ -20,14 +20,14 @@ package com.premiumminds.billy.gin.services.impl.pdf;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public class AbstractExportRequest implements ExportServiceRequest {
 
 	protected UID uid;
-	private IBillyTemplateBundle bundle;
+	private BillyTemplateBundle bundle;
 
-	public AbstractExportRequest(UID uid, IBillyTemplateBundle bundle) {
+	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle) {
 		this.uid = uid;
 		this.bundle = bundle;
 	}
@@ -36,7 +36,7 @@ public class AbstractExportRequest implements ExportServiceRequest {
 		return this.uid;
 	}
 
-	public IBillyTemplateBundle getBundle() {
+	public BillyTemplateBundle getBundle() {
 		return this.bundle;
 	}
 

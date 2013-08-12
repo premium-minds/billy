@@ -20,7 +20,7 @@ package com.premiumminds.billy.gin.services.export;
 
 import java.io.InputStream;
 
-public interface IBillyTemplateBundle {
+public interface BillyTemplateBundle {
 
 	/**
 	 * returns the path to the image file to be used as a logo

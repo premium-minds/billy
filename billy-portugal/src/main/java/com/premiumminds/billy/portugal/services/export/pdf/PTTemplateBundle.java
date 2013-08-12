@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf;
 
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
-public interface PTTemplateBundle extends IBillyTemplateBundle {
+public interface PTTemplateBundle extends BillyTemplateBundle {
 
 	public String getGenericCustomer();
 

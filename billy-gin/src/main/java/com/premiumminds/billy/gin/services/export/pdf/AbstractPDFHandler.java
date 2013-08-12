@@ -43,7 +43,7 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.xmlgraphics.util.MimeConstants;
 
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 
@@ -78,7 +78,7 @@ public abstract class AbstractPDFHandler {
 
 	protected ByteArrayOutputStream getStream(InputStream templateStream,
 			ParamsTree<String, String> documentParams,
-			IBillyTemplateBundle bundle) throws ExportServiceException {
+			BillyTemplateBundle bundle) throws ExportServiceException {
 
 		return (ByteArrayOutputStream) this.getStream(templateStream,
 				documentParams, null, bundle);
@@ -86,7 +86,7 @@ public abstract class AbstractPDFHandler {
 
 	protected OutputStream getStream(InputStream templateStream,
 			ParamsTree<String, String> documentParams,
-			OutputStream targetStream, IBillyTemplateBundle bundle)
+			OutputStream targetStream, BillyTemplateBundle bundle)
 			throws ExportServiceException {
 
 		// the XML file from which we take the name
@@ -129,7 +129,7 @@ public abstract class AbstractPDFHandler {
 
 	public File toFile(URI fileURI, InputStream templateStream,
 			ParamsTree<String, String> documentParams,
-			IBillyTemplateBundle bundle) throws ExportServiceException {
+			BillyTemplateBundle bundle) throws ExportServiceException {
 		// if you want to save PDF file use the following code
 		File pdffile = new File(fileURI);
 		OutputStream out;

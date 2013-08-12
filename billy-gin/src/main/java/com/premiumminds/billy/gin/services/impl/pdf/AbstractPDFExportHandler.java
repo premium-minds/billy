@@ -41,7 +41,7 @@ import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.ExportServiceHandler;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.pdf.AbstractPDFHandler;
@@ -114,13 +114,13 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	public File toFile(URI fileURI, GenericInvoiceEntity invoice,
-			IBillyTemplateBundle bundle) throws ExportServiceException {
+			BillyTemplateBundle bundle) throws ExportServiceException {
 		return super.toFile(fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
 	protected void toStream(GenericInvoiceEntity invoice,
-			OutputStream targetStream, IBillyTemplateBundle bundle)
+			OutputStream targetStream, BillyTemplateBundle bundle)
 			throws ExportServiceException {
 		super.getStream(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
@@ -128,7 +128,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected ParamsTree<String, String> mapDocumentToParamsTree(
-			GenericInvoiceEntity document, IBillyTemplateBundle bundle) {
+			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
 
 		ParamsTree<String, String> params = new ParamsTree<String, String>(
 				ParamKeys.ROOT);
@@ -156,7 +156,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		return params;
 	}
 
-	protected <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
+	protected <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
 			ParamsTree<String, String> params, K document, T bundle) {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -246,7 +246,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected void setBussiness(ParamsTree<String, String> params,
-			GenericInvoiceEntity document, IBillyTemplateBundle bundle) {
+			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
 		Node<String, String> businessInfo = params.getRoot().addChild(
 				ParamKeys.BUSINESS);
 
@@ -293,7 +293,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected void setCustomer(ParamsTree<String, String> params,
-			GenericInvoiceEntity document, IBillyTemplateBundle bundle) {
+			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
 
 		Node<String, String> customer = params.getRoot().addChild(
 				ParamKeys.CUSTOMER);
@@ -351,12 +351,12 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		return;
 	}
 
-	protected <T extends IBillyTemplateBundle> String getPaymentMechanismTranslation(
+	protected <T extends BillyTemplateBundle> String getPaymentMechanismTranslation(
 			Enum<?> pmc, T bundle) {
 		return bundle.getPaymentMechanismTranslation(pmc);
 	}
 
-	protected abstract <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
+	protected abstract <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K document, T bundle);
 
 	protected class TaxTotals {

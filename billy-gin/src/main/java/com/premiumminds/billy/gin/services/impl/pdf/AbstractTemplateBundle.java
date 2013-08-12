@@ -20,9 +20,9 @@ package com.premiumminds.billy.gin.services.impl.pdf;
 
 import java.io.InputStream;
 
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
-public abstract class AbstractTemplateBundle implements IBillyTemplateBundle {
+public abstract class AbstractTemplateBundle implements BillyTemplateBundle {
 
 	protected final String logoImagePath;
 	protected final InputStream xsltFileStream;

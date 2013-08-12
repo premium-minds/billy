@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractPDFExportHandler;
 import com.premiumminds.billy.portugal.Config;
@@ -115,7 +115,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	}
 
 	@Override
-	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
+	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
 			ParamsTree<String, String> params, K document, T bundle) {
 
 		if (null != document.getSettlementDescription()) {
@@ -129,7 +129,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	}
 
 	@Override
-	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
+	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
 		return (invoice.getCustomer().getUID()

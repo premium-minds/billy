@@ -437,7 +437,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public <T extends Enum<T>> void setPaymentMechanism(T mechanism) {
+	public <T extends Enum<?>> void setPaymentMechanism(T mechanism) {
 		this.paymentMechanism = mechanism;
 	}
 

@@ -31,7 +31,7 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractPDFExportHandler;
@@ -119,7 +119,7 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	}
 
 	@Override
-	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
+	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
 			ParamsTree<String, String> params, K document, T bundle) {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -140,7 +140,7 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	@Override
 	protected void setCustomer(ParamsTree<String, String> params,
-			GenericInvoiceEntity document, IBillyTemplateBundle bundle) {
+			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
 
 		Node<String, String> customer = params.getRoot().addChild(
 				ParamKeys.CUSTOMER);
@@ -157,7 +157,7 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	}
 
 	@Override
-	public <T extends IBillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
+	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
 		return (invoice.getCustomer().getUID()

@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.gin.services;
 
-import com.premiumminds.billy.gin.services.export.IBillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public interface ExportServiceRequest {
 
@@ -27,5 +27,5 @@ public interface ExportServiceRequest {
 	 * 
 	 * @return returns null if there is no bundle
 	 */
-	public IBillyTemplateBundle getBundle();
+	public BillyTemplateBundle getBundle();
 }
