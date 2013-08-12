@@ -25,12 +25,12 @@ import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 
 public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
 
-	private EntityFactory<? extends TType> factory;
+	private EntityFactory<?> factory;
 	protected TType typeInstance;
 
-	public AbstractBuilder(EntityFactory<? extends TType> entityFactory) {
+	public AbstractBuilder(EntityFactory<?> entityFactory) {
 		this.factory = entityFactory;
-		this.setTypeInstance(entityFactory.getEntityInstance());
+		this.setTypeInstance((TType) entityFactory.getEntityInstance());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -46,7 +46,7 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
 	}
 
 	public void clear() {
-		this.typeInstance = this.factory.getEntityInstance();
+		this.typeInstance = (TType) this.factory.getEntityInstance();
 	}
 
 	@SuppressWarnings("unchecked")
