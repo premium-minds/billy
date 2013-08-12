@@ -162,11 +162,13 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
-		if (null != document.getPaymentMechanism()) {
+		Enum paymentMechanism = document.getPaymentMechanism();
+
+		if (null != paymentMechanism) {
 			params.getRoot().addChild(
 					ParamKeys.INVOICE_PAYMETHOD,
-					this.getPaymentMechanismTranslation(
-							document.getPaymentMechanism(), bundle));
+					this.getPaymentMechanismTranslation(paymentMechanism,
+							bundle));
 		}
 		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
 				date.format(document.getDate()));
@@ -352,7 +354,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected <T extends BillyTemplateBundle> String getPaymentMechanismTranslation(
-			Enum<?> pmc, T bundle) {
+			Enum pmc, T bundle) {
 		return bundle.getPaymentMechanismTranslation(pmc);
 	}
 

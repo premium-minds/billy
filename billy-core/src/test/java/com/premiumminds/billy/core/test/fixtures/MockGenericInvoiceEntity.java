@@ -66,7 +66,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public String settlementDescription;
 	public BigDecimal settlementDiscount;
 	public Date settlementDate;
-	public Enum<?> paymentMechanism;
+	public Enum paymentMechanism;
 	public CreditOrDebit creditOrDebit;
 
 	public MockGenericInvoiceEntity() {
@@ -185,7 +185,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public Enum<?> getPaymentMechanism() {
+	public Enum getPaymentMechanism() {
 		return this.paymentMechanism;
 	}
 
@@ -316,7 +316,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public <T extends Enum<?>> void setPaymentMechanism(T mechanism) {
+	public <T extends Enum> void setPaymentMechanism(T mechanism) {
 		this.paymentMechanism = mechanism;
 	}
 

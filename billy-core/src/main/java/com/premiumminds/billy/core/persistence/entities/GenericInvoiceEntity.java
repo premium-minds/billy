@@ -84,7 +84,7 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
 	public void setSettlementDate(Date date);
 
-	public <T extends Enum<?>> void setPaymentMechanism(T mechanism);
+	public <T extends Enum> void setPaymentMechanism(T mechanism);
 
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit);
 
