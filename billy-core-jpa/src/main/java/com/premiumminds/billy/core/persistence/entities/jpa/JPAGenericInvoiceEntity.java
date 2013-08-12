@@ -289,9 +289,8 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		return this.settlementDate;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public Enum<?> getPaymentMechanism() {
+	public Enum getPaymentMechanism() {
 		return this.paymentMechanism;
 	}
 
@@ -437,7 +436,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public <T extends Enum<?>> void setPaymentMechanism(T mechanism) {
+	public <T extends Enum> void setPaymentMechanism(T mechanism) {
 		this.paymentMechanism = mechanism;
 	}
 

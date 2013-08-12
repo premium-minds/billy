@@ -106,7 +106,7 @@ public interface GenericInvoice extends Entity {
 
 	public Date getSettlementDate();
 
-	public <T extends Enum<?>> T getPaymentMechanism();
+	public <T extends Enum> T getPaymentMechanism();
 
 	public CreditOrDebit getCreditOrDebit();
 
