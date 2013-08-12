@@ -35,5 +35,4 @@ public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
 	@Override
 	public Enum<PaymentMechanism> getPaymentMechanism();
 	
-	public List<PTPayment> getPayments();
 }

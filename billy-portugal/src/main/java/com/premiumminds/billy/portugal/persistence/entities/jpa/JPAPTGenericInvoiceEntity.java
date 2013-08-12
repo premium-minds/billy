@@ -18,10 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -30,6 +35,7 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEnt
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
@@ -66,6 +72,18 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Column(name = "INVOICE_TYPE")
 	protected TYPE				type;
+
+	@OneToMany(targetEntity = JPAPTPaymentEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true) })
+	protected List<PTPayment> payments;
+	
+	
+	
+	public JPAPTGenericInvoiceEntity() {
+		super();
+		payments = new ArrayList<PTPayment>();
+	}
 
 	@Override
 	public TYPE getType() {
@@ -115,6 +133,11 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Override
 	public String getEACCode() {
 		return this.eacCode;
+	}
+	
+	@Override
+	public List<PTPayment> getPayments() {
+		return payments;
 	}
 
 	@Override

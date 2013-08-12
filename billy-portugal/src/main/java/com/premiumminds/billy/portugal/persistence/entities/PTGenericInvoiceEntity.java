@@ -23,6 +23,7 @@ import java.util.List;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
@@ -51,4 +52,6 @@ public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
 
 	@Override
 	public Enum<PaymentMechanism> getPaymentMechanism();
+	
+	public List<PTPayment> getPayments();
 }

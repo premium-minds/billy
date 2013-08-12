@@ -31,11 +31,11 @@ public class MockPaymentEntity extends MockBaseEntity implements
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected String paymentMethod;
+	protected Enum<?> paymentMethod;
 	protected Date paymentDate;
 
 	@Override
-	public String getPaymentMethod() {
+	public Enum<?> getPaymentMethod() {
 		return paymentMethod;
 	}
 
@@ -45,7 +45,7 @@ public class MockPaymentEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public void setPaymentMethod(String method) {
+	public void setPaymentMethod(Enum<?> method) {
 		this.paymentMethod = method;
 	}
 

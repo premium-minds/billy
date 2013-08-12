@@ -17,6 +17,7 @@
 # along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-paymentMethod : CC
+paymentMethod : !!com.premiumminds.billy.portugal.util.PaymentMechanism
+  CREDIT_CARD
 paymentAmount : 20
 paymentDate : 2013-08-30

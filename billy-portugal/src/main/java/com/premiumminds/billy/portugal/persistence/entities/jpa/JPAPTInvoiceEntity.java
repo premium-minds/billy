@@ -44,15 +44,6 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 
 	private static final long	serialVersionUID	= 1L;
 
-	@OneToMany(targetEntity = JPAPTPaymentEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true)	})
-	protected List<PTPayment> payments;
-	
-	public JPAPTInvoiceEntity() {
-		super();
-		payments = new ArrayList<PTPayment>();
-	}
 	
 	@SuppressWarnings({ "unchecked" })
 	@Override
@@ -63,11 +54,6 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 	@Override
 	public PaymentMechanism getPaymentMechanism() {
 		return super.getPaymentMechanism();
-	}
-
-	@Override
-	public List<PTPayment> getPayments() {
-		return payments;
 	}
 
 }

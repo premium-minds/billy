@@ -37,7 +37,7 @@ public interface Payment extends Entity {
 		
 	}
 	
-	public String getPaymentMethod();
+	public Enum<?> getPaymentMethod();
 	
 	public Date getPaymentDate();
 }

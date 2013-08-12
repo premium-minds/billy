@@ -33,6 +33,7 @@ public class TestPaymentBuilder extends AbstractTest {
 	private static final String PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "Payment.yml";
 	
+	@SuppressWarnings("unchecked")
 	@Test
 	public void doTest() {
 		MockPaymentEntity mock = this.createMockEntity(MockPaymentEntity.class, TestPaymentBuilder.PAYMENT_YML);
@@ -41,12 +42,11 @@ public class TestPaymentBuilder extends AbstractTest {
 		
 		Payment.Builder builder  = this.getInstance(Payment.Builder.class);
 		
-		builder.setPaymentDate(mock.getPaymentDate()).setPaymentMethod(mock.getPaymentMethod());
+		builder.setPaymentDate(mock.getPaymentDate());
 		
 		Payment payment = builder.build();
 		
 		Assert.assertTrue(payment != null);
-		Assert.assertEquals(payment.getPaymentMethod(), mock.getPaymentMethod());
 		Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());		
 	}
 

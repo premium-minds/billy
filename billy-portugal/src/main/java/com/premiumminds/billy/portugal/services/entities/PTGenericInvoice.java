@@ -80,4 +80,7 @@ public interface PTGenericInvoice extends GenericInvoice {
 
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
+	
+	public List<PTPayment> getPayments();
+
 }

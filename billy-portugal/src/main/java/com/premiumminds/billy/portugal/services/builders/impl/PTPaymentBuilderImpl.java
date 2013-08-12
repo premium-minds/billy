@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.inject.Inject;
 import javax.validation.ValidationException;
@@ -57,6 +58,22 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 		this.getTypeInstance().setPaymentAmount(amount);
 		return this.getBuilder();
 	}
+	
+	@Override
+	public TBuilder setPaymentMethod(Enum<?> method) {
+		BillyValidator.mandatory(method, PTPaymentBuilderImpl.LOCALIZER
+				.getString("field.payment_method"));
+		this.getTypeInstance().setPaymentMethod(method);
+		return this.getBuilder();
+	}
+
+	@Override
+	public TBuilder setPaymentDate(Date date) {
+		BillyValidator.mandatory(date, PTPaymentBuilderImpl.LOCALIZER
+				.getString("field.payment_date"));
+		this.getTypeInstance().setPaymentDate(date);
+		return this.getBuilder();
+	}
 
 	@Override
 	protected void validateInstance() throws BillyValidationException,
@@ -65,6 +82,10 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 		PTPaymentEntity p = this.getTypeInstance();
 		BillyValidator.mandatory(p.getPaymentAmount(), PTPaymentBuilderImpl.LOCALIZER
 				.getString("field.payment_amount"));
+		BillyValidator.mandatory(p.getPaymentMethod(), PTPaymentBuilderImpl.LOCALIZER
+				.getString("field.payment_method"));
+		BillyValidator.mandatory(p.getPaymentDate(), PTPaymentBuilderImpl.LOCALIZER
+				.getString("field.payment_date"));
 	}
 
 }

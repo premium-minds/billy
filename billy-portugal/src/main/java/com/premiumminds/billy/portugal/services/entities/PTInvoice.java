@@ -44,5 +44,4 @@ public interface PTInvoice extends PTGenericInvoice {
 	@Override
 	public List<? extends PTGenericInvoiceEntry> getEntries();
 	
-	public List<PTPayment> getPayments();
 }

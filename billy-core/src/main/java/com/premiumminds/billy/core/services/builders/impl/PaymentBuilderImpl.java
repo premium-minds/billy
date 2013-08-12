@@ -50,16 +50,13 @@ public class PaymentBuilderImpl<TBuilder extends PaymentBuilderImpl<TBuilder, TP
 	}
 
 	@Override
-	public TBuilder setPaymentMethod(String method) {
-		BillyValidator.mandatory(method, PaymentBuilderImpl.LOCALIZER
-				.getString("field.payment_method"));
+	public TBuilder setPaymentMethod(Enum<?> method) {
 		this.getTypeInstance().setPaymentMethod(method);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setPaymentDate(Date date) {
-		BillyValidator.mandatory(date, PaymentBuilderImpl.LOCALIZER.getString("field.payment_date"));
 		this.getTypeInstance().setPaymentDate(date);
 		return this.getBuilder();
 	}
@@ -67,11 +64,6 @@ public class PaymentBuilderImpl<TBuilder extends PaymentBuilderImpl<TBuilder, TP
 	@Override
 	protected void validateInstance() throws BillyValidationException,
 			ValidationException {
-		PaymentEntity p = this.getTypeInstance();
-		BillyValidator.mandatory(p.getPaymentDate(), PaymentBuilderImpl.LOCALIZER
-				.getString("field.payment_date"));
-		BillyValidator.mandatory(p.getPaymentMethod(), PaymentBuilderImpl.LOCALIZER
-				.getString("field.payment_method"));
 	}
 
 }

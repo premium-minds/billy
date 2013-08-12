@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.services.entities.Payment;
 public interface PaymentBuilder<TBuilder extends PaymentBuilder<TBuilder, TPayment>, TPayment extends Payment>
 		extends Builder<TPayment> {
 	
-	public TBuilder setPaymentMethod(String method);
+	public TBuilder setPaymentMethod(Enum<?> method);
 	
 	public TBuilder setPaymentDate(Date date);
 
