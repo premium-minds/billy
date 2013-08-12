@@ -19,12 +19,11 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.services.builders.impl.AbstractBuilder;
+import com.premiumminds.billy.core.services.builders.impl.PaymentBuilderImpl;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -33,7 +32,7 @@ import com.premiumminds.billy.portugal.services.builders.PTPaymentBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder, TPayment>, TPayment extends PTPayment>
-		extends AbstractBuilder<TBuilder, TPayment> implements
+		extends PaymentBuilderImpl<TBuilder, TPayment> implements
 		PTPaymentBuilder<TBuilder, TPayment> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
@@ -43,18 +42,9 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 		super(entityFactory);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected PTPaymentEntity getTypeInstance() {
 		return (PTPaymentEntity) super.getTypeInstance();
-	}
-
-	@Override
-	public TBuilder setPaymentMethod(String method) {
-		BillyValidator.mandatory(method, PTPaymentBuilderImpl.LOCALIZER
-				.getString("field.payment_method"));
-		this.getTypeInstance().setPaymentMethod(method);
-		return this.getBuilder();
 	}
 
 	@Override
@@ -66,22 +56,12 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 	}
 
 	@Override
-	public TBuilder setPaymentDate(Date date) {
-		BillyValidator.mandatory(date, PTPaymentBuilderImpl.LOCALIZER.getString("field.payment_date"));
-		this.getTypeInstance().setPaymentDate(date);
-		return this.getBuilder();
-	}
-
-	@Override
 	protected void validateInstance() throws BillyValidationException,
 			ValidationException {
+		super.validateInstance();
 		PTPaymentEntity p = this.getTypeInstance();
 		BillyValidator.mandatory(p.getPaymentAmount(), PTPaymentBuilderImpl.LOCALIZER
 				.getString("field.payment_amount"));
-		BillyValidator.mandatory(p.getPaymentDate(), PTPaymentBuilderImpl.LOCALIZER
-				.getString("field.payment_date"));
-		BillyValidator.mandatory(p.getPaymentMethod(), PTPaymentBuilderImpl.LOCALIZER
-				.getString("field.payment_method"));
 	}
 
 }

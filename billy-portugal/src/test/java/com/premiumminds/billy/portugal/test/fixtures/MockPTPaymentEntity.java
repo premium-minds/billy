@@ -19,13 +19,12 @@
 package com.premiumminds.billy.portugal.test.fixtures;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
-import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
+import com.premiumminds.billy.core.test.fixtures.MockPaymentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 
 
-public class MockPTPaymentEntity extends MockBaseEntity implements
+public class MockPTPaymentEntity extends MockPaymentEntity implements
 		PTPaymentEntity {
 
 	/**
@@ -33,38 +32,17 @@ public class MockPTPaymentEntity extends MockBaseEntity implements
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	protected String paymentMethod;
 	protected BigDecimal paymentAmount;
-	protected Date paymentDate;
-
-	@Override
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
 
 	@Override
 	public BigDecimal getPaymentAmount() {
 		return paymentAmount;
 	}
 
-	@Override
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
-
-	@Override
-	public void setPaymentMethod(String method) {
-		this.paymentMethod = method;
-	}
 
 	@Override
 	public void setPaymentAmount(BigDecimal amount) {
 		this.paymentAmount = amount;
-	}
-
-	@Override
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
 	}
 
 }

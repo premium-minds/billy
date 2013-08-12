@@ -22,13 +22,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
+import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
-public interface PTPaymentEntity extends BaseEntity, PTPayment {
-
-	public void setPaymentMethod(String method);
+public interface PTPaymentEntity extends PaymentEntity, PTPayment {
 
 	public void setPaymentAmount(BigDecimal amount);
-
-	public void setPaymentDate(Date paymentDate);
 }

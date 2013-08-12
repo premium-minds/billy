@@ -27,10 +27,5 @@ import com.premiumminds.billy.portugal.services.entities.PTPayment;
 public interface PTPaymentBuilder<TBuilder extends PTPaymentBuilder<TBuilder, TPayment>, TPayment extends PTPayment>
 		extends Builder<TPayment> {
 	
-	public TBuilder setPaymentMethod(String method);
-	
 	public TBuilder setPaymentAmount(BigDecimal amount);
-	
-	public TBuilder setPaymentDate(Date date);
-
 }

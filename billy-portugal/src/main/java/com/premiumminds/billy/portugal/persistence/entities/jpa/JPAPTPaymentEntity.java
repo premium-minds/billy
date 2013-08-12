@@ -31,33 +31,22 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PAYMENT")
-public class JPAPTPaymentEntity extends JPABaseEntity implements PTPaymentEntity {
+public class JPAPTPaymentEntity extends JPAPaymentEntity implements PTPaymentEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Column(name = "PAYMENT_METHOD")
-	protected String paymentMethod;
-	
 	@Column(name = "PAYMENT_AMOUNT")
 	protected BigDecimal paymentAmount;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "PAYMENT_DATE")
-	protected Date paymentDate;
-	
 
-	@Override
-	public String getPaymentMethod() {
-		return paymentMethod;
-	}
 
 	@Override
 	public BigDecimal getPaymentAmount() {
@@ -65,23 +54,8 @@ public class JPAPTPaymentEntity extends JPABaseEntity implements PTPaymentEntity
 	}
 
 	@Override
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
-
-	@Override
-	public void setPaymentMethod(String method) {
-		this.paymentMethod = method;
-	}
-
-	@Override
 	public void setPaymentAmount(BigDecimal amount) {
 		this.paymentAmount = amount;
-	}
-
-	@Override
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
 	}
 
 }

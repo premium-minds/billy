@@ -40,6 +40,7 @@
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity"></entity>
 
 	<!-- Portugal -->
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity"></entity>
