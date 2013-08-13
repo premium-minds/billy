@@ -116,11 +116,11 @@ public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
 		return (List<PTCreditNoteEntry>) (List<?>) super.getEntries();
 	}
 
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
-	}
+//	@SuppressWarnings({ "unchecked" })
+//	@Override
+//	public PaymentMechanism getPaymentMechanism() {
+//		return (PaymentMechanism) super.getPaymentMechanism();
+//	}
 
 	@Override
 	public void setHashControl(String hashControl) {

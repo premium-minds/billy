@@ -115,11 +115,11 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
 		return this.sourceHash;
 	}
 
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
-	}
+//	@SuppressWarnings({ "unchecked" })
+//	@Override
+//	public PaymentMechanism getPaymentMechanism() {
+//		return (PaymentMechanism) super.getPaymentMechanism();
+//	}
 
 	@Override
 	public String getHashControl() {

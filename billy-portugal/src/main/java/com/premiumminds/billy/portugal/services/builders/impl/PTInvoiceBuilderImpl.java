@@ -51,12 +51,6 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	protected PTInvoiceEntity getTypeInstance() {
 		return (PTInvoiceEntity) super.getTypeInstance();
 	}
-	
-	@Override
-	public TBuilder addPayment(PTPayment payment) {
-		this.getTypeInstance().getPayments().add(payment);
-		return this.getBuilder();
-	}
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {

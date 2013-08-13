@@ -25,6 +25,4 @@ import com.premiumminds.billy.portugal.services.entities.PTPayment;
 public interface PTInvoiceBuilder<TBuilder extends PTInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTInvoice>
 		extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 	
-	public TBuilder addPayment(PTPayment payment);
-
 }

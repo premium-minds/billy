@@ -50,8 +50,9 @@ public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public Enum<PaymentMechanism> getPaymentMechanism();
+//	public Enum<PaymentMechanism> getPaymentMechanism();
 	
 	public List<PTPayment> getPayments();
 }

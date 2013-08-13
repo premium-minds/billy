@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,6 +34,7 @@ import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderI
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.Entity;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 
@@ -104,8 +106,10 @@ public interface GenericInvoice extends Entity {
 	public BigDecimal getSettlementDiscount();
 
 	public Date getSettlementDate();
+	
+	public <T extends Payment> List<T> getPayments();
 
-	public Enum<?> getPaymentMechanism();
+//	public Enum<?> getPaymentMechanism();
 
 	public CreditOrDebit getCreditOrDebit();
 
