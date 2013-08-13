@@ -20,15 +20,10 @@ package com.premiumminds.billy.portugal.test.fixtures;
 
 import java.util.List;
 
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Customer;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
-import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 		PTInvoiceEntity {
@@ -114,11 +109,6 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
-	}
-
-	@SuppressWarnings("unchecked")
-	public PaymentMechanism getPaymentMechanism() {
-		return null;
 	}
 
 	@Override

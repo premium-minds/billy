@@ -44,5 +44,4 @@ public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
 		return super.getEntries();
 	}
 
-	
 }

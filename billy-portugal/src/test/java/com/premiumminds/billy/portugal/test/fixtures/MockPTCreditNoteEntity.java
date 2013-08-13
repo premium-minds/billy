@@ -20,15 +20,10 @@ package com.premiumminds.billy.portugal.test.fixtures;
 
 import java.util.List;
 
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Customer;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
-import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
 		PTCreditNoteEntity {
@@ -115,12 +110,6 @@ public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
 	public List<PTCreditNoteEntry> getEntries() {
 		return (List<PTCreditNoteEntry>) (List<?>) super.getEntries();
 	}
-
-//	@SuppressWarnings({ "unchecked" })
-//	@Override
-//	public PaymentMechanism getPaymentMechanism() {
-//		return (PaymentMechanism) super.getPaymentMechanism();
-//	}
 
 	@Override
 	public void setHashControl(String hashControl) {

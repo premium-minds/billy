@@ -67,7 +67,6 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public String settlementDescription;
 	public BigDecimal settlementDiscount;
 	public Date settlementDate;
-	public Enum paymentMechanism;
 	public CreditOrDebit creditOrDebit;
 	public List<Payment> payments;
 
@@ -341,8 +340,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 
 	@Override
 	public <T extends Payment> List<T> getPayments() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<T>) payments;
 	}
 
 }

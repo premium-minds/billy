@@ -259,14 +259,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		this.getTypeInstance().getPayments().add(paymentBuilder.build());
 		return this.getBuilder();
 	}
-	
-	// @Override
-	// public <T extends Enum<T>> TBuilder setPaymentMechanism(T mechanism) {
-	// BillyValidator.notNull(mechanism, GenericInvoiceBuilderImpl.LOCALIZER
-	// .getString("field.payment_mechanism"));
-	// this.getTypeInstance().setPaymentMechanism(mechanism);
-	// return this.getBuilder();
-	// }
 
 	@Override
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {

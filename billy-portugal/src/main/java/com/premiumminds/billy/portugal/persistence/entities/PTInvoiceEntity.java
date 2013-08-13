@@ -23,7 +23,6 @@ import java.util.List;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
 
@@ -31,10 +30,6 @@ public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
 	@Override
 	public List<PTInvoiceEntry> getEntries();
 
-//	@SuppressWarnings({ "unchecked" })
-//	@Override
-//	public Enum<PaymentMechanism> getPaymentMechanism();
-	
 	@Override
 	public List<PTPayment> getPayments();
 

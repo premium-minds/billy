@@ -437,7 +437,7 @@ protected List<Payment> payments;
 		this.settlementDate = date;
 	}
 
-		@Override
+	@Override
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		this.creditOrDebit = creditOrDebit;
 	}

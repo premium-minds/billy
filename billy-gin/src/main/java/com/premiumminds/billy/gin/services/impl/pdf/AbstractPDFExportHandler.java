@@ -163,8 +163,6 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
-//		Enum paymentMechanism = document.getPaymentMechanism();
-
 		if (document.getPayments() != null) {
 			for(Payment p : document.getPayments()) {
 			params.getRoot().addChild(

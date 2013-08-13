@@ -109,8 +109,6 @@ public interface GenericInvoice extends Entity {
 	
 	public <T extends Payment> List<T> getPayments();
 
-//	public Enum<?> getPaymentMechanism();
-
 	public CreditOrDebit getCreditOrDebit();
 
 }

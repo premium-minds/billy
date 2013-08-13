@@ -24,7 +24,6 @@ import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 		implements PTSimpleInvoiceEntity {
@@ -110,11 +109,6 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
-	}
-
-	@SuppressWarnings("unchecked")
-	public PaymentMechanism getPaymentMechanism() {
-		return null;
 	}
 
 	@Override

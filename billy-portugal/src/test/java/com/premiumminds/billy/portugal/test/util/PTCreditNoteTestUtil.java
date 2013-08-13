@@ -22,9 +22,9 @@ import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -43,6 +43,7 @@ public class PTCreditNoteTestUtil {
 	public PTCreditNoteTestUtil(Injector injector) {
 		this.injector = injector;
 		this.creditNoteEntry = new PTCreditNoteEntryTestUtil(injector);
+		this.payment = new PTPaymentTestUtil(injector);
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity(TYPE type,
@@ -55,6 +56,7 @@ public class PTCreditNoteTestUtil {
 
 		PTCreditNoteEntryEntity creditNoteEntry = (PTCreditNoteEntryEntity) creditNote
 				.getEntries().get(0);
+		creditNoteEntry.setUID(new UID(this.creditNoteEntryUID));
 		creditNoteEntry.getDocumentReferences().add(creditNote);
 
 		return creditNote;

@@ -23,16 +23,12 @@ import java.util.List;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface PTSimpleInvoiceEntity extends PTInvoiceEntity, PTSimpleInvoice {
 
 	@Override
 	public List<PTInvoiceEntry> getEntries();
 
-//	@Override
-//	public Enum<PaymentMechanism> getPaymentMechanism();
-	
 	@Override
 	public List<PTPayment> getPayments();
 }

@@ -70,13 +70,12 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 		PTInvoicePDFExportHandler handler = new PTInvoicePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
 		handler.toFile(new URI(TestPTInvoicePDFExportHandler.URI_PATH),
-				this.generatePTInvoice(PaymentMechanism.CASH), bundle);
+				this.generatePTInvoice(), bundle);
 	}
 
-	private PTInvoiceEntity generatePTInvoice(PaymentMechanism paymentMechanism) {
+	private PTInvoiceEntity generatePTInvoice() {
 		PTInvoiceTestUtil test = new PTInvoiceTestUtil(PTAbstractTest.injector);
 		PTInvoiceEntity invoice = test.getInvoiceEntity();
-//		invoice.setPaymentMechanism(paymentMechanism);
 		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
 		return invoice;

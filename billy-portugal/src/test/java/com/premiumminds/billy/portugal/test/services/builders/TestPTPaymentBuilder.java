@@ -27,7 +27,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTPaymentEntity;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 
 public class TestPTPaymentBuilder extends PTAbstractTest {

@@ -51,5 +51,4 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 		return (List<PTInvoiceEntry>) super.getEntries();
 	}
 
-
 }

@@ -87,8 +87,6 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 	
 	public <T extends Payment> List<T> getPayments();
 
-//	public void setPaymentMechanism(Enum<?> mechanism);
-
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit);
 
 }
