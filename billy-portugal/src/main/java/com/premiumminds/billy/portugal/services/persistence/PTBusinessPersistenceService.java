@@ -28,10 +28,10 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
-public class PTBuisnessPersistenceService<T extends PTBusiness> extends
+public class PTBusinessPersistenceService<T extends PTBusiness> extends
 		PersistenceServiceImpl<T> implements PersistenceService<T> {
 
-	public PTBuisnessPersistenceService(Injector injector) {
+	public PTBusinessPersistenceService(Injector injector) {
 		super(injector);
 	}
 

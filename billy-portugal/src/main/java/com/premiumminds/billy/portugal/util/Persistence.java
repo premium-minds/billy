@@ -21,7 +21,7 @@ package com.premiumminds.billy.portugal.util;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
-import com.premiumminds.billy.portugal.services.persistence.PTBuisnessPersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTBusinessPersistenceService;
 
 public class Persistence {
 
@@ -32,6 +32,6 @@ public class Persistence {
 	}
 
 	public PersistenceService<PTBusiness> business() {
-		return new PTBuisnessPersistenceService<PTBusiness>(injector);
+		return new PTBusinessPersistenceService<PTBusiness>(injector);
 	}
 }
