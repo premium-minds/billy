@@ -33,5 +33,8 @@ public abstract class PersistenceServiceImpl<T extends Entity> implements
 
 	@Override
 	public abstract T createEntity(Builder<T> builder);
+	
+	@Override
+	public abstract T updateEntity(Builder<T> builder);
 
 }

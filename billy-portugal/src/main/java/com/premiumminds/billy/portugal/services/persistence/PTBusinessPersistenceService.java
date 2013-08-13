@@ -55,5 +55,26 @@ public class PTBusinessPersistenceService<T extends PTBusiness> extends
 			throw new BillyRuntimeException(e);
 		}
 	}
+	
+	@Override
+	public T updateEntity(final Builder<T> builder) {
+		final DAOPTBusiness dao = this.injector
+				.getInstance(DAOPTBusiness.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					PTBusinessEntity businessEntity = (PTBusinessEntity) builder
+							.build();
+					return (T) dao.update(businessEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
 }
