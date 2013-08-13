@@ -18,30 +18,24 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.impl.PTReceiptInvoiceBuilderImpl;
 
-public interface PTInvoice extends PTGenericInvoice {
+public interface PTReceiptInvoice extends PTInvoice {
 
-	public static class Builder extends
-		PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
+	public static class Builder
+			extends
+			PTReceiptInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTReceiptInvoice> {
 
 		@Inject
 		public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
-						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+				DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
 			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<? extends PTInvoiceEntry> getEntries();
-	
 }
