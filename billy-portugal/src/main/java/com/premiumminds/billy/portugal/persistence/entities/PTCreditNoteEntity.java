@@ -31,6 +31,7 @@ public interface PTCreditNoteEntity extends PTGenericInvoiceEntity,
 	@Override
 	public List<PTCreditNoteEntry> getEntries();
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<PTPayment> getPayments();
 }

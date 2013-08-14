@@ -33,9 +33,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEnti
 public class JPAPTReceiptInvoiceEntity extends JPAPTInvoiceEntity implements
 		PTReceiptInvoiceEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 }

@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -81,6 +82,6 @@ public interface PTGenericInvoice extends GenericInvoice {
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
 	
-	public List<PTPayment> getPayments();
+	public <T extends Payment> List<T> getPayments();
 
 }

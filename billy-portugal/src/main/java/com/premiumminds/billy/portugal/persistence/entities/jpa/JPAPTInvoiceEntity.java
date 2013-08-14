@@ -18,14 +18,9 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -34,7 +29,6 @@ import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
 @Audited
@@ -49,6 +43,12 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) super.getEntries();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PTPayment> getPayments() {
+		return (List<PTPayment>) super.getPayments();
 	}
 
 }
