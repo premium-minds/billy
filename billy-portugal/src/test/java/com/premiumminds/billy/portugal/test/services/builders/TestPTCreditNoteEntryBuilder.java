@@ -84,7 +84,7 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
 		builder.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDescription(mock.getDescription())
-				.setReference(mock.getReference())
+				.setReferenceUID(mock.getReference().getUID())
 				.setReason(mock.getReason())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())

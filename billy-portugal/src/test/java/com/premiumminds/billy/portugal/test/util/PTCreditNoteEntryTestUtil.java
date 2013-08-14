@@ -77,7 +77,7 @@ public class PTCreditNoteEntryTestUtil {
 				.setProductUID(newProduct.getUID())
 				.setContextUID(this.context.getUID())
 				.setReason(PTCreditNoteEntryTestUtil.REASON)
-				.setReference(reference);
+				.setReferenceUID(reference.getUID());
 
 		return creditNoteEntryBuilder;
 	}

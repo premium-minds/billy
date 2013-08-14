@@ -20,6 +20,9 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
+import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
@@ -28,6 +31,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
@@ -47,11 +51,15 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 				daoPTRegionContext);
 	}
 
-	public TBuilder setReference(PTInvoice reference) {
-		BillyValidator.mandatory(reference,
+	public TBuilder setReferenceUID(UID referenceUID) {
+		BillyValidator.mandatory(referenceUID,
 				PTCreditNoteEntryBuilderImpl.LOCALIZER
 						.getString("field.invoice_reference"));
-		this.getTypeInstance().setReference(reference);
+		PTInvoiceEntity i = (PTInvoiceEntity) this.daoGenericInvoice
+				.get(referenceUID);
+		BillyValidator.found(i, PTCreditNoteBuilderImpl.LOCALIZER
+				.getString("field.invoice_reference"));
+		this.getTypeInstance().setReference(i);
 		return this.getBuilder();
 	}
 
