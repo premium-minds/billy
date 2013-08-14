@@ -117,6 +117,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	}
 
 	protected TEntity getEntity(UID uid) throws NoResultException {
+
 		TEntity result = null;
 		Class<? extends TEntity> entityClass = this.getEntityClass();
 		try {
@@ -134,6 +135,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		} catch (Exception e) {
 			throw new PersistenceException(e);
 		}
+
 		return result;
 	}
 
