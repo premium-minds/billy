@@ -21,7 +21,17 @@ package com.premiumminds.billy.portugal.util;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
+import com.premiumminds.billy.portugal.services.entities.PTCustomer;
+import com.premiumminds.billy.portugal.services.entities.PTProduct;
+import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
+import com.premiumminds.billy.portugal.services.entities.PTSupplier;
+import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.persistence.PTBusinessPersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTProductPersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTRegionContextPersitenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTSupplierPersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTTaxPersistenceService;
 
 public class Persistence {
 
@@ -34,4 +44,24 @@ public class Persistence {
 	public PersistenceService<PTBusiness> business() {
 		return new PTBusinessPersistenceService<PTBusiness>(injector);
 	}
+	
+	public PersistenceService<PTCustomer> customer() {
+		return new PTCustomerPersistenceService<PTCustomer>(injector);
+	}
+	
+	public PersistenceService<PTProduct> product() {
+		return new PTProductPersistenceService<PTProduct>(injector);
+	}
+	
+	public PersistenceService<PTRegionContext> context() {
+		return new PTRegionContextPersitenceService<PTRegionContext>(injector);
+	}
+	
+	public PersistenceService<PTSupplier> supplier() {
+		return new PTSupplierPersistenceService<PTSupplier>(injector);
+	}
+	
+	public PersistenceService<PTTax> tax() {
+		return new PTTaxPersistenceService<PTTax>(injector);
+	} 
 }

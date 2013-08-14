@@ -25,4 +25,6 @@ public interface PersistenceService<T extends Entity> {
 
 	public T createEntity(Builder<T> builder);
 
+	public T updateEntity(Builder<T> builder);
+
 }

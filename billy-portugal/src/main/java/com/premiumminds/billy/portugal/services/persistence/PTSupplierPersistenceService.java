@@ -24,30 +24,31 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
-import com.premiumminds.billy.portugal.services.entities.PTBusiness;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
+import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
+import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 
-public class PTBusinessPersistenceService<T extends PTBusiness> extends
-		PersistenceServiceImpl<T> implements PersistenceService<T> {
 
-	public PTBusinessPersistenceService(Injector injector) {
+public class PTSupplierPersistenceService<T extends PTSupplier> extends PersistenceServiceImpl<T>
+		implements PersistenceService<T> {
+
+	public PTSupplierPersistenceService(Injector injector) {
 		super(injector);
 	}
 
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		final DAOPTBusiness dao = this.injector
-				.getInstance(DAOPTBusiness.class);
+		final DAOPTSupplier dao = this.injector
+				.getInstance(DAOPTSupplier.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTBusinessEntity businessEntity = (PTBusinessEntity) builder
+					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
 							.build();
-					return (T) dao.create(businessEntity);
+					return (T) dao.create(supplierEntity);
 				}
 
 			}.execute();
@@ -58,17 +59,17 @@ public class PTBusinessPersistenceService<T extends PTBusiness> extends
 	
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		final DAOPTBusiness dao = this.injector
-				.getInstance(DAOPTBusiness.class);
+		final DAOPTSupplier dao = this.injector
+				.getInstance(DAOPTSupplier.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTBusinessEntity businessEntity = (PTBusinessEntity) builder
+					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
 							.build();
-					return (T) dao.update(businessEntity);
+					return (T) dao.update(supplierEntity);
 				}
 
 			}.execute();
