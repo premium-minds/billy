@@ -20,9 +20,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
@@ -34,7 +32,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEnt
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
 		extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements

@@ -16,30 +16,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.test.services.dao;
+package com.premiumminds.billy.portugal.test.services.jpa;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
-
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.google.inject.Injector;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 
-public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
+public class PTJPAAbstractTest extends PTPersistencyAbstractTest {
 
-	@Test
-	public void testLastInvoiceNumber() {
-		getNewIssuedInvoice();
-		getNewIssuedInvoice();
-		PTInvoiceEntity resultInvoice2 = getNewIssuedInvoice();
-		assertEquals(resultInvoice2.getSeriesNumber(), new Integer(3));
-	}
-
-	@Test(expected = BillyRuntimeException.class)
-	public void testWithNoInvoice() {
-		getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries(
-				"NON EXISTING SERIES");
+	public static void execute(final Injector injector,
+			TransactionWrapper<?> transactionWrapper) throws Exception {
+		transactionWrapper.execute();
 	}
 }

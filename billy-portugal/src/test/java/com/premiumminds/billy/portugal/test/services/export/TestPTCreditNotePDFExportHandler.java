@@ -32,7 +32,6 @@ import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportHandler;
@@ -40,7 +39,6 @@ import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNo
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
-import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest {
@@ -74,25 +72,22 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 
 		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
-		handler.toFile(new URI(TestPTCreditNotePDFExportHandler.URI_PATH),
-				this.generatePTCreditNote(PaymentMechanism.CASH), bundle);
+		handler.toFile(new URI(TestPTCreditNotePDFExportHandler.URI_PATH), this
+				.generatePTCreditNote(PaymentMechanism.CASH,
+						getNewIssuedInvoice()), bundle);
 	}
 
 	private PTCreditNoteEntity generatePTCreditNote(
-			PaymentMechanism paymentMechanism) {
-		PTInvoiceTestUtil invoiceUtil = new PTInvoiceTestUtil(
-				PTAbstractTest.injector);
-		PTInvoiceEntity invoice = invoiceUtil.getInvoiceEntity();
-		DAOPTInvoice dao = PTAbstractTest.injector
-				.getInstance(DAOPTInvoice.class);
-		dao.create(invoice);
+			PaymentMechanism paymentMechanism, PTInvoiceEntity reference) {
 
 		PTCreditNoteTestUtil creditNoteUtil = new PTCreditNoteTestUtil(
 				PTAbstractTest.injector);
-		PTCreditNoteEntity creditNote = creditNoteUtil.getCreditNoteEntity();
+		PTCreditNoteEntity creditNote = creditNoteUtil
+				.getCreditNoteEntity(reference);
+
 		creditNote.setPaymentMechanism(paymentMechanism);
-		creditNote.setCustomer((CustomerEntity) invoice.getCustomer());
-		creditNote.setBusiness((BusinessEntity) invoice.getBusiness());
+		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
 		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
 		creditNote
 				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");

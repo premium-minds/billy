@@ -31,7 +31,6 @@ public class PTContactTestUtil {
 	private static final String EMAIL = "email@email.em";
 	private static final String FAX = "9999999122";
 	private static final String WEBSITE = "website@website.web";
-	private final String UID = "CONTACT";
 
 	private Injector injector;
 
@@ -51,12 +50,14 @@ public class PTContactTestUtil {
 
 	}
 
-	public PTContactEntity getContactEntity() {
-		PTContact.Builder contactBuilder = this.getContactBuilder();
-		PTContactEntity contact = (PTContactEntity) contactBuilder.build();
-		contact.setUID(new UID(this.UID));
-		return contact;
+	public PTContactEntity getContactEntity(String uid) {
+		PTContactEntity entity = (PTContactEntity) getContactBuilder().build();
+		entity.setUID(new UID(uid));
+		return entity;
+	}
 
+	public PTContactEntity getContactEntity() {
+		return (PTContactEntity) getContactBuilder().build();
 	}
 
 	public PTContact.Builder getContactBuilder() {

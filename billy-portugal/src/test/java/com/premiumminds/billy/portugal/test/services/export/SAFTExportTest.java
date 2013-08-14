@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -53,6 +53,7 @@ import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
 import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
@@ -75,11 +76,6 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 	private static final String SAFT_OUTPUT = System
 			.getProperty("java.io.tmpdir") + "/";
 
-	private static final String BUSINESS_UID = "BUSINESS_UID";
-	private static final String CUSTOMER_UID = "CUSTOMER_UID";
-	private static final String SUPPLIER_UID = "SUPPLIER_UID";
-	private static final String PRODUCT_UID1 = "PRODUCT_UID1";
-	private static final String PRODUCT_UID2 = "PRODUCT_UID2";
 	private static final String INVOICE_UID = "INVOICE_UID";
 	private static final String SIMPLE_INVOICE_UID = "SIMPLE_INVOICE_UID";
 	private static final int MAX_INVOICES = 3;
@@ -115,8 +111,6 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					.get(c.getUID(Config.Key.Context.Portugal.UUID));
 
 			/* ADDRESSES */
-			// DAOPTAddress daoPTAddress = injector
-			// .getInstance(DAOPTAddress.class);
 			PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
 					"Av. Republica", "Nº 3 - 3º Esq.",
 					"Av. Republica Nº 3 - 3º Esq.", "", "Lisboa", "1700-232",
@@ -130,8 +124,6 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					"Lisboa", "1000-253", "", "PT");
 
 			/* CONTACTS */
-			// DAOPTContact daoPTContact = injector
-			// .getInstance(DAOPTContact.class);
 			PTContact.Builder contactBuilder = contact.getContactBuilder(
 					"My Business", "299999999", "999999999", "299999998",
 					"mybusiness@email.me", "http://www.mybusiness.web");
@@ -146,8 +138,6 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					"http://www.yourbusinessnaweb.web");
 
 			/* APPLICATION */
-			// DAOPTApplication daoPTApplication = injector
-			// .getInstance(DAOPTApplication.class);
 			PTApplication.Builder applicationBuilder = application
 					.getApplicationBuilder("APP", "1.0", "My Business",
 							"523456789", "hhtp://www.app.mybusiness.web", 1,
@@ -158,17 +148,14 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			/* BUSINESS */
 			DAOPTBusiness daoPTBusiness = PTAbstractTest.injector
 					.getInstance(DAOPTBusiness.class);
-			PTBusinessEntity businessEntity = business.getBusinessEntity(
-					SAFTExportTest.BUSINESS_UID, myContext.getUID(),
-					contactBuilder, addressBuilder1, applicationBuilder);
+			PTBusinessEntity businessEntity = business.getBusinessEntity();
 			daoPTBusiness.create(businessEntity);
 
 			/* CUSTOMERS */
 			DAOPTCustomer daoPTCustomer = PTAbstractTest.injector
 					.getInstance(DAOPTCustomer.class);
-			PTCustomerEntity customerEntity = customer.getCustomerEntity(
-					SAFTExportTest.CUSTOMER_UID, "Zé", "26949843873", false,
-					addressBuilder2, contactBuilder2);
+			PTCustomerEntity customerEntity = customer.getCustomerEntity("Zé",
+					"26949843873", false, addressBuilder2, contactBuilder2);
 			daoPTCustomer.create(customerEntity);
 
 			PTCustomerEntity genericCustomerEntity = (PTCustomerEntity) daoPTCustomer
@@ -179,8 +166,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					.getInstance(DAOPTSupplier.class);
 
 			PTSupplierEntity supplierEntity = supplier.getSupplierEntity(
-					SAFTExportTest.SUPPLIER_UID, "YourSupplier", "5324532453",
-					false, addressBuilder3, contactBuilder3);
+					"YourSupplier", "5324532453", false, addressBuilder3,
+					contactBuilder3);
 			daoPTSupplier.create(supplierEntity);
 
 			/* TAXES */
@@ -191,12 +178,12 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTProduct daoPTProduct = PTAbstractTest.injector
 					.getInstance(DAOPTProduct.class);
 
-			PTProductEntity productEntity1 = product.getProductEntity(
-					"PRODUCT_UID1", "124233465", "Kg", "34254567", "Produto",
-					ProductType.GOODS);
+			PTProductEntity productEntity1 = product
+					.getProductEntity("124233465", "Kg", "34254567", "Produto",
+							ProductType.GOODS);
 			PTProductEntity productEntity2 = product.getProductEntity(
-					"PRODUCT_UID2", "243532453", "hh:mm:ss", "13423534",
-					"Estacionamento", ProductType.SERVICE);
+					"243532453", "hh:mm:ss", "13423534", "Estacionamento",
+					ProductType.SERVICE);
 
 			// INVOICES
 			DAOPTInvoice daoPTInvoice = PTAbstractTest.injector
@@ -210,21 +197,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 			List<PTInvoiceEntity> invoices = new ArrayList<PTInvoiceEntity>();
 			for (int i = 1; i < SAFTExportTest.MAX_INVOICES; i++) {
-				PTInvoiceEntity invoiceEntity = invoice.getInvoiceEntity(
-						TYPE.FT,
-						"A",
-						SAFTExportTest.INVOICE_UID + i,
-						i,
-						new Date().toString(),
-						SAFTExportTest.BUSINESS_UID,
-						(i % 2 == 0) ? SAFTExportTest.CUSTOMER_UID : c.getUID(
-								Config.Key.Customer.Generic.UUID).getValue(),
-						Arrays.asList(SAFTExportTest.PRODUCT_UID1,
-								SAFTExportTest.PRODUCT_UID2,
-								SAFTExportTest.PRODUCT_UID1,
-								SAFTExportTest.PRODUCT_UID2,
-								SAFTExportTest.PRODUCT_UID1,
-								SAFTExportTest.PRODUCT_UID2));
+				PTInvoiceEntity invoiceEntity = invoice.getInvoiceEntity();
 				prevHash = GenerateHash.generateHash(privateKey, publicKey,
 						invoiceEntity.getDate(),
 						invoiceEntity.getCreateTimestamp(),
@@ -240,12 +213,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTSimpleInvoice daoPTSimpleInvoice = PTAbstractTest.injector
 					.getInstance(DAOPTSimpleInvoice.class);
 			PTSimpleInvoiceEntity simpleInvoiceEntity = simpleInvoice
-					.getInvoiceEntity(TYPE.FS, "S",
-							SAFTExportTest.SIMPLE_INVOICE_UID, 1, new Date()
-									.toString(), SAFTExportTest.BUSINESS_UID,
-							SAFTExportTest.CUSTOMER_UID, Arrays.asList(
-									SAFTExportTest.PRODUCT_UID1,
-									SAFTExportTest.PRODUCT_UID2));
+					.getSimpleInvoiceEntity();
 			simpleInvoiceEntity.setHash(GenerateHash.generateHash(privateKey,
 					publicKey, simpleInvoiceEntity.getDate(),
 					simpleInvoiceEntity.getCreateTimestamp(),
@@ -257,10 +225,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTCreditNote daoPTCreditNote = PTAbstractTest.injector
 					.getInstance(DAOPTCreditNote.class);
 			PTCreditNoteEntity creditNoteEntity = creditNote
-					.getCreditNoteEntity(TYPE.NC, businessEntity.getUID()
-							.getValue(), customerEntity.getUID().getValue(),
-							productEntity1.getUID().getValue(), invoices.get(0)
-									.getUID().getValue());
+					.getCreditNoteEntity(TYPE.NC, getNewIssuedInvoice());
 			creditNoteEntity.setHash(GenerateHash.generateHash(privateKey,
 					publicKey, creditNoteEntity.getDate(),
 					creditNoteEntity.getCreateTimestamp(),
@@ -268,19 +233,33 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					creditNoteEntity.getAmountWithTax(), null));
 			daoPTCreditNote.create(creditNoteEntity);
 
-			PTSAFTFileGenerator generator = new PTSAFTFileGenerator();
-
-			Calendar calendar = Calendar.getInstance();
-			calendar.set(2013, 1, 1);
-
-			PrintStream stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT
-					+ "SAFT.xml");
-			generator.generateSAFTFile(stream, businessEntity,
-					applicationEntity, "1234", calendar.getTime(), new Date(),
-					daoPTCustomer, daoPTSupplier, daoPTProduct, daoPTTax,
-					daoPTRegionContext, daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
+			exportSAFT(daoPTRegionContext, applicationEntity, businessEntity,
+					daoPTCustomer, daoPTSupplier, daoPTTax, daoPTProduct,
+					daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void exportSAFT(DAOPTRegionContext daoPTRegionContext,
+			PTApplicationEntity applicationEntity,
+			PTBusinessEntity businessEntity, DAOPTCustomer daoPTCustomer,
+			DAOPTSupplier daoPTSupplier, DAOPTTax daoPTTax,
+			DAOPTProduct daoPTProduct, DAOPTInvoice daoPTInvoice,
+			DAOPTSimpleInvoice daoPTSimpleInvoice,
+			DAOPTCreditNote daoPTCreditNote) throws FileNotFoundException,
+			SAFTPTExportException {
+
+		PTSAFTFileGenerator generator = new PTSAFTFileGenerator();
+
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2013, 1, 1);
+
+		PrintStream stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT
+				+ "SAFT.xml");
+		generator.generateSAFTFile(stream, businessEntity, applicationEntity,
+				"1234", calendar.getTime(), new Date(), daoPTCustomer,
+				daoPTSupplier, daoPTProduct, daoPTTax, daoPTRegionContext,
+				daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
 	}
 }

@@ -22,10 +22,21 @@ import org.junit.After;
 import org.junit.Before;
 
 import com.google.inject.Guice;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
+import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
+import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.util.KeyGenerator;
+import com.premiumminds.billy.portugal.util.Services;
 
 public class PTPersistencyAbstractTest extends PTAbstractTest {
+
+	protected static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
+	protected static final String DEFAULT_SERIES = "DEFAULT";
 
 	@Before
 	public void setUpModules() {
@@ -45,4 +56,27 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 				.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
 	}
 
+	public PTInvoiceEntity getNewIssuedInvoice() {
+		Services service = new Services(injector);
+		PTIssuingParams parameters = new PTIssuingParamsImpl();
+
+		KeyGenerator generator = new KeyGenerator(PRIVATE_KEY_DIR);
+
+		parameters = new PTIssuingParamsImpl();
+		parameters.setPrivateKey(generator.getPrivateKey());
+		parameters.setPublicKey(generator.getPublicKey());
+		parameters.setPrivateKeyVersion("1");
+		parameters.setEACCode("31400");
+		parameters.setInvoiceSeries(DEFAULT_SERIES);
+
+		try {
+			return (PTInvoiceEntity) service.issueDocument(
+					new PTInvoiceTestUtil(injector)
+							.getInvoiceBuilder(SourceBilling.P), parameters);
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
 }

@@ -24,15 +24,12 @@ import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import org.junit.Test;
 
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoiceTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
@@ -48,8 +45,6 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 	public static final String URI_PATH = "file://"
 			+ System.getProperty("java.io.tmpdir") + "/Result.pdf";
-	private static final TYPE DEFAULT_TYPE = TYPE.FS;
-	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 	protected static final String PRODUCT_UID = "PRODUCT_ISSUE_UID";
 	protected static final String BUSINESS_UID = "BUSINESS_UID_TEST";
 	protected static final String CUSTOMER_UID = "CUSTOMER_UID_TEST";
@@ -87,14 +82,7 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 			PaymentMechanism paymentMechanism) {
 
 		PTSimpleInvoiceEntity simpleInvoice = new PTSimpleInvoiceTestUtil(
-				PTAbstractTest.injector).getSimpleInvoiceEntity(
-				TestPTSimpleInvoicePDFExportHandler.DEFAULT_TYPE,
-				TestPTSimpleInvoicePDFExportHandler.ENTRY_UID,
-				TestPTSimpleInvoicePDFExportHandler.INVOICE_UID,
-				TestPTSimpleInvoicePDFExportHandler.BUSINESS_UID,
-				TestPTSimpleInvoicePDFExportHandler.CUSTOMER_UID,
-				Arrays.asList(TestPTSimpleInvoicePDFExportHandler.PRODUCT_UID),
-				TestPTSimpleInvoicePDFExportHandler.SOURCE_BILLING);
+				PTAbstractTest.injector).getSimpleInvoiceEntity();
 		simpleInvoice.setPaymentMechanism(paymentMechanism);
 		simpleInvoice
 				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
