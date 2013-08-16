@@ -81,7 +81,7 @@ public class PTBusinessTestUtil {
 		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
 		businessBuilder.addApplication(applicationBuilder)
-				.addContact(contactBuilder).setAddress(addressBuilder)
+				.addContact(contactBuilder, true).setAddress(addressBuilder)
 				.setBillingAddress(addressBuilder).setCommercialName(NAME)
 				.setFinancialID(FINANCIAL_ID)
 				.setOperationalContextUID(context.getUID()).setWebsite(WEBSITE)

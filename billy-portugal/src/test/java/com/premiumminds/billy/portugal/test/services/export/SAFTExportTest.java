@@ -76,8 +76,6 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 	private static final String SAFT_OUTPUT = System
 			.getProperty("java.io.tmpdir") + "/";
 
-	private static final String INVOICE_UID = "INVOICE_UID";
-	private static final String SIMPLE_INVOICE_UID = "SIMPLE_INVOICE_UID";
 	private static final int MAX_INVOICES = 3;
 
 	@Test

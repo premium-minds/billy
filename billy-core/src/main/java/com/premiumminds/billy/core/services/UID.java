@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.services;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import com.premiumminds.billy.core.Config;
 
@@ -27,6 +28,10 @@ public class UID implements Serializable, Comparable<UID> {
 	private static final long serialVersionUID = Config.SERIAL_VERSION;
 
 	private String value;
+
+	public UID() {
+		this.setValue(UUID.randomUUID().toString());
+	}
 
 	public UID(String value) {
 		this.setValue(value);

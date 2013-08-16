@@ -60,14 +60,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 		Services service = new Services(injector);
 		PTIssuingParams parameters = new PTIssuingParamsImpl();
 
-		KeyGenerator generator = new KeyGenerator(PRIVATE_KEY_DIR);
-
-		parameters = new PTIssuingParamsImpl();
-		parameters.setPrivateKey(generator.getPrivateKey());
-		parameters.setPublicKey(generator.getPublicKey());
-		parameters.setPrivateKeyVersion("1");
-		parameters.setEACCode("31400");
-		parameters.setInvoiceSeries(DEFAULT_SERIES);
+		parameters = getParameters(DEFAULT_SERIES, "3000", "1");
 
 		try {
 			return (PTInvoiceEntity) service.issueDocument(
@@ -78,5 +71,17 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 		}
 
 		return null;
+	}
+
+	protected PTIssuingParams getParameters(String series, String EACCode,
+			String privateKeyVersion) {
+		PTIssuingParams parameters = new PTIssuingParamsImpl();
+		KeyGenerator generator = new KeyGenerator(PRIVATE_KEY_DIR);
+		parameters.setPrivateKey(generator.getPrivateKey());
+		parameters.setPublicKey(generator.getPublicKey());
+		parameters.setPrivateKeyVersion(privateKeyVersion);
+		parameters.setEACCode(EACCode);
+		parameters.setInvoiceSeries(series);
+		return parameters;
 	}
 }

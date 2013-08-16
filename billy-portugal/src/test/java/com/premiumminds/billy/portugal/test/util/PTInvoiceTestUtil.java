@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.util;
 
@@ -62,14 +63,15 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(SourceBilling billing) {
-		PTInvoiceEntity invoice = (PTInvoiceEntity) getInvoiceBuilder(billing)
-				.build();
+		PTInvoiceEntity invoice = (PTInvoiceEntity) getInvoiceBuilder(
+				new UID().toString(), billing).build();
 		invoice.setType(INVOICE_TYPE);
 
 		return invoice;
 	}
 
-	public PTInvoice.Builder getInvoiceBuilder(SourceBilling billing) {
+	public PTInvoice.Builder getInvoiceBuilder(String buissnesUid,
+			SourceBilling billing) {
 		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -78,7 +80,8 @@ public class PTInvoiceTestUtil {
 		DAOPTCustomer daoPTCustomer = this.injector
 				.getInstance(DAOPTCustomer.class);
 
-		PTBusinessEntity businessEntity = this.business.getBusinessEntity();
+		PTBusinessEntity businessEntity = this.business
+				.getBusinessEntity(buissnesUid);
 		UID businessUID = daoPTBusiness.create(businessEntity).getUID();
 
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();

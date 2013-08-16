@@ -29,7 +29,7 @@ import com.premiumminds.billy.portugal.services.documents.PTCreditNoteIssuingHan
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 
 public class Services {
 
@@ -58,7 +58,7 @@ public class Services {
 		return persistenceService;
 	}
 
-	public <T extends PTInvoice> T issueDocument(Builder<T> builder,
+	public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder,
 			PTIssuingParams issuingParameters) throws DocumentIssuingException {
 		return this.issuingService.issue(builder, issuingParameters);
 	}

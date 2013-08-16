@@ -143,7 +143,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		this.setHeader(params, document, bundle);
 
-		this.setBussiness(params, document, bundle);
+		this.setBusiness(params, document, bundle);
 
 		this.setCustomer(params, document, bundle);
 
@@ -247,7 +247,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		}
 	}
 
-	protected void setBussiness(ParamsTree<String, String> params,
+	protected void setBusiness(ParamsTree<String, String> params,
 			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
 		Node<String, String> businessInfo = params.getRoot().addChild(
 				ParamKeys.BUSINESS);

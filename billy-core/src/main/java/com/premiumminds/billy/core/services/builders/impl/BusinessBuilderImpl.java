@@ -127,10 +127,18 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
+	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder,
+			boolean isMainContact) {
 		BillyValidator.notNull(contactBuilder, BusinessBuilderImpl.LOCALIZER
 				.getString("field.business_contact"));
-		this.getTypeInstance().getContacts().add(contactBuilder.build());
+
+		ContactEntity contact = (ContactEntity) contactBuilder.build();
+
+		this.getTypeInstance().getContacts().add(contact);
+
+		if (isMainContact) {
+			this.getTypeInstance().setMainContact(contact);
+		}
 		return this.getBuilder();
 	}
 

@@ -30,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
+import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -139,7 +140,9 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
 				TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
 
-		this.issueNewInvoice(this.handler, this.newInvoice(TYPE.FS,
+		PTSimpleInvoiceIssuingHandler newHandler = getInstance(PTSimpleInvoiceIssuingHandler.class);
+
+		this.issueNewInvoice(newHandler, this.newInvoice(TYPE.FS,
 				TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
 	}
 

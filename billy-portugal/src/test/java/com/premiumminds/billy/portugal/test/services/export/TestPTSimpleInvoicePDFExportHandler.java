@@ -45,12 +45,6 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 	public static final String URI_PATH = "file://"
 			+ System.getProperty("java.io.tmpdir") + "/Result.pdf";
-	protected static final String PRODUCT_UID = "PRODUCT_ISSUE_UID";
-	protected static final String BUSINESS_UID = "BUSINESS_UID_TEST";
-	protected static final String CUSTOMER_UID = "CUSTOMER_UID_TEST";
-	protected static final String INVOICE_UID = "INVOICE_ISSUE_UID";
-	protected static final String DEFAULT_SERIES = "DEFAULT";
-	protected static final String ENTRY_UID = "ENTRY_ISSUE_UID";
 
 	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 	public static final byte[] SAMPLE_HASH = { 0xa, 0x1, 0x3, 0xf, 0x7, 0x5,
