@@ -32,7 +32,6 @@ public class PTProductTestUtil {
 	private static final String UNIT_OF_MEASURE = "Kg";
 	private static final String PRODUCT_CODE = "12345";
 	private static final String DESCRIPTION = "DESCRIPTION";
-	private static final String UID = "POTATOES";
 	private static final String GROUP = "FOOD";
 	private static final ProductType TYPE = ProductType.GOODS;
 
@@ -46,33 +45,39 @@ public class PTProductTestUtil {
 		this.tax = (PTTaxEntity) this.taxes.continent().normal();
 	}
 
-	public PTProductEntity getProductEntity(String uid, String numberCode,
-			String unitOfMeasure, String productCode, String description,
-			ProductType type) {
-		PTProduct.Builder productBuilder = this.injector
-				.getInstance(PTProduct.Builder.class);
-
-		productBuilder.clear();
-		productBuilder.addTaxUID(this.tax.getUID()).setNumberCode(numberCode)
-				.setUnitOfMeasure(unitOfMeasure).setProductCode(productCode)
-				.setDescription(description).setType(type)
-				.setProductGroup(PTProductTestUtil.GROUP);
-
-		PTProductEntity product = (PTProductEntity) productBuilder.build();
-
+	public PTProductEntity getProductEntity(String uid) {
+		PTProductEntity product = (PTProductEntity) getProductBuilder().build();
 		product.setUID(new UID(uid));
 
 		return product;
 	}
 
-	public PTProductEntity getProductEntity(String uid) {
-		return this.getProductEntity(uid, PTProductTestUtil.NUMBER_CODE,
-				PTProductTestUtil.UNIT_OF_MEASURE,
-				PTProductTestUtil.PRODUCT_CODE, PTProductTestUtil.DESCRIPTION,
-				PTProductTestUtil.TYPE);
+	public PTProductEntity getProductEntity() {
+		return (PTProductEntity) getProductBuilder().build();
 	}
 
-	public PTProductEntity getProductEntity() {
-		return this.getProductEntity(PTProductTestUtil.UID);
+	public PTProduct.Builder getProductBuilder(String productCode,
+			String unitMesure, String numberCode, String group,
+			String description, ProductType type) {
+		PTProduct.Builder productBuilder = this.injector
+				.getInstance(PTProduct.Builder.class);
+
+		return productBuilder.addTaxUID(this.tax.getUID())
+				.setNumberCode(numberCode).setUnitOfMeasure(unitMesure)
+				.setProductCode(productCode).setDescription(description)
+				.setType(type).setProductGroup(group);
+
+	}
+
+	public PTProduct.Builder getProductBuilder() {
+		return getProductBuilder(PRODUCT_CODE, UNIT_OF_MEASURE, NUMBER_CODE,
+				GROUP, DESCRIPTION, TYPE);
+	}
+
+	public PTProductEntity getProductEntity(String productCode,
+			String unitMesure, String numberCode, String group, ProductType type) {
+		return (PTProductEntity) getProductBuilder(productCode, unitMesure,
+				numberCode, group, DESCRIPTION, type).build();
+
 	}
 }

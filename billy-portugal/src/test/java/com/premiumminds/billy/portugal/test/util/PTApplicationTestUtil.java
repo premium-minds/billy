@@ -47,10 +47,9 @@ public class PTApplicationTestUtil {
 			String version, String companyName, String companyTaxId,
 			String website, Integer swCertificateNumber, String keysPath,
 			PTContact.Builder contactBuilder) throws MalformedURLException {
+
 		PTApplication.Builder applicationBuilder = this.injector
 				.getInstance(PTApplication.Builder.class);
-
-		applicationBuilder.clear();
 
 		applicationBuilder.addContact(contactBuilder)
 				.setApplicationKeysPath(new URL(keysPath))

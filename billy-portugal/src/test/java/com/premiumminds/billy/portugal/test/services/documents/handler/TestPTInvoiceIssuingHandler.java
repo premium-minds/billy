@@ -27,8 +27,10 @@ import org.junit.Test;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
+import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -42,6 +44,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
 	private PTInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
 
 	@Before
 	public void setUpNewInvoice() {
@@ -50,14 +53,11 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		try {
 			PTInvoiceEntity invoice = this.newInvoice(
 					TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
-					PTDocumentAbstractTest.INVOICE_UID,
-					PTDocumentAbstractTest.PRODUCT_UID,
-					PTDocumentAbstractTest.BUSINESS_UID,
-					PTDocumentAbstractTest.CUSTOMER_UID,
 					TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
 			this.issueNewInvoice(this.handler, invoice,
 					PTDocumentAbstractTest.DEFAULT_SERIES);
+			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}
@@ -67,8 +67,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
 		PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
-				DAOPTInvoice.class).get(
-				new UID(PTDocumentAbstractTest.INVOICE_UID));
+				DAOPTInvoice.class).get(issuedInvoiceUID);
 
 		Assert.assertEquals(PTDocumentAbstractTest.DEFAULT_SERIES,
 				issuedInvoice.getSeries());
@@ -82,18 +81,19 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	@Test
 	public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
-		String UID1 = "invoice_uid_1";
-		String PUID1 = "product_uid_1";
-		String BUID1 = "business_uid_1";
-		String CUID1 = "customer_uid_1";
 		Integer nextNumber = 2;
-		this.issueNewInvoice(this.handler, this.newInvoice(
-				TestPTInvoiceIssuingHandler.DEFAULT_TYPE, UID1, PUID1, BUID1,
-				CUID1, TestPTInvoiceIssuingHandler.SOURCE_BILLING),
+
+		PTGenericInvoiceEntity newInvoice = this.newInvoice(
+				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+		UID newInvoiceUID = newInvoice.getUID();
+
+		this.issueNewInvoice(this.handler, newInvoice,
 				PTDocumentAbstractTest.DEFAULT_SERIES);
 
 		PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
-				DAOPTInvoice.class).get(new UID(UID1));
+				DAOPTInvoice.class).get(newInvoiceUID);
 
 		Assert.assertEquals(PTDocumentAbstractTest.DEFAULT_SERIES,
 				issuedInvoice.getSeries());
@@ -106,19 +106,19 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuedInvoiceDifferentSeries()
 			throws DocumentIssuingException {
-		String UID1 = "invoice_uid_1";
-		String PUID1 = "product_uid_1";
 		Integer nextNumber = 1;
 		String newSeries = "NEW_SERIES";
-		String BUID1 = "business_uid_1";
-		String CUID1 = "customer_uid_1";
 
-		this.issueNewInvoice(this.handler, this.newInvoice(
-				TestPTInvoiceIssuingHandler.DEFAULT_TYPE, UID1, PUID1, BUID1,
-				CUID1, TestPTInvoiceIssuingHandler.SOURCE_BILLING), newSeries);
+		PTGenericInvoiceEntity newInvoice = this.newInvoice(
+				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+		UID newInvoiceUID = newInvoice.getUID();
+
+		this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
 		PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
-				DAOPTInvoice.class).get(new UID(UID1));
+				DAOPTInvoice.class).get(newInvoiceUID);
 
 		Assert.assertEquals(newSeries, issuedInvoice.getSeries());
 		Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
@@ -135,49 +135,39 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	@Test(expected = InvalidInvoiceTypeException.class)
 	public void testIssuedInvoiceFailure() throws DocumentIssuingException {
 		String series = "NEW_SERIES";
-		String UID1 = "invoice_uid_1";
-		String UID2 = "invoice_uid_2";
-		String PUID1 = "product_uid_1";
-		String PUID2 = "product_uid_2";
-		String BUID1 = "business_uid_1";
-		String CUID1 = "customer_uid_1";
 
 		this.issueNewInvoice(this.handler, this.newInvoice(
-				TestPTInvoiceIssuingHandler.DEFAULT_TYPE, UID1, PUID1, BUID1,
-				CUID1, TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
-		this.issueNewInvoice(this.handler, this
-				.newInvoice(TYPE.FS, UID2, PUID2, BUID1, CUID1,
-						TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
+				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
+
+		PTSimpleInvoiceIssuingHandler newHandler = getInstance(PTSimpleInvoiceIssuingHandler.class);
+
+		this.issueNewInvoice(newHandler, this.newInvoice(TYPE.FS,
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
 	}
 
 	@Test(expected = InvalidInvoiceDateException.class)
 	public void testIssuedInvoiceBeforeDate() throws DocumentIssuingException {
-		String UID1 = "invoice_uid_1";
-		String PUID1 = "product_uid_1";
-		String BUID1 = "business_uid_1";
-		String CUID1 = "customer_uid_1";
-
 		this.issueNewInvoice(this.handler, this.newInvoice(
-				TestPTInvoiceIssuingHandler.DEFAULT_TYPE, UID1, PUID1, BUID1,
-				CUID1, TestPTInvoiceIssuingHandler.SOURCE_BILLING),
+				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING),
 				PTDocumentAbstractTest.DEFAULT_SERIES, new Date(0));
 	}
 
 	@Test
 	public void testIssuedInvoiceSameSourceBilling()
 			throws DocumentIssuingException {
-		String UID1 = "invoice_uid_1";
-		String PUID1 = "product_uid_1";
-		String BUID1 = "business_uid_1";
-		String CUID1 = "customer_uid_1";
+		PTGenericInvoiceEntity newInvoice = this.newInvoice(
+				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-		this.issueNewInvoice(this.handler, this.newInvoice(
-				TestPTInvoiceIssuingHandler.DEFAULT_TYPE, UID1, PUID1, BUID1,
-				CUID1, TestPTInvoiceIssuingHandler.SOURCE_BILLING),
+		UID newInvoiceUID = newInvoice.getUID();
+
+		this.issueNewInvoice(this.handler, newInvoice,
 				PTDocumentAbstractTest.DEFAULT_SERIES);
 
 		PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
-				DAOPTInvoice.class).get(new UID(UID1));
+				DAOPTInvoice.class).get(newInvoiceUID);
 
 		Assert.assertEquals(TestPTInvoiceIssuingHandler.SOURCE_BILLING,
 				issuedInvoice.getSourceBilling());

@@ -55,7 +55,7 @@ public abstract class JPABaseEntity implements BaseEntity {
 	protected Integer id;
 
 	@Basic(optional = false)
-	@Column(name = "UID", nullable = false, insertable = true, updatable = false, unique = false)
+	@Column(name = "UID", nullable = false, insertable = true, updatable = false, unique = true)
 	protected String uid;
 
 	@Basic(optional = false)

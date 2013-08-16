@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
-import java.util.Arrays;
-import java.util.Date;
-
+import org.junit.Before;
 import org.junit.Test;
 
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
@@ -33,17 +31,22 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 
-	@Test
-	public void testIssuingService() throws DocumentIssuingException {
-		DocumentIssuingService service = this
-				.getInstance(DocumentIssuingService.class);
+	private DocumentIssuingService service;
+
+	@Before
+	public void setUp() {
+		service = this.getInstance(DocumentIssuingService.class);
 		service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
 				.getInstance(PTInvoiceIssuingHandler.class));
 
 		parameters.setInvoiceSeries("A");
+	}
 
-		service.issue(new PTInvoiceTestUtil(injector).getInvoiceBuilder("b1",
-				"b2", SourceBilling.P, Arrays.asList("prod")).setDate(new Date(new Date().getTime() + 100000)), parameters);
+	@Test
+	public void testIssuingService() throws DocumentIssuingException {
+
+		service.issue(new PTInvoiceTestUtil(injector)
+				.getInvoiceBuilder(SourceBilling.P), parameters);
 
 	}
 }

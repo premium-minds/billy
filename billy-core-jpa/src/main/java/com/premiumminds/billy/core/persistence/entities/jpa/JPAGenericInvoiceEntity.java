@@ -41,6 +41,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.envers.Audited;
 
@@ -57,7 +58,10 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 
 @Entity
 @Audited
-@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
+@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "NUMBER", "ID_BUSINESS" }),
+		@UniqueConstraint(columnNames = { "SERIES", "SERIES_NUMBER",
+				"ID_BUSINESS" }) })
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		GenericInvoiceEntity {

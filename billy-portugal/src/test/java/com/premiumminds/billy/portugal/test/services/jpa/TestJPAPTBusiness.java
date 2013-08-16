@@ -18,48 +18,76 @@
  */
 package com.premiumminds.billy.portugal.test.services.jpa;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.Callable;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
-import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
+import com.premiumminds.billy.portugal.test.util.ConcurrentTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 
-public class TestJPAPTBusiness extends PTPersistencyAbstractTest {
+public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
-	@Test
-	public void doTest() {
-		TestJPAPTBusiness.execute(PTAbstractTest.injector);
-		// assert
+	private TransactionWrapper<Void> transaction;
+
+	class TestRunner implements Callable<Void> {
+
+		private Injector injector;
+
+		public TestRunner(Injector inject) {
+			this.injector = inject;
+
+		}
+
+		@Override
+		public Void call() throws Exception {
+			TestJPAPTBusiness.execute(injector, transaction);
+			return null;
+		}
 	}
 
-	public static void execute(final Injector injector) {
-		DAO<?> dao = injector.getInstance(DAOPTInvoice.class);
-		final PTBusinessTestUtil business = new PTBusinessTestUtil(injector);
+	@Before
+	public void setUp() {
+		this.transaction = new TransactionWrapper<Void>(
+				injector.getInstance(DAOPTInvoice.class)) {
 
-		try {
-			new TransactionWrapper<Void>(dao) {
+			@Override
+			public Void runTransaction() throws Exception {
+				PTBusinessTestUtil business = new PTBusinessTestUtil(injector);
+				DAOPTBusiness daoPTBusiness = injector
+						.getInstance(DAOPTBusiness.class);
 
-				@Override
-				public Void runTransaction() throws Exception {
-					DAOPTBusiness daoPTBusiness = injector
-							.getInstance(DAOPTBusiness.class);
+				PTBusinessEntity newBusiness = business.getBusinessEntity();
+				newBusiness.setUID(new UID("Biz"));
 
-					PTBusinessEntity newBusiness = business.getBusinessEntity();
+				daoPTBusiness.create(newBusiness);
 
-					daoPTBusiness.create(newBusiness);
+				return null;
+			}
+		};
+	}
 
-					return null;
-				}
+	@Test
+	public void doTest() throws Exception {
+		TestJPAPTBusiness.execute(PTAbstractTest.injector, transaction);
+	}
 
-			}.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Test
+	public void testConcurrentCreate() throws Exception {
+		ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+
+		test.runThreads(new TestRunner(PTAbstractTest.injector));
+
+		DAOPTBusiness biz = injector.getInstance(DAOPTBusiness.class);
+		assertTrue(biz.exists(new UID("Biz")));
 	}
 }

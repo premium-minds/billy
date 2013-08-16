@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
-import java.util.Arrays;
 import java.util.Date;
 
 import org.junit.Before;
@@ -39,14 +38,6 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
-	protected static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
-	protected static final String PRODUCT_UID = "PRODUCT_ISSUE_UID";
-	protected static final String BUSINESS_UID = "BUSINESS_UID_TEST";
-	protected static final String CUSTOMER_UID = "CUSTOMER_UID_TEST";
-	protected static final String INVOICE_UID = "INVOICE_ISSUE_UID";
-	protected static final String DEFAULT_SERIES = "DEFAULT";
-	protected static final String ENTRY_UID = "ENTRY_ISSUE_UID";
-
 	protected PTIssuingParams parameters;
 
 	@Before
@@ -63,22 +54,15 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	@SuppressWarnings("unchecked")
 	protected <T extends PTGenericInvoiceEntity> T newInvoice(TYPE type,
-			String invoiceUID, String productUID, String businessUID,
-			String customerUID, SourceBilling billing) {
+			SourceBilling billing) {
 
 		switch (type) {
 			case FT:
 				return (T) new PTInvoiceTestUtil(PTAbstractTest.injector)
-						.getSimpleInvoiceEntity(type,
-								PTDocumentAbstractTest.ENTRY_UID, invoiceUID,
-								businessUID, customerUID,
-								Arrays.asList(productUID), billing);
+						.getInvoiceEntity(billing);
 			case FS:
 				return (T) new PTSimpleInvoiceTestUtil(PTAbstractTest.injector)
-						.getSimpleInvoiceEntity(type,
-								PTDocumentAbstractTest.ENTRY_UID, invoiceUID,
-								businessUID, customerUID,
-								Arrays.asList(productUID), billing);
+						.getSimpleInvoiceEntity(billing);
 			case NC:
 				throw new NotImplementedException();
 			case ND:

@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.documents;
 
@@ -71,7 +72,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 				@Override
 				public T runTransaction() throws Exception {
 					PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
-					TYPE documentType = ((PTGenericInvoice) document).getType();
 					SourceBilling sourceBilling = ((PTGenericInvoice) document)
 							.getSourceBilling();
 					Date invoiceDate = document.getDate();
@@ -87,14 +87,12 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 
 					try {
 						PTGenericInvoiceEntity latestInvoice = daoInvoice
-								.getLatestInvoiceFromSeries(series);
+								.getLatestInvoiceFromSeries(series, document
+										.getBusiness().getUID().toString());
 						Date latestInvoiceDate = latestInvoice.getDate();
 
 						PTGenericInvoiceIssuingHandler.this
-								.validateDocumentType(documentType,
-										invoiceType, series);
-						PTGenericInvoiceIssuingHandler.this
-								.validateDocumentType(documentType,
+								.validateDocumentType(invoiceType,
 										latestInvoice.getType(), series);
 
 						if (!latestInvoice.getSourceBilling().equals(
@@ -141,7 +139,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 					documentEntity.setHashControl(parametersPT
 							.getPrivateKeyVersion());
 					documentEntity.setEACCode(parametersPT.getEACCode());
-					documentEntity.setSourceBilling(sourceBilling);
 
 					daoInvoice.create(documentEntity);
 

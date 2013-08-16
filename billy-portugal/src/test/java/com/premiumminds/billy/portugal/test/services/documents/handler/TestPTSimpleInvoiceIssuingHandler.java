@@ -38,6 +38,7 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
 	private PTSimpleInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
 
 	@Before
 	public void setUpNewSimpleInvoice() {
@@ -46,14 +47,11 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		try {
 			PTSimpleInvoiceEntity invoice = this.newInvoice(
 					TestPTSimpleInvoiceIssuingHandler.DEFAULT_TYPE,
-					PTDocumentAbstractTest.INVOICE_UID,
-					PTDocumentAbstractTest.PRODUCT_UID,
-					PTDocumentAbstractTest.BUSINESS_UID,
-					PTDocumentAbstractTest.CUSTOMER_UID,
 					TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING);
 
 			this.issueNewInvoice(this.handler, invoice,
 					PTDocumentAbstractTest.DEFAULT_SERIES);
+			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}
@@ -62,8 +60,7 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
 		PTSimpleInvoice issuedInvoice = (PTSimpleInvoice) this.getInstance(
-				DAOPTSimpleInvoice.class).get(
-				new UID(PTDocumentAbstractTest.INVOICE_UID));
+				DAOPTSimpleInvoice.class).get(issuedInvoiceUID);
 
 		Assert.assertEquals(PTDocumentAbstractTest.DEFAULT_SERIES,
 				issuedInvoice.getSeries());

@@ -49,13 +49,6 @@
 			<property name="hibernate.show_sql" value="${hibernate.show_sql}" />
 			<property name="hibernate.hbm2ddl.auto" value="${hibernate.hbm2ddl.auto}" />
 			<property name="hibernate.dialect" value="${hibernate.dialect}" />
-			<!-- <property name="hibernate.archive.autodetection" value="class, hbm"/> -->
-
-
-			<!-- <property name="hibernate.show_sql" value="true" /> -->
-			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
-			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" 
-				/> -->
 		</properties>
 	</persistence-unit>
 

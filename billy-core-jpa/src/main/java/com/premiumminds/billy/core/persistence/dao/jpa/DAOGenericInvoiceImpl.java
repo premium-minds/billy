@@ -28,7 +28,9 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.services.entities.Business;
 
 public class DAOGenericInvoiceImpl extends
 		AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
@@ -51,15 +53,20 @@ public class DAOGenericInvoiceImpl extends
 
 	@Override
 	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
-			String series) throws BillyRuntimeException {
+			String series, String businessUID) throws BillyRuntimeException {
 
 		QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
+		QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
 		JPAQuery query = new JPAQuery(this.getEntityManager());
+
+		Business foundBusiness = query.from(business)
+				.where(business.uid.eq(businessUID)).uniqueResult(business);
 
 		GenericInvoiceEntity invoice = query
 				.from(genericInvoice)
 				.where(genericInvoice.series.eq(series))
+				.where(genericInvoice.business.eq(foundBusiness))
 				.where(genericInvoice.seriesNumber.eq(new JPASubQuery().from(
 						genericInvoice).unique(
 						genericInvoice.seriesNumber.max())))
@@ -71,5 +78,4 @@ public class DAOGenericInvoiceImpl extends
 			throw new BillyRuntimeException();
 		}
 	}
-
 }

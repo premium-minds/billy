@@ -22,10 +22,7 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-import javax.persistence.NoResultException;
-
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -81,25 +78,9 @@ public class PTInvoiceEntryTestUtil {
 	}
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
-
 		PTProductEntity newProduct = this.product.getProductEntity();
-		return this.getInvoiceEntryBuilder(newProduct);
+		return this.getInvoiceEntryBuilder((PTProductEntity) injector
+				.getInstance(DAOPTProduct.class).create(newProduct));
 	}
 
-	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(String productUID) {
-		DAOPTProduct daoPTProduct = this.injector
-				.getInstance(DAOPTProduct.class);
-		PTProductEntity newProduct = null;
-		try {
-			newProduct = (PTProductEntity) daoPTProduct
-					.get(new UID(productUID));
-		} catch (NoResultException e) {
-		}
-
-		if (newProduct == null) {
-			newProduct = this.product.getProductEntity(productUID);
-			daoPTProduct.create(newProduct);
-		}
-		return this.getInvoiceEntryBuilder(newProduct);
-	}
 }
