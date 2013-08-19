@@ -22,6 +22,7 @@ import org.junit.After;
 import org.junit.Before;
 
 import com.google.inject.Guice;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
@@ -57,6 +58,11 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 	}
 
 	public PTInvoiceEntity getNewIssuedInvoice() {
+		return getNewIssuedInvoice((new UID()).toString());
+
+	}
+
+	public PTInvoiceEntity getNewIssuedInvoice(String businessUID) {
 		Services service = new Services(injector);
 		PTIssuingParams parameters = new PTIssuingParamsImpl();
 
@@ -64,8 +70,8 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 
 		try {
 			return (PTInvoiceEntity) service.issueDocument(
-					new PTInvoiceTestUtil(injector)
-							.getInvoiceBuilder(SourceBilling.P), parameters);
+					new PTInvoiceTestUtil(injector).getInvoiceBuilder(
+							businessUID, SourceBilling.P), parameters);
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}

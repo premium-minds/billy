@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.test.services.documents;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -45,8 +46,9 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuingService() throws DocumentIssuingException {
 
-		service.issue(new PTInvoiceTestUtil(injector)
-				.getInvoiceBuilder(SourceBilling.P), parameters);
+		service.issue(
+				new PTInvoiceTestUtil(injector).getInvoiceBuilder(
+						(new UID()).toString(), SourceBilling.P), parameters);
 
 	}
 }

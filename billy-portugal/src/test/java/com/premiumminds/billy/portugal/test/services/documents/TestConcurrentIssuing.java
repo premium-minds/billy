@@ -1,27 +1,27 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy portugal (PT Pack).
- * 
- * billy portugal (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy portugal (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
+ *
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
@@ -31,7 +31,6 @@ import org.junit.Test;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -87,35 +86,59 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 		List<Future<?>> results2 = test.runThreads(new TestRunner(injector,
 				"A", B2));
 
-		DAOPTInvoice daoPTInvoice = getInstance(DAOPTInvoice.class);
+		List<PTInvoice> invoices1 = new ArrayList<PTInvoice>();
+		List<PTInvoice> invoices2 = new ArrayList<PTInvoice>();
 
-		PTInvoice invoice1 = null, invoice2 = null;
 		for (int i = 0; i < results1.size(); i++) {
 			try {
-				invoice1 = (PTInvoice) results1.get(i).get();
+				PTInvoice invoice = (PTInvoice) results1.get(i).get();
+				if (invoice != null)
+					invoices1.add(invoice);
 			} catch (Exception e) {
 			}
 		}
 
 		for (int i = 0; i < results2.size(); i++) {
 			try {
-				invoice2 = (PTInvoice) results2.get(i).get();
+				PTInvoice invoice = (PTInvoice) results2.get(i).get();
+				if (invoice != null)
+					invoices2.add(invoice);
 			} catch (Exception e) {
 			}
 		}
 
-		if (invoice1 == null || invoice2 == null) {
-			fail(((invoice1 == null) ? "Invoice1" : "Invoice2") + " is null!");
+		if (invoices1.isEmpty() || invoices2.isEmpty()) {
+			fail(((invoices1.isEmpty()) ? "Invoice1" : "Invoice2")
+					+ " is empty!");
 		}
 
-		PTInvoiceEntity entity1 = (PTInvoiceEntity) daoPTInvoice.get(invoice1
-				.getUID());
-		assertEquals(entity1.getSeriesNumber(), new Integer(1));
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		int lastSeriesNumber = 0;
+		PTInvoiceEntity entity1 = null;
+		for (PTInvoice invoice : invoices1) {
+			if (lastSeriesNumber < invoice.getSeriesNumber()) {
+				lastSeriesNumber = invoice.getSeriesNumber();
+				entity1 = (PTInvoiceEntity) invoice;
+			}
+		}
+		assertEquals(entity1.getSeriesNumber(), new Integer(invoices1.size()));
 		assertEquals(entity1.getBusiness().getUID().toString(), B1);
 
-		PTInvoiceEntity entity2 = (PTInvoiceEntity) daoPTInvoice.get(invoice2
-				.getUID());
-		assertEquals(entity2.getSeriesNumber(), new Integer(1));
+		lastSeriesNumber = 0;
+		PTInvoiceEntity entity2 = null;
+		for (PTInvoice invoice : invoices2) {
+			if (lastSeriesNumber < invoice.getSeriesNumber()) {
+				lastSeriesNumber = invoice.getSeriesNumber();
+				entity2 = (PTInvoiceEntity) invoice;
+			}
+		}
+		assertEquals(entity2.getSeriesNumber(), new Integer(invoices2.size()));
 		assertEquals(entity2.getBusiness().getUID().toString(), B2);
 
 	}
