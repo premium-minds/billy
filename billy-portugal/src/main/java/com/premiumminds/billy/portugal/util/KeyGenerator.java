@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.util;
 
@@ -31,12 +32,18 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMReader;
 
 /**
- * Class for generating Private and Public Keys.
+ * Generates {@link PrivateKey} and {@link PublicKey}.
  */
 public class KeyGenerator {
 
 	private String privateKeyPath;
 
+	/**
+	 * Generates the {@link PrivateKey} and {@link PublicKey} based on the
+	 * {@link PrivateKey} location.
+	 * 
+	 * @param privateKeyPath
+	 */
 	public KeyGenerator(String privateKeyPath) {
 		if (Security.getProvider("BC") == null) {
 			Security.addProvider(new BouncyCastleProvider());
@@ -76,10 +83,16 @@ public class KeyGenerator {
 		return pair;
 	}
 
+	/**
+	 * @return {@link PrivateKey}
+	 */
 	public PrivateKey getPrivateKey() {
 		return this.getKeyPair().getPrivate();
 	}
 
+	/**
+	 * @return {@link PublicKey}
+	 */
 	public PublicKey getPublicKey() {
 		return this.getKeyPair().getPublic();
 	}
