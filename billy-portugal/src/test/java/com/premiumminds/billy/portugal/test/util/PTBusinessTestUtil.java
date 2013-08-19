@@ -20,8 +20,11 @@ package com.premiumminds.billy.portugal.test.util;
 
 import java.net.MalformedURLException;
 
+import javax.persistence.NoResultException;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
@@ -59,9 +62,14 @@ public class PTBusinessTestUtil {
 	}
 
 	public PTBusinessEntity getBusinessEntity(String uid) {
-		PTBusinessEntity business = (PTBusinessEntity) getBusinessBuilder()
-				.build();
-		business.setUID(new UID(uid));
+		PTBusinessEntity business = null;
+		try {
+			business = (PTBusinessEntity) injector.getInstance(
+					DAOPTBusiness.class).get(new UID(uid));
+		} catch (NoResultException e) {
+			business = (PTBusinessEntity) getBusinessBuilder().build();
+			business.setUID(new UID(uid));
+		}
 
 		return business;
 	}

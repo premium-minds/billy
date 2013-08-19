@@ -79,10 +79,13 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	 */
 	@Test(expected = InvalidSourceBillingException.class)
 	public void testDifferentBilling() throws DocumentIssuingException {
+		PTInvoiceEntity issuedInvoice = (PTInvoiceEntity) this.getInstance(
+				DAOPTInvoice.class).get(issuedInvoiceUID);
 
 		PTInvoiceEntity normalInvoice = this
 				.newInvoice(TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE,
 						SourceBilling.P);
+		normalInvoice.setBusiness(issuedInvoice.getBusiness());
 
 		this.issueNewInvoice(this.handler, normalInvoice,
 				PTDocumentAbstractTest.DEFAULT_SERIES);

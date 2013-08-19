@@ -81,6 +81,8 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	@Test
 	public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
+		PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
+				DAOPTInvoice.class).get(issuedInvoiceUID);
 		Integer nextNumber = 2;
 
 		PTGenericInvoiceEntity newInvoice = this.newInvoice(
@@ -88,19 +90,20 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 				TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
 		UID newInvoiceUID = newInvoice.getUID();
+		newInvoice.setBusiness(issuedInvoice.getBusiness());
 
 		this.issueNewInvoice(this.handler, newInvoice,
 				PTDocumentAbstractTest.DEFAULT_SERIES);
 
-		PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
-				DAOPTInvoice.class).get(newInvoiceUID);
+		PTInvoice lastInvoice = (PTInvoice) this
+				.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
 
 		Assert.assertEquals(PTDocumentAbstractTest.DEFAULT_SERIES,
-				issuedInvoice.getSeries());
-		Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
+				lastInvoice.getSeries());
+		Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
 		String formatedNumber = TestPTInvoiceIssuingHandler.DEFAULT_TYPE + " "
 				+ PTDocumentAbstractTest.DEFAULT_SERIES + "/" + nextNumber;
-		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+		Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
 	}
 
 	@Test
@@ -136,14 +139,19 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	public void testIssuedInvoiceFailure() throws DocumentIssuingException {
 		String series = "NEW_SERIES";
 
-		this.issueNewInvoice(this.handler, this.newInvoice(
+		PTGenericInvoiceEntity invoice = this.newInvoice(
 				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
-				TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+		this.issueNewInvoice(this.handler, invoice, series);
 
 		PTSimpleInvoiceIssuingHandler newHandler = getInstance(PTSimpleInvoiceIssuingHandler.class);
 
-		this.issueNewInvoice(newHandler, this.newInvoice(TYPE.FS,
-				TestPTInvoiceIssuingHandler.SOURCE_BILLING), series);
+		PTGenericInvoiceEntity diffentTypeInvoice = this.newInvoice(TYPE.FS,
+				TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+		diffentTypeInvoice.setBusiness(invoice.getBusiness());
+
+		this.issueNewInvoice(newHandler, diffentTypeInvoice, series);
 	}
 
 	@Test(expected = InvalidInvoiceDateException.class)
