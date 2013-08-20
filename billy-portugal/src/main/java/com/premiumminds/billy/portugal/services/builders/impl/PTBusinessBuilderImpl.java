@@ -32,15 +32,15 @@ import com.premiumminds.billy.portugal.services.builders.PTBusinessBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
 public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends PTBusiness>
-		extends BusinessBuilderImpl<TBuilder, TBusiness> implements
-		PTBusinessBuilder<TBuilder, TBusiness> {
+	extends BusinessBuilderImpl<TBuilder, TBusiness> implements
+	PTBusinessBuilder<TBuilder, TBusiness> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTBusinessBuilderImpl(DAOPTBusiness daoBusiness,
-			DAOPTRegionContext daoContext) {
+									DAOPTRegionContext daoContext) {
 		super(daoBusiness, daoContext);
 	}
 

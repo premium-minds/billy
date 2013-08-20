@@ -23,15 +23,18 @@ import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
+/**
+ * Encapsulates all Context information for Portugal.
+ */
 public class Contexts {
 
-	Config configuration = new Config();
+	Config					configuration	= new Config();
 
-	private final Portugal portugal;
-	private final Continent continent;
-	private final Madeira madeira;
-	private final Azores azores;
-	private final Injector injector;
+	private final Portugal	portugal;
+	private final Continent	continent;
+	private final Madeira	madeira;
+	private final Azores	azores;
+	private final Injector	injector;
 
 	public class Portugal {
 

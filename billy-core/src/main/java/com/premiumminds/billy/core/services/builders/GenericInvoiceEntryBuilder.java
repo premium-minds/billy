@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 import com.premiumminds.billy.core.util.DiscountType;
 
 public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
-		extends Builder<TEntry> {
+	extends Builder<TEntry> {
 
 	public static enum AmountType {
 		WITH_TAX, WITHOUT_TAX

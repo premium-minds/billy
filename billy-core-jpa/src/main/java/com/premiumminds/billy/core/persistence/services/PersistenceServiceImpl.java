@@ -23,9 +23,9 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.Entity;
 
 public abstract class PersistenceServiceImpl<T extends Entity> implements
-		PersistenceService<T> {
+	PersistenceService<T> {
 
-	protected Injector injector;
+	protected Injector	injector;
 
 	public PersistenceServiceImpl(Injector injector) {
 		this.injector = injector;
@@ -33,7 +33,7 @@ public abstract class PersistenceServiceImpl<T extends Entity> implements
 
 	@Override
 	public abstract T createEntity(Builder<T> builder);
-	
+
 	@Override
 	public abstract T updateEntity(Builder<T> builder);
 

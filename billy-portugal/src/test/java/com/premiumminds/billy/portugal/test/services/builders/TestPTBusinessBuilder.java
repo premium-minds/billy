@@ -41,8 +41,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTBusinessEntity;
 
 public class TestPTBusinessBuilder extends PTAbstractTest {
 
-	private static final String PTBUSINESS_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTBusiness.yml";
+	private static final String	PTBUSINESS_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTBusiness.yml";
 
 	@Test
 	public void doTest() {

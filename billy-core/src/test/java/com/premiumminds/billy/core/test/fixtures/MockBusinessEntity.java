@@ -31,21 +31,21 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 
 public class MockBusinessEntity extends MockBaseEntity implements
-		BusinessEntity {
+	BusinessEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long		serialVersionUID	= 1L;
 
-	public ContextEntity operationalContext;
-	public String taxId;
-	public String name;
-	public String commercialName;
-	public AddressEntity address;
-	public AddressEntity billingAddress;
-	public AddressEntity shippingAddress;
-	public ContactEntity mainContact;
-	public List<ContactEntity> contacts;
-	public String website;
-	public List<ApplicationEntity> applications;
+	public ContextEntity			operationalContext;
+	public String					taxId;
+	public String					name;
+	public String					commercialName;
+	public AddressEntity			address;
+	public AddressEntity			billingAddress;
+	public AddressEntity			shippingAddress;
+	public ContactEntity			mainContact;
+	public List<ContactEntity>		contacts;
+	public String					website;
+	public List<ApplicationEntity>	applications;
 
 	public MockBusinessEntity() {
 		this.contacts = new ArrayList<ContactEntity>();

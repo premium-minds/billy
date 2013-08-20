@@ -31,11 +31,11 @@ import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
 public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
-		extends TaxBuilderImpl<TBuilder, TTax> implements
-		PTTaxBuilder<TBuilder, TTax> {
+	extends TaxBuilderImpl<TBuilder, TTax> implements
+	PTTaxBuilder<TBuilder, TTax> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {

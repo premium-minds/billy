@@ -35,16 +35,17 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
-		extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-		implements PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+	extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
+	PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTGenericInvoiceBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice,
-			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-			DAOPTSupplier daoPTSupplier) {
+										DAOPTBusiness daoPTBusiness,
+										DAOPTCustomer daoPTCustomer,
+										DAOPTSupplier daoPTSupplier) {
 		super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 

@@ -34,13 +34,13 @@ import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "REGION_CONTEXT")
 public class JPAPTRegionContextEntity extends JPAContextEntity implements
-		PTRegionContextEntity {
+	PTRegionContextEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Basic(optional = false)
 	@Column(name = "REGION_CODE")
-	protected String regionCode;
+	protected String			regionCode;
 
 	public JPAPTRegionContextEntity() {
 	}

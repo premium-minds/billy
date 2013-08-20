@@ -90,9 +90,9 @@ public class Builders {
 
 	}
 
-	private final Configuration configurationBuilders;
-	private final Invoices invoiceBuilders;
-	private final Injector injector;
+	private final Configuration	configurationBuilders;
+	private final Invoices		invoiceBuilders;
+	private final Injector		injector;
 
 	public Builders(Injector injector) {
 		this.configurationBuilders = new Configuration();

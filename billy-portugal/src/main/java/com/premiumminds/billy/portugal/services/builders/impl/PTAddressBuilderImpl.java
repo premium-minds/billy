@@ -29,11 +29,11 @@ import com.premiumminds.billy.portugal.services.builders.PTAddressBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 
 public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder, TAddress>, TAddress extends PTAddress>
-		extends AddressBuilderImpl<TBuilder, TAddress> implements
-		PTAddressBuilder<TBuilder, TAddress> {
+	extends AddressBuilderImpl<TBuilder, TAddress> implements
+	PTAddressBuilder<TBuilder, TAddress> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	protected PTAddressBuilderImpl(DAOPTAddress daoPTAddress) {

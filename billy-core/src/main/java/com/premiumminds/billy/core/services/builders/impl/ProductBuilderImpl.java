@@ -28,23 +28,22 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.ProductBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TProduct>, TProduct extends Product>
-		extends AbstractBuilder<TBuilder, TProduct> implements
-		ProductBuilder<TBuilder, TProduct> {
+	extends AbstractBuilder<TBuilder, TProduct> implements
+	ProductBuilder<TBuilder, TProduct> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOProduct daoProduct;
-	protected DAOTax daoTax;
+	protected DAOProduct				daoProduct;
+	protected DAOTax					daoTax;
 
 	@Inject
 	public ProductBuilderImpl(DAOProduct daoProduct, DAOTax daoTax) {
-		super((EntityFactory<?>) daoProduct);
+		super(daoProduct);
 		this.daoTax = daoTax;
 		this.daoProduct = daoProduct;
 	}
@@ -116,7 +115,7 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		Product p = this.getTypeInstance();
 		BillyValidator.mandatory(p.getProductCode(),
 				ProductBuilderImpl.LOCALIZER.getString("field.product_code"));

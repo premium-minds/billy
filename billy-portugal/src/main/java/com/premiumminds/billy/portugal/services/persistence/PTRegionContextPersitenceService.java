@@ -25,9 +25,8 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
-
-public class PTRegionContextPersitenceService<T extends PTRegionContext> extends PersistenceServiceImpl<T>
-		implements PersistenceService<T> {
+public class PTRegionContextPersitenceService<T extends PTRegionContext>
+	extends PersistenceServiceImpl<T> implements PersistenceService<T> {
 
 	public PTRegionContextPersitenceService(Injector injector) {
 		super(injector);

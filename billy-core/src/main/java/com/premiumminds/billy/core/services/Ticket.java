@@ -26,9 +26,9 @@ import com.premiumminds.billy.core.Config;
 
 public class Ticket implements Serializable {
 
-	private static final long serialVersionUID = Config.SERIAL_VERSION;
+	private static final long	serialVersionUID	= Config.SERIAL_VERSION;
 
-	private Object value;
+	private Object				value;
 
 	public Ticket(Object value) {
 		this.setValue(value);

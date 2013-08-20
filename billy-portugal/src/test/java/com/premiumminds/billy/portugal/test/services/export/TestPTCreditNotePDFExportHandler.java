@@ -1,21 +1,20 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy portugal (PT Pack).
- * 
- * billy portugal (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy portugal (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
+ *
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
@@ -47,26 +46,29 @@ import com.premiumminds.billy.portugal.util.Services;
 
 public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest {
 
-	public static final int NUM_ENTRIES = 10;
-	public static final String XSL_PATH = "src/main/resources/pt_creditnote.xsl";
-	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	public static final String URI_PATH = "file://"
-			+ System.getProperty("java.io.tmpdir") + "/Result.pdf";
+	public static final int		NUM_ENTRIES					= 10;
+	public static final String	XSL_PATH					= "src/main/resources/pt_creditnote.xsl";
+	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
+	public static final String	URI_PATH					= "file://"
+																	+ System.getProperty("java.io.tmpdir")
+																	+ "/Result.pdf";
 
-	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
-	public static final byte[] SAMPLE_HASH = { 0xa, 0x1, 0x3, 0xf, 0x7, 0x5,
+	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
+	public static final byte[]	SAMPLE_HASH					= { 0xa, 0x1, 0x3,
+			0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf,
+			0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7,
+			0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5,
 			0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4,
 			0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd,
 			0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa,
 			0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1,
 			0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3,
-			0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf,
-			0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa,
-			0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf };
+			0xf											};
 
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
-			ExportServiceException, FileNotFoundException, URISyntaxException {
+		ExportServiceException, FileNotFoundException, URISyntaxException,
+		DocumentIssuingException {
 		InputStream xsl = new FileInputStream(
 				TestPTCreditNotePDFExportHandler.XSL_PATH);
 		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
@@ -75,34 +77,31 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 
 		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
-		handler.toFile(new URI(TestPTCreditNotePDFExportHandler.URI_PATH), this
-				.generatePTCreditNote(PaymentMechanism.CASH,
-						getNewIssuedInvoice()), bundle);
+		handler.toFile(
+				new URI(TestPTCreditNotePDFExportHandler.URI_PATH),
+				this.generatePTCreditNote(PaymentMechanism.CASH,
+						this.getNewIssuedInvoice()), bundle);
 	}
 
 	private PTCreditNoteEntity generatePTCreditNote(
-			PaymentMechanism paymentMechanism, PTInvoiceEntity reference) {
+			PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
+		throws DocumentIssuingException {
 
-		Services services = new Services(injector);
+		Services services = new Services(PTAbstractTest.injector);
 
-		PTIssuingParams params = getParameters("AC", "3000", "1");
+		PTIssuingParams params = this.getParameters("AC", "3000", "1");
 
 		PTCreditNoteEntity creditNote = null;
-		try {
-			creditNote = (PTCreditNoteEntity) services.issueDocument(
-					new PTCreditNoteTestUtil(injector)
-							.getCreditNoteBuilder(reference), params);
+		creditNote = (PTCreditNoteEntity) services.issueDocument(
+				new PTCreditNoteTestUtil(PTAbstractTest.injector)
+						.getCreditNoteBuilder(reference), params);
 
-			creditNote.setPaymentMechanism(paymentMechanism);
-			creditNote.setCustomer((CustomerEntity) reference.getCustomer());
-			creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-			creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
-			creditNote
-					.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-
-		} catch (DocumentIssuingException e) {
-			e.printStackTrace();
-		}
+		creditNote.setPaymentMechanism(paymentMechanism);
+		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
+		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+		creditNote
+				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
 		return creditNote;
 	}

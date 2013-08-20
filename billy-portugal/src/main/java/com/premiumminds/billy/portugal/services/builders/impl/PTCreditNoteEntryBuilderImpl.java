@@ -34,16 +34,17 @@ import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilde
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-		extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-		PTCreditNoteEntryBuilder<TBuilder, TEntry> {
+	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	PTCreditNoteEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
-	public PTCreditNoteEntryBuilderImpl(
-			DAOPTCreditNoteEntry daoPTCreditNoteEntry,
-			DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-			DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+	public PTCreditNoteEntryBuilderImpl(DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+										DAOPTInvoice daoPTInvoice,
+										DAOPTTax daoPTTax,
+										DAOPTProduct daoPTProduct,
+										DAOPTRegionContext daoPTRegionContext) {
 		super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct,
 				daoPTRegionContext);
 	}
@@ -54,7 +55,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 						.getString("field.invoice_reference"));
 		PTInvoiceEntity i = (PTInvoiceEntity) this.daoGenericInvoice
 				.get(referenceUID);
-		BillyValidator.found(i, PTCreditNoteBuilderImpl.LOCALIZER
+		BillyValidator.found(i, PTGenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.invoice_reference"));
 		this.getTypeInstance().setReference(i);
 		return this.getBuilder();

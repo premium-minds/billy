@@ -25,14 +25,14 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class PTContactTestUtil {
 
-	private static final String NAME = "name";
-	private static final String TELEPHONE = "998887999";
-	private static final String MOBILE = "999999999";
-	private static final String EMAIL = "email@email.em";
-	private static final String FAX = "9999999122";
-	private static final String WEBSITE = "website@website.web";
+	private static final String	NAME		= "name";
+	private static final String	TELEPHONE	= "998887999";
+	private static final String	MOBILE		= "999999999";
+	private static final String	EMAIL		= "email@email.em";
+	private static final String	FAX			= "9999999122";
+	private static final String	WEBSITE		= "website@website.web";
 
-	private Injector injector;
+	private Injector			injector;
 
 	public PTContactTestUtil(Injector injector) {
 		this.injector = injector;
@@ -51,13 +51,14 @@ public class PTContactTestUtil {
 	}
 
 	public PTContactEntity getContactEntity(String uid) {
-		PTContactEntity entity = (PTContactEntity) getContactBuilder().build();
+		PTContactEntity entity = (PTContactEntity) this.getContactBuilder()
+				.build();
 		entity.setUID(new UID(uid));
 		return entity;
 	}
 
 	public PTContactEntity getContactEntity() {
-		return (PTContactEntity) getContactBuilder().build();
+		return (PTContactEntity) this.getContactBuilder().build();
 	}
 
 	public PTContact.Builder getContactBuilder() {

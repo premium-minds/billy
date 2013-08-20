@@ -36,8 +36,8 @@ import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
 public class TestBusinessBuilder extends AbstractTest {
 
-	private static final String BUSINESS_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "Business.yml";
+	private static final String	BUSINESS_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "Business.yml";
 
 	@Test
 	public void doTest() {

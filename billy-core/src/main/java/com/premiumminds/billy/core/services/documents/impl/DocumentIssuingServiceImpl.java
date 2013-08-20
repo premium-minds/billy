@@ -32,7 +32,7 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
-	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler> handlers;
+	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>	handlers;
 
 	public DocumentIssuingServiceImpl() {
 		this.handlers = new HashMap<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>();
@@ -46,7 +46,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
 	@Override
 	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder)
-			throws DocumentIssuingException {
+		throws DocumentIssuingException {
 		return this.issue(documentBuilder, new IssuingParamsImpl());
 	}
 

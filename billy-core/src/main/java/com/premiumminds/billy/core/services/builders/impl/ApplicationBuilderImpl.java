@@ -27,22 +27,21 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.ApplicationBuilder;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBuilder, TApplication>, TApplication extends Application>
-		extends AbstractBuilder<TBuilder, TApplication> implements
-		ApplicationBuilder<TBuilder, TApplication> {
+	extends AbstractBuilder<TBuilder, TApplication> implements
+	ApplicationBuilder<TBuilder, TApplication> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOApplication daoApplication;
+	protected DAOApplication			daoApplication;
 
 	@Inject
 	public ApplicationBuilderImpl(DAOApplication daoApplication) {
-		super((EntityFactory<?>) daoApplication);
+		super(daoApplication);
 		this.daoApplication = daoApplication;
 	}
 
@@ -109,7 +108,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		ApplicationEntity application = this.getTypeInstance();
 		BillyValidator.mandatory(application.getName(),
 				ApplicationBuilderImpl.LOCALIZER

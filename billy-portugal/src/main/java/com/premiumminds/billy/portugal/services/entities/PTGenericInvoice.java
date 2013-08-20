@@ -48,13 +48,13 @@ public interface PTGenericInvoice extends GenericInvoice {
 	}
 
 	public static class Builder
-			extends
-			PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
+		extends
+		PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
 
 		@Inject
 		public Builder(DAOPTGenericInvoice daoPTGenericInvoice,
-				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-				DAOPTSupplier daoPTSupplier) {
+						DAOPTBusiness daoPTBusiness,
+						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
 			super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer,
 					daoPTSupplier);
 		}

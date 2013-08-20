@@ -33,35 +33,57 @@ import com.premiumminds.billy.portugal.services.persistence.PTRegionContextPersi
 import com.premiumminds.billy.portugal.services.persistence.PTSupplierPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTTaxPersistenceService;
 
-public class Persistence {
+/**
+ * {@link PersistenceServices} provides persistence of Billy's entities.
+ */
+public class PersistenceServices {
 
-	private Injector injector;
+	private Injector	injector;
 
-	public Persistence(Injector injector) {
+	public PersistenceServices(Injector injector) {
 		this.injector = injector;
 	}
 
+	/**
+	 * @return {@link PTBusinessPersistenceService}.
+	 */
 	public PersistenceService<PTBusiness> business() {
-		return new PTBusinessPersistenceService<PTBusiness>(injector);
+		return new PTBusinessPersistenceService<PTBusiness>(this.injector);
 	}
-	
+
+	/**
+	 * @return {@link PTCustomerPersistenceService}.
+	 */
 	public PersistenceService<PTCustomer> customer() {
-		return new PTCustomerPersistenceService<PTCustomer>(injector);
+		return new PTCustomerPersistenceService<PTCustomer>(this.injector);
 	}
-	
+
+	/**
+	 * @return {@link PTProductPersistenceService}.
+	 */
 	public PersistenceService<PTProduct> product() {
-		return new PTProductPersistenceService<PTProduct>(injector);
+		return new PTProductPersistenceService<PTProduct>(this.injector);
 	}
-	
+
+	/**
+	 * @return {@link PTRegionContextPersitenceService}.
+	 */
 	public PersistenceService<PTRegionContext> context() {
-		return new PTRegionContextPersitenceService<PTRegionContext>(injector);
+		return new PTRegionContextPersitenceService<PTRegionContext>(
+				this.injector);
 	}
-	
+
+	/**
+	 * @return {@link PTSupplierPersistenceService}.
+	 */
 	public PersistenceService<PTSupplier> supplier() {
-		return new PTSupplierPersistenceService<PTSupplier>(injector);
+		return new PTSupplierPersistenceService<PTSupplier>(this.injector);
 	}
-	
+
+	/**
+	 * @return {@link PTTaxPersistenceService}.
+	 */
 	public PersistenceService<PTTax> tax() {
-		return new PTTaxPersistenceService<PTTax>(injector);
-	} 
+		return new PTTaxPersistenceService<PTTax>(this.injector);
+	}
 }

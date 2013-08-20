@@ -20,5 +20,4 @@ package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 
-public interface DAOShippingPoint extends DAO<ShippingPointEntity> {
-}
+public interface DAOShippingPoint extends DAO<ShippingPointEntity> {}

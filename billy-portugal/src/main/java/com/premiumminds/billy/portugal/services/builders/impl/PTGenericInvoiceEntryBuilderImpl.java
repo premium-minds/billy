@@ -35,16 +35,17 @@ import com.premiumminds.billy.portugal.services.builders.PTGenericInvoiceEntryBu
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-		extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-		PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+	extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
-	public PTGenericInvoiceEntryBuilderImpl(
-			DAOPTGenericInvoiceEntry daoPTGenericInvoiceEntry,
-			DAOPTGenericInvoice daoPTGenericInvoice, DAOPTTax daoPTTax,
-			DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+	public PTGenericInvoiceEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTGenericInvoiceEntry,
+											DAOPTGenericInvoice daoPTGenericInvoice,
+											DAOPTTax daoPTTax,
+											DAOPTProduct daoPTProduct,
+											DAOPTRegionContext daoPTRegionContext) {
 		super(daoPTGenericInvoiceEntry, daoPTGenericInvoice, daoPTTax,
 				daoPTProduct, daoPTRegionContext);
 	}

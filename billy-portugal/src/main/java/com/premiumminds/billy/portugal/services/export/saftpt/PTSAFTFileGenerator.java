@@ -106,44 +106,45 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTSAFTFileGenerator {
 
-	private Config config = null;
-	private JAXBContext jaxbContext;
-	private Marshaller marshaller;
-	private MathContext mc = BillyMathContext.get();
+	private Config				config					= null;
+	private JAXBContext			jaxbContext;
+	private Marshaller			marshaller;
+	private MathContext			mc						= BillyMathContext
+																.get();
 
-	private String context = null;
-	private String optionalParam;
+	private String				context					= null;
+	private String				optionalParam;
 
-	private static final String FILE_ENCODING = "WINDOWS-1252";
+	private static final String	FILE_ENCODING			= "WINDOWS-1252";
 
-	private final int MAX_LENGTH_1 = 1;
-	private final int MAX_LENGTH_2 = 2;
-	private final int MAX_LENGTH_3 = 3;
-	private final int MAX_LENGTH_5 = 5;
-	private final int MAX_LENGTH_8 = 8;
-	private final int MAX_LENGTH_9 = 9;
-	private final int MAX_LENGTH_10 = 10;
-	private final int MAX_LENGTH_12 = 12;
-	private final int MAX_LENGTH_20 = 20;
-	private final int MAX_LENGTH_30 = 30;
-	private final int MAX_LENGTH_40 = 40;
-	private final int MAX_LENGTH_50 = 50;
-	private final int MAX_LENGTH_60 = 60;
-	private final int MAX_LENGTH_90 = 90;
-	private final int MAX_LENGTH_100 = 100;
-	private final int MAX_LENGTH_172 = 172;
-	private final int MAX_LENGTH_200 = 200;
-	private final int MAX_LENGTH_255 = 255;
+	private final int			MAX_LENGTH_1			= 1;
+	private final int			MAX_LENGTH_2			= 2;
+	private final int			MAX_LENGTH_3			= 3;
+	private final int			MAX_LENGTH_5			= 5;
+	private final int			MAX_LENGTH_8			= 8;
+	private final int			MAX_LENGTH_9			= 9;
+	private final int			MAX_LENGTH_10			= 10;
+	private final int			MAX_LENGTH_12			= 12;
+	private final int			MAX_LENGTH_20			= 20;
+	private final int			MAX_LENGTH_30			= 30;
+	private final int			MAX_LENGTH_40			= 40;
+	private final int			MAX_LENGTH_50			= 50;
+	private final int			MAX_LENGTH_60			= 60;
+	private final int			MAX_LENGTH_90			= 90;
+	private final int			MAX_LENGTH_100			= 100;
+	private final int			MAX_LENGTH_172			= 172;
+	private final int			MAX_LENGTH_200			= 200;
+	private final int			MAX_LENGTH_255			= 255;
 
-	private final String XML_SCHEMA_VERSION = "1.02_01";
-	private final String TAX_ACCOUNTING_BASIS = "F";
-	private final String COUNTRY_CODE = "PT";
-	private final String CURRENCY_CODE = "EUR";
-	private final String TAX_ENTITY = "Global";
+	private final String		XML_SCHEMA_VERSION		= "1.02_01";
+	private final String		TAX_ACCOUNTING_BASIS	= "F";
+	private final String		COUNTRY_CODE			= "PT";
+	private final String		CURRENCY_CODE			= "EUR";
+	private final String		TAX_ENTITY				= "Global";
 
-	private final String ACCOUNT_ID = "Desconhecido";
-	private final String SELF_BILLING_INDICATOR = "0";
-	private final String UNIT_OF_MEASURE = "Unidade";
+	private final String		ACCOUNT_ID				= "Desconhecido";
+	private final String		SELF_BILLING_INDICATOR	= "0";
+	private final String		UNIT_OF_MEASURE			= "Unidade";
 
 	public PTSAFTFileGenerator() {
 		this.config = new Config();
@@ -323,8 +324,8 @@ public class PTSAFTFileGenerator {
 	private Header generateHeader(PTBusinessEntity businessEntity,
 			PTApplicationEntity application, String certificateNumber,
 			Date startDate, Date endDate)
-			throws DatatypeConfigurationException,
-			RequiredFieldNotFoundException, InvalidContactTypeException {
+		throws DatatypeConfigurationException, RequiredFieldNotFoundException,
+		InvalidContactTypeException {
 		this.context = "Header.";
 
 		Header hdr = new Header();
@@ -388,7 +389,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidContactTypeException
 	 */
 	private Customer generateCustomer(PTCustomerEntity customerEntity)
-			throws RequiredFieldNotFoundException, InvalidContactTypeException {
+		throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		this.context = "Customer.";
 		Customer customer = new Customer();
 
@@ -437,7 +438,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidContactTypeException
 	 */
 	private Supplier generateSupplier(PTSupplierEntity supplierEntity)
-			throws RequiredFieldNotFoundException, InvalidContactTypeException {
+		throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		this.context = "Supplier.";
 		Supplier supplier = new Supplier();
 
@@ -493,7 +494,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidProductTypeException
 	 */
 	private Product generateProduct(PTProductEntity productEntity)
-			throws RequiredFieldNotFoundException, InvalidProductTypeException {
+		throws RequiredFieldNotFoundException, InvalidProductTypeException {
 		this.context = "Product.";
 
 		Product product = new Product();
@@ -535,9 +536,8 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidTaxCodeException
 	 */
 	private TaxTable generateTaxTable(List<PTTaxEntity> taxEntities)
-			throws DatatypeConfigurationException,
-			RequiredFieldNotFoundException, InvalidTaxTypeException,
-			InvalidTaxCodeException {
+		throws DatatypeConfigurationException, RequiredFieldNotFoundException,
+		InvalidTaxTypeException, InvalidTaxCodeException {
 		this.context = "TaxTable.";
 
 		TaxTable taxTable = new TaxTable();
@@ -597,11 +597,10 @@ public class PTSAFTFileGenerator {
 			List<PTInvoiceEntity> invoices,
 			List<PTSimpleInvoiceEntity> simpleInvoices,
 			List<PTCreditNoteEntity> creditNotes)
-			throws DatatypeConfigurationException,
-			RequiredFieldNotFoundException, InvalidDocumentTypeException,
-			InvalidDocumentStateException, InvalidTaxTypeException,
-			InvalidTaxCodeException, InvalidPaymentMechanismException,
-			InvalidInvoiceTypeException {
+		throws DatatypeConfigurationException, RequiredFieldNotFoundException,
+		InvalidDocumentTypeException, InvalidDocumentStateException,
+		InvalidTaxTypeException, InvalidTaxCodeException,
+		InvalidPaymentMechanismException, InvalidInvoiceTypeException {
 		this.context = "SourceDocuments.";
 
 		SourceDocuments srcDocs = new SourceDocuments();
@@ -668,36 +667,38 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidInvoiceTypeException
 	 */
 	private Invoice generateSAFTInvoice(PTGenericInvoiceEntity document)
-			throws DatatypeConfigurationException,
-			RequiredFieldNotFoundException, InvalidDocumentTypeException,
-			InvalidDocumentStateException, InvalidInvoiceTypeException {
+		throws DatatypeConfigurationException, RequiredFieldNotFoundException,
+		InvalidDocumentTypeException, InvalidDocumentStateException,
+		InvalidInvoiceTypeException {
 		Invoice saftInv = new Invoice();
 
 		saftInv.setDocumentStatus(this.getDocumentStatus(document));
 
-		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
-				MAX_LENGTH_60, true));
-		saftInv.setInvoiceType(validateString("InvoiceType",
-				getDocumentType(document), MAX_LENGTH_2, true));
-		saftInv.setHash(validateString("Hash", document.getHash(),
-				MAX_LENGTH_172, true));
+		saftInv.setInvoiceNo(this.validateString("InvoiceNo",
+				document.getNumber(), this.MAX_LENGTH_60, true));
+		saftInv.setInvoiceType(this.validateString("InvoiceType",
+				this.getDocumentType(document), this.MAX_LENGTH_2, true));
+		saftInv.setHash(this.validateString("Hash", document.getHash(),
+				this.MAX_LENGTH_172, true));
 		if (document.getHashControl() != null) {
-			saftInv.setHashControl(validateString("HashControl",
-					document.getHashControl(), MAX_LENGTH_40, false));
+			saftInv.setHashControl(this.validateString("HashControl",
+					document.getHashControl(), this.MAX_LENGTH_40, false));
 		}
-		saftInv.setPeriod(validateInteger("Period", Integer
-				.toString(getDateField(document.getDate(), Calendar.MONTH)),
-				MAX_LENGTH_2, true));
-		saftInv.setInvoiceDate(formatDate(document.getDate()));
-		saftInv.setSelfBillingIndicator(validateInteger("SelfBillingIndicator",
-				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
-		saftInv.setSourceID(validateString("InvoiceSourceID",
-				document.getSourceId(), MAX_LENGTH_30, true));
+		saftInv.setPeriod(this.validateInteger("Period", Integer.toString(this
+				.getDateField(document.getDate(), Calendar.MONTH)),
+				this.MAX_LENGTH_2, true));
+		saftInv.setInvoiceDate(this.formatDate(document.getDate()));
+		saftInv.setSelfBillingIndicator(this.validateInteger(
+				"SelfBillingIndicator", document.isSelfBilled() ? "1" : "0",
+				this.MAX_LENGTH_1, true));
+		saftInv.setSourceID(this.validateString("InvoiceSourceID",
+				document.getSourceId(), this.MAX_LENGTH_30, true));
 		if (document.getEACCode() != null) {
-			saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
-					MAX_LENGTH_5, false));
+			saftInv.setEACCode(this.validateString("EACCode",
+					document.getEACCode(), this.MAX_LENGTH_5, false));
 		}
-		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
+		saftInv.setSystemEntryDate(this.formatDateTime(document
+				.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(this.config
 				.getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
@@ -749,11 +750,10 @@ public class PTSAFTFileGenerator {
 	 */
 	private void processDocument(Invoice saftInvoice,
 			PTGenericInvoiceEntity document, boolean isCredit)
-			throws RequiredFieldNotFoundException,
-			DatatypeConfigurationException, InvalidDocumentTypeException,
-			InvalidTaxTypeException, InvalidTaxCodeException,
-			InvalidPaymentMechanismException {
-		@SuppressWarnings("unchecked")
+		throws RequiredFieldNotFoundException, DatatypeConfigurationException,
+		InvalidDocumentTypeException, InvalidTaxTypeException,
+		InvalidTaxCodeException, InvalidPaymentMechanismException {
+
 		List<PTGenericInvoiceEntryEntity> entries = document.getEntries();
 		if (entries == null || entries.size() < 1) {
 			throw new RequiredFieldNotFoundException(this.context + " Line");
@@ -887,8 +887,8 @@ public class PTSAFTFileGenerator {
 	 */
 	private References getReferencesForDocumentEntry(
 			PTGenericInvoiceEntryEntity entry, PTGenericInvoiceEntity document)
-			throws RequiredFieldNotFoundException,
-			DatatypeConfigurationException, InvalidDocumentTypeException {
+		throws RequiredFieldNotFoundException, DatatypeConfigurationException,
+		InvalidDocumentTypeException {
 		References ref = null;
 		PTInvoice referencedDocument = null;
 		if (PTCreditNoteEntryEntity.class.isInstance(entry)) {
@@ -938,8 +938,7 @@ public class PTSAFTFileGenerator {
 	 */
 	private ShippingPointStructure getShippingPointStructure(String deliveryID,
 			Date deliveryDate, PTAddressEntity address)
-			throws RequiredFieldNotFoundException,
-			DatatypeConfigurationException {
+		throws RequiredFieldNotFoundException, DatatypeConfigurationException {
 		ShippingPointStructure sps = new ShippingPointStructure();
 
 		if ((this.optionalParam = this.validateString("DeliveryID", deliveryID,
@@ -988,8 +987,8 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidPaymentMechanismException
 	 */
 	private Settlement getSettlement(PTGenericInvoiceEntity document)
-			throws RequiredFieldNotFoundException,
-			DatatypeConfigurationException, InvalidPaymentMechanismException {
+		throws RequiredFieldNotFoundException, DatatypeConfigurationException,
+		InvalidPaymentMechanismException {
 		if (document.getSettlementDiscount() != null) {
 			Settlement settlement = new Settlement();
 			settlement.setSettlementAmount(this.validateBigDecimal(document
@@ -1025,7 +1024,7 @@ public class PTSAFTFileGenerator {
 	 */
 	private DocumentTotals getDocumentTotals(PTGenericInvoiceEntity document,
 			boolean isCredit) throws RequiredFieldNotFoundException,
-			DatatypeConfigurationException, InvalidPaymentMechanismException {
+		DatatypeConfigurationException, InvalidPaymentMechanismException {
 		DocumentTotals dt = null;
 
 		if (!this.validateBigDecimal(document.getAmountWithoutTax()).equals(
@@ -1074,7 +1073,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidInvoiceTypeException
 	 */
 	private String getDocumentType(PTGenericInvoiceEntity document)
-			throws InvalidInvoiceTypeException {
+		throws InvalidInvoiceTypeException {
 		switch (document.getType()) {
 			case FS:
 				return "FS";
@@ -1135,8 +1134,8 @@ public class PTSAFTFileGenerator {
 	 * @throws RequiredFieldNotFoundException
 	 */
 	private DocumentStatus getDocumentStatus(PTGenericInvoiceEntity document)
-			throws InvalidDocumentStateException,
-			DatatypeConfigurationException, RequiredFieldNotFoundException {
+		throws InvalidDocumentStateException, DatatypeConfigurationException,
+		RequiredFieldNotFoundException {
 		DocumentStatus status = new DocumentStatus();
 
 		if (document.isCancelled()) {
@@ -1149,10 +1148,10 @@ public class PTSAFTFileGenerator {
 			status.setInvoiceStatus("N");
 		}
 
-		status.setInvoiceStatusDate(formatDateTime(document.getDate()));
+		status.setInvoiceStatusDate(this.formatDateTime(document.getDate()));
 		if (document.getChangeReason() != null) {
-			status.setReason(validateString("Reason",
-					document.getChangeReason(), MAX_LENGTH_50, false));
+			status.setReason(this.validateString("Reason",
+					document.getChangeReason(), this.MAX_LENGTH_50, false));
 		}
 		status.setSourceID(document.getSourceId());
 		status.setSourceBilling(document.getSourceBilling().toString());
@@ -1160,8 +1159,8 @@ public class PTSAFTFileGenerator {
 	}
 
 	private Payment getPayment(PTGenericInvoiceEntity document)
-			throws RequiredFieldNotFoundException,
-			InvalidPaymentMechanismException, DatatypeConfigurationException {
+		throws RequiredFieldNotFoundException,
+		InvalidPaymentMechanismException, DatatypeConfigurationException {
 
 		if (document.getPaymentMechanism() != null) {
 			Payment payment = new Payment();
@@ -1187,7 +1186,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidPaymentMechanismException
 	 */
 	private String getPaymentMechanism(Enum<PaymentMechanism> pm)
-			throws InvalidPaymentMechanismException {
+		throws InvalidPaymentMechanismException {
 		switch ((PaymentMechanism) pm) {
 			case BANK_TRANSFER:
 				return "TB";
@@ -1225,7 +1224,7 @@ public class PTSAFTFileGenerator {
 	 */
 	private AddressStructure generateAddressStructure(
 			PTAddressEntity addressEntity)
-			throws RequiredFieldNotFoundException {
+		throws RequiredFieldNotFoundException {
 		AddressStructure address = new AddressStructure();
 
 		if ((this.optionalParam = this.validateString("BuildingNumber",
@@ -1310,7 +1309,7 @@ public class PTSAFTFileGenerator {
 	 */
 	private SupplierAddressStructure generateSupplierAddressStructure(
 			PTAddressEntity addressEntity)
-			throws RequiredFieldNotFoundException {
+		throws RequiredFieldNotFoundException {
 		SupplierAddressStructure address = new SupplierAddressStructure();
 
 		if ((this.optionalParam = this.validateString("StreetName",
@@ -1372,7 +1371,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidContactTypeException
 	 */
 	private void setContacts(Header hdr, List<PTContactEntity> contacts)
-			throws RequiredFieldNotFoundException, InvalidContactTypeException {
+		throws RequiredFieldNotFoundException, InvalidContactTypeException {
 
 		for (ContactEntity ce : contacts) {
 
@@ -1413,7 +1412,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidContactTypeException
 	 */
 	private void setContacts(Customer customer, List<PTContactEntity> contacts)
-			throws RequiredFieldNotFoundException, InvalidContactTypeException {
+		throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		for (PTContactEntity ce : contacts) {
 
 			if ((this.optionalParam = this.validateString("Telephone",
@@ -1452,7 +1451,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidContactTypeException
 	 */
 	private void setContacts(Supplier supplier, List<PTContactEntity> contacts)
-			throws RequiredFieldNotFoundException, InvalidContactTypeException {
+		throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		for (PTContactEntity ce : contacts) {
 			if ((this.optionalParam = this.validateString("Email",
 					ce.getEmail(), this.MAX_LENGTH_60, false)).length() > 0) {
@@ -1492,7 +1491,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidProductTypeException
 	 */
 	private String getProductType(ProductType type)
-			throws InvalidProductTypeException {
+		throws InvalidProductTypeException {
 		switch (type) {
 			case GOODS:
 				return "P";
@@ -1518,7 +1517,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidTaxTypeException
 	 */
 	private String getTaxType(PTTaxEntity entity)
-			throws InvalidTaxTypeException {
+		throws InvalidTaxTypeException {
 		switch (entity.getTaxRateType()) {
 			case PERCENTAGE:
 				return "IVA";
@@ -1592,7 +1591,7 @@ public class PTSAFTFileGenerator {
 	 */
 	private BigInteger validateBigInteger(String field, String str,
 			int maxLength, boolean isRequired)
-			throws RequiredFieldNotFoundException {
+		throws RequiredFieldNotFoundException {
 		return new BigInteger(this.validateString(field, str, maxLength,
 				isRequired));
 	}
@@ -1615,7 +1614,7 @@ public class PTSAFTFileGenerator {
 	 * @throws DatatypeConfigurationException
 	 */
 	private XMLGregorianCalendar getXMLGregorianCalendarNow()
-			throws DatatypeConfigurationException {
+		throws DatatypeConfigurationException {
 		return this.formatDate(new Date());
 	}
 
@@ -1627,7 +1626,7 @@ public class PTSAFTFileGenerator {
 	 * @throws DatatypeConfigurationException
 	 */
 	private XMLGregorianCalendar formatDate(Date date)
-			throws DatatypeConfigurationException {
+		throws DatatypeConfigurationException {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		return DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
@@ -1644,7 +1643,7 @@ public class PTSAFTFileGenerator {
 	 * @throws DatatypeConfigurationException
 	 */
 	private XMLGregorianCalendar formatDateTime(Date date)
-			throws DatatypeConfigurationException {
+		throws DatatypeConfigurationException {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		return DatatypeFactory.newInstance().newXMLGregorianCalendar(

@@ -33,12 +33,15 @@ import com.premiumminds.billy.portugal.services.certification.InvalidHashExcepti
 
 public class GenerateHash {
 
-	public static String generateHash(@NotNull PrivateKey privateKey,
-			@NotNull PublicKey publicKey, @NotNull Date invoiceDate,
-			@NotNull Date systemEntryDate, @NotNull String invoiceNumber,
-			@NotNull BigDecimal grossTotal, String previousInvoiceHash)
-			throws InvalidHashException, InvalidKeySpecException,
-			InvalidKeyException {
+	public static String generateHash(@NotNull
+	PrivateKey privateKey, @NotNull
+	PublicKey publicKey, @NotNull
+	Date invoiceDate, @NotNull
+	Date systemEntryDate, @NotNull
+	String invoiceNumber, @NotNull
+	BigDecimal grossTotal, String previousInvoiceHash)
+		throws InvalidHashException, InvalidKeySpecException,
+		InvalidKeyException {
 
 		String sourceString = GenerateHash
 				.generateSourceHash(invoiceDate, systemEntryDate,

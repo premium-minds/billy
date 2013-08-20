@@ -42,15 +42,14 @@ import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceOperations extends AbstractTest {
 
-	private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoice.yml";
-	private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoiceEntry.yml";
-	private MathContext mc = BillyMathContext.get();
-	private BigDecimal qnt = new BigDecimal("46");
-	private BigDecimal tax = new BigDecimal("0.23");
+	private static final String	INVOICE_YML	= AbstractTest.YML_CONFIGS_DIR
+													+ "GenericInvoice.yml";
+	private static final String	ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+													+ "GenericInvoiceEntry.yml";
+	private MathContext			mc			= BillyMathContext.get();
+	private BigDecimal			qnt			= new BigDecimal("46");
+	private BigDecimal			tax			= new BigDecimal("0.23");
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void doTest() {
 		MockGenericInvoiceEntity mock = this.createMockEntity(

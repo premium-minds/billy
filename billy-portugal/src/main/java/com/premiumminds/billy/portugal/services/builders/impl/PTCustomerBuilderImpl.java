@@ -34,15 +34,15 @@ import com.premiumminds.billy.portugal.services.builders.PTCustomerBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 
 public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuilder, TCustomer>, TCustomer extends PTCustomer>
-		extends CustomerBuilderImpl<TBuilder, TCustomer> implements
-		PTCustomerBuilder<TBuilder, TCustomer> {
+	extends CustomerBuilderImpl<TBuilder, TCustomer> implements
+	PTCustomerBuilder<TBuilder, TCustomer> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	protected PTCustomerBuilderImpl(DAOPTCustomer daoPTCustomer,
-			DAOPTContact daoPTContact) {
+									DAOPTContact daoPTContact) {
 		super(daoPTCustomer, daoPTContact);
 	}
 

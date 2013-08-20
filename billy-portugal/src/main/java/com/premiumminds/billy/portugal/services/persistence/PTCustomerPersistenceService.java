@@ -28,9 +28,8 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 
-
-public class PTCustomerPersistenceService<T extends PTCustomer> extends PersistenceServiceImpl<T>
-		implements PersistenceService<T> {
+public class PTCustomerPersistenceService<T extends PTCustomer> extends
+	PersistenceServiceImpl<T> implements PersistenceService<T> {
 
 	public PTCustomerPersistenceService(Injector injector) {
 		super(injector);
@@ -56,7 +55,7 @@ public class PTCustomerPersistenceService<T extends PTCustomer> extends Persiste
 			throw new BillyRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public T updateEntity(final Builder<T> builder) {
 		final DAOPTCustomer dao = this.injector

@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 
 public interface CustomerBuilder<TBuilder extends CustomerBuilder<TBuilder, TCustomer>, TCustomer extends Customer>
-		extends Builder<TCustomer> {
+	extends Builder<TCustomer> {
 
 	public TBuilder setName(String name);
 

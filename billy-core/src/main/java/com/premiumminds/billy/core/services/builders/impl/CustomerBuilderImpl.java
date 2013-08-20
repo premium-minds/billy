@@ -32,23 +32,22 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, TCustomer>, TCustomer extends Customer>
-		extends AbstractBuilder<TBuilder, TCustomer> implements
-		CustomerBuilder<TBuilder, TCustomer> {
+	extends AbstractBuilder<TBuilder, TCustomer> implements
+	CustomerBuilder<TBuilder, TCustomer> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOCustomer daoCustomer;
-	protected DAOContact daoContact;
+	protected DAOCustomer				daoCustomer;
+	protected DAOContact				daoContact;
 
 	@Inject
 	public CustomerBuilderImpl(DAOCustomer daoCustomer, DAOContact daoContact) {
-		super((EntityFactory<?>) daoCustomer);
+		super(daoCustomer);
 		this.daoCustomer = daoCustomer;
 		this.daoContact = daoContact;
 	}
@@ -147,7 +146,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		CustomerEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getName(),
 				CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));

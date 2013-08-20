@@ -29,7 +29,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
 public class PTBusinessPersistenceService<T extends PTBusiness> extends
-		PersistenceServiceImpl<T> implements PersistenceService<T> {
+	PersistenceServiceImpl<T> implements PersistenceService<T> {
 
 	public PTBusinessPersistenceService(Injector injector) {
 		super(injector);
@@ -55,7 +55,7 @@ public class PTBusinessPersistenceService<T extends PTBusiness> extends
 			throw new BillyRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public T updateEntity(final Builder<T> builder) {
 		final DAOPTBusiness dao = this.injector

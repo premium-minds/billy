@@ -28,13 +28,12 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-
 /**
  * @author amonteiro
- *
+ * 
  */
-public class PTTaxPersistenceService<T extends PTTax> extends PersistenceServiceImpl<T>
-		implements PersistenceService<T> {
+public class PTTaxPersistenceService<T extends PTTax> extends
+	PersistenceServiceImpl<T> implements PersistenceService<T> {
 
 	public PTTaxPersistenceService(Injector injector) {
 		super(injector);

@@ -33,23 +33,22 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends Business>
-		extends AbstractBuilder<TBuilder, TBusiness> implements
-		BusinessBuilder<TBuilder, TBusiness> {
+	extends AbstractBuilder<TBuilder, TBusiness> implements
+	BusinessBuilder<TBuilder, TBusiness> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOBusiness daoBusiness;
-	protected DAOContext daoContext;
+	protected DAOBusiness				daoBusiness;
+	protected DAOContext				daoContext;
 
 	@Inject
 	public BusinessBuilderImpl(DAOBusiness daoBusiness, DAOContext daoContext) {
-		super((EntityFactory<?>) daoBusiness);
+		super(daoBusiness);
 		this.daoBusiness = daoBusiness;
 		this.daoContext = daoContext;
 	}
@@ -174,7 +173,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		BusinessEntity b = this.getTypeInstance();
 		BillyValidator.mandatory(b.getOperationalContext(), "field.context");
 		BillyValidator.mandatory(b.getFinancialID(), "field.financial_id");

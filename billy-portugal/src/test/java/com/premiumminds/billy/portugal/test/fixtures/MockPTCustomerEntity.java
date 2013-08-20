@@ -22,11 +22,11 @@ import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 
 public class MockPTCustomerEntity extends MockCustomerEntity implements
-		PTCustomerEntity {
+	PTCustomerEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	private String referralName;
+	private String				referralName;
 
 	@Override
 	public String getReferralName() {

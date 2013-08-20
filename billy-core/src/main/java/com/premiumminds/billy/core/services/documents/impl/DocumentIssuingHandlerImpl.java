@@ -27,9 +27,9 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public abstract class DocumentIssuingHandlerImpl implements
-		DocumentIssuingHandler {
+	DocumentIssuingHandler {
 
-	protected Injector injector;
+	protected Injector	injector;
 
 	@Inject
 	public DocumentIssuingHandlerImpl(Injector injector) {

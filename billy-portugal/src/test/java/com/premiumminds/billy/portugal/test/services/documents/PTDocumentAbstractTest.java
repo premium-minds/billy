@@ -38,12 +38,12 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
-	protected PTIssuingParams parameters;
+	protected PTIssuingParams	parameters;
 
 	@Before
 	public void setUpParamenters() {
 		KeyGenerator generator = new KeyGenerator(
-				PTDocumentAbstractTest.PRIVATE_KEY_DIR);
+				PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
 
 		this.parameters = new PTIssuingParamsImpl();
 		this.parameters.setPrivateKey(generator.getPrivateKey());
@@ -74,14 +74,14 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
-			throws DocumentIssuingException {
+		throws DocumentIssuingException {
 		this.issueNewInvoice(handler, invoice, series, new Date(invoice
 				.getCreateTimestamp().getTime() + 100));
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series, Date date)
-			throws DocumentIssuingException {
+		throws DocumentIssuingException {
 		this.parameters.setInvoiceSeries(series);
 		invoice.setDate(date);
 		handler.issue(invoice, this.parameters);

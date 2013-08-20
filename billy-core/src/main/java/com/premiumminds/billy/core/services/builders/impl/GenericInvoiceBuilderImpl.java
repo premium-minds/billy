@@ -43,7 +43,6 @@ import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.DiscountType;
@@ -51,22 +50,23 @@ import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 
 public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
-		extends AbstractBuilder<TBuilder, TDocument> implements
-		GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+	extends AbstractBuilder<TBuilder, TDocument> implements
+	GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOGenericInvoice daoGenericInvoice;
-	protected DAOBusiness daoBusiness;
-	protected DAOCustomer daoCustomer;
-	protected DAOSupplier daoSupplier;
+	protected DAOGenericInvoice			daoGenericInvoice;
+	protected DAOBusiness				daoBusiness;
+	protected DAOCustomer				daoCustomer;
+	protected DAOSupplier				daoSupplier;
 
 	@Inject
 	public GenericInvoiceBuilderImpl(DAOGenericInvoice daoGenericInvoice,
-			DAOBusiness daoBusiness, DAOCustomer daoCustomer,
-			DAOSupplier daoSupplier) {
-		super((EntityFactory<?>) daoGenericInvoice);
+										DAOBusiness daoBusiness,
+										DAOCustomer daoCustomer,
+										DAOSupplier daoSupplier) {
+		super(daoGenericInvoice);
 		this.daoGenericInvoice = daoGenericInvoice;
 		this.daoBusiness = daoBusiness;
 		this.daoCustomer = daoCustomer;

@@ -35,15 +35,15 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTBusinessTestUtil {
 
-	private static final String NAME = "Business";
-	private static final String FINANCIAL_ID = "123456789";
-	private static final String WEBSITE = "http://business.com";
+	private static final String		NAME			= "Business";
+	private static final String		FINANCIAL_ID	= "123456789";
+	private static final String		WEBSITE			= "http://business.com";
 
-	private Injector injector;
-	private PTApplicationTestUtil application;
-	private PTContactTestUtil contact;
-	private PTAddressTestUtil address;
-	private PTRegionContext context;
+	private Injector				injector;
+	private PTApplicationTestUtil	application;
+	private PTContactTestUtil		contact;
+	private PTAddressTestUtil		address;
+	private PTRegionContext			context;
 
 	public PTBusinessTestUtil(Injector injector) {
 		this.injector = injector;
@@ -55,20 +55,18 @@ public class PTBusinessTestUtil {
 	}
 
 	public PTBusinessEntity getBusinessEntity() {
-		PTBusinessEntity business = (PTBusinessEntity) getBusinessBuilder()
-				.build();
-
-		return business;
+		return getBusinessEntity(new UID().toString());
 	}
 
 	public PTBusinessEntity getBusinessEntity(String uid) {
 		PTBusinessEntity business = null;
 		try {
-			business = (PTBusinessEntity) injector.getInstance(
+			business = (PTBusinessEntity) this.injector.getInstance(
 					DAOPTBusiness.class).get(new UID(uid));
 		} catch (NoResultException e) {
-			business = (PTBusinessEntity) getBusinessBuilder().build();
+			business = (PTBusinessEntity) this.getBusinessBuilder().build();
 			business.setUID(new UID(uid));
+			injector.getInstance(DAOPTBusiness.class).create(business);
 		}
 
 		return business;
@@ -90,10 +88,12 @@ public class PTBusinessTestUtil {
 
 		businessBuilder.addApplication(applicationBuilder)
 				.addContact(contactBuilder, true).setAddress(addressBuilder)
-				.setBillingAddress(addressBuilder).setCommercialName(NAME)
-				.setFinancialID(FINANCIAL_ID)
-				.setOperationalContextUID(context.getUID()).setWebsite(WEBSITE)
-				.setName(NAME);
+				.setBillingAddress(addressBuilder)
+				.setCommercialName(PTBusinessTestUtil.NAME)
+				.setFinancialID(PTBusinessTestUtil.FINANCIAL_ID)
+				.setOperationalContextUID(this.context.getUID())
+				.setWebsite(PTBusinessTestUtil.WEBSITE)
+				.setName(PTBusinessTestUtil.NAME);
 
 		return businessBuilder;
 	}

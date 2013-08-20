@@ -22,7 +22,7 @@ import java.math.MathContext;
 
 public class BillyMathContext {
 
-	private static MathContext instance;
+	private static MathContext	instance;
 
 	public static MathContext get() {
 		if (BillyMathContext.instance == null) {

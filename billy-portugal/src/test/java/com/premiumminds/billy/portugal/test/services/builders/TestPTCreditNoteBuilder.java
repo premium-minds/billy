@@ -38,10 +38,10 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTCreditNoteEntryEntity
 
 public class TestPTCreditNoteBuilder extends PTAbstractTest {
 
-	private static final String PT_CREDIT_NOTE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTCreditNote.yml";
-	private static final String PT_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTCreditNoteEntry.yml";
+	private static final String	PT_CREDIT_NOTE_YML			= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTCreditNote.yml";
+	private static final String	PT_CREDIT_NOTE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTCreditNoteEntry.yml";
 
 	@Test
 	public void doTest() {

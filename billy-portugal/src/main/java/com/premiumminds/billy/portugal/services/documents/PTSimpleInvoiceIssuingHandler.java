@@ -30,9 +30,9 @@ import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTSimpleInvoiceIssuingHandler extends
-		PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
+	PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
 
-	public final static TYPE INVOICE_TYPE = TYPE.FS;
+	public final static TYPE	INVOICE_TYPE	= TYPE.FS;
 
 	@Inject
 	public PTSimpleInvoiceIssuingHandler(Injector injector) {

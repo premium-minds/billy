@@ -44,13 +44,13 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
 
-		public static final String INVOICE_HASH = "hash";
-		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
-		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
+		public static final String	INVOICE_HASH				= "hash";
+		public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
+		public static final String	INVOICE_PAYSETTLEMENT		= "paymentSettlement";
 	}
 
-	private DAOPTSimpleInvoice daoPTSimpleInvoice;
-	private Config config;
+	private DAOPTSimpleInvoice	daoPTSimpleInvoice;
+	private Config				config;
 
 	@Inject
 	public PTSimpleInvoicePDFExportHandler(DAOPTSimpleInvoice daoPTSimpleInvoice) {
@@ -67,7 +67,7 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected void toStream(PTSimpleInvoiceEntity invoice,
 			OutputStream targetStream, PTSimpleInvoiceTemplateBundle bundle)
-			throws ExportServiceException {
+		throws ExportServiceException {
 		super.getStream(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
 				bundle);

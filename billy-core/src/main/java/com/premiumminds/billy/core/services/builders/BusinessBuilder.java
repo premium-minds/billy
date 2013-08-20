@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBusiness>, TBusiness extends Business>
-		extends Builder<TBusiness> {
+	extends Builder<TBusiness> {
 
 	public TBuilder setOperationalContextUID(UID contextUID);
 

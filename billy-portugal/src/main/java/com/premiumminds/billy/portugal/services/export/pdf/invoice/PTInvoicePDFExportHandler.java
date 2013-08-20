@@ -42,13 +42,13 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
 
-		public static final String INVOICE_HASH = "hash";
-		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
-		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
+		public static final String	INVOICE_HASH				= "hash";
+		public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
+		public static final String	INVOICE_PAYSETTLEMENT		= "paymentSettlement";
 	}
 
-	private DAOPTInvoice daoPTInvoice;
-	private Config config;
+	private DAOPTInvoice	daoPTInvoice;
+	private Config			config;
 
 	@Inject
 	public PTInvoicePDFExportHandler(DAOPTInvoice daoPTInvoice) {

@@ -27,14 +27,18 @@ import com.premiumminds.billy.portugal.util.Builders;
 import com.premiumminds.billy.portugal.util.Services;
 import com.premiumminds.billy.portugal.util.Taxes;
 
+/**
+ * Portuguese Module for Billy.
+ * 
+ */
 public class BillyPortugal {
 
-	private static final String DEFAULT_PERSISTENCE_UNIT = "BillyPortugalPersistenceUnit";
+	private static final String	DEFAULT_PERSISTENCE_UNIT	= "BillyPortugalPersistenceUnit";
 
-	private final Injector injector;
-	private final Builders builders;
-	private final Taxes taxes;
-	private final Services services;
+	private final Injector		injector;
+	private final Builders		builders;
+	private final Taxes			taxes;
+	private final Services		services;
 
 	public BillyPortugal() {
 		this(new JpaPersistModule(BillyPortugal.DEFAULT_PERSISTENCE_UNIT));
@@ -49,14 +53,29 @@ public class BillyPortugal {
 		this.services = new Services(this.injector);
 	}
 
+	/**
+	 * Provides access to Billy-Portugal entity builders.
+	 * 
+	 * @return {@link Builders}
+	 */
 	public Builders builders() {
 		return this.builders;
 	}
 
+	/**
+	 * Provides access to predefined taxes for Billy-Portugal module.
+	 * 
+	 * @return {@link Taxes}
+	 */
 	public Taxes taxes() {
 		return this.taxes;
 	}
 
+	/**
+	 * Provides access to persistence and document issuing services.
+	 * 
+	 * @return {@link Services}
+	 */
 	public Services services() {
 		return this.services;
 	}

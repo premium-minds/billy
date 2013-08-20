@@ -41,10 +41,10 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntryEntity;
 
 public class TestPTInvoiceEntryBuilder extends PTAbstractTest {
 
-	private static final String PT_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTInvoiceEntry.yml";
-	private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTInvoice.yml";
+	private static final String	PT_INVOICE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																+ "PTInvoiceEntry.yml";
+	private static final String	PT_INVOICE_YML			= AbstractTest.YML_CONFIGS_DIR
+																+ "PTInvoice.yml";
 
 	@Test
 	public void doTest() {

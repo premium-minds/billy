@@ -24,11 +24,11 @@ import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public abstract class AbstractTemplateBundle implements BillyTemplateBundle {
 
-	protected final String logoImagePath;
-	protected final InputStream xsltFileStream;
+	protected final String		logoImagePath;
+	protected final InputStream	xsltFileStream;
 
 	public AbstractTemplateBundle(String logoImagePath,
-			InputStream xsltFileStream) {
+									InputStream xsltFileStream) {
 
 		this.logoImagePath = logoImagePath;
 		this.xsltFileStream = xsltFileStream;

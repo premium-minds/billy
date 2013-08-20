@@ -64,109 +64,118 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 				"ID_BUSINESS" }) })
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAGenericInvoiceEntity extends JPABaseEntity implements
-		GenericInvoiceEntity {
+	GenericInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long			serialVersionUID	= 1L;
 
 	@Column(name = "NUMBER")
-	protected String number;
+	protected String					number;
 
 	@Column(name = "SERIES")
-	protected String series;
+	protected String					series;
 
 	@Column(name = "SERIES_NUMBER")
-	protected Integer seriesNumber;
+	protected Integer					seriesNumber;
 
 	@ManyToOne(targetEntity = JPABusinessEntity.class)
 	@JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
-	protected Business business;
+	protected Business					business;
 
 	@ManyToOne(targetEntity = JPACustomerEntity.class)
 	@JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID")
-	protected Customer customer;
+	protected Customer					customer;
 
 	@ManyToOne(targetEntity = JPASupplierEntity.class)
 	@JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID")
-	protected Supplier supplier;
+	protected Supplier					supplier;
 
 	@Column(name = "OFFICE_NUMBER")
-	protected String officeNumber;
+	protected String					officeNumber;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATE")
-	protected Date date;
+	protected Date						date;
 
 	@Column(name = "AMOUNT_WITH_TAX", scale = 7)
-	protected BigDecimal amountWithTax;
+	protected BigDecimal				amountWithTax;
 
 	@Column(name = "TAX_AMOUNT", scale = 7)
-	protected BigDecimal taxAmount;
+	protected BigDecimal				taxAmount;
 
 	@Column(name = "AMOUNT_WITHOUT_TAX", scale = 7)
-	protected BigDecimal amountWithoutTax;
+	protected BigDecimal				amountWithoutTax;
 
 	@Column(name = "DISCOUNTS_AMOUNT", scale = 7)
-	protected BigDecimal discountsAmount;
+	protected BigDecimal				discountsAmount;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_POINT_ORIGIN", referencedColumnName = "ID")
-	protected ShippingPoint shippingOrigin;
+	protected ShippingPoint				shippingOrigin;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_SHIPPING_POINT_DESTINATION", referencedColumnName = "ID")
-	protected ShippingPoint shippingDestination;
+	@JoinColumn(name = "ID_SHIPPING_POINT_DESTINATION",
+				referencedColumnName = "ID")
+	protected ShippingPoint				shippingDestination;
 
 	@Column(name = "PAYMENT_TERMS")
-	protected String paymentTerms;
+	protected String					paymentTerms;
 
 	@Column(name = "SELF_BILLED")
-	protected Boolean selfBilled;
+	protected Boolean					selfBilled;
 
 	@Column(name = "SOURCE_ID")
-	protected String sourceId;
+	protected String					sourceId;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "GENERAL_LEDGER_DATE")
-	protected Date generalLedgerDate;
+	protected Date						generalLedgerDate;
 
 	@Column(name = "BATCH_ID")
-	protected String batchId;
+	protected String					batchId;
 
 	@Column(name = "TRANSACTION_ID")
-	protected String transactionId;
+	protected String					transactionId;
 
 	@Column(name = "CURRENCY")
-	protected Currency currency;
+	protected Currency					currency;
 
 	@Column(name = "SETTLEMENT_DESCRIPTION")
-	protected String settlementDescription;
+	protected String					settlementDescription;
 
 	@Column(name = "SETTLEMENT_DISCOUNT", scale = 7)
-	protected BigDecimal settlementDiscount;
+	protected BigDecimal				settlementDiscount;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "SETTLEMENT_DATE")
-	protected Date settlementDate;
+	protected Date						settlementDate;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "PAYMENT_MECHANISM")
-	protected Enum<?> paymentMechanism;
+	protected Enum<?>					paymentMechanism;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "CREDIT_OR_DEBIT")
-	protected CreditOrDebit creditOrDebit;
+	protected CreditOrDebit				creditOrDebit;
 
 	@ElementCollection
-	@CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER", joinColumns = @JoinColumn(name = "ID_INVOICE"))
+	@CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER",
+						joinColumns = @JoinColumn(name = "ID_INVOICE"))
 	@Column(name = "RECEIPT_NUMBER")
-	protected List<String> receiptNumbers;
+	protected List<String>				receiptNumbers;
 
 	@OneToMany(targetEntity = JPAGenericInvoiceEntryEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID", unique = true) })
-	protected List<GenericInvoiceEntry> entries;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "INVOICE_ENTRY",
+				joinColumns = { @JoinColumn(name = "ID_INVOICE",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_ENTRY",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<GenericInvoiceEntry>	entries;
 
 	public JPAGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();

@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
@@ -35,9 +36,9 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
 public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends JPABaseEntity & BaseEntity>
-		implements DAO<TInterface> {
+	implements DAO<TInterface> {
 
-	protected Provider<EntityManager> emProvider;
+	protected Provider<EntityManager>	emProvider;
 
 	@Inject
 	public AbstractDAO(Provider<EntityManager> emProvider) {
@@ -68,6 +69,13 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	public void commit() {
 		this.getEntityManager().getTransaction().commit();
+	}
+
+	@Override
+	public void lock(TInterface entity) {
+		if (isTransactionActive()) {
+			this.getEntityManager().lock(entity, LockModeType.PESSIMISTIC_READ);
+		}
 	}
 
 	@Override
@@ -142,7 +150,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	@SuppressWarnings("unchecked")
 	public TInterface create(final TInterface entity)
-			throws PersistenceException {
+		throws PersistenceException {
 		if (!entity.isNew()) {
 			throw new PersistenceException(
 					"Cannot create. The entity is marked as not new.");
@@ -175,7 +183,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	@SuppressWarnings("unchecked")
 	public final synchronized TInterface update(final TInterface entity)
-			throws PersistenceException {
+		throws PersistenceException {
 		if (entity.isNew()) {
 			throw new PersistenceException(
 					"Cannot update. The entity is marked as new.");

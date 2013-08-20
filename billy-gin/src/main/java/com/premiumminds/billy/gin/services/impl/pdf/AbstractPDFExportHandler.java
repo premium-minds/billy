@@ -47,66 +47,66 @@ import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.pdf.AbstractPDFHandler;
 
 public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
-		implements ExportServiceHandler {
+	implements ExportServiceHandler {
 
 	protected static class ParamKeys {
 
-		public static String ROOT = "invoice";
+		public static String		ROOT									= "invoice";
 
-		public static final String INVOICE_PAYMETHOD = "paymentMechanism";
-		public static final String ID = "id";
-		public static final String EMISSION_DATE = "emissionDate";
-		public static final String DUE_DATE = "dueDate";
-		public static final String TOTAL_BEFORE_TAX = "totalBeforeTax";
-		public static final String TOTAL_TAX = "totalTax";
-		public static final String TOTAL = "totalPrice";
+		public static final String	INVOICE_PAYMETHOD						= "paymentMechanism";
+		public static final String	ID										= "id";
+		public static final String	EMISSION_DATE							= "emissionDate";
+		public static final String	DUE_DATE								= "dueDate";
+		public static final String	TOTAL_BEFORE_TAX						= "totalBeforeTax";
+		public static final String	TOTAL_TAX								= "totalTax";
+		public static final String	TOTAL									= "totalPrice";
 
-		public static final String BUSINESS = "business";
-		public static final String BUSINESS_LOGO = "logoPath";
-		public static final String BUSINESS_NAME = "name";
-		public static final String BUSINESS_FINANCIAL_ID = "financialId";
-		public static final String BUSINESS_ADDRESS = "address";
-		public static final String BUSINESS_ADDRESS_COUNTRY = "country";
-		public static final String BUSINESS_ADDRESS_DETAILS = "details";
-		public static final String BUSINESS_ADDRESS_CITY = "city";
-		public static final String BUSINESS_ADDRESS_REGION = "region";
-		public static final String BUSINESS_ADDRESS_POSTAL_CODE = "postalcode";
+		public static final String	BUSINESS								= "business";
+		public static final String	BUSINESS_LOGO							= "logoPath";
+		public static final String	BUSINESS_NAME							= "name";
+		public static final String	BUSINESS_FINANCIAL_ID					= "financialId";
+		public static final String	BUSINESS_ADDRESS						= "address";
+		public static final String	BUSINESS_ADDRESS_COUNTRY				= "country";
+		public static final String	BUSINESS_ADDRESS_DETAILS				= "details";
+		public static final String	BUSINESS_ADDRESS_CITY					= "city";
+		public static final String	BUSINESS_ADDRESS_REGION					= "region";
+		public static final String	BUSINESS_ADDRESS_POSTAL_CODE			= "postalcode";
 
-		public static final String BUSINESS_CONTACTS = "contacts";
-		public static final String BUSINESS_PHONE = "phNo";
-		public static final String BUSINESS_FAX = "faxNo";
-		public static final String BUSINESS_EMAIL = "email";
+		public static final String	BUSINESS_CONTACTS						= "contacts";
+		public static final String	BUSINESS_PHONE							= "phNo";
+		public static final String	BUSINESS_FAX							= "faxNo";
+		public static final String	BUSINESS_EMAIL							= "email";
 
-		public static final String CUSTOMER = "customer";
-		public static final String CUSTOMER_NAME = "name";
-		public static final String CUSTOMER_FINANCIAL_ID = "financialId";
+		public static final String	CUSTOMER								= "customer";
+		public static final String	CUSTOMER_NAME							= "name";
+		public static final String	CUSTOMER_FINANCIAL_ID					= "financialId";
 
-		public static final String CUSTOMER_BILLING_ADDRESS = "address";
-		public static final String CUSTOMER_BILLING_ADDRESS_COUNTRY = "country";
-		public static final String CUSTOMER_BILLING_ADDRESS_DETAILS = "details";
-		public static final String CUSTOMER_BILLING_ADDRESS_CITY = "city";
-		public static final String CUSTOMER_BILLING_ADDRESS_REGION = "region";
-		public static final String CUSTOMER_BILLING_ADDRESS_POSTAL_CODE = "postalcode";
+		public static final String	CUSTOMER_BILLING_ADDRESS				= "address";
+		public static final String	CUSTOMER_BILLING_ADDRESS_COUNTRY		= "country";
+		public static final String	CUSTOMER_BILLING_ADDRESS_DETAILS		= "details";
+		public static final String	CUSTOMER_BILLING_ADDRESS_CITY			= "city";
+		public static final String	CUSTOMER_BILLING_ADDRESS_REGION			= "region";
+		public static final String	CUSTOMER_BILLING_ADDRESS_POSTAL_CODE	= "postalcode";
 
-		public static final String ENTRIES = "entries";
-		public static final String ENTRY = "entry";
-		public static final String ENTRY_ID = "id";
-		public static final String ENTRY_DESCRIPTION = "description";
-		public static final String ENTRY_QUANTITY = "qty";
+		public static final String	ENTRIES									= "entries";
+		public static final String	ENTRY									= "entry";
+		public static final String	ENTRY_ID								= "id";
+		public static final String	ENTRY_DESCRIPTION						= "description";
+		public static final String	ENTRY_QUANTITY							= "qty";
 		// public static final String PRODUCT_DISCOUNT = "entries";
-		public static final String ENTRY_UNIT_PRICE = "unitPrice";
-		public static final String ENTRY_TOTAL = "total";
-		public static final String ENTRY_TAX = "tax";
+		public static final String	ENTRY_UNIT_PRICE						= "unitPrice";
+		public static final String	ENTRY_TOTAL								= "total";
+		public static final String	ENTRY_TAX								= "tax";
 
-		public static final String TAX_DETAILS = "taxDetails";
-		public static final String TAX_DETAIL = "detail";
-		public static final String TAX_DETAIL_TAX = "tax";
-		public static final String TAX_DETAIL_NET_VALUE = "baseValue";
-		public static final String TAX_DETAIL_VALUE = "taxValue";
+		public static final String	TAX_DETAILS								= "taxDetails";
+		public static final String	TAX_DETAIL								= "detail";
+		public static final String	TAX_DETAIL_TAX							= "tax";
+		public static final String	TAX_DETAIL_NET_VALUE					= "baseValue";
+		public static final String	TAX_DETAIL_VALUE						= "taxValue";
 	}
 
-	private DAOGenericInvoice daoGenericInvoice;
-	protected MathContext mc = BillyMathContext.get();
+	private DAOGenericInvoice	daoGenericInvoice;
+	protected MathContext		mc	= BillyMathContext.get();
 
 	@Inject
 	public AbstractPDFExportHandler(DAOGenericInvoice daoGenericInvoice) {
@@ -121,7 +121,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 	protected void toStream(GenericInvoiceEntity invoice,
 			OutputStream targetStream, BillyTemplateBundle bundle)
-			throws ExportServiceException {
+		throws ExportServiceException {
 		super.getStream(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
 				bundle);
@@ -363,16 +363,16 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 	protected class TaxTotals {
 
-		Map<String, TaxTotalEntry> entries;
+		Map<String, TaxTotalEntry>	entries;
 
 		private class TaxTotalEntry {
 
-			BigDecimal baseValue;
-			BigDecimal taxValue;
-			Boolean percentageValued;
+			BigDecimal	baseValue;
+			BigDecimal	taxValue;
+			Boolean		percentageValued;
 
 			public TaxTotalEntry(boolean perc, BigDecimal taxValue,
-					BigDecimal baseValue) {
+									BigDecimal baseValue) {
 				this.baseValue = baseValue;
 				this.taxValue = taxValue;
 				this.percentageValued = perc;

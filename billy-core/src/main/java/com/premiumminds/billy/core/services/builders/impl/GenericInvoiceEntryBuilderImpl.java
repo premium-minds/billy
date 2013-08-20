@@ -46,7 +46,6 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.DiscountType;
@@ -54,25 +53,27 @@ import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 
 public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
-		extends AbstractBuilder<TBuilder, TEntry> implements
-		GenericInvoiceEntryBuilder<TBuilder, TEntry> {
+	extends AbstractBuilder<TBuilder, TEntry> implements
+	GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOGenericInvoiceEntry daoEntry;
-	protected DAOGenericInvoice daoGenericInvoice;
-	protected DAOTax daoTax;
-	protected DAOProduct daoProduct;
-	protected DAOContext daoContext;
+	protected DAOGenericInvoiceEntry	daoEntry;
+	protected DAOGenericInvoice			daoGenericInvoice;
+	protected DAOTax					daoTax;
+	protected DAOProduct				daoProduct;
+	protected DAOContext				daoContext;
 
-	protected Context context;
+	protected Context					context;
 
 	@Inject
-	public GenericInvoiceEntryBuilderImpl(DAOGenericInvoiceEntry daoEntry,
-			DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
-			DAOProduct daoProduct, DAOContext daoContext) {
-		super((EntityFactory<?>) daoEntry);
+	public GenericInvoiceEntryBuilderImpl(	DAOGenericInvoiceEntry daoEntry,
+											DAOGenericInvoice daoGenericInvoice,
+											DAOTax daoTax,
+											DAOProduct daoProduct,
+											DAOContext daoContext) {
+		super(daoEntry);
 		this.daoEntry = daoEntry;
 		this.daoGenericInvoice = daoGenericInvoice;
 		this.daoTax = daoTax;

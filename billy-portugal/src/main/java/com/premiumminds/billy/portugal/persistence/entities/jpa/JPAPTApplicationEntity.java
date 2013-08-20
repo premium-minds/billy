@@ -38,20 +38,20 @@ import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
 public class JPAPTApplicationEntity extends JPAApplicationEntity implements
-		PTApplicationEntity {
+	PTApplicationEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Basic(optional = false)
 	@Column(name = "NUMBER")
-	protected Integer number;
+	protected Integer			number;
 
 	@Basic(optional = false)
 	@Column(name = "KEYS_PATH")
-	protected String path;
+	protected String			path;
 
 	public JPAPTApplicationEntity() {
 

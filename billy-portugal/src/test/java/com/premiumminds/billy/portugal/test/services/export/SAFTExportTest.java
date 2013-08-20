@@ -72,11 +72,11 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class SAFTExportTest extends PTPersistencyAbstractTest {
 
-	private static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
-	private static final String SAFT_OUTPUT = System
-			.getProperty("java.io.tmpdir") + "/";
+	private static final String	PRIVATE_KEY_DIR	= "src/test/resources/keys/private.pem";
+	private static final String	SAFT_OUTPUT		= System.getProperty("java.io.tmpdir")
+														+ "/";
 
-	private static final int MAX_INVOICES = 3;
+	private static final int	MAX_INVOICES	= 3;
 
 	@Test
 	public void doTest() {
@@ -223,7 +223,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTCreditNote daoPTCreditNote = PTAbstractTest.injector
 					.getInstance(DAOPTCreditNote.class);
 			PTCreditNoteEntity creditNoteEntity = creditNote
-					.getCreditNoteEntity(TYPE.NC, getNewIssuedInvoice());
+					.getCreditNoteEntity(TYPE.NC, this.getNewIssuedInvoice());
 			creditNoteEntity.setHash(GenerateHash.generateHash(privateKey,
 					publicKey, creditNoteEntity.getDate(),
 					creditNoteEntity.getCreateTimestamp(),
@@ -231,9 +231,10 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					creditNoteEntity.getAmountWithTax(), null));
 			daoPTCreditNote.create(creditNoteEntity);
 
-			exportSAFT(daoPTRegionContext, applicationEntity, businessEntity,
-					daoPTCustomer, daoPTSupplier, daoPTTax, daoPTProduct,
-					daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
+			this.exportSAFT(daoPTRegionContext, applicationEntity,
+					businessEntity, daoPTCustomer, daoPTSupplier, daoPTTax,
+					daoPTProduct, daoPTInvoice, daoPTSimpleInvoice,
+					daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -246,7 +247,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTProduct daoPTProduct, DAOPTInvoice daoPTInvoice,
 			DAOPTSimpleInvoice daoPTSimpleInvoice,
 			DAOPTCreditNote daoPTCreditNote) throws FileNotFoundException,
-			SAFTPTExportException {
+		SAFTPTExportException {
 
 		PTSAFTFileGenerator generator = new PTSAFTFileGenerator();
 

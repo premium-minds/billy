@@ -28,9 +28,8 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 
-
-public class PTProductPersistenceService<T extends PTProduct> extends PersistenceServiceImpl<T>
-		implements PersistenceService<T> {
+public class PTProductPersistenceService<T extends PTProduct> extends
+	PersistenceServiceImpl<T> implements PersistenceService<T> {
 
 	public PTProductPersistenceService(Injector injector) {
 		super(injector);
@@ -38,8 +37,7 @@ public class PTProductPersistenceService<T extends PTProduct> extends Persistenc
 
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		final DAOPTProduct dao = this.injector
-				.getInstance(DAOPTProduct.class);
+		final DAOPTProduct dao = this.injector.getInstance(DAOPTProduct.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
@@ -59,8 +57,7 @@ public class PTProductPersistenceService<T extends PTProduct> extends Persistenc
 
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		final DAOPTProduct dao = this.injector
-				.getInstance(DAOPTProduct.class);
+		final DAOPTProduct dao = this.injector.getInstance(DAOPTProduct.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {

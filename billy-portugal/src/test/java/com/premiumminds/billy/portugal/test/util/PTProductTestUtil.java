@@ -28,16 +28,16 @@ import com.premiumminds.billy.portugal.util.Taxes;
 
 public class PTProductTestUtil {
 
-	private static final String NUMBER_CODE = "123";
-	private static final String UNIT_OF_MEASURE = "Kg";
-	private static final String PRODUCT_CODE = "12345";
-	private static final String DESCRIPTION = "DESCRIPTION";
-	private static final String GROUP = "FOOD";
-	private static final ProductType TYPE = ProductType.GOODS;
+	private static final String			NUMBER_CODE		= "123";
+	private static final String			UNIT_OF_MEASURE	= "Kg";
+	private static final String			PRODUCT_CODE	= "12345";
+	private static final String			DESCRIPTION		= "DESCRIPTION";
+	private static final String			GROUP			= "FOOD";
+	private static final ProductType	TYPE			= ProductType.GOODS;
 
-	private Injector injector;
-	private Taxes taxes;
-	private PTTaxEntity tax;
+	private Injector					injector;
+	private Taxes						taxes;
+	private PTTaxEntity					tax;
 
 	public PTProductTestUtil(Injector injector) {
 		this.injector = injector;
@@ -46,14 +46,15 @@ public class PTProductTestUtil {
 	}
 
 	public PTProductEntity getProductEntity(String uid) {
-		PTProductEntity product = (PTProductEntity) getProductBuilder().build();
+		PTProductEntity product = (PTProductEntity) this.getProductBuilder()
+				.build();
 		product.setUID(new UID(uid));
 
 		return product;
 	}
 
 	public PTProductEntity getProductEntity() {
-		return (PTProductEntity) getProductBuilder().build();
+		return (PTProductEntity) this.getProductBuilder().build();
 	}
 
 	public PTProduct.Builder getProductBuilder(String productCode,
@@ -70,14 +71,17 @@ public class PTProductTestUtil {
 	}
 
 	public PTProduct.Builder getProductBuilder() {
-		return getProductBuilder(PRODUCT_CODE, UNIT_OF_MEASURE, NUMBER_CODE,
-				GROUP, DESCRIPTION, TYPE);
+		return this.getProductBuilder(PTProductTestUtil.PRODUCT_CODE,
+				PTProductTestUtil.UNIT_OF_MEASURE,
+				PTProductTestUtil.NUMBER_CODE, PTProductTestUtil.GROUP,
+				PTProductTestUtil.DESCRIPTION, PTProductTestUtil.TYPE);
 	}
 
 	public PTProductEntity getProductEntity(String productCode,
 			String unitMesure, String numberCode, String group, ProductType type) {
-		return (PTProductEntity) getProductBuilder(productCode, unitMesure,
-				numberCode, group, DESCRIPTION, type).build();
+		return (PTProductEntity) this.getProductBuilder(productCode,
+				unitMesure, numberCode, group, PTProductTestUtil.DESCRIPTION,
+				type).build();
 
 	}
 }

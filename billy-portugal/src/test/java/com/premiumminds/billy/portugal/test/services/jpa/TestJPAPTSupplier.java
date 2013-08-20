@@ -30,18 +30,18 @@ import com.premiumminds.billy.portugal.test.util.PTSupplierTestUtil;
 
 public class TestJPAPTSupplier extends PTJPAAbstractTest {
 
-	private TransactionWrapper<Void> transaction;
+	private TransactionWrapper<Void>	transaction;
 
 	@Before
 	public void setUp() {
 		this.transaction = new TransactionWrapper<Void>(
-				injector.getInstance(DAOPTInvoice.class)) {
+				PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
 
 			@Override
 			public Void runTransaction() throws Exception {
 				final PTSupplierTestUtil supplier = new PTSupplierTestUtil(
-						injector);
-				DAOPTSupplier daoPTSupplier = injector
+						PTAbstractTest.injector);
+				DAOPTSupplier daoPTSupplier = PTAbstractTest.injector
 						.getInstance(DAOPTSupplier.class);
 
 				PTSupplierEntity newSupplier = supplier.getSupplierEntity();
@@ -56,7 +56,7 @@ public class TestJPAPTSupplier extends PTJPAAbstractTest {
 
 	@Test
 	public void doTest() throws Exception {
-		TestJPAPTSupplier.execute(PTAbstractTest.injector, transaction);
+		PTJPAAbstractTest.execute(PTAbstractTest.injector, this.transaction);
 	}
 
 }

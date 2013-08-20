@@ -22,6 +22,6 @@ import com.premiumminds.billy.core.services.builders.BusinessBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
 public interface PTBusinessBuilder<TBuilder extends PTBusinessBuilder<TBuilder, TBusiness>, TBusiness extends PTBusiness>
-		extends BusinessBuilder<TBuilder, TBusiness> {
+	extends BusinessBuilder<TBuilder, TBusiness> {
 
 }

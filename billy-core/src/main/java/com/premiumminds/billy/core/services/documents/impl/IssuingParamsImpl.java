@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public class IssuingParamsImpl implements IssuingParams {
 
-	Map<String, Object> parameters;
+	Map<String, Object>	parameters;
 
 	public IssuingParamsImpl() {
 		this.parameters = new HashMap<String, Object>();

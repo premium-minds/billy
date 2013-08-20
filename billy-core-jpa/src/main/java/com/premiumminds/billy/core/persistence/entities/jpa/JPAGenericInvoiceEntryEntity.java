@@ -56,90 +56,100 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements
-		GenericInvoiceEntryEntity {
+	GenericInvoiceEntryEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long		serialVersionUID	= 1L;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "CREDIT_OR_DEBIT")
-	protected CreditOrDebit creditOrDebit;
+	protected CreditOrDebit			creditOrDebit;
 
 	@Column(name = "CURRENCY")
-	protected Currency currency;
+	protected Currency				currency;
 
 	@Column(name = "DESCRIPTION")
-	protected String description;
+	protected String				description;
 
 	@ManyToMany(targetEntity = JPAGenericInvoiceEntity.class)
-	@JoinTable(name = Config.TABLE_PREFIX + "ENTRY_REFERENCE", joinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_REFERENCE", referencedColumnName = "ID") })
-	protected List<GenericInvoice> references;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "ENTRY_REFERENCE",
+				joinColumns = { @JoinColumn(name = "ID_ENTRY",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(name = "ID_REFERENCE",
+													referencedColumnName = "ID") })
+	protected List<GenericInvoice>	references;
 
 	@Column(name = "NUMBER")
-	protected Integer number;
+	protected Integer				number;
 
 	@Column(name = "EXCHANGE_RATE_TO_DOCUMENT_CURRENCY", scale = 7)
-	protected BigDecimal exchangeRateToDocumentCurrency;
+	protected BigDecimal			exchangeRateToDocumentCurrency;
 
 	@Column(name = "AMOUNT_WITHOUT_TAX", scale = 7)
-	protected BigDecimal amountWithoutTax;
+	protected BigDecimal			amountWithoutTax;
 
 	@Column(name = "AMOUNT_WITH_TAX", scale = 7)
-	protected BigDecimal amountWithTax;
+	protected BigDecimal			amountWithTax;
 
 	@Column(name = "TAX_AMOUNT", scale = 7)
-	protected BigDecimal taxAmount;
+	protected BigDecimal			taxAmount;
 
 	@Column(name = "DISCOUNT_AMOUNT", scale = 7)
-	protected BigDecimal discountAmount;
+	protected BigDecimal			discountAmount;
 
 	@ManyToOne(targetEntity = JPAProductEntity.class)
 	@JoinColumn(name = "ID_PRODUCT", referencedColumnName = "ID")
-	protected Product product;
+	protected Product				product;
 
 	@Column(name = "QUANTITY", scale = 7)
-	protected BigDecimal quantity;
+	protected BigDecimal			quantity;
 
 	@Column(name = "SHIPPING_COSTS_AMOUNT", scale = 7)
-	protected BigDecimal shippingCostsAmount;
+	protected BigDecimal			shippingCostsAmount;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_DESTINATION")
-	protected ShippingPoint shippingDestination;
+	protected ShippingPoint			shippingDestination;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_ORIGIN")
-	protected ShippingPoint shippingOrigin;
+	protected ShippingPoint			shippingOrigin;
 
 	@ManyToMany(targetEntity = JPATaxEntity.class)
-	@JoinTable(name = Config.TABLE_PREFIX + "ENTRY_TAX", joinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_TAX", referencedColumnName = "ID") })
-	protected List<Tax> taxes;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "ENTRY_TAX",
+				joinColumns = { @JoinColumn(name = "ID_ENTRY",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(name = "ID_TAX",
+													referencedColumnName = "ID") })
+	protected List<Tax>				taxes;
 
 	@Column(name = "TAX_EXEMPTION_REASON")
-	protected String taxExemptionReason;
+	protected String				taxExemptionReason;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "TAX_POINT_DATE")
-	protected Date taxPointDate;
+	protected Date					taxPointDate;
 
 	@Column(name = "UNIT_AMOUNT_WITHOUT_TAX", scale = 7)
-	protected BigDecimal unitAmountWithoutTax;
+	protected BigDecimal			unitAmountWithoutTax;
 
 	@Column(name = "UNIT_AMOUNT_WITH_TAX", scale = 7)
-	protected BigDecimal unitAmountWithTax;
+	protected BigDecimal			unitAmountWithTax;
 
 	@Column(name = "UNIT_TAX_AMOUNT", scale = 7)
-	protected BigDecimal unitTaxAmount;
+	protected BigDecimal			unitTaxAmount;
 
 	@Column(name = "UNIT_DISCOUNT_AMOUNT", scale = 7)
-	protected BigDecimal unitDiscountAmount;
+	protected BigDecimal			unitDiscountAmount;
 
 	@Column(name = "UNIT_OF_MEASURE")
-	protected String unitOfMeasure;
+	protected String				unitOfMeasure;
 
 	@Column(name = "AMOUNT_TYPE")
-	protected AmountType type;
+	protected AmountType			type;
 
 	public JPAGenericInvoiceEntryEntity() {
 		this.references = new ArrayList<GenericInvoice>();

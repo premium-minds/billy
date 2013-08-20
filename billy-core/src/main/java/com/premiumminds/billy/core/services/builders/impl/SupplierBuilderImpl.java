@@ -31,22 +31,21 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Supplier;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, TSupplier>, TSupplier extends Supplier>
-		extends AbstractBuilder<TBuilder, TSupplier> implements
-		SupplierBuilder<TBuilder, TSupplier> {
+	extends AbstractBuilder<TBuilder, TSupplier> implements
+	SupplierBuilder<TBuilder, TSupplier> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOSupplier daoSupplier;
+	protected DAOSupplier				daoSupplier;
 
 	@Inject
 	public SupplierBuilderImpl(DAOSupplier daoSupplier) {
-		super((EntityFactory<?>) daoSupplier);
+		super(daoSupplier);
 		this.daoSupplier = daoSupplier;
 	}
 

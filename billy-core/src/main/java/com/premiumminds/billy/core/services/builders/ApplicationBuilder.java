@@ -23,7 +23,7 @@ import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public interface ApplicationBuilder<TBuilder extends ApplicationBuilder<TBuilder, TApplication>, TApplication extends Application>
-		extends Builder<TApplication> {
+	extends Builder<TApplication> {
 
 	public TBuilder setName(String name);
 

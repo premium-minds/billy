@@ -22,7 +22,7 @@ import com.premiumminds.billy.core.services.builders.ContextBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 public interface PTRegionContextBuilder<TBuilder extends PTRegionContextBuilder<TBuilder, TContext>, TContext extends PTRegionContext>
-		extends ContextBuilder<TBuilder, TContext> {
+	extends ContextBuilder<TBuilder, TContext> {
 
 	public TBuilder setRegionCode(String regionCode);
 

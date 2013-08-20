@@ -27,7 +27,7 @@ import com.premiumminds.billy.core.CoreJPAPersistenceDependencyModule;
 
 public class AbstractTest {
 
-	private static Injector injector;
+	private static Injector	injector;
 
 	@BeforeClass
 	public static void setUpClass() {

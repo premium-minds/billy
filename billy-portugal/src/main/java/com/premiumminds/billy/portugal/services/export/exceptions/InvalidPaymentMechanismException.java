@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.export.exceptions;
 
 public class InvalidPaymentMechanismException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public InvalidPaymentMechanismException(String pm) {
 		super("Invalid payment mechanism: " + pm);

@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTApplicationBuild
 public interface PTApplication extends Application {
 
 	public static class Builder extends
-			PTApplicationBuilderImpl<Builder, PTApplication> {
+		PTApplicationBuilderImpl<Builder, PTApplication> {
 
 		@Inject
 		public Builder(DAOPTApplication daoPTApplication) {

@@ -33,11 +33,11 @@ import com.premiumminds.billy.portugal.services.builders.PTApplicationBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
 public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<TBuilder, TApplication>, TApplication extends PTApplication>
-		extends ApplicationBuilderImpl<TBuilder, TApplication> implements
-		PTApplicationBuilder<TBuilder, TApplication> {
+	extends ApplicationBuilderImpl<TBuilder, TApplication> implements
+	PTApplicationBuilder<TBuilder, TApplication> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {

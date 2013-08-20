@@ -1,24 +1,22 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy core JPA.
- * 
- * billy core JPA is free software: you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by the
- * Free Software Foundation, either version 3 of the License, or (at your
- * option) any later version.
- * 
- * billy core JPA is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
- * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ *
+ * billy core JPA is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy core JPA is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -35,8 +33,8 @@ import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 
 public class DAOGenericInvoiceImpl extends
-		AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
-		DAOGenericInvoice {
+	AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
+	DAOGenericInvoice {
 
 	@Inject
 	public DAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -53,6 +51,7 @@ public class DAOGenericInvoiceImpl extends
 		return new JPAGenericInvoiceEntity();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
 			String series, String businessUID) throws BillyRuntimeException {
@@ -65,8 +64,9 @@ public class DAOGenericInvoiceImpl extends
 		BusinessEntity businessEnity = query.from(business)
 				.where(business.uid.eq(businessUID)).uniqueResult(business);
 
-		if (businessEnity == null)
+		if (businessEnity == null) {
 			throw new BillyRuntimeException();
+		}
 
 		query = new JPAQuery(this.getEntityManager());
 
@@ -77,19 +77,7 @@ public class DAOGenericInvoiceImpl extends
 				.where(genericInvoice.business.eq(businessEnity))
 				.unique(genericInvoice.seriesNumber.max())));
 
-		List<JPAGenericInvoiceEntity> invoiceList = query.list(genericInvoice);
-
-		GenericInvoiceEntity invoice = null;
-		boolean found = false;
-		for (JPAGenericInvoiceEntity entity : invoiceList) {
-			if (entity.getBusiness().getUID().equals(businessUID) && !found) {
-				found = true;
-				invoice = entity;
-			} else if (entity.getBusiness().getUID().equals(businessUID)
-					&& found) {
-				invoice = null;
-			}
-		}
+		GenericInvoiceEntity invoice = query.singleResult(genericInvoice);
 
 		if (invoice != null) {
 			return (T) invoice;

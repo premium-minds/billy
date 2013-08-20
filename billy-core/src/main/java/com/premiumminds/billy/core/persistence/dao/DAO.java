@@ -61,6 +61,11 @@ public interface DAO<T extends BaseEntity> extends EntityFactory<T> {
 	public void commit();
 
 	/**
+	 * Lock the entity type being managed by the DAO.
+	 */
+	public void lock(T entity);
+
+	/**
 	 * Tells whether a transaction is currently active or not
 	 * 
 	 * @return true if a transaction is currently active. Returns false

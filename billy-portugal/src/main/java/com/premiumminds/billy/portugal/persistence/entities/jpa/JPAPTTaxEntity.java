@@ -33,7 +33,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 @Table(name = Config.TABLE_PREFIX + "TAX")
 public class JPAPTTaxEntity extends JPATaxEntity implements PTTaxEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Override
 	public Context getContext() {

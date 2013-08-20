@@ -34,11 +34,11 @@ import com.premiumminds.billy.portugal.services.builders.PTSupplierBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 
 public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuilder, TSupplier>, TSupplier extends PTSupplier>
-		extends SupplierBuilderImpl<TBuilder, TSupplier> implements
-		PTSupplierBuilder<TBuilder, TSupplier> {
+	extends SupplierBuilderImpl<TBuilder, TSupplier> implements
+	PTSupplierBuilder<TBuilder, TSupplier> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTSupplierBuilderImpl(DAOPTSupplier daoPTSupplier) {

@@ -42,11 +42,10 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 public class GenericTest {
 
-	static Injector injector;
+	static Injector	injector;
 
 	@BeforeClass
 	public static void setUpClass() {
@@ -61,8 +60,6 @@ public class GenericTest {
 	public void test1() {
 		Business.Builder builder = GenericTest.injector
 				.getInstance(Business.Builder.class);
-		GenericInvoiceEntry.Builder entryBuilder = GenericTest.injector
-				.getInstance(GenericInvoiceEntry.Builder.class);
 		Contact.Builder contactBuilder = GenericTest.injector
 				.getInstance(Contact.Builder.class);
 		Contact.Builder contactBuilder2 = GenericTest.injector

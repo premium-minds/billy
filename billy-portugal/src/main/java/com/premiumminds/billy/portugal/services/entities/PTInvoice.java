@@ -32,11 +32,11 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderIm
 public interface PTInvoice extends PTGenericInvoice {
 
 	public static class Builder extends
-			PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
+		PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
 
 		@Inject
 		public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
-				DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
 			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}
 	}

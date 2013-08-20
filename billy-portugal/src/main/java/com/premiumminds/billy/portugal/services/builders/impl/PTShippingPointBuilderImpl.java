@@ -29,11 +29,11 @@ import com.premiumminds.billy.portugal.services.builders.PTShippingPointBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTShippingPoint;
 
 public class PTShippingPointBuilderImpl<TBuilder extends PTShippingPointBuilderImpl<TBuilder, TShippingPoint>, TShippingPoint extends PTShippingPoint>
-		extends ShippingPointBuilderImpl<TBuilder, TShippingPoint> implements
-		PTShippingPointBuilder<TBuilder, TShippingPoint> {
+	extends ShippingPointBuilderImpl<TBuilder, TShippingPoint> implements
+	PTShippingPointBuilder<TBuilder, TShippingPoint> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTShippingPointBuilderImpl(DAOPTShippingPoint daoPTShippingPoint) {

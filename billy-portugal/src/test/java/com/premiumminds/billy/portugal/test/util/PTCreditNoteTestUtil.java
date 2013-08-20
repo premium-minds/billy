@@ -22,12 +22,8 @@ import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
@@ -36,13 +32,13 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTCreditNoteTestUtil {
 
-	private static final Boolean BILLED = false;
-	private static final Boolean CANCELLED = false;
-	private static final Boolean SELFBILL = false;
-	private static final String SOURCEID = "SOURCE";
+	private static final Boolean		BILLED		= false;
+	private static final Boolean		CANCELLED	= false;
+	private static final Boolean		SELFBILL	= false;
+	private static final String			SOURCEID	= "SOURCE";
 
-	private Injector injector;
-	private PTCreditNoteEntryTestUtil creditNoteEntry;
+	private Injector					injector;
+	private PTCreditNoteEntryTestUtil	creditNoteEntry;
 
 	public PTCreditNoteTestUtil(Injector injector) {
 		this.injector = injector;
@@ -52,8 +48,8 @@ public class PTCreditNoteTestUtil {
 	public PTCreditNoteEntity getCreditNoteEntity(TYPE type,
 			PTInvoiceEntity reference) {
 
-		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) getCreditNoteBuilder(
-				reference).build();
+		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) this
+				.getCreditNoteBuilder(reference).build();
 		creditNote.setType(type);
 		creditNote.setCurrency(Currency.getInstance("EUR"));
 
@@ -66,26 +62,20 @@ public class PTCreditNoteTestUtil {
 
 	public PTCreditNote.Builder getCreditNoteBuilder(PTInvoiceEntity reference) {
 
-		PTBusinessEntity business = (PTBusinessEntity) injector.getInstance(
-				DAOPTBusiness.class).create(
-				new PTBusinessTestUtil(injector).getBusinessEntity());
-
-		PTCustomerEntity customer = (PTCustomerEntity) injector.getInstance(
-				DAOPTCustomer.class).create(
-				new PTCustomerTestUtil(injector).getCustomerEntity());
-
 		PTCreditNote.Builder creditNoteBuilder = this.injector
 				.getInstance(PTCreditNote.Builder.class);
 
 		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.creditNoteEntry
 				.getCreditNoteEntryBuilder(reference);
 
-		return creditNoteBuilder.setBilled(BILLED).setCancelled(CANCELLED)
-				.setSelfBilled(SELFBILL).setDate(new Date())
-				.setSourceId(SOURCEID).addEntry(creditNoteEntryBuilder)
-				.setBusinessUID(business.getUID())
+		return creditNoteBuilder.setBilled(PTCreditNoteTestUtil.BILLED)
+				.setCancelled(PTCreditNoteTestUtil.CANCELLED)
+				.setSelfBilled(PTCreditNoteTestUtil.SELFBILL)
+				.setDate(new Date()).setSourceId(PTCreditNoteTestUtil.SOURCEID)
+				.addEntry(creditNoteEntryBuilder)
+				.setBusinessUID(reference.getBusiness().getUID())
 				.setSourceBilling(SourceBilling.P)
-				.setCustomerUID(customer.getUID());
+				.setCustomerUID(reference.getCustomer().getUID());
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity(PTInvoiceEntity reference) {

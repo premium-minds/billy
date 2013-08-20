@@ -18,10 +18,9 @@
  */
 package com.premiumminds.billy.portugal.test.services.jpa;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.concurrent.Callable;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,18 +29,17 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.util.ConcurrentTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 
 public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
-	private TransactionWrapper<Void> transaction;
+	private TransactionWrapper<Void>	transaction;
 
 	class TestRunner implements Callable<Void> {
 
-		private Injector injector;
+		private Injector	injector;
 
 		public TestRunner(Injector inject) {
 			this.injector = inject;
@@ -50,7 +48,8 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
 		@Override
 		public Void call() throws Exception {
-			TestJPAPTBusiness.execute(injector, transaction);
+			PTJPAAbstractTest.execute(this.injector,
+					TestJPAPTBusiness.this.transaction);
 			return null;
 		}
 	}
@@ -58,19 +57,13 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
 	@Before
 	public void setUp() {
 		this.transaction = new TransactionWrapper<Void>(
-				injector.getInstance(DAOPTInvoice.class)) {
+				PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
 
 			@Override
 			public Void runTransaction() throws Exception {
-				PTBusinessTestUtil business = new PTBusinessTestUtil(injector);
-				DAOPTBusiness daoPTBusiness = injector
-						.getInstance(DAOPTBusiness.class);
-
-				PTBusinessEntity newBusiness = business.getBusinessEntity();
-				newBusiness.setUID(new UID("Biz"));
-
-				daoPTBusiness.create(newBusiness);
-
+				PTBusinessTestUtil business = new PTBusinessTestUtil(
+						PTAbstractTest.injector);
+				business.getBusinessEntity("Biz");
 				return null;
 			}
 		};
@@ -78,7 +71,7 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
 	@Test
 	public void doTest() throws Exception {
-		TestJPAPTBusiness.execute(PTAbstractTest.injector, transaction);
+		PTJPAAbstractTest.execute(PTAbstractTest.injector, this.transaction);
 	}
 
 	@Test
@@ -87,7 +80,8 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
 		test.runThreads(new TestRunner(PTAbstractTest.injector));
 
-		DAOPTBusiness biz = injector.getInstance(DAOPTBusiness.class);
-		assertTrue(biz.exists(new UID("Biz")));
+		DAOPTBusiness biz = PTAbstractTest.injector
+				.getInstance(DAOPTBusiness.class);
+		Assert.assertTrue(biz.exists(new UID("Biz")));
 	}
 }

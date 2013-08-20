@@ -36,7 +36,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteE
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
 
 public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
-		DAOPTCreditNote {
+	DAOPTCreditNote {
 
 	@Inject
 	public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
@@ -73,8 +73,8 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 			query.where(e);
 		}
 
-		List<PTCreditNoteEntity> result = this.checkEntityList(query.list(creditNote),
-				PTCreditNoteEntity.class); 
+		List<PTCreditNoteEntity> result = this.checkEntityList(
+				query.list(creditNote), PTCreditNoteEntity.class);
 		return result;
 	}
 

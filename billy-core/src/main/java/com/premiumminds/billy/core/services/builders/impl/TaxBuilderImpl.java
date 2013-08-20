@@ -34,23 +34,22 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.TaxBuilder;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTax extends Tax>
-		extends AbstractBuilder<TBuilder, TTax> implements
-		TaxBuilder<TBuilder, TTax> {
+	extends AbstractBuilder<TBuilder, TTax> implements
+	TaxBuilder<TBuilder, TTax> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOTax daoTax;
-	protected DAOContext daoContext;
+	protected DAOTax					daoTax;
+	protected DAOContext				daoContext;
 
 	@Inject
 	public TaxBuilderImpl(DAOTax daoTax, DAOContext daoContext) {
-		super((EntityFactory<?>) daoTax);
+		super(daoTax);
 		this.daoTax = daoTax;
 		this.daoContext = daoContext;
 	}
@@ -149,7 +148,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		Tax t = this.getTypeInstance();
 		BillyValidator.notNull(t.getContext(),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));

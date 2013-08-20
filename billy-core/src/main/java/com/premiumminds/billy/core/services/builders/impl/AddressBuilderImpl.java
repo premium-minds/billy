@@ -25,23 +25,22 @@ import com.premiumminds.billy.core.persistence.dao.DAOAddress;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.builders.AddressBuilder;
 import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TAddress>, TAddress extends Address>
-		extends AbstractBuilder<TBuilder, TAddress> implements
-		AddressBuilder<TBuilder, TAddress> {
+	extends AbstractBuilder<TBuilder, TAddress> implements
+	AddressBuilder<TBuilder, TAddress> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOAddress daoAddress;
-	protected AddressEntity address;
+	protected DAOAddress				daoAddress;
+	protected AddressEntity				address;
 
 	@Inject
 	protected AddressBuilderImpl(DAOAddress daoAddress) {
-		super((EntityFactory<?>) daoAddress);
+		super(daoAddress);
 		this.daoAddress = daoAddress;
 	}
 

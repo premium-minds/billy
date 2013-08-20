@@ -26,22 +26,21 @@ import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.ContextBuilder;
 import com.premiumminds.billy.core.services.entities.Context;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TContext>, TContext extends Context>
-		extends AbstractBuilder<TBuilder, TContext> implements
-		ContextBuilder<TBuilder, TContext> {
+	extends AbstractBuilder<TBuilder, TContext> implements
+	ContextBuilder<TBuilder, TContext> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOContext daoContext;
+	protected DAOContext				daoContext;
 
 	@Inject
 	public ContextBuilderImpl(DAOContext daoContext) {
-		super((EntityFactory<?>) daoContext);
+		super(daoContext);
 		this.daoContext = daoContext;
 	}
 
@@ -80,7 +79,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		ContextEntity c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getName(),
 				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));

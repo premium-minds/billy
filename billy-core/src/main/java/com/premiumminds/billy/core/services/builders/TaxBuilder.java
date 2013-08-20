@@ -28,7 +28,7 @@ import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 
 public interface TaxBuilder<TBuilder extends TaxBuilder<TBuilder, TTax>, TTax extends Tax>
-		extends Builder<TTax> {
+	extends Builder<TTax> {
 
 	public TBuilder setContextUID(UID uid);
 

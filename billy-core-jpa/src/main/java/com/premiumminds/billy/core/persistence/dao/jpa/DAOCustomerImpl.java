@@ -29,7 +29,7 @@ import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity;
 
 public class DAOCustomerImpl extends
-		AbstractDAO<CustomerEntity, JPACustomerEntity> implements DAOCustomer {
+	AbstractDAO<CustomerEntity, JPACustomerEntity> implements DAOCustomer {
 
 	@Inject
 	public DAOCustomerImpl(Provider<EntityManager> emProvider) {

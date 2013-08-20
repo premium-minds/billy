@@ -43,13 +43,12 @@ import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceEntryOperations extends AbstractTest {
 
-	private MathContext mc = BillyMathContext.get();
-	private BigDecimal qnt = new BigDecimal("46");
-	private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoice.yml";
-	private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoiceEntry.yml";
-	private BigDecimal tax = new BigDecimal("0.23");
+	private MathContext			mc			= BillyMathContext.get();
+	private BigDecimal			qnt			= new BigDecimal("46");
+	private static final String	INVOICE_YML	= AbstractTest.YML_CONFIGS_DIR
+													+ "GenericInvoice.yml";
+	private static final String	ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+													+ "GenericInvoiceEntry.yml";
 
 	@Test
 	public void doTest() {

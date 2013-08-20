@@ -38,17 +38,17 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "NAME")
-	protected String name;
+	protected String			name;
 
 	@Column(name = "DESCRIPTION")
-	protected String description;
+	protected String			description;
 
 	@ManyToOne(targetEntity = JPAContextEntity.class)
 	@JoinColumn(name = "ID_CONTEXT_PARENT", referencedColumnName = "ID")
-	protected Context parent;
+	protected Context			parent;
 
 	public JPAContextEntity() {
 	}

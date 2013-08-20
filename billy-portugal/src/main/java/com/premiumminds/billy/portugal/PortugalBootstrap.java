@@ -51,27 +51,27 @@ import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PortugalBootstrap {
 
-	public static final String CODE_PT = "PT";
-	public static final String CODE_PT_AVEIRO = "PT-01";
-	protected static final String CODE_PT_BEJA = "PT-02";
-	protected static final String CODE_PT_BRAGA = "PT-03";
-	protected static final String CODE_PT_BRAGANCA = "PT-04";
-	protected static final String CODE_PT_CASTELO_BRANCO = "PT-05";
-	protected static final String CODE_PT_COIMBRA = "PT-06";
-	protected static final String CODE_PT_EVORA = "PT-07";
-	protected static final String CODE_PT_FARO = "PT-08";
-	protected static final String CODE_PT_GUARDA = "PT-09";
-	protected static final String CODE_PT_LEIRIA = "PT-10";
-	protected static final String CODE_PT_LISBOA = "PT-11";
-	protected static final String CODE_PT_PORTALEGRE = "PT-12";
-	protected static final String CODE_PT_PORTO = "PT-13";
-	protected static final String CODE_PT_SANTAREM = "PT-14";
-	protected static final String CODE_PT_SETUBAL = "PT-15";
-	protected static final String CODE_PT_VIANA = "PT-16";
-	protected static final String CODE_PT_VILA_REAL = "PT-17";
-	protected static final String CODE_PT_VISEU = "PT-18";
-	protected static final String CODE_PT_AZORES = "PT-20";
-	protected static final String CODE_PT_MADEIRA = "PT-30";
+	public static final String		CODE_PT					= "PT";
+	public static final String		CODE_PT_AVEIRO			= "PT-01";
+	protected static final String	CODE_PT_BEJA			= "PT-02";
+	protected static final String	CODE_PT_BRAGA			= "PT-03";
+	protected static final String	CODE_PT_BRAGANCA		= "PT-04";
+	protected static final String	CODE_PT_CASTELO_BRANCO	= "PT-05";
+	protected static final String	CODE_PT_COIMBRA			= "PT-06";
+	protected static final String	CODE_PT_EVORA			= "PT-07";
+	protected static final String	CODE_PT_FARO			= "PT-08";
+	protected static final String	CODE_PT_GUARDA			= "PT-09";
+	protected static final String	CODE_PT_LEIRIA			= "PT-10";
+	protected static final String	CODE_PT_LISBOA			= "PT-11";
+	protected static final String	CODE_PT_PORTALEGRE		= "PT-12";
+	protected static final String	CODE_PT_PORTO			= "PT-13";
+	protected static final String	CODE_PT_SANTAREM		= "PT-14";
+	protected static final String	CODE_PT_SETUBAL			= "PT-15";
+	protected static final String	CODE_PT_VIANA			= "PT-16";
+	protected static final String	CODE_PT_VILA_REAL		= "PT-17";
+	protected static final String	CODE_PT_VISEU			= "PT-18";
+	protected static final String	CODE_PT_AZORES			= "PT-20";
+	protected static final String	CODE_PT_MADEIRA			= "PT-30";
 
 	public static void main(String[] args) {
 		PortugalBootstrap.execute();

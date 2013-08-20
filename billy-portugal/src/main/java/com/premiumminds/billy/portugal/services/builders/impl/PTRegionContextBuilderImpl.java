@@ -30,11 +30,11 @@ import com.premiumminds.billy.portugal.services.builders.PTRegionContextBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderImpl<TBuilder, TContext>, TContext extends PTRegionContext>
-		extends ContextBuilderImpl<TBuilder, TContext> implements
-		PTRegionContextBuilder<TBuilder, TContext> {
+	extends ContextBuilderImpl<TBuilder, TContext> implements
+	PTRegionContextBuilder<TBuilder, TContext> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTRegionContextBuilderImpl(DAOPTRegionContext daoPTContext) {

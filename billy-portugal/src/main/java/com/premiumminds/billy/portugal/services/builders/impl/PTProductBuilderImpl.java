@@ -31,11 +31,11 @@ import com.premiumminds.billy.portugal.services.builders.PTProductBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 
 public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder, TProduct>, TProduct extends PTProduct>
-		extends ProductBuilderImpl<TBuilder, TProduct> implements
-		PTProductBuilder<TBuilder, TProduct> {
+	extends ProductBuilderImpl<TBuilder, TProduct> implements
+	PTProductBuilder<TBuilder, TProduct> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTProductBuilderImpl(DAOPTProduct daoPTProduct, DAOPTTax daoPTTax) {

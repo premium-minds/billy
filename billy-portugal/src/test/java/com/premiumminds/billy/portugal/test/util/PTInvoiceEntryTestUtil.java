@@ -34,15 +34,15 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTInvoiceEntryTestUtil {
 
-	private static final BigDecimal AMOUNT = new BigDecimal(20);
-	private static final Currency CURRENCY = Currency.getInstance("EUR");
-	private static final BigDecimal QUANTITY = new BigDecimal(1);
+	private static final BigDecimal	AMOUNT		= new BigDecimal(20);
+	private static final Currency	CURRENCY	= Currency.getInstance("EUR");
+	private static final BigDecimal	QUANTITY	= new BigDecimal(1);
 
-	private Injector injector;
-	private PTProductTestUtil product;
-	private Contexts contexts;
-	private PTRegionContext context;
-	private PTShippingPointTestUtil shippingPoint;
+	private Injector				injector;
+	private PTProductTestUtil		product;
+	private Contexts				contexts;
+	private PTRegionContext			context;
+	private PTShippingPointTestUtil	shippingPoint;
 
 	public PTInvoiceEntryTestUtil(Injector injector) {
 		this.injector = injector;
@@ -79,7 +79,7 @@ public class PTInvoiceEntryTestUtil {
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
 		PTProductEntity newProduct = this.product.getProductEntity();
-		return this.getInvoiceEntryBuilder((PTProductEntity) injector
+		return this.getInvoiceEntryBuilder((PTProductEntity) this.injector
 				.getInstance(DAOPTProduct.class).create(newProduct));
 	}
 

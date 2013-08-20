@@ -25,7 +25,7 @@ import com.premiumminds.billy.core.services.documents.impl.IssuingParamsImpl;
 import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundException;
 
 public class PTIssuingParamsImpl extends IssuingParamsImpl implements
-		PTIssuingParams {
+	PTIssuingParams {
 
 	public PTIssuingParamsImpl() {
 		super();

@@ -24,22 +24,21 @@ import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 import com.premiumminds.billy.core.services.builders.BankAccountBuilder;
 import com.premiumminds.billy.core.services.entities.BankAccount;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBuilder, TBankAccount>, TBankAccount extends BankAccount>
-		extends AbstractBuilder<TBuilder, TBankAccount> implements
-		BankAccountBuilder<TBuilder, TBankAccount> {
+	extends AbstractBuilder<TBuilder, TBankAccount> implements
+	BankAccountBuilder<TBuilder, TBankAccount> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOBankAccount daoBankAccount;
+	protected DAOBankAccount			daoBankAccount;
 
 	@Inject
 	public BankAccountBuilderImpl(DAOBankAccount daoBankAccount) {
-		super((EntityFactory<?>) daoBankAccount);
+		super(daoBankAccount);
 		this.daoBankAccount = daoBankAccount;
 	}
 
@@ -78,7 +77,7 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		BankAccountEntity b = this.getTypeInstance();
 		BillyValidator.mandatory(b.getIBANNumber(), "field.iban");
 		BillyValidator.mandatory(b.getBankAccountNumber(),
