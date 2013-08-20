@@ -56,7 +56,7 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
 		Mockito.when(
 				this.getInstance(DAOPTCreditNoteEntry.class)
-					.getEntityInstance()).thenReturn(
+						.getEntityInstance()).thenReturn(
 				new MockPTCreditNoteEntryEntity());
 
 		MockPTInvoiceEntity mockInvoiceEntity = this.createMockEntity(
@@ -79,17 +79,17 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
 		mock.setReference(mockInvoiceEntity);
 
-		PTCreditNoteEntry.Builder builder = this.getInstance(PTCreditNoteEntry.Builder.class);
+		PTCreditNoteEntry.Builder builder = this
+				.getInstance(PTCreditNoteEntry.Builder.class);
 
-		builder
-				.setCreditOrDebit(mock.getCreditOrDebit())
+		builder.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDescription(mock.getDescription())
 				.setReferenceUID(mock.getReference().getUID())
 				.setReason(mock.getReason())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
-				.setUnitAmount(
-						AmountType.WITH_TAX, mock.getUnitAmountWithTax(),
+				.setUnitAmount(AmountType.WITH_TAX,
+						mock.getUnitAmountWithTax(),
 						Currency.getInstance("EUR"))
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())

@@ -83,28 +83,30 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		try {
 			Config c = new Config();
 			PTContactTestUtil contact = new PTContactTestUtil(
-																PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTAddressTestUtil address = new PTAddressTestUtil(
-																PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTApplicationTestUtil application = new PTApplicationTestUtil(
-																			PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTBusinessTestUtil business = new PTBusinessTestUtil(
-																	PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTCustomerTestUtil customer = new PTCustomerTestUtil(
-																	PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTSupplierTestUtil supplier = new PTSupplierTestUtil(
-																	PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTProductTestUtil product = new PTProductTestUtil(
-																PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTInvoiceTestUtil invoice = new PTInvoiceTestUtil(
-																PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTCreditNoteTestUtil creditNote = new PTCreditNoteTestUtil(
-																		PTAbstractTest.injector);
+					PTAbstractTest.injector);
 			PTSimpleInvoiceTestUtil simpleInvoice = new PTSimpleInvoiceTestUtil(
-																				PTAbstractTest.injector);
+					PTAbstractTest.injector);
 
-			DAOPTRegionContext daoPTRegionContext = PTAbstractTest.injector.getInstance(DAOPTRegionContext.class);
-			PTRegionContextEntity myContext = (PTRegionContextEntity) daoPTRegionContext.get(c.getUID(Config.Key.Context.Portugal.UUID));
+			DAOPTRegionContext daoPTRegionContext = PTAbstractTest.injector
+					.getInstance(DAOPTRegionContext.class);
+			PTRegionContextEntity myContext = (PTRegionContextEntity) daoPTRegionContext
+					.get(c.getUID(Config.Key.Context.Portugal.UUID));
 
 			/* ADDRESSES */
 			PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
@@ -124,9 +126,9 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					"My Business", "299999999", "999999999", "299999998",
 					"mybusiness@email.me", "http://www.mybusiness.web");
 
-			PTContact.Builder contactBuilder2 = contact.getContactBuilder(
-					"Zé", "299999991", "999999991", "299999992",
-					"maildoze@email.me", "http://www.zenaweb.web");
+			PTContact.Builder contactBuilder2 = contact.getContactBuilder("Zé",
+					"299999991", "999999991", "299999992", "maildoze@email.me",
+					"http://www.zenaweb.web");
 
 			PTContact.Builder contactBuilder3 = contact.getContactBuilder(
 					"YourSupplier", "299999993", "999999993", "299999994",
@@ -134,28 +136,32 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 					"http://www.yourbusinessnaweb.web");
 
 			/* APPLICATION */
-			PTApplication.Builder applicationBuilder = application.getApplicationBuilder(
-					"APP", "1.0", "My Business", "523456789",
-					"hhtp://www.app.mybusiness.web", 1, "http://here",
-					contactBuilder);
-			PTApplicationEntity applicationEntity = (PTApplicationEntity) applicationBuilder.build();
+			PTApplication.Builder applicationBuilder = application
+					.getApplicationBuilder("APP", "1.0", "My Business",
+							"523456789", "hhtp://www.app.mybusiness.web", 1,
+							"http://here", contactBuilder);
+			PTApplicationEntity applicationEntity = (PTApplicationEntity) applicationBuilder
+					.build();
 
 			/* BUSINESS */
-			DAOPTBusiness daoPTBusiness = PTAbstractTest.injector.getInstance(DAOPTBusiness.class);
+			DAOPTBusiness daoPTBusiness = PTAbstractTest.injector
+					.getInstance(DAOPTBusiness.class);
 			PTBusinessEntity businessEntity = business.getBusinessEntity();
 			daoPTBusiness.create(businessEntity);
 
 			/* CUSTOMERS */
-			DAOPTCustomer daoPTCustomer = PTAbstractTest.injector.getInstance(DAOPTCustomer.class);
-			PTCustomerEntity customerEntity = customer.getCustomerEntity(
-					"Zé", "26949843873", false, addressBuilder2,
-					contactBuilder2);
+			DAOPTCustomer daoPTCustomer = PTAbstractTest.injector
+					.getInstance(DAOPTCustomer.class);
+			PTCustomerEntity customerEntity = customer.getCustomerEntity("Zé",
+					"26949843873", false, addressBuilder2, contactBuilder2);
 			daoPTCustomer.create(customerEntity);
 
-			PTCustomerEntity genericCustomerEntity = (PTCustomerEntity) daoPTCustomer.get(c.getUID(Config.Key.Customer.Generic.UUID));
+			PTCustomerEntity genericCustomerEntity = (PTCustomerEntity) daoPTCustomer
+					.get(c.getUID(Config.Key.Customer.Generic.UUID));
 
 			/* SUPPLIERS */
-			DAOPTSupplier daoPTSupplier = PTAbstractTest.injector.getInstance(DAOPTSupplier.class);
+			DAOPTSupplier daoPTSupplier = PTAbstractTest.injector
+					.getInstance(DAOPTSupplier.class);
 
 			PTSupplierEntity supplierEntity = supplier.getSupplierEntity(
 					"YourSupplier", "5324532453", false, addressBuilder3,
@@ -163,22 +169,26 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			daoPTSupplier.create(supplierEntity);
 
 			/* TAXES */
-			DAOPTTax daoPTTax = PTAbstractTest.injector.getInstance(DAOPTTax.class);
+			DAOPTTax daoPTTax = PTAbstractTest.injector
+					.getInstance(DAOPTTax.class);
 
 			/* PRODUCTS */
-			DAOPTProduct daoPTProduct = PTAbstractTest.injector.getInstance(DAOPTProduct.class);
+			DAOPTProduct daoPTProduct = PTAbstractTest.injector
+					.getInstance(DAOPTProduct.class);
 
-			PTProductEntity productEntity1 = product.getProductEntity(
-					"124233465", "Kg", "34254567", "Produto", ProductType.GOODS);
+			PTProductEntity productEntity1 = product
+					.getProductEntity("124233465", "Kg", "34254567", "Produto",
+							ProductType.GOODS);
 			PTProductEntity productEntity2 = product.getProductEntity(
 					"243532453", "hh:mm:ss", "13423534", "Estacionamento",
 					ProductType.SERVICE);
 
 			// INVOICES
-			DAOPTInvoice daoPTInvoice = PTAbstractTest.injector.getInstance(DAOPTInvoice.class);
+			DAOPTInvoice daoPTInvoice = PTAbstractTest.injector
+					.getInstance(DAOPTInvoice.class);
 
 			KeyGenerator keyGenerator = new KeyGenerator(
-															SAFTExportTest.PRIVATE_KEY_DIR);
+					SAFTExportTest.PRIVATE_KEY_DIR);
 			PrivateKey privateKey = keyGenerator.getPrivateKey();
 			PublicKey publicKey = keyGenerator.getPublicKey();
 			String prevHash = null;
@@ -186,8 +196,8 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			List<PTInvoiceEntity> invoices = new ArrayList<PTInvoiceEntity>();
 			for (int i = 1; i < SAFTExportTest.MAX_INVOICES; i++) {
 				PTInvoiceEntity invoiceEntity = invoice.getInvoiceEntity();
-				prevHash = GenerateHash.generateHash(
-						privateKey, publicKey, invoiceEntity.getDate(),
+				prevHash = GenerateHash.generateHash(privateKey, publicKey,
+						invoiceEntity.getDate(),
 						invoiceEntity.getCreateTimestamp(),
 						invoiceEntity.getNumber(),
 						invoiceEntity.getAmountWithTax(), prevHash);
@@ -198,30 +208,33 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			}
 
 			// SIMPLE INVOICE
-			DAOPTSimpleInvoice daoPTSimpleInvoice = PTAbstractTest.injector.getInstance(DAOPTSimpleInvoice.class);
-			PTSimpleInvoiceEntity simpleInvoiceEntity = simpleInvoice.getSimpleInvoiceEntity();
-			simpleInvoiceEntity.setHash(GenerateHash.generateHash(
-					privateKey, publicKey, simpleInvoiceEntity.getDate(),
+			DAOPTSimpleInvoice daoPTSimpleInvoice = PTAbstractTest.injector
+					.getInstance(DAOPTSimpleInvoice.class);
+			PTSimpleInvoiceEntity simpleInvoiceEntity = simpleInvoice
+					.getSimpleInvoiceEntity();
+			simpleInvoiceEntity.setHash(GenerateHash.generateHash(privateKey,
+					publicKey, simpleInvoiceEntity.getDate(),
 					simpleInvoiceEntity.getCreateTimestamp(),
 					simpleInvoiceEntity.getNumber(),
 					simpleInvoiceEntity.getAmountWithTax(), null));
 			daoPTSimpleInvoice.create(simpleInvoiceEntity);
 
 			// CREDIT NOTE
-			DAOPTCreditNote daoPTCreditNote = PTAbstractTest.injector.getInstance(DAOPTCreditNote.class);
-			PTCreditNoteEntity creditNoteEntity = creditNote.getCreditNoteEntity(
-					TYPE.NC, this.getNewIssuedInvoice());
-			creditNoteEntity.setHash(GenerateHash.generateHash(
-					privateKey, publicKey, creditNoteEntity.getDate(),
+			DAOPTCreditNote daoPTCreditNote = PTAbstractTest.injector
+					.getInstance(DAOPTCreditNote.class);
+			PTCreditNoteEntity creditNoteEntity = creditNote
+					.getCreditNoteEntity(TYPE.NC, this.getNewIssuedInvoice());
+			creditNoteEntity.setHash(GenerateHash.generateHash(privateKey,
+					publicKey, creditNoteEntity.getDate(),
 					creditNoteEntity.getCreateTimestamp(),
 					creditNoteEntity.getNumber(),
 					creditNoteEntity.getAmountWithTax(), null));
 			daoPTCreditNote.create(creditNoteEntity);
 
-			this.exportSAFT(
-					daoPTRegionContext, applicationEntity, businessEntity,
-					daoPTCustomer, daoPTSupplier, daoPTTax, daoPTProduct,
-					daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
+			this.exportSAFT(daoPTRegionContext, applicationEntity,
+					businessEntity, daoPTCustomer, daoPTSupplier, daoPTTax,
+					daoPTProduct, daoPTInvoice, daoPTSimpleInvoice,
+					daoPTCreditNote);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -243,10 +256,9 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
 		PrintStream stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT
 				+ "SAFT.xml");
-		generator.generateSAFTFile(
-				stream, businessEntity, applicationEntity, "1234",
-				calendar.getTime(), new Date(), daoPTCustomer, daoPTSupplier,
-				daoPTProduct, daoPTTax, daoPTRegionContext, daoPTInvoice,
-				daoPTSimpleInvoice, daoPTCreditNote);
+		generator.generateSAFTFile(stream, businessEntity, applicationEntity,
+				"1234", calendar.getTime(), new Date(), daoPTCustomer,
+				daoPTSupplier, daoPTProduct, daoPTTax, daoPTRegionContext,
+				daoPTInvoice, daoPTSimpleInvoice, daoPTCreditNote);
 	}
 }

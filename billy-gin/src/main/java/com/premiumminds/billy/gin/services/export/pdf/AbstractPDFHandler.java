@@ -50,9 +50,8 @@ import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 public abstract class AbstractPDFHandler {
 
 	private Source mapParamsToSource(ParamsTree<String, String> documentParams) {
-		StreamSource source = new StreamSource(
-												new StringReader(
-																	AbstractPDFHandler.generateXML(documentParams)));
+		StreamSource source = new StreamSource(new StringReader(
+				AbstractPDFHandler.generateXML(documentParams)));
 
 		return source;
 	}
@@ -81,8 +80,8 @@ public abstract class AbstractPDFHandler {
 			ParamsTree<String, String> documentParams,
 			BillyTemplateBundle bundle) throws ExportServiceException {
 
-		return (ByteArrayOutputStream) this.getStream(
-				templateStream, documentParams, null, bundle);
+		return (ByteArrayOutputStream) this.getStream(templateStream,
+				documentParams, null, bundle);
 	}
 
 	protected OutputStream getStream(InputStream templateStream,
@@ -108,8 +107,8 @@ public abstract class AbstractPDFHandler {
 		try {
 			// Construct fop with desired output format
 			Fop fop;
-			fop = fopFactory.newFop(
-					MimeConstants.MIME_PDF, foUserAgent, outStream);
+			fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent,
+					outStream);
 			// Resulting SAX events (the generated FO)
 			// must be piped through to FOP
 			Result res = new SAXResult(fop.getDefaultHandler());
@@ -121,12 +120,10 @@ public abstract class AbstractPDFHandler {
 			return outStream;
 		} catch (FOPException e) {
 			throw new ExportServiceException(
-												"Error using FOP to open the template",
-												e);
+					"Error using FOP to open the template", e);
 		} catch (TransformerException e) {
 			throw new ExportServiceException(
-												"Error generating pdf from template and data source",
-												e);
+					"Error generating pdf from template and data source", e);
 		}
 	}
 
@@ -148,8 +145,7 @@ public abstract class AbstractPDFHandler {
 			throw new ExportServiceException("Could not create pdf file", e);
 		} catch (IOException e) {
 			throw new ExportServiceException(
-												"IO error while saving the pdf file",
-												e);
+					"IO error while saving the pdf file", e);
 		}
 	}
 

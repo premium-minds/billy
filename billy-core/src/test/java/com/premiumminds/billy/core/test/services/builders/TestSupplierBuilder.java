@@ -43,42 +43,49 @@ public class TestSupplierBuilder extends AbstractTest {
 		Mockito.when(this.getInstance(DAOSupplier.class).getEntityInstance())
 				.thenReturn(new MockSupplierEntity());
 
-		Address.Builder mockMainAddressBuilder = this.getMock(Address.Builder.class);
+		Address.Builder mockMainAddressBuilder = this
+				.getMock(Address.Builder.class);
 		Mockito.when(mockMainAddressBuilder.build()).thenReturn(
 				mockSupplier.getMainAddress());
 
-		Address.Builder mockBillingAddressBuilder = this.getMock(Address.Builder.class);
+		Address.Builder mockBillingAddressBuilder = this
+				.getMock(Address.Builder.class);
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				mockSupplier.getBillingAddress());
 
-		Address.Builder mockShippingAddressBuilder = this.getMock(Address.Builder.class);
+		Address.Builder mockShippingAddressBuilder = this
+				.getMock(Address.Builder.class);
 		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
 				mockSupplier.getShippingAddress());
 
-		BankAccount.Builder mockBankAccountBuilder1 = this.getMock(BankAccount.Builder.class);
+		BankAccount.Builder mockBankAccountBuilder1 = this
+				.getMock(BankAccount.Builder.class);
 		Mockito.when(mockBankAccountBuilder1.build()).thenReturn(
 				mockSupplier.getBankAccounts().get(0));
 
-		BankAccount.Builder mockBankAccountBuilder2 = this.getMock(BankAccount.Builder.class);
+		BankAccount.Builder mockBankAccountBuilder2 = this
+				.getMock(BankAccount.Builder.class);
 		Mockito.when(mockBankAccountBuilder2.build()).thenReturn(
 				mockSupplier.getBankAccounts().get(1));
 
-		Contact.Builder mockMainContactBuilder = this.getMock(Contact.Builder.class);
+		Contact.Builder mockMainContactBuilder = this
+				.getMock(Contact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
 				mockSupplier.getMainContact());
 
-		Contact.Builder mockContactBuilder1 = this.getMock(Contact.Builder.class);
+		Contact.Builder mockContactBuilder1 = this
+				.getMock(Contact.Builder.class);
 		Mockito.when(mockContactBuilder1.build()).thenReturn(
 				mockSupplier.getContacts().get(0));
 
-		Contact.Builder mockContactBuilder2 = this.getMock(Contact.Builder.class);
+		Contact.Builder mockContactBuilder2 = this
+				.getMock(Contact.Builder.class);
 		Mockito.when(mockContactBuilder2.build()).thenReturn(
 				mockSupplier.getContacts().get(1));
 
 		Supplier.Builder builder = this.getInstance(Supplier.Builder.class);
 
-		builder
-				.addAddress(mockMainAddressBuilder)
+		builder.addAddress(mockMainAddressBuilder)
 				.addAddress(mockShippingAddressBuilder)
 				.addAddress(mockBillingAddressBuilder)
 				.addContact(mockMainContactBuilder)
@@ -96,14 +103,12 @@ public class TestSupplierBuilder extends AbstractTest {
 
 		Assert.assertTrue(supplier != null);
 		Assert.assertEquals(mockSupplier.getName(), supplier.getName());
-		Assert.assertEquals(
-				mockSupplier.getTaxRegistrationNumber(),
+		Assert.assertEquals(mockSupplier.getTaxRegistrationNumber(),
 				supplier.getTaxRegistrationNumber());
-		Assert.assertEquals(
-				mockSupplier.getMainAddress(), supplier.getMainAddress());
-		Assert.assertEquals(
-				mockSupplier.getBankAccounts().size(),
-				mockSupplier.getBankAccounts().size());
+		Assert.assertEquals(mockSupplier.getMainAddress(),
+				supplier.getMainAddress());
+		Assert.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier
+				.getBankAccounts().size());
 	}
 
 }

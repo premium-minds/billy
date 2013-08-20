@@ -40,7 +40,9 @@ public class Taxes {
 		 */
 		public PTTax normal() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Continental.VAT.NORMAL_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Continental.VAT.NORMAL_UUID));
 		}
 
 		/**
@@ -48,7 +50,9 @@ public class Taxes {
 		 */
 		public PTTax intermediate() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Continental.VAT.INTERMEDIATE_UUID));
 		}
 
 		/**
@@ -56,7 +60,9 @@ public class Taxes {
 		 */
 		public PTTax reduced() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Continental.VAT.REDUCED_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Continental.VAT.REDUCED_UUID));
 		}
 
 	}
@@ -71,7 +77,9 @@ public class Taxes {
 		 */
 		public PTTax normal() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Madeira.VAT.NORMAL_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Madeira.VAT.NORMAL_UUID));
 		}
 
 		/**
@@ -79,7 +87,9 @@ public class Taxes {
 		 */
 		public PTTax intermediate() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Madeira.VAT.INTERMEDIATE_UUID));
 		}
 
 		/**
@@ -87,7 +97,9 @@ public class Taxes {
 		 */
 		public PTTax reduced() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Madeira.VAT.REDUCED_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Madeira.VAT.REDUCED_UUID));
 		}
 
 	}
@@ -102,7 +114,9 @@ public class Taxes {
 		 */
 		public PTTax normal() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Azores.VAT.NORMAL_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Azores.VAT.NORMAL_UUID));
 		}
 
 		/**
@@ -110,7 +124,9 @@ public class Taxes {
 		 */
 		public PTTax intermediate() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Azores.VAT.INTERMEDIATE_UUID));
 		}
 
 		/**
@@ -118,7 +134,9 @@ public class Taxes {
 		 */
 		public PTTax reduced() {
 			DAOPTTax dao = Taxes.this.getInstance(DAOPTTax.class);
-			return (PTTax) dao.get(Taxes.this.configuration.getUID(Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID));
+			return (PTTax) dao
+					.get(Taxes.this.configuration
+							.getUID(Config.Key.Context.Portugal.Azores.VAT.REDUCED_UUID));
 		}
 
 	}
@@ -128,7 +146,8 @@ public class Taxes {
 	 */
 	public PTTax exempt() {
 		DAOPTTax dao = this.getInstance(DAOPTTax.class);
-		return (PTTax) dao.get(this.configuration.getUID(Config.Key.Context.Portugal.TAX_EXEMPT_UUID));
+		return (PTTax) dao.get(this.configuration
+				.getUID(Config.Key.Context.Portugal.TAX_EXEMPT_UUID));
 	}
 
 	private final Continent	continent;

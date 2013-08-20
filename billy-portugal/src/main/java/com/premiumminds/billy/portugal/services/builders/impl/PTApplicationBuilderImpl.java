@@ -37,7 +37,7 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 	PTApplicationBuilder<TBuilder, TApplication> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {
@@ -51,18 +51,17 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 
 	@Override
 	public TBuilder setSoftwareCertificationNumber(Integer number) {
-		BillyValidator.mandatory(
-				number,
-				PTApplicationBuilderImpl.LOCALIZER.getString("field.certificate_number"));
+		BillyValidator.mandatory(number, PTApplicationBuilderImpl.LOCALIZER
+				.getString("field.certificate_number"));
 		this.getTypeInstance().setSoftwareCertificateNum(number);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setApplicationKeysPath(URL path) {
-		BillyValidator.mandatory(
-				path,
-				PTApplicationBuilderImpl.LOCALIZER.getString("field.keys_path"));
+		BillyValidator
+				.mandatory(path, PTApplicationBuilderImpl.LOCALIZER
+						.getString("field.keys_path"));
 		this.getTypeInstance().setApplicationKeysPath(path);
 		return this.getBuilder();
 	}
@@ -71,13 +70,13 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 	protected void validateInstance() throws ValidationException {
 		super.validateInstance();
 		PTApplicationEntity c = this.getTypeInstance();
-		BillyValidator.mandatory(
-				c.getSoftwareCertificationNumber(),
-				PTApplicationBuilderImpl.LOCALIZER.getString("field.certificate_number"));
+		BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
+				PTApplicationBuilderImpl.LOCALIZER
+						.getString("field.certificate_number"));
 		try {
-			BillyValidator.mandatory(
-					c.getApplicationKeysPath(),
-					PTApplicationBuilderImpl.LOCALIZER.getString("field.keys_path"));
+			BillyValidator.mandatory(c.getApplicationKeysPath(),
+					PTApplicationBuilderImpl.LOCALIZER
+							.getString("field.keys_path"));
 		} catch (MalformedURLException e) {
 			throw new ValidationException(e.getMessage());
 		}

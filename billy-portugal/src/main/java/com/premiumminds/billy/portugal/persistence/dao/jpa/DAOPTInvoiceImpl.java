@@ -75,18 +75,10 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 		predicates.add(valid);
 
 		List<JPAPTSimpleInvoiceEntity> simpleInvoices = simpleInvoicesQuery
-																			.from(
-																					simpleInvoice)
-																			.where(
-																					simpleInvoice.active.eq(true))
-																			.where(
-																					simpleInvoice.date.between(
-																							from,
-																							to))
-																			.where(
-																					simpleInvoice.business.eq(this.getBusinessEntity(uid)))
-																			.list(
-																					simpleInvoice);
+				.from(simpleInvoice).where(simpleInvoice.active.eq(true))
+				.where(simpleInvoice.date.between(from, to))
+				.where(simpleInvoice.business.eq(this.getBusinessEntity(uid)))
+				.list(simpleInvoice);
 		BooleanExpression removeSimpleInvoices = invoice.notIn(simpleInvoices);
 		predicates.add(removeSimpleInvoices);
 

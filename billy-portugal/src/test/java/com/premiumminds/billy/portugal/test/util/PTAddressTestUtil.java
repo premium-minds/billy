@@ -42,23 +42,23 @@ public class PTAddressTestUtil {
 			String number, String details, String building, String city,
 			String postalCode, String region, String isoCountry) {
 
-		PTAddress.Builder addressBuilder = this.injector.getInstance(PTAddress.Builder.class);
+		PTAddress.Builder addressBuilder = this.injector
+				.getInstance(PTAddress.Builder.class);
 
 		addressBuilder.clear();
 
 		addressBuilder.setBuilding(building).setCity(city).setDetails(details)
-						.setISOCountry(isoCountry).setNumber(number)
-						.setRegion(region).setStreetName(streetName)
-						.setPostalCode(postalCode);
+				.setISOCountry(isoCountry).setNumber(number).setRegion(region)
+				.setStreetName(streetName).setPostalCode(postalCode);
 
 		return addressBuilder;
 	}
 
 	public PTAddress.Builder getAddressBuilder() {
-		return this.getAddressBuilder(
-				PTAddressTestUtil.STREET, PTAddressTestUtil.NUMBER,
-				PTAddressTestUtil.DETAILS, PTAddressTestUtil.BUILDING,
-				PTAddressTestUtil.CITY, PTAddressTestUtil.POSTAL_CODE,
-				PTAddressTestUtil.REGION, PTAddressTestUtil.ISOCODE);
+		return this.getAddressBuilder(PTAddressTestUtil.STREET,
+				PTAddressTestUtil.NUMBER, PTAddressTestUtil.DETAILS,
+				PTAddressTestUtil.BUILDING, PTAddressTestUtil.CITY,
+				PTAddressTestUtil.POSTAL_CODE, PTAddressTestUtil.REGION,
+				PTAddressTestUtil.ISOCODE);
 	}
 }

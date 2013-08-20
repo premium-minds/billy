@@ -43,9 +43,9 @@ public class GenerateHash {
 		throws InvalidHashException, InvalidKeySpecException,
 		InvalidKeyException {
 
-		String sourceString = GenerateHash.generateSourceHash(
-				invoiceDate, systemEntryDate, invoiceNumber, grossTotal,
-				previousInvoiceHash);
+		String sourceString = GenerateHash
+				.generateSourceHash(invoiceDate, systemEntryDate,
+						invoiceNumber, grossTotal, previousInvoiceHash);
 
 		CertificationManager certificationManager = new CertificationManager();
 		certificationManager.setAutoVerifyHash(true);
@@ -61,7 +61,7 @@ public class GenerateHash {
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat dateTime = new SimpleDateFormat(
-															"yyyy-MM-dd'T'HH:mm:ss");
+				"yyyy-MM-dd'T'HH:mm:ss");
 
 		StringBuilder builder = new StringBuilder();
 		builder.append(date.format(invoiceDate)).append(';')

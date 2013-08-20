@@ -35,13 +35,14 @@ public class TestJPAPTCustomer extends PTJPAAbstractTest {
 	@Before
 	public void setUp() {
 		this.transaction = new TransactionWrapper<Void>(
-														PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
+				PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
 
 			@Override
 			public Void runTransaction() throws Exception {
 				final PTCustomerTestUtil customer = new PTCustomerTestUtil(
-																			PTAbstractTest.injector);
-				DAOPTCustomer daoPTCustomer = PTAbstractTest.injector.getInstance(DAOPTCustomer.class);
+						PTAbstractTest.injector);
+				DAOPTCustomer daoPTCustomer = PTAbstractTest.injector
+						.getInstance(DAOPTCustomer.class);
 
 				PTCustomerEntity newCustomer = customer.getCustomerEntity();
 

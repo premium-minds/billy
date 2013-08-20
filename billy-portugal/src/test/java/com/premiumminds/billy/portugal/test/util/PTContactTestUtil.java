@@ -40,11 +40,11 @@ public class PTContactTestUtil {
 
 	public PTContact.Builder getContactBuilder(String name, String telephone,
 			String mobile, String fax, String email, String website) {
-		PTContact.Builder contactBuilder = this.injector.getInstance(PTContact.Builder.class);
+		PTContact.Builder contactBuilder = this.injector
+				.getInstance(PTContact.Builder.class);
 
 		contactBuilder.setName(name).setEmail(email).setMobile(mobile)
-						.setFax(fax).setTelephone(telephone)
-						.setWebsite(website);
+				.setFax(fax).setTelephone(telephone).setWebsite(website);
 
 		return contactBuilder;
 
@@ -52,7 +52,7 @@ public class PTContactTestUtil {
 
 	public PTContactEntity getContactEntity(String uid) {
 		PTContactEntity entity = (PTContactEntity) this.getContactBuilder()
-														.build();
+				.build();
 		entity.setUID(new UID(uid));
 		return entity;
 	}
@@ -62,9 +62,9 @@ public class PTContactTestUtil {
 	}
 
 	public PTContact.Builder getContactBuilder() {
-		return this.getContactBuilder(
-				PTContactTestUtil.NAME, PTContactTestUtil.TELEPHONE,
-				PTContactTestUtil.MOBILE, PTContactTestUtil.FAX,
-				PTContactTestUtil.EMAIL, PTContactTestUtil.WEBSITE);
+		return this.getContactBuilder(PTContactTestUtil.NAME,
+				PTContactTestUtil.TELEPHONE, PTContactTestUtil.MOBILE,
+				PTContactTestUtil.FAX, PTContactTestUtil.EMAIL,
+				PTContactTestUtil.WEBSITE);
 	}
 }

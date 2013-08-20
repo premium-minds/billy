@@ -33,7 +33,7 @@ public class PTContactBuilderImpl<TBuilder extends PTContactBuilderImpl<TBuilder
 	PTContactBuilder<TBuilder, TContact> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTContactBuilderImpl(DAOPTContact daoPTContact) {

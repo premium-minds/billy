@@ -52,25 +52,26 @@ public class PTInvoiceEntryTestUtil {
 	}
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(PTProductEntity product) {
-		PTInvoiceEntry.Builder invoiceEntryBuilder = this.injector.getInstance(PTInvoiceEntry.Builder.class);
-		PTShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
+		PTInvoiceEntry.Builder invoiceEntryBuilder = this.injector
+				.getInstance(PTInvoiceEntry.Builder.class);
+		PTShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
 		this.context = this.contexts.portugal().portugal();
 
 		invoiceEntryBuilder.clear();
 
 		invoiceEntryBuilder
-							.setUnitAmount(
-									AmountType.WITH_TAX,
-									PTInvoiceEntryTestUtil.AMOUNT,
-									PTInvoiceEntryTestUtil.CURRENCY)
-							.setTaxPointDate(new Date())
-							.setCreditOrDebit(CreditOrDebit.DEBIT)
-							.setDescription(product.getDescription())
-							.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
-							.setUnitOfMeasure(product.getUnitOfMeasure())
-							.setProductUID(product.getUID())
-							.setContextUID(this.context.getUID())
-							.setShippingOrigin(originBuilder);
+				.setUnitAmount(AmountType.WITH_TAX,
+						PTInvoiceEntryTestUtil.AMOUNT,
+						PTInvoiceEntryTestUtil.CURRENCY)
+				.setTaxPointDate(new Date())
+				.setCreditOrDebit(CreditOrDebit.DEBIT)
+				.setDescription(product.getDescription())
+				.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder);
 
 		return invoiceEntryBuilder;
 
@@ -79,10 +80,7 @@ public class PTInvoiceEntryTestUtil {
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
 		PTProductEntity newProduct = this.product.getProductEntity();
 		return this.getInvoiceEntryBuilder((PTProductEntity) this.injector
-																			.getInstance(
-																					DAOPTProduct.class)
-																			.create(
-																					newProduct));
+				.getInstance(DAOPTProduct.class).create(newProduct));
 	}
 
 }

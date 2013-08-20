@@ -34,7 +34,8 @@ public class AbstractTest {
 		AbstractTest.injector = Guice.createInjector(
 				new CoreJPADependencyModule(),
 				new CoreJPAPersistenceDependencyModule());
-		AbstractTest.injector.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
+		AbstractTest.injector
+				.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
 	}
 
 	public <T> T getInstance(Class<T> clazz) {

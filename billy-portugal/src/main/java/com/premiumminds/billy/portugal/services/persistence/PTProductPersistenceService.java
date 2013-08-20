@@ -44,7 +44,8 @@ public class PTProductPersistenceService<T extends PTProduct> extends
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTProductEntity productEntity = (PTProductEntity) builder.build();
+					PTProductEntity productEntity = (PTProductEntity) builder
+							.build();
 					return (T) dao.create(productEntity);
 				}
 
@@ -63,7 +64,8 @@ public class PTProductPersistenceService<T extends PTProduct> extends
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTProductEntity productEntity = (PTProductEntity) builder.build();
+					PTProductEntity productEntity = (PTProductEntity) builder
+							.build();
 					return (T) dao.update(productEntity);
 				}
 

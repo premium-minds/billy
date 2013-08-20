@@ -63,7 +63,8 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 		query.from(simpleInvoice);
 
 		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
-		BooleanExpression simpleInvoiceBusiness = simpleInvoice.business.eq(business);
+		BooleanExpression simpleInvoiceBusiness = simpleInvoice.business
+				.eq(business);
 		predicates.add(simpleInvoiceBusiness);
 		BooleanExpression active = simpleInvoice.active.eq(true);
 		predicates.add(active);

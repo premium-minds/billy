@@ -61,16 +61,14 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	public File toFile(URI fileURI, PTSimpleInvoiceEntity invoice,
 			PTSimpleInvoiceTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(
-				fileURI, bundle.getXSLTFileStream(),
+		return super.toFile(fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
 	protected void toStream(PTSimpleInvoiceEntity invoice,
 			OutputStream targetStream, PTSimpleInvoiceTemplateBundle bundle)
 		throws ExportServiceException {
-		super.getStream(
-				bundle.getXSLTFileStream(),
+		super.getStream(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
 				bundle);
 	}
@@ -83,12 +81,10 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
 				invoice, bundle);
 
-		params.getRoot().addChild(
-				PTParamKeys.INVOICE_HASH,
+		params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
 				this.getVerificationHashString(invoice.getHash().getBytes()));
 
-		params.getRoot().addChild(
-				PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
+		params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
 				bundle.getSoftwareCertificationId());
 		return params;
 	}
@@ -113,9 +109,10 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
-			PTSimpleInvoiceEntity simpleInvoice = (PTSimpleInvoiceEntity) this.daoPTSimpleInvoice.get(docUid);
-			this.toStream(
-					simpleInvoice, targetStream, exportRequest.getBundle());
+			PTSimpleInvoiceEntity simpleInvoice = (PTSimpleInvoiceEntity) this.daoPTSimpleInvoice
+					.get(docUid);
+			this.toStream(simpleInvoice, targetStream,
+					exportRequest.getBundle());
 		} catch (Exception e) {
 			throw new ExportServiceException(e);
 		}
@@ -135,8 +132,8 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 							document.getPaymentMechanism(), bundle));
 		}
 
-		params.getRoot().addChild(
-				ParamKeys.EMISSION_DATE, date.format(document.getDate()));
+		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
+				date.format(document.getDate()));
 		return;
 
 	}
@@ -148,8 +145,7 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		Node<String, String> customer = params.getRoot().addChild(
 				ParamKeys.CUSTOMER);
 
-		customer.addChild(
-				ParamKeys.CUSTOMER_FINANCIAL_ID,
+		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID,
 				this.getCustomerFinancialId(document, bundle));
 		return;
 	}
@@ -164,11 +160,9 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
-		return (invoice
-						.getCustomer()
-						.getUID()
-						.equals(
-								this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template.getGenericCustomer()
-				: invoice.getCustomer().getTaxRegistrationNumber());
+		return (invoice.getCustomer().getUID()
+				.equals(this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
+				.getGenericCustomer() : invoice.getCustomer()
+				.getTaxRegistrationNumber());
 	}
 }

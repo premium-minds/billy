@@ -29,7 +29,7 @@ public class MockDependencyModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		JpaPersistModule persistModule = new JpaPersistModule(
-																"BillyPersistenceUnit");
+				"BillyPersistenceUnit");
 		this.install(persistModule);
 		this.install(new CoreDependencyModule());
 	}

@@ -57,32 +57,37 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 
 		PTCustomer.Builder builder = this.getInstance(PTCustomer.Builder.class);
 
-		PTAddress.Builder mockMainAddressBuilder = this.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockMainAddressBuilder = this
+				.getMock(PTAddress.Builder.class);
 		Mockito.when(mockMainAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockCustomer.getMainAddress());
 
-		PTAddress.Builder mockBillingAddressBuilder = this.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockBillingAddressBuilder = this
+				.getMock(PTAddress.Builder.class);
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockCustomer.getBillingAddress());
 
-		PTAddress.Builder mockShippingAddressBuilder = this.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockShippingAddressBuilder = this
+				.getMock(PTAddress.Builder.class);
 		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockCustomer.getShippingAddress());
 
-		PTContact.Builder mockMainContactBuilder = this.getMock(PTContact.Builder.class);
+		PTContact.Builder mockMainContactBuilder = this
+				.getMock(PTContact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
 				(PTContactEntity) mockCustomer.getMainContact());
 
-		PTContact.Builder mockContactBuilder1 = this.getMock(PTContact.Builder.class);
+		PTContact.Builder mockContactBuilder1 = this
+				.getMock(PTContact.Builder.class);
 		Mockito.when(mockContactBuilder1.build()).thenReturn(
 				(PTContactEntity) mockCustomer.getContacts().get(0));
 
-		PTContact.Builder mockContactBuilder2 = this.getMock(PTContact.Builder.class);
+		PTContact.Builder mockContactBuilder2 = this
+				.getMock(PTContact.Builder.class);
 		Mockito.when(mockContactBuilder2.build()).thenReturn(
 				(PTContactEntity) mockCustomer.getContacts().get(1));
 
-		builder
-				.addAddress(mockMainAddressBuilder, true)
+		builder.addAddress(mockMainAddressBuilder, true)
 				.addContact(mockMainContactBuilder)
 				.addContact(mockContactBuilder1)
 				.addContact(mockContactBuilder2)
@@ -100,16 +105,13 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 		Assert.assertTrue(customer != null);
 
 		Assert.assertEquals(mockCustomer.getName(), customer.getName());
-		Assert.assertEquals(
-				mockCustomer.getTaxRegistrationNumber(),
+		Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(),
 				customer.getTaxRegistrationNumber());
-		Assert.assertEquals(
-				mockCustomer.getMainAddress(), customer.getMainAddress());
-		Assert.assertEquals(
-				mockCustomer.getShippingAddress(),
+		Assert.assertEquals(mockCustomer.getMainAddress(),
+				customer.getMainAddress());
+		Assert.assertEquals(mockCustomer.getShippingAddress(),
 				customer.getShippingAddress());
-		Assert.assertEquals(
-				mockCustomer.hasSelfBillingAgreement(),
+		Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(),
 				customer.hasSelfBillingAgreement());
 	}
 }

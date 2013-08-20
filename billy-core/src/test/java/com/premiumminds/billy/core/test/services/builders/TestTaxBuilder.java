@@ -43,23 +43,21 @@ public class TestTaxBuilder extends AbstractTest {
 
 	@Test
 	public void doTestFlat() {
-		MockTaxEntity mockTax = this.createMockEntity(
-				MockTaxEntity.class, TestTaxBuilder.TAX_YML);
+		MockTaxEntity mockTax = this.createMockEntity(MockTaxEntity.class,
+				TestTaxBuilder.TAX_YML);
 
 		mockTax.setCurrency(Currency.getInstance("EUR"));
 
 		Mockito.when(this.getInstance(DAOTax.class).getEntityInstance())
 				.thenReturn(new MockTaxEntity());
 
-		Mockito
-				.when(
-						this.getInstance(DAOContext.class).get(
-								Matchers.any(UID.class))).thenReturn(
-						(ContextEntity) mockTax.getContext());
+		Mockito.when(
+				this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+				.thenReturn((ContextEntity) mockTax.getContext());
 
 		Tax.Builder builder = this.getInstance(Tax.Builder.class);
-		BigDecimal amount = (mockTax.getTaxRateType() == TaxRateType.FLAT) ? mockTax.getFlatRateAmount()
-				: mockTax.getPercentageRateValue();
+		BigDecimal amount = (mockTax.getTaxRateType() == TaxRateType.FLAT) ? mockTax
+				.getFlatRateAmount() : mockTax.getPercentageRateValue();
 
 		builder.setCode(mockTax.getCode())
 				.setContextUID(mockTax.getContext().getUID())
@@ -83,17 +81,14 @@ public class TestTaxBuilder extends AbstractTest {
 		Assert.assertEquals(mockTax.getValue(), tax.getValue());
 
 		if (mockTax.getTaxRateType() == Tax.TaxRateType.FLAT) {
-			Assert.assertEquals(
-					mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
-			Assert.assertThat(
-					mockTax.getPercentageRateValue(),
-					CoreMatchers.is(CoreMatchers.not(tax.getPercentageRateValue())));
+			Assert.assertEquals(mockTax.getFlatRateAmount(),
+					tax.getFlatRateAmount());
+			Assert.assertThat(mockTax.getPercentageRateValue(), CoreMatchers
+					.is(CoreMatchers.not(tax.getPercentageRateValue())));
 		} else {
-			Assert.assertEquals(
-					mockTax.getPercentageRateValue(),
+			Assert.assertEquals(mockTax.getPercentageRateValue(),
 					tax.getPercentageRateValue());
-			Assert.assertThat(
-					mockTax.getFlatRateAmount(),
+			Assert.assertThat(mockTax.getFlatRateAmount(),
 					CoreMatchers.is(CoreMatchers.not(tax.getFlatRateAmount())));
 		}
 	}

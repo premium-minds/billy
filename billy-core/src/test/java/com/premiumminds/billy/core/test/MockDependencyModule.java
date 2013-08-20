@@ -45,11 +45,11 @@ public class MockDependencyModule extends AbstractModule {
 		this.bind(DAOBankAccount.class).toInstance(
 				Mockito.mock(DAOBankAccount.class));
 		this.bind(DAOBusiness.class)
-			.toInstance(Mockito.mock(DAOBusiness.class));
+				.toInstance(Mockito.mock(DAOBusiness.class));
 		this.bind(DAOContact.class).toInstance(Mockito.mock(DAOContact.class));
 		this.bind(DAOContext.class).toInstance(Mockito.mock(DAOContext.class));
 		this.bind(DAOCustomer.class)
-			.toInstance(Mockito.mock(DAOCustomer.class));
+				.toInstance(Mockito.mock(DAOCustomer.class));
 		this.bind(DAOGenericInvoice.class).toInstance(
 				Mockito.mock(DAOGenericInvoice.class));
 		this.bind(DAOGenericInvoiceEntry.class).toInstance(
@@ -58,7 +58,7 @@ public class MockDependencyModule extends AbstractModule {
 		this.bind(DAOShippingPoint.class).toInstance(
 				Mockito.mock(DAOShippingPoint.class));
 		this.bind(DAOSupplier.class)
-			.toInstance(Mockito.mock(DAOSupplier.class));
+				.toInstance(Mockito.mock(DAOSupplier.class));
 		this.bind(DAOTax.class).toInstance(Mockito.mock(DAOTax.class));
 	}
 

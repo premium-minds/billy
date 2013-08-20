@@ -48,18 +48,20 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 				this.getInstance(DAOPTApplication.class).getEntityInstance())
 				.thenReturn(new MockPTApplicationEntity());
 
-		PTApplication.Builder builder = this.getInstance(PTApplication.Builder.class);
+		PTApplication.Builder builder = this
+				.getInstance(PTApplication.Builder.class);
 
-		PTContact.Builder mockContactBuilder = this.getMock(PTContact.Builder.class);
+		PTContact.Builder mockContactBuilder = this
+				.getMock(PTContact.Builder.class);
 		Mockito.when(mockContactBuilder.build()).thenReturn(
 				Mockito.mock(PTContactEntity.class));
 
-		PTContact.Builder mockMainContactBuilder = this.getMock(PTContact.Builder.class);
+		PTContact.Builder mockMainContactBuilder = this
+				.getMock(PTContact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
 				Mockito.mock(PTContactEntity.class));
 
-		builder
-				.addContact(mockContactBuilder)
+		builder.addContact(mockContactBuilder)
 				.addContact(mockMainContactBuilder)
 				.setDeveloperCompanyName(
 						mockApplication.getDeveloperCompanyName())
@@ -78,22 +80,17 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 
 		assert (application != null);
 		Assert.assertEquals(mockApplication.getName(), application.getName());
-		Assert.assertEquals(
-				mockApplication.getVersion(), application.getVersion());
-		Assert.assertEquals(
-				mockApplication.getDeveloperCompanyName(),
+		Assert.assertEquals(mockApplication.getVersion(),
+				application.getVersion());
+		Assert.assertEquals(mockApplication.getDeveloperCompanyName(),
 				application.getDeveloperCompanyName());
-		Assert.assertEquals(
-				mockApplication.getDeveloperCompanyTaxIdentifier(),
+		Assert.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
 				application.getDeveloperCompanyTaxIdentifier());
-		Assert.assertEquals(
-				mockApplication.getWebsiteAddress(),
+		Assert.assertEquals(mockApplication.getWebsiteAddress(),
 				application.getWebsiteAddress());
-		Assert.assertEquals(
-				mockApplication.getSoftwareCertificationNumber(),
+		Assert.assertEquals(mockApplication.getSoftwareCertificationNumber(),
 				application.getSoftwareCertificationNumber());
-		Assert.assertEquals(
-				mockApplication.getApplicationKeysPath(),
+		Assert.assertEquals(mockApplication.getApplicationKeysPath(),
 				application.getApplicationKeysPath());
 		assert (application.getContacts() != null);
 		assert (application.getMainContact() != null);

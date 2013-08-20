@@ -62,16 +62,14 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 		ExportServiceException, FileNotFoundException, URISyntaxException {
 		InputStream xsl = new FileInputStream(
-												TestPTInvoicePDFExportHandler.XSL_PATH);
+				TestPTInvoicePDFExportHandler.XSL_PATH);
 
 		PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(
-																		TestPTInvoicePDFExportHandler.LOGO_PATH,
-																		xsl,
-																		TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl,
+				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
 		PTInvoicePDFExportHandler handler = new PTInvoicePDFExportHandler(
-																			PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
-		handler.toFile(
-				new URI(TestPTInvoicePDFExportHandler.URI_PATH),
+				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
+		handler.toFile(new URI(TestPTInvoicePDFExportHandler.URI_PATH),
 				this.generatePTInvoice(PaymentMechanism.CASH), bundle);
 	}
 

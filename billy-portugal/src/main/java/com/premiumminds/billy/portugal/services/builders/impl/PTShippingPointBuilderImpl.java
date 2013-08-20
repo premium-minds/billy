@@ -33,7 +33,7 @@ public class PTShippingPointBuilderImpl<TBuilder extends PTShippingPointBuilderI
 	PTShippingPointBuilder<TBuilder, TShippingPoint> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTShippingPointBuilderImpl(DAOPTShippingPoint daoPTShippingPoint) {

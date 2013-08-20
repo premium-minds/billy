@@ -47,48 +47,53 @@ public class TestCustomerBuilder extends AbstractTest {
 		Mockito.when(this.getInstance(DAOCustomer.class).getEntityInstance())
 				.thenReturn(new MockCustomerEntity());
 
-		Mockito
-				.when(
-						this.getInstance(DAOContact.class).get(
-								Matchers.any(UID.class))).thenReturn(
-						(ContactEntity) mockCustomer.getMainContact());
+		Mockito.when(
+				this.getInstance(DAOContact.class).get(Matchers.any(UID.class)))
+				.thenReturn((ContactEntity) mockCustomer.getMainContact());
 
 		Customer.Builder builder = this.getInstance(Customer.Builder.class);
 
-		Address.Builder mockMainAddressBuilder = this.getMock(Address.Builder.class);
+		Address.Builder mockMainAddressBuilder = this
+				.getMock(Address.Builder.class);
 		Mockito.when(mockMainAddressBuilder.build()).thenReturn(
 				mockCustomer.getMainAddress());
 
-		Address.Builder mockBillingAddressBuilder = this.getMock(Address.Builder.class);
+		Address.Builder mockBillingAddressBuilder = this
+				.getMock(Address.Builder.class);
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				mockCustomer.getBillingAddress());
 
-		Address.Builder mockShippingAddressBuilder = this.getMock(Address.Builder.class);
+		Address.Builder mockShippingAddressBuilder = this
+				.getMock(Address.Builder.class);
 		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
 				mockCustomer.getShippingAddress());
 
-		BankAccount.Builder mockBankAccountBuilder1 = this.getMock(BankAccount.Builder.class);
+		BankAccount.Builder mockBankAccountBuilder1 = this
+				.getMock(BankAccount.Builder.class);
 		Mockito.when(mockBankAccountBuilder1.build()).thenReturn(
 				mockCustomer.getBankAccounts().get(0));
 
-		BankAccount.Builder mockBankAccountBuilder2 = this.getMock(BankAccount.Builder.class);
+		BankAccount.Builder mockBankAccountBuilder2 = this
+				.getMock(BankAccount.Builder.class);
 		Mockito.when(mockBankAccountBuilder2.build()).thenReturn(
 				mockCustomer.getBankAccounts().get(1));
 
-		Contact.Builder mockMainContactBuilder = this.getMock(Contact.Builder.class);
+		Contact.Builder mockMainContactBuilder = this
+				.getMock(Contact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
 				mockCustomer.getMainContact());
 
-		Contact.Builder mockContactBuilder1 = this.getMock(Contact.Builder.class);
+		Contact.Builder mockContactBuilder1 = this
+				.getMock(Contact.Builder.class);
 		Mockito.when(mockContactBuilder1.build()).thenReturn(
 				mockCustomer.getContacts().get(0));
 
-		Contact.Builder mockContactBuilder2 = this.getMock(Contact.Builder.class);
+		Contact.Builder mockContactBuilder2 = this
+				.getMock(Contact.Builder.class);
 		Mockito.when(mockContactBuilder2.build()).thenReturn(
 				mockCustomer.getContacts().get(1));
 
-		builder
-				.addBankAccount(mockBankAccountBuilder1)
+		builder.addBankAccount(mockBankAccountBuilder1)
 				.addBankAccount(mockBankAccountBuilder2)
 				.addAddress(mockMainAddressBuilder, true)
 				.addContact(mockMainContactBuilder)
@@ -108,16 +113,13 @@ public class TestCustomerBuilder extends AbstractTest {
 		Assert.assertTrue(customer != null);
 
 		Assert.assertEquals(mockCustomer.getName(), customer.getName());
-		Assert.assertEquals(
-				mockCustomer.getTaxRegistrationNumber(),
+		Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(),
 				customer.getTaxRegistrationNumber());
-		Assert.assertEquals(
-				mockCustomer.getMainAddress(), customer.getMainAddress());
-		Assert.assertEquals(
-				mockCustomer.getShippingAddress(),
+		Assert.assertEquals(mockCustomer.getMainAddress(),
+				customer.getMainAddress());
+		Assert.assertEquals(mockCustomer.getShippingAddress(),
 				customer.getShippingAddress());
-		Assert.assertEquals(
-				mockCustomer.hasSelfBillingAgreement(),
+		Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(),
 				customer.hasSelfBillingAgreement());
 	}
 }

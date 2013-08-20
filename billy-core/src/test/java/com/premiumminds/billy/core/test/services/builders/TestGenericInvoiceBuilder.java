@@ -64,11 +64,14 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 
 		mock.getEntries().add(mockInvoice);
 
-		ArrayList<GenericInvoiceEntry> invoiceEntrys = (ArrayList<GenericInvoiceEntry>) mock.getEntries();
+		ArrayList<GenericInvoiceEntry> invoiceEntrys = (ArrayList<GenericInvoiceEntry>) mock
+				.getEntries();
 
-		GenericInvoice.Builder builder = this.getInstance(GenericInvoice.Builder.class);
+		GenericInvoice.Builder builder = this
+				.getInstance(GenericInvoice.Builder.class);
 
-		GenericInvoiceEntry.Builder invoice1 = this.getMock(GenericInvoiceEntry.Builder.class);
+		GenericInvoiceEntry.Builder invoice1 = this
+				.getMock(GenericInvoiceEntry.Builder.class);
 		Mockito.when(invoice1.build()).thenReturn(invoiceEntrys.get(0));
 
 		builder.addEntry(invoice1).setCreditOrDebit(mock.getCreditOrDebit())
@@ -93,27 +96,26 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
 
 		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
-		Assert.assertEquals(
-				mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
+		Assert.assertEquals(mock.getGeneralLedgerDate(),
+				invoice.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
 		Assert.assertEquals(mock.getDate(), invoice.getDate());
 		Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
 
 		Assert.assertTrue(invoice.getEntries() != null);
 		Assert.assertEquals(invoice.getEntries().size(), mock.getEntries()
-																.size());
+				.size());
 
 		for (int i = 0; i < invoice.getEntries().size(); i++) {
-			ArrayList<GenericInvoiceEntry> invoices = (ArrayList<GenericInvoiceEntry>) invoice.getEntries();
-			ArrayList<GenericInvoiceEntry> mockInvoices = (ArrayList<GenericInvoiceEntry>) mock.getEntries();
-			Assert.assertEquals(
-					invoices.get(i).getUnitAmountWithoutTax(),
+			ArrayList<GenericInvoiceEntry> invoices = (ArrayList<GenericInvoiceEntry>) invoice
+					.getEntries();
+			ArrayList<GenericInvoiceEntry> mockInvoices = (ArrayList<GenericInvoiceEntry>) mock
+					.getEntries();
+			Assert.assertEquals(invoices.get(i).getUnitAmountWithoutTax(),
 					mockInvoices.get(i).getUnitAmountWithoutTax());
-			Assert.assertEquals(
-					invoices.get(i).getUnitAmountWithTax(),
+			Assert.assertEquals(invoices.get(i).getUnitAmountWithTax(),
 					mockInvoices.get(i).getUnitAmountWithTax());
-			Assert.assertEquals(
-					invoices.get(i).getUnitTaxAmount(),
+			Assert.assertEquals(invoices.get(i).getUnitTaxAmount(),
 					mockInvoices.get(i).getUnitTaxAmount());
 			Assert.assertTrue(invoices.get(i).equals(mockInvoices.get(i)));
 		}

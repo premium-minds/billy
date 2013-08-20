@@ -60,11 +60,13 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 
 		mock.getEntries().add(entryMock);
 
-		ArrayList<PTInvoiceEntry> entries = (ArrayList<PTInvoiceEntry>) mock.getEntries();
+		ArrayList<PTInvoiceEntry> entries = (ArrayList<PTInvoiceEntry>) mock
+				.getEntries();
 
 		PTInvoice.Builder builder = this.getInstance(PTInvoice.Builder.class);
 
-		PTInvoiceEntry.Builder entry = this.getMock(PTInvoiceEntry.Builder.class);
+		PTInvoiceEntry.Builder entry = this
+				.getMock(PTInvoiceEntry.Builder.class);
 
 		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
@@ -88,14 +90,14 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 		Assert.assertTrue(invoice != null);
 		Assert.assertTrue(invoice.getEntries() != null);
 		Assert.assertEquals(invoice.getEntries().size(), mock.getEntries()
-																.size());
+				.size());
 
 		Assert.assertTrue(invoice.isBilled() == mock.isBilled());
 		Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
 
 		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
-		Assert.assertEquals(
-				mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
+		Assert.assertEquals(mock.getGeneralLedgerDate(),
+				invoice.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
 		Assert.assertEquals(mock.getDate(), invoice.getDate());
 		Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());

@@ -68,7 +68,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoiceEntry.class)
-					.getEntityInstance()).thenReturn(
+						.getEntityInstance()).thenReturn(
 				new MockGenericInvoiceEntryEntity());
 
 		Mockito.when(
@@ -93,23 +93,21 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		Mockito.when(
 				this.getInstance(DAOGenericInvoice.class).get(
 						Matchers.any(UID.class))).thenReturn(invoiceMock);
-		Mockito
-				.when(
-						this.getInstance(DAOProduct.class).get(
-								Matchers.any(UID.class))).thenReturn(
-						(ProductEntity) mock.getProduct());
+		Mockito.when(
+				this.getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
+				.thenReturn((ProductEntity) mock.getProduct());
 
-		GenericInvoiceEntry.Builder builder = this.getInstance(GenericInvoiceEntry.Builder.class);
+		GenericInvoiceEntry.Builder builder = this
+				.getInstance(GenericInvoiceEntry.Builder.class);
 
-		builder
-				.setCreditOrDebit(mock.getCreditOrDebit())
+		builder.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDescription(mock.getDescription())
 				.addDocumentReferenceUID(
 						mock.getDocumentReferences().get(0).getUID())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
-				.setUnitAmount(
-						AmountType.WITHOUT_TAX, mock.getUnitAmountWithoutTax(),
+				.setUnitAmount(AmountType.WITHOUT_TAX,
+						mock.getUnitAmountWithoutTax(),
 						Currency.getInstance("EUR"))
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())
@@ -118,130 +116,110 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		GenericInvoiceEntry entry = builder.build();
 
 		Assert.assertTrue(entry
-								.getAmountWithoutTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock.getAmountWithoutTax().setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getAmountWithoutTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getAmountWithoutTax().setScale(7,
+								this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry.getAmountWithoutTax().compareTo(
 				mock.getUnitAmountWithoutTax().multiply(this.qnt, this.mc)) == 0);
 
 		Assert.assertTrue(entry
-								.getAmountWithoutTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										(mock.getAmountWithTax().subtract(
-												mock.getTaxAmount(), this.mc)).setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getAmountWithoutTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						(mock.getAmountWithTax().subtract(mock.getTaxAmount(),
+								this.mc)).setScale(7, this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getAmountWithTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock.getAmountWithTax().setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getAmountWithTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getAmountWithTax().setScale(7,
+								this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getAmountWithTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock
-											.getUnitAmountWithTax()
-											.multiply(this.qnt, this.mc)
-											.setScale(
-													7,
-													this.mc.getRoundingMode())) == 0);
+				.getAmountWithTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getUnitAmountWithTax().multiply(this.qnt, this.mc)
+								.setScale(7, this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getAmountWithTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										(mock.getTaxAmount().add(
-												mock.getAmountWithoutTax(),
-												this.mc)).setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getAmountWithTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						(mock.getTaxAmount().add(mock.getAmountWithoutTax(),
+								this.mc)).setScale(7, this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getTaxAmount()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock.getTaxAmount().setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getTaxAmount()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getTaxAmount().setScale(7,
+								this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getTaxAmount()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										(mock.getAmountWithTax().subtract(
-												mock.getAmountWithoutTax(),
-												this.mc)).setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getTaxAmount()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						(mock.getAmountWithTax().subtract(
+								mock.getAmountWithoutTax(), this.mc)).setScale(
+								7, this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getTaxAmount()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock
-											.getUnitTaxAmount()
-											.multiply(this.qnt, this.mc)
-											.setScale(
-													7,
-													this.mc.getRoundingMode())) == 0);
+				.getTaxAmount()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getUnitTaxAmount().multiply(this.qnt, this.mc)
+								.setScale(7, this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getUnitAmountWithTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock.getUnitAmountWithTax().setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getUnitAmountWithTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getUnitAmountWithTax().setScale(7,
+								this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getUnitAmountWithTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										(mock.getUnitAmountWithoutTax().add(
-												mock
-													.getUnitAmountWithoutTax()
-													.multiply(
-															new BigDecimal(
-																			"0.23"),
-															this.mc), this.mc)).setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getUnitAmountWithTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						(mock.getUnitAmountWithoutTax().add(
+								mock.getUnitAmountWithoutTax().multiply(
+										new BigDecimal("0.23"), this.mc),
+								this.mc)).setScale(7, this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getUnitAmountWithoutTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock.getUnitAmountWithoutTax()
-											.setScale(
-													7,
-													this.mc.getRoundingMode())) == 0);
+				.getUnitAmountWithoutTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getUnitAmountWithoutTax().setScale(7,
+								this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getUnitAmountWithoutTax()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										(mock.getUnitAmountWithTax().subtract(
-												mock.getUnitTaxAmount(),
-												this.mc)).setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getUnitAmountWithoutTax()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						(mock.getUnitAmountWithTax().subtract(
+								mock.getUnitTaxAmount(), this.mc)).setScale(7,
+								this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getUnitTaxAmount()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										mock.getUnitTaxAmount().setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getUnitTaxAmount()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						mock.getUnitTaxAmount().setScale(7,
+								this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(entry
-								.getUnitTaxAmount()
-								.setScale(7, this.mc.getRoundingMode())
-								.compareTo(
-										(mock.getUnitAmountWithTax().subtract(
-												mock.getUnitAmountWithoutTax(),
-												this.mc)).setScale(
-												7, this.mc.getRoundingMode())) == 0);
+				.getUnitTaxAmount()
+				.setScale(7, this.mc.getRoundingMode())
+				.compareTo(
+						(mock.getUnitAmountWithTax().subtract(
+								mock.getUnitAmountWithoutTax(), this.mc))
+								.setScale(7, this.mc.getRoundingMode())) == 0);
 
 		try {
 			builder.setQuantity(new BigDecimal("-1"));

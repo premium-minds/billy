@@ -55,7 +55,7 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoiceEntry.class)
-					.getEntityInstance()).thenReturn(
+						.getEntityInstance()).thenReturn(
 				new MockGenericInvoiceEntryEntity());
 
 		MockGenericInvoiceEntity mockInvoice = this.createMockEntity(
@@ -66,11 +66,9 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 				this.getInstance(DAOGenericInvoice.class).get(
 						Matchers.any(UID.class))).thenReturn(mockInvoice);
 
-		Mockito
-				.when(
-						this.getInstance(DAOProduct.class).get(
-								Matchers.any(UID.class))).thenReturn(
-						(ProductEntity) mock.getProduct());
+		Mockito.when(
+				this.getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
+				.thenReturn((ProductEntity) mock.getProduct());
 
 		Mockito.when(
 				this.getInstance(DAOContext.class).isSubContext(
@@ -79,17 +77,17 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 
 		mock.getDocumentReferences().add(mockInvoice);
 
-		GenericInvoiceEntry.Builder builder = this.getInstance(GenericInvoiceEntry.Builder.class);
+		GenericInvoiceEntry.Builder builder = this
+				.getInstance(GenericInvoiceEntry.Builder.class);
 
-		builder
-				.setCreditOrDebit(mock.getCreditOrDebit())
+		builder.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDescription(mock.getDescription())
 				.addDocumentReferenceUID(
 						mock.getDocumentReferences().get(0).getUID())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
-				.setUnitAmount(
-						AmountType.WITH_TAX, mock.getUnitAmountWithTax(),
+				.setUnitAmount(AmountType.WITH_TAX,
+						mock.getUnitAmountWithTax(),
 						Currency.getInstance("EUR"))
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())

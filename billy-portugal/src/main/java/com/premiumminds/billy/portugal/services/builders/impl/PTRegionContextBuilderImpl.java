@@ -34,7 +34,7 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
 	PTRegionContextBuilder<TBuilder, TContext> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTRegionContextBuilderImpl(DAOPTRegionContext daoPTContext) {
@@ -43,9 +43,9 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
 
 	@Override
 	public TBuilder setRegionCode(String regionCode) {
-		BillyValidator.mandatory(
-				regionCode,
-				PTRegionContextBuilderImpl.LOCALIZER.getString("field.region_code"));
+		BillyValidator.mandatory(regionCode,
+				PTRegionContextBuilderImpl.LOCALIZER
+						.getString("field.region_code"));
 		this.getTypeInstance().setRegionCode(regionCode);
 		return this.getBuilder();
 	}
@@ -59,9 +59,9 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
 		PTRegionContextEntity c = this.getTypeInstance();
-		BillyValidator.mandatory(
-				c.getRegionCode(),
-				PTRegionContextBuilderImpl.LOCALIZER.getString("field.region_code"));
+		BillyValidator.mandatory(c.getRegionCode(),
+				PTRegionContextBuilderImpl.LOCALIZER
+						.getString("field.region_code"));
 	}
 
 }

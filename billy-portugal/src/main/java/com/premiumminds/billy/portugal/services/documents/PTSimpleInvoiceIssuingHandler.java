@@ -44,10 +44,10 @@ public class PTSimpleInvoiceIssuingHandler extends
 			T document, P parameters) throws DocumentIssuingException {
 		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
 
-		final DAOPTSimpleInvoice daoInvoice = this.injector.getInstance(DAOPTSimpleInvoice.class);
+		final DAOPTSimpleInvoice daoInvoice = this.injector
+				.getInstance(DAOPTSimpleInvoice.class);
 
-		return this.issue(
-				document, parametersPT, daoInvoice,
+		return this.issue(document, parametersPT, daoInvoice,
 				PTSimpleInvoiceIssuingHandler.INVOICE_TYPE);
 	}
 

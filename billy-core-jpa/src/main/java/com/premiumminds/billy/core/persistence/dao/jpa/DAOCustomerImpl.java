@@ -40,16 +40,12 @@ public class DAOCustomerImpl extends
 	@Override
 	public List<CustomerEntity> getAllActiveCustomers() {
 		List<JPACustomerEntity> result = (List<JPACustomerEntity>) this
-																		.getEntityManager()
-																		.createQuery(
-																				"select c from "
-																						+ this
-																								.getEntityClass()
-																								.getCanonicalName()
-																						+ " c "
-																						+ "where c.active=true",
-																				this.getEntityClass())
-																		.getResultList();
+				.getEntityManager()
+				.createQuery(
+						"select c from "
+								+ this.getEntityClass().getCanonicalName()
+								+ " c " + "where c.active=true",
+						this.getEntityClass()).getResultList();
 		return this.checkEntityList(result, CustomerEntity.class);
 	}
 

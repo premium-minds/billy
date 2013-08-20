@@ -80,7 +80,7 @@ public class PortugalDependencyModule extends AbstractModule {
 		this.bind(DAOPTInvoiceEntry.class).to(DAOPTInvoiceEntryImpl.class);
 		this.bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
 		this.bind(DAOPTCreditNoteEntry.class)
-			.to(DAOPTCreditNoteEntryImpl.class);
+				.to(DAOPTCreditNoteEntryImpl.class);
 		this.bind(DAOPTGenericInvoice.class).to(DAOPTGenericInvoiceImpl.class);
 		this.bind(DAOPTGenericInvoiceEntry.class).to(
 				DAOPTGenericInvoiceEntryImpl.class);

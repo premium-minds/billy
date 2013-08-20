@@ -73,12 +73,16 @@ public class PTInvoiceTestUtil {
 
 	public PTInvoice.Builder getInvoiceBuilder(String buissnesUid,
 			SourceBilling billing) {
-		PTInvoice.Builder invoiceBuilder = this.injector.getInstance(PTInvoice.Builder.class);
+		PTInvoice.Builder invoiceBuilder = this.injector
+				.getInstance(PTInvoice.Builder.class);
 
-		DAOPTBusiness daoPTBusiness = this.injector.getInstance(DAOPTBusiness.class);
-		DAOPTCustomer daoPTCustomer = this.injector.getInstance(DAOPTCustomer.class);
+		DAOPTBusiness daoPTBusiness = this.injector
+				.getInstance(DAOPTBusiness.class);
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
 
-		PTBusinessEntity businessEntity = this.business.getBusinessEntity(buissnesUid);
+		PTBusinessEntity businessEntity = this.business
+				.getBusinessEntity(buissnesUid);
 
 		UID businessUID = businessEntity.getUID();
 		try {
@@ -91,18 +95,17 @@ public class PTInvoiceTestUtil {
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
 
 		for (int i = 0; i < PTInvoiceTestUtil.MAX_PRODUCTS; ++i) {
-			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceEntryBuilder();
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 
 		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
-								.setCancelled(PTInvoiceTestUtil.CANCELLED)
-								.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
-								.setDate(new Date())
-								.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
-								.setCreditOrDebit(CreditOrDebit.CREDIT)
-								.setCustomerUID(customerUID)
-								.setSourceBilling(billing)
-								.setBusinessUID(businessUID);
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+				.setCreditOrDebit(CreditOrDebit.CREDIT)
+				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setBusinessUID(businessUID);
 	}
 }

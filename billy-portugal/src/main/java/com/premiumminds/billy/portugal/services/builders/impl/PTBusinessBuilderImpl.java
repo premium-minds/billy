@@ -36,7 +36,7 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 	PTBusinessBuilder<TBuilder, TBusiness> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTBusinessBuilderImpl(DAOPTBusiness daoBusiness,
@@ -51,9 +51,8 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setCommercialName(String name) {
-		BillyValidator.notBlank(
-				name,
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
+		BillyValidator.notBlank(name, PTBusinessBuilderImpl.LOCALIZER
+				.getString("field.commercial_name"));
 		this.getTypeInstance().setCommercialName(name);
 		return this.getBuilder();
 	}
@@ -61,26 +60,25 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		BusinessEntity b = this.getTypeInstance();
-		BillyValidator.mandatory(
-				b.getOperationalContext(),
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.business_context"));
-		BillyValidator.mandatory(
-				b.getFinancialID(),
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
-		BillyValidator.mandatory(
-				b.getName(),
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
-		BillyValidator.mandatory(
-				b.getAddress(),
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
-		BillyValidator.mandatory(
-				b.getBillingAddress(),
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.business_billing_address"));
-		BillyValidator.notEmpty(
-				b.getContacts(),
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.business_contact"));
-		BillyValidator.notEmpty(
-				b.getApplications(),
-				PTBusinessBuilderImpl.LOCALIZER.getString("field.business_application"));
+		BillyValidator.mandatory(b.getOperationalContext(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_context"));
+		BillyValidator
+				.mandatory(b.getFinancialID(), PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.financial_id"));
+		BillyValidator.mandatory(b.getName(), PTBusinessBuilderImpl.LOCALIZER
+				.getString("field.business_name"));
+		BillyValidator.mandatory(b.getAddress(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_address"));
+		BillyValidator.mandatory(b.getBillingAddress(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_billing_address"));
+		BillyValidator.notEmpty(b.getContacts(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_contact"));
+		BillyValidator.notEmpty(b.getApplications(),
+				PTBusinessBuilderImpl.LOCALIZER
+						.getString("field.business_application"));
 	}
 }

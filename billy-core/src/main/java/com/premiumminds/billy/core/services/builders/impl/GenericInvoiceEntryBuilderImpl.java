@@ -57,7 +57,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/core/i18n/FieldNames");
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
 	protected DAOGenericInvoiceEntry	daoEntry;
 	protected DAOGenericInvoice			daoGenericInvoice;
@@ -84,9 +84,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	public <T extends ShippingPoint> TBuilder setShippingOrigin(
 			Builder<T> originBuilder) {
-		BillyValidator.notNull(
-				originBuilder,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_shipping_origin"));
+		BillyValidator.notNull(originBuilder,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_shipping_origin"));
 		this.getTypeInstance().setShippingOrigin(originBuilder.build());
 		return this.getBuilder();
 	}
@@ -94,9 +94,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	public <T extends ShippingPoint> TBuilder setShippingDestination(
 			Builder<T> destinationBuilder) {
-		BillyValidator.notNull(
-				destinationBuilder,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_shipping_destination"));
+		BillyValidator.notNull(destinationBuilder,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_shipping_destination"));
 		this.getTypeInstance().setShippingDestination(
 				destinationBuilder.build());
 		return this.getBuilder();
@@ -114,8 +114,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 	@Override
 	public TBuilder setQuantity(BigDecimal quantity) {
-		Validate.isTrue(
-				quantity.compareTo(BigDecimal.ZERO) > 0,
+		Validate.isTrue(quantity.compareTo(BigDecimal.ZERO) > 0,
 				"The quantity must be positive"); // TODO message
 		this.getTypeInstance().setQuantity(quantity);
 		return this.getBuilder();
@@ -130,49 +129,46 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 	@Override
 	public TBuilder setTaxPointDate(Date date) {
-		BillyValidator.notNull(
-				date,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+		BillyValidator.notNull(date, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.tax_point_date"));
 		this.getTypeInstance().setTaxPointDate(date);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder addDocumentReferenceUID(UID referenceUID) {
-		BillyValidator.notNull(
-				referenceUID,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.reference"));
+		BillyValidator.notNull(referenceUID,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.reference"));
 		GenericInvoiceEntity d = this.daoGenericInvoice.get(referenceUID);
-		BillyValidator.found(
-				d,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.reference"));
+		BillyValidator.found(d, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.reference"));
 		this.getTypeInstance().getDocumentReferences().add(d);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setDescription(String description) {
-		BillyValidator.mandatory(
-				description,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.description"));
+		BillyValidator.mandatory(description,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.description"));
 		this.getTypeInstance().setDescription(description);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-		BillyValidator.notNull(
-				creditOrDebit,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_credit_or_debit"));
+		BillyValidator.notNull(creditOrDebit,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_credit_or_debit"));
 		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setShippingCostsAmount(BigDecimal amount) {
-		BillyValidator.notNull(
-				amount,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.shipping_costs_amount"));
+		BillyValidator.notNull(amount, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.shipping_costs_amount"));
 		Validate.isTrue(amount.compareTo(BigDecimal.ZERO) >= 0);
 		this.getTypeInstance().setShippingCostsAmount(amount);
 		return this.getBuilder();
@@ -187,15 +183,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	public TBuilder setUnitAmount(AmountType type, BigDecimal amount,
 			Currency currency) {
-		BillyValidator.mandatory(
-				type,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_amount_type"));
-		BillyValidator.mandatory(
-				amount,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
-		BillyValidator.mandatory(
-				currency,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_currency"));
+		BillyValidator.mandatory(type, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.unit_amount_type"));
+		BillyValidator.mandatory(amount,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.unit_gross_amount"));
+		BillyValidator.mandatory(currency,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_currency"));
 
 		switch (type) {
 			case WITH_TAX:
@@ -214,22 +209,21 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 	@Override
 	public TBuilder setContextUID(UID uidContext) {
-		BillyValidator.mandatory(
-				uidContext,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_context"));
+		BillyValidator.mandatory(uidContext,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_context"));
 		ContextEntity c = this.daoContext.get(uidContext);
-		BillyValidator.found(
-				c,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_context"));
+		BillyValidator.found(c, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.entry_context"));
 		this.context = c;
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setTaxExemptionReason(String exemptionReason) {
-		BillyValidator.notBlank(
-				exemptionReason,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+		BillyValidator.notBlank(exemptionReason,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.tax_exemption_reason"));
 		this.getTypeInstance().setTaxExemptionReason(exemptionReason);
 		return this.getBuilder();
 	}
@@ -238,15 +232,13 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Deprecated
 	@Override
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts) {
-		BillyValidator.notNull(
-				type,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.discount_type"));
-		BillyValidator.notNull(
-				discounts,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.discount"));
-		Validate.notEmpty(
-				discounts,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.discount_type"));
+		BillyValidator.notNull(type, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.discount_type"));
+		BillyValidator.notNull(discounts,
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.discount"));
+		Validate.notEmpty(discounts, GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.discount_type"));
 
 		return this.getBuilder();
 	}
@@ -256,35 +248,33 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		this.validateValues();
 
 		GenericInvoiceEntry i = this.getTypeInstance();
-		BillyValidator.mandatory(
-				i.getProduct(),
+		BillyValidator.mandatory(i.getProduct(),
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.product"));
-		BillyValidator.mandatory(
-				i.getQuantity(),
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.quantity"));
-		BillyValidator.mandatory(
-				i.getUnitOfMeasure(),
+		BillyValidator
+				.mandatory(i.getQuantity(), GenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.quantity"));
+		BillyValidator.mandatory(i.getUnitOfMeasure(),
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit"));
-		BillyValidator.mandatory(
-				i.getDescription(),
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.description"));
-		BillyValidator.mandatory(
-				i.getAmountType(),
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_amount_type"));
+		BillyValidator.mandatory(i.getDescription(),
+				GenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.description"));
+		BillyValidator.mandatory(i.getAmountType(),
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.unit_amount_type"));
 
 		if (i.getAmountType().compareTo(AmountType.WITH_TAX) == 0) {
-			BillyValidator.mandatory(
-					i.getAmountWithTax(),
-					GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
+			BillyValidator.mandatory(i.getAmountWithTax(),
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("field.unit_gross_amount"));
 		} else {
-			BillyValidator.mandatory(
-					i.getAmountWithoutTax(),
-					GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
+			BillyValidator.mandatory(i.getAmountWithoutTax(),
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("field.unit_gross_amount"));
 		}
 
-		BillyValidator.mandatory(
-				i.getCurrency(),
-				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_currency"));
+		BillyValidator.mandatory(i.getCurrency(),
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_currency"));
 	}
 
 	protected void validateValues() throws ValidationException {
@@ -303,7 +293,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		}
 		if (e.getTaxes().isEmpty()) {
 			throw new ValidationException(
-											GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("exception.invalid_taxes"));
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("exception.invalid_taxes"));
 		}
 
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
@@ -320,16 +311,11 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 						break;
 					case PERCENTAGE:
 						unitAmountWithoutTax = e
-												.getUnitAmountWithTax()
-												.divide(
-														BigDecimal.ONE.add(
-																t
-																	.getValue()
-																	.divide(
-																			new BigDecimal(
-																							"100"),
-																			mc),
-																mc), mc);
+								.getUnitAmountWithTax()
+								.divide(BigDecimal.ONE.add(
+										t.getValue().divide(
+												new BigDecimal("100"), mc), mc),
+										mc);
 						unitTaxAmount = unitTaxAmount.add(
 								e.getUnitAmountWithTax().subtract(
 										unitAmountWithoutTax, mc), mc);
@@ -349,15 +335,16 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 			for (Tax t : this.getTypeInstance().getTaxes()) {
 				switch (t.getTaxRateType()) {
 					case FLAT:
-						unitAmountWithTax = unitAmountWithTax.add(
-								t.getValue(), mc);
+						unitAmountWithTax = unitAmountWithTax.add(t.getValue(),
+								mc);
 						unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
 						break;
 					case PERCENTAGE:
 						unitTaxAmount = unitTaxAmount.add(
 								e.getUnitAmountWithoutTax()
-									.multiply(t.getPercentageRateValue(), mc)
-									.divide(new BigDecimal("100"), mc), mc);
+										.multiply(t.getPercentageRateValue(),
+												mc)
+										.divide(new BigDecimal("100"), mc), mc);
 						unitAmountWithTax = unitAmountWithTax.add(
 								unitTaxAmount, mc);
 						break;
@@ -370,13 +357,13 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		}
 
 		e.setAmountWithTax(this.getTypeInstance().getUnitAmountWithTax()
-								.multiply(e.getQuantity(), mc));
+				.multiply(e.getQuantity(), mc));
 		e.setAmountWithoutTax(this.getTypeInstance().getUnitAmountWithoutTax()
-									.multiply(e.getQuantity(), mc));
+				.multiply(e.getQuantity(), mc));
 		e.setTaxAmount(this.getTypeInstance().getUnitTaxAmount()
-							.multiply(e.getQuantity(), mc));
+				.multiply(e.getQuantity(), mc));
 		e.setDiscountAmount(this.getTypeInstance().getUnitDiscountAmount()
-								.multiply(e.getQuantity(), mc));
+				.multiply(e.getQuantity(), mc));
 	}
 
 	@SuppressWarnings("unchecked")

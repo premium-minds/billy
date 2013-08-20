@@ -38,13 +38,11 @@ public class TestBankAccountBuilder extends AbstractTest {
 				MockBankAccountEntity.class,
 				TestBankAccountBuilder.BANK_ACCOUNT_YML);
 
-		Mockito
-				.when(
-						this.getInstance(DAOBankAccount.class)
-							.getEntityInstance()).thenReturn(
-						new MockBankAccountEntity());
+		Mockito.when(this.getInstance(DAOBankAccount.class).getEntityInstance())
+				.thenReturn(new MockBankAccountEntity());
 
-		BankAccount.Builder builder = this.getInstance(BankAccount.Builder.class);
+		BankAccount.Builder builder = this
+				.getInstance(BankAccount.Builder.class);
 
 		builder.setBankAccountNumber(mockBankAccount.getBankAccountNumber())
 				.setBankIdentifier(mockBankAccount.getBankIdentifier())
@@ -54,15 +52,13 @@ public class TestBankAccountBuilder extends AbstractTest {
 		BankAccount bankAccount = builder.build();
 
 		assert (bankAccount != null);
-		Assert.assertEquals(
-				mockBankAccount.getIBANNumber(), bankAccount.getIBANNumber());
-		Assert.assertEquals(
-				mockBankAccount.getBankIdentifier(),
+		Assert.assertEquals(mockBankAccount.getIBANNumber(),
+				bankAccount.getIBANNumber());
+		Assert.assertEquals(mockBankAccount.getBankIdentifier(),
 				bankAccount.getBankIdentifier());
-		Assert.assertEquals(
-				mockBankAccount.getBankAccountNumber(),
+		Assert.assertEquals(mockBankAccount.getBankAccountNumber(),
 				bankAccount.getBankAccountNumber());
-		Assert.assertEquals(
-				mockBankAccount.getOwnerName(), bankAccount.getOwnerName());
+		Assert.assertEquals(mockBankAccount.getOwnerName(),
+				bankAccount.getOwnerName());
 	}
 }

@@ -45,8 +45,8 @@ public class BillyPortugal {
 	}
 
 	public BillyPortugal(PersistModule persistModule) {
-		this.injector = Guice.createInjector(
-				new PortugalDependencyModule(), persistModule);
+		this.injector = Guice.createInjector(new PortugalDependencyModule(),
+				persistModule);
 		this.injector.getInstance(PersistService.class).start();
 		this.builders = new Builders(this.injector);
 		this.taxes = new Taxes(this.injector);

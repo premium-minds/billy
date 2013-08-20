@@ -60,15 +60,14 @@ public class ExportServiceImpl implements ExportService {
 		throws ExportServiceException {
 		if (!this.handlers.containsKey(request.getClass())) {
 			throw new RuntimeException(
-										"Could not find a handler for export request : "
-												+ request.getClass()
-															.getCanonicalName());
+					"Could not find a handler for export request : "
+							+ request.getClass().getCanonicalName());
 		}
 		File outputFile = null;
 		OutputStream outputStream = null;
 		try {
-			outputFile = File.createTempFile(
-					UUID.randomUUID().toString(), ".tmp");
+			outputFile = File.createTempFile(UUID.randomUUID().toString(),
+					".tmp");
 			outputStream = new FileOutputStream(outputFile);
 			this.handlers.get(request.getClass()).export(request, outputStream);
 		} catch (IOException e) {

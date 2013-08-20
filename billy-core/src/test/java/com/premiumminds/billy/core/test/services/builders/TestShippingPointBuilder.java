@@ -43,9 +43,11 @@ public class TestShippingPointBuilder extends AbstractTest {
 				this.getInstance(DAOShippingPoint.class).getEntityInstance())
 				.thenReturn(new MockShippingPointEntity());
 
-		ShippingPoint.Builder builder = this.getInstance(ShippingPoint.Builder.class);
+		ShippingPoint.Builder builder = this
+				.getInstance(ShippingPoint.Builder.class);
 
-		Address.Builder mockAddressBuilder = this.getMock(Address.Builder.class);
+		Address.Builder mockAddressBuilder = this
+				.getMock(Address.Builder.class);
 		Mockito.when(mockAddressBuilder.build()).thenReturn(
 				mockShippingPoint.getAddress());
 
@@ -60,20 +62,17 @@ public class TestShippingPointBuilder extends AbstractTest {
 
 		Assert.assertTrue(shippingPoint != null);
 
-		Assert.assertEquals(
-				mockShippingPoint.getDeliveryId(),
+		Assert.assertEquals(mockShippingPoint.getDeliveryId(),
 				shippingPoint.getDeliveryId());
-		Assert.assertEquals(
-				mockShippingPoint.getLocationId(),
+		Assert.assertEquals(mockShippingPoint.getLocationId(),
 				shippingPoint.getLocationId());
 		Assert.assertEquals(mockShippingPoint.getUCR(), shippingPoint.getUCR());
-		Assert.assertEquals(
-				mockShippingPoint.getWarehouseId(),
+		Assert.assertEquals(mockShippingPoint.getWarehouseId(),
 				shippingPoint.getWarehouseId());
-		Assert.assertEquals(
-				mockShippingPoint.getDate(), shippingPoint.getDate());
-		Assert.assertEquals(
-				mockShippingPoint.getAddress(), shippingPoint.getAddress());
+		Assert.assertEquals(mockShippingPoint.getDate(),
+				shippingPoint.getDate());
+		Assert.assertEquals(mockShippingPoint.getAddress(),
+				shippingPoint.getAddress());
 	}
 
 }

@@ -108,10 +108,8 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		for (Object candidate : candidates) {
 			if (!entityClass.isInstance(candidate)) {
 				throw new RuntimeException(
-											"The entity is not a JPA implementation : "
-													+ candidate
-																.getClass()
-																.getCanonicalName());
+						"The entity is not a JPA implementation : "
+								+ candidate.getClass().getCanonicalName());
 			}
 			result.add((T2) candidate);
 		}
@@ -130,16 +128,14 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		Class<? extends TEntity> entityClass = this.getEntityClass();
 		try {
 			result = this
-							.getEntityManager()
-							.createQuery(
-									"select e from "
-											+ entityClass.getCanonicalName()
-											+ " e "
-											+ "where e.uid=:uid and e.active=true "
-											+ "order by e.entityVersion desc",
-									entityClass)
-							.setParameter("uid", uid.toString())
-							.setMaxResults(1).getSingleResult();
+					.getEntityManager()
+					.createQuery(
+							"select e from " + entityClass.getCanonicalName()
+									+ " e "
+									+ "where e.uid=:uid and e.active=true "
+									+ "order by e.entityVersion desc",
+							entityClass).setParameter("uid", uid.toString())
+					.setMaxResults(1).getSingleResult();
 		} catch (NoResultException e) {
 			throw e;
 		} catch (Exception e) {
@@ -155,7 +151,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		throws PersistenceException {
 		if (!entity.isNew()) {
 			throw new PersistenceException(
-											"Cannot create. The entity is marked as not new.");
+					"Cannot create. The entity is marked as not new.");
 		}
 		try {
 			return new TransactionWrapper<TInterface>(this) {
@@ -165,8 +161,8 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 					try {
 						AbstractDAO.this.getEntity(entity.getUID());
 						throw new RuntimeException(
-													"Cannot create the new entity since its uid already exists in the table : "
-															+ entity.getUID());
+								"Cannot create the new entity since its uid already exists in the table : "
+										+ entity.getUID());
 					} catch (NoResultException e) {
 						// Ok so do nothing
 					} catch (Exception e) {
@@ -188,18 +184,19 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		throws PersistenceException {
 		if (entity.isNew()) {
 			throw new PersistenceException(
-											"Cannot update. The entity is marked as new.");
+					"Cannot update. The entity is marked as new.");
 		}
 		try {
 			return new TransactionWrapper<TInterface>(this) {
 
 				@Override
 				public TInterface runTransaction() throws Exception {
-					TEntity oldVersion = AbstractDAO.this.getEntity(entity.getUID());
+					TEntity oldVersion = AbstractDAO.this.getEntity(entity
+							.getUID());
 					if (oldVersion == null) {
 						throw new RuntimeException(
-													"Cannot update a non existing entity : "
-															+ entity.getUID());
+								"Cannot update a non existing entity : "
+										+ entity.getUID());
 					}
 					// oldVersion = EntityVersioner.makeObsolete(oldVersion);
 					AbstractDAO.this.getEntityManager().merge(oldVersion);
@@ -225,15 +222,13 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		TEntity entity = null;
 		try {
 			entity = this
-							.getEntityManager()
-							.createQuery(
-									"select e from "
-											+ entityClass.getCanonicalName()
-											+ " e "
-											+ "where e.uid=:uid and e.active=true",
-									entityClass)
-							.setParameter("uid", uid.toString())
-							.getSingleResult();
+					.getEntityManager()
+					.createQuery(
+							"select e from " + entityClass.getCanonicalName()
+									+ " e "
+									+ "where e.uid=:uid and e.active=true",
+							entityClass).setParameter("uid", uid.toString())
+					.getSingleResult();
 		} catch (NoResultException e) {
 			return false;
 		}

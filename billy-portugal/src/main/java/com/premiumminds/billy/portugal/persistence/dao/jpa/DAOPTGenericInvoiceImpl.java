@@ -56,7 +56,7 @@ public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
 
 		query.from(business).where(business.uid.eq(uid.getValue()));
 
-		return this.checkEntity(
-				query.singleResult(business), PTBusinessEntity.class);
+		return this.checkEntity(query.singleResult(business),
+				PTBusinessEntity.class);
 	}
 }

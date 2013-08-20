@@ -44,14 +44,17 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 		PTAbstractTest.injector = Guice.createInjector(
 				new PortugalDependencyModule(),
 				new PortugalTestPersistenceDependencyModule());
-		PTAbstractTest.injector.getInstance(PortugalDependencyModule.Initializer.class);
-		PTAbstractTest.injector.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
+		PTAbstractTest.injector
+				.getInstance(PortugalDependencyModule.Initializer.class);
+		PTAbstractTest.injector
+				.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
 		PortugalBootstrap.execute(PTAbstractTest.injector);
 	}
 
 	@After
 	public void tearDown() {
-		PTAbstractTest.injector.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
+		PTAbstractTest.injector
+				.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
 	}
 
 	public PTInvoiceEntity getNewIssuedInvoice() {
@@ -68,8 +71,9 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 
 		try {
 			return (PTInvoiceEntity) service.issueDocument(
-					new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(
-							businessUID, SourceBilling.P), parameters);
+					new PTInvoiceTestUtil(PTAbstractTest.injector)
+							.getInvoiceBuilder(businessUID, SourceBilling.P),
+					parameters);
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}
@@ -81,7 +85,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 			String privateKeyVersion) {
 		PTIssuingParams parameters = new PTIssuingParamsImpl();
 		KeyGenerator generator = new KeyGenerator(
-													PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
+				PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
 		parameters.setPrivateKey(generator.getPrivateKey());
 		parameters.setPublicKey(generator.getPublicKey());
 		parameters.setPrivateKeyVersion(privateKeyVersion);

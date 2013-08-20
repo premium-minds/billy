@@ -56,8 +56,7 @@ public class PTBusinessTestUtil {
 
 	public PTBusinessEntity getBusinessEntity() {
 		PTBusinessEntity business = (PTBusinessEntity) this
-															.getBusinessBuilder()
-															.build();
+				.getBusinessBuilder().build();
 
 		return business;
 	}
@@ -76,7 +75,8 @@ public class PTBusinessTestUtil {
 	}
 
 	public PTBusiness.Builder getBusinessBuilder() {
-		PTBusiness.Builder businessBuilder = this.injector.getInstance(PTBusiness.Builder.class);
+		PTBusiness.Builder businessBuilder = this.injector
+				.getInstance(PTBusiness.Builder.class);
 
 		PTApplication.Builder applicationBuilder = null;
 		try {
@@ -89,14 +89,13 @@ public class PTBusinessTestUtil {
 		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
 		businessBuilder.addApplication(applicationBuilder)
-						.addContact(contactBuilder, true)
-						.setAddress(addressBuilder)
-						.setBillingAddress(addressBuilder)
-						.setCommercialName(PTBusinessTestUtil.NAME)
-						.setFinancialID(PTBusinessTestUtil.FINANCIAL_ID)
-						.setOperationalContextUID(this.context.getUID())
-						.setWebsite(PTBusinessTestUtil.WEBSITE)
-						.setName(PTBusinessTestUtil.NAME);
+				.addContact(contactBuilder, true).setAddress(addressBuilder)
+				.setBillingAddress(addressBuilder)
+				.setCommercialName(PTBusinessTestUtil.NAME)
+				.setFinancialID(PTBusinessTestUtil.FINANCIAL_ID)
+				.setOperationalContextUID(this.context.getUID())
+				.setWebsite(PTBusinessTestUtil.WEBSITE)
+				.setName(PTBusinessTestUtil.NAME);
 
 		return businessBuilder;
 	}

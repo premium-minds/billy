@@ -39,7 +39,7 @@ public class BillyValidator extends Validate {
 
 	private BillyValidator() {
 		this.localizer = new Localizer(
-										"com/premiumminds/billy/core/i18n/Validation");
+				"com/premiumminds/billy/core/i18n/Validation");
 		this.factory = Validation.buildDefaultValidatorFactory();
 		this.validator = this.factory.getValidator();
 	}
@@ -50,7 +50,8 @@ public class BillyValidator extends Validate {
 		boolean valid = true;
 
 		for (Object o : objects) {
-			Set<ConstraintViolation<Object>> violations = BillyValidator.instance.validator.validate(o);
+			Set<ConstraintViolation<Object>> violations = BillyValidator.instance.validator
+					.validate(o);
 			if (!violations.isEmpty()) {
 				valid = false;
 				builder.append("There was an exception while validating instance of ");

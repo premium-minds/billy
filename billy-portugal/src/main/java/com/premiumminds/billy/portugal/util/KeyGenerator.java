@@ -67,9 +67,8 @@ public class KeyGenerator {
 	}
 
 	private KeyPair getKeyPair() {
-		PEMReader pemReader = new PEMReader(
-											new StringReader(
-																this.getKeyFromFile()));
+		PEMReader pemReader = new PEMReader(new StringReader(
+				this.getKeyFromFile()));
 		KeyPair pair = null;
 
 		try {

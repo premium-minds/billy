@@ -50,31 +50,28 @@ public class PTCreditNoteEntryTestUtil {
 
 	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder(
 			PTInvoiceEntity reference) {
-		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector.getInstance(PTCreditNoteEntry.Builder.class);
+		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector
+				.getInstance(PTCreditNoteEntry.Builder.class);
 
 		PTProductEntity newProduct = (PTProductEntity) this.injector
-																	.getInstance(
-																			DAOPTProduct.class)
-																	.create(
-																			new PTProductTestUtil(
-																									this.injector).getProductEntity());
+				.getInstance(DAOPTProduct.class)
+				.create(new PTProductTestUtil(this.injector).getProductEntity());
 
 		this.context = this.contexts.portugal().portugal();
 
 		creditNoteEntryBuilder
-								.setUnitAmount(
-										AmountType.WITH_TAX,
-										PTCreditNoteEntryTestUtil.AMOUNT,
-										PTCreditNoteEntryTestUtil.CURRENCY)
-								.setTaxPointDate(new Date())
-								.setCreditOrDebit(CreditOrDebit.DEBIT)
-								.setDescription(newProduct.getDescription())
-								.setQuantity(PTCreditNoteEntryTestUtil.QUANTITY)
-								.setUnitOfMeasure(newProduct.getUnitOfMeasure())
-								.setProductUID(newProduct.getUID())
-								.setContextUID(this.context.getUID())
-								.setReason(PTCreditNoteEntryTestUtil.REASON)
-								.setReferenceUID(reference.getUID());
+				.setUnitAmount(AmountType.WITH_TAX,
+						PTCreditNoteEntryTestUtil.AMOUNT,
+						PTCreditNoteEntryTestUtil.CURRENCY)
+				.setTaxPointDate(new Date())
+				.setCreditOrDebit(CreditOrDebit.DEBIT)
+				.setDescription(newProduct.getDescription())
+				.setQuantity(PTCreditNoteEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(newProduct.getUnitOfMeasure())
+				.setProductUID(newProduct.getUID())
+				.setContextUID(this.context.getUID())
+				.setReason(PTCreditNoteEntryTestUtil.REASON)
+				.setReferenceUID(reference.getUID());
 
 		return creditNoteEntryBuilder;
 	}

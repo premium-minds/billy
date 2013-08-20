@@ -50,8 +50,7 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 					TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE,
 					TestPTManualInvoiceIssuingHandler.SOURCE_BILLING);
 
-			this.issueNewInvoice(
-					this.handler, invoice,
+			this.issueNewInvoice(this.handler, invoice,
 					PTPersistencyAbstractTest.DEFAULT_SERIES);
 			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {
@@ -64,15 +63,13 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		PTInvoiceEntity issuedInvoice = (PTInvoiceEntity) this.getInstance(
 				DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
-		Assert.assertEquals(
-				PTPersistencyAbstractTest.DEFAULT_SERIES,
+		Assert.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES,
 				issuedInvoice.getSeries());
 		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
 		String formatedNumber = TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE
 				+ " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-		Assert.assertEquals(
-				TestPTManualInvoiceIssuingHandler.SOURCE_BILLING,
+		Assert.assertEquals(TestPTManualInvoiceIssuingHandler.SOURCE_BILLING,
 				issuedInvoice.getSourceBilling());
 	}
 
@@ -86,12 +83,12 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		PTInvoiceEntity issuedInvoice = (PTInvoiceEntity) this.getInstance(
 				DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
-		PTInvoiceEntity normalInvoice = this.newInvoice(
-				TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE, SourceBilling.P);
+		PTInvoiceEntity normalInvoice = this
+				.newInvoice(TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE,
+						SourceBilling.P);
 		normalInvoice.setBusiness(issuedInvoice.getBusiness());
 
-		this.issueNewInvoice(
-				this.handler, normalInvoice,
+		this.issueNewInvoice(this.handler, normalInvoice,
 				PTPersistencyAbstractTest.DEFAULT_SERIES);
 	}
 }

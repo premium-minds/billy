@@ -63,10 +63,8 @@ public class DAOGenericInvoiceImpl extends
 
 		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		BusinessEntity businessEnity = query
-											.from(business)
-											.where(business.uid.eq(businessUID))
-											.uniqueResult(business);
+		BusinessEntity businessEnity = query.from(business)
+				.where(business.uid.eq(businessUID)).uniqueResult(business);
 
 		if (businessEnity == null) {
 			throw new BillyRuntimeException();
@@ -77,12 +75,9 @@ public class DAOGenericInvoiceImpl extends
 		query.from(genericInvoice);
 		query.where(genericInvoice.series.eq(series));
 		query.where(genericInvoice.seriesNumber.eq(new JPASubQuery()
-																	.from(
-																			genericInvoice)
-																	.where(
-																			genericInvoice.business.eq(businessEnity))
-																	.unique(
-																			genericInvoice.seriesNumber.max())));
+				.from(genericInvoice)
+				.where(genericInvoice.business.eq(businessEnity))
+				.unique(genericInvoice.seriesNumber.max())));
 
 		List<JPAGenericInvoiceEntity> invoiceList = query.list(genericInvoice);
 

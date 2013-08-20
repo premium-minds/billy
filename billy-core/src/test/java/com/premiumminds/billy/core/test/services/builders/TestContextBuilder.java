@@ -43,11 +43,9 @@ public class TestContextBuilder extends AbstractTest {
 		Mockito.when(this.getInstance(DAOContext.class).getEntityInstance())
 				.thenReturn(new MockContextEntity());
 
-		Mockito
-				.when(
-						this.getInstance(DAOContext.class).get(
-								Matchers.any(UID.class))).thenReturn(
-						(ContextEntity) mockContext.getParentContext());
+		Mockito.when(
+				this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+				.thenReturn((ContextEntity) mockContext.getParentContext());
 
 		Context.Builder builder = this.getInstance(Context.Builder.class);
 
@@ -59,11 +57,10 @@ public class TestContextBuilder extends AbstractTest {
 
 		assert (context != null);
 		Assert.assertEquals(mockContext.getName(), context.getName());
-		Assert.assertEquals(
-				mockContext.getDescription(), context.getDescription());
-		Assert.assertEquals(
-				mockContext.getParentContext().getUID(),
-				context.getParentContext().getUID());
+		Assert.assertEquals(mockContext.getDescription(),
+				context.getDescription());
+		Assert.assertEquals(mockContext.getParentContext().getUID(), context
+				.getParentContext().getUID());
 
 	}
 

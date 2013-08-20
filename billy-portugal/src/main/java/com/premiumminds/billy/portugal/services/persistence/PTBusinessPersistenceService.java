@@ -37,14 +37,16 @@ public class PTBusinessPersistenceService<T extends PTBusiness> extends
 
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		final DAOPTBusiness dao = this.injector.getInstance(DAOPTBusiness.class);
+		final DAOPTBusiness dao = this.injector
+				.getInstance(DAOPTBusiness.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTBusinessEntity businessEntity = (PTBusinessEntity) builder.build();
+					PTBusinessEntity businessEntity = (PTBusinessEntity) builder
+							.build();
 					return (T) dao.create(businessEntity);
 				}
 
@@ -56,14 +58,16 @@ public class PTBusinessPersistenceService<T extends PTBusiness> extends
 
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		final DAOPTBusiness dao = this.injector.getInstance(DAOPTBusiness.class);
+		final DAOPTBusiness dao = this.injector
+				.getInstance(DAOPTBusiness.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTBusinessEntity businessEntity = (PTBusinessEntity) builder.build();
+					PTBusinessEntity businessEntity = (PTBusinessEntity) builder
+							.build();
 					return (T) dao.update(businessEntity);
 				}
 

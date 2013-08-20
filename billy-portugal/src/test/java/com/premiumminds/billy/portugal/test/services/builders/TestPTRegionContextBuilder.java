@@ -38,9 +38,9 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 
 	@Test
 	public void testRegionCode() {
-		MockPTRegionContextEntity mockRegionContextEntity = this.createMockEntity(
-				MockPTRegionContextEntity.class,
-				TestPTRegionContextBuilder.PTCONTEXT_YML);
+		MockPTRegionContextEntity mockRegionContextEntity = this
+				.createMockEntity(MockPTRegionContextEntity.class,
+						TestPTRegionContextBuilder.PTCONTEXT_YML);
 
 		Mockito.when(
 				this.getInstance(DAOPTRegionContext.class).getEntityInstance())
@@ -51,10 +51,10 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 						Matchers.any(UID.class))).thenReturn(
 				(ContextEntity) mockRegionContextEntity.getParentContext());
 
-		PTRegionContext.Builder builder = this.getInstance(PTRegionContext.Builder.class);
+		PTRegionContext.Builder builder = this
+				.getInstance(PTRegionContext.Builder.class);
 
-		builder
-				.setDescription(mockRegionContextEntity.getDescription())
+		builder.setDescription(mockRegionContextEntity.getDescription())
 				.setName(mockRegionContextEntity.getName())
 				.setRegionCode(mockRegionContextEntity.getRegionCode())
 				.setParentContextUID(
@@ -65,17 +65,14 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 		Assert.assertTrue(regionContex != null);
 		Assert.assertTrue(regionContex.getParentContext() != null);
 
-		Assert.assertEquals(
-				regionContex.getRegionCode(),
+		Assert.assertEquals(regionContex.getRegionCode(),
 				mockRegionContextEntity.getRegionCode());
-		Assert.assertEquals(
-				regionContex.getDescription(),
+		Assert.assertEquals(regionContex.getDescription(),
 				mockRegionContextEntity.getDescription());
-		Assert.assertEquals(
-				regionContex.getName(), mockRegionContextEntity.getName());
+		Assert.assertEquals(regionContex.getName(),
+				mockRegionContextEntity.getName());
 
-		Assert.assertEquals(
-				regionContex.getParentContext().getUID(),
+		Assert.assertEquals(regionContex.getParentContext().getUID(),
 				mockRegionContextEntity.getParentContext().getUID());
 	}
 }

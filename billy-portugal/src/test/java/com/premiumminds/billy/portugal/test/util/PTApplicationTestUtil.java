@@ -48,16 +48,16 @@ public class PTApplicationTestUtil {
 			String website, Integer swCertificateNumber, String keysPath,
 			PTContact.Builder contactBuilder) throws MalformedURLException {
 
-		PTApplication.Builder applicationBuilder = this.injector.getInstance(PTApplication.Builder.class);
+		PTApplication.Builder applicationBuilder = this.injector
+				.getInstance(PTApplication.Builder.class);
 
-		applicationBuilder
-							.addContact(contactBuilder)
-							.setApplicationKeysPath(new URL(keysPath))
-							.setDeveloperCompanyName(companyName)
-							.setDeveloperCompanyTaxIdentifier(companyTaxId)
-							.setName(appName)
-							.setSoftwareCertificationNumber(swCertificateNumber)
-							.setVersion(version).setWebsiteAddress(website);
+		applicationBuilder.addContact(contactBuilder)
+				.setApplicationKeysPath(new URL(keysPath))
+				.setDeveloperCompanyName(companyName)
+				.setDeveloperCompanyTaxIdentifier(companyTaxId)
+				.setName(appName)
+				.setSoftwareCertificationNumber(swCertificateNumber)
+				.setVersion(version).setWebsiteAddress(website);
 
 		return applicationBuilder;
 	}
@@ -66,8 +66,8 @@ public class PTApplicationTestUtil {
 		throws MalformedURLException {
 		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-		return this.getApplicationBuilder(
-				PTApplicationTestUtil.APP_NAME, PTApplicationTestUtil.VERSION,
+		return this.getApplicationBuilder(PTApplicationTestUtil.APP_NAME,
+				PTApplicationTestUtil.VERSION,
 				PTApplicationTestUtil.COMPANY_NAME,
 				PTApplicationTestUtil.COMPANY_TAX_ID,
 				PTApplicationTestUtil.WEBSITE,

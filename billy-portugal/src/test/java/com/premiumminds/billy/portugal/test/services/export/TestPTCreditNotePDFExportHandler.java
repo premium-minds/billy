@@ -69,19 +69,17 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 		ExportServiceException, FileNotFoundException, URISyntaxException {
 		InputStream xsl = new FileInputStream(
-												TestPTCreditNotePDFExportHandler.XSL_PATH);
+				TestPTCreditNotePDFExportHandler.XSL_PATH);
 		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
-																			TestPTCreditNotePDFExportHandler.LOGO_PATH,
-																			xsl,
-																			TestPTCreditNotePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestPTCreditNotePDFExportHandler.LOGO_PATH, xsl,
+				TestPTCreditNotePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
 
 		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
-																				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
+				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
 		handler.toFile(
 				new URI(TestPTCreditNotePDFExportHandler.URI_PATH),
-				this.generatePTCreditNote(
-						PaymentMechanism.CASH, this.getNewIssuedInvoice()),
-				bundle);
+				this.generatePTCreditNote(PaymentMechanism.CASH,
+						this.getNewIssuedInvoice()), bundle);
 	}
 
 	private PTCreditNoteEntity generatePTCreditNote(
@@ -94,14 +92,15 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 		PTCreditNoteEntity creditNote = null;
 		try {
 			creditNote = (PTCreditNoteEntity) services.issueDocument(
-					new PTCreditNoteTestUtil(PTAbstractTest.injector).getCreditNoteBuilder(reference),
-					params);
+					new PTCreditNoteTestUtil(PTAbstractTest.injector)
+							.getCreditNoteBuilder(reference), params);
 
 			creditNote.setPaymentMechanism(paymentMechanism);
 			creditNote.setCustomer((CustomerEntity) reference.getCustomer());
 			creditNote.setBusiness((BusinessEntity) reference.getBusiness());
 			creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
-			creditNote.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+			creditNote
+					.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();

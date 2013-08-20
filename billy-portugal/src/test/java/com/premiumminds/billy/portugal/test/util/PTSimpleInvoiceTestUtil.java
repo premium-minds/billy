@@ -63,19 +63,20 @@ public class PTSimpleInvoiceTestUtil {
 
 	public PTSimpleInvoiceEntity getSimpleInvoiceEntity(SourceBilling billing) {
 		PTSimpleInvoiceEntity invoice = (PTSimpleInvoiceEntity) this
-																	.getSimpleInvoiceBuilder(
-																			billing)
-																	.build();
+				.getSimpleInvoiceBuilder(billing).build();
 		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
 	public PTSimpleInvoice.Builder getSimpleInvoiceBuilder(SourceBilling billing) {
-		PTSimpleInvoice.Builder invoiceBuilder = this.injector.getInstance(PTSimpleInvoice.Builder.class);
+		PTSimpleInvoice.Builder invoiceBuilder = this.injector
+				.getInstance(PTSimpleInvoice.Builder.class);
 
-		DAOPTBusiness daoPTBusiness = this.injector.getInstance(DAOPTBusiness.class);
-		DAOPTCustomer daoPTCustomer = this.injector.getInstance(DAOPTCustomer.class);
+		DAOPTBusiness daoPTBusiness = this.injector
+				.getInstance(DAOPTBusiness.class);
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
 
 		PTBusinessEntity businessEntity = this.business.getBusinessEntity();
 		UID businessUID = daoPTBusiness.create(businessEntity).getUID();
@@ -84,19 +85,18 @@ public class PTSimpleInvoiceTestUtil {
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
 
 		for (int i = 0; i < PTSimpleInvoiceTestUtil.MAX_PRODUCTS; ++i) {
-			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceEntryBuilder();
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 
 		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
-								.setCancelled(PTInvoiceTestUtil.CANCELLED)
-								.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
-								.setDate(new Date())
-								.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
-								.setCreditOrDebit(CreditOrDebit.CREDIT)
-								.setCustomerUID(customerUID)
-								.setSourceBilling(billing)
-								.setBusinessUID(businessUID);
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+				.setCreditOrDebit(CreditOrDebit.CREDIT)
+				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setBusinessUID(businessUID);
 	}
 
 }

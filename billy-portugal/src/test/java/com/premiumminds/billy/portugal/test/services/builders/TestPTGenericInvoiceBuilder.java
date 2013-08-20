@@ -48,11 +48,9 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 				MockPTGenericInvoiceEntity.class,
 				TestPTGenericInvoiceBuilder.PT_GENERIC_INVOICE_YML);
 
-		Mockito
-				.when(
-						this.getInstance(DAOPTGenericInvoice.class)
-							.getEntityInstance()).thenReturn(
-						new MockPTGenericInvoiceEntity());
+		Mockito.when(
+				this.getInstance(DAOPTGenericInvoice.class).getEntityInstance())
+				.thenReturn(new MockPTGenericInvoiceEntity());
 
 		MockPTGenericInvoiceEntryEntity entryMock = this.createMockEntity(
 				MockPTGenericInvoiceEntryEntity.class,
@@ -64,11 +62,14 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 
 		mock.getEntries().add(entryMock);
 
-		ArrayList<PTGenericInvoiceEntry> entries = (ArrayList<PTGenericInvoiceEntry>) mock.getEntries();
+		ArrayList<PTGenericInvoiceEntry> entries = (ArrayList<PTGenericInvoiceEntry>) mock
+				.getEntries();
 
-		PTGenericInvoice.Builder builder = this.getInstance(PTGenericInvoice.Builder.class);
+		PTGenericInvoice.Builder builder = this
+				.getInstance(PTGenericInvoice.Builder.class);
 
-		PTGenericInvoiceEntry.Builder entry = this.getMock(PTGenericInvoiceEntry.Builder.class);
+		PTGenericInvoiceEntry.Builder entry = this
+				.getMock(PTGenericInvoiceEntry.Builder.class);
 
 		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
@@ -92,14 +93,14 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 		Assert.assertTrue(invoice != null);
 		Assert.assertTrue(invoice.getEntries() != null);
 		Assert.assertEquals(invoice.getEntries().size(), mock.getEntries()
-																.size());
+				.size());
 
 		Assert.assertTrue(invoice.isBilled() == mock.isBilled());
 		Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
 
 		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
-		Assert.assertEquals(
-				mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
+		Assert.assertEquals(mock.getGeneralLedgerDate(),
+				invoice.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
 		Assert.assertEquals(mock.getDate(), invoice.getDate());
 		Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());

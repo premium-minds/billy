@@ -32,7 +32,7 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 	BankAccountBuilder<TBuilder, TBankAccount> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/core/i18n/FieldNames");
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
 	protected DAOBankAccount			daoBankAccount;
 
@@ -44,16 +44,15 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 
 	@Override
 	public TBuilder setIBANNumber(String iban) {
-		BillyValidator.mandatory(
-				iban, BankAccountBuilderImpl.LOCALIZER.getString("field.iban"));
+		BillyValidator.mandatory(iban,
+				BankAccountBuilderImpl.LOCALIZER.getString("field.iban"));
 		this.getTypeInstance().setIBANNumber(iban);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setBankIdentifier(String bankId) {
-		BillyValidator.notBlank(
-				bankId,
+		BillyValidator.notBlank(bankId,
 				BankAccountBuilderImpl.LOCALIZER.getString("field.bank_id"));
 		this.getTypeInstance().setBankIdentifier(bankId);
 		return this.getBuilder();
@@ -61,18 +60,17 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 
 	@Override
 	public TBuilder setBankAccountNumber(String accountNumber) {
-		BillyValidator.mandatory(
-				accountNumber,
-				BankAccountBuilderImpl.LOCALIZER.getString("field.bank_account_number"));
+		BillyValidator.mandatory(accountNumber,
+				BankAccountBuilderImpl.LOCALIZER
+						.getString("field.bank_account_number"));
 		this.getTypeInstance().setBankAccountNumber(accountNumber);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setOwnerName(String ownerName) {
-		BillyValidator.notBlank(
-				ownerName,
-				BankAccountBuilderImpl.LOCALIZER.getString("field.bank_owner_name"));
+		BillyValidator.notBlank(ownerName, BankAccountBuilderImpl.LOCALIZER
+				.getString("field.bank_owner_name"));
 		this.getTypeInstance().setOwnerName(ownerName);
 		return this.getBuilder();
 	}
@@ -82,13 +80,12 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
 		throws javax.validation.ValidationException {
 		BankAccountEntity b = this.getTypeInstance();
 		BillyValidator.mandatory(b.getIBANNumber(), "field.iban");
-		BillyValidator.mandatory(
-				b.getBankAccountNumber(), "field.bank_account_number");
-		BillyValidator.notBlank(
-				b.getOwnerName(),
-				BankAccountBuilderImpl.LOCALIZER.getString("field.bank_owner_name"));
-		BillyValidator.notBlank(
-				b.getBankIdentifier(),
+		BillyValidator.mandatory(b.getBankAccountNumber(),
+				"field.bank_account_number");
+		BillyValidator.notBlank(b.getOwnerName(),
+				BankAccountBuilderImpl.LOCALIZER
+						.getString("field.bank_owner_name"));
+		BillyValidator.notBlank(b.getBankIdentifier(),
 				BankAccountBuilderImpl.LOCALIZER.getString("field.bank_id"));
 	}
 

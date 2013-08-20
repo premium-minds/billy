@@ -56,7 +56,8 @@ public class CertificationManager {
 
 	public String getHashBase64(String source) throws InvalidHashException,
 		InvalidKeyException {
-		String hashBase64 = Base64.encodeBase64String(this.getHashBinary(source));
+		String hashBase64 = Base64.encodeBase64String(this
+				.getHashBinary(source));
 		if (this.autoVerifyHash) {
 			if ((!this.verifyHashBase64(source, hashBase64))
 					|| (hashBase64.length() != CertificationManager.EXPECTED_HASH_LENGTH)) {
@@ -84,7 +85,7 @@ public class CertificationManager {
 			}
 		} catch (SignatureException e) {
 			throw new InvalidHashException(
-											"Signature exception - should not happen");
+					"Signature exception - should not happen");
 		}
 
 		return hash;
@@ -92,7 +93,8 @@ public class CertificationManager {
 
 	public boolean verifyHashBase64(String source, String hashBase64)
 		throws InvalidKeyException {
-		return (this.verifyHashBinary(source, Base64.decodeBase64(hashBase64)) && (hashBase64.length() == CertificationManager.EXPECTED_HASH_LENGTH));
+		return (this.verifyHashBinary(source, Base64.decodeBase64(hashBase64)) && (hashBase64
+				.length() == CertificationManager.EXPECTED_HASH_LENGTH));
 	}
 
 	public boolean verifyHashBinary(String source, byte[] hash)

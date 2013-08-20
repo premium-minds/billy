@@ -50,16 +50,12 @@ public class DAOSupplierImpl extends
 	@Override
 	public List<SupplierEntity> getAllActiveSuppliers() {
 		List<JPASupplierEntity> result = (List<JPASupplierEntity>) this
-																		.getEntityManager()
-																		.createQuery(
-																				"select c from "
-																						+ this
-																								.getEntityClass()
-																								.getCanonicalName()
-																						+ " c "
-																						+ "where c.active=true",
-																				this.getEntityClass())
-																		.getResultList();
+				.getEntityManager()
+				.createQuery(
+						"select c from "
+								+ this.getEntityClass().getCanonicalName()
+								+ " c " + "where c.active=true",
+						this.getEntityClass()).getResultList();
 		return this.checkEntityList(result, SupplierEntity.class);
 	}
 

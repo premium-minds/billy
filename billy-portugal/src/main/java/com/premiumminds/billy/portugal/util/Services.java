@@ -40,20 +40,18 @@ public class Services {
 
 	public Services(Injector injector) {
 		this.injector = injector;
-		this.issuingService = injector.getInstance(DocumentIssuingService.class);
+		this.issuingService = injector
+				.getInstance(DocumentIssuingService.class);
 		this.persistenceService = new PersistenceServices(injector);
 		this.setupServices();
 	}
 
 	private void setupServices() {
-		this.issuingService.addHandler(
-				PTInvoiceEntity.class,
+		this.issuingService.addHandler(PTInvoiceEntity.class,
 				this.injector.getInstance(PTInvoiceIssuingHandler.class));
-		this.issuingService.addHandler(
-				PTCreditNoteEntity.class,
+		this.issuingService.addHandler(PTCreditNoteEntity.class,
 				this.injector.getInstance(PTCreditNoteIssuingHandler.class));
-		this.issuingService.addHandler(
-				PTSimpleInvoiceEntity.class,
+		this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
 				this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
 	}
 

@@ -42,7 +42,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 	TaxBuilder<TBuilder, TTax> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/core/i18n/FieldNames");
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
 	protected DAOTax					daoTax;
 	protected DAOContext				daoContext;
@@ -56,11 +56,9 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setContextUID(UID contextUID) {
-		BillyValidator.notNull(
-				contextUID,
+		BillyValidator.notNull(contextUID,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-		ContextEntity c = BillyValidator.found(
-				this.daoContext.get(contextUID),
+		ContextEntity c = BillyValidator.found(this.daoContext.get(contextUID),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
 		this.getTypeInstance().setContext(c);
 		return this.getBuilder();
@@ -68,8 +66,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setDesignation(String designation) {
-		BillyValidator.notBlank(
-				designation,
+		BillyValidator.notBlank(designation,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_designation"));
 		this.getTypeInstance().setDesignation(designation);
 		return this.getBuilder();
@@ -77,8 +74,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setDescription(String description) {
-		BillyValidator.mandatory(
-				description,
+		BillyValidator.mandatory(description,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
 		this.getTypeInstance().setDescription(description);
 		return this.getBuilder();
@@ -86,43 +82,41 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setCode(String code) {
-		BillyValidator.mandatory(
-				code, TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
+		BillyValidator.mandatory(code,
+				TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
 		this.getTypeInstance().setCode(code);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setValidFrom(Date from) {
-		BillyValidator.notNull(
-				from, TaxBuilderImpl.LOCALIZER.getString("field.valid_from"));
+		BillyValidator.notNull(from,
+				TaxBuilderImpl.LOCALIZER.getString("field.valid_from"));
 		this.getTypeInstance().setValidFrom(from);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setValidTo(Date to) {
-		BillyValidator.notNull(
-				to, TaxBuilderImpl.LOCALIZER.getString("field.valid_to"));
+		BillyValidator.notNull(to,
+				TaxBuilderImpl.LOCALIZER.getString("field.valid_to"));
 		this.getTypeInstance().setValidTo(to);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setValue(BigDecimal value) {
-		BillyValidator.notNull(
-				value, TaxBuilderImpl.LOCALIZER.getString("field.value"));
+		BillyValidator.notNull(value,
+				TaxBuilderImpl.LOCALIZER.getString("field.value"));
 		this.getTypeInstance().setValue(value);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setTaxRate(TaxRateType rateType, BigDecimal amount) {
-		BillyValidator.mandatory(
-				rateType,
+		BillyValidator.mandatory(rateType,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
-		BillyValidator.mandatory(
-				amount,
+		BillyValidator.mandatory(amount,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_amount"));
 		this.getTypeInstance().setTaxRateType(rateType);
 		switch (rateType) {
@@ -131,8 +125,8 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 				this.getTypeInstance().setFlatRateAmount(amount);
 				break;
 			case PERCENTAGE:
-				Validate.exclusiveBetween(
-						BigDecimal.ZERO, new BigDecimal("100"), amount);
+				Validate.exclusiveBetween(BigDecimal.ZERO,
+						new BigDecimal("100"), amount);
 				this.getTypeInstance().setPercentageRateValue(amount);
 				this.getTypeInstance().setFlatRateAmount(BigDecimal.ZERO);
 				break;
@@ -146,8 +140,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setCurrency(Currency currency) {
-		BillyValidator.notNull(
-				currency,
+		BillyValidator.notNull(currency,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_currency"));
 		this.getTypeInstance().setCurrency(currency);
 		return this.getBuilder();
@@ -157,32 +150,27 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 	protected void validateInstance()
 		throws javax.validation.ValidationException {
 		Tax t = this.getTypeInstance();
-		BillyValidator.notNull(
-				t.getContext(),
+		BillyValidator.notNull(t.getContext(),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-		BillyValidator.mandatory(
-				t.getDescription(),
+		BillyValidator.mandatory(t.getDescription(),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
-		BillyValidator.mandatory(
-				t.getCode(),
+		BillyValidator.mandatory(t.getCode(),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
-		BillyValidator.mandatory(
-				t.getTaxRateType(),
+		BillyValidator.mandatory(t.getTaxRateType(),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
 
 		switch (t.getTaxRateType()) {
 			case FLAT:
-				BillyValidator.mandatory(
-						t.getFlatRateAmount(),
-						TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_flat_amount"));
-				BillyValidator.mandatory(
-						t.getCurrency(),
-						TaxBuilderImpl.LOCALIZER.getString("field.tax_currency"));
+				BillyValidator.mandatory(t.getFlatRateAmount(),
+						TaxBuilderImpl.LOCALIZER
+								.getString("field.tax_rate_flat_amount"));
+				BillyValidator.mandatory(t.getCurrency(),
+						TaxBuilderImpl.LOCALIZER
+								.getString("field.tax_currency"));
 				break;
 			case PERCENTAGE:
-				Validate.inclusiveBetween(
-						BigDecimal.ZERO, new BigDecimal("100"),
-						t.getPercentageRateValue());
+				Validate.inclusiveBetween(BigDecimal.ZERO,
+						new BigDecimal("100"), t.getPercentageRateValue());
 				break;
 			case NONE:
 				break;

@@ -28,7 +28,7 @@ public class PortugalTestPersistenceDependencyModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		JpaPersistModule persistModule = new JpaPersistModule(
-																"BillyPortugalTestPersistenceUnit");
+				"BillyPortugalTestPersistenceUnit");
 		this.install(persistModule);
 	}
 

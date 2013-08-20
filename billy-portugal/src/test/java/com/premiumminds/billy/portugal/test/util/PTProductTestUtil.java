@@ -47,7 +47,7 @@ public class PTProductTestUtil {
 
 	public PTProductEntity getProductEntity(String uid) {
 		PTProductEntity product = (PTProductEntity) this.getProductBuilder()
-														.build();
+				.build();
 		product.setUID(new UID(uid));
 
 		return product;
@@ -60,20 +60,18 @@ public class PTProductTestUtil {
 	public PTProduct.Builder getProductBuilder(String productCode,
 			String unitMesure, String numberCode, String group,
 			String description, ProductType type) {
-		PTProduct.Builder productBuilder = this.injector.getInstance(PTProduct.Builder.class);
+		PTProduct.Builder productBuilder = this.injector
+				.getInstance(PTProduct.Builder.class);
 
 		return productBuilder.addTaxUID(this.tax.getUID())
-								.setNumberCode(numberCode)
-								.setUnitOfMeasure(unitMesure)
-								.setProductCode(productCode)
-								.setDescription(description).setType(type)
-								.setProductGroup(group);
+				.setNumberCode(numberCode).setUnitOfMeasure(unitMesure)
+				.setProductCode(productCode).setDescription(description)
+				.setType(type).setProductGroup(group);
 
 	}
 
 	public PTProduct.Builder getProductBuilder() {
-		return this.getProductBuilder(
-				PTProductTestUtil.PRODUCT_CODE,
+		return this.getProductBuilder(PTProductTestUtil.PRODUCT_CODE,
 				PTProductTestUtil.UNIT_OF_MEASURE,
 				PTProductTestUtil.NUMBER_CODE, PTProductTestUtil.GROUP,
 				PTProductTestUtil.DESCRIPTION, PTProductTestUtil.TYPE);
@@ -81,9 +79,9 @@ public class PTProductTestUtil {
 
 	public PTProductEntity getProductEntity(String productCode,
 			String unitMesure, String numberCode, String group, ProductType type) {
-		return (PTProductEntity) this.getProductBuilder(
-				productCode, unitMesure, numberCode, group,
-				PTProductTestUtil.DESCRIPTION, type).build();
+		return (PTProductEntity) this.getProductBuilder(productCode,
+				unitMesure, numberCode, group, PTProductTestUtil.DESCRIPTION,
+				type).build();
 
 	}
 }

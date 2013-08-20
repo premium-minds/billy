@@ -34,7 +34,8 @@ public class ConcurrentTestUtil {
 	}
 
 	public List<Future<?>> runThreads(Callable<?> callable) {
-		ExecutorService executor = Executors.newFixedThreadPool(this.totalThreads);
+		ExecutorService executor = Executors
+				.newFixedThreadPool(this.totalThreads);
 		ArrayList<Future<?>> futures = new ArrayList<Future<?>>();
 
 		for (int i = 0; i < this.totalThreads; i++) {

@@ -37,14 +37,16 @@ public class PTSupplierPersistenceService<T extends PTSupplier> extends
 
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		final DAOPTSupplier dao = this.injector.getInstance(DAOPTSupplier.class);
+		final DAOPTSupplier dao = this.injector
+				.getInstance(DAOPTSupplier.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder.build();
+					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
+							.build();
 					return (T) dao.create(supplierEntity);
 				}
 
@@ -56,14 +58,16 @@ public class PTSupplierPersistenceService<T extends PTSupplier> extends
 
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		final DAOPTSupplier dao = this.injector.getInstance(DAOPTSupplier.class);
+		final DAOPTSupplier dao = this.injector
+				.getInstance(DAOPTSupplier.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder.build();
+					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
+							.build();
 					return (T) dao.update(supplierEntity);
 				}
 

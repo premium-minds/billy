@@ -39,11 +39,8 @@ public class Config {
 	}
 
 	private Properties load() {
-		InputStream stream = Thread
-									.currentThread()
-									.getContextClassLoader()
-									.getResourceAsStream(
-											Config.CONFIGURATIONS_FILE_NAME);
+		InputStream stream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(Config.CONFIGURATIONS_FILE_NAME);
 		Properties properties = new Properties();
 		try {
 			properties.load(stream);

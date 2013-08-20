@@ -35,7 +35,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 	ApplicationBuilder<TBuilder, TApplication> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-																	"com/premiumminds/billy/core/i18n/FieldNames");
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
 	protected DAOApplication			daoApplication;
 
@@ -47,17 +47,15 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(
-				name,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.application_name"));
+		BillyValidator.mandatory(name, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.application_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setVersion(String version) {
-		BillyValidator.mandatory(
-				version,
+		BillyValidator.mandatory(version,
 				ApplicationBuilderImpl.LOCALIZER.getString("field.version"));
 		this.getTypeInstance().setVersion(version);
 		return this.getBuilder();
@@ -65,27 +63,24 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setDeveloperCompanyName(String name) {
-		BillyValidator.mandatory(
-				name,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.developer_name"));
+		BillyValidator.mandatory(name, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.developer_name"));
 		this.getTypeInstance().setDeveloperCompanyName(name);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setDeveloperCompanyTaxIdentifier(String id) {
-		BillyValidator.mandatory(
-				id,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.developer_tax_id"));
+		BillyValidator.mandatory(id, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.developer_tax_id"));
 		this.getTypeInstance().setDeveloperCompanyTaxIdentifier(id);
 		return this.getBuilder();
 	}
 
 	@Override
 	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
-		BillyValidator.notNull(
-				contactBuilder,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.application_contact"));
+		BillyValidator.notNull(contactBuilder, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.application_contact"));
 		ContactEntity contact = (ContactEntity) contactBuilder.build();
 		this.getTypeInstance().getContacts().add(contact);
 		if (this.getTypeInstance().getContacts().size() == 1) {
@@ -96,9 +91,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder) {
-		BillyValidator.notNull(
-				contactBuilder,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.application_main_contact"));
+		BillyValidator.notNull(contactBuilder, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.application_main_contact"));
 		this.getTypeInstance().setMainContact(
 				(ContactEntity) contactBuilder.build());
 		return this.getBuilder();
@@ -106,9 +100,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setWebsiteAddress(String website) {
-		BillyValidator.notBlank(
-				website,
-				ApplicationBuilderImpl.LOCALIZER.getString("field.application_website"));
+		BillyValidator.notBlank(website, ApplicationBuilderImpl.LOCALIZER
+				.getString("field.application_website"));
 		this.getTypeInstance().setWebsiteAddress(website);
 		return this.getBuilder();
 	}
@@ -117,21 +110,21 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 	protected void validateInstance()
 		throws javax.validation.ValidationException {
 		ApplicationEntity application = this.getTypeInstance();
-		BillyValidator.mandatory(
-				application.getName(),
-				ApplicationBuilderImpl.LOCALIZER.getString("field.application_name"));
-		BillyValidator.mandatory(
-				application.getVersion(),
+		BillyValidator.mandatory(application.getName(),
+				ApplicationBuilderImpl.LOCALIZER
+						.getString("field.application_name"));
+		BillyValidator.mandatory(application.getVersion(),
 				ApplicationBuilderImpl.LOCALIZER.getString("field.version"));
-		BillyValidator.mandatory(
-				application.getDeveloperCompanyName(),
-				ApplicationBuilderImpl.LOCALIZER.getString("field.developer_name"));
+		BillyValidator.mandatory(application.getDeveloperCompanyName(),
+				ApplicationBuilderImpl.LOCALIZER
+						.getString("field.developer_name"));
 		BillyValidator.mandatory(
 				application.getDeveloperCompanyTaxIdentifier(),
-				ApplicationBuilderImpl.LOCALIZER.getString("field.developer_tax_id"));
-		BillyValidator.notEmpty(
-				application.getContacts(),
-				ApplicationBuilderImpl.LOCALIZER.getString("field.application_contact"));
+				ApplicationBuilderImpl.LOCALIZER
+						.getString("field.developer_tax_id"));
+		BillyValidator.notEmpty(application.getContacts(),
+				ApplicationBuilderImpl.LOCALIZER
+						.getString("field.application_contact"));
 	}
 
 	@SuppressWarnings("unchecked")

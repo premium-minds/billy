@@ -37,9 +37,8 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 	@Before
 	public void setUp() {
 		this.service = this.getInstance(DocumentIssuingService.class);
-		this.service.addHandler(
-				PTInvoiceEntity.class,
-				PTAbstractTest.injector.getInstance(PTInvoiceIssuingHandler.class));
+		this.service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
+				.getInstance(PTInvoiceIssuingHandler.class));
 
 		this.parameters.setInvoiceSeries("A");
 	}
@@ -47,9 +46,8 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuingService() throws DocumentIssuingException {
 
-		this.service.issue(
-				new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(
-						(new UID()).toString(), SourceBilling.P),
+		this.service.issue(new PTInvoiceTestUtil(PTAbstractTest.injector)
+				.getInvoiceBuilder((new UID()).toString(), SourceBilling.P),
 				this.parameters);
 
 	}

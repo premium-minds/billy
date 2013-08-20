@@ -63,16 +63,14 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 		ExportServiceException, FileNotFoundException, URISyntaxException {
 		InputStream xsl = new FileInputStream(
-												TestPTSimpleInvoicePDFExportHandler.XSL_PATH);
+				TestPTSimpleInvoicePDFExportHandler.XSL_PATH);
 
 		PTSimpleInvoiceTemplateBundle bundle = new PTSimpleInvoiceTemplateBundle(
-																					TestPTSimpleInvoicePDFExportHandler.LOGO_PATH,
-																					xsl,
-																					TestPTSimpleInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestPTSimpleInvoicePDFExportHandler.LOGO_PATH, xsl,
+				TestPTSimpleInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
 		PTSimpleInvoicePDFExportHandler handler = new PTSimpleInvoicePDFExportHandler(
-																						PTAbstractTest.injector.getInstance(DAOPTSimpleInvoice.class));
-		handler.toFile(
-				new URI(TestPTSimpleInvoicePDFExportHandler.URI_PATH),
+				PTAbstractTest.injector.getInstance(DAOPTSimpleInvoice.class));
+		handler.toFile(new URI(TestPTSimpleInvoicePDFExportHandler.URI_PATH),
 				this.generatePTSimpleInvoice(PaymentMechanism.CASH), bundle);
 	}
 
@@ -80,9 +78,10 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 			PaymentMechanism paymentMechanism) {
 
 		PTSimpleInvoiceEntity simpleInvoice = new PTSimpleInvoiceTestUtil(
-																			PTAbstractTest.injector).getSimpleInvoiceEntity();
+				PTAbstractTest.injector).getSimpleInvoiceEntity();
 		simpleInvoice.setPaymentMechanism(paymentMechanism);
-		simpleInvoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+		simpleInvoice
+				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
 		return simpleInvoice;
 	}
