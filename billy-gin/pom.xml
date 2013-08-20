@@ -48,14 +48,14 @@
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core-jpa</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 
 		<!-- PERSISTENCE -->
