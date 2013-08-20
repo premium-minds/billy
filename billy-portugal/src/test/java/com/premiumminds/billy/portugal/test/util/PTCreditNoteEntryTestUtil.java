@@ -23,10 +23,8 @@ import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
@@ -36,8 +34,6 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTCreditNoteEntryTestUtil {
 
-	private static final String PRODUCT = "PRODUCT_UID";
-	private static final String INVOICEREFERENCE = "INVOICE";
 	private static final BigDecimal AMOUNT = new BigDecimal(20);
 	private static final Currency CURRENCY = Currency.getInstance("EUR");
 	private static final BigDecimal QUANTITY = new BigDecimal(1);
@@ -53,17 +49,15 @@ public class PTCreditNoteEntryTestUtil {
 	}
 
 	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder(
-			String productUID, String invoiceReference) {
+			PTInvoiceEntity reference) {
 		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector
 				.getInstance(PTCreditNoteEntry.Builder.class);
 
-		final PTProductEntity newProduct = (PTProductEntity) this.injector
-				.getInstance(DAOPTProduct.class).get(new UID(productUID));
-		final PTInvoiceEntity reference = (PTInvoiceEntity) this.injector
-				.getInstance(DAOPTInvoice.class).get(new UID(invoiceReference));
-		this.context = this.contexts.portugal().portugal();
+		PTProductEntity newProduct = (PTProductEntity) injector.getInstance(
+				DAOPTProduct.class).create(
+				new PTProductTestUtil(injector).getProductEntity());
 
-		creditNoteEntryBuilder.clear();
+		this.context = this.contexts.portugal().portugal();
 
 		creditNoteEntryBuilder
 				.setUnitAmount(AmountType.WITH_TAX,
@@ -82,9 +76,4 @@ public class PTCreditNoteEntryTestUtil {
 		return creditNoteEntryBuilder;
 	}
 
-	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder() {
-		return this.getCreditNoteEntryBuilder(
-				PTCreditNoteEntryTestUtil.PRODUCT,
-				PTCreditNoteEntryTestUtil.INVOICEREFERENCE);
-	}
 }

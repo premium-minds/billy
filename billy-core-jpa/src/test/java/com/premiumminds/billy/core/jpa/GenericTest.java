@@ -101,7 +101,8 @@ public class GenericTest {
 				.addContact(
 						contactBuilder.setName("name").setEmail("email")
 								.setFax("fax").setMobile("mobile")
-								.setTelephone("phone").setWebsite("website"))
+								.setTelephone("phone").setWebsite("website"),
+						true)
 				.setAddress(
 						addressBuilder.setBuilding("building").setCity("city")
 								.setDetails("details").setISOCountry("PT")

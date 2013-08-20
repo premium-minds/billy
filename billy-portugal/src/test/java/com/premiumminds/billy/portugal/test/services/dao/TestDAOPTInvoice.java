@@ -18,51 +18,43 @@
  */
 package com.premiumminds.billy.portugal.test.services.dao;
 
-import java.util.Arrays;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
-import org.junit.Before;
+import java.rmi.server.UID;
+
 import org.junit.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
-import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
-import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
-	private PTInvoiceTestUtil invoiceUtil;
-	private PTInvoiceEntity invoiceEntity;
-	private DAOPTInvoice dao;
-	private final static Integer LAST_NUMBER = 20;
-	private final static TYPE INVOICE_TYPE = TYPE.FT;
-
-	@Before
-	public void setUp() {
-		this.invoiceUtil = new PTInvoiceTestUtil(PTAbstractTest.injector);
-		this.invoiceEntity = this.invoiceUtil.getInvoiceEntity();
-		this.dao = this.getInstance(DAOPTInvoice.class);
-		this.dao.create(this.invoiceEntity);
-		this.dao.create(this.invoiceUtil.getInvoiceEntity(
-				TestDAOPTInvoice.INVOICE_TYPE, this.invoiceEntity.getSeries(),
-				"test uid", TestDAOPTInvoice.LAST_NUMBER, "entry uid", "buid",
-				"cuid", Arrays.asList("limoes")));
+	@Test
+	public void testLastInvoiceNumber() {
+		String B1 = "B1";
+		getNewIssuedInvoice(B1);
+		getNewIssuedInvoice(B1);
+		PTInvoiceEntity resultInvoice2 = getNewIssuedInvoice(B1);
+		assertEquals(new Integer(3), resultInvoice2.getSeriesNumber());
 	}
 
 	@Test
-	public void testLastInvoiceNumber() {
-		PTInvoiceEntity resultInvoice = this.dao
-				.getLatestInvoiceFromSeries(this.invoiceEntity.getSeries());
-		Assert.assertEquals(resultInvoice.getSeriesNumber(),
-				TestDAOPTInvoice.LAST_NUMBER);
+	public void testLastInvoiceNumberWithDifferentBusiness() {
+		String B1 = "B1";
+		String B2 = "B2";
+		getNewIssuedInvoice(B1);
+		getNewIssuedInvoice(B2);
+		PTInvoiceEntity resultInvoice1 = getNewIssuedInvoice(B1);
+		PTInvoiceEntity resultInvoice2 = getNewIssuedInvoice(B2);
+		assertEquals(new Integer(2), resultInvoice1.getSeriesNumber());
+		assertEquals(new Integer(2), resultInvoice2.getSeriesNumber());
 	}
 
 	@Test(expected = BillyRuntimeException.class)
 	public void testWithNoInvoice() {
-		System.out.println(this.dao
-				.getLatestInvoiceFromSeries("NON EXISTING SERIES"));
+		getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries(
+				"NON EXISTING SERIES", (new UID().toString()));
 	}
 }

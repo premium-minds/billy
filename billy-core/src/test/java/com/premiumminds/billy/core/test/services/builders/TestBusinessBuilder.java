@@ -86,7 +86,7 @@ public class TestBusinessBuilder extends AbstractTest {
 				.setBillingAddress(mockBillingAddressBuilder)
 				.setShippingAddress(mockShippingAddressBuilder)
 				.addApplication(mockApplicationBuilder)
-				.addContact(mockMainContactBuilder)
+				.addContact(mockMainContactBuilder, true)
 				.setWebsite(mockBusiness.getWebsiteAddress())
 				.setOperationalContextUID(
 						mockBusiness.getOperationalContext().getUID());

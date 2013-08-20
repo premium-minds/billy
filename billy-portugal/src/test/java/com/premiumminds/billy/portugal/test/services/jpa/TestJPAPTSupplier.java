@@ -18,48 +18,45 @@
  */
 package com.premiumminds.billy.portugal.test.services.jpa;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
-import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTSupplierTestUtil;
 
-public class TestJPAPTSupplier extends PTPersistencyAbstractTest {
+public class TestJPAPTSupplier extends PTJPAAbstractTest {
+
+	private TransactionWrapper<Void> transaction;
+
+	@Before
+	public void setUp() {
+		this.transaction = new TransactionWrapper<Void>(
+				injector.getInstance(DAOPTInvoice.class)) {
+
+			@Override
+			public Void runTransaction() throws Exception {
+				final PTSupplierTestUtil supplier = new PTSupplierTestUtil(
+						injector);
+				DAOPTSupplier daoPTSupplier = injector
+						.getInstance(DAOPTSupplier.class);
+
+				PTSupplierEntity newSupplier = supplier.getSupplierEntity();
+
+				daoPTSupplier.create(newSupplier);
+
+				return null;
+			}
+
+		};
+	}
 
 	@Test
-	public void doTest() {
-		TestJPAPTSupplier.execute(PTAbstractTest.injector);
-		// assert
+	public void doTest() throws Exception {
+		TestJPAPTSupplier.execute(PTAbstractTest.injector, transaction);
 	}
 
-	public static void execute(final Injector injector) {
-		DAO<?> dao = injector.getInstance(DAOPTInvoice.class);
-		final PTSupplierTestUtil supplier = new PTSupplierTestUtil(injector);
-
-		try {
-			new TransactionWrapper<Void>(dao) {
-
-				@Override
-				public Void runTransaction() throws Exception {
-					DAOPTSupplier daoPTSupplier = injector
-							.getInstance(DAOPTSupplier.class);
-
-					PTSupplierEntity newSupplier = supplier.getSupplierEntity();
-
-					daoPTSupplier.create(newSupplier);
-
-					return null;
-				}
-
-			}.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

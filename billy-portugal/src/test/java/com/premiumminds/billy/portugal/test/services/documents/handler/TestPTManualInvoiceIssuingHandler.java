@@ -38,6 +38,7 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	private static final SourceBilling SOURCE_BILLING = SourceBilling.M;
 
 	private PTInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
 
 	@Before
 	public void setUpNewManualInvoice() {
@@ -46,14 +47,11 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		try {
 			PTInvoiceEntity invoice = this.newInvoice(
 					TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE,
-					PTDocumentAbstractTest.INVOICE_UID,
-					PTDocumentAbstractTest.PRODUCT_UID,
-					PTDocumentAbstractTest.BUSINESS_UID,
-					PTDocumentAbstractTest.CUSTOMER_UID,
 					TestPTManualInvoiceIssuingHandler.SOURCE_BILLING);
 
 			this.issueNewInvoice(this.handler, invoice,
 					PTDocumentAbstractTest.DEFAULT_SERIES);
+			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}
@@ -62,8 +60,7 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuedManualInvoiceSimple() throws DocumentIssuingException {
 		PTInvoiceEntity issuedInvoice = (PTInvoiceEntity) this.getInstance(
-				DAOPTInvoice.class).get(
-				new UID(PTDocumentAbstractTest.INVOICE_UID));
+				DAOPTInvoice.class).get(issuedInvoiceUID);
 
 		Assert.assertEquals(PTDocumentAbstractTest.DEFAULT_SERIES,
 				issuedInvoice.getSeries());
@@ -82,14 +79,13 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	 */
 	@Test(expected = InvalidSourceBillingException.class)
 	public void testDifferentBilling() throws DocumentIssuingException {
-		String UID1 = "invoice_uid_1";
-		String PUID1 = "product_uid_1";
-		String BUID1 = "business_uid_1";
-		String CUID1 = "customer_uid_1";
+		PTInvoiceEntity issuedInvoice = (PTInvoiceEntity) this.getInstance(
+				DAOPTInvoice.class).get(issuedInvoiceUID);
 
-		PTInvoiceEntity normalInvoice = this.newInvoice(
-				TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE, UID1, PUID1,
-				BUID1, CUID1, SourceBilling.P);
+		PTInvoiceEntity normalInvoice = this
+				.newInvoice(TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE,
+						SourceBilling.P);
+		normalInvoice.setBusiness(issuedInvoice.getBusiness());
 
 		this.issueNewInvoice(this.handler, normalInvoice,
 				PTDocumentAbstractTest.DEFAULT_SERIES);

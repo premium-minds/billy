@@ -71,7 +71,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 				@Override
 				public T runTransaction() throws Exception {
 					PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
-					TYPE documentType = ((PTGenericInvoice) document).getType();
 					SourceBilling sourceBilling = ((PTGenericInvoice) document)
 							.getSourceBilling();
 					Date invoiceDate = document.getDate();
@@ -87,14 +86,12 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 
 					try {
 						PTGenericInvoiceEntity latestInvoice = daoInvoice
-								.getLatestInvoiceFromSeries(series);
+								.getLatestInvoiceFromSeries(series, document
+										.getBusiness().getUID().toString());
 						Date latestInvoiceDate = latestInvoice.getDate();
 
 						PTGenericInvoiceIssuingHandler.this
-								.validateDocumentType(documentType,
-										invoiceType, series);
-						PTGenericInvoiceIssuingHandler.this
-								.validateDocumentType(documentType,
+								.validateDocumentType(invoiceType,
 										latestInvoice.getType(), series);
 
 						if (!latestInvoice.getSourceBilling().equals(
@@ -141,7 +138,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 					documentEntity.setHashControl(parametersPT
 							.getPrivateKeyVersion());
 					documentEntity.setEACCode(parametersPT.getEACCode());
-					documentEntity.setSourceBilling(sourceBilling);
 
 					daoInvoice.create(documentEntity);
 

@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
@@ -30,18 +31,19 @@ import org.junit.Test;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNoteTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
-import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.util.Services;
 
 public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest {
 
@@ -65,7 +67,6 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 			ExportServiceException, FileNotFoundException, URISyntaxException {
-		System.out.println(TestPTCreditNotePDFExportHandler.URI_PATH);
 		InputStream xsl = new FileInputStream(
 				TestPTCreditNotePDFExportHandler.XSL_PATH);
 		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
@@ -74,28 +75,34 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 
 		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
-		handler.toFile(new URI(TestPTCreditNotePDFExportHandler.URI_PATH),
-				this.generatePTCreditNote(PaymentMechanism.CASH), bundle);
+		handler.toFile(new URI(TestPTCreditNotePDFExportHandler.URI_PATH), this
+				.generatePTCreditNote(PaymentMechanism.CASH,
+						getNewIssuedInvoice()), bundle);
 	}
 
 	private PTCreditNoteEntity generatePTCreditNote(
-			PaymentMechanism paymentMechanism) {
-		PTInvoiceTestUtil invoiceUtil = new PTInvoiceTestUtil(
-				PTAbstractTest.injector);
-		PTInvoiceEntity invoice = invoiceUtil.getInvoiceEntity();
-		DAOPTInvoice dao = PTAbstractTest.injector
-				.getInstance(DAOPTInvoice.class);
-		dao.create(invoice);
+			PaymentMechanism paymentMechanism, PTInvoiceEntity reference) {
 
-		PTCreditNoteTestUtil creditNoteUtil = new PTCreditNoteTestUtil(
-				PTAbstractTest.injector);
-		PTCreditNoteEntity creditNote = creditNoteUtil.getCreditNoteEntity();
-		creditNote.setPaymentMechanism(paymentMechanism);
-		creditNote.setCustomer((CustomerEntity) invoice.getCustomer());
-		creditNote.setBusiness((BusinessEntity) invoice.getBusiness());
-		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
-		creditNote
-				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+		Services services = new Services(injector);
+
+		PTIssuingParams params = getParameters("AC", "3000", "1");
+
+		PTCreditNoteEntity creditNote = null;
+		try {
+			creditNote = (PTCreditNoteEntity) services.issueDocument(
+					new PTCreditNoteTestUtil(injector)
+							.getCreditNoteBuilder(reference), params);
+
+			creditNote.setPaymentMechanism(paymentMechanism);
+			creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+			creditNote.setBusiness((BusinessEntity) reference.getBusiness());
+			creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+			creditNote
+					.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
 
 		return creditNote;
 	}

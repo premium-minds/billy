@@ -18,49 +18,45 @@
  */
 package com.premiumminds.billy.portugal.test.services.jpa;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
-import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCustomerTestUtil;
 
-public class TestJPAPTCustomer extends PTPersistencyAbstractTest {
+public class TestJPAPTCustomer extends PTJPAAbstractTest {
 
-	@Test
-	public void doTest() {
-		TestJPAPTCustomer.execute(PTAbstractTest.injector);
-		// assert
+	private TransactionWrapper<Void> transaction;
+
+	@Before
+	public void setUp() {
+		this.transaction = new TransactionWrapper<Void>(
+				injector.getInstance(DAOPTInvoice.class)) {
+
+			@Override
+			public Void runTransaction() throws Exception {
+				final PTCustomerTestUtil customer = new PTCustomerTestUtil(
+						injector);
+				DAOPTCustomer daoPTCustomer = injector
+						.getInstance(DAOPTCustomer.class);
+
+				PTCustomerEntity newCustomer = customer.getCustomerEntity();
+
+				daoPTCustomer.create(newCustomer);
+
+				return null;
+			}
+
+		};
 	}
 
-	public static void execute(final Injector injector) {
-		DAO<?> dao = injector.getInstance(DAOPTInvoice.class);
-		final PTCustomerTestUtil customer = new PTCustomerTestUtil(injector);
-
-		try {
-			new TransactionWrapper<Void>(dao) {
-
-				@Override
-				public Void runTransaction() throws Exception {
-					DAOPTCustomer daoPTCustomer = injector
-							.getInstance(DAOPTCustomer.class);
-
-					PTCustomerEntity newCustomer = customer.getCustomerEntity();
-
-					daoPTCustomer.create(newCustomer);
-
-					return null;
-				}
-
-			}.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Test
+	public void testSimpleCustomerCreate() throws Exception {
+		TestJPAPTCustomer.execute(PTAbstractTest.injector, transaction);
 	}
 
 }
