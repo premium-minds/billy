@@ -36,6 +36,7 @@ import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
 	private TransactionWrapper<Void>	transaction;
+	private static final String			BUSINESS_UID	= "Biz";
 
 	class TestRunner implements Callable<Void> {
 
@@ -61,9 +62,8 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
 			@Override
 			public Void runTransaction() throws Exception {
-				PTBusinessTestUtil business = new PTBusinessTestUtil(
-						PTAbstractTest.injector);
-				business.getBusinessEntity("Biz");
+				new PTBusinessTestUtil(PTAbstractTest.injector)
+						.getBusinessEntity(BUSINESS_UID);
 				return null;
 			}
 		};
@@ -82,6 +82,6 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
 		DAOPTBusiness biz = PTAbstractTest.injector
 				.getInstance(DAOPTBusiness.class);
-		Assert.assertTrue(biz.exists(new UID("Biz")));
+		Assert.assertTrue(biz.exists(new UID(BUSINESS_UID)));
 	}
 }
