@@ -67,7 +67,8 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
-		ExportServiceException, FileNotFoundException, URISyntaxException {
+		ExportServiceException, FileNotFoundException, URISyntaxException,
+		DocumentIssuingException {
 		InputStream xsl = new FileInputStream(
 				TestPTCreditNotePDFExportHandler.XSL_PATH);
 		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
@@ -83,28 +84,24 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 	}
 
 	private PTCreditNoteEntity generatePTCreditNote(
-			PaymentMechanism paymentMechanism, PTInvoiceEntity reference) {
+			PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
+		throws DocumentIssuingException {
 
 		Services services = new Services(PTAbstractTest.injector);
 
 		PTIssuingParams params = this.getParameters("AC", "3000", "1");
 
 		PTCreditNoteEntity creditNote = null;
-		try {
-			creditNote = (PTCreditNoteEntity) services.issueDocument(
-					new PTCreditNoteTestUtil(PTAbstractTest.injector)
-							.getCreditNoteBuilder(reference), params);
+		creditNote = (PTCreditNoteEntity) services.issueDocument(
+				new PTCreditNoteTestUtil(PTAbstractTest.injector)
+						.getCreditNoteBuilder(reference), params);
 
-			creditNote.setPaymentMechanism(paymentMechanism);
-			creditNote.setCustomer((CustomerEntity) reference.getCustomer());
-			creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-			creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
-			creditNote
-					.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-
-		} catch (DocumentIssuingException e) {
-			e.printStackTrace();
-		}
+		creditNote.setPaymentMechanism(paymentMechanism);
+		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
+		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+		creditNote
+				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
 		return creditNote;
 	}

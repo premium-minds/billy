@@ -30,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
+import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 import com.premiumminds.billy.portugal.util.Services;
@@ -72,8 +73,9 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 		try {
 			return (PTInvoiceEntity) service.issueDocument(
 					new PTInvoiceTestUtil(PTAbstractTest.injector)
-							.getInvoiceBuilder(businessUID, SourceBilling.P),
-					parameters);
+							.getInvoiceBuilder(new PTBusinessTestUtil(injector)
+									.getBusinessEntity(businessUID),
+									SourceBilling.P), parameters);
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}

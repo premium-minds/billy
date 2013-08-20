@@ -22,12 +22,8 @@ import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
@@ -66,16 +62,6 @@ public class PTCreditNoteTestUtil {
 
 	public PTCreditNote.Builder getCreditNoteBuilder(PTInvoiceEntity reference) {
 
-		PTBusinessEntity business = (PTBusinessEntity) this.injector
-				.getInstance(DAOPTBusiness.class).create(
-						new PTBusinessTestUtil(this.injector)
-								.getBusinessEntity());
-
-		PTCustomerEntity customer = (PTCustomerEntity) this.injector
-				.getInstance(DAOPTCustomer.class).create(
-						new PTCustomerTestUtil(this.injector)
-								.getCustomerEntity());
-
 		PTCreditNote.Builder creditNoteBuilder = this.injector
 				.getInstance(PTCreditNote.Builder.class);
 
@@ -87,9 +73,9 @@ public class PTCreditNoteTestUtil {
 				.setSelfBilled(PTCreditNoteTestUtil.SELFBILL)
 				.setDate(new Date()).setSourceId(PTCreditNoteTestUtil.SOURCEID)
 				.addEntry(creditNoteEntryBuilder)
-				.setBusinessUID(business.getUID())
+				.setBusinessUID(reference.getBusiness().getUID())
 				.setSourceBilling(SourceBilling.P)
-				.setCustomerUID(customer.getUID());
+				.setCustomerUID(reference.getCustomer().getUID());
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity(PTInvoiceEntity reference) {

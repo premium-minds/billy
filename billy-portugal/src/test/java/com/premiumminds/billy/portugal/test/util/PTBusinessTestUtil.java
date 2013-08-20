@@ -55,10 +55,7 @@ public class PTBusinessTestUtil {
 	}
 
 	public PTBusinessEntity getBusinessEntity() {
-		PTBusinessEntity business = (PTBusinessEntity) this
-				.getBusinessBuilder().build();
-
-		return business;
+		return getBusinessEntity(new UID().toString());
 	}
 
 	public PTBusinessEntity getBusinessEntity(String uid) {
@@ -69,6 +66,7 @@ public class PTBusinessTestUtil {
 		} catch (NoResultException e) {
 			business = (PTBusinessEntity) this.getBusinessBuilder().build();
 			business.setUID(new UID(uid));
+			injector.getInstance(DAOPTBusiness.class).create(business);
 		}
 
 		return business;

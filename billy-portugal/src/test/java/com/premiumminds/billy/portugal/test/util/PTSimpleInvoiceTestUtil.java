@@ -23,7 +23,6 @@ import java.util.Date;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
@@ -73,13 +72,10 @@ public class PTSimpleInvoiceTestUtil {
 		PTSimpleInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTSimpleInvoice.Builder.class);
 
-		DAOPTBusiness daoPTBusiness = this.injector
-				.getInstance(DAOPTBusiness.class);
 		DAOPTCustomer daoPTCustomer = this.injector
 				.getInstance(DAOPTCustomer.class);
 
 		PTBusinessEntity businessEntity = this.business.getBusinessEntity();
-		UID businessUID = daoPTBusiness.create(businessEntity).getUID();
 
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
@@ -96,7 +92,7 @@ public class PTSimpleInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
-				.setBusinessUID(businessUID);
+				.setBusinessUID(businessEntity.getUID());
 	}
 
 }

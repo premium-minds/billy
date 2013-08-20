@@ -29,7 +29,6 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.util.ConcurrentTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
@@ -64,14 +63,7 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
 			public Void runTransaction() throws Exception {
 				PTBusinessTestUtil business = new PTBusinessTestUtil(
 						PTAbstractTest.injector);
-				DAOPTBusiness daoPTBusiness = PTAbstractTest.injector
-						.getInstance(DAOPTBusiness.class);
-
-				PTBusinessEntity newBusiness = business.getBusinessEntity();
-				newBusiness.setUID(new UID("Biz"));
-
-				daoPTBusiness.create(newBusiness);
-
+				business.getBusinessEntity("Biz");
 				return null;
 			}
 		};

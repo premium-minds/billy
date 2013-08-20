@@ -20,12 +20,9 @@ package com.premiumminds.billy.portugal.test.util;
 
 import java.util.Date;
 
-import javax.persistence.PersistenceException;
-
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
@@ -65,31 +62,20 @@ public class PTInvoiceTestUtil {
 
 	public PTInvoiceEntity getInvoiceEntity(SourceBilling billing) {
 		PTInvoiceEntity invoice = (PTInvoiceEntity) this.getInvoiceBuilder(
-				new UID().toString(), billing).build();
+				business.getBusinessEntity(), billing).build();
 		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
-	public PTInvoice.Builder getInvoiceBuilder(String buissnesUid,
+	public PTInvoice.Builder getInvoiceBuilder(PTBusinessEntity business,
 			SourceBilling billing) {
+
 		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
-		DAOPTBusiness daoPTBusiness = this.injector
-				.getInstance(DAOPTBusiness.class);
 		DAOPTCustomer daoPTCustomer = this.injector
 				.getInstance(DAOPTCustomer.class);
-
-		PTBusinessEntity businessEntity = this.business
-				.getBusinessEntity(buissnesUid);
-
-		UID businessUID = businessEntity.getUID();
-		try {
-			daoPTBusiness.create(businessEntity).getUID();
-		} catch (PersistenceException e) {
-
-		}
 
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
@@ -106,6 +92,6 @@ public class PTInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
-				.setBusinessUID(businessUID);
+				.setBusinessUID(business.getUID());
 	}
 }

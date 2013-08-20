@@ -21,13 +21,13 @@ package com.premiumminds.billy.portugal.test.services.documents;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
+import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestDocumentIssuingService extends PTDocumentAbstractTest {
@@ -47,8 +47,8 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 	public void testIssuingService() throws DocumentIssuingException {
 
 		this.service.issue(new PTInvoiceTestUtil(PTAbstractTest.injector)
-				.getInvoiceBuilder((new UID()).toString(), SourceBilling.P),
-				this.parameters);
-
+				.getInvoiceBuilder(
+						new PTBusinessTestUtil(injector).getBusinessEntity(),
+						SourceBilling.P), this.parameters);
 	}
 }

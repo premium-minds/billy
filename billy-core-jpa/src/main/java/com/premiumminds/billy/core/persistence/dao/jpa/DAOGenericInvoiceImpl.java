@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -79,19 +77,7 @@ public class DAOGenericInvoiceImpl extends
 				.where(genericInvoice.business.eq(businessEnity))
 				.unique(genericInvoice.seriesNumber.max())));
 
-		List<JPAGenericInvoiceEntity> invoiceList = query.list(genericInvoice);
-
-		GenericInvoiceEntity invoice = null;
-		boolean found = false;
-		for (JPAGenericInvoiceEntity entity : invoiceList) {
-			if (entity.getBusiness().getUID().equals(businessUID) && !found) {
-				found = true;
-				invoice = entity;
-			} else if (entity.getBusiness().getUID().equals(businessUID)
-					&& found) {
-				invoice = null;
-			}
-		}
+		GenericInvoiceEntity invoice = query.singleResult(genericInvoice);
 
 		if (invoice != null) {
 			return (T) invoice;

@@ -61,7 +61,7 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 	public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(
 			T document, P parameters) throws DocumentIssuingException;
 
-	protected <T extends GenericInvoice, D extends DAOPTGenericInvoice> T issue(
+	protected synchronized <T extends GenericInvoice, D extends DAOPTGenericInvoice> T issue(
 			final T document, final PTIssuingParams parametersPT,
 			final D daoInvoice, final TYPE invoiceType)
 		throws DocumentIssuingException {
@@ -88,7 +88,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 						PTGenericInvoiceEntity latestInvoice = daoInvoice
 								.getLatestInvoiceFromSeries(series, document
 										.getBusiness().getUID().toString());
-
 						daoInvoice.lock(latestInvoice);
 
 						Date latestInvoiceDate = latestInvoice.getDate();
