@@ -36,41 +36,39 @@ import com.premiumminds.billy.portugal.util.Services;
 
 public class PTPersistencyAbstractTest extends PTAbstractTest {
 
-	protected static final String PRIVATE_KEY_DIR = "src/test/resources/keys/private.pem";
-	protected static final String DEFAULT_SERIES = "DEFAULT";
+	protected static final String	PRIVATE_KEY_DIR	= "src/test/resources/keys/private.pem";
+	protected static final String	DEFAULT_SERIES	= "DEFAULT";
 
 	@Before
 	public void setUpModules() {
 		PTAbstractTest.injector = Guice.createInjector(
 				new PortugalDependencyModule(),
 				new PortugalTestPersistenceDependencyModule());
-		PTAbstractTest.injector
-				.getInstance(PortugalDependencyModule.Initializer.class);
-		PTAbstractTest.injector
-				.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
+		PTAbstractTest.injector.getInstance(PortugalDependencyModule.Initializer.class);
+		PTAbstractTest.injector.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
 		PortugalBootstrap.execute(PTAbstractTest.injector);
 	}
 
 	@After
 	public void tearDown() {
-		PTAbstractTest.injector
-				.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
+		PTAbstractTest.injector.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
 	}
 
 	public PTInvoiceEntity getNewIssuedInvoice() {
-		return getNewIssuedInvoice((new UID()).toString());
+		return this.getNewIssuedInvoice((new UID()).toString());
 
 	}
 
 	public PTInvoiceEntity getNewIssuedInvoice(String businessUID) {
-		Services service = new Services(injector);
+		Services service = new Services(PTAbstractTest.injector);
 		PTIssuingParams parameters = new PTIssuingParamsImpl();
 
-		parameters = getParameters(DEFAULT_SERIES, "3000", "1");
+		parameters = this.getParameters(
+				PTPersistencyAbstractTest.DEFAULT_SERIES, "3000", "1");
 
 		try {
 			return (PTInvoiceEntity) service.issueDocument(
-					new PTInvoiceTestUtil(injector).getInvoiceBuilder(
+					new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(
 							businessUID, SourceBilling.P), parameters);
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
@@ -82,7 +80,8 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 	protected PTIssuingParams getParameters(String series, String EACCode,
 			String privateKeyVersion) {
 		PTIssuingParams parameters = new PTIssuingParamsImpl();
-		KeyGenerator generator = new KeyGenerator(PRIVATE_KEY_DIR);
+		KeyGenerator generator = new KeyGenerator(
+													PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
 		parameters.setPrivateKey(generator.getPrivateKey());
 		parameters.setPublicKey(generator.getPublicKey());
 		parameters.setPrivateKeyVersion(privateKeyVersion);

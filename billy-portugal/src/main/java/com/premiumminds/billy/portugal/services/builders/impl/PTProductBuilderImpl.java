@@ -31,11 +31,11 @@ import com.premiumminds.billy.portugal.services.builders.PTProductBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 
 public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder, TProduct>, TProduct extends PTProduct>
-		extends ProductBuilderImpl<TBuilder, TProduct> implements
-		PTProductBuilder<TBuilder, TProduct> {
+	extends ProductBuilderImpl<TBuilder, TProduct> implements
+	PTProductBuilder<TBuilder, TProduct> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+																	"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTProductBuilderImpl(DAOPTProduct daoPTProduct, DAOPTTax daoPTTax) {
@@ -49,16 +49,18 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 
 	@Override
 	public TBuilder setNumberCode(String code) {
-		BillyValidator.mandatory(code, PTProductBuilderImpl.LOCALIZER
-				.getString("field.product_number_code"));
+		BillyValidator.mandatory(
+				code,
+				PTProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
 		this.getTypeInstance().setNumberCode(code);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setUnitOfMeasure(String unit) {
-		BillyValidator.mandatory(unit, PTProductBuilderImpl.LOCALIZER
-				.getString("field.unit_of_measure"));
+		BillyValidator.mandatory(
+				unit,
+				PTProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
 		this.getTypeInstance().setUnitOfMeasure(unit);
 		return this.getBuilder();
 	}
@@ -67,11 +69,11 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
 		PTProduct p = this.getTypeInstance();
-		BillyValidator.mandatory(p.getNumberCode(),
-				PTProductBuilderImpl.LOCALIZER
-						.getString("field.product_number_code"));
-		BillyValidator.mandatory(p.getUnitOfMeasure(),
-				PTProductBuilderImpl.LOCALIZER
-						.getString("field.unit_of_measure"));
+		BillyValidator.mandatory(
+				p.getNumberCode(),
+				PTProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
+		BillyValidator.mandatory(
+				p.getUnitOfMeasure(),
+				PTProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
 	}
 }

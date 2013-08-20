@@ -25,12 +25,12 @@ import com.premiumminds.billy.core.services.UID;
 
 public class MockBaseEntity implements BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public UID uid;
-	public Date createTimestamp;
-	public Date updateTimestamp;
-	public boolean isNew;
+	public UID					uid;
+	public Date					createTimestamp;
+	public Date					updateTimestamp;
+	public boolean				isNew;
 
 	@Override
 	public boolean isNew() {

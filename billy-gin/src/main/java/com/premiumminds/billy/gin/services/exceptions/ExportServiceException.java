@@ -20,7 +20,7 @@ package com.premiumminds.billy.gin.services.exceptions;
 
 public class ExportServiceException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public ExportServiceException() {
 		super();

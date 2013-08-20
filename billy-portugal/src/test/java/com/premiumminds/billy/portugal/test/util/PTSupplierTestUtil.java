@@ -26,13 +26,13 @@ import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 
 public class PTSupplierTestUtil {
 
-	private static final Boolean SELF_BILLING = false;
-	private static final String NUMBER = "123456789";
-	private static final String NAME = "Supplier";
+	private static final Boolean	SELF_BILLING	= false;
+	private static final String		NUMBER			= "123456789";
+	private static final String		NAME			= "Supplier";
 
-	private Injector injector;
-	private PTAddressTestUtil address;
-	private PTContactTestUtil contact;
+	private Injector				injector;
+	private PTAddressTestUtil		address;
+	private PTContactTestUtil		contact;
 
 	public PTSupplierTestUtil(Injector injector) {
 		this.injector = injector;
@@ -45,30 +45,31 @@ public class PTSupplierTestUtil {
 		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-		return this.getSupplierEntity(NAME, NUMBER, SELF_BILLING,
-				addressBuilder, contactBuilder);
+		return this.getSupplierEntity(
+				PTSupplierTestUtil.NAME, PTSupplierTestUtil.NUMBER,
+				PTSupplierTestUtil.SELF_BILLING, addressBuilder, contactBuilder);
 	}
 
 	public PTSupplierEntity getSupplierEntity(String name, String taxNumber,
 			boolean selfBillingAgree, PTAddress.Builder addressBuilder,
 			PTContact.Builder contactBuilder) {
 
-		return (PTSupplierEntity) getSupplierBuilder(name, taxNumber,
-				selfBillingAgree, addressBuilder, contactBuilder).build();
+		return (PTSupplierEntity) this.getSupplierBuilder(
+				name, taxNumber, selfBillingAgree, addressBuilder,
+				contactBuilder).build();
 	}
 
 	private PTSupplier.Builder getSupplierBuilder(String name,
 			String taxNumber, boolean selfBillingAgree,
 			PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder) {
-		PTSupplier.Builder supplierBuilder = this.injector
-				.getInstance(PTSupplier.Builder.class);
+		PTSupplier.Builder supplierBuilder = this.injector.getInstance(PTSupplier.Builder.class);
 
 		supplierBuilder.addAddress(addressBuilder).addContact(contactBuilder)
-				.setBillingAddress(addressBuilder)
-				.setMainContact(contactBuilder)
-				.setSelfBillingAgreement(selfBillingAgree)
-				.setTaxRegistrationNumber(taxNumber).setName(name)
-				.setMainAddress(addressBuilder);
+						.setBillingAddress(addressBuilder)
+						.setMainContact(contactBuilder)
+						.setSelfBillingAgreement(selfBillingAgree)
+						.setTaxRegistrationNumber(taxNumber).setName(name)
+						.setMainAddress(addressBuilder);
 		return supplierBuilder;
 	}
 }

@@ -27,7 +27,7 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
 
 public class DAOBusinessImpl extends
-		AbstractDAO<BusinessEntity, JPABusinessEntity> implements DAOBusiness {
+	AbstractDAO<BusinessEntity, JPABusinessEntity> implements DAOBusiness {
 
 	@Inject
 	public DAOBusinessImpl(Provider<EntityManager> emProvider) {

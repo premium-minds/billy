@@ -28,9 +28,8 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 
-
-public class PTSupplierPersistenceService<T extends PTSupplier> extends PersistenceServiceImpl<T>
-		implements PersistenceService<T> {
+public class PTSupplierPersistenceService<T extends PTSupplier> extends
+	PersistenceServiceImpl<T> implements PersistenceService<T> {
 
 	public PTSupplierPersistenceService(Injector injector) {
 		super(injector);
@@ -38,16 +37,14 @@ public class PTSupplierPersistenceService<T extends PTSupplier> extends Persiste
 
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		final DAOPTSupplier dao = this.injector
-				.getInstance(DAOPTSupplier.class);
+		final DAOPTSupplier dao = this.injector.getInstance(DAOPTSupplier.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
-							.build();
+					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder.build();
 					return (T) dao.create(supplierEntity);
 				}
 
@@ -56,19 +53,17 @@ public class PTSupplierPersistenceService<T extends PTSupplier> extends Persiste
 			throw new BillyRuntimeException(e);
 		}
 	}
-	
+
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		final DAOPTSupplier dao = this.injector
-				.getInstance(DAOPTSupplier.class);
+		final DAOPTSupplier dao = this.injector.getInstance(DAOPTSupplier.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
 
 				@Override
 				public T runTransaction() throws Exception {
-					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
-							.build();
+					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder.build();
 					return (T) dao.update(supplierEntity);
 				}
 

@@ -27,15 +27,14 @@ import com.premiumminds.billy.core.CoreJPAPersistenceDependencyModule;
 
 public class AbstractTest {
 
-	private static Injector injector;
+	private static Injector	injector;
 
 	@BeforeClass
 	public static void setUpClass() {
 		AbstractTest.injector = Guice.createInjector(
 				new CoreJPADependencyModule(),
 				new CoreJPAPersistenceDependencyModule());
-		AbstractTest.injector
-				.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
+		AbstractTest.injector.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
 	}
 
 	public <T> T getInstance(Class<T> clazz) {

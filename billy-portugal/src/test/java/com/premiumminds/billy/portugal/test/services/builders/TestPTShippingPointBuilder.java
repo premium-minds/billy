@@ -32,8 +32,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTShippingPointEntity;
 
 public class TestPTShippingPointBuilder extends PTAbstractTest {
 
-	private static final String PTSHIPPINGPOINT_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTShippingPoint.yml";
+	private static final String	PTSHIPPINGPOINT_YML	= AbstractTest.YML_CONFIGS_DIR
+															+ "PTShippingPoint.yml";
 
 	@Test
 	public void doTest() {
@@ -45,11 +45,9 @@ public class TestPTShippingPointBuilder extends PTAbstractTest {
 				this.getInstance(DAOPTShippingPoint.class).getEntityInstance())
 				.thenReturn(new MockPTShippingPointEntity());
 
-		PTShippingPoint.Builder builder = this
-				.getInstance(PTShippingPoint.Builder.class);
+		PTShippingPoint.Builder builder = this.getInstance(PTShippingPoint.Builder.class);
 
-		PTAddress.Builder mockAddressBuilder = this
-				.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockAddressBuilder = this.getMock(PTAddress.Builder.class);
 		Mockito.when(mockAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockShippingPoint.getAddress());
 
@@ -63,16 +61,19 @@ public class TestPTShippingPointBuilder extends PTAbstractTest {
 
 		Assert.assertTrue(shippingPoint != null);
 
-		Assert.assertEquals(mockShippingPoint.getDeliveryId(),
+		Assert.assertEquals(
+				mockShippingPoint.getDeliveryId(),
 				shippingPoint.getDeliveryId());
-		Assert.assertEquals(mockShippingPoint.getLocationId(),
+		Assert.assertEquals(
+				mockShippingPoint.getLocationId(),
 				shippingPoint.getLocationId());
-		Assert.assertEquals(mockShippingPoint.getWarehouseId(),
+		Assert.assertEquals(
+				mockShippingPoint.getWarehouseId(),
 				shippingPoint.getWarehouseId());
-		Assert.assertEquals(mockShippingPoint.getDate(),
-				shippingPoint.getDate());
-		Assert.assertEquals(mockShippingPoint.getAddress(),
-				shippingPoint.getAddress());
+		Assert.assertEquals(
+				mockShippingPoint.getDate(), shippingPoint.getDate());
+		Assert.assertEquals(
+				mockShippingPoint.getAddress(), shippingPoint.getAddress());
 	}
 
 }

@@ -31,8 +31,8 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntr
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
 public class JPAPTGenericInvoiceEntryEntity extends
-		JPAGenericInvoiceEntryEntity implements PTGenericInvoiceEntryEntity {
+	JPAGenericInvoiceEntryEntity implements PTGenericInvoiceEntryEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 }

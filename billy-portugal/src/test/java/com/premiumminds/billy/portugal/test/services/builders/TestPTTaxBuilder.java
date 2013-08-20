@@ -39,21 +39,21 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTTaxEntity;
 
 public class TestPTTaxBuilder extends PTAbstractTest {
 
-	private static final String PTTAX_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTTax.yml";
-	private static final String REGIONCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTContext.yml";
+	private static final String	PTTAX_YML			= AbstractTest.YML_CONFIGS_DIR
+															+ "PTTax.yml";
+	private static final String	REGIONCONTEXT_YML	= AbstractTest.YML_CONFIGS_DIR
+															+ "PTContext.yml";
 
 	@Test
 	public void doTestFlat() {
-		MockPTTaxEntity mockTax = this.loadFixture(MockPTTaxEntity.class,
-				TestPTTaxBuilder.PTTAX_YML);
+		MockPTTaxEntity mockTax = this.loadFixture(
+				MockPTTaxEntity.class, TestPTTaxBuilder.PTTAX_YML);
 		Mockito.when(this.getInstance(DAOPTTax.class).getEntityInstance())
 				.thenReturn(new MockPTTaxEntity());
 
 		PTTax.Builder builder = this.getInstance(PTTax.Builder.class);
-		BigDecimal amount = (mockTax.getTaxRateType() == TaxRateType.FLAT) ? mockTax
-				.getFlatRateAmount() : mockTax.getPercentageRateValue();
+		BigDecimal amount = (mockTax.getTaxRateType() == TaxRateType.FLAT) ? mockTax.getFlatRateAmount()
+				: mockTax.getPercentageRateValue();
 
 		builder.setCode(mockTax.getCode())
 				.setContextUID(mockTax.getContext().getUID())
@@ -77,21 +77,24 @@ public class TestPTTaxBuilder extends PTAbstractTest {
 		Assert.assertEquals(mockTax.getValue(), tax.getValue());
 
 		if (mockTax.getTaxRateType() == PTTax.TaxRateType.FLAT) {
-			Assert.assertEquals(mockTax.getFlatRateAmount(),
-					tax.getFlatRateAmount());
-			Assert.assertThat(mockTax.getPercentageRateValue(), CoreMatchers
-					.is(CoreMatchers.not(tax.getPercentageRateValue())));
+			Assert.assertEquals(
+					mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
+			Assert.assertThat(
+					mockTax.getPercentageRateValue(),
+					CoreMatchers.is(CoreMatchers.not(tax.getPercentageRateValue())));
 		} else {
-			Assert.assertEquals(mockTax.getPercentageRateValue(),
+			Assert.assertEquals(
+					mockTax.getPercentageRateValue(),
 					tax.getPercentageRateValue());
-			Assert.assertThat(mockTax.getFlatRateAmount(),
+			Assert.assertThat(
+					mockTax.getFlatRateAmount(),
 					CoreMatchers.is(CoreMatchers.not(tax.getFlatRateAmount())));
 		}
 	}
 
 	public MockPTTaxEntity loadFixture(Class<MockPTTaxEntity> clazz, String path) {
-		MockPTTaxEntity result = this.createMockEntity(MockPTTaxEntity.class,
-				path);
+		MockPTTaxEntity result = this.createMockEntity(
+				MockPTTaxEntity.class, path);
 
 		result.uid = new UID("uid_tax");
 

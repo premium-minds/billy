@@ -28,7 +28,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntit
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTShippingPointEntity;
 
 public class DAOPTShippingPointImpl extends DAOShippingPointImpl implements
-		DAOPTShippingPoint {
+	DAOPTShippingPoint {
 
 	@Inject
 	public DAOPTShippingPointImpl(Provider<EntityManager> emProvider) {

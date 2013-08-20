@@ -23,10 +23,10 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class PTSimpleInvoicePDFExportRequest extends AbstractExportRequest {
 
-	private PTSimpleInvoiceTemplateBundle bundle;
+	private PTSimpleInvoiceTemplateBundle	bundle;
 
 	public PTSimpleInvoicePDFExportRequest(UID uid,
-			PTSimpleInvoiceTemplateBundle bundle) {
+											PTSimpleInvoiceTemplateBundle bundle) {
 		super(uid, bundle);
 	}
 

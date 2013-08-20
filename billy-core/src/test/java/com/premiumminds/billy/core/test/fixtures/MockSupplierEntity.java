@@ -29,20 +29,20 @@ import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public class MockSupplierEntity extends MockBaseEntity implements
-		SupplierEntity {
+	SupplierEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String name;
-	public String taxRegistrationNumber;
-	public Address mainAddress;
-	public Address billingAddress;
-	public Address shippingAddress;
-	public Contact mainContact;
-	public boolean selfBillingAgreement;
-	public List<Address> addresses;
-	public List<Contact> contacts;
-	public List<BankAccount> bankAccounts;
+	public String				name;
+	public String				taxRegistrationNumber;
+	public Address				mainAddress;
+	public Address				billingAddress;
+	public Address				shippingAddress;
+	public Contact				mainContact;
+	public boolean				selfBillingAgreement;
+	public List<Address>		addresses;
+	public List<Contact>		contacts;
+	public List<BankAccount>	bankAccounts;
 
 	public MockSupplierEntity() {
 		this.addresses = new ArrayList<Address>();

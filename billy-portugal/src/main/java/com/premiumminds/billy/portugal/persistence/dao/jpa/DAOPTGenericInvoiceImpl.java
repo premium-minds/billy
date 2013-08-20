@@ -32,7 +32,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvo
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 
 public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
-		DAOPTGenericInvoice {
+	DAOPTGenericInvoice {
 
 	@Inject
 	public DAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -56,7 +56,7 @@ public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
 
 		query.from(business).where(business.uid.eq(uid.getValue()));
 
-		return this.checkEntity(query.singleResult(business),
-				PTBusinessEntity.class);
+		return this.checkEntity(
+				query.singleResult(business), PTBusinessEntity.class);
 	}
 }

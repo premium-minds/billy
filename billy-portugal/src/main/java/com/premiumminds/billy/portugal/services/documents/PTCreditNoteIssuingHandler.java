@@ -30,9 +30,9 @@ import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
-		implements DocumentIssuingHandler {
+	implements DocumentIssuingHandler {
 
-	public final static TYPE INVOICE_TYPE = TYPE.NC;
+	public final static TYPE	INVOICE_TYPE	= TYPE.NC;
 
 	@Inject
 	public PTCreditNoteIssuingHandler(Injector injector) {
@@ -45,10 +45,10 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
 
 		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
 
-		final DAOPTCreditNote daoInvoice = this.injector
-				.getInstance(DAOPTCreditNote.class);
+		final DAOPTCreditNote daoInvoice = this.injector.getInstance(DAOPTCreditNote.class);
 
-		return this.issue(document, parametersPT, daoInvoice,
+		return this.issue(
+				document, parametersPT, daoInvoice,
 				PTCreditNoteIssuingHandler.INVOICE_TYPE);
 	}
 }

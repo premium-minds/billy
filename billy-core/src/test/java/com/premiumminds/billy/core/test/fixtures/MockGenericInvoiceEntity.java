@@ -35,39 +35,39 @@ import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 public class MockGenericInvoiceEntity extends MockBaseEntity implements
-		GenericInvoiceEntity {
+	GenericInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long			serialVersionUID	= 1L;
 
-	public String number;
+	public String						number;
 
-	public String series;
-	public Integer seriesNumber;
-	public Business business;
-	public CustomerEntity customer;
-	public SupplierEntity supplier;
-	public String officeNumber;
-	public Date date;
-	public BigDecimal amountWithTax;
-	public BigDecimal amountWithoutTax;
-	public BigDecimal taxAmount;
-	public BigDecimal discountsAmount;
-	public ShippingPointEntity shippingOrigin;
-	public ShippingPointEntity shippingDestination;
-	public String paymentTerms;
-	public boolean selfBilled;
-	public String sourceId;
-	public Date generalLedgerDate;
-	public String batchId;
-	public String transactionsId;
-	public List<String> receiptNumbers;
-	public List<GenericInvoiceEntry> entries;
-	public Currency currency;
-	public String settlementDescription;
-	public BigDecimal settlementDiscount;
-	public Date settlementDate;
-	public Enum paymentMechanism;
-	public CreditOrDebit creditOrDebit;
+	public String						series;
+	public Integer						seriesNumber;
+	public Business						business;
+	public CustomerEntity				customer;
+	public SupplierEntity				supplier;
+	public String						officeNumber;
+	public Date							date;
+	public BigDecimal					amountWithTax;
+	public BigDecimal					amountWithoutTax;
+	public BigDecimal					taxAmount;
+	public BigDecimal					discountsAmount;
+	public ShippingPointEntity			shippingOrigin;
+	public ShippingPointEntity			shippingDestination;
+	public String						paymentTerms;
+	public boolean						selfBilled;
+	public String						sourceId;
+	public Date							generalLedgerDate;
+	public String						batchId;
+	public String						transactionsId;
+	public List<String>					receiptNumbers;
+	public List<GenericInvoiceEntry>	entries;
+	public Currency						currency;
+	public String						settlementDescription;
+	public BigDecimal					settlementDiscount;
+	public Date							settlementDate;
+	public Enum							paymentMechanism;
+	public CreditOrDebit				creditOrDebit;
 
 	public MockGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();

@@ -26,28 +26,28 @@ import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.ContextBuilder;
 import com.premiumminds.billy.core.services.entities.Context;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TContext>, TContext extends Context>
-		extends AbstractBuilder<TBuilder, TContext> implements
-		ContextBuilder<TBuilder, TContext> {
+	extends AbstractBuilder<TBuilder, TContext> implements
+	ContextBuilder<TBuilder, TContext> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+																	"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOContext daoContext;
+	protected DAOContext				daoContext;
 
 	@Inject
 	public ContextBuilderImpl(DAOContext daoContext) {
-		super((EntityFactory<?>) daoContext);
+		super(daoContext);
 		this.daoContext = daoContext;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name,
+		BillyValidator.mandatory(
+				name,
 				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -55,7 +55,8 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setDescription(String description) {
-		BillyValidator.mandatory(description,
+		BillyValidator.mandatory(
+				description,
 				ContextBuilderImpl.LOCALIZER.getString("field.description"));
 		this.getTypeInstance().setDescription(description);
 		return this.getBuilder();
@@ -67,8 +68,9 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 			this.getTypeInstance().setParentContext(null);
 		} else {
 			ContextEntity c = this.daoContext.get(parentUID);
-			BillyValidator.found(c, ContextBuilderImpl.LOCALIZER
-					.getString("field.parent_context"));
+			BillyValidator.found(
+					c,
+					ContextBuilderImpl.LOCALIZER.getString("field.parent_context"));
 			if (!this.getTypeInstance().isNew()
 					&& this.daoContext.isSubContext(c, this.getTypeInstance())) {
 				throw new BillyRuntimeException();
@@ -80,11 +82,13 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		ContextEntity c = this.getTypeInstance();
-		BillyValidator.mandatory(c.getName(),
+		BillyValidator.mandatory(
+				c.getName(),
 				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
-		BillyValidator.mandatory(c.getDescription(),
+		BillyValidator.mandatory(
+				c.getDescription(),
 				ContextBuilderImpl.LOCALIZER.getString("field.description"));
 	}
 

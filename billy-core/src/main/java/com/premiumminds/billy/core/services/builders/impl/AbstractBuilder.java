@@ -25,8 +25,8 @@ import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 
 public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
 
-	private EntityFactory<?> factory;
-	protected TType typeInstance;
+	private EntityFactory<?>	factory;
+	protected TType				typeInstance;
 
 	public AbstractBuilder(EntityFactory<?> entityFactory) {
 		this.factory = entityFactory;
@@ -39,7 +39,7 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
 	}
 
 	protected abstract void validateInstance() throws BillyValidationException,
-			ValidationException;
+		ValidationException;
 
 	protected <T extends TType> void setTypeInstance(T instance) {
 		this.typeInstance = instance;

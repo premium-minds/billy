@@ -84,8 +84,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 		List<JPAPTTaxEntity> taxContextResult = new ArrayList<JPAPTTaxEntity>();
 
 		for (JPAPTTaxEntity t : list) {
-			childContexts = this.getChildContexts((PTRegionContextEntity) t
-					.getContext());
+			childContexts = this.getChildContexts((PTRegionContextEntity) t.getContext());
 			for (JPAPTRegionContextEntity c : childContexts) {
 				taxResult = this.getTaxesForSAFTPT(c, validFrom, validTo);
 				if (taxResult != null) {

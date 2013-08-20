@@ -28,11 +28,11 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTBusinessBuilderI
 public interface PTBusiness extends Business {
 
 	public static class Builder extends
-			PTBusinessBuilderImpl<Builder, PTBusiness> {
+		PTBusinessBuilderImpl<Builder, PTBusiness> {
 
 		@Inject
 		public Builder(DAOPTBusiness daoPTBusiness,
-				DAOPTRegionContext daoPTRegionContext) {
+						DAOPTRegionContext daoPTRegionContext) {
 			super(daoPTBusiness, daoPTRegionContext);
 		}
 	}

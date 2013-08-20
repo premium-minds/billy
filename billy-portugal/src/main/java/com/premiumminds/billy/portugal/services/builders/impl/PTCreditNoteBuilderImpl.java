@@ -28,12 +28,13 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
-		extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-		implements PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+	extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
+	PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
 	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
-			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-			DAOPTSupplier daoPTSupplier) {
+									DAOPTBusiness daoPTBusiness,
+									DAOPTCustomer daoPTCustomer,
+									DAOPTSupplier daoPTSupplier) {
 		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 

@@ -19,7 +19,8 @@
 package com.premiumminds.billy.core.util;
 
 @java.lang.annotation.Documented
-@java.lang.annotation.Retention(value = java.lang.annotation.RetentionPolicy.RUNTIME)
+@java.lang.annotation.Retention(
+								value = java.lang.annotation.RetentionPolicy.RUNTIME)
 public abstract @interface NotImplemented {
 
 }

@@ -47,35 +47,38 @@ import com.premiumminds.billy.core.services.UID;
 @Audited
 public abstract class JPABaseEntity implements BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@Column(name = "ID")
-	protected Integer id;
+	protected Integer			id;
 
 	@Basic(optional = false)
-	@Column(name = "UID", nullable = false, insertable = true, updatable = false, unique = true)
-	protected String uid;
+	@Column(name = "UID", nullable = false, insertable = true,
+			updatable = false, unique = true)
+	protected String			uid;
 
 	@Basic(optional = false)
-	@Column(name = "UID_ROW", nullable = false, insertable = true, updatable = false, unique = true)
-	protected String uidRow;
+	@Column(name = "UID_ROW", nullable = false, insertable = true,
+			updatable = false, unique = true)
+	protected String			uidRow;
 
 	@Basic(optional = false)
-	@Column(name = "ENTITY_VERSION", nullable = false, insertable = true, updatable = false, unique = false)
-	protected int entityVersion;
+	@Column(name = "ENTITY_VERSION", nullable = false, insertable = true,
+			updatable = false, unique = false)
+	protected int				entityVersion;
 
 	@Column(name = "CREATE_TIMESTAMP", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date createTimestamp;
+	protected Date				createTimestamp;
 
 	@Column(name = "UPDATE_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date updateTimestamp;
+	protected Date				updateTimestamp;
 
 	@Column(name = "ACTIVE")
-	protected Boolean active;
+	protected Boolean			active;
 
 	/**
 	 * Constructor

@@ -34,8 +34,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTSupplierEntity;
 
 public class TestPTSupplierBuilder extends PTAbstractTest {
 
-	private static final String PTSUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTSupplier.yml";
+	private static final String	PTSUPPLIER_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTSupplier.yml";
 
 	@Test
 	public void doTest() {
@@ -46,39 +46,34 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
 		Mockito.when(this.getInstance(DAOPTSupplier.class).getEntityInstance())
 				.thenReturn(new MockPTSupplierEntity());
 
-		PTAddress.Builder mockMainAddressBuilder = this
-				.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockMainAddressBuilder = this.getMock(PTAddress.Builder.class);
 		Mockito.when(mockMainAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockSupplier.getMainAddress());
 
-		PTAddress.Builder mockBillingAddressBuilder = this
-				.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockBillingAddressBuilder = this.getMock(PTAddress.Builder.class);
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockSupplier.getBillingAddress());
 
-		PTAddress.Builder mockShippingAddressBuilder = this
-				.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockShippingAddressBuilder = this.getMock(PTAddress.Builder.class);
 		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockSupplier.getShippingAddress());
 
-		PTContact.Builder mockMainContactBuilder = this
-				.getMock(PTContact.Builder.class);
+		PTContact.Builder mockMainContactBuilder = this.getMock(PTContact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
 				(PTContactEntity) mockSupplier.getMainContact());
 
-		PTContact.Builder mockContactBuilder1 = this
-				.getMock(PTContact.Builder.class);
+		PTContact.Builder mockContactBuilder1 = this.getMock(PTContact.Builder.class);
 		Mockito.when(mockContactBuilder1.build()).thenReturn(
 				(PTContactEntity) mockSupplier.getContacts().get(0));
 
-		PTContact.Builder mockContactBuilder2 = this
-				.getMock(PTContact.Builder.class);
+		PTContact.Builder mockContactBuilder2 = this.getMock(PTContact.Builder.class);
 		Mockito.when(mockContactBuilder2.build()).thenReturn(
 				(PTContactEntity) mockSupplier.getContacts().get(1));
 
 		PTSupplier.Builder builder = this.getInstance(PTSupplier.Builder.class);
 
-		builder.addAddress(mockMainAddressBuilder)
+		builder
+				.addAddress(mockMainAddressBuilder)
 				.addAddress(mockShippingAddressBuilder)
 				.addAddress(mockBillingAddressBuilder)
 				.addContact(mockMainContactBuilder)
@@ -95,12 +90,14 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
 
 		Assert.assertTrue(supplier != null);
 		Assert.assertEquals(mockSupplier.getName(), supplier.getName());
-		Assert.assertEquals(mockSupplier.getTaxRegistrationNumber(),
+		Assert.assertEquals(
+				mockSupplier.getTaxRegistrationNumber(),
 				supplier.getTaxRegistrationNumber());
-		Assert.assertEquals(mockSupplier.getMainAddress(),
-				supplier.getMainAddress());
-		Assert.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier
-				.getBankAccounts().size());
+		Assert.assertEquals(
+				mockSupplier.getMainAddress(), supplier.getMainAddress());
+		Assert.assertEquals(
+				mockSupplier.getBankAccounts().size(),
+				mockSupplier.getBankAccounts().size());
 	}
 
 }

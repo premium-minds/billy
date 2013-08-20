@@ -1,21 +1,20 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy portugal (PT Pack).
- * 
- * billy portugal (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy portugal (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
+ *
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.util;
 
@@ -36,7 +35,7 @@ import org.bouncycastle.openssl.PEMReader;
  */
 public class KeyGenerator {
 
-	private String privateKeyPath;
+	private String	privateKeyPath;
 
 	/**
 	 * Generates the {@link PrivateKey} and {@link PublicKey} based on the
@@ -68,8 +67,9 @@ public class KeyGenerator {
 	}
 
 	private KeyPair getKeyPair() {
-		PEMReader pemReader = new PEMReader(new StringReader(
-				this.getKeyFromFile()));
+		PEMReader pemReader = new PEMReader(
+											new StringReader(
+																this.getKeyFromFile()));
 		KeyPair pair = null;
 
 		try {

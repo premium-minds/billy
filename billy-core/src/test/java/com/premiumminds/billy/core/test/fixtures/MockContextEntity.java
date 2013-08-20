@@ -23,11 +23,11 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 public class MockContextEntity extends MockBaseEntity implements ContextEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String name;
-	public String description;
-	public ContextEntity parentContext;
+	public String				name;
+	public String				description;
+	public ContextEntity		parentContext;
 
 	public MockContextEntity() {
 

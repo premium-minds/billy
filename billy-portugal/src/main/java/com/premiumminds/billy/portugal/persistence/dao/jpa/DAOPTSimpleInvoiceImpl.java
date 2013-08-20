@@ -36,7 +36,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoi
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTSimpleInvoiceEntity;
 
 public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
-		DAOPTSimpleInvoice {
+	DAOPTSimpleInvoice {
 
 	@Inject
 	public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -63,8 +63,7 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 		query.from(simpleInvoice);
 
 		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
-		BooleanExpression simpleInvoiceBusiness = simpleInvoice.business
-				.eq(business);
+		BooleanExpression simpleInvoiceBusiness = simpleInvoice.business.eq(business);
 		predicates.add(simpleInvoiceBusiness);
 		BooleanExpression active = simpleInvoice.active.eq(true);
 		predicates.add(active);
@@ -75,8 +74,8 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 			query.where(e);
 		}
 
-		List<PTSimpleInvoiceEntity> result = this.checkEntityList(query.list(simpleInvoice),
-				PTSimpleInvoiceEntity.class); 
+		List<PTSimpleInvoiceEntity> result = this.checkEntityList(
+				query.list(simpleInvoice), PTSimpleInvoiceEntity.class);
 		return result;
 	}
 

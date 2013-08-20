@@ -28,7 +28,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTApplicationEntity;
 
 public class DAOPTApplicationImpl extends DAOApplicationImpl implements
-		DAOPTApplication {
+	DAOPTApplication {
 
 	@Inject
 	public DAOPTApplicationImpl(Provider<EntityManager> emProvider) {

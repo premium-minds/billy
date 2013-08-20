@@ -47,66 +47,66 @@ import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.pdf.AbstractPDFHandler;
 
 public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
-		implements ExportServiceHandler {
+	implements ExportServiceHandler {
 
 	protected static class ParamKeys {
 
-		public static String ROOT = "invoice";
+		public static String		ROOT									= "invoice";
 
-		public static final String INVOICE_PAYMETHOD = "paymentMechanism";
-		public static final String ID = "id";
-		public static final String EMISSION_DATE = "emissionDate";
-		public static final String DUE_DATE = "dueDate";
-		public static final String TOTAL_BEFORE_TAX = "totalBeforeTax";
-		public static final String TOTAL_TAX = "totalTax";
-		public static final String TOTAL = "totalPrice";
+		public static final String	INVOICE_PAYMETHOD						= "paymentMechanism";
+		public static final String	ID										= "id";
+		public static final String	EMISSION_DATE							= "emissionDate";
+		public static final String	DUE_DATE								= "dueDate";
+		public static final String	TOTAL_BEFORE_TAX						= "totalBeforeTax";
+		public static final String	TOTAL_TAX								= "totalTax";
+		public static final String	TOTAL									= "totalPrice";
 
-		public static final String BUSINESS = "business";
-		public static final String BUSINESS_LOGO = "logoPath";
-		public static final String BUSINESS_NAME = "name";
-		public static final String BUSINESS_FINANCIAL_ID = "financialId";
-		public static final String BUSINESS_ADDRESS = "address";
-		public static final String BUSINESS_ADDRESS_COUNTRY = "country";
-		public static final String BUSINESS_ADDRESS_DETAILS = "details";
-		public static final String BUSINESS_ADDRESS_CITY = "city";
-		public static final String BUSINESS_ADDRESS_REGION = "region";
-		public static final String BUSINESS_ADDRESS_POSTAL_CODE = "postalcode";
+		public static final String	BUSINESS								= "business";
+		public static final String	BUSINESS_LOGO							= "logoPath";
+		public static final String	BUSINESS_NAME							= "name";
+		public static final String	BUSINESS_FINANCIAL_ID					= "financialId";
+		public static final String	BUSINESS_ADDRESS						= "address";
+		public static final String	BUSINESS_ADDRESS_COUNTRY				= "country";
+		public static final String	BUSINESS_ADDRESS_DETAILS				= "details";
+		public static final String	BUSINESS_ADDRESS_CITY					= "city";
+		public static final String	BUSINESS_ADDRESS_REGION					= "region";
+		public static final String	BUSINESS_ADDRESS_POSTAL_CODE			= "postalcode";
 
-		public static final String BUSINESS_CONTACTS = "contacts";
-		public static final String BUSINESS_PHONE = "phNo";
-		public static final String BUSINESS_FAX = "faxNo";
-		public static final String BUSINESS_EMAIL = "email";
+		public static final String	BUSINESS_CONTACTS						= "contacts";
+		public static final String	BUSINESS_PHONE							= "phNo";
+		public static final String	BUSINESS_FAX							= "faxNo";
+		public static final String	BUSINESS_EMAIL							= "email";
 
-		public static final String CUSTOMER = "customer";
-		public static final String CUSTOMER_NAME = "name";
-		public static final String CUSTOMER_FINANCIAL_ID = "financialId";
+		public static final String	CUSTOMER								= "customer";
+		public static final String	CUSTOMER_NAME							= "name";
+		public static final String	CUSTOMER_FINANCIAL_ID					= "financialId";
 
-		public static final String CUSTOMER_BILLING_ADDRESS = "address";
-		public static final String CUSTOMER_BILLING_ADDRESS_COUNTRY = "country";
-		public static final String CUSTOMER_BILLING_ADDRESS_DETAILS = "details";
-		public static final String CUSTOMER_BILLING_ADDRESS_CITY = "city";
-		public static final String CUSTOMER_BILLING_ADDRESS_REGION = "region";
-		public static final String CUSTOMER_BILLING_ADDRESS_POSTAL_CODE = "postalcode";
+		public static final String	CUSTOMER_BILLING_ADDRESS				= "address";
+		public static final String	CUSTOMER_BILLING_ADDRESS_COUNTRY		= "country";
+		public static final String	CUSTOMER_BILLING_ADDRESS_DETAILS		= "details";
+		public static final String	CUSTOMER_BILLING_ADDRESS_CITY			= "city";
+		public static final String	CUSTOMER_BILLING_ADDRESS_REGION			= "region";
+		public static final String	CUSTOMER_BILLING_ADDRESS_POSTAL_CODE	= "postalcode";
 
-		public static final String ENTRIES = "entries";
-		public static final String ENTRY = "entry";
-		public static final String ENTRY_ID = "id";
-		public static final String ENTRY_DESCRIPTION = "description";
-		public static final String ENTRY_QUANTITY = "qty";
+		public static final String	ENTRIES									= "entries";
+		public static final String	ENTRY									= "entry";
+		public static final String	ENTRY_ID								= "id";
+		public static final String	ENTRY_DESCRIPTION						= "description";
+		public static final String	ENTRY_QUANTITY							= "qty";
 		// public static final String PRODUCT_DISCOUNT = "entries";
-		public static final String ENTRY_UNIT_PRICE = "unitPrice";
-		public static final String ENTRY_TOTAL = "total";
-		public static final String ENTRY_TAX = "tax";
+		public static final String	ENTRY_UNIT_PRICE						= "unitPrice";
+		public static final String	ENTRY_TOTAL								= "total";
+		public static final String	ENTRY_TAX								= "tax";
 
-		public static final String TAX_DETAILS = "taxDetails";
-		public static final String TAX_DETAIL = "detail";
-		public static final String TAX_DETAIL_TAX = "tax";
-		public static final String TAX_DETAIL_NET_VALUE = "baseValue";
-		public static final String TAX_DETAIL_VALUE = "taxValue";
+		public static final String	TAX_DETAILS								= "taxDetails";
+		public static final String	TAX_DETAIL								= "detail";
+		public static final String	TAX_DETAIL_TAX							= "tax";
+		public static final String	TAX_DETAIL_NET_VALUE					= "baseValue";
+		public static final String	TAX_DETAIL_VALUE						= "taxValue";
 	}
 
-	private DAOGenericInvoice daoGenericInvoice;
-	protected MathContext mc = BillyMathContext.get();
+	private DAOGenericInvoice	daoGenericInvoice;
+	protected MathContext		mc	= BillyMathContext.get();
 
 	@Inject
 	public AbstractPDFExportHandler(DAOGenericInvoice daoGenericInvoice) {
@@ -115,14 +115,16 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 	public File toFile(URI fileURI, GenericInvoiceEntity invoice,
 			BillyTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(fileURI, bundle.getXSLTFileStream(),
+		return super.toFile(
+				fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
 	protected void toStream(GenericInvoiceEntity invoice,
 			OutputStream targetStream, BillyTemplateBundle bundle)
-			throws ExportServiceException {
-		super.getStream(bundle.getXSLTFileStream(),
+		throws ExportServiceException {
+		super.getStream(
+				bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
 				bundle);
 	}
@@ -131,7 +133,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
 
 		ParamsTree<String, String> params = new ParamsTree<String, String>(
-				ParamKeys.ROOT);
+																			ParamKeys.ROOT);
 
 		TaxTotals taxTotals = new TaxTotals();
 
@@ -167,14 +169,15 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		if (null != paymentMechanism) {
 			params.getRoot().addChild(
 					ParamKeys.INVOICE_PAYMETHOD,
-					this.getPaymentMechanismTranslation(paymentMechanism,
-							bundle));
+					this.getPaymentMechanismTranslation(
+							paymentMechanism, bundle));
 		}
-		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-				date.format(document.getDate()));
+		params.getRoot().addChild(
+				ParamKeys.EMISSION_DATE, date.format(document.getDate()));
 
 		if (null != document.getSettlementDate()) {
-			params.getRoot().addChild(ParamKeys.DUE_DATE,
+			params.getRoot().addChild(
+					ParamKeys.DUE_DATE,
 					date.format(document.getSettlementDate()));
 		}
 	}
@@ -184,21 +187,26 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		for (TaxTotals.TaxTotalEntry taxDetail : taxTotals.getEntries()) {
 
-			Node<String, String> taxDetailNode = taxDetails
-					.addChild(ParamKeys.TAX_DETAIL);
+			Node<String, String> taxDetailNode = taxDetails.addChild(ParamKeys.TAX_DETAIL);
 
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_TAX, taxDetail
-					.getTaxValue().setScale(2, this.mc.getRoundingMode())
-					.toPlainString()
-					+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_TAX,
+					taxDetail.getTaxValue()
+								.setScale(2, this.mc.getRoundingMode())
+								.toPlainString()
+							+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
 
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_NET_VALUE, taxDetail
-					.getNetValue().setScale(2, this.mc.getRoundingMode())
-					.toPlainString());
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_NET_VALUE,
+					taxDetail.getNetValue()
+								.setScale(2, this.mc.getRoundingMode())
+								.toPlainString());
 
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_VALUE, taxDetail
-					.getAppliedTaxValue()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_VALUE,
+					taxDetail.getAppliedTaxValue()
+								.setScale(2, this.mc.getRoundingMode())
+								.toPlainString());
 		}
 		return;
 	}
@@ -206,21 +214,23 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	protected <T extends GenericInvoiceEntity> void setEntries(
 			TaxTotals taxTotals, Node<String, String> entries, T document) {
 
-		List<GenericInvoiceEntryEntity> genericInvoiceList = document
-				.getEntries();
+		List<GenericInvoiceEntryEntity> genericInvoiceList = document.getEntries();
 
 		for (GenericInvoiceEntryEntity entry : genericInvoiceList) {
 
 			Node<String, String> entryNode = entries.addChild(ParamKeys.ENTRY);
 
 			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct()
-					.getProductCode());
+														.getProductCode());
 
-			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
-					.getDescription());
+			entryNode.addChild(
+					ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
+														.getDescription());
 
-			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_QUANTITY,
+					entry.getQuantity().setScale(2, this.mc.getRoundingMode())
+							.toPlainString());
 
 			entryNode.addChild(
 					ParamKeys.ENTRY_UNIT_PRICE,
@@ -228,21 +238,23 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 							.setScale(2, this.mc.getRoundingMode())
 							.toPlainString());
 
-			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_TOTAL,
+					entry.getAmountWithTax()
+							.setScale(2, this.mc.getRoundingMode())
+							.toPlainString());
 
 			List<Tax> taxList = entry.getTaxes();
 			for (Tax tax : taxList) {
-				entryNode
-						.addChild(
-								ParamKeys.ENTRY_TAX,
-								tax.getValue()
-										+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
-												: "&#8364;"));
-				taxTotals
-						.add((tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
-								: false), tax.getValue(), entry
-								.getAmountWithoutTax(), tax.getUID().toString());
+				entryNode.addChild(
+						ParamKeys.ENTRY_TAX,
+						tax.getValue()
+								+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
+										: "&#8364;"));
+				taxTotals.add(
+						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
+								: false), tax.getValue(),
+						entry.getAmountWithoutTax(), tax.getUID().toString());
 			}
 		}
 	}
@@ -252,44 +264,57 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		Node<String, String> businessInfo = params.getRoot().addChild(
 				ParamKeys.BUSINESS);
 
-		businessInfo.addChild(ParamKeys.BUSINESS_LOGO,
-				bundle.getLogoImagePath());
+		businessInfo.addChild(
+				ParamKeys.BUSINESS_LOGO, bundle.getLogoImagePath());
 
 		businessInfo.addChild(ParamKeys.BUSINESS_NAME, document.getBusiness()
-				.getName());
+																.getName());
 
-		businessInfo.addChild(ParamKeys.BUSINESS_FINANCIAL_ID, document
-				.getBusiness().getFinancialID());
+		businessInfo.addChild(
+				ParamKeys.BUSINESS_FINANCIAL_ID, document.getBusiness()
+															.getFinancialID());
 
-		Node<String, String> businessAddress = businessInfo
-				.addChild(ParamKeys.BUSINESS_ADDRESS);
+		Node<String, String> businessAddress = businessInfo.addChild(ParamKeys.BUSINESS_ADDRESS);
 
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_COUNTRY, document
-				.getBusiness().getAddress().getISOCountry());
+		businessAddress.addChild(
+				ParamKeys.BUSINESS_ADDRESS_COUNTRY, document.getBusiness()
+															.getAddress()
+															.getISOCountry());
 
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_DETAILS, document
-				.getBusiness().getAddress().getDetails());
+		businessAddress.addChild(
+				ParamKeys.BUSINESS_ADDRESS_DETAILS, document.getBusiness()
+															.getAddress()
+															.getDetails());
 
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_CITY, document
-				.getBusiness().getAddress().getCity());
+		businessAddress.addChild(
+				ParamKeys.BUSINESS_ADDRESS_CITY, document.getBusiness()
+															.getAddress()
+															.getCity());
 
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_REGION, document
-				.getBusiness().getAddress().getRegion());
+		businessAddress.addChild(
+				ParamKeys.BUSINESS_ADDRESS_REGION, document.getBusiness()
+															.getAddress()
+															.getRegion());
 
-		businessAddress.addChild(ParamKeys.BUSINESS_ADDRESS_POSTAL_CODE,
+		businessAddress.addChild(
+				ParamKeys.BUSINESS_ADDRESS_POSTAL_CODE,
 				document.getBusiness().getAddress().getPostalCode());
 
-		Node<String, String> businessContacts = businessInfo
-				.addChild(ParamKeys.BUSINESS_CONTACTS);
+		Node<String, String> businessContacts = businessInfo.addChild(ParamKeys.BUSINESS_CONTACTS);
 
-		businessContacts.addChild(ParamKeys.BUSINESS_PHONE, document
-				.getBusiness().getMainContact().getTelephone());
+		businessContacts.addChild(
+				ParamKeys.BUSINESS_PHONE, document.getBusiness()
+													.getMainContact()
+													.getTelephone());
 
-		businessContacts.addChild(ParamKeys.BUSINESS_FAX, document
-				.getBusiness().getMainContact().getFax());
+		businessContacts.addChild(
+				ParamKeys.BUSINESS_FAX, document.getBusiness().getMainContact()
+												.getFax());
 
-		businessContacts.addChild(ParamKeys.BUSINESS_EMAIL, document
-				.getBusiness().getMainContact().getEmail());
+		businessContacts.addChild(
+				ParamKeys.BUSINESS_EMAIL, document.getBusiness()
+													.getMainContact()
+													.getEmail());
 
 		return;
 	}
@@ -301,32 +326,34 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 				ParamKeys.CUSTOMER);
 
 		customer.addChild(ParamKeys.CUSTOMER_NAME, document.getCustomer()
-				.getName());
+															.getName());
 
-		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID,
+		customer.addChild(
+				ParamKeys.CUSTOMER_FINANCIAL_ID,
 				this.getCustomerFinancialId(document, bundle));
 
 		if (document.getCustomer().getBillingAddress() != null) {
-			Node<String, String> customerAddress = customer
-					.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS);
+			Node<String, String> customerAddress = customer.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS);
 
 			customerAddress.addChild(
-					ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY, document
-							.getCustomer().getBillingAddress().getISOCountry());
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY,
+					document.getCustomer().getBillingAddress().getISOCountry());
 
 			customerAddress.addChild(
-					ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS, document
-							.getCustomer().getBillingAddress().getDetails());
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS,
+					document.getCustomer().getBillingAddress().getDetails());
 
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY,
+			customerAddress.addChild(
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY,
 					document.getCustomer().getBillingAddress().getCity());
 
-			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_REGION,
+			customerAddress.addChild(
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_REGION,
 					document.getCustomer().getBillingAddress().getRegion());
 
 			customerAddress.addChild(
-					ParamKeys.CUSTOMER_BILLING_ADDRESS_POSTAL_CODE, document
-							.getCustomer().getBillingAddress().getPostalCode());
+					ParamKeys.CUSTOMER_BILLING_ADDRESS_POSTAL_CODE,
+					document.getCustomer().getBillingAddress().getPostalCode());
 		}
 		return;
 	}
@@ -363,16 +390,16 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 	protected class TaxTotals {
 
-		Map<String, TaxTotalEntry> entries;
+		Map<String, TaxTotalEntry>	entries;
 
 		private class TaxTotalEntry {
 
-			BigDecimal baseValue;
-			BigDecimal taxValue;
-			Boolean percentageValued;
+			BigDecimal	baseValue;
+			BigDecimal	taxValue;
+			Boolean		percentageValued;
 
 			public TaxTotalEntry(boolean perc, BigDecimal taxValue,
-					BigDecimal baseValue) {
+									BigDecimal baseValue) {
 				this.baseValue = baseValue;
 				this.taxValue = taxValue;
 				this.percentageValued = perc;
@@ -398,8 +425,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 				BigDecimal appliedTaxVal;
 
 				if (this.percentageValued) {
-					BigDecimal tax = this.taxValue
-							.divide(new BigDecimal("100"));
+					BigDecimal tax = this.taxValue.divide(new BigDecimal("100"));
 					appliedTaxVal = this.baseValue.multiply(tax);
 				} else {
 					appliedTaxVal = this.taxValue;
@@ -415,7 +441,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		public void add(boolean isPercentage, BigDecimal taxValue,
 				BigDecimal baseValue, String taxUid) {
 			TaxTotalEntry currentEntry = new TaxTotalEntry(isPercentage,
-					taxValue, baseValue);
+															taxValue, baseValue);
 			if (this.entries.containsKey(taxUid)) {
 				this.entries.get(taxUid).addBaseValue(baseValue);
 			} else {

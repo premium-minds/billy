@@ -36,8 +36,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity;
 
 public class TestPTProductBuilder extends PTAbstractTest {
 
-	private static final String PTPRODUCT_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTProduct.yml";
+	private static final String	PTPRODUCT_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTProduct.yml";
 
 	@Test
 	public void doTest() {
@@ -71,20 +71,20 @@ public class TestPTProductBuilder extends PTAbstractTest {
 
 		Assert.assertTrue(product != null);
 
-		Assert.assertEquals(mockProduct.getCommodityCode(),
-				product.getCommodityCode());
-		Assert.assertEquals(mockProduct.getDescription(),
-				product.getDescription());
-		Assert.assertEquals(mockProduct.getNumberCode(),
-				product.getNumberCode());
-		Assert.assertEquals(mockProduct.getProductCode(),
-				product.getProductCode());
-		Assert.assertEquals(mockProduct.getProductGroup(),
-				product.getProductGroup());
-		Assert.assertEquals(mockProduct.getUnitOfMeasure(),
-				product.getUnitOfMeasure());
-		Assert.assertEquals(mockProduct.getValuationMethod(),
-				product.getValuationMethod());
+		Assert.assertEquals(
+				mockProduct.getCommodityCode(), product.getCommodityCode());
+		Assert.assertEquals(
+				mockProduct.getDescription(), product.getDescription());
+		Assert.assertEquals(
+				mockProduct.getNumberCode(), product.getNumberCode());
+		Assert.assertEquals(
+				mockProduct.getProductCode(), product.getProductCode());
+		Assert.assertEquals(
+				mockProduct.getProductGroup(), product.getProductGroup());
+		Assert.assertEquals(
+				mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
+		Assert.assertEquals(
+				mockProduct.getValuationMethod(), product.getValuationMethod());
 	}
 
 }

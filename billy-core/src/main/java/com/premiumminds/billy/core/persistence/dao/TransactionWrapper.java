@@ -29,8 +29,8 @@ package com.premiumminds.billy.core.persistence.dao;
  */
 public abstract class TransactionWrapper<T> {
 
-	private DAO<?> dao;
-	private boolean wasActive;
+	private DAO<?>	dao;
+	private boolean	wasActive;
 
 	/**
 	 * The TransactionWrapper constructor

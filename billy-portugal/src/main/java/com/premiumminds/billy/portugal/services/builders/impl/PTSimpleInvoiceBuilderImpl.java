@@ -34,13 +34,14 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
 public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTSimpleInvoice>
-		extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
-		PTSimpleInvoiceBuilder<TBuilder, TEntry, TDocument> {
+	extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
+	PTSimpleInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
 	@Inject
 	public PTSimpleInvoiceBuilderImpl(DAOPTSimpleInvoice daoPTSimpleInvoice,
-			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-			DAOPTSupplier daoPTSupplier) {
+										DAOPTBusiness daoPTBusiness,
+										DAOPTCustomer daoPTCustomer,
+										DAOPTSupplier daoPTSupplier) {
 		super(daoPTSimpleInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 

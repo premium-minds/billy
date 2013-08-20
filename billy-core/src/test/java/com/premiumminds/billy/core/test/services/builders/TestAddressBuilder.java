@@ -29,8 +29,8 @@ import com.premiumminds.billy.core.test.fixtures.MockAddressEntity;
 
 public class TestAddressBuilder extends AbstractTest {
 
-	private static final String ADDRESS_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "Address.yml";
+	private static final String	ADDRESS_YML	= AbstractTest.YML_CONFIGS_DIR
+													+ "Address.yml";
 
 	@Test
 	public void doTest() {
@@ -55,16 +55,16 @@ public class TestAddressBuilder extends AbstractTest {
 
 		Assert.assertTrue(address != null);
 
-		Assert.assertEquals(mockAddress.getStreetName(),
-				address.getStreetName());
+		Assert.assertEquals(
+				mockAddress.getStreetName(), address.getStreetName());
 		Assert.assertEquals(mockAddress.getNumber(), address.getNumber());
 		Assert.assertEquals(mockAddress.getDetails(), address.getDetails());
 		Assert.assertEquals(mockAddress.getBuilding(), address.getBuilding());
 		Assert.assertEquals(mockAddress.getCity(), address.getCity());
-		Assert.assertEquals(mockAddress.getPostalCode(),
-				address.getPostalCode());
+		Assert.assertEquals(
+				mockAddress.getPostalCode(), address.getPostalCode());
 		Assert.assertEquals(mockAddress.getRegion(), address.getRegion());
-		Assert.assertEquals(mockAddress.getISOCountry(),
-				address.getISOCountry());
+		Assert.assertEquals(
+				mockAddress.getISOCountry(), address.getISOCountry());
 	}
 }

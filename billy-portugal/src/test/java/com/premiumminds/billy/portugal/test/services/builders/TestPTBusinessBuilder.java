@@ -41,8 +41,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTBusinessEntity;
 
 public class TestPTBusinessBuilder extends PTAbstractTest {
 
-	private static final String PTBUSINESS_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTBusiness.yml";
+	private static final String	PTBUSINESS_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTBusiness.yml";
 
 	@Test
 	public void doTest() {
@@ -60,32 +60,28 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 
 		PTBusiness.Builder builder = this.getInstance(PTBusiness.Builder.class);
 
-		PTContact.Builder mockMainContactBuilder = this
-				.getMock(PTContact.Builder.class);
+		PTContact.Builder mockMainContactBuilder = this.getMock(PTContact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
 				(PTContactEntity) mockBusiness.getMainContact());
 
-		PTApplication.Builder mockApplicationBuilder = this
-				.getMock(PTApplication.Builder.class);
+		PTApplication.Builder mockApplicationBuilder = this.getMock(PTApplication.Builder.class);
 		Mockito.when(mockApplicationBuilder.build()).thenReturn(
 				(PTApplicationEntity) mockBusiness.getApplications().get(0));
 
-		PTAddress.Builder mockAddressBuilder = this
-				.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockAddressBuilder = this.getMock(PTAddress.Builder.class);
 		Mockito.when(mockAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockBusiness.getAddress());
 
-		PTAddress.Builder mockShippingAddressBuilder = this
-				.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockShippingAddressBuilder = this.getMock(PTAddress.Builder.class);
 		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockBusiness.getShippingAddress());
 
-		PTAddress.Builder mockBillingAddressBuilder = this
-				.getMock(PTAddress.Builder.class);
+		PTAddress.Builder mockBillingAddressBuilder = this.getMock(PTAddress.Builder.class);
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockBusiness.getBillingAddress());
 
-		builder.setFinancialID(mockBusiness.getFinancialID())
+		builder
+				.setFinancialID(mockBusiness.getFinancialID())
 				.setName(mockBusiness.getName())
 				.setAddress(mockAddressBuilder)
 				.setBillingAddress(mockBillingAddressBuilder)
@@ -100,18 +96,20 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 
 		Assert.assertTrue(business != null);
 
-		Assert.assertEquals(mockBusiness.getFinancialID(),
-				business.getFinancialID());
+		Assert.assertEquals(
+				mockBusiness.getFinancialID(), business.getFinancialID());
 		Assert.assertEquals(mockBusiness.getName(), business.getName());
-		Assert.assertEquals(mockBusiness.getWebsiteAddress(),
-				business.getWebsiteAddress());
-		Assert.assertEquals(mockBusiness.getAddress().getNumber(), business
-				.getAddress().getNumber());
+		Assert.assertEquals(
+				mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
+		Assert.assertEquals(
+				mockBusiness.getAddress().getNumber(), business.getAddress()
+																.getNumber());
 
 		Assert.assertTrue(business.getContacts() != null);
 
 		Assert.assertTrue(business.getApplications() != null);
-		Assert.assertEquals(mockBusiness.getApplications().size(), business
-				.getApplications().size());
+		Assert.assertEquals(
+				mockBusiness.getApplications().size(),
+				business.getApplications().size());
 	}
 }

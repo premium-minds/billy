@@ -33,16 +33,19 @@ import com.premiumminds.billy.portugal.services.certification.InvalidHashExcepti
 
 public class GenerateHash {
 
-	public static String generateHash(@NotNull PrivateKey privateKey,
-			@NotNull PublicKey publicKey, @NotNull Date invoiceDate,
-			@NotNull Date systemEntryDate, @NotNull String invoiceNumber,
-			@NotNull BigDecimal grossTotal, String previousInvoiceHash)
-			throws InvalidHashException, InvalidKeySpecException,
-			InvalidKeyException {
+	public static String generateHash(@NotNull
+	PrivateKey privateKey, @NotNull
+	PublicKey publicKey, @NotNull
+	Date invoiceDate, @NotNull
+	Date systemEntryDate, @NotNull
+	String invoiceNumber, @NotNull
+	BigDecimal grossTotal, String previousInvoiceHash)
+		throws InvalidHashException, InvalidKeySpecException,
+		InvalidKeyException {
 
-		String sourceString = GenerateHash
-				.generateSourceHash(invoiceDate, systemEntryDate,
-						invoiceNumber, grossTotal, previousInvoiceHash);
+		String sourceString = GenerateHash.generateSourceHash(
+				invoiceDate, systemEntryDate, invoiceNumber, grossTotal,
+				previousInvoiceHash);
 
 		CertificationManager certificationManager = new CertificationManager();
 		certificationManager.setAutoVerifyHash(true);
@@ -58,7 +61,7 @@ public class GenerateHash {
 
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		SimpleDateFormat dateTime = new SimpleDateFormat(
-				"yyyy-MM-dd'T'HH:mm:ss");
+															"yyyy-MM-dd'T'HH:mm:ss");
 
 		StringBuilder builder = new StringBuilder();
 		builder.append(date.format(invoiceDate)).append(';')

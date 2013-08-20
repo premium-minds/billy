@@ -26,19 +26,19 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
-		implements PTSimpleInvoiceEntity {
+	implements PTSimpleInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	protected Boolean cancelled;
-	protected Boolean billed;
-	protected String reason;
-	protected String hash;
-	protected String sourceHash;
-	protected String hashControl;
-	protected SourceBilling sourceBilling;
-	protected String eacCode;
-	protected TYPE type;
+	protected Boolean			cancelled;
+	protected Boolean			billed;
+	protected String			reason;
+	protected String			hash;
+	protected String			sourceHash;
+	protected String			hashControl;
+	protected SourceBilling		sourceBilling;
+	protected String			eacCode;
+	protected TYPE				type;
 
 	public MockPTSimpleInvoiceEntity() {
 
@@ -110,7 +110,6 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
 	}
 
-	@SuppressWarnings("unchecked")
 	public PaymentMechanism getPaymentMechanism() {
 		return null;
 	}
@@ -132,17 +131,17 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 
 	@Override
 	public String getHashControl() {
-		return hashControl;
+		return this.hashControl;
 	}
 
 	@Override
 	public String getEACCode() {
-		return eacCode;
+		return this.eacCode;
 	}
 
 	@Override
 	public String getChangeReason() {
-		return reason;
+		return this.reason;
 	}
 
 }

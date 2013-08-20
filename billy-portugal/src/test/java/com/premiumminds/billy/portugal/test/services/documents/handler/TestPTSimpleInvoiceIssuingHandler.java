@@ -30,15 +30,16 @@ import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuing
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
 
 public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
-	private static final TYPE DEFAULT_TYPE = TYPE.FS;
-	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
+	private static final TYPE				DEFAULT_TYPE	= TYPE.FS;
+	private static final SourceBilling		SOURCE_BILLING	= SourceBilling.P;
 
-	private PTSimpleInvoiceIssuingHandler handler;
-	private UID issuedInvoiceUID;
+	private PTSimpleInvoiceIssuingHandler	handler;
+	private UID								issuedInvoiceUID;
 
 	@Before
 	public void setUpNewSimpleInvoice() {
@@ -49,8 +50,9 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 					TestPTSimpleInvoiceIssuingHandler.DEFAULT_TYPE,
 					TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING);
 
-			this.issueNewInvoice(this.handler, invoice,
-					PTDocumentAbstractTest.DEFAULT_SERIES);
+			this.issueNewInvoice(
+					this.handler, invoice,
+					PTPersistencyAbstractTest.DEFAULT_SERIES);
 			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
@@ -60,15 +62,17 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
 		PTSimpleInvoice issuedInvoice = (PTSimpleInvoice) this.getInstance(
-				DAOPTSimpleInvoice.class).get(issuedInvoiceUID);
+				DAOPTSimpleInvoice.class).get(this.issuedInvoiceUID);
 
-		Assert.assertEquals(PTDocumentAbstractTest.DEFAULT_SERIES,
+		Assert.assertEquals(
+				PTPersistencyAbstractTest.DEFAULT_SERIES,
 				issuedInvoice.getSeries());
 		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
 		String formatedNumber = TestPTSimpleInvoiceIssuingHandler.DEFAULT_TYPE
-				+ " " + PTDocumentAbstractTest.DEFAULT_SERIES + "/1";
+				+ " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-		Assert.assertEquals(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING,
+		Assert.assertEquals(
+				TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING,
 				issuedInvoice.getSourceBilling());
 	}
 

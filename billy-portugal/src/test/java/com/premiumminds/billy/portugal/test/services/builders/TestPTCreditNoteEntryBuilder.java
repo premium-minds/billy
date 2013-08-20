@@ -41,10 +41,10 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
 
 public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
-	private static final String PT_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTCreditNoteEntry.yml";
-	private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTInvoice.yml";
+	private static final String	PT_CREDIT_NOTE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTCreditNoteEntry.yml";
+	private static final String	PT_INVOICE_YML				= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTInvoice.yml";
 
 	@Test
 	public void doTest() {
@@ -56,7 +56,7 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
 		Mockito.when(
 				this.getInstance(DAOPTCreditNoteEntry.class)
-						.getEntityInstance()).thenReturn(
+					.getEntityInstance()).thenReturn(
 				new MockPTCreditNoteEntryEntity());
 
 		MockPTInvoiceEntity mockInvoiceEntity = this.createMockEntity(
@@ -79,17 +79,17 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
 		mock.setReference(mockInvoiceEntity);
 
-		PTCreditNoteEntry.Builder builder = this
-				.getInstance(PTCreditNoteEntry.Builder.class);
+		PTCreditNoteEntry.Builder builder = this.getInstance(PTCreditNoteEntry.Builder.class);
 
-		builder.setCreditOrDebit(mock.getCreditOrDebit())
+		builder
+				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDescription(mock.getDescription())
 				.setReferenceUID(mock.getReference().getUID())
 				.setReason(mock.getReason())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
-				.setUnitAmount(AmountType.WITH_TAX,
-						mock.getUnitAmountWithTax(),
+				.setUnitAmount(
+						AmountType.WITH_TAX, mock.getUnitAmountWithTax(),
 						Currency.getInstance("EUR"))
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())

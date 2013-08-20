@@ -25,29 +25,29 @@ import com.premiumminds.billy.core.persistence.dao.DAOAddress;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.builders.AddressBuilder;
 import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TAddress>, TAddress extends Address>
-		extends AbstractBuilder<TBuilder, TAddress> implements
-		AddressBuilder<TBuilder, TAddress> {
+	extends AbstractBuilder<TBuilder, TAddress> implements
+	AddressBuilder<TBuilder, TAddress> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+																	"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOAddress daoAddress;
-	protected AddressEntity address;
+	protected DAOAddress				daoAddress;
+	protected AddressEntity				address;
 
 	@Inject
 	protected AddressBuilderImpl(DAOAddress daoAddress) {
-		super((EntityFactory<?>) daoAddress);
+		super(daoAddress);
 		this.daoAddress = daoAddress;
 	}
 
 	@Override
 	public TBuilder setStreetName(String streetName) {
-		BillyValidator.notBlank(streetName,
+		BillyValidator.notBlank(
+				streetName,
 				AddressBuilderImpl.LOCALIZER.getString("field.street_name"));
 		this.getTypeInstance().setStreetName(streetName);
 		return this.getBuilder();
@@ -55,15 +55,16 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setNumber(String number) {
-		BillyValidator.notBlank(number,
-				AddressBuilderImpl.LOCALIZER.getString("field.number"));
+		BillyValidator.notBlank(
+				number, AddressBuilderImpl.LOCALIZER.getString("field.number"));
 		this.getTypeInstance().setNumber(number);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setDetails(String details) {
-		BillyValidator.mandatory(details,
+		BillyValidator.mandatory(
+				details,
 				AddressBuilderImpl.LOCALIZER.getString("field.details"));
 		this.getTypeInstance().setDetails(details);
 		return this.getBuilder();
@@ -71,7 +72,8 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setBuilding(String building) {
-		BillyValidator.notBlank(building,
+		BillyValidator.notBlank(
+				building,
 				AddressBuilderImpl.LOCALIZER.getString("field.building"));
 		this.getTypeInstance().setBuilding(building);
 		return this.getBuilder();
@@ -79,15 +81,16 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setCity(String city) {
-		BillyValidator.mandatory(city,
-				AddressBuilderImpl.LOCALIZER.getString("field.city"));
+		BillyValidator.mandatory(
+				city, AddressBuilderImpl.LOCALIZER.getString("field.city"));
 		this.getTypeInstance().setCity(city);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setPostalCode(String postalCode) {
-		BillyValidator.mandatory(postalCode,
+		BillyValidator.mandatory(
+				postalCode,
 				AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
 		this.getTypeInstance().setPostalCode(postalCode);
 		return this.getBuilder();
@@ -95,15 +98,16 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setRegion(String region) {
-		BillyValidator.notBlank(region,
-				AddressBuilderImpl.LOCALIZER.getString("field.region"));
+		BillyValidator.notBlank(
+				region, AddressBuilderImpl.LOCALIZER.getString("field.region"));
 		this.getTypeInstance().setRegion(region);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setISOCountry(String country) {
-		BillyValidator.mandatory(country,
+		BillyValidator.mandatory(
+				country,
 				AddressBuilderImpl.LOCALIZER.getString("field.country"));
 		this.getTypeInstance().setISOCountry(country);
 		return this.getBuilder();
@@ -112,13 +116,17 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		AddressEntity address = this.getTypeInstance();
-		BillyValidator.mandatory(address.getDetails(),
+		BillyValidator.mandatory(
+				address.getDetails(),
 				AddressBuilderImpl.LOCALIZER.getString("field.details"));
-		BillyValidator.mandatory(address.getCity(),
+		BillyValidator.mandatory(
+				address.getCity(),
 				AddressBuilderImpl.LOCALIZER.getString("field.city"));
-		BillyValidator.mandatory(address.getPostalCode(),
+		BillyValidator.mandatory(
+				address.getPostalCode(),
 				AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
-		BillyValidator.mandatory(address.getISOCountry(),
+		BillyValidator.mandatory(
+				address.getISOCountry(),
 				AddressBuilderImpl.LOCALIZER.getString("field.country"));
 	}
 

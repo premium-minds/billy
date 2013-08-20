@@ -24,28 +24,28 @@ import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.builders.ContactBuilder;
 import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TContact>, TContact extends Contact>
-		extends AbstractBuilder<TBuilder, TContact> implements
-		ContactBuilder<TBuilder, TContact> {
+	extends AbstractBuilder<TBuilder, TContact> implements
+	ContactBuilder<TBuilder, TContact> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+																	"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOContact daoContact;
+	protected DAOContact				daoContact;
 
 	@Inject
 	public ContactBuilderImpl(DAOContact daoContact) {
-		super((EntityFactory<?>) daoContact);
+		super(daoContact);
 		this.daoContact = daoContact;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name,
+		BillyValidator.mandatory(
+				name,
 				ContactBuilderImpl.LOCALIZER.getString("field.contact_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -53,7 +53,8 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setTelephone(String telephone) {
-		BillyValidator.notBlank(telephone,
+		BillyValidator.notBlank(
+				telephone,
 				ContactBuilderImpl.LOCALIZER.getString("field.telephone"));
 		this.getTypeInstance().setTelephone(telephone);
 		return this.getBuilder();
@@ -61,31 +62,32 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setMobile(String mobile) {
-		BillyValidator.notBlank(mobile,
-				ContactBuilderImpl.LOCALIZER.getString("field.mobile"));
+		BillyValidator.notBlank(
+				mobile, ContactBuilderImpl.LOCALIZER.getString("field.mobile"));
 		this.getTypeInstance().setMobile(mobile);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setFax(String fax) {
-		BillyValidator.notBlank(fax,
-				ContactBuilderImpl.LOCALIZER.getString("field.fax"));
+		BillyValidator.notBlank(
+				fax, ContactBuilderImpl.LOCALIZER.getString("field.fax"));
 		this.getTypeInstance().setFax(fax);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setEmail(String email) {
-		BillyValidator.notBlank(email,
-				ContactBuilderImpl.LOCALIZER.getString("field.email"));
+		BillyValidator.notBlank(
+				email, ContactBuilderImpl.LOCALIZER.getString("field.email"));
 		this.getTypeInstance().setEmail(email);
 		return this.getBuilder();
 	}
 
 	@Override
 	public TBuilder setWebsite(String website) {
-		BillyValidator.notBlank(website,
+		BillyValidator.notBlank(
+				website,
 				ContactBuilderImpl.LOCALIZER.getString("field.website"));
 		this.getTypeInstance().setWebsite(website);
 		return this.getBuilder();
@@ -93,7 +95,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		Contact c = this.getTypeInstance();
 		BillyValidator.mandatory(c.getName(), "field.contact_name");
 	}

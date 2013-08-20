@@ -29,20 +29,20 @@ import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public class MockCustomerEntity extends MockBaseEntity implements
-		CustomerEntity {
+	CustomerEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String name;
-	public String taxRegistrationNumber;
-	public List<Address> addresses;
-	public AddressEntity mainAddress;
-	public AddressEntity billingAddress;
-	public AddressEntity shippingAddress;
-	public List<Contact> contacts;
-	public ContactEntity mainContact;
-	public List<BankAccount> bankAccounts;
-	public boolean hasSelfBillingAgreement;
+	public String				name;
+	public String				taxRegistrationNumber;
+	public List<Address>		addresses;
+	public AddressEntity		mainAddress;
+	public AddressEntity		billingAddress;
+	public AddressEntity		shippingAddress;
+	public List<Contact>		contacts;
+	public ContactEntity		mainContact;
+	public List<BankAccount>	bankAccounts;
+	public boolean				hasSelfBillingAgreement;
 
 	public MockCustomerEntity() {
 		this.addresses = new ArrayList<Address>();

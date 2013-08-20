@@ -49,13 +49,13 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
 
-		public static final String CN_HASH = "hash";
-		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
-		public static final String INVOICE = "invoice";
+		public static final String	CN_HASH						= "hash";
+		public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
+		public static final String	INVOICE						= "invoice";
 	}
 
-	private DAOPTCreditNote daoPTCreditNote;
-	private Config config;
+	private DAOPTCreditNote	daoPTCreditNote;
+	private Config			config;
 
 	@Inject
 	public PTCreditNotePDFExportHandler(DAOPTCreditNote daoPTCreditNote) {
@@ -66,14 +66,16 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 	public File toFile(URI fileURI, PTCreditNoteEntity creditNote,
 			PTCreditNoteTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(fileURI, bundle.getXSLTFileStream(),
+		return super.toFile(
+				fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(creditNote, bundle), bundle);
 	}
 
 	protected void toStream(PTCreditNoteEntity creditNote,
 			OutputStream targetStream, PTCreditNoteTemplateBundle bundle)
-			throws ExportServiceException {
-		super.getStream(bundle.getXSLTFileStream(),
+		throws ExportServiceException {
+		super.getStream(
+				bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(creditNote, bundle), targetStream,
 				bundle);
 	}
@@ -85,13 +87,15 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
 				creditNote, bundle);
 
-		params.getRoot()
+		params
+				.getRoot()
 				.addChild(
 						PTParamKeys.CN_HASH,
 						this.getVerificationHashString(creditNote.getHash()
-								.getBytes()));
+																	.getBytes()));
 
-		params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
+		params.getRoot().addChild(
+				PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
 				bundle.getSoftwareCertificationId());
 
 		return params;
@@ -105,34 +109,39 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 			Node<String, String> entryNode = entries.addChild(ParamKeys.ENTRY);
 			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct()
-					.getProductCode());
-			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
-					.getDescription());
-			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+														.getProductCode());
+			entryNode.addChild(
+					ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
+														.getDescription());
+			entryNode.addChild(
+					ParamKeys.ENTRY_QUANTITY,
+					entry.getQuantity().setScale(2, this.mc.getRoundingMode())
+							.toPlainString());
 			entryNode.addChild(
 					ParamKeys.ENTRY_UNIT_PRICE,
 					entry.getUnitAmountWithTax()
 							.setScale(2, this.mc.getRoundingMode())
 							.toPlainString());
-			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_TOTAL,
+					entry.getAmountWithTax()
+							.setScale(2, this.mc.getRoundingMode())
+							.toPlainString());
 
 			Collection<PTTaxEntity> list = entry.getTaxes();
 			for (PTTaxEntity tax : list) {
-				entryNode
-						.addChild(
-								ParamKeys.ENTRY_TAX,
-								tax.getValue()
-										+ (tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? "%"
-												: "&#8364;"));
-				taxTotals
-						.add((tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? true
-								: false), tax.getValue(), entry
-								.getAmountWithoutTax(), tax.getUID().toString());
+				entryNode.addChild(
+						ParamKeys.ENTRY_TAX,
+						tax.getValue()
+								+ (tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? "%"
+										: "&#8364;"));
+				taxTotals.add(
+						(tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? true
+								: false), tax.getValue(),
+						entry.getAmountWithoutTax(), tax.getUID().toString());
 			}
-			entryNode.addChild(PTParamKeys.INVOICE).addChild(ParamKeys.ID,
-					entry.getReference().getNumber());
+			entryNode.addChild(PTParamKeys.INVOICE).addChild(
+					ParamKeys.ID, entry.getReference().getNumber());
 		}
 	}
 
@@ -156,8 +165,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
-			PTCreditNoteEntity creditNote = (PTCreditNoteEntity) this.daoPTCreditNote
-					.get(docUid);
+			PTCreditNoteEntity creditNote = (PTCreditNoteEntity) this.daoPTCreditNote.get(docUid);
 			this.toStream(creditNote, targetStream, exportRequest.getBundle());
 		} catch (Exception e) {
 			throw new ExportServiceException(e);
@@ -168,9 +176,11 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
-		return (invoice.getCustomer().getUID()
-				.equals(this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
-				.getGenericCustomer() : invoice.getCustomer()
-				.getTaxRegistrationNumber());
+		return (invoice
+						.getCustomer()
+						.getUID()
+						.equals(
+								this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template.getGenericCustomer()
+				: invoice.getCustomer().getTaxRegistrationNumber());
 	}
 }

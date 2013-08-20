@@ -34,14 +34,14 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTCreditNoteEntryTestUtil {
 
-	private static final BigDecimal AMOUNT = new BigDecimal(20);
-	private static final Currency CURRENCY = Currency.getInstance("EUR");
-	private static final BigDecimal QUANTITY = new BigDecimal(1);
-	private static final String REASON = "Rotten potatoes";
+	private static final BigDecimal	AMOUNT		= new BigDecimal(20);
+	private static final Currency	CURRENCY	= Currency.getInstance("EUR");
+	private static final BigDecimal	QUANTITY	= new BigDecimal(1);
+	private static final String		REASON		= "Rotten potatoes";
 
-	private Injector injector;
-	private Contexts contexts;
-	private PTRegionContext context;
+	private Injector				injector;
+	private Contexts				contexts;
+	private PTRegionContext			context;
 
 	public PTCreditNoteEntryTestUtil(Injector injector) {
 		this.injector = injector;
@@ -50,28 +50,31 @@ public class PTCreditNoteEntryTestUtil {
 
 	public PTCreditNoteEntry.Builder getCreditNoteEntryBuilder(
 			PTInvoiceEntity reference) {
-		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector
-				.getInstance(PTCreditNoteEntry.Builder.class);
+		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector.getInstance(PTCreditNoteEntry.Builder.class);
 
-		PTProductEntity newProduct = (PTProductEntity) injector.getInstance(
-				DAOPTProduct.class).create(
-				new PTProductTestUtil(injector).getProductEntity());
+		PTProductEntity newProduct = (PTProductEntity) this.injector
+																	.getInstance(
+																			DAOPTProduct.class)
+																	.create(
+																			new PTProductTestUtil(
+																									this.injector).getProductEntity());
 
 		this.context = this.contexts.portugal().portugal();
 
 		creditNoteEntryBuilder
-				.setUnitAmount(AmountType.WITH_TAX,
-						PTCreditNoteEntryTestUtil.AMOUNT,
-						PTCreditNoteEntryTestUtil.CURRENCY)
-				.setTaxPointDate(new Date())
-				.setCreditOrDebit(CreditOrDebit.DEBIT)
-				.setDescription(newProduct.getDescription())
-				.setQuantity(PTCreditNoteEntryTestUtil.QUANTITY)
-				.setUnitOfMeasure(newProduct.getUnitOfMeasure())
-				.setProductUID(newProduct.getUID())
-				.setContextUID(this.context.getUID())
-				.setReason(PTCreditNoteEntryTestUtil.REASON)
-				.setReferenceUID(reference.getUID());
+								.setUnitAmount(
+										AmountType.WITH_TAX,
+										PTCreditNoteEntryTestUtil.AMOUNT,
+										PTCreditNoteEntryTestUtil.CURRENCY)
+								.setTaxPointDate(new Date())
+								.setCreditOrDebit(CreditOrDebit.DEBIT)
+								.setDescription(newProduct.getDescription())
+								.setQuantity(PTCreditNoteEntryTestUtil.QUANTITY)
+								.setUnitOfMeasure(newProduct.getUnitOfMeasure())
+								.setProductUID(newProduct.getUID())
+								.setContextUID(this.context.getUID())
+								.setReason(PTCreditNoteEntryTestUtil.REASON)
+								.setReferenceUID(reference.getUID());
 
 		return creditNoteEntryBuilder;
 	}

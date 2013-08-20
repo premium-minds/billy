@@ -27,7 +27,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntryEntity;
 
 public class DAOPTInvoiceEntryImpl extends DAOPTGenericInvoiceEntryImpl
-		implements DAOPTInvoiceEntry {
+	implements DAOPTInvoiceEntry {
 
 	@Inject
 	public DAOPTInvoiceEntryImpl(Provider<EntityManager> emProvider) {

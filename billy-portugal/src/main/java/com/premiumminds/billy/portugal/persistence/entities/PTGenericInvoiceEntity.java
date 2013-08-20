@@ -26,7 +26,7 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public interface PTGenericInvoiceEntity extends GenericInvoiceEntity,
-		PTGenericInvoice {
+	PTGenericInvoice {
 
 	public void setType(TYPE type);
 

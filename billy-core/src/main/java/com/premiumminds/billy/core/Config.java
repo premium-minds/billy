@@ -27,12 +27,12 @@ import javax.inject.Singleton;
 @Singleton
 public class Config {
 
-	public static final long SERIAL_VERSION = -4303676531780572465L;
-	public static final String TABLE_PREFIX = "BILLY_CORE_";
+	public static final long	SERIAL_VERSION				= -4303676531780572465L;
+	public static final String	TABLE_PREFIX				= "BILLY_CORE_";
 
-	private static final String CONFIGURATIONS_FILE_NAME = "";
+	private static final String	CONFIGURATIONS_FILE_NAME	= "";
 
-	private Properties properties;
+	private Properties			properties;
 
 	public Config() {
 		this.properties = this.load();
@@ -40,8 +40,11 @@ public class Config {
 	}
 
 	private Properties load() {
-		InputStream stream = Thread.currentThread().getContextClassLoader()
-				.getResourceAsStream(Config.CONFIGURATIONS_FILE_NAME);
+		InputStream stream = Thread
+									.currentThread()
+									.getContextClassLoader()
+									.getResourceAsStream(
+											Config.CONFIGURATIONS_FILE_NAME);
 		Properties properties = new Properties();
 		try {
 			properties.load(stream);

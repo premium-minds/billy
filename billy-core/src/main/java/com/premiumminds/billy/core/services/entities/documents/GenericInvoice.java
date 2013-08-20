@@ -42,14 +42,13 @@ public interface GenericInvoice extends Entity {
 		CREDIT, DEBIT
 	}
 
-	public static class Builder
-			extends
-			GenericInvoiceBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoice> {
+	public static class Builder extends
+		GenericInvoiceBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoice> {
 
 		@Inject
 		public Builder(DAOGenericInvoice daoGenericInvoice,
-				DAOBusiness daoBusiness, DAOCustomer daoCustomer,
-				DAOSupplier daoSupplier) {
+						DAOBusiness daoBusiness, DAOCustomer daoCustomer,
+						DAOSupplier daoSupplier) {
 			super(daoGenericInvoice, daoBusiness, daoCustomer, daoSupplier);
 		}
 	}

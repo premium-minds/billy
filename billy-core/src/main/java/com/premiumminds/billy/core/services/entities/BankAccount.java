@@ -25,7 +25,7 @@ import com.premiumminds.billy.core.services.builders.impl.BankAccountBuilderImpl
 public interface BankAccount {
 
 	public static class Builder extends
-			BankAccountBuilderImpl<Builder, BankAccount> {
+		BankAccountBuilderImpl<Builder, BankAccount> {
 
 		@Inject
 		public Builder(DAOBankAccount daoBankAccount) {

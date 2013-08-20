@@ -36,36 +36,36 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
 public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
-		implements PTGenericInvoiceEntity {
+	implements PTGenericInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "CANCELLED")
-	protected Boolean cancelled;
+	protected Boolean			cancelled;
 
 	@Column(name = "EAC_CODE")
-	protected String eacCode;
+	protected String			eacCode;
 
 	@Column(name = "BILLED")
-	protected Boolean billed;
+	protected Boolean			billed;
 
 	@Column(name = "CHANGE_REASON")
-	protected String reason;
+	protected String			reason;
 
 	@Column(name = "HASH")
-	protected String hash;
+	protected String			hash;
 
 	@Column(name = "SOURCE_HASH")
-	protected String sourceHash;
+	protected String			sourceHash;
 
 	@Column(name = "HASH_CONTROL")
-	protected String hashControl;
+	protected String			hashControl;
 
 	@Column(name = "SOURCE_BILLING")
-	protected SourceBilling sourceBilling;
+	protected SourceBilling		sourceBilling;
 
 	@Column(name = "INVOICE_TYPE")
-	protected TYPE type;
+	protected TYPE				type;
 
 	@Override
 	public TYPE getType() {
@@ -89,7 +89,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Override
 	public String getChangeReason() {
-		return reason;
+		return this.reason;
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Override
 	public String getHashControl() {
-		return hashControl;
+		return this.hashControl;
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Override
 	public String getEACCode() {
-		return eacCode;
+		return this.eacCode;
 	}
 
 	@Override
@@ -163,7 +163,6 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 		this.eacCode = eacCode;
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	@Override
 	public PaymentMechanism getPaymentMechanism() {
 		return (PaymentMechanism) super.getPaymentMechanism();

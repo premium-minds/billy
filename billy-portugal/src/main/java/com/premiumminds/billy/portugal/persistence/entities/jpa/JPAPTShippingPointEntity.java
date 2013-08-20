@@ -31,9 +31,9 @@ import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntit
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
 public class JPAPTShippingPointEntity extends JPAShippingPointEntity implements
-		PTShippingPointEntity {
+	PTShippingPointEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public JPAPTShippingPointEntity() {
 	}

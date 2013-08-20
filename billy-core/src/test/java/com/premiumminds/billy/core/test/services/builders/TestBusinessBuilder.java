@@ -36,8 +36,8 @@ import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
 public class TestBusinessBuilder extends AbstractTest {
 
-	private static final String BUSINESS_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "Business.yml";
+	private static final String	BUSINESS_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "Business.yml";
 
 	@Test
 	public void doTest() {
@@ -47,39 +47,36 @@ public class TestBusinessBuilder extends AbstractTest {
 		Mockito.when(this.getInstance(DAOBusiness.class).getEntityInstance())
 				.thenReturn(new MockBusinessEntity());
 
-		Mockito.when(
-				this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
-				.thenReturn(
+		Mockito
+				.when(
+						this.getInstance(DAOContext.class).get(
+								Matchers.any(UID.class))).thenReturn(
 						(ContextEntity) mockBusiness.getOperationalContext());
 
 		Business.Builder builder = this.getInstance(Business.Builder.class);
 
-		Contact.Builder mockMainContactBuilder = this
-				.getMock(Contact.Builder.class);
+		Contact.Builder mockMainContactBuilder = this.getMock(Contact.Builder.class);
 		Mockito.when(mockMainContactBuilder.build()).thenReturn(
 				mockBusiness.getMainContact());
 
-		Application.Builder mockApplicationBuilder = this
-				.getMock(Application.Builder.class);
+		Application.Builder mockApplicationBuilder = this.getMock(Application.Builder.class);
 		Mockito.when(mockApplicationBuilder.build()).thenReturn(
 				mockBusiness.getApplications().get(0));
 
-		Address.Builder mockAddressBuilder = this
-				.getMock(Address.Builder.class);
+		Address.Builder mockAddressBuilder = this.getMock(Address.Builder.class);
 		Mockito.when(mockAddressBuilder.build()).thenReturn(
 				mockBusiness.getAddress());
 
-		Address.Builder mockShippingAddressBuilder = this
-				.getMock(Address.Builder.class);
+		Address.Builder mockShippingAddressBuilder = this.getMock(Address.Builder.class);
 		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
 				mockBusiness.getShippingAddress());
 
-		Address.Builder mockBillingAddressBuilder = this
-				.getMock(Address.Builder.class);
+		Address.Builder mockBillingAddressBuilder = this.getMock(Address.Builder.class);
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				mockBusiness.getBillingAddress());
 
-		builder.setFinancialID(mockBusiness.getFinancialID())
+		builder
+				.setFinancialID(mockBusiness.getFinancialID())
 				.setName(mockBusiness.getName())
 				.setCommercialName(mockBusiness.getCommercialName())
 				.setAddress(mockAddressBuilder)
@@ -95,20 +92,22 @@ public class TestBusinessBuilder extends AbstractTest {
 
 		Assert.assertTrue(business != null);
 
-		Assert.assertEquals(mockBusiness.getFinancialID(),
-				business.getFinancialID());
+		Assert.assertEquals(
+				mockBusiness.getFinancialID(), business.getFinancialID());
 		Assert.assertEquals(mockBusiness.getName(), business.getName());
-		Assert.assertEquals(mockBusiness.getWebsiteAddress(),
-				business.getWebsiteAddress());
-		Assert.assertEquals(mockBusiness.getCommercialName(),
-				business.getCommercialName());
-		Assert.assertEquals(mockBusiness.getAddress().getNumber(), business
-				.getAddress().getNumber());
+		Assert.assertEquals(
+				mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
+		Assert.assertEquals(
+				mockBusiness.getCommercialName(), business.getCommercialName());
+		Assert.assertEquals(
+				mockBusiness.getAddress().getNumber(), business.getAddress()
+																.getNumber());
 
 		Assert.assertTrue(business.getContacts() != null);
 
 		Assert.assertTrue(business.getApplications() != null);
-		Assert.assertEquals(mockBusiness.getApplications().size(), business
-				.getApplications().size());
+		Assert.assertEquals(
+				mockBusiness.getApplications().size(),
+				business.getApplications().size());
 	}
 }

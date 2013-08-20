@@ -38,10 +38,10 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTCreditNoteEntryEntity
 
 public class TestPTCreditNoteBuilder extends PTAbstractTest {
 
-	private static final String PT_CREDIT_NOTE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTCreditNote.yml";
-	private static final String PT_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTCreditNoteEntry.yml";
+	private static final String	PT_CREDIT_NOTE_YML			= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTCreditNote.yml";
+	private static final String	PT_CREDIT_NOTE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTCreditNoteEntry.yml";
 
 	@Test
 	public void doTest() {
@@ -65,14 +65,11 @@ public class TestPTCreditNoteBuilder extends PTAbstractTest {
 
 		mock.getEntries().add(entryMock);
 
-		ArrayList<PTCreditNoteEntry> creditNodeEntries = (ArrayList<PTCreditNoteEntry>) mock
-				.getEntries();
+		ArrayList<PTCreditNoteEntry> creditNodeEntries = (ArrayList<PTCreditNoteEntry>) mock.getEntries();
 
-		PTCreditNote.Builder builder = this
-				.getInstance(PTCreditNote.Builder.class);
+		PTCreditNote.Builder builder = this.getInstance(PTCreditNote.Builder.class);
 
-		PTCreditNoteEntry.Builder entry1 = this
-				.getMock(PTCreditNoteEntry.Builder.class);
+		PTCreditNoteEntry.Builder entry1 = this.getMock(PTCreditNoteEntry.Builder.class);
 		Mockito.when(entry1.build()).thenReturn(creditNodeEntries.get(0));
 
 		builder.addEntry(entry1).setBilled(mock.isBilled())
@@ -95,19 +92,19 @@ public class TestPTCreditNoteBuilder extends PTAbstractTest {
 		Assert.assertTrue(creditNote != null);
 		Assert.assertTrue(creditNote.getEntries() != null);
 		Assert.assertEquals(creditNote.getEntries().size(), mock.getEntries()
-				.size());
+																.size());
 
 		Assert.assertTrue(creditNote.isBilled() == mock.isBilled());
 		Assert.assertTrue(creditNote.isCancelled() == mock.isCancelled());
 
-		Assert.assertEquals(mock.getCreditOrDebit(),
-				creditNote.getCreditOrDebit());
-		Assert.assertEquals(mock.getGeneralLedgerDate(),
-				creditNote.getGeneralLedgerDate());
+		Assert.assertEquals(
+				mock.getCreditOrDebit(), creditNote.getCreditOrDebit());
+		Assert.assertEquals(
+				mock.getGeneralLedgerDate(), creditNote.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), creditNote.getBatchId());
 		Assert.assertEquals(mock.getDate(), creditNote.getDate());
-		Assert.assertEquals(mock.getPaymentTerms(),
-				creditNote.getPaymentTerms());
+		Assert.assertEquals(
+				mock.getPaymentTerms(), creditNote.getPaymentTerms());
 
 		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
 				creditNote.getAmountWithoutTax()) == 0);

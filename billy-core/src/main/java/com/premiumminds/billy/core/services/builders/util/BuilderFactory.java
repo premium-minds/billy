@@ -28,7 +28,7 @@ import com.premiumminds.billy.core.util.NotImplemented;
 public class BuilderFactory {
 
 	@Inject
-	Injector injector;
+	Injector	injector;
 
 	static {
 

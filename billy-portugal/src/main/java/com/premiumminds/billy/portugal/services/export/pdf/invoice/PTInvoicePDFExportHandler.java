@@ -42,13 +42,13 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
 
-		public static final String INVOICE_HASH = "hash";
-		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
-		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
+		public static final String	INVOICE_HASH				= "hash";
+		public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
+		public static final String	INVOICE_PAYSETTLEMENT		= "paymentSettlement";
 	}
 
-	private DAOPTInvoice daoPTInvoice;
-	private Config config;
+	private DAOPTInvoice	daoPTInvoice;
+	private Config			config;
 
 	@Inject
 	public PTInvoicePDFExportHandler(DAOPTInvoice daoPTInvoice) {
@@ -59,13 +59,15 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	public File toFile(URI fileURI, PTInvoiceEntity invoice,
 			PTInvoiceTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(fileURI, bundle.getXSLTFileStream(),
+		return super.toFile(
+				fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
 	protected void toStream(PTInvoiceEntity invoice, OutputStream targetStream,
 			PTInvoiceTemplateBundle bundle) throws ExportServiceException {
-		super.getStream(bundle.getXSLTFileStream(),
+		super.getStream(
+				bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
 				bundle);
 	}
@@ -78,10 +80,12 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
 				invoice, bundle);
 
-		params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
+		params.getRoot().addChild(
+				PTParamKeys.INVOICE_HASH,
 				this.getVerificationHashString(invoice.getHash().getBytes()));
 
-		params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
+		params.getRoot().addChild(
+				PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
 				bundle.getSoftwareCertificationId());
 		return params;
 	}
@@ -106,8 +110,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		UID docUid = exportRequest.getDocumentUID();
 
 		try {
-			PTInvoiceEntity invoice = (PTInvoiceEntity) this.daoPTInvoice
-					.get(docUid);
+			PTInvoiceEntity invoice = (PTInvoiceEntity) this.daoPTInvoice.get(docUid);
 			this.toStream(invoice, targetStream, exportRequest.getBundle());
 		} catch (Exception e) {
 			throw new ExportServiceException(e);
@@ -119,7 +122,8 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 			ParamsTree<String, String> params, K document, T bundle) {
 
 		if (null != document.getSettlementDescription()) {
-			params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT,
+			params.getRoot().addChild(
+					PTParamKeys.INVOICE_PAYSETTLEMENT,
 					document.getSettlementDescription());
 
 		}
@@ -132,9 +136,11 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
-		return (invoice.getCustomer().getUID()
-				.equals(this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
-				.getGenericCustomer() : invoice.getCustomer()
-				.getTaxRegistrationNumber());
+		return (invoice
+						.getCustomer()
+						.getUID()
+						.equals(
+								this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template.getGenericCustomer()
+				: invoice.getCustomer().getTaxRegistrationNumber());
 	}
 }

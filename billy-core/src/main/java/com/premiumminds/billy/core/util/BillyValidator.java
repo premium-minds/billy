@@ -31,27 +31,26 @@ import org.apache.commons.lang3.Validate;
 
 public class BillyValidator extends Validate {
 
-	private static BillyValidator instance = new BillyValidator();
+	private static BillyValidator	instance	= new BillyValidator();
 
-	private Localizer localizer;
-	private ValidatorFactory factory;
-	private Validator validator;
+	private Localizer				localizer;
+	private ValidatorFactory		factory;
+	private Validator				validator;
 
 	private BillyValidator() {
 		this.localizer = new Localizer(
-				"com/premiumminds/billy/core/i18n/Validation");
+										"com/premiumminds/billy/core/i18n/Validation");
 		this.factory = Validation.buildDefaultValidatorFactory();
 		this.validator = this.factory.getValidator();
 	}
 
 	public static void validateBeans(Object... objects)
-			throws ValidationException {
+		throws ValidationException {
 		StringBuilder builder = new StringBuilder();
 		boolean valid = true;
 
 		for (Object o : objects) {
-			Set<ConstraintViolation<Object>> violations = BillyValidator.instance.validator
-					.validate(o);
+			Set<ConstraintViolation<Object>> violations = BillyValidator.instance.validator.validate(o);
 			if (!violations.isEmpty()) {
 				valid = false;
 				builder.append("There was an exception while validating instance of ");

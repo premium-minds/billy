@@ -25,16 +25,16 @@ import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 
 public class MockShippingPointEntity extends MockBaseEntity implements
-		ShippingPointEntity {
+	ShippingPointEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String deliveryId;
-	public Date date;
-	public String warehouseId;
-	public String locationId;
-	public String UCR;
-	public AddressEntity address;
+	public String				deliveryId;
+	public Date					date;
+	public String				warehouseId;
+	public String				locationId;
+	public String				UCR;
+	public AddressEntity		address;
 
 	public MockShippingPointEntity() {
 

@@ -22,16 +22,16 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 
 public class MockAddressEntity extends MockBaseEntity implements AddressEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String streetName;
-	public String number;
-	public String details;
-	public String building;
-	public String city;
-	public String postalCode;
-	public String region;
-	public String country;
+	public String				streetName;
+	public String				number;
+	public String				details;
+	public String				building;
+	public String				city;
+	public String				postalCode;
+	public String				region;
+	public String				country;
 
 	public MockAddressEntity() {
 

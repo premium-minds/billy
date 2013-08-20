@@ -42,15 +42,14 @@ import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceOperations extends AbstractTest {
 
-	private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoice.yml";
-	private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoiceEntry.yml";
-	private MathContext mc = BillyMathContext.get();
-	private BigDecimal qnt = new BigDecimal("46");
-	private BigDecimal tax = new BigDecimal("0.23");
+	private static final String	INVOICE_YML	= AbstractTest.YML_CONFIGS_DIR
+													+ "GenericInvoice.yml";
+	private static final String	ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+													+ "GenericInvoiceEntry.yml";
+	private MathContext			mc			= BillyMathContext.get();
+	private BigDecimal			qnt			= new BigDecimal("46");
+	private BigDecimal			tax			= new BigDecimal("0.23");
 
-	@SuppressWarnings("deprecation")
 	@Test
 	public void doTest() {
 		MockGenericInvoiceEntity mock = this.createMockEntity(
@@ -82,8 +81,8 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 				this.qnt, this.mc);
 		entryMock1.amountWithTax = entryMock1.unitAmountWithTax.multiply(
 				this.qnt, this.mc);
-		entryMock1.taxAmount = entryMock1.unitTaxAmount.multiply(this.qnt,
-				this.mc);
+		entryMock1.taxAmount = entryMock1.unitTaxAmount.multiply(
+				this.qnt, this.mc);
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoiceEntry.class).get(
@@ -110,29 +109,24 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 				this.qnt, this.mc);
 		entryMock3.amountWithTax = entryMock3.unitAmountWithTax.multiply(
 				this.qnt, this.mc);
-		entryMock3.taxAmount = entryMock3.unitTaxAmount.multiply(this.qnt,
-				this.mc);
+		entryMock3.taxAmount = entryMock3.unitTaxAmount.multiply(
+				this.qnt, this.mc);
 
 		mock.getEntries().add(entryMock1);
 		mock.getEntries().add(entryMock2);
 		mock.getEntries().add(entryMock3);
 
-		ArrayList<GenericInvoiceEntry> entrys = (ArrayList<GenericInvoiceEntry>) mock
-				.getEntries();
+		ArrayList<GenericInvoiceEntry> entrys = (ArrayList<GenericInvoiceEntry>) mock.getEntries();
 
-		GenericInvoice.Builder builder = this
-				.getInstance(GenericInvoice.Builder.class);
+		GenericInvoice.Builder builder = this.getInstance(GenericInvoice.Builder.class);
 
-		GenericInvoiceEntry.Builder invoice1 = this
-				.getMock(GenericInvoiceEntry.Builder.class);
+		GenericInvoiceEntry.Builder invoice1 = this.getMock(GenericInvoiceEntry.Builder.class);
 		Mockito.when(invoice1.build()).thenReturn(entrys.get(0));
 
-		GenericInvoiceEntry.Builder invoice2 = this
-				.getMock(GenericInvoiceEntry.Builder.class);
+		GenericInvoiceEntry.Builder invoice2 = this.getMock(GenericInvoiceEntry.Builder.class);
 		Mockito.when(invoice2.build()).thenReturn(entrys.get(1));
 
-		GenericInvoiceEntry.Builder invoice3 = this
-				.getMock(GenericInvoiceEntry.Builder.class);
+		GenericInvoiceEntry.Builder invoice3 = this.getMock(GenericInvoiceEntry.Builder.class);
 		Mockito.when(invoice3.build()).thenReturn(entrys.get(2));
 
 		builder.addEntry(invoice1).addEntry(invoice2).addEntry(invoice3)
@@ -153,61 +147,85 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 		Assert.assertTrue(invoice != null);
 
 		Assert.assertTrue(invoice
-				.getAmountWithoutTax()
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithoutTax().add(
-								entryMock2.getAmountWithoutTax()).add(
-								entryMock3.amountWithoutTax, this.mc))
-								.setScale(7, this.mc.getRoundingMode())) == 0);
+									.getAmountWithoutTax()
+									.setScale(7, this.mc.getRoundingMode())
+									.compareTo(
+											(entryMock1
+														.getAmountWithoutTax()
+														.add(
+																entryMock2.getAmountWithoutTax()).add(
+													entryMock3.amountWithoutTax,
+													this.mc)).setScale(
+													7,
+													this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(invoice
-				.getAmountWithTax()
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithTax().add(
-								entryMock2.getAmountWithTax(), this.mc).add(
-								entryMock3.amountWithTax, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+									.getAmountWithTax()
+									.setScale(7, this.mc.getRoundingMode())
+									.compareTo(
+											(entryMock1
+														.getAmountWithTax()
+														.add(
+																entryMock2.getAmountWithTax(),
+																this.mc).add(
+													entryMock3.amountWithTax,
+													this.mc)).setScale(
+													7,
+													this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(invoice
-				.getTaxAmount()
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getTaxAmount().add(
-								entryMock2.getTaxAmount(), this.mc).add(
-								entryMock3.taxAmount, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+									.getTaxAmount()
+									.setScale(7, this.mc.getRoundingMode())
+									.compareTo(
+											(entryMock1.getTaxAmount().add(
+													entryMock2.getTaxAmount(),
+													this.mc).add(
+													entryMock3.taxAmount,
+													this.mc)).setScale(
+													7,
+													this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(invoice
-				.getAmountWithoutTax()
-				.add(invoice.getTaxAmount())
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithTax().add(
-								entryMock2.getAmountWithTax(), this.mc).add(
-								entryMock3.amountWithTax, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+									.getAmountWithoutTax()
+									.add(invoice.getTaxAmount())
+									.setScale(7, this.mc.getRoundingMode())
+									.compareTo(
+											(entryMock1
+														.getAmountWithTax()
+														.add(
+																entryMock2.getAmountWithTax(),
+																this.mc).add(
+													entryMock3.amountWithTax,
+													this.mc)).setScale(
+													7,
+													this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(invoice
-				.getAmountWithTax()
-				.subtract(invoice.getTaxAmount())
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithoutTax().add(
-								entryMock2.getAmountWithoutTax()).add(
-								entryMock3.amountWithoutTax, this.mc))
-								.setScale(7, this.mc.getRoundingMode())) == 0);
+									.getAmountWithTax()
+									.subtract(invoice.getTaxAmount())
+									.setScale(7, this.mc.getRoundingMode())
+									.compareTo(
+											(entryMock1
+														.getAmountWithoutTax()
+														.add(
+																entryMock2.getAmountWithoutTax()).add(
+													entryMock3.amountWithoutTax,
+													this.mc)).setScale(
+													7,
+													this.mc.getRoundingMode())) == 0);
 
 		Assert.assertTrue(invoice
-				.getAmountWithTax()
-				.subtract(invoice.getAmountWithoutTax())
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getTaxAmount().add(
-								entryMock2.getTaxAmount(), this.mc).add(
-								entryMock3.taxAmount, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+									.getAmountWithTax()
+									.subtract(invoice.getAmountWithoutTax())
+									.setScale(7, this.mc.getRoundingMode())
+									.compareTo(
+											(entryMock1.getTaxAmount().add(
+													entryMock2.getTaxAmount(),
+													this.mc).add(
+													entryMock3.taxAmount,
+													this.mc)).setScale(
+													7,
+													this.mc.getRoundingMode())) == 0);
 
 	}
 }

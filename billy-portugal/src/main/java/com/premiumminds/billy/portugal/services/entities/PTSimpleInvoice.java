@@ -28,14 +28,13 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTSimpleInvoiceBui
 
 public interface PTSimpleInvoice extends PTInvoice {
 
-	public static class Builder
-			extends
-			PTSimpleInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTSimpleInvoice> {
+	public static class Builder extends
+		PTSimpleInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTSimpleInvoice> {
 
 		@Inject
 		public Builder(DAOPTSimpleInvoice daoPTSimpleInvoice,
-				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-				DAOPTSupplier daoPTSupplier) {
+						DAOPTBusiness daoPTBusiness,
+						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
 			super(daoPTSimpleInvoice, daoPTBusiness, daoPTCustomer,
 					daoPTSupplier);
 		}

@@ -34,8 +34,8 @@ public class CoreDependencyModule extends AbstractModule {
 		this.bind(DocumentIssuingService.class).to(
 				DocumentIssuingServiceImpl.class);
 
-		this.bindInterceptor(Matchers.any(),
-				Matchers.annotatedWith(NotImplemented.class),
+		this.bindInterceptor(
+				Matchers.any(), Matchers.annotatedWith(NotImplemented.class),
 				new NotImplementedInterceptor());
 	}
 

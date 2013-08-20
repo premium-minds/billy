@@ -34,9 +34,9 @@ import com.premiumminds.billy.portugal.util.PaymentMechanism;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE")
 public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
-		PTInvoiceEntity {
+	PTInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@SuppressWarnings({ "unchecked" })
 	@Override
@@ -44,7 +44,6 @@ public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 		return (List<PTInvoiceEntry>) super.getEntries();
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	@Override
 	public PaymentMechanism getPaymentMechanism() {
 		return super.getPaymentMechanism();

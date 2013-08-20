@@ -38,12 +38,12 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
-	protected PTIssuingParams parameters;
+	protected PTIssuingParams	parameters;
 
 	@Before
 	public void setUpParamenters() {
 		KeyGenerator generator = new KeyGenerator(
-				PTDocumentAbstractTest.PRIVATE_KEY_DIR);
+													PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
 
 		this.parameters = new PTIssuingParamsImpl();
 		this.parameters.setPrivateKey(generator.getPrivateKey());
@@ -58,11 +58,9 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 		switch (type) {
 			case FT:
-				return (T) new PTInvoiceTestUtil(PTAbstractTest.injector)
-						.getInvoiceEntity(billing);
+				return (T) new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceEntity(billing);
 			case FS:
-				return (T) new PTSimpleInvoiceTestUtil(PTAbstractTest.injector)
-						.getSimpleInvoiceEntity(billing);
+				return (T) new PTSimpleInvoiceTestUtil(PTAbstractTest.injector).getSimpleInvoiceEntity(billing);
 			case NC:
 				throw new NotImplementedException();
 			case ND:
@@ -74,14 +72,15 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
-			throws DocumentIssuingException {
-		this.issueNewInvoice(handler, invoice, series, new Date(invoice
-				.getCreateTimestamp().getTime() + 100));
+		throws DocumentIssuingException {
+		this.issueNewInvoice(
+				handler, invoice, series, new Date(invoice.getCreateTimestamp()
+															.getTime() + 100));
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series, Date date)
-			throws DocumentIssuingException {
+		throws DocumentIssuingException {
 		this.parameters.setInvoiceSeries(series);
 		invoice.setDate(date);
 		handler.issue(invoice, this.parameters);

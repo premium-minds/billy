@@ -29,7 +29,7 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
 
 public class DAOSupplierImpl extends
-		AbstractDAO<SupplierEntity, JPASupplierEntity> implements DAOSupplier {
+	AbstractDAO<SupplierEntity, JPASupplierEntity> implements DAOSupplier {
 
 	@Inject
 	public DAOSupplierImpl(Provider<EntityManager> emProvider) {
@@ -50,12 +50,16 @@ public class DAOSupplierImpl extends
 	@Override
 	public List<SupplierEntity> getAllActiveSuppliers() {
 		List<JPASupplierEntity> result = (List<JPASupplierEntity>) this
-				.getEntityManager()
-				.createQuery(
-						"select c from "
-								+ this.getEntityClass().getCanonicalName()
-								+ " c " + "where c.active=true",
-						this.getEntityClass()).getResultList();
+																		.getEntityManager()
+																		.createQuery(
+																				"select c from "
+																						+ this
+																								.getEntityClass()
+																								.getCanonicalName()
+																						+ " c "
+																						+ "where c.active=true",
+																				this.getEntityClass())
+																		.getResultList();
 		return this.checkEntityList(result, SupplierEntity.class);
 	}
 

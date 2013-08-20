@@ -25,10 +25,10 @@ import java.util.ResourceBundle;
 
 public class Localizer {
 
-	private static Locale currentLocale = Locale.getDefault();
+	private static Locale	currentLocale	= Locale.getDefault();
 
-	private String bundleBaseName;
-	private ResourceBundle bundle;
+	private String			bundleBaseName;
+	private ResourceBundle	bundle;
 
 	public Localizer(String bundleBaseName) {
 		this.bundleBaseName = bundleBaseName;
@@ -37,8 +37,8 @@ public class Localizer {
 	private ResourceBundle getBundle() {
 		if (this.bundle == null
 				|| !Localizer.currentLocale.equals(this.bundle.getLocale())) {
-			this.bundle = ResourceBundle.getBundle(this.bundleBaseName,
-					Localizer.currentLocale);
+			this.bundle = ResourceBundle.getBundle(
+					this.bundleBaseName, Localizer.currentLocale);
 		}
 		return this.bundle;
 	}
@@ -53,8 +53,7 @@ public class Localizer {
 
 	public String getString(String key, Object... params) {
 		try {
-			return MessageFormat
-					.format(this.getBundle().getString(key), params);
+			return MessageFormat.format(this.getBundle().getString(key), params);
 		} catch (MissingResourceException e) {
 			return '!' + key + '!';
 		}

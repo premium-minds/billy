@@ -37,19 +37,19 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceTestUtil {
 
-	protected static final Boolean BILLED = false;
-	protected static final Boolean CANCELLED = false;
-	protected static final Boolean SELFBILL = false;
-	protected static final String SOURCE_ID = "SOURCE";
-	protected static final String SERIE = "A";
-	protected static final Integer SERIE_NUMBER = 1;
-	protected static final int MAX_PRODUCTS = 5;
+	protected static final Boolean		BILLED			= false;
+	protected static final Boolean		CANCELLED		= false;
+	protected static final Boolean		SELFBILL		= false;
+	protected static final String		SOURCE_ID		= "SOURCE";
+	protected static final String		SERIE			= "A";
+	protected static final Integer		SERIE_NUMBER	= 1;
+	protected static final int			MAX_PRODUCTS	= 5;
 
-	protected TYPE INVOICE_TYPE;
-	protected Injector injector;
-	protected PTInvoiceEntryTestUtil invoiceEntry;
-	protected PTBusinessTestUtil business;
-	protected PTCustomerTestUtil customer;
+	protected TYPE						INVOICE_TYPE;
+	protected Injector					injector;
+	protected PTInvoiceEntryTestUtil	invoiceEntry;
+	protected PTBusinessTestUtil		business;
+	protected PTCustomerTestUtil		customer;
 
 	public PTInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
@@ -60,29 +60,25 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
-		return getInvoiceEntity(SourceBilling.P);
+		return this.getInvoiceEntity(SourceBilling.P);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(SourceBilling billing) {
-		PTInvoiceEntity invoice = (PTInvoiceEntity) getInvoiceBuilder(
+		PTInvoiceEntity invoice = (PTInvoiceEntity) this.getInvoiceBuilder(
 				new UID().toString(), billing).build();
-		invoice.setType(INVOICE_TYPE);
+		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
 	public PTInvoice.Builder getInvoiceBuilder(String buissnesUid,
 			SourceBilling billing) {
-		PTInvoice.Builder invoiceBuilder = this.injector
-				.getInstance(PTInvoice.Builder.class);
+		PTInvoice.Builder invoiceBuilder = this.injector.getInstance(PTInvoice.Builder.class);
 
-		DAOPTBusiness daoPTBusiness = this.injector
-				.getInstance(DAOPTBusiness.class);
-		DAOPTCustomer daoPTCustomer = this.injector
-				.getInstance(DAOPTCustomer.class);
+		DAOPTBusiness daoPTBusiness = this.injector.getInstance(DAOPTBusiness.class);
+		DAOPTCustomer daoPTCustomer = this.injector.getInstance(DAOPTCustomer.class);
 
-		PTBusinessEntity businessEntity = this.business
-				.getBusinessEntity(buissnesUid);
+		PTBusinessEntity businessEntity = this.business.getBusinessEntity(buissnesUid);
 
 		UID businessUID = businessEntity.getUID();
 		try {
@@ -94,18 +90,19 @@ public class PTInvoiceTestUtil {
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
 
-		for (int i = 0; i < MAX_PRODUCTS; ++i) {
-			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
-					.getInvoiceEntryBuilder();
+		for (int i = 0; i < PTInvoiceTestUtil.MAX_PRODUCTS; ++i) {
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 
 		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
-				.setCancelled(PTInvoiceTestUtil.CANCELLED)
-				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
-				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
-				.setCreditOrDebit(CreditOrDebit.CREDIT)
-				.setCustomerUID(customerUID).setSourceBilling(billing)
-				.setBusinessUID(businessUID);
+								.setCancelled(PTInvoiceTestUtil.CANCELLED)
+								.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
+								.setDate(new Date())
+								.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+								.setCreditOrDebit(CreditOrDebit.CREDIT)
+								.setCustomerUID(customerUID)
+								.setSourceBilling(billing)
+								.setBusinessUID(businessUID);
 	}
 }

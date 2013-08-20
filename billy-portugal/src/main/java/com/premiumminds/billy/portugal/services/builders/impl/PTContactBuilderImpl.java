@@ -29,11 +29,11 @@ import com.premiumminds.billy.portugal.services.builders.PTContactBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class PTContactBuilderImpl<TBuilder extends PTContactBuilderImpl<TBuilder, TContact>, TContact extends PTContact>
-		extends ContactBuilderImpl<TBuilder, TContact> implements
-		PTContactBuilder<TBuilder, TContact> {
+	extends ContactBuilderImpl<TBuilder, TContact> implements
+	PTContactBuilder<TBuilder, TContact> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+																	"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 
 	@Inject
 	public PTContactBuilderImpl(DAOPTContact daoPTContact) {

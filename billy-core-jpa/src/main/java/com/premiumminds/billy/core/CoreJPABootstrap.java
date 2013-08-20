@@ -29,7 +29,8 @@ public class CoreJPABootstrap {
 
 	public static void execute() {
 		// Load dependency injector
-		Injector injector = Guice.createInjector(new CoreJPADependencyModule(),
+		Injector injector = Guice.createInjector(
+				new CoreJPADependencyModule(),
 				new CoreJPAPersistenceDependencyModule());
 		injector.getInstance(CoreDependencyModule.Initializer.class);
 		injector.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);

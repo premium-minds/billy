@@ -38,7 +38,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTInvoiceEnt
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTSimpleInvoiceEntity;
 
 public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
-		DAOPTInvoice {
+	DAOPTInvoice {
 
 	@Inject
 	public DAOPTInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -73,9 +73,20 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 		predicates.add(active);
 		BooleanExpression valid = invoice.date.between(from, to);
 		predicates.add(valid);
-		
-		List<JPAPTSimpleInvoiceEntity> simpleInvoices = simpleInvoicesQuery.from(simpleInvoice).where(simpleInvoice.active.eq(true)).where(simpleInvoice.date.between(from, to)).where(simpleInvoice.business
-				.eq(this.getBusinessEntity(uid))).list(simpleInvoice);
+
+		List<JPAPTSimpleInvoiceEntity> simpleInvoices = simpleInvoicesQuery
+																			.from(
+																					simpleInvoice)
+																			.where(
+																					simpleInvoice.active.eq(true))
+																			.where(
+																					simpleInvoice.date.between(
+																							from,
+																							to))
+																			.where(
+																					simpleInvoice.business.eq(this.getBusinessEntity(uid)))
+																			.list(
+																					simpleInvoice);
 		BooleanExpression removeSimpleInvoices = invoice.notIn(simpleInvoices);
 		predicates.add(removeSimpleInvoices);
 
@@ -83,7 +94,8 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 			query.where(e);
 		}
 
-		List<PTInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTInvoiceEntity.class); 
+		List<PTInvoiceEntity> result = this.checkEntityList(
+				query.list(invoice), PTInvoiceEntity.class);
 		return result;
 	}
 }
