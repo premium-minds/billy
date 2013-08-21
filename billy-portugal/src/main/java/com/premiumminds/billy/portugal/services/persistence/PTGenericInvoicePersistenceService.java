@@ -20,68 +20,39 @@ package com.premiumminds.billy.portugal.services.persistence;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
-import com.premiumminds.billy.portugal.services.entities.PTCustomer;
+import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 
-public class PTCustomerPersistenceService<T extends PTCustomer> extends
-	PersistenceServiceImpl<T> implements PersistenceService<T> {
+public class PTGenericInvoicePersistenceService<T extends PTGenericInvoice>
+	extends PersistenceServiceImpl<T> implements PersistenceService<T> {
 
-	public PTCustomerPersistenceService(Injector injector) {
+	public PTGenericInvoicePersistenceService(Injector injector) {
 		super(injector);
 	}
 
+	@NotImplemented
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		final DAOPTCustomer dao = this.injector
-				.getInstance(DAOPTCustomer.class);
-
-		try {
-			return new TransactionWrapper<T>(dao) {
-
-				@Override
-				public T runTransaction() throws Exception {
-					PTCustomerEntity customerEntity = (PTCustomerEntity) builder
-							.build();
-					return (T) dao.create(customerEntity);
-				}
-
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
+		throw new NotImplementedException();
 	}
 
+	@NotImplemented
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		final DAOPTCustomer dao = this.injector
-				.getInstance(DAOPTCustomer.class);
-
-		try {
-			return new TransactionWrapper<T>(dao) {
-
-				@Override
-				public T runTransaction() throws Exception {
-					PTCustomerEntity customerEntity = (PTCustomerEntity) builder
-							.build();
-					return (T) dao.update(customerEntity);
-				}
-
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
+		throw new NotImplementedException();
 	}
 
 	@Override
 	public T getEntity(final UID uid) {
-		final DAOPTCustomer dao = this.injector
-				.getInstance(DAOPTCustomer.class);
+		final DAOPTGenericInvoice dao = this.injector
+				.getInstance(DAOPTGenericInvoice.class);
 
 		try {
 			return new TransactionWrapper<T>(dao) {
@@ -96,4 +67,5 @@ public class PTCustomerPersistenceService<T extends PTCustomer> extends
 			throw new BillyRuntimeException(e);
 		}
 	}
+
 }

@@ -21,15 +21,23 @@ package com.premiumminds.billy.portugal.util;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.persistence.PTBusinessPersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTGenericInvoicePersistenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTInvoicePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTProductPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTRegionContextPersitenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTSupplierPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTTaxPersistenceService;
 
@@ -85,5 +93,35 @@ public class PersistenceServices {
 	 */
 	public PersistenceService<PTTax> tax() {
 		return new PTTaxPersistenceService<PTTax>(this.injector);
+	}
+
+	/**
+	 * @return {@link PTGenericInvoice}.
+	 */
+	public PersistenceService<PTGenericInvoice> genericInvoice() {
+		return new PTGenericInvoicePersistenceService<PTGenericInvoice>(
+				this.injector);
+	}
+
+	/**
+	 * @return {@link PTInvoicePersistenceService}.
+	 */
+	public PersistenceService<PTInvoice> invoice() {
+		return new PTInvoicePersistenceService<PTInvoice>(this.injector);
+	}
+
+	/**
+	 * @return {@link PTSimpleInvoicePersistenceService}.
+	 */
+	public PersistenceService<PTSimpleInvoice> simpleInvoice() {
+		return new PTSimpleInvoicePersistenceService<PTSimpleInvoice>(
+				this.injector);
+	}
+
+	/**
+	 * @return {@link PTCreditNotePersistenceService}.
+	 */
+	public PersistenceService<PTCreditNote> creditNote() {
+		return new PTCreditNotePersistenceService<PTCreditNote>(this.injector);
 	}
 }
