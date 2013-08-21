@@ -24,6 +24,7 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
@@ -69,6 +70,25 @@ public class PTBusinessPersistenceService<T extends PTBusiness> extends
 					PTBusinessEntity businessEntity = (PTBusinessEntity) builder
 							.build();
 					return (T) dao.update(businessEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+	@Override
+	public T getEntity(final UID uid) {
+		final DAOPTBusiness dao = this.injector
+				.getInstance(DAOPTBusiness.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					return (T) dao.get(uid);
 				}
 
 			}.execute();

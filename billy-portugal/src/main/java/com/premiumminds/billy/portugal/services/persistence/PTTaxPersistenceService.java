@@ -22,16 +22,16 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
+import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-/**
- * @author amonteiro
- * 
- */
 public class PTTaxPersistenceService<T extends PTTax> extends
 	PersistenceServiceImpl<T> implements PersistenceService<T> {
 
@@ -39,16 +39,60 @@ public class PTTaxPersistenceService<T extends PTTax> extends
 		super(injector);
 	}
 
-	@NotImplemented
 	@Override
-	public T createEntity(Builder<T> builder) {
-		return null;
+	public T createEntity(final Builder<T> builder) {
+		final DAOPTTax dao = this.injector.getInstance(DAOPTTax.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					PTTaxEntity taxEntity = (PTTaxEntity) builder.build();
+					return (T) dao.create(taxEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
 	}
 
-	@NotImplemented
 	@Override
-	public T updateEntity(Builder<T> builder) {
-		return null;
+	public T updateEntity(final Builder<T> builder) {
+		final DAOPTTax dao = this.injector.getInstance(DAOPTTax.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					PTTaxEntity taxEntity = (PTTaxEntity) builder.build();
+					return (T) dao.update(taxEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+	@Override
+	public T getEntity(final UID uid) {
+		final DAOPTTax dao = this.injector.getInstance(DAOPTTax.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					return (T) dao.get(uid);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
 	}
 
 }

@@ -19,10 +19,14 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
+import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 public class PTRegionContextPersitenceService<T extends PTRegionContext>
@@ -32,15 +36,65 @@ public class PTRegionContextPersitenceService<T extends PTRegionContext>
 		super(injector);
 	}
 
-	@NotImplemented
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		return null;
+		final DAOPTRegionContext dao = this.injector
+				.getInstance(DAOPTRegionContext.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					PTRegionContextEntity contextEntity = (PTRegionContextEntity) builder
+							.build();
+					return (T) dao.create(contextEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
 	}
 
-	@NotImplemented
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		return null;
+		final DAOPTRegionContext dao = this.injector
+				.getInstance(DAOPTRegionContext.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					PTRegionContextEntity contextEntity = (PTRegionContextEntity) builder
+							.build();
+					return (T) dao.update(contextEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
 	}
+
+	@Override
+	public T getEntity(final UID uid) {
+		final DAOPTRegionContext dao = this.injector
+				.getInstance(DAOPTRegionContext.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					return (T) dao.get(uid);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
 }
