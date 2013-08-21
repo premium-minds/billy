@@ -16,30 +16,22 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities.jpa;
+package com.premiumminds.billy.portugal.services.export.pdf.receiptinvoice;
 
-import java.util.List;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+public class PTReceiptInvoicePDFExportRequest extends AbstractExportRequest {
 
-import org.hibernate.envers.Audited;
+	private PTReceiptInvoiceTemplateBundle bundle;
 
-import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+	public PTReceiptInvoicePDFExportRequest(UID uid,
+			PTReceiptInvoiceTemplateBundle bundle) {
+		super(uid, bundle);
+	}
 
-@Entity
-@Audited
-@Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE")
-public class JPAPTCreditNoteEntity extends JPAPTGenericInvoiceEntity implements
-	PTCreditNoteEntity {
-
-	private static final long	serialVersionUID	= 1L;
-
-	@SuppressWarnings({ "unchecked" })
 	@Override
-	public List<PTCreditNoteEntry> getEntries() {
-		return (List<PTCreditNoteEntry>) super.getEntries();
+	public PTReceiptInvoiceTemplateBundle getBundle() {
+		return this.bundle;
 	}
 }
