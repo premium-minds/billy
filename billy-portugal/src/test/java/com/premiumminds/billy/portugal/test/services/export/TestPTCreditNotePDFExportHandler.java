@@ -30,18 +30,19 @@ import org.junit.Test;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNoteTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
-import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.util.Services;
 
 public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest {
 
@@ -93,7 +94,6 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 				new PTCreditNoteTestUtil(PTAbstractTest.injector)
 						.getCreditNoteBuilder(reference), params);
 
-		creditNote.setPaymentMechanism(paymentMechanism);
 		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
 		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
 		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);

@@ -41,6 +41,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.envers.Audited;
 
@@ -163,11 +164,11 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID", unique = true) })
 	protected List<GenericInvoiceEntry> entries;
-	
+
 	@OneToMany(targetEntity = JPAPaymentEntity.class, cascade = {
-		CascadeType.PERSIST, CascadeType.MERGE })
-@JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true) })
-protected List<Payment> payments;
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true) })
+	protected List<Payment> payments;
 
 	public JPAGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();

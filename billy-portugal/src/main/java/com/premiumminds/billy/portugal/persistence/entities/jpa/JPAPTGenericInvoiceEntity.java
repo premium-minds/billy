@@ -74,18 +74,6 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Column(name = "INVOICE_TYPE")
 	protected TYPE type;
 
-	@OneToMany(targetEntity = JPAPTPaymentEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true) })
-	protected List<PTPayment> payments;
-	
-	
-	
-	public JPAPTGenericInvoiceEntity() {
-		super();
-		payments = new ArrayList<PTPayment>();
-	}
-
 	@Override
 	public TYPE getType() {
 		return this.type;
@@ -136,11 +124,6 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 		return eacCode;
 	}
 	
-	@Override
-	public List<PTPayment> getPayments() {
-		return payments;
-	}
-
 	@Override
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
