@@ -22,9 +22,13 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.QJPATicketEntity;
+import com.premiumminds.billy.core.services.UID;
 
 public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity>
 		implements DAOTicket {
@@ -42,5 +46,20 @@ public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity>
 	@Override
 	public TicketEntity getEntityInstance() {
 		return new JPATicketEntity();
+	}
+	
+	@Override
+	public UID getObjectEntityUID(String ticketUID) throws BillyRuntimeException{
+		QJPATicketEntity ticket = QJPATicketEntity.jPATicketEntity;
+		
+		JPAQuery query = new JPAQuery(this.getEntityManager());
+		
+		TicketEntity ticketEntity = query.from(ticket).where(ticket.uid.eq(ticketUID)).uniqueResult(ticket);
+		
+		if(ticketEntity == null){
+			throw new BillyRuntimeException();
+		}
+		
+		return ticketEntity.getObjectUID();
 	}
 }

@@ -21,6 +21,8 @@ package com.premiumminds.billy.portugal.services.persistence;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.exceptions.NotImplementedException;
+import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -36,10 +38,12 @@ public class PTReceiptInvoicePersistenceService extends
 	PersistenceService<PTReceiptInvoice> {
 
 	protected final DAOPTReceiptInvoice	daoReceiptInvoice;
+	protected final DAOTicket daoTicket;
 
 	@Inject
-	public PTReceiptInvoicePersistenceService(	DAOPTReceiptInvoice daoReceiptInvoice) {
+	public PTReceiptInvoicePersistenceService(	DAOPTReceiptInvoice daoReceiptInvoice, DaoTicket daoTicket) {
 		this.daoReceiptInvoice = daoReceiptInvoice;
+		this.daoTicket = daoTicket;
 	}
 
 	@Override
@@ -48,6 +52,7 @@ public class PTReceiptInvoicePersistenceService extends
 		return null;
 	}
 
+	@NotImplemented
 	@Override
 	public PTReceiptInvoice update(final Builder<PTReceiptInvoice> builder) {
 		try {
@@ -74,6 +79,24 @@ public class PTReceiptInvoicePersistenceService extends
 				@Override
 				public PTReceiptInvoice runTransaction() throws Exception {
 					return (PTReceiptInvoice) daoReceiptInvoice.get(uid);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+public PTReceiptInvoice getEntityForTicket(final UID ticketUID) {
+
+		try {
+			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
+
+				@SuppressWarnings("unchecked")
+				@Override
+				public PTReceiptInvoice runTransaction() throws Exception {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
+					return (PTReceiptInvoice) daoInvoice.get(objectUID);
 				}
 
 			}.execute();
