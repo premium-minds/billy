@@ -201,9 +201,10 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 								"Cannot update a non existing entity : "
 										+ entity.getUID());
 					}
+
 					TEntity newVersion = (TEntity) entity;
 					AbstractDAO.this.getEntityManager().merge(newVersion);
-
+					
 					return AbstractDAO.this.get(entity.getUID());
 				}
 			}.execute();
