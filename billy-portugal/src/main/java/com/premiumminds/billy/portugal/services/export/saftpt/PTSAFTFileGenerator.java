@@ -47,6 +47,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
@@ -62,6 +63,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEnti
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
@@ -70,6 +72,7 @@ import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvo
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
+import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidContactTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentStateException;
@@ -192,6 +195,7 @@ public class PTSAFTFileGenerator {
 			final DAOPTRegionContext daoPTRegionContext,
 			final DAOPTInvoice daoPTInvoice,
 			final DAOPTSimpleInvoice daoPTSimpleInvoice,
+			final DAOPTReceiptInvoice daoPTReceiptInvoice,
 			final DAOPTCreditNote daoPTCreditNote) throws SAFTPTExportException {
 
 		try {
@@ -256,10 +260,13 @@ public class PTSAFTFileGenerator {
 					List<PTInvoiceEntity> invoices = daoPTInvoice
 							.getBusinessInvoicesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
-					// List<PTInvoiceEntity> invoices = null;
 
 					List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
 							.getBusinessSimpleInvoicesForSAFTPT(
+									businessEntity.getUID(), fromDate, toDate);
+
+					List<PTReceiptInvoiceEntity> receiptInvoices = daoPTReceiptInvoice
+							.getBusinessReceiptInvoicesForSAFTPT(
 									businessEntity.getUID(), fromDate, toDate);
 
 					List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
@@ -272,6 +279,7 @@ public class PTSAFTFileGenerator {
 											: invoices,
 									simpleInvoices == null ? new ArrayList<PTSimpleInvoiceEntity>()
 											: simpleInvoices,
+											receiptInvoices == null ? new ArrayList<PTReceiptInvoiceEntity>() : receiptInvoices,
 									creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
 											: creditNotes);
 					SAFTFile.setSourceDocuments(sd);
@@ -597,6 +605,7 @@ public class PTSAFTFileGenerator {
 	private SourceDocuments generateSourceDocuments(
 			List<PTInvoiceEntity> invoices,
 			List<PTSimpleInvoiceEntity> simpleInvoices,
+			List<PTReceiptInvoiceEntity> receiptInvoices,
 			List<PTCreditNoteEntity> creditNotes)
 			throws DatatypeConfigurationException,
 			RequiredFieldNotFoundException, InvalidDocumentTypeException,
@@ -614,11 +623,17 @@ public class PTSAFTFileGenerator {
 		BigDecimal totalCredit = BigDecimal.ZERO;
 
 		Invoice saftInvoice;
+//		totalCredit = totalCredit.add(processInvoices(invoices, salesInvoices, totalCredit));
+//		totalCredit = totalCredit.add(processInvoices(simpleInvoices, salesInvoices, totalCredit));
+//		totalCredit = totalCredit.add(processInvoices(receiptInvoices, salesInvoices, totalCredit));
+//		
+//		totalDebit = totalCredit.add(processInvoices(creditNotes, salesInvoices, totalCredit));
+				
 		for (PTInvoiceEntity invoice : invoices) {
 			saftInvoice = this.generateSAFTInvoice(invoice);
 			this.processDocument(saftInvoice, invoice, true);
 			salesInvoices.getInvoice().add(saftInvoice);
-
+		
 			if (!invoice.isBilled() && !invoice.isCancelled()) {
 				totalCredit = totalCredit.add(invoice.getAmountWithoutTax());
 			}
@@ -650,6 +665,26 @@ public class PTSAFTFileGenerator {
 		srcDocs.setSalesInvoices(salesInvoices);
 
 		return srcDocs;
+	}
+
+	private <T extends PTGenericInvoiceEntity> BigDecimal processInvoices(List<T> invoices,
+			SalesInvoices salesInvoices, BigDecimal totalCredit)
+			throws DatatypeConfigurationException,
+			RequiredFieldNotFoundException, InvalidDocumentTypeException,
+			InvalidDocumentStateException, InvalidInvoiceTypeException,
+			InvalidTaxTypeException, InvalidTaxCodeException,
+			InvalidPaymentMechanismException {
+		Invoice saftInvoice;
+		for (T invoice : invoices) {
+			saftInvoice = this.generateSAFTInvoice(invoice);
+			this.processDocument(saftInvoice, invoice, true);
+			salesInvoices.getInvoice().add(saftInvoice);
+
+			if (!invoice.isBilled() && !invoice.isCancelled()) {
+				totalCredit = totalCredit.add(invoice.getAmountWithoutTax());
+			}
+		}
+		return totalCredit;
 	}
 
 	/**

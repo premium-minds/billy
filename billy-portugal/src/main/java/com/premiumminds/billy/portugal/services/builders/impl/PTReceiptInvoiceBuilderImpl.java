@@ -24,7 +24,7 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTReceiptInvoiceBuilder;
@@ -40,10 +40,10 @@ public class PTReceiptInvoiceBuilderImpl<TBuilder extends PTReceiptInvoiceBuilde
 			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
 	
 	@Inject
-	public PTReceiptInvoiceBuilderImpl(DAOPTInvoice daoPTInvoice,
+	public PTReceiptInvoiceBuilderImpl(DAOPTReceiptInvoice daoPTReceiptInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 			DAOPTSupplier daoPTSupplier) {
-		super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+		super(daoPTReceiptInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 
 	@Override

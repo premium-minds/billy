@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import javax.inject.Inject;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
@@ -33,6 +35,7 @@ public class PTReceiptInvoiceIssuingHandler extends
 	
 	public final static TYPE INVOICE_TYPE = TYPE.FR;
 
+	@Inject
 	public PTReceiptInvoiceIssuingHandler(Injector injector) {
 		super(injector);
 	}

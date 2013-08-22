@@ -40,12 +40,10 @@ public class PTCreditNoteTestUtil {
 
 	private Injector					injector;
 	private PTCreditNoteEntryTestUtil	creditNoteEntry;
-	private PTPaymentTestUtil payment;
 
 	public PTCreditNoteTestUtil(Injector injector) {
 		this.injector = injector;
 		this.creditNoteEntry = new PTCreditNoteEntryTestUtil(injector);
-		this.payment = new PTPaymentTestUtil(injector);
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity(TYPE type,

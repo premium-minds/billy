@@ -58,6 +58,7 @@
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTShippingPointEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTReceiptInvoiceEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSupplierEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTPaymentEntity"></entity>
