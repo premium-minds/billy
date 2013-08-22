@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import java.util.Currency;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -131,7 +132,7 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 					documentEntity.setSeries(series);
 					documentEntity.setSeriesNumber(seriesNumber);
 					documentEntity.setHash(newHash);
-					documentEntity.setBilled(true);
+					documentEntity.setBilled(false);
 					documentEntity.setType(invoiceType);
 					documentEntity.setSourceHash(GenerateHash
 							.generateSourceHash(invoiceDate, systemDate,
@@ -140,6 +141,7 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 					documentEntity.setHashControl(parametersPT
 							.getPrivateKeyVersion());
 					documentEntity.setEACCode(parametersPT.getEACCode());
+					documentEntity.setCurrency(Currency.getInstance("EUR"));
 
 					daoInvoice.create(documentEntity);
 

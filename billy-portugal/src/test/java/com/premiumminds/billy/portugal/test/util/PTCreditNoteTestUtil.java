@@ -52,7 +52,6 @@ public class PTCreditNoteTestUtil {
 		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) this
 				.getCreditNoteBuilder(reference).build();
 		creditNote.setType(type);
-		creditNote.setCurrency(Currency.getInstance("EUR"));
 
 		PTCreditNoteEntryEntity creditNoteEntry = (PTCreditNoteEntryEntity) creditNote
 				.getEntries().get(0);

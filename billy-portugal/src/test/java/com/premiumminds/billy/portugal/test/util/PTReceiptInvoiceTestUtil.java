@@ -64,21 +64,19 @@ public class PTReceiptInvoiceTestUtil {
 
 	public PTReceiptInvoiceEntity getReceiptInvoiceEntity(SourceBilling billing) {
 		PTReceiptInvoiceEntity invoice = (PTReceiptInvoiceEntity) this
-				.getReceiptInvoiceBuilder(billing).build();
+				.getReceiptInvoiceBuilder(business.getBusinessEntity(), billing).build();
 		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
-	public PTReceiptInvoice.Builder getReceiptInvoiceBuilder(
+	public PTReceiptInvoice.Builder getReceiptInvoiceBuilder(PTBusinessEntity businessEntity,
 			SourceBilling billing) {
 		PTReceiptInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTReceiptInvoice.Builder.class);
 
 		DAOPTCustomer daoPTCustomer = this.injector
 				.getInstance(DAOPTCustomer.class);
-
-		PTBusinessEntity businessEntity = this.business.getBusinessEntity();
 
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();

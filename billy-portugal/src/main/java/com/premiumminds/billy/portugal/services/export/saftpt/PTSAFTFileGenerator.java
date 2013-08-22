@@ -72,7 +72,6 @@ import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvo
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidContactTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentStateException;
@@ -279,7 +278,8 @@ public class PTSAFTFileGenerator {
 											: invoices,
 									simpleInvoices == null ? new ArrayList<PTSimpleInvoiceEntity>()
 											: simpleInvoices,
-											receiptInvoices == null ? new ArrayList<PTReceiptInvoiceEntity>() : receiptInvoices,
+									receiptInvoices == null ? new ArrayList<PTReceiptInvoiceEntity>()
+											: receiptInvoices,
 									creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
 											: creditNotes);
 					SAFTFile.setSourceDocuments(sd);
@@ -617,49 +617,22 @@ public class PTSAFTFileGenerator {
 		SourceDocuments srcDocs = new SourceDocuments();
 		SalesInvoices salesInvoices = new SalesInvoices();
 		salesInvoices.setNumberOfEntries(new BigInteger(Integer
-				.toString(invoices.size() + creditNotes.size())));
+				.toString(invoices.size() + simpleInvoices.size()
+						+ receiptInvoices.size() + creditNotes.size())));
 
 		BigDecimal totalDebit = BigDecimal.ZERO;
 		BigDecimal totalCredit = BigDecimal.ZERO;
 
-		Invoice saftInvoice;
-//		totalCredit = totalCredit.add(processInvoices(invoices, salesInvoices, totalCredit));
-//		totalCredit = totalCredit.add(processInvoices(simpleInvoices, salesInvoices, totalCredit));
-//		totalCredit = totalCredit.add(processInvoices(receiptInvoices, salesInvoices, totalCredit));
-//		
-//		totalDebit = totalCredit.add(processInvoices(creditNotes, salesInvoices, totalCredit));
-				
-		for (PTInvoiceEntity invoice : invoices) {
-			saftInvoice = this.generateSAFTInvoice(invoice);
-			this.processDocument(saftInvoice, invoice, true);
-			salesInvoices.getInvoice().add(saftInvoice);
+		totalCredit = processInvoices(invoices, salesInvoices,
+				totalCredit);
+		totalCredit = processInvoices(simpleInvoices,
+				salesInvoices, totalCredit);
+		totalCredit = processInvoices(receiptInvoices,
+				salesInvoices, totalCredit);
+
+		totalDebit = processInvoices(creditNotes,
+				salesInvoices, totalDebit);
 		
-			if (!invoice.isBilled() && !invoice.isCancelled()) {
-				totalCredit = totalCredit.add(invoice.getAmountWithoutTax());
-			}
-		}
-
-		for (PTSimpleInvoiceEntity simpleInvoice : simpleInvoices) {
-			saftInvoice = this.generateSAFTInvoice(simpleInvoice);
-			this.processDocument(saftInvoice, simpleInvoice, true);
-			salesInvoices.getInvoice().add(saftInvoice);
-
-			if (!simpleInvoice.isBilled() && !simpleInvoice.isCancelled()) {
-				totalCredit = totalCredit.add(simpleInvoice
-						.getAmountWithoutTax());
-			}
-		}
-
-		for (PTCreditNoteEntity creditNote : creditNotes) {
-			saftInvoice = this.generateSAFTInvoice(creditNote);
-			this.processDocument(saftInvoice, creditNote, false);
-			salesInvoices.getInvoice().add(saftInvoice);
-
-			if (!creditNote.isBilled() && !creditNote.isCancelled()) {
-				totalDebit = totalDebit.add(creditNote.getAmountWithoutTax());
-			}
-		}
-
 		salesInvoices.setTotalDebit(this.validateBigDecimal(totalDebit));
 		salesInvoices.setTotalCredit(this.validateBigDecimal(totalCredit));
 		srcDocs.setSalesInvoices(salesInvoices);
@@ -667,9 +640,9 @@ public class PTSAFTFileGenerator {
 		return srcDocs;
 	}
 
-	private <T extends PTGenericInvoiceEntity> BigDecimal processInvoices(List<T> invoices,
-			SalesInvoices salesInvoices, BigDecimal totalCredit)
-			throws DatatypeConfigurationException,
+	private <T extends PTGenericInvoiceEntity> BigDecimal processInvoices(
+			List<T> invoices, SalesInvoices salesInvoices,
+			BigDecimal totalCredit) throws DatatypeConfigurationException,
 			RequiredFieldNotFoundException, InvalidDocumentTypeException,
 			InvalidDocumentStateException, InvalidInvoiceTypeException,
 			InvalidTaxTypeException, InvalidTaxCodeException,
