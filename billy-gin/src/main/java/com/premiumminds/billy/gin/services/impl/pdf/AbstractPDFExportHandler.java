@@ -35,6 +35,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyMathContext;
@@ -162,14 +163,15 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
-		Enum paymentMechanism = document.getPaymentMechanism();
-
-		if (null != paymentMechanism) {
+		if (document.getPayments() != null) {
+			for(Payment p : document.getPayments()) {
 			params.getRoot().addChild(
 					ParamKeys.INVOICE_PAYMETHOD,
-					this.getPaymentMechanismTranslation(paymentMechanism,
+					this.getPaymentMechanismTranslation(p.getPaymentMethod(),
 							bundle));
+			}
 		}
+		
 		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
 				date.format(document.getDate()));
 

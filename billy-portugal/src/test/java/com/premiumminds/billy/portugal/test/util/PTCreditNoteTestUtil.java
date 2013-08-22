@@ -22,6 +22,7 @@ import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -51,7 +52,6 @@ public class PTCreditNoteTestUtil {
 		PTCreditNoteEntity creditNote = (PTCreditNoteEntity) this
 				.getCreditNoteBuilder(reference).build();
 		creditNote.setType(type);
-		creditNote.setCurrency(Currency.getInstance("EUR"));
 
 		PTCreditNoteEntryEntity creditNoteEntry = (PTCreditNoteEntryEntity) creditNote
 				.getEntries().get(0);

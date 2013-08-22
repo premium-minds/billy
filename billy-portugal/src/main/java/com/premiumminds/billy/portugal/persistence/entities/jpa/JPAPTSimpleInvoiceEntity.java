@@ -28,23 +28,18 @@ import org.hibernate.envers.Audited;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
 public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
-	PTSimpleInvoiceEntity {
+		PTSimpleInvoiceEntity {
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return super.getEntries();
 	}
 
-	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return super.getPaymentMechanism();
-	}
 }

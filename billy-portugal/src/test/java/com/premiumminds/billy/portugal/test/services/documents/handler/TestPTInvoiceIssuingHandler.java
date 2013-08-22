@@ -41,11 +41,11 @@ import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstrac
 
 public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
-	private static final TYPE			DEFAULT_TYPE	= TYPE.FT;
-	private static final SourceBilling	SOURCE_BILLING	= SourceBilling.P;
+	private static final TYPE DEFAULT_TYPE = TYPE.FT;
+	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
-	private PTInvoiceIssuingHandler		handler;
-	private UID							issuedInvoiceUID;
+	private PTInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
 
 	@Before
 	public void setUpNewInvoice() {
@@ -109,7 +109,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	@Test
 	public void testIssuedInvoiceDifferentSeries()
-		throws DocumentIssuingException {
+			throws DocumentIssuingException {
 		Integer nextNumber = 1;
 		String newSeries = "NEW_SERIES";
 
@@ -166,7 +166,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	@Test
 	public void testIssuedInvoiceSameSourceBilling()
-		throws DocumentIssuingException {
+			throws DocumentIssuingException {
 		PTGenericInvoiceEntity newInvoice = this.newInvoice(
 				TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
 				TestPTInvoiceIssuingHandler.SOURCE_BILLING);

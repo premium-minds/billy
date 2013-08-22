@@ -23,21 +23,22 @@ import java.util.List;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
-	implements PTGenericInvoiceEntity {
+		implements PTGenericInvoiceEntity {
 
-	private static final long	serialVersionUID	= 1L;
-	protected Boolean			cancelled;
-	protected Boolean			billed;
-	protected String			reason;
-	protected String			hash;
-	protected String			sourceHash;
-	protected String			hashControl;
-	protected SourceBilling		sourceBilling;
-	protected String			eacCode;
-	protected TYPE				type;
+	private static final long serialVersionUID = 1L;
+	protected Boolean cancelled;
+	protected Boolean billed;
+	protected String reason;
+	protected String hash;
+	protected String sourceHash;
+	protected String hashControl;
+	protected SourceBilling sourceBilling;
+	protected String eacCode;
+	protected TYPE type;
+	protected List<PTPayment> payments;
 
 	@Override
 	public TYPE getType() {
@@ -109,24 +110,20 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
 		return this.sourceHash;
 	}
 
-	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
-	}
 
 	@Override
 	public String getHashControl() {
-		return this.hashControl;
+		return hashControl;
 	}
 
 	@Override
 	public String getEACCode() {
-		return this.eacCode;
+		return eacCode;
 	}
 
 	@Override
 	public String getChangeReason() {
-		return this.reason;
+		return reason;
 	}
 
 	@Override
@@ -142,5 +139,10 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity
 	@Override
 	public void setEACCode(String eacCode) {
 		this.eacCode = eacCode;
+	}
+
+	@Override
+	public List<PTPayment> getPayments() {
+		return payments;
 	}
 }

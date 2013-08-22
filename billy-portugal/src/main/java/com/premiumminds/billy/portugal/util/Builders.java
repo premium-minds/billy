@@ -24,8 +24,11 @@ import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
+import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTShippingPoint;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
@@ -46,6 +49,18 @@ public class Builders {
 
 		public PTCreditNote.Builder createCreditNoteBuilder() {
 			return Builders.this.getInstance(PTCreditNote.Builder.class);
+		}
+		
+		public PTReceiptInvoice.Builder createReceiptInvoiceBuilder() {
+			return Builders.this.getInstance(PTReceiptInvoice.Builder.class);
+		}
+		
+		public PTInvoiceEntry.Builder createInvoiceEntryBuilder() {
+			return Builders.this.getInstance(PTInvoiceEntry.Builder.class);
+		}
+		
+		public PTCreditNoteEntry.Builder createCreditNoteEntryBuilder() {
+			return Builders.this.getInstance(PTCreditNoteEntry.Builder.class);
 		}
 
 	}

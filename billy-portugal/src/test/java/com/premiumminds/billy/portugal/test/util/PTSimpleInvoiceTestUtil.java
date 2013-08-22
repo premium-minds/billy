@@ -62,20 +62,18 @@ public class PTSimpleInvoiceTestUtil {
 
 	public PTSimpleInvoiceEntity getSimpleInvoiceEntity(SourceBilling billing) {
 		PTSimpleInvoiceEntity invoice = (PTSimpleInvoiceEntity) this
-				.getSimpleInvoiceBuilder(billing).build();
+				.getSimpleInvoiceBuilder(business.getBusinessEntity(), billing).build();
 		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
-	public PTSimpleInvoice.Builder getSimpleInvoiceBuilder(SourceBilling billing) {
+	public PTSimpleInvoice.Builder getSimpleInvoiceBuilder(PTBusinessEntity businessEntity, SourceBilling billing) {
 		PTSimpleInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTSimpleInvoice.Builder.class);
 
 		DAOPTCustomer daoPTCustomer = this.injector
 				.getInstance(DAOPTCustomer.class);
-
-		PTBusinessEntity businessEntity = this.business.getBusinessEntity();
 
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();

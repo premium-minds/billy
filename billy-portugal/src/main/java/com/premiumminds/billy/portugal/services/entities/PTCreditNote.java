@@ -32,17 +32,14 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTCreditNoteBuilde
 public interface PTCreditNote extends PTGenericInvoice {
 
 	public static class Builder extends
-		PTCreditNoteBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
+			PTCreditNoteBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
 
 		@Inject
 		public Builder(DAOPTCreditNote daoPTCreditNote,
-						DAOPTBusiness daoPTBusiness,
-						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
+				DAOPTSupplier daoPTSupplier) {
 			super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}
 	}
-
-	@Override
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
 
 }

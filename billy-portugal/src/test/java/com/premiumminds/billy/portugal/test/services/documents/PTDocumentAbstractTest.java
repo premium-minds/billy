@@ -33,12 +33,13 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
-	protected PTIssuingParams	parameters;
+	protected PTIssuingParams parameters;
 
 	@Before
 	public void setUpParamenters() {
@@ -63,6 +64,9 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 			case FS:
 				return (T) new PTSimpleInvoiceTestUtil(PTAbstractTest.injector)
 						.getSimpleInvoiceEntity(billing);
+			case FR:
+				return (T) new PTReceiptInvoiceTestUtil(PTAbstractTest.injector)
+						.getReceiptInvoiceEntity(billing);
 			case NC:
 				throw new NotImplementedException();
 			case ND:
@@ -74,14 +78,14 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
-		throws DocumentIssuingException {
+			throws DocumentIssuingException {
 		this.issueNewInvoice(handler, invoice, series, new Date(invoice
 				.getCreateTimestamp().getTime() + 100));
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series, Date date)
-		throws DocumentIssuingException {
+			throws DocumentIssuingException {
 		this.parameters.setInvoiceSeries(series);
 		invoice.setDate(date);
 		handler.issue(invoice, this.parameters);

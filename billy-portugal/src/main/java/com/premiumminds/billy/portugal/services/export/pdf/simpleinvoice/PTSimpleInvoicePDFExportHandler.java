@@ -29,6 +29,7 @@ import org.postgresql.util.Base64;
 
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
@@ -125,11 +126,13 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
-		if (null != document.getPaymentMechanism()) {
+		if (null != document.getPayments()) {
+			for(Payment p : document.getPayments()) {
 			params.getRoot().addChild(
 					ParamKeys.INVOICE_PAYMETHOD,
 					this.getPaymentMechanismTranslation(
-							document.getPaymentMechanism(), bundle));
+							p.getPaymentMethod(), bundle));
+			}
 		}
 
 		params.getRoot().addChild(ParamKeys.EMISSION_DATE,

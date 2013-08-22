@@ -18,54 +18,61 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
 public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
-	implements PTGenericInvoiceEntity {
+		implements PTGenericInvoiceEntity {
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "CANCELLED")
-	protected Boolean			cancelled;
+	protected Boolean cancelled;
 
 	@Column(name = "EAC_CODE")
-	protected String			eacCode;
+	protected String eacCode;
 
 	@Column(name = "BILLED")
-	protected Boolean			billed;
+	protected Boolean billed;
 
 	@Column(name = "CHANGE_REASON")
-	protected String			reason;
+	protected String reason;
 
 	@Column(name = "HASH")
-	protected String			hash;
+	protected String hash;
 
 	@Column(name = "SOURCE_HASH")
-	protected String			sourceHash;
+	protected String sourceHash;
 
 	@Column(name = "HASH_CONTROL")
-	protected String			hashControl;
+	protected String hashControl;
 
 	@Column(name = "SOURCE_BILLING")
-	protected SourceBilling		sourceBilling;
+	protected SourceBilling sourceBilling;
 
 	@Column(name = "INVOICE_TYPE")
-	protected TYPE				type;
+	protected TYPE type;
 
 	@Override
 	public TYPE getType() {
@@ -89,7 +96,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Override
 	public String getChangeReason() {
-		return this.reason;
+		return reason;
 	}
 
 	@Override
@@ -104,7 +111,7 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Override
 	public String getHashControl() {
-		return this.hashControl;
+		return hashControl;
 	}
 
 	@Override
@@ -114,9 +121,9 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 
 	@Override
 	public String getEACCode() {
-		return this.eacCode;
+		return eacCode;
 	}
-
+	
 	@Override
 	public void setCancelled(boolean cancelled) {
 		this.cancelled = cancelled;
@@ -163,9 +170,9 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 		this.eacCode = eacCode;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
+	public List<PTPayment> getPayments() {
+		return (List<PTPayment>) super.getPayments();
 	}
-
 }

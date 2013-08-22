@@ -28,25 +28,27 @@ import org.hibernate.envers.Audited;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE")
 public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
-	PTInvoiceEntity {
+		PTInvoiceEntity {
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
+	
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) super.getEntries();
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return super.getPaymentMechanism();
+	public List<PTPayment> getPayments() {
+		return (List<PTPayment>) super.getPayments();
 	}
 
 }

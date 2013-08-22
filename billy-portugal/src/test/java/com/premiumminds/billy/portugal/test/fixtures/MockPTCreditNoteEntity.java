@@ -23,22 +23,23 @@ import java.util.List;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
-	PTCreditNoteEntity {
+		PTCreditNoteEntity {
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
-	protected Boolean			cancelled;
-	protected Boolean			billed;
-	protected String			reason;
-	protected String			hash;
-	protected String			sourceHash;
-	protected String			hashControl;
-	protected SourceBilling		sourceBilling;
-	protected String			eacCode;
-	protected TYPE				type;
+	protected Boolean cancelled;
+	protected Boolean billed;
+	protected String reason;
+	protected String hash;
+	protected String sourceHash;
+	protected String hashControl;
+	protected SourceBilling sourceBilling;
+	protected String eacCode;
+	protected TYPE type;
+	protected List<PTPayment> payments;
 
 	@Override
 	public TYPE getType() {
@@ -111,11 +112,6 @@ public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
 	}
 
 	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
-	}
-
-	@Override
 	public void setHashControl(String hashControl) {
 		this.hashControl = hashControl;
 	}
@@ -132,16 +128,21 @@ public class MockPTCreditNoteEntity extends MockGenericInvoiceEntity implements
 
 	@Override
 	public String getHashControl() {
-		return this.hashControl;
+		return hashControl;
 	}
 
 	@Override
 	public String getEACCode() {
-		return this.eacCode;
+		return eacCode;
 	}
 
 	@Override
 	public String getChangeReason() {
-		return this.reason;
+		return reason;
+	}
+
+	@Override
+	public List<PTPayment> getPayments() {
+		return payments;
 	}
 }

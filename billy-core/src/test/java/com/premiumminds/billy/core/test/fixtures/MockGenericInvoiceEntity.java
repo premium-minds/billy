@@ -30,48 +30,50 @@ import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 public class MockGenericInvoiceEntity extends MockBaseEntity implements
-	GenericInvoiceEntity {
+		GenericInvoiceEntity {
 
-	private static final long			serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
-	public String						number;
+	public String number;
 
-	public String						series;
-	public Integer						seriesNumber;
-	public Business						business;
-	public CustomerEntity				customer;
-	public SupplierEntity				supplier;
-	public String						officeNumber;
-	public Date							date;
-	public BigDecimal					amountWithTax;
-	public BigDecimal					amountWithoutTax;
-	public BigDecimal					taxAmount;
-	public BigDecimal					discountsAmount;
-	public ShippingPointEntity			shippingOrigin;
-	public ShippingPointEntity			shippingDestination;
-	public String						paymentTerms;
-	public boolean						selfBilled;
-	public String						sourceId;
-	public Date							generalLedgerDate;
-	public String						batchId;
-	public String						transactionsId;
-	public List<String>					receiptNumbers;
-	public List<GenericInvoiceEntry>	entries;
-	public Currency						currency;
-	public String						settlementDescription;
-	public BigDecimal					settlementDiscount;
-	public Date							settlementDate;
-	public Enum							paymentMechanism;
-	public CreditOrDebit				creditOrDebit;
+	public String series;
+	public Integer seriesNumber;
+	public Business business;
+	public CustomerEntity customer;
+	public SupplierEntity supplier;
+	public String officeNumber;
+	public Date date;
+	public BigDecimal amountWithTax;
+	public BigDecimal amountWithoutTax;
+	public BigDecimal taxAmount;
+	public BigDecimal discountsAmount;
+	public ShippingPointEntity shippingOrigin;
+	public ShippingPointEntity shippingDestination;
+	public String paymentTerms;
+	public boolean selfBilled;
+	public String sourceId;
+	public Date generalLedgerDate;
+	public String batchId;
+	public String transactionsId;
+	public List<String> receiptNumbers;
+	public List<GenericInvoiceEntry> entries;
+	public Currency currency;
+	public String settlementDescription;
+	public BigDecimal settlementDiscount;
+	public Date settlementDate;
+	public CreditOrDebit creditOrDebit;
+	public List<Payment> payments;
 
 	public MockGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();
 		this.receiptNumbers = new ArrayList<String>();
+		this.payments = new ArrayList<Payment>();
 	}
 
 	@Override
@@ -182,11 +184,6 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	@Override
 	public Date getSettlementDate() {
 		return this.settlementDate;
-	}
-
-	@Override
-	public Enum<?> getPaymentMechanism() {
-		return this.paymentMechanism;
 	}
 
 	@Override
@@ -316,11 +313,6 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public void setPaymentMechanism(Enum<?> mechanism) {
-		this.paymentMechanism = mechanism;
-	}
-
-	@Override
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		this.creditOrDebit = creditOrDebit;
 	}
@@ -343,6 +335,12 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	@Override
 	public void setSeriesNumber(Integer seriesNumber) {
 		this.seriesNumber = seriesNumber;
+	}
+
+
+	@Override
+	public <T extends Payment> List<T> getPayments() {
+		return (List<T>) payments;
 	}
 
 }

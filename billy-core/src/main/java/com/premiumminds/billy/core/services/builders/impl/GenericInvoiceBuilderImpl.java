@@ -40,6 +40,7 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -252,10 +253,10 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
-	public <T extends Enum<T>> TBuilder setPaymentMechanism(T mechanism) {
-		BillyValidator.notNull(mechanism, GenericInvoiceBuilderImpl.LOCALIZER
-				.getString("field.payment_mechanism"));
-		this.getTypeInstance().setPaymentMechanism(mechanism);
+	public <T extends Payment> TBuilder addPayment(Builder<T> paymentBuilder) {
+		BillyValidator.notNull(paymentBuilder,
+				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment"));
+		this.getTypeInstance().getPayments().add(paymentBuilder.build());
 		return this.getBuilder();
 	}
 
@@ -335,5 +336,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	protected GenericInvoiceEntity getTypeInstance() {
 		return (GenericInvoiceEntity) super.getTypeInstance();
 	}
+
 
 }

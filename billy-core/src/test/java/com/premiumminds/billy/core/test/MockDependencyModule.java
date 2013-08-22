@@ -30,6 +30,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
+import com.premiumminds.billy.core.persistence.dao.DAOPayment;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
@@ -60,6 +61,7 @@ public class MockDependencyModule extends AbstractModule {
 		this.bind(DAOSupplier.class)
 				.toInstance(Mockito.mock(DAOSupplier.class));
 		this.bind(DAOTax.class).toInstance(Mockito.mock(DAOTax.class));
+		this.bind(DAOPayment.class).toInstance(Mockito.mock(DAOPayment.class));
 	}
 
 }
