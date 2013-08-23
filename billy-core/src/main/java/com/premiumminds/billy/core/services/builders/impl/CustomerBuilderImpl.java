@@ -63,7 +63,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	@NotOnUpdate(message = "Can not update tax registration number")
+	@NotOnUpdate
 	public TBuilder setTaxRegistrationNumber(String number)
 		throws BillyUpdateException {
 

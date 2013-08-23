@@ -67,7 +67,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	@NotOnUpdate(message = "Can not update financial identification!")
+	@NotOnUpdate
 	public TBuilder setFinancialID(String id) throws BillyUpdateException {
 		BillyValidator.mandatory(id,
 				BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));

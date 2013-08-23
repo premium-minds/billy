@@ -24,6 +24,7 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
@@ -50,6 +51,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSelfBilled(boolean selfBilled) {
 		BillyValidator.mandatory(selfBilled,
 				PTGenericInvoiceBuilderImpl.LOCALIZER
@@ -82,12 +84,14 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setChangeReason(String reason) {
 		this.getTypeInstance().setChangeReason(reason);
 		return this.getBuilder();
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
 		BillyValidator.mandatory(sourceBilling,
 				PTGenericInvoiceBuilderImpl.LOCALIZER
@@ -97,6 +101,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSourceId(String source) {
 		BillyValidator
 				.mandatory(source, PTGenericInvoiceBuilderImpl.LOCALIZER

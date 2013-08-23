@@ -49,6 +49,7 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.DiscountType;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
 	extends AbstractBuilder<TBuilder, TDocument> implements
@@ -75,6 +76,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setBusinessUID(UID businessUID) {
 		BillyValidator
 				.notNull(businessUID, GenericInvoiceBuilderImpl.LOCALIZER
@@ -88,6 +90,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setCustomerUID(UID customerUID) {
 		BillyValidator
 				.notNull(customerUID, GenericInvoiceBuilderImpl.LOCALIZER
@@ -101,6 +104,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSupplierUID(UID supplier) {
 		BillyValidator
 				.notNull(supplier, GenericInvoiceBuilderImpl.LOCALIZER
@@ -114,6 +118,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setOfficeNumber(String number) {
 		BillyValidator.notBlank(number, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.office_number"));
@@ -122,6 +127,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setDate(Date date) {
 		BillyValidator.notNull(date,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
@@ -130,6 +136,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public <T extends ShippingPointEntity> TBuilder setShippingOrigin(
 			Builder<T> originBuilder) {
 		Validate.notNull(originBuilder, GenericInvoiceBuilderImpl.LOCALIZER
@@ -139,6 +146,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public <T extends ShippingPointEntity> TBuilder setShippingDestination(
 			Builder<T> destinationBuilder) {
 		Validate.notNull(destinationBuilder,
@@ -150,6 +158,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setPaymentTerms(String terms) {
 		Validate.notBlank(terms,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.terms"));
@@ -158,12 +167,14 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSelfBilled(boolean selfBilled) {
 		this.getTypeInstance().setSelfBilled(selfBilled);
 		return this.getBuilder();
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSourceId(String source) {
 		Validate.notBlank(source,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
@@ -172,6 +183,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setGeneralLedgerDate(Date date) {
 		Validate.notNull(date, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.general_ledger_date"));
@@ -180,6 +192,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setBatchId(String id) {
 		Validate.notBlank(id,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.batch_id"));
@@ -188,6 +201,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setTransactionId(String id) {
 		Validate.notBlank(id, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.transaction"));
@@ -196,6 +210,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder addReceiptNumber(String number) {
 		BillyValidator.notBlank(number, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.receipt_number"));
@@ -203,6 +218,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public <T extends GenericInvoiceEntry> TBuilder addEntry(
 			Builder<T> entryBuilder) {
 		BillyValidator.notNull(entryBuilder,
@@ -219,6 +235,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSettlementDescription(String description) {
 		Validate.notBlank(description, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.settlement_description"));
@@ -227,6 +244,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSettlementDiscount(BigDecimal discount) {
 		Validate.isTrue(discount == null
 				|| discount.compareTo(BigDecimal.ZERO) >= 0,
@@ -245,6 +263,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setSettlementDate(Date date) {
 		BillyValidator.notNull(date, GenericInvoiceBuilderImpl.LOCALIZER
 				.getString("field.settlement_date"));
@@ -253,6 +272,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public <T extends Payment> TBuilder addPayment(Builder<T> paymentBuilder) {
 		BillyValidator.notNull(paymentBuilder,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment"));
@@ -261,6 +281,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.notNull(creditOrDebit,
 				GenericInvoiceBuilderImpl.LOCALIZER
@@ -336,6 +357,5 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	protected GenericInvoiceEntity getTypeInstance() {
 		return (GenericInvoiceEntity) super.getTypeInstance();
 	}
-
 
 }
