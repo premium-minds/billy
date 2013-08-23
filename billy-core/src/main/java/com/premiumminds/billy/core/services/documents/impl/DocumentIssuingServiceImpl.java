@@ -98,13 +98,16 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 					ticketManager.updateTicket(new UID(ticketUID),
 							result.getUID(), result.getDate(),
 							result.getCreateTimestamp());
+					
 					return result;
 				}
 			}.execute();
 		}catch(InvalidTicketException e){
 			throw e;
 		}
-			catch (Exception e) {
+		catch(RuntimeException e){
+			throw new DocumentIssuingException(e);
+		}catch (Exception e) {
 			e.printStackTrace();
 			throw new DocumentIssuingException(e);
 		}
@@ -116,12 +119,12 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
 		final T document = documentBuilder.build();
 		final Type[] types = document.getClass().getGenericInterfaces();
-		
 		for (Type type : types) {
 			if (handlers.containsKey(type)) {
 				return handlers.get(type).issue(document, parameters);
 			}
 		}
+		
 		throw new RuntimeException("Cannot handle document : "
 				+ document.getClass().getCanonicalName());
 	}
