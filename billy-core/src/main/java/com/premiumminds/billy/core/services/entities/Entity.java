@@ -30,6 +30,8 @@ import com.premiumminds.billy.core.services.UID;
  *         definitions should extend or implement BaseEntity.
  */
 public interface Entity extends Serializable {
+	
+	public Integer getID();
 
 	/**
 	 * Gets the entity unique identifier.

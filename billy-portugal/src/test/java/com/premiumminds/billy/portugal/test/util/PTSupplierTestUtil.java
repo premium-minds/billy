@@ -58,7 +58,7 @@ public class PTSupplierTestUtil {
 				selfBillingAgree, addressBuilder, contactBuilder).build();
 	}
 
-	private PTSupplier.Builder getSupplierBuilder(String name,
+	public PTSupplier.Builder getSupplierBuilder(String name,
 			String taxNumber, boolean selfBillingAgree,
 			PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder) {
 		PTSupplier.Builder supplierBuilder = this.injector
