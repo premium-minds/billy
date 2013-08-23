@@ -320,6 +320,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 								e.getUnitAmountWithTax().subtract(
 										unitAmountWithoutTax, mc), mc);
 						break;
+					default:
+						break;
 				}
 			}
 			e.setUnitAmountWithoutTax(unitAmountWithoutTax);

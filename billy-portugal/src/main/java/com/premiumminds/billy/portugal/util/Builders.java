@@ -43,8 +43,23 @@ public class Builders {
 			return Builders.this.getInstance(PTInvoice.Builder.class);
 		}
 
+		public PTInvoice.Builder createInvoiceBuilder(PTInvoice invoice) {
+			PTInvoice.Builder builder = Builders.this
+					.getInstance(PTInvoice.Builder.class);
+			// builder.setTypeInstance(invoice);
+			return builder;
+		}
+
 		public PTSimpleInvoice.Builder createSimpleInvoiceBuilder() {
 			return Builders.this.getInstance(PTSimpleInvoice.Builder.class);
+		}
+
+		public PTSimpleInvoice.Builder createSimpleInvoiceBuilder(
+				PTSimpleInvoice simpleInvoice) {
+			PTSimpleInvoice.Builder builder = Builders.this
+					.getInstance(PTSimpleInvoice.Builder.class);
+			// builder.setTypeInstance(simpleInvoice);
+			return builder;
 		}
 
 		public PTCreditNote.Builder createCreditNoteBuilder() {
@@ -63,6 +78,14 @@ public class Builders {
 			return Builders.this.getInstance(PTCreditNoteEntry.Builder.class);
 		}
 
+		public PTCreditNote.Builder createCreditNoteBuilder(
+				PTCreditNote creditNote) {
+			PTCreditNote.Builder builder = Builders.this
+					.getInstance(PTCreditNote.Builder.class);
+			// builder.setTypeInstance(creditNote);
+			return builder;
+		}
+
 	}
 
 	public PTAddress.Builder createAddressBuilder() {
@@ -75,6 +98,13 @@ public class Builders {
 
 	public PTProduct.Builder createProductBuilder() {
 		return this.getInstance(PTProduct.Builder.class);
+	}
+
+	public PTProduct.Builder createProductBuilder(PTProduct product) {
+		PTProduct.Builder builder = Builders.this
+				.getInstance(PTProduct.Builder.class);
+		// builder.setTypeInstance(product);
+		return builder;
 	}
 
 	public PTShippingPoint.Builder createShippingPointBuilder() {
@@ -101,6 +131,13 @@ public class Builders {
 
 		public PTBusiness.Builder createBusinessBuilder() {
 			return Builders.this.getInstance(PTBusiness.Builder.class);
+		}
+
+		public PTBusiness.Builder createBusinessBuilder(PTBusiness business) {
+			PTBusiness.Builder builder = Builders.this
+					.getInstance(PTBusiness.Builder.class);
+			// builder.setTypeInstance(business);
+			return builder;
 		}
 
 	}

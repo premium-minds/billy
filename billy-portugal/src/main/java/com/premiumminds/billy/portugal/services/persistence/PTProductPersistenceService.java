@@ -67,6 +67,10 @@ public class PTProductPersistenceService<T extends PTProduct> extends
 				public T runTransaction() throws Exception {
 					PTProductEntity productEntity = (PTProductEntity) builder
 							.build();
+
+					PTProductEntity oldEntity = (PTProductEntity) getEntity(productEntity
+							.getUID());
+
 					return (T) dao.update(productEntity);
 				}
 

@@ -32,6 +32,10 @@ public class MockBaseEntity implements BaseEntity {
 	public Date					updateTimestamp;
 	public boolean				isNew;
 
+	public MockBaseEntity() {
+		this.isNew = true;
+	}
+
 	@Override
 	public boolean isNew() {
 		return this.isNew;

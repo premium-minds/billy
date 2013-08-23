@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.services.persistence;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -40,13 +39,13 @@ public class PTCreditNotePersistenceService<T extends PTCreditNote> extends
 	@NotImplemented
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		throw new NotImplementedException();
+		return null;
 	}
 
 	@NotImplemented
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		throw new NotImplementedException();
+		return null;
 	}
 
 	@Override

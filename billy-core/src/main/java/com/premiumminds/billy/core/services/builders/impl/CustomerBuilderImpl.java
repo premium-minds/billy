@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -34,6 +35,7 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, TCustomer>, TCustomer extends Customer>
 	extends AbstractBuilder<TBuilder, TCustomer> implements
@@ -61,7 +63,10 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public TBuilder setTaxRegistrationNumber(String number) {
+	@NotOnUpdate(message = "Can not update tax registration number")
+	public TBuilder setTaxRegistrationNumber(String number)
+		throws BillyUpdateException {
+
 		BillyValidator.mandatory(number, CustomerBuilderImpl.LOCALIZER
 				.getString("field.customer_tax_number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);

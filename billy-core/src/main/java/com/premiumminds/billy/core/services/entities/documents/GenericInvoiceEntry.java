@@ -23,6 +23,8 @@ import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
@@ -41,7 +43,7 @@ public interface GenericInvoiceEntry extends Entity {
 	public static class Builder extends
 		GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry> {
 
-		@javax.inject.Inject
+		@Inject
 		public Builder(DAOGenericInvoiceEntry daoEntry,
 						DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
 						DAOProduct daoProduct, DAOContext daoContext) {
