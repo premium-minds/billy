@@ -18,21 +18,18 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import org.junit.Test;
 
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoiceTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
@@ -44,11 +41,8 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 	PTPersistencyAbstractTest {
 
 	public static final int		NUM_ENTRIES					= 10;
-	public static final String	XSL_PATH					= "src/main/resources/pt_simpleinvoice.xsl";
+	public static final String	XSL_PATH					= "src/main/resources/templates/pt_simpleinvoice.xsl";
 	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
-	public static final String	URI_PATH					= "file://"
-																	+ System.getProperty("java.io.tmpdir")
-																	+ "/Result.pdf";
 
 	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
 	public static final byte[]	SAMPLE_HASH					= { 0xa, 0x1, 0x3,
@@ -64,7 +58,10 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
-		ExportServiceException, FileNotFoundException, URISyntaxException {
+		ExportServiceException, URISyntaxException, IOException {
+
+		File file = File.createTempFile("Result", ".pdf");
+
 		InputStream xsl = new FileInputStream(
 				TestPTSimpleInvoicePDFExportHandler.XSL_PATH);
 
@@ -73,7 +70,7 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 				TestPTSimpleInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
 		PTSimpleInvoicePDFExportHandler handler = new PTSimpleInvoicePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTSimpleInvoice.class));
-		handler.toFile(new URI(TestPTSimpleInvoicePDFExportHandler.URI_PATH),
+		handler.toFile(file.toURI(),
 				this.generatePTSimpleInvoice(PaymentMechanism.CASH), bundle);
 	}
 

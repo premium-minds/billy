@@ -38,7 +38,7 @@ public class Contexts {
 
 	public class Portugal {
 
-		public PTRegionContext portugal() {
+		public PTRegionContext allRegions() {
 			DAOPTRegionContext dao = Contexts.this
 					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao.get(Contexts.this.configuration
@@ -48,7 +48,7 @@ public class Contexts {
 
 	public class Continent {
 
-		public PTRegionContext continent() {
+		public PTRegionContext allContinentRegions() {
 			DAOPTRegionContext dao = Contexts.this
 					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao.get(Contexts.this.configuration

@@ -57,7 +57,7 @@ public class PTCreditNoteEntryTestUtil {
 				.getInstance(DAOPTProduct.class)
 				.create(new PTProductTestUtil(this.injector).getProductEntity());
 
-		this.context = this.contexts.portugal().portugal();
+		this.context = this.contexts.portugal().allRegions();
 
 		creditNoteEntryBuilder
 				.setUnitAmount(AmountType.WITH_TAX,

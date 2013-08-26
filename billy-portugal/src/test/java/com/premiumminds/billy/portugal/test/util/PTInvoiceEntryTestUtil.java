@@ -56,7 +56,7 @@ public class PTInvoiceEntryTestUtil {
 				.getInstance(PTInvoiceEntry.Builder.class);
 		PTShippingPoint.Builder originBuilder = this.shippingPoint
 				.getShippingPointBuilder();
-		this.context = this.contexts.portugal().portugal();
+		this.context = this.contexts.portugal().allRegions();
 
 		invoiceEntryBuilder.clear();
 

@@ -51,7 +51,7 @@ public class PTBusinessTestUtil {
 		this.contact = new PTContactTestUtil(injector);
 		this.address = new PTAddressTestUtil(injector);
 
-		this.context = new Contexts(injector).portugal().portugal();
+		this.context = new Contexts(injector).portugal().allRegions();
 	}
 
 	public PTBusinessEntity getBusinessEntity() {
