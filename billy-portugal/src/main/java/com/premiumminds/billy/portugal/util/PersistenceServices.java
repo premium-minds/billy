@@ -23,7 +23,6 @@ import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
@@ -33,7 +32,6 @@ import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.persistence.PTBusinessPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
-import com.premiumminds.billy.portugal.services.persistence.PTGenericInvoicePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTInvoicePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTProductPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTRegionContextPersitenceService;
@@ -93,14 +91,6 @@ public class PersistenceServices {
 	 */
 	public PersistenceService<PTTax> tax() {
 		return new PTTaxPersistenceService<PTTax>(this.injector);
-	}
-
-	/**
-	 * @return {@link PTGenericInvoice}.
-	 */
-	public PersistenceService<PTGenericInvoice> genericInvoice() {
-		return new PTGenericInvoicePersistenceService<PTGenericInvoice>(
-				this.injector);
 	}
 
 	/**

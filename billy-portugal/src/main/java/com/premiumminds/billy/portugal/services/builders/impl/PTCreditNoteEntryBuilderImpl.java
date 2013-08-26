@@ -23,6 +23,7 @@ import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -49,6 +50,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 				daoPTRegionContext);
 	}
 
+	@NotOnUpdate
 	public TBuilder setReferenceUID(UID referenceUID) {
 		BillyValidator.mandatory(referenceUID,
 				PTCreditNoteEntryBuilderImpl.LOCALIZER
@@ -61,6 +63,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 		return this.getBuilder();
 	}
 
+	@NotOnUpdate
 	public TBuilder setReason(String reason) {
 		BillyValidator.mandatory(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER
 				.getString("field.reason"));

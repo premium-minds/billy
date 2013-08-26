@@ -16,30 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.core.exceptions;
+package com.premiumminds.billy.core.util;
 
-import java.util.ResourceBundle;
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public class BillyRuntimeException extends RuntimeException {
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+/**
+ * Annotate builder methods that can only be executed when the entity is not persisted.
+ * 
+ * @author Hugo Correia
+ *
+ */
+public @interface NotOnUpdate {
 
-	private static final long	serialVersionUID	= 1L;
-
-	public BillyRuntimeException() {
-	}
-
-	public BillyRuntimeException(ResourceBundle b, String messageId) {
-		super(b.getString(messageId));
-	}
-
-	public BillyRuntimeException(Throwable t) {
-		super(t);
-	}
-
-	public BillyRuntimeException(ResourceBundle b, String messageId, Throwable t) {
-		super(b.getString(messageId), t);
-	}
-
-	public BillyRuntimeException(String message) {
-		super(message);
-	}
+	String message() default "Enitity is marked as not new!";
 }

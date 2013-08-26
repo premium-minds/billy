@@ -74,7 +74,8 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	public void lock(TInterface entity) {
 		if (isTransactionActive()) {
-			this.getEntityManager().lock(entity, LockModeType.PESSIMISTIC_READ);
+			this.getEntityManager()
+					.lock(entity, LockModeType.PESSIMISTIC_WRITE);
 		}
 	}
 
@@ -200,15 +201,8 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 								"Cannot update a non existing entity : "
 										+ entity.getUID());
 					}
-					// oldVersion = EntityVersioner.makeObsolete(oldVersion);
-					AbstractDAO.this.getEntityManager().merge(oldVersion);
-					AbstractDAO.this.getEntityManager().flush();
-					AbstractDAO.this.getEntityManager().detach(oldVersion);
-
 					TEntity newVersion = (TEntity) entity;
-					// newVersion = EntityVersioner.newVersion(oldVersion,
-					// newVersion);
-					AbstractDAO.this.getEntityManager().persist(newVersion);
+					AbstractDAO.this.getEntityManager().merge(newVersion);
 
 					return AbstractDAO.this.get(entity.getUID());
 				}

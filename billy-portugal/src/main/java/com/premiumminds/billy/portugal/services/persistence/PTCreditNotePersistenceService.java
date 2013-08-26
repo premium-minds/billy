@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.services.persistence;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -28,6 +27,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class PTCreditNotePersistenceService<T extends PTCreditNote> extends
@@ -40,13 +40,29 @@ public class PTCreditNotePersistenceService<T extends PTCreditNote> extends
 	@NotImplemented
 	@Override
 	public T createEntity(final Builder<T> builder) {
-		throw new NotImplementedException();
+		return null;
 	}
 
 	@NotImplemented
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		throw new NotImplementedException();
+		final DAOPTCreditNote dao = this.injector
+				.getInstance(DAOPTCreditNote.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					PTCreditNoteEntity creditNoteEntity = (PTCreditNoteEntity) builder
+							.build();
+					return (T) dao.update(creditNoteEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
 	}
 
 	@Override

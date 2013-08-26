@@ -33,6 +33,7 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, TSupplier>, TSupplier extends Supplier>
 	extends AbstractBuilder<TBuilder, TSupplier> implements
@@ -58,6 +59,7 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setTaxRegistrationNumber(String number) {
 		BillyValidator.notBlank(number, SupplierBuilderImpl.LOCALIZER
 				.getString("field.supplier_tax_number"));

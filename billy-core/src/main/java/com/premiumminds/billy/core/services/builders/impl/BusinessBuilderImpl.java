@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -35,6 +36,7 @@ import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends Business>
 	extends AbstractBuilder<TBuilder, TBusiness> implements
@@ -65,7 +67,8 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public TBuilder setFinancialID(String id) {
+	@NotOnUpdate
+	public TBuilder setFinancialID(String id) throws BillyUpdateException {
 		BillyValidator.mandatory(id,
 				BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
 		this.getTypeInstance().setFinancialID(id);

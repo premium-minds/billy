@@ -28,6 +28,7 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.builders.PTSupplierBuilder;
@@ -51,6 +52,7 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setTaxRegistrationNumber(String number) {
 		BillyValidator.mandatory(number, PTSupplierBuilderImpl.LOCALIZER
 				.getString("field.supplier_tax_number"));

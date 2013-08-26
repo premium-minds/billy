@@ -25,6 +25,7 @@ import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBui
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -56,6 +57,7 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setTaxPointDate(Date date) {
 		BillyValidator.mandatory(date,
 				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -65,6 +67,7 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.mandatory(creditOrDebit,
 				PTGenericInvoiceEntryBuilderImpl.LOCALIZER

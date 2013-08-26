@@ -51,6 +51,7 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.DiscountType;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
 	extends AbstractBuilder<TBuilder, TEntry> implements
@@ -82,6 +83,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public <T extends ShippingPoint> TBuilder setShippingOrigin(
 			Builder<T> originBuilder) {
 		BillyValidator.notNull(originBuilder,
@@ -92,6 +94,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public <T extends ShippingPoint> TBuilder setShippingDestination(
 			Builder<T> destinationBuilder) {
 		BillyValidator.notNull(destinationBuilder,
@@ -103,6 +106,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setProductUID(UID productUID) {
 		BillyValidator.mandatory(productUID, "field.product");
 		ProductEntity p = this.daoProduct.get(productUID);
@@ -113,6 +117,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setQuantity(BigDecimal quantity) {
 		Validate.isTrue(quantity.compareTo(BigDecimal.ZERO) > 0,
 				"The quantity must be positive"); // TODO message
@@ -121,6 +126,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setUnitOfMeasure(String unit) {
 		BillyValidator.mandatory(unit, "field.unit");
 		this.getTypeInstance().setUnitOfMeasure(unit);
@@ -128,6 +134,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setTaxPointDate(Date date) {
 		BillyValidator.notNull(date, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.tax_point_date"));
@@ -136,6 +143,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder addDocumentReferenceUID(UID referenceUID) {
 		BillyValidator.notNull(referenceUID,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -148,6 +156,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setDescription(String description) {
 		BillyValidator.mandatory(description,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -157,6 +166,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		BillyValidator.notNull(creditOrDebit,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -166,6 +176,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setShippingCostsAmount(BigDecimal amount) {
 		BillyValidator.notNull(amount, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.shipping_costs_amount"));
@@ -175,12 +186,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setAmountType(AmountType type) {
 		this.getTypeInstance().setAmountType(type);
 		return this.getBuilder();
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setUnitAmount(AmountType type, BigDecimal amount,
 			Currency currency) {
 		BillyValidator.mandatory(type, GenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -208,6 +221,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setContextUID(UID uidContext) {
 		BillyValidator.mandatory(uidContext,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -220,6 +234,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setTaxExemptionReason(String exemptionReason) {
 		BillyValidator.notBlank(exemptionReason,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -319,6 +334,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 						unitTaxAmount = unitTaxAmount.add(
 								e.getUnitAmountWithTax().subtract(
 										unitAmountWithoutTax, mc), mc);
+						break;
+					default:
 						break;
 				}
 			}

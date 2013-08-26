@@ -16,30 +16,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.core.exceptions;
+package com.premiumminds.billy.core.services.builders.impl;
 
-import java.util.ResourceBundle;
+public class BuilderManager<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
 
-public class BillyRuntimeException extends RuntimeException {
+	private AbstractBuilder<TBuilder, TType>	builder;
 
-	private static final long	serialVersionUID	= 1L;
-
-	public BillyRuntimeException() {
+	public BuilderManager(AbstractBuilder<TBuilder, TType> builder) {
+		this.builder = builder;
 	}
 
-	public BillyRuntimeException(ResourceBundle b, String messageId) {
-		super(b.getString(messageId));
+	public void setTypeInstance(TType entity) {
+		builder.setTypeInstance(entity);
 	}
 
-	public BillyRuntimeException(Throwable t) {
-		super(t);
-	}
-
-	public BillyRuntimeException(ResourceBundle b, String messageId, Throwable t) {
-		super(b.getString(messageId), t);
-	}
-
-	public BillyRuntimeException(String message) {
-		super(message);
+	public TType getTypeInstance() {
+		return builder.getTypeInstance();
 	}
 }
