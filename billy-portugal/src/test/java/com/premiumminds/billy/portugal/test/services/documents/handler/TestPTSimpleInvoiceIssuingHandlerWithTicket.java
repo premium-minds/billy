@@ -26,15 +26,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.persist.PersistService;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.portugal.PortugalBootstrap;
-import com.premiumminds.billy.portugal.PortugalDependencyModule;
-import com.premiumminds.billy.portugal.Config.Key.Context.Portugal;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
@@ -42,10 +37,8 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;
-import com.premiumminds.billy.portugal.test.PTAbstractTest;
+import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
-import com.premiumminds.billy.portugal.test.PortugalTestPersistenceDependencyModule;
-import com.premiumminds.billy.portugal.test.PortugalTestPersistenceDependencyModule.Initializer;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
@@ -187,53 +180,44 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends
 	
 	@Test
 	public void testOpenCloseConnections() {
-		/*Services services = new Services(injector);
-		PTSimpleInvoicePersistenceService service = injector
-				.getInstance(PTSimpleInvoicePersistenceService.class);
 		
+		Services services = new Services(injector);
+		PTSimpleInvoicePersistenceService persistenceService = injector
+				.getInstance(PTSimpleInvoicePersistenceService.class);
 		
 		PTSimpleInvoice.Builder testinvoice = new PTSimpleInvoiceTestUtil(
 				injector)
 				.getSimpleInvoiceBuilder(TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
 		
+		EntityManager em = injector.getInstance(EntityManager.class);
+		em.getTransaction().begin();
+		
+		
 		TicketManager newTicketManager = injector.getInstance(TicketManager.class);
 		String testValue = newTicketManager.generateTicket();
 		UID testUID = new UID(testValue);
-
-		openConnection();
+		em.getTransaction().commit();
+		
+		em.clear();
+		
+		services = new Services(Guice.createInjector(new PTMockDependencyModule()));
+		
 		try{
-		services.issueDocument(testinvoice, this.parameters,
-				testValue);
+			services.issueDocument(testinvoice, this.parameters,
+					testValue);
 		}
 		catch(Exception e){
 			System.out.println(e);
 		}
-		closeConnection();
+
 		PTSimpleInvoiceEntity ticketEntity = null;
 		try {
-			
-			if(ticketManager.ticketExists(testUID.getValue()))
-				System.out.println("existo sim senhor!");
-			ticketEntity = (PTSimpleInvoiceEntity) service
+			ticketEntity = (PTSimpleInvoiceEntity) persistenceService
 					.getEntityForTicket(testUID);
 		} catch (Exception e) {
+			System.out.println(e);
 		}
-		Assert.assertTrue(ticketEntity == null);*/
+		Assert.assertTrue(ticketEntity == null);
 	}
 	
-	public void openConnection(){
-		PTAbstractTest.injector = Guice.createInjector(
-				new PortugalDependencyModule(),
-				new PortugalTestPersistenceDependencyModule());
-		PTAbstractTest.injector
-				.getInstance(PortugalDependencyModule.Initializer.class);
-		PTAbstractTest.injector
-				.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
-	}
-	
-	public void closeConnection(){
-		PTAbstractTest.injector
-		.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
-	}
-
 }
