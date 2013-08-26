@@ -54,6 +54,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 		return JPAPTTaxEntity.class;
 	}
 
+	@Override
 	public List<JPAPTTaxEntity> getTaxesForSAFTPT(
 			PTRegionContextEntity context, Date validFrom, Date validTo) {
 		QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
@@ -108,6 +109,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 		return query.list(contexts);
 	}
 
+	@Override
 	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context,
 			Date validFrom, Date validTo) {
 

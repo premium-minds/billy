@@ -34,7 +34,7 @@ import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersiste
 import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTInvoicePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTProductPersistenceService;
-import com.premiumminds.billy.portugal.services.persistence.PTRegionContextPersitenceService;
+import com.premiumminds.billy.portugal.services.persistence.PTRegionContextPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTSupplierPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTTaxPersistenceService;
@@ -54,64 +54,62 @@ public class PersistenceServices {
 	 * @return {@link PTBusinessPersistenceService}.
 	 */
 	public PersistenceService<PTBusiness> business() {
-		return new PTBusinessPersistenceService<PTBusiness>(this.injector);
+		return injector.getInstance(PTBusinessPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTCustomerPersistenceService}.
 	 */
 	public PersistenceService<PTCustomer> customer() {
-		return new PTCustomerPersistenceService<PTCustomer>(this.injector);
+		return injector.getInstance(PTCustomerPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTProductPersistenceService}.
 	 */
 	public PersistenceService<PTProduct> product() {
-		return new PTProductPersistenceService<PTProduct>(this.injector);
+		return injector.getInstance(PTProductPersistenceService.class);
 	}
 
 	/**
-	 * @return {@link PTRegionContextPersitenceService}.
+	 * @return {@link PTRegionContextPersistenceService}.
 	 */
 	public PersistenceService<PTRegionContext> context() {
-		return new PTRegionContextPersitenceService<PTRegionContext>(
-				this.injector);
+		return injector.getInstance(PTRegionContextPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTSupplierPersistenceService}.
 	 */
 	public PersistenceService<PTSupplier> supplier() {
-		return new PTSupplierPersistenceService<PTSupplier>(this.injector);
+		return injector.getInstance(PTSupplierPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTTaxPersistenceService}.
 	 */
 	public PersistenceService<PTTax> tax() {
-		return new PTTaxPersistenceService<PTTax>(this.injector);
+		return injector.getInstance(PTTaxPersistenceService.class);
 	}
 
 	/**
-	 * @return {@link PTInvoicePersistenceService}.
+	 * @return {@link PTSimpleInvoicePersistenceService}.
 	 */
 	public PersistenceService<PTInvoice> invoice() {
-		return new PTInvoicePersistenceService<PTInvoice>(this.injector);
+		return injector.getInstance(PTInvoicePersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTSimpleInvoicePersistenceService}.
 	 */
 	public PersistenceService<PTSimpleInvoice> simpleInvoice() {
-		return new PTSimpleInvoicePersistenceService<PTSimpleInvoice>(
-				this.injector);
+		return injector.getInstance(PTSimpleInvoicePersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTCreditNotePersistenceService}.
 	 */
 	public PersistenceService<PTCreditNote> creditNote() {
-		return new PTCreditNotePersistenceService<PTCreditNote>(this.injector);
+		return injector.getInstance(PTCreditNotePersistenceService.class);
 	}
 }

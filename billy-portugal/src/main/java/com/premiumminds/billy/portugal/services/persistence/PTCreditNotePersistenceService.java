@@ -18,7 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
@@ -30,33 +31,33 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public class PTCreditNotePersistenceService<T extends PTCreditNote> extends
-	PersistenceServiceImpl<T> implements PersistenceService<T> {
+public class PTCreditNotePersistenceService extends
+	PersistenceServiceImpl<PTCreditNote> implements
+	PersistenceService<PTCreditNote> {
 
-	public PTCreditNotePersistenceService(Injector injector) {
-		super(injector);
+	protected final DAOPTCreditNote	daoCreditNote;
+
+	@Inject
+	public PTCreditNotePersistenceService(DAOPTCreditNote daoCreditNote) {
+		this.daoCreditNote = daoCreditNote;
 	}
 
-	@NotImplemented
 	@Override
-	public T createEntity(final Builder<T> builder) {
+	@NotImplemented
+	public PTCreditNote create(final Builder<PTCreditNote> builder) {
 		return null;
 	}
 
-	@NotImplemented
 	@Override
-	public T updateEntity(final Builder<T> builder) {
-		final DAOPTCreditNote dao = this.injector
-				.getInstance(DAOPTCreditNote.class);
-
+	public PTCreditNote update(final Builder<PTCreditNote> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTCreditNoteEntity creditNoteEntity = (PTCreditNoteEntity) builder
+				public PTCreditNote runTransaction() throws Exception {
+					PTCreditNoteEntity entity = (PTCreditNoteEntity) builder
 							.build();
-					return (T) dao.update(creditNoteEntity);
+					return (PTCreditNote) daoCreditNote.update(entity);
 				}
 
 			}.execute();
@@ -66,16 +67,13 @@ public class PTCreditNotePersistenceService<T extends PTCreditNote> extends
 	}
 
 	@Override
-	public T getEntity(final UID uid) {
-		final DAOPTCreditNote dao = this.injector
-				.getInstance(DAOPTCreditNote.class);
-
+	public PTCreditNote getEntity(final UID uid) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					return (T) dao.get(uid);
+				public PTCreditNote runTransaction() throws Exception {
+					return (PTCreditNote) daoCreditNote.get(uid);
 				}
 
 			}.execute();

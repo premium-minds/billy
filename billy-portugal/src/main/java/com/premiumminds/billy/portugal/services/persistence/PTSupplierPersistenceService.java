@@ -18,7 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
@@ -29,26 +30,27 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 
-public class PTSupplierPersistenceService<T extends PTSupplier> extends
-	PersistenceServiceImpl<T> implements PersistenceService<T> {
+public class PTSupplierPersistenceService extends
+	PersistenceServiceImpl<PTSupplier> implements
+	PersistenceService<PTSupplier> {
 
-	public PTSupplierPersistenceService(Injector injector) {
-		super(injector);
+	protected final DAOPTSupplier	daoSupplier;
+
+	@Inject
+	public PTSupplierPersistenceService(DAOPTSupplier daoSupplier) {
+		this.daoSupplier = daoSupplier;
 	}
 
 	@Override
-	public T createEntity(final Builder<T> builder) {
-		final DAOPTSupplier dao = this.injector
-				.getInstance(DAOPTSupplier.class);
-
+	public PTSupplier create(final Builder<PTSupplier> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTSupplier>(daoSupplier) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
+				public PTSupplier runTransaction() throws Exception {
+					PTSupplierEntity entity = (PTSupplierEntity) builder
 							.build();
-					return (T) dao.create(supplierEntity);
+					return (PTSupplier) daoSupplier.create(entity);
 				}
 
 			}.execute();
@@ -58,18 +60,15 @@ public class PTSupplierPersistenceService<T extends PTSupplier> extends
 	}
 
 	@Override
-	public T updateEntity(final Builder<T> builder) {
-		final DAOPTSupplier dao = this.injector
-				.getInstance(DAOPTSupplier.class);
-
+	public PTSupplier update(final Builder<PTSupplier> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTSupplier>(daoSupplier) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTSupplierEntity supplierEntity = (PTSupplierEntity) builder
+				public PTSupplier runTransaction() throws Exception {
+					PTSupplierEntity entity = (PTSupplierEntity) builder
 							.build();
-					return (T) dao.update(supplierEntity);
+					return (PTSupplier) daoSupplier.update(entity);
 				}
 
 			}.execute();
@@ -79,16 +78,13 @@ public class PTSupplierPersistenceService<T extends PTSupplier> extends
 	}
 
 	@Override
-	public T getEntity(final UID uid) {
-		final DAOPTSupplier dao = this.injector
-				.getInstance(DAOPTSupplier.class);
-
+	public PTSupplier getEntity(final UID uid) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTSupplier>(daoSupplier) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					return (T) dao.get(uid);
+				public PTSupplier runTransaction() throws Exception {
+					return (PTSupplier) daoSupplier.get(uid);
 				}
 
 			}.execute();

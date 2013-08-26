@@ -18,7 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
@@ -30,32 +31,31 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
-public class PTInvoicePersistenceService<T extends PTInvoice> extends
-	PersistenceServiceImpl<T> implements PersistenceService<T> {
+public class PTInvoicePersistenceService extends
+	PersistenceServiceImpl<PTInvoice> implements PersistenceService<PTInvoice> {
 
-	public PTInvoicePersistenceService(Injector injector) {
-		super(injector);
+	protected final DAOPTInvoice	daoInvoice;
+
+	@Inject
+	public PTInvoicePersistenceService(DAOPTInvoice daoInvoice) {
+		this.daoInvoice = daoInvoice;
 	}
 
-	@NotImplemented
 	@Override
-	public T createEntity(final Builder<T> builder) {
+	@NotImplemented
+	public PTInvoice create(final Builder<PTInvoice> builder) {
 		return null;
 	}
 
-	@NotImplemented
 	@Override
-	public T updateEntity(final Builder<T> builder) {
-		final DAOPTInvoice dao = this.injector.getInstance(DAOPTInvoice.class);
-
+	public PTInvoice update(final Builder<PTInvoice> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTInvoice>(daoInvoice) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTInvoiceEntity invoiceEntity = (PTInvoiceEntity) builder
-							.build();
-					return (T) dao.update(invoiceEntity);
+				public PTInvoice runTransaction() throws Exception {
+					PTInvoiceEntity entity = (PTInvoiceEntity) builder.build();
+					return (PTInvoice) daoInvoice.update(entity);
 				}
 
 			}.execute();
@@ -65,15 +65,13 @@ public class PTInvoicePersistenceService<T extends PTInvoice> extends
 	}
 
 	@Override
-	public T getEntity(final UID uid) {
-		final DAOPTInvoice dao = this.injector.getInstance(DAOPTInvoice.class);
-
+	public PTInvoice getEntity(final UID uid) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTInvoice>(daoInvoice) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					return (T) dao.get(uid);
+				public PTInvoice runTransaction() throws Exception {
+					return (PTInvoice) daoInvoice.get(uid);
 				}
 
 			}.execute();

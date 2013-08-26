@@ -60,4 +60,7 @@ public class UID implements Serializable, Comparable<UID> {
 		return this.value;
 	}
 
+	public static UID fromString(String uid) {
+		return new UID(uid);
+	}
 }

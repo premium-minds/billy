@@ -21,9 +21,6 @@ package com.premiumminds.billy.portugal.services.documents;
 import java.util.Currency;
 import java.util.Date;
 
-import javax.inject.Inject;
-
-import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
@@ -45,9 +42,7 @@ import com.premiumminds.billy.portugal.util.GenerateHash;
 public abstract class PTGenericInvoiceIssuingHandler extends
 	DocumentIssuingHandlerImpl implements DocumentIssuingHandler {
 
-	@Inject
-	public PTGenericInvoiceIssuingHandler(Injector injector) {
-		super(injector);
+	public PTGenericInvoiceIssuingHandler() {
 	}
 
 	protected void validateDocumentType(TYPE documentType, TYPE expectedType,

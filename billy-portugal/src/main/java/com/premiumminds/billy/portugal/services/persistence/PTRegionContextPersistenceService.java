@@ -18,7 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
@@ -29,26 +30,27 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
-public class PTRegionContextPersitenceService<T extends PTRegionContext>
-	extends PersistenceServiceImpl<T> implements PersistenceService<T> {
+public class PTRegionContextPersistenceService extends
+	PersistenceServiceImpl<PTRegionContext> implements
+	PersistenceService<PTRegionContext> {
 
-	public PTRegionContextPersitenceService(Injector injector) {
-		super(injector);
+	protected final DAOPTRegionContext	daoRegionContext;
+
+	@Inject
+	public PTRegionContextPersistenceService(DAOPTRegionContext daoRegionContext) {
+		this.daoRegionContext = daoRegionContext;
 	}
 
 	@Override
-	public T createEntity(final Builder<T> builder) {
-		final DAOPTRegionContext dao = this.injector
-				.getInstance(DAOPTRegionContext.class);
-
+	public PTRegionContext create(final Builder<PTRegionContext> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTRegionContextEntity contextEntity = (PTRegionContextEntity) builder
+				public PTRegionContext runTransaction() throws Exception {
+					PTRegionContextEntity entity = (PTRegionContextEntity) builder
 							.build();
-					return (T) dao.create(contextEntity);
+					return (PTRegionContext) daoRegionContext.create(entity);
 				}
 
 			}.execute();
@@ -58,18 +60,15 @@ public class PTRegionContextPersitenceService<T extends PTRegionContext>
 	}
 
 	@Override
-	public T updateEntity(final Builder<T> builder) {
-		final DAOPTRegionContext dao = this.injector
-				.getInstance(DAOPTRegionContext.class);
-
+	public PTRegionContext update(final Builder<PTRegionContext> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTRegionContextEntity contextEntity = (PTRegionContextEntity) builder
+				public PTRegionContext runTransaction() throws Exception {
+					PTRegionContextEntity entity = (PTRegionContextEntity) builder
 							.build();
-					return (T) dao.update(contextEntity);
+					return (PTRegionContext) daoRegionContext.update(entity);
 				}
 
 			}.execute();
@@ -79,16 +78,13 @@ public class PTRegionContextPersitenceService<T extends PTRegionContext>
 	}
 
 	@Override
-	public T getEntity(final UID uid) {
-		final DAOPTRegionContext dao = this.injector
-				.getInstance(DAOPTRegionContext.class);
-
+	public PTRegionContext getEntity(final UID uid) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					return (T) dao.get(uid);
+				public PTRegionContext runTransaction() throws Exception {
+					return (PTRegionContext) daoRegionContext.get(uid);
 				}
 
 			}.execute();

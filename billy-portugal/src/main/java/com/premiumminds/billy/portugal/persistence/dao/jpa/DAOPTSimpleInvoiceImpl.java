@@ -53,6 +53,7 @@ public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements
 		return JPAPTSimpleInvoiceEntity.class;
 	}
 
+	@Override
 	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(
 			UID uid, Date from, Date to) {
 
