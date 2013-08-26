@@ -41,7 +41,8 @@ public class PTSimpleInvoiceIssuingHandler extends
 
 	@Override
 	public <T extends GenericInvoice, P extends IssuingParams> T issue(
-			T document, P parameters) throws DocumentIssuingException {
+			T document, P parameters)
+			throws DocumentIssuingException {
 		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
 
 		return this.issue(document, parametersPT, daoSimpleInvoice,

@@ -22,10 +22,12 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.inject.Inject;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.exceptions.DuplicateTicketException;
+import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.services.entities.Ticket;
@@ -36,12 +38,13 @@ public class TicketManager implements Serializable{
 	private final Injector injector;
 	DAOTicket daoTicket = null;
 	
+	@Inject
 	public TicketManager(Injector injector){
 		this.injector = injector;
 		this.daoTicket = injector.getInstance(DAOTicket.class);
 	}
 	
-	public String generateTicket() throws DuplicateTicketException{
+	public String generateTicket() throws InvalidTicketException{
 		
 		Ticket.Builder ticketBuilder = injector.getInstance(Ticket.Builder.class);
 		TicketEntity newTicket = (TicketEntity)ticketBuilder.build();
@@ -50,24 +53,31 @@ public class TicketManager implements Serializable{
 		newTicket.setUID(uid);
 		
 		if(ticketExists(newTicket.getUID().getValue())){
-			throw new DuplicateTicketException();
+			throw new InvalidTicketException();
 		}
 		
 		daoTicket.create(newTicket);
 		
 		return newTicket.getUID().getValue();
-		
-		
+
 	}
 	
 	public boolean ticketExists(String ticketUID){
 		return daoTicket.exists(new UID(ticketUID));
 	}
 	
-	public void updateTicket(UID ticketUID, UID objectUID, Date creationDate, Date processDate) throws BillyValidationException{
+	public boolean ticketIssued(String ticketUID) throws InvalidTicketException{
+		if(!ticketExists(ticketUID)){
+			throw new InvalidTicketException();
+		}
+		TicketEntity ticket =  daoTicket.get(new UID(ticketUID));
+		return ticket.getObjectUID() != null;
+	}
+	
+	public void updateTicket(UID ticketUID, UID objectUID, Date creationDate, Date processDate) throws InvalidTicketException{
 		
 		if(!ticketExists(ticketUID.getValue())){
-			throw new BillyValidationException();
+			throw new InvalidTicketException();
 		}
 		
 		TicketEntity ticket = daoTicket.get(ticketUID);

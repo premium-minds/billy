@@ -20,7 +20,9 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import javax.management.remote.NotificationResult;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
@@ -49,7 +51,7 @@ public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity>
 	}
 	
 	@Override
-	public UID getObjectEntityUID(String ticketUID) throws BillyRuntimeException{
+	public UID getObjectEntityUID(String ticketUID) throws NoResultException{
 		QJPATicketEntity ticket = QJPATicketEntity.jPATicketEntity;
 		
 		JPAQuery query = new JPAQuery(this.getEntityManager());
@@ -57,7 +59,7 @@ public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity>
 		TicketEntity ticketEntity = query.from(ticket).where(ticket.uid.eq(ticketUID)).uniqueResult(ticket);
 		
 		if(ticketEntity == null){
-			throw new BillyRuntimeException();
+			throw new NoResultException();
 		}
 		
 		return ticketEntity.getObjectUID();

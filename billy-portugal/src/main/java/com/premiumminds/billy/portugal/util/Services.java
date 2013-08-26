@@ -19,9 +19,12 @@
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
+import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -34,14 +37,13 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 
 public class Services {
 
-	private final Injector			injector;
-	private DocumentIssuingService	issuingService;
-	private PersistenceServices		persistenceService;
+	private final Injector injector;
+	private DocumentIssuingService issuingService;
+	private PersistenceServices persistenceService;
 
 	public Services(Injector injector) {
 		this.injector = injector;
-		this.issuingService = injector
-				.getInstance(DocumentIssuingService.class);
+		this.issuingService = injector.getInstance(DocumentIssuingServiceImpl.class);
 		this.persistenceService = new PersistenceServices(injector);
 		this.setupServices();
 	}
@@ -73,6 +75,12 @@ public class Services {
 	public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder,
 			PTIssuingParams issuingParameters) throws DocumentIssuingException {
 		return this.issuingService.issue(builder, issuingParameters);
+	}
+
+	public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder,
+			PTIssuingParams issuingParameters, String ticketUID)
+			throws DocumentIssuingException {
+		return this.issuingService.issue(builder, issuingParameters, ticketUID);
 	}
 
 }

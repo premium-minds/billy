@@ -21,7 +21,6 @@ package com.premiumminds.billy.portugal.services.persistence;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
@@ -34,14 +33,15 @@ import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEnti
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
 public class PTReceiptInvoicePersistenceService extends
-	PersistenceServiceImpl<PTReceiptInvoice> implements
-	PersistenceService<PTReceiptInvoice> {
+		PersistenceServiceImpl<PTReceiptInvoice> implements
+		PersistenceService<PTReceiptInvoice> {
 
-	protected final DAOPTReceiptInvoice	daoReceiptInvoice;
+	protected final DAOPTReceiptInvoice daoReceiptInvoice;
 	protected final DAOTicket daoTicket;
 
 	@Inject
-	public PTReceiptInvoicePersistenceService(	DAOPTReceiptInvoice daoReceiptInvoice, DaoTicket daoTicket) {
+	public PTReceiptInvoicePersistenceService(
+			DAOPTReceiptInvoice daoReceiptInvoice, DAOTicket daoTicket) {
 		this.daoReceiptInvoice = daoReceiptInvoice;
 		this.daoTicket = daoTicket;
 	}
@@ -87,7 +87,7 @@ public class PTReceiptInvoicePersistenceService extends
 		}
 	}
 
-public PTReceiptInvoice getEntityForTicket(final UID ticketUID) {
+	public PTReceiptInvoice getWithTicket(final UID ticketUID) {
 
 		try {
 			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
@@ -95,12 +95,13 @@ public PTReceiptInvoice getEntityForTicket(final UID ticketUID) {
 				@SuppressWarnings("unchecked")
 				@Override
 				public PTReceiptInvoice runTransaction() throws Exception {
-					UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
-					return (PTReceiptInvoice) daoInvoice.get(objectUID);
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (PTReceiptInvoice) daoReceiptInvoice.get(objectUID);
 				}
 
 			}.execute();
-		} catch (Exception e) {
+		} catch (Exception e){
 			throw new BillyRuntimeException(e);
 		}
 	}

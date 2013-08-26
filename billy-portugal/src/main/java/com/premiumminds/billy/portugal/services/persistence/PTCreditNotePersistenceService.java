@@ -42,7 +42,8 @@ public class PTCreditNotePersistenceService extends
 	protected final DAOTicket daoTicket;
 
 	@Inject
-	public PTCreditNotePersistenceService(DAOPTCreditNote daoCreditNote, DaoTicket daoTicket) {
+	public PTCreditNotePersistenceService(DAOPTCreditNote daoCreditNote,
+			DAOTicket daoTicket) {
 		this.daoCreditNote = daoCreditNote;
 		this.daoTicket = daoTicket;
 	}
@@ -87,16 +88,17 @@ public class PTCreditNotePersistenceService extends
 		}
 	}
 
-public T getWithTicket(final UID ticketUID) {
-		
+	public PTCreditNote getWithTicket(final UID ticketUID) {
+
 		try {
-			return new TransactionWrapper<T>(daoCreditNote) {
+			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public T runTransaction() throws Exception {
-					UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
-					return (T) daoInvoice.get(objectUID);
+				public PTCreditNote runTransaction() throws Exception {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (PTCreditNote) daoCreditNote.get(objectUID);
 				}
 
 			}.execute();

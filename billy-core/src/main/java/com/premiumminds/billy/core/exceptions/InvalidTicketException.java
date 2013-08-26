@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.core.exceptions;
 
-public class DuplicateTicketException extends BillyValidationException{
-
-	private static final long serialVersionUID = 1L;
+public class InvalidTicketException extends BillyValidationException{
 	
-	public DuplicateTicketException(){
+	private static final long	serialVersionUID	= 1L;
+	
+	public InvalidTicketException(){
 		
 	}
 }
