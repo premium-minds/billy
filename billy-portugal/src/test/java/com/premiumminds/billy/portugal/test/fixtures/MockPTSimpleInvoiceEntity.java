@@ -26,20 +26,20 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
-		implements PTSimpleInvoiceEntity {
+	implements PTSimpleInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	protected Boolean cancelled;
-	protected Boolean billed;
-	protected String reason;
-	protected String hash;
-	protected String sourceHash;
-	protected String hashControl;
-	protected SourceBilling sourceBilling;
-	protected String eacCode;
-	protected TYPE type;
-	protected List<PTPayment> payments;
+	protected boolean			cancelled;
+	protected boolean			billed;
+	protected String			reason;
+	protected String			hash;
+	protected String			sourceHash;
+	protected String			hashControl;
+	protected SourceBilling		sourceBilling;
+	protected String			eacCode;
+	protected TYPE				type;
+	protected List<PTPayment>	payments;
 
 	public MockPTSimpleInvoiceEntity() {
 
@@ -140,7 +140,7 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	public String getChangeReason() {
 		return reason;
 	}
-	
+
 	@Override
 	public List<PTPayment> getPayments() {
 		return payments;

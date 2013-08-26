@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
@@ -67,6 +68,9 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
 	@Override
 	public TBuilder setCancelled(boolean cancelled) {
+		if (this.getTypeInstance().isCancelled()) {
+			throw new BillyUpdateException("Invoice is allready cancelled!");
+		}
 		BillyValidator.mandatory(cancelled,
 				PTGenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.cancelled"));
@@ -76,6 +80,12 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
 	@Override
 	public TBuilder setBilled(boolean billed) {
+		if (this.getTypeInstance().isCancelled()) {
+			throw new BillyUpdateException("Invoice is allready cancelled!");
+		}
+		if (this.getTypeInstance().isBilled()) {
+			throw new BillyUpdateException("Invoice is allready billed!");
+		}
 		BillyValidator
 				.mandatory(billed, PTGenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.billed"));

@@ -27,6 +27,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class PTInvoicePersistenceService<T extends PTInvoice> extends
@@ -45,7 +46,22 @@ public class PTInvoicePersistenceService<T extends PTInvoice> extends
 	@NotImplemented
 	@Override
 	public T updateEntity(final Builder<T> builder) {
-		return null;
+		final DAOPTInvoice dao = this.injector.getInstance(DAOPTInvoice.class);
+
+		try {
+			return new TransactionWrapper<T>(dao) {
+
+				@Override
+				public T runTransaction() throws Exception {
+					PTInvoiceEntity invoiceEntity = (PTInvoiceEntity) builder
+							.build();
+					return (T) dao.update(invoiceEntity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
 	}
 
 	@Override

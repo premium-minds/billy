@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
@@ -46,7 +47,11 @@ public class Builders {
 		public PTInvoice.Builder createInvoiceBuilder(PTInvoice invoice) {
 			PTInvoice.Builder builder = Builders.this
 					.getInstance(PTInvoice.Builder.class);
-			// builder.setTypeInstance(invoice);
+
+			BuilderManager<PTInvoice.Builder, PTInvoice> builderManager = new BuilderManager<PTInvoice.Builder, PTInvoice>(
+					builder);
+
+			builderManager.setTypeInstance(invoice);
 			return builder;
 		}
 
@@ -58,22 +63,37 @@ public class Builders {
 				PTSimpleInvoice simpleInvoice) {
 			PTSimpleInvoice.Builder builder = Builders.this
 					.getInstance(PTSimpleInvoice.Builder.class);
-			// builder.setTypeInstance(simpleInvoice);
+
+			BuilderManager<PTSimpleInvoice.Builder, PTSimpleInvoice> builderManager = new BuilderManager<PTSimpleInvoice.Builder, PTSimpleInvoice>(
+					builder);
+
+			builderManager.setTypeInstance(simpleInvoice);
 			return builder;
 		}
 
 		public PTCreditNote.Builder createCreditNoteBuilder() {
 			return Builders.this.getInstance(PTCreditNote.Builder.class);
 		}
-		
+
 		public PTReceiptInvoice.Builder createReceiptInvoiceBuilder() {
 			return Builders.this.getInstance(PTReceiptInvoice.Builder.class);
 		}
-		
+
+		public PTReceiptInvoice.Builder createReceiptInvoiceBuilder(
+				PTReceiptInvoice recepit) {
+			PTReceiptInvoice.Builder builder = Builders.this
+					.getInstance(PTReceiptInvoice.Builder.class);
+			BuilderManager<PTReceiptInvoice.Builder, PTReceiptInvoice> builderManager = new BuilderManager<PTReceiptInvoice.Builder, PTReceiptInvoice>(
+					builder);
+
+			builderManager.setTypeInstance(recepit);
+			return builder;
+		}
+
 		public PTInvoiceEntry.Builder createInvoiceEntryBuilder() {
 			return Builders.this.getInstance(PTInvoiceEntry.Builder.class);
 		}
-		
+
 		public PTCreditNoteEntry.Builder createCreditNoteEntryBuilder() {
 			return Builders.this.getInstance(PTCreditNoteEntry.Builder.class);
 		}
@@ -82,7 +102,10 @@ public class Builders {
 				PTCreditNote creditNote) {
 			PTCreditNote.Builder builder = Builders.this
 					.getInstance(PTCreditNote.Builder.class);
-			// builder.setTypeInstance(creditNote);
+			BuilderManager<PTCreditNote.Builder, PTCreditNote> builderManager = new BuilderManager<PTCreditNote.Builder, PTCreditNote>(
+					builder);
+
+			builderManager.setTypeInstance(creditNote);
 			return builder;
 		}
 
@@ -103,7 +126,11 @@ public class Builders {
 	public PTProduct.Builder createProductBuilder(PTProduct product) {
 		PTProduct.Builder builder = Builders.this
 				.getInstance(PTProduct.Builder.class);
-		// builder.setTypeInstance(product);
+
+		BuilderManager<PTProduct.Builder, PTProduct> builderManager = new BuilderManager<PTProduct.Builder, PTProduct>(
+				builder);
+
+		builderManager.setTypeInstance(product);
 		return builder;
 	}
 
@@ -136,7 +163,11 @@ public class Builders {
 		public PTBusiness.Builder createBusinessBuilder(PTBusiness business) {
 			PTBusiness.Builder builder = Builders.this
 					.getInstance(PTBusiness.Builder.class);
-			// builder.setTypeInstance(business);
+
+			BuilderManager<PTBusiness.Builder, PTBusiness> builderManager = new BuilderManager<PTBusiness.Builder, PTBusiness>(
+					builder);
+
+			builderManager.setTypeInstance(business);
 			return builder;
 		}
 
