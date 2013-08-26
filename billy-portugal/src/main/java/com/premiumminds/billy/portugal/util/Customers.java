@@ -16,20 +16,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.util;
 
-import java.util.List;
+import com.google.inject.Injector;
+import com.premiumminds.billy.portugal.Config;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 
-import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.entities.PTPayment;
+public class Customers {
 
-public interface PTCreditNoteEntity extends PTGenericInvoiceEntity,
-	PTCreditNote {
+	private Config			configuration	= new Config();
+	private final Injector	injector;
 
-	@Override
-	public List<PTCreditNoteEntry> getEntries();
+	public Customers(Injector injector) {
+		this.injector = injector;
+	}
 
-	@Override
-	public List<PTPayment> getPayments();
+	public PTCustomer getGenericCustomer() {
+		DAOPTCustomer dao = getInstance(DAOPTCustomer.class);
+		return (PTCustomer) dao.get(configuration
+				.getUID(Config.Key.Customer.Generic.UUID));
+	}
+
+	private <T> T getInstance(Class<T> clazz) {
+		return this.injector.getInstance(clazz);
+	}
 }

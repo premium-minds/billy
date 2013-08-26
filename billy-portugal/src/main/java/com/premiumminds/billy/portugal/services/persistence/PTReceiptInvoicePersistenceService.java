@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -28,40 +28,52 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
+public class PTReceiptInvoicePersistenceService extends
+	PersistenceServiceImpl<PTReceiptInvoice> implements
+	PersistenceService<PTReceiptInvoice> {
 
-public class PTReceiptInvoicePersistenceService<T extends PTReceiptInvoice> extends PersistenceServiceImpl<T> implements PersistenceService<T> {
+	protected final DAOPTReceiptInvoice	daoReceiptInvoice;
 
-	public PTReceiptInvoicePersistenceService(Injector injector) {
-		super(injector);
+	@Inject
+	public PTReceiptInvoicePersistenceService(	DAOPTReceiptInvoice daoReceiptInvoice) {
+		this.daoReceiptInvoice = daoReceiptInvoice;
 	}
 
+	@Override
 	@NotImplemented
-	@Override
-	public T createEntity(Builder<T> builder) {
-		throw new NotImplementedException();
-	}
-	
-	@NotImplemented
-	@Override
-	public T updateEntity(final Builder<T> builder) {
-		throw new NotImplementedException();
+	public PTReceiptInvoice create(final Builder<PTReceiptInvoice> builder) {
+		return null;
 	}
 
 	@Override
-	public T getEntity(final UID uid) {
-		final DAOPTReceiptInvoice dao = this.injector
-				.getInstance(DAOPTReceiptInvoice.class);
-
+	public PTReceiptInvoice update(final Builder<PTReceiptInvoice> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
 
-				@SuppressWarnings("unchecked")
 				@Override
-				public T runTransaction() throws Exception {
-					return (T) dao.get(uid);
+				public PTReceiptInvoice runTransaction() throws Exception {
+					PTReceiptInvoiceEntity entity = (PTReceiptInvoiceEntity) builder
+							.build();
+					return (PTReceiptInvoice) daoReceiptInvoice.update(entity);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+	@Override
+	public PTReceiptInvoice getEntity(final UID uid) {
+		try {
+			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
+
+				@Override
+				public PTReceiptInvoice runTransaction() throws Exception {
+					return (PTReceiptInvoice) daoReceiptInvoice.get(uid);
 				}
 
 			}.execute();

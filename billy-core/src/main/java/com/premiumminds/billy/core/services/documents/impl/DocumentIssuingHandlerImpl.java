@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.core.services.documents.impl;
 
-import javax.inject.Inject;
-
-import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -29,11 +26,7 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 public abstract class DocumentIssuingHandlerImpl implements
 	DocumentIssuingHandler {
 
-	protected Injector	injector;
-
-	@Inject
-	public DocumentIssuingHandlerImpl(Injector injector) {
-		this.injector = injector;
+	public DocumentIssuingHandlerImpl() {
 	}
 
 	@Override

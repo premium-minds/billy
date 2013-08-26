@@ -24,9 +24,9 @@ import com.premiumminds.billy.core.services.entities.Entity;
 
 public interface PersistenceService<T extends Entity> {
 
-	public T createEntity(Builder<T> builder);
+	public T create(Builder<T> builder);
 
-	public T updateEntity(Builder<T> builder);
+	public T update(Builder<T> builder);
 
 	public T getEntity(UID uid);
 

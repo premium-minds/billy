@@ -16,12 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import com.google.inject.Injector;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
@@ -32,24 +30,25 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-public class PTTaxPersistenceService<T extends PTTax> extends
-	PersistenceServiceImpl<T> implements PersistenceService<T> {
+public class PTTaxPersistenceService extends PersistenceServiceImpl<PTTax>
+	implements PersistenceService<PTTax> {
 
-	public PTTaxPersistenceService(Injector injector) {
-		super(injector);
+	protected final DAOPTTax	daoTax;
+
+	@Inject
+	public PTTaxPersistenceService(DAOPTTax daoTax) {
+		this.daoTax = daoTax;
 	}
 
 	@Override
-	public T createEntity(final Builder<T> builder) {
-		final DAOPTTax dao = this.injector.getInstance(DAOPTTax.class);
-
+	public PTTax create(final Builder<PTTax> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTTax>(daoTax) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTTaxEntity taxEntity = (PTTaxEntity) builder.build();
-					return (T) dao.create(taxEntity);
+				public PTTax runTransaction() throws Exception {
+					PTTaxEntity entity = (PTTaxEntity) builder.build();
+					return (PTTax) daoTax.create(entity);
 				}
 
 			}.execute();
@@ -59,16 +58,14 @@ public class PTTaxPersistenceService<T extends PTTax> extends
 	}
 
 	@Override
-	public T updateEntity(final Builder<T> builder) {
-		final DAOPTTax dao = this.injector.getInstance(DAOPTTax.class);
-
+	public PTTax update(final Builder<PTTax> builder) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTTax>(daoTax) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					PTTaxEntity taxEntity = (PTTaxEntity) builder.build();
-					return (T) dao.update(taxEntity);
+				public PTTax runTransaction() throws Exception {
+					PTTaxEntity entity = (PTTaxEntity) builder.build();
+					return (PTTax) daoTax.update(entity);
 				}
 
 			}.execute();
@@ -78,15 +75,13 @@ public class PTTaxPersistenceService<T extends PTTax> extends
 	}
 
 	@Override
-	public T getEntity(final UID uid) {
-		final DAOPTTax dao = this.injector.getInstance(DAOPTTax.class);
-
+	public PTTax getEntity(final UID uid) {
 		try {
-			return new TransactionWrapper<T>(dao) {
+			return new TransactionWrapper<PTTax>(daoTax) {
 
 				@Override
-				public T runTransaction() throws Exception {
-					return (T) dao.get(uid);
+				public PTTax runTransaction() throws Exception {
+					return (PTTax) daoTax.get(uid);
 				}
 
 			}.execute();

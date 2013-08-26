@@ -18,27 +18,9 @@
  */
 package com.premiumminds.billy.core.persistence.services;
 
-import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Entity;
 
 public abstract class PersistenceServiceImpl<T extends Entity> implements
 	PersistenceService<T> {
-
-	protected Injector	injector;
-
-	public PersistenceServiceImpl(Injector injector) {
-		this.injector = injector;
-	}
-
-	@Override
-	public abstract T createEntity(Builder<T> builder);
-
-	@Override
-	public abstract T updateEntity(Builder<T> builder);
-
-	@Override
-	public abstract T getEntity(UID uid);
 
 }

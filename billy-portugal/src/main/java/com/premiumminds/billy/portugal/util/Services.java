@@ -58,7 +58,7 @@ public class Services {
 	/**
 	 * @return {@link PersistenceServices}
 	 */
-	public PersistenceServices persistenceServices() {
+	public PersistenceServices entities() {
 		return this.persistenceService;
 	}
 

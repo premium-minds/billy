@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.services.documents;
 
 import javax.inject.Inject;
 
-import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -32,11 +31,12 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 public class PTSimpleInvoiceIssuingHandler extends
 	PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
 
-	public final static TYPE	INVOICE_TYPE	= TYPE.FS;
+	public final static TYPE			INVOICE_TYPE	= TYPE.FS;
+	private final DAOPTSimpleInvoice	daoSimpleInvoice;
 
 	@Inject
-	public PTSimpleInvoiceIssuingHandler(Injector injector) {
-		super(injector);
+	public PTSimpleInvoiceIssuingHandler(DAOPTSimpleInvoice daoSimpleInvoice) {
+		this.daoSimpleInvoice = daoSimpleInvoice;
 	}
 
 	@Override
@@ -44,10 +44,7 @@ public class PTSimpleInvoiceIssuingHandler extends
 			T document, P parameters) throws DocumentIssuingException {
 		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
 
-		final DAOPTSimpleInvoice daoInvoice = this.injector
-				.getInstance(DAOPTSimpleInvoice.class);
-
-		return this.issue(document, parametersPT, daoInvoice,
+		return this.issue(document, parametersPT, daoSimpleInvoice,
 				PTSimpleInvoiceIssuingHandler.INVOICE_TYPE);
 	}
 
