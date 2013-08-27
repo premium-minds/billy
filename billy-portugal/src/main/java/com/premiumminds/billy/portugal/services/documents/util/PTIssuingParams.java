@@ -26,6 +26,12 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public interface PTIssuingParams extends IssuingParams {
 
+	public static class Util {
+		public static PTIssuingParams newInstance() {
+			return new PTIssuingParamsImpl();
+		}
+	}
+	
 	public static class Keys {
 
 		public static final String	PRIVATE_KEY			= "private_key";

@@ -19,16 +19,6 @@
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.portugal.services.entities.PTBusiness;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
-import com.premiumminds.billy.portugal.services.entities.PTCustomer;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTProduct;
-import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
-import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTSupplier;
-import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.persistence.PTBusinessPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
@@ -53,63 +43,63 @@ public class PersistenceServices {
 	/**
 	 * @return {@link PTBusinessPersistenceService}.
 	 */
-	public PersistenceService<PTBusiness> business() {
+	public PTBusinessPersistenceService business() {
 		return injector.getInstance(PTBusinessPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTCustomerPersistenceService}.
 	 */
-	public PersistenceService<PTCustomer> customer() {
+	public PTCustomerPersistenceService customer() {
 		return injector.getInstance(PTCustomerPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTProductPersistenceService}.
 	 */
-	public PersistenceService<PTProduct> product() {
+	public PTProductPersistenceService product() {
 		return injector.getInstance(PTProductPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTRegionContextPersistenceService}.
 	 */
-	public PersistenceService<PTRegionContext> context() {
+	public PTRegionContextPersistenceService context() {
 		return injector.getInstance(PTRegionContextPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTSupplierPersistenceService}.
 	 */
-	public PersistenceService<PTSupplier> supplier() {
+	public PTSupplierPersistenceService supplier() {
 		return injector.getInstance(PTSupplierPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTTaxPersistenceService}.
 	 */
-	public PersistenceService<PTTax> tax() {
+	public PTTaxPersistenceService tax() {
 		return injector.getInstance(PTTaxPersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTSimpleInvoicePersistenceService}.
 	 */
-	public PersistenceService<PTInvoice> invoice() {
+	public PTInvoicePersistenceService invoice() {
 		return injector.getInstance(PTInvoicePersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTSimpleInvoicePersistenceService}.
 	 */
-	public PersistenceService<PTSimpleInvoice> simpleInvoice() {
+	public PTSimpleInvoicePersistenceService simpleInvoice() {
 		return injector.getInstance(PTSimpleInvoicePersistenceService.class);
 	}
 
 	/**
 	 * @return {@link PTCreditNotePersistenceService}.
 	 */
-	public PersistenceService<PTCreditNote> creditNote() {
+	public PTCreditNotePersistenceService creditNote() {
 		return injector.getInstance(PTCreditNotePersistenceService.class);
 	}
 }

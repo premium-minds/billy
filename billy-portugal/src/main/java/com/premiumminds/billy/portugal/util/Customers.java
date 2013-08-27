@@ -19,26 +19,46 @@
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
+import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
 
 public class Customers {
 
 	private Config			configuration	= new Config();
 	private final Injector	injector;
+	private final PTCustomerPersistenceService persistenceService;
+
 
 	public Customers(Injector injector) {
 		this.injector = injector;
+		this.persistenceService = getInstance(PTCustomerPersistenceService.class);
 	}
 
-	public PTCustomer getGenericCustomer() {
+	public PTCustomer endConsumer() {
 		DAOPTCustomer dao = getInstance(DAOPTCustomer.class);
 		return (PTCustomer) dao.get(configuration
 				.getUID(Config.Key.Customer.Generic.UUID));
+	}
+	
+	public PTCustomer.Builder builder() {
+		return getInstance(PTCustomer.Builder.class);
+	}
+	
+	public PTCustomer.Builder builder(PTCustomer customer) {
+		PTCustomer.Builder builder = getInstance(PTCustomer.Builder.class);
+		BuilderManager.setTypeInstance(builder, customer);
+		return builder;
+	}
+	
+	public PTCustomerPersistenceService persistence() {
+		return this.persistenceService;
 	}
 
 	private <T> T getInstance(Class<T> clazz) {
 		return this.injector.getInstance(clazz);
 	}
+	
 }

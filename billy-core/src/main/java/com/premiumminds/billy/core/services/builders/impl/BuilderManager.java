@@ -18,19 +18,20 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-public class BuilderManager<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
+import com.premiumminds.billy.core.services.Builder;
 
-	private AbstractBuilder<TBuilder, TType>	builder;
+public class BuilderManager {
 
-	public BuilderManager(AbstractBuilder<TBuilder, TType> builder) {
-		this.builder = builder;
-	}
 
-	public void setTypeInstance(TType entity) {
+	public static <T> void setTypeInstance(Builder<T> b, T entity) {
+		@SuppressWarnings("unchecked")
+		AbstractBuilder<?, T> builder = (AbstractBuilder<?, T>) b;
 		builder.setTypeInstance(entity);
 	}
 
-	public TType getTypeInstance() {
+	public static <T> T getTypeInstance(Builder<T> b) {
+		@SuppressWarnings("unchecked")
+		AbstractBuilder<?, T> builder = (AbstractBuilder<?, T>) b;
 		return builder.getTypeInstance();
 	}
 }

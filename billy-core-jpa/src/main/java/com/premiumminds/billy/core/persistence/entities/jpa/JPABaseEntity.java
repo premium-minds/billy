@@ -50,7 +50,7 @@ public abstract class JPABaseEntity implements BaseEntity {
 	private static final long	serialVersionUID	= 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID")
 	protected Integer			id;
 

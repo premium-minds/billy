@@ -23,15 +23,13 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-public class PTTaxPersistenceService extends PersistenceServiceImpl<PTTax>
-	implements PersistenceService<PTTax> {
+public class PTTaxPersistenceService implements PersistenceService<PTTax> {
 
 	protected final DAOPTTax	daoTax;
 
@@ -89,5 +87,5 @@ public class PTTaxPersistenceService extends PersistenceServiceImpl<PTTax>
 			throw new BillyRuntimeException(e);
 		}
 	}
-
+	
 }

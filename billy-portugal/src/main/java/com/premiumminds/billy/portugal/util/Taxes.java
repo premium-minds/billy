@@ -22,6 +22,7 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.services.persistence.PTTaxPersistenceService;
 
 /**
  * Encapsulates all tax information for Billy PT-Module.
@@ -154,12 +155,14 @@ public class Taxes {
 	private final Madeira	madeira;
 	private final Azores	azores;
 	private final Injector	injector;
+	private final PTTaxPersistenceService persistenceService;
 
 	public Taxes(Injector injector) {
 		this.continent = new Continent();
 		this.madeira = new Madeira();
 		this.azores = new Azores();
 		this.injector = injector;
+		this.persistenceService = getInstance(PTTaxPersistenceService.class);
 	}
 
 	/**
@@ -181,6 +184,10 @@ public class Taxes {
 	 */
 	public Azores azores() {
 		return this.azores;
+	}
+	
+	public PTTaxPersistenceService persistence() {
+		return this.persistenceService;
 	}
 
 	private <T> T getInstance(Class<T> clazz) {
