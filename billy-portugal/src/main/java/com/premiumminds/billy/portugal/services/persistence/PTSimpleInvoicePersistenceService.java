@@ -67,7 +67,7 @@ public class PTSimpleInvoicePersistenceService extends
 	}
 
 	@Override
-	public PTSimpleInvoice getEntity(final UID uid) {
+	public PTSimpleInvoice get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTSimpleInvoice>(daoInvoice) {
 

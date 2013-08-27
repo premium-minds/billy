@@ -75,7 +75,7 @@ public class PTTaxPersistenceService extends PersistenceServiceImpl<PTTax>
 	}
 
 	@Override
-	public PTTax getEntity(final UID uid) {
+	public PTTax get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTTax>(daoTax) {
 

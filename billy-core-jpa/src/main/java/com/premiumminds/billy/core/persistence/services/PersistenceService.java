@@ -28,6 +28,6 @@ public interface PersistenceService<T extends Entity> {
 
 	public T update(Builder<T> builder);
 
-	public T getEntity(UID uid);
+	public T get(UID uid);
 
 }

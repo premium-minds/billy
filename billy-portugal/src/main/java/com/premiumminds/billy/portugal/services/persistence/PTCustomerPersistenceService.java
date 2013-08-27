@@ -78,7 +78,7 @@ public class PTCustomerPersistenceService extends
 	}
 
 	@Override
-	public PTCustomer getEntity(final UID uid) {
+	public PTCustomer get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTCustomer>(daoCustomer) {
 

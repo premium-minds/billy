@@ -67,7 +67,7 @@ public class PTReceiptInvoicePersistenceService extends
 	}
 
 	@Override
-	public PTReceiptInvoice getEntity(final UID uid) {
+	public PTReceiptInvoice get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
 
