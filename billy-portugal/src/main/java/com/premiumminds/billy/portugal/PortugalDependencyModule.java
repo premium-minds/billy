@@ -22,8 +22,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.premiumminds.billy.core.CoreDependencyModule;
 import com.premiumminds.billy.core.CoreJPADependencyModule;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOTicketImpl;
 import com.premiumminds.billy.gin.GINDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
@@ -93,7 +91,6 @@ public class PortugalDependencyModule extends AbstractModule {
 		this.bind(DAOPTSimpleInvoice.class).to(DAOPTSimpleInvoiceImpl.class);
 		this.bind(DAOPTPayment.class).to(DAOPTPaymentImpl.class);
 		this.bind(DAOPTReceiptInvoice.class).to(DAOPTReceiptInvoiceImpl.class);
-
 	}
 
 	public static class Initializer {
