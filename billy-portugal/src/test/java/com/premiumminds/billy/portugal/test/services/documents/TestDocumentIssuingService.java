@@ -22,6 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
+import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
@@ -33,10 +34,11 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 
 	private DocumentIssuingService	service;
-
+	
 	@Before
 	public void setUp() {
-		this.service = this.getInstance(DocumentIssuingService.class);
+		
+		this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
 		this.service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
 				.getInstance(PTInvoiceIssuingHandler.class));
 

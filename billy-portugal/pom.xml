@@ -82,7 +82,6 @@
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
 			<version>${querydsl.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -223,10 +222,11 @@
 			</plugin>
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
-				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.0.9</version>
+				<artifactId>maven-apt-plugin</artifactId>
+				<version>1.0.2</version>
 				<executions>
 					<execution>
+						<phase>generate-sources</phase>
 						<goals>
 							<goal>process</goal>
 						</goals>
@@ -235,7 +235,21 @@
 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
 					</execution>
+
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.mysema.querydsl</groupId>
+						<artifactId>querydsl-apt</artifactId>
+						<version>${querydsl.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.mysema.querydsl</groupId>
+						<artifactId>querydsl-jpa</artifactId>
+						<classifier>apt</classifier>
+						<version>${querydsl.version}</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>

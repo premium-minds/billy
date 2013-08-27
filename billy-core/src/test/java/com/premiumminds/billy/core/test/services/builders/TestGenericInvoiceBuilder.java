@@ -84,7 +84,8 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 				.setSettlementDescription(mock.getSettlementDescription())
 				.setSettlementDiscount(mock.getSettlementDiscount())
 				.setSourceId(mock.getSourceId())
-				.setTransactionId(mock.getTransactionId());
+				.setTransactionId(mock.getTransactionId())
+				.setCurrency(mock.getCurrency());
 
 		GenericInvoice invoice = builder.build();
 

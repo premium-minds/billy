@@ -19,8 +19,10 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -32,17 +34,19 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntit
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
 public class PTSimpleInvoicePersistenceService extends
-	PersistenceServiceImpl<PTSimpleInvoice> implements
-	PersistenceService<PTSimpleInvoice> {
+		PersistenceServiceImpl<PTSimpleInvoice> implements
+		PersistenceService<PTSimpleInvoice> {
 
-	protected final DAOPTSimpleInvoice	daoInvoice;
+	protected final DAOPTSimpleInvoice daoInvoice;
+	protected final DAOTicket daoTicket;
 
 	@Inject
-	public PTSimpleInvoicePersistenceService(DAOPTSimpleInvoice daoInvoice) {
+	public PTSimpleInvoicePersistenceService(DAOPTSimpleInvoice daoInvoice,
+			DAOTicket daoTicket) {
 		this.daoInvoice = daoInvoice;
+		this.daoTicket = daoTicket;
 	}
 
-	@Override
 	@NotImplemented
 	public PTSimpleInvoice create(final Builder<PTSimpleInvoice> builder) {
 		return null;
@@ -67,7 +71,7 @@ public class PTSimpleInvoicePersistenceService extends
 	}
 
 	@Override
-	public PTSimpleInvoice getEntity(final UID uid) {
+	public PTSimpleInvoice get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTSimpleInvoice>(daoInvoice) {
 
@@ -78,6 +82,28 @@ public class PTSimpleInvoicePersistenceService extends
 
 			}.execute();
 		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+	public PTSimpleInvoice getWithTicket(final UID ticketUID) {
+
+		try {
+			return new TransactionWrapper<PTSimpleInvoice>(daoInvoice) {
+
+				@SuppressWarnings("unchecked")
+				@Override
+				public PTSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (PTSimpleInvoice) daoInvoice.get(objectUID);
+				}
+
+			}.execute();
+		}catch(NoResultException e){
+			throw e;
+		}
+		catch (Exception e) {
 			throw new BillyRuntimeException(e);
 		}
 	}

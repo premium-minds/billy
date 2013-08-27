@@ -31,10 +31,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
 public class PTBusinessPersistenceService extends
-	PersistenceServiceImpl<PTBusiness> implements
-	PersistenceService<PTBusiness> {
+		PersistenceServiceImpl<PTBusiness> implements
+		PersistenceService<PTBusiness> {
 
-	protected final DAOPTBusiness	daoBusiness;
+	protected final DAOPTBusiness daoBusiness;
 
 	@Inject
 	public PTBusinessPersistenceService(DAOPTBusiness daoBusiness) {
@@ -78,7 +78,7 @@ public class PTBusinessPersistenceService extends
 	}
 
 	@Override
-	public PTBusiness getEntity(final UID uid) {
+	public PTBusiness get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTBusiness>(daoBusiness) {
 

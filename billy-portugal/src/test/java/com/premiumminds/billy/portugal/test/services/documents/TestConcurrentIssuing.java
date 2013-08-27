@@ -29,7 +29,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
+import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -47,10 +50,10 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 
 	@Before
 	public void setUp() {
-		this.service = this.getInstance(DocumentIssuingService.class);
+		
+		this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
 		this.service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
 				.getInstance(PTInvoiceIssuingHandler.class));
-
 		this.parameters.setInvoiceSeries("A");
 	}
 

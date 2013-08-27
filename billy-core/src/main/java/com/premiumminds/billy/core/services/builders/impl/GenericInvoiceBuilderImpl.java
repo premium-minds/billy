@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Currency;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -73,6 +74,15 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		this.daoBusiness = daoBusiness;
 		this.daoCustomer = daoCustomer;
 		this.daoSupplier = daoSupplier;
+	}
+	
+	@Override
+	@NotOnUpdate
+	public TBuilder setCurrency(Currency currency){
+		BillyValidator.notNull(currency, GenericInvoiceBuilderImpl.LOCALIZER
+				.getString("field.currency"));
+		this.getTypeInstance().setCurrency(currency);
+		return this.getBuilder();
 	}
 
 	@Override

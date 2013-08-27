@@ -19,8 +19,10 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -32,13 +34,17 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class PTInvoicePersistenceService extends
-	PersistenceServiceImpl<PTInvoice> implements PersistenceService<PTInvoice> {
+		PersistenceServiceImpl<PTInvoice> implements
+		PersistenceService<PTInvoice> {
 
-	protected final DAOPTInvoice	daoInvoice;
+	protected final DAOPTInvoice daoInvoice;
+	protected final DAOTicket daoTicket;
 
 	@Inject
-	public PTInvoicePersistenceService(DAOPTInvoice daoInvoice) {
+	public PTInvoicePersistenceService(DAOPTInvoice daoInvoice,
+			DAOTicket daoTicket) {
 		this.daoInvoice = daoInvoice;
+		this.daoTicket = daoTicket;
 	}
 
 	@Override
@@ -65,7 +71,7 @@ public class PTInvoicePersistenceService extends
 	}
 
 	@Override
-	public PTInvoice getEntity(final UID uid) {
+	public PTInvoice get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTInvoice>(daoInvoice) {
 
@@ -76,6 +82,28 @@ public class PTInvoicePersistenceService extends
 
 			}.execute();
 		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+	public PTInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException{
+
+		try {
+			return new TransactionWrapper<PTInvoice>(daoInvoice) {
+
+				@SuppressWarnings("unchecked")
+				@Override
+				public PTInvoice runTransaction() throws Exception {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (PTInvoice) daoInvoice.get(objectUID);
+				}
+
+			}.execute();
+		}catch(NoResultException e){
+			throw e;
+		}
+		catch (Exception e) {
 			throw new BillyRuntimeException(e);
 		}
 	}

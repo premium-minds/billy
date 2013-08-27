@@ -39,5 +39,6 @@
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity"></entity>	
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity"></entity>
 	
 </entity-mappings>

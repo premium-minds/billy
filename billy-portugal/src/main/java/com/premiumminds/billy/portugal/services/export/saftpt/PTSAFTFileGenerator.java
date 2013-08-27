@@ -421,8 +421,8 @@ public class PTSAFTFileGenerator {
 			List<PTContactEntity> contacts = customerEntity.getContacts();
 			this.setContacts(customer, contacts);
 		}
-		this.updateCustomerGeneralInfo(customer, customerEntity.getUID()
-				.getValue(), customerEntity.getTaxRegistrationNumber(),
+		this.updateCustomerGeneralInfo(customer, customerEntity.getID()
+				.toString(), customerEntity.getTaxRegistrationNumber(),
 				customerEntity.getName(), (PTAddressEntity) customerEntity
 						.getBillingAddress());
 
@@ -451,7 +451,7 @@ public class PTSAFTFileGenerator {
 		Supplier supplier = new Supplier();
 
 		supplier.setSupplierID(this.validateString("SupplierID", supplierEntity
-				.getUID().getValue(), this.MAX_LENGTH_30, true));
+				.getID().toString(), this.MAX_LENGTH_30, true));
 		// No accounting support
 		supplier.setAccountID(this.validateString("AccountID", this.ACCOUNT_ID,
 				this.MAX_LENGTH_30, true));
@@ -511,7 +511,7 @@ public class PTSAFTFileGenerator {
 				this.MAX_LENGTH_1, true));
 
 		product.setProductCode(this.validateString("ProductCode", productEntity
-				.getUID().getValue(), this.MAX_LENGTH_30, true));
+				.getID().toString(), this.MAX_LENGTH_30, true));
 
 		product.setProductGroup(this.validateString("ProductGroup",
 				productEntity.getProductGroup(), this.MAX_LENGTH_50, false));
@@ -521,9 +521,8 @@ public class PTSAFTFileGenerator {
 
 		if (productEntity.getNumberCode() == null
 				|| productEntity.getNumberCode().length() == 0) {
-			product.setProductNumberCode(this
-					.validateString("ProductCode", productEntity.getUID()
-							.getValue(), this.MAX_LENGTH_50, true));
+			product.setProductNumberCode(this.validateString("ProductCode",
+					productEntity.getID().toString(), this.MAX_LENGTH_50, true));
 		} else {
 			product.setProductNumberCode(this.validateString("ProductCode",
 					productEntity.getNumberCode(), this.MAX_LENGTH_50, true));
@@ -623,16 +622,14 @@ public class PTSAFTFileGenerator {
 		BigDecimal totalDebit = BigDecimal.ZERO;
 		BigDecimal totalCredit = BigDecimal.ZERO;
 
-		totalCredit = processInvoices(invoices, salesInvoices,
+		totalCredit = processInvoices(invoices, salesInvoices, totalCredit);
+		totalCredit = processInvoices(simpleInvoices, salesInvoices,
 				totalCredit);
-		totalCredit = processInvoices(simpleInvoices,
-				salesInvoices, totalCredit);
-		totalCredit = processInvoices(receiptInvoices,
-				salesInvoices, totalCredit);
+		totalCredit = processInvoices(receiptInvoices, salesInvoices,
+				totalCredit);
 
-		totalDebit = processInvoices(creditNotes,
-				salesInvoices, totalDebit);
-		
+		totalDebit = processInvoices(creditNotes, salesInvoices, totalDebit);
+
 		salesInvoices.setTotalDebit(this.validateBigDecimal(totalDebit));
 		salesInvoices.setTotalCredit(this.validateBigDecimal(totalCredit));
 		srcDocs.setSalesInvoices(salesInvoices);
@@ -710,7 +707,7 @@ public class PTSAFTFileGenerator {
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(this.config
 				.getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
-				: customerUID.toString();
+				: document.getCustomer().getID().toString();
 
 		saftInv.setCustomerID(this.validateString("CustomerID", customerID,
 				this.MAX_LENGTH_30, true));
@@ -774,9 +771,8 @@ public class PTSAFTFileGenerator {
 					.getEntryNumber())));
 
 			/* REQUIRED */
-			line.setProductCode(this
-					.validateString("ProductCode", entry.getProduct().getUID()
-							.getValue(), this.MAX_LENGTH_30, true));
+			line.setProductCode(this.validateString("ProductCode", entry
+					.getProduct().getID().toString(), this.MAX_LENGTH_30, true));
 			line.setProductDescription(this.validateString(
 					"ProductDescription", entry.getProduct().getDescription(),
 					this.MAX_LENGTH_200, true));

@@ -78,7 +78,7 @@ public class PTSupplierPersistenceService extends
 	}
 
 	@Override
-	public PTSupplier getEntity(final UID uid) {
+	public PTSupplier get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTSupplier>(daoSupplier) {
 

@@ -22,8 +22,15 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
+import com.premiumminds.billy.core.exceptions.InvalidTicketException;
+import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.TicketManager;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
@@ -32,12 +39,17 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
-	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>	handlers;
+	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler> handlers;
+	protected DAOGenericInvoice daoInvoice;
+	protected TicketManager ticketManager;
 
-	public DocumentIssuingServiceImpl() {
+	@Inject
+	public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice, TicketManager ticketManager) {
 		this.handlers = new HashMap<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>();
+		this.daoInvoice = daoInvoice;
+		this.ticketManager = ticketManager;
 	}
-
+	
 	@Override
 	public void addHandler(Class<? extends GenericInvoiceEntity> handledClass,
 			DocumentIssuingHandler handler) {
@@ -45,21 +57,74 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 	}
 
 	@Override
-	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder)
-		throws DocumentIssuingException {
+	public synchronized <T extends GenericInvoice> T issue(
+			final Builder<T> documentBuilder) throws DocumentIssuingException {
 		return this.issue(documentBuilder, new IssuingParamsImpl());
 	}
 
-	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder,
-			IssuingParams parameters) throws DocumentIssuingException {
-		T document = documentBuilder.build();
-		Type[] types = document.getClass().getGenericInterfaces();
+	@Override
+	public synchronized <T extends GenericInvoice> T issue(
+			final Builder<T> documentBuilder, final IssuingParams parameters)
+			throws DocumentIssuingException {
 
+		try {
+			return new TransactionWrapper<T>(daoInvoice) {
+				@Override
+				public T runTransaction() throws Exception {
+					return issueDocument(documentBuilder, parameters);
+				}
+			}.execute();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DocumentIssuingException(e);
+		}
+	}
+
+	@Override
+	public synchronized <T extends GenericInvoice> T issue(
+			final Builder<T> documentBuilder, final IssuingParams parameters,
+			final String ticketUID) throws DocumentIssuingException {
+
+		try {
+			return new TransactionWrapper<T>(daoInvoice) {
+				@Override
+				public T runTransaction() throws Exception {
+					
+					if(!ticketManager.ticketIssued(ticketUID))
+						throw new InvalidTicketException();
+
+					T result = issueDocument(documentBuilder, parameters);
+					
+					ticketManager.updateTicket(new UID(ticketUID),
+							result.getUID(), result.getDate(),
+							result.getCreateTimestamp());
+					
+					return result;
+				}
+			}.execute();
+		}catch(InvalidTicketException e){
+			throw e;
+		}
+		catch(RuntimeException e){
+			throw new DocumentIssuingException(e);
+		}catch (Exception e) {
+			e.printStackTrace();
+			throw new DocumentIssuingException(e);
+		}
+	}
+
+	private <T extends GenericInvoice> T issueDocument(
+			Builder<T> documentBuilder, final IssuingParams parameters)
+			throws DocumentIssuingException {
+
+		final T document = documentBuilder.build();
+		final Type[] types = document.getClass().getGenericInterfaces();
 		for (Type type : types) {
-			if (this.handlers.containsKey(type)) {
-				return this.handlers.get(type).issue(document, parameters);
+			if (handlers.containsKey(type)) {
+				return handlers.get(type).issue(document, parameters);
 			}
 		}
+		
 		throw new RuntimeException("Cannot handle document : "
 				+ document.getClass().getCanonicalName());
 	}
