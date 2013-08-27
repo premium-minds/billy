@@ -78,7 +78,7 @@ public class PTRegionContextPersistenceService extends
 	}
 
 	@Override
-	public PTRegionContext getEntity(final UID uid) {
+	public PTRegionContext get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
 

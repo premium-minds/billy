@@ -78,7 +78,7 @@ public class PTBusinessPersistenceService extends
 	}
 
 	@Override
-	public PTBusiness getEntity(final UID uid) {
+	public PTBusiness get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTBusiness>(daoBusiness) {
 

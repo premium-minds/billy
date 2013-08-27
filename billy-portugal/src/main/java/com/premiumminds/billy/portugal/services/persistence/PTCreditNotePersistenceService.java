@@ -67,7 +67,7 @@ public class PTCreditNotePersistenceService extends
 	}
 
 	@Override
-	public PTCreditNote getEntity(final UID uid) {
+	public PTCreditNote get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
