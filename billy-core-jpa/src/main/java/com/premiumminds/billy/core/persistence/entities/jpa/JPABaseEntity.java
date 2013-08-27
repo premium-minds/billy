@@ -106,6 +106,11 @@ public abstract class JPABaseEntity implements BaseEntity {
 	protected void onUpdate() {
 		this.updateTimestamp = new Date();
 	}
+	
+	@Override
+	public Integer getID() {
+		return id;
+	}
 
 	@Override
 	public UID getUID() {
