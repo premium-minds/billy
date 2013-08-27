@@ -29,8 +29,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
-import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
@@ -50,7 +48,7 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 
 	@Before
 	public void setUp() {
-		
+
 		this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
 		this.service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
 				.getInstance(PTInvoiceIssuingHandler.class));
@@ -73,7 +71,6 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 		@Override
 		public PTInvoice call() throws Exception {
 			TestConcurrentIssuing.this.parameters.setInvoiceSeries(this.series);
-
 			PTInvoice invoice = TestConcurrentIssuing.this.service.issue(
 					new PTInvoiceTestUtil(this.injector).getInvoiceBuilder(
 							this.business, SourceBilling.P),
@@ -151,6 +148,38 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 				.getLatestInvoiceFromSeries("A", B1);
 		Assert.assertEquals(latestInvoiceNumber,
 				latestInvocie.getSeriesNumber());
+	}
+
+	@Test
+	public void testMultipleSeriesIssuing() throws InterruptedException,
+		ExecutionException {
+		String B1 = "Business 1";
+		PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(injector)
+				.getBusinessEntity(B1);
+		Integer totalThreads = 10;
+		ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);
+
+		List<Future<?>> results1 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "A", businessEntity1));
+		List<Future<?>> results2 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "B", businessEntity1));
+		List<Future<?>> results3 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "C", businessEntity1));
+
+		List<PTInvoice> invoices1 = this.executeThreads(results1);
+		List<PTInvoice> invoices2 = this.executeThreads(results2);
+		List<PTInvoice> invoices3 = this.executeThreads(results3);
+
+		PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("A", B1);
+		Assert.assertEquals(totalThreads, latestInvoice1.getSeriesNumber());
+		PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("B", B1);
+		Assert.assertEquals(totalThreads, latestInvoice2.getSeriesNumber());
+		PTInvoiceEntity latestInvoice3 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("C", B1);
+		Assert.assertEquals(totalThreads, latestInvoice3.getSeriesNumber());
+
 	}
 
 	private PTInvoiceEntity getLatestInvoice(List<PTInvoice> invoices) {
