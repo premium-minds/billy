@@ -19,12 +19,12 @@
 package com.premiumminds.billy.core.services.builders;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Date;
 
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
@@ -79,5 +79,7 @@ public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TB
 	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
 
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
+	
+	public TBuilder setCurrency(Currency currency);
 
 }

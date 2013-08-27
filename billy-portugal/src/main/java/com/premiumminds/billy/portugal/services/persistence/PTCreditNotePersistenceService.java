@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
@@ -88,7 +89,7 @@ public class PTCreditNotePersistenceService extends
 		}
 	}
 
-	public PTCreditNote getWithTicket(final UID ticketUID) {
+	public PTCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException{
 
 		try {
 			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
@@ -102,7 +103,10 @@ public class PTCreditNotePersistenceService extends
 				}
 
 			}.execute();
-		} catch (Exception e) {
+		}catch(NoResultException e){
+			throw e;
+		} 
+		catch (Exception e) {
 			throw new BillyRuntimeException(e);
 		}
 	}

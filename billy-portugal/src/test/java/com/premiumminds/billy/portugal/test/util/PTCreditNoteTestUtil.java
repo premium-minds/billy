@@ -75,7 +75,8 @@ public class PTCreditNoteTestUtil {
 				.addEntry(creditNoteEntryBuilder)
 				.setBusinessUID(reference.getBusiness().getUID())
 				.setSourceBilling(SourceBilling.P)
-				.setCustomerUID(reference.getCustomer().getUID());
+				.setCustomerUID(reference.getCustomer().getUID())
+				.setCurrency(Currency.getInstance("EUR"));
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity(PTInvoiceEntity reference) {

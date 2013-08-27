@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
@@ -94,14 +95,17 @@ public class PTReceiptInvoicePersistenceService extends
 
 				@SuppressWarnings("unchecked")
 				@Override
-				public PTReceiptInvoice runTransaction() throws Exception {
+				public PTReceiptInvoice runTransaction() throws NoResultException, BillyRuntimeException {
 					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
 							.getValue());
 					return (PTReceiptInvoice) daoReceiptInvoice.get(objectUID);
 				}
 
 			}.execute();
-		} catch (Exception e){
+		}catch(NoResultException e){
+			throw e;
+		}
+		catch (Exception e){
 			throw new BillyRuntimeException(e);
 		}
 	}
