@@ -212,7 +212,6 @@ public class TestPTReceiptInvoiceIssuingHandlerWithTicket extends
 		try {
 			services.issueDocument(testinvoice, this.parameters, testValue);
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 
 		PTReceiptInvoiceEntity ticketEntity = null;
@@ -220,7 +219,6 @@ public class TestPTReceiptInvoiceIssuingHandlerWithTicket extends
 			ticketEntity = (PTReceiptInvoiceEntity) persistenceService
 					.getWithTicket(testUID);
 		} catch (Exception e) {
-			System.out.println(e);
 		}
 		Assert.assertTrue(ticketEntity == null);
 	}
