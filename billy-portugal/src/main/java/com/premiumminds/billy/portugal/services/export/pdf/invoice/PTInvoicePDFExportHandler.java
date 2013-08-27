@@ -115,7 +115,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	}
 
 	@Override
-	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
+	protected <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
 			ParamsTree<String, String> params, K document, T bundle) {
 
 		if (null != document.getSettlementDescription()) {
@@ -129,7 +129,7 @@ public class PTInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	}
 
 	@Override
-	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
+	protected <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
 		PTTemplateBundle template = (PTTemplateBundle) bundle;
 		return (invoice.getCustomer().getUID()

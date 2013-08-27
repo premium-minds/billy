@@ -23,15 +23,14 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
-public class PTRegionContextPersistenceService extends
-	PersistenceServiceImpl<PTRegionContext> implements
+public class PTRegionContextPersistenceService implements
 	PersistenceService<PTRegionContext> {
 
 	protected final DAOPTRegionContext	daoRegionContext;
@@ -85,6 +84,21 @@ public class PTRegionContextPersistenceService extends
 				@Override
 				public PTRegionContext runTransaction() throws Exception {
 					return (PTRegionContext) daoRegionContext.get(uid);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+	
+	public boolean isPartOf(final PTRegionContext parent, final Context child) {
+		try {
+			return new TransactionWrapper<Boolean>(daoRegionContext) {
+
+				@Override
+				public Boolean runTransaction() throws Exception {
+					return daoRegionContext.isSubContext(child, parent);
 				}
 
 			}.execute();

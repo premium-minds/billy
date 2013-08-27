@@ -93,7 +93,7 @@ public class PortugalDependencyModule extends AbstractModule {
 		this.bind(DAOPTSimpleInvoice.class).to(DAOPTSimpleInvoiceImpl.class);
 		this.bind(DAOPTPayment.class).to(DAOPTPaymentImpl.class);
 		this.bind(DAOPTReceiptInvoice.class).to(DAOPTReceiptInvoiceImpl.class);
-
+		this.bind(BillyPortugal.class);
 	}
 
 	public static class Initializer {

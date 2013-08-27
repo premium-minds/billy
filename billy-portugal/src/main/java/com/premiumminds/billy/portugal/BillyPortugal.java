@@ -18,58 +18,58 @@
  */
 package com.premiumminds.billy.portugal;
 
+import javax.inject.Singleton;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.google.inject.persist.PersistModule;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import com.premiumminds.billy.portugal.util.Builders;
+import com.premiumminds.billy.portugal.util.Addresses;
+import com.premiumminds.billy.portugal.util.Businesses;
 import com.premiumminds.billy.portugal.util.Contexts;
 import com.premiumminds.billy.portugal.util.Customers;
-import com.premiumminds.billy.portugal.util.Services;
+import com.premiumminds.billy.portugal.util.Invoices;
+import com.premiumminds.billy.portugal.util.SimpleInvoices;
 import com.premiumminds.billy.portugal.util.Taxes;
 
 /**
  * Portuguese Module for Billy.
  * 
  */
+@Singleton
 public class BillyPortugal {
 
 	private static final String	DEFAULT_PERSISTENCE_UNIT	= "BillyPortugalPersistenceUnit";
 
-	private Injector			injector;
-	private Builders			builders;
-	private Taxes				taxes;
-	private Services			services;
-	private Customers			customers;
-	private Contexts			contexts;
+	private final Injector		injector;
+
+	private final Contexts contexts;
+	private final Taxes			taxes;
+	private final Customers customers;
+	private final Addresses addresses;
+	private Businesses businesses;
+	private final Invoices invoices;
+	private final SimpleInvoices simpleInvoices;
+	private final CreditNotes creditNotes;
+
 
 	public BillyPortugal() {
-		this(Guice.createInjector(new JpaPersistModule(
-				BillyPortugal.DEFAULT_PERSISTENCE_UNIT)));
+		this(new JpaPersistModule(BillyPortugal.DEFAULT_PERSISTENCE_UNIT));
+	}
+
+	public BillyPortugal(PersistModule persistModule) {
+		this.injector = Guice.createInjector(new PortugalDependencyModule(),
+				persistModule);
 		this.injector.getInstance(PersistService.class).start();
-		setup();
-	}
-
-	public BillyPortugal(Injector injector) {
-		this.injector = injector
-				.createChildInjector(new PortugalDependencyModule());
-	}
-
-	public void setup() {
-		this.builders = new Builders(this.injector);
 		this.taxes = new Taxes(this.injector);
-		this.contexts = new Contexts(this.injector);
-		this.services = new Services(this.injector);
-		this.customers = new Customers(this.injector);
-	}
-
-	/**
-	 * Provides access to Billy-Portugal entity builders.
-	 * 
-	 * @return {@link Builders}
-	 */
-	public Builders builders() {
-		return this.builders;
+		this.customers = new Customers(injector);
+		this.addresses = new Addresses(injector);
+		this.businesses = new Businesses(injector);
+		this.invoices = new Invoices(injector);
+		this.simpleInvoices = new SimpleInvoices(injector);
+		this.creditNotes = new CreditNotes(injector);
+		this.contexts = new Contexts(injector);
 	}
 
 	/**
@@ -81,30 +81,36 @@ public class BillyPortugal {
 		return this.taxes;
 	}
 
-	/**
-	 * Provides access to persistence and document issuing services.
-	 * 
-	 * @return {@link Services}
-	 */
-	public Services services() {
-		return this.services;
-	}
-
-	/**
-	 * Provides access to the different contexts for Billy.
-	 * 
-	 * @return {@link Contexts}
-	 */
-	public Contexts contexts() {
-		return this.contexts;
-	}
-
-	/**
-	 * Provides access to customers.
-	 * 
-	 * @return {@link Customers}
-	 */
 	public Customers customers() {
 		return this.customers;
 	}
+	
+	public Addresses addresses() {
+		return this.addresses;
+	}
+	
+	public Businesses businesses() {
+		return this.businesses;
+	}
+	
+	public Invoices invoices() {
+		return this.invoices;
+	}
+	
+	public SimpleInvoices simpleInvoices() {
+		return this.simpleInvoices;
+	}
+
+	public CreditNotes creditNotes() {
+		return this.creditNotes;
+	}
+
+	public Contexts contexts() {
+		return this.contexts;
+	}
+	
+	private <T> T getInstance(Class<T> clazz) {
+		return this.injector.getInstance(clazz);
+	}
+
 }
