@@ -72,10 +72,9 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	}
 
 	@Override
-	public void lock(TInterface entity) {
+	public void lock(TInterface entity, LockModeType type) {
 		if (isTransactionActive()) {
-			this.getEntityManager()
-					.lock(entity, LockModeType.PESSIMISTIC_WRITE);
+			this.getEntityManager().lock(entity, type);
 		}
 	}
 
