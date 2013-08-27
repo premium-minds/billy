@@ -1,21 +1,20 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- * 
+ *
  * This file is part of billy portugal (PT Pack).
- * 
- * billy portugal (PT Pack) is free software: you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- * 
- * billy portugal (PT Pack) is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details.
- * 
+ *
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see
- * <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
@@ -75,11 +74,11 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class SAFTExportTest extends PTPersistencyAbstractTest {
 
-	private static final String SAFT_OUTPUT = System
-			.getProperty("java.io.tmpdir") + "/";
+	private static final String		SAFT_OUTPUT	= System.getProperty("java.io.tmpdir")
+														+ "/";
 
-	private DocumentIssuingService service;
-	protected PTIssuingParams parameters;
+	private DocumentIssuingService	service;
+	protected PTIssuingParams		parameters;
 
 	@Before
 	public void setUp() {
@@ -130,19 +129,17 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		PTReceiptInvoiceTestUtil receiptInvoice = new PTReceiptInvoiceTestUtil(
 				PTAbstractTest.injector);
 
-		PTCustomerPersistenceService<PTCustomer> customerPersistenceService = new PTCustomerPersistenceService<PTCustomer>(
-				PTAbstractTest.injector);
-		PTSupplierPersistenceService<PTSupplier> supplierPersistenceService = new PTSupplierPersistenceService<PTSupplier>(
-				PTAbstractTest.injector);
+		PTCustomerPersistenceService customerPersistenceService = getInstance(PTCustomerPersistenceService.class);
+		PTSupplierPersistenceService supplierPersistenceService = getInstance(PTSupplierPersistenceService.class);
 
 		DAOPTRegionContext daoPTRegionContext = PTAbstractTest.injector
 				.getInstance(DAOPTRegionContext.class);
 
 		/* ADDRESSES */
-//		PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
-//				"Av. Republica", "Nº 3 - 3º Esq.",
-//				"Av. Republica Nº 3 - 3º Esq.", "", "Lisboa", "1700-232", "",
-//				"PT");
+		// PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
+		// "Av. Republica", "Nº 3 - 3º Esq.",
+		// "Av. Republica Nº 3 - 3º Esq.", "", "Lisboa", "1700-232", "",
+		// "PT");
 		PTAddress.Builder addressBuilder2 = address.getAddressBuilder(
 				"Av. Liberdade", "Nº 4 - 5º Dir.",
 				"Av. Liberdade, Nº 4 - 5º Dir.", "", "Lisboa", "1500-123", "",
@@ -181,7 +178,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 				.getInstance(DAOPTCustomer.class);
 		PTCustomer.Builder customerBuilder = customer.getCustomerBuilder("Zé",
 				"2312312312", false, addressBuilder2, contactBuilder2);
-		customerPersistenceService.createEntity(customerBuilder);
+		customerPersistenceService.create(customerBuilder);
 
 		/* SUPPLIERS */
 		DAOPTSupplier daoPTSupplier = PTAbstractTest.injector
@@ -190,7 +187,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		PTSupplier.Builder supplierBuilder = supplier.getSupplierBuilder(
 				"YourSupplier", "5324532453", false, addressBuilder3,
 				contactBuilder3);
-		supplierPersistenceService.createEntity(supplierBuilder);
+		supplierPersistenceService.create(supplierBuilder);
 
 		/* TAXES */
 		DAOPTTax daoPTTax = PTAbstractTest.injector.getInstance(DAOPTTax.class);
@@ -249,7 +246,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTSimpleInvoice daoPTSimpleInvoice,
 			DAOPTReceiptInvoice daoPTReceiptInvoice,
 			DAOPTCreditNote daoPTCreditNote) throws FileNotFoundException,
-			SAFTPTExportException {
+		SAFTPTExportException {
 
 		PTSAFTFileGenerator generator = new PTSAFTFileGenerator();
 
