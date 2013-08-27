@@ -72,12 +72,13 @@ public class DAOGenericInvoiceImpl extends
 
 		query.from(genericInvoice);
 		query.where(genericInvoice.series.eq(series));
+		query.where(genericInvoice.business.eq(businessEnity));
 		query.where(genericInvoice.seriesNumber.eq(new JPASubQuery()
-				.from(genericInvoice)
+				.from(genericInvoice).where(genericInvoice.series.eq(series))
 				.where(genericInvoice.business.eq(businessEnity))
 				.unique(genericInvoice.seriesNumber.max())));
 
-		GenericInvoiceEntity invoice = query.singleResult(genericInvoice);
+		GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
 
 		return (T) invoice;
 	}

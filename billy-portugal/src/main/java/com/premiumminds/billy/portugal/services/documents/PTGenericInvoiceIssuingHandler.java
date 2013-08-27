@@ -81,36 +81,33 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 			throw new InvalidInvoiceDateException();
 		}
 
-		InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(
-				series, document.getBusiness().getUID().toString());
-
 		Integer seriesNumber = 1;
 		String previousHash = null;
 
-		if (null != invoiceSeriesEntity) {
-			daoInvoiceSeries.lock(invoiceSeriesEntity,
-					LockModeType.PESSIMISTIC_READ);
+		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document,
+				series);
+		daoInvoiceSeries.lock(invoiceSeriesEntity,
+				LockModeType.PESSIMISTIC_WRITE);
 
-			PTGenericInvoiceEntity latestInvoice = daoInvoice
-					.getLatestInvoiceFromSeries(series, document.getBusiness()
-							.getUID().toString());
+		PTGenericInvoiceEntity latestInvoice = daoInvoice
+				.getLatestInvoiceFromSeries(series, document.getBusiness()
+						.getUID().toString());
 
-			if (null != latestInvoice) {
-				seriesNumber = latestInvoice.getSeriesNumber() + 1;
-				previousHash = latestInvoice.getHash();
-				Date latestInvoiceDate = latestInvoice.getDate();
-				PTGenericInvoiceIssuingHandler.this.validateDocumentType(
-						invoiceType, latestInvoice.getType(), series);
+		if (null != latestInvoice) {
+			seriesNumber = latestInvoice.getSeriesNumber() + 1;
+			previousHash = latestInvoice.getHash();
+			Date latestInvoiceDate = latestInvoice.getDate();
+			PTGenericInvoiceIssuingHandler.this.validateDocumentType(
+					invoiceType, latestInvoice.getType(), series);
 
-				if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
-					throw new InvalidSourceBillingException(series,
-							sourceBilling.toString(), latestInvoice
-									.getSourceBilling().toString());
-				}
+			if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
+				throw new InvalidSourceBillingException(series,
+						sourceBilling.toString(), latestInvoice
+								.getSourceBilling().toString());
+			}
 
-				if (latestInvoiceDate.after(invoiceDate)) {
-					invoiceDate.setTime(latestInvoiceDate.getTime() + 100);
-				}
+			if (latestInvoiceDate.after(invoiceDate)) {
+				invoiceDate.setTime(latestInvoiceDate.getTime() + 100);
 			}
 		}
 
@@ -138,15 +135,23 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 		documentEntity.setCurrency(Currency.getInstance("EUR"));
 
 		daoInvoice.create(documentEntity);
+
+		return (T) documentEntity;
+
+	}
+
+	private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(
+			final T document, String series) {
+		InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(
+				series, document.getBusiness().getUID().toString());
+
 		if (null == invoiceSeriesEntity) {
 			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
 			entity.setBusiness(document.getBusiness());
 			entity.setSeries(series);
 
-			daoInvoiceSeries.create(entity);
+			invoiceSeriesEntity = daoInvoiceSeries.create(entity);
 		}
-
-		return (T) documentEntity;
-
+		return invoiceSeriesEntity;
 	}
 }

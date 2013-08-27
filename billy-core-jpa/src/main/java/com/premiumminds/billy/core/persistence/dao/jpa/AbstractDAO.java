@@ -203,7 +203,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 
 					TEntity newVersion = (TEntity) entity;
 					AbstractDAO.this.getEntityManager().merge(newVersion);
-					
+
 					return AbstractDAO.this.get(entity.getUID());
 				}
 			}.execute();
