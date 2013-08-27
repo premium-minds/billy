@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.documents;
 
 import javax.inject.Inject;
 
-
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -37,14 +37,15 @@ public class PTInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandler
 	private final DAOPTInvoice	daoInvoice;
 
 	@Inject
-	public PTInvoiceIssuingHandler(DAOPTInvoice daoInvoice) {
+	public PTInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
+									DAOPTInvoice daoInvoice) {
+		super(daoInvoiceSeries);
 		this.daoInvoice = daoInvoice;
 	}
 
 	@Override
 	public <T extends GenericInvoice, P extends IssuingParams> T issue(
-			final T document, P parameters)
-			throws DocumentIssuingException {
+			final T document, P parameters) throws DocumentIssuingException {
 
 		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
 

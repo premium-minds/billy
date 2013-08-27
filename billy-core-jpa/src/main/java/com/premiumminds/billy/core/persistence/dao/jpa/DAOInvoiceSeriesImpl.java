@@ -22,41 +22,37 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.JPASubQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.QJPAInvoiceSeriesEntity;
+import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 
-public class DAOGenericInvoiceImpl extends
-	AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
-	DAOGenericInvoice {
+public class DAOInvoiceSeriesImpl extends
+	AbstractDAO<InvoiceSeriesEntity, JPAInvoiceSeriesEntity> implements
+	DAOInvoiceSeries {
 
 	@Inject
-	public DAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
+	public DAOInvoiceSeriesImpl(Provider<EntityManager> emProvider) {
 		super(emProvider);
 	}
 
 	@Override
-	protected Class<? extends JPAGenericInvoiceEntity> getEntityClass() {
-		return JPAGenericInvoiceEntity.class;
+	public InvoiceSeriesEntity getEntityInstance() {
+		return new JPAInvoiceSeriesEntity();
 	}
 
 	@Override
-	public GenericInvoiceEntity getEntityInstance() {
-		return new JPAGenericInvoiceEntity();
+	protected Class<? extends JPAInvoiceSeriesEntity> getEntityClass() {
+		return JPAInvoiceSeriesEntity.class;
 	}
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
-			String series, String businessUID) {
-
-		QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
+	public InvoiceSeriesEntity getSeries(String series, String businessUID) {
+		QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
 		QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
 		JPAQuery query = new JPAQuery(this.getEntityManager());
@@ -70,16 +66,12 @@ public class DAOGenericInvoiceImpl extends
 
 		query = new JPAQuery(this.getEntityManager());
 
-		query.from(genericInvoice);
-		query.where(genericInvoice.series.eq(series));
-		query.where(genericInvoice.business.eq(businessEnity));
-		query.where(genericInvoice.seriesNumber.eq(new JPASubQuery()
-				.from(genericInvoice).where(genericInvoice.series.eq(series))
-				.where(genericInvoice.business.eq(businessEnity))
-				.unique(genericInvoice.seriesNumber.max())));
+		query.from(entity);
+		query.where(entity.series.eq(series));
 
-		GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
+		InvoiceSeries seriesEntity = query.singleResult(entity);
 
-		return (T) invoice;
+		return (InvoiceSeriesEntity) seriesEntity;
 	}
+
 }

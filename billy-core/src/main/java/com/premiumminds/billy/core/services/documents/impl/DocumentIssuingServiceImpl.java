@@ -39,17 +39,18 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
-	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler> handlers;
-	protected DAOGenericInvoice daoInvoice;
-	protected TicketManager ticketManager;
+	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>	handlers;
+	protected DAOGenericInvoice														daoInvoice;
+	protected TicketManager															ticketManager;
 
 	@Inject
-	public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice, TicketManager ticketManager) {
+	public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice,
+										TicketManager ticketManager) {
 		this.handlers = new HashMap<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>();
 		this.daoInvoice = daoInvoice;
 		this.ticketManager = ticketManager;
 	}
-	
+
 	@Override
 	public void addHandler(Class<? extends GenericInvoiceEntity> handledClass,
 			DocumentIssuingHandler handler) {
@@ -58,17 +59,12 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
 	@Override
 	public synchronized <T extends GenericInvoice> T issue(
-			final Builder<T> documentBuilder) throws DocumentIssuingException {
-		return this.issue(documentBuilder, new IssuingParamsImpl());
-	}
-
-	@Override
-	public synchronized <T extends GenericInvoice> T issue(
 			final Builder<T> documentBuilder, final IssuingParams parameters)
-			throws DocumentIssuingException {
+		throws DocumentIssuingException {
 
 		try {
 			return new TransactionWrapper<T>(daoInvoice) {
+
 				@Override
 				public T runTransaction() throws Exception {
 					return issueDocument(documentBuilder, parameters);
@@ -87,27 +83,27 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
 		try {
 			return new TransactionWrapper<T>(daoInvoice) {
+
 				@Override
 				public T runTransaction() throws Exception {
-					
-					if(!ticketManager.ticketIssued(ticketUID))
+
+					if (!ticketManager.ticketIssued(ticketUID))
 						throw new InvalidTicketException();
 
 					T result = issueDocument(documentBuilder, parameters);
-					
+
 					ticketManager.updateTicket(new UID(ticketUID),
 							result.getUID(), result.getDate(),
 							result.getCreateTimestamp());
-					
+
 					return result;
 				}
 			}.execute();
-		}catch(InvalidTicketException e){
+		} catch (InvalidTicketException e) {
 			throw e;
-		}
-		catch(RuntimeException e){
+		} catch (RuntimeException e) {
 			throw new DocumentIssuingException(e);
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw new DocumentIssuingException(e);
 		}
@@ -115,7 +111,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
 	private <T extends GenericInvoice> T issueDocument(
 			Builder<T> documentBuilder, final IssuingParams parameters)
-			throws DocumentIssuingException {
+		throws DocumentIssuingException {
 
 		final T document = documentBuilder.build();
 		final Type[] types = document.getClass().getGenericInterfaces();
@@ -124,7 +120,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 				return handlers.get(type).issue(document, parameters);
 			}
 		}
-		
+
 		throw new RuntimeException("Cannot handle document : "
 				+ document.getClass().getCanonicalName());
 	}
