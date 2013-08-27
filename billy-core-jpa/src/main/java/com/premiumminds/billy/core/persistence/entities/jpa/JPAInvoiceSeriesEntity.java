@@ -32,7 +32,6 @@ import org.hibernate.envers.Audited;
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 
 @Entity
 @Audited
@@ -52,10 +51,6 @@ public class JPAInvoiceSeriesEntity extends JPABaseEntity implements
 	@JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
 	protected Business			business;
 
-	@ManyToOne(targetEntity = JPAGenericInvoiceEntity.class)
-	@JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID")
-	protected GenericInvoice	invoice;
-
 	@Override
 	public String getSeries() {
 		return series;
@@ -64,11 +59,6 @@ public class JPAInvoiceSeriesEntity extends JPABaseEntity implements
 	@Override
 	public Business getBusiness() {
 		return this.business;
-	}
-
-	@Override
-	public GenericInvoice getInvoice() {
-		return this.invoice;
 	}
 
 	@Override
@@ -82,8 +72,4 @@ public class JPAInvoiceSeriesEntity extends JPABaseEntity implements
 
 	}
 
-	@Override
-	public <T extends GenericInvoice> void setInvoice(T invoice) {
-		this.invoice = invoice;
-	}
 }

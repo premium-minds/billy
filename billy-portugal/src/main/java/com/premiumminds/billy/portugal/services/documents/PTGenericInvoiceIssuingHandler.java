@@ -141,7 +141,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 		if (null == invoiceSeriesEntity) {
 			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
 			entity.setBusiness(document.getBusiness());
-			entity.setInvoice(documentEntity);
 			entity.setSeries(series);
 
 			daoInvoiceSeries.create(entity);
