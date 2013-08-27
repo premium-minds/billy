@@ -31,10 +31,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
 public class PTBusinessPersistenceService extends
-	PersistenceServiceImpl<PTBusiness> implements
-	PersistenceService<PTBusiness> {
+		PersistenceServiceImpl<PTBusiness> implements
+		PersistenceService<PTBusiness> {
 
-	protected final DAOPTBusiness	daoBusiness;
+	protected final DAOPTBusiness daoBusiness;
 
 	@Inject
 	public PTBusinessPersistenceService(DAOPTBusiness daoBusiness) {

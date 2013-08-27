@@ -19,8 +19,11 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.exceptions.NotImplementedException;
+import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -29,6 +32,7 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class PTCreditNotePersistenceService extends
@@ -36,10 +40,13 @@ public class PTCreditNotePersistenceService extends
 	PersistenceService<PTCreditNote> {
 
 	protected final DAOPTCreditNote	daoCreditNote;
+	protected final DAOTicket daoTicket;
 
 	@Inject
-	public PTCreditNotePersistenceService(DAOPTCreditNote daoCreditNote) {
+	public PTCreditNotePersistenceService(DAOPTCreditNote daoCreditNote,
+			DAOTicket daoTicket) {
 		this.daoCreditNote = daoCreditNote;
+		this.daoTicket = daoTicket;
 	}
 
 	@Override
@@ -81,5 +88,28 @@ public class PTCreditNotePersistenceService extends
 			throw new BillyRuntimeException(e);
 		}
 	}
+
+	public PTCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException{
+
+		try {
+			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
+
+				@SuppressWarnings("unchecked")
+				@Override
+				public PTCreditNote runTransaction() throws Exception {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (PTCreditNote) daoCreditNote.get(objectUID);
+				}
+
+			}.execute();
+		}catch(NoResultException e){
+			throw e;
+		} 
+		catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
 
 }

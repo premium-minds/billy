@@ -30,6 +30,9 @@ public interface DocumentIssuingService {
 
 	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder,
 			IssuingParams parameters) throws DocumentIssuingException;
+	
+	public <T extends GenericInvoice> T issue(Builder<T> documentBuilder,
+			IssuingParams parameters, String ticketUID) throws DocumentIssuingException;
 
 	public void addHandler(Class<? extends GenericInvoiceEntity> handledClass,
 			DocumentIssuingHandler handler);

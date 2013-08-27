@@ -45,14 +45,14 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 
 		PTInvoice peristedInvoice = services.entities().invoice()
 				.get(issuedInvoice.getUID());
-		assertEquals(false, peristedInvoice.isBilled());
+		assertEquals(false, peristedInvoice.isCancelled());
 
-		builder.setBilled(true);
+		builder.setCancelled(true);
 		services.entities().invoice().update(builder);
 
 		peristedInvoice = services.entities().invoice()
 				.get(issuedInvoice.getUID());
-		assertEquals(true, peristedInvoice.isBilled());
+		assertEquals(true, peristedInvoice.isCancelled());
 
 	}
 
@@ -62,14 +62,7 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 				issuedInvoice);
 
 		PTInvoice peristedInvoice = services.entities().invoice()
-				.get(issuedInvoice.getUID());
-		assertEquals(false, peristedInvoice.isBilled());
-
-		builder.setBilled(true);
-		services.entities().invoice().update(builder);
-
-		peristedInvoice = services.entities().invoice()
-				.get(issuedInvoice.getUID());
+				.get(issuedInvoice.getUID());	
 		assertEquals(true, peristedInvoice.isBilled());
 
 		builder = builders.invoices().createInvoiceBuilder(peristedInvoice);

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -92,6 +93,7 @@ public class PTInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
-				.setBusinessUID(business.getUID());
+				.setBusinessUID(business.getUID())
+				.setCurrency(Currency.getInstance("EUR"));
 	}
 }

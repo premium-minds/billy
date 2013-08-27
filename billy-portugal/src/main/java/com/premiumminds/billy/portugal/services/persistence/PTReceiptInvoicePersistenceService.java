@@ -19,8 +19,10 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
@@ -32,14 +34,17 @@ import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEnti
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
 public class PTReceiptInvoicePersistenceService extends
-	PersistenceServiceImpl<PTReceiptInvoice> implements
-	PersistenceService<PTReceiptInvoice> {
+		PersistenceServiceImpl<PTReceiptInvoice> implements
+		PersistenceService<PTReceiptInvoice> {
 
-	protected final DAOPTReceiptInvoice	daoReceiptInvoice;
+	protected final DAOPTReceiptInvoice daoReceiptInvoice;
+	protected final DAOTicket daoTicket;
 
 	@Inject
-	public PTReceiptInvoicePersistenceService(	DAOPTReceiptInvoice daoReceiptInvoice) {
+	public PTReceiptInvoicePersistenceService(
+			DAOPTReceiptInvoice daoReceiptInvoice, DAOTicket daoTicket) {
 		this.daoReceiptInvoice = daoReceiptInvoice;
+		this.daoTicket = daoTicket;
 	}
 
 	@Override
@@ -48,6 +53,7 @@ public class PTReceiptInvoicePersistenceService extends
 		return null;
 	}
 
+	@NotImplemented
 	@Override
 	public PTReceiptInvoice update(final Builder<PTReceiptInvoice> builder) {
 		try {
@@ -78,6 +84,28 @@ public class PTReceiptInvoicePersistenceService extends
 
 			}.execute();
 		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+	public PTReceiptInvoice getWithTicket(final UID ticketUID) {
+
+		try {
+			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
+
+				@SuppressWarnings("unchecked")
+				@Override
+				public PTReceiptInvoice runTransaction() throws NoResultException, BillyRuntimeException {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (PTReceiptInvoice) daoReceiptInvoice.get(objectUID);
+				}
+
+			}.execute();
+		}catch(NoResultException e){
+			throw e;
+		}
+		catch (Exception e){
 			throw new BillyRuntimeException(e);
 		}
 	}
