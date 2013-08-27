@@ -51,7 +51,7 @@ public class DAOInvoiceSeriesImpl extends
 		return JPAInvoiceSeriesEntity.class;
 	}
 
-	public InvoiceSeries getSeries(String series, String businessUID) {
+	public InvoiceSeriesEntity getSeries(String series, String businessUID) {
 		QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
 		QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
@@ -71,7 +71,7 @@ public class DAOInvoiceSeriesImpl extends
 
 		InvoiceSeries seriesEntity = query.singleResult(entity);
 
-		return seriesEntity;
+		return (InvoiceSeriesEntity) seriesEntity;
 	}
 
 }

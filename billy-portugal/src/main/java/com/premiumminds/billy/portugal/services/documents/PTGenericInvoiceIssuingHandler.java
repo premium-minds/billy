@@ -21,8 +21,12 @@ package com.premiumminds.billy.portugal.services.documents;
 import java.util.Currency;
 import java.util.Date;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import javax.inject.Inject;
+import javax.persistence.LockModeType;
+
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
+import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingHandlerImpl;
@@ -42,7 +46,11 @@ import com.premiumminds.billy.portugal.util.GenerateHash;
 public abstract class PTGenericInvoiceIssuingHandler extends
 	DocumentIssuingHandlerImpl implements DocumentIssuingHandler {
 
-	public PTGenericInvoiceIssuingHandler() {
+	protected DAOInvoiceSeries	daoInvoiceSeries;
+
+	@Inject
+	public PTGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
+		this.daoInvoiceSeries = daoInvoiceSeries;
 	}
 
 	protected void validateDocumentType(TYPE documentType, TYPE expectedType,
@@ -76,6 +84,17 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 						throw new InvalidInvoiceDateException();
 					}
 
+					InvoiceSeriesEntity seriesEntity = daoInvoiceSeries
+							.getSeries(series, document.getBusiness().getUID()
+									.toString());
+
+					if (seriesEntity != null) {
+						daoInvoiceSeries.lock(seriesEntity,
+								LockModeType.PESSIMISTIC_READ);
+					} else {
+
+					}
+
 					PTGenericInvoiceEntity latestInvoice = daoInvoice
 							.getLatestInvoiceFromSeries(series, document
 									.getBusiness().getUID().toString());
@@ -104,32 +123,32 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 						seriesNumber = 1;
 					}
 
-			String formatedNumber = invoiceType.toString() + " "
+					String formatedNumber = invoiceType.toString() + " "
 							+ parametersPT.getInvoiceSeries() + "/"
 							+ seriesNumber;
 
-			String newHash = GenerateHash.generateHash(
+					String newHash = GenerateHash.generateHash(
 							parametersPT.getPrivateKey(),
 							parametersPT.getPublicKey(), invoiceDate,
 							systemDate, formatedNumber,
 							document.getAmountWithTax(), previousHash);
 
-			documentEntity.setNumber(formatedNumber);
-			documentEntity.setSeries(series);
-			documentEntity.setSeriesNumber(seriesNumber);
-			documentEntity.setHash(newHash);
-			documentEntity.setBilled(true);
-			documentEntity.setType(invoiceType);
-			documentEntity.setSourceHash(GenerateHash.generateSourceHash(
-					invoiceDate, systemDate, formatedNumber,
-					document.getAmountWithTax(), previousHash));
-			documentEntity.setHashControl(parametersPT.getPrivateKeyVersion());
-			documentEntity.setEACCode(parametersPT.getEACCode());
-			
-			daoInvoice.create(documentEntity);
-			
-			return (T) documentEntity;
-			
+					documentEntity.setNumber(formatedNumber);
+					documentEntity.setSeries(series);
+					documentEntity.setSeriesNumber(seriesNumber);
+					documentEntity.setHash(newHash);
+					documentEntity.setBilled(true);
+					documentEntity.setType(invoiceType);
+					documentEntity.setSourceHash(newHash);
+					documentEntity.setHashControl(parametersPT
+							.getPrivateKeyVersion());
+					documentEntity.setEACCode(parametersPT.getEACCode());
+					documentEntity.setCurrency(Currency.getInstance("EUR"));
+
+					daoInvoice.create(documentEntity);
+
+					return (T) documentEntity;
+
 		} catch (DocumentIssuingException e) {
 			throw e;
 		} catch (Exception e) {

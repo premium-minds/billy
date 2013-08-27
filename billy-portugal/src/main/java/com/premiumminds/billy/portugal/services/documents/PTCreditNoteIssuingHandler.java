@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.services.documents;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -35,7 +36,9 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
 	private final DAOPTCreditNote	daoCreditNote;
 
 	@Inject
-	public PTCreditNoteIssuingHandler(DAOPTCreditNote daoCreditNote) {
+	public PTCreditNoteIssuingHandler(DAOInvoiceSeries invoiceSeries,
+										DAOPTCreditNote daoCreditNote) {
+		super(invoiceSeries);
 		this.daoCreditNote = daoCreditNote;
 	}
 
