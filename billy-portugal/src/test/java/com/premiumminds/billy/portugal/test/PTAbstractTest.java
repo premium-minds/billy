@@ -28,7 +28,8 @@ import com.premiumminds.billy.portugal.PortugalDependencyModule;
 
 public class PTAbstractTest extends AbstractTest {
 
-	protected static Injector	injector;
+	protected static Injector		injector;
+	protected static final String	PT_COUNTRY_CODE	= "PT";
 
 	@BeforeClass
 	public static void setUpClass() {

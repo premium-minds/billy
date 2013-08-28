@@ -79,7 +79,7 @@ public class TestBusinessBuilder extends AbstractTest {
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				mockBusiness.getBillingAddress());
 
-		builder.setFinancialID(mockBusiness.getFinancialID())
+		builder.setFinancialID(mockBusiness.getFinancialID(), null)
 				.setName(mockBusiness.getName())
 				.setCommercialName(mockBusiness.getCommercialName())
 				.setAddress(mockAddressBuilder)
