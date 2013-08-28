@@ -125,7 +125,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 		PTGenericInvoiceEntity i = this.getTypeInstance();
 		BillyValidator.mandatory(i.getSourceBilling(),
 				PTGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("filed.source_billing"));
+						.getString("field.source_billing"));
 
 		switch (i.getSourceBilling()) {
 			case M:
