@@ -27,6 +27,15 @@ import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.services.builders.impl.AbstractBuilder;
 
+/**
+ * Intercepts methods calls to annotated with {@link NotOnUpdate}.
+ * 
+ * Only runs if it building an entity marked as new. Otherwise @throws
+ * {@link BillyUpdateException}
+ * 
+ * @author Hugo Correia
+ * 
+ */
 public class NotOnUpdateInterceptor implements MethodInterceptor {
 
 	public static final String	METHOD_NAME	= "getTypeInstance";
@@ -43,6 +52,7 @@ public class NotOnUpdateInterceptor implements MethodInterceptor {
 
 		if (entity.isNew()) {
 			return invocation.proceed();
+
 		} else
 			throw new BillyUpdateException(exceptionMessage);
 	}
