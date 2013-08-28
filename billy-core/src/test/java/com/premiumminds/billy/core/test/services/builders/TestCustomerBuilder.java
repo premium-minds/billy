@@ -109,7 +109,7 @@ public class TestCustomerBuilder extends AbstractTest {
 				.setName(mockCustomer.getName())
 				.setShippingAddress(mockShippingAddressBuilder)
 				.setTaxRegistrationNumber(
-						mockCustomer.getTaxRegistrationNumber())
+						mockCustomer.getTaxRegistrationNumber(), null)
 				.setMainContactUID(mockCustomer.getMainContact().getUID());
 
 		Customer customer = builder.build();

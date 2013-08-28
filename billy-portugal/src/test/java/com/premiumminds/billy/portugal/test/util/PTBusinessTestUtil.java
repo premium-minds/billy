@@ -38,6 +38,7 @@ public class PTBusinessTestUtil {
 	private static final String		NAME			= "Business";
 	private static final String		FINANCIAL_ID	= "123456789";
 	private static final String		WEBSITE			= "http://business.com";
+	protected static final String	PT_COUNTRY_CODE	= "PT";
 
 	private Injector				injector;
 	private PTApplicationTestUtil	application;
@@ -86,11 +87,14 @@ public class PTBusinessTestUtil {
 		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-		businessBuilder.addApplication(applicationBuilder)
-				.addContact(contactBuilder, true).setAddress(addressBuilder)
+		businessBuilder
+				.addApplication(applicationBuilder)
+				.addContact(contactBuilder, true)
+				.setAddress(addressBuilder)
 				.setBillingAddress(addressBuilder)
 				.setCommercialName(PTBusinessTestUtil.NAME)
-				.setFinancialID(PTBusinessTestUtil.FINANCIAL_ID)
+				.setFinancialID(PTBusinessTestUtil.FINANCIAL_ID,
+						PT_COUNTRY_CODE)
 				.setOperationalContextUID(this.context.getUID())
 				.setWebsite(PTBusinessTestUtil.WEBSITE)
 				.setName(PTBusinessTestUtil.NAME);

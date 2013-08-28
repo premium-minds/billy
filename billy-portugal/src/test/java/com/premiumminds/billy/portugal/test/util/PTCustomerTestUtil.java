@@ -30,6 +30,7 @@ public class PTCustomerTestUtil {
 	private static final String		NAME				= "Name";
 	private static final String		TAX_NUMBER			= "123456789";
 	private static final Boolean	SELF_BILLING_AGREE	= false;
+	protected static final String	PT_COUNTRY_CODE		= "PT";
 
 	private Injector				injector;
 	private PTAddressTestUtil		address;
@@ -72,7 +73,7 @@ public class PTCustomerTestUtil {
 		return customerBuilder.addAddress(addressBuilder, true)
 				.addContact(contactBuilder).setBillingAddress(addressBuilder)
 				.setName(name).setHasSelfBillingAgreement(selfBilling)
-				.setTaxRegistrationNumber(taxNumber);
+				.setTaxRegistrationNumber(taxNumber, PT_COUNTRY_CODE);
 	}
 
 	public PTCustomerEntity getCustomerEntity(String name, String taxNumber,

@@ -29,7 +29,7 @@ public interface SupplierBuilder<TBuilder extends SupplierBuilder<TBuilder, TSup
 
 	public TBuilder setName(String name);
 
-	public TBuilder setTaxRegistrationNumber(String number);
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode);
 
 	public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder);
 

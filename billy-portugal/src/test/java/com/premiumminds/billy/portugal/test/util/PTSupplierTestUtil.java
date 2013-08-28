@@ -29,6 +29,7 @@ public class PTSupplierTestUtil {
 	private static final Boolean	SELF_BILLING	= false;
 	private static final String		NUMBER			= "123456789";
 	private static final String		NAME			= "Supplier";
+	protected static final String	PT_COUNTRY_CODE	= "PT";
 
 	private Injector				injector;
 	private PTAddressTestUtil		address;
@@ -58,9 +59,9 @@ public class PTSupplierTestUtil {
 				selfBillingAgree, addressBuilder, contactBuilder).build();
 	}
 
-	public PTSupplier.Builder getSupplierBuilder(String name,
-			String taxNumber, boolean selfBillingAgree,
-			PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder) {
+	public PTSupplier.Builder getSupplierBuilder(String name, String taxNumber,
+			boolean selfBillingAgree, PTAddress.Builder addressBuilder,
+			PTContact.Builder contactBuilder) {
 		PTSupplier.Builder supplierBuilder = this.injector
 				.getInstance(PTSupplier.Builder.class);
 
@@ -68,8 +69,8 @@ public class PTSupplierTestUtil {
 				.setBillingAddress(addressBuilder)
 				.setMainContact(contactBuilder)
 				.setSelfBillingAgreement(selfBillingAgree)
-				.setTaxRegistrationNumber(taxNumber).setName(name)
-				.setMainAddress(addressBuilder);
+				.setTaxRegistrationNumber(taxNumber, PT_COUNTRY_CODE)
+				.setName(name).setMainAddress(addressBuilder);
 		return supplierBuilder;
 	}
 }

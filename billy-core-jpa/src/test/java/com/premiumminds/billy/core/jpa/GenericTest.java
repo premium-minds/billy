@@ -123,7 +123,7 @@ public class GenericTest {
 												.setMobile("mobile")
 												.setTelephone("phone")
 												.setWebsite("website")))
-				.setFinancialID("financial id");
+				.setFinancialID("financial id", null);
 
 		GenericTest.injector.getInstance(DAOBusiness.class).create(
 				(BusinessEntity) builder.build());

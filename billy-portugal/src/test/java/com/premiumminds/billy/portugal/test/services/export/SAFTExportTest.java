@@ -165,7 +165,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		/* APPLICATION */
 		PTApplication.Builder applicationBuilder = application
 				.getApplicationBuilder("APP", "1.0", "My Business",
-						"523456789", "hhtp://www.app.mybusiness.web", 1,
+						"500001758", "hhtp://www.app.mybusiness.web", 1,
 						"http://here", contactBuilder);
 		PTApplicationEntity applicationEntity = (PTApplicationEntity) applicationBuilder
 				.build();
@@ -177,7 +177,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		DAOPTCustomer daoPTCustomer = PTAbstractTest.injector
 				.getInstance(DAOPTCustomer.class);
 		PTCustomer.Builder customerBuilder = customer.getCustomerBuilder("Zé",
-				"2312312312", false, addressBuilder2, contactBuilder2);
+				"213512351", false, addressBuilder2, contactBuilder2);
 		customerPersistenceService.create(customerBuilder);
 
 		/* SUPPLIERS */
@@ -185,7 +185,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 				.getInstance(DAOPTSupplier.class);
 
 		PTSupplier.Builder supplierBuilder = supplier.getSupplierBuilder(
-				"YourSupplier", "5324532453", false, addressBuilder3,
+				"YourSupplier", "500001758", false, addressBuilder3,
 				contactBuilder3);
 		supplierPersistenceService.create(supplierBuilder);
 

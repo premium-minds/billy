@@ -51,8 +51,8 @@ import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PortugalBootstrap {
 
-	public static final String		CODE_PT					= "PT";
-	public static final String		CODE_PT_AVEIRO			= "PT-01";
+	protected static final String	CODE_PT					= "PT";
+	protected static final String	CODE_PT_AVEIRO			= "PT-01";
 	protected static final String	CODE_PT_BEJA			= "PT-02";
 	protected static final String	CODE_PT_BRAGA			= "PT-03";
 	protected static final String	CODE_PT_BRAGANCA		= "PT-04";
@@ -623,11 +623,13 @@ public class PortugalBootstrap {
 
 					customerBuilder.clear();
 
-					customerBuilder.setName(name).addContact(contactBuilder)
+					customerBuilder
+							.setName(name)
+							.addContact(contactBuilder)
 							.setMainContactUID(contactBuilder.build().getUID())
 							.setHasSelfBillingAgreement(hasSelfAgreement)
-							.setTaxRegistrationNumber(taxRegistrationID)
-							.setBillingAddress(addressBuilder)
+							.setTaxRegistrationNumber(taxRegistrationID,
+									CODE_PT).setBillingAddress(addressBuilder)
 							.setShippingAddress(addressBuilder)
 							.addAddress(addressBuilder, true);
 

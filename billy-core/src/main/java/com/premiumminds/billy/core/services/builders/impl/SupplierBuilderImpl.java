@@ -60,10 +60,11 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 
 	@Override
 	@NotOnUpdate
-	public TBuilder setTaxRegistrationNumber(String number) {
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode) {
 		BillyValidator.notBlank(number, SupplierBuilderImpl.LOCALIZER
 				.getString("field.supplier_tax_number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
+
 		return this.getBuilder();
 	}
 
