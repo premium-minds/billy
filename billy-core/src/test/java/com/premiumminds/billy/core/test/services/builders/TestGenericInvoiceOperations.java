@@ -31,7 +31,6 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -80,10 +79,6 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 						Matchers.any(UID.class))).thenReturn(mockEntry);
 		mockInvoiceEntity.getEntries().clear();
 		mockInvoiceEntity.getEntries().add(mockEntry);
-		
-		BigDecimal result1 = mockEntry.getUnitAmountWithoutTax().setScale(2, mc.getRoundingMode()).multiply(qnt);
-		BigDecimal result2 = mockEntry.getUnitAmountWithTax().setScale(2, mc.getRoundingMode()).multiply(qnt);
-		BigDecimal result3 = mockEntry.getUnitTaxAmount().setScale(2, mc.getRoundingMode()).multiply(qnt);
 
 		GenericInvoiceEntry.Builder invoiceEntry = this
 				.getMock(GenericInvoiceEntry.Builder.class);
@@ -96,11 +91,11 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
 		Assert.assertTrue(invoice != null);
 		Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(
-				result1) == 0);
+				mockEntry.getAmountWithoutTax()) == 0);
 		Assert.assertTrue(invoice.getAmountWithTax().compareTo(
-				result2) == 0);
+				mockEntry.getAmountWithTax()) == 0);
 		Assert.assertTrue(invoice.getTaxAmount().compareTo(
-				result3) == 0);
+				mockEntry.getTaxAmount()) == 0);
 
 	}
 
@@ -111,11 +106,6 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
 		MockGenericInvoiceEntryEntity mockEntry2 = this.getMockEntryEntity(
 				mockInvoiceEntity, testValue2);
-		
-		
-		BigDecimal result1 = mockEntry.getUnitAmountWithoutTax().setScale(2, mc.getRoundingMode()).multiply(qnt).add(mockEntry2.getUnitAmountWithoutTax().setScale(2, mc.getRoundingMode()).multiply(qnt), mc);
-		BigDecimal result2 = mockEntry.getUnitAmountWithTax().setScale(2, mc.getRoundingMode()).multiply(qnt).add(mockEntry2.getUnitAmountWithTax().setScale(2, mc.getRoundingMode()).multiply(qnt), mc);
-		BigDecimal result3 = mockEntry.getUnitTaxAmount().setScale(2, mc.getRoundingMode()).multiply(qnt).add(mockEntry2.getUnitTaxAmount().setScale(2, mc.getRoundingMode()).multiply(qnt), mc);
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoiceEntry.class).get(
@@ -138,14 +128,14 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
 		Assert.assertTrue(invoice != null);
 
-		System.out.println(invoice.getAmountWithoutTax() + " " + result1);
-		
 		Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(
-				result1) == 0);
+				mockEntry.getAmountWithoutTax().add(
+						mockEntry2.getAmountWithoutTax(), mc)) == 0);
 		Assert.assertTrue(invoice.getAmountWithTax().compareTo(
-				result2) == 0);
+				mockEntry.getAmountWithTax().add(mockEntry2.getAmountWithTax(),
+						mc)) == 0);
 		Assert.assertTrue(invoice.getTaxAmount().compareTo(
-				result3) == 0);
+				mockEntry.getTaxAmount().add(mockEntry2.getTaxAmount(), mc)) == 0);
 
 	}
 
@@ -161,10 +151,10 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 		for (int i = 0; i < 20; i++) {
 			MockGenericInvoiceEntryEntity mockEntry = this.getMockEntryEntity(
 					mockInvoiceEntity, new BigDecimal("5.977"));
-			taxAmount = taxAmount.add(mockEntry.getTaxAmount().setScale(2,  mc.getRoundingMode()), mc);
-			amountWithTax = amountWithTax.add(mockEntry.getAmountWithTax().setScale(2,  mc.getRoundingMode()), mc);
+			taxAmount = taxAmount.add(mockEntry.getTaxAmount(), mc);
+			amountWithTax = amountWithTax.add(mockEntry.getAmountWithTax(), mc);
 			amountWithoutTax = amountWithoutTax.add(
-					mockEntry.getAmountWithoutTax().setScale(2,  mc.getRoundingMode()), mc);
+					mockEntry.getAmountWithoutTax(), mc);
 
 			Mockito.when(
 					this.getInstance(DAOGenericInvoiceEntry.class).get(
@@ -182,14 +172,10 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 		GenericInvoice invoice = builder.build();
 
 		Assert.assertTrue(invoice != null);
-		System.out.println(invoice.getAmountWithoutTax() + " " + amountWithoutTax.setScale(2, mc.getRoundingMode()));
 		Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(
-				amountWithoutTax.setScale(2, mc.getRoundingMode())) == 0);
-		System.out.println(invoice.getAmountWithTax() + " " + amountWithTax.setScale(2, mc.getRoundingMode()));
-		Assert.assertTrue(invoice.getAmountWithTax().compareTo(
-				amountWithTax.setScale(2, mc.getRoundingMode())) == 0);
-		Assert.assertTrue(invoice.getTaxAmount().compareTo(
-				taxAmount.setScale(2, mc.getRoundingMode())) == 0);
+				amountWithoutTax) == 0);
+		Assert.assertTrue(invoice.getAmountWithTax().compareTo(amountWithTax) == 0);
+		Assert.assertTrue(invoice.getTaxAmount().compareTo(taxAmount) == 0);
 
 	}
 
@@ -222,27 +208,17 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
 		GenericInvoice invoice = builder.build();
 
-		Assert.assertTrue(invoice.getTaxAmount().compareTo(
-				mockEntry1
-						.getTaxAmount()
-						.setScale(2, mc.getRoundingMode())
-						.add(mockEntry2.getTaxAmount().setScale(2,
-								mc.getRoundingMode()), mc)) == 0);
-
-		Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(
-				mockEntry1
-						.getAmountWithoutTax()
-						.setScale(2, mc.getRoundingMode())
-						.add(mockEntry2.getAmountWithoutTax().setScale(2,
-								mc.getRoundingMode()), mc)) == 0);
-
-		Assert.assertTrue(invoice.getAmountWithTax().compareTo(
-				mockEntry1
-						.getAmountWithTax()
-						.setScale(2, mc.getRoundingMode())
-						.add(mockEntry2.getAmountWithTax().setScale(2,
-								mc.getRoundingMode()), mc)) == 0);
-
+		Assert.assertTrue(invoice
+				.getTaxAmount()
+				.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+				.compareTo(
+						invoice.getAmountWithTax()
+								.setScale(BillyMathContext.SCALE,
+										mc.getRoundingMode())
+								.subtract(
+										invoice.getAmountWithoutTax().setScale(
+												BillyMathContext.SCALE,
+												mc.getRoundingMode()))) == 0);
 	}
 
 	public MockGenericInvoiceEntryEntity getMockEntryEntity(
@@ -257,17 +233,17 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
 		result.unitAmountWithoutTax = unitValue;
 
-		result.unitTaxAmount = result.unitAmountWithoutTax.setScale(BillyMathContext.SCALE).multiply(this.tax,
+		result.unitTaxAmount = result.unitAmountWithoutTax.multiply(this.tax,
 				this.mc);
 
-		result.unitAmountWithTax = result.unitAmountWithoutTax.setScale(BillyMathContext.SCALE).add(
+		result.unitAmountWithTax = result.unitAmountWithoutTax.add(
 				result.unitTaxAmount, mc);
 
-		result.amountWithoutTax = result.unitAmountWithoutTax.setScale(BillyMathContext.SCALE).multiply(
+		result.amountWithoutTax = result.unitAmountWithoutTax.multiply(
 				this.qnt, this.mc);
-		result.amountWithTax = result.unitAmountWithTax.setScale(BillyMathContext.SCALE).multiply(this.qnt,
+		result.amountWithTax = result.unitAmountWithTax.multiply(this.qnt,
 				this.mc);
-		result.taxAmount = result.unitTaxAmount.setScale(BillyMathContext.SCALE, mc.getRoundingMode()).multiply(this.qnt, this.mc);
+		result.taxAmount = result.unitTaxAmount.multiply(this.qnt, this.mc);
 
 		return result;
 	}

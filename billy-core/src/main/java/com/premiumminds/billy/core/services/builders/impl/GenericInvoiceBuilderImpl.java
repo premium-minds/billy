@@ -349,15 +349,11 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 			 */
 
 			amountWithTax = amountWithTax.add(e.getUnitAmountWithTax()
-					.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
 					.multiply(e.getQuantity(), mc), mc);
 			taxAmount = taxAmount.add(
 					e.getUnitTaxAmount()
-							.setScale(BillyMathContext.SCALE,
-									mc.getRoundingMode())
 							.multiply(e.getQuantity(), mc), mc);
 			amountWithoutTax = amountWithoutTax.add(e.getUnitAmountWithoutTax()
-					.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
 					.multiply(e.getQuantity(), mc), mc);
 			if (e.getCurrency() == null) {
 				GenericInvoiceEntryEntity entry = (GenericInvoiceEntryEntity) e;
@@ -374,13 +370,10 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 		Validate.isTrue(
 				i.getAmountWithTax()
-						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
 						.subtract(
-								i.getTaxAmount().setScale(BillyMathContext.SCALE,
-										mc.getRoundingMode()), mc)
+								i.getTaxAmount(), mc)
 						.compareTo(
-								i.getAmountWithoutTax().setScale(BillyMathContext.SCALE,
-										mc.getRoundingMode())) == 0,
+								i.getAmountWithoutTax()) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
 
