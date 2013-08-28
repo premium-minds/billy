@@ -88,5 +88,7 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 	public <T extends Payment> List<T> getPayments();
 
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit);
+	
+	public void setScale(int scale);
 
 }

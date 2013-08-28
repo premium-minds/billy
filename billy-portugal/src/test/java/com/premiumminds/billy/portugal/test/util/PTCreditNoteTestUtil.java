@@ -68,15 +68,16 @@ public class PTCreditNoteTestUtil {
 		PTCreditNoteEntry.Builder creditNoteEntryBuilder = this.creditNoteEntry
 				.getCreditNoteEntryBuilder(reference);
 
-		return creditNoteBuilder.setBilled(PTCreditNoteTestUtil.BILLED)
+		return creditNoteBuilder
+				.setCurrency(Currency.getInstance("EUR"))
+				.setBilled(PTCreditNoteTestUtil.BILLED)
 				.setCancelled(PTCreditNoteTestUtil.CANCELLED)
 				.setSelfBilled(PTCreditNoteTestUtil.SELFBILL)
 				.setDate(new Date()).setSourceId(PTCreditNoteTestUtil.SOURCEID)
 				.addEntry(creditNoteEntryBuilder)
 				.setBusinessUID(reference.getBusiness().getUID())
 				.setSourceBilling(SourceBilling.P)
-				.setCustomerUID(reference.getCustomer().getUID())
-				.setCurrency(Currency.getInstance("EUR"));
+				.setCustomerUID(reference.getCustomer().getUID());
 	}
 
 	public PTCreditNoteEntity getCreditNoteEntity(PTInvoiceEntity reference) {

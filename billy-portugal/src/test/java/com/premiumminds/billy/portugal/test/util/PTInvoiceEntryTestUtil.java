@@ -62,8 +62,7 @@ public class PTInvoiceEntryTestUtil {
 
 		invoiceEntryBuilder
 				.setUnitAmount(AmountType.WITH_TAX,
-						PTInvoiceEntryTestUtil.AMOUNT,
-						PTInvoiceEntryTestUtil.CURRENCY)
+						PTInvoiceEntryTestUtil.AMOUNT)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(product.getDescription())
@@ -71,7 +70,8 @@ public class PTInvoiceEntryTestUtil {
 				.setUnitOfMeasure(product.getUnitOfMeasure())
 				.setProductUID(product.getUID())
 				.setContextUID(this.context.getUID())
-				.setShippingOrigin(originBuilder);
+				.setShippingOrigin(originBuilder)
+				.setCurrency(Currency.getInstance("EUR"));
 
 		return invoiceEntryBuilder;
 

@@ -34,6 +34,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceBuilder extends AbstractTest {
 
@@ -90,11 +91,11 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 		GenericInvoice invoice = builder.build();
 
 		Assert.assertTrue(invoice != null);
-		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
+		Assert.assertTrue(mock.getAmountWithoutTax().setScale(2, BillyMathContext.get().getRoundingMode()).compareTo(
 				invoice.getAmountWithoutTax()) == 0);
-		Assert.assertTrue(mock.getAmountWithTax().compareTo(
+		Assert.assertTrue(mock.getAmountWithTax().setScale(2, BillyMathContext.get().getRoundingMode()).compareTo(
 				invoice.getAmountWithTax()) == 0);
-		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().setScale(2, BillyMathContext.get().getRoundingMode()).compareTo(invoice.getTaxAmount()) == 0);
 
 		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
 		Assert.assertEquals(mock.getGeneralLedgerDate(),

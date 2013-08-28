@@ -54,26 +54,24 @@ import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
-	extends AbstractBuilder<TBuilder, TEntry> implements
-	GenericInvoiceEntryBuilder<TBuilder, TEntry> {
+		extends AbstractBuilder<TBuilder, TEntry> implements
+		GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOGenericInvoiceEntry	daoEntry;
-	protected DAOGenericInvoice			daoGenericInvoice;
-	protected DAOTax					daoTax;
-	protected DAOProduct				daoProduct;
-	protected DAOContext				daoContext;
+	protected DAOGenericInvoiceEntry daoEntry;
+	protected DAOGenericInvoice daoGenericInvoice;
+	protected DAOTax daoTax;
+	protected DAOProduct daoProduct;
+	protected DAOContext daoContext;
 
-	protected Context					context;
+	protected Context context;
 
 	@Inject
-	public GenericInvoiceEntryBuilderImpl(	DAOGenericInvoiceEntry daoEntry,
-											DAOGenericInvoice daoGenericInvoice,
-											DAOTax daoTax,
-											DAOProduct daoProduct,
-											DAOContext daoContext) {
+	public GenericInvoiceEntryBuilderImpl(DAOGenericInvoiceEntry daoEntry,
+			DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
+			DAOProduct daoProduct, DAOContext daoContext) {
 		super(daoEntry);
 		this.daoEntry = daoEntry;
 		this.daoGenericInvoice = daoGenericInvoice;
@@ -112,6 +110,15 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		ProductEntity p = this.daoProduct.get(productUID);
 		BillyValidator.found(p, "field.product");
 		this.getTypeInstance().setProduct(p);
+
+		return this.getBuilder();
+	}
+
+	@Override
+	@NotOnUpdate
+	public TBuilder setCurrency(Currency currency) {
+		BillyValidator.notNull(currency, "field.currency");
+		this.getTypeInstance().setCurrency(currency);
 
 		return this.getBuilder();
 	}
@@ -194,29 +201,24 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 	@Override
 	@NotOnUpdate
-	public TBuilder setUnitAmount(AmountType type, BigDecimal amount,
-			Currency currency) {
+	public TBuilder setUnitAmount(AmountType type, BigDecimal amount) {
 		BillyValidator.mandatory(type, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.unit_amount_type"));
 		BillyValidator.mandatory(amount,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.unit_gross_amount"));
-		BillyValidator.mandatory(currency,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_currency"));
 
 		switch (type) {
-			case WITH_TAX:
-				this.getTypeInstance().setUnitAmountWithTax(amount);
-				this.getTypeInstance().setUnitAmountWithoutTax(null);
-				break;
-			case WITHOUT_TAX:
-				this.getTypeInstance().setUnitAmountWithoutTax(amount);
-				this.getTypeInstance().setUnitAmountWithTax(null);
-				break;
+		case WITH_TAX:
+			this.getTypeInstance().setUnitAmountWithTax(amount);
+			this.getTypeInstance().setUnitAmountWithoutTax(null);
+			break;
+		case WITHOUT_TAX:
+			this.getTypeInstance().setUnitAmountWithoutTax(amount);
+			this.getTypeInstance().setUnitAmountWithTax(null);
+			break;
 		}
 		this.getTypeInstance().setAmountType(type);
-		this.getTypeInstance().setCurrency(currency);
 		return this.getBuilder();
 	}
 
@@ -286,10 +288,6 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 					GenericInvoiceEntryBuilderImpl.LOCALIZER
 							.getString("field.unit_gross_amount"));
 		}
-
-		BillyValidator.mandatory(i.getCurrency(),
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_currency"));
 	}
 
 	protected void validateValues() throws ValidationException {
@@ -319,24 +317,21 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 			BigDecimal unitTaxAmount = BigDecimal.ZERO;
 			for (Tax t : this.getTypeInstance().getTaxes()) {
 				switch (t.getTaxRateType()) {
-					case FLAT:
-						unitAmountWithoutTax = unitAmountWithoutTax.subtract(
-								t.getValue(), mc);
-						unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
-						break;
-					case PERCENTAGE:
-						unitAmountWithoutTax = e
-								.getUnitAmountWithTax()
-								.divide(BigDecimal.ONE.add(
-										t.getValue().divide(
-												new BigDecimal("100"), mc), mc),
-										mc);
-						unitTaxAmount = unitTaxAmount.add(
-								e.getUnitAmountWithTax().subtract(
-										unitAmountWithoutTax, mc), mc);
-						break;
-					default:
-						break;
+				case FLAT:
+					unitAmountWithoutTax = unitAmountWithoutTax.subtract(
+							t.getValue(), mc);
+					unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
+					break;
+				case PERCENTAGE:
+					unitAmountWithoutTax = e.getUnitAmountWithTax().divide(
+							BigDecimal.ONE.add(
+									t.getValue().divide(new BigDecimal("100"),
+											mc), mc), mc);
+					unitTaxAmount = unitTaxAmount.add(e.getUnitAmountWithTax()
+							.subtract(unitAmountWithoutTax, mc), mc);
+					break;
+				default:
+					break;
 				}
 			}
 			e.setUnitAmountWithoutTax(unitAmountWithoutTax);
@@ -351,20 +346,18 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 			for (Tax t : this.getTypeInstance().getTaxes()) {
 				switch (t.getTaxRateType()) {
-					case FLAT:
-						unitAmountWithTax = unitAmountWithTax.add(t.getValue(),
-								mc);
-						unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
-						break;
-					case PERCENTAGE:
-						unitTaxAmount = unitTaxAmount.add(
-								e.getUnitAmountWithoutTax()
-										.multiply(t.getPercentageRateValue(),
-												mc)
-										.divide(new BigDecimal("100"), mc), mc);
-						unitAmountWithTax = unitAmountWithTax.add(
-								unitTaxAmount, mc);
-						break;
+				case FLAT:
+					unitAmountWithTax = unitAmountWithTax.add(t.getValue(), mc);
+					unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
+					break;
+				case PERCENTAGE:
+					unitTaxAmount = unitTaxAmount.add(
+							e.getUnitAmountWithoutTax()
+									.multiply(t.getPercentageRateValue(), mc)
+									.divide(new BigDecimal("100"), mc), mc);
+					unitAmountWithTax = unitAmountWithTax
+							.add(unitTaxAmount, mc);
+					break;
 				}
 			}
 

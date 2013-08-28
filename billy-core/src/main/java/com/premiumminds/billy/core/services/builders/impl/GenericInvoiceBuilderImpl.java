@@ -27,6 +27,7 @@ import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
+import org.joda.time.field.ScaledDurationField;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
@@ -53,34 +54,35 @@ import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
-	extends AbstractBuilder<TBuilder, TDocument> implements
-	GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+		extends AbstractBuilder<TBuilder, TDocument> implements
+		GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOGenericInvoice			daoGenericInvoice;
-	protected DAOBusiness				daoBusiness;
-	protected DAOCustomer				daoCustomer;
-	protected DAOSupplier				daoSupplier;
+	protected DAOGenericInvoice daoGenericInvoice;
+	protected DAOBusiness daoBusiness;
+	protected DAOCustomer daoCustomer;
+	protected DAOSupplier daoSupplier;
 
 	@Inject
 	public GenericInvoiceBuilderImpl(DAOGenericInvoice daoGenericInvoice,
-										DAOBusiness daoBusiness,
-										DAOCustomer daoCustomer,
-										DAOSupplier daoSupplier) {
+			DAOBusiness daoBusiness, DAOCustomer daoCustomer,
+			DAOSupplier daoSupplier) {
 		super(daoGenericInvoice);
 		this.daoGenericInvoice = daoGenericInvoice;
 		this.daoBusiness = daoBusiness;
 		this.daoCustomer = daoCustomer;
 		this.daoSupplier = daoSupplier;
+		this.getTypeInstance().setScale(2);
 	}
-	
+
 	@Override
 	@NotOnUpdate
-	public TBuilder setCurrency(Currency currency){
-		BillyValidator.notNull(currency, GenericInvoiceBuilderImpl.LOCALIZER
-				.getString("field.currency"));
+	public TBuilder setCurrency(Currency currency) {
+		BillyValidator
+				.notNull(currency, GenericInvoiceBuilderImpl.LOCALIZER
+						.getString("field.currency"));
 		this.getTypeInstance().setCurrency(currency);
 		return this.getBuilder();
 	}
@@ -300,8 +302,18 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		return this.getBuilder();
 	}
 
+	public TBuilder setScale(int scale) {
+		this.getTypeInstance().setScale(scale);
+		return this.getBuilder();
+	}
+
+	@NotOnUpdate
 	@Override
 	protected void validateInstance() throws ValidationException {
+		GenericInvoiceEntity i = this.getTypeInstance();
+		BillyValidator.mandatory(i.getCurrency(),
+				GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_currency"));
 		this.validateDate();
 		this.validateValues();
 	}
@@ -315,19 +327,45 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	protected void validateValues() throws ValidationException {
+
 		GenericInvoiceEntity i = this.getTypeInstance();
 
 		MathContext mc = BillyMathContext.get();
 
-		BigDecimal amountWithTax = new BigDecimal("0", mc);
-		BigDecimal taxAmount = new BigDecimal("0", mc);
-		BigDecimal amountWithoutTax = new BigDecimal("0", mc);
+		BigDecimal amountWithTax = BigDecimal.ZERO;
+		BigDecimal taxAmount = BigDecimal.ZERO;
+		BigDecimal amountWithoutTax = BigDecimal.ZERO;
 
 		for (GenericInvoiceEntry e : this.getTypeInstance().getEntries()) {
-			amountWithTax = amountWithTax.add(e.getAmountWithTax(), mc);
-			taxAmount = taxAmount.add(e.getTaxAmount(), mc);
-			amountWithoutTax = amountWithoutTax
-					.add(e.getAmountWithoutTax(), mc);
+
+			/*
+			 * amountWithTax = amountWithTax.add(
+			 * e.getAmountWithTax().setScale(i.getScale(),
+			 * mc.getRoundingMode()), mc); taxAmount = taxAmount.add(
+			 * e.getTaxAmount().setScale(i.getScale(), mc.getRoundingMode()),
+			 * mc); amountWithoutTax =
+			 * amountWithoutTax.add(e.getAmountWithoutTax()
+			 * .setScale(i.getScale(), mc.getRoundingMode()), mc);
+			 */
+
+			amountWithTax = amountWithTax.add(e.getUnitAmountWithTax()
+					.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+					.multiply(e.getQuantity(), mc), mc);
+			taxAmount = taxAmount.add(
+					e.getUnitTaxAmount()
+							.setScale(BillyMathContext.SCALE,
+									mc.getRoundingMode())
+							.multiply(e.getQuantity(), mc), mc);
+			amountWithoutTax = amountWithoutTax.add(e.getUnitAmountWithoutTax()
+					.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+					.multiply(e.getQuantity(), mc), mc);
+			if (e.getCurrency() == null) {
+				GenericInvoiceEntryEntity entry = (GenericInvoiceEntryEntity) e;
+				entry.setCurrency(i.getCurrency());
+				e = entry;
+			} else
+				BillyValidator.isTrue(i.getCurrency().getCurrencyCode()
+						.equals(e.getCurrency().getCurrencyCode()));
 		}
 
 		i.setAmountWithTax(amountWithTax);
@@ -336,10 +374,12 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 		Validate.isTrue(
 				i.getAmountWithTax()
-						.subtract(i.getAmountWithoutTax(), mc)
-						.setScale(7, mc.getRoundingMode())
+						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+						.subtract(
+								i.getTaxAmount().setScale(BillyMathContext.SCALE,
+										mc.getRoundingMode()), mc)
 						.compareTo(
-								i.getTaxAmount().setScale(7,
+								i.getAmountWithoutTax().setScale(BillyMathContext.SCALE,
 										mc.getRoundingMode())) == 0,
 				"The invoice values are invalid", // TODO message
 				i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
