@@ -45,7 +45,6 @@ import com.premiumminds.billy.core.services.entities.Contact;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 
 	private static final long	serialVersionUID	= 1L;

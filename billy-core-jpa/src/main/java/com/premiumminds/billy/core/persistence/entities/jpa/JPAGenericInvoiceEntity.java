@@ -63,7 +63,6 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 		@UniqueConstraint(columnNames = { "NUMBER", "ID_BUSINESS" }),
 		@UniqueConstraint(columnNames = { "SERIES", "SERIES_NUMBER",
 				"ID_BUSINESS" }) })
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		GenericInvoiceEntity {
 

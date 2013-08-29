@@ -18,25 +18,23 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public class PTCreditNotePersistenceService extends
-	PersistenceServiceImpl<PTCreditNote> implements
+public class PTCreditNotePersistenceService implements
 	PersistenceService<PTCreditNote> {
 
 	protected final DAOPTCreditNote	daoCreditNote;
@@ -94,7 +92,6 @@ public class PTCreditNotePersistenceService extends
 		try {
 			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
-				@SuppressWarnings("unchecked")
 				@Override
 				public PTCreditNote runTransaction() throws Exception {
 					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
@@ -110,6 +107,38 @@ public class PTCreditNotePersistenceService extends
 			throw new BillyRuntimeException(e);
 		}
 	}
+	
+	public PTCreditNote findByNumber(final UID uidBusiness, final String number) {
+		try {
+			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
+				@Override
+				public PTCreditNote runTransaction() throws Exception {
+					return (PTCreditNote) daoCreditNote.findByNumber(uidBusiness, number);
+				}
+
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+
+	public List<PTCreditNote> findByReferencedDocument(final UID uidCompany, final UID uidInvoice) {
+		try {
+			return new TransactionWrapper<List<PTCreditNote>>(daoCreditNote) {
+
+				@Override
+				public List<PTCreditNote> runTransaction() throws Exception {
+					return (List<PTCreditNote>) daoCreditNote.findByReferencedDocument(uidCompany, uidInvoice);
+				}
+
+			}.execute();
+		}catch(NoResultException e){
+			throw e;
+		} 
+		catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
 }

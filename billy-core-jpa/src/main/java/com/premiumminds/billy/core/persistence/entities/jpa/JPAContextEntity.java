@@ -35,7 +35,6 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTEXT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
 
 	private static final long	serialVersionUID	= 1L;

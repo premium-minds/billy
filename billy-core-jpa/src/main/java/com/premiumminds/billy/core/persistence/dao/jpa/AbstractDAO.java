@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
+import com.mysema.query.jpa.JPQLTemplates;
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Path;
+import com.mysema.query.types.path.EntityPathBase;
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
@@ -222,13 +227,37 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 					.createQuery(
 							"select e from " + entityClass.getCanonicalName()
 									+ " e "
-									+ "where e.uid=:uid and e.active=true",
+									+ "where e.uid=:uid",
 							entityClass).setParameter("uid", uid.toString())
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return false;
 		}
 		return entity != null;
+	}
+	
+	protected JPAQuery createQuery() {
+		return new JPAQuery(getEntityManager(), JPQLTemplates.DEFAULT);
+	}
+	
+	protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
+		try {
+			return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 	protected abstract Class<? extends TEntity> getEntityClass();

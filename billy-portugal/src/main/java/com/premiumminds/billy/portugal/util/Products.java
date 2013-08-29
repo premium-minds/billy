@@ -20,40 +20,31 @@ package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
-import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.services.entities.PTCustomer;
-import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
+import com.premiumminds.billy.portugal.services.entities.PTProduct;
+import com.premiumminds.billy.portugal.services.persistence.PTProductPersistenceService;
 
-public class Customers {
+public class Products {
 
-	private Config			configuration	= new Config();
 	private final Injector	injector;
-	private final PTCustomerPersistenceService persistenceService;
+	private final PTProductPersistenceService persistenceService;
 
 
-	public Customers(Injector injector) {
+	public Products(Injector injector) {
 		this.injector = injector;
-		this.persistenceService = getInstance(PTCustomerPersistenceService.class);
+		this.persistenceService = getInstance(PTProductPersistenceService.class);
 	}
 
-	public PTCustomer endConsumer() {
-		DAOPTCustomer dao = getInstance(DAOPTCustomer.class);
-		return (PTCustomer) dao.get(configuration
-				.getUID(Config.Key.Customer.Generic.UUID));
+	public PTProduct.Builder builder() {
+		return getInstance(PTProduct.Builder.class);
 	}
 	
-	public PTCustomer.Builder builder() {
-		return getInstance(PTCustomer.Builder.class);
-	}
-	
-	public PTCustomer.Builder builder(PTCustomer customer) {
-		PTCustomer.Builder builder = getInstance(PTCustomer.Builder.class);
+	public PTProduct.Builder builder(PTProduct customer) {
+		PTProduct.Builder builder = getInstance(PTProduct.Builder.class);
 		BuilderManager.setTypeInstance(builder, customer);
 		return builder;
 	}
 	
-	public PTCustomerPersistenceService persistence() {
+	public PTProductPersistenceService persistence() {
 		return this.persistenceService;
 	}
 

@@ -25,28 +25,30 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
-import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
-import com.premiumminds.billy.portugal.services.entities.PTProduct;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
+import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
-public class PTProductPersistenceService implements PersistenceService<PTProduct> {
+public class PTApplicationPersistenceService implements
+		PersistenceService<PTApplication> {
 
-	protected final DAOPTProduct	daoProduct;
+	protected final DAOPTApplication daoApplication;
 
 	@Inject
-	public PTProductPersistenceService(DAOPTProduct daoProduct) {
-		this.daoProduct = daoProduct;
+	public PTApplicationPersistenceService(DAOPTApplication daoApplication) {
+		this.daoApplication = daoApplication;
 	}
 
 	@Override
-	public PTProduct create(final Builder<PTProduct> builder) {
+	public PTApplication create(final Builder<PTApplication> builder) {
 		try {
-			return new TransactionWrapper<PTProduct>(daoProduct) {
+			return new TransactionWrapper<PTApplication>(daoApplication) {
 
 				@Override
-				public PTProduct runTransaction() throws Exception {
-					PTProductEntity entity = (PTProductEntity) builder.build();
-					return (PTProduct) daoProduct.create(entity);
+				public PTApplication runTransaction() throws Exception {
+					PTApplicationEntity entity = (PTApplicationEntity) builder
+							.build();
+					return (PTApplication) daoApplication.create(entity);
 				}
 
 			}.execute();
@@ -56,14 +58,15 @@ public class PTProductPersistenceService implements PersistenceService<PTProduct
 	}
 
 	@Override
-	public PTProduct update(final Builder<PTProduct> builder) {
+	public PTApplication update(final Builder<PTApplication> builder) {
 		try {
-			return new TransactionWrapper<PTProduct>(daoProduct) {
+			return new TransactionWrapper<PTApplication>(daoApplication) {
 
 				@Override
-				public PTProduct runTransaction() throws Exception {
-					PTProductEntity entity = (PTProductEntity) builder.build();
-					return (PTProduct) daoProduct.update(entity);
+				public PTApplication runTransaction() throws Exception {
+					PTApplicationEntity entity = (PTApplicationEntity) builder
+							.build();
+					return (PTApplication) daoApplication.update(entity);
 				}
 
 			}.execute();
@@ -73,13 +76,13 @@ public class PTProductPersistenceService implements PersistenceService<PTProduct
 	}
 
 	@Override
-	public PTProduct get(final UID uid) {
+	public PTApplication get(final UID uid) {
 		try {
-			return new TransactionWrapper<PTProduct>(daoProduct) {
+			return new TransactionWrapper<PTApplication>(daoApplication) {
 
 				@Override
-				public PTProduct runTransaction() throws Exception {
-					return (PTProduct) daoProduct.get(uid);
+				public PTApplication runTransaction() throws Exception {
+					return (PTApplication) daoApplication.get(uid);
 				}
 
 			}.execute();

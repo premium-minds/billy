@@ -41,7 +41,6 @@ import com.premiumminds.billy.core.services.entities.Tax;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
 
 	private static final long	serialVersionUID	= 1L;

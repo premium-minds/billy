@@ -1,12 +1,12 @@
-<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-portugal. 
-	~ ~ billy-portugal is free software: you can redistribute it and/or modify 
-	~ it under the terms of the GNU Lesser General Public License as published 
-	~ by the Free Software Foundation, either version 3 of the License, or ~ 
-	(at your option) any later version. ~ ~ billy-portugal is distributed in 
-	the hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even 
-	the implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
-	See the ~ GNU Lesser General Public License for more details. ~ ~ You should 
-	have received a copy of the GNU Lesser General Public License ~ along with 
+<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-portugal.
+	~ ~ billy-portugal is free software: you can redistribute it and/or modify
+	~ it under the terms of the GNU Lesser General Public License as published
+	~ by the Free Software Foundation, either version 3 of the License, or ~
+	(at your option) any later version. ~ ~ billy-portugal is distributed in
+	the hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even
+	the implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+	See the ~ GNU Lesser General Public License for more details. ~ ~ You should
+	have received a copy of the GNU Lesser General Public License ~ along with
 	billy-portugal. If not, see <http://www.gnu.org/licenses />. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -29,7 +29,6 @@
 		<java.version>1.6</java.version>
 		<guice.version>3.0</guice.version>
 		<env>DEV</env>
-		<querydsl.version>2.9.0</querydsl.version>
 		<postgresql.version>9.1-901.jdbc4</postgresql.version>
 		<hibernate.version>4.2.3.Final</hibernate.version>
 		<querydsl.version>3.2.2</querydsl.version>
@@ -44,19 +43,19 @@
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-core-jpa</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
 			<artifactId>billy-gin</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 
 		<!-- PERSISTENCE -->

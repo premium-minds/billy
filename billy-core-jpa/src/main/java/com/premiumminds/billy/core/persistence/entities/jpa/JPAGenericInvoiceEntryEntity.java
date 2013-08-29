@@ -54,7 +54,6 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements
 	GenericInvoiceEntryEntity {
 

@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.inject.Inject;
@@ -73,13 +72,6 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
 		BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
 				PTApplicationBuilderImpl.LOCALIZER
 						.getString("field.certificate_number"));
-		try {
-			BillyValidator.mandatory(c.getApplicationKeysPath(),
-					PTApplicationBuilderImpl.LOCALIZER
-							.getString("field.keys_path"));
-		} catch (MalformedURLException e) {
-			throw new ValidationException(e.getMessage());
-		}
 	}
 
 }

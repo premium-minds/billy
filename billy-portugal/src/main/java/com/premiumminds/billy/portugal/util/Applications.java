@@ -20,40 +20,31 @@ package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
-import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.services.entities.PTCustomer;
-import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
+import com.premiumminds.billy.portugal.services.persistence.PTApplicationPersistenceService;
 
-public class Customers {
+public class Applications {
 
-	private Config			configuration	= new Config();
 	private final Injector	injector;
-	private final PTCustomerPersistenceService persistenceService;
+	private final PTApplicationPersistenceService persistenceService;
 
 
-	public Customers(Injector injector) {
+	public Applications(Injector injector) {
 		this.injector = injector;
-		this.persistenceService = getInstance(PTCustomerPersistenceService.class);
+		this.persistenceService = getInstance(PTApplicationPersistenceService.class);
 	}
 
-	public PTCustomer endConsumer() {
-		DAOPTCustomer dao = getInstance(DAOPTCustomer.class);
-		return (PTCustomer) dao.get(configuration
-				.getUID(Config.Key.Customer.Generic.UUID));
+	public PTApplication.Builder builder() {
+		return getInstance(PTApplication.Builder.class);
 	}
 	
-	public PTCustomer.Builder builder() {
-		return getInstance(PTCustomer.Builder.class);
-	}
-	
-	public PTCustomer.Builder builder(PTCustomer customer) {
-		PTCustomer.Builder builder = getInstance(PTCustomer.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
+	public PTApplication.Builder builder(PTApplication application) {
+		PTApplication.Builder builder = getInstance(PTApplication.Builder.class);
+		BuilderManager.setTypeInstance(builder, application);
 		return builder;
 	}
 	
-	public PTCustomerPersistenceService persistence() {
+	public PTApplicationPersistenceService persistence() {
 		return this.persistenceService;
 	}
 

@@ -49,7 +49,7 @@ public class JPAPTApplicationEntity extends JPAApplicationEntity implements
 	@Column(name = "NUMBER")
 	protected Integer			number;
 
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "KEYS_PATH")
 	protected String			path;
 

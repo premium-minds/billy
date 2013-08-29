@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
@@ -147,8 +148,40 @@ public class PTSAFTFileGenerator {
 	private final String ACCOUNT_ID = "Desconhecido";
 	private final String SELF_BILLING_INDICATOR = "0";
 	private final String UNIT_OF_MEASURE = "Unidade";
+	
+	private final DAOPTCustomer daoCustomer;
+	private final DAOPTSupplier daoSupplier;
+	private final DAOPTProduct daoProduct;
+	private final DAOPTTax daoPTTax;
+	private final DAOPTRegionContext daoPTRegionContext;
+	private final DAOPTInvoice daoPTInvoice;
+	private final DAOPTSimpleInvoice daoPTSimpleInvoice;
+	private final DAOPTReceiptInvoice daoPTReceiptInvoice;
+	private final DAOPTCreditNote daoPTCreditNote;
 
-	public PTSAFTFileGenerator() {
+
+	@Inject
+	public PTSAFTFileGenerator(
+			DAOPTCustomer daoCustomer,
+			DAOPTSupplier daoSupplier, 
+			DAOPTProduct daoProduct,
+			DAOPTTax daoPTTax,
+			DAOPTRegionContext daoPTRegionContext,
+			DAOPTInvoice daoPTInvoice,
+			DAOPTSimpleInvoice daoPTSimpleInvoice,
+			DAOPTReceiptInvoice daoPTReceiptInvoice,
+			DAOPTCreditNote daoPTCreditNote) {
+		this.daoCustomer = daoCustomer;
+		this.daoSupplier = daoSupplier;
+		this.daoProduct = daoProduct;
+		this.daoPTTax = daoPTTax;
+		this.daoPTRegionContext = daoPTRegionContext;
+		this.daoPTInvoice = daoPTInvoice;
+		this.daoPTSimpleInvoice = daoPTSimpleInvoice;
+		this.daoPTReceiptInvoice = daoPTReceiptInvoice;
+		this.daoPTCreditNote = daoPTCreditNote;
+		
+		
 		this.config = new Config();
 
 		try {
@@ -188,14 +221,7 @@ public class PTSAFTFileGenerator {
 			final PTBusinessEntity businessEntity,
 			final PTApplicationEntity application,
 			final String certificateNumber, final Date fromDate,
-			final Date toDate, final DAOPTCustomer daoCustomer,
-			final DAOPTSupplier daoSupplier, final DAOPTProduct daoProduct,
-			final DAOPTTax daoPTTax,
-			final DAOPTRegionContext daoPTRegionContext,
-			final DAOPTInvoice daoPTInvoice,
-			final DAOPTSimpleInvoice daoPTSimpleInvoice,
-			final DAOPTReceiptInvoice daoPTReceiptInvoice,
-			final DAOPTCreditNote daoPTCreditNote) throws SAFTPTExportException {
+			final Date toDate) throws SAFTPTExportException {
 
 		try {
 			return new TransactionWrapper<AuditFile>(daoPTInvoice) {

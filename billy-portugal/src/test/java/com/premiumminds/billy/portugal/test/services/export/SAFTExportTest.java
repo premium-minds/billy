@@ -248,7 +248,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 			DAOPTCreditNote daoPTCreditNote) throws FileNotFoundException,
 		SAFTPTExportException {
 
-		PTSAFTFileGenerator generator = new PTSAFTFileGenerator();
+		PTSAFTFileGenerator generator = getInstance(PTSAFTFileGenerator.class);
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2013, 1, 1);
@@ -256,9 +256,6 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		PrintStream stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT
 				+ "SAFT.xml");
 		generator.generateSAFTFile(stream, businessEntity, applicationEntity,
-				"1234", calendar.getTime(), new Date(), daoPTCustomer,
-				daoPTSupplier, daoPTProduct, daoPTTax, daoPTRegionContext,
-				daoPTInvoice, daoPTSimpleInvoice, daoPTReceiptInvoice,
-				daoPTCreditNote);
+				"1234", calendar.getTime(), new Date());
 	}
 }

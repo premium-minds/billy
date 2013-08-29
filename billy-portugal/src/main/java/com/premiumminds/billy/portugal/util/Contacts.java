@@ -16,20 +16,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.util;
 
-import java.util.Date;
-import java.util.List;
+import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
+import com.premiumminds.billy.portugal.services.entities.PTContact;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+public class Contacts {
 
-public interface DAOPTInvoice extends DAOPTGenericInvoice {
+	private final Injector	injector;
 
-	@Override
-	public PTInvoiceEntity getEntityInstance();
+	public Contacts(Injector injector) {
+		this.injector = injector;
+	}
 
-	public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid,
-			Date from, Date to);
-
+	public PTContact.Builder builder() {
+		return getInstance(PTContact.Builder.class);
+	}
+	
+	public PTContact.Builder builder(PTContact customer) {
+		PTContact.Builder builder = getInstance(PTContact.Builder.class);
+		BuilderManager.setTypeInstance(builder, customer);
+		return builder;
+	}
+	
+	private <T> T getInstance(Class<T> clazz) {
+		return this.injector.getInstance(clazz);
+	}
+	
 }

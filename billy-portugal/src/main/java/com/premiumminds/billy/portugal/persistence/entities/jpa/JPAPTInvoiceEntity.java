@@ -21,6 +21,8 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -33,6 +35,7 @@ import com.premiumminds.billy.portugal.services.entities.PTPayment;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 		PTInvoiceEntity {
 

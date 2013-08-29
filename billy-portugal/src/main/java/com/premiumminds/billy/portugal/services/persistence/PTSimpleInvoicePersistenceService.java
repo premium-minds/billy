@@ -24,18 +24,13 @@ import javax.persistence.NoResultException;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
-public class PTSimpleInvoicePersistenceService extends
-		PersistenceServiceImpl<PTSimpleInvoice> implements
-		PersistenceService<PTSimpleInvoice> {
+public class PTSimpleInvoicePersistenceService {
 
 	protected final DAOPTSimpleInvoice daoInvoice;
 	protected final DAOTicket daoTicket;
@@ -47,12 +42,6 @@ public class PTSimpleInvoicePersistenceService extends
 		this.daoTicket = daoTicket;
 	}
 
-	@NotImplemented
-	public PTSimpleInvoice create(final Builder<PTSimpleInvoice> builder) {
-		return null;
-	}
-
-	@Override
 	public PTSimpleInvoice update(final Builder<PTSimpleInvoice> builder) {
 		try {
 			return new TransactionWrapper<PTSimpleInvoice>(daoInvoice) {
@@ -70,7 +59,6 @@ public class PTSimpleInvoicePersistenceService extends
 		}
 	}
 
-	@Override
 	public PTSimpleInvoice get(final UID uid) {
 		try {
 			return new TransactionWrapper<PTSimpleInvoice>(daoInvoice) {
@@ -91,7 +79,6 @@ public class PTSimpleInvoicePersistenceService extends
 		try {
 			return new TransactionWrapper<PTSimpleInvoice>(daoInvoice) {
 
-				@SuppressWarnings("unchecked")
 				@Override
 				public PTSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
 					UID objectUID = daoTicket.getObjectEntityUID(ticketUID

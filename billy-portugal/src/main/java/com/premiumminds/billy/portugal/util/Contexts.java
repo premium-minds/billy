@@ -22,6 +22,7 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
+import com.premiumminds.billy.portugal.services.persistence.PTRegionContextPersistenceService;
 
 /**
  * Encapsulates all Context information for Portugal.
@@ -35,6 +36,8 @@ public class Contexts {
 	private final Madeira	madeira;
 	private final Azores	azores;
 	private final Injector	injector;
+	private final PTRegionContextPersistenceService persistenceService;
+	
 
 	public class Portugal {
 
@@ -78,7 +81,7 @@ public class Contexts {
 							.getUID(Config.Key.Context.Portugal.Continental.Braga.UUID));
 		}
 
-		public PTRegionContext bragança() {
+		public PTRegionContext braganca() {
 			DAOPTRegionContext dao = Contexts.this
 					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao
@@ -224,6 +227,7 @@ public class Contexts {
 		this.madeira = new Madeira();
 		this.azores = new Azores();
 		this.injector = injector;
+		this.persistenceService = getInstance(PTRegionContextPersistenceService.class);
 	}
 
 	public Portugal portugal() {
@@ -240,6 +244,10 @@ public class Contexts {
 
 	public Azores azores() {
 		return this.azores;
+	}
+	
+	public PTRegionContextPersistenceService persistence() {
+		return this.persistenceService;
 	}
 
 	private <T> T getInstance(Class<T> clazz) {

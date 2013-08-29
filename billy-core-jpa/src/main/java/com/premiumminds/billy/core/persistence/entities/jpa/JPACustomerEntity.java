@@ -45,7 +45,6 @@ import com.premiumminds.billy.core.services.entities.Contact;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CUSTOMER")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 
 	private static final long	serialVersionUID	= 1L;
@@ -119,6 +118,7 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 		this.addresses = new ArrayList<Address>();
 		this.contacts = new ArrayList<Contact>();
 		this.bankAccounts = new ArrayList<BankAccount>();
+		this.selfBilling = Boolean.FALSE;
 	}
 
 	@Override
