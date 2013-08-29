@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,17 +26,14 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTReceiptInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTSimpleInvoiceEntity;
 
 public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 	DAOPTInvoice {
@@ -63,62 +59,16 @@ public class DAOPTInvoiceImpl extends DAOPTGenericInvoiceImpl implements
 
 		QJPAPTInvoiceEntity invoice = QJPAPTInvoiceEntity.jPAPTInvoiceEntity;
 
-		JPAQuery query = new JPAQuery(this.getEntityManager());
-		PTBusinessEntity business = this.getBusinessEntity(uid);
+		JPAQuery query = createQuery();
 
-		query.from(invoice);
-
-		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
-		BooleanExpression invoiceBusiness = invoice.business.eq(business);
-		predicates.add(invoiceBusiness);
-		BooleanExpression active = invoice.active.eq(true);
-		predicates.add(active);
-		BooleanExpression valid = invoice.date.between(from, to);
-		predicates.add(valid);
-
-		List<JPAPTSimpleInvoiceEntity> simpleInvoices = checkSimpleInvoices(
-				uid, from, to);
-		BooleanExpression removeSimpleInvoices = invoice.notIn(simpleInvoices);
-		predicates.add(removeSimpleInvoices);
-
-		List<JPAPTReceiptInvoiceEntity> receiptInvoices = checkReceiptInvoices(
-				uid, from, to);
-		BooleanExpression removeReceiptInvoices = invoice
-				.notIn(receiptInvoices);
-		predicates.add(removeReceiptInvoices);
-
-		for (BooleanExpression e : predicates) {
-			query.where(e);
-		}
+		query.from(invoice)
+			.where(invoice.instanceOf(JPAPTInvoiceEntity.class)
+					.and(invoice.date.between(from, to))
+					.and(toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
 
 		List<PTInvoiceEntity> result = this.checkEntityList(
 				query.list(invoice), PTInvoiceEntity.class);
 		return result;
 	}
 
-	private List<JPAPTSimpleInvoiceEntity> checkSimpleInvoices(UID uid,
-			Date from, Date to) {
-		JPAQuery simpleInvoicesQuery = new JPAQuery(this.getEntityManager());
-		QJPAPTSimpleInvoiceEntity simpleInvoice = QJPAPTSimpleInvoiceEntity.jPAPTSimpleInvoiceEntity;
-
-		List<JPAPTSimpleInvoiceEntity> simpleInvoices = simpleInvoicesQuery
-				.from(simpleInvoice).where(simpleInvoice.active.eq(true))
-				.where(simpleInvoice.date.between(from, to))
-				.where(simpleInvoice.business.eq(this.getBusinessEntity(uid)))
-				.list(simpleInvoice);
-		return simpleInvoices;
-	}
-
-	private List<JPAPTReceiptInvoiceEntity> checkReceiptInvoices(UID uid,
-			Date from, Date to) {
-		JPAQuery receiptInvoicesQuery = new JPAQuery(this.getEntityManager());
-		QJPAPTReceiptInvoiceEntity receiptInvoice = QJPAPTReceiptInvoiceEntity.jPAPTReceiptInvoiceEntity;
-
-		List<JPAPTReceiptInvoiceEntity> receiptInvoices = receiptInvoicesQuery
-				.from(receiptInvoice).where(receiptInvoice.active.eq(true))
-				.where(receiptInvoice.date.between(from, to))
-				.where(receiptInvoice.business.eq(this.getBusinessEntity(uid)))
-				.list(receiptInvoice);
-		return receiptInvoices;
-	}
 }

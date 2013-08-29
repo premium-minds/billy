@@ -81,7 +81,7 @@ public class Contexts {
 							.getUID(Config.Key.Context.Portugal.Continental.Braga.UUID));
 		}
 
-		public PTRegionContext bragança() {
+		public PTRegionContext braganca() {
 			DAOPTRegionContext dao = Contexts.this
 					.getInstance(DAOPTRegionContext.class);
 			return (PTRegionContext) dao

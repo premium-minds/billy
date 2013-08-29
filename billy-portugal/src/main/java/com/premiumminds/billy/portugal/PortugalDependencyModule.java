@@ -22,8 +22,6 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.premiumminds.billy.core.CoreDependencyModule;
 import com.premiumminds.billy.core.CoreJPADependencyModule;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOTicketImpl;
 import com.premiumminds.billy.gin.GINDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;

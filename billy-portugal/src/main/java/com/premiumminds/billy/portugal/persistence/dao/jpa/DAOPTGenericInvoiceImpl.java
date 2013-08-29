@@ -30,9 +30,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
 
 public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
-	DAOPTGenericInvoice {
+DAOPTGenericInvoice {
 
 	@Inject
 	public DAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -58,5 +59,17 @@ public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements
 
 		return this.checkEntity(query.singleResult(business),
 				PTBusinessEntity.class);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T extends PTGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number) {
+		QJPAPTBusinessEntity business = QJPAPTBusinessEntity.jPAPTBusinessEntity;
+		QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
+
+		return (T) this.checkEntityList(createQuery()
+				.from(invoice)
+				.where(business.uid.eq(uidBusiness.toString()).and(invoice.number.eq(number)))
+				.list(invoice), PTGenericInvoiceEntity.class);
 	}
 }

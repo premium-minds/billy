@@ -23,15 +23,13 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 
-public class PTBusinessPersistenceService extends
-		PersistenceServiceImpl<PTBusiness> implements
+public class PTBusinessPersistenceService implements
 		PersistenceService<PTBusiness> {
 
 	protected final DAOPTBusiness daoBusiness;

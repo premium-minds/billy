@@ -88,4 +88,5 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
 				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.entry_credit_or_debit"));
 	}
+
 }

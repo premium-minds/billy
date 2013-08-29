@@ -78,7 +78,6 @@ public class PTInvoicePersistenceService {
 		try {
 			return new TransactionWrapper<PTInvoice>(daoInvoice) {
 
-				@SuppressWarnings("unchecked")
 				@Override
 				public PTInvoice runTransaction() throws Exception {
 					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
@@ -91,6 +90,21 @@ public class PTInvoicePersistenceService {
 			throw e;
 		}
 		catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+	
+	public PTInvoice findByNumber(final UID uidBusiness, final String number) {
+		try {
+			return new TransactionWrapper<PTInvoice>(daoInvoice) {
+
+				@Override
+				public PTInvoice runTransaction() throws Exception {
+					return (PTInvoice) daoInvoice.findByNumber(uidBusiness, number);
+				}
+
+			}.execute();
+		} catch (Exception e) {
 			throw new BillyRuntimeException(e);
 		}
 	}

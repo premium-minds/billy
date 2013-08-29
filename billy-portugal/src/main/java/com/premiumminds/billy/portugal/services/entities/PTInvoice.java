@@ -23,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
@@ -43,7 +42,8 @@ public interface PTInvoice extends PTGenericInvoice {
 	}
 
 	@Override
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
+	@SuppressWarnings("unchecked")
+	public List<PTInvoiceEntry> getEntries();
 	
 	@Override
 	public <T extends Payment> List<T> getPayments();

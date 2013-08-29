@@ -43,7 +43,6 @@ import com.premiumminds.billy.core.services.entities.Contact;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAApplicationEntity extends JPABaseEntity implements
 	ApplicationEntity {
 

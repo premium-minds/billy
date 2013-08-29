@@ -26,6 +26,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -45,6 +47,7 @@ import com.premiumminds.billy.core.services.UID;
  */
 @MappedSuperclass
 @Audited
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class JPABaseEntity implements BaseEntity {
 
 	private static final long	serialVersionUID	= 1L;

@@ -41,7 +41,6 @@ import com.premiumminds.billy.core.services.entities.Address;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAShippingPointEntity extends JPABaseEntity implements
 	ShippingPointEntity {
 

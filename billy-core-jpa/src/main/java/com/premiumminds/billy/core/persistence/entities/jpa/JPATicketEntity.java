@@ -39,7 +39,6 @@ import com.premiumminds.billy.core.services.UID;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TICKET")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPATicketEntity extends JPABaseEntity implements TicketEntity{
 	
 	private static final long serialVersionUID = 1L;
