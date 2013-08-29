@@ -23,9 +23,7 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
@@ -53,25 +51,18 @@ public class DAOInvoiceSeriesImpl extends
 
 	public InvoiceSeriesEntity getSeries(String series, String businessUID) {
 		QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
-		QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
 		JPAQuery query = new JPAQuery(this.getEntityManager());
-
-		BusinessEntity businessEnity = query.from(business)
-				.where(business.uid.eq(businessUID)).uniqueResult(business);
-
-		if (businessEnity == null) {
-			throw new BillyRuntimeException();
-		}
 
 		query = new JPAQuery(this.getEntityManager());
 
 		query.from(entity);
 		query.where(entity.series.eq(series));
+		query.where(toDSL(entity.business, QJPABusinessEntity.class).uid
+				.eq(businessUID));
 
 		InvoiceSeries seriesEntity = query.singleResult(entity);
 
 		return (InvoiceSeriesEntity) seriesEntity;
 	}
-
 }
