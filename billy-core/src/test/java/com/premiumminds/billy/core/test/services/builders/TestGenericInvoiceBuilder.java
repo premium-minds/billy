@@ -91,11 +91,11 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 		GenericInvoice invoice = builder.build();
 
 		Assert.assertTrue(invoice != null);
-		Assert.assertTrue(mock.getAmountWithoutTax().setScale(2, BillyMathContext.get().getRoundingMode()).compareTo(
+		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
 				invoice.getAmountWithoutTax()) == 0);
-		Assert.assertTrue(mock.getAmountWithTax().setScale(2, BillyMathContext.get().getRoundingMode()).compareTo(
+		Assert.assertTrue(mock.getAmountWithTax().compareTo(
 				invoice.getAmountWithTax()) == 0);
-		Assert.assertTrue(mock.getTaxAmount().setScale(2, BillyMathContext.get().getRoundingMode()).compareTo(invoice.getTaxAmount()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
 
 		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
 		Assert.assertEquals(mock.getGeneralLedgerDate(),

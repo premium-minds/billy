@@ -311,7 +311,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		}
 
 		e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
-
+		
+		
 		if (e.getUnitAmountWithTax() != null) {
 			BigDecimal unitAmountWithoutTax = e.getUnitAmountWithTax();
 			BigDecimal unitTaxAmount = BigDecimal.ZERO;
@@ -325,10 +326,11 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 				case PERCENTAGE:
 					unitAmountWithoutTax = e.getUnitAmountWithTax().divide(
 							BigDecimal.ONE.add(
-									t.getValue().divide(new BigDecimal("100"),
+									t.getPercentageRateValue().divide(new BigDecimal("100"),
 											mc), mc), mc);
 					unitTaxAmount = unitTaxAmount.add(e.getUnitAmountWithTax()
 							.subtract(unitAmountWithoutTax, mc), mc);
+					
 					break;
 				default:
 					break;
