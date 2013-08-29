@@ -120,10 +120,10 @@ public class PTInvoiceTestUtil {
 		invoiceEntryBuilder2.setUnitAmount(AmountType.WITH_TAX, price);
 		invoiceBuilder.addEntry(invoiceEntryBuilder2);
 		
-		PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+		/*PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 				.getInvoiceOtherRegionsEntryBuilder("PT-30");
 		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price2);
-		invoiceBuilder.addEntry(invoiceEntryBuilder);
+		invoiceBuilder.addEntry(invoiceEntryBuilder);*/
 		
 		PTInvoiceEntry.Builder invoiceEntryBuilder3 = this.invoiceEntry
 				.getInvoiceEntryBuilder();
@@ -144,6 +144,7 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getManyEntriesInvoice() {
+		BigDecimal entriesPrice = new BigDecimal("0.35555555");
 		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -158,7 +159,7 @@ public class PTInvoiceTestUtil {
 		for(int i = 0; i < 9; i++){
 			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 					.getInvoiceEntryBuilder();
-			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price2);
+			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
 		

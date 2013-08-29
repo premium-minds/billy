@@ -254,10 +254,8 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
 								: false),
 						tax.getValue(),
-						entry.getAmountWithoutTax().setScale(
-								BillyMathContext.SCALE, mc.getRoundingMode()),
-						entry.getTaxAmount().setScale(BillyMathContext.SCALE,
-								mc.getRoundingMode()), tax.getUID().toString());
+						entry.getAmountWithoutTax(),
+						entry.getTaxAmount(), tax.getUID().getValue());
 			}
 		}
 	}
@@ -410,6 +408,10 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			public void addBaseValue(BigDecimal val) {
 				this.baseValue = this.baseValue.add(val, mc);
 			}
+			
+			public void addAppliedTaxValue(BigDecimal val) {
+				this.appliedTaxValue = this.appliedTaxValue.add(val, mc);
+			}
 
 			public BigDecimal getAppliedTaxValue() {
 				return appliedTaxValue;
@@ -426,6 +428,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 					taxValue, baseValue, taxAmount);
 			if (this.entries.containsKey(taxUid)) {
 				this.entries.get(taxUid).addBaseValue(baseValue);
+				this.entries.get(taxUid).addAppliedTaxValue(taxAmount);
 			} else {
 				this.entries.put(taxUid, currentEntry);
 			}
