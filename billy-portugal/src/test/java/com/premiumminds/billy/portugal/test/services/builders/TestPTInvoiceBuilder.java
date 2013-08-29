@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.test.services.builders;
 
 import java.util.ArrayList;
+import java.util.Currency;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,6 +47,7 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 	public void doTest() {
 		MockPTInvoiceEntity mock = this.createMockEntity(
 				MockPTInvoiceEntity.class, TestPTInvoiceBuilder.PT_INVOICE_YML);
+		mock.setCurrency(Currency.getInstance("EUR"));
 
 		Mockito.when(this.getInstance(DAOPTInvoice.class).getEntityInstance())
 				.thenReturn(new MockPTInvoiceEntity());
@@ -70,7 +72,7 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 
 		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
-		builder.addEntry(entry).setBilled(mock.isBilled())
+		builder.setCurrency(mock.getCurrency()).addEntry(entry).setBilled(mock.isBilled())
 				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
 				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())

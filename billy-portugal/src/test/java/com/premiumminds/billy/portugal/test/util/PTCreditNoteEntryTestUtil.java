@@ -61,8 +61,7 @@ public class PTCreditNoteEntryTestUtil {
 
 		creditNoteEntryBuilder
 				.setUnitAmount(AmountType.WITH_TAX,
-						PTCreditNoteEntryTestUtil.AMOUNT,
-						PTCreditNoteEntryTestUtil.CURRENCY)
+						PTCreditNoteEntryTestUtil.AMOUNT)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(newProduct.getDescription())
@@ -71,7 +70,8 @@ public class PTCreditNoteEntryTestUtil {
 				.setProductUID(newProduct.getUID())
 				.setContextUID(this.context.getUID())
 				.setReason(PTCreditNoteEntryTestUtil.REASON)
-				.setReferenceUID(reference.getUID());
+				.setReferenceUID(reference.getUID())
+				.setCurrency(Currency.getInstance("EUR"));
 
 		return creditNoteEntryBuilder;
 	}

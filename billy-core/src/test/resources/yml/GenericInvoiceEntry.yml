@@ -50,7 +50,7 @@ product : !!com.premiumminds.billy.core.test.fixtures.MockProductEntity
         value : 7.95041
         validFrom: 2013-01-01
         validTo: 2013-12-12
-        taxRateType : FLAT
+        taxRateType : PERCENTAGE
         percentageRateValue : 23
         flatRateAmount : 7.95041
         context : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
@@ -102,7 +102,7 @@ taxes:
     designation : desgination_2
     description : description_2
     code : code_1
-    value : 202
+    value : 23
     validFrom: 2013-01-02
     validTo: 2013-12-12
     taxRateType : FLAT

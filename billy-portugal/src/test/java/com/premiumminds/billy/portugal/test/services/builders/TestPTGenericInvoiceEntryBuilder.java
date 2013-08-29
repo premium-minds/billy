@@ -89,11 +89,11 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
 				.setUnitAmount(AmountType.WITH_TAX,
-						mock.getUnitAmountWithTax(),
-						Currency.getInstance("EUR"))
+						mock.getUnitAmountWithTax())
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())
-				.setTaxPointDate(mock.getTaxPointDate());
+				.setTaxPointDate(mock.getTaxPointDate())
+				.setCurrency(Currency.getInstance("EUR"));
 
 		PTGenericInvoiceEntry entry = builder.build();
 

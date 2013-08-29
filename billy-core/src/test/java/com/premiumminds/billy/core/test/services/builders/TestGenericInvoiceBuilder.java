@@ -34,6 +34,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceBuilder extends AbstractTest {
 

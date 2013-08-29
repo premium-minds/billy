@@ -110,5 +110,7 @@ public interface GenericInvoice extends Entity {
 	public <T extends Payment> List<T> getPayments();
 
 	public CreditOrDebit getCreditOrDebit();
+	
+	public int getScale();
 
 }
