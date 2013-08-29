@@ -49,7 +49,6 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
 	private static final long	serialVersionUID	= 1L;

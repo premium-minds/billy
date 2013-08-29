@@ -21,6 +21,8 @@ package com.premiumminds.billy.core.services.builders.impl;
 import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.persistence.entities.BaseEntity;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 
 public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
@@ -52,6 +54,11 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
 	@SuppressWarnings("unchecked")
 	protected <T extends TType> T getTypeInstance() {
 		return (T) this.typeInstance;
+	}
+	
+	public TBuilder setUID(UID uid){ 
+		((BaseEntity) this.typeInstance).setUID(uid);
+		return getBuilder();
 	}
 
 	public TType build() throws BillyValidationException, ValidationException {

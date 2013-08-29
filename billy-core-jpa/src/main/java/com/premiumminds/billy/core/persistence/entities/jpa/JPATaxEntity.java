@@ -44,7 +44,6 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TAX")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 
 	private static final long	serialVersionUID	= 1L;

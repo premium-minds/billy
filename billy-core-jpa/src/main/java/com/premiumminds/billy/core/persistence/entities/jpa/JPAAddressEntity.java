@@ -32,7 +32,6 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
 
 	private static final long	serialVersionUID	= 1L;

@@ -38,7 +38,6 @@ import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PAYMENT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAPaymentEntity extends JPABaseEntity implements PaymentEntity {
 
 	/**

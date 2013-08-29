@@ -79,7 +79,6 @@ public class PTSimpleInvoicePersistenceService {
 		try {
 			return new TransactionWrapper<PTSimpleInvoice>(daoInvoice) {
 
-				@SuppressWarnings("unchecked")
 				@Override
 				public PTSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
 					UID objectUID = daoTicket.getObjectEntityUID(ticketUID

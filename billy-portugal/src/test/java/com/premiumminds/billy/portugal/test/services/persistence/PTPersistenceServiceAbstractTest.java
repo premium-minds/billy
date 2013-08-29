@@ -20,18 +20,16 @@ package com.premiumminds.billy.portugal.test.services.persistence;
 
 import org.junit.Before;
 
+import com.premiumminds.billy.portugal.BillyPortugal;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
-import com.premiumminds.billy.portugal.util.Builders;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
-import com.premiumminds.billy.portugal.util.Services;
 
 public class PTPersistenceServiceAbstractTest extends PTPersistencyAbstractTest {
 
 	protected PTIssuingParams	parameters;
-	protected Services			services;
-	protected Builders			builders;
+	protected BillyPortugal billy;
 
 	@Before
 	public void setUpParamenters() {
@@ -44,7 +42,6 @@ public class PTPersistenceServiceAbstractTest extends PTPersistencyAbstractTest 
 		this.parameters.setPrivateKeyVersion("1");
 		this.parameters.setEACCode("31400");
 
-		this.services = new Services(injector);
-		this.builders = new Builders(injector);
+		billy = getInstance(BillyPortugal.class);
 	}
 }

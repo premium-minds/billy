@@ -25,7 +25,6 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.core.persistence.services.PersistenceServiceImpl;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.util.NotImplemented;
@@ -33,8 +32,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
-public class PTReceiptInvoicePersistenceService extends
-		PersistenceServiceImpl<PTReceiptInvoice> implements
+public class PTReceiptInvoicePersistenceService implements
 		PersistenceService<PTReceiptInvoice> {
 
 	protected final DAOPTReceiptInvoice daoReceiptInvoice;
@@ -93,7 +91,6 @@ public class PTReceiptInvoicePersistenceService extends
 		try {
 			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
 
-				@SuppressWarnings("unchecked")
 				@Override
 				public PTReceiptInvoice runTransaction() throws NoResultException, BillyRuntimeException {
 					UID objectUID = daoTicket.getObjectEntityUID(ticketUID

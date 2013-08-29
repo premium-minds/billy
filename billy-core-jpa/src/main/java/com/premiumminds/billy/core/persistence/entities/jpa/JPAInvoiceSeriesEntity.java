@@ -38,7 +38,6 @@ import com.premiumminds.billy.core.services.entities.Business;
 @Table(name = Config.TABLE_PREFIX + "INVOICE_SERIES",
 		uniqueConstraints = @UniqueConstraint(columnNames = { "SERIES",
 				"ID_BUSINESS" }))
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAInvoiceSeriesEntity extends JPABaseEntity implements
 	InvoiceSeriesEntity {
 

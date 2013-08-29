@@ -40,55 +40,47 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 
 	@Test
 	public void testSimpleUpdate() {
-		PTInvoice.Builder builder = builders.invoices().createInvoiceBuilder(
-				issuedInvoice);
+		PTInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
 
-		PTInvoice peristedInvoice = services.entities().invoice()
-				.get(issuedInvoice.getUID());
+		PTInvoice peristedInvoice = billy.invoices().persistence().get(issuedInvoice.getUID());
 		assertEquals(false, peristedInvoice.isCancelled());
 
 		builder.setCancelled(true);
-		services.entities().invoice().update(builder);
+		billy.invoices().persistence().update(builder);
 
-		peristedInvoice = services.entities().invoice()
-				.get(issuedInvoice.getUID());
+		peristedInvoice = billy.invoices().persistence().get(issuedInvoice.getUID());
 		assertEquals(true, peristedInvoice.isCancelled());
 
 	}
 
 	@Test(expected = BillyUpdateException.class)
 	public void testBilledUpdate() {
-		PTInvoice.Builder builder = builders.invoices().createInvoiceBuilder(
-				issuedInvoice);
+		PTInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
 
-		PTInvoice peristedInvoice = services.entities().invoice()
-				.get(issuedInvoice.getUID());	
+		PTInvoice peristedInvoice = billy.invoices().persistence().get(issuedInvoice.getUID());	
 		assertEquals(true, peristedInvoice.isBilled());
 
-		builder = builders.invoices().createInvoiceBuilder(peristedInvoice);
+		builder = billy.invoices().builder(peristedInvoice);
 		builder.setBilled(false);
 	}
 
 	@Test(expected = BillyUpdateException.class)
 	public void testBusinessFailure() {
-		PTInvoice.Builder builder = builders.invoices().createInvoiceBuilder(
-				issuedInvoice);
+		PTInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
 
 		builder.setBusinessUID(new UID());
 	}
 
 	@Test(expected = BillyUpdateException.class)
 	public void testCustomerFailure() {
-		PTInvoice.Builder builder = builders.invoices().createInvoiceBuilder(
-				issuedInvoice);
+		PTInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
 
 		builder.setCustomerUID(new UID());
 	}
 
 	@Test(expected = BillyUpdateException.class)
 	public void testSourceBillingFailure() {
-		PTInvoice.Builder builder = builders.invoices().createInvoiceBuilder(
-				issuedInvoice);
+		PTInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
 
 		builder.setSourceBilling(SourceBilling.M);
 	}
