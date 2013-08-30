@@ -28,7 +28,7 @@ public class BillyMathContext {
 
 	public static MathContext get() {
 		if (BillyMathContext.instance == null) {
-			BillyMathContext.instance = new MathContext(34, RoundingMode.HALF_UP);
+			BillyMathContext.instance = new MathContext(34, RoundingMode.HALF_EVEN);
 		}
 		return BillyMathContext.instance;
 	}

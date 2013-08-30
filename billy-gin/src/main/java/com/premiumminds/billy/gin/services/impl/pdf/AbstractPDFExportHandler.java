@@ -31,6 +31,8 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.Validate;
+
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
@@ -39,6 +41,7 @@ import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyMathContext;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.gin.services.ExportServiceHandler;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -152,7 +155,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		this.setTaxDetails(taxTotals, taxDetails);
 
-		this.setTaxValues(params, document);
+		this.setTaxValues(params, taxTotals, document);
 
 		return params;
 	}
@@ -230,17 +233,23 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
 					.getDescription());
 
-			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_QUANTITY,
+					entry.getQuantity()
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 
 			entryNode.addChild(
 					ParamKeys.ENTRY_UNIT_PRICE,
 					entry.getUnitAmountWithTax()
-							.setScale(2, this.mc.getRoundingMode())
-							.toPlainString());
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 
-			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_TOTAL,
+					entry.getAmountWithTax()
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 
 			List<Tax> taxList = entry.getTaxes();
 			for (Tax tax : taxList) {
@@ -252,10 +261,9 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 												: "&#8364;"));
 				taxTotals.add(
 						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
-								: false),
-						tax.getValue(),
-						entry.getAmountWithoutTax(),
-						entry.getTaxAmount(), tax.getUID().getValue());
+								: false), tax.getValue(), entry
+								.getAmountWithoutTax(), entry.getTaxAmount(),
+						tax.getUID().getValue());
 			}
 		}
 	}
@@ -345,24 +353,38 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected <T extends GenericInvoiceEntity> void setTaxValues(
-			ParamsTree<String, String> params, T document) {
+			ParamsTree<String, String> params, TaxTotals taxTotals, T document) {
 
-		params.getRoot()
-				.addChild(
-						ParamKeys.TOTAL_BEFORE_TAX,
-						document.getAmountWithoutTax()
-								.setScale(2, this.mc.getRoundingMode())
-								.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.TOTAL_BEFORE_TAX,
+				document.getAmountWithoutTax()
+						.setScale(BillyMathContext.SCALE,
+								this.mc.getRoundingMode()).toPlainString());
 		params.getRoot().addChild(
 				ParamKeys.TOTAL_TAX,
-				document.getTaxAmount().setScale(2, this.mc.getRoundingMode())
+				document.getTaxAmount()
+						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
 						.toPlainString());
-		params.getRoot()
-				.addChild(
-						ParamKeys.TOTAL,
-						document.getAmountWithTax()
-								.setScale(2, this.mc.getRoundingMode())
-								.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.TOTAL,
+				document.getAmountWithTax()
+						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+						.toPlainString());
+
+		BillyValidator
+				.isTrue(document
+						.getAmountWithoutTax()
+						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+						.add(document.getTaxAmount().setScale(
+								BillyMathContext.SCALE, mc.getRoundingMode()))
+						.compareTo(
+								document.getAmountWithTax().setScale(
+										BillyMathContext.SCALE,
+										mc.getRoundingMode())) == 0);
+		/*
+		 * .toPlainString() document.getAmountWithTax() .setScale(2,
+		 * this.mc.getRoundingMode()) .toPlainString());
+		 */
 		return;
 	}
 
@@ -408,7 +430,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			public void addBaseValue(BigDecimal val) {
 				this.baseValue = this.baseValue.add(val, mc);
 			}
-			
+
 			public void addAppliedTaxValue(BigDecimal val) {
 				this.appliedTaxValue = this.appliedTaxValue.add(val, mc);
 			}

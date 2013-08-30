@@ -108,7 +108,7 @@ public class PTInvoiceEntryTestUtil {
 		invoiceEntryBuilder.clear();
 
 		invoiceEntryBuilder
-				.setUnitAmount(AmountType.WITH_TAX,
+				.setUnitAmount(AmountType.WITHOUT_TAX,
 						PTInvoiceEntryTestUtil.AMOUNT)
 				.setTaxPointDate(new Date())
 				.setCreditOrDebit(CreditOrDebit.DEBIT)

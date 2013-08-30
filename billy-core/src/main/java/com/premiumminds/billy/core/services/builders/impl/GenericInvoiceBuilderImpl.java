@@ -368,10 +368,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		i.setTaxAmount(taxAmount);
 		i.setAmountWithoutTax(amountWithoutTax);
 
-		
-		System.out.println(i.getAmountWithTax()
-				.subtract(
-						i.getTaxAmount()) + " " + i.getAmountWithoutTax());
 		Validate.isTrue(
 				i.getAmountWithTax()
 						.subtract(

@@ -97,9 +97,9 @@ public class PTProductTestUtil {
 		else
 			taxRegion = (PTTaxEntity) this.taxes.madeira().normal();
 
-		productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode("1717")
+		productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(PTProductTestUtil.NUMBER_CODE)
 				.setUnitOfMeasure(PTProductTestUtil.UNIT_OF_MEASURE)
-				.setProductCode(PTProductTestUtil.NUMBER_CODE)
+				.setProductCode(PTProductTestUtil.PRODUCT_CODE)
 				.setDescription(PTProductTestUtil.DESCRIPTION)
 				.setType(PTProductTestUtil.TYPE)
 				.setProductGroup(PTProductTestUtil.GROUP);

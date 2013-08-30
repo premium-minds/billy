@@ -106,6 +106,23 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
 		handler.toFile(file.toURI(), this.generateManyEntriesInvoice(), bundle);
 	}
+	
+	@Test
+	public void testManyEntriesWithDifrentRegions() throws NoSuchAlgorithmException,
+			ExportServiceException, URISyntaxException, IOException {
+
+		File file = File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf");
+
+		InputStream xsl = new FileInputStream(
+				TestPTInvoicePDFExportHandler.XSL_PATH);
+
+		PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(
+				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl,
+				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+		PTInvoicePDFExportHandler handler = new PTInvoicePDFExportHandler(
+				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
+		handler.toFile(file.toURI(), this.generateManyEntriesWithDiferentRegionsInvoice(), bundle);
+	}
 
 	private PTInvoiceEntity generatePTInvoice() {
 		PTInvoiceEntity invoice = test.getInvoiceEntity();
@@ -121,6 +138,12 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 	
 	private PTInvoiceEntity generateOtherregionsInvoice() {
 		PTInvoiceEntity invoice = test.getDiferentRegionsInvoice();
+		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+		return invoice;
+	}
+	
+	private PTInvoiceEntity generateManyEntriesWithDiferentRegionsInvoice() {
+		PTInvoiceEntity invoice = test.getManyEntriesWithDiferentRegionsInvoice();
 		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 		return invoice;
 	}

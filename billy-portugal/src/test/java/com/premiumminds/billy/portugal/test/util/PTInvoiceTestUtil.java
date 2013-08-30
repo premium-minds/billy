@@ -46,8 +46,6 @@ public class PTInvoiceTestUtil {
 	protected static final String SERIE = "A";
 	protected static final Integer SERIE_NUMBER = 1;
 	protected static final int MAX_PRODUCTS = 5;
-	protected BigDecimal price = new BigDecimal("0.35");
-	protected BigDecimal price2 = new BigDecimal("0.35");
 
 	protected TYPE INVOICE_TYPE;
 	protected Injector injector;
@@ -77,7 +75,7 @@ public class PTInvoiceTestUtil {
 
 	public PTInvoice.Builder getInvoiceBuilder(PTBusinessEntity business,
 			SourceBilling billing) {
-
+		BigDecimal price = new BigDecimal("0.454545");
 		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -91,7 +89,7 @@ public class PTInvoiceTestUtil {
 
 		PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 				.getInvoiceEntryBuilder();
-		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price2);
+		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
 		invoiceBuilder.addEntry(invoiceEntryBuilder);
 
 		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
@@ -104,6 +102,8 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getDiferentRegionsInvoice() {
+		BigDecimal price = new BigDecimal("0.2999");
+		
 		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -120,10 +120,10 @@ public class PTInvoiceTestUtil {
 		invoiceEntryBuilder2.setUnitAmount(AmountType.WITH_TAX, price);
 		invoiceBuilder.addEntry(invoiceEntryBuilder2);
 		
-		/*PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+		PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 				.getInvoiceOtherRegionsEntryBuilder("PT-30");
-		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price2);
-		invoiceBuilder.addEntry(invoiceEntryBuilder);*/
+		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
+		invoiceBuilder.addEntry(invoiceEntryBuilder);
 		
 		PTInvoiceEntry.Builder invoiceEntryBuilder3 = this.invoiceEntry
 				.getInvoiceEntryBuilder();
@@ -144,7 +144,7 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getManyEntriesInvoice() {
-		BigDecimal entriesPrice = new BigDecimal("0.35555555");
+		BigDecimal entriesPrice = new BigDecimal("16.0145");
 		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
@@ -159,6 +159,44 @@ public class PTInvoiceTestUtil {
 		for(int i = 0; i < 9; i++){
 			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 					.getInvoiceEntryBuilder();
+			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+		
+		invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+				.setCreditOrDebit(CreditOrDebit.CREDIT)
+				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setBusinessUID(business.getBusinessEntity().getUID());
+		
+		return (PTInvoiceEntity) invoiceBuilder.build();
+	}
+	
+	public PTInvoiceEntity getManyEntriesWithDiferentRegionsInvoice() {
+		BigDecimal entriesPrice = new BigDecimal("0.355555");
+		PTInvoice.Builder invoiceBuilder = this.injector
+				.getInstance(PTInvoice.Builder.class);
+
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
+
+		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
+
+		invoiceBuilder.setCurrency(Currency.getInstance("EUR"));
+
+		for(int i = 0; i < 9; i++){
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceEntryBuilder();
+			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+		
+		for(int i = 0; i < 9; i++){
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceOtherRegionsEntryBuilder("PT-20");
 			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}
