@@ -50,6 +50,9 @@ public class DAOContextImpl extends
 		if (sub.getParentContext() == null) {
 			return false;
 		}
+		if(sub.getUID().equals(context.getUID())) {
+			return true;
+		}
 		if (sub.getParentContext().getUID().equals(context.getUID())) {
 			return true;
 		}

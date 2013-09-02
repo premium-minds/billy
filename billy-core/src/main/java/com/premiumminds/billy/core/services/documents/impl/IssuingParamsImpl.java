@@ -36,8 +36,7 @@ public class IssuingParamsImpl implements IssuingParams {
 		if (this.parameters.containsKey(key)) {
 			return this.parameters.get(key);
 		} else {
-			throw new ParameterNotFoundException("No such parameter " + key
-					+ "!");
+			return null;
 		}
 	}
 

@@ -263,22 +263,19 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	protected void validateInstance() throws ValidationException {
 		this.validateValues();
-
+		
 		GenericInvoiceEntry i = this.getTypeInstance();
 		BillyValidator.mandatory(i.getProduct(),
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.product"));
 		BillyValidator
 				.mandatory(i.getQuantity(), GenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.quantity"));
-		BillyValidator.mandatory(i.getUnitOfMeasure(),
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit"));
 		BillyValidator.mandatory(i.getDescription(),
 				GenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.description"));
 		BillyValidator.mandatory(i.getAmountType(),
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.unit_amount_type"));
-
 		if (i.getAmountType().compareTo(AmountType.WITH_TAX) == 0) {
 			BillyValidator.mandatory(i.getAmountWithTax(),
 					GenericInvoiceEntryBuilderImpl.LOCALIZER
@@ -295,6 +292,10 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
 
+		if(e.getUnitOfMeasure() == null) {
+			e.setUnitOfMeasure(e.getProduct().getUnitOfMeasure());
+		}
+		
 		for (Tax t : e.getProduct().getTaxes()) {
 			if (this.daoContext.isSubContext(t.getContext(), this.context)) {
 				Date actualDate = new Date();
