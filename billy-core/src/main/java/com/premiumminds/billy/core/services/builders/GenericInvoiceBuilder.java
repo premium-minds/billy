@@ -81,5 +81,7 @@ public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TB
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 	
 	public TBuilder setCurrency(Currency currency);
+	
+	public TBuilder setScale(int scale);
 
 }

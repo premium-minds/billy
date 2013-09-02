@@ -25,4 +25,7 @@ public interface PTCustomerBuilder<TBuilder extends PTCustomerBuilder<TBuilder, 
 	extends CustomerBuilder<TBuilder, TCustomer> {
 
 	public TBuilder setReferralName(String referralName);
+
+	@Override
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode);
 }

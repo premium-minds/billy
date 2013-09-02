@@ -97,7 +97,8 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 				.setName(mockCustomer.getName())
 				.setShippingAddress(mockShippingAddressBuilder)
 				.setTaxRegistrationNumber(
-						mockCustomer.getTaxRegistrationNumber())
+						mockCustomer.getTaxRegistrationNumber(),
+						PT_COUNTRY_CODE)
 				.setMainContactUID(mockCustomer.getMainContact().getUID());
 
 		Customer customer = builder.build();

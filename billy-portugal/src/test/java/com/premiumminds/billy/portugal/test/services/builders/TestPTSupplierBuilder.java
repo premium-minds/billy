@@ -88,7 +88,8 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
 				.setName(mockSupplier.getName())
 				.setSelfBillingAgreement(mockSupplier.hasSelfBillingAgreement())
 				.setTaxRegistrationNumber(
-						mockSupplier.getTaxRegistrationNumber())
+						mockSupplier.getTaxRegistrationNumber(),
+						PT_COUNTRY_CODE)
 				.setShippingAddress(mockShippingAddressBuilder);
 
 		PTSupplier supplier = builder.build();

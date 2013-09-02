@@ -85,7 +85,7 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				(PTAddressEntity) mockBusiness.getBillingAddress());
 
-		builder.setFinancialID(mockBusiness.getFinancialID())
+		builder.setFinancialID(mockBusiness.getFinancialID(), PT_COUNTRY_CODE)
 				.setName(mockBusiness.getName())
 				.setAddress(mockAddressBuilder)
 				.setBillingAddress(mockBillingAddressBuilder)

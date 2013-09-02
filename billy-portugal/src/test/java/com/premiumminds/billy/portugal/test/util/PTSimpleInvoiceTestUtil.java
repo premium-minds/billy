@@ -78,7 +78,7 @@ public class PTSimpleInvoiceTestUtil {
 
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
-
+		invoiceBuilder.setCurrency(Currency.getInstance("EUR"));
 		for (int i = 0; i < PTSimpleInvoiceTestUtil.MAX_PRODUCTS; ++i) {
 			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 					.getInvoiceEntryBuilder();
@@ -91,8 +91,7 @@ public class PTSimpleInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
-				.setBusinessUID(businessEntity.getUID())
-				.setCurrency(Currency.getInstance("EUR"));
+				.setBusinessUID(businessEntity.getUID());
 	}
 
 }

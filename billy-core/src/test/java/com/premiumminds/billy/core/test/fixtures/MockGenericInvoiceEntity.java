@@ -41,7 +41,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	private static final long serialVersionUID = 1L;
 
 	public String number;
-
+	public int scale;
 	public String series;
 	public Integer seriesNumber;
 	public Business business;
@@ -189,6 +189,16 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	@Override
 	public CreditOrDebit getCreditOrDebit() {
 		return this.creditOrDebit;
+	}
+	
+	@Override
+	public int getScale(){
+		return this.scale;
+	}
+	
+	@Override
+	public void setScale(int scale){
+		this.scale = scale;
 	}
 
 	@Override

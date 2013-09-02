@@ -18,7 +18,7 @@
 #
 
 name : name
-taxRegistrationNumber : taxRegistrationNumber
+taxRegistrationNumber : 500016615
 mainAddress : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity
   streetName : street_name
   number : number

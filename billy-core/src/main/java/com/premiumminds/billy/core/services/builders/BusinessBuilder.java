@@ -30,7 +30,7 @@ public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBus
 
 	public TBuilder setOperationalContextUID(UID contextUID);
 
-	public TBuilder setFinancialID(String id);
+	public TBuilder setFinancialID(String id, String countyCode);
 
 	public TBuilder setName(String name);
 

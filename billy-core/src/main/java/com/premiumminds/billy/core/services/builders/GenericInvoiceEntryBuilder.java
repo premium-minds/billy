@@ -46,8 +46,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
 	public TBuilder setQuantity(BigDecimal quantity);
 
-	public TBuilder setUnitAmount(AmountType type, BigDecimal amount,
-			Currency currency);
+	public TBuilder setUnitAmount(AmountType type, BigDecimal amount);
 
 	public TBuilder setUnitOfMeasure(String unit);
 
@@ -68,5 +67,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 
 	public TBuilder setAmountType(AmountType type);
+	
+	public TBuilder setCurrency(Currency currency);
 
 }

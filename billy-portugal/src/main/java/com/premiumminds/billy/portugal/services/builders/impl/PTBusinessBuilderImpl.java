@@ -21,15 +21,18 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.exceptions.InvalidTaxIdentificationNumberException;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.services.builders.impl.BusinessBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.builders.PTBusinessBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
+import com.premiumminds.billy.portugal.util.PTFinancialValidator;
 
 public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends PTBusiness>
 	extends BusinessBuilderImpl<TBuilder, TBusiness> implements
@@ -42,6 +45,22 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 	public PTBusinessBuilderImpl(DAOPTBusiness daoBusiness,
 									DAOPTRegionContext daoContext) {
 		super(daoBusiness, daoContext);
+	}
+
+	@Override
+	@NotOnUpdate
+	public TBuilder setFinancialID(String id, String countryCode)
+		throws InvalidTaxIdentificationNumberException {
+		BillyValidator.mandatory(id,
+				BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
+		PTFinancialValidator validator = new PTFinancialValidator(id);
+
+		if (PTFinancialValidator.PT_COUNTRY_CODE.equals(countryCode)
+				&& !validator.isValid()) {
+			throw new InvalidTaxIdentificationNumberException();
+		}
+		this.getTypeInstance().setFinancialID(id);
+		return this.getBuilder();
 	}
 
 	@Override

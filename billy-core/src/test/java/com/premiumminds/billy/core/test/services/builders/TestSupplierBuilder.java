@@ -96,7 +96,7 @@ public class TestSupplierBuilder extends AbstractTest {
 				.setName(mockSupplier.getName())
 				.setSelfBillingAgreement(mockSupplier.hasSelfBillingAgreement())
 				.setTaxRegistrationNumber(
-						mockSupplier.getTaxRegistrationNumber())
+						mockSupplier.getTaxRegistrationNumber(), null)
 				.setShippingAddress(mockShippingAddressBuilder);
 
 		Supplier supplier = builder.build();

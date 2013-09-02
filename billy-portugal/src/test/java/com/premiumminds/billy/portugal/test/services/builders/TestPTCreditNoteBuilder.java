@@ -75,7 +75,8 @@ public class TestPTCreditNoteBuilder extends PTAbstractTest {
 				.getMock(PTCreditNoteEntry.Builder.class);
 		Mockito.when(entry1.build()).thenReturn(creditNodeEntries.get(0));
 
-		builder.addEntry(entry1).setBilled(mock.isBilled())
+		builder.setCurrency(Currency.getInstance("EUR"))
+				.addEntry(entry1).setBilled(mock.isBilled())
 				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
 				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())
