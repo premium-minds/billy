@@ -75,7 +75,7 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 				.getMock(GenericInvoiceEntry.Builder.class);
 		Mockito.when(invoice1.build()).thenReturn(invoiceEntrys.get(0));
 
-		builder.addEntry(invoice1).setCreditOrDebit(mock.getCreditOrDebit())
+		builder.addEntry(invoice1)
 				.setBatchId(mock.getBatchId()).setDate(mock.getDate())
 				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
 				.setOfficeNumber(mock.getOfficeNumber())
@@ -97,7 +97,6 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
 				invoice.getAmountWithTax()) == 0);
 		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
 
-		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
 		Assert.assertEquals(mock.getGeneralLedgerDate(),
 				invoice.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());

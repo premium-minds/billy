@@ -74,7 +74,6 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 
 		builder.setCurrency(mock.getCurrency()).addEntry(entry).setBilled(mock.isBilled())
 				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
-				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())
 				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
 				.setOfficeNumber(mock.getOfficeNumber())
@@ -97,7 +96,6 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 		Assert.assertTrue(invoice.isBilled() == mock.isBilled());
 		Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
 
-		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
 		Assert.assertEquals(mock.getGeneralLedgerDate(),
 				invoice.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());

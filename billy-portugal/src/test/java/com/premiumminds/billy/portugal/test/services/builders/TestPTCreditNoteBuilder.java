@@ -78,7 +78,6 @@ public class TestPTCreditNoteBuilder extends PTAbstractTest {
 		builder.setCurrency(Currency.getInstance("EUR"))
 				.addEntry(entry1).setBilled(mock.isBilled())
 				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
-				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())
 				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
 				.setOfficeNumber(mock.getOfficeNumber())
@@ -101,8 +100,6 @@ public class TestPTCreditNoteBuilder extends PTAbstractTest {
 		Assert.assertTrue(creditNote.isBilled() == mock.isBilled());
 		Assert.assertTrue(creditNote.isCancelled() == mock.isCancelled());
 
-		Assert.assertEquals(mock.getCreditOrDebit(),
-				creditNote.getCreditOrDebit());
 		Assert.assertEquals(mock.getGeneralLedgerDate(),
 				creditNote.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), creditNote.getBatchId());

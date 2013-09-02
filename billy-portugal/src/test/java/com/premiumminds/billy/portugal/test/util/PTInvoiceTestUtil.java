@@ -92,7 +92,6 @@ public class PTInvoiceTestUtil {
 				.setCancelled(PTInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
-				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
 				.setBusinessUID(business.getUID());
 	}
