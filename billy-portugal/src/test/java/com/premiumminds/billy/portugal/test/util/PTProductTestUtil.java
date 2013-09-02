@@ -28,16 +28,16 @@ import com.premiumminds.billy.portugal.util.Taxes;
 
 public class PTProductTestUtil {
 
-	private static final String			NUMBER_CODE		= "123";
-	private static final String			UNIT_OF_MEASURE	= "Kg";
-	private static final String			PRODUCT_CODE	= "12345";
-	private static final String			DESCRIPTION		= "DESCRIPTION";
-	private static final String			GROUP			= "FOOD";
-	private static final ProductType	TYPE			= ProductType.GOODS;
+	private static final String NUMBER_CODE = "123";
+	private static final String UNIT_OF_MEASURE = "Kg";
+	private static final String PRODUCT_CODE = "12345";
+	private static final String DESCRIPTION = "DESCRIPTION";
+	private static final String GROUP = "FOOD";
+	private static final ProductType TYPE = ProductType.GOODS;
 
-	private Injector					injector;
-	private Taxes						taxes;
-	private PTTaxEntity					tax;
+	private Injector injector;
+	private Taxes taxes;
+	private PTTaxEntity tax;
 
 	public PTProductTestUtil(Injector injector) {
 		this.injector = injector;
@@ -84,4 +84,27 @@ public class PTProductTestUtil {
 				type).build();
 
 	}
+
+	public PTProductEntity getOtherRegionProductEntity(String region) {
+
+		PTTaxEntity taxRegion;
+
+		PTProduct.Builder productBuilder = this.injector
+				.getInstance(PTProduct.Builder.class);
+
+		if (region.equals("PT-20"))
+			taxRegion = (PTTaxEntity) this.taxes.azores().normal();
+		else
+			taxRegion = (PTTaxEntity) this.taxes.madeira().normal();
+
+		productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(PTProductTestUtil.NUMBER_CODE)
+				.setUnitOfMeasure(PTProductTestUtil.UNIT_OF_MEASURE)
+				.setProductCode(PTProductTestUtil.PRODUCT_CODE)
+				.setDescription(PTProductTestUtil.DESCRIPTION)
+				.setType(PTProductTestUtil.TYPE)
+				.setProductGroup(PTProductTestUtil.GROUP);
+
+		return (PTProductEntity) productBuilder.build();
+	}
+
 }
