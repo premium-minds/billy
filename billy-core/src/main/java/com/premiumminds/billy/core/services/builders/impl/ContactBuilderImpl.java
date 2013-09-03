@@ -44,7 +44,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name,
+		BillyValidator.notBlank(name,
 				ContactBuilderImpl.LOCALIZER.getString("field.contact_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -94,6 +94,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 	protected void validateInstance()
 		throws javax.validation.ValidationException {
 		Contact c = this.getTypeInstance();
+		BillyValidator.mandatory(c.getTelephone(), "field.contact_telephone");
 		BillyValidator.mandatory(c.getName(), "field.contact_name");
 	}
 

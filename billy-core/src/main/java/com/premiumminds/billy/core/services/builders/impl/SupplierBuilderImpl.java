@@ -145,6 +145,9 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 		BillyValidator.mandatory(s.getMainAddress(),
 				SupplierBuilderImpl.LOCALIZER
 						.getString("field.supplier_address"));
+		BillyValidator.notEmpty(s.getAddresses(),
+				SupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_address"));
 	}
 
 	@SuppressWarnings("unchecked")

@@ -27,7 +27,6 @@ import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
-import org.joda.time.field.ScaledDurationField;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
@@ -303,17 +302,17 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	public TBuilder setScale(int scale) {
+		BillyValidator.notNull(scale);
 		this.getTypeInstance().setScale(scale);
 		return this.getBuilder();
 	}
-
+	
 	@NotOnUpdate
 	@Override
 	protected void validateInstance() throws ValidationException {
 		GenericInvoiceEntity i = this.getTypeInstance();
-		BillyValidator.mandatory(i.getCurrency(),
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_currency"));
+		BillyValidator.mandatory(i.getCustomer(),GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
+		BillyValidator.mandatory(i.getSupplier(),GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));
 		this.validateDate();
 		this.validateValues();
 	}
@@ -337,17 +336,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		BigDecimal amountWithoutTax = BigDecimal.ZERO;
 
 		for (GenericInvoiceEntry e : this.getTypeInstance().getEntries()) {
-
-			/*
-			 * amountWithTax = amountWithTax.add(
-			 * e.getAmountWithTax().setScale(i.getScale(),
-			 * mc.getRoundingMode()), mc); taxAmount = taxAmount.add(
-			 * e.getTaxAmount().setScale(i.getScale(), mc.getRoundingMode()),
-			 * mc); amountWithoutTax =
-			 * amountWithoutTax.add(e.getAmountWithoutTax()
-			 * .setScale(i.getScale(), mc.getRoundingMode()), mc);
-			 */
-
+			
 			amountWithTax = amountWithTax.add(e.getUnitAmountWithTax()
 					.multiply(e.getQuantity(), mc), mc);
 			taxAmount = taxAmount.add(

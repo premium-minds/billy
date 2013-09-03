@@ -46,7 +46,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name,
+		BillyValidator.notBlank(name,
 				ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -54,7 +54,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setDescription(String description) {
-		BillyValidator.mandatory(description,
+		BillyValidator.notBlank(description,
 				ContextBuilderImpl.LOCALIZER.getString("field.description"));
 		this.getTypeInstance().setDescription(description);
 		return this.getBuilder();
