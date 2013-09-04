@@ -26,6 +26,8 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
+import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
@@ -52,6 +54,7 @@ public class PTInvoiceTestUtil {
 	protected PTInvoiceEntryTestUtil invoiceEntry;
 	protected PTBusinessTestUtil business;
 	protected PTCustomerTestUtil customer;
+	protected PTPaymentTestUtil payment;
 
 	public PTInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
@@ -59,6 +62,7 @@ public class PTInvoiceTestUtil {
 		this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
 		this.business = new PTBusinessTestUtil(injector);
 		this.customer = new PTCustomerTestUtil(injector);
+		this.payment = new PTPaymentTestUtil(injector);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
@@ -98,7 +102,8 @@ public class PTInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
-				.setBusinessUID(business.getUID());
+				.setBusinessUID(business.getUID())
+				.addPayment(payment.getPaymentBuilder());
 	}
 
 	public PTInvoiceEntity getDiferentRegionsInvoice() {
@@ -138,7 +143,8 @@ public class PTInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
-				.setBusinessUID(business.getBusinessEntity().getUID());
+				.setBusinessUID(business.getBusinessEntity().getUID())
+				.addPayment(payment.getPaymentBuilder());
 		
 		return (PTInvoiceEntity) invoiceBuilder.build();
 	}
@@ -169,7 +175,8 @@ public class PTInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
-				.setBusinessUID(business.getBusinessEntity().getUID());
+				.setBusinessUID(business.getBusinessEntity().getUID())
+				.addPayment(payment.getPaymentBuilder());
 		
 		return (PTInvoiceEntity) invoiceBuilder.build();
 	}
@@ -207,7 +214,8 @@ public class PTInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
-				.setBusinessUID(business.getBusinessEntity().getUID());
+				.setBusinessUID(business.getBusinessEntity().getUID())
+				.addPayment(payment.getPaymentBuilder());
 		
 		return (PTInvoiceEntity) invoiceBuilder.build();
 	}

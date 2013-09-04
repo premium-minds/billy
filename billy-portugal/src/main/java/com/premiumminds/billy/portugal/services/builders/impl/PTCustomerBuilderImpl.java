@@ -53,7 +53,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@NotOnUpdate
 	public TBuilder setTaxRegistrationNumber(String number, String countryCode)
 		throws InvalidTaxIdentificationNumberException {
-		BillyValidator.mandatory(number, CustomerBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(number, CustomerBuilderImpl.LOCALIZER
 				.getString("field.customer_tax_number"));
 
 		PTFinancialValidator validator = new PTFinancialValidator(number);
@@ -74,7 +74,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder,
+		BillyValidator.notNull(addressBuilder,
 				PTCustomerBuilderImpl.LOCALIZER
 						.getString("field.customer_billing_address"));
 		this.getTypeInstance().setBillingAddress(
@@ -84,7 +84,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
-		BillyValidator.mandatory(selfBiling, PTCustomerBuilderImpl.LOCALIZER
+		BillyValidator.notNull(selfBiling, PTCustomerBuilderImpl.LOCALIZER
 				.getString("field.customer_self_billing_agreement"));
 		this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
 		return this.getBuilder();

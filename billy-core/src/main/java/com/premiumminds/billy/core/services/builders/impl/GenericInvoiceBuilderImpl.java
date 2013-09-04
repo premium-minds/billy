@@ -285,9 +285,11 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	@Override
 	@NotOnUpdate
 	public <T extends Payment> TBuilder addPayment(Builder<T> paymentBuilder) {
+		GenericInvoiceEntity i = this.getTypeInstance();
 		BillyValidator.notNull(paymentBuilder,
 				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment"));
-		this.getTypeInstance().getPayments().add(paymentBuilder.build());
+		Payment p = paymentBuilder.build();
+		i.getPayments().add(p);
 		return this.getBuilder();
 	}
 

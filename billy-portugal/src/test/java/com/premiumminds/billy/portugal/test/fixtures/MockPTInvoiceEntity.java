@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.fixtures;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
@@ -62,7 +63,7 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	}
 
 	public MockPTInvoiceEntity() {
-
+		this.payments = new ArrayList<PTPayment>();
 	}
 
 	@Override

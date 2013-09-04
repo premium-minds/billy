@@ -48,6 +48,7 @@ public class PTSimpleInvoiceTestUtil {
 	protected PTInvoiceEntryTestUtil	invoiceEntry;
 	protected PTBusinessTestUtil		business;
 	protected PTCustomerTestUtil		customer;
+	protected PTPaymentTestUtil			payment;
 
 	public PTSimpleInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
@@ -55,6 +56,7 @@ public class PTSimpleInvoiceTestUtil {
 		this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
 		this.business = new PTBusinessTestUtil(injector);
 		this.customer = new PTCustomerTestUtil(injector);
+		this.payment = new PTPaymentTestUtil(injector);
 	}
 
 	public PTSimpleInvoiceEntity getSimpleInvoiceEntity() {
@@ -91,7 +93,8 @@ public class PTSimpleInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
-				.setBusinessUID(businessEntity.getUID());
+				.setBusinessUID(businessEntity.getUID())
+				.addPayment(payment.getPaymentBuilder());
 	}
 
 }
