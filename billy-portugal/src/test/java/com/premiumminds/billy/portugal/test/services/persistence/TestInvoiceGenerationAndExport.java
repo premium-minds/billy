@@ -44,13 +44,13 @@ public class TestInvoiceGenerationAndExport extends
 	
 	@Before
 	public void setUp() throws DocumentIssuingException, MalformedURLException {
-		this.invoice = getNewIssuedInvoice();
-		this.creditNote = getNewIssuedCreditnote(invoice);
-		
-		PTApplication.Builder appBuilder = new PTApplicationTestUtil(injector).getApplicationBuilder();
-		appUID = new UID();
-		appBuilder.setUID(appUID);
-		billy.applications().persistence().create(appBuilder);
+//		this.invoice = getNewIssuedInvoice();
+//		this.creditNote = getNewIssuedCreditnote(invoice);
+//		
+//		PTApplication.Builder appBuilder = new PTApplicationTestUtil(injector).getApplicationBuilder();
+//		appUID = new UID();
+//		appBuilder.setUID(appUID);
+//		billy.applications().persistence().create(appBuilder);
 		
 	}
 	
@@ -59,7 +59,7 @@ public class TestInvoiceGenerationAndExport extends
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2013, 1, 1);
 		Date tau = calendar.getTime();
-		billy.saft().export(appUID, invoice.getBusiness().getUID(), "1", tau, new Date());
+		billy.saft().export(new UID("EOS"), new UID("MAKSU_PT"), "1", tau, new Date());
 	}
 
 }
