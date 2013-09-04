@@ -85,7 +85,7 @@ public interface GenericInvoice extends Entity {
 
 	public String getPaymentTerms();
 
-	public boolean isSelfBilled();
+	public Boolean isSelfBilled();
 
 	public String getSourceId();
 
@@ -111,6 +111,6 @@ public interface GenericInvoice extends Entity {
 
 	public CreditOrDebit getCreditOrDebit();
 	
-	public int getScale();
+	public Integer getScale();
 
 }

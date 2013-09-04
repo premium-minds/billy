@@ -20,26 +20,31 @@ package com.premiumminds.billy.portugal.test.fixtures;
 
 import java.util.List;
 
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
-	implements PTSimpleInvoiceEntity {
+		implements PTSimpleInvoiceEntity {
 
-	private static final long	serialVersionUID	= 1L;
+	private static final long serialVersionUID = 1L;
 
-	protected boolean			cancelled;
-	protected boolean			billed;
-	protected String			reason;
-	protected String			hash;
-	protected String			sourceHash;
-	protected String			hashControl;
-	protected SourceBilling		sourceBilling;
-	protected String			eacCode;
-	protected TYPE				type;
-	protected List<PTPayment>	payments;
+	protected boolean cancelled;
+	protected boolean billed;
+	protected String reason;
+	protected String hash;
+	protected String sourceHash;
+	protected String hashControl;
+	protected SourceBilling sourceBilling;
+	protected String eacCode;
+	protected TYPE type;
+	protected List<PTPayment> payments;
+	public CLIENTTYPE clientType;
 
 	public MockPTSimpleInvoiceEntity() {
 
@@ -144,6 +149,16 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	@Override
 	public List<PTPayment> getPayments() {
 		return payments;
+	}
+
+	@Override
+	public CLIENTTYPE getClientType() {
+		return clientType;
+	}
+
+	@Override
+	public void setClientType(CLIENTTYPE type) {
+		clientType = type;
 	}
 
 }

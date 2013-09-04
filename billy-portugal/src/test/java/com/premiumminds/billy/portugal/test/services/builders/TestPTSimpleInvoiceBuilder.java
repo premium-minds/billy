@@ -32,22 +32,24 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTSimpleInvoiceEntity;
 
 public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 
-	private static final String	PT_INVOICE_YML			= AbstractTest.YML_CONFIGS_DIR
-																+ "PTInvoice.yml";
-	private static final String	PT_INVOICE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
-																+ "PTInvoiceEntry.yml";
+	private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "PTInvoice.yml";
+	private static final String PT_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "PTInvoiceEntry.yml";
 
 	@Test
 	public void doTest() {
 		MockPTSimpleInvoiceEntity mock = this.createMockEntity(
 				MockPTSimpleInvoiceEntity.class,
 				TestPTSimpleInvoiceBuilder.PT_INVOICE_YML);
+		mock.setClientType(CLIENTTYPE.CUSTOMER);
 
 		Mockito.when(
 				this.getInstance(DAOPTSimpleInvoice.class).getEntityInstance())
@@ -74,8 +76,7 @@ public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 
 		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
-		builder.setCurrency(Currency.getInstance("EUR"))
-				.addEntry(entry).setBilled(mock.isBilled())
+		builder.addEntry(entry).setBilled(mock.isBilled())
 				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
 				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())
@@ -88,7 +89,8 @@ public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 				.setSettlementDiscount(mock.getSettlementDiscount())
 				.setSourceId(mock.getSourceId())
 				.setTransactionId(mock.getTransactionId())
-				.setSourceBilling(mock.getSourceBilling());
+				.setSourceBilling(mock.getSourceBilling())
+				.setClientType(mock.getClientType());
 
 		PTSimpleInvoice invoice = builder.build();
 

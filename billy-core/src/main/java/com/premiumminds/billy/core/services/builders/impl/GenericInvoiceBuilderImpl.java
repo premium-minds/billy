@@ -79,6 +79,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 	@Override
 	@NotOnUpdate
+	@NotImplemented
 	public TBuilder setCurrency(Currency currency) {
 		BillyValidator
 				.notNull(currency, GenericInvoiceBuilderImpl.LOCALIZER
@@ -311,9 +312,9 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	@Override
 	protected void validateInstance() throws ValidationException {
 		GenericInvoiceEntity i = this.getTypeInstance();
-		BillyValidator.mandatory(i.getCurrency(),
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_currency"));
+		if(i.isSelfBilled() != null) {
+			i.setSelfBilled(false);
+		}
 		this.validateDate();
 		this.validateValues();
 	}
@@ -329,6 +330,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	protected void validateValues() throws ValidationException {
 
 		GenericInvoiceEntity i = this.getTypeInstance();
+		i.setCurrency(Currency.getInstance("EUR"));
 
 		MathContext mc = BillyMathContext.get();
 

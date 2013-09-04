@@ -33,7 +33,7 @@ public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder
 	PTAddressBuilder<TBuilder, TAddress> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	protected PTAddressBuilderImpl(DAOPTAddress daoPTAddress) {

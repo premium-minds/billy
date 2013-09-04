@@ -56,7 +56,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public ShippingPointEntity shippingOrigin;
 	public ShippingPointEntity shippingDestination;
 	public String paymentTerms;
-	public boolean selfBilled;
+	public Boolean selfBilled;
 	public String sourceId;
 	public Date generalLedgerDate;
 	public String batchId;
@@ -142,7 +142,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public boolean isSelfBilled() {
+	public Boolean isSelfBilled() {
 		return this.selfBilled;
 	}
 
@@ -192,12 +192,12 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 	
 	@Override
-	public int getScale(){
+	public Integer getScale(){
 		return this.scale;
 	}
 	
 	@Override
-	public void setScale(int scale){
+	public void setScale(Integer scale){
 		this.scale = scale;
 	}
 
@@ -268,7 +268,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public void setSelfBilled(boolean selfBilled) {
+	public void setSelfBilled(Boolean selfBilled) {
 		this.selfBilled = selfBilled;
 	}
 

@@ -252,8 +252,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 		GenericInvoice.Builder builder = this
 				.getInstance(GenericInvoice.Builder.class);
 
-		builder.setCurrency(Currency.getInstance("EUR"))
-				.setCreditOrDebit(mockInvoiceEntity.getCreditOrDebit())
+		builder.setCreditOrDebit(mockInvoiceEntity.getCreditOrDebit())
 				.setBatchId(mockInvoiceEntity.getBatchId())
 				.setDate(mockInvoiceEntity.getDate())
 				.setGeneralLedgerDate(mockInvoiceEntity.getGeneralLedgerDate())

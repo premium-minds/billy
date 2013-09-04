@@ -35,7 +35,7 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
 	PTTaxBuilder<TBuilder, TTax> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {

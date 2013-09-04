@@ -85,8 +85,6 @@ public class PTInvoiceTestUtil {
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
 
-		invoiceBuilder.setCurrency(Currency.getInstance("EUR"));
-
 		PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 				.getInvoiceEntryBuilder();
 		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
@@ -113,8 +111,6 @@ public class PTInvoiceTestUtil {
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
 
-		invoiceBuilder.setCurrency(Currency.getInstance("EUR"));
-		
 		PTInvoiceEntry.Builder invoiceEntryBuilder2 = this.invoiceEntry
 				.getInvoiceOtherRegionsEntryBuilder("PT-20");
 		invoiceEntryBuilder2.setUnitAmount(AmountType.WITH_TAX, price);
@@ -154,8 +150,6 @@ public class PTInvoiceTestUtil {
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
 
-		invoiceBuilder.setCurrency(Currency.getInstance("EUR"));
-
 		for(int i = 0; i < 9; i++){
 			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
 					.getInvoiceEntryBuilder();
@@ -184,8 +178,6 @@ public class PTInvoiceTestUtil {
 
 		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
 		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
-
-		invoiceBuilder.setCurrency(Currency.getInstance("EUR"));
 
 		for(int i = 0; i < 9; i++){
 			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry

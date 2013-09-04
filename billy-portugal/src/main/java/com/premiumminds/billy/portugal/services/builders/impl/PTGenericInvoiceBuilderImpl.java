@@ -41,7 +41,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 	PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTGenericInvoiceBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice,
