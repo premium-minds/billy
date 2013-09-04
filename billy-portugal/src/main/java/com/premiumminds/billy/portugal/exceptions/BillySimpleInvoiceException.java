@@ -16,23 +16,20 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.entities;
+package com.premiumminds.billy.portugal.exceptions;
 
-import java.util.List;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
-public interface PTSimpleInvoiceEntity extends PTInvoiceEntity, PTSimpleInvoice {
+public class BillySimpleInvoiceException extends BillyRuntimeException {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<PTInvoiceEntry> getEntries();
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<PTPayment> getPayments();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
-	public void setClientType(CLIENTTYPE type);
+	public BillySimpleInvoiceException(String message) {
+		super(message);
+	}
+
 }

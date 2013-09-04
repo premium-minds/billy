@@ -37,6 +37,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntit
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;
 import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
@@ -67,7 +68,7 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends
 					.getBusinessEntity("business");
 			PTSimpleInvoice.Builder simpleInvoiceBuilder = new PTSimpleInvoiceTestUtil(
 					injector).getSimpleInvoiceBuilder(business,
-					TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
+					TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, CLIENTTYPE.CUSTOMER);
 
 			ticketManager = getInstance(TicketManager.class);
 
@@ -171,7 +172,7 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends
 		PTSimpleInvoice.Builder builder = new PTSimpleInvoiceTestUtil(injector)
 				.getSimpleInvoiceBuilder(
 						business,
-						TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
+						TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, CLIENTTYPE.CUSTOMER);
 
 		try {
 
@@ -195,7 +196,7 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends
 				.getBusinessEntity("business");
 		PTSimpleInvoice.Builder testinvoice = new PTSimpleInvoiceTestUtil(
 				injector).getSimpleInvoiceBuilder(business,
-				TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
+				TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, CLIENTTYPE.CUSTOMER);
 
 		EntityManager em = injector.getInstance(EntityManager.class);
 		em.getTransaction().begin();
