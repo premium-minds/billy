@@ -58,9 +58,10 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 		PTInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
 
 		PTInvoice peristedInvoice = billy.invoices().persistence().get(issuedInvoice.getUID());	
-		assertEquals(true, peristedInvoice.isBilled());
+		assertEquals(false, peristedInvoice.isBilled());
 
 		builder = billy.invoices().builder(peristedInvoice);
+		builder.setBilled(true);
 		builder.setBilled(false);
 	}
 

@@ -74,8 +74,7 @@ public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 
 		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
-		builder.setCurrency(Currency.getInstance("EUR"))
-				.addEntry(entry).setBilled(mock.isBilled())
+		builder.addEntry(entry).setBilled(mock.isBilled())
 				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
 				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())

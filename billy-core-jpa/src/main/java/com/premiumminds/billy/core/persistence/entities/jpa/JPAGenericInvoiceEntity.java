@@ -155,7 +155,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	protected CreditOrDebit creditOrDebit;
 	
 	@Column(name = "SCALE")
-	protected int scale;
+	protected Integer scale;
 
 	@ElementCollection
 	@CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER", joinColumns = @JoinColumn(name = "ID_INVOICE"))
@@ -179,7 +179,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 	
 	@Override
-	public int getScale(){
+	public Integer getScale(){
 		return this.getScale();
 	}
 
@@ -257,7 +257,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public boolean isSelfBilled() {
+	public Boolean isSelfBilled() {
 		return this.selfBilled;
 	}
 
@@ -388,7 +388,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public void setSelfBilled(boolean selfBilled) {
+	public void setSelfBilled(Boolean selfBilled) {
 		this.selfBilled = selfBilled;
 	}
 
@@ -449,7 +449,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 	
 	@Override
-	public void setScale(int scale){
+	public void setScale(Integer scale){
 		this.scale = scale;
 	}
 
