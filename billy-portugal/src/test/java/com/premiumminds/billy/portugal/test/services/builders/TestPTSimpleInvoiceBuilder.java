@@ -35,6 +35,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTCustomerEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntryEntity;
@@ -61,6 +62,8 @@ public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 
 		MockPTCustomerEntity mockCustomerEntity = this.createMockEntity(
 				MockPTCustomerEntity.class, PTCUSTOMER_YML);
+		
+		mock.setClientType(CLIENTTYPE.CUSTOMER);
 
 		Mockito.when(
 				this.getInstance(DAOPTSimpleInvoice.class).getEntityInstance())
@@ -121,6 +124,7 @@ public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 				.setSourceId(mock.getSourceId())
 				.setTransactionId(mock.getTransactionId())
 				.setSourceBilling(mock.getSourceBilling())
+				.setClientType(mock.getClientType())
 				.setCustomerUID(mockCustomerEntity.getUID())
 				.addPayment(builderPayment);
 

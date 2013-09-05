@@ -32,6 +32,7 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 
 public class PTSimpleInvoiceTestUtil {
 
@@ -104,7 +105,8 @@ public class PTSimpleInvoiceTestUtil {
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
 				.setBusinessUID(businessEntity.getUID())
-				.addPayment(payment.getPaymentBuilder());
+				.addPayment(payment.getPaymentBuilder())
+				.setClientType(clientType);
 	}
 
 }
