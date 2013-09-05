@@ -52,7 +52,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 				.getInstance(PortugalDependencyModule.Initializer.class);
 		PTAbstractTest.injector
 				.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
-//		PortugalBootstrap.execute(PTAbstractTest.injector);
+		PortugalBootstrap.execute(PTAbstractTest.injector);
 	}
 
 	@After

@@ -56,10 +56,11 @@ public class TestInvoiceGenerationAndExport extends
 	
 	@Test
 	public void testExportInvoice() throws SAFTPTExportException, IOException {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(2013, 1, 1);
-		Date tau = calendar.getTime();
-		billy.saft().export(new UID("EOS"), new UID("MAKSU_PT"), "1", tau, new Date());
+//		TO USE with EOS DB
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.set(2013, 1, 1);
+//		Date tau = calendar.getTime();
+//		billy.saft().export(new UID("EOS"), new UID("MAKSU_PT"), "1", tau, new Date());
 	}
 
 }
