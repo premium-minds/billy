@@ -27,6 +27,10 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.services.builders.impl.PTSimpleInvoiceBuilderImpl;
 
 public interface PTSimpleInvoice extends PTInvoice {
+	
+	public static enum CLIENTTYPE {
+		CUSTOMER, BUSINESS
+	}
 
 	public static class Builder extends
 		PTSimpleInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTSimpleInvoice> {
@@ -39,4 +43,6 @@ public interface PTSimpleInvoice extends PTInvoice {
 					daoPTSupplier);
 		}
 	}
+	
+	public CLIENTTYPE getClientType();
 }

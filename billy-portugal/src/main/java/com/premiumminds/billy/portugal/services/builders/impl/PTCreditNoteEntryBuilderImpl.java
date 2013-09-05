@@ -40,7 +40,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 	PTCreditNoteEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	public PTCreditNoteEntryBuilderImpl(DAOPTCreditNoteEntry daoPTCreditNoteEntry,
 										DAOPTInvoice daoPTInvoice,

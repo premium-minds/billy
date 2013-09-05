@@ -34,7 +34,7 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
 	PTRegionContextBuilder<TBuilder, TContext> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTRegionContextBuilderImpl(DAOPTRegionContext daoPTContext) {

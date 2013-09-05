@@ -88,8 +88,7 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 				.setSettlementDiscount(mock.getSettlementDiscount())
 				.setSourceId(mock.getSourceId())
 				.setTransactionId(mock.getTransactionId())
-				.setSourceBilling(mock.getSourceBilling())
-				.setCurrency(mock.getCurrency());
+				.setSourceBilling(mock.getSourceBilling());
 
 		PTGenericInvoice invoice = builder.build();
 

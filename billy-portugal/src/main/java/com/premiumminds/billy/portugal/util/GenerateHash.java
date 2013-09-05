@@ -27,6 +27,7 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.portugal.services.certification.CertificationManager;
 
 public class GenerateHash {
@@ -68,7 +69,7 @@ public class GenerateHash {
 		builder.append(date.format(invoiceDate)).append(';')
 				.append(dateTime.format(systemEntryDate)).append(';')
 				.append(invoiceNumber).append(';')
-				.append(grossTotal.setScale(2)).append(';')
+				.append(grossTotal.setScale(BillyMathContext.SCALE, BillyMathContext.get().getRoundingMode())).append(';')
 				.append(previousInvoiceHash == null ? "" : previousInvoiceHash);
 
 		String sourceString = builder.toString();

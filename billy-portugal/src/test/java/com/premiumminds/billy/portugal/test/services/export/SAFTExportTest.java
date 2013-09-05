@@ -53,6 +53,7 @@ import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
 import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
@@ -211,12 +212,12 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 				.getInstance(DAOPTSimpleInvoice.class);
 		this.parameters.setInvoiceSeries("S");
 		service.issue(simpleInvoice.getSimpleInvoiceBuilder(businessEntity,
-				SourceBilling.P), this.parameters);
+				SourceBilling.P, CLIENTTYPE.CUSTOMER), this.parameters);
 
 		// MANUAL SIMPLE INVOICE
 		this.parameters.setInvoiceSeries("M");
 		service.issue(simpleInvoice.getSimpleInvoiceBuilder(businessEntity,
-				SourceBilling.M), this.parameters);
+				SourceBilling.M, CLIENTTYPE.CUSTOMER), this.parameters);
 
 		// RECEIPT INVOICE
 		DAOPTReceiptInvoice daoPTReceiptInvoice = PTAbstractTest.injector

@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
@@ -32,6 +33,9 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
 	extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
 	PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+	
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
 									DAOPTBusiness daoPTBusiness,

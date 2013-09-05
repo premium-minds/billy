@@ -69,7 +69,6 @@ public class PTCreditNoteTestUtil {
 				.getCreditNoteEntryBuilder(reference);
 
 		return creditNoteBuilder
-				.setCurrency(Currency.getInstance("EUR"))
 				.setBilled(PTCreditNoteTestUtil.BILLED)
 				.setCancelled(PTCreditNoteTestUtil.CANCELLED)
 				.setSelfBilled(PTCreditNoteTestUtil.SELFBILL)

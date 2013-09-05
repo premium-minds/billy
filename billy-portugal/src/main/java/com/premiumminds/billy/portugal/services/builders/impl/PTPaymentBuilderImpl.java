@@ -39,7 +39,7 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 		PTPaymentBuilder<TBuilder, TPayment> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
 
 	@Inject
 	public PTPaymentBuilderImpl(DAOPTPayment daoPTPayment) {

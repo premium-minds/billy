@@ -61,7 +61,7 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
 	public void setPaymentTerms(String terms);
 
-	public void setSelfBilled(boolean selfBilled);
+	public void setSelfBilled(Boolean selfBilled);
 
 	public void setSourceId(String source);
 
@@ -89,6 +89,6 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit);
 	
-	public void setScale(int scale);
+	public void setScale(Integer scale);
 
 }

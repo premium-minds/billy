@@ -24,22 +24,26 @@ import org.junit.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.exceptions.BillySimpleInvoiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
+import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 
 public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
-	private static final TYPE				DEFAULT_TYPE	= TYPE.FS;
-	private static final SourceBilling		SOURCE_BILLING	= SourceBilling.P;
+	private static final TYPE DEFAULT_TYPE = TYPE.FS;
+	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
-	private PTSimpleInvoiceIssuingHandler	handler;
-	private UID								issuedInvoiceUID;
+	private PTSimpleInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
 
 	@Before
 	public void setUpNewSimpleInvoice() {
@@ -71,6 +75,13 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
 		Assert.assertEquals(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING,
 				issuedInvoice.getSourceBilling());
+	}
+
+	@Test(expected=BillySimpleInvoiceException.class)
+	public void testBusinessSimpleInvoice() {
+		PTSimpleInvoiceEntity invoice = new PTSimpleInvoiceTestUtil(
+				PTAbstractTest.injector).getSimpleInvoiceEntity(SOURCE_BILLING,
+				CLIENTTYPE.BUSINESS);
 	}
 
 }

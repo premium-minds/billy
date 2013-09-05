@@ -35,7 +35,7 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 	PTProductBuilder<TBuilder, TProduct> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTProductBuilderImpl(DAOPTProduct daoPTProduct, DAOPTTax daoPTTax) {

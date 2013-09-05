@@ -37,7 +37,7 @@ public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImp
 	PTInvoiceEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTInvoiceEntryBuilderImpl(DAOPTInvoiceEntry daoPTEntry,

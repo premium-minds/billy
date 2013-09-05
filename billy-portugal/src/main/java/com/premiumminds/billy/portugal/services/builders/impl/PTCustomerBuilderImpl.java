@@ -41,7 +41,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	PTCustomerBuilder<TBuilder, TCustomer> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	protected PTCustomerBuilderImpl(DAOPTCustomer daoPTCustomer,

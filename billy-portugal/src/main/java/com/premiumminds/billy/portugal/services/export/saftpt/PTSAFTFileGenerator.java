@@ -1,20 +1,21 @@
 /**
  * Copyright (C) 2013 Premium Minds.
- *
+ * 
  * This file is part of billy portugal (PT Pack).
- *
- * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
- * the terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation, either version 3 of the License, or (at your option) any
- * later version.
- *
- * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
- * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
- * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details.
- *
+ * 
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ * 
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
+ * General Public License for more details.
+ * 
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see
+ * <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.export.saftpt;
 
@@ -148,7 +149,7 @@ public class PTSAFTFileGenerator {
 	private final String ACCOUNT_ID = "Desconhecido";
 	private final String SELF_BILLING_INDICATOR = "0";
 	private final String UNIT_OF_MEASURE = "Unidade";
-	
+
 	private final DAOPTCustomer daoCustomer;
 	private final DAOPTSupplier daoSupplier;
 	private final DAOPTProduct daoProduct;
@@ -159,16 +160,11 @@ public class PTSAFTFileGenerator {
 	private final DAOPTReceiptInvoice daoPTReceiptInvoice;
 	private final DAOPTCreditNote daoPTCreditNote;
 
-
 	@Inject
-	public PTSAFTFileGenerator(
-			DAOPTCustomer daoCustomer,
-			DAOPTSupplier daoSupplier, 
-			DAOPTProduct daoProduct,
-			DAOPTTax daoPTTax,
-			DAOPTRegionContext daoPTRegionContext,
-			DAOPTInvoice daoPTInvoice,
-			DAOPTSimpleInvoice daoPTSimpleInvoice,
+	public PTSAFTFileGenerator(DAOPTCustomer daoCustomer,
+			DAOPTSupplier daoSupplier, DAOPTProduct daoProduct,
+			DAOPTTax daoPTTax, DAOPTRegionContext daoPTRegionContext,
+			DAOPTInvoice daoPTInvoice, DAOPTSimpleInvoice daoPTSimpleInvoice,
 			DAOPTReceiptInvoice daoPTReceiptInvoice,
 			DAOPTCreditNote daoPTCreditNote) {
 		this.daoCustomer = daoCustomer;
@@ -180,8 +176,7 @@ public class PTSAFTFileGenerator {
 		this.daoPTSimpleInvoice = daoPTSimpleInvoice;
 		this.daoPTReceiptInvoice = daoPTReceiptInvoice;
 		this.daoPTCreditNote = daoPTCreditNote;
-		
-		
+
 		this.config = new Config();
 
 		try {
@@ -721,8 +716,13 @@ public class PTSAFTFileGenerator {
 				.toString(getDateField(document.getDate(), Calendar.MONTH)),
 				MAX_LENGTH_2, true));
 		saftInv.setInvoiceDate(formatDate(document.getDate()));
-		saftInv.setSelfBillingIndicator(validateInteger("SelfBillingIndicator",
-				document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
+		if (document.isSelfBilled() != null) {
+			saftInv.setSelfBillingIndicator(validateInteger(
+					"SelfBillingIndicator",
+					document.isSelfBilled() ? "1" : "0", MAX_LENGTH_1, true));
+		} else {
+			saftInv.setSelfBillingIndicator(0);
+		}
 		saftInv.setSourceID(validateString("InvoiceSourceID",
 				document.getSourceId(), MAX_LENGTH_30, true));
 		if (document.getEACCode() != null) {

@@ -127,12 +127,13 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 		documentEntity.setSeries(series);
 		documentEntity.setSeriesNumber(seriesNumber);
 		documentEntity.setHash(newHash);
-		documentEntity.setBilled(true);
+		documentEntity.setBilled(false);
+		documentEntity.setCancelled(false);
 		documentEntity.setType(invoiceType);
 		documentEntity.setSourceHash(sourceHash);
 		documentEntity.setHashControl(parametersPT.getPrivateKeyVersion());
 		documentEntity.setEACCode(parametersPT.getEACCode());
-		documentEntity.setCurrency(Currency.getInstance("EUR"));
+		documentEntity.setCurrency(document.getCurrency());
 
 		daoInvoice.create(documentEntity);
 
