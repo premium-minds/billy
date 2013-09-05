@@ -70,8 +70,5 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 		BillyValidator.mandatory(p.getNumberCode(),
 				PTProductBuilderImpl.LOCALIZER
 						.getString("field.product_number_code"));
-		BillyValidator.mandatory(p.getUnitOfMeasure(),
-				PTProductBuilderImpl.LOCALIZER
-						.getString("field.unit_of_measure"));
 	}
 }

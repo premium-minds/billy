@@ -143,11 +143,11 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		// "PT");
 		PTAddress.Builder addressBuilder2 = address.getAddressBuilder(
 				"Av. Liberdade", "Nº 4 - 5º Dir.",
-				"Av. Liberdade, Nº 4 - 5º Dir.", "", "Lisboa", "1500-123", "",
+				"Av. Liberdade, Nº 4 - 5º Dir.", "nr building", "Lisboa", "1500-123", "Lisboa",
 				"PT");
 		PTAddress.Builder addressBuilder3 = address.getAddressBuilder(
-				"Campo Grande", "Condomínio X", "Lote 20, Andar 3", "",
-				"Lisboa", "1000-253", "", "PT");
+				"Campo Grande", "Condomínio X", "Lote 20, Andar 3", "Building nr K",
+				"Lisboa", "1000-253", "Lisboa", "PT");
 
 		/* CONTACTS */
 		PTContact.Builder contactBuilder = contact.getContactBuilder(

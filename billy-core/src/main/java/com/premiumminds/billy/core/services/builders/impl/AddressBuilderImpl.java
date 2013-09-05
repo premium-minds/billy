@@ -62,7 +62,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setDetails(String details) {
-		BillyValidator.mandatory(details,
+		BillyValidator.notBlank(details,
 				AddressBuilderImpl.LOCALIZER.getString("field.details"));
 		this.getTypeInstance().setDetails(details);
 		return this.getBuilder();
@@ -78,7 +78,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setCity(String city) {
-		BillyValidator.mandatory(city,
+		BillyValidator.notBlank(city,
 				AddressBuilderImpl.LOCALIZER.getString("field.city"));
 		this.getTypeInstance().setCity(city);
 		return this.getBuilder();
@@ -86,7 +86,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setPostalCode(String postalCode) {
-		BillyValidator.mandatory(postalCode,
+		BillyValidator.notBlank(postalCode,
 				AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
 		this.getTypeInstance().setPostalCode(postalCode);
 		return this.getBuilder();
@@ -102,7 +102,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setISOCountry(String country) {
-		BillyValidator.mandatory(country,
+		BillyValidator.notBlank(country,
 				AddressBuilderImpl.LOCALIZER.getString("field.country"));
 		this.getTypeInstance().setISOCountry(country);
 		return this.getBuilder();
@@ -111,14 +111,10 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		AddressEntity address = this.getTypeInstance();
-		BillyValidator.mandatory(address.getDetails(),
-				AddressBuilderImpl.LOCALIZER.getString("field.details"));
 		BillyValidator.mandatory(address.getCity(),
 				AddressBuilderImpl.LOCALIZER.getString("field.city"));
 		BillyValidator.mandatory(address.getPostalCode(),
 				AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
-		BillyValidator.mandatory(address.getISOCountry(),
-				AddressBuilderImpl.LOCALIZER.getString("field.country"));
 	}
 
 	@SuppressWarnings("unchecked")

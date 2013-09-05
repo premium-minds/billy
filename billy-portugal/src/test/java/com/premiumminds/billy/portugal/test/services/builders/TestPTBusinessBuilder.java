@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
+import org.h2.command.ddl.SetComment;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -94,7 +95,8 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 				.addContact(mockMainContactBuilder, true)
 				.setWebsite(mockBusiness.getWebsiteAddress())
 				.setOperationalContextUID(
-						mockBusiness.getOperationalContext().getUID());
+						mockBusiness.getOperationalContext().getUID())
+				.setCommercialName(mockBusiness.getCommercialName());
 
 		Business business = builder.build();
 

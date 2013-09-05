@@ -47,7 +47,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name, ApplicationBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(name, ApplicationBuilderImpl.LOCALIZER
 				.getString("field.application_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -55,7 +55,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setVersion(String version) {
-		BillyValidator.mandatory(version,
+		BillyValidator.notBlank(version,
 				ApplicationBuilderImpl.LOCALIZER.getString("field.version"));
 		this.getTypeInstance().setVersion(version);
 		return this.getBuilder();
@@ -63,7 +63,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setDeveloperCompanyName(String name) {
-		BillyValidator.mandatory(name, ApplicationBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(name, ApplicationBuilderImpl.LOCALIZER
 				.getString("field.developer_name"));
 		this.getTypeInstance().setDeveloperCompanyName(name);
 		return this.getBuilder();
@@ -71,7 +71,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setDeveloperCompanyTaxIdentifier(String id) {
-		BillyValidator.mandatory(id, ApplicationBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(id, ApplicationBuilderImpl.LOCALIZER
 				.getString("field.developer_tax_id"));
 		this.getTypeInstance().setDeveloperCompanyTaxIdentifier(id);
 		return this.getBuilder();
@@ -122,9 +122,9 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 				application.getDeveloperCompanyTaxIdentifier(),
 				ApplicationBuilderImpl.LOCALIZER
 						.getString("field.developer_tax_id"));
-		BillyValidator.notEmpty(application.getContacts(),
+		/*BillyValidator.notEmpty(application.getContacts(),
 				ApplicationBuilderImpl.LOCALIZER
-						.getString("field.application_contact"));
+						.getString("field.application_contact"));*/
 	}
 
 	@SuppressWarnings("unchecked")

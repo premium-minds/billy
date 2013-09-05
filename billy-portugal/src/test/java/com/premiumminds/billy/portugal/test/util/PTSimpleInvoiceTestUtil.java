@@ -32,7 +32,6 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 
 public class PTSimpleInvoiceTestUtil {
 
@@ -44,11 +43,12 @@ public class PTSimpleInvoiceTestUtil {
 	protected static final Integer SERIE_NUMBER = 1;
 	protected static final int MAX_PRODUCTS = 5;
 
-	protected TYPE INVOICE_TYPE;
-	protected Injector injector;
-	protected PTInvoiceEntryTestUtil invoiceEntry;
-	protected PTBusinessTestUtil business;
-	protected PTCustomerTestUtil customer;
+	protected TYPE						INVOICE_TYPE;
+	protected Injector					injector;
+	protected PTInvoiceEntryTestUtil	invoiceEntry;
+	protected PTBusinessTestUtil		business;
+	protected PTCustomerTestUtil		customer;
+	protected PTPaymentTestUtil			payment;
 
 	public PTSimpleInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
@@ -56,6 +56,7 @@ public class PTSimpleInvoiceTestUtil {
 		this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
 		this.business = new PTBusinessTestUtil(injector);
 		this.customer = new PTCustomerTestUtil(injector);
+		this.payment = new PTPaymentTestUtil(injector);
 	}
 
 	public PTSimpleInvoiceEntity getSimpleInvoiceEntity() {
@@ -103,7 +104,7 @@ public class PTSimpleInvoiceTestUtil {
 				.setCreditOrDebit(CreditOrDebit.CREDIT)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
 				.setBusinessUID(businessEntity.getUID())
-				.setClientType(clientType);
+				.addPayment(payment.getPaymentBuilder());
 	}
 
 }

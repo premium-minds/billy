@@ -70,7 +70,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@NotOnUpdate
 	public TBuilder setFinancialID(String id, String countryCode)
 		throws BillyUpdateException {
-		BillyValidator.mandatory(id,
+		BillyValidator.notBlank(id,
 				BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
 		this.getTypeInstance().setFinancialID(id);
 		return this.getBuilder();
@@ -78,7 +78,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name,
+		BillyValidator.notBlank(name,
 				BusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -86,7 +86,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 
 	@Override
 	public TBuilder setCommercialName(String name) {
-		BillyValidator.mandatory(name, BusinessBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(name, BusinessBuilderImpl.LOCALIZER
 				.getString("field.commercial_name"));
 		this.getTypeInstance().setCommercialName(name);
 		return this.getBuilder();
@@ -102,7 +102,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 
 	@Override
 	public <T extends Address> TBuilder setAddress(Builder<T> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder, BusinessBuilderImpl.LOCALIZER
+		BillyValidator.notNull(addressBuilder, BusinessBuilderImpl.LOCALIZER
 				.getString("field.business_address"));
 		this.getTypeInstance().setAddress(
 				(AddressEntity) addressBuilder.build());
@@ -112,7 +112,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder, BusinessBuilderImpl.LOCALIZER
+		BillyValidator.notNull(addressBuilder, BusinessBuilderImpl.LOCALIZER
 				.getString("field.business_billing_address"));
 		this.getTypeInstance().setBillingAddress(
 				(AddressEntity) addressBuilder.build());
@@ -179,16 +179,10 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
 	protected void validateInstance()
 		throws javax.validation.ValidationException {
 		BusinessEntity b = this.getTypeInstance();
-		BillyValidator.mandatory(b.getOperationalContext(), "field.context");
-		BillyValidator.mandatory(b.getFinancialID(), "field.financial_id");
-		BillyValidator.mandatory(b.getName(), "field.business_name");
-		BillyValidator
-				.mandatory(b.getCommercialName(), "field.commercial_name");
-		BillyValidator.mandatory(b.getAddress(), "field.business_address");
-		BillyValidator.mandatory(b.getBillingAddress(),
-				"field.business_billing_address");
-		BillyValidator.notEmpty(b.getContacts(), "field.business_contact");
-		BillyValidator.notEmpty(b.getApplications(), "field.application");
+		BillyValidator.mandatory(b.getFinancialID(), BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
+		BillyValidator.mandatory(b.getName(), BusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
+		BillyValidator.mandatory(b.getAddress(), BusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+		BillyValidator.notEmpty(b.getContacts(), BusinessBuilderImpl.LOCALIZER.getString("field.business_contact"));
 	}
 
 	@SuppressWarnings("unchecked")

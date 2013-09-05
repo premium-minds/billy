@@ -47,6 +47,5 @@ public class PTContactBuilderImpl<TBuilder extends PTContactBuilderImpl<TBuilder
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
-		super.validateInstance();
 	}
 }

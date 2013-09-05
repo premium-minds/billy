@@ -50,7 +50,7 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
 
 	@Override
 	public TBuilder setProductCode(String code) {
-		BillyValidator.mandatory(code,
+		BillyValidator.notBlank(code,
 				ProductBuilderImpl.LOCALIZER.getString("field.product_code"));
 		this.getTypeInstance().setProductCode(code);
 		return this.getBuilder();
@@ -64,7 +64,7 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
 
 	@Override
 	public TBuilder setDescription(String description) {
-		BillyValidator.mandatory(description,
+		BillyValidator.notBlank(description,
 				ProductBuilderImpl.LOCALIZER.getString("field.description"));
 		this.getTypeInstance().setDescription(description);
 		return this.getBuilder();
@@ -72,7 +72,7 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
 
 	@Override
 	public TBuilder setType(ProductType type) {
-		BillyValidator.mandatory(type,
+		BillyValidator.notNull(type,
 				ProductBuilderImpl.LOCALIZER.getString("field.type"));
 		this.getTypeInstance().setType(type);
 		return this.getBuilder();

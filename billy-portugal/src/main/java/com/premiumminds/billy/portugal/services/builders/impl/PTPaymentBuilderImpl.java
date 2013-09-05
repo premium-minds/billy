@@ -53,7 +53,7 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 
 	@Override
 	public TBuilder setPaymentAmount(BigDecimal amount) {
-		BillyValidator.mandatory(amount, PTPaymentBuilderImpl.LOCALIZER
+		BillyValidator.notNull(amount, PTPaymentBuilderImpl.LOCALIZER
 				.getString("field.payment_amount"));
 		this.getTypeInstance().setPaymentAmount(amount);
 		return this.getBuilder();
@@ -61,7 +61,7 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 	
 	@Override
 	public TBuilder setPaymentMethod(Enum<?> method) {
-		BillyValidator.mandatory(method, PTPaymentBuilderImpl.LOCALIZER
+		BillyValidator.notNull(method, PTPaymentBuilderImpl.LOCALIZER
 				.getString("field.payment_method"));
 		this.getTypeInstance().setPaymentMethod(method);
 		return this.getBuilder();
@@ -69,7 +69,7 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 
 	@Override
 	public TBuilder setPaymentDate(Date date) {
-		BillyValidator.mandatory(date, PTPaymentBuilderImpl.LOCALIZER
+		BillyValidator.notNull(date, PTPaymentBuilderImpl.LOCALIZER
 				.getString("field.payment_date"));
 		this.getTypeInstance().setPaymentDate(date);
 		return this.getBuilder();

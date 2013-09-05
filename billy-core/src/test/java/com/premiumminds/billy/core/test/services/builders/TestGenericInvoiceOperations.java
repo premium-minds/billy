@@ -29,21 +29,29 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
+import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
+import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.test.AbstractTest;
+import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceOperations extends AbstractTest {
 
 	private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "GenericInvoice.yml";
+	private static final String CUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Customer.yml";
+	private static final String SUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Supplier.yml";
 	private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "GenericInvoiceEntry.yml";
 	private MathContext mc = BillyMathContext.get();
@@ -52,13 +60,14 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 	private BigDecimal testValue = new BigDecimal("0.12345");
 	private BigDecimal testValue2 = new BigDecimal("0.98765");
 	private MockGenericInvoiceEntity mockInvoiceEntity;
+	private MockCustomerEntity mockCustomerEntity;
+	private MockSupplierEntity mockSupplierEntity;
 
 	@Before
 	public void setUp() {
 		mockInvoiceEntity = this.createMockEntity(
 				MockGenericInvoiceEntity.class,
 				TestGenericInvoiceOperations.INVOICE_YML);
-		mockInvoiceEntity.setCurrency(Currency.getInstance("EUR"));
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoice.class).getEntityInstance())
@@ -67,13 +76,25 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 				this.getInstance(DAOContext.class).isSubContext(
 						Matchers.any(Context.class),
 						Matchers.any(Context.class))).thenReturn(true);
-
+		
+		mockCustomerEntity = this.createMockEntity(MockCustomerEntity.class,
+				CUSTOMER_YML);
+		mockSupplierEntity = this.createMockEntity(MockSupplierEntity.class,
+				SUPPLIER_YML);
+		mockInvoiceEntity.setCustomer(mockCustomerEntity);
+		Mockito.when(
+				this.getInstance(DAOCustomer.class).get(Matchers.any(UID.class)))
+				.thenReturn(mockCustomerEntity);
+		Mockito.when(
+				this.getInstance(DAOSupplier.class).get(Matchers.any(UID.class)))
+				.thenReturn(mockSupplierEntity);
 	}
 
 	@Test
 	public void simpleOperationsTest() {
 		MockGenericInvoiceEntryEntity mockEntry = this.getMockEntryEntity(
 				mockInvoiceEntity, testValue2);
+
 		Mockito.when(
 				this.getInstance(DAOGenericInvoiceEntry.class).get(
 						Matchers.any(UID.class))).thenReturn(mockEntry);
@@ -265,7 +286,9 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 				.setSettlementDiscount(
 						mockInvoiceEntity.getSettlementDiscount())
 				.setSourceId(mockInvoiceEntity.getSourceId())
-				.setTransactionId(mockInvoiceEntity.getTransactionId());
+				.setTransactionId(mockInvoiceEntity.getTransactionId())
+				.setCustomerUID(mockCustomerEntity.getUID())
+				.setSupplierUID(mockSupplierEntity.getUID());
 
 		return builder;
 	}

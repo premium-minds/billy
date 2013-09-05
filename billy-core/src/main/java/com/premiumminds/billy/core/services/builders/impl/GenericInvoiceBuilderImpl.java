@@ -304,6 +304,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 	}
 
 	public TBuilder setScale(int scale) {
+		BillyValidator.notNull(scale);
 		this.getTypeInstance().setScale(scale);
 		return this.getBuilder();
 	}
@@ -315,6 +316,8 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		if(i.isSelfBilled() != null) {
 			i.setSelfBilled(false);
 		}
+		BillyValidator.mandatory(i.getCustomer(),GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
+		BillyValidator.mandatory(i.getSupplier(),GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));
 		this.validateDate();
 		this.validateValues();
 	}

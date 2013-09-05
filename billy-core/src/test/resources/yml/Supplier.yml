@@ -17,6 +17,7 @@
 # along with billy core. If not, see <http://www.gnu.org/licenses/>.
 #
 
+uid : uid
 name : name
 taxRegistrationNumber : taxRegistrationNumber
 mainAddress : !!com.premiumminds.billy.core.test.fixtures.MockAddressEntity

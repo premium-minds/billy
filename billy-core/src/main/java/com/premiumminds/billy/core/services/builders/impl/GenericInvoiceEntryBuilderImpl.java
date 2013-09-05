@@ -106,7 +106,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	@NotOnUpdate
 	public TBuilder setProductUID(UID productUID) {
-		BillyValidator.mandatory(productUID, "field.product");
+		BillyValidator.notNull(productUID, "field.product");
 		ProductEntity p = this.daoProduct.get(productUID);
 		BillyValidator.found(p, "field.product");
 		this.getTypeInstance().setProduct(p);
@@ -135,7 +135,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	@NotOnUpdate
 	public TBuilder setUnitOfMeasure(String unit) {
-		BillyValidator.mandatory(unit, "field.unit");
+		BillyValidator.notBlank(unit, "field.unit");
 		this.getTypeInstance().setUnitOfMeasure(unit);
 		return this.getBuilder();
 	}
@@ -165,7 +165,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	@NotOnUpdate
 	public TBuilder setDescription(String description) {
-		BillyValidator.mandatory(description,
+		BillyValidator.notBlank(description,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.description"));
 		this.getTypeInstance().setDescription(description);
@@ -202,9 +202,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	@NotOnUpdate
 	public TBuilder setUnitAmount(AmountType type, BigDecimal amount) {
-		BillyValidator.mandatory(type, GenericInvoiceEntryBuilderImpl.LOCALIZER
+		BillyValidator.notNull(type, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.unit_amount_type"));
-		BillyValidator.mandatory(amount,
+		BillyValidator.notNull(amount,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.unit_gross_amount"));
 
@@ -225,7 +225,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 	@Override
 	@NotOnUpdate
 	public TBuilder setContextUID(UID uidContext) {
-		BillyValidator.mandatory(uidContext,
+		BillyValidator.notNull(uidContext,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.entry_context"));
 		ContextEntity c = this.daoContext.get(uidContext);
@@ -265,26 +265,22 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		this.validateValues();
 
 		GenericInvoiceEntry i = this.getTypeInstance();
-		BillyValidator.mandatory(i.getProduct(),
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.product"));
-		BillyValidator
-				.mandatory(i.getQuantity(), GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.quantity"));
-		BillyValidator.mandatory(i.getUnitOfMeasure(),
-				GenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit"));
 		BillyValidator.mandatory(i.getDescription(),
-				GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.description"));
-		BillyValidator.mandatory(i.getAmountType(),
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.unit_amount_type"));
+						.getString("field.description"));
+		BillyValidator.mandatory(i.getCreditOrDebit(), GenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.entry_credit_or_debit"));
+		BillyValidator.mandatory(i.getTaxPointDate(), GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.tax_point_date"));
+		BillyValidator.mandatory(i.getCurrency(), GenericInvoiceEntryBuilderImpl.LOCALIZER
+				.getString("field.currency"));
 
 		if (i.getAmountType().compareTo(AmountType.WITH_TAX) == 0) {
-			BillyValidator.mandatory(i.getAmountWithTax(),
+			BillyValidator.mandatory(i.getUnitAmountWithoutTax(),
 					GenericInvoiceEntryBuilderImpl.LOCALIZER
 							.getString("field.unit_gross_amount"));
 		} else {
-			BillyValidator.mandatory(i.getAmountWithoutTax(),
+			BillyValidator.mandatory(i.getUnitAmountWithoutTax(),
 					GenericInvoiceEntryBuilderImpl.LOCALIZER
 							.getString("field.unit_gross_amount"));
 		}

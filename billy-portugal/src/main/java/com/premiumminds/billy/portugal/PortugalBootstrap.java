@@ -125,7 +125,7 @@ public class PortugalBootstrap {
 					// Generic Address
 					final PTAddressEntity GENERIC_ADDRESS = this
 							.buildAddressEntity(daoPTAddress, addressBuilder,
-									"", "", "", "Desconhecido", "",
+									"inventado", "inventado", "inventado", "Desconhecido", "inventado",
 									"Desconhecido", "Desconhecido",
 									"Desconhecido",
 									Config.Key.Address.Generic.UUID);
