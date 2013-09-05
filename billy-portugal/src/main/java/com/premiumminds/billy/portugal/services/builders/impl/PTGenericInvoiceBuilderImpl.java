@@ -150,9 +150,13 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 								.getString("field.source"));
 		BillyValidator.mandatory(i.getDate(),
 				PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
+		if(i.isSelfBilled() != null) {
 		BillyValidator.mandatory(i.isSelfBilled(),
 				PTGenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.self_billed"));
+		} else  {
+			i.setSelfBilled(false);
+		}
 		BillyValidator.mandatory(i.isCancelled(),
 				PTGenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.cancelled"));
