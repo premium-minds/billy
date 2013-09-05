@@ -202,8 +202,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
 		GenericInvoiceEntry.Builder builder = this
 				.getInstance(GenericInvoiceEntry.Builder.class);
 
-		builder.setCreditOrDebit(mockEntry.getCreditOrDebit())
-				.setDescription(mockEntry.getDescription())
+		builder.setDescription(mockEntry.getDescription())
 				.addDocumentReferenceUID(
 						mockEntry.getDocumentReferences().get(0).getUID())
 				.setQuantity(mockEntry.getQuantity())
