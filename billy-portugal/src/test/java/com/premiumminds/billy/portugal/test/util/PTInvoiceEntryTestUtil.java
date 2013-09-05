@@ -67,7 +67,6 @@ public class PTInvoiceEntryTestUtil {
 				.setUnitAmount(AmountType.WITH_TAX,
 						PTInvoiceEntryTestUtil.AMOUNT)
 				.setTaxPointDate(new Date())
-				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(product.getDescription())
 				.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
 				.setUnitOfMeasure(product.getUnitOfMeasure())
@@ -111,7 +110,6 @@ public class PTInvoiceEntryTestUtil {
 				.setUnitAmount(AmountType.WITHOUT_TAX,
 						PTInvoiceEntryTestUtil.AMOUNT)
 				.setTaxPointDate(new Date())
-				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(product.getDescription())
 				.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
 				.setUnitOfMeasure(product.getUnitOfMeasure())

@@ -68,15 +68,15 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
 		return this.getBuilder();
 	}
 
-	@Override
-	@NotOnUpdate
-	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-		BillyValidator.mandatory(creditOrDebit,
-				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_credit_or_debit"));
-		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-		return this.getBuilder();
-	}
+//	@Override
+//	@NotOnUpdate
+//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
+//		BillyValidator.mandatory(creditOrDebit,
+//				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
+//						.getString("field.entry_credit_or_debit"));
+//		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
+//		return this.getBuilder();
+//	}
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {

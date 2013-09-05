@@ -172,15 +172,15 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		return this.getBuilder();
 	}
 
-	@Override
-	@NotOnUpdate
-	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-		BillyValidator.notNull(creditOrDebit,
-				GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_credit_or_debit"));
-		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-		return this.getBuilder();
-	}
+//	@Override
+//	@NotOnUpdate
+//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
+//		BillyValidator.notNull(creditOrDebit,
+//				GenericInvoiceEntryBuilderImpl.LOCALIZER
+//						.getString("field.entry_credit_or_debit"));
+//		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
+//		return this.getBuilder();
+//	}
 
 	@Override
 	@NotOnUpdate
@@ -268,8 +268,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 		BillyValidator.mandatory(i.getDescription(),
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.description"));
-		BillyValidator.mandatory(i.getCreditOrDebit(), GenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_credit_or_debit"));
+//		BillyValidator.mandatory(i.getCreditOrDebit(), GenericInvoiceEntryBuilderImpl.LOCALIZER
+//						.getString("field.entry_credit_or_debit"));
 		BillyValidator.mandatory(i.getTaxPointDate(), GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.tax_point_date"));
 		BillyValidator.mandatory(i.getCurrency(), GenericInvoiceEntryBuilderImpl.LOCALIZER

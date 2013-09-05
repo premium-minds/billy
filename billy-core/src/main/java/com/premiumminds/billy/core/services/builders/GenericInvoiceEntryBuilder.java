@@ -56,7 +56,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
 	public TBuilder setDescription(String description);
 
-	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
+//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
 
 	public TBuilder setShippingCostsAmount(BigDecimal amount);
 

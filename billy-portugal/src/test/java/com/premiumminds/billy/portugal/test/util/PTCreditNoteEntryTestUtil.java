@@ -63,7 +63,6 @@ public class PTCreditNoteEntryTestUtil {
 				.setUnitAmount(AmountType.WITH_TAX,
 						PTCreditNoteEntryTestUtil.AMOUNT)
 				.setTaxPointDate(new Date())
-				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(newProduct.getDescription())
 				.setQuantity(PTCreditNoteEntryTestUtil.QUANTITY)
 				.setUnitOfMeasure(newProduct.getUnitOfMeasure())

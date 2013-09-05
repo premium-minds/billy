@@ -82,8 +82,7 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 		PTGenericInvoiceEntry.Builder builder = this
 				.getInstance(PTGenericInvoiceEntry.Builder.class);
 
-		builder.setCreditOrDebit(mock.getCreditOrDebit())
-				.setDescription(mock.getDescription())
+		builder.setDescription(mock.getDescription())
 				.addDocumentReferenceUID(
 						mock.getDocumentReferences().get(0).getUID())
 				.setQuantity(mock.getQuantity())
