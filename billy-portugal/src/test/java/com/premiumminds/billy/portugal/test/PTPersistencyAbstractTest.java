@@ -26,11 +26,14 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 import com.premiumminds.billy.portugal.util.Services;
@@ -68,7 +71,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 		PTIssuingParams parameters = new PTIssuingParamsImpl();
 
 		parameters = this.getParameters(
-				PTPersistencyAbstractTest.DEFAULT_SERIES, "3000", "1");
+				PTPersistencyAbstractTest.DEFAULT_SERIES, "30000", "1");
 
 		try {
 			return (PTInvoiceEntity) service.issueDocument(
@@ -76,6 +79,23 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 							.getInvoiceBuilder(new PTBusinessTestUtil(injector)
 									.getBusinessEntity(businessUID),
 									SourceBilling.P), parameters);
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+	
+	public PTCreditNoteEntity getNewIssuedCreditnote(PTInvoice reference) {
+		Services service = new Services(PTAbstractTest.injector);
+		PTIssuingParams parameters = new PTIssuingParamsImpl();
+
+		parameters = this.getParameters("NC", "30000", "1");
+
+		try {
+			return (PTCreditNoteEntity) service.issueDocument(
+					new PTCreditNoteTestUtil(PTAbstractTest.injector)
+							.getCreditNoteBuilder((PTInvoiceEntity) reference), parameters);
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}

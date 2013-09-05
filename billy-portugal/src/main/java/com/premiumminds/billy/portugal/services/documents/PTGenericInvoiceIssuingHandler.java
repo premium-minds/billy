@@ -77,9 +77,9 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 		Date systemDate = document.getCreateTimestamp();
 		String series = parametersPT.getInvoiceSeries();
 
-		if (systemDate.after(invoiceDate)) {
-			throw new InvalidInvoiceDateException();
-		}
+//		if (systemDate..after(invoiceDate)) {
+//			throw new InvalidInvoiceDateException();
+//		}
 
 		Integer seriesNumber = 1;
 		String previousHash = null;

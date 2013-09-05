@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -73,6 +74,8 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
+		getTypeInstance().setCreditOrDebit(CreditOrDebit.DEBIT);
+		
 		super.validateInstance();
 		PTCreditNoteEntryEntity cn = this.getTypeInstance();
 		BillyValidator.mandatory(cn.getReference(),

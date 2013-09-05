@@ -43,10 +43,9 @@ public interface PTInvoice extends PTGenericInvoice {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
-
+	
 	@Override
 	public <T extends Payment> List<T> getPayments();
-
+	
 }

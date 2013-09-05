@@ -293,15 +293,15 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		return this.getBuilder();
 	}
 
-	@Override
-	@NotOnUpdate
-	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-		BillyValidator.notNull(creditOrDebit,
-				GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.credit_or_debit"));
-		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-		return this.getBuilder();
-	}
+//	@Override
+//	@NotOnUpdate
+//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
+//		BillyValidator.notNull(creditOrDebit,
+//				GenericInvoiceBuilderImpl.LOCALIZER
+//						.getString("field.credit_or_debit"));
+//		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
+//		return this.getBuilder();
+//	}
 
 	public TBuilder setScale(int scale) {
 		BillyValidator.notNull(scale);

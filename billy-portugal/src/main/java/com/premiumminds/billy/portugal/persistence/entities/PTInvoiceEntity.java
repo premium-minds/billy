@@ -26,7 +26,6 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
 

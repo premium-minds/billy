@@ -19,11 +19,13 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCreditNoteBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
@@ -43,7 +45,14 @@ public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TB
 	}
 
 	@Override
+	protected PTCreditNoteEntity getTypeInstance() {
+		return (PTCreditNoteEntity) super.getTypeInstance();
+	}
+	
+	@Override
 	protected void validateInstance() throws BillyValidationException {
+		PTCreditNoteEntity i = getTypeInstance();
+		i.setCreditOrDebit(CreditOrDebit.DEBIT);
 		super.validateInstance();
 	}
 }
