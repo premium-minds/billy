@@ -69,7 +69,8 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
 		BillyValidator.mandatory(i.getClientType(),
 				PTGenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.clientType"));
-
+		super.validateInstance();
+		
 		if (i.getClientType() == CLIENTTYPE.CUSTOMER
 				&& i.getAmountWithTax().compareTo(new BigDecimal(1000)) >= 0) {
 			throw new BillySimpleInvoiceException(
@@ -79,7 +80,6 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
 			throw new BillySimpleInvoiceException(
 					"Amount > 100 for business simple invoice. Issue invoice");
 		}
-		super.validateInstance();
 	}
 
 }
