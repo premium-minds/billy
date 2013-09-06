@@ -18,14 +18,21 @@
  */
 package com.premiumminds.billy.portugal.util;
 
+import java.io.InputStream;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.gin.services.ExportService;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFExportRequest;
+import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportHandler;
+import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportRequest;
 import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;
 
 public class SimpleInvoices {
@@ -33,6 +40,7 @@ public class SimpleInvoices {
 	private final Injector	injector;
 	private final PTSimpleInvoicePersistenceService persistenceService;
 	private final DocumentIssuingService issuingService;
+	private final ExportService exportService;
 
 	public SimpleInvoices(Injector injector) {
 		this.injector = injector;
@@ -41,6 +49,8 @@ public class SimpleInvoices {
 				.getInstance(DocumentIssuingService.class);
 		this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
 				this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
+		this.exportService = getInstance(ExportService.class);
+		this.exportService.addHandler(PTSimpleInvoicePDFExportRequest.class, getInstance(PTSimpleInvoicePDFExportHandler.class));
 	}
 
 	public PTSimpleInvoice.Builder builder() {
@@ -59,6 +69,10 @@ public class SimpleInvoices {
 
 	public PTSimpleInvoice issue(PTSimpleInvoice.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
 		return issuingService.issue(builder, params);
+	}
+	
+	public InputStream pdfExport(PTSimpleInvoicePDFExportRequest  request) throws ExportServiceException {
+		return exportService.exportToStream(request);
 	}
 
 	private <T> T getInstance(Class<T> clazz) {
