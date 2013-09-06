@@ -343,16 +343,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
 		for (GenericInvoiceEntry e : this.getTypeInstance().getEntries()) {
 
-			/*
-			 * amountWithTax = amountWithTax.add(
-			 * e.getAmountWithTax().setScale(i.getScale(),
-			 * mc.getRoundingMode()), mc); taxAmount = taxAmount.add(
-			 * e.getTaxAmount().setScale(i.getScale(), mc.getRoundingMode()),
-			 * mc); amountWithoutTax =
-			 * amountWithoutTax.add(e.getAmountWithoutTax()
-			 * .setScale(i.getScale(), mc.getRoundingMode()), mc);
-			 */
-
 			amountWithTax = amountWithTax.add(e.getUnitAmountWithTax()
 					.multiply(e.getQuantity(), mc), mc);
 			taxAmount = taxAmount.add(
@@ -372,7 +362,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 		i.setAmountWithTax(amountWithTax);
 		i.setTaxAmount(taxAmount);
 		i.setAmountWithoutTax(amountWithoutTax);
-
+		
 		Validate.isTrue(
 				i.getAmountWithTax()
 						.subtract(

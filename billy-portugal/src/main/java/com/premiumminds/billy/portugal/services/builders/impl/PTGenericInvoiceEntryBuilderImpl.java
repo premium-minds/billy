@@ -61,7 +61,7 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
 	@Override
 	@NotOnUpdate
 	public TBuilder setTaxPointDate(Date date) {
-		BillyValidator.mandatory(date,
+		BillyValidator.notNull(date,
 				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.tax_point_date"));
 		this.getTypeInstance().setTaxPointDate(date);

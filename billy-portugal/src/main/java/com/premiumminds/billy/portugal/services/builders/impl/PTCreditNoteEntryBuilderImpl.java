@@ -53,7 +53,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 
 	@NotOnUpdate
 	public TBuilder setReferenceUID(UID referenceUID) {
-		BillyValidator.mandatory(referenceUID,
+		BillyValidator.notNull(referenceUID,
 				PTCreditNoteEntryBuilderImpl.LOCALIZER
 						.getString("field.invoice_reference"));
 		PTInvoiceEntity i = (PTInvoiceEntity) this.daoGenericInvoice
@@ -66,7 +66,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 
 	@NotOnUpdate
 	public TBuilder setReason(String reason) {
-		BillyValidator.mandatory(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER
 				.getString("field.reason"));
 		this.getTypeInstance().setReason(reason);
 		return this.getBuilder();
