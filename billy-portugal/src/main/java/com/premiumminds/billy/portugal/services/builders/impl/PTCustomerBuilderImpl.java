@@ -108,12 +108,12 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 						.getString("field.customer_main_address"));
 		BillyValidator.mandatory(c.getBillingAddress(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.ustomer_billing_address"));
+						.getString("field.customer_billing_address"));
 		BillyValidator.mandatory(c.hasSelfBillingAgreement(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.ustomer_self_billing_agreement"));
+						.getString("field.customer_self_billing_agreement"));
 		BillyValidator.notEmpty(c.getAddresses(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.ustomer_address"));
+						.getString("field.customer_address"));
 	}
 }
