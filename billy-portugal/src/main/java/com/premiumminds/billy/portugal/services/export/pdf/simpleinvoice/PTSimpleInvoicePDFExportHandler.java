@@ -60,9 +60,9 @@ public class PTSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 		this.config = new Config();
 	}
 
-	public File toFile(PTSimpleInvoiceEntity invoice,
+	public File toFile(URI fileURI, PTSimpleInvoiceEntity invoice,
 			PTSimpleInvoiceTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(bundle.getXSLTFileStream(),
+		return super.toFile(fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 

@@ -117,9 +117,9 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		this.daoGenericInvoice = daoGenericInvoice;
 	}
 
-	public File toFile(GenericInvoiceEntity invoice,
+	public File toFile(URI fileURI, GenericInvoiceEntity invoice,
 			BillyTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(bundle.getXSLTFileStream(),
+		return super.toFile(fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 

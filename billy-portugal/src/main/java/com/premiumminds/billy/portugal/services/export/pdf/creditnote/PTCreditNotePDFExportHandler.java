@@ -64,9 +64,9 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 		this.config = new Config();
 	}
 
-	public File toFile(PTCreditNoteEntity creditNote,
+	public File toFile(URI fileURI, PTCreditNoteEntity creditNote,
 			PTCreditNoteTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(bundle.getXSLTFileStream(),
+		return super.toFile(fileURI, bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(creditNote, bundle), bundle);
 	}
 

@@ -127,11 +127,11 @@ public abstract class AbstractPDFHandler {
 		}
 	}
 
-	public File toFile(InputStream templateStream,
+	public File toFile(URI fileURI, InputStream templateStream,
 			ParamsTree<String, String> documentParams,
 			BillyTemplateBundle bundle) throws ExportServiceException {
 		// if you want to save PDF file use the following code
-		File pdffile = new File(bundle.getResultFilePath());
+		File pdffile = new File(fileURI);
 		OutputStream out;
 		try {
 			out = new FileOutputStream(pdffile);
