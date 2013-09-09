@@ -51,9 +51,7 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 			ExportServiceException, URISyntaxException, IOException {
-
-		File file = new File(RESULT_FILE_PATH);
-
+		
 		InputStream xsl = new FileInputStream(
 				TestPTSimpleInvoicePDFExportHandler.XSL_PATH);
 
@@ -62,8 +60,7 @@ public class TestPTSimpleInvoicePDFExportHandler extends
 				TestPTSimpleInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
 		PTSimpleInvoicePDFExportHandler handler = new PTSimpleInvoicePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTSimpleInvoice.class));
-		handler.toFile(file.toURI(),
-				this.generatePTSimpleInvoice(PaymentMechanism.CASH), bundle);
+		handler.toFile(this.generatePTSimpleInvoice(PaymentMechanism.CASH), bundle);
 	}
 
 	private PTSimpleInvoiceEntity generatePTSimpleInvoice(

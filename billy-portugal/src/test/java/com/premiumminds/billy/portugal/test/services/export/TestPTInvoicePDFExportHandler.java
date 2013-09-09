@@ -47,19 +47,15 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 			.getProperty("java.io.tmpdir") + "/Invoice.pdf";
 	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 	private InputStream xsl;
-	File file;
-	PTInvoiceTemplateBundle bundle;
-	PTInvoicePDFExportHandler handler;
-	PTInvoiceTestUtil test;
+	private PTInvoiceTemplateBundle bundle;
+	private PTInvoicePDFExportHandler handler;
+	private PTInvoiceTestUtil test;
 
 	@Before
 	public void setUp() throws FileNotFoundException {
+
 		xsl = new FileInputStream(TestPTInvoicePDFExportHandler.XSL_PATH);
-
-		bundle = new PTInvoiceTemplateBundle(
-				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl, RESULT_FILE_PATH,
-				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
-
+		
 		handler = new PTInvoicePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
 
@@ -70,44 +66,35 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 			ExportServiceException, URISyntaxException, IOException {
 
-		file = new File(RESULT_FILE_PATH);
-		handler.toFile(file.toURI(), this.generatePTInvoice(), bundle);
+		bundle = new PTInvoiceTemplateBundle(
+				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl, RESULT_FILE_PATH,
+				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+		
+		handler.toFile(this.generatePTInvoice(), bundle);
 	}
 
 	@Test
 	public void testDiferentRegion() throws NoSuchAlgorithmException,
 			ExportServiceException, URISyntaxException, IOException {
-
-		File file = new File(System.getProperty("java.io.tmpdir")
-				+ "/DiferentRegions.pdf");
-
-		InputStream xsl = new FileInputStream(
-				TestPTInvoicePDFExportHandler.XSL_PATH);
-
-		PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(
-				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl, RESULT_FILE_PATH,
+		
+		bundle = new PTInvoiceTemplateBundle(
+				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl,
+				System.getProperty("java.io.tmpdir") + "/DiferentRegions.pdf",
 				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
-		PTInvoicePDFExportHandler handler = new PTInvoicePDFExportHandler(
-				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
-		handler.toFile(file.toURI(), this.generateOtherregionsInvoice(), bundle);
+
+		handler.toFile(this.generateOtherregionsInvoice(), bundle);
 	}
 
 	@Test
 	public void testManyEntries() throws NoSuchAlgorithmException,
 			ExportServiceException, URISyntaxException, IOException {
 
-		File file = new File(System.getProperty("java.io.tmpdir")
-				+ "/ManyEntries.pdf");
-
-		InputStream xsl = new FileInputStream(
-				TestPTInvoicePDFExportHandler.XSL_PATH);
-
-		PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(
-				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl, RESULT_FILE_PATH,
+		bundle = new PTInvoiceTemplateBundle(
+				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl,
+				System.getProperty("java.io.tmpdir") + "/ManyEntries.pdf",
 				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
-		PTInvoicePDFExportHandler handler = new PTInvoicePDFExportHandler(
-				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
-		handler.toFile(file.toURI(), this.generateManyEntriesInvoice(), bundle);
+
+		handler.toFile(this.generateManyEntriesInvoice(), bundle);
 	}
 
 	@Test
@@ -115,19 +102,14 @@ public class TestPTInvoicePDFExportHandler extends PTPersistencyAbstractTest {
 			throws NoSuchAlgorithmException, ExportServiceException,
 			URISyntaxException, IOException {
 
-		File file = new File(System.getProperty("java.io.tmpdir")
-				+ "/ManyEntriesWithDiferentRegions.pdf");
-
-		InputStream xsl = new FileInputStream(
-				TestPTInvoicePDFExportHandler.XSL_PATH);
-
-		PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(
-				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl, RESULT_FILE_PATH,
+		bundle = new PTInvoiceTemplateBundle(
+				TestPTInvoicePDFExportHandler.LOGO_PATH, xsl,
+				System.getProperty("java.io.tmpdir")
+						+ "/ManyEntriesWithDiferentRegions.pdf",
 				TestPTInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
-		PTInvoicePDFExportHandler handler = new PTInvoicePDFExportHandler(
-				PTAbstractTest.injector.getInstance(DAOPTInvoice.class));
-		handler.toFile(file.toURI(),
-				this.generateManyEntriesWithDiferentRegionsInvoice(), bundle);
+
+		handler.toFile(this.generateManyEntriesWithDiferentRegionsInvoice(),
+				bundle);
 	}
 
 	private PTInvoiceEntity generatePTInvoice() {

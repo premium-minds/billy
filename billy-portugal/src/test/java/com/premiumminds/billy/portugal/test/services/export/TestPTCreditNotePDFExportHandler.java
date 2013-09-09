@@ -58,9 +58,7 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 			ExportServiceException, URISyntaxException,
 			DocumentIssuingException, IOException {
-
-		File file = new File(RESULT_FILE_PATH);
-
+		
 		InputStream xsl = new FileInputStream(
 				TestPTCreditNotePDFExportHandler.XSL_PATH);
 		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
@@ -70,9 +68,7 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
 
-		handler.toFile(
-				file.toURI(),
-				this.generatePTCreditNote(PaymentMechanism.CASH,
+		handler.toFile(this.generatePTCreditNote(PaymentMechanism.CASH,
 						this.getNewIssuedInvoice()), bundle);
 	}
 

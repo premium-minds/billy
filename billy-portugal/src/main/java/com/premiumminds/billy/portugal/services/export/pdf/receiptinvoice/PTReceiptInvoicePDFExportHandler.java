@@ -62,7 +62,7 @@ public class PTReceiptInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	public File toFile(URI fileURI, PTReceiptInvoiceEntity invoice,
 			PTReceiptInvoiceTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(fileURI, bundle.getXSLTFileStream(),
+		return super.toFile(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(invoice, bundle), bundle);
 	}
 
