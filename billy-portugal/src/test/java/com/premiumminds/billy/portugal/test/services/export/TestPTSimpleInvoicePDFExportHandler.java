@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
+import org.apache.batik.anim.SimpleAnimation;
 import org.junit.Test;
 
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -38,25 +39,26 @@ import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class TestPTSimpleInvoicePDFExportHandler extends
-	PTPersistencyAbstractTest {
+		PTPersistencyAbstractTest {
 
-	public static final int		NUM_ENTRIES					= 10;
-	public static final String	XSL_PATH					= "src/main/resources/templates/pt_simpleinvoice.xsl";
-	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
-
-	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
+	public static final int NUM_ENTRIES = 10;
+	public static final String XSL_PATH = "src/main/resources/templates/pt_simpleinvoice.xsl";
+	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+	private static final String RESULT_FILE_PATH = System
+			.getProperty("java.io.tmpdir") + "/SimpleInvoice.pdf";
+	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
-		ExportServiceException, URISyntaxException, IOException {
+			ExportServiceException, URISyntaxException, IOException {
 
-		File file = File.createTempFile("Result", ".pdf");
+		File file = new File(RESULT_FILE_PATH);
 
 		InputStream xsl = new FileInputStream(
 				TestPTSimpleInvoicePDFExportHandler.XSL_PATH);
 
 		PTSimpleInvoiceTemplateBundle bundle = new PTSimpleInvoiceTemplateBundle(
-				TestPTSimpleInvoicePDFExportHandler.LOGO_PATH, xsl,
+				TestPTSimpleInvoicePDFExportHandler.LOGO_PATH, xsl, RESULT_FILE_PATH,
 				TestPTSimpleInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
 		PTSimpleInvoicePDFExportHandler handler = new PTSimpleInvoicePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTSimpleInvoice.class));

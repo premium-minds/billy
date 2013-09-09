@@ -41,9 +41,9 @@ public class PTReceiptInvoiceTemplateBundle extends AbstractTemplateBundle
 	private final String softwareCertificationId;
 
 	public PTReceiptInvoiceTemplateBundle(String logoImagePath,
-			InputStream xsltFileStream, String softwareCertificationId) {
+			InputStream xsltFileStream, String resultFilePath,String softwareCertificationId) {
 
-		super(logoImagePath, xsltFileStream);
+		super(logoImagePath, xsltFileStream, resultFilePath);
 		this.softwareCertificationId = softwareCertificationId;
 	}
 

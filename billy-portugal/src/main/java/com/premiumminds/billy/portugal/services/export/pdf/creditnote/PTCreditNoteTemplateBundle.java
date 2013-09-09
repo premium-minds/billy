@@ -25,26 +25,26 @@ import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle
-	implements PTTemplateBundle {
+		implements PTTemplateBundle {
 
-	private static final String	GENERIC_CUSTOMER_TEXT	= "Consumidor Final";
-	private static final String	BANK_TRANSFER_TEXT		= "Transferência bancária";
-	private static final String	CASH_TEXT				= "Numerário";
-	private static final String	CREDIT_CARD_TEXT		= "Cartão crédito";
-	private static final String	CHECK_TEXT				= "Cheque";
-	private static final String	DEBIT_CARD_TEXT			= "Cartão débito";
-	private static final String	COMPENSATION_TEXT		= "Compensação de saldos em conta corrente";
-	private static final String	COMMERCIAL_LETTER_TEXT	= " Letra comercial";
-	private static final String	RESTAURANT_TICKET_TEXT	= "Ticket restaurante";
-	private static final String	ATM_TEXT				= "Multibanco";
-	private static final String	EXCHANGE_TEXT			= "Permuta";
-	private final String		softwareCertificationId;
+	private static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
+	private static final String BANK_TRANSFER_TEXT = "Transferência bancária";
+	private static final String CASH_TEXT = "Numerário";
+	private static final String CREDIT_CARD_TEXT = "Cartão crédito";
+	private static final String CHECK_TEXT = "Cheque";
+	private static final String DEBIT_CARD_TEXT = "Cartão débito";
+	private static final String COMPENSATION_TEXT = "Compensação de saldos em conta corrente";
+	private static final String COMMERCIAL_LETTER_TEXT = " Letra comercial";
+	private static final String RESTAURANT_TICKET_TEXT = "Ticket restaurante";
+	private static final String ATM_TEXT = "Multibanco";
+	private static final String EXCHANGE_TEXT = "Permuta";
+	private final String softwareCertificationId;
 
 	public PTCreditNoteTemplateBundle(String logoImagePath,
-										InputStream xsltFileStream,
-										String softwareCertificationId) {
+			InputStream xsltFileStream, String resultFilePath,
+			String softwareCertificationId) {
 
-		super(logoImagePath, xsltFileStream);
+		super(logoImagePath, xsltFileStream, resultFilePath);
 		this.softwareCertificationId = softwareCertificationId;
 	}
 
@@ -65,28 +65,28 @@ public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle
 		}
 		PaymentMechanism payment = (PaymentMechanism) pmc;
 		switch (payment) {
-			case BANK_TRANSFER:
-				return PTCreditNoteTemplateBundle.BANK_TRANSFER_TEXT;
-			case CASH:
-				return PTCreditNoteTemplateBundle.CASH_TEXT;
-			case CREDIT_CARD:
-				return PTCreditNoteTemplateBundle.CREDIT_CARD_TEXT;
-			case CHECK:
-				return PTCreditNoteTemplateBundle.CHECK_TEXT;
-			case DEBIT_CARD:
-				return PTCreditNoteTemplateBundle.DEBIT_CARD_TEXT;
-			case COMPENSATION:
-				return PTCreditNoteTemplateBundle.COMPENSATION_TEXT;
-			case COMMERCIAL_LETTER:
-				return PTCreditNoteTemplateBundle.COMMERCIAL_LETTER_TEXT;
-			case ATM:
-				return PTCreditNoteTemplateBundle.ATM_TEXT;
-			case RESTAURANT_TICKET:
-				return PTCreditNoteTemplateBundle.RESTAURANT_TICKET_TEXT;
-			case EXCHANGE:
-				return PTCreditNoteTemplateBundle.EXCHANGE_TEXT;
-			default:
-				return null;
+		case BANK_TRANSFER:
+			return PTCreditNoteTemplateBundle.BANK_TRANSFER_TEXT;
+		case CASH:
+			return PTCreditNoteTemplateBundle.CASH_TEXT;
+		case CREDIT_CARD:
+			return PTCreditNoteTemplateBundle.CREDIT_CARD_TEXT;
+		case CHECK:
+			return PTCreditNoteTemplateBundle.CHECK_TEXT;
+		case DEBIT_CARD:
+			return PTCreditNoteTemplateBundle.DEBIT_CARD_TEXT;
+		case COMPENSATION:
+			return PTCreditNoteTemplateBundle.COMPENSATION_TEXT;
+		case COMMERCIAL_LETTER:
+			return PTCreditNoteTemplateBundle.COMMERCIAL_LETTER_TEXT;
+		case ATM:
+			return PTCreditNoteTemplateBundle.ATM_TEXT;
+		case RESTAURANT_TICKET:
+			return PTCreditNoteTemplateBundle.RESTAURANT_TICKET_TEXT;
+		case EXCHANGE:
+			return PTCreditNoteTemplateBundle.EXCHANGE_TEXT;
+		default:
+			return null;
 		}
 	}
 

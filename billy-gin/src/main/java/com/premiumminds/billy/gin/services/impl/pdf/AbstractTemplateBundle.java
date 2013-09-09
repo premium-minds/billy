@@ -26,16 +26,22 @@ public abstract class AbstractTemplateBundle implements BillyTemplateBundle {
 
 	protected final String		logoImagePath;
 	protected final InputStream	xsltFileStream;
+	protected final String resultFilePath;
 
 	public AbstractTemplateBundle(String logoImagePath,
-									InputStream xsltFileStream) {
+									InputStream xsltFileStream, String resultFilePath) {
 
 		this.logoImagePath = logoImagePath;
 		this.xsltFileStream = xsltFileStream;
+		this.resultFilePath = resultFilePath;
 	}
 
 	public String getLogoImagePath() {
 		return this.logoImagePath;
+	}
+	
+	public String getResultFilePath(){
+		return this.resultFilePath;
 	}
 
 	public InputStream getXSLTFileStream() {

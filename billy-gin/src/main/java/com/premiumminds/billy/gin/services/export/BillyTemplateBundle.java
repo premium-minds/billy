@@ -36,6 +36,8 @@ public interface BillyTemplateBundle {
 	 * @return The path of the xslt template file.
 	 */
 	public InputStream getXSLTFileStream();
+	
+	public String getResultFilePath();
 
 	public String getPaymentMechanismTranslation(Enum<?> pmc);
 

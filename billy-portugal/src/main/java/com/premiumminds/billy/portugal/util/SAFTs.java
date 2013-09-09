@@ -46,8 +46,8 @@ public class SAFTs {
 		this.generator = getInstance(PTSAFTFileGenerator.class);
 	}
 
-	public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to) throws SAFTPTExportException, IOException {
-		File outputFile = File.createTempFile("saft", ".xml");
+	public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to, String fileLocation) throws SAFTPTExportException, IOException {
+		File outputFile = new File(fileLocation);
 		OutputStream oStream = new FileOutputStream(outputFile);
 		
 		generator.generateSAFTFile(
