@@ -46,25 +46,23 @@ import com.premiumminds.billy.portugal.util.Services;
 
 public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest {
 
-	public static final int NUM_ENTRIES = 10;
-	public static final String XSL_PATH = "src/main/resources/templates/pt_creditnote.xsl";
-	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	private static final String RESULT_FILE_PATH = System
-			.getProperty("java.io.tmpdir") + "/CreditNote.pdf" ;
+	public static final int		NUM_ENTRIES					= 10;
+	public static final String	XSL_PATH					= "src/main/resources/templates/pt_creditnote.xsl";
+	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
 
-	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
+	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
 
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
-			ExportServiceException, URISyntaxException,
-			DocumentIssuingException, IOException {
+		ExportServiceException, URISyntaxException, DocumentIssuingException,
+		IOException {
 
-		File file = new File(RESULT_FILE_PATH);
+		File file = File.createTempFile("Result", ".pdf");
 
 		InputStream xsl = new FileInputStream(
 				TestPTCreditNotePDFExportHandler.XSL_PATH);
 		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
-				TestPTCreditNotePDFExportHandler.LOGO_PATH, xsl, RESULT_FILE_PATH,
+				TestPTCreditNotePDFExportHandler.LOGO_PATH, xsl,
 				TestPTCreditNotePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
 
 		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
@@ -78,7 +76,7 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 
 	private PTCreditNoteEntity generatePTCreditNote(
 			PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
-			throws DocumentIssuingException {
+		throws DocumentIssuingException {
 
 		Services services = new Services(PTAbstractTest.injector);
 
