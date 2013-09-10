@@ -24,8 +24,13 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 public class PTSimpleInvoicePDFExportRequest extends AbstractExportRequest {
 
 	public PTSimpleInvoicePDFExportRequest(UID uid,
-											PTSimpleInvoiceTemplateBundle bundle) {
+			PTSimpleInvoiceTemplateBundle bundle) {
 		super(uid, bundle);
+	}
+
+	public PTSimpleInvoicePDFExportRequest(UID uid,
+			PTSimpleInvoiceTemplateBundle bundle, String resultPath) {
+		super(uid, bundle, resultPath);
 	}
 
 	@Override

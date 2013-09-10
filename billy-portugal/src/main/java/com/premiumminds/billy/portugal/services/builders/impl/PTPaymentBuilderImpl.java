@@ -44,7 +44,7 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
 	public PTPaymentBuilderImpl(DAOPTPayment daoPTPayment) {
 		super(daoPTPayment);
 	}
-
+	
 	@Override
 	protected PTPaymentEntity getTypeInstance() {
 		return (PTPaymentEntity) super.getTypeInstance();

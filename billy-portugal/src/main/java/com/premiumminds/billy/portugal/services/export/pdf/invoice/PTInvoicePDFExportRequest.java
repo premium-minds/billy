@@ -26,6 +26,10 @@ public class PTInvoicePDFExportRequest extends AbstractExportRequest {
 	public PTInvoicePDFExportRequest(UID uid, PTInvoiceTemplateBundle bundle) {
 		super(uid, bundle);
 	}
+	
+	public PTInvoicePDFExportRequest(UID uid, PTInvoiceTemplateBundle bundle, String resultPath) {
+		super(uid, bundle, resultPath);
+	}
 
 	@Override
 	public PTInvoiceTemplateBundle getBundle() {
