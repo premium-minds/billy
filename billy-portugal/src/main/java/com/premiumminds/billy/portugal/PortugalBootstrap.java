@@ -125,7 +125,8 @@ public class PortugalBootstrap {
 					// Generic Address
 					final PTAddressEntity GENERIC_ADDRESS = this
 							.buildAddressEntity(daoPTAddress, addressBuilder,
-									"inventado", "inventado", "inventado", "Desconhecido", "inventado",
+									"inventado", "inventado", "inventado",
+									"Desconhecido", "inventado",
 									"Desconhecido", "Desconhecido",
 									"Desconhecido",
 									Config.Key.Address.Generic.UUID);
@@ -141,7 +142,7 @@ public class PortugalBootstrap {
 					// Generic Customer
 					final PTCustomerEntity GENERIC_CUSTOMER = this
 							.buildCustomerEntity(daoPTCustomer,
-									customerBuilder, "Consumidor final",
+									customerBuilder, "Consumidor Final",
 									"999999990", addressBuilder,
 									contactBuilder, false,
 									Config.Key.Customer.Generic.UUID);
@@ -637,6 +638,7 @@ public class PortugalBootstrap {
 							.build();
 
 					customer.setUID(configuration.getUID(key));
+					customer.setTaxRegistrationNumber(null);
 
 					daoPTCustomer.create(customer);
 
