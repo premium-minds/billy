@@ -26,7 +26,6 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.services.builders.PTAddressBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 

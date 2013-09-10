@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -40,7 +43,7 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
 			"com/premiumminds/billy/core/i18n/FieldNames");
-
+	
 	@Inject
 	public PTBusinessBuilderImpl(DAOPTBusiness daoBusiness,
 			DAOPTRegionContext daoContext) {
@@ -79,6 +82,7 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		BusinessEntity b = this.getTypeInstance();
+		
 		BillyValidator
 				.mandatory(b.getFinancialID(), PTBusinessBuilderImpl.LOCALIZER
 						.getString("field.financial_id"));
@@ -89,8 +93,13 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
 		BillyValidator.mandatory(b.getAddress(),
 				PTBusinessBuilderImpl.LOCALIZER
 						.getString("field.business_address"));
-		/*BillyValidator.notEmpty(b.getContacts(),
-				PTBusinessBuilderImpl.LOCALIZER
-						.getString("field.business_contact"));*/
+		
+		Pattern pattern;
+		pattern = Pattern.compile("[0-9]{4}-[0-9]{3}");
+		
+		Matcher matcher = pattern.matcher(b.getAddress().getPostalCode());
+		if(!matcher.find()){
+			throw new BillyValidationException();
+		}
 	}
 }

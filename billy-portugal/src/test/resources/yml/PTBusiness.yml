@@ -31,7 +31,7 @@ address : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity
   details : details
   building : building
   city : city
-  postalCode : postal_code
+  postalCode : 0000-000
   region : region
   country : country
 billingAddress : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity

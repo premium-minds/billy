@@ -22,9 +22,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;

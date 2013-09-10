@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import org.h2.command.ddl.SetComment;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
