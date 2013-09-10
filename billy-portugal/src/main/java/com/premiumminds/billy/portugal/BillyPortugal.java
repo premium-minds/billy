@@ -32,6 +32,7 @@ import com.premiumminds.billy.portugal.util.Contexts;
 import com.premiumminds.billy.portugal.util.CreditNotes;
 import com.premiumminds.billy.portugal.util.Customers;
 import com.premiumminds.billy.portugal.util.Invoices;
+import com.premiumminds.billy.portugal.util.Payments;
 import com.premiumminds.billy.portugal.util.Products;
 import com.premiumminds.billy.portugal.util.SAFTs;
 import com.premiumminds.billy.portugal.util.SimpleInvoices;
@@ -60,6 +61,7 @@ public class BillyPortugal {
 	private SAFTs saft;
 	private Applications applications;
 	private Contacts contacts;
+	private Payments payments;
 	
 
 	public BillyPortugal() {
@@ -161,6 +163,13 @@ public class BillyPortugal {
 			this.contacts = new Contacts(injector);
 		}
 		return this.contacts;
+	}
+	
+	public Payments payments() {
+		if(this.payments == null) {
+			this.payments = new Payments(injector);
+		}
+		return this.payments;
 	}
 	
 	private <T> T getInstance(Class<T> clazz) {
