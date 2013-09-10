@@ -25,7 +25,7 @@ import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 public class AbstractExportRequest implements ExportServiceRequest {
 
 	protected UID				uid;
-	private BillyTemplateBundle	bundle;
+	protected BillyTemplateBundle	bundle;
 
 	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle) {
 		this.uid = uid;

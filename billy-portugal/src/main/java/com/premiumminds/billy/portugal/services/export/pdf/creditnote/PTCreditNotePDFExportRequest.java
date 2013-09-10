@@ -24,15 +24,13 @@ import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoiceTemp
 
 public class PTCreditNotePDFExportRequest extends AbstractExportRequest {
 
-	private PTInvoiceTemplateBundle	bundle;
-
 	public PTCreditNotePDFExportRequest(UID uid,
 										PTCreditNoteTemplateBundle bundle) {
 		super(uid, bundle);
 	}
 
 	@Override
-	public PTInvoiceTemplateBundle getBundle() {
-		return this.bundle;
+	public PTCreditNoteTemplateBundle getBundle() {
+		return (PTCreditNoteTemplateBundle) bundle;
 	}
 }

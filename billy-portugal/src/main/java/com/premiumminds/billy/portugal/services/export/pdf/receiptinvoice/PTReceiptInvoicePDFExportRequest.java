@@ -23,8 +23,6 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class PTReceiptInvoicePDFExportRequest extends AbstractExportRequest {
 
-	private PTReceiptInvoiceTemplateBundle bundle;
-
 	public PTReceiptInvoicePDFExportRequest(UID uid,
 			PTReceiptInvoiceTemplateBundle bundle) {
 		super(uid, bundle);
@@ -32,6 +30,6 @@ public class PTReceiptInvoicePDFExportRequest extends AbstractExportRequest {
 
 	@Override
 	public PTReceiptInvoiceTemplateBundle getBundle() {
-		return this.bundle;
+		return (PTReceiptInvoiceTemplateBundle) bundle;
 	}
 }

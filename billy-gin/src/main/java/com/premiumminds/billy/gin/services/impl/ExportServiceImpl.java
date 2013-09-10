@@ -66,8 +66,8 @@ public class ExportServiceImpl implements ExportService {
 		File outputFile = null;
 		OutputStream outputStream = null;
 		try {
-			outputFile = File.createTempFile(UUID.randomUUID().toString(),
-					".tmp");
+			outputFile = File.createTempFile("Result",
+					".pdf");
 			outputStream = new FileOutputStream(outputFile);
 			this.handlers.get(request.getClass()).export(request, outputStream);
 		} catch (IOException e) {
