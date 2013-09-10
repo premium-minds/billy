@@ -426,7 +426,6 @@ public class PTSAFTFileGenerator {
 
 		if (this.config.getUID(Key.Customer.Generic.UUID).equals(
 				customerEntity.getUID())) {
-			customerEntity.setUID(new UID("Consumidor final"));
 			customerEntity.setTaxRegistrationNumber("999999990");
 		} else {
 			if ((this.optionalParam = this

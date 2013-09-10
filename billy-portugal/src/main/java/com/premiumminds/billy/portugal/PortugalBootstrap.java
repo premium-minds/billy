@@ -142,7 +142,7 @@ public class PortugalBootstrap {
 					// Generic Customer
 					final PTCustomerEntity GENERIC_CUSTOMER = this
 							.buildCustomerEntity(daoPTCustomer,
-									customerBuilder, "Consumidor Final",
+									customerBuilder, "Consumidor final",
 									"999999990", addressBuilder,
 									contactBuilder, false,
 									Config.Key.Customer.Generic.UUID);
