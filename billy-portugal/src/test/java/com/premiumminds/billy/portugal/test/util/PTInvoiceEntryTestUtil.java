@@ -22,12 +22,12 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-import javax.persistence.NoResultException;
+import javassist.expr.Instanceof;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
@@ -37,15 +37,15 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTInvoiceEntryTestUtil {
 
-	private static final BigDecimal AMOUNT = new BigDecimal(20);
-	private static final Currency CURRENCY = Currency.getInstance("EUR");
-	private static final BigDecimal QUANTITY = new BigDecimal(1);
+	private static final BigDecimal	AMOUNT		= new BigDecimal(20);
+	private static final Currency	CURRENCY	= Currency.getInstance("EUR");
+	private static final BigDecimal	QUANTITY	= new BigDecimal("1");
 
-	private Injector injector;
-	private PTProductTestUtil product;
-	private Contexts contexts;
-	private PTRegionContext context;
-	private PTShippingPointTestUtil shippingPoint;
+	private Injector				injector;
+	private PTProductTestUtil		product;
+	private Contexts				contexts;
+	private PTRegionContext			context;
+	private PTShippingPointTestUtil	shippingPoint;
 
 	public PTInvoiceEntryTestUtil(Injector injector) {
 		this.injector = injector;
@@ -59,47 +59,66 @@ public class PTInvoiceEntryTestUtil {
 				.getInstance(PTInvoiceEntry.Builder.class);
 		PTShippingPoint.Builder originBuilder = this.shippingPoint
 				.getShippingPointBuilder();
-		this.context = this.contexts.portugal().portugal();
+		this.context = this.contexts.portugal().allRegions();
 
 		invoiceEntryBuilder.clear();
 
 		invoiceEntryBuilder
 				.setUnitAmount(AmountType.WITH_TAX,
-						PTInvoiceEntryTestUtil.AMOUNT,
-						PTInvoiceEntryTestUtil.CURRENCY)
+						PTInvoiceEntryTestUtil.AMOUNT)
 				.setTaxPointDate(new Date())
-				.setCreditOrDebit(CreditOrDebit.DEBIT)
 				.setDescription(product.getDescription())
 				.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
 				.setUnitOfMeasure(product.getUnitOfMeasure())
 				.setProductUID(product.getUID())
 				.setContextUID(this.context.getUID())
-				.setShippingOrigin(originBuilder);
+				.setShippingOrigin(originBuilder)
+				.setCurrency(CURRENCY);
 
 		return invoiceEntryBuilder;
 
 	}
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
-
 		PTProductEntity newProduct = this.product.getProductEntity();
-		return this.getInvoiceEntryBuilder(newProduct);
+		return this.getInvoiceEntryBuilder((PTProductEntity) this.injector
+				.getInstance(DAOPTProduct.class).create(newProduct));
 	}
-
-	public PTInvoiceEntry.Builder getInvoiceEntryBuilder(String productUID) {
-		DAOPTProduct daoPTProduct = this.injector
-				.getInstance(DAOPTProduct.class);
-		PTProductEntity newProduct = null;
-		try {
-			newProduct = (PTProductEntity) daoPTProduct
-					.get(new UID(productUID));
-		} catch (NoResultException e) {
+	
+	public PTInvoiceEntry.Builder getInvoiceOtherRegionsEntryBuilder(String region) {
+		PTProductEntity product;
+		
+		if(region.equals("PT-20")){
+			product = (PTProductEntity) this.injector
+					.getInstance(DAOPTProduct.class).create(this.product.getOtherRegionProductEntity(region));
+			this.context = this.contexts.azores().azores().getParentContext();
+		}
+		else{
+			product = (PTProductEntity) this.injector
+					.getInstance(DAOPTProduct.class).create(this.product.getOtherRegionProductEntity(region));
+			this.context = this.contexts.madeira().madeira().getParentContext();
 		}
 
-		if (newProduct == null) {
-			newProduct = this.product.getProductEntity(productUID);
-			daoPTProduct.create(newProduct);
-		}
-		return this.getInvoiceEntryBuilder(newProduct);
+		PTInvoiceEntry.Builder invoiceEntryBuilder = this.injector
+				.getInstance(PTInvoiceEntry.Builder.class);
+		PTShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
+
+		invoiceEntryBuilder.clear();
+
+		invoiceEntryBuilder
+				.setUnitAmount(AmountType.WITHOUT_TAX,
+						PTInvoiceEntryTestUtil.AMOUNT)
+				.setTaxPointDate(new Date())
+				.setDescription(product.getDescription())
+				.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder)
+				.setCurrency(Currency.getInstance("EUR"));
+
+		return invoiceEntryBuilder;
+
 	}
 }

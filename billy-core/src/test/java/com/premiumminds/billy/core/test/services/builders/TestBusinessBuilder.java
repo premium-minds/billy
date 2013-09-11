@@ -36,8 +36,8 @@ import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
 public class TestBusinessBuilder extends AbstractTest {
 
-	private static final String BUSINESS_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "Business.yml";
+	private static final String	BUSINESS_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "Business.yml";
 
 	@Test
 	public void doTest() {
@@ -79,14 +79,14 @@ public class TestBusinessBuilder extends AbstractTest {
 		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
 				mockBusiness.getBillingAddress());
 
-		builder.setFinancialID(mockBusiness.getFinancialID())
+		builder.setFinancialID(mockBusiness.getFinancialID(), null)
 				.setName(mockBusiness.getName())
 				.setCommercialName(mockBusiness.getCommercialName())
 				.setAddress(mockAddressBuilder)
 				.setBillingAddress(mockBillingAddressBuilder)
 				.setShippingAddress(mockShippingAddressBuilder)
 				.addApplication(mockApplicationBuilder)
-				.addContact(mockMainContactBuilder)
+				.addContact(mockMainContactBuilder, true)
 				.setWebsite(mockBusiness.getWebsiteAddress())
 				.setOperationalContextUID(
 						mockBusiness.getOperationalContext().getUID());

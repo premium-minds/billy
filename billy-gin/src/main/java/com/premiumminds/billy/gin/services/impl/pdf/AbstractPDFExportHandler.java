@@ -31,13 +31,17 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.commons.lang3.Validate;
+
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyMathContext;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.gin.services.ExportServiceHandler;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -143,7 +147,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		this.setHeader(params, document, bundle);
 
-		this.setBussiness(params, document, bundle);
+		this.setBusiness(params, document, bundle);
 
 		this.setCustomer(params, document, bundle);
 
@@ -151,7 +155,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		this.setTaxDetails(taxTotals, taxDetails);
 
-		this.setTaxValues(params, document);
+		this.setTaxValues(params, taxTotals, document);
 
 		return params;
 	}
@@ -162,14 +166,15 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
-		Enum paymentMechanism = document.getPaymentMechanism();
-
-		if (null != paymentMechanism) {
-			params.getRoot().addChild(
-					ParamKeys.INVOICE_PAYMETHOD,
-					this.getPaymentMechanismTranslation(paymentMechanism,
-							bundle));
+		if (document.getPayments() != null) {
+			for (Payment p : document.getPayments()) {
+				params.getRoot().addChild(
+						ParamKeys.INVOICE_PAYMETHOD,
+						this.getPaymentMechanismTranslation(
+								p.getPaymentMethod(), bundle));
+			}
 		}
+
 		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
 				date.format(document.getDate()));
 
@@ -187,18 +192,27 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			Node<String, String> taxDetailNode = taxDetails
 					.addChild(ParamKeys.TAX_DETAIL);
 
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_TAX, taxDetail
-					.getTaxValue().setScale(2, this.mc.getRoundingMode())
-					.toPlainString()
-					+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_TAX,
+					taxDetail
+							.getTaxValue()
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString()
+							+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
 
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_NET_VALUE, taxDetail
-					.getNetValue().setScale(2, this.mc.getRoundingMode())
-					.toPlainString());
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_NET_VALUE,
+					taxDetail
+							.getNetValue()
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 
-			taxDetailNode.addChild(ParamKeys.TAX_DETAIL_VALUE, taxDetail
-					.getAppliedTaxValue()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_VALUE,
+					taxDetail
+							.getAppliedTaxValue()
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 		}
 		return;
 	}
@@ -219,17 +233,23 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
 					.getDescription());
 
-			entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantity()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_QUANTITY,
+					entry.getQuantity()
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 
 			entryNode.addChild(
 					ParamKeys.ENTRY_UNIT_PRICE,
 					entry.getUnitAmountWithTax()
-							.setScale(2, this.mc.getRoundingMode())
-							.toPlainString());
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 
-			entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
-					.setScale(2, this.mc.getRoundingMode()).toPlainString());
+			entryNode.addChild(
+					ParamKeys.ENTRY_TOTAL,
+					entry.getAmountWithTax()
+							.setScale(BillyMathContext.SCALE,
+									this.mc.getRoundingMode()).toPlainString());
 
 			List<Tax> taxList = entry.getTaxes();
 			for (Tax tax : taxList) {
@@ -239,15 +259,16 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 								tax.getValue()
 										+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
 												: "&#8364;"));
-				taxTotals
-						.add((tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
+				taxTotals.add(
+						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
 								: false), tax.getValue(), entry
-								.getAmountWithoutTax(), tax.getUID().toString());
+								.getAmountWithoutTax(), entry.getTaxAmount(),
+						tax.getUID().getValue());
 			}
 		}
 	}
 
-	protected void setBussiness(ParamsTree<String, String> params,
+	protected void setBusiness(ParamsTree<String, String> params,
 			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
 		Node<String, String> businessInfo = params.getRoot().addChild(
 				ParamKeys.BUSINESS);
@@ -332,24 +353,38 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected <T extends GenericInvoiceEntity> void setTaxValues(
-			ParamsTree<String, String> params, T document) {
+			ParamsTree<String, String> params, TaxTotals taxTotals, T document) {
 
-		params.getRoot()
-				.addChild(
-						ParamKeys.TOTAL_BEFORE_TAX,
-						document.getAmountWithoutTax()
-								.setScale(2, this.mc.getRoundingMode())
-								.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.TOTAL_BEFORE_TAX,
+				document.getAmountWithoutTax()
+						.setScale(BillyMathContext.SCALE,
+								this.mc.getRoundingMode()).toPlainString());
 		params.getRoot().addChild(
 				ParamKeys.TOTAL_TAX,
-				document.getTaxAmount().setScale(2, this.mc.getRoundingMode())
+				document.getTaxAmount()
+						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
 						.toPlainString());
-		params.getRoot()
-				.addChild(
-						ParamKeys.TOTAL,
-						document.getAmountWithTax()
-								.setScale(2, this.mc.getRoundingMode())
-								.toPlainString());
+		params.getRoot().addChild(
+				ParamKeys.TOTAL,
+				document.getAmountWithTax()
+						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+						.toPlainString());
+
+		BillyValidator
+				.isTrue(document
+						.getAmountWithoutTax()
+						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+						.add(document.getTaxAmount().setScale(
+								BillyMathContext.SCALE, mc.getRoundingMode()))
+						.compareTo(
+								document.getAmountWithTax().setScale(
+										BillyMathContext.SCALE,
+										mc.getRoundingMode())) == 0);
+		/*
+		 * .toPlainString() document.getAmountWithTax() .setScale(2,
+		 * this.mc.getRoundingMode()) .toPlainString());
+		 */
 		return;
 	}
 
@@ -369,13 +404,15 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 			BigDecimal baseValue;
 			BigDecimal taxValue;
+			BigDecimal appliedTaxValue;
 			Boolean percentageValued;
 
 			public TaxTotalEntry(boolean perc, BigDecimal taxValue,
-					BigDecimal baseValue) {
+					BigDecimal baseValue, BigDecimal appliedTaxValue) {
 				this.baseValue = baseValue;
 				this.taxValue = taxValue;
 				this.percentageValued = perc;
+				this.appliedTaxValue = appliedTaxValue;
 			}
 
 			public BigDecimal getNetValue() {
@@ -391,20 +428,15 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			}
 
 			public void addBaseValue(BigDecimal val) {
-				this.baseValue = this.baseValue.add(val);
+				this.baseValue = this.baseValue.add(val, mc);
+			}
+
+			public void addAppliedTaxValue(BigDecimal val) {
+				this.appliedTaxValue = this.appliedTaxValue.add(val, mc);
 			}
 
 			public BigDecimal getAppliedTaxValue() {
-				BigDecimal appliedTaxVal;
-
-				if (this.percentageValued) {
-					BigDecimal tax = this.taxValue
-							.divide(new BigDecimal("100"));
-					appliedTaxVal = this.baseValue.multiply(tax);
-				} else {
-					appliedTaxVal = this.taxValue;
-				}
-				return appliedTaxVal;
+				return appliedTaxValue;
 			}
 		}
 
@@ -413,11 +445,12 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		}
 
 		public void add(boolean isPercentage, BigDecimal taxValue,
-				BigDecimal baseValue, String taxUid) {
+				BigDecimal baseValue, BigDecimal taxAmount, String taxUid) {
 			TaxTotalEntry currentEntry = new TaxTotalEntry(isPercentage,
-					taxValue, baseValue);
+					taxValue, baseValue, taxAmount);
 			if (this.entries.containsKey(taxUid)) {
 				this.entries.get(taxUid).addBaseValue(baseValue);
+				this.entries.get(taxUid).addAppliedTaxValue(taxAmount);
 			} else {
 				this.entries.put(taxUid, currentEntry);
 			}

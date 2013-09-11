@@ -31,12 +31,18 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMReader;
 
 /**
- * Class for generating Private and Public Keys.
+ * Generates {@link PrivateKey} and {@link PublicKey}.
  */
 public class KeyGenerator {
 
-	private String privateKeyPath;
+	private String	privateKeyPath;
 
+	/**
+	 * Generates the {@link PrivateKey} and {@link PublicKey} based on the
+	 * {@link PrivateKey} location.
+	 * 
+	 * @param privateKeyPath
+	 */
 	public KeyGenerator(String privateKeyPath) {
 		if (Security.getProvider("BC") == null) {
 			Security.addProvider(new BouncyCastleProvider());
@@ -76,10 +82,16 @@ public class KeyGenerator {
 		return pair;
 	}
 
+	/**
+	 * @return {@link PrivateKey}
+	 */
 	public PrivateKey getPrivateKey() {
 		return this.getKeyPair().getPrivate();
 	}
 
+	/**
+	 * @return {@link PublicKey}
+	 */
 	public PublicKey getPublicKey() {
 		return this.getKeyPair().getPublic();
 	}

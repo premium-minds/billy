@@ -41,32 +41,31 @@ import com.premiumminds.billy.core.services.entities.Address;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAShippingPointEntity extends JPABaseEntity implements
-		ShippingPointEntity {
+	ShippingPointEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-	protected Address address;
+	protected Address			address;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "DATE")
-	protected Date date;
+	protected Date				date;
 
 	@Column(name = "DELIVERY_ID")
-	protected String deliveryId;
+	protected String			deliveryId;
 
 	@Column(name = "LOCATION_ID")
-	protected String locationId;
+	protected String			locationId;
 
 	@Column(name = "UCR")
-	protected String ucr;
+	protected String			ucr;
 
 	@Column(name = "WAREHOUSE_ID")
-	protected String warehouseId;
+	protected String			warehouseId;
 
 	public JPAShippingPointEntity() {
 	}

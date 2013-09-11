@@ -25,10 +25,10 @@ import java.util.ResourceBundle;
 
 public class Localizer {
 
-	private static Locale currentLocale = Locale.getDefault();
+	private static Locale	currentLocale	= Locale.getDefault();
 
-	private String bundleBaseName;
-	private ResourceBundle bundle;
+	private String			bundleBaseName;
+	private ResourceBundle	bundle;
 
 	public Localizer(String bundleBaseName) {
 		this.bundleBaseName = bundleBaseName;

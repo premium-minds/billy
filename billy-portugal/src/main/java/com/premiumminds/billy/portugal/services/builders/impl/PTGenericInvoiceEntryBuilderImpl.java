@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
@@ -35,16 +36,17 @@ import com.premiumminds.billy.portugal.services.builders.PTGenericInvoiceEntryBu
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-		extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-		PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+	extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	public PTGenericInvoiceEntryBuilderImpl(
-			DAOPTGenericInvoiceEntry daoPTGenericInvoiceEntry,
-			DAOPTGenericInvoice daoPTGenericInvoice, DAOPTTax daoPTTax,
-			DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+	public PTGenericInvoiceEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTGenericInvoiceEntry,
+											DAOPTGenericInvoice daoPTGenericInvoice,
+											DAOPTTax daoPTTax,
+											DAOPTProduct daoPTProduct,
+											DAOPTRegionContext daoPTRegionContext) {
 		super(daoPTGenericInvoiceEntry, daoPTGenericInvoice, daoPTTax,
 				daoPTProduct, daoPTRegionContext);
 	}
@@ -55,33 +57,49 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
 	}
 
 	@Override
+	@NotOnUpdate
 	public TBuilder setTaxPointDate(Date date) {
-		BillyValidator.mandatory(date,
+		BillyValidator.notNull(date,
 				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
 						.getString("field.tax_point_date"));
 		this.getTypeInstance().setTaxPointDate(date);
 		return this.getBuilder();
 	}
 
-	@Override
-	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-		BillyValidator.mandatory(creditOrDebit,
-				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_credit_or_debit"));
-		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-		return this.getBuilder();
-	}
+//	@Override
+//	@NotOnUpdate
+//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
+//		BillyValidator.mandatory(creditOrDebit,
+//				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
+//						.getString("field.entry_credit_or_debit"));
+//		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
+//		return this.getBuilder();
+//	}
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		super.validateInstance();
 		PTGenericInvoiceEntryEntity i = this.getTypeInstance();
-		BillyValidator.mandatory(i.getTaxPointDate(),
+		BillyValidator.mandatory(i.getQuantity(),
 				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax_point_date"));
-
-		BillyValidator.mandatory(i.getCreditOrDebit(),
+						.getString("field.quantity"));
+		BillyValidator.mandatory(i.getUnitOfMeasure(),
 				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.entry_credit_or_debit"));
+						.getString("field.unit"));
+		BillyValidator.mandatory(i.getProduct(),
+				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.product"));
+		BillyValidator.notEmpty(i.getTaxes(),
+				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.tax"));
+		BillyValidator.mandatory(i.getTaxAmount(),
+				PTGenericInvoiceEntryBuilderImpl.LOCALIZER
+						.getString("field.tax"));
+		if(i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0){
+			BillyValidator.mandatory(i.getTaxExemptionReason(),
+					PTGenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("field.tax_exemption_reason"));
+		}
 	}
+
 }

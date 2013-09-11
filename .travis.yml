@@ -12,7 +12,6 @@ before_script:
 # Avoid default OracleJDK7. Complies with Eclipse environment used
 jdk:
     - openjdk6
-    - openjdk7
 
 notifications:
     email:

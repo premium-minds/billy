@@ -32,12 +32,12 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CUSTOMER")
 public class JPAPTCustomerEntity extends JPACustomerEntity implements
-		PTCustomerEntity {
+	PTCustomerEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "REFERRAL_NAME")
-	protected String referralName;
+	protected String			referralName;
 
 	@Override
 	public String getReferralName() {

@@ -41,10 +41,10 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
 
 public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
-	private static final String PT_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTCreditNoteEntry.yml";
-	private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTInvoice.yml";
+	private static final String	PT_CREDIT_NOTE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTCreditNoteEntry.yml";
+	private static final String	PT_INVOICE_YML				= AbstractTest.YML_CONFIGS_DIR
+																	+ "PTInvoice.yml";
 
 	@Test
 	public void doTest() {
@@ -82,18 +82,17 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 		PTCreditNoteEntry.Builder builder = this
 				.getInstance(PTCreditNoteEntry.Builder.class);
 
-		builder.setCreditOrDebit(mock.getCreditOrDebit())
-				.setDescription(mock.getDescription())
-				.setReference(mock.getReference())
+		builder.setDescription(mock.getDescription())
+				.setReferenceUID(mock.getReference().getUID())
 				.setReason(mock.getReason())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
 				.setUnitAmount(AmountType.WITH_TAX,
-						mock.getUnitAmountWithTax(),
-						Currency.getInstance("EUR"))
+						mock.getUnitAmountWithTax())
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())
-				.setTaxPointDate(mock.getTaxPointDate());
+				.setTaxPointDate(mock.getTaxPointDate())
+				.setCurrency(Currency.getInstance("EUR"));
 
 		PTCreditNoteEntry entry = builder.build();
 

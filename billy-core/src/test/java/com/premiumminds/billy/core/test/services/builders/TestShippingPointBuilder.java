@@ -30,8 +30,8 @@ import com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity;
 
 public class TestShippingPointBuilder extends AbstractTest {
 
-	private static final String SHIPPINGPOINT_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "ShippingPoint.yml";
+	private static final String	SHIPPINGPOINT_YML	= AbstractTest.YML_CONFIGS_DIR
+															+ "ShippingPoint.yml";
 
 	@Test
 	public void doTest() {

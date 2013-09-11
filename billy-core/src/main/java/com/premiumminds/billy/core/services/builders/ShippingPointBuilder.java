@@ -25,7 +25,7 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 
 public interface ShippingPointBuilder<TBuilder extends ShippingPointBuilder<TBuilder, TShippingPoint>, TShippingPoint extends ShippingPoint>
-		extends Builder<TShippingPoint> {
+	extends Builder<TShippingPoint> {
 
 	public TBuilder setDeliveryId(String deliveryId);
 

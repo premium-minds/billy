@@ -27,14 +27,24 @@ public class MockBaseEntity implements BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	public Integer id;
 	public UID uid;
 	public Date createTimestamp;
 	public Date updateTimestamp;
 	public boolean isNew;
 
+	public MockBaseEntity() {
+		this.isNew = true;
+	}
+
 	@Override
 	public boolean isNew() {
 		return this.isNew;
+	}
+	
+	@Override
+	public Integer getID() {
+		return id;
 	}
 
 	@Override

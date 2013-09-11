@@ -18,27 +18,29 @@
  */
 package com.premiumminds.billy.portugal.test.fixtures;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
-		PTInvoiceEntity {
+	PTInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	protected Boolean cancelled;
-	protected Boolean billed;
-	protected String reason;
-	protected String hash;
-	protected String sourceHash;
-	protected String hashControl;
-	protected SourceBilling sourceBilling;
-	protected String eacCode;
-	protected TYPE type;
+	protected boolean			cancelled;
+	protected boolean			billed;
+	protected String			reason;
+	protected String			hash;
+	protected String			sourceHash;
+	protected String			hashControl;
+	protected SourceBilling		sourceBilling;
+	protected String			eacCode;
+	protected TYPE				type;
+	protected List<PTPayment>	payments;
 
 	@Override
 	public TYPE getType() {
@@ -61,7 +63,7 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	}
 
 	public MockPTInvoiceEntity() {
-
+		this.payments = new ArrayList<PTPayment>();
 	}
 
 	@Override
@@ -110,11 +112,6 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
 	}
 
-	@SuppressWarnings("unchecked")
-	public PaymentMechanism getPaymentMechanism() {
-		return null;
-	}
-
 	@Override
 	public void setHashControl(String hashControl) {
 		this.hashControl = hashControl;
@@ -143,5 +140,10 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements
 	@Override
 	public String getChangeReason() {
 		return reason;
+	}
+
+	@Override
+	public List<PTPayment> getPayments() {
+		return payments;
 	}
 }

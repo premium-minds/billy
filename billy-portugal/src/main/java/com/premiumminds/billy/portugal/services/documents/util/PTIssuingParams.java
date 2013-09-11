@@ -26,13 +26,19 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public interface PTIssuingParams extends IssuingParams {
 
+	public static class Util {
+		public static PTIssuingParams newInstance() {
+			return new PTIssuingParamsImpl();
+		}
+	}
+	
 	public static class Keys {
 
-		public static final String PRIVATE_KEY = "private_key";
-		public static final String PUBLIC_KEY = "public_key";
-		public static final String INVOICE_SERIES = "invoice_series";
-		public static final String PRIVATE_KEY_VERSION = "private_key_version";
-		public static final String EAC_CODE = "eac_code";
+		public static final String	PRIVATE_KEY			= "private_key";
+		public static final String	PUBLIC_KEY			= "public_key";
+		public static final String	INVOICE_SERIES		= "invoice_series";
+		public static final String	PRIVATE_KEY_VERSION	= "private_key_version";
+		public static final String	EAC_CODE			= "eac_code";
 	}
 
 	public String getInvoiceSeries() throws ParameterNotFoundException;

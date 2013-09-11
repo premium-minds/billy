@@ -17,8 +17,9 @@
 # along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
+uid : uid
 name : name
-taxRegistrationNumber : taxRegistrationNumber
+taxRegistrationNumber : 500016615
 mainAddress : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity
   streetName : street_name
   number : number

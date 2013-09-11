@@ -31,22 +31,22 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Supplier;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, TSupplier>, TSupplier extends Supplier>
-		extends AbstractBuilder<TBuilder, TSupplier> implements
-		SupplierBuilder<TBuilder, TSupplier> {
+	extends AbstractBuilder<TBuilder, TSupplier> implements
+	SupplierBuilder<TBuilder, TSupplier> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOSupplier daoSupplier;
+	protected DAOSupplier				daoSupplier;
 
 	@Inject
 	public SupplierBuilderImpl(DAOSupplier daoSupplier) {
-		super((EntityFactory<?>) daoSupplier);
+		super(daoSupplier);
 		this.daoSupplier = daoSupplier;
 	}
 
@@ -59,10 +59,12 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 	}
 
 	@Override
-	public TBuilder setTaxRegistrationNumber(String number) {
+	@NotOnUpdate
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode) {
 		BillyValidator.notBlank(number, SupplierBuilderImpl.LOCALIZER
 				.getString("field.supplier_tax_number"));
 		this.getTypeInstance().setTaxRegistrationNumber(number);
+
 		return this.getBuilder();
 	}
 
@@ -141,6 +143,9 @@ public class SupplierBuilderImpl<TBuilder extends SupplierBuilderImpl<TBuilder, 
 		BillyValidator.mandatory(s.getName(),
 				SupplierBuilderImpl.LOCALIZER.getString("field.supplier_name"));
 		BillyValidator.mandatory(s.getMainAddress(),
+				SupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_address"));
+		BillyValidator.notEmpty(s.getAddresses(),
 				SupplierBuilderImpl.LOCALIZER
 						.getString("field.supplier_address"));
 	}

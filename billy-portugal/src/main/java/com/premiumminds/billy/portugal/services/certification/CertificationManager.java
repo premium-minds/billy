@@ -30,12 +30,12 @@ import org.apache.commons.codec.binary.Base64;
 
 public class CertificationManager {
 
-	private static final int EXPECTED_HASH_LENGTH = 172;
+	private static final int	EXPECTED_HASH_LENGTH	= 172;
 
-	private PrivateKey privateKey;
-	private PublicKey publicKey;
-	private Signature signature;
-	private boolean autoVerifyHash;
+	private PrivateKey			privateKey;
+	private PublicKey			publicKey;
+	private Signature			signature;
+	private boolean				autoVerifyHash;
 
 	public CertificationManager() {
 		this.privateKey = null;
@@ -55,7 +55,7 @@ public class CertificationManager {
 	}
 
 	public String getHashBase64(String source) throws InvalidHashException,
-			InvalidKeyException {
+		InvalidKeyException {
 		String hashBase64 = Base64.encodeBase64String(this
 				.getHashBinary(source));
 		if (this.autoVerifyHash) {
@@ -69,7 +69,7 @@ public class CertificationManager {
 	}
 
 	public byte[] getHashBinary(String source) throws InvalidHashException,
-			InvalidKeyException {
+		InvalidKeyException {
 
 		byte[] hash;
 
@@ -92,13 +92,13 @@ public class CertificationManager {
 	}
 
 	public boolean verifyHashBase64(String source, String hashBase64)
-			throws InvalidKeyException {
+		throws InvalidKeyException {
 		return (this.verifyHashBinary(source, Base64.decodeBase64(hashBase64)) && (hashBase64
 				.length() == CertificationManager.EXPECTED_HASH_LENGTH));
 	}
 
 	public boolean verifyHashBinary(String source, byte[] hash)
-			throws InvalidKeyException {
+		throws InvalidKeyException {
 		try {
 			this.signature.initVerify(this.publicKey);
 			this.signature.update(source.getBytes());

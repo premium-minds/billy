@@ -28,4 +28,6 @@ public interface ExportServiceRequest {
 	 * @return returns null if there is no bundle
 	 */
 	public BillyTemplateBundle getBundle();
+	
+	public String getResultPath();
 }

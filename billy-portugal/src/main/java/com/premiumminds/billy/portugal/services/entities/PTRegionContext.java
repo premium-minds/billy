@@ -27,7 +27,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTRegionContextBui
 public interface PTRegionContext extends Context {
 
 	public static class Builder extends
-			PTRegionContextBuilderImpl<Builder, PTRegionContext> {
+		PTRegionContextBuilderImpl<Builder, PTRegionContext> {
 
 		@Inject
 		public Builder(DAOPTRegionContext daoPTRegionContext) {

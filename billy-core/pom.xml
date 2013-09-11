@@ -26,7 +26,7 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>1.0</version>
+		<version>1.0b</version>
 	</parent>
 
 	<properties>
@@ -43,6 +43,11 @@
 	</properties>
 
 	<dependencies>
+<dependency>
+	<groupId>org.hibernate.javax.persistence</groupId>
+	<artifactId>hibernate-jpa-2.0-api</artifactId>
+	<version>1.0.1.Final</version>
+</dependency>
 
 		<!-- GUICE -->
 		<dependency>

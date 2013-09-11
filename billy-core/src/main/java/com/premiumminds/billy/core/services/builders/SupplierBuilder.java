@@ -25,11 +25,11 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Supplier;
 
 public interface SupplierBuilder<TBuilder extends SupplierBuilder<TBuilder, TSupplier>, TSupplier extends Supplier>
-		extends Builder<TSupplier> {
+	extends Builder<TSupplier> {
 
 	public TBuilder setName(String name);
 
-	public TBuilder setTaxRegistrationNumber(String number);
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode);
 
 	public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder);
 

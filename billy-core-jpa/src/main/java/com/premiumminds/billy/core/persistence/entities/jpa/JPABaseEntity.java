@@ -26,6 +26,8 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -45,37 +47,41 @@ import com.premiumminds.billy.core.services.UID;
  */
 @MappedSuperclass
 @Audited
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class JPABaseEntity implements BaseEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ID")
-	protected Integer id;
+	protected Integer			id;
 
 	@Basic(optional = false)
-	@Column(name = "UID", nullable = false, insertable = true, updatable = false, unique = false)
-	protected String uid;
+	@Column(name = "UID", nullable = false, insertable = true,
+			updatable = false, unique = true)
+	protected String			uid;
 
 	@Basic(optional = false)
-	@Column(name = "UID_ROW", nullable = false, insertable = true, updatable = false, unique = true)
-	protected String uidRow;
+	@Column(name = "UID_ROW", nullable = false, insertable = true,
+			updatable = false, unique = true)
+	protected String			uidRow;
 
 	@Basic(optional = false)
-	@Column(name = "ENTITY_VERSION", nullable = false, insertable = true, updatable = false, unique = false)
-	protected int entityVersion;
+	@Column(name = "ENTITY_VERSION", nullable = false, insertable = true,
+			updatable = false, unique = false)
+	protected int				entityVersion;
 
 	@Column(name = "CREATE_TIMESTAMP", updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date createTimestamp;
+	protected Date				createTimestamp;
 
 	@Column(name = "UPDATE_TIMESTAMP")
 	@Temporal(TemporalType.TIMESTAMP)
-	protected Date updateTimestamp;
+	protected Date				updateTimestamp;
 
 	@Column(name = "ACTIVE")
-	protected Boolean active;
+	protected Boolean			active;
 
 	/**
 	 * Constructor
@@ -102,6 +108,11 @@ public abstract class JPABaseEntity implements BaseEntity {
 	@PreUpdate
 	protected void onUpdate() {
 		this.updateTimestamp = new Date();
+	}
+	
+	@Override
+	public Integer getID() {
+		return id;
 	}
 
 	@Override

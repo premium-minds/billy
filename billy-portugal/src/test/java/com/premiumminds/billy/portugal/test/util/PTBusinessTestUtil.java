@@ -20,10 +20,12 @@ package com.premiumminds.billy.portugal.test.util;
 
 import java.net.MalformedURLException;
 
+import javax.persistence.NoResultException;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
@@ -33,86 +35,69 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTBusinessTestUtil {
 
-	private final String name = "Business";
-	private final String id = "123456789";
-	private final String website = "http://business.com";
-	private final String UID = "BUSINESS";
+	private static final String		NAME			= "Business";
+	private static final String		FINANCIAL_ID	= "123456789";
+	private static final String		WEBSITE			= "http://business.com";
+	protected static final String	PT_COUNTRY_CODE	= "PT";
 
-	private Injector injector;
-	private PTApplicationTestUtil application;
-	private PTContactTestUtil contact;
-	private PTAddressTestUtil address;
-	private Contexts contexts;
-	private PTRegionContext context;
+	private Injector				injector;
+	private PTApplicationTestUtil	application;
+	private PTContactTestUtil		contact;
+	private PTAddressTestUtil		address;
+	private PTRegionContext			context;
 
 	public PTBusinessTestUtil(Injector injector) {
 		this.injector = injector;
 		this.application = new PTApplicationTestUtil(injector);
 		this.contact = new PTContactTestUtil(injector);
 		this.address = new PTAddressTestUtil(injector);
-		this.contexts = new Contexts(injector);
-		this.context = this.contexts.portugal().portugal();
+
+		this.context = new Contexts(injector).portugal().allRegions();
 	}
 
-	public PTBusinessEntity getBusinessEntity(String uid, UID contextUID,
-			PTContact.Builder contactBuilder, PTAddress.Builder addressBuilder,
-			PTApplication.Builder applicationBuilder) {
-		PTBusiness.Builder businessBuilder = this.injector
-				.getInstance(PTBusiness.Builder.class);
+	public PTBusinessEntity getBusinessEntity() {
+		return getBusinessEntity(new UID().toString());
+	}
 
-		PTContactEntity contact = (PTContactEntity) contactBuilder.build();
-
-		businessBuilder.clear();
-
-		businessBuilder.addApplication(applicationBuilder)
-				.addContact(contactBuilder).setAddress(addressBuilder)
-				.setBillingAddress(addressBuilder).setCommercialName(this.name)
-				.setFinancialID(this.id).setOperationalContextUID(contextUID)
-				.setMainContactUID(contact.getUID()).setWebsite(this.website)
-				.setName(this.name);
-
-		PTBusinessEntity business = (PTBusinessEntity) businessBuilder.build();
-		business.setUID(new UID(uid));
+	public PTBusinessEntity getBusinessEntity(String uid) {
+		PTBusinessEntity business = null;
+		try {
+			business = (PTBusinessEntity) this.injector.getInstance(
+					DAOPTBusiness.class).get(new UID(uid));
+		} catch (NoResultException e) {
+			business = (PTBusinessEntity) this.getBusinessBuilder().build();
+			business.setUID(new UID(uid));
+			injector.getInstance(DAOPTBusiness.class).create(business);
+		}
 
 		return business;
 	}
 
-	public PTBusinessEntity getBusinessEntity(String uid) {
+	public PTBusiness.Builder getBusinessBuilder() {
+		PTBusiness.Builder businessBuilder = this.injector
+				.getInstance(PTBusiness.Builder.class);
+
 		PTApplication.Builder applicationBuilder = null;
 		try {
 			applicationBuilder = this.application.getApplicationBuilder();
 		} catch (MalformedURLException e) {
-
+			e.printStackTrace();
 		}
+
 		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-		return this.getBusinessEntity(uid, this.context.getUID(),
-				contactBuilder, addressBuilder, applicationBuilder);
-
-	}
-
-	public PTBusinessEntity getBusinessEntity() {
-		return this.getBusinessEntity(this.UID);
-	}
-
-	public PTBusiness.Builder getBusinessBuilder() throws MalformedURLException {
-		PTBusiness.Builder businessBuilder = this.injector
-				.getInstance(PTBusiness.Builder.class);
-		PTApplication.Builder applicationBuilder = this.application
-				.getApplicationBuilder();
-		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
-		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
-		this.context = this.contexts.portugal().portugal();
-
-		businessBuilder.clear();
-
-		businessBuilder.addApplication(applicationBuilder)
-				.addContact(contactBuilder).setAddress(addressBuilder)
-				.setBillingAddress(addressBuilder).setCommercialName(this.name)
-				.setFinancialID(this.id)
+		businessBuilder
+				.addApplication(applicationBuilder)
+				.addContact(contactBuilder, true)
+				.setAddress(addressBuilder)
+				.setBillingAddress(addressBuilder)
+				.setCommercialName(PTBusinessTestUtil.NAME)
+				.setFinancialID(PTBusinessTestUtil.FINANCIAL_ID,
+						PT_COUNTRY_CODE)
 				.setOperationalContextUID(this.context.getUID())
-				.setWebsite(this.website).setName(this.name);
+				.setWebsite(PTBusinessTestUtil.WEBSITE)
+				.setName(PTBusinessTestUtil.NAME);
 
 		return businessBuilder;
 	}

@@ -37,7 +37,7 @@ public interface Application extends Entity {
 	 * @author Francisco The builder for the {@link Application} entity.
 	 */
 	public static class Builder extends
-			ApplicationBuilderImpl<Builder, Application> {
+		ApplicationBuilderImpl<Builder, Application> {
 
 		@Inject
 		public Builder(DAOApplication daoApplication) {

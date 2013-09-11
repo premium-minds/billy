@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,16 +26,18 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
-		DAOPTCreditNote {
+	DAOPTCreditNote {
 
 	@Inject
 	public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
@@ -53,29 +54,38 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 		return JPAPTCreditNoteEntity.class;
 	}
 
+	@Override
 	public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid,
 			Date from, Date to) {
 		QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
-		JPAQuery query = new JPAQuery(this.getEntityManager());
-		PTBusinessEntity business = this.getBusinessEntity(uid);
 
-		query.from(creditNote);
+		JPAQuery query = createQuery();
 
-		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
-		BooleanExpression creditNoteBusiness = creditNote.business.eq(business);
-		predicates.add(creditNoteBusiness);
-		BooleanExpression active = creditNote.active.eq(true);
-		predicates.add(active);
-		BooleanExpression valid = creditNote.date.between(from, to);
-		predicates.add(valid);
+		query.from(creditNote)
+			.where(creditNote.instanceOf(JPAPTCreditNoteEntity.class)
+					.and(creditNote.date.between(from, to))
+					.and(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
 
-		for (BooleanExpression e : predicates) {
-			query.where(e);
-		}
-
-		List<PTCreditNoteEntity> result = this.checkEntityList(query.list(creditNote),
-				PTCreditNoteEntity.class); 
+		List<PTCreditNoteEntity> result = this.checkEntityList(
+				query.list(creditNote), PTCreditNoteEntity.class);
 		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PTCreditNote> findByReferencedDocument(UID uidCompany,
+			UID uidInvoice) {
+		QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+		QJPAPTCreditNoteEntryEntity entry = QJPAPTCreditNoteEntryEntity.jPAPTCreditNoteEntryEntity;
+		
+		return (List<PTCreditNote>) (List<?>)
+			createQuery()
+			.from(creditNote)
+			.join(creditNote.entries)
+			.join(entry.references)
+			.on(toDSL(entry.references.any(), QJPAPTGenericInvoiceEntity.class).uid.eq(uidInvoice.toString()))
+			.where(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString()))
+			.list(creditNote);
 	}
 
 }

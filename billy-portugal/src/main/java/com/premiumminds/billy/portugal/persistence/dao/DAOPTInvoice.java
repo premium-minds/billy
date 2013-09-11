@@ -31,4 +31,5 @@ public interface DAOPTInvoice extends DAOPTGenericInvoice {
 
 	public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid,
 			Date from, Date to);
+
 }

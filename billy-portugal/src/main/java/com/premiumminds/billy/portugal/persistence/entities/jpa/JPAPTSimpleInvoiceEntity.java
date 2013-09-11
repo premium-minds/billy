@@ -20,15 +20,22 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.Payment;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 @Entity
 @Audited
@@ -38,15 +45,22 @@ public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
 
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings({ "unchecked" })
+	@Column(name = "CLIENT_TYPE")
+	protected CLIENTTYPE clientType;
+
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return super.getEntries();
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return super.getPaymentMechanism();
+	public CLIENTTYPE getClientType() {
+		return clientType;
 	}
+
+	@Override
+	public void setClientType(CLIENTTYPE type) {
+		this.clientType = type;
+	}
+
 }

@@ -41,10 +41,10 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntryEn
 
 public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 
-	private static final String PT_GENERIC_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTGenericInvoiceEntry.yml";
-	private static final String PT_GENERIC_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTGenericInvoice.yml";
+	private static final String	PT_GENERIC_INVOICE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																		+ "PTGenericInvoiceEntry.yml";
+	private static final String	PT_GENERIC_INVOICE_YML			= AbstractTest.YML_CONFIGS_DIR
+																		+ "PTGenericInvoice.yml";
 
 	@Test
 	public void doTest() {
@@ -82,18 +82,17 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 		PTGenericInvoiceEntry.Builder builder = this
 				.getInstance(PTGenericInvoiceEntry.Builder.class);
 
-		builder.setCreditOrDebit(mock.getCreditOrDebit())
-				.setDescription(mock.getDescription())
+		builder.setDescription(mock.getDescription())
 				.addDocumentReferenceUID(
 						mock.getDocumentReferences().get(0).getUID())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
 				.setUnitAmount(AmountType.WITH_TAX,
-						mock.getUnitAmountWithTax(),
-						Currency.getInstance("EUR"))
+						mock.getUnitAmountWithTax())
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())
-				.setTaxPointDate(mock.getTaxPointDate());
+				.setTaxPointDate(mock.getTaxPointDate())
+				.setCurrency(Currency.getInstance("EUR"));
 
 		PTGenericInvoiceEntry entry = builder.build();
 

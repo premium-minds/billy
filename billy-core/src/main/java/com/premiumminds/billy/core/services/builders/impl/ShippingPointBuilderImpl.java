@@ -30,22 +30,21 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.ShippingPointBuilder;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<TBuilder, TShippingPoint>, TShippingPoint extends ShippingPoint>
-		extends AbstractBuilder<TBuilder, TShippingPoint> implements
-		ShippingPointBuilder<TBuilder, TShippingPoint> {
+	extends AbstractBuilder<TBuilder, TShippingPoint> implements
+	ShippingPointBuilder<TBuilder, TShippingPoint> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOShippingPoint daoShippingPoint;
+	protected DAOShippingPoint			daoShippingPoint;
 
 	@Inject
 	public ShippingPointBuilderImpl(DAOShippingPoint daoShippingPoint) {
-		super((EntityFactory<?>) daoShippingPoint);
+		super(daoShippingPoint);
 		this.daoShippingPoint = daoShippingPoint;
 	}
 

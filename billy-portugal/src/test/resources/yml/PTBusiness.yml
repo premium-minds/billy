@@ -22,7 +22,7 @@ operationalContext : !!com.premiumminds.billy.portugal.test.fixtures.MockPTRegio
   name : opContext_name
   description : opContext_description
   regionCode : region_code
-taxId : tax_id
+taxId : 500002860
 name : name
 commercialName : commercial_name
 address : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity
@@ -31,7 +31,7 @@ address : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity
   details : details
   building : building
   city : city
-  postalCode : postal_code
+  postalCode : 0000-000
   region : region
   country : country
 billingAddress : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity

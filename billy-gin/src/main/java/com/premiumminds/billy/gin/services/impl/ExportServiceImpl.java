@@ -38,7 +38,7 @@ import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 
 public class ExportServiceImpl implements ExportService {
 
-	protected Map<Class<? extends ExportServiceRequest>, ExportServiceHandler> handlers;
+	protected Map<Class<? extends ExportServiceRequest>, ExportServiceHandler>	handlers;
 
 	public ExportServiceImpl() {
 		this.handlers = new HashMap<Class<? extends ExportServiceRequest>, ExportServiceHandler>();
@@ -46,7 +46,7 @@ public class ExportServiceImpl implements ExportService {
 
 	@Override
 	public <T extends ExportServiceRequest> InputStream exportToStream(T request)
-			throws ExportServiceException {
+		throws ExportServiceException {
 		try {
 			return new FileInputStream(this.exportToFile(request));
 		} catch (FileNotFoundException e) {
@@ -57,7 +57,7 @@ public class ExportServiceImpl implements ExportService {
 
 	@Override
 	public <T extends ExportServiceRequest> File exportToFile(T request)
-			throws ExportServiceException {
+		throws ExportServiceException {
 		if (!this.handlers.containsKey(request.getClass())) {
 			throw new RuntimeException(
 					"Could not find a handler for export request : "
@@ -66,8 +66,7 @@ public class ExportServiceImpl implements ExportService {
 		File outputFile = null;
 		OutputStream outputStream = null;
 		try {
-			outputFile = File.createTempFile(UUID.randomUUID().toString(),
-					".tmp");
+			outputFile = new File(request.getResultPath());
 			outputStream = new FileOutputStream(outputFile);
 			this.handlers.get(request.getClass()).export(request, outputStream);
 		} catch (IOException e) {

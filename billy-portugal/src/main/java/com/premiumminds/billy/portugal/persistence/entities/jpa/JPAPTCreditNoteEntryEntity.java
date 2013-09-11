@@ -36,20 +36,20 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE_ENTRY")
 public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity
-		implements PTCreditNoteEntryEntity {
+	implements PTCreditNoteEntryEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class,
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_PTINVOICE", referencedColumnName = "ID")
-	protected PTInvoice reference;
+	protected PTInvoice			reference;
 
 	@Column(name = "REASON")
-	protected String reason;
+	protected String			reason;
 
 	@Override
 	public String getReason() {

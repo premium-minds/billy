@@ -49,13 +49,13 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class PTParamKeys {
 
-		public static final String CN_HASH = "hash";
-		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
-		public static final String INVOICE = "invoice";
+		public static final String	CN_HASH						= "hash";
+		public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
+		public static final String	INVOICE						= "invoice";
 	}
 
-	private DAOPTCreditNote daoPTCreditNote;
-	private Config config;
+	private DAOPTCreditNote	daoPTCreditNote;
+	private Config			config;
 
 	@Inject
 	public PTCreditNotePDFExportHandler(DAOPTCreditNote daoPTCreditNote) {
@@ -72,7 +72,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected void toStream(PTCreditNoteEntity creditNote,
 			OutputStream targetStream, PTCreditNoteTemplateBundle bundle)
-			throws ExportServiceException {
+		throws ExportServiceException {
 		super.getStream(bundle.getXSLTFileStream(),
 				this.mapDocumentToParamsTree(creditNote, bundle), targetStream,
 				bundle);
@@ -129,7 +129,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 				taxTotals
 						.add((tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? true
 								: false), tax.getValue(), entry
-								.getAmountWithoutTax(), tax.getUID().toString());
+								.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().toString());
 			}
 			entryNode.addChild(PTParamKeys.INVOICE).addChild(ParamKeys.ID,
 					entry.getReference().getNumber());

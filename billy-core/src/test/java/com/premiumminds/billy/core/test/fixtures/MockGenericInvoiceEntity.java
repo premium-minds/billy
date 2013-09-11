@@ -30,6 +30,7 @@ import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -40,7 +41,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	private static final long serialVersionUID = 1L;
 
 	public String number;
-
+	public int scale;
 	public String series;
 	public Integer seriesNumber;
 	public Business business;
@@ -55,7 +56,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public ShippingPointEntity shippingOrigin;
 	public ShippingPointEntity shippingDestination;
 	public String paymentTerms;
-	public boolean selfBilled;
+	public Boolean selfBilled;
 	public String sourceId;
 	public Date generalLedgerDate;
 	public String batchId;
@@ -66,12 +67,13 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public String settlementDescription;
 	public BigDecimal settlementDiscount;
 	public Date settlementDate;
-	public Enum paymentMechanism;
 	public CreditOrDebit creditOrDebit;
+	public List<Payment> payments;
 
 	public MockGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();
 		this.receiptNumbers = new ArrayList<String>();
+		this.payments = new ArrayList<Payment>();
 	}
 
 	@Override
@@ -140,7 +142,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public boolean isSelfBilled() {
+	public Boolean isSelfBilled() {
 		return this.selfBilled;
 	}
 
@@ -185,13 +187,18 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public Enum<?> getPaymentMechanism() {
-		return this.paymentMechanism;
-	}
-
-	@Override
 	public CreditOrDebit getCreditOrDebit() {
 		return this.creditOrDebit;
+	}
+	
+	@Override
+	public Integer getScale(){
+		return this.scale;
+	}
+	
+	@Override
+	public void setScale(Integer scale){
+		this.scale = scale;
 	}
 
 	@Override
@@ -261,7 +268,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public void setSelfBilled(boolean selfBilled) {
+	public void setSelfBilled(Boolean selfBilled) {
 		this.selfBilled = selfBilled;
 	}
 
@@ -316,11 +323,6 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	}
 
 	@Override
-	public void setPaymentMechanism(Enum<?> mechanism) {
-		this.paymentMechanism = mechanism;
-	}
-
-	@Override
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		this.creditOrDebit = creditOrDebit;
 	}
@@ -343,6 +345,12 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	@Override
 	public void setSeriesNumber(Integer seriesNumber) {
 		this.seriesNumber = seriesNumber;
+	}
+
+
+	@Override
+	public <T extends Payment> List<T> getPayments() {
+		return (List<T>) payments;
 	}
 
 }

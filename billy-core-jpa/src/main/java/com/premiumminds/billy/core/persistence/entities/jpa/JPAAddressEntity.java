@@ -32,34 +32,33 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "NUMBER")
-	protected String number;
+	protected String			number;
 
 	@Column(name = "DETAILS")
-	protected String details;
+	protected String			details;
 
 	@Column(name = "BUILDING")
-	protected String building;
+	protected String			building;
 
 	@Column(name = "CITY")
-	protected String city;
+	protected String			city;
 
 	@Column(name = "POSTAL_CODE")
-	protected String postalCode;
+	protected String			postalCode;
 
 	@Column(name = "REGION")
-	protected String region;
+	protected String			region;
 
 	@Column(name = "COUNTRY")
-	protected String country;
+	protected String			country;
 
 	@Column(name = "STREET_NAME")
-	protected String streetName;
+	protected String			streetName;
 
 	public JPAAddressEntity() {
 	}

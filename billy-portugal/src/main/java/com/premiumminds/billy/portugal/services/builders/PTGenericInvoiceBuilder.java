@@ -24,7 +24,7 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
-		extends GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+	extends GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
 	public TBuilder setCancelled(boolean cancelled);
 

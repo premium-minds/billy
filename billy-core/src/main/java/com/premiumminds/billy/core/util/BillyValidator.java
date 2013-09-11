@@ -31,11 +31,11 @@ import org.apache.commons.lang3.Validate;
 
 public class BillyValidator extends Validate {
 
-	private static BillyValidator instance = new BillyValidator();
+	private static BillyValidator	instance	= new BillyValidator();
 
-	private Localizer localizer;
-	private ValidatorFactory factory;
-	private Validator validator;
+	private Localizer				localizer;
+	private ValidatorFactory		factory;
+	private Validator				validator;
 
 	private BillyValidator() {
 		this.localizer = new Localizer(
@@ -45,7 +45,7 @@ public class BillyValidator extends Validate {
 	}
 
 	public static void validateBeans(Object... objects)
-			throws ValidationException {
+		throws ValidationException {
 		StringBuilder builder = new StringBuilder();
 		boolean valid = true;
 

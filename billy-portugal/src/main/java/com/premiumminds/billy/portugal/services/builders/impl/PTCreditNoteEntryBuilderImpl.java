@@ -20,43 +20,53 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-		extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-		PTCreditNoteEntryBuilder<TBuilder, TEntry> {
+	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	PTCreditNoteEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	public PTCreditNoteEntryBuilderImpl(
-			DAOPTCreditNoteEntry daoPTCreditNoteEntry,
-			DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-			DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+	public PTCreditNoteEntryBuilderImpl(DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+										DAOPTInvoice daoPTInvoice,
+										DAOPTTax daoPTTax,
+										DAOPTProduct daoPTProduct,
+										DAOPTRegionContext daoPTRegionContext) {
 		super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct,
 				daoPTRegionContext);
 	}
 
-	public TBuilder setReference(PTInvoice reference) {
-		BillyValidator.mandatory(reference,
+	@NotOnUpdate
+	public TBuilder setReferenceUID(UID referenceUID) {
+		BillyValidator.notNull(referenceUID,
 				PTCreditNoteEntryBuilderImpl.LOCALIZER
 						.getString("field.invoice_reference"));
-		this.getTypeInstance().setReference(reference);
+		PTInvoiceEntity i = (PTInvoiceEntity) this.daoGenericInvoice
+				.get(referenceUID);
+		BillyValidator.found(i, PTGenericInvoiceBuilderImpl.LOCALIZER
+				.getString("field.invoice_reference"));
+		this.getTypeInstance().setReference(i);
 		return this.getBuilder();
 	}
 
+	@NotOnUpdate
 	public TBuilder setReason(String reason) {
-		BillyValidator.mandatory(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER
 				.getString("field.reason"));
 		this.getTypeInstance().setReason(reason);
 		return this.getBuilder();
@@ -64,6 +74,8 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
+		getTypeInstance().setCreditOrDebit(CreditOrDebit.DEBIT);
+		
 		super.validateInstance();
 		PTCreditNoteEntryEntity cn = this.getTypeInstance();
 		BillyValidator.mandatory(cn.getReference(),

@@ -29,8 +29,8 @@ import com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity;
 
 public class TestBankAccountBuilder extends AbstractTest {
 
-	private static final String BANK_ACCOUNT_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "BankAccount.yml";
+	private static final String	BANK_ACCOUNT_YML	= AbstractTest.YML_CONFIGS_DIR
+															+ "BankAccount.yml";
 
 	@Test
 	public void doTest() {

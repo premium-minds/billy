@@ -27,7 +27,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTSupplierBuilderI
 public interface PTSupplier extends Supplier {
 
 	public static class Builder extends
-			PTSupplierBuilderImpl<Builder, PTSupplier> {
+		PTSupplierBuilderImpl<Builder, PTSupplier> {
 
 		@Inject
 		public Builder(DAOPTSupplier daoPTSupplier) {

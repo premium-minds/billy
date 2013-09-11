@@ -25,5 +25,4 @@ public interface DocumentIssuingHandler {
 
 	public <T extends GenericInvoice, P extends IssuingParams> T issue(
 			T document, P parameters) throws DocumentIssuingException;
-
 }

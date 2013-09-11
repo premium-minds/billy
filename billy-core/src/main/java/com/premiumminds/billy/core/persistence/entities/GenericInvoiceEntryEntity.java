@@ -32,7 +32,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry,
-		BaseEntity {
+	BaseEntity {
 
 	public void setEntryNumber(Integer number);
 

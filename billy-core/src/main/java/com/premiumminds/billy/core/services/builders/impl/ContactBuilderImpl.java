@@ -24,28 +24,27 @@ import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.builders.ContactBuilder;
 import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TContact>, TContact extends Contact>
-		extends AbstractBuilder<TBuilder, TContact> implements
-		ContactBuilder<TBuilder, TContact> {
+	extends AbstractBuilder<TBuilder, TContact> implements
+	ContactBuilder<TBuilder, TContact> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOContact daoContact;
+	protected DAOContact				daoContact;
 
 	@Inject
 	public ContactBuilderImpl(DAOContact daoContact) {
-		super((EntityFactory<?>) daoContact);
+		super(daoContact);
 		this.daoContact = daoContact;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name,
+		BillyValidator.notBlank(name,
 				ContactBuilderImpl.LOCALIZER.getString("field.contact_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -93,8 +92,9 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		Contact c = this.getTypeInstance();
+		BillyValidator.mandatory(c.getTelephone(), "field.contact_telephone");
 		BillyValidator.mandatory(c.getName(), "field.contact_name");
 	}
 

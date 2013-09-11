@@ -28,7 +28,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntit
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity;
 
 public class DAOPTRegionContextImpl extends DAOContextImpl implements
-		DAOPTRegionContext {
+	DAOPTRegionContext {
 
 	@Inject
 	public DAOPTRegionContextImpl(Provider<EntityManager> emProvider) {

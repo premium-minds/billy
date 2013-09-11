@@ -33,34 +33,34 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 
 public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements
-		GenericInvoiceEntryEntity {
+	GenericInvoiceEntryEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public CreditOrDebit creditOrDebit;
-	public Currency currency;
-	public String description;
-	public List<GenericInvoice> references;
-	public Integer number;
-	public BigDecimal exchangeRateToDocumentCurrency;
-	public BigDecimal amountWithoutTax;
-	public BigDecimal amountWithTax;
-	public BigDecimal taxAmount;
-	public BigDecimal discountAmount;
-	public Product product;
-	public BigDecimal quantity;
-	public BigDecimal shippingCostsAmount;
-	public ShippingPoint shippingDestination;
-	public ShippingPoint shippingOrigin;
-	public List<Tax> taxes;
-	public String taxExemptionReason;
-	public Date taxPointDate;
-	public BigDecimal unitAmountWithoutTax;
-	public BigDecimal unitAmountWithTax;
-	public BigDecimal unitTaxAmount;
-	public BigDecimal unitDiscountAmount;
-	public String unitOfMeasure;
-	public AmountType type;
+	public CreditOrDebit		creditOrDebit;
+	public Currency				currency;
+	public String				description;
+	public List<GenericInvoice>	references;
+	public Integer				number;
+	public BigDecimal			exchangeRateToDocumentCurrency;
+	public BigDecimal			amountWithoutTax;
+	public BigDecimal			amountWithTax;
+	public BigDecimal			taxAmount;
+	public BigDecimal			discountAmount;
+	public Product				product;
+	public BigDecimal			quantity;
+	public BigDecimal			shippingCostsAmount;
+	public ShippingPoint		shippingDestination;
+	public ShippingPoint		shippingOrigin;
+	public List<Tax>			taxes;
+	public String				taxExemptionReason;
+	public Date					taxPointDate;
+	public BigDecimal			unitAmountWithoutTax;
+	public BigDecimal			unitAmountWithTax;
+	public BigDecimal			unitTaxAmount;
+	public BigDecimal			unitDiscountAmount;
+	public String				unitOfMeasure;
+	public AmountType			type;
 
 	public MockGenericInvoiceEntryEntity() {
 		this.references = new ArrayList<GenericInvoice>();

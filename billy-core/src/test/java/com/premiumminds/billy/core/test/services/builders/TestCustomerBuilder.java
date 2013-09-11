@@ -36,8 +36,8 @@ import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 
 public class TestCustomerBuilder extends AbstractTest {
 
-	private static final String CUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "Customer.yml";
+	private static final String	CUSTOMER_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "Customer.yml";
 
 	@Test
 	public void doTest() {
@@ -46,6 +46,10 @@ public class TestCustomerBuilder extends AbstractTest {
 
 		Mockito.when(this.getInstance(DAOCustomer.class).getEntityInstance())
 				.thenReturn(new MockCustomerEntity());
+
+		// Mockito.when(
+		// this.getInstance(DAOCustomer.class).getEntityInstance().isNew())
+		// .thenReturn(true);
 
 		Mockito.when(
 				this.getInstance(DAOContact.class).get(Matchers.any(UID.class)))
@@ -105,7 +109,7 @@ public class TestCustomerBuilder extends AbstractTest {
 				.setName(mockCustomer.getName())
 				.setShippingAddress(mockShippingAddressBuilder)
 				.setTaxRegistrationNumber(
-						mockCustomer.getTaxRegistrationNumber())
+						mockCustomer.getTaxRegistrationNumber(), null)
 				.setMainContactUID(mockCustomer.getMainContact().getUID());
 
 		Customer customer = builder.build();

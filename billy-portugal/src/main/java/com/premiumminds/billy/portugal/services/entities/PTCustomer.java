@@ -28,7 +28,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTCustomerBuilderI
 public interface PTCustomer extends Customer {
 
 	public static class Builder extends
-			PTCustomerBuilderImpl<Builder, PTCustomer> {
+		PTCustomerBuilderImpl<Builder, PTCustomer> {
 
 		@Inject
 		public Builder(DAOPTCustomer daoPTCustomer, DAOPTContact daoPTContact) {

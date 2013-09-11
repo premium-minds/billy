@@ -24,7 +24,7 @@ import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 
 public interface ProductBuilder<TBuilder extends ProductBuilder<TBuilder, TProduct>, TProduct extends Product>
-		extends Builder<TProduct> {
+	extends Builder<TProduct> {
 
 	public TBuilder setProductCode(String code);
 

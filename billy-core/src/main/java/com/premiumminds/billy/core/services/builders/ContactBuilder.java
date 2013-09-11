@@ -22,7 +22,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public interface ContactBuilder<TBuilder extends ContactBuilder<TBuilder, TContact>, TContact extends Contact>
-		extends Builder<TContact> {
+	extends Builder<TContact> {
 
 	public TBuilder setName(String name);
 

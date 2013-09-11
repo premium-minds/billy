@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -33,7 +34,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceBu
 public interface PTGenericInvoice extends GenericInvoice {
 
 	public static enum TYPE {
-		FT, FS, NC, ND
+		FT, FS, FR, NC, ND
 	}
 
 	/**
@@ -48,13 +49,13 @@ public interface PTGenericInvoice extends GenericInvoice {
 	}
 
 	public static class Builder
-			extends
-			PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
+		extends
+		PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
 
 		@Inject
 		public Builder(DAOPTGenericInvoice daoPTGenericInvoice,
-				DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-				DAOPTSupplier daoPTSupplier) {
+						DAOPTBusiness daoPTBusiness,
+						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
 			super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer,
 					daoPTSupplier);
 		}
@@ -80,4 +81,7 @@ public interface PTGenericInvoice extends GenericInvoice {
 
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
+	
+	public <T extends Payment> List<T> getPayments();
+
 }

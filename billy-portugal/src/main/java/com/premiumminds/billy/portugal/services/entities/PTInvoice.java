@@ -22,6 +22,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
@@ -32,15 +33,19 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderIm
 public interface PTInvoice extends PTGenericInvoice {
 
 	public static class Builder extends
-			PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
+		PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
 
 		@Inject
 		public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
-				DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
 			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}
 	}
 
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
+	
+	@Override
+	public <T extends Payment> List<T> getPayments();
+	
 }

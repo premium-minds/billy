@@ -32,8 +32,8 @@ import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 
 public class TestSupplierBuilder extends AbstractTest {
 
-	private static final String SUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "Supplier.yml";
+	private static final String	SUPPLIER_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "Supplier.yml";
 
 	@Test
 	public void doTest() {
@@ -96,7 +96,7 @@ public class TestSupplierBuilder extends AbstractTest {
 				.setName(mockSupplier.getName())
 				.setSelfBillingAgreement(mockSupplier.hasSelfBillingAgreement())
 				.setTaxRegistrationNumber(
-						mockSupplier.getTaxRegistrationNumber())
+						mockSupplier.getTaxRegistrationNumber(), null)
 				.setShippingAddress(mockShippingAddressBuilder);
 
 		Supplier supplier = builder.build();

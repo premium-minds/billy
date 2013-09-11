@@ -41,39 +41,43 @@ import com.premiumminds.billy.core.services.entities.Tax;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "PRODUCT_CODE")
-	protected String productCode;
+	protected String			productCode;
 
 	@Column(name = "PRODUCT_GROUP")
-	protected String group;
+	protected String			group;
 
 	@Column(name = "DESCRIPTION")
-	protected String description;
+	protected String			description;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TYPE")
-	protected ProductType type;
+	protected ProductType		type;
 
 	@Column(name = "COMMODITY_CODE")
-	protected String commodityCode;
+	protected String			commodityCode;
 
 	@Column(name = "NUMBER_CODE")
-	protected String numberCode;
+	protected String			numberCode;
 
 	@Column(name = "VALUATION_METHOD")
-	protected String valuationMethod;
+	protected String			valuationMethod;
 
 	@Column(name = "UNIT_OF_MEASURE")
-	protected String unitOfMeasure;
+	protected String			unitOfMeasure;
 
 	@ManyToMany(targetEntity = JPATaxEntity.class)
-	@JoinTable(name = Config.TABLE_PREFIX + "PRODUCT_TAX", joinColumns = { @JoinColumn(name = "ID_PRODUCT", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_TAX", referencedColumnName = "ID") })
-	protected List<Tax> taxes;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "PRODUCT_TAX",
+				joinColumns = { @JoinColumn(name = "ID_PRODUCT",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(name = "ID_TAX",
+													referencedColumnName = "ID") })
+	protected List<Tax>			taxes;
 
 	public JPAProductEntity() {
 		this.taxes = new ArrayList<Tax>();

@@ -32,7 +32,6 @@ public class PTProductTestUtil {
 	private static final String UNIT_OF_MEASURE = "Kg";
 	private static final String PRODUCT_CODE = "12345";
 	private static final String DESCRIPTION = "DESCRIPTION";
-	private static final String UID = "POTATOES";
 	private static final String GROUP = "FOOD";
 	private static final ProductType TYPE = ProductType.GOODS;
 
@@ -46,33 +45,66 @@ public class PTProductTestUtil {
 		this.tax = (PTTaxEntity) this.taxes.continent().normal();
 	}
 
-	public PTProductEntity getProductEntity(String uid, String numberCode,
-			String unitOfMeasure, String productCode, String description,
-			ProductType type) {
-		PTProduct.Builder productBuilder = this.injector
-				.getInstance(PTProduct.Builder.class);
-
-		productBuilder.clear();
-		productBuilder.addTaxUID(this.tax.getUID()).setNumberCode(numberCode)
-				.setUnitOfMeasure(unitOfMeasure).setProductCode(productCode)
-				.setDescription(description).setType(type)
-				.setProductGroup(PTProductTestUtil.GROUP);
-
-		PTProductEntity product = (PTProductEntity) productBuilder.build();
-
+	public PTProductEntity getProductEntity(String uid) {
+		PTProductEntity product = (PTProductEntity) this.getProductBuilder()
+				.build();
 		product.setUID(new UID(uid));
 
 		return product;
 	}
 
-	public PTProductEntity getProductEntity(String uid) {
-		return this.getProductEntity(uid, PTProductTestUtil.NUMBER_CODE,
-				PTProductTestUtil.UNIT_OF_MEASURE,
-				PTProductTestUtil.PRODUCT_CODE, PTProductTestUtil.DESCRIPTION,
-				PTProductTestUtil.TYPE);
+	public PTProductEntity getProductEntity() {
+		return (PTProductEntity) this.getProductBuilder().build();
 	}
 
-	public PTProductEntity getProductEntity() {
-		return this.getProductEntity(PTProductTestUtil.UID);
+	public PTProduct.Builder getProductBuilder(String productCode,
+			String unitMesure, String numberCode, String group,
+			String description, ProductType type) {
+		PTProduct.Builder productBuilder = this.injector
+				.getInstance(PTProduct.Builder.class);
+
+		return productBuilder.addTaxUID(this.tax.getUID())
+				.setNumberCode(numberCode).setUnitOfMeasure(unitMesure)
+				.setProductCode(productCode).setDescription(description)
+				.setType(type).setProductGroup(group);
+
 	}
+
+	public PTProduct.Builder getProductBuilder() {
+		return this.getProductBuilder(PTProductTestUtil.PRODUCT_CODE,
+				PTProductTestUtil.UNIT_OF_MEASURE,
+				PTProductTestUtil.NUMBER_CODE, PTProductTestUtil.GROUP,
+				PTProductTestUtil.DESCRIPTION, PTProductTestUtil.TYPE);
+	}
+
+	public PTProductEntity getProductEntity(String productCode,
+			String unitMesure, String numberCode, String group, ProductType type) {
+		return (PTProductEntity) this.getProductBuilder(productCode,
+				unitMesure, numberCode, group, PTProductTestUtil.DESCRIPTION,
+				type).build();
+
+	}
+
+	public PTProductEntity getOtherRegionProductEntity(String region) {
+
+		PTTaxEntity taxRegion;
+
+		PTProduct.Builder productBuilder = this.injector
+				.getInstance(PTProduct.Builder.class);
+
+		if (region.equals("PT-20"))
+			taxRegion = (PTTaxEntity) this.taxes.azores().normal();
+		else
+			taxRegion = (PTTaxEntity) this.taxes.madeira().normal();
+
+		productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(PTProductTestUtil.NUMBER_CODE)
+				.setUnitOfMeasure(PTProductTestUtil.UNIT_OF_MEASURE)
+				.setProductCode(PTProductTestUtil.PRODUCT_CODE)
+				.setDescription(PTProductTestUtil.DESCRIPTION)
+				.setType(PTProductTestUtil.TYPE)
+				.setProductGroup(PTProductTestUtil.GROUP);
+
+		return (PTProductEntity) productBuilder.build();
+	}
+
 }

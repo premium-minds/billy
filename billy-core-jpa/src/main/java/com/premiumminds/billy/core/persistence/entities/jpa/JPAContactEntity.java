@@ -32,28 +32,27 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAContactEntity extends JPABaseEntity implements ContactEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "NAME")
-	protected String name;
+	protected String			name;
 
 	@Column(name = "PHONE")
-	protected String phone;
+	protected String			phone;
 
 	@Column(name = "MOBILE")
-	protected String mobile;
+	protected String			mobile;
 
 	@Column(name = "FAX")
-	protected String fax;
+	protected String			fax;
 
 	@Column(name = "EMAIL")
-	protected String email;
+	protected String			email;
 
 	@Column(name = "WEBSITE")
-	protected String website;
+	protected String			website;
 
 	public JPAContactEntity() {
 	}

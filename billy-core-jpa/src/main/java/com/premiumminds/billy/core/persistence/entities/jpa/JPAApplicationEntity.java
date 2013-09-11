@@ -43,36 +43,42 @@ import com.premiumminds.billy.core.services.entities.Contact;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPAApplicationEntity extends JPABaseEntity implements
-		ApplicationEntity {
+	ApplicationEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "NAME")
-	protected String name;
+	protected String			name;
 
 	@Column(name = "VERSION")
-	protected String version;
+	protected String			version;
 
 	@Column(name = "DEVELOPER_NAME")
-	protected String developerName;
+	protected String			developerName;
 
 	@Column(name = "DEVELOPER_TAX_ID")
-	protected String developerTaxId;
+	protected String			developerTaxId;
 
 	@Column(name = "WEBSITE")
-	protected String website;
+	protected String			website;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
-	protected Contact mainContact;
+	protected Contact			mainContact;
 
-	@OneToMany(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "APPLICATION_CONTACT", joinColumns = { @JoinColumn(name = "ID_APPLIATION", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
-	protected List<Contact> contacts;
+	@OneToMany(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "APPLICATION_CONTACT",
+				joinColumns = { @JoinColumn(name = "ID_APPLIATION",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_CONTACT",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<Contact>		contacts;
 
 	public JPAApplicationEntity() {
 		this.contacts = new ArrayList<Contact>();

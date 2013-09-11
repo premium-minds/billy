@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +26,14 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
+import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
+import com.mysema.query.jpa.JPQLTemplates;
+import com.mysema.query.jpa.impl.JPAQuery;
+import com.mysema.query.types.Path;
+import com.mysema.query.types.path.EntityPathBase;
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
@@ -35,9 +41,9 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
 public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends JPABaseEntity & BaseEntity>
-		implements DAO<TInterface> {
+	implements DAO<TInterface> {
 
-	protected Provider<EntityManager> emProvider;
+	protected Provider<EntityManager>	emProvider;
 
 	@Inject
 	public AbstractDAO(Provider<EntityManager> emProvider) {
@@ -68,6 +74,13 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	public void commit() {
 		this.getEntityManager().getTransaction().commit();
+	}
+
+	@Override
+	public void lock(TInterface entity, LockModeType type) {
+		if (isTransactionActive()) {
+			this.getEntityManager().lock(entity, type);
+		}
 	}
 
 	@Override
@@ -117,6 +130,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	}
 
 	protected TEntity getEntity(UID uid) throws NoResultException {
+
 		TEntity result = null;
 		Class<? extends TEntity> entityClass = this.getEntityClass();
 		try {
@@ -134,13 +148,14 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 		} catch (Exception e) {
 			throw new PersistenceException(e);
 		}
+
 		return result;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public TInterface create(final TInterface entity)
-			throws PersistenceException {
+		throws PersistenceException {
 		if (!entity.isNew()) {
 			throw new PersistenceException(
 					"Cannot create. The entity is marked as not new.");
@@ -173,10 +188,10 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	@Override
 	@SuppressWarnings("unchecked")
 	public final synchronized TInterface update(final TInterface entity)
-			throws PersistenceException {
+		throws PersistenceException {
 		if (entity.isNew()) {
 			throw new PersistenceException(
-					"Cannot update. The entity is maked as new.");
+					"Cannot update. The entity is marked as new.");
 		}
 		try {
 			return new TransactionWrapper<TInterface>(this) {
@@ -190,15 +205,9 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 								"Cannot update a non existing entity : "
 										+ entity.getUID());
 					}
-					// oldVersion = EntityVersioner.makeObsolete(oldVersion);
-					AbstractDAO.this.getEntityManager().merge(oldVersion);
-					AbstractDAO.this.getEntityManager().flush();
-					AbstractDAO.this.getEntityManager().detach(oldVersion);
 
 					TEntity newVersion = (TEntity) entity;
-					// newVersion = EntityVersioner.newVersion(oldVersion,
-					// newVersion);
-					AbstractDAO.this.getEntityManager().persist(newVersion);
+					AbstractDAO.this.getEntityManager().merge(newVersion);
 
 					return AbstractDAO.this.get(entity.getUID());
 				}
@@ -218,13 +227,37 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 					.createQuery(
 							"select e from " + entityClass.getCanonicalName()
 									+ " e "
-									+ "where e.uid=:uid and e.active=true",
+									+ "where e.uid=:uid",
 							entityClass).setParameter("uid", uid.toString())
 					.getSingleResult();
 		} catch (NoResultException e) {
 			return false;
 		}
 		return entity != null;
+	}
+	
+	protected JPAQuery createQuery() {
+		return new JPAQuery(getEntityManager(), JPQLTemplates.DEFAULT);
+	}
+	
+	protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
+		try {
+			return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}
 
 	protected abstract Class<? extends TEntity> getEntityClass();

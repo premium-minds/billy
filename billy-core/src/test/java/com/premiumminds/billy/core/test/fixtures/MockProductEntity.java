@@ -26,17 +26,17 @@ import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 
 public class MockProductEntity extends MockBaseEntity implements ProductEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String productCode;
-	public String productGroup;
-	public String unitOfMeasure;
-	public String valuationMethod;
-	public String numberCode;
-	public String comodityCode;
-	public ProductType type;
-	public String description;
-	public List<TaxEntity> taxes;
+	public String				productCode;
+	public String				productGroup;
+	public String				unitOfMeasure;
+	public String				valuationMethod;
+	public String				numberCode;
+	public String				comodityCode;
+	public ProductType			type;
+	public String				description;
+	public List<TaxEntity>		taxes;
 
 	public MockProductEntity() {
 		this.taxes = new ArrayList<TaxEntity>();

@@ -18,20 +18,25 @@
  */
 package com.premiumminds.billy.portugal.test.fixtures;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 		implements PTSimpleInvoiceEntity {
 
 	private static final long serialVersionUID = 1L;
 
-	protected Boolean cancelled;
-	protected Boolean billed;
+	protected boolean cancelled;
+	protected boolean billed;
 	protected String reason;
 	protected String hash;
 	protected String sourceHash;
@@ -39,9 +44,11 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	protected SourceBilling sourceBilling;
 	protected String eacCode;
 	protected TYPE type;
+	protected List<PTPayment> payments;
+	public CLIENTTYPE clientType;
 
 	public MockPTSimpleInvoiceEntity() {
-
+		this.payments = new ArrayList<PTPayment>();
 	}
 
 	@Override
@@ -110,11 +117,6 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 		return (List<PTInvoiceEntry>) (List<?>) super.getEntries();
 	}
 
-	@SuppressWarnings("unchecked")
-	public PaymentMechanism getPaymentMechanism() {
-		return null;
-	}
-
 	@Override
 	public void setHashControl(String hashControl) {
 		this.hashControl = hashControl;
@@ -143,6 +145,21 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	@Override
 	public String getChangeReason() {
 		return reason;
+	}
+
+	@Override
+	public List<PTPayment> getPayments() {
+		return payments;
+	}
+
+	@Override
+	public CLIENTTYPE getClientType() {
+		return clientType;
+	}
+
+	@Override
+	public void setClientType(CLIENTTYPE type) {
+		clientType = type;
 	}
 
 }

@@ -40,16 +40,20 @@ import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 
 public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 
-	private static final String GEN_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoiceEntry.yml";
-	private static final String GEN_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "GenericInvoice.yml";
+	private static final String	GEN_INVOICE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																+ "GenericInvoiceEntry.yml";
+	private static final String	GEN_INVOICE_YML			= AbstractTest.YML_CONFIGS_DIR
+																+ "GenericInvoice.yml";
 
 	@Test
 	public void doTest() {
 		MockGenericInvoiceEntryEntity mock = this.createMockEntity(
 				MockGenericInvoiceEntryEntity.class,
 				TestGenericInvoiceEntryBuilder.GEN_INVOICE_ENTRY_YML);
+		
+		MockGenericInvoiceEntity mockInvoice = this.createMockEntity(
+				MockGenericInvoiceEntity.class,
+				TestGenericInvoiceEntryBuilder.GEN_INVOICE_YML);
 
 		mock.currency = Currency.getInstance("EUR");
 
@@ -57,10 +61,6 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 				this.getInstance(DAOGenericInvoiceEntry.class)
 						.getEntityInstance()).thenReturn(
 				new MockGenericInvoiceEntryEntity());
-
-		MockGenericInvoiceEntity mockInvoice = this.createMockEntity(
-				MockGenericInvoiceEntity.class,
-				TestGenericInvoiceEntryBuilder.GEN_INVOICE_YML);
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoice.class).get(
@@ -80,18 +80,17 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 		GenericInvoiceEntry.Builder builder = this
 				.getInstance(GenericInvoiceEntry.Builder.class);
 
-		builder.setCreditOrDebit(mock.getCreditOrDebit())
-				.setDescription(mock.getDescription())
+		builder.setDescription(mock.getDescription())
 				.addDocumentReferenceUID(
 						mock.getDocumentReferences().get(0).getUID())
 				.setQuantity(mock.getQuantity())
 				.setShippingCostsAmount(mock.getShippingCostsAmount())
 				.setUnitAmount(AmountType.WITH_TAX,
-						mock.getUnitAmountWithTax(),
-						Currency.getInstance("EUR"))
+						mock.getUnitAmountWithTax())
 				.setUnitOfMeasure(mock.getUnitOfMeasure())
 				.setProductUID(mock.getProduct().getUID())
-				.setTaxPointDate(mock.getTaxPointDate());
+				.setTaxPointDate(mock.getTaxPointDate())
+				.setCurrency(Currency.getInstance("EUR"));
 
 		GenericInvoiceEntry entry = builder.build();
 
@@ -106,6 +105,7 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 		Assert.assertTrue(mock.getUnitDiscountAmount().compareTo(
 				entry.getUnitDiscountAmount()) == 0);
 
+		
 		Assert.assertTrue(mock.getUnitTaxAmount().compareTo(
 				entry.getUnitTaxAmount()) == 0);
 		Assert.assertTrue(mock.getAmountWithTax().compareTo(

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ParamsTree<K, V> {
 
-	private Node<K, V> root;
+	private Node<K, V>	root;
 
 	public ParamsTree(K rootKey) {
 		this(rootKey, null);
@@ -46,10 +46,10 @@ public class ParamsTree<K, V> {
 
 	public static class Node<K, V> {
 
-		private K key;
-		private V value;
-		private Node<K, V> parent;
-		private List<Node<K, V>> children;
+		private K					key;
+		private V					value;
+		private Node<K, V>			parent;
+		private List<Node<K, V>>	children;
 
 		public Node(K key, Node<K, V> parent) {
 			this(key, null, parent);
