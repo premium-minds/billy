@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -33,6 +34,7 @@ import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderI
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.Entity;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 
@@ -42,14 +44,13 @@ public interface GenericInvoice extends Entity {
 		CREDIT, DEBIT
 	}
 
-	public static class Builder
-			extends
-			GenericInvoiceBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoice> {
+	public static class Builder extends
+		GenericInvoiceBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoice> {
 
 		@Inject
 		public Builder(DAOGenericInvoice daoGenericInvoice,
-				DAOBusiness daoBusiness, DAOCustomer daoCustomer,
-				DAOSupplier daoSupplier) {
+						DAOBusiness daoBusiness, DAOCustomer daoCustomer,
+						DAOSupplier daoSupplier) {
 			super(daoGenericInvoice, daoBusiness, daoCustomer, daoSupplier);
 		}
 	}
@@ -84,7 +85,7 @@ public interface GenericInvoice extends Entity {
 
 	public String getPaymentTerms();
 
-	public boolean isSelfBilled();
+	public Boolean isSelfBilled();
 
 	public String getSourceId();
 
@@ -105,9 +106,11 @@ public interface GenericInvoice extends Entity {
 	public BigDecimal getSettlementDiscount();
 
 	public Date getSettlementDate();
-
-	public Enum<?> getPaymentMechanism();
+	
+	public <T extends Payment> List<T> getPayments();
 
 	public CreditOrDebit getCreditOrDebit();
+	
+	public Integer getScale();
 
 }

@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
@@ -60,7 +61,7 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 
 	public void setPaymentTerms(String terms);
 
-	public void setSelfBilled(boolean selfBilled);
+	public void setSelfBilled(Boolean selfBilled);
 
 	public void setSourceId(String source);
 
@@ -83,9 +84,11 @@ public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
 	public void setSettlementDiscount(BigDecimal discount);
 
 	public void setSettlementDate(Date date);
-
-	public void setPaymentMechanism(Enum<?> mechanism);
+	
+	public <T extends Payment> List<T> getPayments();
 
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit);
+	
+	public void setScale(Integer scale);
 
 }

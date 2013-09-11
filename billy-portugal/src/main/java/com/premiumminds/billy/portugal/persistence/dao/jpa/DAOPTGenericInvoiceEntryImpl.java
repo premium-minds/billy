@@ -24,11 +24,13 @@ import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceEntryImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntryEntity;
 
 public class DAOPTGenericInvoiceEntryImpl extends DAOGenericInvoiceEntryImpl
-		implements DAOPTGenericInvoiceEntry {
+	implements DAOPTGenericInvoiceEntry {
 
 	@Inject
 	public DAOPTGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {
@@ -44,5 +46,5 @@ public class DAOPTGenericInvoiceEntryImpl extends DAOGenericInvoiceEntryImpl
 	protected Class<? extends JPAPTGenericInvoiceEntryEntity> getEntityClass() {
 		return JPAPTGenericInvoiceEntryEntity.class;
 	}
-
+	
 }

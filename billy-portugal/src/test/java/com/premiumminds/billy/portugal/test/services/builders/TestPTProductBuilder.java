@@ -36,8 +36,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity;
 
 public class TestPTProductBuilder extends PTAbstractTest {
 
-	private static final String PTPRODUCT_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTProduct.yml";
+	private static final String	PTPRODUCT_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTProduct.yml";
 
 	@Test
 	public void doTest() {

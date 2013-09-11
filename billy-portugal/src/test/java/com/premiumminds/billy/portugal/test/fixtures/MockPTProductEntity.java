@@ -22,12 +22,12 @@ import com.premiumminds.billy.core.test.fixtures.MockProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 
 public class MockPTProductEntity extends MockProductEntity implements
-		PTProductEntity {
+	PTProductEntity {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public MockPTProductEntity() {
 

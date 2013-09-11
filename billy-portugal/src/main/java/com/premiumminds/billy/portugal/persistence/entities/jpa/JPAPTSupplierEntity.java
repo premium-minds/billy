@@ -32,12 +32,12 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
 public class JPAPTSupplierEntity extends JPASupplierEntity implements
-		PTSupplierEntity {
+	PTSupplierEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "REFERRAL_NAME")
-	protected String referralName;
+	protected String			referralName;
 
 	@Override
 	public String getReferralName() {

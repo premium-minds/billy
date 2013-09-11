@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.documents;
 
 import javax.inject.Inject;
 
-import com.google.inject.Injector;
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -30,13 +30,16 @@ import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
-		implements DocumentIssuingHandler {
+	implements DocumentIssuingHandler {
 
-	public final static TYPE INVOICE_TYPE = TYPE.NC;
+	public final static TYPE		INVOICE_TYPE	= TYPE.NC;
+	private final DAOPTCreditNote	daoCreditNote;
 
 	@Inject
-	public PTCreditNoteIssuingHandler(Injector injector) {
-		super(injector);
+	public PTCreditNoteIssuingHandler(DAOInvoiceSeries invoiceSeries,
+										DAOPTCreditNote daoCreditNote) {
+		super(invoiceSeries);
+		this.daoCreditNote = daoCreditNote;
 	}
 
 	@Override
@@ -45,10 +48,7 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler
 
 		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
 
-		final DAOPTCreditNote daoInvoice = this.injector
-				.getInstance(DAOPTCreditNote.class);
-
-		return this.issue(document, parametersPT, daoInvoice,
+		return this.issue(document, parametersPT, daoCreditNote,
 				PTCreditNoteIssuingHandler.INVOICE_TYPE);
 	}
 }

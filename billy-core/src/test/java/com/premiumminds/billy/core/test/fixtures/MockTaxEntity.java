@@ -28,19 +28,19 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 public class MockTaxEntity extends MockBaseEntity implements TaxEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public ContextEntity context;
-	public String designation;
-	public String description;
-	public String code;
-	public BigDecimal value;
-	public Date validFrom;
-	public Date validTo;
-	public TaxRateType taxRateType;
-	public BigDecimal percentageRateValue;
-	public BigDecimal flatRateAmount;
-	public Currency currency;
+	public ContextEntity		context;
+	public String				designation;
+	public String				description;
+	public String				code;
+	public BigDecimal			value;
+	public Date					validFrom;
+	public Date					validTo;
+	public TaxRateType			taxRateType;
+	public BigDecimal			percentageRateValue;
+	public BigDecimal			flatRateAmount;
+	public Currency				currency;
 
 	public MockTaxEntity() {
 

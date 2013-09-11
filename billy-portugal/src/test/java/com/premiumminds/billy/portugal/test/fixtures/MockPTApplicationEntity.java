@@ -24,12 +24,12 @@ import com.premiumminds.billy.core.test.fixtures.MockApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
 public class MockPTApplicationEntity extends MockApplicationEntity implements
-		PTApplicationEntity {
+	PTApplicationEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public Integer number;
-	public URL keysPath;
+	public Integer				number;
+	public URL					keysPath;
 
 	public MockPTApplicationEntity() {
 

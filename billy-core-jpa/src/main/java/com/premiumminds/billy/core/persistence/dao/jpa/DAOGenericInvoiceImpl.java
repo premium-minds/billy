@@ -26,13 +26,15 @@ import com.mysema.query.jpa.JPASubQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 
 public class DAOGenericInvoiceImpl extends
-		AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
-		DAOGenericInvoice {
+	AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
+	DAOGenericInvoice {
 
 	@Inject
 	public DAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -49,27 +51,35 @@ public class DAOGenericInvoiceImpl extends
 		return new JPAGenericInvoiceEntity();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
-			String series) throws BillyRuntimeException {
+			String series, String businessUID) {
 
 		QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
+		QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
 		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		GenericInvoiceEntity invoice = query
-				.from(genericInvoice)
-				.where(genericInvoice.series.eq(series))
-				.where(genericInvoice.seriesNumber.eq(new JPASubQuery().from(
-						genericInvoice).unique(
-						genericInvoice.seriesNumber.max())))
-				.uniqueResult(genericInvoice);
+		BusinessEntity businessEnity = query.from(business)
+				.where(business.uid.eq(businessUID)).uniqueResult(business);
 
-		if (invoice != null) {
-			return (T) invoice;
-		} else {
+		if (businessEnity == null) {
 			throw new BillyRuntimeException();
 		}
-	}
 
+		query = new JPAQuery(this.getEntityManager());
+
+		query.from(genericInvoice);
+		query.where(genericInvoice.series.eq(series));
+		query.where(genericInvoice.business.eq(businessEnity));
+		query.where(genericInvoice.seriesNumber.eq(new JPASubQuery()
+				.from(genericInvoice).where(genericInvoice.series.eq(series))
+				.where(genericInvoice.business.eq(businessEnity))
+				.unique(genericInvoice.seriesNumber.max())));
+
+		GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
+
+		return (T) invoice;
+	}
 }

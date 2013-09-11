@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class BillyRuntimeException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	public BillyRuntimeException() {
 	}
@@ -39,4 +39,7 @@ public class BillyRuntimeException extends RuntimeException {
 		super(b.getString(messageId), t);
 	}
 
+	public BillyRuntimeException(String message) {
+		super(message);
+	}
 }

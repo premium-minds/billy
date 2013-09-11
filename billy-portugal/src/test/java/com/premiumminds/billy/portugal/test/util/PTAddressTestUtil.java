@@ -23,16 +23,16 @@ import com.premiumminds.billy.portugal.services.entities.PTAddress;
 
 public class PTAddressTestUtil {
 
-	private static final String NUMBER = "1";
-	private static final String STREET = "street";
-	private static final String BUILDING = "building";
-	private static final String CITY = "city";
-	private static final String REGION = "region";
-	private static final String ISOCODE = "PT";
-	private static final String DETAILS = "details";
-	private static final String POSTAL_CODE = "1000-000";
+	private static final String	NUMBER		= "1";
+	private static final String	STREET		= "street";
+	private static final String	BUILDING	= "building";
+	private static final String	CITY		= "city";
+	private static final String	REGION		= "region";
+	private static final String	ISOCODE		= "PT";
+	private static final String	DETAILS		= "details";
+	private static final String	POSTAL_CODE	= "1000-000";
 
-	private Injector injector;
+	private Injector			injector;
 
 	public PTAddressTestUtil(Injector injector) {
 		this.injector = injector;

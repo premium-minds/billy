@@ -31,11 +31,11 @@ import com.premiumminds.billy.portugal.services.builders.PTProductBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 
 public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder, TProduct>, TProduct extends PTProduct>
-		extends ProductBuilderImpl<TBuilder, TProduct> implements
-		PTProductBuilder<TBuilder, TProduct> {
+	extends ProductBuilderImpl<TBuilder, TProduct> implements
+	PTProductBuilder<TBuilder, TProduct> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTProductBuilderImpl(DAOPTProduct daoPTProduct, DAOPTTax daoPTTax) {
@@ -70,8 +70,5 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 		BillyValidator.mandatory(p.getNumberCode(),
 				PTProductBuilderImpl.LOCALIZER
 						.getString("field.product_number_code"));
-		BillyValidator.mandatory(p.getUnitOfMeasure(),
-				PTProductBuilderImpl.LOCALIZER
-						.getString("field.unit_of_measure"));
 	}
 }

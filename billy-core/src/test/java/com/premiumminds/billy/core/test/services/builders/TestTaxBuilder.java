@@ -38,8 +38,8 @@ import com.premiumminds.billy.core.test.fixtures.MockTaxEntity;
 
 public class TestTaxBuilder extends AbstractTest {
 
-	private static final String TAX_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "Tax.yml";
+	private static final String	TAX_YML	= AbstractTest.YML_CONFIGS_DIR
+												+ "Tax.yml";
 
 	@Test
 	public void doTestFlat() {

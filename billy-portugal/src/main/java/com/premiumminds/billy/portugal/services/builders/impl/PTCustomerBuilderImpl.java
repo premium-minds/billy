@@ -21,29 +21,49 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.exceptions.InvalidTaxIdentificationNumberException;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.impl.CustomerBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCustomerBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
+import com.premiumminds.billy.portugal.util.PTFinancialValidator;
 
 public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuilder, TCustomer>, TCustomer extends PTCustomer>
-		extends CustomerBuilderImpl<TBuilder, TCustomer> implements
-		PTCustomerBuilder<TBuilder, TCustomer> {
+	extends CustomerBuilderImpl<TBuilder, TCustomer> implements
+	PTCustomerBuilder<TBuilder, TCustomer> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	protected PTCustomerBuilderImpl(DAOPTCustomer daoPTCustomer,
-			DAOPTContact daoPTContact) {
+									DAOPTContact daoPTContact) {
 		super(daoPTCustomer, daoPTContact);
+	}
+
+	@Override
+	@NotOnUpdate
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode)
+		throws InvalidTaxIdentificationNumberException {
+		BillyValidator.notBlank(number, CustomerBuilderImpl.LOCALIZER
+				.getString("field.customer_tax_number"));
+
+		PTFinancialValidator validator = new PTFinancialValidator(number);
+
+		if (PTFinancialValidator.PT_COUNTRY_CODE.equals(countryCode)
+				&& !validator.isValid()) {
+			throw new InvalidTaxIdentificationNumberException();
+		}
+		this.getTypeInstance().setTaxRegistrationNumber(number);
+		return this.getBuilder();
 	}
 
 	@Override
@@ -54,7 +74,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 	@Override
 	public <T extends Address> TBuilder setBillingAddress(
 			Builder<T> addressBuilder) {
-		BillyValidator.mandatory(addressBuilder,
+		BillyValidator.notNull(addressBuilder,
 				PTCustomerBuilderImpl.LOCALIZER
 						.getString("field.customer_billing_address"));
 		this.getTypeInstance().setBillingAddress(
@@ -64,7 +84,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 
 	@Override
 	public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
-		BillyValidator.mandatory(selfBiling, PTCustomerBuilderImpl.LOCALIZER
+		BillyValidator.notNull(selfBiling, PTCustomerBuilderImpl.LOCALIZER
 				.getString("field.customer_self_billing_agreement"));
 		this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
 		return this.getBuilder();
@@ -88,12 +108,12 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
 						.getString("field.customer_main_address"));
 		BillyValidator.mandatory(c.getBillingAddress(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.ustomer_billing_address"));
+						.getString("field.customer_billing_address"));
 		BillyValidator.mandatory(c.hasSelfBillingAgreement(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.ustomer_self_billing_agreement"));
+						.getString("field.customer_self_billing_agreement"));
 		BillyValidator.notEmpty(c.getAddresses(),
 				PTCustomerBuilderImpl.LOCALIZER
-						.getString("field.ustomer_address"));
+						.getString("field.customer_address"));
 	}
 }

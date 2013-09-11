@@ -23,11 +23,11 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEnt
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class MockPTCreditNoteEntryEntity extends MockGenericInvoiceEntryEntity
-		implements PTCreditNoteEntryEntity {
+	implements PTCreditNoteEntryEntity {
 
-	private static final long serialVersionUID = 1L;
-	private PTInvoice reference;
-	private String reason;
+	private static final long	serialVersionUID	= 1L;
+	private PTInvoice			reference;
+	private String				reason;
 
 	public MockPTCreditNoteEntryEntity() {
 

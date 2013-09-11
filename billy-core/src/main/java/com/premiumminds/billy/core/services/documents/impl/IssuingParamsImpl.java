@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public class IssuingParamsImpl implements IssuingParams {
 
-	Map<String, Object> parameters;
+	Map<String, Object>	parameters;
 
 	public IssuingParamsImpl() {
 		this.parameters = new HashMap<String, Object>();
@@ -36,8 +36,7 @@ public class IssuingParamsImpl implements IssuingParams {
 		if (this.parameters.containsKey(key)) {
 			return this.parameters.get(key);
 		} else {
-			throw new ParameterNotFoundException("No such parameter " + key
-					+ "!");
+			return null;
 		}
 	}
 

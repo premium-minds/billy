@@ -45,59 +45,80 @@ import com.premiumminds.billy.core.services.entities.Contact;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CUSTOMER")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "NAME")
-	protected String name;
+	protected String			name;
 
 	@Column(name = "TAX_ID")
-	protected String taxId;
+	protected String			taxId;
 
 	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_ADDRESS", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID", unique = true) })
-	protected List<Address> addresses;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "CUSTOMER_ADDRESS",
+				joinColumns = { @JoinColumn(name = "ID_CUSTOMER",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_ADDRESS",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<Address>		addresses;
 
 	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-	protected Address mainAddress;
+	protected Address			mainAddress;
 
 	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
-	protected Address billingAddress;
+	protected Address			billingAddress;
 
 	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
-	protected Address shippingAddress;
+	protected Address			shippingAddress;
 
 	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID")
-	protected Contact mainContact;
+	protected Contact			mainContact;
 
 	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_CONTACT", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
-	protected List<Contact> contacts;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "CUSTOMER_CONTACT",
+				joinColumns = { @JoinColumn(name = "ID_CUSTOMER",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_CONTACT",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<Contact>		contacts;
 
 	@Column(name = "SELF_BILLING")
-	protected Boolean selfBilling;
+	protected Boolean			selfBilling;
 
 	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_BANK_ACCOUNT", joinColumns = { @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_BANK_ACCOUNT", referencedColumnName = "ID", unique = true) })
-	protected List<BankAccount> bankAccounts;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "CUSTOMER_BANK_ACCOUNT",
+				joinColumns = { @JoinColumn(name = "ID_CUSTOMER",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_BANK_ACCOUNT",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<BankAccount>	bankAccounts;
 
 	public JPACustomerEntity() {
 		this.addresses = new ArrayList<Address>();
 		this.contacts = new ArrayList<Contact>();
 		this.bankAccounts = new ArrayList<BankAccount>();
+		this.selfBilling = Boolean.FALSE;
 	}
 
 	@Override

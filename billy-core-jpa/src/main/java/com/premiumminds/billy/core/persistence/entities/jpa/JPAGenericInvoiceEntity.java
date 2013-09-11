@@ -41,6 +41,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.envers.Audited;
 
@@ -51,14 +52,17 @@ import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 @Entity
 @Audited
-@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE", uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "NUMBER", "ID_BUSINESS" }),
+		@UniqueConstraint(columnNames = { "SERIES", "SERIES_NUMBER",
+				"ID_BUSINESS" }) })
 public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		GenericInvoiceEntity {
 
@@ -147,12 +151,11 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	protected Date settlementDate;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "PAYMENT_MECHANISM")
-	protected Enum<?> paymentMechanism;
-
-	@Enumerated(EnumType.STRING)
 	@Column(name = "CREDIT_OR_DEBIT")
 	protected CreditOrDebit creditOrDebit;
+	
+	@Column(name = "SCALE")
+	protected Integer scale;
 
 	@ElementCollection
 	@CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER", joinColumns = @JoinColumn(name = "ID_INVOICE"))
@@ -164,9 +167,20 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	@JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID", unique = true) })
 	protected List<GenericInvoiceEntry> entries;
 
+	@OneToMany(targetEntity = JPAPaymentEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS", joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true) })
+	protected List<Payment> payments;
+
 	public JPAGenericInvoiceEntity() {
 		this.entries = new ArrayList<GenericInvoiceEntry>();
 		this.receiptNumbers = new ArrayList<String>();
+		this.payments = new ArrayList<Payment>();
+	}
+	
+	@Override
+	public Integer getScale(){
+		return this.getScale();
 	}
 
 	@Override
@@ -179,13 +193,11 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		return this.series;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Business getBusiness() {
 		return this.business;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Customer getCustomer() {
 		return this.customer;
@@ -245,7 +257,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public boolean isSelfBilled() {
+	public Boolean isSelfBilled() {
 		return this.selfBilled;
 	}
 
@@ -287,11 +299,6 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	@Override
 	public Date getSettlementDate() {
 		return this.settlementDate;
-	}
-
-	@Override
-	public Enum getPaymentMechanism() {
-		return this.paymentMechanism;
 	}
 
 	@Override
@@ -381,7 +388,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public void setSelfBilled(boolean selfBilled) {
+	public void setSelfBilled(Boolean selfBilled) {
 		this.selfBilled = selfBilled;
 	}
 
@@ -410,6 +417,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 		return this.receiptNumbers;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<? extends GenericInvoiceEntry> getEntries() {
 		return this.entries;
@@ -436,13 +444,19 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	}
 
 	@Override
-	public void setPaymentMechanism(Enum<?> mechanism) {
-		this.paymentMechanism = mechanism;
-	}
-
-	@Override
 	public void setCreditOrDebit(CreditOrDebit creditOrDebit) {
 		this.creditOrDebit = creditOrDebit;
+	}
+	
+	@Override
+	public void setScale(Integer scale){
+		this.scale = scale;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<? extends Payment> getPayments() {
+		return payments;
 	}
 
 }

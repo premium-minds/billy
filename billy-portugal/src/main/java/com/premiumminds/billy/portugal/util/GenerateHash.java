@@ -19,37 +19,42 @@
 package com.premiumminds.billy.portugal.util;
 
 import java.math.BigDecimal;
-import java.security.InvalidKeyException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.portugal.services.certification.CertificationManager;
-import com.premiumminds.billy.portugal.services.certification.InvalidHashException;
 
 public class GenerateHash {
 
-	public static String generateHash(@NotNull PrivateKey privateKey,
-			@NotNull PublicKey publicKey, @NotNull Date invoiceDate,
-			@NotNull Date systemEntryDate, @NotNull String invoiceNumber,
-			@NotNull BigDecimal grossTotal, String previousInvoiceHash)
-			throws InvalidHashException, InvalidKeySpecException,
-			InvalidKeyException {
+	public static String generateHash(@NotNull
+	PrivateKey privateKey, @NotNull
+	PublicKey publicKey, @NotNull
+	Date invoiceDate, @NotNull
+	Date systemEntryDate, @NotNull
+	String invoiceNumber, @NotNull
+	BigDecimal grossTotal, String previousInvoiceHash)
+		throws DocumentIssuingException {
 
-		String sourceString = GenerateHash
-				.generateSourceHash(invoiceDate, systemEntryDate,
-						invoiceNumber, grossTotal, previousInvoiceHash);
+		try {
+			String sourceString = GenerateHash.generateSourceHash(invoiceDate,
+					systemEntryDate, invoiceNumber, grossTotal,
+					previousInvoiceHash);
 
-		CertificationManager certificationManager = new CertificationManager();
-		certificationManager.setAutoVerifyHash(true);
-		certificationManager.setPrivateKey(privateKey);
-		certificationManager.setPublicKey(publicKey);
+			CertificationManager certificationManager = new CertificationManager();
+			certificationManager.setAutoVerifyHash(true);
+			certificationManager.setPrivateKey(privateKey);
+			certificationManager.setPublicKey(publicKey);
 
-		return certificationManager.getHashBase64(sourceString);
+			return certificationManager.getHashBase64(sourceString);
+		} catch (Throwable e) {
+			throw new DocumentIssuingException(e);
+		}
 	}
 
 	public static String generateSourceHash(Date invoiceDate,
@@ -64,7 +69,7 @@ public class GenerateHash {
 		builder.append(date.format(invoiceDate)).append(';')
 				.append(dateTime.format(systemEntryDate)).append(';')
 				.append(invoiceNumber).append(';')
-				.append(grossTotal.setScale(2)).append(';')
+				.append(grossTotal.setScale(BillyMathContext.SCALE, BillyMathContext.get().getRoundingMode())).append(';')
 				.append(previousInvoiceHash == null ? "" : previousInvoiceHash);
 
 		String sourceString = builder.toString();

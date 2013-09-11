@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.test.services.builders;
 
 import java.util.ArrayList;
+import java.util.Currency;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,13 +28,18 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
+import com.premiumminds.billy.portugal.test.fixtures.MockPTCustomerEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.test.fixtures.MockPTPaymentEntity;
 
 public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 
@@ -41,6 +47,11 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 			+ "PTGenericInvoice.yml";
 	private static final String PT_GENERIC_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "PTGenericInvoiceEntry.yml";
+	private static final String PTCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "PTCustomer.yml";
+
+	private static final String PT_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "PTPayment.yml";
 
 	@Test
 	public void doTest() {
@@ -48,9 +59,20 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 				MockPTGenericInvoiceEntity.class,
 				TestPTGenericInvoiceBuilder.PT_GENERIC_INVOICE_YML);
 
+		MockPTCustomerEntity mockCustomerEntity = this.createMockEntity(
+				MockPTCustomerEntity.class, PTCUSTOMER_YML);
+
+
+		mock.setCurrency(Currency.getInstance("EUR"));
+
 		Mockito.when(
 				this.getInstance(DAOPTGenericInvoice.class).getEntityInstance())
 				.thenReturn(new MockPTGenericInvoiceEntity());
+
+		Mockito.when(
+				this.getInstance(DAOPTCustomer.class).get(
+						Matchers.any(UID.class)))
+				.thenReturn(mockCustomerEntity);
 
 		MockPTGenericInvoiceEntryEntity entryMock = this.createMockEntity(
 				MockPTGenericInvoiceEntryEntity.class,
@@ -73,9 +95,22 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 
 		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
+		MockPTPaymentEntity mockPayment = this.createMockEntity(
+				MockPTPaymentEntity.class,
+				TestPTGenericInvoiceBuilder.PT_PAYMENT_YML);
+
+		Mockito.when(this.getInstance(DAOPTPayment.class).getEntityInstance())
+				.thenReturn(new MockPTPaymentEntity());
+
+		PTPayment.Builder builderPayment = this
+				.getInstance(PTPayment.Builder.class);
+
+		builderPayment.setPaymentAmount(mockPayment.getPaymentAmount())
+				.setPaymentDate(mockPayment.getPaymentDate())
+				.setPaymentMethod(mockPayment.getPaymentMethod());
+
 		builder.addEntry(entry).setBilled(mock.isBilled())
 				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
-				.setCreditOrDebit(mock.getCreditOrDebit())
 				.setDate(mock.getDate())
 				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
 				.setOfficeNumber(mock.getOfficeNumber())
@@ -86,7 +121,9 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 				.setSettlementDiscount(mock.getSettlementDiscount())
 				.setSourceId(mock.getSourceId())
 				.setTransactionId(mock.getTransactionId())
-				.setSourceBilling(mock.getSourceBilling());
+				.setSourceBilling(mock.getSourceBilling())
+				.setCustomerUID(mockCustomerEntity.getUID())
+				.addPayment(builderPayment);
 
 		PTGenericInvoice invoice = builder.build();
 
@@ -98,7 +135,6 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
 		Assert.assertTrue(invoice.isBilled() == mock.isBilled());
 		Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
 
-		Assert.assertEquals(mock.getCreditOrDebit(), invoice.getCreditOrDebit());
 		Assert.assertEquals(mock.getGeneralLedgerDate(),
 				invoice.getGeneralLedgerDate());
 		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());

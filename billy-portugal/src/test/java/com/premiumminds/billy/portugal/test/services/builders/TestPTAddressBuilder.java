@@ -30,8 +30,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity;
 
 public class TestPTAddressBuilder extends PTAbstractTest {
 
-	private static final String PTADDRESS_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTAddress.yml";
+	private static final String	PTADDRESS_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTAddress.yml";
 
 	@Test
 	public void doTest() {

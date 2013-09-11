@@ -28,7 +28,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTProductBuilderIm
 public interface PTProduct extends Product {
 
 	public static class Builder extends
-			PTProductBuilderImpl<Builder, PTProduct> {
+		PTProductBuilderImpl<Builder, PTProduct> {
 
 		@Inject
 		public Builder(DAOPTProduct daoPTProduct, DAOPTTax daoPTTax) {

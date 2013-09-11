@@ -32,23 +32,22 @@ import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BANK_ACCOUNT")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPABankAccountEntity extends JPABaseEntity implements
-		BankAccountEntity {
+	BankAccountEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "IBAN")
-	protected String iban;
+	protected String			iban;
 
 	@Column(name = "BANK_IDENTIFIER")
-	protected String bankIdentifier;
+	protected String			bankIdentifier;
 
 	@Column(name = "BANK_ACCOUNT_NUMBER")
-	protected String bankAccountNumber;
+	protected String			bankAccountNumber;
 
 	@Column(name = "OWNER_NAME")
-	protected String ownerName;
+	protected String			ownerName;
 
 	public JPABankAccountEntity() {
 	}

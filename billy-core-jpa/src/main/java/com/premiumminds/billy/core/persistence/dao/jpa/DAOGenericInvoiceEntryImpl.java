@@ -27,8 +27,8 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
 
 public class DAOGenericInvoiceEntryImpl extends
-		AbstractDAO<GenericInvoiceEntryEntity, JPAGenericInvoiceEntryEntity>
-		implements DAOGenericInvoiceEntry {
+	AbstractDAO<GenericInvoiceEntryEntity, JPAGenericInvoiceEntryEntity>
+	implements DAOGenericInvoiceEntry {
 
 	@Inject
 	public DAOGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {

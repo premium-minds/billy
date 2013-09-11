@@ -20,194 +20,275 @@ package com.premiumminds.billy.core.test.services.builders;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.ArrayList;
 import java.util.Currency;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
+import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
+import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.test.AbstractTest;
+import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class TestGenericInvoiceOperations extends AbstractTest {
 
 	private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "GenericInvoice.yml";
+	private static final String CUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Customer.yml";
+	private static final String SUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "Supplier.yml";
 	private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
 			+ "GenericInvoiceEntry.yml";
 	private MathContext mc = BillyMathContext.get();
 	private BigDecimal qnt = new BigDecimal("46");
 	private BigDecimal tax = new BigDecimal("0.23");
+	private BigDecimal testValue = new BigDecimal("0.12345");
+	private BigDecimal testValue2 = new BigDecimal("0.98765");
+	private MockGenericInvoiceEntity mockInvoiceEntity;
+	private MockCustomerEntity mockCustomerEntity;
+	private MockSupplierEntity mockSupplierEntity;
 
-	@SuppressWarnings("deprecation")
-	@Test
-	public void doTest() {
-		MockGenericInvoiceEntity mock = this.createMockEntity(
+	@Before
+	public void setUp() {
+		mockInvoiceEntity = this.createMockEntity(
 				MockGenericInvoiceEntity.class,
 				TestGenericInvoiceOperations.INVOICE_YML);
-		mock.setCurrency(Currency.getInstance("EUR"));
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoice.class).getEntityInstance())
 				.thenReturn(new MockGenericInvoiceEntity());
-		// Mockito.when(getInstance(DAOGenericInvoice.class).get(Matchers.any(UID.class))).thenReturn(mock);
 		Mockito.when(
 				this.getInstance(DAOContext.class).isSubContext(
 						Matchers.any(Context.class),
 						Matchers.any(Context.class))).thenReturn(true);
+		
+		mockCustomerEntity = this.createMockEntity(MockCustomerEntity.class,
+				CUSTOMER_YML);
+		mockSupplierEntity = this.createMockEntity(MockSupplierEntity.class,
+				SUPPLIER_YML);
+		mockInvoiceEntity.setCustomer(mockCustomerEntity);
+		Mockito.when(
+				this.getInstance(DAOCustomer.class).get(Matchers.any(UID.class)))
+				.thenReturn(mockCustomerEntity);
+		Mockito.when(
+				this.getInstance(DAOSupplier.class).get(Matchers.any(UID.class)))
+				.thenReturn(mockSupplierEntity);
+	}
 
-		MockGenericInvoiceEntryEntity entryMock1 = this.createMockEntity(
-				MockGenericInvoiceEntryEntity.class,
-				TestGenericInvoiceOperations.ENTRY_YML);
-		entryMock1.setCurrency(Currency.getInstance("EUR"));
-		entryMock1.getDocumentReferences().add(mock);
-		entryMock1.unitAmountWithoutTax = (new BigDecimal("1")).divide(
-				new BigDecimal("3"), this.mc);
-		entryMock1.unitTaxAmount = entryMock1.unitAmountWithoutTax.multiply(
-				this.tax, this.mc);
-		entryMock1.unitAmountWithTax = entryMock1.unitAmountWithoutTax.add(
-				entryMock1.unitTaxAmount, this.mc);
-		entryMock1.amountWithoutTax = entryMock1.unitAmountWithoutTax.multiply(
-				this.qnt, this.mc);
-		entryMock1.amountWithTax = entryMock1.unitAmountWithTax.multiply(
-				this.qnt, this.mc);
-		entryMock1.taxAmount = entryMock1.unitTaxAmount.multiply(this.qnt,
-				this.mc);
+	@Test
+	public void simpleOperationsTest() {
+		MockGenericInvoiceEntryEntity mockEntry = this.getMockEntryEntity(
+				mockInvoiceEntity, testValue2);
 
 		Mockito.when(
 				this.getInstance(DAOGenericInvoiceEntry.class).get(
-						Matchers.any(UID.class))).thenReturn(entryMock1);
+						Matchers.any(UID.class))).thenReturn(mockEntry);
+		mockInvoiceEntity.getEntries().clear();
+		mockInvoiceEntity.getEntries().add(mockEntry);
 
-		MockGenericInvoiceEntryEntity entryMock2 = this.createMockEntity(
-				MockGenericInvoiceEntryEntity.class,
-				TestGenericInvoiceOperations.ENTRY_YML);
-		entryMock2.setCurrency(Currency.getInstance("EUR"));
-		entryMock2.getDocumentReferences().add(mock);
-
-		MockGenericInvoiceEntryEntity entryMock3 = this.createMockEntity(
-				MockGenericInvoiceEntryEntity.class,
-				TestGenericInvoiceOperations.ENTRY_YML);
-		entryMock3.setCurrency(Currency.getInstance("EUR"));
-		entryMock3.getDocumentReferences().add(mock);
-		entryMock3.unitAmountWithoutTax = (new BigDecimal("1")).divide(
-				new BigDecimal("7"), this.mc);
-		entryMock3.unitTaxAmount = entryMock3.unitAmountWithoutTax.multiply(
-				this.tax, this.mc);
-		entryMock3.unitAmountWithTax = entryMock3.unitAmountWithoutTax.add(
-				entryMock3.unitTaxAmount, this.mc);
-		entryMock3.amountWithoutTax = entryMock3.unitAmountWithoutTax.multiply(
-				this.qnt, this.mc);
-		entryMock3.amountWithTax = entryMock3.unitAmountWithTax.multiply(
-				this.qnt, this.mc);
-		entryMock3.taxAmount = entryMock3.unitTaxAmount.multiply(this.qnt,
-				this.mc);
-
-		mock.getEntries().add(entryMock1);
-		mock.getEntries().add(entryMock2);
-		mock.getEntries().add(entryMock3);
-
-		ArrayList<GenericInvoiceEntry> entrys = (ArrayList<GenericInvoiceEntry>) mock
-				.getEntries();
-
-		GenericInvoice.Builder builder = this
-				.getInstance(GenericInvoice.Builder.class);
-
-		GenericInvoiceEntry.Builder invoice1 = this
+		GenericInvoiceEntry.Builder invoiceEntry = this
 				.getMock(GenericInvoiceEntry.Builder.class);
-		Mockito.when(invoice1.build()).thenReturn(entrys.get(0));
+		Mockito.when(invoiceEntry.build()).thenReturn(mockEntry);
 
-		GenericInvoiceEntry.Builder invoice2 = this
+		GenericInvoice.Builder builder = getBuilder();
+		builder.addEntry(invoiceEntry);
+
+		GenericInvoice invoice = builder.build();
+
+		Assert.assertTrue(invoice != null);
+		Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(
+				mockEntry.getAmountWithoutTax()) == 0);
+		Assert.assertTrue(invoice.getAmountWithTax().compareTo(
+				mockEntry.getAmountWithTax()) == 0);
+		Assert.assertTrue(invoice.getTaxAmount().compareTo(
+				mockEntry.getTaxAmount()) == 0);
+
+	}
+
+	@Test
+	public void operationsTest() {
+		MockGenericInvoiceEntryEntity mockEntry = this.getMockEntryEntity(
+				mockInvoiceEntity, testValue);
+
+		MockGenericInvoiceEntryEntity mockEntry2 = this.getMockEntryEntity(
+				mockInvoiceEntity, testValue2);
+
+		Mockito.when(
+				this.getInstance(DAOGenericInvoiceEntry.class).get(
+						Matchers.any(UID.class))).thenReturn(mockEntry);
+		mockInvoiceEntity.getEntries().clear();
+		mockInvoiceEntity.getEntries().add(mockEntry);
+
+		GenericInvoiceEntry.Builder invoiceEntry = this
 				.getMock(GenericInvoiceEntry.Builder.class);
-		Mockito.when(invoice2.build()).thenReturn(entrys.get(1));
+		Mockito.when(invoiceEntry.build()).thenReturn(mockEntry);
 
-		GenericInvoiceEntry.Builder invoice3 = this
+		GenericInvoiceEntry.Builder invoiceEntry2 = this
 				.getMock(GenericInvoiceEntry.Builder.class);
-		Mockito.when(invoice3.build()).thenReturn(entrys.get(2));
+		Mockito.when(invoiceEntry2.build()).thenReturn(mockEntry2);
 
-		builder.addEntry(invoice1).addEntry(invoice2).addEntry(invoice3)
-				.setCreditOrDebit(mock.getCreditOrDebit())
-				.setBatchId(mock.getBatchId()).setDate(mock.getDate())
-				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
-				.setOfficeNumber(mock.getOfficeNumber())
-				.setPaymentTerms(mock.getPaymentTerms())
-				.setSelfBilled(mock.selfBilled)
-				.setSettlementDate(mock.getSettlementDate())
-				.setSettlementDescription(mock.getSettlementDescription())
-				.setSettlementDiscount(mock.getSettlementDiscount())
-				.setSourceId(mock.getSourceId())
-				.setTransactionId(mock.getTransactionId());
+		GenericInvoice.Builder builder = getBuilder();
+		builder.addEntry(invoiceEntry).addEntry(invoiceEntry2);
 
 		GenericInvoice invoice = builder.build();
 
 		Assert.assertTrue(invoice != null);
 
-		Assert.assertTrue(invoice
-				.getAmountWithoutTax()
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithoutTax().add(
-								entryMock2.getAmountWithoutTax()).add(
-								entryMock3.amountWithoutTax, this.mc))
-								.setScale(7, this.mc.getRoundingMode())) == 0);
+		Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(
+				mockEntry.getAmountWithoutTax().add(
+						mockEntry2.getAmountWithoutTax(), mc)) == 0);
+		Assert.assertTrue(invoice.getAmountWithTax().compareTo(
+				mockEntry.getAmountWithTax().add(mockEntry2.getAmountWithTax(),
+						mc)) == 0);
+		Assert.assertTrue(invoice.getTaxAmount().compareTo(
+				mockEntry.getTaxAmount().add(mockEntry2.getTaxAmount(), mc)) == 0);
 
-		Assert.assertTrue(invoice
-				.getAmountWithTax()
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithTax().add(
-								entryMock2.getAmountWithTax(), this.mc).add(
-								entryMock3.amountWithTax, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+	}
+
+	@Test
+	public void manyEntriesTest() {
+		BigDecimal taxAmount = BigDecimal.ZERO;
+		BigDecimal amountWithTax = BigDecimal.ZERO;
+		BigDecimal amountWithoutTax = BigDecimal.ZERO;
+		mockInvoiceEntity.getEntries().clear();
+
+		GenericInvoice.Builder builder = getBuilder();
+
+		for (int i = 0; i < 20; i++) {
+			MockGenericInvoiceEntryEntity mockEntry = this.getMockEntryEntity(
+					mockInvoiceEntity, new BigDecimal("5.977"));
+			taxAmount = taxAmount.add(mockEntry.getTaxAmount(), mc);
+			amountWithTax = amountWithTax.add(mockEntry.getAmountWithTax(), mc);
+			amountWithoutTax = amountWithoutTax.add(
+					mockEntry.getAmountWithoutTax(), mc);
+
+			Mockito.when(
+					this.getInstance(DAOGenericInvoiceEntry.class).get(
+							Matchers.any(UID.class))).thenReturn(mockEntry);
+			mockInvoiceEntity.getEntries().add(mockEntry);
+
+			GenericInvoiceEntry.Builder invoiceEntry = this
+					.getMock(GenericInvoiceEntry.Builder.class);
+			Mockito.when(invoiceEntry.build()).thenReturn(mockEntry);
+
+			builder.addEntry(invoiceEntry);
+
+		}
+
+		GenericInvoice invoice = builder.build();
+
+		Assert.assertTrue(invoice != null);
+		Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(
+				amountWithoutTax) == 0);
+		Assert.assertTrue(invoice.getAmountWithTax().compareTo(amountWithTax) == 0);
+		Assert.assertTrue(invoice.getTaxAmount().compareTo(taxAmount) == 0);
+
+	}
+
+	@Test
+	public void testRoundingValues() {
+		mockInvoiceEntity.getEntries().clear();
+		MockGenericInvoiceEntryEntity mockEntry1 = getMockEntryEntity(
+				mockInvoiceEntity, new BigDecimal("0.33"));
+		MockGenericInvoiceEntryEntity mockEntry2 = getMockEntryEntity(
+				mockInvoiceEntity, new BigDecimal("0.33"));
+
+		mockInvoiceEntity.getEntries().add(mockEntry1);
+		mockInvoiceEntity.getEntries().add(mockEntry2);
+
+		Mockito.when(
+				this.getInstance(DAOGenericInvoiceEntry.class).get(
+						Matchers.any(UID.class))).thenReturn(mockEntry1);
+
+		GenericInvoice.Builder builder = getBuilder();
+
+		GenericInvoiceEntry.Builder invoiceEntry1 = this
+				.getMock(GenericInvoiceEntry.Builder.class);
+		Mockito.when(invoiceEntry1.build()).thenReturn(mockEntry1);
+
+		GenericInvoiceEntry.Builder invoiceEntry2 = this
+				.getMock(GenericInvoiceEntry.Builder.class);
+		Mockito.when(invoiceEntry2.build()).thenReturn(mockEntry2);
+
+		builder.addEntry(invoiceEntry1).addEntry(invoiceEntry2);
+
+		GenericInvoice invoice = builder.build();
 
 		Assert.assertTrue(invoice
 				.getTaxAmount()
-				.setScale(7, this.mc.getRoundingMode())
+				.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
 				.compareTo(
-						(entryMock1.getTaxAmount().add(
-								entryMock2.getTaxAmount(), this.mc).add(
-								entryMock3.taxAmount, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+						invoice.getAmountWithTax()
+								.setScale(BillyMathContext.SCALE,
+										mc.getRoundingMode())
+								.subtract(
+										invoice.getAmountWithoutTax().setScale(
+												BillyMathContext.SCALE,
+												mc.getRoundingMode()))) == 0);
+	}
 
-		Assert.assertTrue(invoice
-				.getAmountWithoutTax()
-				.add(invoice.getTaxAmount())
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithTax().add(
-								entryMock2.getAmountWithTax(), this.mc).add(
-								entryMock3.amountWithTax, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+	public MockGenericInvoiceEntryEntity getMockEntryEntity(
+			MockGenericInvoiceEntity invoice, BigDecimal unitValue) {
 
-		Assert.assertTrue(invoice
-				.getAmountWithTax()
-				.subtract(invoice.getTaxAmount())
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getAmountWithoutTax().add(
-								entryMock2.getAmountWithoutTax()).add(
-								entryMock3.amountWithoutTax, this.mc))
-								.setScale(7, this.mc.getRoundingMode())) == 0);
+		MockGenericInvoiceEntryEntity result = this.createMockEntity(
+				MockGenericInvoiceEntryEntity.class,
+				TestGenericInvoiceOperations.ENTRY_YML);
 
-		Assert.assertTrue(invoice
-				.getAmountWithTax()
-				.subtract(invoice.getAmountWithoutTax())
-				.setScale(7, this.mc.getRoundingMode())
-				.compareTo(
-						(entryMock1.getTaxAmount().add(
-								entryMock2.getTaxAmount(), this.mc).add(
-								entryMock3.taxAmount, this.mc)).setScale(7,
-								this.mc.getRoundingMode())) == 0);
+		result.setCurrency(Currency.getInstance("EUR"));
+		result.getDocumentReferences().add(invoice);
 
+		result.unitAmountWithoutTax = unitValue;
+
+		result.unitTaxAmount = result.unitAmountWithoutTax.multiply(this.tax,
+				this.mc);
+
+		result.unitAmountWithTax = result.unitAmountWithoutTax.add(
+				result.unitTaxAmount, mc);
+
+		result.amountWithoutTax = result.unitAmountWithoutTax.multiply(
+				this.qnt, this.mc);
+		result.amountWithTax = result.unitAmountWithTax.multiply(this.qnt,
+				this.mc);
+		result.taxAmount = result.unitTaxAmount.multiply(this.qnt, this.mc);
+
+		return result;
+	}
+
+	public GenericInvoice.Builder getBuilder() {
+		GenericInvoice.Builder builder = this
+				.getInstance(GenericInvoice.Builder.class);
+
+		builder.setBatchId(mockInvoiceEntity.getBatchId())
+				.setDate(mockInvoiceEntity.getDate())
+				.setGeneralLedgerDate(mockInvoiceEntity.getGeneralLedgerDate())
+				.setOfficeNumber(mockInvoiceEntity.getOfficeNumber())
+				.setPaymentTerms(mockInvoiceEntity.getPaymentTerms())
+				.setSelfBilled(mockInvoiceEntity.selfBilled)
+				.setSettlementDate(mockInvoiceEntity.getSettlementDate())
+				.setSettlementDescription(
+						mockInvoiceEntity.getSettlementDescription())
+				.setSettlementDiscount(
+						mockInvoiceEntity.getSettlementDiscount())
+				.setSourceId(mockInvoiceEntity.getSourceId())
+				.setTransactionId(mockInvoiceEntity.getTransactionId())
+				.setCustomerUID(mockCustomerEntity.getUID())
+				.setSupplierUID(mockSupplierEntity.getUID());
+
+		return builder;
 	}
 }

@@ -40,6 +40,9 @@
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity"></entity>
 
 	<!-- Portugal -->
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity"></entity>
@@ -56,7 +59,10 @@
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTProductEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTRegionContextEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTShippingPointEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTReceiptInvoiceEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSupplierEntity"></entity>
 	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTTaxEntity"></entity>
+	<entity class="com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTPaymentEntity"></entity>
 
 </entity-mappings>

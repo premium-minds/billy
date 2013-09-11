@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 import com.premiumminds.billy.core.util.DiscountType;
 
 public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
-		extends Builder<TEntry> {
+	extends Builder<TEntry> {
 
 	public static enum AmountType {
 		WITH_TAX, WITHOUT_TAX
@@ -46,8 +46,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
 	public TBuilder setQuantity(BigDecimal quantity);
 
-	public TBuilder setUnitAmount(AmountType type, BigDecimal amount,
-			Currency currency);
+	public TBuilder setUnitAmount(AmountType type, BigDecimal amount);
 
 	public TBuilder setUnitOfMeasure(String unit);
 
@@ -57,7 +56,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
 	public TBuilder setDescription(String description);
 
-	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
+//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
 
 	public TBuilder setShippingCostsAmount(BigDecimal amount);
 
@@ -68,5 +67,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 
 	public TBuilder setAmountType(AmountType type);
+	
+	public TBuilder setCurrency(Currency currency);
 
 }

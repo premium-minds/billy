@@ -18,10 +18,10 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
+import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
@@ -30,42 +30,35 @@ import org.junit.Test;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNoteTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
-import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.util.Services;
 
 public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest {
 
-	public static final int NUM_ENTRIES = 10;
-	public static final String XSL_PATH = "src/main/resources/pt_creditnote.xsl";
-	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	public static final String URI_PATH = "file://"
-			+ System.getProperty("java.io.tmpdir") + "/Result.pdf";
+	public static final int		NUM_ENTRIES					= 10;
+	public static final String	XSL_PATH					= "src/main/resources/templates/pt_creditnote.xsl";
+	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
 
-	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
-	public static final byte[] SAMPLE_HASH = { 0xa, 0x1, 0x3, 0xf, 0x7, 0x5,
-			0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4,
-			0xd, 0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd,
-			0xa, 0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa,
-			0x1, 0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1,
-			0x3, 0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3,
-			0xf, 0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf,
-			0xa, 0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf, 0xa,
-			0x1, 0x3, 0xf, 0x7, 0x5, 0x4, 0xd, 0xa, 0x1, 0x3, 0xf };
+	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
 
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
-			ExportServiceException, FileNotFoundException, URISyntaxException {
-		System.out.println(TestPTCreditNotePDFExportHandler.URI_PATH);
+		ExportServiceException, URISyntaxException, DocumentIssuingException,
+		IOException {
+
+		File file = File.createTempFile("Result", ".pdf");
+
 		InputStream xsl = new FileInputStream(
 				TestPTCreditNotePDFExportHandler.XSL_PATH);
 		PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(
@@ -74,25 +67,28 @@ public class TestPTCreditNotePDFExportHandler extends PTPersistencyAbstractTest 
 
 		PTCreditNotePDFExportHandler handler = new PTCreditNotePDFExportHandler(
 				PTAbstractTest.injector.getInstance(DAOPTCreditNote.class));
-		handler.toFile(new URI(TestPTCreditNotePDFExportHandler.URI_PATH),
-				this.generatePTCreditNote(PaymentMechanism.CASH), bundle);
+
+		handler.toFile(
+				file.toURI(),
+				this.generatePTCreditNote(PaymentMechanism.CASH,
+						this.getNewIssuedInvoice()), bundle);
 	}
 
 	private PTCreditNoteEntity generatePTCreditNote(
-			PaymentMechanism paymentMechanism) {
-		PTInvoiceTestUtil invoiceUtil = new PTInvoiceTestUtil(
-				PTAbstractTest.injector);
-		PTInvoiceEntity invoice = invoiceUtil.getInvoiceEntity();
-		DAOPTInvoice dao = PTAbstractTest.injector
-				.getInstance(DAOPTInvoice.class);
-		dao.create(invoice);
+			PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
+		throws DocumentIssuingException {
 
-		PTCreditNoteTestUtil creditNoteUtil = new PTCreditNoteTestUtil(
-				PTAbstractTest.injector);
-		PTCreditNoteEntity creditNote = creditNoteUtil.getCreditNoteEntity();
-		creditNote.setPaymentMechanism(paymentMechanism);
-		creditNote.setCustomer((CustomerEntity) invoice.getCustomer());
-		creditNote.setBusiness((BusinessEntity) invoice.getBusiness());
+		Services services = new Services(PTAbstractTest.injector);
+
+		PTIssuingParams params = this.getParameters("AC", "3000", "1");
+
+		PTCreditNoteEntity creditNote = null;
+		creditNote = (PTCreditNoteEntity) services.issueDocument(
+				new PTCreditNoteTestUtil(PTAbstractTest.injector)
+						.getCreditNoteBuilder(reference), params);
+
+		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
 		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
 		creditNote
 				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");

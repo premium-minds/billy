@@ -24,12 +24,23 @@ import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public class AbstractExportRequest implements ExportServiceRequest {
 
+	private static final String DEFAULT_PATH = System
+			.getProperty("java.io.tmpdir") + "/Result.pdf";
+
 	protected UID uid;
-	private BillyTemplateBundle bundle;
+	protected BillyTemplateBundle bundle;
+	protected String resultPath;
 
 	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle) {
 		this.uid = uid;
 		this.bundle = bundle;
+		this.resultPath = DEFAULT_PATH;
+	}
+	
+	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle, String resultPath) {
+		this.uid = uid;
+		this.bundle = bundle;
+		this.resultPath = resultPath;
 	}
 
 	public UID getDocumentUID() {
@@ -38,6 +49,10 @@ public class AbstractExportRequest implements ExportServiceRequest {
 
 	public BillyTemplateBundle getBundle() {
 		return this.bundle;
+	}
+
+	public String getResultPath() {
+		return this.resultPath;
 	}
 
 }

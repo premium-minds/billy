@@ -19,26 +19,40 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
+import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCreditNoteBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
-		extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-		implements PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+	extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
+	PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+	
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
-			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-			DAOPTSupplier daoPTSupplier) {
+									DAOPTBusiness daoPTBusiness,
+									DAOPTCustomer daoPTCustomer,
+									DAOPTSupplier daoPTSupplier) {
 		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 	}
 
 	@Override
+	protected PTCreditNoteEntity getTypeInstance() {
+		return (PTCreditNoteEntity) super.getTypeInstance();
+	}
+	
+	@Override
 	protected void validateInstance() throws BillyValidationException {
+		PTCreditNoteEntity i = getTypeInstance();
+		i.setCreditOrDebit(CreditOrDebit.DEBIT);
 		super.validateInstance();
 	}
 }

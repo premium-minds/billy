@@ -34,8 +34,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTApplicationEntity;
 
 public class TestPTApplicationBuilder extends PTAbstractTest {
 
-	private static final String PTAPPLICATION_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTApplication.yml";
+	private static final String	PTAPPLICATION_YML	= AbstractTest.YML_CONFIGS_DIR
+															+ "PTApplication.yml";
 
 	@Test
 	public void doTest() throws MalformedURLException {

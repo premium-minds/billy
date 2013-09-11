@@ -24,13 +24,18 @@ import org.junit.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.exceptions.BillySimpleInvoiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
+import com.premiumminds.billy.portugal.test.PTAbstractTest;
+import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
+import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 
 public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
@@ -38,6 +43,7 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
 	private PTSimpleInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
 
 	@Before
 	public void setUpNewSimpleInvoice() {
@@ -46,14 +52,11 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 		try {
 			PTSimpleInvoiceEntity invoice = this.newInvoice(
 					TestPTSimpleInvoiceIssuingHandler.DEFAULT_TYPE,
-					PTDocumentAbstractTest.INVOICE_UID,
-					PTDocumentAbstractTest.PRODUCT_UID,
-					PTDocumentAbstractTest.BUSINESS_UID,
-					PTDocumentAbstractTest.CUSTOMER_UID,
 					TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING);
 
 			this.issueNewInvoice(this.handler, invoice,
-					PTDocumentAbstractTest.DEFAULT_SERIES);
+					PTPersistencyAbstractTest.DEFAULT_SERIES);
+			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}
@@ -62,17 +65,23 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 	@Test
 	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
 		PTSimpleInvoice issuedInvoice = (PTSimpleInvoice) this.getInstance(
-				DAOPTSimpleInvoice.class).get(
-				new UID(PTDocumentAbstractTest.INVOICE_UID));
+				DAOPTSimpleInvoice.class).get(this.issuedInvoiceUID);
 
-		Assert.assertEquals(PTDocumentAbstractTest.DEFAULT_SERIES,
+		Assert.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES,
 				issuedInvoice.getSeries());
 		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
 		String formatedNumber = TestPTSimpleInvoiceIssuingHandler.DEFAULT_TYPE
-				+ " " + PTDocumentAbstractTest.DEFAULT_SERIES + "/1";
+				+ " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
 		Assert.assertEquals(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING,
 				issuedInvoice.getSourceBilling());
+	}
+
+	@Test(expected=BillySimpleInvoiceException.class)
+	public void testBusinessSimpleInvoice() {
+		PTSimpleInvoiceEntity invoice = new PTSimpleInvoiceTestUtil(
+				PTAbstractTest.injector).getSimpleInvoiceEntity(SOURCE_BILLING,
+				CLIENTTYPE.BUSINESS);
 	}
 
 }

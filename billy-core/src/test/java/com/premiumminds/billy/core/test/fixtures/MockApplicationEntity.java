@@ -26,17 +26,17 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public class MockApplicationEntity extends MockBaseEntity implements
-		ApplicationEntity {
+	ApplicationEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String name;
-	public String version;
-	public String developerCompanyName;
-	public String developerCompanyTaxIdentifier;
-	public String websiteAddress;
-	public ContactEntity mainContact;
-	public List<ContactEntity> contacts;
+	public String				name;
+	public String				version;
+	public String				developerCompanyName;
+	public String				developerCompanyTaxIdentifier;
+	public String				websiteAddress;
+	public ContactEntity		mainContact;
+	public List<ContactEntity>	contacts;
 
 	public MockApplicationEntity() {
 		this.contacts = new ArrayList<ContactEntity>();

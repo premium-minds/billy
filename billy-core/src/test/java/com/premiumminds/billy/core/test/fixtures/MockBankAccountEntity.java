@@ -21,14 +21,14 @@ package com.premiumminds.billy.core.test.fixtures;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 
 public class MockBankAccountEntity extends MockBaseEntity implements
-		BankAccountEntity {
+	BankAccountEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String iban;
-	public String bankId;
-	public String accountNumber;
-	public String ownerName;
+	public String				iban;
+	public String				bankId;
+	public String				accountNumber;
+	public String				ownerName;
 
 	public MockBankAccountEntity() {
 

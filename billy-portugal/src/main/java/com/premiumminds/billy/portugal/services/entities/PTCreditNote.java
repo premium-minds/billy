@@ -18,11 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
@@ -41,9 +38,5 @@ public interface PTCreditNote extends PTGenericInvoice {
 			super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}
 	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
 
 }

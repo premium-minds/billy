@@ -26,6 +26,8 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.core.util.NotImplementedInterceptor;
+import com.premiumminds.billy.core.util.NotOnUpdate;
+import com.premiumminds.billy.core.util.NotOnUpdateInterceptor;
 
 public class CoreDependencyModule extends AbstractModule {
 
@@ -37,6 +39,10 @@ public class CoreDependencyModule extends AbstractModule {
 		this.bindInterceptor(Matchers.any(),
 				Matchers.annotatedWith(NotImplemented.class),
 				new NotImplementedInterceptor());
+
+		this.bindInterceptor(Matchers.any(),
+				Matchers.annotatedWith(NotOnUpdate.class),
+				new NotOnUpdateInterceptor());
 	}
 
 	public static class Initializer {

@@ -22,7 +22,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 
 public interface BankAccountBuilder<TBuilder extends BankAccountBuilder<TBuilder, TBankAccount>, TBankAccount extends BankAccount>
-		extends Builder<TBankAccount> {
+	extends Builder<TBankAccount> {
 
 	public TBuilder setIBANNumber(String iban);
 

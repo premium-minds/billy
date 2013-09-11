@@ -44,47 +44,46 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TAX")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "CODE")
-	protected String code;
+	protected String			code;
 
 	@ManyToOne(targetEntity = JPAContextEntity.class)
 	@JoinColumn(name = "ID_CONTEXT", referencedColumnName = "ID")
-	protected Context context;
+	protected Context			context;
 
 	@Column(name = "CURRENCY")
-	protected Currency currency;
+	protected Currency			currency;
 
 	@Column(name = "DESCRIPTION")
-	protected String description;
+	protected String			description;
 
 	@Column(name = "DESIGNATION")
-	protected String designation;
+	protected String			designation;
 
 	@Column(name = "FLAT_RATE_AMOUNT", scale = 7)
-	protected BigDecimal flatRateAmount;
+	protected BigDecimal		flatRateAmount;
 
 	@Column(name = "PERCENT_RATE_VALUE", scale = 7)
-	protected BigDecimal percentageRateValue;
+	protected BigDecimal		percentageRateValue;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "RATE_TYPE")
-	protected TaxRateType taxRateType;
+	protected TaxRateType		taxRateType;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "VALID_FROM")
-	protected Date validFrom;
+	protected Date				validFrom;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "VALID_TO")
-	protected Date validTo;
+	protected Date				validTo;
 
 	@Column(name = "VALUE", scale = 7)
-	protected BigDecimal value;
+	protected BigDecimal		value;
 
 	public JPATaxEntity() {
 	}

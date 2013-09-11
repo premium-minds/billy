@@ -30,42 +30,42 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEnt
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
 public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
-		implements PTGenericInvoiceEntity {
+	implements PTGenericInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@Column(name = "CANCELLED")
-	protected Boolean cancelled;
+	protected boolean			cancelled;
 
 	@Column(name = "EAC_CODE")
-	protected String eacCode;
+	protected String			eacCode;
 
 	@Column(name = "BILLED")
-	protected Boolean billed;
+	protected boolean			billed;
 
 	@Column(name = "CHANGE_REASON")
-	protected String reason;
+	protected String			reason;
 
 	@Column(name = "HASH")
-	protected String hash;
+	protected String			hash;
 
 	@Column(name = "SOURCE_HASH")
-	protected String sourceHash;
+	protected String			sourceHash;
 
 	@Column(name = "HASH_CONTROL")
-	protected String hashControl;
+	protected String			hashControl;
 
 	@Column(name = "SOURCE_BILLING")
-	protected SourceBilling sourceBilling;
+	protected SourceBilling		sourceBilling;
 
 	@Column(name = "INVOICE_TYPE")
-	protected TYPE type;
+	protected TYPE				type;
 
 	@Override
 	public TYPE getType() {
@@ -163,10 +163,9 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
 		this.eacCode = eacCode;
 	}
 
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings("unchecked")
 	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return (PaymentMechanism) super.getPaymentMechanism();
+	public List<PTPayment> getPayments() {
+		return (List<PTPayment>) super.getPayments();
 	}
-
 }

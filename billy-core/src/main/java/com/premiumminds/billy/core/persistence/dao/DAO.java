@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.core.persistence.dao;
 
+import javax.persistence.LockModeType;
+
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
@@ -59,6 +61,11 @@ public interface DAO<T extends BaseEntity> extends EntityFactory<T> {
 	 * Commits the active transaction
 	 */
 	public void commit();
+
+	/**
+	 * Lock the entity type being managed by the DAO.
+	 */
+	public void lock(T entity, LockModeType type);
 
 	/**
 	 * Tells whether a transaction is currently active or not

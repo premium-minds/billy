@@ -38,8 +38,8 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTCustomerEntity;
 
 public class TestPTCustomerBuilder extends PTAbstractTest {
 
-	private static final String PTCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
-			+ "PTCustomer.yml";
+	private static final String	PTCUSTOMER_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTCustomer.yml";
 
 	@Test
 	public void doTest() {
@@ -97,7 +97,8 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 				.setName(mockCustomer.getName())
 				.setShippingAddress(mockShippingAddressBuilder)
 				.setTaxRegistrationNumber(
-						mockCustomer.getTaxRegistrationNumber())
+						mockCustomer.getTaxRegistrationNumber(),
+						PT_COUNTRY_CODE)
 				.setMainContactUID(mockCustomer.getMainContact().getUID());
 
 		Customer customer = builder.build();

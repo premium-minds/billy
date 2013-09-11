@@ -16,22 +16,33 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.core.persistence.services;
+package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.entities.Entity;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
-public abstract class PersistenceServiceImpl<T extends Entity> implements
-		PersistenceService<T> {
+import com.premiumminds.billy.core.persistence.dao.DAOPayment;
+import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity;
 
-	protected Injector injector;
 
-	public PersistenceServiceImpl(Injector injector) {
-		this.injector = injector;
+public class DAOPaymentImpl extends AbstractDAO<PaymentEntity, JPAPaymentEntity> implements DAOPayment {
+
+	@Inject
+	public DAOPaymentImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
 	}
 
 	@Override
-	public abstract T createEntity(Builder<T> builder);
+	public PaymentEntity getEntityInstance() {
+		return new JPAPaymentEntity();
+	}
+
+
+	@Override
+	protected Class<? extends JPAPaymentEntity> getEntityClass() {
+		return JPAPaymentEntity.class;
+	}
 
 }

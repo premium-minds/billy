@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 
 public interface DAOPTGenericInvoice extends DAOGenericInvoice {
@@ -26,4 +27,6 @@ public interface DAOPTGenericInvoice extends DAOGenericInvoice {
 	@Override
 	public PTGenericInvoiceEntity getEntityInstance();
 
+	public <T extends PTGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number);
+	
 }

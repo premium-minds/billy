@@ -18,18 +18,16 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
-import java.util.Arrays;
+import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.NoResultException;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
+import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
+import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
@@ -38,6 +36,8 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
+import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTInvoiceTestUtil {
 
@@ -45,19 +45,16 @@ public class PTInvoiceTestUtil {
 	protected static final Boolean CANCELLED = false;
 	protected static final Boolean SELFBILL = false;
 	protected static final String SOURCE_ID = "SOURCE";
-	protected static final String UID = "INVOICE";
 	protected static final String SERIE = "A";
 	protected static final Integer SERIE_NUMBER = 1;
-	protected static final String INVOICE_ENTRY_UID = "INVOICE_ENTRY";
-	protected static final String PRODUCT_UID = "PRODUCT_UID";
-	protected static final String BUSINESS_UID = "BUSINESS_UID";
-	protected static final String CUSTOMER_UID = "CUSTOMER_UID";
+	protected static final int MAX_PRODUCTS = 5;
 
 	protected TYPE INVOICE_TYPE;
 	protected Injector injector;
 	protected PTInvoiceEntryTestUtil invoiceEntry;
 	protected PTBusinessTestUtil business;
 	protected PTCustomerTestUtil customer;
+	protected PTPaymentTestUtil payment;
 
 	public PTInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
@@ -65,149 +62,150 @@ public class PTInvoiceTestUtil {
 		this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
 		this.business = new PTBusinessTestUtil(injector);
 		this.customer = new PTCustomerTestUtil(injector);
-	}
-
-	public PTInvoiceTestUtil(Injector injector, TYPE type) {
-		this.injector = injector;
-		this.INVOICE_TYPE = type;
-		this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
-		this.business = new PTBusinessTestUtil(injector);
-		this.customer = new PTCustomerTestUtil(injector);
+		this.payment = new PTPaymentTestUtil(injector);
 	}
 
 	public PTInvoiceEntity getInvoiceEntity() {
-		return this.getInvoiceEntity(PTInvoiceTestUtil.BUSINESS_UID,
-				PTInvoiceTestUtil.CUSTOMER_UID,
-				Arrays.asList(PTInvoiceTestUtil.PRODUCT_UID));
+		return this.getInvoiceEntity(SourceBilling.P);
 	}
 
-	public PTInvoiceEntity getInvoiceEntity(String businessUID,
-			String customerUID, List<String> productUIDs) {
-		return this.getInvoiceEntity(this.INVOICE_TYPE,
-				PTInvoiceTestUtil.SERIE, PTInvoiceTestUtil.UID,
-				PTInvoiceTestUtil.SERIE_NUMBER,
-				PTInvoiceTestUtil.INVOICE_ENTRY_UID, businessUID, customerUID,
-				productUIDs);
-	}
-
-	public PTInvoiceEntity getInvoiceEntity(TYPE invoiceType, String serie,
-			String uid, Integer seriesNumber, String entryUID,
-			String businessUID, String customerUID, List<String> productUIDs) {
-
-		PTInvoiceEntity invoice = this.getSimpleInvoiceEntity(invoiceType,
-				entryUID, uid, businessUID, customerUID, productUIDs,
-				SourceBilling.P);
-
-		String formatedNumber = invoiceType.toString() + " " + serie + "/"
-				+ seriesNumber;
-
-		invoice.setSeries(serie);
-		invoice.setSeriesNumber(seriesNumber);
-		invoice.setNumber(formatedNumber);
-
-		return invoice;
-	}
-
-	public PTInvoiceEntity getSimpleInvoiceEntity(TYPE invoiceType,
-			String entryUID, String uid, String businessUID,
-			String customerUID, List<String> productUIDs, SourceBilling billing) {
-
-		DAOPTBusiness daoPTBusiness = this.injector
-				.getInstance(DAOPTBusiness.class);
-		DAOPTCustomer daoPTCustomer = this.injector
-				.getInstance(DAOPTCustomer.class);
-
-		PTBusinessEntity businessEntity = null;
-		try {
-			businessEntity = (PTBusinessEntity) daoPTBusiness.get(new UID(
-					businessUID));
-		} catch (NoResultException e) {
-		}
-		if (businessEntity == null) {
-			businessEntity = this.business.getBusinessEntity(businessUID);
-			daoPTBusiness.create(businessEntity);
-		}
-
-		PTCustomerEntity customerEntity = null;
-
-		try {
-			customerEntity = (PTCustomerEntity) daoPTCustomer.get(new UID(
-					customerUID));
-		} catch (NoResultException e) {
-		}
-
-		if (customerEntity == null) {
-			customerEntity = this.customer.getCustomerEntity(customerUID);
-			daoPTCustomer.create(customerEntity);
-		}
-
+	public PTInvoiceEntity getInvoiceEntity(SourceBilling billing) {
 		PTInvoiceEntity invoice = (PTInvoiceEntity) this.getInvoiceBuilder(
-				businessUID, customerUID, billing, productUIDs).build();
-		invoice.setUID(new UID(uid));
-		invoice.setType(invoiceType);
-
-		for (GenericInvoiceEntry invoiceEntry : invoice.getEntries()) {
-			invoiceEntry.setUID(new UID(new Date().toString()));
-			invoiceEntry.getDocumentReferences().add(invoice);
-		}
-
-		invoice.setBusiness(businessEntity);
-
-		invoice.setCustomer(customerEntity);
-
-		invoice.setCurrency(Currency.getInstance("EUR"));
+				business.getBusinessEntity(), billing).build();
+		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
-	public PTInvoice.Builder getInvoiceBuilder(String businessUID,
-			String customerUID, SourceBilling billing, List<String> productUIDs) {
+	public PTInvoice.Builder getInvoiceBuilder(PTBusinessEntity business,
+			SourceBilling billing) {
+		BigDecimal price = new BigDecimal("0.454545");
 		PTInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(PTInvoice.Builder.class);
 
-		DAOPTBusiness daoPTBusiness = this.injector
-				.getInstance(DAOPTBusiness.class);
 		DAOPTCustomer daoPTCustomer = this.injector
 				.getInstance(DAOPTCustomer.class);
 
-		PTBusinessEntity businessEntity = null;
-		try {
-			businessEntity = (PTBusinessEntity) daoPTBusiness.get(new UID(
-					businessUID));
-		} catch (NoResultException e) {
-		}
-		if (businessEntity == null) {
-			businessEntity = this.business.getBusinessEntity(businessUID);
-			daoPTBusiness.create(businessEntity);
-		}
+		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
 
-		PTCustomerEntity customerEntity = null;
-
-		try {
-			customerEntity = (PTCustomerEntity) daoPTCustomer.get(new UID(
-					customerUID));
-		} catch (NoResultException e) {
-		}
-
-		if (customerEntity == null) {
-			customerEntity = this.customer.getCustomerEntity(customerUID);
-			daoPTCustomer.create(customerEntity);
-		}
-		invoiceBuilder.clear();
-
-		for (String productUID : productUIDs) {
-			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
-					.getInvoiceEntryBuilder(productUID);
-			invoiceBuilder.addEntry(invoiceEntryBuilder);
-		}
+		PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+				.getInvoiceEntryBuilder();
+		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
+		invoiceBuilder.addEntry(invoiceEntryBuilder);
 
 		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
 				.setCancelled(PTInvoiceTestUtil.CANCELLED)
-				.setSelfBilled(PTInvoiceTestUtil.SELFBILL)
-				.setDate(new Date())
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
-				.setCreditOrDebit(CreditOrDebit.CREDIT)
-				.setCustomerUID(new UID(customerUID)).setSourceBilling(billing)
-				.setBusinessUID(new UID(businessUID));
+				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setBusinessUID(business.getUID())
+				.addPayment(payment.getPaymentBuilder());
 	}
+
+	public PTInvoiceEntity getDiferentRegionsInvoice() {
+		BigDecimal price = new BigDecimal("0.2999");
+		
+		PTInvoice.Builder invoiceBuilder = this.injector
+				.getInstance(PTInvoice.Builder.class);
+
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
+
+		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
+
+		PTInvoiceEntry.Builder invoiceEntryBuilder2 = this.invoiceEntry
+				.getInvoiceOtherRegionsEntryBuilder("PT-20");
+		invoiceEntryBuilder2.setUnitAmount(AmountType.WITH_TAX, price);
+		invoiceBuilder.addEntry(invoiceEntryBuilder2);
+		
+		PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+				.getInvoiceOtherRegionsEntryBuilder("PT-30");
+		invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
+		invoiceBuilder.addEntry(invoiceEntryBuilder);
+		
+		PTInvoiceEntry.Builder invoiceEntryBuilder3 = this.invoiceEntry
+				.getInvoiceEntryBuilder();
+		invoiceEntryBuilder3.setUnitAmount(AmountType.WITH_TAX, price);
+		invoiceBuilder.addEntry(invoiceEntryBuilder3);
+		
+		
+
+		invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setBusinessUID(business.getBusinessEntity().getUID())
+				.addPayment(payment.getPaymentBuilder());
+		
+		return (PTInvoiceEntity) invoiceBuilder.build();
+	}
+
+	public PTInvoiceEntity getManyEntriesInvoice() {
+		BigDecimal entriesPrice = new BigDecimal("16.0145");
+		PTInvoice.Builder invoiceBuilder = this.injector
+				.getInstance(PTInvoice.Builder.class);
+
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
+
+		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
+
+		for(int i = 0; i < 9; i++){
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceEntryBuilder();
+			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+		
+		invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setBusinessUID(business.getBusinessEntity().getUID())
+				.addPayment(payment.getPaymentBuilder());
+		
+		return (PTInvoiceEntity) invoiceBuilder.build();
+	}
+	
+	public PTInvoiceEntity getManyEntriesWithDiferentRegionsInvoice() {
+		BigDecimal entriesPrice = new BigDecimal("0.355555");
+		PTInvoice.Builder invoiceBuilder = this.injector
+				.getInstance(PTInvoice.Builder.class);
+
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
+
+		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
+
+		for(int i = 0; i < 9; i++){
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceEntryBuilder();
+			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+		
+		for(int i = 0; i < 9; i++){
+			PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceOtherRegionsEntryBuilder("PT-20");
+			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+		
+		invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setBusinessUID(business.getBusinessEntity().getUID())
+				.addPayment(payment.getPaymentBuilder());
+		
+		return (PTInvoiceEntity) invoiceBuilder.build();
+	}
+
 }

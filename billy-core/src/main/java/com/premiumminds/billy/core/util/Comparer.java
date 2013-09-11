@@ -25,7 +25,7 @@ import java.io.ObjectOutputStream;
 public abstract class Comparer {
 
 	public static <T extends Object> boolean areEqual(T o1, T o2)
-			throws IOException {
+		throws IOException {
 		ByteArrayOutputStream bos1 = new ByteArrayOutputStream(), bos2 = new ByteArrayOutputStream();
 		ObjectOutputStream oos1 = new ObjectOutputStream(bos1);
 		ObjectOutputStream oos2 = new ObjectOutputStream(bos2);

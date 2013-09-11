@@ -27,16 +27,16 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class PTApplicationTestUtil {
 
-	private static final String KEYS_PATH = "http://url";
-	private static final String COMPANY_NAME = "company_name";
-	private static final String COMPANY_TAX_ID = "12432353426435";
-	private static final String APP_NAME = "APP";
-	private static final Integer SW_CERTIFICATE_NUMBER = 1;
-	private static final String VERSION = "1";
-	private static final String WEBSITE = "http://app.ex";
+	private static final String		KEYS_PATH				= "http://url";
+	private static final String		COMPANY_NAME			= "company_name";
+	private static final String		COMPANY_TAX_ID			= "12432353426435";
+	private static final String		APP_NAME				= "APP";
+	private static final Integer	SW_CERTIFICATE_NUMBER	= 1;
+	private static final String		VERSION					= "1";
+	private static final String		WEBSITE					= "http://app.ex";
 
-	private Injector injector;
-	private PTContactTestUtil contact;
+	private Injector				injector;
+	private PTContactTestUtil		contact;
 
 	public PTApplicationTestUtil(Injector injector) {
 		this.injector = injector;
@@ -47,10 +47,9 @@ public class PTApplicationTestUtil {
 			String version, String companyName, String companyTaxId,
 			String website, Integer swCertificateNumber, String keysPath,
 			PTContact.Builder contactBuilder) throws MalformedURLException {
+
 		PTApplication.Builder applicationBuilder = this.injector
 				.getInstance(PTApplication.Builder.class);
-
-		applicationBuilder.clear();
 
 		applicationBuilder.addContact(contactBuilder)
 				.setApplicationKeysPath(new URL(keysPath))
@@ -64,7 +63,7 @@ public class PTApplicationTestUtil {
 	}
 
 	public PTApplication.Builder getApplicationBuilder()
-			throws MalformedURLException {
+		throws MalformedURLException {
 		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
 
 		return this.getApplicationBuilder(PTApplicationTestUtil.APP_NAME,

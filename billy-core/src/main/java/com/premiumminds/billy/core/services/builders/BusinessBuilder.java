@@ -26,11 +26,11 @@ import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBusiness>, TBusiness extends Business>
-		extends Builder<TBusiness> {
+	extends Builder<TBusiness> {
 
 	public TBuilder setOperationalContextUID(UID contextUID);
 
-	public TBuilder setFinancialID(String id);
+	public TBuilder setFinancialID(String id, String countyCode);
 
 	public TBuilder setName(String name);
 
@@ -46,7 +46,8 @@ public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBus
 	public <T extends Address> TBuilder setShippingAddress(
 			Builder<T> addressBuilder);
 
-	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder);
+	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder,
+			boolean isMainContact);
 
 	public TBuilder setMainContactUID(UID contactUID);
 

@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
@@ -32,16 +33,18 @@ import com.premiumminds.billy.portugal.services.builders.PTInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTInvoiceEntry>
-		extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-		PTInvoiceEntryBuilder<TBuilder, TEntry> {
+	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	PTInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTInvoiceEntryBuilderImpl(DAOPTInvoiceEntry daoPTEntry,
-			DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-			DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+										DAOPTInvoice daoPTInvoice,
+										DAOPTTax daoPTTax,
+										DAOPTProduct daoPTProduct,
+										DAOPTRegionContext daoPTRegionContext) {
 		super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct,
 				daoPTRegionContext);
 	}
@@ -53,6 +56,7 @@ public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImp
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
+		getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
 		super.validateInstance();
 	}
 

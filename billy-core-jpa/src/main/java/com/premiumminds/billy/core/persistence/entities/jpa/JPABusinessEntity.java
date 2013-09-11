@@ -49,56 +49,69 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	@ManyToOne(targetEntity = JPAContextEntity.class)
 	@JoinColumn(name = "ID_OPERATIONAL_CONTEXT", referencedColumnName = "ID")
-	protected Context operationalContext;
+	protected Context			operationalContext;
 
 	@Column(name = "TAX_ID")
-	protected String taxId;
+	protected String			taxId;
 
 	@Column(name = "NAME")
-	protected String name;
+	protected String			name;
 
 	@Column(name = "COMMERCIAL_NAME")
-	protected String commercialName;
+	protected String			commercialName;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-	protected Address address;
+	protected Address			address;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
-	protected Address billingAddress;
+	protected Address			billingAddress;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
-	protected Address shippingAddress;
+	protected Address			shippingAddress;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
+	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
+				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
-	protected Contact mainContact;
+	protected Contact			mainContact;
 
 	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_CONTACT", joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
-	protected List<Contact> contacts;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "BUSINESS_CONTACT",
+				joinColumns = { @JoinColumn(name = "ID_BUSINESS",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_CONTACT",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<Contact>		contacts;
 
 	@Column(name = "WEBSITE")
-	protected String website;
+	protected String			website;
 
 	@OneToMany(targetEntity = JPAApplicationEntity.class, cascade = {
 			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_APPLICATION", joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") }, inverseJoinColumns = { @JoinColumn(name = "ID_APPLICATION", referencedColumnName = "ID", unique = true) })
-	protected List<Application> applications;
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "BUSINESS_APPLICATION",
+				joinColumns = { @JoinColumn(name = "ID_BUSINESS",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_APPLICATION",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<Application>	applications;
 
 	public JPABusinessEntity() {
 		this.contacts = new ArrayList<Contact>();

@@ -31,12 +31,13 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceEn
 public interface PTGenericInvoiceEntry extends GenericInvoiceEntry {
 
 	public static class Builder extends
-			PTGenericInvoiceEntryBuilderImpl<Builder, PTGenericInvoiceEntry> {
+		PTGenericInvoiceEntryBuilderImpl<Builder, PTGenericInvoiceEntry> {
 
 		@Inject
 		public Builder(DAOPTGenericInvoiceEntry daoPTGenericInvoiceEntry,
-				DAOPTGenericInvoice daoPTGenericInvoice, DAOPTTax daoPTTax,
-				DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+						DAOPTGenericInvoice daoPTGenericInvoice,
+						DAOPTTax daoPTTax, DAOPTProduct daoPTProduct,
+						DAOPTRegionContext daoPTRegionContext) {
 			super(daoPTGenericInvoiceEntry, daoPTGenericInvoice, daoPTTax,
 					daoPTProduct, daoPTRegionContext);
 		}

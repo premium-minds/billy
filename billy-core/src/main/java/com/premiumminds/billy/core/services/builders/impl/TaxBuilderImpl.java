@@ -34,23 +34,22 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.TaxBuilder;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTax extends Tax>
-		extends AbstractBuilder<TBuilder, TTax> implements
-		TaxBuilder<TBuilder, TTax> {
+	extends AbstractBuilder<TBuilder, TTax> implements
+	TaxBuilder<TBuilder, TTax> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOTax daoTax;
-	protected DAOContext daoContext;
+	protected DAOTax					daoTax;
+	protected DAOContext				daoContext;
 
 	@Inject
 	public TaxBuilderImpl(DAOTax daoTax, DAOContext daoContext) {
-		super((EntityFactory<?>) daoTax);
+		super(daoTax);
 		this.daoTax = daoTax;
 		this.daoContext = daoContext;
 	}
@@ -75,7 +74,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setDescription(String description) {
-		BillyValidator.mandatory(description,
+		BillyValidator.notBlank(description,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
 		this.getTypeInstance().setDescription(description);
 		return this.getBuilder();
@@ -83,7 +82,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setCode(String code) {
-		BillyValidator.mandatory(code,
+		BillyValidator.notBlank(code,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
 		this.getTypeInstance().setCode(code);
 		return this.getBuilder();
@@ -115,9 +114,9 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	public TBuilder setTaxRate(TaxRateType rateType, BigDecimal amount) {
-		BillyValidator.mandatory(rateType,
+		BillyValidator.notNull(rateType,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
-		BillyValidator.mandatory(amount,
+		BillyValidator.notNull(amount,
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_amount"));
 		this.getTypeInstance().setTaxRateType(rateType);
 		switch (rateType) {
@@ -149,25 +148,23 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		Tax t = this.getTypeInstance();
-		BillyValidator.notNull(t.getContext(),
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-		BillyValidator.mandatory(t.getDescription(),
+		/*BillyValidator.mandatory(t.getDescription(),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
 		BillyValidator.mandatory(t.getCode(),
 				TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
 		BillyValidator.mandatory(t.getTaxRateType(),
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
+				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));*/
+		BillyValidator.mandatory(t.getCurrency(),
+				TaxBuilderImpl.LOCALIZER
+						.getString("field.tax_currency"));
 
 		switch (t.getTaxRateType()) {
 			case FLAT:
 				BillyValidator.mandatory(t.getFlatRateAmount(),
 						TaxBuilderImpl.LOCALIZER
 								.getString("field.tax_rate_flat_amount"));
-				BillyValidator.mandatory(t.getCurrency(),
-						TaxBuilderImpl.LOCALIZER
-								.getString("field.tax_currency"));
 				break;
 			case PERCENTAGE:
 				Validate.inclusiveBetween(BigDecimal.ZERO,

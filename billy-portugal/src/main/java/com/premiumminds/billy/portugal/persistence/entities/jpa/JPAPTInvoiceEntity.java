@@ -21,6 +21,8 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -28,26 +30,28 @@ import org.hibernate.envers.Audited;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
+import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
 		PTInvoiceEntity {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<PTInvoiceEntry> getEntries() {
 		return (List<PTInvoiceEntry>) super.getEntries();
 	}
-
-	@SuppressWarnings({ "unchecked" })
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public PaymentMechanism getPaymentMechanism() {
-		return super.getPaymentMechanism();
+	public List<PTPayment> getPayments() {
+		return (List<PTPayment>) super.getPayments();
 	}
 
 }

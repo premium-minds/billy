@@ -16,22 +16,30 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.util;
+package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
-import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.services.PersistenceService;
-import com.premiumminds.billy.portugal.services.entities.PTBusiness;
-import com.premiumminds.billy.portugal.services.persistence.PTBuisnessPersistenceService;
+import java.util.List;
 
-public class Persistence {
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-	private Injector injector;
+import org.hibernate.envers.Audited;
 
-	public Persistence(Injector injector) {
-		this.injector = injector;
-	}
+import com.premiumminds.billy.portugal.Config;
+import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
-	public PersistenceService<PTBusiness> business() {
-		return new PTBuisnessPersistenceService<PTBusiness>(injector);
+
+@Entity
+@Audited
+@Table(name = Config.TABLE_PREFIX + "RECEIPT_INVOICE")
+public class JPAPTReceiptInvoiceEntity extends JPAPTInvoiceEntity implements
+		PTReceiptInvoiceEntity {
+
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public List<PTInvoiceEntry> getEntries() {
+		return super.getEntries();
 	}
 }

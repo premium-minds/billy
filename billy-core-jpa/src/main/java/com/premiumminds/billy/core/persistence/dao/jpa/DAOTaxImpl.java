@@ -27,7 +27,7 @@ import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity;
 
 public class DAOTaxImpl extends AbstractDAO<TaxEntity, JPATaxEntity> implements
-		DAOTax {
+	DAOTax {
 
 	@Inject
 	public DAOTaxImpl(Provider<EntityManager> emProvider) {

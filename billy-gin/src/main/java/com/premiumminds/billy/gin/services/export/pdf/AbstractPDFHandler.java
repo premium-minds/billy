@@ -87,7 +87,7 @@ public abstract class AbstractPDFHandler {
 	protected OutputStream getStream(InputStream templateStream,
 			ParamsTree<String, String> documentParams,
 			OutputStream targetStream, BillyTemplateBundle bundle)
-			throws ExportServiceException {
+		throws ExportServiceException {
 
 		// the XML file from which we take the name
 		Source source = this.mapParamsToSource(documentParams);

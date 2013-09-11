@@ -22,7 +22,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.Address;
 
 public interface AddressBuilder<TBuilder extends AddressBuilder<TBuilder, TAddress>, TAddress extends Address>
-		extends Builder<TAddress> {
+	extends Builder<TAddress> {
 
 	public TBuilder setStreetName(String streetName);
 

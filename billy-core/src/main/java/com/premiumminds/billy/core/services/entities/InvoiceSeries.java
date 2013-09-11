@@ -16,31 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.core.services;
+package com.premiumminds.billy.core.services.entities;
 
-import java.io.Serializable;
 
-import org.apache.commons.lang3.Validate;
+public interface InvoiceSeries extends Entity {
 
-import com.premiumminds.billy.core.Config;
+	public String getSeries();
 
-public class Ticket implements Serializable {
-
-	private static final long serialVersionUID = Config.SERIAL_VERSION;
-
-	private Object value;
-
-	public Ticket(Object value) {
-		this.setValue(value);
-	}
-
-	public Object getValue() {
-		return this.value;
-	}
-
-	private void setValue(Object value) {
-		Validate.notNull(value);
-		this.value = value;
-	}
+	public <T extends Business> T getBusiness();
 
 }

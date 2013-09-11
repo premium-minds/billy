@@ -29,7 +29,7 @@ import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity;
 
 public class DAOProductImpl extends
-		AbstractDAO<ProductEntity, JPAProductEntity> implements DAOProduct {
+	AbstractDAO<ProductEntity, JPAProductEntity> implements DAOProduct {
 
 	@Inject
 	public DAOProductImpl(Provider<EntityManager> emProvider) {

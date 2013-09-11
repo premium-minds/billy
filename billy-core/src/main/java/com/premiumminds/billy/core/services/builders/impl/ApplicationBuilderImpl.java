@@ -27,28 +27,27 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.ApplicationBuilder;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBuilder, TApplication>, TApplication extends Application>
-		extends AbstractBuilder<TBuilder, TApplication> implements
-		ApplicationBuilder<TBuilder, TApplication> {
+	extends AbstractBuilder<TBuilder, TApplication> implements
+	ApplicationBuilder<TBuilder, TApplication> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOApplication daoApplication;
+	protected DAOApplication			daoApplication;
 
 	@Inject
 	public ApplicationBuilderImpl(DAOApplication daoApplication) {
-		super((EntityFactory<?>) daoApplication);
+		super(daoApplication);
 		this.daoApplication = daoApplication;
 	}
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.mandatory(name, ApplicationBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(name, ApplicationBuilderImpl.LOCALIZER
 				.getString("field.application_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -56,7 +55,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setVersion(String version) {
-		BillyValidator.mandatory(version,
+		BillyValidator.notBlank(version,
 				ApplicationBuilderImpl.LOCALIZER.getString("field.version"));
 		this.getTypeInstance().setVersion(version);
 		return this.getBuilder();
@@ -64,7 +63,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setDeveloperCompanyName(String name) {
-		BillyValidator.mandatory(name, ApplicationBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(name, ApplicationBuilderImpl.LOCALIZER
 				.getString("field.developer_name"));
 		this.getTypeInstance().setDeveloperCompanyName(name);
 		return this.getBuilder();
@@ -72,7 +71,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	public TBuilder setDeveloperCompanyTaxIdentifier(String id) {
-		BillyValidator.mandatory(id, ApplicationBuilderImpl.LOCALIZER
+		BillyValidator.notBlank(id, ApplicationBuilderImpl.LOCALIZER
 				.getString("field.developer_tax_id"));
 		this.getTypeInstance().setDeveloperCompanyTaxIdentifier(id);
 		return this.getBuilder();
@@ -109,7 +108,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 
 	@Override
 	protected void validateInstance()
-			throws javax.validation.ValidationException {
+		throws javax.validation.ValidationException {
 		ApplicationEntity application = this.getTypeInstance();
 		BillyValidator.mandatory(application.getName(),
 				ApplicationBuilderImpl.LOCALIZER
@@ -123,9 +122,9 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
 				application.getDeveloperCompanyTaxIdentifier(),
 				ApplicationBuilderImpl.LOCALIZER
 						.getString("field.developer_tax_id"));
-		BillyValidator.notEmpty(application.getContacts(),
+		/*BillyValidator.notEmpty(application.getContacts(),
 				ApplicationBuilderImpl.LOCALIZER
-						.getString("field.application_contact"));
+						.getString("field.application_contact"));*/
 	}
 
 	@SuppressWarnings("unchecked")

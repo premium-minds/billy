@@ -22,14 +22,14 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 
 public class MockContactEntity extends MockBaseEntity implements ContactEntity {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-	public String name;
-	public String telephone;
-	public String mobile;
-	public String fax;
-	public String email;
-	public String website;
+	public String				name;
+	public String				telephone;
+	public String				mobile;
+	public String				fax;
+	public String				email;
+	public String				website;
 
 	public MockContactEntity() {
 

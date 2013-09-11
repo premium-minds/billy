@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.exceptions.InvalidTaxIdentificationNumberException;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.builders.impl.SupplierBuilderImpl;
@@ -28,17 +29,19 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.builders.PTSupplierBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
+import com.premiumminds.billy.portugal.util.PTFinancialValidator;
 
 public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuilder, TSupplier>, TSupplier extends PTSupplier>
-		extends SupplierBuilderImpl<TBuilder, TSupplier> implements
-		PTSupplierBuilder<TBuilder, TSupplier> {
+	extends SupplierBuilderImpl<TBuilder, TSupplier> implements
+	PTSupplierBuilder<TBuilder, TSupplier> {
 
-	protected static final Localizer LOCALIZER = new Localizer(
-			"com/premiumminds/billy/portugal/i18n/FieldNames_pt");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	@Inject
 	public PTSupplierBuilderImpl(DAOPTSupplier daoPTSupplier) {
@@ -51,9 +54,18 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	}
 
 	@Override
-	public TBuilder setTaxRegistrationNumber(String number) {
+	@NotOnUpdate
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode)
+		throws InvalidTaxIdentificationNumberException {
 		BillyValidator.mandatory(number, PTSupplierBuilderImpl.LOCALIZER
 				.getString("field.supplier_tax_number"));
+
+		PTFinancialValidator validator = new PTFinancialValidator(number);
+
+		if (PTFinancialValidator.PT_COUNTRY_CODE.equals(countryCode)
+				&& !validator.isValid()) {
+			throw new InvalidTaxIdentificationNumberException();
+		}
 		this.getTypeInstance().setTaxRegistrationNumber(number);
 		return this.getBuilder();
 	}
@@ -85,7 +97,6 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 	@Deprecated
 	@NotImplemented
 	public TBuilder setAccountID(String accountID) {
-		// TODO Accounting support
 		return null;
 	}
 

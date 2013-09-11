@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public abstract class AbstractBillyException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 	protected AbstractBillyException() {
 	}
@@ -36,7 +36,7 @@ public abstract class AbstractBillyException extends Exception {
 	}
 
 	protected AbstractBillyException(ResourceBundle b, String messageId,
-			Throwable t) {
+										Throwable t) {
 		super(b.getString(messageId), t);
 	}
 
