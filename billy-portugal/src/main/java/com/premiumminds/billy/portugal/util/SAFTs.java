@@ -37,32 +37,37 @@ import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerato
 
 public class SAFTs {
 
-	private final Injector	injector;
+	private static final String TMP_SAFT = "/tmp/saft.xml";
+	private final Injector injector;
 	private final PTSAFTFileGenerator generator;
-	
 
 	public SAFTs(Injector injector) {
 		this.injector = injector;
 		this.generator = getInstance(PTSAFTFileGenerator.class);
 	}
 
-	public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to) throws SAFTPTExportException, IOException {
-		File outputFile = File.createTempFile("saft", ".xml");
-		OutputStream oStream = new FileOutputStream(outputFile);
-		
-		generator.generateSAFTFile(
-				oStream,
-				getInstance(DAOPTBusiness.class).get(uidBusiness), 
-				getInstance(DAOPTApplication.class).get(uidApplication), 
-				certificateNumber, 
-				from, 
-				to);
+	public InputStream export(UID uidApplication, UID uidBusiness,
+			String certificateNumber, Date from, Date to)
+			throws SAFTPTExportException, IOException {
+		return export(uidApplication, uidBusiness, certificateNumber, from, to, TMP_SAFT);
+	}
+
+	public InputStream export(UID uidApplication, UID uidBusiness,
+			String certificateNumber, Date from, Date to, String resultPath)
+			throws SAFTPTExportException, IOException {
+		File outputFile = new File(resultPath);
+		OutputStream oStream = new FileOutputStream(outputFile, true);
+
+		generator.generateSAFTFile(oStream, getInstance(DAOPTBusiness.class)
+				.get(uidBusiness),
+				getInstance(DAOPTApplication.class).get(uidApplication),
+				certificateNumber, from, to);
 		IOUtils.closeQuietly(oStream);
 		return new FileInputStream(outputFile);
 	}
-	
+
 	private <T> T getInstance(Class<T> clazz) {
 		return this.injector.getInstance(clazz);
 	}
-	
+
 }
