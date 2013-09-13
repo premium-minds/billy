@@ -37,7 +37,7 @@ import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerato
 
 public class SAFTs {
 
-	private static final String TMP_SAFT = "/tmp/saft.xml";
+	private static final String TMP_SAFT = System.getProperty("java.io.tmpdir") + "/saft.xml";
 	private final Injector injector;
 	private final PTSAFTFileGenerator generator;
 
@@ -56,7 +56,7 @@ public class SAFTs {
 			String certificateNumber, Date from, Date to, String resultPath)
 			throws SAFTPTExportException, IOException {
 		File outputFile = new File(resultPath);
-		OutputStream oStream = new FileOutputStream(outputFile, true);
+		OutputStream oStream = new FileOutputStream(outputFile);
 
 		generator.generateSAFTFile(oStream, getInstance(DAOPTBusiness.class)
 				.get(uidBusiness),
