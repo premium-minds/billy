@@ -40,7 +40,7 @@ import com.premiumminds.billy.portugal.util.Services;
 
 public class PTPersistencyAbstractTest extends PTAbstractTest {
 
-	protected static final String	PRIVATE_KEY_DIR	= "src/test/resources/keys/private.pem";
+	protected static final String	PRIVATE_KEY_DIR	= "/keys/private.pem";
 	protected static final String	DEFAULT_SERIES	= "DEFAULT";
 
 	@Before

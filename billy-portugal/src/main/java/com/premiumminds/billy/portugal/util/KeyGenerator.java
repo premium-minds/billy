@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.portugal.util;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.security.KeyPair;
 import java.security.PrivateKey;
@@ -51,11 +51,11 @@ public class KeyGenerator {
 	}
 
 	private String getKeyFromFile() {
-		FileInputStream inputStream = null;
+		InputStream inputStream = null;
 		String key = "";
 
 		try {
-			inputStream = new FileInputStream(this.privateKeyPath);
+			inputStream = this.getClass().getResourceAsStream(privateKeyPath);
 			key = IOUtils.toString(inputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
