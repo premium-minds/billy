@@ -19,20 +19,17 @@
 package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.envers.Audited;
 
-import com.premiumminds.billy.portugal.Config;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity;
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
 @Audited
@@ -56,6 +53,11 @@ public class JPAPTPaymentEntity extends JPAPaymentEntity implements PTPaymentEnt
 	@Override
 	public void setPaymentAmount(BigDecimal amount) {
 		this.paymentAmount = amount;
+	}
+
+	@Override
+	public PaymentMechanism getPaymentMethod() {
+		return PaymentMechanism.valueOf(paymentMethod);
 	}
 
 }

@@ -22,10 +22,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -45,20 +41,18 @@ public class JPAPaymentEntity extends JPABaseEntity implements PaymentEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Enumerated(EnumType.STRING)
 	@Column(name = "PAYMENT_METHOD")
-	protected Enum<?> paymentMethod;
+	protected String paymentMethod;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "PAYMENT_DATE")
 	protected Date paymentDate;
+
 	
-
-	@Override
-	public Enum getPaymentMethod() {
-		return paymentMethod;
+	public <T extends Enum<T>> T getPaymentMethod(Class<T> enumType) {
+		return Enum.valueOf(enumType, paymentMethod);
 	}
-
+	
 	@Override
 	public Date getPaymentDate() {
 		return paymentDate;
@@ -66,12 +60,18 @@ public class JPAPaymentEntity extends JPABaseEntity implements PaymentEntity {
 
 	@Override
 	public void setPaymentMethod(Enum<?> method) {
-		this.paymentMethod = method;
+		this.paymentMethod = method.toString();
 	}
 
 	@Override
 	public void setPaymentDate(Date paymentDate) {
 		this.paymentDate = paymentDate;
+	}
+
+	@Override
+	public <T extends Enum<?>> T getPaymentMethod() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
-import java.util.Date;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +29,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEnti
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
-import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;

@@ -22,6 +22,7 @@ import java.math.BigDecimal;
 
 import com.premiumminds.billy.core.test.fixtures.MockPaymentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 
 public class MockPTPaymentEntity extends MockPaymentEntity implements
@@ -43,6 +44,11 @@ public class MockPTPaymentEntity extends MockPaymentEntity implements
 	@Override
 	public void setPaymentAmount(BigDecimal amount) {
 		this.paymentAmount = amount;
+	}
+	
+	@Override
+	public PaymentMechanism getPaymentMethod() {
+		return PaymentMechanism.valueOf(this.paymentMethod.toString());
 	}
 
 }

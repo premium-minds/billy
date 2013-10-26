@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.services.builders.impl.PTPaymentBuilderImpl;
+import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 
 public interface PTPayment extends Payment {
@@ -39,5 +40,8 @@ public interface PTPayment extends Payment {
 	}
 	
 	public BigDecimal getPaymentAmount();
+	
+	@Override
+	public PaymentMechanism getPaymentMethod();
 
 }

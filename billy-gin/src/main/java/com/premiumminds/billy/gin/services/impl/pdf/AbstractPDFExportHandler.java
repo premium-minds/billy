@@ -31,8 +31,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.Validate;
-
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
@@ -389,7 +387,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected <T extends BillyTemplateBundle> String getPaymentMechanismTranslation(
-			Enum pmc, T bundle) {
+			Enum<?> pmc, T bundle) {
 		return bundle.getPaymentMechanismTranslation(pmc);
 	}
 
