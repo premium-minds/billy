@@ -31,8 +31,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -123,6 +121,12 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 
 	@Column(name = "SELF_BILLED")
 	protected Boolean selfBilled;
+	
+	@Column(name = "CASH_VAT_ENDORSER")
+	protected Boolean cashVATEndorser;
+	
+	@Column(name = "THIRD_PARTY_BILLED")
+	protected Boolean thirdPartyBilled;
 
 	@Column(name = "SOURCE_ID")
 	protected String sourceId;
@@ -458,5 +462,14 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	public List<? extends Payment> getPayments() {
 		return payments;
 	}
-
+	
+	@Override
+	public Boolean isCashVATEndorser() {
+		return cashVATEndorser;
+	}
+	
+	@Override
+	public Boolean isThirdPartyBilled() {
+		return thirdPartyBilled;
+	}
 }

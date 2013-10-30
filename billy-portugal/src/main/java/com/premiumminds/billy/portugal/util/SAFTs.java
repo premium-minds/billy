@@ -34,6 +34,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
 import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
+import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator.SAFTVersion;
 
 public class SAFTs {
 
@@ -47,13 +48,13 @@ public class SAFTs {
 	}
 
 	public InputStream export(UID uidApplication, UID uidBusiness,
-			String certificateNumber, Date from, Date to)
+			String certificateNumber, Date from, Date to, SAFTVersion version)
 			throws SAFTPTExportException, IOException {
-		return export(uidApplication, uidBusiness, certificateNumber, from, to, TMP_SAFT);
+		return export(uidApplication, uidBusiness, certificateNumber, from, to, TMP_SAFT, version);
 	}
 
 	public InputStream export(UID uidApplication, UID uidBusiness,
-			String certificateNumber, Date from, Date to, String resultPath)
+			String certificateNumber, Date from, Date to, String resultPath, SAFTVersion version)
 			throws SAFTPTExportException, IOException {
 		File outputFile = new File(resultPath);
 		OutputStream oStream = new FileOutputStream(outputFile);
@@ -61,7 +62,8 @@ public class SAFTs {
 		generator.generateSAFTFile(oStream, getInstance(DAOPTBusiness.class)
 				.get(uidBusiness),
 				getInstance(DAOPTApplication.class).get(uidApplication),
-				certificateNumber, from, to);
+				certificateNumber, from, to, 
+				version);
 		IOUtils.closeQuietly(oStream);
 		return new FileInputStream(outputFile);
 	}

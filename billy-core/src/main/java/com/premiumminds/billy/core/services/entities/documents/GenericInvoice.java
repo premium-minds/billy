@@ -86,6 +86,10 @@ public interface GenericInvoice extends Entity {
 	public String getPaymentTerms();
 
 	public Boolean isSelfBilled();
+	
+	public Boolean isCashVATEndorser();
+	
+	public Boolean isThirdPartyBilled();
 
 	public String getSourceId();
 

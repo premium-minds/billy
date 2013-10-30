@@ -57,6 +57,8 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	public ShippingPointEntity shippingDestination;
 	public String paymentTerms;
 	public Boolean selfBilled;
+	public Boolean cashVATEndorser;
+	public Boolean thirdPartyBilled;
 	public String sourceId;
 	public Date generalLedgerDate;
 	public String batchId;
@@ -351,6 +353,16 @@ public class MockGenericInvoiceEntity extends MockBaseEntity implements
 	@Override
 	public <T extends Payment> List<T> getPayments() {
 		return (List<T>) payments;
+	}
+	
+	@Override
+	public Boolean isCashVATEndorser() {
+		return this.cashVATEndorser;
+	}
+	
+	@Override
+	public Boolean isThirdPartyBilled(){
+		return this.thirdPartyBilled;
 	}
 
 }
