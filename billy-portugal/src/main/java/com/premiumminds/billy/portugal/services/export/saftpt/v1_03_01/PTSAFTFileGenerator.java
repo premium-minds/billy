@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2013 Premium Minds.
+ *
+ * This file is part of billy portugal (PT Pack).
+ *
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01;
 
 import java.io.OutputStream;
@@ -566,7 +584,7 @@ public class PTSAFTFileGenerator {
 					true));
 
 			tte.setDescription(this.validateString("Description",
-					taxEntity.getDesignation(), this.MAX_LENGTH_255, true));
+					taxEntity.getDescription(), this.MAX_LENGTH_255, true));
 
 			if (taxEntity.getValidTo() != null) {
 				tte.setTaxExpirationDate(this.formatDate(taxEntity.getValidTo()));
@@ -739,9 +757,30 @@ public class PTSAFTFileGenerator {
 	}
 
 	private SpecialRegimes getSpecialRegimes(Boolean selfBilled,
-			Boolean cashVATEndorser, Boolean thirdPartyBilled) {
-		// TODO Auto-generated method stub
-		return null;
+			Boolean cashVATEndorser, Boolean thirdPartyBilled) throws RequiredFieldNotFoundException {
+		SpecialRegimes rvalue = new SpecialRegimes();
+		if(null != selfBilled){
+			rvalue.setSelfBillingIndicator(validateInteger(
+					"SelfBillingIndicator",
+					selfBilled ? "1" : "0", MAX_LENGTH_1, true));
+		} else {
+			rvalue.setSelfBillingIndicator(0);
+		}
+		if(null != cashVATEndorser){
+			rvalue.setCashVATSchemeIndicator(validateInteger(
+					"CashVATSchemeIndicator",
+					cashVATEndorser ? "1" : "0", MAX_LENGTH_1, true));
+		} else {
+			rvalue.setCashVATSchemeIndicator(0);
+		}
+		if(null != thirdPartyBilled){
+			rvalue.setThirdPartiesBillingIndicator(validateInteger(
+					"ThirdPartiesBillingIndicator",
+					thirdPartyBilled ? "1" : "0", MAX_LENGTH_1, true));
+		} else {
+			rvalue.setThirdPartiesBillingIndicator(0);
+		}
+		return rvalue;
 	}
 
 	/**

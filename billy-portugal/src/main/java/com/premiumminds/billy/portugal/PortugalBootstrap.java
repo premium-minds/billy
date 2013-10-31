@@ -125,8 +125,8 @@ public class PortugalBootstrap {
 					// Generic Address
 					final PTAddressEntity GENERIC_ADDRESS = this
 							.buildAddressEntity(daoPTAddress, addressBuilder,
-									"inventado", "inventado", "inventado",
-									"Desconhecido", "inventado",
+									null, null, null,
+									"Desconhecido", null,
 									"Desconhecido", "Desconhecido",
 									"Desconhecido",
 									Config.Key.Address.Generic.UUID);
@@ -134,9 +134,9 @@ public class PortugalBootstrap {
 					// Generic contact
 					final PTContactEntity GENERIC_CONTACT = this
 							.buildContactEntity(daoPTContact, contactBuilder,
-									"John Doe", "111222333", "123123123",
-									"doe@example.com", "321321321",
-									"www.doe.io",
+									null, null, null,
+									null, null,
+									null,
 									Config.Key.Contact.Generic.UUID);
 
 					// Generic Customer

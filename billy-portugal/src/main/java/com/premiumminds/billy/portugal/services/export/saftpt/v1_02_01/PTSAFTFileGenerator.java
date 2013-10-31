@@ -583,7 +583,7 @@ public class PTSAFTFileGenerator {
 					true));
 
 			tte.setDescription(this.validateString("Description",
-					taxEntity.getDesignation(), this.MAX_LENGTH_255, true));
+					taxEntity.getDescription(), this.MAX_LENGTH_255, true));
 
 			if (taxEntity.getValidTo() != null) {
 				tte.setTaxExpirationDate(this.formatDate(taxEntity.getValidTo()));
