@@ -532,7 +532,7 @@ public class PortugalBootstrap {
 					addressBuilder.setCity(city).setDetails(details)
 							.setISOCountry(isoCode).setNumber(number)
 							.setRegion(region).setStreetName(street)
-							.setPostalCode(postalCode);
+							.setPostalCode(postalCode).setBuilding(building);
 
 					PTAddressEntity address = (PTAddressEntity) addressBuilder
 							.build();

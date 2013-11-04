@@ -81,10 +81,10 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 		return (List<PTCreditNote>) (List<?>)
 			createQuery()
 			.from(creditNote)
-			.join(creditNote.entries)
-			.join(entry.references)
-			.on(toDSL(entry.references.any(), QJPAPTGenericInvoiceEntity.class).uid.eq(uidInvoice.toString()))
-			.where(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString()))
+			.innerJoin(toDSL(creditNote.entries, QJPAPTCreditNoteEntryEntity.class), entry)
+			.innerJoin(entry.references)
+			.where(toDSL(entry.references.any(), QJPAPTGenericInvoiceEntity.class).uid.eq(uidInvoice.toString())
+					.and(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString())))
 			.list(creditNote);
 	}
 
