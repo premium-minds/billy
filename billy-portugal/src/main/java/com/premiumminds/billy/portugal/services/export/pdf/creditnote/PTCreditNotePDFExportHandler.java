@@ -123,7 +123,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 				entryNode
 						.addChild(
 								ParamKeys.ENTRY_TAX,
-								tax.getValue()
+								tax.getValue().setScale(2, mc.getRoundingMode())
 										+ (tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? "%"
 												: "&#8364;"));
 				taxTotals

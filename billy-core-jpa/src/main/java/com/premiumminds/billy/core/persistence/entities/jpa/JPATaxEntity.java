@@ -64,10 +64,10 @@ public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 	@Column(name = "DESIGNATION")
 	protected String			designation;
 
-	@Column(name = "FLAT_RATE_AMOUNT", scale = 7)
+	@Column(name = "FLAT_RATE_AMOUNT", precision=19, scale = 7)
 	protected BigDecimal		flatRateAmount;
 
-	@Column(name = "PERCENT_RATE_VALUE", scale = 7)
+	@Column(name = "PERCENT_RATE_VALUE", precision=19, scale = 7)
 	protected BigDecimal		percentageRateValue;
 
 	@Enumerated(EnumType.STRING)
@@ -82,7 +82,7 @@ public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 	@Column(name = "VALID_TO")
 	protected Date				validTo;
 
-	@Column(name = "VALUE", scale = 7)
+	@Column(name = "VALUE", precision=19, scale = 7)
 	protected BigDecimal		value;
 
 	public JPATaxEntity() {
