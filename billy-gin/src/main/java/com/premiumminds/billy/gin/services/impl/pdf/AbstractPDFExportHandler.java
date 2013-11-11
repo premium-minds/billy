@@ -255,6 +255,8 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 						.addChild(
 								ParamKeys.ENTRY_TAX,
 								tax.getValue()
+								.setScale(BillyMathContext.SCALE,
+										this.mc.getRoundingMode()).toPlainString()
 										+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
 												: "&#8364;"));
 				taxTotals.add(
