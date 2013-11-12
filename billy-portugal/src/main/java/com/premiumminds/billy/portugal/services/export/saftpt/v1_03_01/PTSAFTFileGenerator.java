@@ -424,10 +424,12 @@ public class PTSAFTFileGenerator {
 		throws RequiredFieldNotFoundException, InvalidContactTypeException {
 		this.context = "Customer.";
 		Customer customer = new Customer();
+		final String customerId;
 
 		if (this.config.getUID(Key.Customer.Generic.UUID).equals(
 				customerEntity.getUID())) {
 			customerEntity.setTaxRegistrationNumber("999999990");
+			customerId = "Consumidor final";
 		} else {
 			if ((this.optionalParam = this
 					.validateString("Contact",
@@ -444,9 +446,9 @@ public class PTSAFTFileGenerator {
 			}
 			List<PTContactEntity> contacts = customerEntity.getContacts();
 			this.setContacts(customer, contacts);
+			customerId = customerEntity.getID().toString();
 		}
-		this.updateCustomerGeneralInfo(customer, customerEntity.getID()
-				.toString(), customerEntity.getTaxRegistrationNumber(),
+		this.updateCustomerGeneralInfo(customer, customerId, customerEntity.getTaxRegistrationNumber(),
 				customerEntity.getName(), (PTAddressEntity) customerEntity
 						.getBillingAddress());
 
