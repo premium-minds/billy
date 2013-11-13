@@ -31,8 +31,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.commons.lang3.Validate;
-
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
@@ -257,6 +255,8 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 						.addChild(
 								ParamKeys.ENTRY_TAX,
 								tax.getValue()
+								.setScale(BillyMathContext.SCALE,
+										this.mc.getRoundingMode()).toPlainString()
 										+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
 												: "&#8364;"));
 				taxTotals.add(
@@ -389,7 +389,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected <T extends BillyTemplateBundle> String getPaymentMechanismTranslation(
-			Enum pmc, T bundle) {
+			Enum<?> pmc, T bundle) {
 		return bundle.getPaymentMechanismTranslation(pmc);
 	}
 

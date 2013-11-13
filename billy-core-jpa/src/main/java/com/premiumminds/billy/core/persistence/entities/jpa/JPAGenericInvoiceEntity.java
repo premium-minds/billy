@@ -31,8 +31,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -96,16 +94,16 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	@Column(name = "DATE")
 	protected Date date;
 
-	@Column(name = "AMOUNT_WITH_TAX", scale = 7)
+	@Column(name = "AMOUNT_WITH_TAX", precision=19, scale = 7)
 	protected BigDecimal amountWithTax;
 
-	@Column(name = "TAX_AMOUNT", scale = 7)
+	@Column(name = "TAX_AMOUNT", precision=19, scale = 7)
 	protected BigDecimal taxAmount;
 
-	@Column(name = "AMOUNT_WITHOUT_TAX", scale = 7)
+	@Column(name = "AMOUNT_WITHOUT_TAX", precision=19, scale = 7)
 	protected BigDecimal amountWithoutTax;
 
-	@Column(name = "DISCOUNTS_AMOUNT", scale = 7)
+	@Column(name = "DISCOUNTS_AMOUNT", precision=19, scale = 7)
 	protected BigDecimal discountsAmount;
 
 	@OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = {
@@ -123,6 +121,12 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 
 	@Column(name = "SELF_BILLED")
 	protected Boolean selfBilled;
+	
+	@Column(name = "CASH_VAT_ENDORSER")
+	protected Boolean cashVATEndorser;
+	
+	@Column(name = "THIRD_PARTY_BILLED")
+	protected Boolean thirdPartyBilled;
 
 	@Column(name = "SOURCE_ID")
 	protected String sourceId;
@@ -143,7 +147,7 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	@Column(name = "SETTLEMENT_DESCRIPTION")
 	protected String settlementDescription;
 
-	@Column(name = "SETTLEMENT_DISCOUNT", scale = 7)
+	@Column(name = "SETTLEMENT_DISCOUNT", precision=19, scale = 7)
 	protected BigDecimal settlementDiscount;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -458,5 +462,14 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements
 	public List<? extends Payment> getPayments() {
 		return payments;
 	}
-
+	
+	@Override
+	public Boolean isCashVATEndorser() {
+		return cashVATEndorser;
+	}
+	
+	@Override
+	public Boolean isThirdPartyBilled() {
+		return thirdPartyBilled;
+	}
 }

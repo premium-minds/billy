@@ -23,7 +23,6 @@ import java.util.Date;
 import org.junit.Before;
 
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;

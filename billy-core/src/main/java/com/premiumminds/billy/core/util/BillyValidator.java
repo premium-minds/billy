@@ -95,7 +95,15 @@ public class BillyValidator extends Validate {
 				"invalid.blank", fieldName), fieldName);
 		return object;
 	}
-
+	
+	public static <T extends CharSequence> T notBlankButNull(T object, String fieldName) {
+		if(null != object){
+			Validate.notBlank(object, BillyValidator.instance.localizer.getString(
+					"invalid.blank", fieldName), fieldName);
+		}
+		return object;
+	}
+	
 	public static <T extends Collection<?>> T notEmpty(T object,
 			String fieldName) {
 		Validate.notEmpty(object, BillyValidator.instance.localizer.getString(

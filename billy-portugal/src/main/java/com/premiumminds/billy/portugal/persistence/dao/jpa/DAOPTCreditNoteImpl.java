@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.mysema.query.jpa.JPASubQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
@@ -34,6 +35,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEn
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
@@ -77,15 +79,23 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 			UID uidInvoice) {
 		QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 		QJPAPTCreditNoteEntryEntity entry = QJPAPTCreditNoteEntryEntity.jPAPTCreditNoteEntryEntity;
+		QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
+			
+		JPASubQuery invQ = new JPASubQuery()
+			.from(invoice)
+			.where(invoice.uid.eq(uidInvoice.toString()));
 		
-		return (List<PTCreditNote>) (List<?>)
-			createQuery()
-			.from(creditNote)
-			.join(creditNote.entries)
-			.join(entry.references)
-			.on(toDSL(entry.references.any(), QJPAPTGenericInvoiceEntity.class).uid.eq(uidInvoice.toString()))
-			.where(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString()))
-			.list(creditNote);
+		JPASubQuery entQ = new JPASubQuery()
+		.from(entry)
+		.where(toDSL(entry.reference, QJPAPTReceiptInvoiceEntity.class).uid.in(
+				invQ.list(invoice.uid)));
+		
+		return (List<PTCreditNote>) (List<?>) createQuery()
+				.from(creditNote)
+				.where(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString())
+						.and(toDSL(creditNote.entries.any(), QJPAPTCreditNoteEntryEntity.class).uid.in(
+								entQ.list(entry.uid))))
+				.list(creditNote);
 	}
 
 }
