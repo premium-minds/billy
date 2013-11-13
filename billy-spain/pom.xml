@@ -1,0 +1,443 @@
+<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-spain.
+	~ ~ billy-spain is free software: you can redistribute it and/or modify
+	~ it under the terms of the GNU Lesser General Public License as published
+	~ by the Free Software Foundation, either version 3 of the License, or ~
+	(at your option) any later version. ~ ~ billy-spain is distributed in
+	the hope that it will be useful, ~ but WITHOUT ANY WARRANTY; without even
+	the implied warranty of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+	See the ~ GNU Lesser General Public License for more details. ~ ~ You should
+	have received a copy of the GNU Lesser General Public License ~ along with
+	billy-spain. If not, see <http://www.gnu.org/licenses />. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>billy-spain</artifactId>
+	<name>billy spain (ES Pack)</name>
+	<description>The billy extension for Spain</description>
+
+	<parent>
+		<groupId>com.premiumminds</groupId>
+		<artifactId>billy</artifactId>
+		<version>1.0b</version>
+	</parent>
+	<properties>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<main.dir>${project.parent.basedir}</main.dir>
+
+		<java.version>1.6</java.version>
+		<guice.version>3.0</guice.version>
+		<env>DEV</env>
+		<postgresql.version>9.1-901.jdbc4</postgresql.version>
+		<hibernate.version>4.2.3.Final</hibernate.version>
+		<querydsl.version>3.2.2</querydsl.version>
+
+		<!-- plugins versions -->
+		<plugins.maven-war.version>2.2</plugins.maven-war.version>
+	</properties>
+
+	<dependencies>
+
+		<!-- BILLY -->
+		<dependency>
+			<groupId>com.premiumminds</groupId>
+			<artifactId>billy-core</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.premiumminds</groupId>
+			<artifactId>billy-core-jpa</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.premiumminds</groupId>
+			<artifactId>billy-gin</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<!-- PERSISTENCE -->
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-envers</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- Query DSL -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<!-- H2 -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.3.173</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- GUICE -->
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>${guice.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-persist</artifactId>
+			<version>${guice.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-assistedinject</artifactId>
+			<version>${guice.version}</version>
+		</dependency>
+
+		<!-- JUNIT -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+		</dependency>
+
+		<!-- LOG4J -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+			<version>1.46</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<filters>
+			<filter>src/main/filters/filters-${env}.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.xml</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/utils/resources</directory>
+				<targetPath>${project.build.directory}</targetPath>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<filtering>false</filtering>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<filtering>false</filtering>
+				<directory>src/test/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArgument>-proc:none</compilerArgument>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>maven-apt-plugin</artifactId>
+				<version>1.0.2</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.mysema.querydsl</groupId>
+						<artifactId>querydsl-apt</artifactId>
+						<version>${querydsl.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>com.mysema.querydsl</groupId>
+						<artifactId>querydsl-jpa</artifactId>
+						<classifier>apt</classifier>
+						<version>${querydsl.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>hibernate3-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<components>
+						<component>
+							<name>hbm2ddl</name>
+							<implementation>jpaconfiguration</implementation>
+						</component>
+					</components>
+					<componentProperties>
+						<persistenceunit>application-persistence-unit-export</persistenceunit>
+						<outputfilename>schema.ddl</outputfilename>
+						<drop>false</drop>
+						<create>true</create>
+						<export>false</export>
+						<format>true</format>
+					</componentProperties>
+				</configuration>
+			</plugin>
+<!-- 			<plugin> -->
+<!-- 				When adding support for additional saft version via .xsd, create a separate execution element, as done below -->
+<!-- 				<groupId>org.jvnet.jaxb2.maven2</groupId> -->
+<!-- 				<artifactId>maven-jaxb2-plugin</artifactId> -->
+<!-- 				<version>0.8.0</version> -->
+<!-- 				<configuration> -->
+<!-- 					<schemaDirectory>src/main/resources/documents</schemaDirectory> -->
+<!-- 					<bindingDirectory>src/main/resources/documents</bindingDirectory> -->
+<!-- 					<generateDirectory>src/main/java</generateDirectory> -->
+<!-- 					<strict>false</strict> -->
+<!-- 					<extension>true</extension> -->
+<!-- 					<plugins> -->
+<!-- 						<plugin> -->
+<!-- 							<groupId>org.jvnet.jaxb2_commons</groupId> -->
+<!-- 							<artifactId>jaxb2-basics</artifactId> -->
+<!-- 							<version>0.6.2</version> -->
+<!-- 						</plugin> -->
+<!-- 						<plugin> -->
+<!-- 							<groupId>org.jvnet.jaxb2_commons</groupId> -->
+<!-- 							<artifactId>jaxb2-basics-annotate</artifactId> -->
+<!-- 							<version>0.6.2</version> -->
+<!-- 						</plugin> -->
+<!-- 					</plugins> -->
+<!-- 					<args> -->
+<!-- 						<arg>-Xannotate</arg> -->
+<!-- 						<arg>-XtoString</arg> -->
+<!-- 					</args> -->
+<!-- 				</configuration> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<id>generate-1.02_01</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>generate</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<schemaIncludes><include>SAFTPT1.02_01.xsd</include></schemaIncludes> -->
+<!-- 							<generatePackage>com.premiumminds.billy.spain.services.export.saftpt.v1_02_01.schema</generatePackage> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 					<execution> -->
+<!-- 						<id>generate-1.03_01</id> -->
+<!-- 						<goals> -->
+<!-- 							<goal>generate</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<schemaIncludes><include>SAFTPT1.03_01.xsd</include></schemaIncludes> -->
+<!-- 							<generatePackage>com.premiumminds.billy.spain.services.export.saftpt.v1_03_01.schema</generatePackage> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
+
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<id>generate-create-schema-ddl</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>com.premiumminds.billy.spain.util.SchemaExport</mainClass>
+							<arguments>
+								<!-- PersistenceUnitName -->
+								<argument>BillySpainPersistenceUnit</argument>
+								<!-- output dir -->
+								<argument>${project.basedir}/sql/${project.build.finalName}.sql</argument>
+								<!-- create option on export -->
+								<argument>true</argument>
+								<!-- drop option on export -->
+								<argument>true</argument>
+								<!-- Delimiter -->
+								<argument>;</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.hibernate</groupId>
+						<artifactId>hibernate-entitymanager</artifactId>
+						<version>4.1.3.Final</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>test</id>
+			<activation>
+				<property>
+					<name>environment</name>
+					<value>test</value>
+				</property>
+			</activation>
+			<properties>
+				<env>test</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>testDB</id>
+			<activation>
+				<property>
+					<name>environment</name>
+					<value>testDB</value>
+				</property>
+			</activation>
+			<properties>
+				<env>testDB</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<property>
+					<name>environment</name>
+					<value>DEV</value>
+				</property>
+			</activation>
+			<properties>
+				<env>DEV</env>
+			</properties>
+		</profile>
+		<profile>
+			<id>bootstrap</id>
+			<activation>
+				<property>
+					<name>bootstrap</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<version>1.2.1</version>
+						<configuration>
+							<mainClass>com.premiumminds.billy.spain.SpainBootstrap</mainClass>
+							<classpathScope>test</classpathScope>
+							<includeProjectDependencies>true</includeProjectDependencies>
+							<includePluginDependencies>false</includePluginDependencies>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.apache.avalon.framework</groupId>
+				<artifactId>avalon-framework-api</artifactId>
+				<version>4.3.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.avalon.framework</groupId>
+				<artifactId>avalon-framework-impl</artifactId>
+				<version>4.3.1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>

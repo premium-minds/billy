@@ -1,0 +1,77 @@
+/**
+ * Copyright (C) 2013 Premium Minds.
+ *
+ * This file is part of billy spain (ES Pack).
+ *
+ * billy spain (ES Pack) is free software: you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * billy spain (ES Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
+ */
+package com.premiumminds.billy.spain.test.services.export;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.security.NoSuchAlgorithmException;
+
+import org.junit.Test;
+
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
+import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
+import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoicePDFExportHandler;
+import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoiceTemplateBundle;
+import com.premiumminds.billy.spain.test.ESAbstractTest;
+import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
+import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
+import com.premiumminds.billy.spain.util.PaymentMechanism;
+
+public class TestESSimpleInvoicePDFExportHandler extends
+	ESPersistencyAbstractTest {
+
+	public static final int		NUM_ENTRIES					= 10;
+	public static final String	XSL_PATH					= "src/main/resources/templates/es_simpleinvoice.xsl";
+	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
+
+	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
+
+	@Test
+	public void testPDFcreation() throws NoSuchAlgorithmException,
+		ExportServiceException, URISyntaxException, IOException {
+
+		File file = File.createTempFile("Result", ".pdf");
+
+		InputStream xsl = new FileInputStream(
+				TestESSimpleInvoicePDFExportHandler.XSL_PATH);
+
+		ESSimpleInvoiceTemplateBundle bundle = new ESSimpleInvoiceTemplateBundle(
+				TestESSimpleInvoicePDFExportHandler.LOGO_PATH, xsl,
+				TestESSimpleInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+		ESSimpleInvoicePDFExportHandler handler = new ESSimpleInvoicePDFExportHandler(
+				ESAbstractTest.injector.getInstance(DAOESSimpleInvoice.class));
+		handler.toFile(file.toURI(),
+				this.generateESSimpleInvoice(PaymentMechanism.CASH), bundle);
+	}
+
+	private ESSimpleInvoiceEntity generateESSimpleInvoice(
+			PaymentMechanism paymentMechanism) {
+
+		ESSimpleInvoiceEntity simpleInvoice = new ESSimpleInvoiceTestUtil(
+				ESAbstractTest.injector).getSimpleInvoiceEntity();
+		simpleInvoice
+				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+
+		return simpleInvoice;
+	}
+}

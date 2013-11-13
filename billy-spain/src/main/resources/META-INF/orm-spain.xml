@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2013 Premium Minds.
+
+    This file is part of billy spain (ES Pack).
+
+    billy spain (ES Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy spain (ES Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+  version="2.0">
+
+  	<!-- Core -->
+ <mapped-superclass class="com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity"></mapped-superclass>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAAddressEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPABankAccountEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAContactEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity"></entity>
+	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity"></entity>
+
+	<!-- Spain -->
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESAddressEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESApplicationEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESBusinessEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESContactEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditNoteEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditNoteEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCustomerEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESGenericInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESGenericInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESProductEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESRegionContextEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESShippingPointEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSimpleInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSupplierEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESTaxEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESPaymentEntity"></entity>
+
+</entity-mappings>

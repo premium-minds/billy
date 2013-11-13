@@ -31,6 +31,7 @@
 		<module>billy-core-jpa</module>
 		<module>billy-gin</module>
 		<module>billy-portugal</module>
+		<module>billy-spain</module>
 	</modules>
 
 	<licenses>
