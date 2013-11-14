@@ -33,5 +33,8 @@ public interface BaseEntity extends Entity, Serializable {
 
 	@Override
 	public void setUID(UID uid);
+	
+	public void initializeEntityDates();	
+	
 
 }

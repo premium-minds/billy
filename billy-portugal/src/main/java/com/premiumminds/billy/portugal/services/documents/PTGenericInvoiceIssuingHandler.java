@@ -26,6 +26,7 @@ import javax.persistence.LockModeType;
 
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
@@ -70,12 +71,19 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 			final D daoInvoice, final TYPE invoiceType)
 		throws DocumentIssuingException {
 
+		String series = parametersPT.getInvoiceSeries();
+		
+		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document,
+				series, LockModeType.PESSIMISTIC_WRITE);
+		
 		PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
 		SourceBilling sourceBilling = ((PTGenericInvoice) document)
 				.getSourceBilling();
+		
+		((BaseEntity)document).initializeEntityDates();
+		
 		Date invoiceDate = document.getDate();
 		Date systemDate = document.getCreateTimestamp();
-		String series = parametersPT.getInvoiceSeries();
 
 //		if (systemDate..after(invoiceDate)) {
 //			throw new InvalidInvoiceDateException();
@@ -83,11 +91,6 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 
 		Integer seriesNumber = 1;
 		String previousHash = null;
-
-		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document,
-				series);
-		daoInvoiceSeries.lock(invoiceSeriesEntity,
-				LockModeType.PESSIMISTIC_WRITE);
 
 		PTGenericInvoiceEntity latestInvoice = daoInvoice
 				.getLatestInvoiceFromSeries(series, document.getBusiness()
@@ -142,9 +145,9 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 	}
 
 	private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(
-			final T document, String series) {
+			final T document, String series, LockModeType lockMode) {
 		InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(
-				series, document.getBusiness().getUID().toString());
+				series, document.getBusiness().getUID().toString(), lockMode);
 
 		if (null == invoiceSeriesEntity) {
 			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();

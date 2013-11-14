@@ -25,7 +25,9 @@ import org.junit.Before;
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParamsImpl;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -79,8 +81,12 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
 			throws DocumentIssuingException {
+		DAOPTInvoice dao = this.getInstance(DAOPTInvoice.class);
+		dao.beginTransaction();
+		invoice.initializeEntityDates();
 		this.issueNewInvoice(handler, invoice, series, new Date(invoice
 				.getCreateTimestamp().getTime() + 100));
+		dao.commit();
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(

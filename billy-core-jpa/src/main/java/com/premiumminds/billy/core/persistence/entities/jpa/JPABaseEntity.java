@@ -88,7 +88,6 @@ public abstract class JPABaseEntity implements BaseEntity {
 	 */
 	public JPABaseEntity() {
 		this.uid = this.generateUUID().toString();
-		this.updateTimestamp = this.createTimestamp = new Date();
 	}
 
 	@Override
@@ -102,6 +101,9 @@ public abstract class JPABaseEntity implements BaseEntity {
 			this.uidRow = this.generateUUID().toString();
 			this.entityVersion = 1;
 			this.active = true;
+			if(this.createTimestamp == null) {
+				initializeEntityDates();
+			}
 		}
 	}
 
@@ -136,6 +138,14 @@ public abstract class JPABaseEntity implements BaseEntity {
 		return this.updateTimestamp;
 	}
 
+	@Override
+	public void initializeEntityDates() {
+		if(!isNew()) {
+			throw new RuntimeException("Cannot redefine the creation date for a persisted entity");
+		}
+		this.updateTimestamp = this.createTimestamp = new Date();
+	}
+	
 	protected UUID generateUUID() {
 		return UUID.randomUUID();
 	}
