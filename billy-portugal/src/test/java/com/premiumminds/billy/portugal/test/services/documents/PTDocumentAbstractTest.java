@@ -83,10 +83,15 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 			throws DocumentIssuingException {
 		DAOPTInvoice dao = this.getInstance(DAOPTInvoice.class);
 		dao.beginTransaction();
-		invoice.initializeEntityDates();
-		this.issueNewInvoice(handler, invoice, series, new Date(invoice
-				.getCreateTimestamp().getTime() + 100));
-		dao.commit();
+		try {
+			invoice.initializeEntityDates();
+			this.issueNewInvoice(handler, invoice, series, new Date(invoice
+					.getCreateTimestamp().getTime() + 100));
+			dao.commit();
+		} catch (DocumentIssuingException up) {
+			dao.rollback();
+			throw up;
+		}
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(
