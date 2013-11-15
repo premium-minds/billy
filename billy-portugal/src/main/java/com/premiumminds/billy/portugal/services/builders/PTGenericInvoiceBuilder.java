@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.builders;
 
+import java.math.BigDecimal;
+
 import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -33,4 +35,7 @@ public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilde
 	public TBuilder setChangeReason(String reason);
 
 	public TBuilder setSourceBilling(SourceBilling sourceBilling);
+
+	public TBuilder setTotals(BigDecimal grossTotal, BigDecimal netTotal,
+			BigDecimal taxTotal);
 }

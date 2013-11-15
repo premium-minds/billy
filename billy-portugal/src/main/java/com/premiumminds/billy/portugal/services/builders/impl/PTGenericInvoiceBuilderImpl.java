@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.math.BigDecimal;
+
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
@@ -166,6 +168,22 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 		BillyValidator.notEmpty(i.getPayments(),
 				PTGenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.payment_mechanism"));
+	}
+	
+
+	@Override
+	public TBuilder setTotals(BigDecimal grossTotal, BigDecimal netTotal, BigDecimal taxTotal){
+		PTGenericInvoiceEntity i = this.getTypeInstance();
+		switch (i.getSourceBilling()) {
+		case M:
+			i.setAmountWithTax(grossTotal);
+			i.setAmountWithoutTax(netTotal);
+			i.setTaxAmount(taxTotal);
+			return this.getBuilder();
+		case P:
+		default:
+			throw new BillyValidationException();
+		}
 	}
 
 }
