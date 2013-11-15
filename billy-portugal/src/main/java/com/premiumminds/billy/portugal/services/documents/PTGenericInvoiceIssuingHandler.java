@@ -24,6 +24,7 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
@@ -82,7 +83,8 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 		
 		((BaseEntity)document).initializeEntityDates();
 		
-		Date invoiceDate = document.getDate();
+		//If the date is null then the invoice date is the current date
+		Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
 		Date systemDate = document.getCreateTimestamp();
 
 //		if (systemDate..after(invoiceDate)) {
@@ -93,7 +95,7 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 		String previousHash = null;
 
 		PTGenericInvoiceEntity latestInvoice = daoInvoice
-				.getLatestInvoiceFromSeries(series, document.getBusiness()
+				.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(), document.getBusiness()
 						.getUID().toString());
 
 		if (null != latestInvoice) {
@@ -101,16 +103,16 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 			previousHash = latestInvoice.getHash();
 			Date latestInvoiceDate = latestInvoice.getDate();
 			PTGenericInvoiceIssuingHandler.this.validateDocumentType(
-					invoiceType, latestInvoice.getType(), series);
+					invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
 
 			if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
-				throw new InvalidSourceBillingException(series,
+				throw new InvalidSourceBillingException(invoiceSeriesEntity.getSeries(),
 						sourceBilling.toString(), latestInvoice
 								.getSourceBilling().toString());
 			}
 
-			if (latestInvoiceDate.after(invoiceDate)) {
-				invoiceDate.setTime(latestInvoiceDate.getTime() + 100);
+			if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+				throw new InvalidInvoiceDateException();
 			}
 		}
 
@@ -126,8 +128,9 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 				systemDate, formatedNumber, document.getAmountWithTax(),
 				previousHash);
 
+		documentEntity.setDate(invoiceDate);
 		documentEntity.setNumber(formatedNumber);
-		documentEntity.setSeries(series);
+		documentEntity.setSeries(invoiceSeriesEntity.getSeries());
 		documentEntity.setSeriesNumber(seriesNumber);
 		documentEntity.setHash(newHash);
 		documentEntity.setBilled(false);
