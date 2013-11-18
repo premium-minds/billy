@@ -26,6 +26,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceEntryBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.impl.PTManualInvoiceEntryBuilderImpl;
 
 public interface PTInvoiceEntry extends PTGenericInvoiceEntry {
 
@@ -40,4 +41,16 @@ public interface PTInvoiceEntry extends PTGenericInvoiceEntry {
 					daoPTRegionContext);
 		}
 	}
+	
+	public static class ManualBuilder extends
+	PTManualInvoiceEntryBuilderImpl<ManualBuilder, PTInvoiceEntry> {
+
+	@Inject
+	public ManualBuilder(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice,
+					DAOPTTax daoPTTax, DAOPTProduct daoPTProduct,
+					DAOPTRegionContext daoPTRegionContext) {
+		super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct,
+				daoPTRegionContext);
+	}
+}
 }

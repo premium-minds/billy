@@ -28,7 +28,6 @@ import com.premiumminds.billy.core.persistence.dao.DAOPayment;
 import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 import com.premiumminds.billy.core.services.builders.PaymentBuilder;
 import com.premiumminds.billy.core.services.entities.Payment;
-import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class PaymentBuilderImpl<TBuilder extends PaymentBuilderImpl<TBuilder, TPayment>, TPayment extends Payment>

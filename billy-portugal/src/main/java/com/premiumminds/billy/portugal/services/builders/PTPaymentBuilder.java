@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.services.builders;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;

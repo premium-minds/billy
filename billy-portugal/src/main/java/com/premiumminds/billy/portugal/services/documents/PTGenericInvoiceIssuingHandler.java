@@ -18,13 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
-import java.util.Currency;
 import java.util.Date;
 
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;

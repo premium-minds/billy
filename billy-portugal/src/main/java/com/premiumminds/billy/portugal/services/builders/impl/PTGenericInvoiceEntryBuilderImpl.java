@@ -105,11 +105,4 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
 		}
 	}
 
-	@Override
-	public TBuilder setTotals(BigDecimal grossTotal, BigDecimal netTotal, BigDecimal taxTotal){
-		this.getTypeInstance().setUnitAmountWithTax(grossTotal);
-		this.getTypeInstance().setUnitAmountWithoutTax(netTotal);
-		this.getTypeInstance().setUnitTaxAmount(taxTotal);
-		return this.getBuilder();
-	}
 }
