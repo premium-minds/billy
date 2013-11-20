@@ -34,6 +34,7 @@ import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingHandle
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
+import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.spain.services.documents.exceptions.InvalidSourceBillingException;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
@@ -80,7 +81,8 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 		
 		((BaseEntity)document).initializeEntityDates();
 		
-		Date invoiceDate = document.getDate();
+		//If the date is null then the invoice date is the current date
+		Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
 		Date systemDate = document.getCreateTimestamp();
 
 //		if (systemDate..after(invoiceDate)) {
@@ -91,7 +93,7 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 		String previousHash = null;
 
 		ESGenericInvoiceEntity latestInvoice = daoInvoice
-				.getLatestInvoiceFromSeries(series, document.getBusiness()
+				.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(), document.getBusiness()
 						.getUID().toString());
 
 		if (null != latestInvoice) {
@@ -99,16 +101,16 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 			previousHash = latestInvoice.getHash();
 			Date latestInvoiceDate = latestInvoice.getDate();
 			ESGenericInvoiceIssuingHandler.this.validateDocumentType(
-					invoiceType, latestInvoice.getType(), series);
+					invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
 
 			if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
-				throw new InvalidSourceBillingException(series,
+				throw new InvalidSourceBillingException(invoiceSeriesEntity.getSeries(),
 						sourceBilling.toString(), latestInvoice
 								.getSourceBilling().toString());
 			}
 
-			if (latestInvoiceDate.after(invoiceDate)) {
-				invoiceDate.setTime(latestInvoiceDate.getTime() + 100);
+			if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+				throw new InvalidInvoiceDateException();
 			}
 		}
 
@@ -124,8 +126,9 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 				systemDate, formatedNumber, document.getAmountWithTax(),
 				previousHash);
 
+		documentEntity.setDate(invoiceDate);
 		documentEntity.setNumber(formatedNumber);
-		documentEntity.setSeries(series);
+		documentEntity.setSeries(invoiceSeriesEntity.getSeries());
 		documentEntity.setSeriesNumber(seriesNumber);
 		documentEntity.setHash(newHash);
 		documentEntity.setBilled(false);
