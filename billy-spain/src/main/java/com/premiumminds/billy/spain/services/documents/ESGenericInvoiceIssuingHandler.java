@@ -25,6 +25,7 @@ import javax.persistence.LockModeType;
 
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
@@ -67,13 +68,20 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 			final T document, final ESIssuingParams parametersES,
 			final D daoInvoice, final TYPE invoiceType)
 		throws DocumentIssuingException {
+		
+		String series  = parametersES.getInvoiceSeries();
+		
+		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document, 
+				series, LockModeType.PESSIMISTIC_WRITE);
 
 		ESGenericInvoiceEntity documentEntity = (ESGenericInvoiceEntity) document;
 		SourceBilling sourceBilling = ((ESGenericInvoice) document)
 				.getSourceBilling();
+		
+		((BaseEntity)document).initializeEntityDates();
+		
 		Date invoiceDate = document.getDate();
 		Date systemDate = document.getCreateTimestamp();
-		String series = parametersES.getInvoiceSeries();
 
 //		if (systemDate..after(invoiceDate)) {
 //			throw new InvalidInvoiceDateException();
@@ -81,11 +89,6 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 
 		Integer seriesNumber = 1;
 		String previousHash = null;
-
-		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document,
-				series);
-		daoInvoiceSeries.lock(invoiceSeriesEntity,
-				LockModeType.PESSIMISTIC_WRITE);
 
 		ESGenericInvoiceEntity latestInvoice = daoInvoice
 				.getLatestInvoiceFromSeries(series, document.getBusiness()

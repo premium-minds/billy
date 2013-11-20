@@ -25,6 +25,7 @@ import org.junit.Before;
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParamsImpl;
@@ -79,8 +80,17 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
 	protected <T extends DocumentIssuingHandler, I extends ESGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
 			throws DocumentIssuingException {
-		this.issueNewInvoice(handler, invoice, series, new Date(invoice
-				.getCreateTimestamp().getTime() + 100));
+		DAOESInvoice dao = this.getInstance(DAOESInvoice.class);
+		try {
+			dao.beginTransaction();
+			invoice.initializeEntityDates();
+			this.issueNewInvoice(handler, invoice, series, new Date(invoice
+					.getCreateTimestamp().getTime() + 100));
+			dao.commit();
+		} catch (DocumentIssuingException up) {
+			dao.rollback();
+			throw up;
+		}
 	}
 
 	protected <T extends DocumentIssuingHandler, I extends ESGenericInvoiceEntity> void issueNewInvoice(
