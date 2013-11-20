@@ -146,9 +146,9 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 	}
 
 	private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(
-			final T document, String series) {
+			final T document, String series, LockModeType lockMode) {
 		InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(
-				series, document.getBusiness().getUID().toString());
+				series, document.getBusiness().getUID().toString(), lockMode);
 
 		if (null == invoiceSeriesEntity) {
 			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();

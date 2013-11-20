@@ -28,7 +28,6 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
-import com.premiumminds.billy.spain.services.export.exceptions.SAFTESExportException;
 
 
 public class TestInvoiceGenerationAndExport extends
@@ -51,7 +50,7 @@ public class TestInvoiceGenerationAndExport extends
 	}
 	
 	@Test
-	public void testExportInvoice() throws SAFTESExportException, IOException {
+	public void testExportInvoice() throws IOException {
 //		TO USE with EOS DB
 //		Calendar calendar = Calendar.getInstance();
 //		calendar.set(2013, 1, 1);
