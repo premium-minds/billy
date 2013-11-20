@@ -89,4 +89,28 @@ public class Invoices {
 		return this.injector.getInstance(clazz);
 	}
 
+	
+	public ESInvoice.ManualBuilder manualBuilder() {
+		return getInstance(ESInvoice.ManualBuilder.class);
+	}
+	
+	public ESInvoice.ManualBuilder manualBuilder(ESInvoice invoice) {
+		ESInvoice.ManualBuilder builder = getInstance(ESInvoice.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, invoice);
+		return builder;
+	}
+	
+	public ESInvoiceEntry.ManualBuilder manualEntryBuilder() {
+		return getInstance(ESInvoiceEntry.ManualBuilder.class);
+	}
+	
+	public ESInvoiceEntry.ManualBuilder manualEntrybuilder(ESInvoiceEntry entry) {
+		ESInvoiceEntry.ManualBuilder builder = getInstance(ESInvoiceEntry.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, entry);
+		return builder;
+	}
+	
+	public ESInvoice issue(ESInvoice.ManualBuilder builder, ESIssuingParams params) throws DocumentIssuingException {
+		return issuingService.issue(builder, params);
+	}
 }

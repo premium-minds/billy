@@ -16,26 +16,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.services.export.exceptions;
+package com.premiumminds.billy.spain.services.builders;
 
-public class SAFTESExportException extends Exception {
+import java.math.BigDecimal;
 
-	private static final long	serialVersionUID	= 1L;
+import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
-	public SAFTESExportException() {
-		super();
-	}
+public interface ESManualInvoiceEntryBuilder <TBuilder extends ESManualInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
+	extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	public SAFTESExportException(String message) {
-		super(message);
-	}
-
-	public SAFTESExportException(Throwable t) {
-		super(t);
-	}
-
-	public SAFTESExportException(String message, Throwable t) {
-		super(message, t);
-	}
-
+	public TBuilder setUnitTaxAmount(BigDecimal taxAmount);
+	
+	public TBuilder setAmount(AmountType type, BigDecimal amount);
+	
+	public TBuilder setTaxAmount(BigDecimal taxAmount);
 }

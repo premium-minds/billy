@@ -27,6 +27,7 @@ import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.entities.ESProductEntity;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
+import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry.ManualBuilder;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 import com.premiumminds.billy.spain.services.entities.ESShippingPoint;
 import com.premiumminds.billy.spain.util.Contexts;
@@ -74,10 +75,40 @@ public class ESInvoiceEntryTestUtil {
 		return invoiceEntryBuilder;
 
 	}
+	
+	private ManualBuilder getManualInvoiceEntryBuilder(ESProductEntity product) {
+		ESInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.injector
+				.getInstance(ESInvoiceEntry.ManualBuilder.class);
+		ESShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
+		this.context = this.contexts.spain().allRegions();
+	
+		invoiceEntryBuilder.clear();
+	
+		invoiceEntryBuilder
+				.setUnitAmount(AmountType.WITH_TAX,
+						ESInvoiceEntryTestUtil.AMOUNT)
+				.setTaxPointDate(new Date())
+				.setDescription(product.getDescription())
+				.setQuantity(ESInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder)
+				.setCurrency(CURRENCY);
+	
+		return invoiceEntryBuilder;
+	}
 
 	public ESInvoiceEntry.Builder getInvoiceEntryBuilder() {
 		ESProductEntity newProduct = this.product.getProductEntity();
 		return this.getInvoiceEntryBuilder((ESProductEntity) this.injector
+				.getInstance(DAOESProduct.class).create(newProduct));
+	}
+	
+	public ManualBuilder getManualInvoiceEntryBuilder() {
+		ESProductEntity newProduct = this.product.getProductEntity();
+		return this.getManualInvoiceEntryBuilder((ESProductEntity) this.injector
 				.getInstance(DAOESProduct.class).create(newProduct));
 	}
 	

@@ -29,6 +29,7 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.services.builders.impl.ESInvoiceBuilderImpl;
+import com.premiumminds.billy.spain.services.builders.impl.ESManualInvoiceBuilderImpl;
 
 public interface ESInvoice extends ESGenericInvoice {
 
@@ -37,6 +38,16 @@ public interface ESInvoice extends ESGenericInvoice {
 
 		@Inject
 		public Builder(DAOESInvoice daoESInvoice, DAOESBusiness daoESBusiness,
+						DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+			super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+		}
+	}
+	
+	public static class ManualBuilder extends
+		ESManualInvoiceBuilderImpl<ManualBuilder, ESInvoiceEntry, ESInvoice> {
+		
+		@Inject
+		public ManualBuilder(DAOESInvoice daoESInvoice, DAOESBusiness daoESBusiness,
 						DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
 			super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
 		}

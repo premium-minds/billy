@@ -18,59 +18,39 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import javax.inject.Inject;
-
+import com.google.inject.Inject;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.core.util.Localizer;
-import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
-import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
+import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
-import com.premiumminds.billy.spain.services.builders.ESInvoiceBuilder;
-import com.premiumminds.billy.spain.services.entities.ESInvoice;
-import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
+import com.premiumminds.billy.spain.services.builders.ESManualInvoiceBuilder;
+import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
+import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
-public class ESInvoiceBuilderImpl<TBuilder extends ESInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESInvoiceEntry, TDocument extends ESInvoice>
-	extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
-	ESInvoiceBuilder<TBuilder, TEntry, TDocument> {
-
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
-
+public class ESManualInvoiceBuilderImpl<TBuilder extends ESManualInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESGenericInvoiceEntry, TDocument extends ESGenericInvoice>
+extends ESManualBuilderImpl<TBuilder, TEntry, TDocument>
+implements ESManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
+	
 	@Inject
-	public ESInvoiceBuilderImpl(DAOESInvoice daoESInvoice,
-								DAOESBusiness daoESBusiness,
-								DAOESCustomer daoESCustomer,
-								DAOESSupplier daoESSupplier) {
-		super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
-		this.setSourceBilling(SourceBilling.P);
+	public ESManualInvoiceBuilderImpl(DAOESGenericInvoice daoESGenericInvoice,
+			DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
+			DAOESSupplier daoESSupplier) {
+		super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
 	}
-
+	
 	@Override
 	protected ESInvoiceEntity getTypeInstance() {
 		return (ESInvoiceEntity) super.getTypeInstance();
 	}
-
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		ESInvoiceEntity i = getTypeInstance();
-		i.setCreditOrDebit(CreditOrDebit.CREDIT);
-		super.validateInstance();
-	}
 	
 	@Override
-	@NotOnUpdate
-	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
-		switch (sourceBilling) {
-		case P:
-			return super.setSourceBilling(sourceBilling);
-		case M:
-		default:
-			throw new BillyValidationException();
-		}
+	protected void validateInstance() throws BillyValidationException {
+		ESGenericInvoiceEntity i = getTypeInstance();
+		i.setCreditOrDebit(CreditOrDebit.CREDIT);
+		super.validateInstance();
 	}
 }

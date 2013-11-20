@@ -64,8 +64,18 @@ public class ESInvoiceTestUtil {
 	}
 
 	public ESInvoiceEntity getInvoiceEntity(SourceBilling billing) {
-		ESInvoiceEntity invoice = (ESInvoiceEntity) this.getInvoiceBuilder(
-				business.getBusinessEntity(), billing).build();
+		ESInvoiceEntity invoice;
+		switch (billing) {
+		case M:
+			invoice = (ESInvoiceEntity) this.getManualInvoiceBuilder(
+					business.getBusinessEntity(), billing).build();
+			break;
+		case P:
+		default:
+			invoice = (ESInvoiceEntity) this.getInvoiceBuilder(
+					business.getBusinessEntity(), billing).build();
+			break;
+		}
 		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
@@ -94,6 +104,41 @@ public class ESInvoiceTestUtil {
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
 				.setBusinessUID(business.getUID())
+				.addPayment(payment.getPaymentBuilder());
+	}
+	
+	public ESInvoice.ManualBuilder getManualInvoiceBuilder(
+			ESBusinessEntity business, SourceBilling billing) {
+		BigDecimal price = new BigDecimal("0.454545");
+		BigDecimal tax = new BigDecimal("0.084996");
+		ESInvoice.ManualBuilder invoiceBuilder = this.injector
+				.getInstance(ESInvoice.ManualBuilder.class);
+	
+		DAOESCustomer daoESCustomer = this.injector
+				.getInstance(DAOESCustomer.class);
+	
+		ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoESCustomer.create(customerEntity).getUID();
+	
+		ESInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry
+				.getManualInvoiceEntryBuilder()
+				.setUnitAmount(AmountType.WITH_TAX, price)
+				.setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
+				.setUnitTaxAmount(tax)
+				.setAmount(AmountType.WITH_TAX, price)
+				.setAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
+				.setTaxAmount(tax);
+		invoiceBuilder.addEntry(invoiceEntryBuilder);
+	
+		return invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED)
+				.setCancelled(ESInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
+				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setBusinessUID(business.getUID())
+				.setAmount(AmountType.WITH_TAX, price)
+				.setAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
+				.setTaxAmount(tax)
 				.addPayment(payment.getPaymentBuilder());
 	}
 

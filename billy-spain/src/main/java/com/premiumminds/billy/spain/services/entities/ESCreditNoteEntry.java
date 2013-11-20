@@ -26,6 +26,7 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
 import com.premiumminds.billy.spain.services.builders.impl.ESCreditNoteEntryBuilderImpl;
+import com.premiumminds.billy.spain.services.builders.impl.ESManualCreditNoteEntryBuilderImpl;
 
 public interface ESCreditNoteEntry extends ESGenericInvoiceEntry {
 
@@ -41,6 +42,20 @@ public interface ESCreditNoteEntry extends ESGenericInvoiceEntry {
 					daoESRegionContext);
 		}
 	}
+	
+	public static class ManualBuilder extends
+		ESManualCreditNoteEntryBuilderImpl<ManualBuilder, ESCreditNoteEntry> {
+	
+		@Inject
+		public ManualBuilder(DAOESCreditNoteEntry daoESCreditNoteEntry,
+				DAOESInvoice daoESInvoice, DAOESTax daoESTax,
+				DAOESProduct daoESProduct,
+				DAOESRegionContext daoESRegionContext) {
+			super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct,
+					daoESRegionContext);
+		}
+	}
+	 
 
 	public ESInvoice getReference();
 

@@ -88,5 +88,29 @@ public class CreditNotes {
 	private <T> T getInstance(Class<T> clazz) {
 		return this.injector.getInstance(clazz);
 	}
+	
 
+	public ESCreditNote.ManualBuilder manualBuilder() {
+		return getInstance(ESCreditNote.ManualBuilder.class);
+	}
+	
+	public ESCreditNote.ManualBuilder manualbuilder(ESCreditNote invoice) {
+		ESCreditNote.ManualBuilder builder = getInstance(ESCreditNote.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, invoice);
+		return builder;
+	}
+	
+	public ESCreditNoteEntry.ManualBuilder manualEntryBuilder() {
+		return getInstance(ESCreditNoteEntry.ManualBuilder.class);
+	}
+	
+	public ESCreditNoteEntry.ManualBuilder manualEntryBuilder(ESCreditNoteEntry entry) {
+		ESCreditNoteEntry.ManualBuilder builder = getInstance(ESCreditNoteEntry.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, entry);
+		return builder;
+	}
+	
+	public ESCreditNote issue(ESCreditNote.ManualBuilder builder, ESIssuingParams params) throws DocumentIssuingException {
+		return issuingService.issue(builder, params);
+	}
 }
