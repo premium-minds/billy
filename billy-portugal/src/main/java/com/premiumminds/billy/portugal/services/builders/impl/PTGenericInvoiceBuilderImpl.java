@@ -167,5 +167,5 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 				PTGenericInvoiceBuilderImpl.LOCALIZER
 						.getString("field.payment_mechanism"));
 	}
-
+	
 }

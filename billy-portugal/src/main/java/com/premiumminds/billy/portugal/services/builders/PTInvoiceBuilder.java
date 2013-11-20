@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.services.builders;
 
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public interface PTInvoiceBuilder<TBuilder extends PTInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTInvoice>
 		extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {

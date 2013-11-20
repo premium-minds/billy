@@ -30,7 +30,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntit
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
-import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFExportRequest;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportRequest;
 import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;

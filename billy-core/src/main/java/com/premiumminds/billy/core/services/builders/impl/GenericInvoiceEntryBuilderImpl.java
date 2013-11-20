@@ -44,7 +44,6 @@ import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.BillyValidator;
@@ -293,9 +292,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
 		for (Tax t : e.getProduct().getTaxes()) {
 			if (this.daoContext.isSubContext(t.getContext(), this.context)) {
-				Date actualDate = new Date();
-				if (DateUtils.isSameDay(t.getValidTo(), actualDate)
-						|| t.getValidTo().after(actualDate)) {
+				Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
+				if (DateUtils.isSameDay(t.getValidTo(), taxDate)
+						|| t.getValidTo().after(taxDate)) {
 					e.getTaxes().add(t);
 				}
 			}

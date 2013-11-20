@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
-import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoiceTemplateBundle;
 
 public class PTCreditNotePDFExportRequest extends AbstractExportRequest {
 

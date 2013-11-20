@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
-import java.util.Currency;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -26,6 +25,7 @@ import javax.persistence.LockModeType;
 
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
@@ -70,12 +70,20 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 			final D daoInvoice, final TYPE invoiceType)
 		throws DocumentIssuingException {
 
+		String series = parametersPT.getInvoiceSeries();
+		
+		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document,
+				series, LockModeType.PESSIMISTIC_WRITE);
+		
 		PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
 		SourceBilling sourceBilling = ((PTGenericInvoice) document)
 				.getSourceBilling();
-		Date invoiceDate = document.getDate();
+		
+		((BaseEntity)document).initializeEntityDates();
+		
+		//If the date is null then the invoice date is the current date
+		Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
 		Date systemDate = document.getCreateTimestamp();
-		String series = parametersPT.getInvoiceSeries();
 
 //		if (systemDate..after(invoiceDate)) {
 //			throw new InvalidInvoiceDateException();
@@ -84,13 +92,8 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 		Integer seriesNumber = 1;
 		String previousHash = null;
 
-		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document,
-				series);
-		daoInvoiceSeries.lock(invoiceSeriesEntity,
-				LockModeType.PESSIMISTIC_WRITE);
-
 		PTGenericInvoiceEntity latestInvoice = daoInvoice
-				.getLatestInvoiceFromSeries(series, document.getBusiness()
+				.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(), document.getBusiness()
 						.getUID().toString());
 
 		if (null != latestInvoice) {
@@ -98,16 +101,16 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 			previousHash = latestInvoice.getHash();
 			Date latestInvoiceDate = latestInvoice.getDate();
 			PTGenericInvoiceIssuingHandler.this.validateDocumentType(
-					invoiceType, latestInvoice.getType(), series);
+					invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
 
 			if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
-				throw new InvalidSourceBillingException(series,
+				throw new InvalidSourceBillingException(invoiceSeriesEntity.getSeries(),
 						sourceBilling.toString(), latestInvoice
 								.getSourceBilling().toString());
 			}
 
-			if (latestInvoiceDate.after(invoiceDate)) {
-				invoiceDate.setTime(latestInvoiceDate.getTime() + 100);
+			if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+				throw new InvalidInvoiceDateException();
 			}
 		}
 
@@ -123,8 +126,9 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 				systemDate, formatedNumber, document.getAmountWithTax(),
 				previousHash);
 
+		documentEntity.setDate(invoiceDate);
 		documentEntity.setNumber(formatedNumber);
-		documentEntity.setSeries(series);
+		documentEntity.setSeries(invoiceSeriesEntity.getSeries());
 		documentEntity.setSeriesNumber(seriesNumber);
 		documentEntity.setHash(newHash);
 		documentEntity.setBilled(false);
@@ -142,9 +146,9 @@ public abstract class PTGenericInvoiceIssuingHandler extends
 	}
 
 	private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(
-			final T document, String series) {
+			final T document, String series, LockModeType lockMode) {
 		InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(
-				series, document.getBusiness().getUID().toString());
+				series, document.getBusiness().getUID().toString(), lockMode);
 
 		if (null == invoiceSeriesEntity) {
 			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();

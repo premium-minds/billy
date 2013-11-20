@@ -215,10 +215,10 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		service.issue(simpleInvoice.getSimpleInvoiceBuilder(businessEntity,
 				SourceBilling.P, CLIENTTYPE.CUSTOMER), this.parameters);
 
-		// MANUAL SIMPLE INVOICE
+		// MANUAL INVOICE
 		this.parameters.setInvoiceSeries("M");
-		service.issue(simpleInvoice.getSimpleInvoiceBuilder(businessEntity,
-				SourceBilling.M, CLIENTTYPE.CUSTOMER), this.parameters);
+		service.issue(invoice.getManualInvoiceBuilder(businessEntity,
+				SourceBilling.M), this.parameters);
 
 		// RECEIPT INVOICE
 		DAOPTReceiptInvoice daoPTReceiptInvoice = PTAbstractTest.injector

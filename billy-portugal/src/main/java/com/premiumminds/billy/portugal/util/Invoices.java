@@ -88,5 +88,30 @@ public class Invoices {
 	private <T> T getInstance(Class<T> clazz) {
 		return this.injector.getInstance(clazz);
 	}
+	
+	
+	public PTInvoice.ManualBuilder manualBuilder() {
+		return getInstance(PTInvoice.ManualBuilder.class);
+	}
+
+	public PTInvoice.ManualBuilder manualBuilder(PTInvoice invoice) {
+		PTInvoice.ManualBuilder builder = getInstance(PTInvoice.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, invoice);
+		return builder;
+	}
+	
+	public PTInvoiceEntry.ManualBuilder manualEntryBuilder() {
+		return getInstance(PTInvoiceEntry.ManualBuilder.class);
+	}
+
+	public PTInvoiceEntry.ManualBuilder manualEntrybuilder(PTInvoiceEntry entry) {
+		PTInvoiceEntry.ManualBuilder builder = getInstance(PTInvoiceEntry.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, entry);
+		return builder;
+	}
+	
+	public PTInvoice issue(PTInvoice.ManualBuilder builder, PTIssuingParams params) throws DocumentIssuingException {
+		return issuingService.issue(builder, params);
+	}
 
 }

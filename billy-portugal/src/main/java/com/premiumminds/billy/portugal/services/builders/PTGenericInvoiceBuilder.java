@@ -33,4 +33,5 @@ public interface PTGenericInvoiceBuilder<TBuilder extends PTGenericInvoiceBuilde
 	public TBuilder setChangeReason(String reason);
 
 	public TBuilder setSourceBilling(SourceBilling sourceBilling);
+
 }

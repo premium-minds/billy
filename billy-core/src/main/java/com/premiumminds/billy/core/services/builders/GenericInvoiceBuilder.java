@@ -27,7 +27,6 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.DiscountType;
 

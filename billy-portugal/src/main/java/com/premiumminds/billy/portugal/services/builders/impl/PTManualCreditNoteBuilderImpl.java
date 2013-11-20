@@ -20,33 +20,25 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.core.util.Localizer;
-import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
-import com.premiumminds.billy.portugal.services.builders.PTCreditNoteBuilder;
+import com.premiumminds.billy.portugal.services.builders.PTManualCreditNoteBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 
-public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
-	extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
-	PTCreditNoteBuilder<TBuilder, TEntry, TDocument> {
-	
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+public class PTManualCreditNoteBuilderImpl<TBuilder extends PTManualCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
+	extends PTManualBuilderImpl<TBuilder, TEntry, TDocument> implements
+	PTManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
-									DAOPTBusiness daoPTBusiness,
-									DAOPTCustomer daoPTCustomer,
-									DAOPTSupplier daoPTSupplier) {
+	public PTManualCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
+			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
+			DAOPTSupplier daoPTSupplier) {
 		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-		this.setSourceBilling(SourceBilling.P);
 	}
-
+	
 	@Override
 	protected PTCreditNoteEntity getTypeInstance() {
 		return (PTCreditNoteEntity) super.getTypeInstance();
@@ -59,15 +51,4 @@ public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TB
 		super.validateInstance();
 	}
 	
-	@Override
-	@NotOnUpdate
-	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
-		switch (sourceBilling) {
-		case P:
-			return super.setSourceBilling(sourceBilling);
-		case M:
-		default:
-			throw new BillyValidationException();
-		}
-	}
 }

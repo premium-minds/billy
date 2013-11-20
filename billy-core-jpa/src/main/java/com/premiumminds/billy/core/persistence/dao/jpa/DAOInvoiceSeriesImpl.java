@@ -21,6 +21,7 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
@@ -49,7 +50,7 @@ public class DAOInvoiceSeriesImpl extends
 		return JPAInvoiceSeriesEntity.class;
 	}
 
-	public InvoiceSeriesEntity getSeries(String series, String businessUID) {
+	public InvoiceSeriesEntity getSeries(String series, String businessUID, LockModeType lockMode) {
 		QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
 
 		JPAQuery query = new JPAQuery(this.getEntityManager());
@@ -61,7 +62,7 @@ public class DAOInvoiceSeriesImpl extends
 		query.where(toDSL(entity.business, QJPABusinessEntity.class).uid
 				.eq(businessUID));
 
-		InvoiceSeries seriesEntity = query.singleResult(entity);
+		InvoiceSeries seriesEntity = query.setLockMode(lockMode).singleResult(entity);
 
 		return (InvoiceSeriesEntity) seriesEntity;
 	}

@@ -22,15 +22,12 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-import javassist.expr.Instanceof;
-
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry.ManualBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTShippingPoint;
 import com.premiumminds.billy.portugal.util.Contexts;
@@ -78,6 +75,30 @@ public class PTInvoiceEntryTestUtil {
 		return invoiceEntryBuilder;
 
 	}
+	
+	private ManualBuilder getManualInvoiceEntryBuilder(PTProductEntity product) {
+		PTInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.injector
+				.getInstance(PTInvoiceEntry.ManualBuilder.class);
+		PTShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
+		this.context = this.contexts.portugal().allRegions();
+
+		invoiceEntryBuilder.clear();
+
+		invoiceEntryBuilder
+				.setUnitAmount(AmountType.WITH_TAX,
+						PTInvoiceEntryTestUtil.AMOUNT)
+				.setTaxPointDate(new Date())
+				.setDescription(product.getDescription())
+				.setQuantity(PTInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder)
+				.setCurrency(CURRENCY);
+
+		return invoiceEntryBuilder;
+	}
 
 	public PTInvoiceEntry.Builder getInvoiceEntryBuilder() {
 		PTProductEntity newProduct = this.product.getProductEntity();
@@ -85,6 +106,12 @@ public class PTInvoiceEntryTestUtil {
 				.getInstance(DAOPTProduct.class).create(newProduct));
 	}
 	
+	public ManualBuilder getManualInvoiceEntryBuilder() {
+		PTProductEntity newProduct = this.product.getProductEntity();
+		return this.getManualInvoiceEntryBuilder((PTProductEntity) this.injector
+				.getInstance(DAOPTProduct.class).create(newProduct));
+	}
+
 	public PTInvoiceEntry.Builder getInvoiceOtherRegionsEntryBuilder(String region) {
 		PTProductEntity product;
 		
@@ -121,4 +148,5 @@ public class PTInvoiceEntryTestUtil {
 		return invoiceEntryBuilder;
 
 	}
+
 }

@@ -89,4 +89,28 @@ public class CreditNotes {
 		return this.injector.getInstance(clazz);
 	}
 
+	
+	public PTCreditNote.ManualBuilder manualBuilder() {
+		return getInstance(PTCreditNote.ManualBuilder.class);
+	}
+
+	public PTCreditNote.ManualBuilder manualbuilder(PTCreditNote invoice) {
+		PTCreditNote.ManualBuilder builder = getInstance(PTCreditNote.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, invoice);
+		return builder;
+	}
+	
+	public PTCreditNoteEntry.ManualBuilder manualEntryBuilder() {
+		return getInstance(PTCreditNoteEntry.ManualBuilder.class);
+	}
+
+	public PTCreditNoteEntry.ManualBuilder manualEntryBuilder(PTCreditNoteEntry entry) {
+		PTCreditNoteEntry.ManualBuilder builder = getInstance(PTCreditNoteEntry.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, entry);
+		return builder;
+	}
+	
+	public PTCreditNote issue(PTCreditNote.ManualBuilder builder, PTIssuingParams params) throws DocumentIssuingException {
+		return issuingService.issue(builder, params);
+	}
 }
