@@ -55,6 +55,7 @@ public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TB
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTCreditNoteEntity i = getTypeInstance();
+		i.setSourceBilling(SourceBilling.P);
 		i.setCreditOrDebit(CreditOrDebit.DEBIT);
 		super.validateInstance();
 	}

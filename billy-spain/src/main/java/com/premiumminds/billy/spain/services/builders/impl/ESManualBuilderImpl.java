@@ -34,6 +34,7 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.builders.ESManualInvoiceBuilder;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
@@ -104,6 +105,13 @@ implements ESManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
 						.equals(e.getCurrency().getCurrencyCode()));
 			}
 		}	
+	}
+	
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
+		ESGenericInvoiceEntity i = (ESGenericInvoiceEntity) this.getTypeInstance();
+		i.setSourceBilling(SourceBilling.M);
 	}
 
 }

@@ -55,6 +55,7 @@ public class ESCreditNoteBuilderImpl<TBuilder extends ESCreditNoteBuilderImpl<TB
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		ESCreditNoteEntity i = getTypeInstance();
+		i.setSourceBilling(SourceBilling.P);
 		i.setCreditOrDebit(CreditOrDebit.DEBIT);
 		super.validateInstance();
 	}

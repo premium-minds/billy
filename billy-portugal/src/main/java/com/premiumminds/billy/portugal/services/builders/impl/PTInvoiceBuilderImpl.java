@@ -58,6 +58,7 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		PTInvoiceEntity i = getTypeInstance();
+		i.setSourceBilling(SourceBilling.P);
 		i.setCreditOrDebit(CreditOrDebit.CREDIT);
 		super.validateInstance();
 	}

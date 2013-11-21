@@ -58,6 +58,7 @@ public class ESInvoiceBuilderImpl<TBuilder extends ESInvoiceBuilderImpl<TBuilder
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		ESInvoiceEntity i = getTypeInstance();
+		i.setSourceBilling(SourceBilling.P);
 		i.setCreditOrDebit(CreditOrDebit.CREDIT);
 		super.validateInstance();
 	}

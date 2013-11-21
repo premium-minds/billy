@@ -34,6 +34,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -104,6 +105,13 @@ public abstract class PTManualBuilderImpl <TBuilder extends PTManualBuilderImpl<
 						.equals(e.getCurrency().getCurrencyCode()));
 			}
 		}	
+	}
+	
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
+		PTGenericInvoiceEntity i = (PTGenericInvoiceEntity) this.getTypeInstance();
+		i.setSourceBilling(SourceBilling.M);
 	}
 
 }
