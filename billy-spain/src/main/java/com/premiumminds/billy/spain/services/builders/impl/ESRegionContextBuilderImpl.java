@@ -20,9 +20,7 @@ package com.premiumminds.billy.spain.services.builders.impl;
 
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ContextBuilderImpl;
-import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
@@ -42,26 +40,7 @@ public class ESRegionContextBuilderImpl<TBuilder extends ESRegionContextBuilderI
 	}
 
 	@Override
-	public TBuilder setRegionCode(String regionCode) {
-		BillyValidator.mandatory(regionCode,
-				ESRegionContextBuilderImpl.LOCALIZER
-						.getString("field.region_code"));
-		this.getTypeInstance().setRegionCode(regionCode);
-		return this.getBuilder();
-	}
-
-	@Override
 	protected ESRegionContextEntity getTypeInstance() {
 		return (ESRegionContextEntity) super.getTypeInstance();
 	}
-
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		super.validateInstance();
-		ESRegionContextEntity c = this.getTypeInstance();
-		BillyValidator.mandatory(c.getRegionCode(),
-				ESRegionContextBuilderImpl.LOCALIZER
-						.getString("field.region_code"));
-	}
-
 }

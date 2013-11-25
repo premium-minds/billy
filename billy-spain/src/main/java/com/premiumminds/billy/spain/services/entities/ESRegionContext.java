@@ -35,11 +35,6 @@ public interface ESRegionContext extends Context {
 		}
 	}
 
-	/**
-	 * @return ISO 3166-1-alpha-2
-	 */
-	public String getRegionCode();
-
 	@Override
 	public <T extends Context> T getParentContext();
 

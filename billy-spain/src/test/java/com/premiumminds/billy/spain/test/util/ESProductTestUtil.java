@@ -85,9 +85,20 @@ public class ESProductTestUtil {
 
 	}
 
-	public ESProductEntity getOtherRegionProductEntity(String region) {
-		// TODO Billy: Complete on adding other regions
-		return this.getProductEntity();
+	public ESProductEntity getOtherRegionProductEntity() {
+		ESProduct.Builder productBuilder = this.injector
+				.getInstance(ESProduct.Builder.class);
+
+		ESTaxEntity taxRegion = (ESTaxEntity) this.taxes.canaryIslands().normal();
+
+		productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ESProductTestUtil.NUMBER_CODE)
+				.setUnitOfMeasure(ESProductTestUtil.UNIT_OF_MEASURE)
+				.setProductCode(ESProductTestUtil.PRODUCT_CODE)
+				.setDescription(ESProductTestUtil.DESCRIPTION)
+				.setType(ESProductTestUtil.TYPE)
+				.setProductGroup(ESProductTestUtil.GROUP);
+
+		return (ESProductEntity) productBuilder.build();
 	}
 
 }

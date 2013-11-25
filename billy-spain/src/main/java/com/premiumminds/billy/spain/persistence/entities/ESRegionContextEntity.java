@@ -23,6 +23,4 @@ import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 
 public interface ESRegionContextEntity extends ContextEntity, ESRegionContext {
 
-	public void setRegionCode(String regionCode);
-
 }

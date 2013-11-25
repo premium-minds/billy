@@ -83,7 +83,7 @@ public class ESInvoiceTestUtil {
 
 	public ESInvoice.Builder getInvoiceBuilder(ESBusinessEntity business,
 			SourceBilling billing) {
-		BigDecimal price = new BigDecimal("0.454545");
+		BigDecimal price = new BigDecimal("0.450");
 		ESInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(ESInvoice.Builder.class);
 
@@ -109,8 +109,8 @@ public class ESInvoiceTestUtil {
 	
 	public ESInvoice.ManualBuilder getManualInvoiceBuilder(
 			ESBusinessEntity business, SourceBilling billing) {
-		BigDecimal price = new BigDecimal("0.454545");
-		BigDecimal tax = new BigDecimal("0.084996");
+		BigDecimal price = new BigDecimal("0.450");
+		BigDecimal tax = new BigDecimal("0.078");
 		ESInvoice.ManualBuilder invoiceBuilder = this.injector
 				.getInstance(ESInvoice.ManualBuilder.class);
 	
@@ -143,8 +143,32 @@ public class ESInvoiceTestUtil {
 	}
 
 	public ESInvoiceEntity getDiferentRegionsInvoice() {
-		// TODO Billy: Complete on adding other regions
-		return this.getInvoiceEntity();
+		BigDecimal entriesPrice = new BigDecimal("16.0145");
+		ESInvoice.Builder invoiceBuilder = this.injector
+				.getInstance(ESInvoice.Builder.class);
+
+		DAOESCustomer daoESCustomer = this.injector
+				.getInstance(DAOESCustomer.class);
+
+		ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoESCustomer.create(customerEntity).getUID();
+
+		for(int i = 0; i < 9; i++){
+			ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+					.getInvoiceEntryBuilder();
+			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
+			invoiceBuilder.addEntry(invoiceEntryBuilder);
+		}
+		
+		invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED)
+				.setCancelled(ESInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
+				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setBusinessUID(business.getBusinessEntity().getUID())
+				.addPayment(payment.getPaymentBuilder());
+		
+		return (ESInvoiceEntity) invoiceBuilder.build();
 	}
 
 	public ESInvoiceEntity getManyEntriesInvoice() {
@@ -196,7 +220,7 @@ public class ESInvoiceTestUtil {
 		
 		for(int i = 0; i < 9; i++){
 			ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
-					.getInvoiceOtherRegionsEntryBuilder("ES-20");
+					.getInvoiceOtherRegionsEntryBuilder();
 			invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX,  entriesPrice);
 			invoiceBuilder.addEntry(invoiceEntryBuilder);
 		}

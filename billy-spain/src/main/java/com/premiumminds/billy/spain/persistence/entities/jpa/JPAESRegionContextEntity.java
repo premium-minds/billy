@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.spain.persistence.entities.jpa;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -38,21 +36,7 @@ public class JPAESRegionContextEntity extends JPAContextEntity implements
 
 	private static final long	serialVersionUID	= 1L;
 
-	@Basic(optional = false)
-	@Column(name = "REGION_CODE")
-	protected String			regionCode;
-
 	public JPAESRegionContextEntity() {
-	}
-
-	@Override
-	public String getRegionCode() {
-		return this.regionCode;
-	}
-
-	@Override
-	public void setRegionCode(String regionCode) {
-		this.regionCode = regionCode;
 	}
 
 	@Override

@@ -56,7 +56,6 @@ public class TestESRegionContextBuilder extends ESAbstractTest {
 
 		builder.setDescription(mockRegionContextEntity.getDescription())
 				.setName(mockRegionContextEntity.getName())
-				.setRegionCode(mockRegionContextEntity.getRegionCode())
 				.setParentContextUID(
 						mockRegionContextEntity.getParentContext().getUID());
 
@@ -65,8 +64,6 @@ public class TestESRegionContextBuilder extends ESAbstractTest {
 		Assert.assertTrue(regionContex != null);
 		Assert.assertTrue(regionContex.getParentContext() != null);
 
-		Assert.assertEquals(regionContex.getRegionCode(),
-				mockRegionContextEntity.getRegionCode());
 		Assert.assertEquals(regionContex.getDescription(),
 				mockRegionContextEntity.getDescription());
 		Assert.assertEquals(regionContex.getName(),

@@ -20,7 +20,6 @@
 uid : region_uid
 name : name
 description : description
-regionCode : 3166-2:PT
 parentContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEntity
   uid : region_parent_uid
   name : parent_name

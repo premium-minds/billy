@@ -112,8 +112,30 @@ public class ESInvoiceEntryTestUtil {
 				.getInstance(DAOESProduct.class).create(newProduct));
 	}
 	
-	public ESInvoiceEntry.Builder getInvoiceOtherRegionsEntryBuilder(String region) {
-		// TODO Billy: Complete on adding other regions
-		return this.getInvoiceEntryBuilder();
+	public ESInvoiceEntry.Builder getInvoiceOtherRegionsEntryBuilder() {
+		ESProductEntity product = (ESProductEntity) this.injector
+				.getInstance(DAOESProduct.class).create(this.product.getOtherRegionProductEntity());
+		this.context = this.contexts.canaryIslands().staCruzDeTenerife().getParentContext();
+
+		ESInvoiceEntry.Builder invoiceEntryBuilder = this.injector
+				.getInstance(ESInvoiceEntry.Builder.class);
+		ESShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
+
+		invoiceEntryBuilder.clear();
+
+		invoiceEntryBuilder
+				.setUnitAmount(AmountType.WITHOUT_TAX,
+						ESInvoiceEntryTestUtil.AMOUNT)
+				.setTaxPointDate(new Date())
+				.setDescription(product.getDescription())
+				.setQuantity(ESInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder)
+				.setCurrency(Currency.getInstance("EUR"));
+
+		return invoiceEntryBuilder;
 	}
 }

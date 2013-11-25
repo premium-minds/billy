@@ -34,16 +34,6 @@ public class MockESRegionContextEntity extends MockContextEntity implements
 	}
 
 	@Override
-	public String getRegionCode() {
-		return this.regionCode;
-	}
-
-	@Override
-	public void setRegionCode(String regionCode) {
-		this.regionCode = regionCode;
-	}
-
-	@Override
 	public <T extends ContextEntity> void setParentContext(T parent) {
 		super.setParentContext(parent);
 	}

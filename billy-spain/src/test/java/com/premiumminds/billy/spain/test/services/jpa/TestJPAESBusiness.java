@@ -71,7 +71,7 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
 
 	@Test
 	public void doTest() throws Exception {
-		ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
+ 		ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
 	}
 
 	@Test
