@@ -90,8 +90,6 @@ public class TestESCreditNotePDFExportHandler extends ESPersistencyAbstractTest 
 		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
 		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
 		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
-		creditNote
-				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
 		return creditNote;
 	}

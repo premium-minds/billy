@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.entities;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Application;
@@ -38,8 +35,4 @@ public interface ESApplication extends Application {
 		}
 
 	}
-
-	public Integer getSoftwareCertificationNumber();
-
-	public URL getApplicationKeysPath() throws MalformedURLException;
 }

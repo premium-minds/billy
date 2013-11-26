@@ -22,7 +22,4 @@ import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public interface ESTemplateBundle extends BillyTemplateBundle {
 
-	public String getGenericCustomer();
-
-	public String getSoftwareCertificationId();
 }

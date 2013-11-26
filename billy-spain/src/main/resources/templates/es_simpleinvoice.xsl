@@ -357,8 +357,7 @@
           <fo:inline/>
           <fo:footnote-body>
             <fo:block text-align="center" font-size="6pt">
-              <xsl:value-of select="hash" />-PROCESSADO POR PROGRAMA CERTIFICADO Nº 
-              <xsl:value-of select="certificateNumber" />/AT
+              PROCESSADO POR PROGRAMA
             </fo:block>
           </fo:footnote-body>
       </fo:footnote>  

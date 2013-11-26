@@ -43,9 +43,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 public class ESSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class ESParamKeys {
-
-		public static final String	INVOICE_HASH				= "hash";
-		public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
 		public static final String	INVOICE_PAYSETTLEMENT		= "paymentSettlement";
 	}
 
@@ -80,12 +77,6 @@ public class ESSimpleInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
 				invoice, bundle);
-
-		params.getRoot().addChild(ESParamKeys.INVOICE_HASH,
-				this.getVerificationHashString(invoice.getHash().getBytes()));
-
-		params.getRoot().addChild(ESParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
-				bundle.getSoftwareCertificationId());
 		return params;
 	}
 

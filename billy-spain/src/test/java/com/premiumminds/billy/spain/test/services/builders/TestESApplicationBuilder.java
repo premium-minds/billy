@@ -70,11 +70,7 @@ public class TestESApplicationBuilder extends ESAbstractTest {
 				.setMainContact(mockMainContactBuilder)
 				.setName(mockApplication.getName())
 				.setVersion(mockApplication.getVersion())
-				.setWebsiteAddress(mockApplication.getWebsiteAddress())
-				.setSoftwareCertificationNumber(
-						mockApplication.getSoftwareCertificationNumber())
-				.setApplicationKeysPath(
-						mockApplication.getApplicationKeysPath());
+				.setWebsiteAddress(mockApplication.getWebsiteAddress());
 
 		ESApplication application = builder.build();
 
@@ -88,10 +84,6 @@ public class TestESApplicationBuilder extends ESAbstractTest {
 				application.getDeveloperCompanyTaxIdentifier());
 		Assert.assertEquals(mockApplication.getWebsiteAddress(),
 				application.getWebsiteAddress());
-		Assert.assertEquals(mockApplication.getSoftwareCertificationNumber(),
-				application.getSoftwareCertificationNumber());
-		Assert.assertEquals(mockApplication.getApplicationKeysPath(),
-				application.getApplicationKeysPath());
 		assert (application.getContacts() != null);
 		assert (application.getMainContact() != null);
 

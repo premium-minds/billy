@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.spain.test.fixtures;
 
-import java.net.URL;
-
 import com.premiumminds.billy.core.test.fixtures.MockApplicationEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
 
@@ -28,29 +26,7 @@ public class MockESApplicationEntity extends MockApplicationEntity implements
 
 	private static final long	serialVersionUID	= 1L;
 
-	public Integer				number;
-	public URL					keysPath;
-
 	public MockESApplicationEntity() {
-
-	}
-
-	@Override
-	public Integer getSoftwareCertificationNumber() {
-		return this.number;
-	}
-
-	@Override
-	public void setSoftwareCertificateNum(Integer number) {
-		this.number = number;
-	}
-
-	public URL getApplicationKeysPath() {
-		return this.keysPath;
-	}
-
-	public void setApplicationKeysPath(URL keysPath) {
-		this.keysPath = keysPath;
 	}
 
 }

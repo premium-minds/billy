@@ -18,14 +18,8 @@
  */
 package com.premiumminds.billy.spain.persistence.entities;
 
-import java.net.URL;
-
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
 import com.premiumminds.billy.spain.services.entities.ESApplication;
 
 public interface ESApplicationEntity extends ApplicationEntity, ESApplication {
-
-	public void setSoftwareCertificateNum(Integer number);
-
-	public void setApplicationKeysPath(URL path);
 }

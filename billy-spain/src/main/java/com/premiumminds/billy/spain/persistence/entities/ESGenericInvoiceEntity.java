@@ -34,12 +34,6 @@ public interface ESGenericInvoiceEntity extends GenericInvoiceEntity,
 
 	public void setBilled(boolean billed);
 
-	public void setHash(String hash);
-
-	public void setSourceHash(String source);
-
-	public void setHashControl(String hashControl);
-
 	public void setSourceBilling(SourceBilling sourceBilling);
 
 	public void setChangeReason(String reason);

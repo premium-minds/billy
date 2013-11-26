@@ -26,8 +26,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.postgresql.util.Base64;
-
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax;
@@ -47,9 +45,6 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 public class ESCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class ESParamKeys {
-
-		public static final String	CN_HASH						= "hash";
-		public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
 		public static final String	INVOICE						= "invoice";
 	}
 
@@ -83,15 +78,6 @@ public class ESCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 
 		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
 				creditNote, bundle);
-
-		params.getRoot()
-				.addChild(
-						ESParamKeys.CN_HASH,
-						this.getVerificationHashString(creditNote.getHash()
-								.getBytes()));
-
-		params.getRoot().addChild(ESParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
-				bundle.getSoftwareCertificationId());
 
 		return params;
 	}
@@ -133,14 +119,6 @@ public class ESCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 			entryNode.addChild(ESParamKeys.INVOICE).addChild(ParamKeys.ID,
 					entry.getReference().getNumber());
 		}
-	}
-
-	private String getVerificationHashString(byte[] hash) {
-		String hashString = Base64.encodeBytes(hash);
-		String rval = hashString.substring(0, 1) + hashString.substring(10, 11)
-				+ hashString.substring(20, 21) + hashString.substring(30, 31);
-
-		return rval;
 	}
 
 	@Override

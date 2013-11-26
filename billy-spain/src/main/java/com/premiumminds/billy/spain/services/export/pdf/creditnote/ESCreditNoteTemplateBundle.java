@@ -27,7 +27,6 @@ import com.premiumminds.billy.spain.util.PaymentMechanism;
 public class ESCreditNoteTemplateBundle extends AbstractTemplateBundle
 	implements ESTemplateBundle {
 
-	private static final String	GENERIC_CUSTOMER_TEXT	= "Consumidor Final";
 	private static final String	BANK_TRANSFER_TEXT		= "Transferência bancária";
 	private static final String	CASH_TEXT				= "Numerário";
 	private static final String	CREDIT_CARD_TEXT		= "Cartão crédito";
@@ -38,24 +37,12 @@ public class ESCreditNoteTemplateBundle extends AbstractTemplateBundle
 	private static final String	RESTAURANT_TICKET_TEXT	= "Ticket restaurante";
 	private static final String	ATM_TEXT				= "Multibanco";
 	private static final String	EXCHANGE_TEXT			= "Permuta";
-	private final String		softwareCertificationId;
 
 	public ESCreditNoteTemplateBundle(String logoImagePath,
 										InputStream xsltFileStream,
 										String softwareCertificationId) {
 
 		super(logoImagePath, xsltFileStream);
-		this.softwareCertificationId = softwareCertificationId;
-	}
-
-	@Override
-	public String getGenericCustomer() {
-		return ESCreditNoteTemplateBundle.GENERIC_CUSTOMER_TEXT;
-	}
-
-	@Override
-	public String getSoftwareCertificationId() {
-		return this.softwareCertificationId;
 	}
 
 	@Override

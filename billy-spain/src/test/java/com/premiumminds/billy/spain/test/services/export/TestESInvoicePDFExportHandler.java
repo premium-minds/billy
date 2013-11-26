@@ -126,25 +126,21 @@ public class TestESInvoicePDFExportHandler extends ESPersistencyAbstractTest {
 
 	private ESInvoiceEntity generateESInvoice() {
 		ESInvoiceEntity invoice = test.getInvoiceEntity();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 		return invoice;
 	}
 	
 	private ESInvoiceEntity generateManyEntriesInvoice() {
 		ESInvoiceEntity invoice = test.getManyEntriesInvoice();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 		return invoice;
 	}
 	
 	private ESInvoiceEntity generateOtherregionsInvoice() {
 		ESInvoiceEntity invoice = test.getDiferentRegionsInvoice();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 		return invoice;
 	}
 	
 	private ESInvoiceEntity generateManyEntriesWithDiferentRegionsInvoice() {
 		ESInvoiceEntity invoice = test.getManyEntriesWithDiferentRegionsInvoice();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 		return invoice;
 	}
 }

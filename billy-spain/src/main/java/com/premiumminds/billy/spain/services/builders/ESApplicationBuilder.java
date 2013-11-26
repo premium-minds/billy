@@ -18,16 +18,10 @@
  */
 package com.premiumminds.billy.spain.services.builders;
 
-import java.net.URL;
-
 import com.premiumminds.billy.core.services.builders.ApplicationBuilder;
 import com.premiumminds.billy.spain.services.entities.ESApplication;
 
 public interface ESApplicationBuilder<TBuilder extends ESApplicationBuilder<TBuilder, TApplication>, TApplication extends ESApplication>
 	extends ApplicationBuilder<TBuilder, TApplication> {
-
-	public TBuilder setSoftwareCertificationNumber(Integer number);
-
-	public TBuilder setApplicationKeysPath(URL path);
 
 }

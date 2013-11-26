@@ -78,16 +78,6 @@ public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	}
 
 	@Override
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
-
-	@Override
-	public void setSourceHash(String source) {
-		this.sourceHash = source;
-	}
-
-	@Override
 	public boolean isCancelled() {
 		return this.cancelled;
 	}
@@ -97,25 +87,10 @@ public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity
 		return this.billed;
 	}
 
-	@Override
-	public String getHash() {
-		return this.hash;
-	}
-
-	@Override
-	public String getSourceHash() {
-		return this.sourceHash;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ESInvoiceEntry> getEntries() {
 		return (List<ESInvoiceEntry>) (List<?>) super.getEntries();
-	}
-
-	@Override
-	public void setHashControl(String hashControl) {
-		this.hashControl = hashControl;
 	}
 
 	@Override
@@ -126,11 +101,6 @@ public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	@Override
 	public void setEACCode(String eacCode) {
 		this.eacCode = eacCode;
-	}
-
-	@Override
-	public String getHashControl() {
-		return hashControl;
 	}
 
 	@Override

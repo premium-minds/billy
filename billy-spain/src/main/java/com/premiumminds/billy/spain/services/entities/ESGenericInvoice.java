@@ -67,12 +67,6 @@ public interface ESGenericInvoice extends GenericInvoice {
 
 	public boolean isBilled();
 
-	public String getHash();
-
-	public String getSourceHash();
-
-	public String getHashControl();
-
 	public String getEACCode();
 
 	public SourceBilling getSourceBilling();

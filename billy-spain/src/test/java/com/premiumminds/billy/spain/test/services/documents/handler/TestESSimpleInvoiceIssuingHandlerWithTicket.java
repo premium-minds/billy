@@ -119,8 +119,6 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends
 		Assert.assertTrue(ticketEntity != null);
 		Assert.assertTrue(ticketEntity.getUID().getValue()
 				.equals(issuedInvoice.getUID().getValue()));
-		Assert.assertTrue(ticketEntity.getHash()
-				.equals(issuedInvoice.getHash()));
 		Assert.assertTrue(ticketEntity.getNumber().equals(
 				issuedInvoice.getNumber()));
 		Assert.assertTrue(ticketEntity.getSeries().equals(

@@ -18,13 +18,10 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import java.net.URL;
-
 import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
-import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESApplication;
 import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
@@ -48,30 +45,10 @@ public class ESApplicationBuilderImpl<TBuilder extends ESApplicationBuilderImpl<
 		return (ESApplicationEntity) super.getTypeInstance();
 	}
 
-	@Override
-	public TBuilder setSoftwareCertificationNumber(Integer number) {
-		BillyValidator.notNull(number, ESApplicationBuilderImpl.LOCALIZER
-				.getString("field.certificate_number"));
-		this.getTypeInstance().setSoftwareCertificateNum(number);
-		return this.getBuilder();
-	}
-
-	@Override
-	public TBuilder setApplicationKeysPath(URL path) {
-		BillyValidator
-				.notNull(path, ESApplicationBuilderImpl.LOCALIZER
-						.getString("field.keys_path"));
-		this.getTypeInstance().setApplicationKeysPath(path);
-		return this.getBuilder();
-	}
 
 	@Override
 	protected void validateInstance() throws ValidationException {
 		super.validateInstance();
-		ESApplicationEntity c = this.getTypeInstance();
-		BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
-				ESApplicationBuilderImpl.LOCALIZER
-						.getString("field.certificate_number"));
 	}
 
 }

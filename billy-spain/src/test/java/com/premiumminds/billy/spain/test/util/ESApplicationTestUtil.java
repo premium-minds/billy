@@ -19,7 +19,6 @@
 package com.premiumminds.billy.spain.test.util;
 
 import java.net.MalformedURLException;
-import java.net.URL;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.spain.services.entities.ESApplication;
@@ -31,7 +30,6 @@ public class ESApplicationTestUtil {
 	private static final String		COMPANY_NAME			= "company_name";
 	private static final String		COMPANY_TAX_ID			= "12432353426435";
 	private static final String		APP_NAME				= "APP";
-	private static final Integer	SW_CERTIFICATE_NUMBER	= 1;
 	private static final String		VERSION					= "1";
 	private static final String		WEBSITE					= "http://app.ex";
 
@@ -45,18 +43,15 @@ public class ESApplicationTestUtil {
 
 	public ESApplication.Builder getApplicationBuilder(String appName,
 			String version, String companyName, String companyTaxId,
-			String website, Integer swCertificateNumber, String keysPath,
-			ESContact.Builder contactBuilder) throws MalformedURLException {
+			String website, ESContact.Builder contactBuilder) throws MalformedURLException {
 
 		ESApplication.Builder applicationBuilder = this.injector
 				.getInstance(ESApplication.Builder.class);
 
 		applicationBuilder.addContact(contactBuilder)
-				.setApplicationKeysPath(new URL(keysPath))
 				.setDeveloperCompanyName(companyName)
 				.setDeveloperCompanyTaxIdentifier(companyTaxId)
 				.setName(appName)
-				.setSoftwareCertificationNumber(swCertificateNumber)
 				.setVersion(version).setWebsiteAddress(website);
 
 		return applicationBuilder;
@@ -71,7 +66,6 @@ public class ESApplicationTestUtil {
 				ESApplicationTestUtil.COMPANY_NAME,
 				ESApplicationTestUtil.COMPANY_TAX_ID,
 				ESApplicationTestUtil.WEBSITE,
-				ESApplicationTestUtil.SW_CERTIFICATE_NUMBER,
-				ESApplicationTestUtil.KEYS_PATH, contactBuilder);
+				contactBuilder);
 	}
 }

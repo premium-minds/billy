@@ -52,15 +52,6 @@ public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Column(name = "CHANGE_REASON")
 	protected String			reason;
 
-	@Column(name = "HASH")
-	protected String			hash;
-
-	@Column(name = "SOURCE_HASH")
-	protected String			sourceHash;
-
-	@Column(name = "HASH_CONTROL")
-	protected String			hashControl;
-
 	@Column(name = "SOURCE_BILLING")
 	protected SourceBilling		sourceBilling;
 
@@ -93,21 +84,6 @@ public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	}
 
 	@Override
-	public String getHash() {
-		return this.hash;
-	}
-
-	@Override
-	public String getSourceHash() {
-		return this.sourceHash;
-	}
-
-	@Override
-	public String getHashControl() {
-		return hashControl;
-	}
-
-	@Override
 	public SourceBilling getSourceBilling() {
 		return this.sourceBilling;
 	}
@@ -130,21 +106,6 @@ public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Override
 	public void setChangeReason(String reason) {
 		this.reason = reason;
-	}
-
-	@Override
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
-
-	@Override
-	public void setSourceHash(String source) {
-		this.sourceHash = source;
-	}
-
-	@Override
-	public void setHashControl(String hashControl) {
-		this.hashControl = hashControl;
 	}
 
 	@SuppressWarnings({ "unchecked" })

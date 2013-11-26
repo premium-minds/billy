@@ -41,7 +41,6 @@ import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
-import com.premiumminds.billy.spain.util.GenerateHash;
 
 public abstract class ESGenericInvoiceIssuingHandler extends
 	DocumentIssuingHandlerImpl implements DocumentIssuingHandler {
@@ -83,14 +82,12 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 		
 		//If the date is null then the invoice date is the current date
 		Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
-		Date systemDate = document.getCreateTimestamp();
 
 //		if (systemDate..after(invoiceDate)) {
 //			throw new InvalidInvoiceDateException();
 //		}
 
 		Integer seriesNumber = 1;
-		String previousHash = null;
 
 		ESGenericInvoiceEntity latestInvoice = daoInvoice
 				.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(), document.getBusiness()
@@ -98,7 +95,6 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 
 		if (null != latestInvoice) {
 			seriesNumber = latestInvoice.getSeriesNumber() + 1;
-			previousHash = latestInvoice.getHash();
 			Date latestInvoiceDate = latestInvoice.getDate();
 			ESGenericInvoiceIssuingHandler.this.validateDocumentType(
 					invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
@@ -117,25 +113,13 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 		String formatedNumber = invoiceType.toString() + " "
 				+ parametersES.getInvoiceSeries() + "/" + seriesNumber;
 
-		String newHash = GenerateHash.generateHash(
-				parametersES.getPrivateKey(), parametersES.getPublicKey(),
-				invoiceDate, systemDate, formatedNumber,
-				document.getAmountWithTax(), previousHash);
-
-		String sourceHash = GenerateHash.generateSourceHash(invoiceDate,
-				systemDate, formatedNumber, document.getAmountWithTax(),
-				previousHash);
-
 		documentEntity.setDate(invoiceDate);
 		documentEntity.setNumber(formatedNumber);
 		documentEntity.setSeries(invoiceSeriesEntity.getSeries());
 		documentEntity.setSeriesNumber(seriesNumber);
-		documentEntity.setHash(newHash);
 		documentEntity.setBilled(false);
 		documentEntity.setCancelled(false);
 		documentEntity.setType(invoiceType);
-		documentEntity.setSourceHash(sourceHash);
-		documentEntity.setHashControl(parametersES.getPrivateKeyVersion());
 		documentEntity.setEACCode(parametersES.getEACCode());
 		documentEntity.setCurrency(document.getCurrency());
 

@@ -25,8 +25,6 @@ import java.text.SimpleDateFormat;
 
 import javax.inject.Inject;
 
-import org.postgresql.util.Base64;
-
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Payment;
@@ -43,9 +41,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESReceiptInvoiceEntity;
 public class ESReceiptInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 	protected static class ESParamKeys {
-
-		public static final String INVOICE_HASH = "hash";
-		public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
 		public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
 	}
 
@@ -80,21 +75,7 @@ public class ESReceiptInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
 		ParamsTree<String, String> params = super.mapDocumentToParamsTree(
 				invoice, bundle);
-
-		params.getRoot().addChild(ESParamKeys.INVOICE_HASH,
-				this.getVerificationHashString(invoice.getHash().getBytes()));
-
-		params.getRoot().addChild(ESParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
-				bundle.getSoftwareCertificationId());
 		return params;
-	}
-
-	private String getVerificationHashString(byte[] hash) {
-		String hashString = Base64.encodeBytes(hash);
-		String rval = hashString.substring(0, 1) + hashString.substring(10, 11)
-				+ hashString.substring(20, 21) + hashString.substring(30, 31);
-
-		return rval;
 	}
 
 	@Override

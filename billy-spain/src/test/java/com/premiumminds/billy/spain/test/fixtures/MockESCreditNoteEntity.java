@@ -34,9 +34,6 @@ public class MockESCreditNoteEntity extends MockGenericInvoiceEntity implements
 	protected boolean			cancelled;
 	protected boolean			billed;
 	protected String			reason;
-	protected String			hash;
-	protected String			sourceHash;
-	protected String			hashControl;
 	protected SourceBilling		sourceBilling;
 	protected String			eacCode;
 	protected TYPE				type;
@@ -77,16 +74,6 @@ public class MockESCreditNoteEntity extends MockGenericInvoiceEntity implements
 	}
 
 	@Override
-	public void setHash(String hash) {
-		this.hash = hash;
-	}
-
-	@Override
-	public void setSourceHash(String source) {
-		this.sourceHash = source;
-	}
-
-	@Override
 	public boolean isCancelled() {
 		return this.cancelled;
 	}
@@ -96,25 +83,10 @@ public class MockESCreditNoteEntity extends MockGenericInvoiceEntity implements
 		return this.billed;
 	}
 
-	@Override
-	public String getHash() {
-		return this.hash;
-	}
-
-	@Override
-	public String getSourceHash() {
-		return this.sourceHash;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<ESCreditNoteEntry> getEntries() {
 		return (List<ESCreditNoteEntry>) (List<?>) super.getEntries();
-	}
-
-	@Override
-	public void setHashControl(String hashControl) {
-		this.hashControl = hashControl;
 	}
 
 	@Override
@@ -125,11 +97,6 @@ public class MockESCreditNoteEntity extends MockGenericInvoiceEntity implements
 	@Override
 	public void setEACCode(String eacCode) {
 		this.eacCode = eacCode;
-	}
-
-	@Override
-	public String getHashControl() {
-		return hashControl;
 	}
 
 	@Override

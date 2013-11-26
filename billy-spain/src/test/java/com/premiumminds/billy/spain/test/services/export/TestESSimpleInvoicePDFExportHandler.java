@@ -69,8 +69,6 @@ public class TestESSimpleInvoicePDFExportHandler extends
 
 		ESSimpleInvoiceEntity simpleInvoice = new ESSimpleInvoiceTestUtil(
 				ESAbstractTest.injector).getSimpleInvoiceEntity();
-		simpleInvoice
-				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
 		return simpleInvoice;
 	}
