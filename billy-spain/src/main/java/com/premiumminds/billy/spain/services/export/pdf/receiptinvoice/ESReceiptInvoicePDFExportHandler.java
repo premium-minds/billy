@@ -39,7 +39,6 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractPDFExportHandler;
 import com.premiumminds.billy.spain.Config;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptInvoiceEntity;
-import com.premiumminds.billy.spain.services.export.pdf.ESTemplateBundle;
 
 public class ESReceiptInvoicePDFExportHandler extends AbstractPDFExportHandler {
 
@@ -162,10 +161,6 @@ public class ESReceiptInvoicePDFExportHandler extends AbstractPDFExportHandler {
 	@Override
 	public <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
 			K invoice, T bundle) {
-		ESTemplateBundle template = (ESTemplateBundle) bundle;
-		return (invoice.getCustomer().getUID()
-				.equals(this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? template
-				.getGenericCustomer() : invoice.getCustomer()
-				.getTaxRegistrationNumber());
+		return (invoice.getCustomer().getTaxRegistrationNumber());
 	}
 }

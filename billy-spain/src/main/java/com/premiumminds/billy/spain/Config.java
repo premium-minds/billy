@@ -73,30 +73,6 @@ public class Config {
 	 */
 	public static class Key {
 
-		public static class Customer {
-
-			public static class Generic {
-
-				public static final String	UUID	= "customer.generic.uuid";
-			}
-		}
-
-		public static class Contact {
-
-			public static class Generic {
-
-				public static final String	UUID	= "contact.generic.uuid";
-			}
-		}
-
-		public static class Address {
-
-			public static class Generic {
-
-				public static final String	UUID	= "address.generic.uuid";
-			}
-		}
-
 		public static class Context {
 
 			public static class Spain {

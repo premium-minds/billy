@@ -21,7 +21,6 @@ package com.premiumminds.billy.spain.util;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.spain.Config;
-import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.services.entities.ESCustomer;
 import com.premiumminds.billy.spain.services.persistence.ESCustomerPersistenceService;
 
@@ -37,12 +36,6 @@ public class Customers {
 		this.persistenceService = getInstance(ESCustomerPersistenceService.class);
 	}
 
-	public ESCustomer endConsumer() {
-		DAOESCustomer dao = getInstance(DAOESCustomer.class);
-		return (ESCustomer) dao.get(configuration
-				.getUID(Config.Key.Customer.Generic.UUID));
-	}
-	
 	public ESCustomer.Builder builder() {
 		return getInstance(ESCustomer.Builder.class);
 	}

@@ -45,5 +45,4 @@ public interface ESTax extends Tax {
 		public static final String	OTHER			= "OUT";
 	}
 	
-	// TODO Billy: IGIC Codes
 }

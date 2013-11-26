@@ -36,13 +36,9 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
-import com.premiumminds.billy.spain.persistence.entities.ESAddressEntity;
-import com.premiumminds.billy.spain.persistence.entities.ESContactEntity;
-import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESTaxEntity;
 import com.premiumminds.billy.spain.services.entities.ESAddress;
-import com.premiumminds.billy.spain.services.entities.ESAddress.Builder;
 import com.premiumminds.billy.spain.services.entities.ESContact;
 import com.premiumminds.billy.spain.services.entities.ESCustomer;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
@@ -101,31 +97,6 @@ public class SpainBootstrap {
 							.getInstance(ESAddress.Builder.class);
 					ESContact.Builder contactBuilder = dependencyInjector
 							.getInstance(ESContact.Builder.class);
-
-					// Generic Address
-					final ESAddressEntity GENERIC_ADDRESS = this
-							.buildAddressEntity(daoESAddress, addressBuilder,
-									null, null, null,
-									"Desconhecido", null,
-									"Desconhecido", "Desconhecido",
-									"Desconhecido",
-									Config.Key.Address.Generic.UUID);
-
-					// Generic contact
-					final ESContactEntity GENERIC_CONTACT = this
-							.buildContactEntity(daoESContact, contactBuilder,
-									null, null, null,
-									null, null,
-									null,
-									Config.Key.Contact.Generic.UUID);
-
-					// Generic Customer
-					final ESCustomerEntity GENERIC_CUSTOMER = this
-							.buildCustomerEntity(daoESCustomer,
-									customerBuilder, "Consumidor final",
-									"11111111H", addressBuilder,
-									contactBuilder, false,
-									Config.Key.Customer.Generic.UUID);
 
 					// Spain Contexts
 					final ESRegionContextEntity CONTEXT_SPAIN = this
@@ -720,49 +691,6 @@ public class SpainBootstrap {
 					return null;
 				}
 
-				private ESAddressEntity buildAddressEntity(
-						DAOESAddress daoESAddress, Builder addressBuilder,
-						String number, String street, String building,
-						String city, String region, String isoCode,
-						String details, String postalCode, String key) {
-
-					addressBuilder.setCity(city).setDetails(details)
-							.setISOCountry(isoCode).setNumber(number)
-							.setRegion(region).setStreetName(street)
-							.setPostalCode(postalCode).setBuilding(building);
-
-					ESAddressEntity address = (ESAddressEntity) addressBuilder
-							.build();
-
-					address.setUID(configuration.getUID(key));
-
-					daoESAddress.create(address);
-
-					return address;
-				}
-
-				private ESContactEntity buildContactEntity(
-						DAOESContact daoESContact,
-						ESContact.Builder contactBuilder, String name,
-						String telephone, String mobile, String email,
-						String fax, String website, String key) {
-
-					contactBuilder.clear();
-
-					contactBuilder.setName(name).setEmail(email)
-							.setMobile(mobile).setFax(fax)
-							.setTelephone(telephone).setWebsite(website);
-
-					final ESContactEntity contact = (ESContactEntity) contactBuilder
-							.build();
-
-					contact.setUID(configuration.getUID(key));
-
-					daoESContact.create(contact);
-
-					return contact;
-				}
-
 				private ESTaxEntity buildTaxEntity(DAOESTax daoESTax,
 						ESTax.Builder taxBuilder, String taxCode,
 						ESRegionContextEntity context, Currency currency,
@@ -807,38 +735,6 @@ public class SpainBootstrap {
 					daoESRegionContext.create(context);
 
 					return context;
-				}
-
-				private ESCustomerEntity buildCustomerEntity(
-						DAOESCustomer daoESCustomer,
-						ESCustomer.Builder customerBuilder, String name,
-						String taxRegistrationID,
-						ESAddress.Builder addressBuilder,
-						ESContact.Builder contactBuilder,
-						boolean hasSelfAgreement, String key) {
-
-					customerBuilder.clear();
-
-					customerBuilder
-							.setName(name)
-							.addContact(contactBuilder)
-							.setMainContactUID(contactBuilder.build().getUID())
-							.setHasSelfBillingAgreement(hasSelfAgreement)
-							.setTaxRegistrationNumber(taxRegistrationID,
-									CODE_ES)
-							.setBillingAddress(addressBuilder)
-							.setShippingAddress(addressBuilder)
-							.addAddress(addressBuilder, true);
-
-					ESCustomerEntity customer = (ESCustomerEntity) customerBuilder
-							.build();
-
-					customer.setUID(configuration.getUID(key));
-					customer.setTaxRegistrationNumber(null);
-
-					daoESCustomer.create(customer);
-
-					return customer;
 				}
 
 			}.execute();
