@@ -26,16 +26,15 @@ import com.premiumminds.billy.spain.util.PaymentMechanism;
 
 public class ESCreditNoteTemplateBundle extends AbstractTemplateBundle
 	implements ESTemplateBundle {
-
-	private static final String	BANK_TRANSFER_TEXT		= "Transferência bancária";
-	private static final String	CASH_TEXT				= "Numerário";
-	private static final String	CREDIT_CARD_TEXT		= "Cartão crédito";
+	private static final String	BANK_TRANSFER_TEXT		= "Transferencia bancaria";
+	private static final String	CASH_TEXT				= "Metálico";
+	private static final String	CREDIT_CARD_TEXT		= "Tarjeta Crédito";
 	private static final String	CHECK_TEXT				= "Cheque";
-	private static final String	DEBIT_CARD_TEXT			= "Cartão débito";
-	private static final String	COMPENSATION_TEXT		= "Compensação de saldos em conta corrente";
-	private static final String	COMMERCIAL_LETTER_TEXT	= " Letra comercial";
+	private static final String	DEBIT_CARD_TEXT			= "Tarjeta Débito";
+	private static final String	COMPENSATION_TEXT		= "Compensación de saldos en cuenta corriente";
+	private static final String	COMMERCIAL_LETTER_TEXT	= "Letra comercial";
 	private static final String	RESTAURANT_TICKET_TEXT	= "Ticket restaurante";
-	private static final String	ATM_TEXT				= "Multibanco";
+	private static final String	ATM_TEXT				= "Datáfono";
 	private static final String	EXCHANGE_TEXT			= "Permuta";
 
 	public ESCreditNoteTemplateBundle(String logoImagePath,

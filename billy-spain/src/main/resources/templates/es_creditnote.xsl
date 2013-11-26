@@ -51,7 +51,7 @@
         <fo:block />
         <xsl:value-of select="./business/address/postalcode" /> - <xsl:value-of select="./business/address/region" />
         <fo:block />
-        Contribuinte nº: <xsl:value-of select="./business/financialId" />
+        NIF: <xsl:value-of select="./business/financialId" />
         
         <!-- business contacts -->
         <fo:block font-size="8pt">
@@ -71,17 +71,17 @@
             <fo:table-row>
               <fo:table-cell display-align="after">
                 <fo:block font-size="8pt" margin-bottom="3mm">
-                  Contribuinte nº: <xsl:value-of select="./customer/financialId" />
+                  NIF: <xsl:value-of select="./customer/financialId" />
                   <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentMechanism">
-                      Meio de Pagamento: <xsl:value-of select="paymentMechanism" />
+                      Medio de Pago: <xsl:value-of select="paymentMechanism" />
                     </xsl:when>
                   </xsl:choose>
                   <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentSettlement">
-                      Condições de Pagamento: <xsl:value-of select="paymentSettlement" />
+                      Condiciones de Pago: <xsl:value-of select="paymentSettlement" />
                     </xsl:when>
                   </xsl:choose>
                 </fo:block>
@@ -110,7 +110,7 @@
       <!--credit note info block-->
       <fo:block margin-top="6mm" margin-bottom="4mm" font-size="9pt">
         <fo:block margin-bottom="2mm" font-weight="bold">
-          Nota de Crédito nº: <xsl:value-of select="id" />
+          Nota de Abono nº: <xsl:value-of select="id" />
         </fo:block>
         <fo:table width="100%">
           <fo:table-body>
@@ -118,13 +118,13 @@
             <fo:table-row text-align="center" font-size="8pt">
                   <fo:table-cell>
                     <fo:block>
-                      Data de emissão:
+                      Fecha de emisión:
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
                       <xsl:choose>
-                        <xsl:when test="dueDate">Data de vencimento:</xsl:when>
+                        <xsl:when test="dueDate">Fecha de vencimiento:</xsl:when>
                         <xsl:otherwise>&#xa0;</xsl:otherwise>
                       </xsl:choose>
                     </fo:block>
@@ -159,7 +159,7 @@
 
       <!--products info block-->
       <fo:block font-size="8pt" margin-top="3mm" margin-bottom="4mm">
-        <fo:block font-weight="bold" font-size="6pt">Detalhes de Facturação</fo:block>
+        <fo:block font-weight="bold" font-size="6pt">Detalles de Facturación</fo:block>
       	<fo:table width="100%">
           <fo:table-column column-width="25mm"/>
           <fo:table-column column-width="65mm"/>
@@ -177,17 +177,17 @@
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Descrição
+                        Descripción
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Quant.
+                        Cant.
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Preço Unit.
+                        Precio Unit.
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
@@ -212,11 +212,8 @@
                 	</fo:table-cell>
                 	<fo:table-cell padding="1mm" border-right-style="dotted" text-align="left">
                 		<fo:block vertical-align="middle"> 
-                    		<xsl:value-of select="description" /> - Nota de Crédito para fatura nº <xsl:value-of select="./invoice/id" /> 
+                    		<xsl:value-of select="description" /> - Nota de Abono para la factura nº <xsl:value-of select="./invoice/id" /> 
                     </fo:block>
-                    <fo:block vertical-align="middle" font-size="7px">
-                        Em cumprimento do disposto no Artigo 78, nº5 do CIVA, solicitamos devolução de exemplar devidamente assinado, datado e carimbado.
-                    </fo:block> 
                 	</fo:table-cell>
                 	<fo:table-cell padding="1mm" border-right-style="dotted" text-align="center">
                 		<fo:block>
@@ -263,17 +260,17 @@
                   <fo:table-row border-bottom-style="solid" text-align="center">
                     <fo:table-cell>
                       <fo:block text-align="left">
-                          Base de Incidência
+                          Base Imponible
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block text-align="right">
-                          Valor do IVA
+                          Importe del IVA
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                          Taxa
+                          Tasa
                         </fo:block>
                     </fo:table-cell>
                   </fo:table-row>
@@ -308,7 +305,7 @@
                     <fo:table-row border-bottom="solid">
                       <fo:table-cell text-align="left">
                         <fo:block>
-                          Resumo da Nota de Crédito:
+                          Resumen de la Nota de Abono:
                         </fo:block>
                       </fo:table-cell>
                     </fo:table-row>
@@ -360,7 +357,7 @@
           <fo:inline/>
           <fo:footnote-body>
             <fo:block text-align="center" font-size="6pt">
-              PROCESSADO POR PROGRAMA
+              PROCESADO POR PROGRAMA
             </fo:block>
           </fo:footnote-body>
       </fo:footnote>  

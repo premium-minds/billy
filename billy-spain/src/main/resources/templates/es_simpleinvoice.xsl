@@ -52,7 +52,7 @@
         <xsl:value-of select="./business/address/postalcode" />
         &#xa0;<xsl:value-of select="./business/address/region" />
         <fo:block />
-        Contribuinte nº: <xsl:value-of select="./business/financialId" />
+        NIF: <xsl:value-of select="./business/financialId" />
         
         <!-- business contacts -->
         <fo:block font-size="8pt">
@@ -72,17 +72,17 @@
             <fo:table-row>
               <fo:table-cell display-align="after">
                 <fo:block font-size="8pt" margin-bottom="3mm">
-                  Contribuinte nº: <xsl:value-of select="./customer/financialId" />
+                  NIF: <xsl:value-of select="./customer/financialId" />
                   <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentMechanism">
-                      Meio de Pagamento: <xsl:value-of select="paymentMechanism" />
+                      Medio de Pago: <xsl:value-of select="paymentMechanism" />
                     </xsl:when>
                   </xsl:choose>
                   <!-- <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentSettlement">
-                      Condições de Pagamento: <xsl:value-of select="paymentSettlement" />
+                      Condiciones de Pago: <xsl:value-of select="paymentSettlement" />
                     </xsl:when>
                   </xsl:choose>-->
                 </fo:block>
@@ -111,7 +111,7 @@
       <!--invoice info block-->
       <fo:block margin-top="6mm" margin-bottom="4mm" font-size="9pt">
         <fo:block margin-bottom="2mm" font-weight="bold">
-          Fatura Simplificada nº: <xsl:value-of select="id" />
+          Factura Simplificada nº: <xsl:value-of select="id" />
         </fo:block>
         <fo:table width="100%">
           <fo:table-body>
@@ -119,13 +119,13 @@
             <fo:table-row text-align="center" font-size="8pt">
                   <fo:table-cell>
                     <fo:block>
-                      Data de emissão:
+                      Fecha de emisión:
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
                       <xsl:choose>
-                        <xsl:when test="dueDate">Data de vencimento:</xsl:when>
+                        <xsl:when test="dueDate">Fecha de vencimiento:</xsl:when>
                         <xsl:otherwise>&#xa0;</xsl:otherwise>
                       </xsl:choose>
                     </fo:block>
@@ -178,17 +178,17 @@
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Descrição
+                        Descripción
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Quant.
+                        Cant.
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Preço Unit.
+                        Precio Unit.
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
@@ -260,17 +260,17 @@
                   <fo:table-row border-bottom-style="solid" text-align="center">
                     <fo:table-cell>
                       <fo:block text-align="left">
-                          Base de Incidência
+                          Base Imponible
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block text-align="right">
-                          Valor do IVA
+                          Importe del IVA
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                          Taxa
+                          Tasa
                         </fo:block>
                     </fo:table-cell>
                   </fo:table-row>
@@ -357,7 +357,7 @@
           <fo:inline/>
           <fo:footnote-body>
             <fo:block text-align="center" font-size="6pt">
-              PROCESSADO POR PROGRAMA
+              PROCESADO POR PROGRAMA
             </fo:block>
           </fo:footnote-body>
       </fo:footnote>  
