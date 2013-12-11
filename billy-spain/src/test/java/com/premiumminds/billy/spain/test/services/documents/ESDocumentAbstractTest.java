@@ -29,48 +29,55 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParamsImpl;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 import com.premiumminds.billy.spain.test.util.ESReceiptInvoiceTestUtil;
 import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
-import com.premiumminds.billy.spain.util.KeyGenerator;
 
 public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
 
 	protected ESIssuingParams parameters;
+	
+	public enum INVOICE_TYPE {
+		FT, // Invoice
+		RC, // Receipt
+		FS, // Simple Invoice
+		FR, // Invoice-Receipt
+		NC	// Credit Note 
+	}
+	
+	public enum SOURCE_BILLING {
+		APPLICATION
+		, MANUAL
+	}
 
 	@Before
 	public void setUpParamenters() {
-		KeyGenerator generator = new KeyGenerator(
-				ESPersistencyAbstractTest.PRIVATE_KEY_DIR);
-
 		this.parameters = new ESIssuingParamsImpl();
-		this.parameters.setPrivateKey(generator.getPrivateKey());
-		this.parameters.setPublicKey(generator.getPublicKey());
-		this.parameters.setPrivateKeyVersion("1");
 		this.parameters.setEACCode("31400");
+	}
+	
+	protected <T extends ESGenericInvoiceEntity> T newInvoice(INVOICE_TYPE type) {
+		return newInvoice(type, SOURCE_BILLING.APPLICATION);
 	}
 
 	@SuppressWarnings("unchecked")
-	protected <T extends ESGenericInvoiceEntity> T newInvoice(TYPE type,
-			SourceBilling billing) {
+	protected <T extends ESGenericInvoiceEntity> T newInvoice(INVOICE_TYPE type, SOURCE_BILLING source) {
 
 		switch (type) {
 			case FT:
 				return (T) new ESInvoiceTestUtil(ESAbstractTest.injector)
-						.getInvoiceEntity(billing);
+						.getInvoiceEntity(source);
+			case RC:
+				return (T) null; // TODO Billy: Test for Receipt
 			case FS:
 				return (T) new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
-						.getSimpleInvoiceEntity(billing);
+						.getSimpleInvoiceEntity();
 			case FR:
 				return (T) new ESReceiptInvoiceTestUtil(ESAbstractTest.injector)
-						.getReceiptInvoiceEntity(billing);
+						.getReceiptInvoiceEntity();
 			case NC:
-				throw new NotImplementedException();
-			case ND:
 				throw new NotImplementedException();
 			default:
 				return null;

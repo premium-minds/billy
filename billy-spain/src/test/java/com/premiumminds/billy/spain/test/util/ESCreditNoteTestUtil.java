@@ -26,8 +26,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntryEntity
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 
 public class ESCreditNoteTestUtil {
 
@@ -46,12 +44,10 @@ public class ESCreditNoteTestUtil {
 		this.payment = new ESPaymentTestUtil(injector);
 	}
 
-	public ESCreditNoteEntity getCreditNoteEntity(TYPE type,
-			ESInvoiceEntity reference) {
+	public ESCreditNoteEntity getCreditNoteEntity(ESInvoiceEntity reference) {
 
 		ESCreditNoteEntity creditNote = (ESCreditNoteEntity) this
 				.getCreditNoteBuilder(reference).build();
-		creditNote.setType(type);
 
 		ESCreditNoteEntryEntity creditNoteEntry = (ESCreditNoteEntryEntity) creditNote
 				.getEntries().get(0);
@@ -75,12 +71,7 @@ public class ESCreditNoteTestUtil {
 				.setDate(new Date()).setSourceId(ESCreditNoteTestUtil.SOURCEID)
 				.addEntry(creditNoteEntryBuilder)
 				.setBusinessUID(reference.getBusiness().getUID())
-				.setSourceBilling(SourceBilling.P)
 				.setCustomerUID(reference.getCustomer().getUID())
 				.addPayment(payment.getPaymentBuilder());
-	}
-
-	public ESCreditNoteEntity getCreditNoteEntity(ESInvoiceEntity reference) {
-		return this.getCreditNoteEntity(TYPE.NC, reference);
 	}
 }

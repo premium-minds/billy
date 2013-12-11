@@ -33,31 +33,8 @@ public class MockESInvoiceEntity extends MockGenericInvoiceEntity implements
 
 	protected boolean			cancelled;
 	protected boolean			billed;
-	protected String			reason;
-	protected SourceBilling		sourceBilling;
 	protected String			eacCode;
-	protected TYPE				type;
 	protected List<ESPayment>	payments;
-
-	@Override
-	public TYPE getType() {
-		return this.type;
-	}
-
-	@Override
-	public void setType(TYPE type) {
-		this.type = type;
-	}
-
-	@Override
-	public SourceBilling getSourceBilling() {
-		return this.sourceBilling;
-	}
-
-	@Override
-	public void setSourceBilling(SourceBilling soureceBilling) {
-		this.sourceBilling = soureceBilling;
-	}
 
 	public MockESInvoiceEntity() {
 		this.payments = new ArrayList<ESPayment>();
@@ -90,11 +67,6 @@ public class MockESInvoiceEntity extends MockGenericInvoiceEntity implements
 	}
 
 	@Override
-	public void setChangeReason(String reason) {
-		this.reason = reason;
-	}
-
-	@Override
 	public void setEACCode(String eacCode) {
 		this.eacCode = eacCode;
 	}
@@ -102,11 +74,6 @@ public class MockESInvoiceEntity extends MockGenericInvoiceEntity implements
 	@Override
 	public String getEACCode() {
 		return eacCode;
-	}
-
-	@Override
-	public String getChangeReason() {
-		return reason;
 	}
 
 	@Override

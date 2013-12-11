@@ -28,10 +28,9 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
+import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTest.SOURCE_BILLING;
 
 public class ESInvoiceTestUtil {
 
@@ -43,16 +42,14 @@ public class ESInvoiceTestUtil {
 	protected static final Integer SERIE_NUMBER = 1;
 	protected static final int MAX_PRODUCTS = 5;
 
-	protected TYPE INVOICE_TYPE;
 	protected Injector injector;
 	protected ESInvoiceEntryTestUtil invoiceEntry;
 	protected ESBusinessTestUtil business;
 	protected ESCustomerTestUtil customer;
 	protected ESPaymentTestUtil payment;
-
+	
 	public ESInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
-		this.INVOICE_TYPE = TYPE.FT;
 		this.invoiceEntry = new ESInvoiceEntryTestUtil(injector);
 		this.business = new ESBusinessTestUtil(injector);
 		this.customer = new ESCustomerTestUtil(injector);
@@ -60,29 +57,27 @@ public class ESInvoiceTestUtil {
 	}
 
 	public ESInvoiceEntity getInvoiceEntity() {
-		return this.getInvoiceEntity(SourceBilling.P);
+		return this.getInvoiceEntity(SOURCE_BILLING.APPLICATION);
 	}
 
-	public ESInvoiceEntity getInvoiceEntity(SourceBilling billing) {
+	public ESInvoiceEntity getInvoiceEntity(SOURCE_BILLING billing) {
 		ESInvoiceEntity invoice;
 		switch (billing) {
-		case M:
+		case MANUAL:
 			invoice = (ESInvoiceEntity) this.getManualInvoiceBuilder(
-					business.getBusinessEntity(), billing).build();
+					business.getBusinessEntity()).build();
 			break;
-		case P:
+		case APPLICATION:
 		default:
 			invoice = (ESInvoiceEntity) this.getInvoiceBuilder(
-					business.getBusinessEntity(), billing).build();
+					business.getBusinessEntity()).build();
 			break;
 		}
-		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
-	public ESInvoice.Builder getInvoiceBuilder(ESBusinessEntity business,
-			SourceBilling billing) {
+	public ESInvoice.Builder getInvoiceBuilder(ESBusinessEntity business) {
 		BigDecimal price = new BigDecimal("0.450");
 		ESInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(ESInvoice.Builder.class);
@@ -102,13 +97,12 @@ public class ESInvoiceTestUtil {
 				.setCancelled(ESInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setCustomerUID(customerUID)
 				.setBusinessUID(business.getUID())
 				.addPayment(payment.getPaymentBuilder());
 	}
 	
-	public ESInvoice.ManualBuilder getManualInvoiceBuilder(
-			ESBusinessEntity business, SourceBilling billing) {
+	public ESInvoice.ManualBuilder getManualInvoiceBuilder(ESBusinessEntity business) {
 		BigDecimal price = new BigDecimal("0.450");
 		BigDecimal tax = new BigDecimal("0.078");
 		ESInvoice.ManualBuilder invoiceBuilder = this.injector
@@ -134,7 +128,7 @@ public class ESInvoiceTestUtil {
 				.setCancelled(ESInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setCustomerUID(customerUID)
 				.setBusinessUID(business.getUID())
 				.setAmount(AmountType.WITH_TAX, price)
 				.setAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
@@ -164,7 +158,7 @@ public class ESInvoiceTestUtil {
 				.setCancelled(ESInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setCustomerUID(customerUID)
 				.setBusinessUID(business.getBusinessEntity().getUID())
 				.addPayment(payment.getPaymentBuilder());
 		
@@ -193,7 +187,7 @@ public class ESInvoiceTestUtil {
 				.setCancelled(ESInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setCustomerUID(customerUID)
 				.setBusinessUID(business.getBusinessEntity().getUID())
 				.addPayment(payment.getPaymentBuilder());
 		
@@ -229,7 +223,7 @@ public class ESInvoiceTestUtil {
 				.setCancelled(ESInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-				.setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
+				.setCustomerUID(customerUID)
 				.setBusinessUID(business.getBusinessEntity().getUID())
 				.addPayment(payment.getPaymentBuilder());
 		

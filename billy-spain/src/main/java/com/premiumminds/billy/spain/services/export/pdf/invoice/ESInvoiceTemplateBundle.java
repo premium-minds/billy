@@ -38,8 +38,7 @@ public class ESInvoiceTemplateBundle extends AbstractTemplateBundle implements
 	private static final String	EXCHANGE_TEXT			= "Permuta";
 
 	public ESInvoiceTemplateBundle(String logoImagePath,
-									InputStream xsltFileStream,
-									String softwareCertificationId) {
+									InputStream xsltFileStream) {
 
 		super(logoImagePath, xsltFileStream);
 	}

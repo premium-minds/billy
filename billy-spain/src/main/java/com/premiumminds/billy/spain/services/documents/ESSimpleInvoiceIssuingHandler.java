@@ -27,12 +27,10 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 
 public class ESSimpleInvoiceIssuingHandler extends
 	ESGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
 
-	public final static TYPE			INVOICE_TYPE	= TYPE.FS;
 	private final DAOESSimpleInvoice	daoSimpleInvoice;
 
 	@Inject
@@ -48,8 +46,7 @@ public class ESSimpleInvoiceIssuingHandler extends
 			throws DocumentIssuingException {
 		final ESIssuingParams parametersES = (ESIssuingParams) parameters;
 
-		return this.issue(document, parametersES, daoSimpleInvoice,
-				ESSimpleInvoiceIssuingHandler.INVOICE_TYPE);
+		return this.issue(document, parametersES, daoSimpleInvoice);
 	}
 
 }

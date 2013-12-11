@@ -26,7 +26,6 @@ import org.junit.Test;
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
 public class TestInvoiceUpdate extends ESPersistenceServiceAbstractTest {
@@ -77,12 +76,5 @@ public class TestInvoiceUpdate extends ESPersistenceServiceAbstractTest {
 		ESInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
 
 		builder.setCustomerUID(new UID());
-	}
-
-	@Test(expected = BillyUpdateException.class)
-	public void testSourceBillingFailure() {
-		ESInvoice.Builder builder = billy.invoices().builder(issuedInvoice);
-
-		builder.setSourceBilling(SourceBilling.M);
 	}
 }

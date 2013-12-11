@@ -62,8 +62,7 @@ public class TestESCreditNotePDFExportHandler extends ESPersistencyAbstractTest 
 		InputStream xsl = new FileInputStream(
 				TestESCreditNotePDFExportHandler.XSL_PATH);
 		ESCreditNoteTemplateBundle bundle = new ESCreditNoteTemplateBundle(
-				TestESCreditNotePDFExportHandler.LOGO_PATH, xsl,
-				TestESCreditNotePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestESCreditNotePDFExportHandler.LOGO_PATH, xsl);
 
 		ESCreditNotePDFExportHandler handler = new ESCreditNotePDFExportHandler(
 				ESAbstractTest.injector.getInstance(DAOESCreditNote.class));

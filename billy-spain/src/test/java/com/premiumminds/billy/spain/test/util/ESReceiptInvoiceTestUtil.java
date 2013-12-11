@@ -26,8 +26,6 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptInvoiceEntity;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.services.entities.ESReceiptInvoice;
 
@@ -41,7 +39,6 @@ public class ESReceiptInvoiceTestUtil {
 	protected static final Integer SERIE_NUMBER = 1;
 	protected static final int MAX_PRODUCTS = 5;
 
-	protected TYPE INVOICE_TYPE;
 	protected Injector injector;
 	protected ESInvoiceEntryTestUtil invoiceEntry;
 	protected ESBusinessTestUtil business;
@@ -50,7 +47,6 @@ public class ESReceiptInvoiceTestUtil {
 
 	public ESReceiptInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
-		this.INVOICE_TYPE = TYPE.FS;
 		this.invoiceEntry = new ESInvoiceEntryTestUtil(injector);
 		this.business = new ESBusinessTestUtil(injector);
 		this.customer = new ESCustomerTestUtil(injector);
@@ -58,19 +54,12 @@ public class ESReceiptInvoiceTestUtil {
 	}
 
 	public ESReceiptInvoiceEntity getReceiptInvoiceEntity() {
-		return this.getReceiptInvoiceEntity(SourceBilling.P);
-	}
-
-	public ESReceiptInvoiceEntity getReceiptInvoiceEntity(SourceBilling billing) {
 		ESReceiptInvoiceEntity invoice = (ESReceiptInvoiceEntity) this
-				.getReceiptInvoiceBuilder(business.getBusinessEntity(), billing).build();
-		invoice.setType(this.INVOICE_TYPE);
-
+				.getReceiptInvoiceBuilder(business.getBusinessEntity()).build();
 		return invoice;
 	}
 
-	public ESReceiptInvoice.Builder getReceiptInvoiceBuilder(ESBusinessEntity businessEntity,
-			SourceBilling billing) {
+	public ESReceiptInvoice.Builder getReceiptInvoiceBuilder(ESBusinessEntity businessEntity) {
 		ESReceiptInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(ESReceiptInvoice.Builder.class);
 
@@ -89,7 +78,7 @@ public class ESReceiptInvoiceTestUtil {
 				.setCancelled(ESInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setCustomerUID(customerUID)
 				.setBusinessUID(businessEntity.getUID())
 				.addPayment(payment.getPaymentBuilder());
 	}

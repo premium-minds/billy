@@ -34,8 +34,6 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice.CLIENTTYPE;
 import com.premiumminds.billy.spain.services.persistence.ESSimpleInvoicePersistenceService;
@@ -49,12 +47,13 @@ import com.premiumminds.billy.spain.util.Services;
 public class TestESSimpleInvoiceIssuingHandlerWithTicket extends
 	ESDocumentAbstractTest {
 
-	private static final TYPE			DEFAULT_TYPE	= TYPE.FS;
-	private static final SourceBilling	SOURCE_BILLING	= SourceBilling.P;
-
 	private UID							issuedInvoiceUID;
 	private UID							ticketUID;
 	private TicketManager				ticketManager;
+	
+	private String DEFAULT_SERIES = INVOICE_TYPE.FS
+			+ " "
+			+ ESPersistencyAbstractTest.DEFAULT_SERIES;
 
 	@Before
 	public void setUpNewSimpleInvoice() {
@@ -62,13 +61,12 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends
 		try {
 			setUpParamenters();
 			this.parameters
-					.setInvoiceSeries(ESPersistencyAbstractTest.DEFAULT_SERIES);
+					.setInvoiceSeries(DEFAULT_SERIES);
 
 			ESBusinessEntity business = new ESBusinessTestUtil(injector)
 					.getBusinessEntity("business");
 			ESSimpleInvoice.Builder simpleInvoiceBuilder = new ESSimpleInvoiceTestUtil(
-					injector).getSimpleInvoiceBuilder(business,
-					TestESSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, CLIENTTYPE.CUSTOMER);
+					injector).getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
 			ticketManager = getInstance(TicketManager.class);
 
@@ -103,17 +101,12 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends
 				.getWithTicket(ticketUID);
 
 		Assert.assertTrue(issuedInvoice != null);
-		Assert.assertEquals(ESPersistencyAbstractTest.DEFAULT_SERIES,
+		Assert.assertEquals(DEFAULT_SERIES,
 				issuedInvoice.getSeries());
 		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-		String formatedNumber = TestESSimpleInvoiceIssuingHandlerWithTicket.DEFAULT_TYPE
-				+ " "
-				+ TestESSimpleInvoiceIssuingHandlerWithTicket.DEFAULT_SERIES
+		String formatedNumber = DEFAULT_SERIES
 				+ "/1";
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-		Assert.assertEquals(
-				TestESSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING,
-				issuedInvoice.getSourceBilling());
 
 		Assert.assertTrue(ticketManager.ticketExists(ticketUID.getValue()) == true);
 		Assert.assertTrue(ticketEntity != null);
@@ -163,14 +156,13 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends
 		Services services = new Services(injector);
 		ESSimpleInvoiceEntity entity = null;
 		this.parameters
-				.setInvoiceSeries(ESPersistencyAbstractTest.DEFAULT_SERIES);
+				.setInvoiceSeries(DEFAULT_SERIES);
 
 		ESBusinessEntity business = new ESBusinessTestUtil(injector)
 				.getBusinessEntity("business");
 		ESSimpleInvoice.Builder builder = new ESSimpleInvoiceTestUtil(injector)
 				.getSimpleInvoiceBuilder(
-						business,
-						TestESSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, CLIENTTYPE.CUSTOMER);
+						business, CLIENTTYPE.CUSTOMER);
 
 		try {
 
@@ -193,8 +185,7 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends
 		ESBusinessEntity business = new ESBusinessTestUtil(injector)
 				.getBusinessEntity("business");
 		ESSimpleInvoice.Builder testinvoice = new ESSimpleInvoiceTestUtil(
-				injector).getSimpleInvoiceBuilder(business,
-				TestESSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, CLIENTTYPE.CUSTOMER);
+				injector).getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
 		EntityManager em = injector.getInstance(EntityManager.class);
 		em.getTransaction().begin();

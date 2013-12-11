@@ -56,8 +56,7 @@ public class TestESSimpleInvoicePDFExportHandler extends
 				TestESSimpleInvoicePDFExportHandler.XSL_PATH);
 
 		ESSimpleInvoiceTemplateBundle bundle = new ESSimpleInvoiceTemplateBundle(
-				TestESSimpleInvoicePDFExportHandler.LOGO_PATH, xsl,
-				TestESSimpleInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestESSimpleInvoicePDFExportHandler.LOGO_PATH, xsl);
 		ESSimpleInvoicePDFExportHandler handler = new ESSimpleInvoicePDFExportHandler(
 				ESAbstractTest.injector.getInstance(DAOESSimpleInvoice.class));
 		handler.toFile(file.toURI(),

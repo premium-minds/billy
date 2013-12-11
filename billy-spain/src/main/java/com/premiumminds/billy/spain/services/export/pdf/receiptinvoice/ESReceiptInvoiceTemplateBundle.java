@@ -38,8 +38,7 @@ public class ESReceiptInvoiceTemplateBundle extends AbstractTemplateBundle
 	private static final String	EXCHANGE_TEXT			= "Permuta";
 
 	public ESReceiptInvoiceTemplateBundle(String logoImagePath,
-			InputStream xsltFileStream, String softwareCertificationId) {
-
+			InputStream xsltFileStream) {
 		super(logoImagePath, xsltFileStream);
 	}
 

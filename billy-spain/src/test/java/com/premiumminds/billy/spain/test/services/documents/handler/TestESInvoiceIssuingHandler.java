@@ -28,33 +28,25 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
-import com.premiumminds.billy.spain.services.documents.ESSimpleInvoiceIssuingHandler;
-import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceTypeException;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTest;
 
 public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
-	private static final TYPE DEFAULT_TYPE = TYPE.FT;
-	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
-
 	private ESInvoiceIssuingHandler handler;
 	private UID issuedInvoiceUID;
+	
+	private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
 	@Before
 	public void setUpNewInvoice() {
 		this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
 
 		try {
-			ESInvoiceEntity invoice = this.newInvoice(
-					TestESInvoiceIssuingHandler.DEFAULT_TYPE,
-					TestESInvoiceIssuingHandler.SOURCE_BILLING);
+			ESInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
 
-			this.issueNewInvoice(this.handler, invoice,
-					ESPersistencyAbstractTest.DEFAULT_SERIES);
+			this.issueNewInvoice(this.handler, invoice, DEFAULT_SERIES);
 			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
@@ -67,14 +59,11 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
 				DAOESInvoice.class).get(this.issuedInvoiceUID);
 
-		Assert.assertEquals(ESPersistencyAbstractTest.DEFAULT_SERIES,
+		Assert.assertEquals( DEFAULT_SERIES,
 				issuedInvoice.getSeries());
 		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-		String formatedNumber = TestESInvoiceIssuingHandler.DEFAULT_TYPE + " "
-				+ ESPersistencyAbstractTest.DEFAULT_SERIES + "/1";
+		String formatedNumber = DEFAULT_SERIES + "/1";
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-		Assert.assertEquals(TestESInvoiceIssuingHandler.SOURCE_BILLING,
-				issuedInvoice.getSourceBilling());
 	}
 
 	@Test
@@ -84,23 +73,20 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 		Integer nextNumber = 2;
 
 		ESGenericInvoiceEntity newInvoice = this.newInvoice(
-				TestESInvoiceIssuingHandler.DEFAULT_TYPE,
-				TestESInvoiceIssuingHandler.SOURCE_BILLING);
+				INVOICE_TYPE.FT);
 
 		UID newInvoiceUID = newInvoice.getUID();
 		newInvoice.setBusiness(issuedInvoice.getBusiness());
 
-		this.issueNewInvoice(this.handler, newInvoice,
-				ESPersistencyAbstractTest.DEFAULT_SERIES);
+		this.issueNewInvoice(this.handler, newInvoice, DEFAULT_SERIES);
 
 		ESInvoice lastInvoice = (ESInvoice) this
 				.getInstance(DAOESInvoice.class).get(newInvoiceUID);
 
-		Assert.assertEquals(ESPersistencyAbstractTest.DEFAULT_SERIES,
+		Assert.assertEquals(DEFAULT_SERIES,
 				lastInvoice.getSeries());
 		Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
-		String formatedNumber = TestESInvoiceIssuingHandler.DEFAULT_TYPE + " "
-				+ ESPersistencyAbstractTest.DEFAULT_SERIES + "/" + nextNumber;
+		String formatedNumber = DEFAULT_SERIES + "/" + nextNumber;
 		Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
 	}
 
@@ -108,11 +94,10 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 	public void testIssuedInvoiceDifferentSeries()
 			throws DocumentIssuingException {
 		Integer nextNumber = 1;
-		String newSeries = "NEW_SERIES";
+		String newSeries = "FT NEW_SERIES";
 
 		ESGenericInvoiceEntity newInvoice = this.newInvoice(
-				TestESInvoiceIssuingHandler.DEFAULT_TYPE,
-				TestESInvoiceIssuingHandler.SOURCE_BILLING);
+				INVOICE_TYPE.FT);
 
 		UID newInvoiceUID = newInvoice.getUID();
 
@@ -123,61 +108,22 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
 		Assert.assertEquals(newSeries, issuedInvoice.getSeries());
 		Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
-		String formatedNumber = TestESInvoiceIssuingHandler.DEFAULT_TYPE + " "
-				+ newSeries + "/" + nextNumber;
+		String formatedNumber = newSeries + "/" + nextNumber;
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
 	}
-
-	/**
-	 * Test issue of invoice of different type in same series
-	 * 
-	 * @throws DocumentIssuingException
-	 */
-	@Test(expected = InvalidInvoiceTypeException.class)
-	public void testIssuedInvoiceFailure() throws DocumentIssuingException {
-		String series = "NEW_SERIES";
-
-		ESGenericInvoiceEntity invoice = this.newInvoice(
-				TestESInvoiceIssuingHandler.DEFAULT_TYPE,
-				TestESInvoiceIssuingHandler.SOURCE_BILLING);
-
-		this.issueNewInvoice(this.handler, invoice, series);
-
-		ESSimpleInvoiceIssuingHandler newHandler = this
-				.getInstance(ESSimpleInvoiceIssuingHandler.class);
-
-		ESGenericInvoiceEntity diffentTypeInvoice = this.newInvoice(TYPE.FS,
-				TestESInvoiceIssuingHandler.SOURCE_BILLING);
-		diffentTypeInvoice.setBusiness(invoice.getBusiness());
-
-		this.issueNewInvoice(newHandler, diffentTypeInvoice, series);
-	}
-
-//	@Test(expected = InvalidInvoiceDateException.class)
-//	public void testIssuedInvoiceBeforeDate() throws DocumentIssuingException {
-//		this.issueNewInvoice(this.handler, this.newInvoice(
-//				TestESInvoiceIssuingHandler.DEFAULT_TYPE,
-//				TestESInvoiceIssuingHandler.SOURCE_BILLING),
-//				ESPersistencyAbstractTest.DEFAULT_SERIES, new Date(0));
-//	}
 
 	@Test
 	public void testIssuedInvoiceSameSourceBilling()
 			throws DocumentIssuingException {
 		ESGenericInvoiceEntity newInvoice = this.newInvoice(
-				TestESInvoiceIssuingHandler.DEFAULT_TYPE,
-				TestESInvoiceIssuingHandler.SOURCE_BILLING);
+				INVOICE_TYPE.FT);
 
 		UID newInvoiceUID = newInvoice.getUID();
 
-		this.issueNewInvoice(this.handler, newInvoice,
-				ESPersistencyAbstractTest.DEFAULT_SERIES);
+		this.issueNewInvoice(this.handler, newInvoice, DEFAULT_SERIES);
 
 		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
 				DAOESInvoice.class).get(newInvoiceUID);
-
-		Assert.assertEquals(TestESInvoiceIssuingHandler.SOURCE_BILLING,
-				issuedInvoice.getSourceBilling());
 	}
 
 }

@@ -121,7 +121,6 @@ public class TestESSimpleInvoiceBuilder extends ESAbstractTest {
 				.setSettlementDiscount(mock.getSettlementDiscount())
 				.setSourceId(mock.getSourceId())
 				.setTransactionId(mock.getTransactionId())
-				.setSourceBilling(mock.getSourceBilling())
 				.setClientType(mock.getClientType())
 				.setCustomerUID(mockCustomerEntity.getUID())
 				.addPayment(builderPayment);

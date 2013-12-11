@@ -23,7 +23,6 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
-import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
@@ -32,7 +31,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.builders.ESInvoiceBuilder;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
 
 public class ESInvoiceBuilderImpl<TBuilder extends ESInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESInvoiceEntry, TDocument extends ESInvoice>
 	extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
@@ -47,7 +45,6 @@ public class ESInvoiceBuilderImpl<TBuilder extends ESInvoiceBuilderImpl<TBuilder
 								DAOESCustomer daoESCustomer,
 								DAOESSupplier daoESSupplier) {
 		super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
-		this.setSourceBilling(SourceBilling.P);
 	}
 
 	@Override
@@ -58,20 +55,7 @@ public class ESInvoiceBuilderImpl<TBuilder extends ESInvoiceBuilderImpl<TBuilder
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		ESInvoiceEntity i = getTypeInstance();
-		i.setSourceBilling(SourceBilling.P);
 		i.setCreditOrDebit(CreditOrDebit.CREDIT);
 		super.validateInstance();
-	}
-	
-	@Override
-	@NotOnUpdate
-	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
-		switch (sourceBilling) {
-		case P:
-			return super.setSourceBilling(sourceBilling);
-		case M:
-		default:
-			throw new BillyValidationException();
-		}
 	}
 }

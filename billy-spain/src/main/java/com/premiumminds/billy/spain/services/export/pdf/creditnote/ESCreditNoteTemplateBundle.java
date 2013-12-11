@@ -38,8 +38,7 @@ public class ESCreditNoteTemplateBundle extends AbstractTemplateBundle
 	private static final String	EXCHANGE_TEXT			= "Permuta";
 
 	public ESCreditNoteTemplateBundle(String logoImagePath,
-										InputStream xsltFileStream,
-										String softwareCertificationId) {
+										InputStream xsltFileStream) {
 
 		super(logoImagePath, xsltFileStream);
 	}

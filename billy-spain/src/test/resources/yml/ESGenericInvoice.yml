@@ -67,7 +67,6 @@ selfBilled : false
 cashVATEndorser : false
 thirdPartyBilled : false
 sourceId : source_1
-sourceBilling : P
 generalLedgerDate : 2013-10-10
 batchId : batch_1
 transactionsId : transId_1

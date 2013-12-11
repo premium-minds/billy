@@ -33,21 +33,6 @@ import com.premiumminds.billy.spain.services.builders.impl.ESGenericInvoiceBuild
 
 public interface ESGenericInvoice extends GenericInvoice {
 
-	public static enum TYPE {
-		FT, FS, FR, NC, ND
-	}
-
-	/**
-	 * Represents if an invoice was emitted by the application or manually
-	 * emitted.
-	 * 
-	 * @author Hugo Correia
-	 * 
-	 */
-	public static enum SourceBilling {
-		P, M
-	}
-
 	public static class Builder
 		extends
 		ESGenericInvoiceBuilderImpl<Builder, ESGenericInvoiceEntry, ESGenericInvoice> {
@@ -61,17 +46,11 @@ public interface ESGenericInvoice extends GenericInvoice {
 		}
 	}
 
-	public TYPE getType();
-
 	public boolean isCancelled();
 
 	public boolean isBilled();
 
 	public String getEACCode();
-
-	public SourceBilling getSourceBilling();
-
-	public String getChangeReason();
 
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();

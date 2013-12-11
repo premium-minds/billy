@@ -26,8 +26,6 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice.CLIENTTYPE;
@@ -42,7 +40,6 @@ public class ESSimpleInvoiceTestUtil {
 	protected static final Integer SERIE_NUMBER = 1;
 	protected static final int MAX_PRODUCTS = 5;
 
-	protected TYPE						INVOICE_TYPE;
 	protected Injector					injector;
 	protected ESInvoiceEntryTestUtil	invoiceEntry;
 	protected ESBusinessTestUtil		business;
@@ -51,7 +48,6 @@ public class ESSimpleInvoiceTestUtil {
 
 	public ESSimpleInvoiceTestUtil(Injector injector) {
 		this.injector = injector;
-		this.INVOICE_TYPE = TYPE.FS;
 		this.invoiceEntry = new ESInvoiceEntryTestUtil(injector);
 		this.business = new ESBusinessTestUtil(injector);
 		this.customer = new ESCustomerTestUtil(injector);
@@ -59,29 +55,19 @@ public class ESSimpleInvoiceTestUtil {
 	}
 
 	public ESSimpleInvoiceEntity getSimpleInvoiceEntity() {
-		return this.getSimpleInvoiceEntity(SourceBilling.P);
-	}
-
-	public ESSimpleInvoiceEntity getSimpleInvoiceEntity(SourceBilling billing) {
-		ESSimpleInvoiceEntity invoice = (ESSimpleInvoiceEntity) this
-				.getSimpleInvoiceBuilder(business.getBusinessEntity(), billing, CLIENTTYPE.CUSTOMER)
-				.build();
-		invoice.setType(this.INVOICE_TYPE);
-
-		return invoice;
+		return this.getSimpleInvoiceEntity(CLIENTTYPE.CUSTOMER);
 	}
 	
-	public ESSimpleInvoiceEntity getSimpleInvoiceEntity(SourceBilling billing, CLIENTTYPE clientType) {
+	public ESSimpleInvoiceEntity getSimpleInvoiceEntity(CLIENTTYPE clientType) {
 		ESSimpleInvoiceEntity invoice = (ESSimpleInvoiceEntity) this
-				.getSimpleInvoiceBuilder(business.getBusinessEntity(), billing, clientType)
+				.getSimpleInvoiceBuilder(business.getBusinessEntity(), clientType)
 				.build();
-		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
 	}
 
 	public ESSimpleInvoice.Builder getSimpleInvoiceBuilder(
-			ESBusinessEntity businessEntity, SourceBilling billing, CLIENTTYPE clientType) {
+			ESBusinessEntity businessEntity, CLIENTTYPE clientType) {
 		ESSimpleInvoice.Builder invoiceBuilder = this.injector
 				.getInstance(ESSimpleInvoice.Builder.class);
 
@@ -100,7 +86,7 @@ public class ESSimpleInvoiceTestUtil {
 				.setCancelled(ESInvoiceTestUtil.CANCELLED)
 				.setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
 				.setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setCustomerUID(customerUID)
 				.setBusinessUID(businessEntity.getUID())
 				.addPayment(payment.getPaymentBuilder())
 				.setClientType(clientType);

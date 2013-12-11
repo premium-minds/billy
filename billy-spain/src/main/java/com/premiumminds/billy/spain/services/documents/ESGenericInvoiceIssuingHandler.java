@@ -35,12 +35,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceDateException;
-import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceTypeException;
-import com.premiumminds.billy.spain.services.documents.exceptions.InvalidSourceBillingException;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 
 public abstract class ESGenericInvoiceIssuingHandler extends
 	DocumentIssuingHandlerImpl implements DocumentIssuingHandler {
@@ -51,22 +46,13 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 	public ESGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
 		this.daoInvoiceSeries = daoInvoiceSeries;
 	}
-
-	protected void validateDocumentType(TYPE documentType, TYPE expectedType,
-			String series) throws InvalidInvoiceTypeException {
-		if (documentType != expectedType) {
-			throw new InvalidInvoiceTypeException(series,
-					documentType.toString(), expectedType.toString());
-		}
-	}
-
 	@Override
 	public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(
 			T document, P parameters) throws DocumentIssuingException;
 
 	protected <T extends GenericInvoice, D extends DAOGenericInvoice> T issue(
 			final T document, final ESIssuingParams parametersES,
-			final D daoInvoice, final TYPE invoiceType)
+			final D daoInvoice)
 		throws DocumentIssuingException {
 		
 		String series  = parametersES.getInvoiceSeries();
@@ -75,8 +61,6 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 				series, LockModeType.PESSIMISTIC_WRITE);
 
 		ESGenericInvoiceEntity documentEntity = (ESGenericInvoiceEntity) document;
-		SourceBilling sourceBilling = ((ESGenericInvoice) document)
-				.getSourceBilling();
 		
 		((BaseEntity)document).initializeEntityDates();
 		
@@ -96,22 +80,13 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 		if (null != latestInvoice) {
 			seriesNumber = latestInvoice.getSeriesNumber() + 1;
 			Date latestInvoiceDate = latestInvoice.getDate();
-			ESGenericInvoiceIssuingHandler.this.validateDocumentType(
-					invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
-
-			if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
-				throw new InvalidSourceBillingException(invoiceSeriesEntity.getSeries(),
-						sourceBilling.toString(), latestInvoice
-								.getSourceBilling().toString());
-			}
 
 			if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
 				throw new InvalidInvoiceDateException();
 			}
 		}
 
-		String formatedNumber = invoiceType.toString() + " "
-				+ parametersES.getInvoiceSeries() + "/" + seriesNumber;
+		String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
 
 		documentEntity.setDate(invoiceDate);
 		documentEntity.setNumber(formatedNumber);
@@ -119,7 +94,6 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 		documentEntity.setSeriesNumber(seriesNumber);
 		documentEntity.setBilled(false);
 		documentEntity.setCancelled(false);
-		documentEntity.setType(invoiceType);
 		documentEntity.setEACCode(parametersES.getEACCode());
 		documentEntity.setCurrency(document.getCurrency());
 

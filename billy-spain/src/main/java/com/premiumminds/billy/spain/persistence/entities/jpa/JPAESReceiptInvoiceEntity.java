@@ -32,7 +32,7 @@ import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 
 @Entity
 @Audited
-@Table(name = Config.TABLE_PREFIX + "RECEIES_INVOICE")
+@Table(name = Config.TABLE_PREFIX + "RECEIPT_INVOICE")
 public class JPAESReceiptInvoiceEntity extends JPAESInvoiceEntity implements
 		ESReceiptInvoiceEntity {
 

@@ -160,7 +160,7 @@
 
       <!--products info block-->
       <fo:block font-size="8pt" margin-top="3mm" margin-bottom="4mm">
-        <fo:block font-weight="bold" font-size="6pt">Detalhes de Faturação</fo:block>
+        <fo:block font-weight="bold" font-size="6pt">Detalles de Facturación:</fo:block>
       	<fo:table width="100%">
           <fo:table-column column-width="25mm"/>
           <fo:table-column column-width="65mm"/>
@@ -306,7 +306,7 @@
                     <fo:table-row border-bottom="solid">
                       <fo:table-cell text-align="left">
                         <fo:block>
-                          Resumo da Fatura:
+                          Resumen de la Factura:
                         </fo:block>
                       </fo:table-cell>
                     </fo:table-row>

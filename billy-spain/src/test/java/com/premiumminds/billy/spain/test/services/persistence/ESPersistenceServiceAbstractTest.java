@@ -24,7 +24,6 @@ import com.premiumminds.billy.spain.BillySpain;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParamsImpl;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
-import com.premiumminds.billy.spain.util.KeyGenerator;
 
 public class ESPersistenceServiceAbstractTest extends ESPersistencyAbstractTest {
 
@@ -33,13 +32,7 @@ public class ESPersistenceServiceAbstractTest extends ESPersistencyAbstractTest 
 
 	@Before
 	public void setUpParamenters() {
-		KeyGenerator generator = new KeyGenerator(
-				ESPersistencyAbstractTest.PRIVATE_KEY_DIR);
-
 		this.parameters = new ESIssuingParamsImpl();
-		this.parameters.setPrivateKey(generator.getPrivateKey());
-		this.parameters.setPublicKey(generator.getPublicKey());
-		this.parameters.setPrivateKeyVersion("1");
 		this.parameters.setEACCode("31400");
 
 		billy = getInstance(BillySpain.class);

@@ -30,12 +30,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParamsImpl;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
-import com.premiumminds.billy.spain.util.KeyGenerator;
 import com.premiumminds.billy.spain.util.Services;
 
 public class ESPersistencyAbstractTest extends ESAbstractTest {
@@ -77,8 +75,8 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
 			return (ESInvoiceEntity) service.issueDocument(
 					new ESInvoiceTestUtil(ESAbstractTest.injector)
 							.getInvoiceBuilder(new ESBusinessTestUtil(injector)
-									.getBusinessEntity(businessUID),
-									SourceBilling.P), parameters);
+									.getBusinessEntity(businessUID))
+							, parameters);
 		} catch (DocumentIssuingException e) {
 			e.printStackTrace();
 		}
@@ -106,11 +104,6 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
 	protected ESIssuingParams getParameters(String series, String EACCode,
 			String privateKeyVersion) {
 		ESIssuingParams parameters = new ESIssuingParamsImpl();
-		KeyGenerator generator = new KeyGenerator(
-				ESPersistencyAbstractTest.PRIVATE_KEY_DIR);
-		parameters.setPrivateKey(generator.getPrivateKey());
-		parameters.setPublicKey(generator.getPublicKey());
-		parameters.setPrivateKeyVersion(privateKeyVersion);
 		parameters.setEACCode(EACCode);
 		parameters.setInvoiceSeries(series);
 		return parameters;

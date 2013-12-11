@@ -34,8 +34,6 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.TYPE;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.services.persistence.ESInvoicePersistenceService;
 import com.premiumminds.billy.spain.test.ESMockDependencyModule;
@@ -48,12 +46,11 @@ import com.premiumminds.billy.spain.util.Services;
 public class TestESInvoiceIssuingHandlerWithTicket extends
 	ESDocumentAbstractTest {
 
-	private static final TYPE			DEFAULT_TYPE	= TYPE.FT;
-	private static final SourceBilling	SOURCE_BILLING	= SourceBilling.P;
-
 	private UID							issuedInvoiceUID;
 	private UID							ticketUID;
 	private TicketManager				ticketManager;
+	
+	private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
 	@Before
 	public void setUpNewInvoice() {
@@ -61,14 +58,13 @@ public class TestESInvoiceIssuingHandlerWithTicket extends
 		try {
 			setUpParamenters();
 			this.parameters
-					.setInvoiceSeries(ESPersistencyAbstractTest.DEFAULT_SERIES);
+					.setInvoiceSeries(DEFAULT_SERIES);
 
 			ESBusinessEntity business = new ESBusinessTestUtil(injector)
 					.getBusinessEntity("business");
 			ESInvoice.Builder invoiceBuilder = new ESInvoiceTestUtil(injector)
 					.getInvoiceBuilder(
-							business,
-							TestESInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
+							business);
 
 			ticketManager = getInstance(TicketManager.class);
 
@@ -102,17 +98,11 @@ public class TestESInvoiceIssuingHandlerWithTicket extends
 				.getWithTicket(ticketUID);
 
 		Assert.assertTrue(issuedInvoice != null);
-		Assert.assertEquals(ESPersistencyAbstractTest.DEFAULT_SERIES,
+		Assert.assertEquals(DEFAULT_SERIES,
 				issuedInvoice.getSeries());
 		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-		String formatedNumber = TestESInvoiceIssuingHandlerWithTicket.DEFAULT_TYPE
-				+ " "
-				+ TestESInvoiceIssuingHandlerWithTicket.DEFAULT_SERIES
-				+ "/1";
+		String formatedNumber = DEFAULT_SERIES + "/1";
 		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-		Assert.assertEquals(
-				TestESInvoiceIssuingHandlerWithTicket.SOURCE_BILLING,
-				issuedInvoice.getSourceBilling());
 
 		Assert.assertTrue(ticketManager.ticketExists(ticketUID.getValue()) == true);
 		Assert.assertTrue(ticketEntity != null);
@@ -161,13 +151,12 @@ public class TestESInvoiceIssuingHandlerWithTicket extends
 		Services services = new Services(injector);
 		ESInvoiceEntity entity = null;
 		this.parameters
-				.setInvoiceSeries(ESPersistencyAbstractTest.DEFAULT_SERIES);
+				.setInvoiceSeries(DEFAULT_SERIES);
 
 		ESBusinessEntity business = new ESBusinessTestUtil(injector)
 				.getBusinessEntity("business");
 		ESInvoice.Builder builder = new ESInvoiceTestUtil(injector)
-				.getInvoiceBuilder(business,
-						TestESInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
+				.getInvoiceBuilder(business);
 
 		try {
 
@@ -190,8 +179,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends
 		ESBusinessEntity business = new ESBusinessTestUtil(injector)
 				.getBusinessEntity("business");
 		ESInvoice.Builder testinvoice = new ESInvoiceTestUtil(injector)
-				.getInvoiceBuilder(business,
-						TestESInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
+				.getInvoiceBuilder(business);
 
 		EntityManager em = injector.getInstance(EntityManager.class);
 		em.getTransaction().begin();

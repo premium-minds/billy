@@ -49,25 +49,6 @@ public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Column(name = "BILLED")
 	protected boolean			billed;
 
-	@Column(name = "CHANGE_REASON")
-	protected String			reason;
-
-	@Column(name = "SOURCE_BILLING")
-	protected SourceBilling		sourceBilling;
-
-	@Column(name = "INVOICE_TYPE")
-	protected TYPE				type;
-
-	@Override
-	public TYPE getType() {
-		return this.type;
-	}
-
-	@Override
-	public void setType(TYPE type) {
-		this.type = type;
-	}
-
 	@Override
 	public boolean isCancelled() {
 		return this.cancelled;
@@ -76,16 +57,6 @@ public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity
 	@Override
 	public boolean isBilled() {
 		return this.billed;
-	}
-
-	@Override
-	public String getChangeReason() {
-		return reason;
-	}
-
-	@Override
-	public SourceBilling getSourceBilling() {
-		return this.sourceBilling;
 	}
 
 	@Override
@@ -103,20 +74,10 @@ public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity
 		this.billed = billed;
 	}
 
-	@Override
-	public void setChangeReason(String reason) {
-		this.reason = reason;
-	}
-
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public List<? extends ESGenericInvoiceEntry> getEntries() {
 		return (List<ESGenericInvoiceEntry>) super.getEntries();
-	}
-
-	@Override
-	public void setSourceBilling(SourceBilling sourceBilling) {
-		this.sourceBilling = sourceBilling;
 	}
 
 	@Override

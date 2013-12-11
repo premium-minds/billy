@@ -18,20 +18,13 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESInvoiceEntity;
-import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESBusinessEntity;
-import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESInvoiceEntity;
 
 public class DAOESInvoiceImpl extends DAOESGenericInvoiceImpl implements
 	DAOESInvoice {
@@ -50,23 +43,4 @@ public class DAOESInvoiceImpl extends DAOESGenericInvoiceImpl implements
 	protected Class<? extends JPAESInvoiceEntity> getEntityClass() {
 		return JPAESInvoiceEntity.class;
 	}
-
-	@Override
-	public List<ESInvoiceEntity> getBusinessInvoicesForSAFTES(UID uid,
-			Date from, Date to) {
-
-		QJPAESInvoiceEntity invoice = QJPAESInvoiceEntity.jPAESInvoiceEntity;
-
-		JPAQuery query = createQuery();
-
-		query.from(invoice)
-			.where(invoice.instanceOf(JPAESInvoiceEntity.class)
-					.and(invoice.date.between(from, to))
-					.and(toDSL(invoice.business, QJPAESBusinessEntity.class).uid.eq(uid.toString())));
-
-		List<ESInvoiceEntity> result = this.checkEntityList(
-				query.list(invoice), ESInvoiceEntity.class);
-		return result;
-	}
-
 }

@@ -36,7 +36,6 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.util.ConcurrentTestUtil;
@@ -75,7 +74,7 @@ public class TestConcurrentIssuing extends ESDocumentAbstractTest {
 			try{
 				ESInvoice invoice = TestConcurrentIssuing.this.service.issue(
 						new ESInvoiceTestUtil(this.injector).getInvoiceBuilder(
-								this.business, SourceBilling.P),
+								this.business),
 						TestConcurrentIssuing.this.parameters);
 				return invoice;
 			} catch (DocumentIssuingException e) {

@@ -26,7 +26,6 @@ import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServic
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
@@ -50,7 +49,7 @@ public class TestDocumentIssuingService extends ESDocumentAbstractTest {
 
 		this.service.issue(new ESInvoiceTestUtil(ESAbstractTest.injector)
 				.getInvoiceBuilder(
-						new ESBusinessTestUtil(injector).getBusinessEntity(),
-						SourceBilling.P), this.parameters);
+						new ESBusinessTestUtil(injector).getBusinessEntity())
+						, this.parameters);
 	}
 }

@@ -33,38 +33,15 @@ public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity
 
 	protected boolean cancelled;
 	protected boolean billed;
-	protected String reason;
 	protected String hash;
 	protected String sourceHash;
 	protected String hashControl;
-	protected SourceBilling sourceBilling;
 	protected String eacCode;
-	protected TYPE type;
 	protected List<ESPayment> payments;
 	public CLIENTTYPE clientType;
 
 	public MockESSimpleInvoiceEntity() {
 		this.payments = new ArrayList<ESPayment>();
-	}
-
-	@Override
-	public TYPE getType() {
-		return this.type;
-	}
-
-	@Override
-	public void setType(TYPE type) {
-		this.type = type;
-	}
-
-	@Override
-	public SourceBilling getSourceBilling() {
-		return this.sourceBilling;
-	}
-
-	@Override
-	public void setSourceBilling(SourceBilling soureceBilling) {
-		this.sourceBilling = soureceBilling;
 	}
 
 	@Override
@@ -94,11 +71,6 @@ public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	}
 
 	@Override
-	public void setChangeReason(String reason) {
-		this.reason = reason;
-	}
-
-	@Override
 	public void setEACCode(String eacCode) {
 		this.eacCode = eacCode;
 	}
@@ -106,11 +78,6 @@ public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity
 	@Override
 	public String getEACCode() {
 		return eacCode;
-	}
-
-	@Override
-	public String getChangeReason() {
-		return reason;
 	}
 
 	@Override

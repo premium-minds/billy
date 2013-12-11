@@ -33,7 +33,6 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.builders.ESGenericInvoiceBuilder;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice.SourceBilling;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
 public class ESGenericInvoiceBuilderImpl<TBuilder extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESGenericInvoiceEntry, TDocument extends ESGenericInvoice>
@@ -93,23 +92,6 @@ public class ESGenericInvoiceBuilderImpl<TBuilder extends ESGenericInvoiceBuilde
 
 	@Override
 	@NotOnUpdate
-	public TBuilder setChangeReason(String reason) {
-		this.getTypeInstance().setChangeReason(reason);
-		return this.getBuilder();
-	}
-
-	@Override
-	@NotOnUpdate
-	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
-		BillyValidator.notNull(sourceBilling,
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.source_billing"));
-		this.getTypeInstance().setSourceBilling(sourceBilling);
-		return this.getBuilder();
-	}
-
-	@Override
-	@NotOnUpdate
 	public TBuilder setSourceId(String source) {
 		BillyValidator
 				.notBlank(source, ESGenericInvoiceBuilderImpl.LOCALIZER
@@ -121,24 +103,11 @@ public class ESGenericInvoiceBuilderImpl<TBuilder extends ESGenericInvoiceBuilde
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		ESGenericInvoiceEntity i = this.getTypeInstance();
-		BillyValidator.mandatory(i.getSourceBilling(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.source_billing"));
-
-		switch (i.getSourceBilling()) {
-		case M:
-			this.validateESInstance(i);
-			break;
-		case P:
-			super.validateValues();
-			this.validateESInstance(i);
-			break;
-		default:
-			break;
-		}
+		super.validateValues();
+		this.validateESInstance(i);
 	}
 
-	private void validateESInstance(ESGenericInvoiceEntity i) {
+	protected void validateESInstance(ESGenericInvoiceEntity i) {
 		super.validateDate();
 		BillyValidator
 				.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER

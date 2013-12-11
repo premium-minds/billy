@@ -56,8 +56,7 @@ public class TestESInvoicePDFExportHandler extends ESPersistencyAbstractTest {
 		xsl = new FileInputStream(TestESInvoicePDFExportHandler.XSL_PATH);
 
 		bundle = new ESInvoiceTemplateBundle(
-				TestESInvoicePDFExportHandler.LOGO_PATH, xsl,
-				TestESInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestESInvoicePDFExportHandler.LOGO_PATH, xsl);
 
 		handler = new ESInvoicePDFExportHandler(
 				ESAbstractTest.injector.getInstance(DAOESInvoice.class));
@@ -83,8 +82,7 @@ public class TestESInvoicePDFExportHandler extends ESPersistencyAbstractTest {
 				TestESInvoicePDFExportHandler.XSL_PATH);
 
 		ESInvoiceTemplateBundle bundle = new ESInvoiceTemplateBundle(
-				TestESInvoicePDFExportHandler.LOGO_PATH, xsl,
-				TestESInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestESInvoicePDFExportHandler.LOGO_PATH, xsl);
 		ESInvoicePDFExportHandler handler = new ESInvoicePDFExportHandler(
 				ESAbstractTest.injector.getInstance(DAOESInvoice.class));
 		handler.toFile(file.toURI(), this.generateOtherregionsInvoice(), bundle);
@@ -100,8 +98,7 @@ public class TestESInvoicePDFExportHandler extends ESPersistencyAbstractTest {
 				TestESInvoicePDFExportHandler.XSL_PATH);
 
 		ESInvoiceTemplateBundle bundle = new ESInvoiceTemplateBundle(
-				TestESInvoicePDFExportHandler.LOGO_PATH, xsl,
-				TestESInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestESInvoicePDFExportHandler.LOGO_PATH, xsl);
 		ESInvoicePDFExportHandler handler = new ESInvoicePDFExportHandler(
 				ESAbstractTest.injector.getInstance(DAOESInvoice.class));
 		handler.toFile(file.toURI(), this.generateManyEntriesInvoice(), bundle);
@@ -117,8 +114,7 @@ public class TestESInvoicePDFExportHandler extends ESPersistencyAbstractTest {
 				TestESInvoicePDFExportHandler.XSL_PATH);
 
 		ESInvoiceTemplateBundle bundle = new ESInvoiceTemplateBundle(
-				TestESInvoicePDFExportHandler.LOGO_PATH, xsl,
-				TestESInvoicePDFExportHandler.SOFTWARE_CERTIFICATE_NUMBER);
+				TestESInvoicePDFExportHandler.LOGO_PATH, xsl);
 		ESInvoicePDFExportHandler handler = new ESInvoicePDFExportHandler(
 				ESAbstractTest.injector.getInstance(DAOESInvoice.class));
 		handler.toFile(file.toURI(), this.generateManyEntriesWithDiferentRegionsInvoice(), bundle);
