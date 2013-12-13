@@ -44,8 +44,6 @@ public class TestESSimpleInvoicePDFExportHandler extends
 	public static final String	XSL_PATH					= "src/main/resources/templates/es_simpleinvoice.xsl";
 	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
 
-	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
-
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 		ExportServiceException, URISyntaxException, IOException {

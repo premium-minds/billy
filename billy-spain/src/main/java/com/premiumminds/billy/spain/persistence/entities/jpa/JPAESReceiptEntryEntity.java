@@ -16,20 +16,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.persistence.dao;
+package com.premiumminds.billy.spain.persistence.entities.jpa;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditNote;
+import org.hibernate.envers.Audited;
 
-public interface DAOESCreditNote extends DAOESGenericInvoice {
+import com.premiumminds.billy.spain.Config;
+import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntryEntity;
 
-	@Override
-	public ESCreditNoteEntity getEntityInstance();
+@Entity
+@Audited
+@Table(name = Config.TABLE_PREFIX + "RECEIPT_ENTRY")
+@Inheritance(strategy=InheritanceType.JOINED)
+public class JPAESReceiptEntryEntity extends JPAESGenericInvoiceEntryEntity
+	implements ESReceiptEntryEntity{
 
-	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice);
-
+	private static final long serialVersionUID = 1L;
 }

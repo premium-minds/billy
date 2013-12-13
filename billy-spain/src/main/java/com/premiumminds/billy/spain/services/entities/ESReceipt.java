@@ -16,27 +16,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.persistence.entities;
+package com.premiumminds.billy.spain.services.entities;
 
 import java.util.List;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
+import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
+import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
+import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
+import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
+import com.premiumminds.billy.spain.services.builders.impl.ESReceiptBuilderImpl;
 
-public interface ESGenericInvoiceEntity extends GenericInvoiceEntity,
-	ESGenericInvoice {
-
-	public void setCancelled(boolean cancelled);
-
-	public void setBilled(boolean billed);
-
-	public void setEACCode(String eacCode);
-
+public interface ESReceipt extends ESGenericInvoice{
+	
+	public static class Builder extends
+		ESReceiptBuilderImpl<Builder, ESReceiptEntry, ESReceipt>{
+		
+		@Inject
+		public Builder(DAOESReceipt daoESInvoice, DAOESBusiness daoESBusiness,
+						DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+			super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+		}
+	}
+		
 	@Override
 	public <T extends GenericInvoiceEntry> List<T> getEntries();
-
+	
 	@Override
 	public <T extends Payment> List<T> getPayments();
+
 }

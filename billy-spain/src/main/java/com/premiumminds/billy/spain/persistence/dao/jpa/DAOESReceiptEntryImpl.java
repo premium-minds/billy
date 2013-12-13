@@ -16,27 +16,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.persistence.entities;
+package com.premiumminds.billy.spain.persistence.dao.jpa;
 
-import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.services.entities.Payment;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
+import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptEntry;
+import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntryEntity;
+import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptEntryEntity;
 
-public interface ESGenericInvoiceEntity extends GenericInvoiceEntity,
-	ESGenericInvoice {
+public class DAOESReceiptEntryImpl extends DAOESGenericInvoiceEntryImpl
+	implements DAOESReceiptEntry{
 
-	public void setCancelled(boolean cancelled);
-
-	public void setBilled(boolean billed);
-
-	public void setEACCode(String eacCode);
-
+	@Inject
+	public DAOESReceiptEntryImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
+	
 	@Override
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
-
+	public ESReceiptEntryEntity getEntityInstance() {
+		return new JPAESReceiptEntryEntity();
+	}
+	
 	@Override
-	public <T extends Payment> List<T> getPayments();
+	protected Class<? extends JPAESReceiptEntryEntity> getEntityClass() {
+		return JPAESReceiptEntryEntity.class;
+	}
+
 }

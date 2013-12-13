@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,7 +25,6 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.mysema.query.jpa.JPASubQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
@@ -54,23 +52,6 @@ public class DAOESCreditNoteImpl extends DAOESGenericInvoiceImpl implements
 	@Override
 	protected Class<JPAESCreditNoteEntity> getEntityClass() {
 		return JPAESCreditNoteEntity.class;
-	}
-
-	@Override
-	public List<ESCreditNoteEntity> getBusinessCreditNotesForSAFTES(UID uid,
-			Date from, Date to) {
-		QJPAESCreditNoteEntity creditNote = QJPAESCreditNoteEntity.jPAESCreditNoteEntity;
-
-		JPAQuery query = createQuery();
-
-		query.from(creditNote)
-			.where(creditNote.instanceOf(JPAESCreditNoteEntity.class)
-					.and(creditNote.date.between(from, to))
-					.and(toDSL(creditNote.business, QJPAESBusinessEntity.class).uid.eq(uid.toString())));
-
-		List<ESCreditNoteEntity> result = this.checkEntityList(
-				query.list(creditNote), ESCreditNoteEntity.class);
-		return result;
 	}
 
 	@SuppressWarnings("unchecked")

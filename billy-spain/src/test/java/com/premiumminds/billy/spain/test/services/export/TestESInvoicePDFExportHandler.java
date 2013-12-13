@@ -44,7 +44,6 @@ public class TestESInvoicePDFExportHandler extends ESPersistencyAbstractTest {
 	public static final String XSL_PATH = "src/main/resources/templates/es_invoice.xsl";
 	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 	private InputStream xsl;
 	File file;
 	ESInvoiceTemplateBundle bundle;

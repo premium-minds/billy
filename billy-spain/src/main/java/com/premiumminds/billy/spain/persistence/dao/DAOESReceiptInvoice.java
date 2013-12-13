@@ -18,19 +18,11 @@
  */
 package com.premiumminds.billy.spain.persistence.dao;
 
-import java.util.Date;
-import java.util.List;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
-import com.premiumminds.billy.spain.persistence.entities.ESReceiptInvoiceEntity;
 
 
 public interface DAOESReceiptInvoice extends DAOESInvoice {
 
 	@Override
 	public ESInvoiceEntity getEntityInstance();
-
-	public List<ESReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTES(UID uid,
-			Date from, Date to);
 }

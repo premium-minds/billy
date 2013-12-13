@@ -84,10 +84,6 @@ public class Invoices {
 	public InputStream pdfExport(ESInvoicePDFExportRequest  request) throws ExportServiceException {
 		return exportService.exportToStream(request);
 	}
-	
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
 
 	
 	public ESInvoice.ManualBuilder manualBuilder() {
@@ -112,5 +108,9 @@ public class Invoices {
 	
 	public ESInvoice issue(ESInvoice.ManualBuilder builder, ESIssuingParams params) throws DocumentIssuingException {
 		return issuingService.issue(builder, params);
+	}
+	
+	private <T> T getInstance(Class<T> clazz) {
+		return this.injector.getInstance(clazz);
 	}
 }

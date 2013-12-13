@@ -32,9 +32,7 @@ import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESTaxEntity;
-import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESTaxEntity;
-import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESTaxEntity;
 
 public class DAOESTaxImpl extends DAOTaxImpl implements DAOESTax {
@@ -52,61 +50,6 @@ public class DAOESTaxImpl extends DAOTaxImpl implements DAOESTax {
 	@Override
 	protected Class<JPAESTaxEntity> getEntityClass() {
 		return JPAESTaxEntity.class;
-	}
-
-	@Override
-	public List<JPAESTaxEntity> getTaxesForSAFTES(
-			ESRegionContextEntity context, Date validFrom, Date validTo) {
-		QJPAESTaxEntity tax = QJPAESTaxEntity.jPAESTaxEntity;
-		JPAQuery query = new JPAQuery(this.getEntityManager());
-
-		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
-		BooleanExpression active = tax.active.eq(true);
-		predicates.add(active);
-		BooleanExpression regionContext = tax.context.eq(context);
-		predicates.add(regionContext);
-		if (validFrom != null) {
-			BooleanExpression dateFrom = tax.validFrom.eq(validFrom);
-			predicates.add(dateFrom);
-		}
-
-		if (validTo != null) {
-			BooleanExpression dateTo = tax.validTo.eq(validTo);
-			predicates.add(dateTo);
-		}
-
-		query.from(tax);
-		for (BooleanExpression e : predicates) {
-			query.where(e);
-		}
-		List<JPAESTaxEntity> list = query.list(tax);
-		List<JPAESRegionContextEntity> childContexts = null;
-		List<JPAESTaxEntity> taxResult = null;
-		List<JPAESTaxEntity> taxContextResult = new ArrayList<JPAESTaxEntity>();
-
-		for (JPAESTaxEntity t : list) {
-			childContexts = this.getChildContexts((ESRegionContextEntity) t
-					.getContext());
-			for (JPAESRegionContextEntity c : childContexts) {
-				taxResult = this.getTaxesForSAFTES(c, validFrom, validTo);
-				if (taxResult != null) {
-					taxContextResult.addAll(taxResult);
-				}
-			}
-		}
-		if (taxContextResult != null) {
-			list.addAll(taxContextResult);
-		}
-		return list;
-	}
-
-	private List<JPAESRegionContextEntity> getChildContexts(
-			ESRegionContextEntity parentContext) {
-		QJPAESRegionContextEntity contexts = QJPAESRegionContextEntity.jPAESRegionContextEntity;
-		JPAQuery query = new JPAQuery(this.getEntityManager());
-
-		query.from(contexts).where(contexts.parent.eq(parentContext));
-		return query.list(contexts);
 	}
 
 	@Override

@@ -16,20 +16,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.persistence.dao;
+package com.premiumminds.billy.spain.test.fixtures;
 
 import java.util.List;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditNote;
+import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
+import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
+import com.premiumminds.billy.spain.services.entities.ESPayment;
 
-public interface DAOESCreditNote extends DAOESGenericInvoice {
+public class MockESReceiptEntity extends MockESGenericInvoiceEntity
+	implements ESReceiptEntity {
+	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ESCreditNoteEntity getEntityInstance();
-
-	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice);
-
+	public List<ESGenericInvoiceEntry> getEntries() {
+		return (List<ESGenericInvoiceEntry>)(List<?>) super.getEntries();
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ESPayment> getPayments() {
+		return super.getPayments();
+	}
 }

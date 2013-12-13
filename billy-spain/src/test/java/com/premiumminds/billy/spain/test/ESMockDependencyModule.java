@@ -34,6 +34,8 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESPayment;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
+import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
+import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESShippingPoint;
@@ -91,6 +93,10 @@ public class ESMockDependencyModule extends MockDependencyModule {
 				Mockito.mock(DAOESPaymentImpl.class));
 		this.bind(DAOESReceiptInvoice.class).toInstance(
 				Mockito.mock(DAOESReceiptInvoiceImpl.class));
+		this.bind(DAOESReceipt.class).toInstance(
+				Mockito.mock(DAOESReceipt.class));
+		this.bind(DAOESReceiptEntry.class).toInstance(
+				Mockito.mock(DAOESReceiptEntry.class));
 	}
 
 }

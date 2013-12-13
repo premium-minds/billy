@@ -18,18 +18,10 @@
  */
 package com.premiumminds.billy.spain.persistence.dao;
 
-import java.util.List;
+import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditNote;
-
-public interface DAOESCreditNote extends DAOESGenericInvoice {
+public interface DAOESReceipt extends DAOESGenericInvoice {
 
 	@Override
-	public ESCreditNoteEntity getEntityInstance();
-
-	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice);
-
+	public ESReceiptEntity getEntityInstance();
 }

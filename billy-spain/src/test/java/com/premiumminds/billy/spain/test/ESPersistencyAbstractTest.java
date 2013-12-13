@@ -28,12 +28,14 @@ import com.premiumminds.billy.spain.SpainBootstrap;
 import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
+import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParamsImpl;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
+import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
 import com.premiumminds.billy.spain.util.Services;
 
 public class ESPersistencyAbstractTest extends ESAbstractTest {
@@ -69,7 +71,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
 		ESIssuingParams parameters = new ESIssuingParamsImpl();
 
 		parameters = this.getParameters(
-				ESPersistencyAbstractTest.DEFAULT_SERIES, "30000", "1");
+				ESPersistencyAbstractTest.DEFAULT_SERIES, "30000");
 
 		try {
 			return (ESInvoiceEntity) service.issueDocument(
@@ -84,11 +86,29 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
 		return null;
 	}
 	
+	public ESReceiptEntity getNewIssuedReceipt(String businessUID) {
+		Services service = new Services(ESAbstractTest.injector);
+		ESIssuingParams parameters = new ESIssuingParamsImpl();
+		
+		parameters = this.getParameters(DEFAULT_SERIES, "007");
+		
+		try {
+			return (ESReceiptEntity) service.issueDocument(
+					new ESReceiptTestUtil(injector)
+					.getReceiptBuilder(
+							new ESBusinessTestUtil(injector).getBusinessEntity(businessUID))
+					, parameters);
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public ESCreditNoteEntity getNewIssuedCreditnote(ESInvoice reference) {
 		Services service = new Services(ESAbstractTest.injector);
 		ESIssuingParams parameters = new ESIssuingParamsImpl();
 
-		parameters = this.getParameters("NC", "30000", "1");
+		parameters = this.getParameters("NC", "30000");
 
 		try {
 			return (ESCreditNoteEntity) service.issueDocument(
@@ -101,8 +121,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
 		return null;
 	}
 
-	protected ESIssuingParams getParameters(String series, String EACCode,
-			String privateKeyVersion) {
+	protected ESIssuingParams getParameters(String series, String EACCode) {
 		ESIssuingParams parameters = new ESIssuingParamsImpl();
 		parameters.setEACCode(EACCode);
 		parameters.setInvoiceSeries(series);

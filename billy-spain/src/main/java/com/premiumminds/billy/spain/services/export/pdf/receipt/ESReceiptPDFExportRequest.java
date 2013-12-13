@@ -16,20 +16,25 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.persistence.dao;
-
-import java.util.List;
+package com.premiumminds.billy.spain.services.export.pdf.receipt;
 
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditNote;
+import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
+import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoiceTemplateBundle;
 
-public interface DAOESCreditNote extends DAOESGenericInvoice {
+public class ESReceiptPDFExportRequest extends AbstractExportRequest {
+
+	public ESReceiptPDFExportRequest(UID uid, ESReceiptTemplateBundle bundle) {
+		super(uid, bundle);
+	}
+	
+	public ESReceiptPDFExportRequest(UID uid, ESInvoiceTemplateBundle bundle, String resultPath) {
+		super(uid, bundle, resultPath);
+	}
 
 	@Override
-	public ESCreditNoteEntity getEntityInstance();
-
-	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice);
+	public ESReceiptTemplateBundle getBundle() {
+		return (ESReceiptTemplateBundle) bundle;
+	}
 
 }

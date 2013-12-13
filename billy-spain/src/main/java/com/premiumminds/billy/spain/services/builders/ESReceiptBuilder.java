@@ -16,20 +16,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.persistence.dao;
+package com.premiumminds.billy.spain.services.builders;
 
-import java.util.List;
+import com.premiumminds.billy.spain.services.entities.ESReceipt;
+import com.premiumminds.billy.spain.services.entities.ESReceiptEntry;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditNote;
-
-public interface DAOESCreditNote extends DAOESGenericInvoice {
-
-	@Override
-	public ESCreditNoteEntity getEntityInstance();
-
-	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice);
+public interface ESReceiptBuilder<TBuilder extends ESReceiptBuilder<TBuilder, TEntry, TDocument>, TEntry extends ESReceiptEntry, TDocument extends ESReceipt>
+	extends ESGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
 }

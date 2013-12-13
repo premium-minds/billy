@@ -50,8 +50,6 @@ public class TestESCreditNotePDFExportHandler extends ESPersistencyAbstractTest 
 	public static final String	XSL_PATH					= "src/main/resources/templates/es_creditnote.xsl";
 	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
 
-	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
-
 	@Test
 	public void testPDFcreation() throws NoSuchAlgorithmException,
 		ExportServiceException, URISyntaxException, DocumentIssuingException,
@@ -79,7 +77,7 @@ public class TestESCreditNotePDFExportHandler extends ESPersistencyAbstractTest 
 
 		Services services = new Services(ESAbstractTest.injector);
 
-		ESIssuingParams params = this.getParameters("AC", "3000", "1");
+		ESIssuingParams params = this.getParameters("AC", "3000");
 
 		ESCreditNoteEntity creditNote = null;
 		creditNote = (ESCreditNoteEntity) services.issueDocument(

@@ -16,20 +16,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.persistence.dao;
+package com.premiumminds.billy.spain.persistence.dao.jpa;
 
-import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditNote;
+import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
+import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
+import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptEntity;
 
-public interface DAOESCreditNote extends DAOESGenericInvoice {
+public class DAOESReceiptImpl extends DAOESGenericInvoiceImpl
+	implements DAOESReceipt{
+
+	@Inject
+	public DAOESReceiptImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
 	@Override
-	public ESCreditNoteEntity getEntityInstance();
-
-	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice);
-
+	public ESReceiptEntity getEntityInstance() {
+		return new JPAESReceiptEntity();
+	}
+	
+	@Override
+	protected Class<? extends JPAESReceiptEntity> getEntityClass() {
+		return JPAESReceiptEntity.class;
+	}
 }

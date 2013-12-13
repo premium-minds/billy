@@ -33,7 +33,4 @@ public interface DAOESTax extends DAOTax {
 
 	public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context,
 			Date validFrom, Date validTo);
-
-	public List<JPAESTaxEntity> getTaxesForSAFTES(
-			ESRegionContextEntity context, Date validFrom, Date validTo);
 }

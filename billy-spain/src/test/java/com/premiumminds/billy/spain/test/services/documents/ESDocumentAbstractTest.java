@@ -33,6 +33,7 @@ import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 import com.premiumminds.billy.spain.test.util.ESReceiptInvoiceTestUtil;
+import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
 import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
 
 public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
@@ -70,7 +71,8 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
 				return (T) new ESInvoiceTestUtil(ESAbstractTest.injector)
 						.getInvoiceEntity(source);
 			case RC:
-				return (T) null; // TODO Billy: Test for Receipt
+				return (T) new ESReceiptTestUtil(ESAbstractTest.injector)
+				.getReceiptEntity();
 			case FS:
 				return (T) new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
 						.getSimpleInvoiceEntity();
