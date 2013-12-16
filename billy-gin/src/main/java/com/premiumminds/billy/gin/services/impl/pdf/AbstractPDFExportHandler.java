@@ -228,8 +228,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct()
 					.getProductCode());
 
-			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct()
-					.getDescription());
+			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getDescription());
 
 			entryNode.addChild(
 					ParamKeys.ENTRY_QUANTITY,

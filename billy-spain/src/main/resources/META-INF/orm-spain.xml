@@ -60,7 +60,8 @@
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESRegionContextEntity"></entity>
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESShippingPointEntity"></entity>
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSimpleInvoiceEntity"></entity>
-	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptEntity"></entity>
+	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptEntryEntity"></entity>
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSupplierEntity"></entity>
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESTaxEntity"></entity>
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESPaymentEntity"></entity>

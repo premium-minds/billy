@@ -32,7 +32,6 @@ import com.premiumminds.billy.spain.services.documents.util.ESIssuingParamsImpl;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
-import com.premiumminds.billy.spain.test.util.ESReceiptInvoiceTestUtil;
 import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
 import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
 
@@ -44,7 +43,6 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
 		FT, // Invoice
 		RC, // Receipt
 		FS, // Simple Invoice
-		FR, // Invoice-Receipt
 		NC	// Credit Note 
 	}
 	
@@ -76,9 +74,6 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
 			case FS:
 				return (T) new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
 						.getSimpleInvoiceEntity();
-			case FR:
-				return (T) new ESReceiptInvoiceTestUtil(ESAbstractTest.injector)
-						.getReceiptInvoiceEntity();
 			case NC:
 				throw new NotImplementedException();
 			default:

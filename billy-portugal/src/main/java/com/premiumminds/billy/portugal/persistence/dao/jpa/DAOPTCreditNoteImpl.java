@@ -35,7 +35,6 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEn
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
@@ -87,7 +86,7 @@ public class DAOPTCreditNoteImpl extends DAOPTGenericInvoiceImpl implements
 		
 		JPASubQuery entQ = new JPASubQuery()
 		.from(entry)
-		.where(toDSL(entry.reference, QJPAPTReceiptInvoiceEntity.class).uid.in(
+		.where(toDSL(entry.reference, QJPAPTGenericInvoiceEntity.class).uid.in(
 				invQ.list(invoice.uid)));
 		
 		return (List<PTCreditNote>) (List<?>) createQuery()

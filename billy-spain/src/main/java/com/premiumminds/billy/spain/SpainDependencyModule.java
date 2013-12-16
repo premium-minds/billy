@@ -38,7 +38,6 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESPayment;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptEntry;
-import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESShippingPoint;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
@@ -59,7 +58,6 @@ import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESPaymentImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESProductImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESReceiptEntryImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESReceiptImpl;
-import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESReceiptInvoiceImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESRegionContextImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESShippingPointImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESSimpleInvoiceImpl;
@@ -96,7 +94,6 @@ public class SpainDependencyModule extends AbstractModule {
 		this.bind(DAOESReceipt.class).to(DAOESReceiptImpl.class);
 		this.bind(DAOESReceiptEntry.class).to(DAOESReceiptEntryImpl.class);
 		this.bind(DAOESPayment.class).to(DAOESPaymentImpl.class);
-		this.bind(DAOESReceiptInvoice.class).to(DAOESReceiptInvoiceImpl.class);
 		this.bind(BillySpain.class);
 	}
 

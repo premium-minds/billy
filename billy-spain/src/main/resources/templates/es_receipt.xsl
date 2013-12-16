@@ -282,7 +282,7 @@
                     <fo:table-row border-bottom="solid">
                       <fo:table-cell text-align="left">
                         <fo:block>
-                          Resumen de lo Recibo:
+                          Resumen del Recibo:
                         </fo:block>
                       </fo:table-cell>
                     </fo:table-row>

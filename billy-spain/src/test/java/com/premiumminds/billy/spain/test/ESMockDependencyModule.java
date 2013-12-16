@@ -36,7 +36,6 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESPayment;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptEntry;
-import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESShippingPoint;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
@@ -47,7 +46,6 @@ import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESCreditNoteImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESGenericInvoiceEntryImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESGenericInvoiceImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESPaymentImpl;
-import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESReceiptInvoiceImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESSimpleInvoiceImpl;
 
 public class ESMockDependencyModule extends MockDependencyModule {
@@ -91,8 +89,6 @@ public class ESMockDependencyModule extends MockDependencyModule {
 				Mockito.mock(DAOESSimpleInvoiceImpl.class));
 		this.bind(DAOESPayment.class).toInstance(
 				Mockito.mock(DAOESPaymentImpl.class));
-		this.bind(DAOESReceiptInvoice.class).toInstance(
-				Mockito.mock(DAOESReceiptInvoiceImpl.class));
 		this.bind(DAOESReceipt.class).toInstance(
 				Mockito.mock(DAOESReceipt.class));
 		this.bind(DAOESReceiptEntry.class).toInstance(
