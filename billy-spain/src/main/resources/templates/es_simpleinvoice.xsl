@@ -270,7 +270,7 @@
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                          Tasa
+                          Tipo
                         </fo:block>
                     </fo:table-cell>
                   </fo:table-row>

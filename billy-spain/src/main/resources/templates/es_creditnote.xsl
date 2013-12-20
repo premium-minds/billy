@@ -149,6 +149,7 @@
                   </fo:table-cell>
                   <fo:table-cell text-align="right">
                     <fo:block>
+                      &#45;
                       <xsl:value-of select="totalPrice" /> &#8203; &#8364;
                     </fo:block>
                   </fo:table-cell>
@@ -222,6 +223,7 @@
                 	</fo:table-cell>
                   <fo:table-cell padding="1mm" border-right-style="dotted" text-align="right">
                     <fo:block>
+                     	&#45;
                         <xsl:value-of select="unitPrice" /> &#8364;
                       </fo:block>
                   </fo:table-cell>
@@ -232,6 +234,7 @@
                   </fo:table-cell>
                   <fo:table-cell padding="1mm" text-align="right">
                     <fo:block>
+                     	&#45;
                         <xsl:value-of select="total" /> &#8364;
                       </fo:block>
                   </fo:table-cell>
@@ -270,7 +273,7 @@
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                          Tasa
+                          Tipo
                         </fo:block>
                     </fo:table-cell>
                   </fo:table-row>
@@ -278,11 +281,13 @@
                   <fo:table-row>
                     <fo:table-cell padding-top="1mm">
                       <fo:block text-align="left">
+                       	&#45;
                         <xsl:value-of select="baseValue" /> &#8364;
                       </fo:block>
                     </fo:table-cell>
                     <fo:table-cell padding-top="1mm">
                       <fo:block text-align="right">
+                       	&#45;
                         <xsl:value-of select="taxValue" /> &#8364;
                       </fo:block>
                     </fo:table-cell>
@@ -317,6 +322,7 @@
                       </fo:table-cell>
                       <fo:table-cell padding-top="1mm" text-align="right">
                         <fo:block>
+                          &#45;
                           <xsl:value-of select="totalBeforeTax" /> &#8364;
                         </fo:block>
                       </fo:table-cell>
@@ -329,6 +335,7 @@
                       </fo:table-cell>
                       <fo:table-cell padding-top="1mm" text-align="right">
                         <fo:block>
+                          &#45;
                           <xsl:value-of select="totalTax" /> &#8364;
                         </fo:block>
                       </fo:table-cell>
@@ -341,6 +348,7 @@
                       </fo:table-cell>
                       <fo:table-cell padding-top="1mm" text-align="right">
                         <fo:block>
+                          &#45;
                           <xsl:value-of select="totalPrice" /> &#8364;
                         </fo:block>
                       </fo:table-cell>
