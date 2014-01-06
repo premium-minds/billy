@@ -95,7 +95,7 @@ public class ESBusinessBuilderImpl<TBuilder extends ESBusinessBuilderImpl<TBuild
 						.getString("field.business_address"));
 		
 		Pattern pattern;
-		pattern = Pattern.compile("[0-9]{4}-[0-9]{3}");
+		pattern = Pattern.compile("[0-9]{5}");
 		
 		Matcher matcher = pattern.matcher(b.getAddress().getPostalCode());
 		if(!matcher.find()){
