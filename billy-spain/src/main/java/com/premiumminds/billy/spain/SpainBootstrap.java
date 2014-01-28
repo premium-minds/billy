@@ -552,7 +552,7 @@ public class SpainBootstrap {
 							.buildContextEntity(
 									daoESRegionContext,
 									contextBuilder,
-									"Canary Islands",
+									"Islas Canarias",
 									"The Context for the Canary Islands",
 									CONTEXT_SPAIN.getUID(),
 									Config.Key.Context.Spain.CanaryIslands.UUID);
