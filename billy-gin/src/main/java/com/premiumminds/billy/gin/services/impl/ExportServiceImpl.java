@@ -62,10 +62,13 @@ public class ExportServiceImpl implements ExportService {
 					"Could not find a handler for export request : "
 							+ request.getClass().getCanonicalName());
 		}
-		File outputFile = null;
-		OutputStream outputStream = null;
+		File outputFile = new File(request.getResultPath());
+		if ( outputFile.exists() ) {
+			throw new ExportServiceException("file exists");
+		}
+		OutputStream outputStream=null;
 		try {
-			outputFile = new File(request.getResultPath());
+			
 			outputStream = new FileOutputStream(outputFile);
 			this.handlers.get(request.getClass()).export(request, outputStream);
 		} catch (IOException e) {
