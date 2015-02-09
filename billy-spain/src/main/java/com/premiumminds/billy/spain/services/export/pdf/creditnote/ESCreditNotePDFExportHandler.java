@@ -114,7 +114,9 @@ public class ESCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 				taxTotals
 						.add((tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? true
 								: false), tax.getValue(), entry
-								.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().toString());
+								.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().toString()
+								, tax.getDesignation()
+								, tax.getDescription());
 			}
 			entryNode.addChild(ESParamKeys.INVOICE).addChild(ParamKeys.ID,
 					entry.getReference().getNumber());

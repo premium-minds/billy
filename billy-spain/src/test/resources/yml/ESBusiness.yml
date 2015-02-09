@@ -31,7 +31,7 @@ address : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
   details : details
   building : building
   city : city
-  postalCode : 0000-000
+  postalCode : 10000
   region : region
   country : country
 billingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity

@@ -105,6 +105,8 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		public static final String TAX_DETAIL_TAX = "tax";
 		public static final String TAX_DETAIL_NET_VALUE = "baseValue";
 		public static final String TAX_DETAIL_VALUE = "taxValue";
+		public static final String TAX_DETAIL_DESIGNATION = "designation";
+		public static final String TAX_DETAIL_DESCRIPTION = "description";
 	}
 
 	private DAOGenericInvoice daoGenericInvoice;
@@ -211,6 +213,14 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 							.getAppliedTaxValue()
 							.setScale(BillyMathContext.SCALE,
 									this.mc.getRoundingMode()).toPlainString());
+			
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_DESIGNATION,
+					taxDetail.getTaxDesignation());
+			
+			taxDetailNode.addChild(
+					ParamKeys.TAX_DETAIL_DESCRIPTION,
+					taxDetail.getTaxDescription());
 		}
 		return;
 	}
@@ -262,7 +272,9 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
 								: false), tax.getValue(), entry
 								.getAmountWithoutTax(), entry.getTaxAmount(),
-						tax.getUID().getValue());
+						tax.getUID().getValue()
+						, tax.getDesignation()
+						, tax.getDescription());
 			}
 		}
 	}
@@ -405,13 +417,26 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			BigDecimal taxValue;
 			BigDecimal appliedTaxValue;
 			Boolean percentageValued;
+			String designation;
+			String description;
 
-			public TaxTotalEntry(boolean perc, BigDecimal taxValue,
-					BigDecimal baseValue, BigDecimal appliedTaxValue) {
+			public TaxTotalEntry(boolean perc, BigDecimal taxValue
+					, BigDecimal baseValue, BigDecimal appliedTaxValue
+					, String designation, String description) {
 				this.baseValue = baseValue;
 				this.taxValue = taxValue;
 				this.percentageValued = perc;
 				this.appliedTaxValue = appliedTaxValue;
+				this.designation = designation;
+				this.description = description;
+			}
+
+			public String getTaxDescription() {
+				return this.description;
+			}
+
+			public String getTaxDesignation() {
+				return this.designation;
 			}
 
 			public BigDecimal getNetValue() {
@@ -443,10 +468,11 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			this.entries = new HashMap<String, TaxTotalEntry>();
 		}
 
-		public void add(boolean isPercentage, BigDecimal taxValue,
-				BigDecimal baseValue, BigDecimal taxAmount, String taxUid) {
+		public void add(boolean isPercentage, BigDecimal taxValue, BigDecimal baseValue
+				, BigDecimal taxAmount, String taxUid, String designation, String description) {
 			TaxTotalEntry currentEntry = new TaxTotalEntry(isPercentage,
-					taxValue, baseValue, taxAmount);
+					taxValue, baseValue, taxAmount
+					, designation, description);
 			if (this.entries.containsKey(taxUid)) {
 				this.entries.get(taxUid).addBaseValue(baseValue);
 				this.entries.get(taxUid).addAppliedTaxValue(taxAmount);

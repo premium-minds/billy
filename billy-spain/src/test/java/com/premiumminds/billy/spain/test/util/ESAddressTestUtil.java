@@ -30,7 +30,7 @@ public class ESAddressTestUtil {
 	private static final String	REGION		= "region";
 	private static final String	ISOCODE		= "ES";
 	private static final String	DETAILS		= "details";
-	private static final String	POSTAL_CODE	= "1000-000";
+	private static final String	POSTAL_CODE	= "10000";
 
 	private Injector			injector;
 

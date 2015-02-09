@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.util;
 
+import java.util.Date;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
@@ -43,8 +45,9 @@ public class ESProductTestUtil {
 		this.injector = injector;
 		this.taxes = new Taxes(injector);
 		this.tax = (ESTaxEntity) this.taxes.continent().normal();
+		setExpireOneMonthAhead(tax);
 	}
-
+	
 	public ESProductEntity getProductEntity(String uid) {
 		ESProductEntity product = (ESProductEntity) this.getProductBuilder()
 				.build();
@@ -90,6 +93,7 @@ public class ESProductTestUtil {
 				.getInstance(ESProduct.Builder.class);
 
 		ESTaxEntity taxRegion = (ESTaxEntity) this.taxes.canaryIslands().normal();
+		setExpireOneMonthAhead(taxRegion);
 
 		productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ESProductTestUtil.NUMBER_CODE)
 				.setUnitOfMeasure(ESProductTestUtil.UNIT_OF_MEASURE)
@@ -101,4 +105,10 @@ public class ESProductTestUtil {
 		return (ESProductEntity) productBuilder.build();
 	}
 
+	private ESTaxEntity setExpireOneMonthAhead(ESTaxEntity tax) {
+		Date oneMonthFromNow = new Date();
+		oneMonthFromNow.setTime(oneMonthFromNow.getTime()+30*24*60*60*1000L);
+		tax.setValidTo(oneMonthFromNow);
+		return tax;
+	}
 }
