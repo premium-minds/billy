@@ -25,10 +25,12 @@ import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
+import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESCreditNoteIssuingHandler;
+import com.premiumminds.billy.spain.services.documents.ESCreditReceiptIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.ESReceiptIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.ESSimpleInvoiceIssuingHandler;
@@ -57,6 +59,8 @@ public class Services {
 				this.injector.getInstance(ESSimpleInvoiceIssuingHandler.class));
 		this.issuingService.addHandler(ESReceiptEntity.class, 
 				this.injector.getInstance(ESReceiptIssuingHandler.class));
+		this.issuingService.addHandler(ESCreditReceiptEntity.class
+				, this.injector.getInstance(ESCreditReceiptIssuingHandler.class));
 	}
 
 	/**

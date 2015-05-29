@@ -29,6 +29,8 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESContact;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNoteEntry;
+import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
+import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceiptEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoiceEntry;
@@ -49,6 +51,8 @@ import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESBusinessImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESContactImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESCreditNoteEntryImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESCreditNoteImpl;
+import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESCreditReceiptEntryImpl;
+import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESCreditReceiptImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESCustomerImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESGenericInvoiceEntryImpl;
 import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESGenericInvoiceImpl;
@@ -94,6 +98,8 @@ public class SpainDependencyModule extends AbstractModule {
 		this.bind(DAOESReceipt.class).to(DAOESReceiptImpl.class);
 		this.bind(DAOESReceiptEntry.class).to(DAOESReceiptEntryImpl.class);
 		this.bind(DAOESPayment.class).to(DAOESPaymentImpl.class);
+		this.bind(DAOESCreditReceipt.class).to(DAOESCreditReceiptImpl.class);
+		this.bind(DAOESCreditReceiptEntry.class).to(DAOESCreditReceiptEntryImpl.class);
 		this.bind(BillySpain.class);
 	}
 

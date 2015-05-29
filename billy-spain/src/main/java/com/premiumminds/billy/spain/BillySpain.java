@@ -30,6 +30,7 @@ import com.premiumminds.billy.spain.util.Businesses;
 import com.premiumminds.billy.spain.util.Contacts;
 import com.premiumminds.billy.spain.util.Contexts;
 import com.premiumminds.billy.spain.util.CreditNotes;
+import com.premiumminds.billy.spain.util.CreditReceipts;
 import com.premiumminds.billy.spain.util.Customers;
 import com.premiumminds.billy.spain.util.Invoices;
 import com.premiumminds.billy.spain.util.Payments;
@@ -58,6 +59,7 @@ public class BillySpain {
 	private Receipts receipts;
 	private SimpleInvoices simpleInvoices;
 	private CreditNotes creditNotes;
+	private CreditReceipts creditReceipts;
 	private Products products;
 	private Applications applications;
 	private Contacts contacts;
@@ -135,6 +137,13 @@ public class BillySpain {
 			this.creditNotes = new CreditNotes(injector);
 		}
 		return this.creditNotes;
+	}
+	
+	public CreditReceipts creditReceipts() {
+		if(this.creditReceipts == null) {
+			this.creditReceipts = new CreditReceipts(injector);
+		}
+		return this.creditReceipts;
 	}
 	
 	public Products products() {

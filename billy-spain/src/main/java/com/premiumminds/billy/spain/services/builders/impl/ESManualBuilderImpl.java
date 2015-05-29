@@ -96,7 +96,7 @@ implements ESManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		ESGenericInvoiceEntity i = (ESGenericInvoiceEntity) this.getTypeInstance();
-		super.validateESInstance(i);
+		validateESInstance(i);
 	}
 
 }

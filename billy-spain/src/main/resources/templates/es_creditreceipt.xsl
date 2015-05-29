@@ -23,7 +23,7 @@
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 		xmlns:fo="http://www.w3.org/1999/XSL/Format"
 	exclude-result-prefixes="fo">
-<xsl:template match="creditnote">
+<xsl:template match="creditreceipt">
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
   <fo:layout-master-set> 
      <fo:simple-page-master master-name="A4" page-height="297mm" page-width="210mm" margin-top="5mm" margin-bottom="1cm" margin-left="1cm" margin-right="1cm">
@@ -71,37 +71,13 @@
             <fo:table-row>
               <fo:table-cell display-align="after">
                 <fo:block font-size="8pt" margin-bottom="3mm">
-                  NIF: <xsl:value-of select="./customer/financialId" />
-                  <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentMechanism">
                       Medio de Pago: <xsl:value-of select="paymentMechanism" />
                     </xsl:when>
                   </xsl:choose>
-                  <fo:block />
-                  <xsl:choose>
-                    <xsl:when test="paymentSettlement">
-                      Condiciones de Pago: <xsl:value-of select="paymentSettlement" />
-                    </xsl:when>
-                  </xsl:choose>
                 </fo:block>
               </fo:table-cell>
-              <!--customer address block-->
-              <xsl:choose>
-                  <xsl:when test="./customer/address">
-                    <fo:table-cell>
-                    <fo:block padding="2mm" border-width="1px" border-style="solid">
-                      <xsl:value-of select="./customer/name" />
-                      <fo:block margin-top="1mm"/>
-                      <xsl:value-of select="./customer/address/details" />
-                      <fo:block />
-                      <xsl:value-of select="./customer/address/postalcode" /> &#xa0;
-                      <xsl:value-of select="./customer/address/region" /> &#xa0; 
-                      <xsl:value-of select="./customer/address/country" />
-                    </fo:block>
-                  </fo:table-cell>
-                </xsl:when>
-              </xsl:choose>
             </fo:table-row>
           </fo:table-body>
         </fo:table>
@@ -110,7 +86,7 @@
       <!--credit note info block-->
       <fo:block margin-top="6mm" margin-bottom="4mm" font-size="9pt">
         <fo:block margin-bottom="2mm" font-weight="bold">
-          Nota de Abono nº: <xsl:value-of select="id" />
+          Recibo de Abono nº: <xsl:value-of select="id" />
         </fo:block>
         <fo:table width="100%">
           <fo:table-body>
@@ -212,7 +188,7 @@
                 	</fo:table-cell>
                 	<fo:table-cell padding="1mm" border-right-style="dotted" text-align="left">
                 		<fo:block vertical-align="middle"> 
-                    		<xsl:value-of select="description" /> - Nota de Abono para la factura nº <xsl:value-of select="./invoice/id" /> 
+                    		<xsl:value-of select="description" /> - Recibo de Abono para el recibo nº <xsl:value-of select="./receipt/id" /> 
                     </fo:block>
                 	</fo:table-cell>
                 	<fo:table-cell padding="1mm" border-right-style="dotted" text-align="center">
@@ -305,7 +281,7 @@
                     <fo:table-row border-bottom="solid">
                       <fo:table-cell text-align="left">
                         <fo:block>
-                          Resumen de la Nota de Abono:
+                          Resumen del Recibo de Abono:
                         </fo:block>
                       </fo:table-cell>
                     </fo:table-row>

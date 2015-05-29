@@ -100,7 +100,6 @@ public abstract class ESGenericInvoiceIssuingHandler extends
 		daoInvoice.create(documentEntity);
 
 		return (T) documentEntity;
-
 	}
 
 	private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(
