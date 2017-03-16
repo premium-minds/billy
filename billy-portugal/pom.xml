@@ -18,7 +18,7 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>1.1.3</version>
+		<version>${billy.version}</version>
 	</parent>
 	<properties>
 
@@ -64,6 +64,7 @@
 			<artifactId>postgresql</artifactId>
 			<version>${postgresql.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
@@ -207,6 +208,25 @@
 
 		<plugins>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<sources>
+						<source>src-generated/main/java</source>
+					</sources>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.3.2</version>
@@ -226,7 +246,6 @@
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>maven-apt-plugin</artifactId>
-				<version>1.0.2</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -234,7 +253,7 @@
 							<goal>process</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<outputDirectory>src-generated/main/java</outputDirectory>
 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
 					</execution>
@@ -283,7 +302,7 @@
 				<configuration>
 					<schemaDirectory>src/main/resources/documents</schemaDirectory>
 					<bindingDirectory>src/main/resources/documents</bindingDirectory>
-					<generateDirectory>src/main/java</generateDirectory>
+					<generateDirectory>src-generated/main/java</generateDirectory>
 					<strict>false</strict>
 					<extension>true</extension>
 					<plugins>

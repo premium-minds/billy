@@ -36,6 +36,11 @@
   </fo:layout-master-set>
 
    <fo:page-sequence master-reference="A4">
+   	<fo:static-content flow-name="xsl-region-after">
+         <fo:block text-align="right" font-size="6pt">
+             Página <fo:page-number/> de <fo:page-number-citation ref-id="last-page"/>
+         </fo:block>
+    </fo:static-content>
     <fo:flow flow-name="xsl-region-body">
       <!--business info block-->
       <fo:block font-size="9pt">
@@ -362,8 +367,9 @@
               <xsl:value-of select="certificateNumber" />/AT
             </fo:block>
           </fo:footnote-body>
-      </fo:footnote>  
+      </fo:footnote>
     </fo:block>
+    <fo:block id="last-page"/>
     </fo:flow>
   </fo:page-sequence>
 </fo:root>
