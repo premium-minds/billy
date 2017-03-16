@@ -64,6 +64,8 @@ shippingOrigin : !!com.premiumminds.billy.portugal.test.fixtures.MockPTShippingP
     country : country
 paymentTerms : terms_1
 selfBilled : false
+cashVATEndorser : false
+thirdPartyBilled : false
 sourceId : source_1
 sourceBilling : P
 generalLedgerDate : 2013-10-10

@@ -24,8 +24,8 @@ import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public class AbstractExportRequest implements ExportServiceRequest {
 
-	private static final String DEFAULT_PATH = System
-			.getProperty("java.io.tmpdir") + "/Result.pdf";
+	private static final String DEFAULT_PATH_TEMPLATE = System
+			.getProperty("java.io.tmpdir") + "/billy_export_request_%s_%d.pdf";
 
 	protected UID uid;
 	protected BillyTemplateBundle bundle;
@@ -34,7 +34,7 @@ public class AbstractExportRequest implements ExportServiceRequest {
 	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle) {
 		this.uid = uid;
 		this.bundle = bundle;
-		this.resultPath = DEFAULT_PATH;
+		this.resultPath = String.format(DEFAULT_PATH_TEMPLATE, uid.toString(), System.currentTimeMillis());
 	}
 	
 	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle, String resultPath) {

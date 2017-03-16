@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Date;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
@@ -43,6 +45,7 @@ public class PTProductTestUtil {
 		this.injector = injector;
 		this.taxes = new Taxes(injector);
 		this.tax = (PTTaxEntity) this.taxes.continent().normal();
+		setExpireOneMonthAhead(tax);
 	}
 
 	public PTProductEntity getProductEntity(String uid) {
@@ -96,6 +99,8 @@ public class PTProductTestUtil {
 			taxRegion = (PTTaxEntity) this.taxes.azores().normal();
 		else
 			taxRegion = (PTTaxEntity) this.taxes.madeira().normal();
+		
+		setExpireOneMonthAhead(taxRegion);
 
 		productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(PTProductTestUtil.NUMBER_CODE)
 				.setUnitOfMeasure(PTProductTestUtil.UNIT_OF_MEASURE)
@@ -105,6 +110,13 @@ public class PTProductTestUtil {
 				.setProductGroup(PTProductTestUtil.GROUP);
 
 		return (PTProductEntity) productBuilder.build();
+	}
+	
+	private PTTaxEntity setExpireOneMonthAhead(PTTaxEntity tax) {
+		Date oneMonthFromNow = new Date();
+		oneMonthFromNow.setTime(oneMonthFromNow.getTime()+30*24*60*60*1000L);
+		tax.setValidTo(oneMonthFromNow);
+		return tax;
 	}
 
 }

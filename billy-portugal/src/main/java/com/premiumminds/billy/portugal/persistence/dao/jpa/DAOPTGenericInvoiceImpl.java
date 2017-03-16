@@ -64,12 +64,13 @@ DAOPTGenericInvoice {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends PTGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number) {
-		QJPAPTBusinessEntity business = QJPAPTBusinessEntity.jPAPTBusinessEntity;
 		QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
 
-		return (T) this.checkEntityList(createQuery()
+		return (T) this.checkEntity(createQuery()
 				.from(invoice)
-				.where(business.uid.eq(uidBusiness.toString()).and(invoice.number.eq(number)))
-				.list(invoice), PTGenericInvoiceEntity.class);
+				.where(
+						toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uidBusiness.toString())
+						.and(invoice.number.eq(number)))
+				.singleResult(invoice), PTGenericInvoiceEntity.class);
 	}
 }

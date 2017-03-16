@@ -29,6 +29,7 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.services.builders.impl.PTInvoiceBuilderImpl;
+import com.premiumminds.billy.portugal.services.builders.impl.PTManualInvoiceBuilderImpl;
 
 public interface PTInvoice extends PTGenericInvoice {
 
@@ -37,6 +38,16 @@ public interface PTInvoice extends PTGenericInvoice {
 
 		@Inject
 		public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
+						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+		}
+	}
+	
+	public static class ManualBuilder extends
+		PTManualInvoiceBuilderImpl<ManualBuilder, PTInvoiceEntry, PTInvoice> {
+		
+		@Inject
+		public ManualBuilder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
 						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
 			super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
 		}

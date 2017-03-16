@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.test.services.builders;
 
 import java.util.ArrayList;
-import java.util.Currency;
 
 import org.junit.Assert;
 import org.junit.Test;

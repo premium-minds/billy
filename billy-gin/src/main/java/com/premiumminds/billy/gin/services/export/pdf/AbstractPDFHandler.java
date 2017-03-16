@@ -36,6 +36,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
@@ -67,7 +68,7 @@ public abstract class AbstractPDFHandler {
 			rval += "/>";
 		} else {
 			rval += ">";
-			rval += " " + (null != node.getValue() ? node.getValue() : "");
+			rval += " " + (null != node.getValue() ? StringEscapeUtils.escapeXml(node.getValue()) : "");
 			for (Node<String, String> child : node.getChildren()) {
 				rval += AbstractPDFHandler.toXML(child);
 			}

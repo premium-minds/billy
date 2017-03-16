@@ -27,7 +27,6 @@ import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
-import org.joda.time.field.ScaledDurationField;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
@@ -44,7 +43,6 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.BillyValidator;

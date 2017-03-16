@@ -46,7 +46,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setStreetName(String streetName) {
-		BillyValidator.notBlank(streetName,
+		BillyValidator.notBlankButNull(streetName,
 				AddressBuilderImpl.LOCALIZER.getString("field.street_name"));
 		this.getTypeInstance().setStreetName(streetName);
 		return this.getBuilder();
@@ -54,7 +54,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setNumber(String number) {
-		BillyValidator.notBlank(number,
+		BillyValidator.notBlankButNull(number,
 				AddressBuilderImpl.LOCALIZER.getString("field.number"));
 		this.getTypeInstance().setNumber(number);
 		return this.getBuilder();
@@ -70,7 +70,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setBuilding(String building) {
-		BillyValidator.notBlank(building,
+		BillyValidator.notBlankButNull(building,
 				AddressBuilderImpl.LOCALIZER.getString("field.building"));
 		this.getTypeInstance().setBuilding(building);
 		return this.getBuilder();
@@ -94,7 +94,7 @@ public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TA
 
 	@Override
 	public TBuilder setRegion(String region) {
-		BillyValidator.notBlank(region,
+		BillyValidator.notBlankButNull(region,
 				AddressBuilderImpl.LOCALIZER.getString("field.region"));
 		this.getTypeInstance().setRegion(region);
 		return this.getBuilder();

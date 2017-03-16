@@ -67,4 +67,9 @@ public class MockBaseEntity implements BaseEntity {
 		return this.updateTimestamp;
 	}
 
+	@Override
+	public void initializeEntityDates() {
+		this.createTimestamp = updateTimestamp = new Date();
+	}
+
 }

@@ -87,5 +87,10 @@ public class PTProductPersistenceService implements PersistenceService<PTProduct
 			throw new BillyRuntimeException(e);
 		}
 	}
+	
+	public boolean exists(final UID uid) {
+		return daoProduct.exists(uid);
+	}
+	
 
 }

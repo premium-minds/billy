@@ -125,8 +125,8 @@ public class PortugalBootstrap {
 					// Generic Address
 					final PTAddressEntity GENERIC_ADDRESS = this
 							.buildAddressEntity(daoPTAddress, addressBuilder,
-									"inventado", "inventado", "inventado",
-									"Desconhecido", "inventado",
+									null, null, null,
+									"Desconhecido", null,
 									"Desconhecido", "Desconhecido",
 									"Desconhecido",
 									Config.Key.Address.Generic.UUID);
@@ -134,9 +134,9 @@ public class PortugalBootstrap {
 					// Generic contact
 					final PTContactEntity GENERIC_CONTACT = this
 							.buildContactEntity(daoPTContact, contactBuilder,
-									"John Doe", "111222333", "123123123",
-									"doe@example.com", "321321321",
-									"www.doe.io",
+									null, null, null,
+									null, null,
+									null,
 									Config.Key.Contact.Generic.UUID);
 
 					// Generic Customer
@@ -466,7 +466,7 @@ public class PortugalBootstrap {
 									PTVATCode.NORMAL,
 									CONTEXT_AZORES_PORTUGAL,
 									Currency.getInstance("EUR"),
-									"IVA Normal Azores",
+									"IVA Normal Açores",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
 									from,
@@ -482,7 +482,7 @@ public class PortugalBootstrap {
 									PTVATCode.INTERMEDIATE,
 									CONTEXT_AZORES_PORTUGAL,
 									Currency.getInstance("EUR"),
-									"IVA Intermedio Azores",
+									"IVA Intermedio Açores",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
 									from,
@@ -497,7 +497,7 @@ public class PortugalBootstrap {
 									PTVATCode.REDUCED,
 									CONTEXT_AZORES_PORTUGAL,
 									Currency.getInstance("EUR"),
-									"IVA Reduzido Azores",
+									"IVA Reduzido Açores",
 									"IVA",
 									Tax.TaxRateType.PERCENTAGE,
 									from,
@@ -532,7 +532,7 @@ public class PortugalBootstrap {
 					addressBuilder.setCity(city).setDetails(details)
 							.setISOCountry(isoCode).setNumber(number)
 							.setRegion(region).setStreetName(street)
-							.setPostalCode(postalCode);
+							.setPostalCode(postalCode).setBuilding(building);
 
 					PTAddressEntity address = (PTAddressEntity) addressBuilder
 							.build();

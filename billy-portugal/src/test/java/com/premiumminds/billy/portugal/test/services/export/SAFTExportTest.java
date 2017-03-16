@@ -57,6 +57,7 @@ import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTT
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
 import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
+import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator.SAFTVersion;
 import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTSupplierPersistenceService;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
@@ -214,10 +215,10 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		service.issue(simpleInvoice.getSimpleInvoiceBuilder(businessEntity,
 				SourceBilling.P, CLIENTTYPE.CUSTOMER), this.parameters);
 
-		// MANUAL SIMPLE INVOICE
+		// MANUAL INVOICE
 		this.parameters.setInvoiceSeries("M");
-		service.issue(simpleInvoice.getSimpleInvoiceBuilder(businessEntity,
-				SourceBilling.M, CLIENTTYPE.CUSTOMER), this.parameters);
+		service.issue(invoice.getManualInvoiceBuilder(businessEntity,
+				SourceBilling.M), this.parameters);
 
 		// RECEIPT INVOICE
 		DAOPTReceiptInvoice daoPTReceiptInvoice = PTAbstractTest.injector
@@ -255,8 +256,13 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 		calendar.set(2013, 1, 1);
 
 		PrintStream stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT
-				+ "SAFT.xml");
+				+ "SAFT_10201.xml");
 		generator.generateSAFTFile(stream, businessEntity, applicationEntity,
-				"1234", calendar.getTime(), new Date());
+				"1234", calendar.getTime(), new Date(), SAFTVersion.V10201);
+		
+		stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT
+				+ "SAFT_10301.xml");
+		generator.generateSAFTFile(stream, businessEntity, applicationEntity,
+				"1234", calendar.getTime(), new Date(), SAFTVersion.V10301);
 	}
 }

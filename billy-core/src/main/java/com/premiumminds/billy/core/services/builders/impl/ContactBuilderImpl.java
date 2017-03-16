@@ -44,7 +44,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setName(String name) {
-		BillyValidator.notBlank(name,
+		BillyValidator.notBlankButNull(name,
 				ContactBuilderImpl.LOCALIZER.getString("field.contact_name"));
 		this.getTypeInstance().setName(name);
 		return this.getBuilder();
@@ -52,7 +52,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setTelephone(String telephone) {
-		BillyValidator.notBlank(telephone,
+		BillyValidator.notBlankButNull(telephone,
 				ContactBuilderImpl.LOCALIZER.getString("field.telephone"));
 		this.getTypeInstance().setTelephone(telephone);
 		return this.getBuilder();
@@ -60,7 +60,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setMobile(String mobile) {
-		BillyValidator.notBlank(mobile,
+		BillyValidator.notBlankButNull(mobile,
 				ContactBuilderImpl.LOCALIZER.getString("field.mobile"));
 		this.getTypeInstance().setMobile(mobile);
 		return this.getBuilder();
@@ -68,7 +68,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setFax(String fax) {
-		BillyValidator.notBlank(fax,
+		BillyValidator.notBlankButNull(fax,
 				ContactBuilderImpl.LOCALIZER.getString("field.fax"));
 		this.getTypeInstance().setFax(fax);
 		return this.getBuilder();
@@ -76,7 +76,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setEmail(String email) {
-		BillyValidator.notBlank(email,
+		BillyValidator.notBlankButNull(email,
 				ContactBuilderImpl.LOCALIZER.getString("field.email"));
 		this.getTypeInstance().setEmail(email);
 		return this.getBuilder();
@@ -84,7 +84,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
 
 	@Override
 	public TBuilder setWebsite(String website) {
-		BillyValidator.notBlank(website,
+		BillyValidator.notBlankButNull(website,
 				ContactBuilderImpl.LOCALIZER.getString("field.website"));
 		this.getTypeInstance().setWebsite(website);
 		return this.getBuilder();

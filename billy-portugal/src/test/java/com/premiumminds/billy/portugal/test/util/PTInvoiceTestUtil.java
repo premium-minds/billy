@@ -19,15 +19,11 @@
 package com.premiumminds.billy.portugal.test.util;
 
 import java.math.BigDecimal;
-import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
-import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
@@ -36,8 +32,6 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
-import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTInvoiceTestUtil {
 
@@ -70,8 +64,19 @@ public class PTInvoiceTestUtil {
 	}
 
 	public PTInvoiceEntity getInvoiceEntity(SourceBilling billing) {
-		PTInvoiceEntity invoice = (PTInvoiceEntity) this.getInvoiceBuilder(
-				business.getBusinessEntity(), billing).build();
+		PTInvoiceEntity invoice;
+		switch (billing) {
+		case M:
+			invoice = (PTInvoiceEntity) this.getManualInvoiceBuilder(
+					business.getBusinessEntity(), billing).build();
+			break;
+		case P:
+		default:
+			invoice = (PTInvoiceEntity) this.getInvoiceBuilder(
+					business.getBusinessEntity(), billing).build();
+			break;
+		}
+		
 		invoice.setType(this.INVOICE_TYPE);
 
 		return invoice;
@@ -100,6 +105,41 @@ public class PTInvoiceTestUtil {
 				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
 				.setCustomerUID(customerUID).setSourceBilling(billing)
 				.setBusinessUID(business.getUID())
+				.addPayment(payment.getPaymentBuilder());
+	}
+	
+	public PTInvoice.ManualBuilder getManualInvoiceBuilder(
+			PTBusinessEntity business, SourceBilling billing) {
+		BigDecimal price = new BigDecimal("0.454545");
+		BigDecimal tax = new BigDecimal("0.084996");
+		PTInvoice.ManualBuilder invoiceBuilder = this.injector
+				.getInstance(PTInvoice.ManualBuilder.class);
+
+		DAOPTCustomer daoPTCustomer = this.injector
+				.getInstance(DAOPTCustomer.class);
+
+		PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+		UID customerUID = daoPTCustomer.create(customerEntity).getUID();
+
+		PTInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry
+				.getManualInvoiceEntryBuilder()
+				.setUnitAmount(AmountType.WITH_TAX, price)
+				.setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
+				.setUnitTaxAmount(tax)
+				.setAmount(AmountType.WITH_TAX, price)
+				.setAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
+				.setTaxAmount(tax);
+		invoiceBuilder.addEntry(invoiceEntryBuilder);
+
+		return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+				.setCancelled(PTInvoiceTestUtil.CANCELLED)
+				.setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date())
+				.setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+				.setCustomerUID(customerUID).setSourceBilling(billing)
+				.setBusinessUID(business.getUID())
+				.setAmount(AmountType.WITH_TAX, price)
+				.setAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
+				.setTaxAmount(tax)
 				.addPayment(payment.getPaymentBuilder());
 	}
 
