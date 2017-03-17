@@ -10,21 +10,20 @@
 	<http://www.gnu.org/licenses />. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>billy</artifactId>
+	<name>billy</name>
+	<version>1.1.4</version>
+	<description>An opensource invoicing engine</description>
+	<packaging>pom</packaging>
+	<groupId>com.premiumminds</groupId>
+
 	<properties>
-		<billy.version>1.1.4</billy.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<main.dir>${basedir}</main.dir>
 	</properties>
 	
-	<modelVersion>4.0.0</modelVersion>
-	<artifactId>billy</artifactId>
-	<name>billy</name>
-	<version>${billy.version}</version>
-	<description>An opensource invoicing engine</description>
-	<packaging>pom</packaging>
-	<groupId>com.premiumminds</groupId>
-
 	<modules>
 		<module>billy-core</module>
 		<module>billy-core-jpa</module>
