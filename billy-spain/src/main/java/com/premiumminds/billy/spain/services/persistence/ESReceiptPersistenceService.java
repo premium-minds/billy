@@ -97,7 +97,7 @@ public class ESReceiptPersistenceService {
 
 				@Override
 				public ESReceipt runTransaction() throws Exception {
-					return daoReceipt.findByNumber(uidBusiness, number);
+					return (ESReceipt) daoReceipt.findByNumber(uidBusiness, number);
 				}
 			}.execute();
 		} catch (Exception e) {
