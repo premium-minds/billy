@@ -17,16 +17,17 @@
 # along with billy GIN. If not, see <http://www.gnu.org/licenses/>.
 #
 
+# Execution
 jdbc.driver=org.postgresql.Driver
 jdbc.debug=true
 jdbc.debug_extended=false
-jdbc.user=billy
-jdbc.password=billy
+jdbc.user=postgres
+jdbc.password=postgres
 jdbc.host=localhost
 jdbc.port=5432
 jdbc.database=billy
 jdbc.url=jdbc:postgresql://localhost:5432/billy
 jdbc.schema=public
-hibernate.show_sql=true
+hibernate.show_sql=false
 hibernate.hbm2ddl.auto=create
 hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
