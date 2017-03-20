@@ -233,19 +233,13 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
 					<compilerArgument>-proc:none</compilerArgument>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
-				<artifactId>maven-apt-plugin</artifactId>
+    			<artifactId>maven-apt-plugin</artifactId>
+    			<version>1.0.4</version>
 				<executions>
 					<execution>
 						<phase>generate-sources</phase>
@@ -257,7 +251,6 @@
 							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
 					</execution>
-
 				</executions>
 				<dependencies>
 					<dependency>

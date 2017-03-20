@@ -83,6 +83,7 @@
 				<inherited>true</inherited>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
+				<version>1.10.b1</version>
 				<configuration>
 					<header>${main.dir}/licence-preamble.txt</header>
 					<strictCheck>true</strictCheck>
