@@ -22,13 +22,13 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-import org.junit.BeforeClass;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.CoreJPADependencyModule;
-import com.premiumminds.billy.core.CoreJPAPersistenceDependencyModule;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
@@ -47,13 +47,19 @@ public class GenericTest {
 
 	static Injector	injector;
 
-	@BeforeClass
-	public static void setUpClass() {
+	@Before
+	public void setUpClass() {
 		GenericTest.injector = Guice.createInjector(
 				new CoreJPADependencyModule(),
-				new CoreJPAPersistenceDependencyModule());
+				new CoreJPATestPersistenceDependencyModule());
 		GenericTest.injector
-				.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
+				.getInstance(CoreJPATestPersistenceDependencyModule.Initializer.class);
+	}
+	
+	@After
+	public void tearDown() {
+		GenericTest.injector.
+			getInstance(CoreJPATestPersistenceDependencyModule.Finalizer.class);
 	}
 
 	@Test

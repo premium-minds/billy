@@ -16,27 +16,34 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core JPA. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.core;
+package com.premiumminds.billy.core.jpa;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
+import com.google.inject.AbstractModule;
+import com.google.inject.Inject;
+import com.google.inject.persist.PersistService;
+import com.google.inject.persist.jpa.JpaPersistModule;
 
-public class CoreJPABootstrap {
+public class CoreJPATestPersistenceDependencyModule extends AbstractModule {
 
-	public static void main(String[] args) {
-		CoreJPABootstrap.execute();
+	@Override
+	protected void configure() {
+		this.install(new JpaPersistModule("BillyCoreJPATestPersistenceUnit"));
 	}
 
-	public static void execute() {
-		// Load dependency injector
-		Injector injector = Guice.createInjector(new CoreJPADependencyModule(),
-				new CoreJPAPersistenceDependencyModule());
-		injector.getInstance(CoreDependencyModule.Initializer.class);
-		injector.getInstance(CoreJPAPersistenceDependencyModule.Initializer.class);
-		CoreJPABootstrap.execute(injector);
-	}
+	public static class Initializer {
 
-	public static void execute(Injector dependencyInjector) {
+		@Inject
+		public Initializer(PersistService persistService) {
+			persistService.start();
+		}
+	}
+	
+	public static class Finalizer {
+		
+		@Inject
+		public Finalizer(PersistService persistService) {
+			persistService.stop();
+		}
 	}
 
 }

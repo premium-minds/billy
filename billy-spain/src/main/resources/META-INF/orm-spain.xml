@@ -24,27 +24,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
   version="2.0">
-
-  	<!-- Core -->
- <mapped-superclass class="com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity"></mapped-superclass>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAAddressEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPABankAccountEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAContactEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAShippingPointEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity"></entity>
-	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity"></entity>
-
-	<!-- Spain -->
+  
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESAddressEntity"></entity>
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESApplicationEntity"></entity>
 	<entity class="com.premiumminds.billy.spain.persistence.entities.jpa.JPAESBusinessEntity"></entity>

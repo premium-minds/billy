@@ -24,7 +24,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
 	version="2.0">
 	
-		 <mapped-superclass class="com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity"></mapped-superclass>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAAddressEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity"></entity>
 	<entity class="com.premiumminds.billy.core.persistence.entities.jpa.JPABankAccountEntity"></entity>

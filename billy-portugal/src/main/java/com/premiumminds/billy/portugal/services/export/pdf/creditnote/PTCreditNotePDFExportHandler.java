@@ -26,7 +26,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.postgresql.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
@@ -139,7 +139,7 @@ public class PTCreditNotePDFExportHandler extends AbstractPDFExportHandler {
 	}
 
 	private String getVerificationHashString(byte[] hash) {
-		String hashString = Base64.encodeBytes(hash);
+		String hashString = Base64.encodeBase64String(hash);
 		String rval = hashString.substring(0, 1) + hashString.substring(10, 11)
 				+ hashString.substring(20, 21) + hashString.substring(30, 31);
 
