@@ -28,5 +28,6 @@ public enum PaymentMechanism {
 		COMPENSATION,
 		COMMERCIAL_LETTER,
 		ATM,
-		EXCHANGE
+		EXCHANGE,
+		ELECTRONIC_MONEY
 }

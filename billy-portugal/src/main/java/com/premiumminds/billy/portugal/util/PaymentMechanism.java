@@ -28,5 +28,9 @@ public enum PaymentMechanism {
 		COMPENSATION,
 		COMMERCIAL_LETTER,
 		ATM,
-		EXCHANGE
+		EXCHANGE,
+		ELECTRONIC_MONEY
+		// TODO
+		// CO - Cheque ou cartao oferta
+		// OU - Outros meios
 }

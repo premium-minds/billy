@@ -38,6 +38,7 @@ public class PTReceiptInvoiceTemplateBundle extends AbstractTemplateBundle
 	private static final String RESTAURANT_TICKET_TEXT = "Ticket restaurante";
 	private static final String ATM_TEXT = "Multibanco";
 	private static final String EXCHANGE_TEXT = "Permuta";
+	private static final String ELECTRONIC_MONEY_TEXT = "Dinheiro eletrónico";
 	private final String softwareCertificationId;
 
 	public PTReceiptInvoiceTemplateBundle(String logoImagePath,
@@ -84,6 +85,8 @@ public class PTReceiptInvoiceTemplateBundle extends AbstractTemplateBundle
 				return PTReceiptInvoiceTemplateBundle.RESTAURANT_TICKET_TEXT;
 			case EXCHANGE:
 				return PTReceiptInvoiceTemplateBundle.EXCHANGE_TEXT;
+			case ELECTRONIC_MONEY:
+				return PTReceiptInvoiceTemplateBundle.ELECTRONIC_MONEY_TEXT;
 			default:
 				return null;
 		}
