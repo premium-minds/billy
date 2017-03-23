@@ -44,13 +44,13 @@ import com.premiumminds.billy.portugal.util.Taxes;
  */
 @Singleton
 public class BillyPortugal {
+	
+	static final String DEFAULT_PERSISTENCE_UNIT = "BillyPortugalPersistenceUnit";
 
-	private static final String	DEFAULT_PERSISTENCE_UNIT	= "BillyPortugalPersistenceUnit";
-
-	private final Injector		injector;
+	private final Injector injector;
 
 	private Contexts contexts;
-	private Taxes			taxes;
+	private Taxes taxes;
 	private Customers customers;
 	private Addresses addresses;
 	private Businesses businesses;
@@ -63,11 +63,15 @@ public class BillyPortugal {
 	private Contacts contacts;
 	private Payments payments;
 	
-
+	
 	public BillyPortugal() {
+		this(DEFAULT_PERSISTENCE_UNIT);
+	}
+	
+	public BillyPortugal(String persistenceUnitId) {
 		this.injector = Guice.createInjector(
 				new PortugalDependencyModule(),
-				new PortugalPersistenceDependencyModule());
+				new PortugalPersistenceDependencyModule(persistenceUnitId));
 		this.injector.getInstance(PersistService.class).start();
 	}
 
@@ -170,10 +174,6 @@ public class BillyPortugal {
 			this.payments = new Payments(injector);
 		}
 		return this.payments;
-	}
-	
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
 	}
 
 }

@@ -25,10 +25,15 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class SpainPersistenceDependencyModule extends AbstractModule {
 
+	private final String persistenceUnitId;
+	
+	public SpainPersistenceDependencyModule(String persistenceUnitId) {
+		this.persistenceUnitId = persistenceUnitId;
+	}
+	
 	@Override
 	protected void configure() {
-		JpaPersistModule persistModule = new JpaPersistModule(
-				"BillySpainPersistenceUnit");
+		JpaPersistModule persistModule = new JpaPersistModule(persistenceUnitId);
 		this.install(persistModule);
 	}
 

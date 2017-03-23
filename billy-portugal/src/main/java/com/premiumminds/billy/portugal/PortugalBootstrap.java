@@ -74,14 +74,18 @@ public class PortugalBootstrap {
 	protected static final String	CODE_PT_MADEIRA			= "PT-30";
 
 	public static void main(String[] args) {
-		PortugalBootstrap.execute();
+		if (args.length > 0 && !args[0].isEmpty()) {			
+			PortugalBootstrap.execute(args[0]);
+		} else {
+			PortugalBootstrap.execute(BillyPortugal.DEFAULT_PERSISTENCE_UNIT); // backward compatibility
+		}
 	}
 
-	private static void execute() {
+	private static void execute(String persistenceUnitId) {
 		// Load dependency injector
 		Injector injector = Guice.createInjector(
 				new PortugalDependencyModule(),
-				new PortugalPersistenceDependencyModule());
+				new PortugalPersistenceDependencyModule(persistenceUnitId));
 		injector.getInstance(PortugalDependencyModule.Initializer.class);
 		injector.getInstance(PortugalPersistenceDependencyModule.Initializer.class);
 		PortugalBootstrap.execute(injector);

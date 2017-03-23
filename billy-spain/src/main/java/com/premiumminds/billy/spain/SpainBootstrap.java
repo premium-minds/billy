@@ -47,17 +47,21 @@ import com.premiumminds.billy.spain.services.entities.ESTax.ESVATCode;
 
 public class SpainBootstrap {
 
-	protected static final String	CODE_ES					= "ES";
+	protected static final String CODE_ES = "ES";
 	
 	public static void main(String[] args) {
-		SpainBootstrap.execute();
+		if (args.length > 0 && !args[0].isEmpty()) {			
+			SpainBootstrap.execute(args[0]);
+		} else {
+			SpainBootstrap.execute(BillySpain.DEFAULT_PERSISTENCE_UNIT); // backward compatibility
+		}
 	}
 
-	private static void execute() {
+	private static void execute(String persistenceUnitId) {
 		// Load dependency injector
 		Injector injector = Guice.createInjector(
 				new SpainDependencyModule(),
-				new SpainPersistenceDependencyModule());
+				new SpainPersistenceDependencyModule(persistenceUnitId));
 		injector.getInstance(SpainDependencyModule.Initializer.class);
 		injector.getInstance(SpainPersistenceDependencyModule.Initializer.class);
 		SpainBootstrap.execute(injector);
