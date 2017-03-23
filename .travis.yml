@@ -5,9 +5,15 @@ language: java
 # Avoid default OracleJDK7. Complies with Eclipse environment used
 jdk:
     - openjdk6
+    
+before_script:
+	- chmod +x ./share/deploy/deploy-snapshot.sh
+    
+after_success:
+	- ./share/deploy/deploy-snapshot.sh
 
 notifications:
     email:
         recipients:
-            - estagio1@premium-minds.com
+            - froxo@pminds.pt
         on_failure: always
