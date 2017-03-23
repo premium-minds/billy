@@ -38,6 +38,7 @@ public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle
 	private static final String	RESTAURANT_TICKET_TEXT	= "Ticket restaurante";
 	private static final String	ATM_TEXT				= "Multibanco";
 	private static final String	EXCHANGE_TEXT			= "Permuta";
+	private static final String ELECTRONIC_MONEY_TEXT	= "Dinheiro eletrónico";
 	private final String		softwareCertificationId;
 
 	public PTCreditNoteTemplateBundle(String logoImagePath,
@@ -85,6 +86,8 @@ public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle
 				return PTCreditNoteTemplateBundle.RESTAURANT_TICKET_TEXT;
 			case EXCHANGE:
 				return PTCreditNoteTemplateBundle.EXCHANGE_TEXT;
+			case ELECTRONIC_MONEY:
+				return PTCreditNoteTemplateBundle.ELECTRONIC_MONEY_TEXT;
 			default:
 				return null;
 		}

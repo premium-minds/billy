@@ -1257,16 +1257,16 @@ public class PTSAFTFileGenerator {
 	private String getPaymentMechanism(Enum<PaymentMechanism> pm)
 		throws InvalidPaymentMechanismException {
 		switch ((PaymentMechanism) pm) {
-			case BANK_TRANSFER:
-				return "TB";
 			case CASH:
 				return "NU";
 			case CHECK:
 				return "CH";
-			case CREDIT_CARD:
-				return "CC";
 			case DEBIT_CARD:
 				return "CD";
+			case CREDIT_CARD:
+				return "CC";
+			case BANK_TRANSFER:
+				return "TB";
 			case RESTAURANT_TICKET:
 				return "TR";
 			case COMPENSATION:
@@ -1275,6 +1275,10 @@ public class PTSAFTFileGenerator {
 				return "LC";
 			case ATM:
 				return "MB";
+			case EXCHANGE:
+				return "PR";
+			case ELECTRONIC_MONEY:
+				return "DE";
 			default:
 				throw new InvalidPaymentMechanismException(pm.toString());
 		}
