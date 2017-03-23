@@ -8,7 +8,8 @@
 	See the ~ GNU Lesser General Public License for more details. ~ ~ You should
 	have received a copy of the GNU Lesser General Public License ~ along with
 	billy-portugal. If not, see <http://www.gnu.org/licenses />. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy-portugal</artifactId>
 	<name>billy portugal (PT Pack)</name>
@@ -17,9 +18,9 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>1.1.6-SNAPSHOT</version>
+		<version>1.1.5-SNAPSHOT</version>
 	</parent>
-
+	
 	<properties>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -71,7 +72,7 @@
 			<version>${hibernate.version}</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-validator</artifactId>
@@ -231,7 +232,7 @@
 					<generateDirectory>src-generated/main/java</generateDirectory>
 					<strict>false</strict>
 					<extension>true</extension>
-					<forceRegenerate>true</forceRegenerate>
+					<forceRegenerate>true</forceRegenerate> 
 					<plugins>
 						<plugin>
 							<groupId>org.jvnet.jaxb2_commons</groupId>
@@ -274,14 +275,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
-				<configuration>
-					<excludePackageNames>com.premiumminds.billy.portugal.services.export.saftpt.*</excludePackageNames>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 
@@ -299,17 +292,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>-->
-
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.10.4</version>
-				<configuration>
-					<excludePackageNames>com.premiumminds.billy.portugal.services.export.saftpt.*</excludePackageNames>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
 </project>
