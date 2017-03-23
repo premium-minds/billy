@@ -7,10 +7,10 @@ jdk:
     - openjdk6
     
 before_script:
-	- chmod +x ./share/deploy/deploy-snapshot.sh
+    - chmod +x ./share/deploy/deploy-snapshot.sh
     
 after_success:
-	- ./share/deploy/deploy-snapshot.sh
+    - ./share/deploy/deploy-snapshot.sh
 
 notifications:
     email:
