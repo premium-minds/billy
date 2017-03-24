@@ -17,7 +17,7 @@
 # along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-paymentMethod : !!com.premiumminds.billy.spain.util.PaymentMechanism
+paymentMethod : !!com.premiumminds.billy.core.util.PaymentMechanism
   CREDIT_CARD
 paymentAmount : 20
 paymentDate : 2013-08-30

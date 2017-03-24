@@ -42,6 +42,7 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyMathContext;
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.Config.Key;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
@@ -108,7 +109,6 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.So
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTSAFTFileGenerator {
 	private Config						config					= null;

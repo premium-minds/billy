@@ -22,9 +22,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 
 public class PTPaymentTestUtil {

@@ -27,9 +27,9 @@ import javax.persistence.Table;
 import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity;
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 @Entity
 @Audited

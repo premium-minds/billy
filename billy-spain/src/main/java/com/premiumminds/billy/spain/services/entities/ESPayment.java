@@ -23,9 +23,9 @@ import java.math.BigDecimal;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.spain.persistence.dao.DAOESPayment;
 import com.premiumminds.billy.spain.services.builders.impl.ESPaymentBuilderImpl;
-import com.premiumminds.billy.spain.util.PaymentMechanism;
 
 
 public interface ESPayment extends Payment {
