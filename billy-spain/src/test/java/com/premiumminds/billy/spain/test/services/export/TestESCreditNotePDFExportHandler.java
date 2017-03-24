@@ -31,6 +31,7 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
@@ -41,7 +42,6 @@ import com.premiumminds.billy.spain.services.export.pdf.creditnote.ESCreditNoteT
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
-import com.premiumminds.billy.spain.util.PaymentMechanism;
 import com.premiumminds.billy.spain.util.Services;
 
 public class TestESCreditNotePDFExportHandler extends ESPersistencyAbstractTest {

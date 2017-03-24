@@ -21,9 +21,8 @@ package com.premiumminds.billy.spain.test.fixtures;
 import java.math.BigDecimal;
 
 import com.premiumminds.billy.core.test.fixtures.MockPaymentEntity;
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.spain.persistence.entities.ESPaymentEntity;
-import com.premiumminds.billy.spain.util.PaymentMechanism;
-
 
 public class MockESPaymentEntity extends MockPaymentEntity implements
 		ESPaymentEntity {

@@ -27,6 +27,7 @@ import java.security.NoSuchAlgorithmException;
 
 import org.junit.Test;
 
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
@@ -35,7 +36,6 @@ import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleIn
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
-import com.premiumminds.billy.spain.util.PaymentMechanism;
 
 public class TestESSimpleInvoicePDFExportHandler extends
 	ESPersistencyAbstractTest {

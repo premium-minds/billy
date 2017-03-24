@@ -20,9 +20,9 @@ package com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice;
 
 import java.io.InputStream;
 
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
 import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTSimpleInvoiceTemplateBundle extends AbstractTemplateBundle
 	implements PTTemplateBundle {

@@ -20,9 +20,9 @@ package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
 import java.io.InputStream;
 
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
 import com.premiumminds.billy.portugal.services.export.pdf.PTTemplateBundle;
-import com.premiumminds.billy.portugal.util.PaymentMechanism;
 
 public class PTCreditNoteTemplateBundle extends AbstractTemplateBundle
 	implements PTTemplateBundle {

@@ -20,8 +20,8 @@ package com.premiumminds.billy.spain.services.export.pdf;
 
 import java.io.InputStream;
 
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
-import com.premiumminds.billy.spain.util.PaymentMechanism;
 
 public abstract class ESAbstractTemplateBundle extends AbstractTemplateBundle 
 	implements ESTemplateBundle {
