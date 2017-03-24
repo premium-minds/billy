@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 
-    Copyright (C) 2013 Premium Minds.
+    Copyright (C) 2017 Premium Minds.
 
     This file is part of billy portugal (PT Pack).
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2013 Premium Minds.
+ * Copyright (C) 2017 Premium Minds.
  *
  * This file is part of billy spain (ES Pack).
  *
@@ -16,7 +16,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.premiumminds.billy.spain.util;
 
 import java.io.InputStream;
