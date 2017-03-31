@@ -58,6 +58,8 @@ public abstract class ESAbstractTemplateBundle extends AbstractTemplateBundle
 			return RESTAURANT_TICKET_TEXT;
 		case EXCHANGE:
 			return EXCHANGE_TEXT;
+		case ELECTRONIC_MONEY:
+			return ELECTRONIC_MONEY_TEXT;
 		default:
 			return null;
 		}
