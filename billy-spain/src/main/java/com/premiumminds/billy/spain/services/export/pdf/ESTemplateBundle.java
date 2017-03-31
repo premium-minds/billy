@@ -31,4 +31,5 @@ public interface ESTemplateBundle extends BillyTemplateBundle {
 	static final String	RESTAURANT_TICKET_TEXT	= "Ticket restaurante";
 	static final String	ATM_TEXT				= "Datáfono";
 	static final String	EXCHANGE_TEXT			= "Permuta";
+	static final String ELECTRONIC_MONEY_TEXT	= "Dinero electrónico";
 }
