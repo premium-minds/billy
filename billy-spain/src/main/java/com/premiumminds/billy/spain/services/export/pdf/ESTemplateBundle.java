@@ -21,15 +21,15 @@ package com.premiumminds.billy.spain.services.export.pdf;
 import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public interface ESTemplateBundle extends BillyTemplateBundle {
-	static final String	BANK_TRANSFER_TEXT		= "Transferencia bancaria";
+	static final String	BANK_TRANSFER_TEXT		= "Transferencia Bancaria";
 	static final String	CASH_TEXT				= "Metálico";
 	static final String	CREDIT_CARD_TEXT		= "Tarjeta Crédito";
 	static final String	CHECK_TEXT				= "Cheque";
 	static final String	DEBIT_CARD_TEXT			= "Tarjeta Débito";
 	static final String	COMPENSATION_TEXT		= "Compensación de saldos en cuenta corriente";
-	static final String	COMMERCIAL_LETTER_TEXT	= "Letra comercial";
-	static final String	RESTAURANT_TICKET_TEXT	= "Ticket restaurante";
+	static final String	COMMERCIAL_LETTER_TEXT	= "Letra Comercial";
+	static final String	RESTAURANT_TICKET_TEXT	= "Ticket Restaurante";
 	static final String	ATM_TEXT				= "Datáfono";
 	static final String	EXCHANGE_TEXT			= "Permuta";
-	static final String ELECTRONIC_MONEY_TEXT	= "Dinero electrónico";
+	static final String ELECTRONIC_MONEY_TEXT	= "Dinero Electrónico";
 }
