@@ -18,42 +18,31 @@
  */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
-import java.io.File;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.inject.Inject;
-
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.Payment;
-import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.BillyValidator;
-import com.premiumminds.billy.gin.services.ExportServiceHandler;
-import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
+import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
-import com.premiumminds.billy.gin.services.export.pdf.AbstractPDFHandler;
+import com.premiumminds.billy.gin.services.export.PaymentData;
+import com.premiumminds.billy.gin.services.export.TaxData;
 
-public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
-		implements ExportServiceHandler {
+public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> extends FOPPDFTransformer 
+implements BillyPDFTransformer<T> {
 
 	protected static class ParamKeys {
-
-		public static String ROOT = "invoice";
 
 		public static final String INVOICE_PAYMETHOD = "paymentMechanism";
 		public static final String ID = "id";
@@ -95,7 +84,6 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		public static final String ENTRY_ID = "id";
 		public static final String ENTRY_DESCRIPTION = "description";
 		public static final String ENTRY_QUANTITY = "qty";
-		// public static final String PRODUCT_DISCOUNT = "entries";
 		public static final String ENTRY_UNIT_PRICE = "unitPrice";
 		public static final String ENTRY_TOTAL = "total";
 		public static final String ENTRY_TAX = "tax";
@@ -109,69 +97,74 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		public static final String TAX_DETAIL_DESCRIPTION = "description";
 	}
 
-	private DAOGenericInvoice daoGenericInvoice;
-	protected MathContext mc = BillyMathContext.get();
+	private final Class<T> transformableClass;
+	
+	protected final MathContext mc;
+	protected final String logoImagePath;
+	protected final InputStream xsltFileStream;
 
-	@Inject
-	public AbstractPDFExportHandler(DAOGenericInvoice daoGenericInvoice) {
-		this.daoGenericInvoice = daoGenericInvoice;
+	public AbstractFOPPDFTransformer(
+			Class<T> transformableClass,
+			MathContext mc, 
+			String logoImagePath,
+			InputStream xsltFileStream) {
+		
+		this.transformableClass = transformableClass;
+		this.mc = mc;
+		this.logoImagePath = logoImagePath;
+		this.xsltFileStream = xsltFileStream;
+	}
+	
+	protected abstract String getPaymentMechanismTranslation(Enum<?> pmc);
+
+	protected abstract String getCustomerFinancialId(T document);
+	
+	protected abstract ParamsTree<String, String> getNewParamsTree();
+	
+	@Override
+	public Class<T> getTransformableClass() {
+		return transformableClass;
+	}
+	
+	@Override
+	public void transform(T document, OutputStream targetStream) throws ExportServiceException {
+		transformToStream(
+				xsltFileStream,
+				mapDocumentToParamsTree(document), 
+				targetStream);
 	}
 
-	public File toFile(URI fileURI, GenericInvoiceEntity invoice,
-			BillyTemplateBundle bundle) throws ExportServiceException {
-		return super.toFile(fileURI, bundle.getXSLTFileStream(),
-				this.mapDocumentToParamsTree(invoice, bundle), bundle);
-	}
+	protected ParamsTree<String, String> mapDocumentToParamsTree(T document) {
 
-	protected void toStream(GenericInvoiceEntity invoice,
-			OutputStream targetStream, BillyTemplateBundle bundle)
-			throws ExportServiceException {
-		super.getStream(bundle.getXSLTFileStream(),
-				this.mapDocumentToParamsTree(invoice, bundle), targetStream,
-				bundle);
-	}
-
-	protected ParamsTree<String, String> mapDocumentToParamsTree(
-			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
-
-		ParamsTree<String, String> params = new ParamsTree<String, String>(
-				ParamKeys.ROOT);
+		ParamsTree<String, String> params = getNewParamsTree();
 
 		TaxTotals taxTotals = new TaxTotals();
 
-		Node<String, String> entries = params.getRoot().addChild(
-				ParamKeys.ENTRIES);
+		this.setHeader(params, document);
 
-		Node<String, String> taxDetails = params.getRoot().addChild(
-				ParamKeys.TAX_DETAILS);
+		this.setBusiness(params, document);
 
-		this.setHeader(params, document, bundle);
+		this.setCustomer(params, document);
 
-		this.setBusiness(params, document, bundle);
+		this.setEntries(taxTotals, params, document);
 
-		this.setCustomer(params, document, bundle);
-
-		this.setEntries(taxTotals, entries, document);
-
-		this.setTaxDetails(taxTotals, taxDetails);
+		this.setTaxDetails(taxTotals, params);
 
 		this.setTaxValues(params, document);
 
 		return params;
 	}
-
-	protected <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> void setHeader(
-			ParamsTree<String, String> params, K document, T bundle) {
+	
+	protected void setHeader(ParamsTree<String, String> params, T document) {
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 
 		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
 		if (document.getPayments() != null) {
-			for (Payment p : document.getPayments()) {
+			for (PaymentData payment : document.getPayments()) {
 				params.getRoot().addChild(
-						ParamKeys.INVOICE_PAYMETHOD,
-						this.getPaymentMechanismTranslation(
-								p.getPaymentMethod(), bundle));
+						ParamKeys.INVOICE_PAYMETHOD, 
+						getPaymentMechanismTranslation(payment.getPaymentMethod()));
 			}
 		}
 
@@ -185,7 +178,9 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 	}
 
 	protected void setTaxDetails(TaxTotals taxTotals,
-			Node<String, String> taxDetails) {
+			ParamsTree<String, String> params) {
+
+		Node<String, String> taxDetails = params.getRoot().addChild(ParamKeys.TAX_DETAILS);
 
 		for (TaxTotals.TaxTotalEntry taxDetail : taxTotals.getEntries()) {
 
@@ -195,83 +190,81 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 			taxDetailNode.addChild(
 					ParamKeys.TAX_DETAIL_TAX,
 					taxDetail
-							.getTaxValue()
-							.setScale(BillyMathContext.SCALE,
-									this.mc.getRoundingMode()).toPlainString()
-							+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
+					.getTaxValue()
+					.setScale(BillyMathContext.SCALE,
+							this.mc.getRoundingMode()).toPlainString()
+					+ (taxDetail.isPercentage() ? "%" : "&#8364;"));
 
 			taxDetailNode.addChild(
 					ParamKeys.TAX_DETAIL_NET_VALUE,
 					taxDetail
-							.getNetValue()
-							.setScale(BillyMathContext.SCALE,
-									this.mc.getRoundingMode()).toPlainString());
+					.getNetValue()
+					.setScale(BillyMathContext.SCALE,
+							this.mc.getRoundingMode()).toPlainString());
 
 			taxDetailNode.addChild(
 					ParamKeys.TAX_DETAIL_VALUE,
 					taxDetail
-							.getAppliedTaxValue()
-							.setScale(BillyMathContext.SCALE,
-									this.mc.getRoundingMode()).toPlainString());
-			
+					.getAppliedTaxValue()
+					.setScale(BillyMathContext.SCALE,
+							this.mc.getRoundingMode()).toPlainString());
+
 			taxDetailNode.addChild(
 					ParamKeys.TAX_DETAIL_DESIGNATION,
 					taxDetail.getTaxDesignation());
-			
+
 			taxDetailNode.addChild(
 					ParamKeys.TAX_DETAIL_DESCRIPTION,
 					taxDetail.getTaxDescription());
 		}
-		return;
 	}
 
-	protected <T extends GenericInvoiceEntity> void setEntries(
-			TaxTotals taxTotals, Node<String, String> entries, T document) {
+	protected void setEntries(TaxTotals taxTotals,
+			ParamsTree<String, String> params, T document) {
 
-		List<GenericInvoiceEntryEntity> genericInvoiceList = document
-				.getEntries();
+		Node<String, String> entries = params.getRoot().addChild(ParamKeys.ENTRIES);
+		Collection<? extends InvoiceEntryData> genericInvoiceList = document.getEntries();
 
-		for (GenericInvoiceEntryEntity entry : genericInvoiceList) {
+		for (InvoiceEntryData entry : genericInvoiceList) {
 
 			Node<String, String> entryNode = entries.addChild(ParamKeys.ENTRY);
 
-			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct()
-					.getProductCode());
+			entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct().getProductCode());
 
 			entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getDescription());
 
 			entryNode.addChild(
 					ParamKeys.ENTRY_QUANTITY,
 					entry.getQuantity()
-							.setScale(BillyMathContext.SCALE,
-									this.mc.getRoundingMode()).toPlainString());
+					.setScale(BillyMathContext.SCALE,
+							this.mc.getRoundingMode()).toPlainString());
 
 			entryNode.addChild(
 					ParamKeys.ENTRY_UNIT_PRICE,
 					entry.getUnitAmountWithTax()
-							.setScale(BillyMathContext.SCALE,
-									this.mc.getRoundingMode()).toPlainString());
+					.setScale(BillyMathContext.SCALE,
+							this.mc.getRoundingMode()).toPlainString());
 
 			entryNode.addChild(
 					ParamKeys.ENTRY_TOTAL,
 					entry.getAmountWithTax()
-							.setScale(BillyMathContext.SCALE,
-									this.mc.getRoundingMode()).toPlainString());
+					.setScale(BillyMathContext.SCALE,
+							this.mc.getRoundingMode()).toPlainString());
 
-			List<Tax> taxList = entry.getTaxes();
-			for (Tax tax : taxList) {
+			Collection<TaxData> taxList = entry.getTaxes();
+			for (TaxData tax : taxList) {
 				entryNode
-						.addChild(
-								ParamKeys.ENTRY_TAX,
-								tax.getValue()
-								.setScale(BillyMathContext.SCALE,
-										this.mc.getRoundingMode()).toPlainString()
-										+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
-												: "&#8364;"));
+				.addChild(
+						ParamKeys.ENTRY_TAX,
+						tax.getValue()
+						.setScale(BillyMathContext.SCALE,
+								this.mc.getRoundingMode()).toPlainString()
+						+ (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%"
+								: "&#8364;"));
 				taxTotals.add(
 						(tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true
 								: false), tax.getValue(), entry
-								.getAmountWithoutTax(), entry.getTaxAmount(),
+						.getAmountWithoutTax(), entry.getTaxAmount(),
 						tax.getUID().getValue()
 						, tax.getDesignation()
 						, tax.getDescription());
@@ -279,13 +272,11 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		}
 	}
 
-	protected void setBusiness(ParamsTree<String, String> params,
-			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
+	protected void setBusiness(ParamsTree<String, String> params, T document) {
 		Node<String, String> businessInfo = params.getRoot().addChild(
 				ParamKeys.BUSINESS);
 
-		businessInfo.addChild(ParamKeys.BUSINESS_LOGO,
-				bundle.getLogoImagePath());
+		businessInfo.addChild(ParamKeys.BUSINESS_LOGO, logoImagePath);
 
 		businessInfo.addChild(ParamKeys.BUSINESS_NAME, document.getBusiness()
 				.getName());
@@ -326,8 +317,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		return;
 	}
 
-	protected void setCustomer(ParamsTree<String, String> params,
-			GenericInvoiceEntity document, BillyTemplateBundle bundle) {
+	protected void setCustomer(ParamsTree<String, String> params, T document) {
 
 		Node<String, String> customer = params.getRoot().addChild(
 				ParamKeys.CUSTOMER);
@@ -335,8 +325,7 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		customer.addChild(ParamKeys.CUSTOMER_NAME, document.getCustomer()
 				.getName());
 
-		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID,
-				this.getCustomerFinancialId(document, bundle));
+		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, getCustomerFinancialId(document));
 
 		if (document.getCustomer().getBillingAddress() != null) {
 			Node<String, String> customerAddress = customer
@@ -344,11 +333,11 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 			customerAddress.addChild(
 					ParamKeys.CUSTOMER_BILLING_ADDRESS_COUNTRY, document
-							.getCustomer().getBillingAddress().getISOCountry());
+					.getCustomer().getBillingAddress().getISOCountry());
 
 			customerAddress.addChild(
 					ParamKeys.CUSTOMER_BILLING_ADDRESS_DETAILS, document
-							.getCustomer().getBillingAddress().getDetails());
+					.getCustomer().getBillingAddress().getDetails());
 
 			customerAddress.addChild(ParamKeys.CUSTOMER_BILLING_ADDRESS_CITY,
 					document.getCustomer().getBillingAddress().getCity());
@@ -358,50 +347,41 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 
 			customerAddress.addChild(
 					ParamKeys.CUSTOMER_BILLING_ADDRESS_POSTAL_CODE, document
-							.getCustomer().getBillingAddress().getPostalCode());
+					.getCustomer().getBillingAddress().getPostalCode());
 		}
 		return;
 	}
 
-	protected <T extends GenericInvoiceEntity> void setTaxValues(
+	protected void setTaxValues(
 			ParamsTree<String, String> params, T document) {
 
 		params.getRoot().addChild(
 				ParamKeys.TOTAL_BEFORE_TAX,
 				document.getAmountWithoutTax()
-						.setScale(BillyMathContext.SCALE,
-								this.mc.getRoundingMode()).toPlainString());
+				.setScale(BillyMathContext.SCALE,
+						this.mc.getRoundingMode()).toPlainString());
 		params.getRoot().addChild(
 				ParamKeys.TOTAL_TAX,
 				document.getTaxAmount()
-						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
-						.toPlainString());
+				.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+				.toPlainString());
 		params.getRoot().addChild(
 				ParamKeys.TOTAL,
 				document.getAmountWithTax()
-						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
-						.toPlainString());
+				.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+				.toPlainString());
 
 		BillyValidator
-				.isTrue(document
-						.getAmountWithoutTax()
-						.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
-						.add(document.getTaxAmount().setScale(
-								BillyMathContext.SCALE, mc.getRoundingMode()))
-						.compareTo(
-								document.getAmountWithTax().setScale(
-										BillyMathContext.SCALE,
-										mc.getRoundingMode())) == 0);
-		return;
+		.isTrue(document
+				.getAmountWithoutTax()
+				.setScale(BillyMathContext.SCALE, mc.getRoundingMode())
+				.add(document.getTaxAmount().setScale(
+						BillyMathContext.SCALE, mc.getRoundingMode()))
+				.compareTo(
+						document.getAmountWithTax().setScale(
+								BillyMathContext.SCALE,
+								mc.getRoundingMode())) == 0);
 	}
-
-	protected <T extends BillyTemplateBundle> String getPaymentMechanismTranslation(
-			Enum<?> pmc, T bundle) {
-		return bundle.getPaymentMechanismTranslation(pmc);
-	}
-
-	protected abstract <T extends BillyTemplateBundle, K extends GenericInvoiceEntity> String getCustomerFinancialId(
-			K document, T bundle);
 
 	protected class TaxTotals {
 
@@ -482,21 +462,4 @@ public abstract class AbstractPDFExportHandler extends AbstractPDFHandler
 		}
 	}
 
-	public <T extends ExportServiceRequest> void export(T request,
-			OutputStream targetStream) throws ExportServiceException {
-
-		if (!(request instanceof AbstractExportRequest)) {
-			throw new ExportServiceException("Cannot handle request of type "
-					+ request.getClass().getCanonicalName());
-		}
-		AbstractExportRequest exportRequest = (AbstractExportRequest) request;
-		UID docUid = exportRequest.getDocumentUID();
-
-		try {
-			GenericInvoiceEntity invoice = this.daoGenericInvoice.get(docUid);
-			this.toStream(invoice, targetStream, exportRequest.getBundle());
-		} catch (Exception e) {
-			throw new ExportServiceException(e);
-		}
-	}
 }

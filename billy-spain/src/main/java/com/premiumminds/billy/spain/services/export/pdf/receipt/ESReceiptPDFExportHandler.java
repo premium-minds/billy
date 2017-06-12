@@ -111,7 +111,7 @@ public class ESReceiptPDFExportHandler extends AbstractPDFExportHandler {
 
 		super.setTaxDetails(taxTotals, taxDetails);
 
-		super.setTaxValues(params, taxTotals, receipt);
+		super.setTaxValues(params, receipt);
 		
 		return params;
 	}

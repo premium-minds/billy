@@ -31,6 +31,14 @@ import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandle
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.export.PTCreditNoteData;
+import com.premiumminds.billy.portugal.services.export.PTCreditNoteExtractor;
+import com.premiumminds.billy.portugal.services.export.PTInvoiceData;
+import com.premiumminds.billy.portugal.services.export.PTInvoiceExtractor;
+import com.premiumminds.billy.portugal.services.export.PTReceiptInvoiceData;
+import com.premiumminds.billy.portugal.services.export.PTReceiptInvoiceExtractor;
+import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceData;
+import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceExtractor;
 import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFExportHandler;
 import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFExportRequest;
 import com.premiumminds.billy.portugal.services.persistence.PTInvoicePersistenceService;
@@ -51,6 +59,11 @@ public class Invoices {
 				this.injector.getInstance(PTInvoiceIssuingHandler.class));
 		this.exportService = getInstance(ExportService.class);
 		this.exportService.addHandler(PTInvoicePDFExportRequest.class, getInstance(PTInvoicePDFExportHandler.class));
+		
+		this.exportService.addHandler(PTCreditNoteData.class, getInstance(PTCreditNoteExtractor.class));
+		this.exportService.addHandler(PTInvoiceData.class, getInstance(PTInvoiceExtractor.class));
+		this.exportService.addHandler(PTReceiptInvoiceData.class, getInstance(PTReceiptInvoiceExtractor.class));
+		this.exportService.addHandler(PTSimpleInvoiceData.class, getInstance(PTSimpleInvoiceExtractor.class));
 	}
 
 	public PTInvoice.Builder builder() {

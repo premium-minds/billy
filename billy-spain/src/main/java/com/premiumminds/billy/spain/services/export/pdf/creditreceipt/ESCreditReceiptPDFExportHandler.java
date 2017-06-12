@@ -95,7 +95,7 @@ public class ESCreditReceiptPDFExportHandler extends AbstractPDFExportHandler {
 
 		setTaxDetails(taxTotals, taxDetails);
 
-		setTaxValues(params, taxTotals, creditReceipt);
+		setTaxValues(params, creditReceipt);
 		
 		return params;
 	}

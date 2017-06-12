@@ -31,7 +31,16 @@ import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
-import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoicePDFExportHandler;
+import com.premiumminds.billy.spain.services.export.ESCreditNoteData;
+import com.premiumminds.billy.spain.services.export.ESCreditNoteExtractor;
+import com.premiumminds.billy.spain.services.export.ESCreditReceiptData;
+import com.premiumminds.billy.spain.services.export.ESCreditReceiptExtractor;
+import com.premiumminds.billy.spain.services.export.ESInvoiceData;
+import com.premiumminds.billy.spain.services.export.ESInvoiceExtractor;
+import com.premiumminds.billy.spain.services.export.ESReceiptData;
+import com.premiumminds.billy.spain.services.export.ESReceiptExtractor;
+import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceData;
+import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceExtractor;
 import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoicePDFExportRequest;
 import com.premiumminds.billy.spain.services.persistence.ESInvoicePersistenceService;
 
@@ -50,7 +59,12 @@ public class Invoices {
 		this.issuingService.addHandler(ESInvoiceEntity.class,
 				this.injector.getInstance(ESInvoiceIssuingHandler.class));
 		this.exportService = getInstance(ExportService.class);
-		this.exportService.addHandler(ESInvoicePDFExportRequest.class, getInstance(ESInvoicePDFExportHandler.class));
+		
+		this.exportService.addHandler(ESCreditNoteData.class, getInstance(ESCreditNoteExtractor.class));
+		this.exportService.addHandler(ESCreditReceiptData.class, getInstance(ESCreditReceiptExtractor.class));
+		this.exportService.addHandler(ESInvoiceData.class, getInstance(ESInvoiceExtractor.class));
+		this.exportService.addHandler(ESReceiptData.class, getInstance(ESReceiptExtractor.class));
+		this.exportService.addHandler(ESSimpleInvoiceData.class, getInstance(ESSimpleInvoiceExtractor.class));
 	}
 
 	public ESInvoice.Builder builder() {

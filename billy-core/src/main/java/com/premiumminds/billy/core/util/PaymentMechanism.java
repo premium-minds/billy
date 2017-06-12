@@ -30,7 +30,7 @@ public enum PaymentMechanism {
 		ATM,
 		EXCHANGE,
 		ELECTRONIC_MONEY
-		// TODO
-		// CO - Cheque ou cartao oferta
-		// OU - Outros meios
+		// TODO:
+		// CO - Check or gift card
+		// OU - Other payment methods
 }
