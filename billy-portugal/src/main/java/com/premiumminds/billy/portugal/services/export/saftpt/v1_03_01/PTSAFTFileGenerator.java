@@ -35,6 +35,9 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
@@ -111,6 +114,9 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.So
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
 
 public class PTSAFTFileGenerator {
+	
+	private static final Logger log = LoggerFactory.getLogger(Config.class);
+	
 	private Config						config					= null;
 	private JAXBContext					jaxbContext;
 	private Marshaller					marshaller;
@@ -335,7 +341,7 @@ public class PTSAFTFileGenerator {
 			this.marshaller.marshal(auditFile, targetStream);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

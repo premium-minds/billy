@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.export.pdf.receiptinvoice.impl;
+package com.premiumminds.billy.portugal.services.export.pdf.receiptinvoice;
 
 import java.io.InputStream;
 import java.math.MathContext;
@@ -38,10 +38,10 @@ implements PTReceiptInvoicePDFTransformer {
 			MathContext mathContext,
 			String logoImagePath,
 			InputStream xsltFileStream,
-			Config config,
-			String softwareCertificationId) {
+			String softwareCertificationId,
+			Config config) {
 		
-		super(PTReceiptInvoiceData.class, mathContext, logoImagePath, xsltFileStream, config, softwareCertificationId);
+		super(PTReceiptInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
 	}
 
@@ -50,13 +50,13 @@ implements PTReceiptInvoicePDFTransformer {
 			InputStream xsltFileStream, 
 			String softwareCertificationId) {
 		
-		this(BillyMathContext.get(), logoImagePath, xsltFileStream, new Config(), softwareCertificationId);
+		this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
 	}
 	
-	public String getSoftwareCertificationId() {
-		return softwareCertificationId;
-	}
-
+	public PTReceiptInvoicePDFFOPTransformer(PTReceiptInvoiceTemplateBundle bundle) {
+        super(PTReceiptInvoiceData.class, BillyMathContext.get(), bundle, new Config());
+    }
+	
 	@Override
 	protected ParamsTree<String, String> mapDocumentToParamsTree(PTReceiptInvoiceData invoice) {
 

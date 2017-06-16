@@ -16,37 +16,40 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.services.export.pdf.invoice.impl;
+package com.premiumminds.billy.spain.services.export.pdf.receipt;
 
 import java.io.InputStream;
 import java.math.MathContext;
 
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
-import com.premiumminds.billy.spain.services.export.ESInvoiceData;
+import com.premiumminds.billy.spain.services.export.ESReceiptData;
 import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransformer;
-import com.premiumminds.billy.spain.services.export.pdf.ESInvoicePDFTransformer;
+import com.premiumminds.billy.spain.services.export.pdf.ESReceiptPDFTransformer;
 
-public class ESInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESInvoiceData> 
-implements ESInvoicePDFTransformer {
+public class ESReceiptPDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESReceiptData> 
+implements ESReceiptPDFTransformer {
 	
-	public static final String PARAM_KEYS_ROOT = "invoice";
-	public static final String PARAM_KEYS_INVOICE_PAYSETTLEMENT = "paymentSettlement";
+	public static final String PARAM_KEYS_ROOT = "receipt";
 	
-	public ESInvoicePDFFOPTransformer(
+	public ESReceiptPDFFOPTransformer(
 			MathContext mathContext,
 			String logoImagePath,
 			InputStream xsltFileStream) {
 		
-		super(ESInvoiceData.class, mathContext, logoImagePath, xsltFileStream);
+		super(ESReceiptData.class, mathContext, logoImagePath, xsltFileStream);
 	}
-
-	public ESInvoicePDFFOPTransformer(
+	
+	public ESReceiptPDFFOPTransformer(
 			String logoImagePath,
 			InputStream xsltFileStream) {
 		
 		this(BillyMathContext.get(), logoImagePath, xsltFileStream);
 	}
+	
+	public ESReceiptPDFFOPTransformer(ESReceiptTemplateBundle bundle) {
+        super(ESReceiptData.class, BillyMathContext.get(), bundle);
+    }
 	
 	@Override
 	protected ParamsTree<String, String> getNewParamsTree() {
@@ -54,17 +57,22 @@ implements ESInvoicePDFTransformer {
 	}
 	
 	@Override
-	protected void setHeader(ParamsTree<String, String> params, ESInvoiceData entity) {
-		if (null != entity.getSettlementDescription()) {
-			params.getRoot().addChild(PARAM_KEYS_INVOICE_PAYSETTLEMENT,
-					entity.getSettlementDescription());
-		}
-		super.setHeader(params, entity);
-	}
+	protected ParamsTree<String, String> mapDocumentToParamsTree(ESReceiptData entity) {
 
+		ParamsTree<String, String> params = getNewParamsTree();
+		TaxTotals taxTotals = new TaxTotals();
+
+		setHeader(params, entity);
+		setBusiness(params, entity);
+		setEntries(taxTotals, params, entity);
+		setTaxDetails(taxTotals, params);
+		setTaxValues(params, entity);
+		
+		return params;
+	}
+	
 	@Override
-	protected String getCustomerFinancialId(ESInvoiceData invoice) {
-		return invoice.getCustomer().getTaxRegistrationNumber();
+	protected String getCustomerFinancialId(ESReceiptData entity) {
+		return "";
 	}
-
 }

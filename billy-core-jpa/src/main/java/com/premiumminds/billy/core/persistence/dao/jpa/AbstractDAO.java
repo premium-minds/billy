@@ -30,6 +30,9 @@ import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.mysema.query.jpa.JPQLTemplates;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.Path;
@@ -42,6 +45,8 @@ import com.premiumminds.billy.core.services.UID;
 
 public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends JPABaseEntity & BaseEntity>
 	implements DAO<TInterface> {
+	
+	private static final Logger log = LoggerFactory.getLogger(AbstractDAO.class);
 
 	protected Provider<EntityManager>	emProvider;
 
@@ -243,20 +248,11 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 	protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
 		try {
 			return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			e.printStackTrace();
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			log.error(e.getMessage(), e);
 		}
-		
+
 		return null;
 	}
 

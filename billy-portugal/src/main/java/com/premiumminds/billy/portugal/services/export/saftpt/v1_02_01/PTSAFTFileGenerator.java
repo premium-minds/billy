@@ -35,6 +35,9 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
@@ -87,6 +90,7 @@ import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportEx
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.AddressStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.AddressStructurePT;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.AuditFile;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.AuditFile.MasterFiles;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Currency;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Customer;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Header;
@@ -96,20 +100,21 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Re
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Settlement;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.ShippingPointStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SourceDocuments;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Supplier;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SupplierAddressStructure;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Tax;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.TaxTable;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.TaxTableEntry;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.AuditFile.MasterFiles;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SourceDocuments.SalesInvoices;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SourceDocuments.SalesInvoices.Invoice;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Supplier;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.SupplierAddressStructure;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.Tax;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.TaxTable;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.schema.TaxTableEntry;
 
 public class PTSAFTFileGenerator {
 
+	private static final Logger log = LoggerFactory.getLogger(PTSAFTFileGenerator.class);
+	
 	private Config						config					= null;
 	private JAXBContext					jaxbContext;
 	private Marshaller					marshaller;
@@ -334,7 +339,7 @@ public class PTSAFTFileGenerator {
 			this.marshaller.marshal(auditFile, targetStream);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 	}
 

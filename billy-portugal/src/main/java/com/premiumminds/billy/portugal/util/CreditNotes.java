@@ -19,20 +19,25 @@
 package com.premiumminds.billy.portugal.util;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.documents.PTCreditNoteIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportHandler;
+import com.premiumminds.billy.portugal.services.export.PTCreditNoteData;
+import com.premiumminds.billy.portugal.services.export.PTCreditNoteDataExtractor;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportRequest;
+import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFFOPTransformer;
 import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersistenceService;
 
 public class CreditNotes {
@@ -50,7 +55,9 @@ public class CreditNotes {
 		this.issuingService.addHandler(PTCreditNoteEntity.class,
 				this.injector.getInstance(PTCreditNoteIssuingHandler.class));
 		this.exportService = getInstance(ExportService.class);
-		this.exportService.addHandler(PTCreditNotePDFExportRequest.class, getInstance(PTCreditNotePDFExportHandler.class));
+
+		this.exportService.addDataExtractor(PTCreditNoteData.class, getInstance(PTCreditNoteDataExtractor.class));
+		this.exportService.addTransformerMapper(PTCreditNotePDFExportRequest.class, PTCreditNotePDFFOPTransformer.class);
 	}
 
 	public PTCreditNote.Builder builder() {
@@ -84,6 +91,12 @@ public class CreditNotes {
 	public InputStream pdfExport(PTCreditNotePDFExportRequest request) throws ExportServiceException {
 		return exportService.exportToStream(request);
 	}
+	
+	public void pdfExport(UID uidDoc, BillyPDFTransformer<PTCreditNoteData> dataTransformer, OutputStream outputStream) 
+            throws ExportServiceException {
+        
+        exportService.export(uidDoc, dataTransformer, outputStream);
+    }
 	
 	private <T> T getInstance(Class<T> clazz) {
 		return this.injector.getInstance(clazz);

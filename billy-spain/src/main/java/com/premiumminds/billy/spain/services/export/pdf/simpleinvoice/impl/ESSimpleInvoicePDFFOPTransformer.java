@@ -29,6 +29,7 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceData;
 import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransformer;
 import com.premiumminds.billy.spain.services.export.pdf.ESSimpleInvoicePDFTransformer;
+import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoiceTemplateBundle;
 
 public class ESSimpleInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESSimpleInvoiceData> 
 implements ESSimpleInvoicePDFTransformer {
@@ -49,6 +50,10 @@ implements ESSimpleInvoicePDFTransformer {
 		
 		this(BillyMathContext.get(), logoImagePath, xsltFileStream);
 	}
+	
+	public ESSimpleInvoicePDFFOPTransformer(ESSimpleInvoiceTemplateBundle bundle) {
+        super(ESSimpleInvoiceData.class, BillyMathContext.get(), bundle);
+    }
 	
 	@Override
 	protected ParamsTree<String, String> getNewParamsTree() {

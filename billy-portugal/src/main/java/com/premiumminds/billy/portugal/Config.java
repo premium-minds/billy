@@ -23,9 +23,14 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.premiumminds.billy.core.services.UID;
 
 public class Config {
+	
+	private static final Logger log = LoggerFactory.getLogger(Config.class);
 
 	public static final String	TABLE_PREFIX				= "BILLY_PT_";
 
@@ -46,7 +51,7 @@ public class Config {
 			properties.load(stream);
 			stream.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			throw new RuntimeException();
 		}
 		return properties;

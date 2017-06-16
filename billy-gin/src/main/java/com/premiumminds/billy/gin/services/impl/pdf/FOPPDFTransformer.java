@@ -41,12 +41,16 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.xmlgraphics.util.MimeConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 
 public abstract class FOPPDFTransformer {
+	
+	private static final Logger log = LoggerFactory.getLogger(FOPPDFTransformer.class);
 
 	private Source mapParamsToSource(ParamsTree<String, String> documentParams) {
 		StreamSource source = new StreamSource(new StringReader(
@@ -144,7 +148,7 @@ public abstract class FOPPDFTransformer {
 		try {
 			return impl.newTransformer(streamSource);
 		} catch (TransformerConfigurationException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		return null;
 	}

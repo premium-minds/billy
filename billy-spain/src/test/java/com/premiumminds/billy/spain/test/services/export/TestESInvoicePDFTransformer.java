@@ -43,8 +43,9 @@ import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.export.ESInvoiceData;
-import com.premiumminds.billy.spain.services.export.ESInvoiceExtractor;
-import com.premiumminds.billy.spain.services.export.pdf.invoice.impl.ESInvoicePDFFOPTransformer;
+import com.premiumminds.billy.spain.services.export.ESInvoiceDataExtractor;
+import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoicePDFFOPTransformer;
+import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoiceTemplateBundle;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
@@ -59,7 +60,7 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 	ESInvoiceTestUtil test;
 	private Injector mockedInjector;
 	private ESInvoicePDFFOPTransformer transformer;
-	private ESInvoiceExtractor extractor;
+	private ESInvoiceDataExtractor extractor;
 
 	@Before
 	public void setUp() throws FileNotFoundException {
@@ -71,7 +72,7 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 		InputStream xsl = new FileInputStream(XSL_PATH);
 
 		transformer = new ESInvoicePDFFOPTransformer(LOGO_PATH, xsl);
-		extractor = mockedInjector.getInstance(ESInvoiceExtractor.class);
+		extractor = mockedInjector.getInstance(ESInvoiceDataExtractor.class);
 		test = new ESInvoiceTestUtil(ESAbstractTest.injector);
 	}
 
@@ -140,6 +141,22 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 		ESInvoiceData entityData = extractor.extract(entity.getUID());
 		transformer.transform(entityData, os);
 	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+        ESInvoiceEntity entity = generateESInvoice();
+        DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        
+        OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        ESInvoiceTemplateBundle bundle = new ESInvoiceTemplateBundle(LOGO_PATH, xsl);
+        ESInvoicePDFFOPTransformer transformerBundle = new ESInvoicePDFFOPTransformer(bundle);
+        
+        ESInvoiceData entityData = extractor.extract(entity.getUID());
+        transformerBundle.transform(entityData, os);
+    }
 
 	private ESInvoiceEntity generateESInvoice() {
 		ESInvoiceEntity invoice = test.getInvoiceEntity();

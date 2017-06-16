@@ -36,13 +36,18 @@ public interface ExportService {
 	public <T extends ExportServiceRequest> File exportToFile(T request)
 		throws ExportServiceException;
 
+	@Deprecated
 	public void addHandler(Class<? extends ExportServiceRequest> requestClass,
 			ExportServiceHandler handler);
 
-	public <T extends GenericInvoiceData> void addHandler(Class<T> dataClass, 
+	public <T extends GenericInvoiceData> void addDataExtractor(Class<T> dataClass, 
 			BillyDataExtractor<T> dataExtractor);
+	
+	public void addTransformerMapper(Class<? extends ExportServiceRequest> requestClazz,
+			Class<? extends BillyPDFTransformer<? extends GenericInvoiceData>> transformerClazz);
 
-	public <T extends GenericInvoiceData> void export(UID uidDoc, BillyPDFTransformer<T> dataTransformer, OutputStream outputStream)
+	public <T extends GenericInvoiceData> void export(UID uidDoc, BillyPDFTransformer<T> dataTransformer, 
+			OutputStream outputStream)
 			throws ExportServiceException;
 
 }

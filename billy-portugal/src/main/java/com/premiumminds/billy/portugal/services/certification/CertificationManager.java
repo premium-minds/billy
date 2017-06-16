@@ -27,8 +27,12 @@ import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CertificationManager {
+	
+	private static final Logger log = LoggerFactory.getLogger(CertificationManager.class);
 
 	private static final int	EXPECTED_HASH_LENGTH	= 172;
 
@@ -45,7 +49,7 @@ public class CertificationManager {
 		try {
 			this.signature = Signature.getInstance("SHA1withRSA");
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 	}
@@ -104,7 +108,7 @@ public class CertificationManager {
 			this.signature.update(source.getBytes());
 			return this.signature.verify(hash);
 		} catch (SignatureException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 		return false;
 	}

@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.services.export.pdf.creditreceipt.impl;
+package com.premiumminds.billy.spain.services.export.pdf.creditreceipt;
 
 import java.io.InputStream;
 import java.math.MathContext;
@@ -53,6 +53,10 @@ implements ESCreditReceiptPDFTransformer {
 		
 		this(BillyMathContext.get(), logoImagePath, xsltFileStream);
 	}
+	
+	public ESCreditReceiptPDFFOPTransformer(ESCreditReceiptTemplateBundle bundle) {
+        super(ESCreditReceiptData.class, BillyMathContext.get(), bundle);
+    }
 	
 	@Override
 	protected ParamsTree<String, String> getNewParamsTree() {

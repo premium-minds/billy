@@ -23,6 +23,8 @@ import java.util.Currency;
 import java.util.Date;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -46,6 +48,8 @@ import com.premiumminds.billy.spain.services.entities.ESTax;
 import com.premiumminds.billy.spain.services.entities.ESTax.ESVATCode;
 
 public class SpainBootstrap {
+	
+	private static final Logger log = LoggerFactory.getLogger(SpainBootstrap.class);
 
 	protected static final String CODE_ES = "ES";
 	
@@ -743,7 +747,7 @@ public class SpainBootstrap {
 
 			}.execute();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 	}

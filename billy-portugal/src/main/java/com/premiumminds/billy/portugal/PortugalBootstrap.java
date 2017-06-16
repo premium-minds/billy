@@ -23,6 +23,8 @@ import java.util.Currency;
 import java.util.Date;
 
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -50,6 +52,8 @@ import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.entities.PTTax.PTVATCode;
 
 public class PortugalBootstrap {
+	
+	private static final Logger log = LoggerFactory.getLogger(PortugalBootstrap.class);
 
 	protected static final String	CODE_PT					= "PT";
 	protected static final String	CODE_PT_AVEIRO			= "PT-01";
@@ -651,7 +655,7 @@ public class PortugalBootstrap {
 
 			}.execute();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		}
 
 	}

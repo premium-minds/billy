@@ -30,21 +30,21 @@ import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
-import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
+import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
+import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 
-public class ESInvoiceExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESInvoiceData> {
+public class ESSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESSimpleInvoiceData> {
 	
-	private final DAOESInvoice daoESInvoice;
+	private final DAOESSimpleInvoice daoESSimpleInvoice;
 	
 	@Inject
-	public ESInvoiceExtractor(DAOESInvoice daoESInvoice) {
-		this.daoESInvoice = daoESInvoice;
+	public ESSimpleInvoiceDataExtractor(DAOESSimpleInvoice daoESSimpleInvoice) {
+		this.daoESSimpleInvoice = daoESSimpleInvoice;
 	}
 
 	@Override
-	public ESInvoiceData extract(UID uid) throws ExportServiceException {
-		ESInvoiceEntity entity = (ESInvoiceEntity) daoESInvoice.get(uid); //FIXME: Fix the DAOs to remove this cast
+	public ESSimpleInvoiceData extract(UID uid) throws ExportServiceException {
+		ESSimpleInvoiceEntity entity = (ESSimpleInvoiceEntity) daoESSimpleInvoice.get(uid); //FIXME: Fix the DAOs to remove this cast
 		if (entity == null) {
 			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
 		}
@@ -54,7 +54,7 @@ public class ESInvoiceExtractor extends AbstractBillyDataExtractor implements Bi
 		BusinessData business = extractBusiness(entity.getBusiness());
 		List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
 		
-		return new ESInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
+		return new ESSimpleInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
 				payments, costumer, business, entries, 
 				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
 				entity.getSettlementDescription());

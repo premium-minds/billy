@@ -24,9 +24,14 @@ import java.util.Properties;
 
 import javax.inject.Singleton;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Singleton
 public class Config {
 
+	private static final Logger log = LoggerFactory.getLogger(Config.class);
+	
 	public static final long	SERIAL_VERSION				= -4303676531780572465L;
 	public static final String	TABLE_PREFIX				= "BILLY_CORE_";
 
@@ -47,8 +52,8 @@ public class Config {
 			properties.load(stream);
 			stream.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RuntimeException();
+			log.error(e.getMessage(), e);
+			throw new RuntimeException(e);
 		}
 		return properties;
 	};

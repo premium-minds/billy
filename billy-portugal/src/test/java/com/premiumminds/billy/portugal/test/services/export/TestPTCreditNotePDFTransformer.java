@@ -49,8 +49,9 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.export.PTCreditNoteData;
-import com.premiumminds.billy.portugal.services.export.PTCreditNoteExtractor;
-import com.premiumminds.billy.portugal.services.export.pdf.creditnote.impl.PTCreditNotePDFFOPTransformer;
+import com.premiumminds.billy.portugal.services.export.PTCreditNoteDataExtractor;
+import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFFOPTransformer;
+import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNoteTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
@@ -66,7 +67,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
 	private Injector mockedInjector;
 	private PTCreditNotePDFFOPTransformer transformer;
-	private PTCreditNoteExtractor extractor;
+	private PTCreditNoteDataExtractor extractor;
 	
 	@Before
 	public void setUp() throws FileNotFoundException {
@@ -78,7 +79,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 		InputStream xsl = new FileInputStream(XSL_PATH);
 
 		transformer = new PTCreditNotePDFFOPTransformer(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
-		extractor = mockedInjector.getInstance(PTCreditNoteExtractor.class);
+		extractor = mockedInjector.getInstance(PTCreditNoteDataExtractor.class);
 	}
 
 	@Test
@@ -104,6 +105,23 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 		UID uidEntity = UID.fromString("12345");
 		extractor.extract(uidEntity);
 	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
+        UID uidEntity = UID.fromString("12345");
+        PTCreditNoteEntity invoice = generatePTCreditNote(PaymentMechanism.CASH, getNewIssuedInvoice());
+        DAOPTCreditNote dao = mockedInjector.getInstance(DAOPTCreditNote.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
+        PTCreditNotePDFFOPTransformer transformerBundle = new PTCreditNotePDFFOPTransformer(bundle);
+        
+        PTCreditNoteData entityData = extractor.extract(uidEntity);
+        transformerBundle.transform(entityData, os);
+    }
 
 	private PTCreditNoteEntity generatePTCreditNote(
 			PaymentMechanism paymentMechanism, PTInvoiceEntity reference)

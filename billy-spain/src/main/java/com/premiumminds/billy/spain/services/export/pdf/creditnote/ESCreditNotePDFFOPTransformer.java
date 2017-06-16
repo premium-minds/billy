@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.services.export.pdf.creditnote.impl;
+package com.premiumminds.billy.spain.services.export.pdf.creditnote;
 
 import java.io.InputStream;
 import java.math.MathContext;
@@ -52,6 +52,10 @@ implements ESCreditNotePDFTransformer {
 			InputStream xsltFileStream) {
 		
 		this(BillyMathContext.get(), logoImagePath, xsltFileStream);
+	}
+	
+	public ESCreditNotePDFFOPTransformer(ESCreditNoteTemplateBundle bundle) {
+		super(ESCreditNoteData.class, BillyMathContext.get(), bundle);
 	}
 
 	@Override

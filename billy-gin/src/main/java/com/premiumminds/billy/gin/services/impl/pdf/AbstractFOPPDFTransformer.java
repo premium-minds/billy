@@ -140,17 +140,12 @@ implements BillyPDFTransformer<T> {
 
 		TaxTotals taxTotals = new TaxTotals();
 
-		this.setHeader(params, document);
-
-		this.setBusiness(params, document);
-
-		this.setCustomer(params, document);
-
-		this.setEntries(taxTotals, params, document);
-
-		this.setTaxDetails(taxTotals, params);
-
-		this.setTaxValues(params, document);
+		setHeader(params, document);
+		setBusiness(params, document);
+		setCustomer(params, document);
+		setEntries(taxTotals, params, document);
+		setTaxDetails(taxTotals, params);
+		setTaxValues(params, document);
 
 		return params;
 	}

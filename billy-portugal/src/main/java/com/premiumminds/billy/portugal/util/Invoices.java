@@ -19,28 +19,25 @@
 package com.premiumminds.billy.portugal.util;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.services.export.PTCreditNoteData;
-import com.premiumminds.billy.portugal.services.export.PTCreditNoteExtractor;
 import com.premiumminds.billy.portugal.services.export.PTInvoiceData;
-import com.premiumminds.billy.portugal.services.export.PTInvoiceExtractor;
-import com.premiumminds.billy.portugal.services.export.PTReceiptInvoiceData;
-import com.premiumminds.billy.portugal.services.export.PTReceiptInvoiceExtractor;
-import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceData;
-import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceExtractor;
-import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFExportHandler;
+import com.premiumminds.billy.portugal.services.export.PTInvoiceDataExtractor;
 import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFExportRequest;
+import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFFOPTransformer;
 import com.premiumminds.billy.portugal.services.persistence.PTInvoicePersistenceService;
 
 public class Invoices {
@@ -58,12 +55,10 @@ public class Invoices {
 		this.issuingService.addHandler(PTInvoiceEntity.class,
 				this.injector.getInstance(PTInvoiceIssuingHandler.class));
 		this.exportService = getInstance(ExportService.class);
-		this.exportService.addHandler(PTInvoicePDFExportRequest.class, getInstance(PTInvoicePDFExportHandler.class));
 		
-		this.exportService.addHandler(PTCreditNoteData.class, getInstance(PTCreditNoteExtractor.class));
-		this.exportService.addHandler(PTInvoiceData.class, getInstance(PTInvoiceExtractor.class));
-		this.exportService.addHandler(PTReceiptInvoiceData.class, getInstance(PTReceiptInvoiceExtractor.class));
-		this.exportService.addHandler(PTSimpleInvoiceData.class, getInstance(PTSimpleInvoiceExtractor.class));
+		this.exportService.addDataExtractor(PTInvoiceData.class, getInstance(PTInvoiceDataExtractor.class));
+		this.exportService.addTransformerMapper(PTInvoicePDFExportRequest.class, PTInvoicePDFFOPTransformer.class);
+	      
 	}
 
 	public PTInvoice.Builder builder() {
@@ -96,6 +91,12 @@ public class Invoices {
 
 	public InputStream pdfExport(PTInvoicePDFExportRequest  request) throws ExportServiceException {
 		return exportService.exportToStream(request);
+	}
+	
+	public void pdfExport(UID uidDoc, BillyPDFTransformer<PTInvoiceData> dataTransformer, OutputStream outputStream) 
+	        throws ExportServiceException {
+	    
+	    exportService.export(uidDoc, dataTransformer, outputStream);
 	}
 	
 	private <T> T getInstance(Class<T> clazz) {

@@ -1,22 +1,22 @@
 /**
  * Copyright (C) 2017 Premium Minds.
  *
- * This file is part of billy spain (ES Pack).
+ * This file is part of billy portugal (PT Pack).
  *
- * billy spain (ES Pack) is free software: you can redistribute it and/or modify it under
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  *
- * billy spain (ES Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy spain (ES Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.spain.services.export;
+package com.premiumminds.billy.portugal.services.export;
 
 import java.util.List;
 
@@ -30,21 +30,21 @@ import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
-import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
-public class ESSimpleInvoiceExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESSimpleInvoiceData> {
+public class PTReceiptInvoiceDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<PTReceiptInvoiceData> {
 	
-	private final DAOESSimpleInvoice daoESSimpleInvoice;
+	private final DAOPTReceiptInvoice daoPTReceiptInvoice;
 	
 	@Inject
-	public ESSimpleInvoiceExtractor(DAOESSimpleInvoice daoESSimpleInvoice) {
-		this.daoESSimpleInvoice = daoESSimpleInvoice;
+	public PTReceiptInvoiceDataExtractor(DAOPTReceiptInvoice daoPTReceiptInvoice) {
+		this.daoPTReceiptInvoice = daoPTReceiptInvoice;
 	}
 
 	@Override
-	public ESSimpleInvoiceData extract(UID uid) throws ExportServiceException {
-		ESSimpleInvoiceEntity entity = (ESSimpleInvoiceEntity) daoESSimpleInvoice.get(uid); //FIXME: Fix the DAOs to remove this cast
+	public PTReceiptInvoiceData extract(UID uid) throws ExportServiceException {
+		PTReceiptInvoice entity = (PTReceiptInvoice) daoPTReceiptInvoice.get(uid); //FIXME: Fix the DAOs to remove this cast
 		if (entity == null) {
 			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
 		}
@@ -54,10 +54,10 @@ public class ESSimpleInvoiceExtractor extends AbstractBillyDataExtractor impleme
 		BusinessData business = extractBusiness(entity.getBusiness());
 		List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
 		
-		return new ESSimpleInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
+		return new PTReceiptInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
 				payments, costumer, business, entries, 
 				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
-				entity.getSettlementDescription());
+				entity.getSettlementDescription(), entity.getHash());
 	}
 	
 }

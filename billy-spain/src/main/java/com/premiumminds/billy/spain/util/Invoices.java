@@ -19,29 +19,25 @@
 package com.premiumminds.billy.spain.util;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
-import com.premiumminds.billy.spain.services.export.ESCreditNoteData;
-import com.premiumminds.billy.spain.services.export.ESCreditNoteExtractor;
-import com.premiumminds.billy.spain.services.export.ESCreditReceiptData;
-import com.premiumminds.billy.spain.services.export.ESCreditReceiptExtractor;
 import com.premiumminds.billy.spain.services.export.ESInvoiceData;
-import com.premiumminds.billy.spain.services.export.ESInvoiceExtractor;
-import com.premiumminds.billy.spain.services.export.ESReceiptData;
-import com.premiumminds.billy.spain.services.export.ESReceiptExtractor;
-import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceData;
-import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceExtractor;
+import com.premiumminds.billy.spain.services.export.ESInvoiceDataExtractor;
 import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoicePDFExportRequest;
+import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoicePDFFOPTransformer;
 import com.premiumminds.billy.spain.services.persistence.ESInvoicePersistenceService;
 
 public class Invoices {
@@ -60,11 +56,8 @@ public class Invoices {
 				this.injector.getInstance(ESInvoiceIssuingHandler.class));
 		this.exportService = getInstance(ExportService.class);
 		
-		this.exportService.addHandler(ESCreditNoteData.class, getInstance(ESCreditNoteExtractor.class));
-		this.exportService.addHandler(ESCreditReceiptData.class, getInstance(ESCreditReceiptExtractor.class));
-		this.exportService.addHandler(ESInvoiceData.class, getInstance(ESInvoiceExtractor.class));
-		this.exportService.addHandler(ESReceiptData.class, getInstance(ESReceiptExtractor.class));
-		this.exportService.addHandler(ESSimpleInvoiceData.class, getInstance(ESSimpleInvoiceExtractor.class));
+		this.exportService.addDataExtractor(ESInvoiceData.class, getInstance(ESInvoiceDataExtractor.class));
+		this.exportService.addTransformerMapper(ESInvoicePDFExportRequest.class, ESInvoicePDFFOPTransformer.class);
 	}
 
 	public ESInvoice.Builder builder() {
@@ -98,7 +91,12 @@ public class Invoices {
 	public InputStream pdfExport(ESInvoicePDFExportRequest  request) throws ExportServiceException {
 		return exportService.exportToStream(request);
 	}
-
+	
+	public void pdfExport(UID uidDoc, BillyPDFTransformer<ESInvoiceData> dataTransformer, OutputStream outputStream) 
+            throws ExportServiceException {
+        
+        exportService.export(uidDoc, dataTransformer, outputStream);
+    }
 	
 	public ESInvoice.ManualBuilder manualBuilder() {
 		return getInstance(ESInvoice.ManualBuilder.class);

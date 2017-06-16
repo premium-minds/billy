@@ -39,13 +39,25 @@ public abstract class ESAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
 	static final String	EXCHANGE_TEXT			= "Permuta";
 	static final String ELECTRONIC_MONEY_TEXT	= "Dinero Electrónico";
 
+	private final ESTemplateBundle externalTranslator;
+
 	public ESAbstractFOPPDFTransformer(
 			Class<T> transformableClass, 
 			MathContext mc, 
 			String logoImagePath,
 			InputStream xsltFileStream) {
-		
+
 		super(transformableClass, mc, logoImagePath, xsltFileStream);
+		this.externalTranslator = null;
+	}
+	
+	public ESAbstractFOPPDFTransformer(
+			Class<T> transformableClass, 
+			MathContext mc, 
+			ESTemplateBundle bundle) {
+		
+		super(transformableClass, mc, bundle.getLogoImagePath(), bundle.getXSLTFileStream());
+		this.externalTranslator = bundle;
 	}
 
 	@Override
@@ -53,33 +65,38 @@ public abstract class ESAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
 		if (null == pmc) {
 			return null;
 		}
-		PaymentMechanism payment = (PaymentMechanism) pmc;
-		switch (payment) {
-		case BANK_TRANSFER:
-			return BANK_TRANSFER_TEXT;
-		case CASH:
-			return CASH_TEXT;
-		case CREDIT_CARD:
-			return CREDIT_CARD_TEXT;
-		case CHECK:
-			return CHECK_TEXT;
-		case DEBIT_CARD:
-			return DEBIT_CARD_TEXT;
-		case COMPENSATION:
-			return COMPENSATION_TEXT;
-		case COMMERCIAL_LETTER:
-			return COMMERCIAL_LETTER_TEXT;
-		case ATM:
-			return ATM_TEXT;
-		case RESTAURANT_TICKET:
-			return RESTAURANT_TICKET_TEXT;
-		case EXCHANGE:
-			return EXCHANGE_TEXT;
-		case ELECTRONIC_MONEY:
-			return ELECTRONIC_MONEY_TEXT;
-		default:
-			return null;
+
+		if (externalTranslator != null) {
+			return externalTranslator.getPaymentMechanismTranslation(pmc);
+		} else {
+			PaymentMechanism payment = (PaymentMechanism) pmc;
+			switch (payment) {
+			case BANK_TRANSFER:
+				return BANK_TRANSFER_TEXT;
+			case CASH:
+				return CASH_TEXT;
+			case CREDIT_CARD:
+				return CREDIT_CARD_TEXT;
+			case CHECK:
+				return CHECK_TEXT;
+			case DEBIT_CARD:
+				return DEBIT_CARD_TEXT;
+			case COMPENSATION:
+				return COMPENSATION_TEXT;
+			case COMMERCIAL_LETTER:
+				return COMMERCIAL_LETTER_TEXT;
+			case ATM:
+				return ATM_TEXT;
+			case RESTAURANT_TICKET:
+				return RESTAURANT_TICKET_TEXT;
+			case EXCHANGE:
+				return EXCHANGE_TEXT;
+			case ELECTRONIC_MONEY:
+				return ELECTRONIC_MONEY_TEXT;
+			default:
+				return null;
+			}
 		}
 	}
-	
+
 }

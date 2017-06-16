@@ -30,21 +30,21 @@ import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
-public class PTReceiptInvoiceExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<PTReceiptInvoiceData> {
+public class PTSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<PTSimpleInvoiceData> {
 	
-	private final DAOPTReceiptInvoice daoPTReceiptInvoice;
+	private final DAOPTSimpleInvoice daoPTSimpleInvoice;
 	
 	@Inject
-	public PTReceiptInvoiceExtractor(DAOPTReceiptInvoice daoPTReceiptInvoice) {
-		this.daoPTReceiptInvoice = daoPTReceiptInvoice;
+	public PTSimpleInvoiceDataExtractor(DAOPTSimpleInvoice daoPTSimpleInvoice) {
+		this.daoPTSimpleInvoice = daoPTSimpleInvoice;
 	}
 
 	@Override
-	public PTReceiptInvoiceData extract(UID uid) throws ExportServiceException {
-		PTReceiptInvoice entity = (PTReceiptInvoice) daoPTReceiptInvoice.get(uid); //FIXME: Fix the DAOs to remove this cast
+	public PTSimpleInvoiceData extract(UID uid) throws ExportServiceException {
+		PTSimpleInvoice entity = (PTSimpleInvoice) daoPTSimpleInvoice.get(uid); //FIXME: Fix the DAOs to remove this cast
 		if (entity == null) {
 			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
 		}
@@ -54,7 +54,7 @@ public class PTReceiptInvoiceExtractor extends AbstractBillyDataExtractor implem
 		BusinessData business = extractBusiness(entity.getBusiness());
 		List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
 		
-		return new PTReceiptInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
+		return new PTSimpleInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
 				payments, costumer, business, entries, 
 				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
 				entity.getSettlementDescription(), entity.getHash());

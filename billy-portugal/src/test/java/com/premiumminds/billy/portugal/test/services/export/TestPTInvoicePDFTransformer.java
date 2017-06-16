@@ -43,8 +43,9 @@ import com.premiumminds.billy.portugal.PortugalDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.export.PTInvoiceData;
-import com.premiumminds.billy.portugal.services.export.PTInvoiceExtractor;
-import com.premiumminds.billy.portugal.services.export.pdf.invoice.impl.PTInvoicePDFFOPTransformer;
+import com.premiumminds.billy.portugal.services.export.PTInvoiceDataExtractor;
+import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoicePDFFOPTransformer;
+import com.premiumminds.billy.portugal.services.export.pdf.invoice.PTInvoiceTemplateBundle;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
@@ -58,7 +59,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
 	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 
 	Injector mockedInjector;
-	PTInvoiceExtractor extractor;
+	PTInvoiceDataExtractor extractor;
 	PTInvoicePDFFOPTransformer transformer;
 	PTInvoiceTestUtil test;
 	
@@ -73,7 +74,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
 		InputStream xsl = new FileInputStream(TestPTInvoicePDFTransformer.XSL_PATH);
 
 		transformer = new PTInvoicePDFFOPTransformer(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
-		extractor = mockedInjector.getInstance(PTInvoiceExtractor.class);
+		extractor = mockedInjector.getInstance(PTInvoiceDataExtractor.class);
 		test = new PTInvoiceTestUtil(PTAbstractTest.injector);
 	}
 
@@ -144,6 +145,23 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
 		PTInvoiceData entityData = extractor.extract(uidEntity);
 		transformer.transform(entityData, os);
 	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+        UID uidEntity = UID.fromString("12345");
+        PTInvoiceEntity invoice = generatePTInvoice();
+        DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+
+        OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
+        PTInvoicePDFFOPTransformer transformerBundle = new PTInvoicePDFFOPTransformer(bundle);
+        
+        PTInvoiceData entityData = extractor.extract(uidEntity);
+        transformerBundle.transform(entityData, os);
+    }
 
 	private PTInvoiceEntity generatePTInvoice() {
 		PTInvoiceEntity invoice = test.getInvoiceEntity();

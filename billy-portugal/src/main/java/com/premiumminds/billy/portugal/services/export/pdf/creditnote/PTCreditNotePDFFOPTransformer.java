@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.services.export.pdf.creditnote.impl;
+package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
 import java.io.InputStream;
 import java.math.MathContext;
@@ -37,10 +37,10 @@ implements PTCreditNotePDFTransformer {
 			MathContext mathContext,
 			String logoImagePath,
 			InputStream xsltFileStream, 
-			Config config,
-			String softwareCertificationId) {
+			String softwareCertificationId,
+			Config config) {
 		
-		super(PTCreditNoteData.class, mathContext, logoImagePath, xsltFileStream, config, softwareCertificationId);
+		super(PTCreditNoteData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
 	}
 
@@ -49,8 +49,12 @@ implements PTCreditNotePDFTransformer {
 			InputStream xsltFileStream, 
 			String softwareCertificationId) {
 		
-		this(BillyMathContext.get(), logoImagePath, xsltFileStream, new Config(), softwareCertificationId);
+		this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
 	}
+	
+	public PTCreditNotePDFFOPTransformer(PTCreditNoteTemplateBundle bundle) {
+        super(PTCreditNoteData.class, BillyMathContext.get(), bundle, new Config());
+    }
 	
 	@Override
 	protected ParamsTree<String, String> getNewParamsTree() {

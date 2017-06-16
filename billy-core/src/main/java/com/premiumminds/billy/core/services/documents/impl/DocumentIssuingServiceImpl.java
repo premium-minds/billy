@@ -24,6 +24,9 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
@@ -38,6 +41,8 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
+	
+	private static final Logger log = LoggerFactory.getLogger(DocumentIssuingServiceImpl.class);
 
 	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>	handlers;
 	protected DAOGenericInvoice														daoInvoice;
@@ -71,7 +76,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 				}
 			}.execute();
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			throw new DocumentIssuingException(e);
 		}
 	}
@@ -104,7 +109,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 		} catch (RuntimeException e) {
 			throw new DocumentIssuingException(e);
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 			throw new DocumentIssuingException(e);
 		}
 	}

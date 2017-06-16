@@ -19,20 +19,25 @@
 package com.premiumminds.billy.spain.util;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.services.documents.ESCreditReceiptIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceipt;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
-import com.premiumminds.billy.spain.services.export.pdf.creditreceipt.ESCreditReceiptPDFExportHandler;
+import com.premiumminds.billy.spain.services.export.ESCreditReceiptData;
+import com.premiumminds.billy.spain.services.export.ESCreditReceiptDataExtractor;
 import com.premiumminds.billy.spain.services.export.pdf.creditreceipt.ESCreditReceiptPDFExportRequest;
+import com.premiumminds.billy.spain.services.export.pdf.creditreceipt.ESCreditReceiptPDFFOPTransformer;
 import com.premiumminds.billy.spain.services.persistence.ESCreditReceiptPersistenceService;
 
 public class CreditReceipts {
@@ -50,7 +55,9 @@ public class CreditReceipts {
 		this.issuingService.addHandler(ESCreditReceiptEntity.class,
 				this.injector.getInstance(ESCreditReceiptIssuingHandler.class));
 		this.exportService = getInstance(ExportService.class);
-		this.exportService.addHandler(ESCreditReceiptPDFExportRequest.class, getInstance(ESCreditReceiptPDFExportHandler.class));
+		
+        this.exportService.addDataExtractor(ESCreditReceiptData.class, getInstance(ESCreditReceiptDataExtractor.class));
+        this.exportService.addTransformerMapper(ESCreditReceiptPDFExportRequest.class, ESCreditReceiptPDFFOPTransformer.class);
 	}
 
 	public ESCreditReceipt.Builder builder() {
@@ -84,6 +91,12 @@ public class CreditReceipts {
 	public InputStream pdfExport(ESCreditReceiptPDFExportRequest request) throws ExportServiceException {
 		return exportService.exportToStream(request);
 	}
+	
+	public void pdfExport(UID uidDoc, BillyPDFTransformer<ESCreditReceiptData> dataTransformer, OutputStream outputStream) 
+            throws ExportServiceException {
+
+        exportService.export(uidDoc, dataTransformer, outputStream);
+    }
 	
 	private <T> T getInstance(Class<T> clazz) {
 		return this.injector.getInstance(clazz);

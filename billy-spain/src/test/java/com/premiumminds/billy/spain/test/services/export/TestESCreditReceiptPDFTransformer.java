@@ -49,8 +49,9 @@ import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.export.ESCreditReceiptData;
-import com.premiumminds.billy.spain.services.export.ESCreditReceiptExtractor;
-import com.premiumminds.billy.spain.services.export.pdf.creditreceipt.impl.ESCreditReceiptPDFFOPTransformer;
+import com.premiumminds.billy.spain.services.export.ESCreditReceiptDataExtractor;
+import com.premiumminds.billy.spain.services.export.pdf.creditreceipt.ESCreditReceiptPDFFOPTransformer;
+import com.premiumminds.billy.spain.services.export.pdf.creditreceipt.ESCreditReceiptTemplateBundle;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
@@ -65,7 +66,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
 
 	private Injector mockedInjector;
 	private ESCreditReceiptPDFFOPTransformer transformer;
-	private ESCreditReceiptExtractor extractor;
+	private ESCreditReceiptDataExtractor extractor;
 	
 	@Before
 	public void setUp() throws FileNotFoundException {
@@ -77,7 +78,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
 		InputStream xsl = new FileInputStream(XSL_PATH);
 
 		transformer = new ESCreditReceiptPDFFOPTransformer(LOGO_PATH, xsl);
-		extractor = mockedInjector.getInstance(ESCreditReceiptExtractor.class);
+		extractor = mockedInjector.getInstance(ESCreditReceiptDataExtractor.class);
 	}
 	
 	@Test
@@ -108,7 +109,30 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
 		
 		extractor.extract(uidEntity);
 	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException,
+        ExportServiceException, URISyntaxException, DocumentIssuingException,
+        IOException {
 
+        UID uidEntity = UID.fromString("12345");
+        ESReceiptEntity receipt = getNewIssuedReceipt((new UID()).toString());
+        ESCreditReceiptEntity entity = generateESCreditReceipt(PaymentMechanism.CASH, receipt);
+        DAOESCreditReceipt dao = mockedInjector.getInstance(DAOESCreditReceipt.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+        DAOESReceipt daoReceipt = mockedInjector.getInstance(DAOESReceipt.class);
+        Mockito.when(daoReceipt.get(Matchers.eq(receipt.getUID()))).thenReturn(receipt);
+        
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        ESCreditReceiptTemplateBundle bundle = new ESCreditReceiptTemplateBundle(LOGO_PATH, xsl);
+        ESCreditReceiptPDFFOPTransformer transformerBundle = new ESCreditReceiptPDFFOPTransformer(bundle);
+        
+        ESCreditReceiptData entityData = extractor.extract(uidEntity);
+        transformerBundle.transform(entityData, os);
+    }
+	
 	private ESCreditReceiptEntity generateESCreditReceipt(
 			PaymentMechanism paymentMechanism, ESReceiptEntity reference)
 		throws DocumentIssuingException {

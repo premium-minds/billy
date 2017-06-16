@@ -44,7 +44,8 @@ import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceData;
-import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceExtractor;
+import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceDataExtractor;
+import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoiceTemplateBundle;
 import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.impl.ESSimpleInvoicePDFFOPTransformer;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESMockDependencyModule;
@@ -60,7 +61,7 @@ public class TestESSimpleInvoicePDFTransformer extends
 	
 	private Injector mockedInjector;
 	private ESSimpleInvoicePDFFOPTransformer transformer;
-	private ESSimpleInvoiceExtractor extractor;
+	private ESSimpleInvoiceDataExtractor extractor;
 
 	@Before
 	public void setUp() throws FileNotFoundException {
@@ -72,7 +73,7 @@ public class TestESSimpleInvoicePDFTransformer extends
 		InputStream xsl = new FileInputStream(XSL_PATH);
 
 		transformer = new ESSimpleInvoicePDFFOPTransformer(LOGO_PATH, xsl);
-		extractor = mockedInjector.getInstance(ESSimpleInvoiceExtractor.class);
+		extractor = mockedInjector.getInstance(ESSimpleInvoiceDataExtractor.class);
 	}
 	
 	@Test
@@ -98,6 +99,22 @@ public class TestESSimpleInvoicePDFTransformer extends
 		
 		extractor.extract(uidEntity);
 	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+        ESSimpleInvoiceEntity entity = generateESSimpleInvoice(PaymentMechanism.CASH);
+        DAOESSimpleInvoice dao = mockedInjector.getInstance(DAOESSimpleInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        ESSimpleInvoiceTemplateBundle bundle = new ESSimpleInvoiceTemplateBundle(LOGO_PATH, xsl);
+        ESSimpleInvoicePDFFOPTransformer transformerBundle = new ESSimpleInvoicePDFFOPTransformer(bundle);
+        
+        ESSimpleInvoiceData entityData = extractor.extract(entity.getUID());
+        transformerBundle.transform(entityData, os);
+    }
 
 	private ESSimpleInvoiceEntity generateESSimpleInvoice(
 			PaymentMechanism paymentMechanism) {

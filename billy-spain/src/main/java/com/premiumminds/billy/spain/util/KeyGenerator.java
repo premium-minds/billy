@@ -29,11 +29,15 @@ import java.security.Security;
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generates {@link PrivateKey} and {@link PublicKey}.
  */
 public class KeyGenerator {
+	
+	private static final Logger log = LoggerFactory.getLogger(KeyGenerator.class);
 
 	private String	privateKeyPath;
 
@@ -58,7 +62,7 @@ public class KeyGenerator {
 			inputStream = this.getClass().getResourceAsStream(privateKeyPath);
 			key = IOUtils.toString(inputStream);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		} finally {
 			IOUtils.closeQuietly(inputStream);
 		}
@@ -74,7 +78,7 @@ public class KeyGenerator {
 		try {
 			pair = (KeyPair) pemReader.readObject();
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(e.getMessage(), e);
 		} finally {
 			IOUtils.closeQuietly(pemReader);
 		}

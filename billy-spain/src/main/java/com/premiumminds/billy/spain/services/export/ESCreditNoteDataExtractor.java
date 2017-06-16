@@ -27,51 +27,53 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
+import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.ProductData;
 import com.premiumminds.billy.gin.services.export.TaxData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
+import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
+import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
+import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
-public class ESCreditReceiptExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESCreditReceiptData> {
+public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESCreditNoteData> {
 	
-	private final DAOESCreditReceipt daoESReceipt;
-	private final ESReceiptExtractor receiptExtractor;
+	private final DAOESCreditNote daoESCreditNote;
+	private final ESInvoiceDataExtractor invoiceExtractor;
 	
 	@Inject
-	public ESCreditReceiptExtractor(DAOESCreditReceipt daoESReceipt, ESReceiptExtractor receiptExtractor) {
-		this.daoESReceipt = daoESReceipt;
-		this.receiptExtractor = receiptExtractor;
+	public ESCreditNoteDataExtractor(DAOESCreditNote daoESCreditNote, ESInvoiceDataExtractor invoiceExtractor) {
+		this.daoESCreditNote = daoESCreditNote;
+		this.invoiceExtractor = invoiceExtractor;
 	}
 
 	@Override
-	public ESCreditReceiptData extract(UID uid) throws ExportServiceException {
-		ESCreditReceiptEntity entity = (ESCreditReceiptEntity) daoESReceipt.get(uid); //FIXME: Fix the DAOs to remove this cast
+	public ESCreditNoteData extract(UID uid) throws ExportServiceException {
+		ESCreditNoteEntity entity = (ESCreditNoteEntity) daoESCreditNote.get(uid); //FIXME: Fix the DAOs to remove this cast
 		if (entity == null) {
 			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
 		}
 		
 		List<PaymentData> payments = extractPayments(entity.getPayments());
+		CostumerData costumer = extractCostumer(entity.getCustomer());
 		BusinessData business = extractBusiness(entity.getBusiness());
-		List<ESCreditReceiptEntryData> entries = extractCreditEntries(entity.getEntries());
+		List<ESCreditNoteEntryData> entries = extractCreditEntries(entity.getEntries());
 		
-		return new ESCreditReceiptData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
-				payments, business, entries, 
+		return new ESCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
+				payments, costumer, business, entries, 
 				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
 				entity.getSettlementDescription());
 	}
 	
-	private List<ESCreditReceiptEntryData> extractCreditEntries(List<ESCreditReceiptEntry> entryEntities) throws ExportServiceException {
-		List<ESCreditReceiptEntryData> entries = new ArrayList<ESCreditReceiptEntryData>(entryEntities.size());
-		for (ESCreditReceiptEntry entry : entryEntities) {
+	private List<ESCreditNoteEntryData> extractCreditEntries(List<ESCreditNoteEntry> entryEntities) throws ExportServiceException {
+		List<ESCreditNoteEntryData> entries = new ArrayList<ESCreditNoteEntryData>(entryEntities.size());
+		for (ESCreditNoteEntry entry : entryEntities) {
 			ProductData product = new ProductData(entry.getProduct().getProductCode(), entry.getProduct().getDescription());
 			
 			List<TaxData> taxes = extractTaxes(entry.getTaxes());
-			ESReceiptData reference = receiptExtractor.extract(entry.getReference().getUID());
+			ESInvoiceData reference = invoiceExtractor.extract(entry.getReference().getUID());
 			
-			entries.add(new ESCreditReceiptEntryData(product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), 
+			entries.add(new ESCreditNoteEntryData(product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), 
 					entry.getUnitAmountWithTax(), entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, reference));
 		}
 		

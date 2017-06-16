@@ -19,19 +19,24 @@
 package com.premiumminds.billy.portugal.util;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
-import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportHandler;
+import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceData;
+import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceDataExtractor;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportRequest;
+import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFFOPTransformer;
 import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;
 
 public class SimpleInvoices {
@@ -49,7 +54,9 @@ public class SimpleInvoices {
 		this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
 				this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
 		this.exportService = getInstance(ExportService.class);
-		this.exportService.addHandler(PTSimpleInvoicePDFExportRequest.class, getInstance(PTSimpleInvoicePDFExportHandler.class));
+		
+		this.exportService.addDataExtractor(PTSimpleInvoiceData.class, getInstance(PTSimpleInvoiceDataExtractor.class));
+        this.exportService.addTransformerMapper(PTSimpleInvoicePDFExportRequest.class, PTSimpleInvoicePDFFOPTransformer.class);
 	}
 
 	public PTSimpleInvoice.Builder builder() {
@@ -73,6 +80,12 @@ public class SimpleInvoices {
 	public InputStream pdfExport(PTSimpleInvoicePDFExportRequest  request) throws ExportServiceException {
 		return exportService.exportToStream(request);
 	}
+	
+	public void pdfExport(UID uidDoc, BillyPDFTransformer<PTSimpleInvoiceData> dataTransformer, OutputStream outputStream) 
+            throws ExportServiceException {
+        
+        exportService.export(uidDoc, dataTransformer, outputStream);
+    }
 
 	private <T> T getInstance(Class<T> clazz) {
 		return this.injector.getInstance(clazz);

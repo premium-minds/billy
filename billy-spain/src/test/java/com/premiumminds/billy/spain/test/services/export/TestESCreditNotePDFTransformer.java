@@ -50,8 +50,9 @@ import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.export.ESCreditNoteData;
-import com.premiumminds.billy.spain.services.export.ESCreditNoteExtractor;
-import com.premiumminds.billy.spain.services.export.pdf.creditnote.impl.ESCreditNotePDFFOPTransformer;
+import com.premiumminds.billy.spain.services.export.ESCreditNoteDataExtractor;
+import com.premiumminds.billy.spain.services.export.pdf.creditnote.ESCreditNotePDFFOPTransformer;
+import com.premiumminds.billy.spain.services.export.pdf.creditnote.ESCreditNoteTemplateBundle;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
@@ -65,7 +66,7 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
 	private Injector mockedInjector;
 	private ESCreditNotePDFFOPTransformer transformer;
-	private ESCreditNoteExtractor extractor;
+	private ESCreditNoteDataExtractor extractor;
 	
 	@Before
 	public void setUp() throws FileNotFoundException {
@@ -77,7 +78,7 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 		InputStream xsl = new FileInputStream(XSL_PATH);
 
 		transformer = new ESCreditNotePDFFOPTransformer(LOGO_PATH, xsl);
-		extractor = mockedInjector.getInstance(ESCreditNoteExtractor.class);
+		extractor = mockedInjector.getInstance(ESCreditNoteDataExtractor.class);
 	}
 
 	@Test
@@ -122,6 +123,29 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 		
 		extractor.extract(uidEntity);
 	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException,
+        ExportServiceException, URISyntaxException, DocumentIssuingException,
+        IOException {
+        
+        UID uidEntity = UID.fromString("12345");
+        ESInvoiceEntity invoice = getNewIssuedInvoice();
+        ESCreditNoteEntity entity = generateESCreditNote(PaymentMechanism.CASH, invoice);
+        DAOESCreditNote dao = mockedInjector.getInstance(DAOESCreditNote.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+        DAOESInvoice daoInvoice = mockedInjector.getInstance(DAOESInvoice.class);
+        Mockito.when(daoInvoice.get(Matchers.eq(invoice.getUID()))).thenReturn(invoice);
+        
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        ESCreditNoteTemplateBundle bundle = new ESCreditNoteTemplateBundle(LOGO_PATH, xsl);
+        ESCreditNotePDFFOPTransformer transformerBundle = new ESCreditNotePDFFOPTransformer(bundle);
+        
+        ESCreditNoteData entityData = extractor.extract(uidEntity);
+        transformerBundle.transform(entityData, os);
+    }
 
 	private ESCreditNoteEntity generateESCreditNote(
 			PaymentMechanism paymentMechanism, ESInvoiceEntity reference)
