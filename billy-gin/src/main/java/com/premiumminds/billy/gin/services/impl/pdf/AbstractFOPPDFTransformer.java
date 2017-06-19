@@ -41,6 +41,8 @@ import com.premiumminds.billy.gin.services.export.TaxData;
 
 public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> extends FOPPDFTransformer 
 implements BillyPDFTransformer<T> {
+    
+    protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
 	protected static class ParamKeys {
 
@@ -151,8 +153,6 @@ implements BillyPDFTransformer<T> {
 	}
 	
 	protected void setHeader(ParamsTree<String, String> params, T document) {
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-
 		params.getRoot().addChild(ParamKeys.ID, document.getNumber());
 
 		if (document.getPayments() != null) {
@@ -164,11 +164,11 @@ implements BillyPDFTransformer<T> {
 		}
 
 		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-				date.format(document.getDate()));
+		        DATE_FORMAT.format(document.getDate()));
 
 		if (null != document.getSettlementDate()) {
 			params.getRoot().addChild(ParamKeys.DUE_DATE,
-					date.format(document.getSettlementDate()));
+			        DATE_FORMAT.format(document.getSettlementDate()));
 		}
 	}
 

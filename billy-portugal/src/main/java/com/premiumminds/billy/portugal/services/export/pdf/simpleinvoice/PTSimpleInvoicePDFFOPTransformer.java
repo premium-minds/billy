@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice;
 
 import java.io.InputStream;
 import java.math.MathContext;
-import java.text.SimpleDateFormat;
 
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
@@ -70,8 +69,6 @@ implements PTSimpleInvoicePDFTransformer {
 
     @Override
     protected void setHeader(ParamsTree<String, String> params, PTSimpleInvoiceData entity) {
-        final SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-
         params.getRoot().addChild(ParamKeys.ID, entity.getNumber());
 
         if (null != entity.getPayments()) {
@@ -83,7 +80,7 @@ implements PTSimpleInvoicePDFTransformer {
         }
 
         params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-                date.format(entity.getDate()));
+                DATE_FORMAT.format(entity.getDate()));
     }
 
     @Override

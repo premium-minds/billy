@@ -141,7 +141,7 @@ public class ExportServiceImpl implements ExportService {
 	@Override
 	public void addHandler(Class<? extends ExportServiceRequest> requestClass,
 			ExportServiceHandler handler) {
-		log.warn("This method is deprecared and no longer has side effects on service execution");
+		log.warn("This method is deprecated and no longer has side effects on service execution");
 	}
 	
 	@Override
