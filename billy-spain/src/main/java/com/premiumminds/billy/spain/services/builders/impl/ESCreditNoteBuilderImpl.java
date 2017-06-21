@@ -22,8 +22,8 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
-import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.services.builders.ESCreditNoteBuilder;
@@ -37,7 +37,7 @@ public class ESCreditNoteBuilderImpl<TBuilder extends ESCreditNoteBuilderImpl<TB
 	protected static final Localizer	LOCALIZER	= new Localizer(
 			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	public ESCreditNoteBuilderImpl(DAOESCreditNote daoESCreditNote,
+	public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESCreditNoteBuilderImpl(TDAO daoESCreditNote,
 									DAOESBusiness daoESBusiness,
 									DAOESCustomer daoESCustomer,
 									DAOESSupplier daoESSupplier) {

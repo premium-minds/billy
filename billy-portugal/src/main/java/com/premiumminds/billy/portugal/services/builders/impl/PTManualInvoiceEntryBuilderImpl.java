@@ -51,6 +51,7 @@ public class PTManualInvoiceEntryBuilderImpl<TBuilder extends PTManualInvoiceEnt
 				daoPTRegionContext);
 	}
 	
+	
 	@Override
 	protected PTInvoiceEntryEntity getTypeInstance() {
 		return (PTInvoiceEntryEntity) super.getTypeInstance();

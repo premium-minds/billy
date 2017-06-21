@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
-import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;

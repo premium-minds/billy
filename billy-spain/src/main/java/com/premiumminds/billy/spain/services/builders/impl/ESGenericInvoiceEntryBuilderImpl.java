@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBui
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
@@ -36,17 +36,18 @@ import com.premiumminds.billy.spain.services.builders.ESGenericInvoiceEntryBuild
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
 public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-	extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-	ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
 			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	public ESGenericInvoiceEntryBuilderImpl(DAOESGenericInvoiceEntry daoESGenericInvoiceEntry,
-											DAOESGenericInvoice daoESGenericInvoice,
-											DAOESTax daoESTax,
-											DAOESProduct daoESProduct,
-											DAOESRegionContext daoESRegionContext) {
+	public <TDAOInvoice extends AbstractDAOESGenericInvoice<?>> ESGenericInvoiceEntryBuilderImpl(
+			DAOESGenericInvoiceEntry daoESGenericInvoiceEntry,
+			TDAOInvoice daoESGenericInvoice,
+			DAOESTax daoESTax,
+			DAOESProduct daoESProduct,
+			DAOESRegionContext daoESRegionContext) {
 		super(daoESGenericInvoiceEntry, daoESGenericInvoice, daoESTax,
 				daoESProduct, daoESRegionContext);
 	}
@@ -61,20 +62,10 @@ public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceE
 	public TBuilder setTaxPointDate(Date date) {
 		BillyValidator.mandatory(date,
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax_point_date"));
+				.getString("field.tax_point_date"));
 		this.getTypeInstance().setTaxPointDate(date);
 		return this.getBuilder();
 	}
-
-//	@Override
-//	@NotOnUpdate
-//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-//		BillyValidator.mandatory(creditOrDebit,
-//				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-//						.getString("field.entry_credit_or_debit"));
-//		this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-//		return this.getBuilder();
-//	}
 
 	@Override
 	protected void validateInstance() throws BillyValidationException {
@@ -82,26 +73,26 @@ public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceE
 		ESGenericInvoiceEntryEntity i = this.getTypeInstance();
 		BillyValidator.mandatory(i.getQuantity(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.quantity"));
+				.getString("field.quantity"));
 		BillyValidator.mandatory(i.getUnitOfMeasure(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.unit"));
+				.getString("field.unit"));
 		BillyValidator.mandatory(i.getProduct(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.product"));
+				.getString("field.product"));
 		BillyValidator.notEmpty(i.getTaxes(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax"));
+				.getString("field.tax"));
 		BillyValidator.mandatory(i.getTaxAmount(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax"));
+				.getString("field.tax"));
 		BillyValidator.mandatory(i.getTaxPointDate(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax_point_date"));
+				.getString("field.tax_point_date"));
 		if(i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0){
 			BillyValidator.mandatory(i.getTaxExemptionReason(),
 					ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-							.getString("field.tax_exemption_reason"));
+					.getString("field.tax_exemption_reason"));
 		}
 	}
 
