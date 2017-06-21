@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
@@ -43,40 +43,41 @@ public class ESManualEntryBuilderImpl<TBuilder extends ESManualEntryBuilderImpl<
 extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
 ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	public ESManualEntryBuilderImpl(DAOESGenericInvoiceEntry daoESEntry,
-			DAOESGenericInvoice daoESInvoice,
+	public <TDAOInvoice extends AbstractDAOESGenericInvoice<?>> ESManualEntryBuilderImpl(
+			DAOESGenericInvoiceEntry daoESEntry,
+			TDAOInvoice daoESInvoice,
 			DAOESTax daoESTax,
 			DAOESProduct daoESProduct,
 			DAOESRegionContext daoESRegionContext) {
 		super(daoESEntry, daoESInvoice, daoESTax, daoESProduct,
 				daoESRegionContext);
 	}
-	
+
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		this.validateValues();
-		
+
 		ESGenericInvoiceEntryEntity i = this.getTypeInstance();
 		BillyValidator.mandatory(i.getQuantity(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.quantity"));
+				.getString("field.quantity"));
 		BillyValidator.mandatory(i.getUnitOfMeasure(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.unit"));
+				.getString("field.unit"));
 		BillyValidator.mandatory(i.getProduct(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.product"));
+				.getString("field.product"));
 		BillyValidator.notEmpty(i.getTaxes(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax"));
+				.getString("field.tax"));
 		BillyValidator.mandatory(i.getTaxAmount(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax"));
+				.getString("field.tax"));
 		BillyValidator.mandatory(i.getTaxPointDate(),
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.tax_point_date"));
+				.getString("field.tax_point_date"));
 	}
-	
+
 	@Override
 	protected void validateValues() throws ValidationException {
 		GenericInvoiceEntryEntity e = this.getTypeInstance();
@@ -91,14 +92,14 @@ ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
 			}
 		}
 	}
-	
+
 	@Override
 	@NotOnUpdate
 	public TBuilder setUnitTaxAmount(BigDecimal taxAmount){
 		this.getTypeInstance().setTaxAmount(taxAmount);
 		return this.getBuilder();
 	}
-	
+
 	@Override
 	@NotOnUpdate
 	public TBuilder setUnitAmount(AmountType type, BigDecimal amount) {
@@ -106,7 +107,7 @@ ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
 				.getString("field.unit_amount_type"));
 		BillyValidator.notNull(amount,
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.unit_gross_amount"));
+				.getString("field.unit_gross_amount"));
 
 		switch (type) {
 		case WITH_TAX:
@@ -126,7 +127,7 @@ ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
 				.getString("field.amount_type"));
 		BillyValidator.notNull(amount,
 				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-						.getString("field.gross_amount"));
+				.getString("field.gross_amount"));
 
 		switch (type) {
 		case WITH_TAX:

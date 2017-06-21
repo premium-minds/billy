@@ -21,19 +21,16 @@ package com.premiumminds.billy.portugal.services.documents;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
-import com.premiumminds.billy.core.services.documents.IssuingParams;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
-public class PTReceiptInvoiceIssuingHandler extends
-	PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
+public class PTReceiptInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandler<PTReceiptInvoiceEntity, PTIssuingParams> {
 
-	public final static TYPE			INVOICE_TYPE	= TYPE.FR;
-	private final DAOPTReceiptInvoice	daoReceiptInvoice;
+	public final static TYPE INVOICE_TYPE = TYPE.FR;
+	private final DAOPTReceiptInvoice daoReceiptInvoice;
 
 	@Inject
 	public PTReceiptInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
@@ -43,13 +40,9 @@ public class PTReceiptInvoiceIssuingHandler extends
 	}
 
 	@Override
-	public <T extends GenericInvoice, P extends IssuingParams> T issue(
-			T document, P parameters) throws DocumentIssuingException {
-
-		final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
-
-		return this.issue(document, parametersPT, daoReceiptInvoice,
-				PTReceiptInvoiceIssuingHandler.INVOICE_TYPE);
+	public PTReceiptInvoiceEntity issue(PTReceiptInvoiceEntity document, PTIssuingParams parameters)
+			throws DocumentIssuingException {
+		return issue(document, parameters, daoReceiptInvoice, PTReceiptInvoiceIssuingHandler.INVOICE_TYPE);
 	}
 
 }

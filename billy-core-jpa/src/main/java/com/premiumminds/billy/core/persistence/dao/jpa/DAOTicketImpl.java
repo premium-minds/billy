@@ -20,12 +20,10 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-import javax.management.remote.NotificationResult;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import com.mysema.query.jpa.impl.JPAQuery;
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity;

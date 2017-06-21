@@ -23,8 +23,8 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCreditNoteBuilder;
@@ -39,7 +39,7 @@ public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TB
 	protected static final Localizer	LOCALIZER	= new Localizer(
 			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote,
+	public <TDAO extends AbstractDAOPTGenericInvoice<? extends TDocument>> PTCreditNoteBuilderImpl(TDAO daoPTCreditNote,
 									DAOPTBusiness daoPTBusiness,
 									DAOPTCustomer daoPTCustomer,
 									DAOPTSupplier daoPTSupplier) {

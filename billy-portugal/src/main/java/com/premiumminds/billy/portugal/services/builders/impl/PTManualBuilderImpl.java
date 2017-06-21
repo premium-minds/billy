@@ -32,7 +32,7 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceBuilder;
@@ -44,7 +44,7 @@ public abstract class PTManualBuilderImpl <TBuilder extends PTManualBuilderImpl<
 	extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
 	implements PTManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	public PTManualBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice,
+	public <TDAO extends AbstractDAOPTGenericInvoice<? extends TDocument>> PTManualBuilderImpl(TDAO daoPTGenericInvoice,
 			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
 			DAOPTSupplier daoPTSupplier) {
 		super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);

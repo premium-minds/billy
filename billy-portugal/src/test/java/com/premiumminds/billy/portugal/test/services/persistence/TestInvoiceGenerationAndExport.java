@@ -20,19 +20,15 @@ package com.premiumminds.billy.portugal.test.services.persistence;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Calendar;
-import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
-import com.premiumminds.billy.portugal.test.util.PTApplicationTestUtil;
 
 
 public class TestInvoiceGenerationAndExport extends
