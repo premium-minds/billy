@@ -79,7 +79,7 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
 	@Test(expected=BillySimpleInvoiceException.class)
 	public void testBusinessSimpleInvoice() {
-		PTSimpleInvoiceEntity invoice = new PTSimpleInvoiceTestUtil(
+		new PTSimpleInvoiceTestUtil(
 				PTAbstractTest.injector).getSimpleInvoiceEntity(SOURCE_BILLING,
 				CLIENTTYPE.BUSINESS);
 	}

@@ -25,7 +25,6 @@ import org.junit.Test;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
-import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
@@ -72,7 +71,7 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 				DAOESInvoice.class).get(this.issuedInvoiceUID);
 		Integer nextNumber = 2;
 
-		ESGenericInvoiceEntity newInvoice = this.newInvoice(
+		ESInvoiceEntity newInvoice = this.newInvoice(
 				INVOICE_TYPE.FT);
 
 		UID newInvoiceUID = newInvoice.getUID();
@@ -96,7 +95,7 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 		Integer nextNumber = 1;
 		String newSeries = "FT NEW_SERIES";
 
-		ESGenericInvoiceEntity newInvoice = this.newInvoice(
+		ESInvoiceEntity newInvoice = this.newInvoice(
 				INVOICE_TYPE.FT);
 
 		UID newInvoiceUID = newInvoice.getUID();
@@ -115,15 +114,14 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 	@Test
 	public void testIssuedInvoiceSameSourceBilling()
 			throws DocumentIssuingException {
-		ESGenericInvoiceEntity newInvoice = this.newInvoice(
+		ESInvoiceEntity newInvoice = this.newInvoice(
 				INVOICE_TYPE.FT);
 
 		UID newInvoiceUID = newInvoice.getUID();
 
 		this.issueNewInvoice(this.handler, newInvoice, DEFAULT_SERIES);
 
-		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
-				DAOESInvoice.class).get(newInvoiceUID);
+		this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
 	}
 
 }

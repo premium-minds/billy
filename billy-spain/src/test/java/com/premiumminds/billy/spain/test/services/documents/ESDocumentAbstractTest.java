@@ -81,7 +81,7 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
 		}
 	}
 
-	protected <T extends DocumentIssuingHandler, I extends ESGenericInvoiceEntity> void issueNewInvoice(
+	protected <T extends DocumentIssuingHandler<I, ESIssuingParams>, I extends ESGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series)
 			throws DocumentIssuingException {
 		DAOESInvoice dao = this.getInstance(DAOESInvoice.class);
@@ -97,7 +97,7 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
 		}
 	}
 
-	protected <T extends DocumentIssuingHandler, I extends ESGenericInvoiceEntity> void issueNewInvoice(
+	protected <T extends DocumentIssuingHandler<I, ESIssuingParams>, I extends ESGenericInvoiceEntity> void issueNewInvoice(
 			T handler, I invoice, String series, Date date)
 			throws DocumentIssuingException {
 		this.parameters.setInvoiceSeries(series);

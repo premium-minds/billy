@@ -71,8 +71,7 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
 	@Test(expected=BillySimpleInvoiceException.class)
 	public void testBusinessSimpleInvoice() {
-		ESSimpleInvoiceEntity invoice = new ESSimpleInvoiceTestUtil(
-				ESAbstractTest.injector).getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS);
+		new ESSimpleInvoiceTestUtil(ESAbstractTest.injector).getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS);
 	}
 
 }
