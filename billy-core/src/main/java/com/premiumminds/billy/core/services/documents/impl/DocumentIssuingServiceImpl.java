@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.UID;
@@ -41,31 +40,35 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(DocumentIssuingServiceImpl.class);
 
-	protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>	handlers;
-	protected DAOGenericInvoice														daoInvoice;
-	protected TicketManager															ticketManager;
+	protected Map<Class<? extends GenericInvoice>, DocumentIssuingHandler<? extends GenericInvoice, ? extends IssuingParams>>	handlers;
+	protected DAOGenericInvoice	daoInvoice;
+	protected TicketManager ticketManager;
 
 	@Inject
-	public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice,
-										TicketManager ticketManager) {
-		this.handlers = new HashMap<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>();
+	public DocumentIssuingServiceImpl(
+			DAOGenericInvoice daoInvoice,
+			TicketManager ticketManager) {
+		
+		this.handlers = new HashMap<Class<? extends GenericInvoice>, DocumentIssuingHandler<? extends GenericInvoice, ? extends IssuingParams>>();
 		this.daoInvoice = daoInvoice;
 		this.ticketManager = ticketManager;
 	}
 
 	@Override
-	public void addHandler(Class<? extends GenericInvoiceEntity> handledClass,
-			DocumentIssuingHandler handler) {
+	public <T extends GenericInvoice, P extends IssuingParams> void addHandler(
+			Class<T> handledClass,
+			DocumentIssuingHandler<T, P> handler) {
+		
 		this.handlers.put(handledClass, handler);
 	}
 
 	@Override
 	public synchronized <T extends GenericInvoice> T issue(
 			final Builder<T> documentBuilder, final IssuingParams parameters)
-		throws DocumentIssuingException {
+					throws DocumentIssuingException {
 
 		try {
 			return new TransactionWrapper<T>(daoInvoice) {
@@ -116,13 +119,15 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
 	private <T extends GenericInvoice> T issueDocument(
 			Builder<T> documentBuilder, final IssuingParams parameters)
-		throws DocumentIssuingException {
+					throws DocumentIssuingException {
 
 		final T document = documentBuilder.build();
 		final Type[] types = document.getClass().getGenericInterfaces();
 		for (Type type : types) {
 			if (handlers.containsKey(type)) {
-				return handlers.get(type).issue(document, parameters);
+				@SuppressWarnings("unchecked")
+				DocumentIssuingHandler<T, IssuingParams> handler = (DocumentIssuingHandler<T,IssuingParams>) handlers.get(type);
+				return handler.issue(document, parameters);
 			}
 		}
 

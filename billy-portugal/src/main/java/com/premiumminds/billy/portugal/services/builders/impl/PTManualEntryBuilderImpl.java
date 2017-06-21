@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
@@ -40,11 +40,11 @@ import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceEntryBui
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
+extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> 
+implements PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	public PTManualEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTEntry,
-			DAOPTGenericInvoice daoPTInvoice,
+	public <TDAOInvoice extends AbstractDAOPTGenericInvoice<?>> PTManualEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTEntry,
+			TDAOInvoice daoPTInvoice,
 			DAOPTTax daoPTTax,
 			DAOPTProduct daoPTProduct,
 			DAOPTRegionContext daoPTRegionContext) {

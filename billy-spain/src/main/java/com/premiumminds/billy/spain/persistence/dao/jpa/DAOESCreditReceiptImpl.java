@@ -35,7 +35,7 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditReceipt
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceipt;
 
-public class DAOESCreditReceiptImpl extends DAOESGenericInvoiceImpl implements
+public class DAOESCreditReceiptImpl extends AbstractDAOESGenericInvoiceImpl<ESCreditReceiptEntity, JPAESCreditReceiptEntity> implements
 	DAOESCreditReceipt {
 
 	@Inject

@@ -24,7 +24,6 @@ import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;

@@ -18,12 +18,10 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
-import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;

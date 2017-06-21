@@ -22,13 +22,12 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESInvoiceEntity;
 
-public class DAOESInvoiceImpl extends DAOESGenericInvoiceImpl implements
-	DAOESInvoice {
+public class DAOESInvoiceImpl extends AbstractDAOESGenericInvoiceImpl<ESInvoiceEntity, JPAESInvoiceEntity> 
+implements DAOESInvoice {
 
 	@Inject
 	public DAOESInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -45,14 +44,4 @@ public class DAOESInvoiceImpl extends DAOESGenericInvoiceImpl implements
 		return JPAESInvoiceEntity.class;
 	}
 	
-	@SuppressWarnings("unchecked")
-	@Override
-	public ESInvoiceEntity findByNumber(UID uidBusiness,
-			String number) {
-		try {
-			return super.<ESInvoiceEntity>findByNumber(uidBusiness, number);
-		} catch(ClassCastException e) {
-			return null;
-		}
-	}
 }

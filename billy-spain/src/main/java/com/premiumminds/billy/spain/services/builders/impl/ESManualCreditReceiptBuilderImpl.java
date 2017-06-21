@@ -22,8 +22,8 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
-import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
@@ -35,7 +35,7 @@ public class ESManualCreditReceiptBuilderImpl<TBuilder extends ESManualCreditRec
 	extends ESManualBuilderImpl<TBuilder, TEntry, TDocument> implements
 	ESManualCreditReceiptBuilder<TBuilder, TEntry, TDocument> {
 
-	public ESManualCreditReceiptBuilderImpl(DAOESCreditReceipt daoESCreditReceipt,
+	public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESManualCreditReceiptBuilderImpl(TDAO daoESCreditReceipt,
 			DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
 			DAOESSupplier daoESSupplier) {
 		super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);

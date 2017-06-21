@@ -35,8 +35,8 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditNoteEnt
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 
-public class DAOESCreditNoteImpl extends DAOESGenericInvoiceImpl implements
-	DAOESCreditNote {
+public class DAOESCreditNoteImpl extends AbstractDAOESGenericInvoiceImpl<ESCreditNoteEntity, JPAESCreditNoteEntity> 
+implements DAOESCreditNote {
 
 	@Inject
 	public DAOESCreditNoteImpl(Provider<EntityManager> emProvider) {
@@ -60,22 +60,22 @@ public class DAOESCreditNoteImpl extends DAOESGenericInvoiceImpl implements
 		QJPAESCreditNoteEntity creditNote = QJPAESCreditNoteEntity.jPAESCreditNoteEntity;
 		QJPAESCreditNoteEntryEntity entry = QJPAESCreditNoteEntryEntity.jPAESCreditNoteEntryEntity;
 		QJPAESGenericInvoiceEntity invoice = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
-			
+
 		JPASubQuery invQ = new JPASubQuery()
-			.from(invoice)
-			.where(invoice.uid.eq(uidInvoice.toString()));
-		
+				.from(invoice)
+				.where(invoice.uid.eq(uidInvoice.toString()));
+
 		JPASubQuery entQ = new JPASubQuery()
-		.from(entry)
-		.where(toDSL(entry.reference, QJPAESGenericInvoiceEntity.class).uid.in(
-				invQ.list(invoice.uid)));
-		
+				.from(entry)
+				.where(toDSL(entry.reference, QJPAESGenericInvoiceEntity.class).uid.in(
+						invQ.list(invoice.uid)));
+
 		return (List<ESCreditNote>) (List<?>) createQuery()
 				.from(creditNote)
 				.where(toDSL(creditNote.business, QJPAESBusinessEntity.class).uid.eq(uidCompany.toString())
 						.and(toDSL(creditNote.entries.any(), QJPAESCreditNoteEntryEntity.class).uid.in(
 								entQ.list(entry.uid))))
-				.list(creditNote);
+				.list(creditNote); 
 	}
 
 }

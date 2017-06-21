@@ -26,7 +26,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Matchers;
 
-import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Context;

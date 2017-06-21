@@ -18,14 +18,13 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
-import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
@@ -37,8 +36,7 @@ public class ESReceiptBuilderImpl <TBuilder extends ESReceiptBuilderImpl<TBuilde
 	extends ESGenericInvoiceBuilderImpl<TBuilder,TEntry,TDocument>
 	implements ESReceiptBuilder<TBuilder,TEntry,TDocument>{
 
-	@Inject
-	public ESReceiptBuilderImpl(DAOESReceipt daoESReceipt,
+	public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESReceiptBuilderImpl(TDAO daoESReceipt,
 								DAOESBusiness daoESBusiness, 
 								DAOESCustomer daoESCustomer,
 								DAOESSupplier daoESSupplier) {

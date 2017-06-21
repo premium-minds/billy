@@ -218,9 +218,9 @@ implements BillyPDFTransformer<T> {
 			ParamsTree<String, String> params, T document) {
 
 		Node<String, String> entries = params.getRoot().addChild(ParamKeys.ENTRIES);
-		Collection<? extends InvoiceEntryData> genericInvoiceList = document.getEntries();
+		Collection<? extends InvoiceEntryData> entriesList = document.getEntries();
 
-		for (InvoiceEntryData entry : genericInvoiceList) {
+		for (InvoiceEntryData entry : entriesList) {
 
 			Node<String, String> entryNode = entries.addChild(ParamKeys.ENTRY);
 
