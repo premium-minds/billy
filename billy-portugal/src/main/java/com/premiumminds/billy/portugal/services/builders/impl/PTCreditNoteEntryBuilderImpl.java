@@ -36,7 +36,7 @@ import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilde
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOPTCreditNoteEntry, DAOPTInvoice> implements
 	PTCreditNoteEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
@@ -90,9 +90,7 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 	}
 
 	private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
-		DAOPTCreditNoteEntry daoPTCreditNoteEntry = (DAOPTCreditNoteEntry) this.daoEntry;
-
-		if (daoPTCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
+		if (daoEntry.checkCreditNote(cn.getReference()) != null) {
 			throw new DuplicateCreditNoteException();
 		}
 	}

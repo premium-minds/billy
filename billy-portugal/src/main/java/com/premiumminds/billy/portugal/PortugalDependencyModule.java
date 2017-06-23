@@ -64,42 +64,40 @@ import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTTaxImpl;
 
 public class PortugalDependencyModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		this.install(new CoreDependencyModule());
-		this.install(new CoreJPADependencyModule());
-		this.install(new GINDependencyModule());
+  @Override
+  protected void configure() {
+    this.install(new CoreDependencyModule());
+    this.install(new CoreJPADependencyModule());
+    this.install(new GINDependencyModule());
 
-		this.bind(DAOPTContact.class).to(DAOPTContactImpl.class);
-		this.bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
-		this.bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
-		this.bind(DAOPTAddress.class).to(DAOPTAddressImpl.class);
-		this.bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
-		this.bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
-		this.bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
-		this.bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
-		this.bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
-		this.bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
-		this.bind(DAOPTInvoice.class).to(DAOPTInvoiceImpl.class);
-		this.bind(DAOPTInvoiceEntry.class).to(DAOPTInvoiceEntryImpl.class);
-		this.bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
-		this.bind(DAOPTCreditNoteEntry.class)
-				.to(DAOPTCreditNoteEntryImpl.class);
-		this.bind(DAOPTGenericInvoice.class).to(DAOPTGenericInvoiceImpl.class);
-		this.bind(DAOPTGenericInvoiceEntry.class).to(
-				DAOPTGenericInvoiceEntryImpl.class);
-		this.bind(DAOPTSimpleInvoice.class).to(DAOPTSimpleInvoiceImpl.class);
-		this.bind(DAOPTPayment.class).to(DAOPTPaymentImpl.class);
-		this.bind(DAOPTReceiptInvoice.class).to(DAOPTReceiptInvoiceImpl.class);
-		this.bind(BillyPortugal.class);
-	}
+    this.bind(DAOPTContact.class).to(DAOPTContactImpl.class);
+    this.bind(DAOPTBusiness.class).to(DAOPTBusinessImpl.class);
+    this.bind(DAOPTRegionContext.class).to(DAOPTRegionContextImpl.class);
+    this.bind(DAOPTAddress.class).to(DAOPTAddressImpl.class);
+    this.bind(DAOPTApplication.class).to(DAOPTApplicationImpl.class);
+    this.bind(DAOPTTax.class).to(DAOPTTaxImpl.class);
+    this.bind(DAOPTProduct.class).to(DAOPTProductImpl.class);
+    this.bind(DAOPTSupplier.class).to(DAOPTSupplierImpl.class);
+    this.bind(DAOPTShippingPoint.class).to(DAOPTShippingPointImpl.class);
+    this.bind(DAOPTCustomer.class).to(DAOPTCustomerImpl.class);
+    this.bind(DAOPTInvoice.class).to(DAOPTInvoiceImpl.class);
+    this.bind(DAOPTInvoiceEntry.class).to(DAOPTInvoiceEntryImpl.class);
+    this.bind(DAOPTCreditNote.class).to(DAOPTCreditNoteImpl.class);
+    this.bind(DAOPTCreditNoteEntry.class).to(DAOPTCreditNoteEntryImpl.class);
+    this.bind(DAOPTGenericInvoice.class).to(DAOPTGenericInvoiceImpl.class);
+    this.bind(DAOPTGenericInvoiceEntry.class).to(DAOPTGenericInvoiceEntryImpl.class);
+    this.bind(DAOPTSimpleInvoice.class).to(DAOPTSimpleInvoiceImpl.class);
+    this.bind(DAOPTPayment.class).to(DAOPTPaymentImpl.class);
+    this.bind(DAOPTReceiptInvoice.class).to(DAOPTReceiptInvoiceImpl.class);
+    this.bind(BillyPortugal.class);
+  }
 
-	public static class Initializer {
+  public static class Initializer {
 
-		@Inject
-		public Initializer() {
-			// Nothing to initialize
-		}
-	}
+    @Inject
+    public Initializer() {
+      // Nothing to initialize
+    }
+  }
 
 }

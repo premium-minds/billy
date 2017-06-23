@@ -35,7 +35,7 @@ import com.premiumminds.billy.spain.services.builders.ESManualCreditReceiptEntry
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
 public class ESManualCreditReceiptEntryBuilderImpl<TBuilder extends ESManualCreditReceiptEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditReceiptEntry>
-	extends ESManualEntryBuilderImpl<TBuilder, TEntry> implements
+	extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESCreditReceiptEntry, DAOESReceipt> implements
 	ESManualCreditReceiptEntryBuilder<TBuilder, TEntry> {
 
 	public ESManualCreditReceiptEntryBuilderImpl(DAOESCreditReceiptEntry daoESCreditReceiptEntry,

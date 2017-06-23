@@ -20,8 +20,6 @@ package com.premiumminds.billy.spain.persistence.dao;
 
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntryEntity;
 
-public interface DAOESInvoiceEntry extends DAOESGenericInvoiceEntry {
+public interface DAOESInvoiceEntry extends AbstractDAOESGenericInvoiceEntry<ESInvoiceEntryEntity> {
 
-	@Override
-	public ESInvoiceEntryEntity getEntityInstance();
 }

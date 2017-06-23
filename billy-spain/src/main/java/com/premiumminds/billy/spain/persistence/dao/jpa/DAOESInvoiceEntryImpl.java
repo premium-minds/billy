@@ -26,7 +26,7 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESInvoiceEntryEntity;
 
-public class DAOESInvoiceEntryImpl extends DAOESGenericInvoiceEntryImpl
+public class DAOESInvoiceEntryImpl extends AbstractDAOESGenericInvoiceEntryImpl<ESInvoiceEntryEntity, JPAESInvoiceEntryEntity>
 	implements DAOESInvoiceEntry {
 
 	@Inject
