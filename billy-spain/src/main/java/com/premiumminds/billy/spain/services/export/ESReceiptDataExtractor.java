@@ -32,30 +32,36 @@ import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtracto
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 
-public class ESReceiptDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESReceiptData> {
-	
-	private final DAOESReceipt daoESReceipt;
-	
-	@Inject
-	public ESReceiptDataExtractor(DAOESReceipt daoESReceipt) {
-		this.daoESReceipt = daoESReceipt;
-	}
+public class ESReceiptDataExtractor extends AbstractBillyDataExtractor
+    implements BillyDataExtractor<ESReceiptData> {
 
-	@Override
-	public ESReceiptData extract(UID uid) throws ExportServiceException {
-		ESReceiptEntity entity = (ESReceiptEntity) daoESReceipt.get(uid); //FIXME: Fix the DAOs to remove this cast
-		if (entity == null) {
-			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
-		}
-		
-		List<PaymentData> payments = extractPayments(entity.getPayments());
-		BusinessData business = extractBusiness(entity.getBusiness());
-		List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
-		
-		return new ESReceiptData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
-				payments, business, entries, 
-				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
-				entity.getSettlementDescription());
-	}
-	
+  private final DAOESReceipt daoESReceipt;
+
+  @Inject
+  public ESReceiptDataExtractor(DAOESReceipt daoESReceipt) {
+    this.daoESReceipt = daoESReceipt;
+  }
+
+  @Override
+  public ESReceiptData extract(UID uid) throws ExportServiceException {
+    ESReceiptEntity entity = (ESReceiptEntity) daoESReceipt.get(uid); // FIXME:
+                                                                      // Fix the
+                                                                      // DAOs to
+                                                                      // remove
+                                                                      // this
+                                                                      // cast
+    if (entity == null) {
+      throw new ExportServiceException(
+          "Unable to find entity with uid " + uid.toString() + " to be extracted");
+    }
+
+    List<PaymentData> payments = extractPayments(entity.getPayments());
+    BusinessData business = extractBusiness(entity.getBusiness());
+    List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
+
+    return new ESReceiptData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(),
+        payments, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+        entity.getAmountWithoutTax(), entity.getSettlementDescription());
+  }
+
 }

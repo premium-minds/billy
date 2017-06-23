@@ -22,6 +22,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 
 public interface DAOESSimpleInvoice extends DAOESInvoice {
 
-	@Override
-	public ESSimpleInvoiceEntity getEntityInstance();
+  @Override
+  public ESSimpleInvoiceEntity getEntityInstance();
 }

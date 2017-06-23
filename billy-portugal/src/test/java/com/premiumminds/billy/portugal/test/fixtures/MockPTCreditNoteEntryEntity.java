@@ -23,34 +23,34 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEnt
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class MockPTCreditNoteEntryEntity extends MockGenericInvoiceEntryEntity
-	implements PTCreditNoteEntryEntity {
+    implements PTCreditNoteEntryEntity {
 
-	private static final long	serialVersionUID	= 1L;
-	private PTInvoice			reference;
-	private String				reason;
+  private static final long serialVersionUID = 1L;
+  private PTInvoice reference;
+  private String reason;
 
-	public MockPTCreditNoteEntryEntity() {
+  public MockPTCreditNoteEntryEntity() {
 
-	}
+  }
 
-	@Override
-	public PTInvoice getReference() {
-		return this.reference;
-	}
+  @Override
+  public PTInvoice getReference() {
+    return this.reference;
+  }
 
-	@Override
-	public String getReason() {
-		return this.reason;
-	}
+  @Override
+  public String getReason() {
+    return this.reason;
+  }
 
-	@Override
-	public void setReference(PTInvoice reference) {
-		this.reference = reference;
-	}
+  @Override
+  public void setReference(PTInvoice reference) {
+    this.reference = reference;
+  }
 
-	@Override
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
+  @Override
+  public void setReason(String reason) {
+    this.reason = reason;
+  }
 
 }

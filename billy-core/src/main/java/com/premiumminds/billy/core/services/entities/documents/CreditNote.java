@@ -22,7 +22,7 @@ import java.util.Collection;
 
 public interface CreditNote extends GenericInvoice {
 
-	@Override
-	public Collection<? extends GenericInvoiceEntry> getEntries();
+  @Override
+  public Collection<? extends GenericInvoiceEntry> getEntries();
 
 }

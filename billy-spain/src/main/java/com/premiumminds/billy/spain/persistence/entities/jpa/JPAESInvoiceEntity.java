@@ -35,23 +35,21 @@ import com.premiumminds.billy.spain.services.entities.ESPayment;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE")
-@Inheritance(strategy=InheritanceType.JOINED)
-public class JPAESInvoiceEntity extends JPAESGenericInvoiceEntity implements
-		ESInvoiceEntity {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class JPAESInvoiceEntity extends JPAESGenericInvoiceEntity implements ESInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public List<ESInvoiceEntry> getEntries() {
-		return (List<ESInvoiceEntry>) super.getEntries();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ESPayment> getPayments() {
-		return (List<ESPayment>) super.getPayments();
-	}
+  @SuppressWarnings({ "unchecked" })
+  @Override
+  public List<ESInvoiceEntry> getEntries() {
+    return (List<ESInvoiceEntry>) super.getEntries();
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<ESPayment> getPayments() {
+    return (List<ESPayment>) super.getPayments();
+  }
 
 }

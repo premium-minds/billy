@@ -33,56 +33,48 @@ import com.premiumminds.billy.spain.services.builders.ESReceiptBuilder;
 import com.premiumminds.billy.spain.services.entities.ESReceipt;
 import com.premiumminds.billy.spain.services.entities.ESReceiptEntry;
 
-public class ESReceiptBuilderImpl <TBuilder extends ESReceiptBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESReceiptEntry, TDocument extends ESReceipt>
-	extends ESGenericInvoiceBuilderImpl<TBuilder,TEntry,TDocument>
-	implements ESReceiptBuilder<TBuilder,TEntry,TDocument>{
+public class ESReceiptBuilderImpl<TBuilder extends ESReceiptBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESReceiptEntry, TDocument extends ESReceipt>
+    extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+    implements ESReceiptBuilder<TBuilder, TEntry, TDocument> {
 
-	@Inject
-	public ESReceiptBuilderImpl(DAOESReceipt daoESReceipt,
-								DAOESBusiness daoESBusiness, 
-								DAOESCustomer daoESCustomer,
-								DAOESSupplier daoESSupplier) {
-		super(daoESReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
-	}
-	
-	@Override
-	protected ESReceiptEntity getTypeInstance() {
-		return (ESReceiptEntity) super.getTypeInstance();
-	}
-	
-	@Override
-	protected void validateValues() throws ValidationException {
-		ESReceiptEntity i = getTypeInstance();
-		i.setCreditOrDebit(CreditOrDebit.CREDIT);
-		super.validateValues();
-	}
-	
-	@Override
-	protected void validateESInstance(ESGenericInvoiceEntity i) {
-		super.validateDate();
+  @Inject
+  public ESReceiptBuilderImpl(DAOESReceipt daoESReceipt, DAOESBusiness daoESBusiness,
+      DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+    super(daoESReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
+  }
 
-		BillyValidator
-				.mandatory(i.getSourceId(),
-						ESGenericInvoiceBuilderImpl.LOCALIZER
-								.getString("field.source"));
-		BillyValidator.mandatory(i.getDate(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
-		if(i.isSelfBilled() != null) {
-		BillyValidator.mandatory(i.isSelfBilled(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.self_billed"));
-		} else  {
-			i.setSelfBilled(false);
-		}
-		BillyValidator.mandatory(i.isCancelled(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.cancelled"));
-		BillyValidator
-				.mandatory(i.isBilled(), ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.billed"));
-		BillyValidator.notEmpty(i.getPayments(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.payment_mechanism"));
-	}
+  @Override
+  protected ESReceiptEntity getTypeInstance() {
+    return (ESReceiptEntity) super.getTypeInstance();
+  }
+
+  @Override
+  protected void validateValues() throws ValidationException {
+    ESReceiptEntity i = getTypeInstance();
+    i.setCreditOrDebit(CreditOrDebit.CREDIT);
+    super.validateValues();
+  }
+
+  @Override
+  protected void validateESInstance(ESGenericInvoiceEntity i) {
+    super.validateDate();
+
+    BillyValidator.mandatory(i.getSourceId(),
+        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+    BillyValidator.mandatory(i.getDate(),
+        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
+    if (i.isSelfBilled() != null) {
+      BillyValidator.mandatory(i.isSelfBilled(),
+          ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+    } else {
+      i.setSelfBilled(false);
+    }
+    BillyValidator.mandatory(i.isCancelled(),
+        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+    BillyValidator.mandatory(i.isBilled(),
+        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+    BillyValidator.notEmpty(i.getPayments(),
+        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
+  }
 
 }

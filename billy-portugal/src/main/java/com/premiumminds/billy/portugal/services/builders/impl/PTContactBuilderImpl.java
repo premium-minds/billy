@@ -29,23 +29,22 @@ import com.premiumminds.billy.portugal.services.builders.PTContactBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class PTContactBuilderImpl<TBuilder extends PTContactBuilderImpl<TBuilder, TContact>, TContact extends PTContact>
-	extends ContactBuilderImpl<TBuilder, TContact> implements
-	PTContactBuilder<TBuilder, TContact> {
+    extends ContactBuilderImpl<TBuilder, TContact> implements PTContactBuilder<TBuilder, TContact> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public PTContactBuilderImpl(DAOPTContact daoPTContact) {
-		super(daoPTContact);
-	}
+  @Inject
+  public PTContactBuilderImpl(DAOPTContact daoPTContact) {
+    super(daoPTContact);
+  }
 
-	@Override
-	protected PTContactEntity getTypeInstance() {
-		return (PTContactEntity) super.getTypeInstance();
-	}
+  @Override
+  protected PTContactEntity getTypeInstance() {
+    return (PTContactEntity) super.getTypeInstance();
+  }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-	}
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+  }
 }

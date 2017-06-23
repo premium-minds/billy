@@ -35,23 +35,21 @@ import com.premiumminds.billy.portugal.services.entities.PTPayment;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE")
-@Inheritance(strategy=InheritanceType.JOINED)
-public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements
-		PTInvoiceEntity {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class JPAPTInvoiceEntity extends JPAPTGenericInvoiceEntity implements PTInvoiceEntity {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	
-	@SuppressWarnings({ "unchecked" })
-	@Override
-	public List<PTInvoiceEntry> getEntries() {
-		return (List<PTInvoiceEntry>) super.getEntries();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<PTPayment> getPayments() {
-		return (List<PTPayment>) super.getPayments();
-	}
+  @SuppressWarnings({ "unchecked" })
+  @Override
+  public List<PTInvoiceEntry> getEntries() {
+    return (List<PTInvoiceEntry>) super.getEntries();
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<PTPayment> getPayments() {
+    return (List<PTPayment>) super.getPayments();
+  }
 
 }

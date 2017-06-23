@@ -23,6 +23,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 
 public interface DAOPTAddress extends DAOAddress {
 
-	@Override
-	public PTAddressEntity getEntityInstance();
+  @Override
+  public PTAddressEntity getEntityInstance();
 }

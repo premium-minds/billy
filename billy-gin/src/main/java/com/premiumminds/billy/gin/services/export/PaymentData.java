@@ -19,15 +19,15 @@
 package com.premiumminds.billy.gin.services.export;
 
 public class PaymentData {
-	
-	private final Enum<?> paymentMethod;
 
-	public PaymentData(Enum<?> paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
+  private final Enum<?> paymentMethod;
 
-	public Enum<?> getPaymentMethod() {
-		return paymentMethod;
-	}
+  public PaymentData(Enum<?> paymentMethod) {
+    this.paymentMethod = paymentMethod;
+  }
+
+  public Enum<?> getPaymentMethod() {
+    return paymentMethod;
+  }
 
 }

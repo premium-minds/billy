@@ -38,149 +38,137 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTax extends Tax>
-	extends AbstractBuilder<TBuilder, TTax> implements
-	TaxBuilder<TBuilder, TTax> {
+    extends AbstractBuilder<TBuilder, TTax> implements TaxBuilder<TBuilder, TTax> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-															"com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOTax					daoTax;
-	protected DAOContext				daoContext;
+  protected DAOTax daoTax;
+  protected DAOContext daoContext;
 
-	@Inject
-	public TaxBuilderImpl(DAOTax daoTax, DAOContext daoContext) {
-		super(daoTax);
-		this.daoTax = daoTax;
-		this.daoContext = daoContext;
-	}
+  @Inject
+  public TaxBuilderImpl(DAOTax daoTax, DAOContext daoContext) {
+    super(daoTax);
+    this.daoTax = daoTax;
+    this.daoContext = daoContext;
+  }
 
-	@Override
-	public TBuilder setContextUID(UID contextUID) {
-		BillyValidator.notNull(contextUID,
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-		ContextEntity c = BillyValidator.found(this.daoContext.get(contextUID),
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-		this.getTypeInstance().setContext(c);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setContextUID(UID contextUID) {
+    BillyValidator.notNull(contextUID, TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
+    ContextEntity c = BillyValidator.found(this.daoContext.get(contextUID),
+        TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
+    this.getTypeInstance().setContext(c);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setDesignation(String designation) {
-		BillyValidator.notBlank(designation,
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_designation"));
-		this.getTypeInstance().setDesignation(designation);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setDesignation(String designation) {
+    BillyValidator.notBlank(designation,
+        TaxBuilderImpl.LOCALIZER.getString("field.tax_designation"));
+    this.getTypeInstance().setDesignation(designation);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setDescription(String description) {
-		BillyValidator.notBlank(description,
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
-		this.getTypeInstance().setDescription(description);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setDescription(String description) {
+    BillyValidator.notBlank(description,
+        TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
+    this.getTypeInstance().setDescription(description);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setCode(String code) {
-		BillyValidator.notBlank(code,
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
-		this.getTypeInstance().setCode(code);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setCode(String code) {
+    BillyValidator.notBlank(code, TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
+    this.getTypeInstance().setCode(code);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setValidFrom(Date from) {
-		BillyValidator.notNull(from,
-				TaxBuilderImpl.LOCALIZER.getString("field.valid_from"));
-		this.getTypeInstance().setValidFrom(from);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setValidFrom(Date from) {
+    BillyValidator.notNull(from, TaxBuilderImpl.LOCALIZER.getString("field.valid_from"));
+    this.getTypeInstance().setValidFrom(from);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setValidTo(Date to) {
-		BillyValidator.notNull(to,
-				TaxBuilderImpl.LOCALIZER.getString("field.valid_to"));
-		this.getTypeInstance().setValidTo(to);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setValidTo(Date to) {
+    BillyValidator.notNull(to, TaxBuilderImpl.LOCALIZER.getString("field.valid_to"));
+    this.getTypeInstance().setValidTo(to);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setValue(BigDecimal value) {
-		BillyValidator.notNull(value,
-				TaxBuilderImpl.LOCALIZER.getString("field.value"));
-		this.getTypeInstance().setValue(value);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setValue(BigDecimal value) {
+    BillyValidator.notNull(value, TaxBuilderImpl.LOCALIZER.getString("field.value"));
+    this.getTypeInstance().setValue(value);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setTaxRate(TaxRateType rateType, BigDecimal amount) {
-		BillyValidator.notNull(rateType,
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
-		BillyValidator.notNull(amount,
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_amount"));
-		this.getTypeInstance().setTaxRateType(rateType);
-		switch (rateType) {
-			case FLAT:
-				this.getTypeInstance().setPercentageRateValue(BigDecimal.ZERO);
-				this.getTypeInstance().setFlatRateAmount(amount);
-				break;
-			case PERCENTAGE:
-				Validate.inclusiveBetween(BigDecimal.ZERO,
-						new BigDecimal("100"), amount);
-				this.getTypeInstance().setPercentageRateValue(amount);
-				this.getTypeInstance().setFlatRateAmount(BigDecimal.ZERO);
-				break;
-			case NONE:
-				break;
-			default:
-				throw new RuntimeException("The tax rate type is unknown");
-		}
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setTaxRate(TaxRateType rateType, BigDecimal amount) {
+    BillyValidator.notNull(rateType, TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
+    BillyValidator.notNull(amount, TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_amount"));
+    this.getTypeInstance().setTaxRateType(rateType);
+    switch (rateType) {
+    case FLAT:
+      this.getTypeInstance().setPercentageRateValue(BigDecimal.ZERO);
+      this.getTypeInstance().setFlatRateAmount(amount);
+      break;
+    case PERCENTAGE:
+      Validate.inclusiveBetween(BigDecimal.ZERO, new BigDecimal("100"), amount);
+      this.getTypeInstance().setPercentageRateValue(amount);
+      this.getTypeInstance().setFlatRateAmount(BigDecimal.ZERO);
+      break;
+    case NONE:
+      break;
+    default:
+      throw new RuntimeException("The tax rate type is unknown");
+    }
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setCurrency(Currency currency) {
-		BillyValidator.notNull(currency,
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_currency"));
-		this.getTypeInstance().setCurrency(currency);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setCurrency(Currency currency) {
+    BillyValidator.notNull(currency, TaxBuilderImpl.LOCALIZER.getString("field.tax_currency"));
+    this.getTypeInstance().setCurrency(currency);
+    return this.getBuilder();
+  }
 
-	@Override
-	protected void validateInstance()
-		throws javax.validation.ValidationException {
-		Tax t = this.getTypeInstance();
-		/*BillyValidator.mandatory(t.getDescription(),
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
-		BillyValidator.mandatory(t.getCode(),
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
-		BillyValidator.mandatory(t.getTaxRateType(),
-				TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));*/
-		BillyValidator.mandatory(t.getCurrency(),
-				TaxBuilderImpl.LOCALIZER
-						.getString("field.tax_currency"));
+  @Override
+  protected void validateInstance() throws javax.validation.ValidationException {
+    Tax t = this.getTypeInstance();
+    /*
+     * BillyValidator.mandatory(t.getDescription(),
+     * TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
+     * BillyValidator.mandatory(t.getCode(),
+     * TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
+     * BillyValidator.mandatory(t.getTaxRateType(),
+     * TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
+     */
+    BillyValidator.mandatory(t.getCurrency(),
+        TaxBuilderImpl.LOCALIZER.getString("field.tax_currency"));
 
-		switch (t.getTaxRateType()) {
-			case FLAT:
-				BillyValidator.mandatory(t.getFlatRateAmount(),
-						TaxBuilderImpl.LOCALIZER
-								.getString("field.tax_rate_flat_amount"));
-				break;
-			case PERCENTAGE:
-				Validate.inclusiveBetween(BigDecimal.ZERO,
-						new BigDecimal("100"), t.getPercentageRateValue());
-				break;
-			case NONE:
-				break;
-			default:
-				throw new RuntimeException("The tax rate type is unknown");
-		}
-	}
+    switch (t.getTaxRateType()) {
+    case FLAT:
+      BillyValidator.mandatory(t.getFlatRateAmount(),
+          TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_flat_amount"));
+      break;
+    case PERCENTAGE:
+      Validate.inclusiveBetween(BigDecimal.ZERO, new BigDecimal("100"), t.getPercentageRateValue());
+      break;
+    case NONE:
+      break;
+    default:
+      throw new RuntimeException("The tax rate type is unknown");
+    }
+  }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	protected TaxEntity getTypeInstance() {
-		return (TaxEntity) super.getTypeInstance();
-	}
+  @SuppressWarnings("unchecked")
+  @Override
+  protected TaxEntity getTypeInstance() {
+    return (TaxEntity) super.getTypeInstance();
+  }
 
 }

@@ -23,13 +23,12 @@ import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
-public abstract class DocumentIssuingHandlerImpl implements
-	DocumentIssuingHandler {
+public abstract class DocumentIssuingHandlerImpl implements DocumentIssuingHandler {
 
-	public DocumentIssuingHandlerImpl() {
-	}
+  public DocumentIssuingHandlerImpl() {
+  }
 
-	@Override
-	public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(
-			T document, P parameters) throws DocumentIssuingException;
+  @Override
+  public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(T document,
+      P parameters) throws DocumentIssuingException;
 }

@@ -27,12 +27,11 @@ import com.premiumminds.billy.spain.services.builders.impl.ESProductBuilderImpl;
 
 public interface ESProduct extends Product {
 
-	public static class Builder extends
-		ESProductBuilderImpl<Builder, ESProduct> {
+  public static class Builder extends ESProductBuilderImpl<Builder, ESProduct> {
 
-		@Inject
-		public Builder(DAOESProduct daoESProduct, DAOESTax daoESTax) {
-			super(daoESProduct, daoESTax);
-		}
-	}
+    @Inject
+    public Builder(DAOESProduct daoESProduct, DAOESTax daoESTax) {
+      super(daoESProduct, daoESTax);
+    }
+  }
 }

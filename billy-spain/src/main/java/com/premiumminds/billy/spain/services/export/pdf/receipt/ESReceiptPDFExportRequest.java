@@ -24,17 +24,17 @@ import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoiceTemplat
 
 public class ESReceiptPDFExportRequest extends AbstractExportRequest {
 
-	public ESReceiptPDFExportRequest(UID uid, ESReceiptTemplateBundle bundle) {
-		super(uid, bundle);
-	}
-	
-	public ESReceiptPDFExportRequest(UID uid, ESInvoiceTemplateBundle bundle, String resultPath) {
-		super(uid, bundle, resultPath);
-	}
+  public ESReceiptPDFExportRequest(UID uid, ESReceiptTemplateBundle bundle) {
+    super(uid, bundle);
+  }
 
-	@Override
-	public ESReceiptTemplateBundle getBundle() {
-		return (ESReceiptTemplateBundle) bundle;
-	}
+  public ESReceiptPDFExportRequest(UID uid, ESInvoiceTemplateBundle bundle, String resultPath) {
+    super(uid, bundle, resultPath);
+  }
+
+  @Override
+  public ESReceiptTemplateBundle getBundle() {
+    return (ESReceiptTemplateBundle) bundle;
+  }
 
 }

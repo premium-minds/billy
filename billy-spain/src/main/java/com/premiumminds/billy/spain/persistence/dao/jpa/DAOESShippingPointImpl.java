@@ -27,21 +27,20 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESShippingPoint;
 import com.premiumminds.billy.spain.persistence.entities.ESShippingPointEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESShippingPointEntity;
 
-public class DAOESShippingPointImpl extends DAOShippingPointImpl implements
-	DAOESShippingPoint {
+public class DAOESShippingPointImpl extends DAOShippingPointImpl implements DAOESShippingPoint {
 
-	@Inject
-	public DAOESShippingPointImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+  @Inject
+  public DAOESShippingPointImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-	@Override
-	public ESShippingPointEntity getEntityInstance() {
-		return new JPAESShippingPointEntity();
-	}
+  @Override
+  public ESShippingPointEntity getEntityInstance() {
+    return new JPAESShippingPointEntity();
+  }
 
-	@Override
-	protected Class<JPAESShippingPointEntity> getEntityClass() {
-		return JPAESShippingPointEntity.class;
-	}
+  @Override
+  protected Class<JPAESShippingPointEntity> getEntityClass() {
+    return JPAESShippingPointEntity.class;
+  }
 }

@@ -23,6 +23,6 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 public interface DAOContext extends DAO<ContextEntity> {
 
-	public boolean isSubContext(Context sub, Context context);
+  public boolean isSubContext(Context sub, Context context);
 
 }

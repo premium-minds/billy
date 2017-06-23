@@ -24,24 +24,24 @@ import com.premiumminds.billy.spain.services.entities.ESAddress;
 
 public class Addresses {
 
-	private final Injector	injector;
+  private final Injector injector;
 
-	public Addresses(Injector injector) {
-		this.injector = injector;
-	}
+  public Addresses(Injector injector) {
+    this.injector = injector;
+  }
 
-	public ESAddress.Builder builder() {
-		return getInstance(ESAddress.Builder.class);
-	}
-	
-	public ESAddress.Builder builder(ESAddress customer) {
-		ESAddress.Builder builder = getInstance(ESAddress.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
-		return builder;
-	}
-	
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+  public ESAddress.Builder builder() {
+    return getInstance(ESAddress.Builder.class);
+  }
+
+  public ESAddress.Builder builder(ESAddress customer) {
+    ESAddress.Builder builder = getInstance(ESAddress.Builder.class);
+    BuilderManager.setTypeInstance(builder, customer);
+    return builder;
+  }
+
+  private <T> T getInstance(Class<T> clazz) {
+    return this.injector.getInstance(clazz);
+  }
+
 }

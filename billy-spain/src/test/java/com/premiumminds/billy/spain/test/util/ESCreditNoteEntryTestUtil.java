@@ -33,45 +33,37 @@ import com.premiumminds.billy.spain.util.Contexts;
 
 public class ESCreditNoteEntryTestUtil {
 
-	private static final BigDecimal	AMOUNT		= new BigDecimal(20);
-	private static final Currency	CURRENCY	= Currency.getInstance("EUR");
-	private static final BigDecimal	QUANTITY	= new BigDecimal(1);
-	private static final String		REASON		= "Rotten potatoes";
+  private static final BigDecimal AMOUNT = new BigDecimal(20);
+  private static final Currency CURRENCY = Currency.getInstance("EUR");
+  private static final BigDecimal QUANTITY = new BigDecimal(1);
+  private static final String REASON = "Rotten potatoes";
 
-	private Injector				injector;
-	private Contexts				contexts;
-	private ESRegionContext			context;
+  private Injector injector;
+  private Contexts contexts;
+  private ESRegionContext context;
 
-	public ESCreditNoteEntryTestUtil(Injector injector) {
-		this.injector = injector;
-		this.contexts = new Contexts(injector);
-	}
+  public ESCreditNoteEntryTestUtil(Injector injector) {
+    this.injector = injector;
+    this.contexts = new Contexts(injector);
+  }
 
-	public ESCreditNoteEntry.Builder getCreditNoteEntryBuilder(
-			ESInvoiceEntity reference) {
-		ESCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector
-				.getInstance(ESCreditNoteEntry.Builder.class);
+  public ESCreditNoteEntry.Builder getCreditNoteEntryBuilder(ESInvoiceEntity reference) {
+    ESCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector
+        .getInstance(ESCreditNoteEntry.Builder.class);
 
-		ESProductEntity newProduct = (ESProductEntity) this.injector
-				.getInstance(DAOESProduct.class)
-				.create(new ESProductTestUtil(this.injector).getProductEntity());
+    ESProductEntity newProduct = (ESProductEntity) this.injector.getInstance(DAOESProduct.class)
+        .create(new ESProductTestUtil(this.injector).getProductEntity());
 
-		this.context = this.contexts.spain().allRegions();
+    this.context = this.contexts.spain().allRegions();
 
-		creditNoteEntryBuilder
-				.setUnitAmount(AmountType.WITH_TAX,
-						ESCreditNoteEntryTestUtil.AMOUNT)
-				.setTaxPointDate(new Date())
-				.setDescription(newProduct.getDescription())
-				.setQuantity(ESCreditNoteEntryTestUtil.QUANTITY)
-				.setUnitOfMeasure(newProduct.getUnitOfMeasure())
-				.setProductUID(newProduct.getUID())
-				.setContextUID(this.context.getUID())
-				.setReason(ESCreditNoteEntryTestUtil.REASON)
-				.setReferenceUID(reference.getUID())
-				.setCurrency(Currency.getInstance("EUR"));
+    creditNoteEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESCreditNoteEntryTestUtil.AMOUNT)
+        .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())
+        .setQuantity(ESCreditNoteEntryTestUtil.QUANTITY)
+        .setUnitOfMeasure(newProduct.getUnitOfMeasure()).setProductUID(newProduct.getUID())
+        .setContextUID(this.context.getUID()).setReason(ESCreditNoteEntryTestUtil.REASON)
+        .setReferenceUID(reference.getUID()).setCurrency(Currency.getInstance("EUR"));
 
-		return creditNoteEntryBuilder;
-	}
+    return creditNoteEntryBuilder;
+  }
 
 }

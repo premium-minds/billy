@@ -35,59 +35,55 @@ import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.services.UID;
 
-
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TICKET")
-public class JPATicketEntity extends JPABaseEntity implements TicketEntity{
-	
-	private static final long serialVersionUID = 1L;
-		
-	
-	@Basic(optional = true)
-	@Column(name = "OBJECT_UID", updatable = true, insertable = true)
-	protected String objectUID;
-	
-	@Basic(optional = true)
-	@Column(name = "CREATION_DATE", updatable = true, insertable = true)
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date creationDate;
+public class JPATicketEntity extends JPABaseEntity implements TicketEntity {
 
-	@Basic(optional = true)
-	@Column(name = "PROCESS_DATE", updatable = true, insertable = true)
-	@Temporal(TemporalType.TIMESTAMP)
-	protected Date processDate;
+  private static final long serialVersionUID = 1L;
 
-	@Override
-	public UID getObjectUID() {
-		return new UID(this.objectUID);
-	}
+  @Basic(optional = true)
+  @Column(name = "OBJECT_UID", updatable = true, insertable = true)
+  protected String objectUID;
 
-	@Override
-	public Date getCreationDate() {
-		return this.creationDate;
-	}
+  @Basic(optional = true)
+  @Column(name = "CREATION_DATE", updatable = true, insertable = true)
+  @Temporal(TemporalType.TIMESTAMP)
+  protected Date creationDate;
 
-	@Override
-	public Date getProcessDate() {
-		return this.processDate;
-	}
+  @Basic(optional = true)
+  @Column(name = "PROCESS_DATE", updatable = true, insertable = true)
+  @Temporal(TemporalType.TIMESTAMP)
+  protected Date processDate;
 
-	@Override
-	public void setObjectUID(UID objectUID) {
-		this.objectUID = objectUID.getValue();
-	}
+  @Override
+  public UID getObjectUID() {
+    return new UID(this.objectUID);
+  }
 
-	@Override
-	public void setCreationDate(Date creationDate) {
-		this.creationDate = creationDate;
-	}
+  @Override
+  public Date getCreationDate() {
+    return this.creationDate;
+  }
 
-	@Override
-	public void setProcessDate(Date processDate) {
-		this.processDate = processDate;
-	}
-	
-	
+  @Override
+  public Date getProcessDate() {
+    return this.processDate;
+  }
+
+  @Override
+  public void setObjectUID(UID objectUID) {
+    this.objectUID = objectUID.getValue();
+  }
+
+  @Override
+  public void setCreationDate(Date creationDate) {
+    this.creationDate = creationDate;
+  }
+
+  @Override
+  public void setProcessDate(Date processDate) {
+    this.processDate = processDate;
+  }
 
 }

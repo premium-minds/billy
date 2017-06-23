@@ -23,8 +23,8 @@ import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 
 public interface InvoiceSeriesEntity extends BaseEntity, InvoiceSeries {
 
-	public void setSeries(String series);
+  public void setSeries(String series);
 
-	public <T extends Business> void setBusiness(T business);
+  public <T extends Business> void setBusiness(T business);
 
 }

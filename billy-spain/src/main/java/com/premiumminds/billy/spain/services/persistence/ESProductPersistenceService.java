@@ -31,66 +31,65 @@ import com.premiumminds.billy.spain.services.entities.ESProduct;
 
 public class ESProductPersistenceService implements PersistenceService<ESProduct> {
 
-	protected final DAOESProduct	daoProduct;
+  protected final DAOESProduct daoProduct;
 
-	@Inject
-	public ESProductPersistenceService(DAOESProduct daoProduct) {
-		this.daoProduct = daoProduct;
-	}
+  @Inject
+  public ESProductPersistenceService(DAOESProduct daoProduct) {
+    this.daoProduct = daoProduct;
+  }
 
-	@Override
-	public ESProduct create(final Builder<ESProduct> builder) {
-		try {
-			return new TransactionWrapper<ESProduct>(daoProduct) {
+  @Override
+  public ESProduct create(final Builder<ESProduct> builder) {
+    try {
+      return new TransactionWrapper<ESProduct>(daoProduct) {
 
-				@Override
-				public ESProduct runTransaction() throws Exception {
-					ESProductEntity entity = (ESProductEntity) builder.build();
-					return (ESProduct) daoProduct.create(entity);
-				}
+        @Override
+        public ESProduct runTransaction() throws Exception {
+          ESProductEntity entity = (ESProductEntity) builder.build();
+          return (ESProduct) daoProduct.create(entity);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	@Override
-	public ESProduct update(final Builder<ESProduct> builder) {
-		try {
-			return new TransactionWrapper<ESProduct>(daoProduct) {
+  @Override
+  public ESProduct update(final Builder<ESProduct> builder) {
+    try {
+      return new TransactionWrapper<ESProduct>(daoProduct) {
 
-				@Override
-				public ESProduct runTransaction() throws Exception {
-					ESProductEntity entity = (ESProductEntity) builder.build();
-					return (ESProduct) daoProduct.update(entity);
-				}
+        @Override
+        public ESProduct runTransaction() throws Exception {
+          ESProductEntity entity = (ESProductEntity) builder.build();
+          return (ESProduct) daoProduct.update(entity);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	@Override
-	public ESProduct get(final UID uid) {
-		try {
-			return new TransactionWrapper<ESProduct>(daoProduct) {
+  @Override
+  public ESProduct get(final UID uid) {
+    try {
+      return new TransactionWrapper<ESProduct>(daoProduct) {
 
-				@Override
-				public ESProduct runTransaction() throws Exception {
-					return (ESProduct) daoProduct.get(uid);
-				}
+        @Override
+        public ESProduct runTransaction() throws Exception {
+          return (ESProduct) daoProduct.get(uid);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
-	
-	public boolean exists(final UID uid) {
-		return daoProduct.exists(uid);
-	}
-	
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
+
+  public boolean exists(final UID uid) {
+    return daoProduct.exists(uid);
+  }
 
 }

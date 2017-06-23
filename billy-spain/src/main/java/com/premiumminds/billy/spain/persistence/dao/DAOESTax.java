@@ -28,9 +28,8 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESTaxEntity;
 
 public interface DAOESTax extends DAOTax {
 
-	@Override
-	public ESTaxEntity getEntityInstance();
+  @Override
+  public ESTaxEntity getEntityInstance();
 
-	public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context,
-			Date validFrom, Date validTo);
+  public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context, Date validFrom, Date validTo);
 }

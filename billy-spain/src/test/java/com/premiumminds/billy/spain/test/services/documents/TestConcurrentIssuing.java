@@ -44,220 +44,204 @@ import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 
 public class TestConcurrentIssuing extends ESDocumentAbstractTest {
 
-	private DocumentIssuingService	service;
+  private DocumentIssuingService service;
 
-	@Before
-	public void setUp() {
+  @Before
+  public void setUp() {
 
-		this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
-		this.service.addHandler(ESInvoiceEntity.class, ESAbstractTest.injector
-				.getInstance(ESInvoiceIssuingHandler.class));
-		this.parameters.setInvoiceSeries("A");
-	}
+    this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
+    this.service.addHandler(ESInvoiceEntity.class,
+        ESAbstractTest.injector.getInstance(ESInvoiceIssuingHandler.class));
+    this.parameters.setInvoiceSeries("A");
+  }
 
-	class TestRunner implements Callable<ESInvoice> {
+  class TestRunner implements Callable<ESInvoice> {
 
-		private Injector			injector;
-		private String				series;
-		private ESBusinessEntity	business;
+    private Injector injector;
+    private String series;
+    private ESBusinessEntity business;
 
-		public TestRunner(Injector inject, String series,
-							ESBusinessEntity business) {
-			this.injector = inject;
-			this.series = series;
-			this.business = business;
-		}
+    public TestRunner(Injector inject, String series, ESBusinessEntity business) {
+      this.injector = inject;
+      this.series = series;
+      this.business = business;
+    }
 
-		@Override
-		public ESInvoice call() throws Exception {
-			TestConcurrentIssuing.this.parameters.setInvoiceSeries(this.series);
-			try{
-				ESInvoice invoice = TestConcurrentIssuing.this.service.issue(
-						new ESInvoiceTestUtil(this.injector).getInvoiceBuilder(
-								this.business),
-						TestConcurrentIssuing.this.parameters);
-				return invoice;
-			} catch (DocumentIssuingException e) {
-				System.out.println(e.getMessage());
-				return null;
-			}
-		}
-	}
+    @Override
+    public ESInvoice call() throws Exception {
+      TestConcurrentIssuing.this.parameters.setInvoiceSeries(this.series);
+      try {
+        ESInvoice invoice = TestConcurrentIssuing.this.service.issue(
+            new ESInvoiceTestUtil(this.injector).getInvoiceBuilder(this.business),
+            TestConcurrentIssuing.this.parameters);
+        return invoice;
+      } catch (DocumentIssuingException e) {
+        System.out.println(e.getMessage());
+        return null;
+      }
+    }
+  }
 
-	@Test
-	public void testConcurrentIssuing() throws InterruptedException,
-		ExecutionException {
-		ConcurrentTestUtil test = new ConcurrentTestUtil(10);
-		String B1 = "Business 1";
-		ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector)
-				.getBusinessEntity(B1);
-		String B2 = "Business 2";
-		ESBusinessEntity businessEntity2 = new ESBusinessTestUtil(injector)
-				.getBusinessEntity(B2);
+  @Test
+  public void testConcurrentIssuing() throws InterruptedException, ExecutionException {
+    ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+    String B1 = "Business 1";
+    ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+    String B2 = "Business 2";
+    ESBusinessEntity businessEntity2 = new ESBusinessTestUtil(injector).getBusinessEntity(B2);
 
-		List<Future<?>> results1 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "A", businessEntity1));
+    List<Future<?>> results1 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
 
-		List<ESInvoice> invoices1 = this.executeThreads(results1);
+    List<ESInvoice> invoices1 = this.executeThreads(results1);
 
-		List<Future<?>> results2 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "A", businessEntity2));
+    List<Future<?>> results2 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity2));
 
-		List<ESInvoice> invoices2 = this.executeThreads(results2);
+    List<ESInvoice> invoices2 = this.executeThreads(results2);
 
-		if (invoices1.isEmpty() || invoices2.isEmpty()) {
-			Assert.fail(((invoices1.isEmpty()) ? "Invoice1" : "Invoice2")
-					+ " is empty!");
-		}
+    if (invoices1.isEmpty() || invoices2.isEmpty()) {
+      Assert.fail(((invoices1.isEmpty()) ? "Invoice1" : "Invoice2") + " is empty!");
+    }
 
-		ESInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
-		ESInvoiceEntity latestInvoice1 = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("A", B1);
-		Assert.assertNotNull(entity1);
-		Assert.assertEquals(entity1.getSeriesNumber(),
-				latestInvoice1.getSeriesNumber());
-		Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+    ESInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
+    ESInvoiceEntity latestInvoice1 = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("A", B1);
+    Assert.assertNotNull(entity1);
+    Assert.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
+    Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
 
-		ESInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
-		ESInvoiceEntity latestInvoice2 = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("A", B2);
-		Assert.assertNotNull(entity2);
-		Assert.assertEquals(entity2.getSeriesNumber(),
-				latestInvoice2.getSeriesNumber());
-		Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+    ESInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
+    ESInvoiceEntity latestInvoice2 = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("A", B2);
+    Assert.assertNotNull(entity2);
+    Assert.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
+    Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
 
-	}
+  }
 
-	@Test
-	public void testConcurrentIssuing2() throws InterruptedException,
-		ExecutionException {
-		String B1 = "Business 1";
-		ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector)
-				.getBusinessEntity(B1);
-		ConcurrentTestUtil test = new ConcurrentTestUtil(10);
-		List<Future<?>> results1 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "A", businessEntity1));
-		List<Future<?>> results2 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "A", businessEntity1));
+  @Test
+  public void testConcurrentIssuing2() throws InterruptedException, ExecutionException {
+    String B1 = "Business 1";
+    ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+    ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+    List<Future<?>> results1 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
+    List<Future<?>> results2 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
 
-		List<ESInvoice> invoices1 = this.executeThreads(results1);
-		List<ESInvoice> invoices2 = this.executeThreads(results2);
+    List<ESInvoice> invoices1 = this.executeThreads(results1);
+    List<ESInvoice> invoices2 = this.executeThreads(results2);
 
-		ESInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
-		ESInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
+    ESInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
+    ESInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
 
-		Integer latestInvoiceNumber = (entity1.getSeriesNumber() < entity2
-				.getSeriesNumber()) ? entity2.getSeriesNumber() : entity1
-				.getSeriesNumber();
+    Integer latestInvoiceNumber = (entity1.getSeriesNumber() < entity2.getSeriesNumber())
+        ? entity2.getSeriesNumber() : entity1.getSeriesNumber();
 
-		ESInvoiceEntity latestInvocie = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("A", B1);
-		Assert.assertEquals(latestInvoiceNumber,
-				latestInvocie.getSeriesNumber());
-	}
+    ESInvoiceEntity latestInvocie = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("A", B1);
+    Assert.assertEquals(latestInvoiceNumber, latestInvocie.getSeriesNumber());
+  }
 
-	@Test
-	public void testDifferenteBusinessAndSeries() throws InterruptedException,
-		ExecutionException {
-		ConcurrentTestUtil test = new ConcurrentTestUtil(30);
-		String B1 = "Business 1";
-		ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector)
-				.getBusinessEntity(B1);
-		String B2 = "Business 2";
-		ESBusinessEntity businessEntity2 = new ESBusinessTestUtil(injector)
-				.getBusinessEntity(B2);
+  @Test
+  public void testDifferenteBusinessAndSeries() throws InterruptedException, ExecutionException {
+    ConcurrentTestUtil test = new ConcurrentTestUtil(30);
+    String B1 = "Business 1";
+    ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+    String B2 = "Business 2";
+    ESBusinessEntity businessEntity2 = new ESBusinessTestUtil(injector).getBusinessEntity(B2);
 
-		List<Future<?>> results1 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "A", businessEntity1));
+    List<Future<?>> results1 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
 
-		List<ESInvoice> invoices1 = this.executeThreads(results1);
+    List<ESInvoice> invoices1 = this.executeThreads(results1);
 
-		List<Future<?>> results2 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "B", businessEntity2));
+    List<Future<?>> results2 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "B", businessEntity2));
 
-		List<ESInvoice> invoices2 = this.executeThreads(results2);
+    List<ESInvoice> invoices2 = this.executeThreads(results2);
 
-		ESInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
-		ESInvoiceEntity latestInvoice1 = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("A", B1);
-		Assert.assertEquals(entity1.getSeriesNumber(),
-				latestInvoice1.getSeriesNumber());
-		Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+    ESInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
+    ESInvoiceEntity latestInvoice1 = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("A", B1);
+    Assert.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
+    Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
 
-		ESInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
-		ESInvoiceEntity latestInvoice2 = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("B", B2);
-		Assert.assertEquals(entity2.getSeriesNumber(),
-				latestInvoice2.getSeriesNumber());
-		Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+    ESInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
+    ESInvoiceEntity latestInvoice2 = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("B", B2);
+    Assert.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
+    Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
 
-	}
+  }
 
-	@Test
-	public void testMultipleSeriesIssuing() throws InterruptedException,
-		ExecutionException {
-		String B1 = "Business 1";
-		ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector)
-				.getBusinessEntity(B1);
-		Integer totalThreads = 10;
-		ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);
+  @Test
+  public void testMultipleSeriesIssuing() throws InterruptedException, ExecutionException {
+    String B1 = "Business 1";
+    ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+    Integer totalThreads = 10;
+    ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);
 
-		List<Future<?>> results1 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "A", businessEntity1));
-		List<Future<?>> results2 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "B", businessEntity1));
-		List<Future<?>> results3 = test.runThreads(new TestRunner(
-				ESAbstractTest.injector, "C", businessEntity1));
+    List<Future<?>> results1 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
+    List<Future<?>> results2 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "B", businessEntity1));
+    List<Future<?>> results3 = test
+        .runThreads(new TestRunner(ESAbstractTest.injector, "C", businessEntity1));
 
-		List<ESInvoice> invoices1 = this.executeThreads(results1);
-		List<ESInvoice> invoices2 = this.executeThreads(results2);
-		List<ESInvoice> invoices3 = this.executeThreads(results3);
+    List<ESInvoice> invoices1 = this.executeThreads(results1);
+    List<ESInvoice> invoices2 = this.executeThreads(results2);
+    List<ESInvoice> invoices3 = this.executeThreads(results3);
 
-		ESInvoiceEntity latestInvoice1 = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("A", B1);
-		Assert.assertEquals(filterNotNull(invoices1).size(), latestInvoice1.getSeriesNumber().intValue());
-		ESInvoiceEntity latestInvoice2 = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("B", B1);
-		Assert.assertEquals(filterNotNull(invoices2).size(), latestInvoice2.getSeriesNumber().intValue());
-		ESInvoiceEntity latestInvoice3 = this.getInstance(DAOESInvoice.class)
-				.getLatestInvoiceFromSeries("C", B1);
-		Assert.assertEquals(filterNotNull(invoices3).size(), latestInvoice3.getSeriesNumber().intValue());
+    ESInvoiceEntity latestInvoice1 = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("A", B1);
+    Assert.assertEquals(filterNotNull(invoices1).size(),
+        latestInvoice1.getSeriesNumber().intValue());
+    ESInvoiceEntity latestInvoice2 = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("B", B1);
+    Assert.assertEquals(filterNotNull(invoices2).size(),
+        latestInvoice2.getSeriesNumber().intValue());
+    ESInvoiceEntity latestInvoice3 = this.getInstance(DAOESInvoice.class)
+        .getLatestInvoiceFromSeries("C", B1);
+    Assert.assertEquals(filterNotNull(invoices3).size(),
+        latestInvoice3.getSeriesNumber().intValue());
 
-	}
+  }
 
-	private ESInvoiceEntity getLatestInvoice(List<ESInvoice> invoices) {
-		int lastSeriesNumber = 0;
-		ESInvoiceEntity entity = null;
-		for (ESInvoice invoice : invoices) {
-			if (lastSeriesNumber < invoice.getSeriesNumber()) {
-				lastSeriesNumber = invoice.getSeriesNumber();
-				entity = (ESInvoiceEntity) invoice;
-			}
-		}
-		return entity;
-	}
+  private ESInvoiceEntity getLatestInvoice(List<ESInvoice> invoices) {
+    int lastSeriesNumber = 0;
+    ESInvoiceEntity entity = null;
+    for (ESInvoice invoice : invoices) {
+      if (lastSeriesNumber < invoice.getSeriesNumber()) {
+        lastSeriesNumber = invoice.getSeriesNumber();
+        entity = (ESInvoiceEntity) invoice;
+      }
+    }
+    return entity;
+  }
 
-	private List<ESInvoice> executeThreads(List<Future<?>> results)
-		throws InterruptedException, ExecutionException {
-		List<ESInvoice> invoices = new ArrayList<ESInvoice>();
+  private List<ESInvoice> executeThreads(List<Future<?>> results)
+      throws InterruptedException, ExecutionException {
+    List<ESInvoice> invoices = new ArrayList<ESInvoice>();
 
-		for (int i = 0; i < results.size(); i++) {
-			ESInvoice invoice = (ESInvoice) results.get(i).get();
-			if (invoice != null) {
-				invoices.add(invoice);
-			}
-		}
-		return invoices;
-	}
-	
-	private <T> List<T> filterNotNull(List<T> in){
-		List<T> out = new ArrayList<T>();
-		for(T e : in){
-			if(null != e){
-				out.add(e);
-			}
-		}
-		return out;
-	}
+    for (int i = 0; i < results.size(); i++) {
+      ESInvoice invoice = (ESInvoice) results.get(i).get();
+      if (invoice != null) {
+        invoices.add(invoice);
+      }
+    }
+    return invoices;
+  }
+
+  private <T> List<T> filterNotNull(List<T> in) {
+    List<T> out = new ArrayList<T>();
+    for (T e : in) {
+      if (null != e) {
+        out.add(e);
+      }
+    }
+    return out;
+  }
 
 }

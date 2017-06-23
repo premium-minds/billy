@@ -23,78 +23,79 @@ import java.util.Date;
 import java.util.List;
 
 public class GenericInvoiceData {
-	
-	private final String number;
-	private final Date date;
-	private final Date settlementDate;
-	private final List<PaymentData> payments;
-	private final CostumerData customer;
-	private final BusinessData business;
-	private final List<InvoiceEntryData> entries;
-	private final BigDecimal taxAmount;
-	private final BigDecimal amountWithTax;
-	private final BigDecimal amountWithoutTax;
-	private final String settlementDescription;
-	
-	public GenericInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-			CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
-			BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
-		
-		this.number = number;
-		this.date = date;
-		this.settlementDate = settlementDate;
-		this.payments = payments;
-		this.customer = customer;
-		this.business = business;
-		this.entries = entries;
-		this.taxAmount = taxAmount;
-		this.amountWithTax = amountWithTax;
-		this.amountWithoutTax = amountWithoutTax;
-		this.settlementDescription = settlementDescription;
-	}
 
-	public String getNumber() {
-		return number;
-	}
+  private final String number;
+  private final Date date;
+  private final Date settlementDate;
+  private final List<PaymentData> payments;
+  private final CostumerData customer;
+  private final BusinessData business;
+  private final List<InvoiceEntryData> entries;
+  private final BigDecimal taxAmount;
+  private final BigDecimal amountWithTax;
+  private final BigDecimal amountWithoutTax;
+  private final String settlementDescription;
 
-	public Date getDate() {
-		return date;
-	}
+  public GenericInvoiceData(String number, Date date, Date settlementDate,
+      List<PaymentData> payments, CostumerData customer, BusinessData business,
+      List<InvoiceEntryData> entries, BigDecimal taxAmount, BigDecimal amountWithTax,
+      BigDecimal amountWithoutTax, String settlementDescription) {
 
-	public Date getSettlementDate() {
-		return settlementDate;
-	}
+    this.number = number;
+    this.date = date;
+    this.settlementDate = settlementDate;
+    this.payments = payments;
+    this.customer = customer;
+    this.business = business;
+    this.entries = entries;
+    this.taxAmount = taxAmount;
+    this.amountWithTax = amountWithTax;
+    this.amountWithoutTax = amountWithoutTax;
+    this.settlementDescription = settlementDescription;
+  }
 
-	public List<PaymentData> getPayments() {
-		return payments;
-	}
+  public String getNumber() {
+    return number;
+  }
 
-	public CostumerData getCustomer() {
-		return customer;
-	}
+  public Date getDate() {
+    return date;
+  }
 
-	public BusinessData getBusiness() {
-		return business;
-	}
+  public Date getSettlementDate() {
+    return settlementDate;
+  }
 
-	public List<? extends InvoiceEntryData> getEntries() {
-		return entries;
-	}
+  public List<PaymentData> getPayments() {
+    return payments;
+  }
 
-	public BigDecimal getTaxAmount() {
-		return taxAmount;
-	}
+  public CostumerData getCustomer() {
+    return customer;
+  }
 
-	public BigDecimal getAmountWithTax() {
-		return amountWithTax;
-	}
+  public BusinessData getBusiness() {
+    return business;
+  }
 
-	public BigDecimal getAmountWithoutTax() {
-		return amountWithoutTax;
-	}
+  public List<? extends InvoiceEntryData> getEntries() {
+    return entries;
+  }
 
-	public String getSettlementDescription() {
-		return settlementDescription;
-	}
-	
+  public BigDecimal getTaxAmount() {
+    return taxAmount;
+  }
+
+  public BigDecimal getAmountWithTax() {
+    return amountWithTax;
+  }
+
+  public BigDecimal getAmountWithoutTax() {
+    return amountWithoutTax;
+  }
+
+  public String getSettlementDescription() {
+    return settlementDescription;
+  }
+
 }

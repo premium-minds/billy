@@ -25,31 +25,30 @@ import com.premiumminds.billy.spain.services.persistence.ESApplicationPersistenc
 
 public class Applications {
 
-	private final Injector	injector;
-	private final ESApplicationPersistenceService persistenceService;
+  private final Injector injector;
+  private final ESApplicationPersistenceService persistenceService;
 
+  public Applications(Injector injector) {
+    this.injector = injector;
+    this.persistenceService = getInstance(ESApplicationPersistenceService.class);
+  }
 
-	public Applications(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(ESApplicationPersistenceService.class);
-	}
+  public ESApplication.Builder builder() {
+    return getInstance(ESApplication.Builder.class);
+  }
 
-	public ESApplication.Builder builder() {
-		return getInstance(ESApplication.Builder.class);
-	}
-	
-	public ESApplication.Builder builder(ESApplication application) {
-		ESApplication.Builder builder = getInstance(ESApplication.Builder.class);
-		BuilderManager.setTypeInstance(builder, application);
-		return builder;
-	}
-	
-	public ESApplicationPersistenceService persistence() {
-		return this.persistenceService;
-	}
+  public ESApplication.Builder builder(ESApplication application) {
+    ESApplication.Builder builder = getInstance(ESApplication.Builder.class);
+    BuilderManager.setTypeInstance(builder, application);
+    return builder;
+  }
 
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+  public ESApplicationPersistenceService persistence() {
+    return this.persistenceService;
+  }
+
+  private <T> T getInstance(Class<T> clazz) {
+    return this.injector.getInstance(clazz);
+  }
+
 }

@@ -35,43 +35,41 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 
 public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTInvoice>
-	extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
-	PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
+    extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+    implements PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public PTInvoiceBuilderImpl(DAOPTInvoice daoPTInvoice,
-								DAOPTBusiness daoPTBusiness,
-								DAOPTCustomer daoPTCustomer,
-								DAOPTSupplier daoPTSupplier) {
-		super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-		this.setSourceBilling(SourceBilling.P);
-	}
+  @Inject
+  public PTInvoiceBuilderImpl(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
+      DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+    super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+    this.setSourceBilling(SourceBilling.P);
+  }
 
-	@Override
-	protected PTInvoiceEntity getTypeInstance() {
-		return (PTInvoiceEntity) super.getTypeInstance();
-	}
+  @Override
+  protected PTInvoiceEntity getTypeInstance() {
+    return (PTInvoiceEntity) super.getTypeInstance();
+  }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		PTInvoiceEntity i = getTypeInstance();
-		i.setSourceBilling(SourceBilling.P);
-		i.setCreditOrDebit(CreditOrDebit.CREDIT);
-		super.validateInstance();
-	}
-	
-	@Override
-	@NotOnUpdate
-	public TBuilder setSourceBilling(SourceBilling sourceBilling) {
-		switch (sourceBilling) {
-		case P:
-			return super.setSourceBilling(sourceBilling);
-		case M:
-		default:
-			throw new BillyValidationException();
-		}
-	}
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    PTInvoiceEntity i = getTypeInstance();
+    i.setSourceBilling(SourceBilling.P);
+    i.setCreditOrDebit(CreditOrDebit.CREDIT);
+    super.validateInstance();
+  }
+
+  @Override
+  @NotOnUpdate
+  public TBuilder setSourceBilling(SourceBilling sourceBilling) {
+    switch (sourceBilling) {
+    case P:
+      return super.setSourceBilling(sourceBilling);
+    case M:
+    default:
+      throw new BillyValidationException();
+    }
+  }
 }

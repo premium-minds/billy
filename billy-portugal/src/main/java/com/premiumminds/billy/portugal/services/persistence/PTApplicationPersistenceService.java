@@ -29,66 +29,63 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
-public class PTApplicationPersistenceService implements
-		PersistenceService<PTApplication> {
+public class PTApplicationPersistenceService implements PersistenceService<PTApplication> {
 
-	protected final DAOPTApplication daoApplication;
+  protected final DAOPTApplication daoApplication;
 
-	@Inject
-	public PTApplicationPersistenceService(DAOPTApplication daoApplication) {
-		this.daoApplication = daoApplication;
-	}
+  @Inject
+  public PTApplicationPersistenceService(DAOPTApplication daoApplication) {
+    this.daoApplication = daoApplication;
+  }
 
-	@Override
-	public PTApplication create(final Builder<PTApplication> builder) {
-		try {
-			return new TransactionWrapper<PTApplication>(daoApplication) {
+  @Override
+  public PTApplication create(final Builder<PTApplication> builder) {
+    try {
+      return new TransactionWrapper<PTApplication>(daoApplication) {
 
-				@Override
-				public PTApplication runTransaction() throws Exception {
-					PTApplicationEntity entity = (PTApplicationEntity) builder
-							.build();
-					return (PTApplication) daoApplication.create(entity);
-				}
+        @Override
+        public PTApplication runTransaction() throws Exception {
+          PTApplicationEntity entity = (PTApplicationEntity) builder.build();
+          return (PTApplication) daoApplication.create(entity);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	@Override
-	public PTApplication update(final Builder<PTApplication> builder) {
-		try {
-			return new TransactionWrapper<PTApplication>(daoApplication) {
+  @Override
+  public PTApplication update(final Builder<PTApplication> builder) {
+    try {
+      return new TransactionWrapper<PTApplication>(daoApplication) {
 
-				@Override
-				public PTApplication runTransaction() throws Exception {
-					PTApplicationEntity entity = (PTApplicationEntity) builder
-							.build();
-					return (PTApplication) daoApplication.update(entity);
-				}
+        @Override
+        public PTApplication runTransaction() throws Exception {
+          PTApplicationEntity entity = (PTApplicationEntity) builder.build();
+          return (PTApplication) daoApplication.update(entity);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	@Override
-	public PTApplication get(final UID uid) {
-		try {
-			return new TransactionWrapper<PTApplication>(daoApplication) {
+  @Override
+  public PTApplication get(final UID uid) {
+    try {
+      return new TransactionWrapper<PTApplication>(daoApplication) {
 
-				@Override
-				public PTApplication runTransaction() throws Exception {
-					return (PTApplication) daoApplication.get(uid);
-				}
+        @Override
+        public PTApplication runTransaction() throws Exception {
+          return (PTApplication) daoApplication.get(uid);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
 }

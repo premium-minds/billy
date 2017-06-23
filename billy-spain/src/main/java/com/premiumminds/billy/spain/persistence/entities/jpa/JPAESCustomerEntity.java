@@ -31,21 +31,20 @@ import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CUSTOMER")
-public class JPAESCustomerEntity extends JPACustomerEntity implements
-	ESCustomerEntity {
+public class JPAESCustomerEntity extends JPACustomerEntity implements ESCustomerEntity {
 
-	private static final long	serialVersionUID	= 1L;
+  private static final long serialVersionUID = 1L;
 
-	@Column(name = "REFERRAL_NAME")
-	protected String			referralName;
+  @Column(name = "REFERRAL_NAME")
+  protected String referralName;
 
-	@Override
-	public String getReferralName() {
-		return this.referralName;
-	}
+  @Override
+  public String getReferralName() {
+    return this.referralName;
+  }
 
-	@Override
-	public void setReferralName(String referralName) {
-		this.referralName = referralName;
-	}
+  @Override
+  public void setReferralName(String referralName) {
+    this.referralName = referralName;
+  }
 }

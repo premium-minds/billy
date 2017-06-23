@@ -34,111 +34,107 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public class PTCreditNotePersistenceService implements
-	PersistenceService<PTCreditNote> {
+public class PTCreditNotePersistenceService implements PersistenceService<PTCreditNote> {
 
-	protected final DAOPTCreditNote	daoCreditNote;
-	protected final DAOTicket daoTicket;
+  protected final DAOPTCreditNote daoCreditNote;
+  protected final DAOTicket daoTicket;
 
-	@Inject
-	public PTCreditNotePersistenceService(DAOPTCreditNote daoCreditNote,
-			DAOTicket daoTicket) {
-		this.daoCreditNote = daoCreditNote;
-		this.daoTicket = daoTicket;
-	}
+  @Inject
+  public PTCreditNotePersistenceService(DAOPTCreditNote daoCreditNote, DAOTicket daoTicket) {
+    this.daoCreditNote = daoCreditNote;
+    this.daoTicket = daoTicket;
+  }
 
-	@Override
-	@NotImplemented
-	public PTCreditNote create(final Builder<PTCreditNote> builder) {
-		return null;
-	}
+  @Override
+  @NotImplemented
+  public PTCreditNote create(final Builder<PTCreditNote> builder) {
+    return null;
+  }
 
-	@Override
-	public PTCreditNote update(final Builder<PTCreditNote> builder) {
-		try {
-			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
+  @Override
+  public PTCreditNote update(final Builder<PTCreditNote> builder) {
+    try {
+      return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
-				@Override
-				public PTCreditNote runTransaction() throws Exception {
-					PTCreditNoteEntity entity = (PTCreditNoteEntity) builder
-							.build();
-					return (PTCreditNote) daoCreditNote.update(entity);
-				}
+        @Override
+        public PTCreditNote runTransaction() throws Exception {
+          PTCreditNoteEntity entity = (PTCreditNoteEntity) builder.build();
+          return (PTCreditNote) daoCreditNote.update(entity);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	@Override
-	public PTCreditNote get(final UID uid) {
-		try {
-			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
+  @Override
+  public PTCreditNote get(final UID uid) {
+    try {
+      return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
-				@Override
-				public PTCreditNote runTransaction() throws Exception {
-					return (PTCreditNote) daoCreditNote.get(uid);
-				}
+        @Override
+        public PTCreditNote runTransaction() throws Exception {
+          return (PTCreditNote) daoCreditNote.get(uid);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	public PTCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException{
+  public PTCreditNote getWithTicket(final UID ticketUID)
+      throws NoResultException, BillyRuntimeException {
 
-		try {
-			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
+    try {
+      return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
-				@Override
-				public PTCreditNote runTransaction() throws Exception {
-					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
-							.getValue());
-					return (PTCreditNote) daoCreditNote.get(objectUID);
-				}
+        @Override
+        public PTCreditNote runTransaction() throws Exception {
+          UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
+          return (PTCreditNote) daoCreditNote.get(objectUID);
+        }
 
-			}.execute();
-		}catch(NoResultException e){
-			throw e;
-		} 
-		catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
-	
-	public PTCreditNote findByNumber(final UID uidBusiness, final String number) {
-		try {
-			return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
+      }.execute();
+    } catch (NoResultException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-				@Override
-				public PTCreditNote runTransaction() throws Exception {
-					return (PTCreditNote) daoCreditNote.findByNumber(uidBusiness, number);
-				}
+  public PTCreditNote findByNumber(final UID uidBusiness, final String number) {
+    try {
+      return new TransactionWrapper<PTCreditNote>(daoCreditNote) {
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+        @Override
+        public PTCreditNote runTransaction() throws Exception {
+          return (PTCreditNote) daoCreditNote.findByNumber(uidBusiness, number);
+        }
 
-	public List<PTCreditNote> findByReferencedDocument(final UID uidCompany, final UID uidInvoice) {
-		try {
-			return new TransactionWrapper<List<PTCreditNote>>(daoCreditNote) {
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-				@Override
-				public List<PTCreditNote> runTransaction() throws Exception {
-					return (List<PTCreditNote>) daoCreditNote.findByReferencedDocument(uidCompany, uidInvoice);
-				}
+  public List<PTCreditNote> findByReferencedDocument(final UID uidCompany, final UID uidInvoice) {
+    try {
+      return new TransactionWrapper<List<PTCreditNote>>(daoCreditNote) {
 
-			}.execute();
-		}catch(NoResultException e){
-			throw e;
-		} 
-		catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+        @Override
+        public List<PTCreditNote> runTransaction() throws Exception {
+          return (List<PTCreditNote>) daoCreditNote.findByReferencedDocument(uidCompany,
+              uidInvoice);
+        }
+
+      }.execute();
+    } catch (NoResultException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
 }

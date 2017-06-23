@@ -32,41 +32,39 @@ import com.premiumminds.billy.spain.services.builders.ESTaxBuilder;
 import com.premiumminds.billy.spain.services.entities.ESTax;
 
 public class ESTaxBuilderImpl<TBuilder extends ESTaxBuilderImpl<TBuilder, TTax>, TTax extends ESTax>
-		extends TaxBuilderImpl<TBuilder, TTax> implements
-		ESTaxBuilder<TBuilder, TTax> {
+    extends TaxBuilderImpl<TBuilder, TTax> implements ESTaxBuilder<TBuilder, TTax> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public ESTaxBuilderImpl(DAOESTax daoESTax, DAOESRegionContext daoESContext) {
-		super(daoESTax, daoESContext);
-	}
+  @Inject
+  public ESTaxBuilderImpl(DAOESTax daoESTax, DAOESRegionContext daoESContext) {
+    super(daoESTax, daoESContext);
+  }
 
-	@Override
-	protected ESTaxEntity getTypeInstance() {
-		return (ESTaxEntity) super.getTypeInstance();
-	}
+  @Override
+  protected ESTaxEntity getTypeInstance() {
+    return (ESTaxEntity) super.getTypeInstance();
+  }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		ESTaxEntity e = this.getTypeInstance();
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    ESTaxEntity e = this.getTypeInstance();
 
-		BillyValidator.mandatory(e.getContext(),
-				ESTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-		BillyValidator.mandatory(e.getTaxRateType(),
-				ESTaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
-		BillyValidator.mandatory(e.getCode(),
-				ESTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
-		BillyValidator.mandatory(e.getDescription(),
-				ESTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
+    BillyValidator.mandatory(e.getContext(),
+        ESTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
+    BillyValidator.mandatory(e.getTaxRateType(),
+        ESTaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
+    BillyValidator.mandatory(e.getCode(), ESTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
+    BillyValidator.mandatory(e.getDescription(),
+        ESTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
 
-		if (!((DAOESTax) this.daoTax).getTaxes(
-				(ESRegionContextEntity) e.getContext(), e.getValidFrom(),
-				e.getValidTo()).isEmpty()) {
-			throw new BillyValidationException();
-		}
-		super.validateInstance();
-	}
+    if (!((DAOESTax) this.daoTax)
+        .getTaxes((ESRegionContextEntity) e.getContext(), e.getValidFrom(), e.getValidTo())
+        .isEmpty()) {
+      throw new BillyValidationException();
+    }
+    super.validateInstance();
+  }
 
 }

@@ -26,22 +26,22 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public class IssuingParamsImpl implements IssuingParams {
 
-	Map<String, Object>	parameters;
+  Map<String, Object> parameters;
 
-	public IssuingParamsImpl() {
-		this.parameters = new HashMap<String, Object>();
-	}
+  public IssuingParamsImpl() {
+    this.parameters = new HashMap<String, Object>();
+  }
 
-	public Object getParameter(String key) throws ParameterNotFoundException {
-		if (this.parameters.containsKey(key)) {
-			return this.parameters.get(key);
-		} else {
-			return null;
-		}
-	}
+  public Object getParameter(String key) throws ParameterNotFoundException {
+    if (this.parameters.containsKey(key)) {
+      return this.parameters.get(key);
+    } else {
+      return null;
+    }
+  }
 
-	public void setParameter(String key, Object obj) {
-		this.parameters.put(key, obj);
-	}
+  public void setParameter(String key, Object obj) {
+    this.parameters.put(key, obj);
+  }
 
 }

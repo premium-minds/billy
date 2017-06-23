@@ -30,9 +30,8 @@ import com.premiumminds.billy.spain.persistence.entities.ESContactEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
-public class JPAESContactEntity extends JPAContactEntity implements
-	ESContactEntity {
+public class JPAESContactEntity extends JPAContactEntity implements ESContactEntity {
 
-	private static final long	serialVersionUID	= 1L;
+  private static final long serialVersionUID = 1L;
 
 }

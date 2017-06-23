@@ -61,109 +61,102 @@ import com.premiumminds.billy.spain.util.Services;
 
 public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
-	public static final int		NUM_ENTRIES					= 10;
-	public static final String	XSL_PATH					= "src/main/resources/templates/es_creditnote.xsl";
-	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
-	private Injector mockedInjector;
-	private ESCreditNotePDFFOPTransformer transformer;
-	private ESCreditNoteDataExtractor extractor;
-	
-	@Before
-	public void setUp() throws FileNotFoundException {
-		
-		mockedInjector = Guice.createInjector(Modules.override(
-				new SpainDependencyModule()).with(
-				new ESMockDependencyModule()));
-		
-		InputStream xsl = new FileInputStream(XSL_PATH);
+  public static final int NUM_ENTRIES = 10;
+  public static final String XSL_PATH = "src/main/resources/templates/es_creditnote.xsl";
+  public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+  private Injector mockedInjector;
+  private ESCreditNotePDFFOPTransformer transformer;
+  private ESCreditNoteDataExtractor extractor;
 
-		transformer = new ESCreditNotePDFFOPTransformer(LOGO_PATH, xsl);
-		extractor = mockedInjector.getInstance(ESCreditNoteDataExtractor.class);
-	}
+  @Before
+  public void setUp() throws FileNotFoundException {
 
-	@Test
-	public void testPDFcreation() throws NoSuchAlgorithmException,
-		ExportServiceException, URISyntaxException, DocumentIssuingException,
-		IOException {
+    mockedInjector = Guice.createInjector(
+        Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
 
-		UID uidEntity = UID.fromString("12345");
-		ESInvoiceEntity invoice = getNewIssuedInvoice();
-		ESCreditNoteEntity entity = generateESCreditNote(PaymentMechanism.CASH, invoice);
-		DAOESCreditNote dao = mockedInjector.getInstance(DAOESCreditNote.class);
-		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
-		DAOESInvoice daoInvoice = mockedInjector.getInstance(DAOESInvoice.class);
-		Mockito.when(daoInvoice.get(Matchers.eq(invoice.getUID()))).thenReturn(invoice);
-		
-		OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
-		
-		ESCreditNoteData entityData = extractor.extract(uidEntity);
-		transformer.transform(entityData, os);
-	}
-	
-	@Test(expected = ExportServiceException.class)
-	public void testNonExistentEntity() throws NoSuchAlgorithmException,
-		ExportServiceException, URISyntaxException, DocumentIssuingException,
-		IOException {
+    InputStream xsl = new FileInputStream(XSL_PATH);
 
-		UID uidEntity = UID.fromString("12345");
-		
-		extractor.extract(uidEntity);
-	}
-	
-	@Test(expected = ExportServiceException.class)
-	public void testNonExistentInvoice() throws NoSuchAlgorithmException,
-		ExportServiceException, URISyntaxException, DocumentIssuingException,
-		IOException {
+    transformer = new ESCreditNotePDFFOPTransformer(LOGO_PATH, xsl);
+    extractor = mockedInjector.getInstance(ESCreditNoteDataExtractor.class);
+  }
 
-		UID uidEntity = UID.fromString("12345");
-		ESInvoiceEntity invoice = getNewIssuedInvoice();
-		ESCreditNoteEntity entity = generateESCreditNote(PaymentMechanism.CASH, invoice);
-		DAOESCreditNote dao = mockedInjector.getInstance(DAOESCreditNote.class);
-		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
-		
-		extractor.extract(uidEntity);
-	}
-	
-	@Test
-    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException,
-        ExportServiceException, URISyntaxException, DocumentIssuingException,
-        IOException {
-        
-        UID uidEntity = UID.fromString("12345");
-        ESInvoiceEntity invoice = getNewIssuedInvoice();
-        ESCreditNoteEntity entity = generateESCreditNote(PaymentMechanism.CASH, invoice);
-        DAOESCreditNote dao = mockedInjector.getInstance(DAOESCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
-        DAOESInvoice daoInvoice = mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(daoInvoice.get(Matchers.eq(invoice.getUID()))).thenReturn(invoice);
-        
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
-        
-        InputStream xsl = new FileInputStream(XSL_PATH);
-        ESCreditNoteTemplateBundle bundle = new ESCreditNoteTemplateBundle(LOGO_PATH, xsl);
-        ESCreditNotePDFFOPTransformer transformerBundle = new ESCreditNotePDFFOPTransformer(bundle);
-        
-        ESCreditNoteData entityData = extractor.extract(uidEntity);
-        transformerBundle.transform(entityData, os);
-    }
+  @Test
+  public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
 
-	private ESCreditNoteEntity generateESCreditNote(
-			PaymentMechanism paymentMechanism, ESInvoiceEntity reference)
-		throws DocumentIssuingException {
+    UID uidEntity = UID.fromString("12345");
+    ESInvoiceEntity invoice = getNewIssuedInvoice();
+    ESCreditNoteEntity entity = generateESCreditNote(PaymentMechanism.CASH, invoice);
+    DAOESCreditNote dao = mockedInjector.getInstance(DAOESCreditNote.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+    DAOESInvoice daoInvoice = mockedInjector.getInstance(DAOESInvoice.class);
+    Mockito.when(daoInvoice.get(Matchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-		Services services = new Services(ESAbstractTest.injector);
+    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
-		ESIssuingParams params = this.getParameters("AC", "3000");
+    ESCreditNoteData entityData = extractor.extract(uidEntity);
+    transformer.transform(entityData, os);
+  }
 
-		ESCreditNoteEntity creditNote = null;
-		creditNote = (ESCreditNoteEntity) services.issueDocument(
-				new ESCreditNoteTestUtil(ESAbstractTest.injector)
-						.getCreditNoteBuilder(reference), params);
+  @Test(expected = ExportServiceException.class)
+  public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
 
-		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
-		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+    UID uidEntity = UID.fromString("12345");
 
-		return creditNote;
-	}
+    extractor.extract(uidEntity);
+  }
+
+  @Test(expected = ExportServiceException.class)
+  public void testNonExistentInvoice() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
+
+    UID uidEntity = UID.fromString("12345");
+    ESInvoiceEntity invoice = getNewIssuedInvoice();
+    ESCreditNoteEntity entity = generateESCreditNote(PaymentMechanism.CASH, invoice);
+    DAOESCreditNote dao = mockedInjector.getInstance(DAOESCreditNote.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+
+    extractor.extract(uidEntity);
+  }
+
+  @Test
+  public void testPDFCreationFromBundle() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
+
+    UID uidEntity = UID.fromString("12345");
+    ESInvoiceEntity invoice = getNewIssuedInvoice();
+    ESCreditNoteEntity entity = generateESCreditNote(PaymentMechanism.CASH, invoice);
+    DAOESCreditNote dao = mockedInjector.getInstance(DAOESCreditNote.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+    DAOESInvoice daoInvoice = mockedInjector.getInstance(DAOESInvoice.class);
+    Mockito.when(daoInvoice.get(Matchers.eq(invoice.getUID()))).thenReturn(invoice);
+
+    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+
+    InputStream xsl = new FileInputStream(XSL_PATH);
+    ESCreditNoteTemplateBundle bundle = new ESCreditNoteTemplateBundle(LOGO_PATH, xsl);
+    ESCreditNotePDFFOPTransformer transformerBundle = new ESCreditNotePDFFOPTransformer(bundle);
+
+    ESCreditNoteData entityData = extractor.extract(uidEntity);
+    transformerBundle.transform(entityData, os);
+  }
+
+  private ESCreditNoteEntity generateESCreditNote(PaymentMechanism paymentMechanism,
+      ESInvoiceEntity reference) throws DocumentIssuingException {
+
+    Services services = new Services(ESAbstractTest.injector);
+
+    ESIssuingParams params = this.getParameters("AC", "3000");
+
+    ESCreditNoteEntity creditNote = null;
+    creditNote = (ESCreditNoteEntity) services.issueDocument(
+        new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder(reference), params);
+
+    creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+    creditNote.setBusiness((BusinessEntity) reference.getBusiness());
+    creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+
+    return creditNote;
+  }
 }

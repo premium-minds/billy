@@ -35,53 +35,50 @@ import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 
 public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
-	private TransactionWrapper<Void>	transaction;
-	private static final String			BUSINESS_UID	= "Biz";
+  private TransactionWrapper<Void> transaction;
+  private static final String BUSINESS_UID = "Biz";
 
-	class TestRunner implements Callable<Void> {
+  class TestRunner implements Callable<Void> {
 
-		private Injector	injector;
+    private Injector injector;
 
-		public TestRunner(Injector inject) {
-			this.injector = inject;
+    public TestRunner(Injector inject) {
+      this.injector = inject;
 
-		}
+    }
 
-		@Override
-		public Void call() throws Exception {
-			PTJPAAbstractTest.execute(this.injector,
-					TestJPAPTBusiness.this.transaction);
-			return null;
-		}
-	}
+    @Override
+    public Void call() throws Exception {
+      PTJPAAbstractTest.execute(this.injector, TestJPAPTBusiness.this.transaction);
+      return null;
+    }
+  }
 
-	@Before
-	public void setUp() {
-		this.transaction = new TransactionWrapper<Void>(
-				PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
+  @Before
+  public void setUp() {
+    this.transaction = new TransactionWrapper<Void>(
+        PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
 
-			@Override
-			public Void runTransaction() throws Exception {
-				new PTBusinessTestUtil(PTAbstractTest.injector)
-						.getBusinessEntity(BUSINESS_UID);
-				return null;
-			}
-		};
-	}
+      @Override
+      public Void runTransaction() throws Exception {
+        new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(BUSINESS_UID);
+        return null;
+      }
+    };
+  }
 
-	@Test
-	public void doTest() throws Exception {
-		PTJPAAbstractTest.execute(PTAbstractTest.injector, this.transaction);
-	}
+  @Test
+  public void doTest() throws Exception {
+    PTJPAAbstractTest.execute(PTAbstractTest.injector, this.transaction);
+  }
 
-	@Test
-	public void testConcurrentCreate() throws Exception {
-		ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+  @Test
+  public void testConcurrentCreate() throws Exception {
+    ConcurrentTestUtil test = new ConcurrentTestUtil(10);
 
-		test.runThreads(new TestRunner(PTAbstractTest.injector));
+    test.runThreads(new TestRunner(PTAbstractTest.injector));
 
-		DAOPTBusiness biz = PTAbstractTest.injector
-				.getInstance(DAOPTBusiness.class);
-		Assert.assertTrue(biz.exists(new UID(BUSINESS_UID)));
-	}
+    DAOPTBusiness biz = PTAbstractTest.injector.getInstance(DAOPTBusiness.class);
+    Assert.assertTrue(biz.exists(new UID(BUSINESS_UID)));
+  }
 }

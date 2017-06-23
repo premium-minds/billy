@@ -36,48 +36,61 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
-public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESCreditNoteData> {
-	
-	private final DAOESCreditNote daoESCreditNote;
-	private final ESInvoiceDataExtractor invoiceExtractor;
-	
-	@Inject
-	public ESCreditNoteDataExtractor(DAOESCreditNote daoESCreditNote, ESInvoiceDataExtractor invoiceExtractor) {
-		this.daoESCreditNote = daoESCreditNote;
-		this.invoiceExtractor = invoiceExtractor;
-	}
+public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor
+    implements BillyDataExtractor<ESCreditNoteData> {
 
-	@Override
-	public ESCreditNoteData extract(UID uid) throws ExportServiceException {
-		ESCreditNoteEntity entity = (ESCreditNoteEntity) daoESCreditNote.get(uid); //FIXME: Fix the DAOs to remove this cast
-		if (entity == null) {
-			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
-		}
-		
-		List<PaymentData> payments = extractPayments(entity.getPayments());
-		CostumerData costumer = extractCostumer(entity.getCustomer());
-		BusinessData business = extractBusiness(entity.getBusiness());
-		List<ESCreditNoteEntryData> entries = extractCreditEntries(entity.getEntries());
-		
-		return new ESCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
-				payments, costumer, business, entries, 
-				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
-				entity.getSettlementDescription());
-	}
-	
-	private List<ESCreditNoteEntryData> extractCreditEntries(List<ESCreditNoteEntry> entryEntities) throws ExportServiceException {
-		List<ESCreditNoteEntryData> entries = new ArrayList<ESCreditNoteEntryData>(entryEntities.size());
-		for (ESCreditNoteEntry entry : entryEntities) {
-			ProductData product = new ProductData(entry.getProduct().getProductCode(), entry.getProduct().getDescription());
-			
-			List<TaxData> taxes = extractTaxes(entry.getTaxes());
-			ESInvoiceData reference = invoiceExtractor.extract(entry.getReference().getUID());
-			
-			entries.add(new ESCreditNoteEntryData(product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), 
-					entry.getUnitAmountWithTax(), entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, reference));
-		}
-		
-		return entries;
-	}
-	
+  private final DAOESCreditNote daoESCreditNote;
+  private final ESInvoiceDataExtractor invoiceExtractor;
+
+  @Inject
+  public ESCreditNoteDataExtractor(DAOESCreditNote daoESCreditNote,
+      ESInvoiceDataExtractor invoiceExtractor) {
+    this.daoESCreditNote = daoESCreditNote;
+    this.invoiceExtractor = invoiceExtractor;
+  }
+
+  @Override
+  public ESCreditNoteData extract(UID uid) throws ExportServiceException {
+    ESCreditNoteEntity entity = (ESCreditNoteEntity) daoESCreditNote.get(uid); // FIXME:
+                                                                               // Fix
+                                                                               // the
+                                                                               // DAOs
+                                                                               // to
+                                                                               // remove
+                                                                               // this
+                                                                               // cast
+    if (entity == null) {
+      throw new ExportServiceException(
+          "Unable to find entity with uid " + uid.toString() + " to be extracted");
+    }
+
+    List<PaymentData> payments = extractPayments(entity.getPayments());
+    CostumerData costumer = extractCostumer(entity.getCustomer());
+    BusinessData business = extractBusiness(entity.getBusiness());
+    List<ESCreditNoteEntryData> entries = extractCreditEntries(entity.getEntries());
+
+    return new ESCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(),
+        payments, costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+        entity.getAmountWithoutTax(), entity.getSettlementDescription());
+  }
+
+  private List<ESCreditNoteEntryData> extractCreditEntries(List<ESCreditNoteEntry> entryEntities)
+      throws ExportServiceException {
+    List<ESCreditNoteEntryData> entries = new ArrayList<ESCreditNoteEntryData>(
+        entryEntities.size());
+    for (ESCreditNoteEntry entry : entryEntities) {
+      ProductData product = new ProductData(entry.getProduct().getProductCode(),
+          entry.getProduct().getDescription());
+
+      List<TaxData> taxes = extractTaxes(entry.getTaxes());
+      ESInvoiceData reference = invoiceExtractor.extract(entry.getReference().getUID());
+
+      entries.add(new ESCreditNoteEntryData(product, entry.getDescription(), entry.getQuantity(),
+          entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
+          entry.getAmountWithoutTax(), taxes, reference));
+    }
+
+    return entries;
+  }
+
 }

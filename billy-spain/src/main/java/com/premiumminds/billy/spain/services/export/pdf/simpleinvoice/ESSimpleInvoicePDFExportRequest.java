@@ -23,18 +23,17 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class ESSimpleInvoicePDFExportRequest extends AbstractExportRequest {
 
-	public ESSimpleInvoicePDFExportRequest(UID uid,
-			ESSimpleInvoiceTemplateBundle bundle) {
-		super(uid, bundle);
-	}
+  public ESSimpleInvoicePDFExportRequest(UID uid, ESSimpleInvoiceTemplateBundle bundle) {
+    super(uid, bundle);
+  }
 
-	public ESSimpleInvoicePDFExportRequest(UID uid,
-			ESSimpleInvoiceTemplateBundle bundle, String resultPath) {
-		super(uid, bundle, resultPath);
-	}
+  public ESSimpleInvoicePDFExportRequest(UID uid, ESSimpleInvoiceTemplateBundle bundle,
+      String resultPath) {
+    super(uid, bundle, resultPath);
+  }
 
-	@Override
-	public ESSimpleInvoiceTemplateBundle getBundle() {
-		return (ESSimpleInvoiceTemplateBundle) bundle;
-	}
+  @Override
+  public ESSimpleInvoiceTemplateBundle getBundle() {
+    return (ESSimpleInvoiceTemplateBundle) bundle;
+  }
 }

@@ -27,38 +27,36 @@ import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenc
 
 public class Customers {
 
-	private Config			configuration	= new Config();
-	private final Injector	injector;
-	private final PTCustomerPersistenceService persistenceService;
+  private Config configuration = new Config();
+  private final Injector injector;
+  private final PTCustomerPersistenceService persistenceService;
 
+  public Customers(Injector injector) {
+    this.injector = injector;
+    this.persistenceService = getInstance(PTCustomerPersistenceService.class);
+  }
 
-	public Customers(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(PTCustomerPersistenceService.class);
-	}
+  public PTCustomer endConsumer() {
+    DAOPTCustomer dao = getInstance(DAOPTCustomer.class);
+    return (PTCustomer) dao.get(configuration.getUID(Config.Key.Customer.Generic.UUID));
+  }
 
-	public PTCustomer endConsumer() {
-		DAOPTCustomer dao = getInstance(DAOPTCustomer.class);
-		return (PTCustomer) dao.get(configuration
-				.getUID(Config.Key.Customer.Generic.UUID));
-	}
-	
-	public PTCustomer.Builder builder() {
-		return getInstance(PTCustomer.Builder.class);
-	}
-	
-	public PTCustomer.Builder builder(PTCustomer customer) {
-		PTCustomer.Builder builder = getInstance(PTCustomer.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
-		return builder;
-	}
-	
-	public PTCustomerPersistenceService persistence() {
-		return this.persistenceService;
-	}
+  public PTCustomer.Builder builder() {
+    return getInstance(PTCustomer.Builder.class);
+  }
 
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+  public PTCustomer.Builder builder(PTCustomer customer) {
+    PTCustomer.Builder builder = getInstance(PTCustomer.Builder.class);
+    BuilderManager.setTypeInstance(builder, customer);
+    return builder;
+  }
+
+  public PTCustomerPersistenceService persistence() {
+    return this.persistenceService;
+  }
+
+  private <T> T getInstance(Class<T> clazz) {
+    return this.injector.getInstance(clazz);
+  }
+
 }

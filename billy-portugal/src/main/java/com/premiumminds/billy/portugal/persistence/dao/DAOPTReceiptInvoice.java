@@ -25,12 +25,11 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 
-
 public interface DAOPTReceiptInvoice extends DAOPTInvoice {
 
-	@Override
-	public PTInvoiceEntity getEntityInstance();
+  @Override
+  public PTInvoiceEntity getEntityInstance();
 
-	public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID uid,
-			Date from, Date to);
+  public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID uid, Date from,
+      Date to);
 }

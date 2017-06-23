@@ -32,28 +32,28 @@ import com.premiumminds.billy.core.services.entities.Contact;
  */
 public interface BusinessEntity extends Business, BaseEntity {
 
-	public <T extends ContextEntity> void setOperationalContext(T context);
+  public <T extends ContextEntity> void setOperationalContext(T context);
 
-	public void setFinancialID(String id);
+  public void setFinancialID(String id);
 
-	public void setName(String name);
+  public void setName(String name);
 
-	public void setCommercialName(String name);
+  public void setCommercialName(String name);
 
-	public void setWebsiteAddress(String address);
+  public void setWebsiteAddress(String address);
 
-	public <T extends AddressEntity> void setAddress(T address);
+  public <T extends AddressEntity> void setAddress(T address);
 
-	public <T extends AddressEntity> void setBillingAddress(T address);
+  public <T extends AddressEntity> void setBillingAddress(T address);
 
-	public <T extends AddressEntity> void setShippingAddress(T address);
+  public <T extends AddressEntity> void setShippingAddress(T address);
 
-	@Override
-	public <T extends Contact> List<T> getContacts();
+  @Override
+  public <T extends Contact> List<T> getContacts();
 
-	public <T extends ContactEntity> void setMainContact(T contact);
+  public <T extends ContactEntity> void setMainContact(T contact);
 
-	@Override
-	public <T extends Application> List<T> getApplications();
+  @Override
+  public <T extends Application> List<T> getApplications();
 
 }

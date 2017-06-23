@@ -30,71 +30,66 @@ import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceData;
 import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.PTSimpleInvoicePDFTransformer;
 
-public class PTSimpleInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTSimpleInvoiceData> 
-implements PTSimpleInvoicePDFTransformer {
+public class PTSimpleInvoicePDFFOPTransformer extends
+    PTAbstractFOPPDFTransformer<PTSimpleInvoiceData> implements PTSimpleInvoicePDFTransformer {
 
-    public PTSimpleInvoicePDFFOPTransformer(
-            MathContext mathContext,
-            String logoImagePath,
-            InputStream xsltFileStream, 
-            String softwareCertificationId,
-            Config config) {
+  public PTSimpleInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath,
+      InputStream xsltFileStream, String softwareCertificationId, Config config) {
 
-        super(PTSimpleInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
+    super(PTSimpleInvoiceData.class, mathContext, logoImagePath, xsltFileStream,
+        softwareCertificationId, config);
 
+  }
+
+  public PTSimpleInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
+      String softwareCertificationId) {
+
+    this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId,
+        new Config());
+  }
+
+  public PTSimpleInvoicePDFFOPTransformer(PTSimpleInvoiceTemplateBundle bundle) {
+    super(PTSimpleInvoiceData.class, BillyMathContext.get(), bundle, new Config());
+  }
+
+  @Override
+  protected ParamsTree<String, String> mapDocumentToParamsTree(PTSimpleInvoiceData invoice) {
+
+    ParamsTree<String, String> params = super.mapDocumentToParamsTree(invoice);
+
+    params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
+        getVerificationHashString(invoice.getHash().getBytes()));
+    params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
+        getSoftwareCertificationId());
+
+    return params;
+  }
+
+  @Override
+  protected void setHeader(ParamsTree<String, String> params, PTSimpleInvoiceData entity) {
+    params.getRoot().addChild(ParamKeys.ID, entity.getNumber());
+
+    if (null != entity.getPayments()) {
+      for (PaymentData p : entity.getPayments()) {
+        params.getRoot().addChild(ParamKeys.INVOICE_PAYMETHOD,
+            getPaymentMechanismTranslation(p.getPaymentMethod()));
+      }
     }
 
-    public PTSimpleInvoicePDFFOPTransformer(
-            String logoImagePath,
-            InputStream xsltFileStream, 
-            String softwareCertificationId) {
+    params.getRoot().addChild(ParamKeys.EMISSION_DATE, DATE_FORMAT.format(entity.getDate()));
+  }
 
-        this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
-    }
+  @Override
+  protected void setCustomer(ParamsTree<String, String> params, PTSimpleInvoiceData entity) {
 
-    public PTSimpleInvoicePDFFOPTransformer(PTSimpleInvoiceTemplateBundle bundle) {
-        super(PTSimpleInvoiceData.class, BillyMathContext.get(), bundle, new Config());
-    }
+    Node<String, String> customer = params.getRoot().addChild(ParamKeys.CUSTOMER);
 
-    @Override
-    protected ParamsTree<String, String> mapDocumentToParamsTree( PTSimpleInvoiceData invoice) {
+    customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, getCustomerFinancialId(entity));
+  }
 
-        ParamsTree<String, String> params = super.mapDocumentToParamsTree(invoice);
-
-        params.getRoot().addChild(PTParamKeys.INVOICE_HASH, getVerificationHashString(invoice.getHash().getBytes()));
-        params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, getSoftwareCertificationId());
-
-        return params;
-    }
-
-    @Override
-    protected void setHeader(ParamsTree<String, String> params, PTSimpleInvoiceData entity) {
-        params.getRoot().addChild(ParamKeys.ID, entity.getNumber());
-
-        if (null != entity.getPayments()) {
-            for(PaymentData p : entity.getPayments()) {
-                params.getRoot().addChild(
-                        ParamKeys.INVOICE_PAYMETHOD,
-                        getPaymentMechanismTranslation(p.getPaymentMethod()));
-            }
-        }
-
-        params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-                DATE_FORMAT.format(entity.getDate()));
-    }
-
-    @Override
-    protected void setCustomer(ParamsTree<String, String> params, PTSimpleInvoiceData entity) {
-
-        Node<String, String> customer = params.getRoot().addChild(
-                ParamKeys.CUSTOMER);
-
-        customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, getCustomerFinancialId(entity));
-    }
-
-    @Override
-    protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
-        //Do Nothing
-    }
+  @Override
+  protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
+    // Do Nothing
+  }
 
 }

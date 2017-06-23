@@ -23,6 +23,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESShippingPointEntity;
 
 public interface DAOESShippingPoint extends DAOShippingPoint {
 
-	@Override
-	public ESShippingPointEntity getEntityInstance();
+  @Override
+  public ESShippingPointEntity getEntityInstance();
 }

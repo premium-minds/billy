@@ -29,23 +29,23 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 
 public class ESCreditReceiptIssuingHandler extends ESGenericInvoiceIssuingHandler
-	implements DocumentIssuingHandler {
+    implements DocumentIssuingHandler {
 
-	private final DAOESCreditReceipt daoCreditReceipt;
+  private final DAOESCreditReceipt daoCreditReceipt;
 
-	@Inject
-	public ESCreditReceiptIssuingHandler(DAOInvoiceSeries invoiceSeries,
-			DAOESCreditReceipt daoCreditReceipt) {
-		super(invoiceSeries);
-		this.daoCreditReceipt = daoCreditReceipt;
-	}
+  @Inject
+  public ESCreditReceiptIssuingHandler(DAOInvoiceSeries invoiceSeries,
+      DAOESCreditReceipt daoCreditReceipt) {
+    super(invoiceSeries);
+    this.daoCreditReceipt = daoCreditReceipt;
+  }
 
-	@Override
-	public <T extends GenericInvoice, P extends IssuingParams> T issue(
-			final T document, P parameters) throws DocumentIssuingException {
+  @Override
+  public <T extends GenericInvoice, P extends IssuingParams> T issue(final T document, P parameters)
+      throws DocumentIssuingException {
 
-		final ESIssuingParams parametersES = (ESIssuingParams) parameters;
+    final ESIssuingParams parametersES = (ESIssuingParams) parameters;
 
-		return this.issue(document, parametersES, daoCreditReceipt);
-	}
+    return this.issue(document, parametersES, daoCreditReceipt);
+  }
 }

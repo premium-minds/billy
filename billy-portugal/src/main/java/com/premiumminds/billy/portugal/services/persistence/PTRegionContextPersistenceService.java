@@ -30,81 +30,78 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
-public class PTRegionContextPersistenceService implements
-	PersistenceService<PTRegionContext> {
+public class PTRegionContextPersistenceService implements PersistenceService<PTRegionContext> {
 
-	protected final DAOPTRegionContext	daoRegionContext;
+  protected final DAOPTRegionContext daoRegionContext;
 
-	@Inject
-	public PTRegionContextPersistenceService(DAOPTRegionContext daoRegionContext) {
-		this.daoRegionContext = daoRegionContext;
-	}
+  @Inject
+  public PTRegionContextPersistenceService(DAOPTRegionContext daoRegionContext) {
+    this.daoRegionContext = daoRegionContext;
+  }
 
-	@Override
-	public PTRegionContext create(final Builder<PTRegionContext> builder) {
-		try {
-			return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
+  @Override
+  public PTRegionContext create(final Builder<PTRegionContext> builder) {
+    try {
+      return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
 
-				@Override
-				public PTRegionContext runTransaction() throws Exception {
-					PTRegionContextEntity entity = (PTRegionContextEntity) builder
-							.build();
-					return (PTRegionContext) daoRegionContext.create(entity);
-				}
+        @Override
+        public PTRegionContext runTransaction() throws Exception {
+          PTRegionContextEntity entity = (PTRegionContextEntity) builder.build();
+          return (PTRegionContext) daoRegionContext.create(entity);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	@Override
-	public PTRegionContext update(final Builder<PTRegionContext> builder) {
-		try {
-			return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
+  @Override
+  public PTRegionContext update(final Builder<PTRegionContext> builder) {
+    try {
+      return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
 
-				@Override
-				public PTRegionContext runTransaction() throws Exception {
-					PTRegionContextEntity entity = (PTRegionContextEntity) builder
-							.build();
-					return (PTRegionContext) daoRegionContext.update(entity);
-				}
+        @Override
+        public PTRegionContext runTransaction() throws Exception {
+          PTRegionContextEntity entity = (PTRegionContextEntity) builder.build();
+          return (PTRegionContext) daoRegionContext.update(entity);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-	@Override
-	public PTRegionContext get(final UID uid) {
-		try {
-			return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
+  @Override
+  public PTRegionContext get(final UID uid) {
+    try {
+      return new TransactionWrapper<PTRegionContext>(daoRegionContext) {
 
-				@Override
-				public PTRegionContext runTransaction() throws Exception {
-					return (PTRegionContext) daoRegionContext.get(uid);
-				}
+        @Override
+        public PTRegionContext runTransaction() throws Exception {
+          return (PTRegionContext) daoRegionContext.get(uid);
+        }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
-	
-	public boolean isPartOf(final PTRegionContext parent, final Context child) {
-		try {
-			return new TransactionWrapper<Boolean>(daoRegionContext) {
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
-				@Override
-				public Boolean runTransaction() throws Exception {
-					return daoRegionContext.isSubContext(child, parent);
-				}
+  public boolean isPartOf(final PTRegionContext parent, final Context child) {
+    try {
+      return new TransactionWrapper<Boolean>(daoRegionContext) {
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+        @Override
+        public Boolean runTransaction() throws Exception {
+          return daoRegionContext.isSubContext(child, parent);
+        }
+
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
+    }
+  }
 
 }

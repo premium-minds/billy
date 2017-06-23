@@ -22,15 +22,15 @@ import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity;
 
 public class MockPTInvoiceEntryEntity extends MockGenericInvoiceEntryEntity
-	implements PTInvoiceEntryEntity {
+    implements PTInvoiceEntryEntity {
 
-	/**
-	 * 
-	 */
-	private static final long	serialVersionUID	= 1L;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
-	public MockPTInvoiceEntryEntity() {
+  public MockPTInvoiceEntryEntity() {
 
-	}
+  }
 
 }

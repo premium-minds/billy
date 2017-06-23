@@ -27,21 +27,21 @@ import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESInvoiceEntryEntity;
 
 public class DAOESInvoiceEntryImpl extends DAOESGenericInvoiceEntryImpl
-	implements DAOESInvoiceEntry {
+    implements DAOESInvoiceEntry {
 
-	@Inject
-	public DAOESInvoiceEntryImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+  @Inject
+  public DAOESInvoiceEntryImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-	@Override
-	public ESInvoiceEntryEntity getEntityInstance() {
-		return new JPAESInvoiceEntryEntity();
-	}
+  @Override
+  public ESInvoiceEntryEntity getEntityInstance() {
+    return new JPAESInvoiceEntryEntity();
+  }
 
-	@Override
-	protected Class<JPAESInvoiceEntryEntity> getEntityClass() {
-		return JPAESInvoiceEntryEntity.class;
-	}
+  @Override
+  protected Class<JPAESInvoiceEntryEntity> getEntityClass() {
+    return JPAESInvoiceEntryEntity.class;
+  }
 
 }

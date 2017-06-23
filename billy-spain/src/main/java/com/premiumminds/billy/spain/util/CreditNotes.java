@@ -42,88 +42,90 @@ import com.premiumminds.billy.spain.services.persistence.ESCreditNotePersistence
 
 public class CreditNotes {
 
-	private final Injector	injector;
-	private final ESCreditNotePersistenceService persistenceService;
-	private final DocumentIssuingService issuingService;
-	private final ExportService exportService;
+  private final Injector injector;
+  private final ESCreditNotePersistenceService persistenceService;
+  private final DocumentIssuingService issuingService;
+  private final ExportService exportService;
 
-	public CreditNotes(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(ESCreditNotePersistenceService.class);
-		this.issuingService = injector
-				.getInstance(DocumentIssuingService.class);
-		this.issuingService.addHandler(ESCreditNoteEntity.class,
-				this.injector.getInstance(ESCreditNoteIssuingHandler.class));
-		this.exportService = getInstance(ExportService.class);
-		
-		this.exportService.addDataExtractor(ESCreditNoteData.class, getInstance(ESCreditNoteDataExtractor.class));
-        this.exportService.addTransformerMapper(ESCreditNotePDFExportRequest.class, ESCreditNotePDFFOPTransformer.class);
-	}
+  public CreditNotes(Injector injector) {
+    this.injector = injector;
+    this.persistenceService = getInstance(ESCreditNotePersistenceService.class);
+    this.issuingService = injector.getInstance(DocumentIssuingService.class);
+    this.issuingService.addHandler(ESCreditNoteEntity.class,
+        this.injector.getInstance(ESCreditNoteIssuingHandler.class));
+    this.exportService = getInstance(ExportService.class);
 
-	public ESCreditNote.Builder builder() {
-		return getInstance(ESCreditNote.Builder.class);
-	}
+    this.exportService.addDataExtractor(ESCreditNoteData.class,
+        getInstance(ESCreditNoteDataExtractor.class));
+    this.exportService.addTransformerMapper(ESCreditNotePDFExportRequest.class,
+        ESCreditNotePDFFOPTransformer.class);
+  }
 
-	public ESCreditNote.Builder builder(ESCreditNote invoice) {
-		ESCreditNote.Builder builder = getInstance(ESCreditNote.Builder.class);
-		BuilderManager.setTypeInstance(builder, invoice);
-		return builder;
-	}
-	
-	public ESCreditNoteEntry.Builder entryBuilder() {
-		return getInstance(ESCreditNoteEntry.Builder.class);
-	}
+  public ESCreditNote.Builder builder() {
+    return getInstance(ESCreditNote.Builder.class);
+  }
 
-	public ESCreditNoteEntry.Builder entryBuilder(ESCreditNoteEntry entry) {
-		ESCreditNoteEntry.Builder builder = getInstance(ESCreditNoteEntry.Builder.class);
-		BuilderManager.setTypeInstance(builder, entry);
-		return builder;
-	}
+  public ESCreditNote.Builder builder(ESCreditNote invoice) {
+    ESCreditNote.Builder builder = getInstance(ESCreditNote.Builder.class);
+    BuilderManager.setTypeInstance(builder, invoice);
+    return builder;
+  }
 
-	public ESCreditNotePersistenceService persistence() {
-		return this.persistenceService;
-	}
+  public ESCreditNoteEntry.Builder entryBuilder() {
+    return getInstance(ESCreditNoteEntry.Builder.class);
+  }
 
-	public ESCreditNote issue(ESCreditNote.Builder builder, ESIssuingParams params) throws DocumentIssuingException {
-		return issuingService.issue(builder, params);
-	}
+  public ESCreditNoteEntry.Builder entryBuilder(ESCreditNoteEntry entry) {
+    ESCreditNoteEntry.Builder builder = getInstance(ESCreditNoteEntry.Builder.class);
+    BuilderManager.setTypeInstance(builder, entry);
+    return builder;
+  }
 
-	public InputStream pdfExport(ESCreditNotePDFExportRequest request) throws ExportServiceException {
-		return exportService.exportToStream(request);
-	}
-	
-	public void pdfExport(UID uidDoc, BillyPDFTransformer<ESCreditNoteData> dataTransformer, OutputStream outputStream) 
-            throws ExportServiceException {
+  public ESCreditNotePersistenceService persistence() {
+    return this.persistenceService;
+  }
 
-        exportService.export(uidDoc, dataTransformer, outputStream);
-    }
-	
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+  public ESCreditNote issue(ESCreditNote.Builder builder, ESIssuingParams params)
+      throws DocumentIssuingException {
+    return issuingService.issue(builder, params);
+  }
 
-	public ESCreditNote.ManualBuilder manualBuilder() {
-		return getInstance(ESCreditNote.ManualBuilder.class);
-	}
-	
-	public ESCreditNote.ManualBuilder manualbuilder(ESCreditNote invoice) {
-		ESCreditNote.ManualBuilder builder = getInstance(ESCreditNote.ManualBuilder.class);
-		BuilderManager.setTypeInstance(builder, invoice);
-		return builder;
-	}
-	
-	public ESCreditNoteEntry.ManualBuilder manualEntryBuilder() {
-		return getInstance(ESCreditNoteEntry.ManualBuilder.class);
-	}
-	
-	public ESCreditNoteEntry.ManualBuilder manualEntryBuilder(ESCreditNoteEntry entry) {
-		ESCreditNoteEntry.ManualBuilder builder = getInstance(ESCreditNoteEntry.ManualBuilder.class);
-		BuilderManager.setTypeInstance(builder, entry);
-		return builder;
-	}
-	
-	public ESCreditNote issue(ESCreditNote.ManualBuilder builder, ESIssuingParams params) throws DocumentIssuingException {
-		return issuingService.issue(builder, params);
-	}
+  public InputStream pdfExport(ESCreditNotePDFExportRequest request) throws ExportServiceException {
+    return exportService.exportToStream(request);
+  }
+
+  public void pdfExport(UID uidDoc, BillyPDFTransformer<ESCreditNoteData> dataTransformer,
+      OutputStream outputStream) throws ExportServiceException {
+
+    exportService.export(uidDoc, dataTransformer, outputStream);
+  }
+
+  private <T> T getInstance(Class<T> clazz) {
+    return this.injector.getInstance(clazz);
+  }
+
+  public ESCreditNote.ManualBuilder manualBuilder() {
+    return getInstance(ESCreditNote.ManualBuilder.class);
+  }
+
+  public ESCreditNote.ManualBuilder manualbuilder(ESCreditNote invoice) {
+    ESCreditNote.ManualBuilder builder = getInstance(ESCreditNote.ManualBuilder.class);
+    BuilderManager.setTypeInstance(builder, invoice);
+    return builder;
+  }
+
+  public ESCreditNoteEntry.ManualBuilder manualEntryBuilder() {
+    return getInstance(ESCreditNoteEntry.ManualBuilder.class);
+  }
+
+  public ESCreditNoteEntry.ManualBuilder manualEntryBuilder(ESCreditNoteEntry entry) {
+    ESCreditNoteEntry.ManualBuilder builder = getInstance(ESCreditNoteEntry.ManualBuilder.class);
+    BuilderManager.setTypeInstance(builder, entry);
+    return builder;
+  }
+
+  public ESCreditNote issue(ESCreditNote.ManualBuilder builder, ESIssuingParams params)
+      throws DocumentIssuingException {
+    return issuingService.issue(builder, params);
+  }
 }

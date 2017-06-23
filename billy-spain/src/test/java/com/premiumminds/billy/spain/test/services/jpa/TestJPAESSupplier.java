@@ -30,33 +30,31 @@ import com.premiumminds.billy.spain.test.util.ESSupplierTestUtil;
 
 public class TestJPAESSupplier extends ESJPAAbstractTest {
 
-	private TransactionWrapper<Void>	transaction;
+  private TransactionWrapper<Void> transaction;
 
-	@Before
-	public void setUp() {
-		this.transaction = new TransactionWrapper<Void>(
-				ESAbstractTest.injector.getInstance(DAOESInvoice.class)) {
+  @Before
+  public void setUp() {
+    this.transaction = new TransactionWrapper<Void>(
+        ESAbstractTest.injector.getInstance(DAOESInvoice.class)) {
 
-			@Override
-			public Void runTransaction() throws Exception {
-				final ESSupplierTestUtil supplier = new ESSupplierTestUtil(
-						ESAbstractTest.injector);
-				DAOESSupplier daoESSupplier = ESAbstractTest.injector
-						.getInstance(DAOESSupplier.class);
+      @Override
+      public Void runTransaction() throws Exception {
+        final ESSupplierTestUtil supplier = new ESSupplierTestUtil(ESAbstractTest.injector);
+        DAOESSupplier daoESSupplier = ESAbstractTest.injector.getInstance(DAOESSupplier.class);
 
-				ESSupplierEntity newSupplier = supplier.getSupplierEntity();
+        ESSupplierEntity newSupplier = supplier.getSupplierEntity();
 
-				daoESSupplier.create(newSupplier);
+        daoESSupplier.create(newSupplier);
 
-				return null;
-			}
+        return null;
+      }
 
-		};
-	}
+    };
+  }
 
-	@Test
-	public void doTest() throws Exception {
-		ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
-	}
+  @Test
+  public void doTest() throws Exception {
+    ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
+  }
 
 }

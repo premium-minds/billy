@@ -33,53 +33,51 @@ import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 
 public class DAOGenericInvoiceImpl extends
-	AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements
-	DAOGenericInvoice {
+    AbstractDAO<GenericInvoiceEntity, JPAGenericInvoiceEntity> implements DAOGenericInvoice {
 
-	@Inject
-	public DAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+  @Inject
+  public DAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-	@Override
-	protected Class<? extends JPAGenericInvoiceEntity> getEntityClass() {
-		return JPAGenericInvoiceEntity.class;
-	}
+  @Override
+  protected Class<? extends JPAGenericInvoiceEntity> getEntityClass() {
+    return JPAGenericInvoiceEntity.class;
+  }
 
-	@Override
-	public GenericInvoiceEntity getEntityInstance() {
-		return new JPAGenericInvoiceEntity();
-	}
+  @Override
+  public GenericInvoiceEntity getEntityInstance() {
+    return new JPAGenericInvoiceEntity();
+  }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(
-			String series, String businessUID) {
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T extends GenericInvoiceEntity> T getLatestInvoiceFromSeries(String series,
+      String businessUID) {
 
-		QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
-		QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
+    QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
+    QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
-		JPAQuery query = new JPAQuery(this.getEntityManager());
+    JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		BusinessEntity businessEnity = query.from(business)
-				.where(business.uid.eq(businessUID)).uniqueResult(business);
+    BusinessEntity businessEnity = query.from(business).where(business.uid.eq(businessUID))
+        .uniqueResult(business);
 
-		if (businessEnity == null) {
-			throw new BillyRuntimeException();
-		}
+    if (businessEnity == null) {
+      throw new BillyRuntimeException();
+    }
 
-		query = new JPAQuery(this.getEntityManager());
+    query = new JPAQuery(this.getEntityManager());
 
-		query.from(genericInvoice);
-		query.where(genericInvoice.series.eq(series));
-		query.where(genericInvoice.business.eq(businessEnity));
-		query.where(genericInvoice.seriesNumber.eq(new JPASubQuery()
-				.from(genericInvoice).where(genericInvoice.series.eq(series))
-				.where(genericInvoice.business.eq(businessEnity))
-				.unique(genericInvoice.seriesNumber.max())));
+    query.from(genericInvoice);
+    query.where(genericInvoice.series.eq(series));
+    query.where(genericInvoice.business.eq(businessEnity));
+    query.where(genericInvoice.seriesNumber.eq(new JPASubQuery().from(genericInvoice)
+        .where(genericInvoice.series.eq(series)).where(genericInvoice.business.eq(businessEnity))
+        .unique(genericInvoice.seriesNumber.max())));
 
-		GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
+    GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
 
-		return (T) invoice;
-	}
+    return (T) invoice;
+  }
 }

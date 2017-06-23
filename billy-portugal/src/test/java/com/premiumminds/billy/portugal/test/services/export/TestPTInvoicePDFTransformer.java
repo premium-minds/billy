@@ -53,137 +53,141 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
-	public static final int NUM_ENTRIES = 10;
-	public static final String XSL_PATH = "src/main/resources/templates/pt_invoice.xsl";
-	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
+  public static final int NUM_ENTRIES = 10;
+  public static final String XSL_PATH = "src/main/resources/templates/pt_invoice.xsl";
+  public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+  public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 
-	Injector mockedInjector;
-	PTInvoiceDataExtractor extractor;
-	PTInvoicePDFFOPTransformer transformer;
-	PTInvoiceTestUtil test;
-	
+  Injector mockedInjector;
+  PTInvoiceDataExtractor extractor;
+  PTInvoicePDFFOPTransformer transformer;
+  PTInvoiceTestUtil test;
 
-	@Before
-	public void setUp() throws FileNotFoundException {
-		
-		mockedInjector = Guice.createInjector(Modules.override(
-				new PortugalDependencyModule()).with(
-				new PTMockDependencyModule()));
-		
-		InputStream xsl = new FileInputStream(TestPTInvoicePDFTransformer.XSL_PATH);
+  @Before
+  public void setUp() throws FileNotFoundException {
 
-		transformer = new PTInvoicePDFFOPTransformer(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
-		extractor = mockedInjector.getInstance(PTInvoiceDataExtractor.class);
-		test = new PTInvoiceTestUtil(PTAbstractTest.injector);
-	}
+    mockedInjector = Guice.createInjector(
+        Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
 
-	@Test
-	public void testPDFcreation() throws NoSuchAlgorithmException,
-			ExportServiceException, URISyntaxException, IOException {
-		
-		UID uidEntity = UID.fromString("12345");
-		PTInvoiceEntity invoice = generatePTInvoice();
-		DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
-		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+    InputStream xsl = new FileInputStream(TestPTInvoicePDFTransformer.XSL_PATH);
 
-		OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
-		
-		PTInvoiceData entityData = extractor.extract(uidEntity);
-		transformer.transform(entityData, os);
-	}
-	
-	@Test(expected = ExportServiceException.class)
-	public void testNonExistentEntity() throws DocumentIssuingException, FileNotFoundException, 
-	IOException, ExportServiceException {
+    transformer = new PTInvoicePDFFOPTransformer(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
+    extractor = mockedInjector.getInstance(PTInvoiceDataExtractor.class);
+    test = new PTInvoiceTestUtil(PTAbstractTest.injector);
+  }
 
-		UID uidEntity = UID.fromString("12345");
-		extractor.extract(uidEntity);
-	}
+  @Test
+  public void testPDFcreation()
+      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
 
-	@Test
-	public void testDiferentRegion() throws NoSuchAlgorithmException,
-			ExportServiceException, URISyntaxException, IOException {
+    UID uidEntity = UID.fromString("12345");
+    PTInvoiceEntity invoice = generatePTInvoice();
+    DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
 
-		UID uidEntity = UID.fromString("12345");
-		PTInvoiceEntity invoice = generateOtherregionsInvoice();
-		DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
-		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
-		
-		OutputStream os = new FileOutputStream(File.createTempFile("ResultDiferentRegions", ".pdf"));
-		
-		PTInvoiceData entityData = extractor.extract(uidEntity);
-		transformer.transform(entityData, os);
-	}
+    OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
 
-	@Test
-	public void testManyEntries() throws NoSuchAlgorithmException,
-			ExportServiceException, URISyntaxException, IOException {
-		
-		UID uidEntity = UID.fromString("12345");
-		PTInvoiceEntity invoice = generateManyEntriesInvoice();
-		DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
-		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
-		
-		OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntries", ".pdf"));
+    PTInvoiceData entityData = extractor.extract(uidEntity);
+    transformer.transform(entityData, os);
+  }
 
-		PTInvoiceData entityData = extractor.extract(uidEntity);
-		transformer.transform(entityData, os);
-	}
-	
-	@Test
-	public void testManyEntriesWithDifrentRegions() throws NoSuchAlgorithmException,
-			ExportServiceException, URISyntaxException, IOException {
+  @Test(expected = ExportServiceException.class)
+  public void testNonExistentEntity()
+      throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
 
-		UID uidEntity = UID.fromString("12345");
-		PTInvoiceEntity invoice = generateManyEntriesWithDiferentRegionsInvoice();
-		DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
-		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
-		
-		OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf"));
+    UID uidEntity = UID.fromString("12345");
+    extractor.extract(uidEntity);
+  }
 
-		PTInvoiceData entityData = extractor.extract(uidEntity);
-		transformer.transform(entityData, os);
-	}
-	
-	@Test
-    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
-        UID uidEntity = UID.fromString("12345");
-        PTInvoiceEntity invoice = generatePTInvoice();
-        DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+  @Test
+  public void testDiferentRegion()
+      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
-        
-        InputStream xsl = new FileInputStream(XSL_PATH);
-        PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
-        PTInvoicePDFFOPTransformer transformerBundle = new PTInvoicePDFFOPTransformer(bundle);
-        
-        PTInvoiceData entityData = extractor.extract(uidEntity);
-        transformerBundle.transform(entityData, os);
-    }
+    UID uidEntity = UID.fromString("12345");
+    PTInvoiceEntity invoice = generateOtherregionsInvoice();
+    DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
 
-	private PTInvoiceEntity generatePTInvoice() {
-		PTInvoiceEntity invoice = test.getInvoiceEntity();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-		return invoice;
-	}
-	
-	private PTInvoiceEntity generateManyEntriesInvoice() {
-		PTInvoiceEntity invoice = test.getManyEntriesInvoice();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-		return invoice;
-	}
-	
-	private PTInvoiceEntity generateOtherregionsInvoice() {
-		PTInvoiceEntity invoice = test.getDiferentRegionsInvoice();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-		return invoice;
-	}
-	
-	private PTInvoiceEntity generateManyEntriesWithDiferentRegionsInvoice() {
-		PTInvoiceEntity invoice = test.getManyEntriesWithDiferentRegionsInvoice();
-		invoice.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-		return invoice;
-	}
+    OutputStream os = new FileOutputStream(File.createTempFile("ResultDiferentRegions", ".pdf"));
+
+    PTInvoiceData entityData = extractor.extract(uidEntity);
+    transformer.transform(entityData, os);
+  }
+
+  @Test
+  public void testManyEntries()
+      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+
+    UID uidEntity = UID.fromString("12345");
+    PTInvoiceEntity invoice = generateManyEntriesInvoice();
+    DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+
+    OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntries", ".pdf"));
+
+    PTInvoiceData entityData = extractor.extract(uidEntity);
+    transformer.transform(entityData, os);
+  }
+
+  @Test
+  public void testManyEntriesWithDifrentRegions()
+      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+
+    UID uidEntity = UID.fromString("12345");
+    PTInvoiceEntity invoice = generateManyEntriesWithDiferentRegionsInvoice();
+    DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+
+    OutputStream os = new FileOutputStream(
+        File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf"));
+
+    PTInvoiceData entityData = extractor.extract(uidEntity);
+    transformer.transform(entityData, os);
+  }
+
+  @Test
+  public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+    UID uidEntity = UID.fromString("12345");
+    PTInvoiceEntity invoice = generatePTInvoice();
+    DAOPTInvoice dao = mockedInjector.getInstance(DAOPTInvoice.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+
+    OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+
+    InputStream xsl = new FileInputStream(XSL_PATH);
+    PTInvoiceTemplateBundle bundle = new PTInvoiceTemplateBundle(LOGO_PATH, xsl,
+        SOFTWARE_CERTIFICATE_NUMBER);
+    PTInvoicePDFFOPTransformer transformerBundle = new PTInvoicePDFFOPTransformer(bundle);
+
+    PTInvoiceData entityData = extractor.extract(uidEntity);
+    transformerBundle.transform(entityData, os);
+  }
+
+  private PTInvoiceEntity generatePTInvoice() {
+    PTInvoiceEntity invoice = test.getInvoiceEntity();
+    invoice.setHash(
+        "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+    return invoice;
+  }
+
+  private PTInvoiceEntity generateManyEntriesInvoice() {
+    PTInvoiceEntity invoice = test.getManyEntriesInvoice();
+    invoice.setHash(
+        "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+    return invoice;
+  }
+
+  private PTInvoiceEntity generateOtherregionsInvoice() {
+    PTInvoiceEntity invoice = test.getDiferentRegionsInvoice();
+    invoice.setHash(
+        "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+    return invoice;
+  }
+
+  private PTInvoiceEntity generateManyEntriesWithDiferentRegionsInvoice() {
+    PTInvoiceEntity invoice = test.getManyEntriesWithDiferentRegionsInvoice();
+    invoice.setHash(
+        "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+    return invoice;
+  }
 }

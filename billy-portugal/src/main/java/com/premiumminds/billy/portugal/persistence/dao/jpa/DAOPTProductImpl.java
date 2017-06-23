@@ -29,19 +29,19 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTProductEnti
 
 public class DAOPTProductImpl extends DAOProductImpl implements DAOPTProduct {
 
-	@Inject
-	public DAOPTProductImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+  @Inject
+  public DAOPTProductImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-	@Override
-	public PTProductEntity getEntityInstance() {
-		return new JPAPTProductEntity();
-	}
+  @Override
+  public PTProductEntity getEntityInstance() {
+    return new JPAPTProductEntity();
+  }
 
-	@Override
-	protected Class<JPAPTProductEntity> getEntityClass() {
-		return JPAPTProductEntity.class;
-	}
+  @Override
+  protected Class<JPAPTProductEntity> getEntityClass() {
+    return JPAPTProductEntity.class;
+  }
 
 }

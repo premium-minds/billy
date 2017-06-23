@@ -23,6 +23,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 
 public interface DAOPTSupplier extends DAOSupplier {
 
-	@Override
-	public PTSupplierEntity getEntityInstance();
+  @Override
+  public PTSupplierEntity getEntityInstance();
 }

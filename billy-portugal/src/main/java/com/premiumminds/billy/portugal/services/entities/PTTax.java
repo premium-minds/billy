@@ -27,21 +27,21 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTTaxBuilderImpl;
 
 public interface PTTax extends Tax {
 
-	public static class Builder extends PTTaxBuilderImpl<Builder, PTTax> {
+  public static class Builder extends PTTaxBuilderImpl<Builder, PTTax> {
 
-		@Inject
-		public Builder(DAOPTTax daoPTTax, DAOPTRegionContext daoPTRegionContext) {
-			super(daoPTTax, daoPTRegionContext);
-		}
+    @Inject
+    public Builder(DAOPTTax daoPTTax, DAOPTRegionContext daoPTRegionContext) {
+      super(daoPTTax, daoPTRegionContext);
+    }
 
-	}
+  }
 
-	public static class PTVATCode {
+  public static class PTVATCode {
 
-		public static final String	REDUCED			= "RED";
-		public static final String	INTERMEDIATE	= "INT";
-		public static final String	NORMAL			= "NOR";
-		public static final String	EXEMPT			= "ISE";
-		public static final String	OTHER			= "OUT";
-	}
+    public static final String REDUCED = "RED";
+    public static final String INTERMEDIATE = "INT";
+    public static final String NORMAL = "NOR";
+    public static final String EXEMPT = "ISE";
+    public static final String OTHER = "OUT";
+  }
 }

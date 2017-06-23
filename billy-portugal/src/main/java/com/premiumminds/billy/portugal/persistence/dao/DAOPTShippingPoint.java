@@ -23,6 +23,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntit
 
 public interface DAOPTShippingPoint extends DAOShippingPoint {
 
-	@Override
-	public PTShippingPointEntity getEntityInstance();
+  @Override
+  public PTShippingPointEntity getEntityInstance();
 }

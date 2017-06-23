@@ -26,39 +26,39 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public interface PTIssuingParams extends IssuingParams {
 
-	public static class Util {
-		public static PTIssuingParams newInstance() {
-			return new PTIssuingParamsImpl();
-		}
-	}
-	
-	public static class Keys {
+  public static class Util {
+    public static PTIssuingParams newInstance() {
+      return new PTIssuingParamsImpl();
+    }
+  }
 
-		public static final String	PRIVATE_KEY			= "private_key";
-		public static final String	PUBLIC_KEY			= "public_key";
-		public static final String	INVOICE_SERIES		= "invoice_series";
-		public static final String	PRIVATE_KEY_VERSION	= "private_key_version";
-		public static final String	EAC_CODE			= "eac_code";
-	}
+  public static class Keys {
 
-	public String getInvoiceSeries() throws ParameterNotFoundException;
+    public static final String PRIVATE_KEY = "private_key";
+    public static final String PUBLIC_KEY = "public_key";
+    public static final String INVOICE_SERIES = "invoice_series";
+    public static final String PRIVATE_KEY_VERSION = "private_key_version";
+    public static final String EAC_CODE = "eac_code";
+  }
 
-	public PrivateKey getPrivateKey() throws ParameterNotFoundException;
+  public String getInvoiceSeries() throws ParameterNotFoundException;
 
-	public PublicKey getPublicKey() throws ParameterNotFoundException;
+  public PrivateKey getPrivateKey() throws ParameterNotFoundException;
 
-	public String getPrivateKeyVersion() throws ParameterNotFoundException;
+  public PublicKey getPublicKey() throws ParameterNotFoundException;
 
-	public String getEACCode() throws ParameterNotFoundException;
+  public String getPrivateKeyVersion() throws ParameterNotFoundException;
 
-	public void setPublicKey(PublicKey privateKey);
+  public String getEACCode() throws ParameterNotFoundException;
 
-	public void setPrivateKey(PrivateKey privateKey);
+  public void setPublicKey(PublicKey privateKey);
 
-	public void setInvoiceSeries(String series);
+  public void setPrivateKey(PrivateKey privateKey);
 
-	public void setPrivateKeyVersion(String version);
+  public void setInvoiceSeries(String series);
 
-	public void setEACCode(String eacCode);
+  public void setPrivateKeyVersion(String version);
+
+  public void setEACCode(String eacCode);
 
 }

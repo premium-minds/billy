@@ -36,39 +36,39 @@ import com.premiumminds.billy.spain.services.entities.ESInvoice;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE_ENTRY")
 public class JPAESCreditNoteEntryEntity extends JPAESGenericInvoiceEntryEntity
-	implements ESCreditNoteEntryEntity {
+    implements ESCreditNoteEntryEntity {
 
-	/**
-	 * 
-	 */
-	private static final long	serialVersionUID	= 1L;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAESInvoiceEntity.class,
-				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_ESINVOICE", referencedColumnName = "ID")
-	protected ESInvoice			reference;
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAESInvoiceEntity.class, cascade = {
+      CascadeType.PERSIST, CascadeType.MERGE })
+  @JoinColumn(name = "ID_ESINVOICE", referencedColumnName = "ID")
+  protected ESInvoice reference;
 
-	@Column(name = "REASON")
-	protected String			reason;
+  @Column(name = "REASON")
+  protected String reason;
 
-	@Override
-	public String getReason() {
-		return this.reason;
-	}
+  @Override
+  public String getReason() {
+    return this.reason;
+  }
 
-	@Override
-	public ESInvoice getReference() {
-		return this.reference;
-	}
+  @Override
+  public ESInvoice getReference() {
+    return this.reference;
+  }
 
-	@Override
-	public void setReference(ESInvoice reference) {
-		this.reference = reference;
-	}
+  @Override
+  public void setReference(ESInvoice reference) {
+    this.reference = reference;
+  }
 
-	@Override
-	public void setReason(String reason) {
-		this.reason = reason;
-	}
+  @Override
+  public void setReason(String reason) {
+    this.reason = reason;
+  }
 
 }

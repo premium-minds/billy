@@ -23,5 +23,5 @@ import com.premiumminds.billy.portugal.services.entities.PTSupplier;
 
 public interface PTSupplierEntity extends PTSupplier, SupplierEntity {
 
-	public void setReferralName(String referralName);
+  public void setReferralName(String referralName);
 }

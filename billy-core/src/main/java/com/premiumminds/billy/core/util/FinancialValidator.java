@@ -20,11 +20,11 @@ package com.premiumminds.billy.core.util;
 
 public abstract class FinancialValidator {
 
-	protected String	financialID;
+  protected String financialID;
 
-	public FinancialValidator(String financialID) {
-		this.financialID = financialID;
-	}
+  public FinancialValidator(String financialID) {
+    this.financialID = financialID;
+  }
 
-	protected abstract boolean isValid();
+  protected abstract boolean isValid();
 }

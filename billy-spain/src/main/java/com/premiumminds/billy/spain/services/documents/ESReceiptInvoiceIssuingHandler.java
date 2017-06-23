@@ -28,25 +28,25 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptInvoice;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 
-public class ESReceiptInvoiceIssuingHandler extends
-	ESGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
+public class ESReceiptInvoiceIssuingHandler extends ESGenericInvoiceIssuingHandler
+    implements DocumentIssuingHandler {
 
-	private final DAOESReceiptInvoice	daoReceiptInvoice;
+  private final DAOESReceiptInvoice daoReceiptInvoice;
 
-	@Inject
-	public ESReceiptInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
-											DAOESReceiptInvoice daoRecepit) {
-		super(daoInvoiceSeries);
-		this.daoReceiptInvoice = daoRecepit;
-	}
+  @Inject
+  public ESReceiptInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
+      DAOESReceiptInvoice daoRecepit) {
+    super(daoInvoiceSeries);
+    this.daoReceiptInvoice = daoRecepit;
+  }
 
-	@Override
-	public <T extends GenericInvoice, P extends IssuingParams> T issue(
-			T document, P parameters) throws DocumentIssuingException {
+  @Override
+  public <T extends GenericInvoice, P extends IssuingParams> T issue(T document, P parameters)
+      throws DocumentIssuingException {
 
-		final ESIssuingParams parametersES = (ESIssuingParams) parameters;
+    final ESIssuingParams parametersES = (ESIssuingParams) parameters;
 
-		return this.issue(document, parametersES, daoReceiptInvoice);
-	}
+    return this.issue(document, parametersES, daoReceiptInvoice);
+  }
 
 }

@@ -27,14 +27,14 @@ import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 
 public class ESPersistenceServiceAbstractTest extends ESPersistencyAbstractTest {
 
-	protected ESIssuingParams	parameters;
-	protected BillySpain billy;
+  protected ESIssuingParams parameters;
+  protected BillySpain billy;
 
-	@Before
-	public void setUpParamenters() {
-		this.parameters = new ESIssuingParamsImpl();
-		this.parameters.setEACCode("31400");
+  @Before
+  public void setUpParamenters() {
+    this.parameters = new ESIssuingParamsImpl();
+    this.parameters.setEACCode("31400");
 
-		billy = getInstance(BillySpain.class);
-	}
+    billy = getInstance(BillySpain.class);
+  }
 }

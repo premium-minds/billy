@@ -24,24 +24,24 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 
 public class Contacts {
 
-	private final Injector	injector;
+  private final Injector injector;
 
-	public Contacts(Injector injector) {
-		this.injector = injector;
-	}
+  public Contacts(Injector injector) {
+    this.injector = injector;
+  }
 
-	public PTContact.Builder builder() {
-		return getInstance(PTContact.Builder.class);
-	}
-	
-	public PTContact.Builder builder(PTContact customer) {
-		PTContact.Builder builder = getInstance(PTContact.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
-		return builder;
-	}
-	
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+  public PTContact.Builder builder() {
+    return getInstance(PTContact.Builder.class);
+  }
+
+  public PTContact.Builder builder(PTContact customer) {
+    PTContact.Builder builder = getInstance(PTContact.Builder.class);
+    BuilderManager.setTypeInstance(builder, customer);
+    return builder;
+  }
+
+  private <T> T getInstance(Class<T> clazz) {
+    return this.injector.getInstance(clazz);
+  }
+
 }

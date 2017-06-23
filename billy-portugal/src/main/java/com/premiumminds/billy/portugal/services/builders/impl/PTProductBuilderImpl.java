@@ -31,44 +31,42 @@ import com.premiumminds.billy.portugal.services.builders.PTProductBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 
 public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder, TProduct>, TProduct extends PTProduct>
-	extends ProductBuilderImpl<TBuilder, TProduct> implements
-	PTProductBuilder<TBuilder, TProduct> {
+    extends ProductBuilderImpl<TBuilder, TProduct> implements PTProductBuilder<TBuilder, TProduct> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public PTProductBuilderImpl(DAOPTProduct daoPTProduct, DAOPTTax daoPTTax) {
-		super(daoPTProduct, daoPTTax);
-	}
+  @Inject
+  public PTProductBuilderImpl(DAOPTProduct daoPTProduct, DAOPTTax daoPTTax) {
+    super(daoPTProduct, daoPTTax);
+  }
 
-	@Override
-	protected PTProductEntity getTypeInstance() {
-		return (PTProductEntity) super.getTypeInstance();
-	}
+  @Override
+  protected PTProductEntity getTypeInstance() {
+    return (PTProductEntity) super.getTypeInstance();
+  }
 
-	@Override
-	public TBuilder setNumberCode(String code) {
-		BillyValidator.mandatory(code, PTProductBuilderImpl.LOCALIZER
-				.getString("field.product_number_code"));
-		this.getTypeInstance().setNumberCode(code);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setNumberCode(String code) {
+    BillyValidator.mandatory(code,
+        PTProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
+    this.getTypeInstance().setNumberCode(code);
+    return this.getBuilder();
+  }
 
-	@Override
-	public TBuilder setUnitOfMeasure(String unit) {
-		BillyValidator.mandatory(unit, PTProductBuilderImpl.LOCALIZER
-				.getString("field.unit_of_measure"));
-		this.getTypeInstance().setUnitOfMeasure(unit);
-		return this.getBuilder();
-	}
+  @Override
+  public TBuilder setUnitOfMeasure(String unit) {
+    BillyValidator.mandatory(unit,
+        PTProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
+    this.getTypeInstance().setUnitOfMeasure(unit);
+    return this.getBuilder();
+  }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		super.validateInstance();
-		PTProduct p = this.getTypeInstance();
-		BillyValidator.mandatory(p.getNumberCode(),
-				PTProductBuilderImpl.LOCALIZER
-						.getString("field.product_number_code"));
-	}
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    super.validateInstance();
+    PTProduct p = this.getTypeInstance();
+    BillyValidator.mandatory(p.getNumberCode(),
+        PTProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
+  }
 }

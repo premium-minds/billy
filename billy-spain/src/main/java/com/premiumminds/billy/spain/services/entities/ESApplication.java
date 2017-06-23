@@ -26,13 +26,12 @@ import com.premiumminds.billy.spain.services.builders.impl.ESApplicationBuilderI
 
 public interface ESApplication extends Application {
 
-	public static class Builder extends
-		ESApplicationBuilderImpl<Builder, ESApplication> {
+  public static class Builder extends ESApplicationBuilderImpl<Builder, ESApplication> {
 
-		@Inject
-		public Builder(DAOESApplication daoESApplication) {
-			super(daoESApplication);
-		}
+    @Inject
+    public Builder(DAOESApplication daoESApplication) {
+      super(daoESApplication);
+    }
 
-	}
+  }
 }

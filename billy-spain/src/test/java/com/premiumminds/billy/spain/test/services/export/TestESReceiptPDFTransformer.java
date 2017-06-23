@@ -51,65 +51,63 @@ import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
 
 public class TestESReceiptPDFTransformer extends ESPersistencyAbstractTest {
-	
-	private static final String XSL_PATH = "src/main/resources/templates/es_receipt.xsl";
-	private static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	
-	private ESReceiptTestUtil receipts;
-	private Injector mockedInjector;
-	private ESReceiptPDFFOPTransformer transformer;
-	private ESReceiptDataExtractor extractor;
-	
-	@Before
-	public void setUp() throws FileNotFoundException {
-		
-		receipts = new ESReceiptTestUtil(injector);
-		
-		mockedInjector = Guice.createInjector(Modules.override(
-				new SpainDependencyModule()).with(
-				new ESMockDependencyModule()));
-		
-		InputStream xsl = new FileInputStream(XSL_PATH);
 
-		transformer = new ESReceiptPDFFOPTransformer(LOGO_PATH, xsl);
-		extractor = mockedInjector.getInstance(ESReceiptDataExtractor.class);
-	}
-	
-	@Test
-	public void testPDFCreation() throws ExportServiceException, IOException {
-		ESReceiptEntity entity = receipts.getReceiptEntity();
-		DAOESReceipt dao = mockedInjector.getInstance(DAOESReceipt.class);
-		Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
-		
-		OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
-		
-		ESReceiptData entityData = extractor.extract(entity.getUID());
-		transformer.transform(entityData, os);
-	}
-	
-	@Test(expected = ExportServiceException.class)
-	public void testNonExistentEntity() throws NoSuchAlgorithmException,
-		ExportServiceException, URISyntaxException, DocumentIssuingException,
-		IOException {
+  private static final String XSL_PATH = "src/main/resources/templates/es_receipt.xsl";
+  private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-		UID uidEntity = UID.fromString("12345");
-		
-		extractor.extract(uidEntity);
-	}
-	
-	@Test
-    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
-        ESReceiptEntity entity = receipts.getReceiptEntity();
-        DAOESReceipt dao = mockedInjector.getInstance(DAOESReceipt.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
-        
-        OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
-        
-        InputStream xsl = new FileInputStream(XSL_PATH);
-        ESReceiptTemplateBundle bundle = new ESReceiptTemplateBundle(LOGO_PATH, xsl);
-        ESReceiptPDFFOPTransformer transformerBundle = new ESReceiptPDFFOPTransformer(bundle);
-        
-        ESReceiptData entityData = extractor.extract(entity.getUID());
-        transformerBundle.transform(entityData, os);
-    }
+  private ESReceiptTestUtil receipts;
+  private Injector mockedInjector;
+  private ESReceiptPDFFOPTransformer transformer;
+  private ESReceiptDataExtractor extractor;
+
+  @Before
+  public void setUp() throws FileNotFoundException {
+
+    receipts = new ESReceiptTestUtil(injector);
+
+    mockedInjector = Guice.createInjector(
+        Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
+
+    InputStream xsl = new FileInputStream(XSL_PATH);
+
+    transformer = new ESReceiptPDFFOPTransformer(LOGO_PATH, xsl);
+    extractor = mockedInjector.getInstance(ESReceiptDataExtractor.class);
+  }
+
+  @Test
+  public void testPDFCreation() throws ExportServiceException, IOException {
+    ESReceiptEntity entity = receipts.getReceiptEntity();
+    DAOESReceipt dao = mockedInjector.getInstance(DAOESReceipt.class);
+    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+
+    OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
+
+    ESReceiptData entityData = extractor.extract(entity.getUID());
+    transformer.transform(entityData, os);
+  }
+
+  @Test(expected = ExportServiceException.class)
+  public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
+
+    UID uidEntity = UID.fromString("12345");
+
+    extractor.extract(uidEntity);
+  }
+
+  @Test
+  public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+    ESReceiptEntity entity = receipts.getReceiptEntity();
+    DAOESReceipt dao = mockedInjector.getInstance(DAOESReceipt.class);
+    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+
+    OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
+
+    InputStream xsl = new FileInputStream(XSL_PATH);
+    ESReceiptTemplateBundle bundle = new ESReceiptTemplateBundle(LOGO_PATH, xsl);
+    ESReceiptPDFFOPTransformer transformerBundle = new ESReceiptPDFFOPTransformer(bundle);
+
+    ESReceiptData entityData = extractor.extract(entity.getUID());
+    transformerBundle.transform(entityData, os);
+  }
 }
