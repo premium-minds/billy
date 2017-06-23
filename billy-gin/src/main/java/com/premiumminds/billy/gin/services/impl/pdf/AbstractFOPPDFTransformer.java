@@ -31,7 +31,7 @@ import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
@@ -40,7 +40,7 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.TaxData;
 
 public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData>
-    extends FOPPDFTransformer implements BillyPDFTransformer<T> {
+    extends FOPPDFTransformer implements BillyExportTransformer<T, OutputStream> {
 
   protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 

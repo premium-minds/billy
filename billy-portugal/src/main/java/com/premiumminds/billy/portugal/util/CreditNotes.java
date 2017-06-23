@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.util;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -28,7 +27,7 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.documents.PTCreditNoteIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
@@ -94,10 +93,10 @@ public class CreditNotes {
     return exportService.exportToStream(request);
   }
 
-  public void pdfExport(UID uidDoc, BillyPDFTransformer<PTCreditNoteData> dataTransformer,
-      OutputStream outputStream) throws ExportServiceException {
+  public <O> void pdfExport(UID uidDoc, BillyExportTransformer<PTCreditNoteData, O> dataTransformer,
+      O output) throws ExportServiceException {
 
-    exportService.export(uidDoc, dataTransformer, outputStream);
+    exportService.export(uidDoc, dataTransformer, output);
   }
 
   private <T> T getInstance(Class<T> clazz) {

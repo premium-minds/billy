@@ -18,9 +18,12 @@
  */
 package com.premiumminds.billy.spain.services.export.pdf;
 
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import java.io.OutputStream;
+
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.spain.services.export.ESCreditReceiptData;
 
-public interface ESCreditReceiptPDFTransformer extends BillyPDFTransformer<ESCreditReceiptData> {
+public interface ESCreditReceiptPDFTransformer
+    extends BillyExportTransformer<ESCreditReceiptData, OutputStream> {
 
 }
