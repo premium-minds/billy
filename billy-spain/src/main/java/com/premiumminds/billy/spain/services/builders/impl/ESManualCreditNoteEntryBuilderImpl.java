@@ -35,7 +35,7 @@ import com.premiumminds.billy.spain.services.builders.ESManualCreditNoteEntryBui
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditNoteEntry>
-	extends ESManualEntryBuilderImpl<TBuilder, TEntry> implements
+	extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESCreditNoteEntry, DAOESInvoice> implements
 	ESManualCreditNoteEntryBuilder<TBuilder, TEntry> {
 
 	public ESManualCreditNoteEntryBuilderImpl(DAOESCreditNoteEntry daoESCreditNoteEntry,

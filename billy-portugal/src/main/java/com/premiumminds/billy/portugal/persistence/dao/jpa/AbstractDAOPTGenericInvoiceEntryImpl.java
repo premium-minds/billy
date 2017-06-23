@@ -22,27 +22,18 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
-import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.dao.jpa.AbstractDAOGenericInvoiceEntryImpl;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoiceEntry;
+import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntryEntity;
 
-public class DAOPTGenericInvoiceImpl
-    extends AbstractDAOPTGenericInvoiceImpl<PTGenericInvoiceEntity, JPAPTGenericInvoiceEntity>
-    implements DAOPTGenericInvoice {
+public abstract class AbstractDAOPTGenericInvoiceEntryImpl<TInterface extends PTGenericInvoiceEntryEntity, TEntity extends JPAPTGenericInvoiceEntryEntity> 
+extends AbstractDAOGenericInvoiceEntryImpl<TInterface, TEntity> 
+implements AbstractDAOPTGenericInvoiceEntry<TInterface> {
 
-  @Inject
-  public DAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
-
-  @Override
-  public PTGenericInvoiceEntity getEntityInstance() {
-    return new JPAPTGenericInvoiceEntity();
-  }
-
-  @Override
-  protected Class<? extends JPAPTGenericInvoiceEntity> getEntityClass() {
-    return JPAPTGenericInvoiceEntity.class;
-  }
+	@Inject
+	public AbstractDAOPTGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
 }

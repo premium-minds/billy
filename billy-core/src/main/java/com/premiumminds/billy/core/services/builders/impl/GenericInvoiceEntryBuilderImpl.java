@@ -30,8 +30,8 @@ import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
@@ -52,15 +52,18 @@ import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
-public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
+public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, 
+TEntry extends GenericInvoiceEntry,
+TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>, 
+TDAOInvoice extends AbstractDAOGenericInvoice<?>>
 extends AbstractBuilder<TBuilder, TEntry> 
 implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer LOCALIZER = new Localizer(
 			"com/premiumminds/billy/core/i18n/FieldNames");
 
-	protected DAOGenericInvoiceEntry daoEntry;
-	protected AbstractDAOGenericInvoice<?> daoGenericInvoice;
+	protected TDAOEntry daoEntry;
+	protected TDAOInvoice daoGenericInvoice;
 	protected DAOTax daoTax;
 	protected DAOProduct daoProduct;
 	protected DAOContext daoContext;
@@ -68,8 +71,8 @@ implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 	protected Context context;
 
 	@Inject
-	public <TDAOInvoice extends AbstractDAOGenericInvoice<?>> GenericInvoiceEntryBuilderImpl(
-			DAOGenericInvoiceEntry daoEntry,
+	public GenericInvoiceEntryBuilderImpl(
+			TDAOEntry daoEntry,
 			TDAOInvoice daoGenericInvoice, 
 			DAOTax daoTax,
 			DAOProduct daoProduct, 

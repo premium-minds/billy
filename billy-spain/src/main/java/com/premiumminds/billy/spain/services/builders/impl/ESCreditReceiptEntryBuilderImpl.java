@@ -35,18 +35,19 @@ import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.builders.ESCreditReceiptEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
-public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditReceiptEntry>
-	extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-	ESCreditReceiptEntryBuilder<TBuilder, TEntry> {
+public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEntryBuilderImpl<TBuilder, TEntry>, 
+TEntry extends ESCreditReceiptEntry>
+extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESCreditReceiptEntry, DAOESReceipt> implements
+ESCreditReceiptEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
 			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	public ESCreditReceiptEntryBuilderImpl(DAOESCreditReceiptEntry daoESCreditReceiptEntry,
-										DAOESReceipt daoESReceipt,
-										DAOESTax daoESTax,
-										DAOESProduct daoESProduct,
-										DAOESRegionContext daoESRegionContext) {
+			DAOESReceipt daoESReceipt,
+			DAOESTax daoESTax,
+			DAOESProduct daoESProduct,
+			DAOESRegionContext daoESRegionContext) {
 		super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct,
 				daoESRegionContext);
 	}
@@ -55,7 +56,7 @@ public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEnt
 	public TBuilder setReferenceUID(UID referenceUID) {
 		BillyValidator.notNull(referenceUID,
 				ESCreditReceiptEntryBuilderImpl.LOCALIZER
-						.getString("field.invoice_reference"));
+				.getString("field.invoice_reference"));
 		ESReceiptEntity i = (ESReceiptEntity) this.daoGenericInvoice
 				.get(referenceUID);
 		BillyValidator.found(i, ESGenericInvoiceBuilderImpl.LOCALIZER
@@ -75,24 +76,22 @@ public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEnt
 	@Override
 	protected void validateInstance() throws BillyValidationException {
 		getTypeInstance().setCreditOrDebit(CreditOrDebit.DEBIT);
-		
+
 		super.validateInstance();
 		ESCreditReceiptEntryEntity cn = this.getTypeInstance();
 		BillyValidator.mandatory(cn.getReference(),
 				ESCreditReceiptEntryBuilderImpl.LOCALIZER
-						.getString("field.invoice_reference"));
+				.getString("field.invoice_reference"));
 
 		BillyValidator.mandatory(cn.getReason(),
 				ESCreditReceiptEntryBuilderImpl.LOCALIZER
-						.getString("field.reason"));
+				.getString("field.reason"));
 
 		this.ValidateESCreditReceiptEntry(cn);
 	}
 
 	private void ValidateESCreditReceiptEntry(ESCreditReceiptEntryEntity cn) {
-		DAOESCreditReceiptEntry daoESCreditReceiptEntry = (DAOESCreditReceiptEntry) this.daoEntry;
-
-		if (daoESCreditReceiptEntry.checkCreditReceipt(cn.getReference()) != null) {
+		if (daoEntry.checkCreditReceipt(cn.getReference()) != null) {
 			throw new DuplicateCreditNoteException();
 		}
 	}
