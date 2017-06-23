@@ -33,7 +33,7 @@ import com.premiumminds.billy.portugal.services.builders.PTInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTInvoiceEntry>
-	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOPTInvoiceEntry, DAOPTInvoice> implements
 	PTInvoiceEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(

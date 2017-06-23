@@ -29,8 +29,8 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
+import com.premiumminds.billy.spain.persistence.dao.DAOESInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
@@ -39,10 +39,10 @@ import com.premiumminds.billy.spain.services.builders.ESManualInvoiceEntryBuilde
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
 public class ESManualInvoiceEntryBuilderImpl<TBuilder extends ESManualInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-	extends ESManualEntryBuilderImpl<TBuilder, TEntry> implements
+	extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESInvoiceEntry, DAOESInvoice> implements
 	ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	public ESManualInvoiceEntryBuilderImpl(DAOESGenericInvoiceEntry daoESEntry,
+	public ESManualInvoiceEntryBuilderImpl(DAOESInvoiceEntry daoESEntry,
 			DAOESInvoice daoESInvoice,
 			DAOESTax daoESTax,
 			DAOESProduct daoESProduct,

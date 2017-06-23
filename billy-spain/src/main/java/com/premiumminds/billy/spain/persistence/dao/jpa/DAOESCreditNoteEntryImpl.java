@@ -34,7 +34,7 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditNoteEnt
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
-public class DAOESCreditNoteEntryImpl extends DAOESGenericInvoiceEntryImpl
+public class DAOESCreditNoteEntryImpl extends AbstractDAOESGenericInvoiceEntryImpl<ESCreditNoteEntryEntity, JPAESCreditNoteEntryEntity>
 	implements DAOESCreditNoteEntry {
 
 	@Inject

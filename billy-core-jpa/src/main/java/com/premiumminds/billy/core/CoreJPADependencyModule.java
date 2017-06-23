@@ -65,8 +65,7 @@ public class CoreJPADependencyModule extends AbstractModule {
 		this.bind(DAOContext.class).to(DAOContextImpl.class);
 		this.bind(DAOCustomer.class).to(DAOCustomerImpl.class);
 		this.bind(DAOGenericInvoice.class).to(DAOGenericInvoiceImpl.class);
-		this.bind(DAOGenericInvoiceEntry.class).to(
-				DAOGenericInvoiceEntryImpl.class);
+		this.bind(DAOGenericInvoiceEntry.class).to(DAOGenericInvoiceEntryImpl.class);
 		this.bind(DAOProduct.class).to(DAOProductImpl.class);
 		this.bind(DAOShippingPoint.class).to(DAOShippingPointImpl.class);
 		this.bind(DAOSupplier.class).to(DAOSupplierImpl.class);

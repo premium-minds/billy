@@ -36,7 +36,7 @@ import com.premiumminds.billy.spain.services.builders.ESCreditNoteEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESCreditNoteEntryBuilderImpl<TBuilder extends ESCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditNoteEntry>
-	extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
+	extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESCreditNoteEntry, DAOESInvoice> implements
 	ESCreditNoteEntryBuilder<TBuilder, TEntry> {
 
 	protected static final Localizer	LOCALIZER	= new Localizer(
@@ -90,9 +90,7 @@ public class ESCreditNoteEntryBuilderImpl<TBuilder extends ESCreditNoteEntryBuil
 	}
 
 	private void ValidateESCreditNoteEntry(ESCreditNoteEntryEntity cn) {
-		DAOESCreditNoteEntry daoESCreditNoteEntry = (DAOESCreditNoteEntry) this.daoEntry;
-
-		if (daoESCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
+		if (daoEntry.checkCreditNote(cn.getReference()) != null) {
 			throw new DuplicateCreditNoteException();
 		}
 	}

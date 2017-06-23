@@ -31,7 +31,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceEn
 public interface PTGenericInvoiceEntry extends GenericInvoiceEntry {
 
 	public static class Builder extends
-		PTGenericInvoiceEntryBuilderImpl<Builder, PTGenericInvoiceEntry> {
+		PTGenericInvoiceEntryBuilderImpl<Builder, PTGenericInvoiceEntry, DAOPTGenericInvoiceEntry, DAOPTGenericInvoice> {
 
 		@Inject
 		public Builder(DAOPTGenericInvoiceEntry daoPTGenericInvoiceEntry,

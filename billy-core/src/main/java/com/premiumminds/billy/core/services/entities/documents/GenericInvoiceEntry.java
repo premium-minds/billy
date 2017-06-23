@@ -40,13 +40,13 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 
 public interface GenericInvoiceEntry extends Entity {
 
-	public static class Builder extends
-		GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry> {
+	public static class Builder 
+	extends GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry, DAOGenericInvoiceEntry, DAOGenericInvoice> {
 
 		@Inject
 		public Builder(DAOGenericInvoiceEntry daoEntry,
-						DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
-						DAOProduct daoProduct, DAOContext daoContext) {
+				DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
+				DAOProduct daoProduct, DAOContext daoContext) {
 			super(daoEntry, daoGenericInvoice, daoTax, daoProduct, daoContext);
 		}
 	}
