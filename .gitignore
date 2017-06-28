@@ -8,6 +8,8 @@ target/**
 .settings/*
 .project
 .classpath
+*.iml
+.idea/
 data-sources.xml
 release.properties
 billy-portugal/src/test/resources/documents/
