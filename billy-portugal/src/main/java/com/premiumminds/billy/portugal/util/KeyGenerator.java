@@ -40,8 +40,8 @@ public class KeyGenerator {
 	/**
 	 * Generates the {@link PrivateKey} and {@link PublicKey} based on the
 	 * {@link PrivateKey} location.
-	 * 
-	 * @param privateKeyPath
+	 *
+	 * @param privateKeyPath path to private key
 	 */
 	public KeyGenerator(String privateKeyPath) {
 		if (Security.getProvider("BC") == null) {
