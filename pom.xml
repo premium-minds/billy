@@ -8,7 +8,8 @@
 	General Public License for more details. ~ ~ You should have received a copy
 	of the GNU Lesser General Public License ~ along with billy. If not, see
 	<http://www.gnu.org/licenses />. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy</artifactId>
@@ -23,7 +24,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<main.dir>${basedir}</main.dir>
 	</properties>
-	
+
 	<modules>
 		<module>billy-core</module>
 		<module>billy-core-jpa</module>
@@ -59,7 +60,7 @@
 		<snapshotRepository>
 			<id>premiumminds-nexus-snapshots</id>
 			<name>premiumminds-nexus-snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots </url>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -67,7 +68,7 @@
 		<pluginRepository>
 			<id>mc-release</id>
 			<name>Local Maven repository of releases</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/releases </url>
+			<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -115,6 +116,23 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.4.2</version>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<goals>deploy</goals>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.scm</groupId>
+						<artifactId>maven-scm-provider-gitexe</artifactId>
+						<version>1.8.1</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -143,7 +161,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore />
+										<ignore/>
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -172,4 +190,41 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<!-- OSS Sonatype stuff -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.2</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>premiumminds-nexus-staging</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.5</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
 </project>
