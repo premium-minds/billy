@@ -8,13 +8,12 @@
 	General Public License for more details. ~ ~ You should have received a copy
 	of the GNU Lesser General Public License ~ along with billy. If not, see
 	<http://www.gnu.org/licenses />. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy</artifactId>
 	<name>billy</name>
-	<version>1.1.5-SNAPSHOT</version>
+	<version>1.1.5</version>
 	<description>An opensource invoicing engine</description>
 	<packaging>pom</packaging>
 	<groupId>com.premiumminds</groupId>
@@ -44,7 +43,8 @@
 		<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
 		<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
 		<url>https://github.com/premium-minds/billy</url>
-	</scm>
+	  <tag>1.1.5</tag>
+  </scm>
 
 	<url>http://premium-minds.github.io/billy/</url>
 
@@ -161,7 +161,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore/>
+										<ignore />
 									</action>
 								</pluginExecution>
 								<pluginExecution>
@@ -180,7 +180,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
