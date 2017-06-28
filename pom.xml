@@ -41,7 +41,7 @@
 
 	<scm>
 		<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
-		<developerConnection>scm:git:git://github.com/premium-minds/billy.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
 		<url>https://github.com/premium-minds/billy</url>
 	</scm>
 
