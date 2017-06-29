@@ -35,24 +35,24 @@ import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 @Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
 public class JPAESSimpleInvoiceEntity extends JPAESInvoiceEntity implements ESSimpleInvoiceEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Column(name = "CLIENT_TYPE")
-  protected CLIENTTYPE clientType;
+    @Column(name = "CLIENT_TYPE")
+    protected CLIENTTYPE clientType;
 
-  @Override
-  public List<ESInvoiceEntry> getEntries() {
-    return super.getEntries();
-  }
+    @Override
+    public List<ESInvoiceEntry> getEntries() {
+        return super.getEntries();
+    }
 
-  @Override
-  public CLIENTTYPE getClientType() {
-    return clientType;
-  }
+    @Override
+    public CLIENTTYPE getClientType() {
+        return this.clientType;
+    }
 
-  @Override
-  public void setClientType(CLIENTTYPE type) {
-    this.clientType = type;
-  }
+    @Override
+    public void setClientType(CLIENTTYPE type) {
+        this.clientType = type;
+    }
 
 }

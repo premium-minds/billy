@@ -22,10 +22,10 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
 public interface ESCreditReceiptEntryBuilder<TBuilder extends ESCreditReceiptEntryBuilder<TBuilder, TEntry>, TEntry extends ESCreditReceiptEntry>
-    extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+        extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
-  public TBuilder setReferenceUID(UID reference);
+    public TBuilder setReferenceUID(UID reference);
 
-  public TBuilder setReason(String reason);
+    public TBuilder setReason(String reason);
 
 }

@@ -34,38 +34,37 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 
 public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
-    implements BillyDataExtractor<PTCreditNoteData> {
+        implements BillyDataExtractor<PTCreditNoteData> {
 
-  private final DAOPTCreditNote daoPTCreditNote;
+    private final DAOPTCreditNote daoPTCreditNote;
 
-  @Inject
-  public PTCreditNoteDataExtractor(DAOPTCreditNote daoPTCreditNote) {
-    this.daoPTCreditNote = daoPTCreditNote;
-  }
-
-  @Override
-  public PTCreditNoteData extract(UID uid) throws ExportServiceException {
-    PTCreditNoteEntity entity = (PTCreditNoteEntity) daoPTCreditNote.get(uid); // FIXME:
-                                                                               // Fix
-                                                                               // the
-                                                                               // DAOs
-                                                                               // to
-                                                                               // remove
-                                                                               // this
-                                                                               // cast
-    if (entity == null) {
-      throw new ExportServiceException(
-          "Unable to find entity with uid " + uid.toString() + " to be extracted");
+    @Inject
+    public PTCreditNoteDataExtractor(DAOPTCreditNote daoPTCreditNote) {
+        this.daoPTCreditNote = daoPTCreditNote;
     }
 
-    List<PaymentData> payments = extractPayments(entity.getPayments());
-    CostumerData costumer = extractCostumer(entity.getCustomer());
-    BusinessData business = extractBusiness(entity.getBusiness());
-    List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
+    @Override
+    public PTCreditNoteData extract(UID uid) throws ExportServiceException {
+        PTCreditNoteEntity entity = (PTCreditNoteEntity) this.daoPTCreditNote.get(uid); // FIXME:
+        // Fix
+        // the
+        // DAOs
+        // to
+        // remove
+        // this
+        // cast
+        if (entity == null) {
+            throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
+        }
 
-    return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(),
-        payments, costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-        entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash());
-  }
+        List<PaymentData> payments = this.extractPayments(entity.getPayments());
+        CostumerData costumer = this.extractCostumer(entity.getCustomer());
+        BusinessData business = this.extractBusiness(entity.getBusiness());
+        List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
+
+        return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
+                costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+                entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash());
+    }
 
 }

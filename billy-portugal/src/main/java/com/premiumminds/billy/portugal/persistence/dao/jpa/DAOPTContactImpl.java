@@ -29,19 +29,19 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTContactEnti
 
 public class DAOPTContactImpl extends DAOContactImpl implements DAOPTContact {
 
-  @Inject
-  public DAOPTContactImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+    @Inject
+    public DAOPTContactImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-  @Override
-  public PTContactEntity getEntityInstance() {
-    return new JPAPTContactEntity();
-  }
+    @Override
+    public PTContactEntity getEntityInstance() {
+        return new JPAPTContactEntity();
+    }
 
-  @Override
-  protected Class<JPAPTContactEntity> getEntityClass() {
-    return JPAPTContactEntity.class;
-  }
+    @Override
+    protected Class<JPAPTContactEntity> getEntityClass() {
+        return JPAPTContactEntity.class;
+    }
 
 }

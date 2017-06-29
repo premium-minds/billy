@@ -34,43 +34,42 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditNoteEnt
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
-public class DAOESCreditNoteEntryImpl extends DAOESGenericInvoiceEntryImpl
-    implements DAOESCreditNoteEntry {
+public class DAOESCreditNoteEntryImpl extends DAOESGenericInvoiceEntryImpl implements DAOESCreditNoteEntry {
 
-  @Inject
-  public DAOESCreditNoteEntryImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
-
-  @Override
-  public ESCreditNoteEntryEntity getEntityInstance() {
-    return new JPAESCreditNoteEntryEntity();
-  }
-
-  @Override
-  protected Class<JPAESCreditNoteEntryEntity> getEntityClass() {
-    return JPAESCreditNoteEntryEntity.class;
-  }
-
-  @Override
-  public ESCreditNoteEntity checkCreditNote(ESInvoice invoice) {
-
-    QJPAESCreditNoteEntity creditNoteEntity = QJPAESCreditNoteEntity.jPAESCreditNoteEntity;
-
-    JPAQuery query = new JPAQuery(this.getEntityManager());
-
-    query.from(creditNoteEntity);
-
-    List<JPAESCreditNoteEntity> allCns = query.list(creditNoteEntity);
-
-    // TODO make a query to do this
-    for (JPAESCreditNoteEntity cne : allCns) {
-      for (ESCreditNoteEntry cnee : cne.getEntries()) {
-        if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
-          return cne;
-        }
-      }
+    @Inject
+    public DAOESCreditNoteEntryImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
     }
-    return null;
-  }
+
+    @Override
+    public ESCreditNoteEntryEntity getEntityInstance() {
+        return new JPAESCreditNoteEntryEntity();
+    }
+
+    @Override
+    protected Class<JPAESCreditNoteEntryEntity> getEntityClass() {
+        return JPAESCreditNoteEntryEntity.class;
+    }
+
+    @Override
+    public ESCreditNoteEntity checkCreditNote(ESInvoice invoice) {
+
+        QJPAESCreditNoteEntity creditNoteEntity = QJPAESCreditNoteEntity.jPAESCreditNoteEntity;
+
+        JPAQuery query = new JPAQuery(this.getEntityManager());
+
+        query.from(creditNoteEntity);
+
+        List<JPAESCreditNoteEntity> allCns = query.list(creditNoteEntity);
+
+        // TODO make a query to do this
+        for (JPAESCreditNoteEntity cne : allCns) {
+            for (ESCreditNoteEntry cnee : cne.getEntries()) {
+                if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
+                    return cne;
+                }
+            }
+        }
+        return null;
+    }
 }

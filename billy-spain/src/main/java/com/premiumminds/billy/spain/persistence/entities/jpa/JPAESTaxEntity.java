@@ -33,10 +33,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESTaxEntity;
 @Table(name = Config.TABLE_PREFIX + "TAX")
 public class JPAESTaxEntity extends JPATaxEntity implements ESTaxEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Override
-  public Context getContext() {
-    return super.getContext();
-  }
+    @Override
+    public Context getContext() {
+        return super.getContext();
+    }
 }

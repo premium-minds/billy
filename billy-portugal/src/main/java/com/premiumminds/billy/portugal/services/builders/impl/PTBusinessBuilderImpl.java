@@ -38,63 +38,56 @@ import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.util.PTFinancialValidator;
 
 public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends PTBusiness>
-    extends BusinessBuilderImpl<TBuilder, TBusiness>
-    implements PTBusinessBuilder<TBuilder, TBusiness> {
+        extends BusinessBuilderImpl<TBuilder, TBusiness> implements PTBusinessBuilder<TBuilder, TBusiness> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-  @Inject
-  public PTBusinessBuilderImpl(DAOPTBusiness daoBusiness, DAOPTRegionContext daoContext) {
-    super(daoBusiness, daoContext);
-  }
-
-  @Override
-  @NotOnUpdate
-  public TBuilder setFinancialID(String id, String countryCode)
-      throws InvalidTaxIdentificationNumberException {
-    BillyValidator.notBlank(id, BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
-    PTFinancialValidator validator = new PTFinancialValidator(id);
-
-    if (PTFinancialValidator.PT_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
-      throw new InvalidTaxIdentificationNumberException();
+    @Inject
+    public PTBusinessBuilderImpl(DAOPTBusiness daoBusiness, DAOPTRegionContext daoContext) {
+        super(daoBusiness, daoContext);
     }
-    this.getTypeInstance().setFinancialID(id);
-    return this.getBuilder();
-  }
 
-  @Override
-  protected PTBusinessEntity getTypeInstance() {
-    return (PTBusinessEntity) super.getTypeInstance();
-  }
+    @Override
+    @NotOnUpdate
+    public TBuilder setFinancialID(String id, String countryCode) throws InvalidTaxIdentificationNumberException {
+        BillyValidator.notBlank(id, BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
+        PTFinancialValidator validator = new PTFinancialValidator(id);
 
-  @Override
-  public TBuilder setCommercialName(String name) {
-    BillyValidator.notBlank(name,
-        PTBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
-    this.getTypeInstance().setCommercialName(name);
-    return this.getBuilder();
-  }
-
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    BusinessEntity b = this.getTypeInstance();
-
-    BillyValidator.mandatory(b.getFinancialID(),
-        PTBusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
-    BillyValidator.mandatory(b.getName(),
-        PTBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
-    BillyValidator.mandatory(b.getCommercialName(),
-        PTBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
-    BillyValidator.mandatory(b.getAddress(),
-        PTBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
-
-    Pattern pattern;
-    pattern = Pattern.compile("[0-9]{4}-[0-9]{3}");
-
-    Matcher matcher = pattern.matcher(b.getAddress().getPostalCode());
-    if (!matcher.find()) {
-      throw new BillyValidationException();
+        if (PTFinancialValidator.PT_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
+            throw new InvalidTaxIdentificationNumberException();
+        }
+        this.getTypeInstance().setFinancialID(id);
+        return this.getBuilder();
     }
-  }
+
+    @Override
+    protected PTBusinessEntity getTypeInstance() {
+        return (PTBusinessEntity) super.getTypeInstance();
+    }
+
+    @Override
+    public TBuilder setCommercialName(String name) {
+        BillyValidator.notBlank(name, PTBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
+        this.getTypeInstance().setCommercialName(name);
+        return this.getBuilder();
+    }
+
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        BusinessEntity b = this.getTypeInstance();
+
+        BillyValidator.mandatory(b.getFinancialID(), PTBusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
+        BillyValidator.mandatory(b.getName(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
+        BillyValidator.mandatory(b.getCommercialName(),
+                PTBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
+        BillyValidator.mandatory(b.getAddress(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+
+        Pattern pattern;
+        pattern = Pattern.compile("[0-9]{4}-[0-9]{3}");
+
+        Matcher matcher = pattern.matcher(b.getAddress().getPostalCode());
+        if (!matcher.find()) {
+            throw new BillyValidationException();
+        }
+    }
 }

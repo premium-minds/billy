@@ -27,15 +27,15 @@ import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
 
 public interface ESGenericInvoiceEntity extends GenericInvoiceEntity, ESGenericInvoice {
 
-  public void setCancelled(boolean cancelled);
+    public void setCancelled(boolean cancelled);
 
-  public void setBilled(boolean billed);
+    public void setBilled(boolean billed);
 
-  public void setEACCode(String eacCode);
+    public void setEACCode(String eacCode);
 
-  @Override
-  public <T extends GenericInvoiceEntry> List<T> getEntries();
+    @Override
+    public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-  @Override
-  public <T extends Payment> List<T> getPayments();
+    @Override
+    public <T extends Payment> List<T> getPayments();
 }

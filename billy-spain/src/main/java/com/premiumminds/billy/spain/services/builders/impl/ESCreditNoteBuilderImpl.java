@@ -31,26 +31,25 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESCreditNoteBuilderImpl<TBuilder extends ESCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESCreditNoteEntry, TDocument extends ESCreditNote>
-    extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-    implements ESCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+        extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+        implements ESCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-  public ESCreditNoteBuilderImpl(DAOESCreditNote daoESCreditNote, DAOESBusiness daoESBusiness,
-      DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
-    super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
-  }
+    public ESCreditNoteBuilderImpl(DAOESCreditNote daoESCreditNote, DAOESBusiness daoESBusiness,
+            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+        super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
+    }
 
-  @Override
-  protected ESCreditNoteEntity getTypeInstance() {
-    return (ESCreditNoteEntity) super.getTypeInstance();
-  }
+    @Override
+    protected ESCreditNoteEntity getTypeInstance() {
+        return (ESCreditNoteEntity) super.getTypeInstance();
+    }
 
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    ESCreditNoteEntity i = getTypeInstance();
-    i.setCreditOrDebit(CreditOrDebit.DEBIT);
-    super.validateInstance();
-  }
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        ESCreditNoteEntity i = this.getTypeInstance();
+        i.setCreditOrDebit(CreditOrDebit.DEBIT);
+        super.validateInstance();
+    }
 }

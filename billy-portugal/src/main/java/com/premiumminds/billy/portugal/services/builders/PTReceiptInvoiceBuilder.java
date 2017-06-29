@@ -22,6 +22,6 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
 public interface PTReceiptInvoiceBuilder<TBuilder extends PTReceiptInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTReceiptInvoice>
-    extends PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
+        extends PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
 }

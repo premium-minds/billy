@@ -32,43 +32,40 @@ import com.premiumminds.billy.portugal.services.builders.PTApplicationBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
 public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<TBuilder, TApplication>, TApplication extends PTApplication>
-    extends ApplicationBuilderImpl<TBuilder, TApplication>
-    implements PTApplicationBuilder<TBuilder, TApplication> {
+        extends ApplicationBuilderImpl<TBuilder, TApplication> implements PTApplicationBuilder<TBuilder, TApplication> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-  @Inject
-  public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {
-    super(daoPTApplication);
-  }
+    @Inject
+    public PTApplicationBuilderImpl(DAOPTApplication daoPTApplication) {
+        super(daoPTApplication);
+    }
 
-  @Override
-  protected PTApplicationEntity getTypeInstance() {
-    return (PTApplicationEntity) super.getTypeInstance();
-  }
+    @Override
+    protected PTApplicationEntity getTypeInstance() {
+        return (PTApplicationEntity) super.getTypeInstance();
+    }
 
-  @Override
-  public TBuilder setSoftwareCertificationNumber(Integer number) {
-    BillyValidator.notNull(number,
-        PTApplicationBuilderImpl.LOCALIZER.getString("field.certificate_number"));
-    this.getTypeInstance().setSoftwareCertificateNum(number);
-    return this.getBuilder();
-  }
+    @Override
+    public TBuilder setSoftwareCertificationNumber(Integer number) {
+        BillyValidator.notNull(number, PTApplicationBuilderImpl.LOCALIZER.getString("field.certificate_number"));
+        this.getTypeInstance().setSoftwareCertificateNum(number);
+        return this.getBuilder();
+    }
 
-  @Override
-  public TBuilder setApplicationKeysPath(URL path) {
-    BillyValidator.notNull(path, PTApplicationBuilderImpl.LOCALIZER.getString("field.keys_path"));
-    this.getTypeInstance().setApplicationKeysPath(path);
-    return this.getBuilder();
-  }
+    @Override
+    public TBuilder setApplicationKeysPath(URL path) {
+        BillyValidator.notNull(path, PTApplicationBuilderImpl.LOCALIZER.getString("field.keys_path"));
+        this.getTypeInstance().setApplicationKeysPath(path);
+        return this.getBuilder();
+    }
 
-  @Override
-  protected void validateInstance() throws ValidationException {
-    super.validateInstance();
-    PTApplicationEntity c = this.getTypeInstance();
-    BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
-        PTApplicationBuilderImpl.LOCALIZER.getString("field.certificate_number"));
-  }
+    @Override
+    protected void validateInstance() throws ValidationException {
+        super.validateInstance();
+        PTApplicationEntity c = this.getTypeInstance();
+        BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
+                PTApplicationBuilderImpl.LOCALIZER.getString("field.certificate_number"));
+    }
 
 }

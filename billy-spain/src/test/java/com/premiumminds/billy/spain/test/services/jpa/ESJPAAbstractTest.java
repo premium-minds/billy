@@ -24,8 +24,7 @@ import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 
 public class ESJPAAbstractTest extends ESPersistencyAbstractTest {
 
-  public static void execute(final Injector injector, TransactionWrapper<?> transactionWrapper)
-      throws Exception {
-    transactionWrapper.execute();
-  }
+    public static void execute(final Injector injector, TransactionWrapper<?> transactionWrapper) throws Exception {
+        transactionWrapper.execute();
+    }
 }

@@ -32,79 +32,78 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class PTInvoicePersistenceService {
 
-  protected final DAOPTInvoice daoInvoice;
-  protected final DAOTicket daoTicket;
+    protected final DAOPTInvoice daoInvoice;
+    protected final DAOTicket daoTicket;
 
-  @Inject
-  public PTInvoicePersistenceService(DAOPTInvoice daoInvoice, DAOTicket daoTicket) {
-    this.daoInvoice = daoInvoice;
-    this.daoTicket = daoTicket;
-  }
-
-  public PTInvoice update(final Builder<PTInvoice> builder) {
-    try {
-      return new TransactionWrapper<PTInvoice>(daoInvoice) {
-
-        @Override
-        public PTInvoice runTransaction() throws Exception {
-          PTInvoiceEntity entity = (PTInvoiceEntity) builder.build();
-          return (PTInvoice) daoInvoice.update(entity);
-        }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
+    @Inject
+    public PTInvoicePersistenceService(DAOPTInvoice daoInvoice, DAOTicket daoTicket) {
+        this.daoInvoice = daoInvoice;
+        this.daoTicket = daoTicket;
     }
-  }
 
-  public PTInvoice get(final UID uid) {
-    try {
-      return new TransactionWrapper<PTInvoice>(daoInvoice) {
+    public PTInvoice update(final Builder<PTInvoice> builder) {
+        try {
+            return new TransactionWrapper<PTInvoice>(this.daoInvoice) {
 
-        @Override
-        public PTInvoice runTransaction() throws Exception {
-          return (PTInvoice) daoInvoice.get(uid);
+                @Override
+                public PTInvoice runTransaction() throws Exception {
+                    PTInvoiceEntity entity = (PTInvoiceEntity) builder.build();
+                    return (PTInvoice) PTInvoicePersistenceService.this.daoInvoice.update(entity);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
 
-  public PTInvoice getWithTicket(final UID ticketUID)
-      throws NoResultException, BillyRuntimeException {
+    public PTInvoice get(final UID uid) {
+        try {
+            return new TransactionWrapper<PTInvoice>(this.daoInvoice) {
 
-    try {
-      return new TransactionWrapper<PTInvoice>(daoInvoice) {
+                @Override
+                public PTInvoice runTransaction() throws Exception {
+                    return (PTInvoice) PTInvoicePersistenceService.this.daoInvoice.get(uid);
+                }
 
-        @Override
-        public PTInvoice runTransaction() throws Exception {
-          UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
-          return (PTInvoice) daoInvoice.get(objectUID);
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (NoResultException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
 
-  public PTInvoice findByNumber(final UID uidBusiness, final String number) {
-    try {
-      return new TransactionWrapper<PTInvoice>(daoInvoice) {
+    public PTInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
-        @Override
-        public PTInvoice runTransaction() throws Exception {
-          return (PTInvoice) daoInvoice.findByNumber(uidBusiness, number);
+        try {
+            return new TransactionWrapper<PTInvoice>(this.daoInvoice) {
+
+                @Override
+                public PTInvoice runTransaction() throws Exception {
+                    UID objectUID = PTInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    return (PTInvoice) PTInvoicePersistenceService.this.daoInvoice.get(objectUID);
+                }
+
+            }.execute();
+        } catch (NoResultException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
+
+    public PTInvoice findByNumber(final UID uidBusiness, final String number) {
+        try {
+            return new TransactionWrapper<PTInvoice>(this.daoInvoice) {
+
+                @Override
+                public PTInvoice runTransaction() throws Exception {
+                    return (PTInvoice) PTInvoicePersistenceService.this.daoInvoice.findByNumber(uidBusiness, number);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
 }

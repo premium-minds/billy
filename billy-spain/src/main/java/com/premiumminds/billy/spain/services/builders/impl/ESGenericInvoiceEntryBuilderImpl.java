@@ -36,63 +36,57 @@ import com.premiumminds.billy.spain.services.builders.ESGenericInvoiceEntryBuild
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
 public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-    extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>
-    implements ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+        extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>
+        implements ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-  public ESGenericInvoiceEntryBuilderImpl(DAOESGenericInvoiceEntry daoESGenericInvoiceEntry,
-      DAOESGenericInvoice daoESGenericInvoice, DAOESTax daoESTax, DAOESProduct daoESProduct,
-      DAOESRegionContext daoESRegionContext) {
-    super(daoESGenericInvoiceEntry, daoESGenericInvoice, daoESTax, daoESProduct,
-        daoESRegionContext);
-  }
-
-  @Override
-  protected ESGenericInvoiceEntryEntity getTypeInstance() {
-    return (ESGenericInvoiceEntryEntity) super.getTypeInstance();
-  }
-
-  @Override
-  @NotOnUpdate
-  public TBuilder setTaxPointDate(Date date) {
-    BillyValidator.mandatory(date,
-        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
-    this.getTypeInstance().setTaxPointDate(date);
-    return this.getBuilder();
-  }
-
-  // @Override
-  // @NotOnUpdate
-  // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-  // BillyValidator.mandatory(creditOrDebit,
-  // ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-  // .getString("field.entry_credit_or_debit"));
-  // this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-  // return this.getBuilder();
-  // }
-
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    super.validateInstance();
-    ESGenericInvoiceEntryEntity i = this.getTypeInstance();
-    BillyValidator.mandatory(i.getQuantity(),
-        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
-    BillyValidator.mandatory(i.getUnitOfMeasure(),
-        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
-    BillyValidator.mandatory(i.getProduct(),
-        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
-    BillyValidator.notEmpty(i.getTaxes(),
-        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-    BillyValidator.mandatory(i.getTaxAmount(),
-        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-    BillyValidator.mandatory(i.getTaxPointDate(),
-        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
-    if (i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0) {
-      BillyValidator.mandatory(i.getTaxExemptionReason(),
-          ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+    public ESGenericInvoiceEntryBuilderImpl(DAOESGenericInvoiceEntry daoESGenericInvoiceEntry,
+            DAOESGenericInvoice daoESGenericInvoice, DAOESTax daoESTax, DAOESProduct daoESProduct,
+            DAOESRegionContext daoESRegionContext) {
+        super(daoESGenericInvoiceEntry, daoESGenericInvoice, daoESTax, daoESProduct, daoESRegionContext);
     }
-  }
+
+    @Override
+    protected ESGenericInvoiceEntryEntity getTypeInstance() {
+        return (ESGenericInvoiceEntryEntity) super.getTypeInstance();
+    }
+
+    @Override
+    @NotOnUpdate
+    public TBuilder setTaxPointDate(Date date) {
+        BillyValidator.mandatory(date, ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+        this.getTypeInstance().setTaxPointDate(date);
+        return this.getBuilder();
+    }
+
+    // @Override
+    // @NotOnUpdate
+    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
+    // BillyValidator.mandatory(creditOrDebit,
+    // ESGenericInvoiceEntryBuilderImpl.LOCALIZER
+    // .getString("field.entry_credit_or_debit"));
+    // this.getTypeInstance().setCreditOrDebit(creditOrDebit);
+    // return this.getBuilder();
+    // }
+
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        super.validateInstance();
+        ESGenericInvoiceEntryEntity i = this.getTypeInstance();
+        BillyValidator.mandatory(i.getQuantity(),
+                ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
+        BillyValidator.mandatory(i.getUnitOfMeasure(),
+                ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
+        BillyValidator.mandatory(i.getProduct(), ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
+        BillyValidator.notEmpty(i.getTaxes(), ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
+        BillyValidator.mandatory(i.getTaxAmount(), ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
+        BillyValidator.mandatory(i.getTaxPointDate(),
+                ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+        if (i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0) {
+            BillyValidator.mandatory(i.getTaxExemptionReason(),
+                    ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+        }
+    }
 
 }

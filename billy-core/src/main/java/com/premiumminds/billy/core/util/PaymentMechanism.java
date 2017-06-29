@@ -19,8 +19,9 @@
 package com.premiumminds.billy.core.util;
 
 public enum PaymentMechanism {
-  CASH, CHECK, DEBIT_CARD, CREDIT_CARD, BANK_TRANSFER, RESTAURANT_TICKET, COMPENSATION, COMMERCIAL_LETTER, ATM, EXCHANGE, ELECTRONIC_MONEY
-  // TODO:
-  // CO - Check or gift card
-  // OU - Other payment methods
+    CASH, CHECK, DEBIT_CARD, CREDIT_CARD, BANK_TRANSFER, RESTAURANT_TICKET, COMPENSATION, COMMERCIAL_LETTER, ATM,
+    EXCHANGE, ELECTRONIC_MONEY
+    // TODO:
+    // CO - Check or gift card
+    // OU - Other payment methods
 }

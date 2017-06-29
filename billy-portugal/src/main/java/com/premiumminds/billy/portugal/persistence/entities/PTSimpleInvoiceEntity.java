@@ -26,13 +26,13 @@ import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 
 public interface PTSimpleInvoiceEntity extends PTInvoiceEntity, PTSimpleInvoice {
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<PTInvoiceEntry> getEntries();
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<PTInvoiceEntry> getEntries();
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<PTPayment> getPayments();
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<PTPayment> getPayments();
 
-  public void setClientType(CLIENTTYPE type);
+    public void setClientType(CLIENTTYPE type);
 }

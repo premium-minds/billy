@@ -34,11 +34,11 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 @Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE")
 public class JPAPTCreditNoteEntity extends JPAPTGenericInvoiceEntity implements PTCreditNoteEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SuppressWarnings({ "unchecked" })
-  @Override
-  public List<PTCreditNoteEntry> getEntries() {
-    return (List<PTCreditNoteEntry>) super.getEntries();
-  }
+    @SuppressWarnings({ "unchecked" })
+    @Override
+    public List<PTCreditNoteEntry> getEntries() {
+        return (List<PTCreditNoteEntry>) super.getEntries();
+    }
 }

@@ -54,32 +54,32 @@ import com.premiumminds.billy.core.persistence.dao.jpa.DAOTicketImpl;
 
 public class CoreJPADependencyModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
-    // DAOs
-    this.bind(DAOAddress.class).to(DAOAddressImpl.class);
-    this.bind(DAOApplication.class).to(DAOApplicationImpl.class);
-    this.bind(DAOBankAccount.class).to(DAOBankAccountImpl.class);
-    this.bind(DAOBusiness.class).to(DAOBusinessImpl.class);
-    this.bind(DAOContact.class).to(DAOContactImpl.class);
-    this.bind(DAOContext.class).to(DAOContextImpl.class);
-    this.bind(DAOCustomer.class).to(DAOCustomerImpl.class);
-    this.bind(DAOGenericInvoice.class).to(DAOGenericInvoiceImpl.class);
-    this.bind(DAOGenericInvoiceEntry.class).to(DAOGenericInvoiceEntryImpl.class);
-    this.bind(DAOProduct.class).to(DAOProductImpl.class);
-    this.bind(DAOShippingPoint.class).to(DAOShippingPointImpl.class);
-    this.bind(DAOSupplier.class).to(DAOSupplierImpl.class);
-    this.bind(DAOTax.class).to(DAOTaxImpl.class);
-    this.bind(DAOTicket.class).to(DAOTicketImpl.class);
-    this.bind(DAOPayment.class).to(DAOPaymentImpl.class);
-    this.bind(DAOInvoiceSeries.class).to(DAOInvoiceSeriesImpl.class);
-  }
-
-  public static class Initializer {
-
-    public Initializer() {
-      // Nothing to initialize
+    @Override
+    protected void configure() {
+        // DAOs
+        this.bind(DAOAddress.class).to(DAOAddressImpl.class);
+        this.bind(DAOApplication.class).to(DAOApplicationImpl.class);
+        this.bind(DAOBankAccount.class).to(DAOBankAccountImpl.class);
+        this.bind(DAOBusiness.class).to(DAOBusinessImpl.class);
+        this.bind(DAOContact.class).to(DAOContactImpl.class);
+        this.bind(DAOContext.class).to(DAOContextImpl.class);
+        this.bind(DAOCustomer.class).to(DAOCustomerImpl.class);
+        this.bind(DAOGenericInvoice.class).to(DAOGenericInvoiceImpl.class);
+        this.bind(DAOGenericInvoiceEntry.class).to(DAOGenericInvoiceEntryImpl.class);
+        this.bind(DAOProduct.class).to(DAOProductImpl.class);
+        this.bind(DAOShippingPoint.class).to(DAOShippingPointImpl.class);
+        this.bind(DAOSupplier.class).to(DAOSupplierImpl.class);
+        this.bind(DAOTax.class).to(DAOTaxImpl.class);
+        this.bind(DAOTicket.class).to(DAOTicketImpl.class);
+        this.bind(DAOPayment.class).to(DAOPaymentImpl.class);
+        this.bind(DAOInvoiceSeries.class).to(DAOInvoiceSeriesImpl.class);
     }
-  }
+
+    public static class Initializer {
+
+        public Initializer() {
+            // Nothing to initialize
+        }
+    }
 
 }

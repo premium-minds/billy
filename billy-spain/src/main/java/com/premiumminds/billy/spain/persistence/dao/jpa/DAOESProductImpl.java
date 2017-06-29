@@ -29,19 +29,19 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESProductEntity;
 
 public class DAOESProductImpl extends DAOProductImpl implements DAOESProduct {
 
-  @Inject
-  public DAOESProductImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+    @Inject
+    public DAOESProductImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-  @Override
-  public ESProductEntity getEntityInstance() {
-    return new JPAESProductEntity();
-  }
+    @Override
+    public ESProductEntity getEntityInstance() {
+        return new JPAESProductEntity();
+    }
 
-  @Override
-  protected Class<JPAESProductEntity> getEntityClass() {
-    return JPAESProductEntity.class;
-  }
+    @Override
+    protected Class<JPAESProductEntity> getEntityClass() {
+        return JPAESProductEntity.class;
+    }
 
 }

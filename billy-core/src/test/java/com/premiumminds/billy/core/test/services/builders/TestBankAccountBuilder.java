@@ -29,29 +29,28 @@ import com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity;
 
 public class TestBankAccountBuilder extends AbstractTest {
 
-  private static final String BANK_ACCOUNT_YML = AbstractTest.YML_CONFIGS_DIR + "BankAccount.yml";
+    private static final String BANK_ACCOUNT_YML = AbstractTest.YML_CONFIGS_DIR + "BankAccount.yml";
 
-  @Test
-  public void doTest() {
-    MockBankAccountEntity mockBankAccount = this.createMockEntity(MockBankAccountEntity.class,
-        TestBankAccountBuilder.BANK_ACCOUNT_YML);
+    @Test
+    public void doTest() {
+        MockBankAccountEntity mockBankAccount =
+                this.createMockEntity(MockBankAccountEntity.class, TestBankAccountBuilder.BANK_ACCOUNT_YML);
 
-    Mockito.when(this.getInstance(DAOBankAccount.class).getEntityInstance())
-        .thenReturn(new MockBankAccountEntity());
+        Mockito.when(this.getInstance(DAOBankAccount.class).getEntityInstance())
+                .thenReturn(new MockBankAccountEntity());
 
-    BankAccount.Builder builder = this.getInstance(BankAccount.Builder.class);
+        BankAccount.Builder builder = this.getInstance(BankAccount.Builder.class);
 
-    builder.setBankAccountNumber(mockBankAccount.getBankAccountNumber())
-        .setBankIdentifier(mockBankAccount.getBankIdentifier())
-        .setIBANNumber(mockBankAccount.getIBANNumber())
-        .setOwnerName(mockBankAccount.getOwnerName());
+        builder.setBankAccountNumber(mockBankAccount.getBankAccountNumber())
+                .setBankIdentifier(mockBankAccount.getBankIdentifier()).setIBANNumber(mockBankAccount.getIBANNumber())
+                .setOwnerName(mockBankAccount.getOwnerName());
 
-    BankAccount bankAccount = builder.build();
+        BankAccount bankAccount = builder.build();
 
-    assert (bankAccount != null);
-    Assert.assertEquals(mockBankAccount.getIBANNumber(), bankAccount.getIBANNumber());
-    Assert.assertEquals(mockBankAccount.getBankIdentifier(), bankAccount.getBankIdentifier());
-    Assert.assertEquals(mockBankAccount.getBankAccountNumber(), bankAccount.getBankAccountNumber());
-    Assert.assertEquals(mockBankAccount.getOwnerName(), bankAccount.getOwnerName());
-  }
+        assert (bankAccount != null);
+        Assert.assertEquals(mockBankAccount.getIBANNumber(), bankAccount.getIBANNumber());
+        Assert.assertEquals(mockBankAccount.getBankIdentifier(), bankAccount.getBankIdentifier());
+        Assert.assertEquals(mockBankAccount.getBankAccountNumber(), bankAccount.getBankAccountNumber());
+        Assert.assertEquals(mockBankAccount.getOwnerName(), bankAccount.getOwnerName());
+    }
 }

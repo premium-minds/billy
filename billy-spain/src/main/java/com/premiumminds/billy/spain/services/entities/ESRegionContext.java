@@ -26,15 +26,15 @@ import com.premiumminds.billy.spain.services.builders.impl.ESRegionContextBuilde
 
 public interface ESRegionContext extends Context {
 
-  public static class Builder extends ESRegionContextBuilderImpl<Builder, ESRegionContext> {
+    public static class Builder extends ESRegionContextBuilderImpl<Builder, ESRegionContext> {
 
-    @Inject
-    public Builder(DAOESRegionContext daoESRegionContext) {
-      super(daoESRegionContext);
+        @Inject
+        public Builder(DAOESRegionContext daoESRegionContext) {
+            super(daoESRegionContext);
+        }
     }
-  }
 
-  @Override
-  public <T extends Context> T getParentContext();
+    @Override
+    public <T extends Context> T getParentContext();
 
 }

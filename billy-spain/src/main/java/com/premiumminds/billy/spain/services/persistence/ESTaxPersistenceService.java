@@ -31,61 +31,61 @@ import com.premiumminds.billy.spain.services.entities.ESTax;
 
 public class ESTaxPersistenceService implements PersistenceService<ESTax> {
 
-  protected final DAOESTax daoTax;
+    protected final DAOESTax daoTax;
 
-  @Inject
-  public ESTaxPersistenceService(DAOESTax daoTax) {
-    this.daoTax = daoTax;
-  }
-
-  @Override
-  public ESTax create(final Builder<ESTax> builder) {
-    try {
-      return new TransactionWrapper<ESTax>(daoTax) {
-
-        @Override
-        public ESTax runTransaction() throws Exception {
-          ESTaxEntity entity = (ESTaxEntity) builder.build();
-          return (ESTax) daoTax.create(entity);
-        }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
+    @Inject
+    public ESTaxPersistenceService(DAOESTax daoTax) {
+        this.daoTax = daoTax;
     }
-  }
 
-  @Override
-  public ESTax update(final Builder<ESTax> builder) {
-    try {
-      return new TransactionWrapper<ESTax>(daoTax) {
+    @Override
+    public ESTax create(final Builder<ESTax> builder) {
+        try {
+            return new TransactionWrapper<ESTax>(this.daoTax) {
 
-        @Override
-        public ESTax runTransaction() throws Exception {
-          ESTaxEntity entity = (ESTaxEntity) builder.build();
-          return (ESTax) daoTax.update(entity);
+                @Override
+                public ESTax runTransaction() throws Exception {
+                    ESTaxEntity entity = (ESTaxEntity) builder.build();
+                    return (ESTax) ESTaxPersistenceService.this.daoTax.create(entity);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
 
-  @Override
-  public ESTax get(final UID uid) {
-    try {
-      return new TransactionWrapper<ESTax>(daoTax) {
+    @Override
+    public ESTax update(final Builder<ESTax> builder) {
+        try {
+            return new TransactionWrapper<ESTax>(this.daoTax) {
 
-        @Override
-        public ESTax runTransaction() throws Exception {
-          return (ESTax) daoTax.get(uid);
+                @Override
+                public ESTax runTransaction() throws Exception {
+                    ESTaxEntity entity = (ESTaxEntity) builder.build();
+                    return (ESTax) ESTaxPersistenceService.this.daoTax.update(entity);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
+
+    @Override
+    public ESTax get(final UID uid) {
+        try {
+            return new TransactionWrapper<ESTax>(this.daoTax) {
+
+                @Override
+                public ESTax runTransaction() throws Exception {
+                    return (ESTax) ESTaxPersistenceService.this.daoTax.get(uid);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
 }

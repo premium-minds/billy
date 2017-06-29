@@ -23,28 +23,28 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public class ESIssuingParamsImpl extends IssuingParamsImpl implements ESIssuingParams {
 
-  public ESIssuingParamsImpl() {
-    super();
-  }
+    public ESIssuingParamsImpl() {
+        super();
+    }
 
-  @Override
-  public String getInvoiceSeries() throws ParameterNotFoundException {
-    return (String) this.getParameter(Keys.INVOICE_SERIES);
-  }
+    @Override
+    public String getInvoiceSeries() throws ParameterNotFoundException {
+        return (String) this.getParameter(Keys.INVOICE_SERIES);
+    }
 
-  @Override
-  public String getEACCode() throws ParameterNotFoundException {
-    return (String) this.getParameter(Keys.EAC_CODE);
-  }
+    @Override
+    public String getEACCode() throws ParameterNotFoundException {
+        return (String) this.getParameter(Keys.EAC_CODE);
+    }
 
-  @Override
-  public void setInvoiceSeries(String series) {
-    this.setParameter(Keys.INVOICE_SERIES, series);
-  }
+    @Override
+    public void setInvoiceSeries(String series) {
+        this.setParameter(Keys.INVOICE_SERIES, series);
+    }
 
-  @Override
-  public void setEACCode(String eacCode) {
-    this.setParameter(Keys.EAC_CODE, eacCode);
-  }
+    @Override
+    public void setEACCode(String eacCode) {
+        this.setParameter(Keys.EAC_CODE, eacCode);
+    }
 
 }

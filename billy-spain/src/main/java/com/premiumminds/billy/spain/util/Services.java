@@ -39,55 +39,53 @@ import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
 
 public class Services {
 
-  private final Injector injector;
-  private DocumentIssuingService issuingService;
-  private PersistenceServices persistenceService;
+    private final Injector injector;
+    private DocumentIssuingService issuingService;
+    private PersistenceServices persistenceService;
 
-  public Services(Injector injector) {
-    this.injector = injector;
-    this.issuingService = injector.getInstance(DocumentIssuingServiceImpl.class);
-    this.persistenceService = new PersistenceServices(injector);
-    this.setupServices();
-  }
+    public Services(Injector injector) {
+        this.injector = injector;
+        this.issuingService = injector.getInstance(DocumentIssuingServiceImpl.class);
+        this.persistenceService = new PersistenceServices(injector);
+        this.setupServices();
+    }
 
-  private void setupServices() {
-    this.issuingService.addHandler(ESInvoiceEntity.class,
-        this.injector.getInstance(ESInvoiceIssuingHandler.class));
-    this.issuingService.addHandler(ESCreditNoteEntity.class,
-        this.injector.getInstance(ESCreditNoteIssuingHandler.class));
-    this.issuingService.addHandler(ESSimpleInvoiceEntity.class,
-        this.injector.getInstance(ESSimpleInvoiceIssuingHandler.class));
-    this.issuingService.addHandler(ESReceiptEntity.class,
-        this.injector.getInstance(ESReceiptIssuingHandler.class));
-    this.issuingService.addHandler(ESCreditReceiptEntity.class,
-        this.injector.getInstance(ESCreditReceiptIssuingHandler.class));
-  }
+    private void setupServices() {
+        this.issuingService.addHandler(ESInvoiceEntity.class, this.injector.getInstance(ESInvoiceIssuingHandler.class));
+        this.issuingService.addHandler(ESCreditNoteEntity.class,
+                this.injector.getInstance(ESCreditNoteIssuingHandler.class));
+        this.issuingService.addHandler(ESSimpleInvoiceEntity.class,
+                this.injector.getInstance(ESSimpleInvoiceIssuingHandler.class));
+        this.issuingService.addHandler(ESReceiptEntity.class, this.injector.getInstance(ESReceiptIssuingHandler.class));
+        this.issuingService.addHandler(ESCreditReceiptEntity.class,
+                this.injector.getInstance(ESCreditReceiptIssuingHandler.class));
+    }
 
-  /**
-   * @return {@link PersistenceServices}
-   */
-  public PersistenceServices entities() {
-    return this.persistenceService;
-  }
+    /**
+     * @return {@link PersistenceServices}
+     */
+    public PersistenceServices entities() {
+        return this.persistenceService;
+    }
 
-  /**
-   * Issue a new document and store it in the database.
-   * 
-   * @param {@link
-   *          Builder} of the document to issue.
-   * @param {@link
-   *          IssuingParams} required to issue the document.
-   * @return The newly issued document
-   * @throws DocumentIssuingException
-   */
-  public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder,
-      ESIssuingParams issuingParameters) throws DocumentIssuingException {
-    return this.issuingService.issue(builder, issuingParameters);
-  }
+    /**
+     * Issue a new document and store it in the database.
+     *
+     * @param {@link
+     *        Builder} of the document to issue.
+     * @param {@link
+     *        IssuingParams} required to issue the document.
+     * @return The newly issued document
+     * @throws DocumentIssuingException
+     */
+    public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder, ESIssuingParams issuingParameters)
+            throws DocumentIssuingException {
+        return this.issuingService.issue(builder, issuingParameters);
+    }
 
-  public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder,
-      ESIssuingParams issuingParameters, String ticketUID) throws DocumentIssuingException {
-    return this.issuingService.issue(builder, issuingParameters, ticketUID);
-  }
+    public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder, ESIssuingParams issuingParameters,
+            String ticketUID) throws DocumentIssuingException {
+        return this.issuingService.issue(builder, issuingParameters, ticketUID);
+    }
 
 }

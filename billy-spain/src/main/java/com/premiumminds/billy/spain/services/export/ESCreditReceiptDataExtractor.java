@@ -36,59 +36,56 @@ import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
 public class ESCreditReceiptDataExtractor extends AbstractBillyDataExtractor
-    implements BillyDataExtractor<ESCreditReceiptData> {
+        implements BillyDataExtractor<ESCreditReceiptData> {
 
-  private final DAOESCreditReceipt daoESReceipt;
-  private final ESReceiptDataExtractor receiptExtractor;
+    private final DAOESCreditReceipt daoESReceipt;
+    private final ESReceiptDataExtractor receiptExtractor;
 
-  @Inject
-  public ESCreditReceiptDataExtractor(DAOESCreditReceipt daoESReceipt,
-      ESReceiptDataExtractor receiptExtractor) {
-    this.daoESReceipt = daoESReceipt;
-    this.receiptExtractor = receiptExtractor;
-  }
-
-  @Override
-  public ESCreditReceiptData extract(UID uid) throws ExportServiceException {
-    ESCreditReceiptEntity entity = (ESCreditReceiptEntity) daoESReceipt.get(uid); // FIXME:
-                                                                                  // Fix
-                                                                                  // the
-                                                                                  // DAOs
-                                                                                  // to
-                                                                                  // remove
-                                                                                  // this
-                                                                                  // cast
-    if (entity == null) {
-      throw new ExportServiceException(
-          "Unable to find entity with uid " + uid.toString() + " to be extracted");
+    @Inject
+    public ESCreditReceiptDataExtractor(DAOESCreditReceipt daoESReceipt, ESReceiptDataExtractor receiptExtractor) {
+        this.daoESReceipt = daoESReceipt;
+        this.receiptExtractor = receiptExtractor;
     }
 
-    List<PaymentData> payments = extractPayments(entity.getPayments());
-    BusinessData business = extractBusiness(entity.getBusiness());
-    List<ESCreditReceiptEntryData> entries = extractCreditEntries(entity.getEntries());
+    @Override
+    public ESCreditReceiptData extract(UID uid) throws ExportServiceException {
+        ESCreditReceiptEntity entity = (ESCreditReceiptEntity) this.daoESReceipt.get(uid); // FIXME:
+        // Fix
+        // the
+        // DAOs
+        // to
+        // remove
+        // this
+        // cast
+        if (entity == null) {
+            throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
+        }
 
-    return new ESCreditReceiptData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(),
-        payments, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-        entity.getAmountWithoutTax(), entity.getSettlementDescription());
-  }
+        List<PaymentData> payments = this.extractPayments(entity.getPayments());
+        BusinessData business = this.extractBusiness(entity.getBusiness());
+        List<ESCreditReceiptEntryData> entries = this.extractCreditEntries(entity.getEntries());
 
-  private List<ESCreditReceiptEntryData> extractCreditEntries(
-      List<ESCreditReceiptEntry> entryEntities) throws ExportServiceException {
-    List<ESCreditReceiptEntryData> entries = new ArrayList<ESCreditReceiptEntryData>(
-        entryEntities.size());
-    for (ESCreditReceiptEntry entry : entryEntities) {
-      ProductData product = new ProductData(entry.getProduct().getProductCode(),
-          entry.getProduct().getDescription());
-
-      List<TaxData> taxes = extractTaxes(entry.getTaxes());
-      ESReceiptData reference = receiptExtractor.extract(entry.getReference().getUID());
-
-      entries.add(new ESCreditReceiptEntryData(product, entry.getDescription(), entry.getQuantity(),
-          entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
-          entry.getAmountWithoutTax(), taxes, reference));
+        return new ESCreditReceiptData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
+                business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
+                entity.getSettlementDescription());
     }
 
-    return entries;
-  }
+    private List<ESCreditReceiptEntryData> extractCreditEntries(List<ESCreditReceiptEntry> entryEntities)
+            throws ExportServiceException {
+        List<ESCreditReceiptEntryData> entries = new ArrayList<>(entryEntities.size());
+        for (ESCreditReceiptEntry entry : entryEntities) {
+            ProductData product =
+                    new ProductData(entry.getProduct().getProductCode(), entry.getProduct().getDescription());
+
+            List<TaxData> taxes = this.extractTaxes(entry.getTaxes());
+            ESReceiptData reference = this.receiptExtractor.extract(entry.getReference().getUID());
+
+            entries.add(new ESCreditReceiptEntryData(product, entry.getDescription(), entry.getQuantity(),
+                    entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
+                    entry.getAmountWithoutTax(), taxes, reference));
+        }
+
+        return entries;
+    }
 
 }

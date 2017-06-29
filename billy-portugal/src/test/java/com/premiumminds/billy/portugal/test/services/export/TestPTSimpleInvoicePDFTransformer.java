@@ -54,77 +54,77 @@ import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 
 public class TestPTSimpleInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
-  public static final int NUM_ENTRIES = 10;
-  public static final String XSL_PATH = "src/main/resources/templates/pt_simpleinvoice.xsl";
-  public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-  public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
+    public static final int NUM_ENTRIES = 10;
+    public static final String XSL_PATH = "src/main/resources/templates/pt_simpleinvoice.xsl";
+    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 
-  private Injector mockedInjector;
-  private PTSimpleInvoicePDFFOPTransformer transformer;
-  private PTSimpleInvoiceDataExtractor extractor;
+    private Injector mockedInjector;
+    private PTSimpleInvoicePDFFOPTransformer transformer;
+    private PTSimpleInvoiceDataExtractor extractor;
 
-  @Before
-  public void setUp() throws FileNotFoundException {
+    @Before
+    public void setUp() throws FileNotFoundException {
 
-    mockedInjector = Guice.createInjector(
-        Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
+        this.mockedInjector = Guice
+                .createInjector(Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
 
-    InputStream xsl = new FileInputStream(XSL_PATH);
+        InputStream xsl = new FileInputStream(TestPTSimpleInvoicePDFTransformer.XSL_PATH);
 
-    transformer = new PTSimpleInvoicePDFFOPTransformer(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
-    extractor = mockedInjector.getInstance(PTSimpleInvoiceDataExtractor.class);
-  }
+        this.transformer = new PTSimpleInvoicePDFFOPTransformer(TestPTSimpleInvoicePDFTransformer.LOGO_PATH, xsl,
+                TestPTSimpleInvoicePDFTransformer.SOFTWARE_CERTIFICATE_NUMBER);
+        this.extractor = this.mockedInjector.getInstance(PTSimpleInvoiceDataExtractor.class);
+    }
 
-  @Test
-  public void testPDFcreation()
-      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+    @Test
+    public void testPDFcreation()
+            throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
 
-    UID uidEntity = UID.fromString("12345");
-    PTSimpleInvoiceEntity invoice = generatePTSimpleInvoice(PaymentMechanism.CASH);
-    DAOPTSimpleInvoice dao = mockedInjector.getInstance(DAOPTSimpleInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        UID uidEntity = UID.fromString("12345");
+        PTSimpleInvoiceEntity invoice = this.generatePTSimpleInvoice(PaymentMechanism.CASH);
+        DAOPTSimpleInvoice dao = this.mockedInjector.getInstance(DAOPTSimpleInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
 
-    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
-    PTSimpleInvoiceData entityData = extractor.extract(uidEntity);
-    transformer.transform(entityData, os);
-  }
+        PTSimpleInvoiceData entityData = this.extractor.extract(uidEntity);
+        this.transformer.transform(entityData, os);
+    }
 
-  @Test(expected = ExportServiceException.class)
-  public void testNonExistentEntity()
-      throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
+    @Test(expected = ExportServiceException.class)
+    public void testNonExistentEntity()
+            throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
 
-    UID uidEntity = UID.fromString("12345");
-    extractor.extract(uidEntity);
-  }
+        UID uidEntity = UID.fromString("12345");
+        this.extractor.extract(uidEntity);
+    }
 
-  @Test
-  public void testPDFCreationFromBundle()
-      throws ExportServiceException, IOException, DocumentIssuingException {
-    UID uidEntity = UID.fromString("12345");
-    PTSimpleInvoiceEntity invoice = generatePTSimpleInvoice(PaymentMechanism.CASH);
-    DAOPTSimpleInvoice dao = mockedInjector.getInstance(DAOPTSimpleInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+    @Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
+        UID uidEntity = UID.fromString("12345");
+        PTSimpleInvoiceEntity invoice = this.generatePTSimpleInvoice(PaymentMechanism.CASH);
+        DAOPTSimpleInvoice dao = this.mockedInjector.getInstance(DAOPTSimpleInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
 
-    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
-    InputStream xsl = new FileInputStream(XSL_PATH);
-    PTSimpleInvoiceTemplateBundle bundle = new PTSimpleInvoiceTemplateBundle(LOGO_PATH, xsl,
-        SOFTWARE_CERTIFICATE_NUMBER);
-    PTSimpleInvoicePDFFOPTransformer transformerBundle = new PTSimpleInvoicePDFFOPTransformer(
-        bundle);
+        InputStream xsl = new FileInputStream(TestPTSimpleInvoicePDFTransformer.XSL_PATH);
+        PTSimpleInvoiceTemplateBundle bundle =
+                new PTSimpleInvoiceTemplateBundle(TestPTSimpleInvoicePDFTransformer.LOGO_PATH, xsl,
+                        TestPTSimpleInvoicePDFTransformer.SOFTWARE_CERTIFICATE_NUMBER);
+        PTSimpleInvoicePDFFOPTransformer transformerBundle = new PTSimpleInvoicePDFFOPTransformer(bundle);
 
-    PTSimpleInvoiceData entityData = extractor.extract(uidEntity);
-    transformerBundle.transform(entityData, os);
-  }
+        PTSimpleInvoiceData entityData = this.extractor.extract(uidEntity);
+        transformerBundle.transform(entityData, os);
+    }
 
-  private PTSimpleInvoiceEntity generatePTSimpleInvoice(PaymentMechanism paymentMechanism) {
+    private PTSimpleInvoiceEntity generatePTSimpleInvoice(PaymentMechanism paymentMechanism) {
 
-    PTSimpleInvoiceEntity simpleInvoice = new PTSimpleInvoiceTestUtil(PTAbstractTest.injector)
-        .getSimpleInvoiceEntity();
-    simpleInvoice.setHash(
-        "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+        PTSimpleInvoiceEntity simpleInvoice =
+                new PTSimpleInvoiceTestUtil(PTAbstractTest.injector).getSimpleInvoiceEntity();
+        simpleInvoice.setHash(
+                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
-    return simpleInvoice;
-  }
+        return simpleInvoice;
+    }
 }

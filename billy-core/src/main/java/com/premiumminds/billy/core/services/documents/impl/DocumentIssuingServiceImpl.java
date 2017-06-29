@@ -42,86 +42,85 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
-  private static final Logger log = LoggerFactory.getLogger(DocumentIssuingServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(DocumentIssuingServiceImpl.class);
 
-  protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler> handlers;
-  protected DAOGenericInvoice daoInvoice;
-  protected TicketManager ticketManager;
+    protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler> handlers;
+    protected DAOGenericInvoice daoInvoice;
+    protected TicketManager ticketManager;
 
-  @Inject
-  public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice, TicketManager ticketManager) {
-    this.handlers = new HashMap<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler>();
-    this.daoInvoice = daoInvoice;
-    this.ticketManager = ticketManager;
-  }
+    @Inject
+    public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice, TicketManager ticketManager) {
+        this.handlers = new HashMap<>();
+        this.daoInvoice = daoInvoice;
+        this.ticketManager = ticketManager;
+    }
 
-  @Override
-  public void addHandler(Class<? extends GenericInvoiceEntity> handledClass,
-      DocumentIssuingHandler handler) {
-    this.handlers.put(handledClass, handler);
-  }
+    @Override
+    public void addHandler(Class<? extends GenericInvoiceEntity> handledClass, DocumentIssuingHandler handler) {
+        this.handlers.put(handledClass, handler);
+    }
 
-  @Override
-  public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
-      final IssuingParams parameters) throws DocumentIssuingException {
+    @Override
+    public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
+            final IssuingParams parameters) throws DocumentIssuingException {
 
-    try {
-      return new TransactionWrapper<T>(daoInvoice) {
+        try {
+            return new TransactionWrapper<T>(this.daoInvoice) {
 
-        @Override
-        public T runTransaction() throws Exception {
-          return issueDocument(documentBuilder, parameters);
+                @Override
+                public T runTransaction() throws Exception {
+                    return DocumentIssuingServiceImpl.this.issueDocument(documentBuilder, parameters);
+                }
+            }.execute();
+        } catch (Exception e) {
+            DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
+            throw new DocumentIssuingException(e);
         }
-      }.execute();
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      throw new DocumentIssuingException(e);
     }
-  }
 
-  @Override
-  public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
-      final IssuingParams parameters, final String ticketUID) throws DocumentIssuingException {
+    @Override
+    public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
+            final IssuingParams parameters, final String ticketUID) throws DocumentIssuingException {
 
-    try {
-      return new TransactionWrapper<T>(daoInvoice) {
+        try {
+            return new TransactionWrapper<T>(this.daoInvoice) {
 
-        @Override
-        public T runTransaction() throws Exception {
+                @Override
+                public T runTransaction() throws Exception {
 
-          if (!ticketManager.ticketIssued(ticketUID))
-            throw new InvalidTicketException();
+                    if (!DocumentIssuingServiceImpl.this.ticketManager.ticketIssued(ticketUID)) {
+                        throw new InvalidTicketException();
+                    }
 
-          T result = issueDocument(documentBuilder, parameters);
+                    T result = DocumentIssuingServiceImpl.this.issueDocument(documentBuilder, parameters);
 
-          ticketManager.updateTicket(new UID(ticketUID), result.getUID(), result.getDate(),
-              result.getCreateTimestamp());
+                    DocumentIssuingServiceImpl.this.ticketManager.updateTicket(new UID(ticketUID), result.getUID(),
+                            result.getDate(), result.getCreateTimestamp());
 
-          return result;
+                    return result;
+                }
+            }.execute();
+        } catch (InvalidTicketException e) {
+            throw e;
+        } catch (RuntimeException e) {
+            throw new DocumentIssuingException(e);
+        } catch (Exception e) {
+            DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
+            throw new DocumentIssuingException(e);
         }
-      }.execute();
-    } catch (InvalidTicketException e) {
-      throw e;
-    } catch (RuntimeException e) {
-      throw new DocumentIssuingException(e);
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-      throw new DocumentIssuingException(e);
-    }
-  }
-
-  private <T extends GenericInvoice> T issueDocument(Builder<T> documentBuilder,
-      final IssuingParams parameters) throws DocumentIssuingException {
-
-    final T document = documentBuilder.build();
-    final Type[] types = document.getClass().getGenericInterfaces();
-    for (Type type : types) {
-      if (handlers.containsKey(type)) {
-        return handlers.get(type).issue(document, parameters);
-      }
     }
 
-    throw new RuntimeException(
-        "Cannot handle document : " + document.getClass().getCanonicalName());
-  }
+    private <T extends GenericInvoice> T issueDocument(Builder<T> documentBuilder, final IssuingParams parameters)
+            throws DocumentIssuingException {
+
+        final T document = documentBuilder.build();
+        final Type[] types = document.getClass().getGenericInterfaces();
+        for (Type type : types) {
+            if (this.handlers.containsKey(type)) {
+                return this.handlers.get(type).issue(document, parameters);
+            }
+        }
+
+        throw new RuntimeException("Cannot handle document : " + document.getClass().getCanonicalName());
+    }
 }

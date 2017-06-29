@@ -24,10 +24,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 
 public interface DAOPTBusiness extends DAOBusiness {
 
-  @Override
-  public PTBusinessEntity getEntityInstance();
+    @Override
+    public PTBusinessEntity getEntityInstance();
 
-  @Override
-  public PTBusinessEntity get(UID uid);
+    @Override
+    public PTBusinessEntity get(UID uid);
 
 }

@@ -24,7 +24,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.spain.services.entities.ESPayment;
 
 public interface ESPaymentBuilder<TBuilder extends ESPaymentBuilder<TBuilder, TPayment>, TPayment extends ESPayment>
-    extends Builder<TPayment> {
+        extends Builder<TPayment> {
 
-  public TBuilder setPaymentAmount(BigDecimal amount);
+    public TBuilder setPaymentAmount(BigDecimal amount);
 }

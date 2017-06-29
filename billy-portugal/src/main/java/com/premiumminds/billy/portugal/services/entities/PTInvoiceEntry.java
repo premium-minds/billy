@@ -30,22 +30,21 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTManualInvoiceEnt
 
 public interface PTInvoiceEntry extends PTGenericInvoiceEntry {
 
-  public static class Builder extends PTInvoiceEntryBuilderImpl<Builder, PTInvoiceEntry> {
+    public static class Builder extends PTInvoiceEntryBuilderImpl<Builder, PTInvoiceEntry> {
 
-    @Inject
-    public Builder(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-        DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
-      super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
+        @Inject
+        public Builder(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
+                DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+            super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
+        }
     }
-  }
 
-  public static class ManualBuilder
-      extends PTManualInvoiceEntryBuilderImpl<ManualBuilder, PTInvoiceEntry> {
+    public static class ManualBuilder extends PTManualInvoiceEntryBuilderImpl<ManualBuilder, PTInvoiceEntry> {
 
-    @Inject
-    public ManualBuilder(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-        DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
-      super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
+        @Inject
+        public ManualBuilder(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
+                DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+            super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
+        }
     }
-  }
 }

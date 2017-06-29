@@ -41,61 +41,57 @@ import com.premiumminds.billy.spain.test.fixtures.MockESBusinessEntity;
 
 public class TestESBusinessBuilder extends ESAbstractTest {
 
-  private static final String ESBUSINESS_YML = AbstractTest.YML_CONFIGS_DIR + "ESBusiness.yml";
+    private static final String ESBUSINESS_YML = AbstractTest.YML_CONFIGS_DIR + "ESBusiness.yml";
 
-  @Test
-  public void doTest() {
-    MockESBusinessEntity mockBusiness = this.createMockEntity(MockESBusinessEntity.class,
-        TestESBusinessBuilder.ESBUSINESS_YML);
+    @Test
+    public void doTest() {
+        MockESBusinessEntity mockBusiness =
+                this.createMockEntity(MockESBusinessEntity.class, TestESBusinessBuilder.ESBUSINESS_YML);
 
-    Mockito.when(this.getInstance(DAOESBusiness.class).getEntityInstance())
-        .thenReturn(new MockESBusinessEntity());
+        Mockito.when(this.getInstance(DAOESBusiness.class).getEntityInstance()).thenReturn(new MockESBusinessEntity());
 
-    Mockito.when(this.getInstance(DAOESRegionContext.class).get(Matchers.any(UID.class)))
-        .thenReturn((ESRegionContextEntity) mockBusiness.getOperationalContext());
+        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Matchers.any(UID.class)))
+                .thenReturn((ESRegionContextEntity) mockBusiness.getOperationalContext());
 
-    ESBusiness.Builder builder = this.getInstance(ESBusiness.Builder.class);
+        ESBusiness.Builder builder = this.getInstance(ESBusiness.Builder.class);
 
-    ESContact.Builder mockMainContactBuilder = this.getMock(ESContact.Builder.class);
-    Mockito.when(mockMainContactBuilder.build())
-        .thenReturn((ESContactEntity) mockBusiness.getMainContact());
+        ESContact.Builder mockMainContactBuilder = this.getMock(ESContact.Builder.class);
+        Mockito.when(mockMainContactBuilder.build()).thenReturn((ESContactEntity) mockBusiness.getMainContact());
 
-    ESApplication.Builder mockApplicationBuilder = this.getMock(ESApplication.Builder.class);
-    Mockito.when(mockApplicationBuilder.build())
-        .thenReturn((ESApplicationEntity) mockBusiness.getApplications().get(0));
+        ESApplication.Builder mockApplicationBuilder = this.getMock(ESApplication.Builder.class);
+        Mockito.when(mockApplicationBuilder.build())
+                .thenReturn((ESApplicationEntity) mockBusiness.getApplications().get(0));
 
-    ESAddress.Builder mockAddressBuilder = this.getMock(ESAddress.Builder.class);
-    Mockito.when(mockAddressBuilder.build())
-        .thenReturn((ESAddressEntity) mockBusiness.getAddress());
+        ESAddress.Builder mockAddressBuilder = this.getMock(ESAddress.Builder.class);
+        Mockito.when(mockAddressBuilder.build()).thenReturn((ESAddressEntity) mockBusiness.getAddress());
 
-    ESAddress.Builder mockShippingAddressBuilder = this.getMock(ESAddress.Builder.class);
-    Mockito.when(mockShippingAddressBuilder.build())
-        .thenReturn((ESAddressEntity) mockBusiness.getShippingAddress());
+        ESAddress.Builder mockShippingAddressBuilder = this.getMock(ESAddress.Builder.class);
+        Mockito.when(mockShippingAddressBuilder.build())
+                .thenReturn((ESAddressEntity) mockBusiness.getShippingAddress());
 
-    ESAddress.Builder mockBillingAddressBuilder = this.getMock(ESAddress.Builder.class);
-    Mockito.when(mockBillingAddressBuilder.build())
-        .thenReturn((ESAddressEntity) mockBusiness.getBillingAddress());
+        ESAddress.Builder mockBillingAddressBuilder = this.getMock(ESAddress.Builder.class);
+        Mockito.when(mockBillingAddressBuilder.build()).thenReturn((ESAddressEntity) mockBusiness.getBillingAddress());
 
-    builder.setFinancialID(mockBusiness.getFinancialID(), ES_COUNTRY_CODE)
-        .setName(mockBusiness.getName()).setAddress(mockAddressBuilder)
-        .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
-        .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
-        .setWebsite(mockBusiness.getWebsiteAddress())
-        .setOperationalContextUID(mockBusiness.getOperationalContext().getUID())
-        .setCommercialName(mockBusiness.getCommercialName());
+        builder.setFinancialID(mockBusiness.getFinancialID(), ESAbstractTest.ES_COUNTRY_CODE)
+                .setName(mockBusiness.getName()).setAddress(mockAddressBuilder)
+                .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
+                .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
+                .setWebsite(mockBusiness.getWebsiteAddress())
+                .setOperationalContextUID(mockBusiness.getOperationalContext().getUID())
+                .setCommercialName(mockBusiness.getCommercialName());
 
-    Business business = builder.build();
+        Business business = builder.build();
 
-    Assert.assertTrue(business != null);
+        Assert.assertTrue(business != null);
 
-    Assert.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
-    Assert.assertEquals(mockBusiness.getName(), business.getName());
-    Assert.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
-    Assert.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
+        Assert.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+        Assert.assertEquals(mockBusiness.getName(), business.getName());
+        Assert.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
+        Assert.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
 
-    Assert.assertTrue(business.getContacts() != null);
+        Assert.assertTrue(business.getContacts() != null);
 
-    Assert.assertTrue(business.getApplications() != null);
-    Assert.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
-  }
+        Assert.assertTrue(business.getApplications() != null);
+        Assert.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
+    }
 }

@@ -54,71 +54,71 @@ import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
 
 public class TestESSimpleInvoicePDFTransformer extends ESPersistencyAbstractTest {
 
-  public static final int NUM_ENTRIES = 10;
-  public static final String XSL_PATH = "src/main/resources/templates/es_simpleinvoice.xsl";
-  public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    public static final int NUM_ENTRIES = 10;
+    public static final String XSL_PATH = "src/main/resources/templates/es_simpleinvoice.xsl";
+    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-  private Injector mockedInjector;
-  private ESSimpleInvoicePDFFOPTransformer transformer;
-  private ESSimpleInvoiceDataExtractor extractor;
+    private Injector mockedInjector;
+    private ESSimpleInvoicePDFFOPTransformer transformer;
+    private ESSimpleInvoiceDataExtractor extractor;
 
-  @Before
-  public void setUp() throws FileNotFoundException {
+    @Before
+    public void setUp() throws FileNotFoundException {
 
-    mockedInjector = Guice.createInjector(
-        Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
+        this.mockedInjector =
+                Guice.createInjector(Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
 
-    InputStream xsl = new FileInputStream(XSL_PATH);
+        InputStream xsl = new FileInputStream(TestESSimpleInvoicePDFTransformer.XSL_PATH);
 
-    transformer = new ESSimpleInvoicePDFFOPTransformer(LOGO_PATH, xsl);
-    extractor = mockedInjector.getInstance(ESSimpleInvoiceDataExtractor.class);
-  }
+        this.transformer = new ESSimpleInvoicePDFFOPTransformer(TestESSimpleInvoicePDFTransformer.LOGO_PATH, xsl);
+        this.extractor = this.mockedInjector.getInstance(ESSimpleInvoiceDataExtractor.class);
+    }
 
-  @Test
-  public void testPDFcreation()
-      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+    @Test
+    public void testPDFcreation()
+            throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
 
-    ESSimpleInvoiceEntity entity = generateESSimpleInvoice(PaymentMechanism.CASH);
-    DAOESSimpleInvoice dao = mockedInjector.getInstance(DAOESSimpleInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        ESSimpleInvoiceEntity entity = this.generateESSimpleInvoice(PaymentMechanism.CASH);
+        DAOESSimpleInvoice dao = this.mockedInjector.getInstance(DAOESSimpleInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
 
-    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
-    ESSimpleInvoiceData entityData = extractor.extract(entity.getUID());
-    transformer.transform(entityData, os);
-  }
+        ESSimpleInvoiceData entityData = this.extractor.extract(entity.getUID());
+        this.transformer.transform(entityData, os);
+    }
 
-  @Test(expected = ExportServiceException.class)
-  public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException,
-      URISyntaxException, DocumentIssuingException, IOException {
+    @Test(expected = ExportServiceException.class)
+    public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+            DocumentIssuingException, IOException {
 
-    UID uidEntity = UID.fromString("12345");
+        UID uidEntity = UID.fromString("12345");
 
-    extractor.extract(uidEntity);
-  }
+        this.extractor.extract(uidEntity);
+    }
 
-  @Test
-  public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
-    ESSimpleInvoiceEntity entity = generateESSimpleInvoice(PaymentMechanism.CASH);
-    DAOESSimpleInvoice dao = mockedInjector.getInstance(DAOESSimpleInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+    @Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+        ESSimpleInvoiceEntity entity = this.generateESSimpleInvoice(PaymentMechanism.CASH);
+        DAOESSimpleInvoice dao = this.mockedInjector.getInstance(DAOESSimpleInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
 
-    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
-    InputStream xsl = new FileInputStream(XSL_PATH);
-    ESSimpleInvoiceTemplateBundle bundle = new ESSimpleInvoiceTemplateBundle(LOGO_PATH, xsl);
-    ESSimpleInvoicePDFFOPTransformer transformerBundle = new ESSimpleInvoicePDFFOPTransformer(
-        bundle);
+        InputStream xsl = new FileInputStream(TestESSimpleInvoicePDFTransformer.XSL_PATH);
+        ESSimpleInvoiceTemplateBundle bundle =
+                new ESSimpleInvoiceTemplateBundle(TestESSimpleInvoicePDFTransformer.LOGO_PATH, xsl);
+        ESSimpleInvoicePDFFOPTransformer transformerBundle = new ESSimpleInvoicePDFFOPTransformer(bundle);
 
-    ESSimpleInvoiceData entityData = extractor.extract(entity.getUID());
-    transformerBundle.transform(entityData, os);
-  }
+        ESSimpleInvoiceData entityData = this.extractor.extract(entity.getUID());
+        transformerBundle.transform(entityData, os);
+    }
 
-  private ESSimpleInvoiceEntity generateESSimpleInvoice(PaymentMechanism paymentMechanism) {
+    private ESSimpleInvoiceEntity generateESSimpleInvoice(PaymentMechanism paymentMechanism) {
 
-    ESSimpleInvoiceEntity simpleInvoice = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
-        .getSimpleInvoiceEntity();
+        ESSimpleInvoiceEntity simpleInvoice =
+                new ESSimpleInvoiceTestUtil(ESAbstractTest.injector).getSimpleInvoiceEntity();
 
-    return simpleInvoice;
-  }
+        return simpleInvoice;
+    }
 }

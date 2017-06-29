@@ -28,17 +28,18 @@ import com.premiumminds.billy.portugal.PortugalDependencyModule;
 
 public class PTAbstractTest extends AbstractTest {
 
-  protected static Injector injector;
-  protected static final String PT_COUNTRY_CODE = "PT";
+    protected static Injector injector;
+    protected static final String PT_COUNTRY_CODE = "PT";
 
-  @BeforeClass
-  public static void setUpClass() {
-    PTAbstractTest.injector = Guice.createInjector(
-        Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
-  }
+    @BeforeClass
+    public static void setUpClass() {
+        PTAbstractTest.injector = Guice
+                .createInjector(Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
+    }
 
-  public <T> T getInstance(Class<T> clazz) {
-    return PTAbstractTest.injector.getInstance(clazz);
-  }
+    @Override
+    public <T> T getInstance(Class<T> clazz) {
+        return PTAbstractTest.injector.getInstance(clazz);
+    }
 
 }

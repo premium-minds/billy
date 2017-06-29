@@ -29,19 +29,19 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESContactEntity;
 
 public class DAOESContactImpl extends DAOContactImpl implements DAOESContact {
 
-  @Inject
-  public DAOESContactImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+    @Inject
+    public DAOESContactImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-  @Override
-  public ESContactEntity getEntityInstance() {
-    return new JPAESContactEntity();
-  }
+    @Override
+    public ESContactEntity getEntityInstance() {
+        return new JPAESContactEntity();
+    }
 
-  @Override
-  protected Class<JPAESContactEntity> getEntityClass() {
-    return JPAESContactEntity.class;
-  }
+    @Override
+    protected Class<JPAESContactEntity> getEntityClass() {
+        return JPAESContactEntity.class;
+    }
 
 }

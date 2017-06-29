@@ -34,11 +34,11 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 @Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE")
 public class JPAESCreditNoteEntity extends JPAESGenericInvoiceEntity implements ESCreditNoteEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SuppressWarnings({ "unchecked" })
-  @Override
-  public List<ESCreditNoteEntry> getEntries() {
-    return (List<ESCreditNoteEntry>) super.getEntries();
-  }
+    @SuppressWarnings({ "unchecked" })
+    @Override
+    public List<ESCreditNoteEntry> getEntries() {
+        return (List<ESCreditNoteEntry>) super.getEntries();
+    }
 }

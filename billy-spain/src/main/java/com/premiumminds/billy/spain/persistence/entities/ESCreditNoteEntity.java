@@ -26,9 +26,9 @@ import com.premiumminds.billy.spain.services.entities.ESPayment;
 
 public interface ESCreditNoteEntity extends ESGenericInvoiceEntity, ESCreditNote {
 
-  @Override
-  public List<ESCreditNoteEntry> getEntries();
+    @Override
+    public List<ESCreditNoteEntry> getEntries();
 
-  @Override
-  public List<ESPayment> getPayments();
+    @Override
+    public List<ESPayment> getPayments();
 }

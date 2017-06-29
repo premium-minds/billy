@@ -31,24 +31,24 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESApplicationEnt
 
 public class DAOESApplicationImpl extends DAOApplicationImpl implements DAOESApplication {
 
-  @Inject
-  public DAOESApplicationImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+    @Inject
+    public DAOESApplicationImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-  @Override
-  public ESApplicationEntity getEntityInstance() {
-    return new JPAESApplicationEntity();
-  }
+    @Override
+    public ESApplicationEntity getEntityInstance() {
+        return new JPAESApplicationEntity();
+    }
 
-  @Override
-  protected Class<JPAESApplicationEntity> getEntityClass() {
-    return JPAESApplicationEntity.class;
-  }
+    @Override
+    protected Class<JPAESApplicationEntity> getEntityClass() {
+        return JPAESApplicationEntity.class;
+    }
 
-  @Override
-  public ESApplicationEntity get(UID uid) throws NoResultException {
-    return (ESApplicationEntity) super.get(uid);
-  }
+    @Override
+    public ESApplicationEntity get(UID uid) throws NoResultException {
+        return (ESApplicationEntity) super.get(uid);
+    }
 
 }

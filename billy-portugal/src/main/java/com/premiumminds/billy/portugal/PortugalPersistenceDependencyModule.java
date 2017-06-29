@@ -25,24 +25,24 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class PortugalPersistenceDependencyModule extends AbstractModule {
 
-  private final String persistenceUnitId;
+    private final String persistenceUnitId;
 
-  public PortugalPersistenceDependencyModule(String persistenceUnitId) {
-    this.persistenceUnitId = persistenceUnitId;
-  }
-
-  @Override
-  protected void configure() {
-    JpaPersistModule persistModule = new JpaPersistModule(persistenceUnitId);
-    this.install(persistModule);
-  }
-
-  public static class Initializer {
-
-    @Inject
-    public Initializer(PersistService persistService) {
-      persistService.start();
+    public PortugalPersistenceDependencyModule(String persistenceUnitId) {
+        this.persistenceUnitId = persistenceUnitId;
     }
-  }
+
+    @Override
+    protected void configure() {
+        JpaPersistModule persistModule = new JpaPersistModule(this.persistenceUnitId);
+        this.install(persistModule);
+    }
+
+    public static class Initializer {
+
+        @Inject
+        public Initializer(PersistService persistService) {
+            persistService.start();
+        }
+    }
 
 }

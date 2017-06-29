@@ -23,6 +23,8 @@ import java.util.Currency;
 
 import javax.validation.ValidationException;
 
+import org.apache.commons.lang3.Validate;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
@@ -40,61 +42,58 @@ import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
 public abstract class ESManualBuilderImpl<TBuilder extends ESManualBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESGenericInvoiceEntry, TDocument extends ESGenericInvoice>
-    extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-    implements ESManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
+        extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+        implements ESManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-  public ESManualBuilderImpl(DAOESGenericInvoice daoESGenericInvoice, DAOESBusiness daoESBusiness,
-      DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
-    super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
-  }
-
-  @Override
-  @NotOnUpdate
-  public TBuilder setTaxAmount(BigDecimal taxAmount) {
-    this.getTypeInstance().setTaxAmount(taxAmount);
-    return this.getBuilder();
-  }
-
-  @Override
-  @NotOnUpdate
-  public TBuilder setAmount(AmountType type, BigDecimal amount) {
-    BillyValidator.notNull(type,
-        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit_amount_type"));
-    BillyValidator.notNull(amount,
-        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
-
-    switch (type) {
-    case WITH_TAX:
-      this.getTypeInstance().setAmountWithTax(amount);
-      break;
-    case WITHOUT_TAX:
-      this.getTypeInstance().setAmountWithoutTax(amount);
-      break;
+    public ESManualBuilderImpl(DAOESGenericInvoice daoESGenericInvoice, DAOESBusiness daoESBusiness,
+            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+        super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
     }
-    return this.getBuilder();
-  }
 
-  @Override
-  protected void validateValues() throws ValidationException {
-    GenericInvoiceEntity i = (GenericInvoiceEntity) this.getTypeInstance();
-    i.setCurrency(Currency.getInstance("EUR"));
-
-    for (GenericInvoiceEntry e : i.getEntries()) {
-      if (e.getCurrency() == null) {
-        GenericInvoiceEntryEntity entry = (GenericInvoiceEntryEntity) e;
-        entry.setCurrency(i.getCurrency());
-        e = entry;
-      } else {
-        BillyValidator
-            .isTrue(i.getCurrency().getCurrencyCode().equals(e.getCurrency().getCurrencyCode()));
-      }
+    @Override
+    @NotOnUpdate
+    public TBuilder setTaxAmount(BigDecimal taxAmount) {
+        this.getTypeInstance().setTaxAmount(taxAmount);
+        return this.getBuilder();
     }
-  }
 
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    ESGenericInvoiceEntity i = (ESGenericInvoiceEntity) this.getTypeInstance();
-    validateESInstance(i);
-  }
+    @Override
+    @NotOnUpdate
+    public TBuilder setAmount(AmountType type, BigDecimal amount) {
+        BillyValidator.notNull(type, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit_amount_type"));
+        BillyValidator.notNull(amount, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
+
+        switch (type) {
+            case WITH_TAX:
+                this.getTypeInstance().setAmountWithTax(amount);
+                break;
+            case WITHOUT_TAX:
+                this.getTypeInstance().setAmountWithoutTax(amount);
+                break;
+        }
+        return this.getBuilder();
+    }
+
+    @Override
+    protected void validateValues() throws ValidationException {
+        GenericInvoiceEntity i = this.getTypeInstance();
+        i.setCurrency(Currency.getInstance("EUR"));
+
+        for (GenericInvoiceEntry e : i.getEntries()) {
+            if (e.getCurrency() == null) {
+                GenericInvoiceEntryEntity entry = (GenericInvoiceEntryEntity) e;
+                entry.setCurrency(i.getCurrency());
+                e = entry;
+            } else {
+                Validate.isTrue(i.getCurrency().getCurrencyCode().equals(e.getCurrency().getCurrencyCode()));
+            }
+        }
+    }
+
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        ESGenericInvoiceEntity i = this.getTypeInstance();
+        this.validateESInstance(i);
+    }
 
 }

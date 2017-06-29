@@ -22,6 +22,6 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 
 public interface Builder<T> {
 
-  public T build() throws BillyValidationException;
+    public T build() throws BillyValidationException;
 
 }

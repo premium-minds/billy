@@ -23,10 +23,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESAddressEntity;
 
 public class MockESAddressEntity extends MockAddressEntity implements ESAddressEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public MockESAddressEntity() {
+    public MockESAddressEntity() {
 
-  }
+    }
 
 }

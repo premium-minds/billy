@@ -33,18 +33,18 @@ import com.premiumminds.billy.spain.persistence.entities.ESSupplierEntity;
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
 public class JPAESSupplierEntity extends JPASupplierEntity implements ESSupplierEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Column(name = "REFERRAL_NAME")
-  protected String referralName;
+    @Column(name = "REFERRAL_NAME")
+    protected String referralName;
 
-  @Override
-  public String getReferralName() {
-    return this.referralName;
-  }
+    @Override
+    public String getReferralName() {
+        return this.referralName;
+    }
 
-  @Override
-  public void setReferralName(String referralName) {
-    this.referralName = referralName;
-  }
+    @Override
+    public void setReferralName(String referralName) {
+        this.referralName = referralName;
+    }
 }

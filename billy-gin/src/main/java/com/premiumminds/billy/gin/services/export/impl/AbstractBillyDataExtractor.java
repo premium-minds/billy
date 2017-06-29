@@ -40,62 +40,60 @@ import com.premiumminds.billy.gin.services.export.TaxData;
 
 public abstract class AbstractBillyDataExtractor {
 
-  protected CostumerData extractCostumer(Customer costumerEntity) {
-    Address costumerAddressEntity = costumerEntity.getBillingAddress();
-    AddressData costumerBillingAddress = new AddressData(costumerAddressEntity.getISOCountry(),
-        costumerAddressEntity.getDetails(), costumerAddressEntity.getCity(),
-        costumerAddressEntity.getRegion(), costumerAddressEntity.getPostalCode());
-    return new CostumerData(costumerEntity.getUID(), costumerEntity.getTaxRegistrationNumber(),
-        costumerEntity.getName(), costumerBillingAddress);
-  }
-
-  protected BusinessData extractBusiness(Business businessEntity) {
-    Address businessAddressEntity = businessEntity.getAddress();
-    AddressData businessAddress = new AddressData(businessAddressEntity.getISOCountry(),
-        businessAddressEntity.getDetails(), businessAddressEntity.getCity(),
-        businessAddressEntity.getRegion(), businessAddressEntity.getPostalCode());
-    Contact contactEntity = businessEntity.getMainContact();
-    ContactData businessContact = new ContactData(contactEntity.getTelephone(),
-        contactEntity.getFax(), contactEntity.getEmail());
-
-    return new BusinessData(businessEntity.getName(), businessEntity.getFinancialID(),
-        businessAddress, businessContact);
-  }
-
-  protected List<InvoiceEntryData> extractEntries(
-      List<? extends GenericInvoiceEntry> entryEntities) {
-    List<InvoiceEntryData> entries = new ArrayList<InvoiceEntryData>(entryEntities.size());
-    for (GenericInvoiceEntry entry : entryEntities) {
-      ProductData product = new ProductData(entry.getProduct().getProductCode(),
-          entry.getProduct().getDescription());
-
-      List<TaxData> taxes = extractTaxes(entry.getTaxes());
-
-      entries.add(new InvoiceEntryData(product, entry.getDescription(), entry.getQuantity(),
-          entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
-          entry.getAmountWithoutTax(), taxes));
+    protected CostumerData extractCostumer(Customer costumerEntity) {
+        Address costumerAddressEntity = costumerEntity.getBillingAddress();
+        AddressData costumerBillingAddress = new AddressData(costumerAddressEntity.getISOCountry(),
+                costumerAddressEntity.getDetails(), costumerAddressEntity.getCity(), costumerAddressEntity.getRegion(),
+                costumerAddressEntity.getPostalCode());
+        return new CostumerData(costumerEntity.getUID(), costumerEntity.getTaxRegistrationNumber(),
+                costumerEntity.getName(), costumerBillingAddress);
     }
 
-    return entries;
-  }
+    protected BusinessData extractBusiness(Business businessEntity) {
+        Address businessAddressEntity = businessEntity.getAddress();
+        AddressData businessAddress = new AddressData(businessAddressEntity.getISOCountry(),
+                businessAddressEntity.getDetails(), businessAddressEntity.getCity(), businessAddressEntity.getRegion(),
+                businessAddressEntity.getPostalCode());
+        Contact contactEntity = businessEntity.getMainContact();
+        ContactData businessContact =
+                new ContactData(contactEntity.getTelephone(), contactEntity.getFax(), contactEntity.getEmail());
 
-  protected List<TaxData> extractTaxes(Collection<Tax> taxEntities) {
-    List<TaxData> taxes = new ArrayList<TaxData>(taxEntities.size());
-    for (Tax tax : taxEntities) {
-      taxes.add(new TaxData(tax.getUID(), tax.getValue(), tax.getTaxRateType(),
-          tax.getDescription(), tax.getDesignation()));
+        return new BusinessData(businessEntity.getName(), businessEntity.getFinancialID(), businessAddress,
+                businessContact);
     }
 
-    return taxes;
-  }
+    protected List<InvoiceEntryData> extractEntries(List<? extends GenericInvoiceEntry> entryEntities) {
+        List<InvoiceEntryData> entries = new ArrayList<>(entryEntities.size());
+        for (GenericInvoiceEntry entry : entryEntities) {
+            ProductData product =
+                    new ProductData(entry.getProduct().getProductCode(), entry.getProduct().getDescription());
 
-  protected List<PaymentData> extractPayments(List<? extends Payment> paymentEntities) {
-    List<PaymentData> payments = new ArrayList<PaymentData>(paymentEntities.size());
-    for (Payment payment : paymentEntities) {
-      payments.add(new PaymentData(payment.getPaymentMethod()));
+            List<TaxData> taxes = this.extractTaxes(entry.getTaxes());
+
+            entries.add(new InvoiceEntryData(product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(),
+                    entry.getUnitAmountWithTax(), entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes));
+        }
+
+        return entries;
     }
 
-    return payments;
-  }
+    protected List<TaxData> extractTaxes(Collection<Tax> taxEntities) {
+        List<TaxData> taxes = new ArrayList<>(taxEntities.size());
+        for (Tax tax : taxEntities) {
+            taxes.add(new TaxData(tax.getUID(), tax.getValue(), tax.getTaxRateType(), tax.getDescription(),
+                    tax.getDesignation()));
+        }
+
+        return taxes;
+    }
+
+    protected List<PaymentData> extractPayments(List<? extends Payment> paymentEntities) {
+        List<PaymentData> payments = new ArrayList<>(paymentEntities.size());
+        for (Payment payment : paymentEntities) {
+            payments.add(new PaymentData(payment.getPaymentMethod()));
+        }
+
+        return payments;
+    }
 
 }

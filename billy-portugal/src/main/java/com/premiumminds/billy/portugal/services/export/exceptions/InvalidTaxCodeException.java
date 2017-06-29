@@ -20,10 +20,10 @@ package com.premiumminds.billy.portugal.services.export.exceptions;
 
 public class InvalidTaxCodeException extends Exception {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public InvalidTaxCodeException(String code) {
-    super("Invalid tax code: " + code);
-  }
+    public InvalidTaxCodeException(String code) {
+        super("Invalid tax code: " + code);
+    }
 
 }

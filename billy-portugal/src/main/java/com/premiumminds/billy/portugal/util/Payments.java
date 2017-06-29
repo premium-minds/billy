@@ -24,23 +24,23 @@ import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public class Payments {
 
-  private final Injector injector;
+    private final Injector injector;
 
-  public Payments(Injector injector) {
-    this.injector = injector;
-  }
+    public Payments(Injector injector) {
+        this.injector = injector;
+    }
 
-  public PTPayment.Builder builder() {
-    return getInstance(PTPayment.Builder.class);
-  }
+    public PTPayment.Builder builder() {
+        return this.getInstance(PTPayment.Builder.class);
+    }
 
-  public PTPayment.Builder builder(PTPayment payment) {
-    PTPayment.Builder builder = getInstance(PTPayment.Builder.class);
-    BuilderManager.setTypeInstance(builder, payment);
-    return builder;
-  }
+    public PTPayment.Builder builder(PTPayment payment) {
+        PTPayment.Builder builder = this.getInstance(PTPayment.Builder.class);
+        BuilderManager.setTypeInstance(builder, payment);
+        return builder;
+    }
 
-  private <T> T getInstance(Class<T> clazz) {
-    return this.injector.getInstance(clazz);
-  }
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
 }

@@ -29,18 +29,18 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSupplierEntity
 
 public class DAOESSupplierImpl extends DAOSupplierImpl implements DAOESSupplier {
 
-  @Inject
-  public DAOESSupplierImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+    @Inject
+    public DAOESSupplierImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-  @Override
-  public ESSupplierEntity getEntityInstance() {
-    return new JPAESSupplierEntity();
-  }
+    @Override
+    public ESSupplierEntity getEntityInstance() {
+        return new JPAESSupplierEntity();
+    }
 
-  @Override
-  protected Class<JPAESSupplierEntity> getEntityClass() {
-    return JPAESSupplierEntity.class;
-  }
+    @Override
+    protected Class<JPAESSupplierEntity> getEntityClass() {
+        return JPAESSupplierEntity.class;
+    }
 }

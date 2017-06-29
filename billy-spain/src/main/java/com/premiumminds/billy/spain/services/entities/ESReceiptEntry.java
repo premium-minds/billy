@@ -29,13 +29,13 @@ import com.premiumminds.billy.spain.services.builders.impl.ESReceiptEntryBuilder
 
 public interface ESReceiptEntry extends ESGenericInvoiceEntry {
 
-  public static class Builder extends ESReceiptEntryBuilderImpl<Builder, ESReceiptEntry> {
+    public static class Builder extends ESReceiptEntryBuilderImpl<Builder, ESReceiptEntry> {
 
-    @Inject
-    public Builder(DAOESReceiptEntry daoESReceiptEntry, DAOESReceipt daoESReceipt,
-        DAOESTax daoESTax, DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
-      super(daoESReceiptEntry, daoESReceipt, daoESTax, daoESProduct, daoESRegionContext);
+        @Inject
+        public Builder(DAOESReceiptEntry daoESReceiptEntry, DAOESReceipt daoESReceipt, DAOESTax daoESTax,
+                DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
+            super(daoESReceiptEntry, daoESReceipt, daoESTax, daoESProduct, daoESRegionContext);
+        }
     }
-  }
 
 }

@@ -33,52 +33,52 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceBu
 
 public interface PTGenericInvoice extends GenericInvoice {
 
-  public static enum TYPE {
-    FT, FS, FR, NC, ND
-  }
-
-  /**
-   * Represents if an invoice was emitted by the application or manually
-   * emitted.
-   * 
-   * @author Hugo Correia
-   * 
-   */
-  public static enum SourceBilling {
-    P, M
-  }
-
-  public static class Builder
-      extends PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
-
-    @Inject
-    public Builder(DAOPTGenericInvoice daoPTGenericInvoice, DAOPTBusiness daoPTBusiness,
-        DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-      super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+    public static enum TYPE {
+        FT, FS, FR, NC, ND
     }
-  }
 
-  public TYPE getType();
+    /**
+     * Represents if an invoice was emitted by the application or manually
+     * emitted.
+     *
+     * @author Hugo Correia
+     *
+     */
+    public static enum SourceBilling {
+        P, M
+    }
 
-  public boolean isCancelled();
+    public static class Builder extends PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
 
-  public boolean isBilled();
+        @Inject
+        public Builder(DAOPTGenericInvoice daoPTGenericInvoice, DAOPTBusiness daoPTBusiness,
+                DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+            super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+        }
+    }
 
-  public String getHash();
+    public TYPE getType();
 
-  public String getSourceHash();
+    public boolean isCancelled();
 
-  public String getHashControl();
+    public boolean isBilled();
 
-  public String getEACCode();
+    public String getHash();
 
-  public SourceBilling getSourceBilling();
+    public String getSourceHash();
 
-  public String getChangeReason();
+    public String getHashControl();
 
-  @Override
-  public <T extends GenericInvoiceEntry> List<T> getEntries();
+    public String getEACCode();
 
-  public <T extends Payment> List<T> getPayments();
+    public SourceBilling getSourceBilling();
+
+    public String getChangeReason();
+
+    @Override
+    public <T extends GenericInvoiceEntry> List<T> getEntries();
+
+    @Override
+    public <T extends Payment> List<T> getPayments();
 
 }

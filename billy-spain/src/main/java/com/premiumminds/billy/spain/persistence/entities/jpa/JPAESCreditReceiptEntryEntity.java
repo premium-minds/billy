@@ -36,38 +36,38 @@ import com.premiumminds.billy.spain.services.entities.ESReceipt;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CREDIT_RECEIPT_ENTRY")
 public class JPAESCreditReceiptEntryEntity extends JPAESGenericInvoiceEntryEntity
-    implements ESCreditReceiptEntryEntity {
+        implements ESCreditReceiptEntryEntity {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-  @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAESReceiptEntity.class, cascade = {
-      CascadeType.PERSIST, CascadeType.MERGE })
-  @JoinColumn(name = "ID_ESRECEIPT", referencedColumnName = "ID")
-  protected ESReceipt reference;
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAESReceiptEntity.class,
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_ESRECEIPT", referencedColumnName = "ID")
+    protected ESReceipt reference;
 
-  @Column(name = "REASON")
-  protected String reason;
+    @Column(name = "REASON")
+    protected String reason;
 
-  @Override
-  public String getReason() {
-    return this.reason;
-  }
+    @Override
+    public String getReason() {
+        return this.reason;
+    }
 
-  @Override
-  public ESReceipt getReference() {
-    return this.reference;
-  }
+    @Override
+    public ESReceipt getReference() {
+        return this.reference;
+    }
 
-  @Override
-  public void setReference(ESReceipt reference) {
-    this.reference = reference;
-  }
+    @Override
+    public void setReference(ESReceipt reference) {
+        this.reference = reference;
+    }
 
-  @Override
-  public void setReason(String reason) {
-    this.reason = reason;
-  }
+    @Override
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
 }

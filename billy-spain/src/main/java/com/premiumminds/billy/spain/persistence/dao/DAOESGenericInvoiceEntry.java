@@ -23,6 +23,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEn
 
 public interface DAOESGenericInvoiceEntry extends DAOGenericInvoiceEntry {
 
-  @Override
-  public ESGenericInvoiceEntryEntity getEntityInstance();
+    @Override
+    public ESGenericInvoiceEntryEntity getEntityInstance();
 }

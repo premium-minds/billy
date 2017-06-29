@@ -29,48 +29,44 @@ import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTrans
 import com.premiumminds.billy.portugal.services.export.pdf.PTInvoicePDFTransformer;
 
 public class PTInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTInvoiceData>
-    implements PTInvoicePDFTransformer {
+        implements PTInvoicePDFTransformer {
 
-  public PTInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath,
-      InputStream xsltFileStream, String softwareCertificationId, Config config) {
+    public PTInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
+            String softwareCertificationId, Config config) {
 
-    super(PTInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId,
-        config);
-
-  }
-
-  public PTInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-      String softwareCertificationId) {
-
-    this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId,
-        new Config());
-  }
-
-  public PTInvoicePDFFOPTransformer(PTInvoiceTemplateBundle bundle) {
-    super(PTInvoiceData.class, BillyMathContext.get(), bundle, new Config());
-  }
-
-  @Override
-  protected ParamsTree<String, String> mapDocumentToParamsTree(PTInvoiceData entity) {
-
-    ParamsTree<String, String> params = super.mapDocumentToParamsTree(entity);
-
-    params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
-        getVerificationHashString(entity.getHash().getBytes()));
-    params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
-        getSoftwareCertificationId());
-
-    return params;
-  }
-
-  @Override
-  protected void setHeader(ParamsTree<String, String> params, PTInvoiceData entity) {
-    if (null != entity.getSettlementDescription()) {
-      params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT,
-          entity.getSettlementDescription());
+        super(PTInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
-    super.setHeader(params, entity);
-  }
+
+    public PTInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
+            String softwareCertificationId) {
+
+        this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
+    }
+
+    public PTInvoicePDFFOPTransformer(PTInvoiceTemplateBundle bundle) {
+        super(PTInvoiceData.class, BillyMathContext.get(), bundle, new Config());
+    }
+
+    @Override
+    protected ParamsTree<String, String> mapDocumentToParamsTree(PTInvoiceData entity) {
+
+        ParamsTree<String, String> params = super.mapDocumentToParamsTree(entity);
+
+        params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
+                this.getVerificationHashString(entity.getHash().getBytes()));
+        params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
+
+        return params;
+    }
+
+    @Override
+    protected void setHeader(ParamsTree<String, String> params, PTInvoiceData entity) {
+        if (null != entity.getSettlementDescription()) {
+            params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT, entity.getSettlementDescription());
+
+        }
+        super.setHeader(params, entity);
+    }
 
 }

@@ -26,10 +26,10 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public interface PTInvoiceEntity extends PTGenericInvoiceEntity, PTInvoice {
 
-  @Override
-  public <T extends GenericInvoiceEntry> List<T> getEntries();
+    @Override
+    public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-  @Override
-  public <T extends Payment> List<T> getPayments();
+    @Override
+    public <T extends Payment> List<T> getPayments();
 
 }

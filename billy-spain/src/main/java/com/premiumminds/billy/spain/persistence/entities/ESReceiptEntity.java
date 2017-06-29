@@ -26,9 +26,9 @@ import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
 public interface ESReceiptEntity extends ESGenericInvoiceEntity, ESReceipt {
 
-  @Override
-  public <T extends GenericInvoiceEntry> List<T> getEntries();
+    @Override
+    public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-  @Override
-  public <T extends Payment> List<T> getPayments();
+    @Override
+    public <T extends Payment> List<T> getPayments();
 }

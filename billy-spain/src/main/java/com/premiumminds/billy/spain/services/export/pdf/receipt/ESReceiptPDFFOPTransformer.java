@@ -28,47 +28,46 @@ import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransfor
 import com.premiumminds.billy.spain.services.export.pdf.ESReceiptPDFTransformer;
 
 public class ESReceiptPDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESReceiptData>
-    implements ESReceiptPDFTransformer {
+        implements ESReceiptPDFTransformer {
 
-  public static final String PARAM_KEYS_ROOT = "receipt";
+    public static final String PARAM_KEYS_ROOT = "receipt";
 
-  public ESReceiptPDFFOPTransformer(MathContext mathContext, String logoImagePath,
-      InputStream xsltFileStream) {
+    public ESReceiptPDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream) {
 
-    super(ESReceiptData.class, mathContext, logoImagePath, xsltFileStream);
-  }
+        super(ESReceiptData.class, mathContext, logoImagePath, xsltFileStream);
+    }
 
-  public ESReceiptPDFFOPTransformer(String logoImagePath, InputStream xsltFileStream) {
+    public ESReceiptPDFFOPTransformer(String logoImagePath, InputStream xsltFileStream) {
 
-    this(BillyMathContext.get(), logoImagePath, xsltFileStream);
-  }
+        this(BillyMathContext.get(), logoImagePath, xsltFileStream);
+    }
 
-  public ESReceiptPDFFOPTransformer(ESReceiptTemplateBundle bundle) {
-    super(ESReceiptData.class, BillyMathContext.get(), bundle);
-  }
+    public ESReceiptPDFFOPTransformer(ESReceiptTemplateBundle bundle) {
+        super(ESReceiptData.class, BillyMathContext.get(), bundle);
+    }
 
-  @Override
-  protected ParamsTree<String, String> getNewParamsTree() {
-    return new ParamsTree<String, String>(PARAM_KEYS_ROOT);
-  }
+    @Override
+    protected ParamsTree<String, String> getNewParamsTree() {
+        return new ParamsTree<>(ESReceiptPDFFOPTransformer.PARAM_KEYS_ROOT);
+    }
 
-  @Override
-  protected ParamsTree<String, String> mapDocumentToParamsTree(ESReceiptData entity) {
+    @Override
+    protected ParamsTree<String, String> mapDocumentToParamsTree(ESReceiptData entity) {
 
-    ParamsTree<String, String> params = getNewParamsTree();
-    TaxTotals taxTotals = new TaxTotals();
+        ParamsTree<String, String> params = this.getNewParamsTree();
+        TaxTotals taxTotals = new TaxTotals();
 
-    setHeader(params, entity);
-    setBusiness(params, entity);
-    setEntries(taxTotals, params, entity);
-    setTaxDetails(taxTotals, params);
-    setTaxValues(params, entity);
+        this.setHeader(params, entity);
+        this.setBusiness(params, entity);
+        this.setEntries(taxTotals, params, entity);
+        this.setTaxDetails(taxTotals, params);
+        this.setTaxValues(params, entity);
 
-    return params;
-  }
+        return params;
+    }
 
-  @Override
-  protected String getCustomerFinancialId(ESReceiptData entity) {
-    return "";
-  }
+    @Override
+    protected String getCustomerFinancialId(ESReceiptData entity) {
+        return "";
+    }
 }

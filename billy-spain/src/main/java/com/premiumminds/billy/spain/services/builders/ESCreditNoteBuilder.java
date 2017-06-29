@@ -22,6 +22,6 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public interface ESCreditNoteBuilder<TBuilder extends ESCreditNoteBuilder<TBuilder, TEntry, TDocument>, TEntry extends ESCreditNoteEntry, TDocument extends ESCreditNote>
-    extends ESGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+        extends ESGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
 }

@@ -34,43 +34,42 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditReceipt
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
-public class DAOESCreditReceiptEntryImpl extends DAOESGenericInvoiceEntryImpl
-    implements DAOESCreditReceiptEntry {
+public class DAOESCreditReceiptEntryImpl extends DAOESGenericInvoiceEntryImpl implements DAOESCreditReceiptEntry {
 
-  @Inject
-  public DAOESCreditReceiptEntryImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
-
-  @Override
-  public ESCreditReceiptEntryEntity getEntityInstance() {
-    return new JPAESCreditReceiptEntryEntity();
-  }
-
-  @Override
-  protected Class<JPAESCreditReceiptEntryEntity> getEntityClass() {
-    return JPAESCreditReceiptEntryEntity.class;
-  }
-
-  @Override
-  public ESCreditReceiptEntity checkCreditReceipt(ESReceipt receipt) {
-
-    QJPAESCreditReceiptEntity creditReceiptEntity = QJPAESCreditReceiptEntity.jPAESCreditReceiptEntity;
-
-    JPAQuery query = new JPAQuery(this.getEntityManager());
-
-    query.from(creditReceiptEntity);
-
-    List<JPAESCreditReceiptEntity> allCns = query.list(creditReceiptEntity);
-
-    // TODO make a query to do this
-    for (JPAESCreditReceiptEntity cne : allCns) {
-      for (ESCreditReceiptEntry cnee : cne.getEntries()) {
-        if (cnee.getReference().getNumber().compareTo(receipt.getNumber()) == 0) {
-          return cne;
-        }
-      }
+    @Inject
+    public DAOESCreditReceiptEntryImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
     }
-    return null;
-  }
+
+    @Override
+    public ESCreditReceiptEntryEntity getEntityInstance() {
+        return new JPAESCreditReceiptEntryEntity();
+    }
+
+    @Override
+    protected Class<JPAESCreditReceiptEntryEntity> getEntityClass() {
+        return JPAESCreditReceiptEntryEntity.class;
+    }
+
+    @Override
+    public ESCreditReceiptEntity checkCreditReceipt(ESReceipt receipt) {
+
+        QJPAESCreditReceiptEntity creditReceiptEntity = QJPAESCreditReceiptEntity.jPAESCreditReceiptEntity;
+
+        JPAQuery query = new JPAQuery(this.getEntityManager());
+
+        query.from(creditReceiptEntity);
+
+        List<JPAESCreditReceiptEntity> allCns = query.list(creditReceiptEntity);
+
+        // TODO make a query to do this
+        for (JPAESCreditReceiptEntity cne : allCns) {
+            for (ESCreditReceiptEntry cnee : cne.getEntries()) {
+                if (cnee.getReference().getNumber().compareTo(receipt.getNumber()) == 0) {
+                    return cne;
+                }
+            }
+        }
+        return null;
+    }
 }

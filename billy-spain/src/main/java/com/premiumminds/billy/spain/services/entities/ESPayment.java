@@ -29,18 +29,18 @@ import com.premiumminds.billy.spain.services.builders.impl.ESPaymentBuilderImpl;
 
 public interface ESPayment extends Payment {
 
-  public static class Builder extends ESPaymentBuilderImpl<Builder, ESPayment> {
+    public static class Builder extends ESPaymentBuilderImpl<Builder, ESPayment> {
 
-    @Inject
-    public Builder(DAOESPayment daoESPayment) {
-      super(daoESPayment);
+        @Inject
+        public Builder(DAOESPayment daoESPayment) {
+            super(daoESPayment);
+        }
+
     }
 
-  }
+    public BigDecimal getPaymentAmount();
 
-  public BigDecimal getPaymentAmount();
-
-  @Override
-  public PaymentMechanism getPaymentMethod();
+    @Override
+    public PaymentMechanism getPaymentMethod();
 
 }

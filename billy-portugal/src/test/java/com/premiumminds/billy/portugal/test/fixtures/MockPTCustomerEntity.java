@@ -23,18 +23,18 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 
 public class MockPTCustomerEntity extends MockCustomerEntity implements PTCustomerEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  private String referralName;
+    private String referralName;
 
-  @Override
-  public String getReferralName() {
-    return this.referralName;
-  }
+    @Override
+    public String getReferralName() {
+        return this.referralName;
+    }
 
-  @Override
-  public void setReferralName(String referralName) {
-    this.referralName = referralName;
-  }
+    @Override
+    public void setReferralName(String referralName) {
+        this.referralName = referralName;
+    }
 
 }

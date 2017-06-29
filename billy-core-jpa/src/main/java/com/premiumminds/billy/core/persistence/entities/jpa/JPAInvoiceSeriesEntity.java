@@ -33,39 +33,38 @@ import com.premiumminds.billy.core.services.entities.Business;
 
 @Entity
 @Audited
-@Table(name = Config.TABLE_PREFIX
-    + "INVOICE_SERIES", uniqueConstraints = @UniqueConstraint(columnNames = { "SERIES",
-        "ID_BUSINESS" }))
+@Table(name = Config.TABLE_PREFIX + "INVOICE_SERIES",
+        uniqueConstraints = @UniqueConstraint(columnNames = { "SERIES", "ID_BUSINESS" }))
 public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeriesEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @Column(name = "SERIES")
-  protected String series;
+    @Column(name = "SERIES")
+    protected String series;
 
-  @ManyToOne(targetEntity = JPABusinessEntity.class)
-  @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
-  protected Business business;
+    @ManyToOne(targetEntity = JPABusinessEntity.class)
+    @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
+    protected Business business;
 
-  @Override
-  public String getSeries() {
-    return series;
-  }
+    @Override
+    public String getSeries() {
+        return this.series;
+    }
 
-  @Override
-  public Business getBusiness() {
-    return this.business;
-  }
+    @Override
+    public Business getBusiness() {
+        return this.business;
+    }
 
-  @Override
-  public void setSeries(String series) {
-    this.series = series;
-  }
+    @Override
+    public void setSeries(String series) {
+        this.series = series;
+    }
 
-  @Override
-  public <T extends Business> void setBusiness(T business) {
-    this.business = business;
+    @Override
+    public <T extends Business> void setBusiness(T business) {
+        this.business = business;
 
-  }
+    }
 
 }

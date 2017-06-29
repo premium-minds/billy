@@ -23,6 +23,6 @@ import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 public interface PTRegionContextEntity extends ContextEntity, PTRegionContext {
 
-  public void setRegionCode(String regionCode);
+    public void setRegionCode(String regionCode);
 
 }

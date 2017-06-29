@@ -26,29 +26,27 @@ import com.premiumminds.billy.spain.services.entities.ESShippingPoint;
 
 public class ESShippingPointTestUtil {
 
-  private final String deliveryId = "delivery_spot";
-  private final String locationId = "location_spot";
-  private final String warehouseId = "warehouse1";
+    private final String deliveryId = "delivery_spot";
+    private final String locationId = "location_spot";
+    private final String warehouseId = "warehouse1";
 
-  private Injector injector;
-  private ESAddressTestUtil address;
+    private Injector injector;
+    private ESAddressTestUtil address;
 
-  public ESShippingPointTestUtil(Injector injector) {
-    this.injector = injector;
-    this.address = new ESAddressTestUtil(injector);
-  }
+    public ESShippingPointTestUtil(Injector injector) {
+        this.injector = injector;
+        this.address = new ESAddressTestUtil(injector);
+    }
 
-  public ESShippingPoint.Builder getShippingPointBuilder() {
-    ESShippingPoint.Builder shippingPointBuilder = this.injector
-        .getInstance(ESShippingPoint.Builder.class);
-    ESAddress.Builder addressBuilder = this.address.getAddressBuilder();
+    public ESShippingPoint.Builder getShippingPointBuilder() {
+        ESShippingPoint.Builder shippingPointBuilder = this.injector.getInstance(ESShippingPoint.Builder.class);
+        ESAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-    shippingPointBuilder.clear();
+        shippingPointBuilder.clear();
 
-    shippingPointBuilder.setAddress(addressBuilder).setDate(new Date())
-        .setDeliveryId(this.deliveryId).setLocationId(this.locationId)
-        .setWarehouseId(this.warehouseId);
+        shippingPointBuilder.setAddress(addressBuilder).setDate(new Date()).setDeliveryId(this.deliveryId)
+                .setLocationId(this.locationId).setWarehouseId(this.warehouseId);
 
-    return shippingPointBuilder;
-  }
+        return shippingPointBuilder;
+    }
 }

@@ -31,61 +31,61 @@ import com.premiumminds.billy.spain.services.entities.ESApplication;
 
 public class ESApplicationPersistenceService implements PersistenceService<ESApplication> {
 
-  protected final DAOESApplication daoApplication;
+    protected final DAOESApplication daoApplication;
 
-  @Inject
-  public ESApplicationPersistenceService(DAOESApplication daoApplication) {
-    this.daoApplication = daoApplication;
-  }
-
-  @Override
-  public ESApplication create(final Builder<ESApplication> builder) {
-    try {
-      return new TransactionWrapper<ESApplication>(daoApplication) {
-
-        @Override
-        public ESApplication runTransaction() throws Exception {
-          ESApplicationEntity entity = (ESApplicationEntity) builder.build();
-          return (ESApplication) daoApplication.create(entity);
-        }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
+    @Inject
+    public ESApplicationPersistenceService(DAOESApplication daoApplication) {
+        this.daoApplication = daoApplication;
     }
-  }
 
-  @Override
-  public ESApplication update(final Builder<ESApplication> builder) {
-    try {
-      return new TransactionWrapper<ESApplication>(daoApplication) {
+    @Override
+    public ESApplication create(final Builder<ESApplication> builder) {
+        try {
+            return new TransactionWrapper<ESApplication>(this.daoApplication) {
 
-        @Override
-        public ESApplication runTransaction() throws Exception {
-          ESApplicationEntity entity = (ESApplicationEntity) builder.build();
-          return (ESApplication) daoApplication.update(entity);
+                @Override
+                public ESApplication runTransaction() throws Exception {
+                    ESApplicationEntity entity = (ESApplicationEntity) builder.build();
+                    return (ESApplication) ESApplicationPersistenceService.this.daoApplication.create(entity);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
 
-  @Override
-  public ESApplication get(final UID uid) {
-    try {
-      return new TransactionWrapper<ESApplication>(daoApplication) {
+    @Override
+    public ESApplication update(final Builder<ESApplication> builder) {
+        try {
+            return new TransactionWrapper<ESApplication>(this.daoApplication) {
 
-        @Override
-        public ESApplication runTransaction() throws Exception {
-          return (ESApplication) daoApplication.get(uid);
+                @Override
+                public ESApplication runTransaction() throws Exception {
+                    ESApplicationEntity entity = (ESApplicationEntity) builder.build();
+                    return (ESApplication) ESApplicationPersistenceService.this.daoApplication.update(entity);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
+
+    @Override
+    public ESApplication get(final UID uid) {
+        try {
+            return new TransactionWrapper<ESApplication>(this.daoApplication) {
+
+                @Override
+                public ESApplication runTransaction() throws Exception {
+                    return ESApplicationPersistenceService.this.daoApplication.get(uid);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
 }

@@ -32,25 +32,24 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
 public class PTReceiptInvoiceBuilderImpl<TBuilder extends PTReceiptInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTReceiptInvoice>
-    extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-    implements PTReceiptInvoiceBuilder<TBuilder, TEntry, TDocument> {
+        extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+        implements PTReceiptInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-  @Inject
-  public PTReceiptInvoiceBuilderImpl(DAOPTReceiptInvoice daoPTReceiptInvoice,
-      DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-    super(daoPTReceiptInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-  }
+    @Inject
+    public PTReceiptInvoiceBuilderImpl(DAOPTReceiptInvoice daoPTReceiptInvoice, DAOPTBusiness daoPTBusiness,
+            DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+        super(daoPTReceiptInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+    }
 
-  @Override
-  protected PTReceiptInvoiceEntity getTypeInstance() {
-    return (PTReceiptInvoiceEntity) super.getTypeInstance();
-  }
+    @Override
+    protected PTReceiptInvoiceEntity getTypeInstance() {
+        return (PTReceiptInvoiceEntity) super.getTypeInstance();
+    }
 
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    super.validateInstance();
-  }
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        super.validateInstance();
+    }
 }

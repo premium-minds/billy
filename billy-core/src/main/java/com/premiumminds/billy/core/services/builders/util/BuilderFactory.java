@@ -27,14 +27,14 @@ import com.premiumminds.billy.core.util.NotImplemented;
 @NotImplemented
 public class BuilderFactory {
 
-  @Inject
-  Injector injector;
+    @Inject
+    Injector injector;
 
-  static {
+    static {
 
-  }
+    }
 
-  public BuilderFactory() {
-  }
+    public BuilderFactory() {
+    }
 
 }

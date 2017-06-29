@@ -24,23 +24,23 @@ import com.premiumminds.billy.spain.services.entities.ESPayment;
 
 public class Payments {
 
-  private final Injector injector;
+    private final Injector injector;
 
-  public Payments(Injector injector) {
-    this.injector = injector;
-  }
+    public Payments(Injector injector) {
+        this.injector = injector;
+    }
 
-  public ESPayment.Builder builder() {
-    return getInstance(ESPayment.Builder.class);
-  }
+    public ESPayment.Builder builder() {
+        return this.getInstance(ESPayment.Builder.class);
+    }
 
-  public ESPayment.Builder builder(ESPayment payment) {
-    ESPayment.Builder builder = getInstance(ESPayment.Builder.class);
-    BuilderManager.setTypeInstance(builder, payment);
-    return builder;
-  }
+    public ESPayment.Builder builder(ESPayment payment) {
+        ESPayment.Builder builder = this.getInstance(ESPayment.Builder.class);
+        BuilderManager.setTypeInstance(builder, payment);
+        return builder;
+    }
 
-  private <T> T getInstance(Class<T> clazz) {
-    return this.injector.getInstance(clazz);
-  }
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
 }

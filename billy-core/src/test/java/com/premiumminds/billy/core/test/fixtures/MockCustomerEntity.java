@@ -30,108 +30,108 @@ import com.premiumminds.billy.core.services.entities.Contact;
 
 public class MockCustomerEntity extends MockBaseEntity implements CustomerEntity {
 
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  public String name;
-  public String taxRegistrationNumber;
-  public List<Address> addresses;
-  public AddressEntity mainAddress;
-  public AddressEntity billingAddress;
-  public AddressEntity shippingAddress;
-  public List<Contact> contacts;
-  public ContactEntity mainContact;
-  public List<BankAccount> bankAccounts;
-  public boolean hasSelfBillingAgreement;
+    public String name;
+    public String taxRegistrationNumber;
+    public List<Address> addresses;
+    public AddressEntity mainAddress;
+    public AddressEntity billingAddress;
+    public AddressEntity shippingAddress;
+    public List<Contact> contacts;
+    public ContactEntity mainContact;
+    public List<BankAccount> bankAccounts;
+    public boolean hasSelfBillingAgreement;
 
-  public MockCustomerEntity() {
-    this.addresses = new ArrayList<Address>();
-    this.contacts = new ArrayList<Contact>();
-    this.bankAccounts = new ArrayList<BankAccount>();
-  }
+    public MockCustomerEntity() {
+        this.addresses = new ArrayList<>();
+        this.contacts = new ArrayList<>();
+        this.bankAccounts = new ArrayList<>();
+    }
 
-  @Override
-  public String getName() {
-    return this.name;
-  }
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-  @Override
-  public String getTaxRegistrationNumber() {
-    return this.taxRegistrationNumber;
-  }
+    @Override
+    public String getTaxRegistrationNumber() {
+        return this.taxRegistrationNumber;
+    }
 
-  @Override
-  public Address getMainAddress() {
-    return this.mainAddress;
-  }
+    @Override
+    public Address getMainAddress() {
+        return this.mainAddress;
+    }
 
-  @Override
-  public Address getBillingAddress() {
-    return this.billingAddress;
-  }
+    @Override
+    public Address getBillingAddress() {
+        return this.billingAddress;
+    }
 
-  @Override
-  public Address getShippingAddress() {
-    return this.shippingAddress;
-  }
+    @Override
+    public Address getShippingAddress() {
+        return this.shippingAddress;
+    }
 
-  @Override
-  public Contact getMainContact() {
-    return this.mainContact;
-  }
+    @Override
+    public Contact getMainContact() {
+        return this.mainContact;
+    }
 
-  @Override
-  public boolean hasSelfBillingAgreement() {
-    return this.hasSelfBillingAgreement;
-  }
+    @Override
+    public boolean hasSelfBillingAgreement() {
+        return this.hasSelfBillingAgreement;
+    }
 
-  @Override
-  public void setName(String name) {
-    this.name = name;
-  }
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  @Override
-  public void setTaxRegistrationNumber(String number) {
-    this.taxRegistrationNumber = number;
-  }
+    @Override
+    public void setTaxRegistrationNumber(String number) {
+        this.taxRegistrationNumber = number;
+    }
 
-  @Override
-  public List<Address> getAddresses() {
-    return this.addresses;
-  }
+    @Override
+    public List<Address> getAddresses() {
+        return this.addresses;
+    }
 
-  @Override
-  public <T extends AddressEntity> void setMainAddress(T address) {
-    this.mainAddress = address;
-  }
+    @Override
+    public <T extends AddressEntity> void setMainAddress(T address) {
+        this.mainAddress = address;
+    }
 
-  @Override
-  public <T extends AddressEntity> void setBillingAddress(T address) {
-    this.billingAddress = address;
-  }
+    @Override
+    public <T extends AddressEntity> void setBillingAddress(T address) {
+        this.billingAddress = address;
+    }
 
-  @Override
-  public <T extends AddressEntity> void setShippingAddress(T address) {
-    this.shippingAddress = address;
-  }
+    @Override
+    public <T extends AddressEntity> void setShippingAddress(T address) {
+        this.shippingAddress = address;
+    }
 
-  @Override
-  public List<Contact> getContacts() {
-    return this.contacts;
-  }
+    @Override
+    public List<Contact> getContacts() {
+        return this.contacts;
+    }
 
-  @Override
-  public <T extends ContactEntity> void setMainContact(T contact) {
-    this.mainContact = contact;
-  }
+    @Override
+    public <T extends ContactEntity> void setMainContact(T contact) {
+        this.mainContact = contact;
+    }
 
-  @Override
-  public List<BankAccount> getBankAccounts() {
-    return this.bankAccounts;
-  }
+    @Override
+    public List<BankAccount> getBankAccounts() {
+        return this.bankAccounts;
+    }
 
-  @Override
-  public void setHasSelfBillingAgreement(boolean selfBiling) {
-    this.hasSelfBillingAgreement = selfBiling;
-  }
+    @Override
+    public void setHasSelfBillingAgreement(boolean selfBiling) {
+        this.hasSelfBillingAgreement = selfBiling;
+    }
 
 }

@@ -36,41 +36,41 @@ import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 @Table(name = Config.TABLE_PREFIX + "PAYMENT")
 public class JPAPaymentEntity extends JPABaseEntity implements PaymentEntity {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-  @Column(name = "PAYMENT_METHOD")
-  protected String paymentMethod;
+    @Column(name = "PAYMENT_METHOD")
+    protected String paymentMethod;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "PAYMENT_DATE")
-  protected Date paymentDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "PAYMENT_DATE")
+    protected Date paymentDate;
 
-  public <T extends Enum<T>> T getPaymentMethod(Class<T> enumType) {
-    return Enum.valueOf(enumType, paymentMethod);
-  }
+    public <T extends Enum<T>> T getPaymentMethod(Class<T> enumType) {
+        return Enum.valueOf(enumType, this.paymentMethod);
+    }
 
-  @Override
-  public Date getPaymentDate() {
-    return paymentDate;
-  }
+    @Override
+    public Date getPaymentDate() {
+        return this.paymentDate;
+    }
 
-  @Override
-  public void setPaymentMethod(Enum<?> method) {
-    this.paymentMethod = method.toString();
-  }
+    @Override
+    public void setPaymentMethod(Enum<?> method) {
+        this.paymentMethod = method.toString();
+    }
 
-  @Override
-  public void setPaymentDate(Date paymentDate) {
-    this.paymentDate = paymentDate;
-  }
+    @Override
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
 
-  @Override
-  public <T extends Enum<?>> T getPaymentMethod() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+    @Override
+    public <T extends Enum<?>> T getPaymentMethod() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

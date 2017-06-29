@@ -24,8 +24,7 @@ import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 
 public class PTJPAAbstractTest extends PTPersistencyAbstractTest {
 
-  public static void execute(final Injector injector, TransactionWrapper<?> transactionWrapper)
-      throws Exception {
-    transactionWrapper.execute();
-  }
+    public static void execute(final Injector injector, TransactionWrapper<?> transactionWrapper) throws Exception {
+        transactionWrapper.execute();
+    }
 }

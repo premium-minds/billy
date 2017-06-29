@@ -27,24 +27,24 @@ import com.premiumminds.billy.core.services.builders.impl.ShippingPointBuilderIm
 
 public interface ShippingPoint extends Entity {
 
-  public static class Builder extends ShippingPointBuilderImpl<Builder, ShippingPoint> {
+    public static class Builder extends ShippingPointBuilderImpl<Builder, ShippingPoint> {
 
-    @Inject
-    public Builder(DAOShippingPoint daoShippingPoint) {
-      super(daoShippingPoint);
+        @Inject
+        public Builder(DAOShippingPoint daoShippingPoint) {
+            super(daoShippingPoint);
+        }
     }
-  }
 
-  public String getDeliveryId();
+    public String getDeliveryId();
 
-  public Date getDate();
+    public Date getDate();
 
-  public String getWarehouseId();
+    public String getWarehouseId();
 
-  public String getLocationId();
+    public String getLocationId();
 
-  public String getUCR();
+    public String getUCR();
 
-  public Address getAddress();
+    public Address getAddress();
 
 }

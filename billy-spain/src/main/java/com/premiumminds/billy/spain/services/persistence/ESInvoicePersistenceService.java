@@ -32,79 +32,78 @@ import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
 public class ESInvoicePersistenceService {
 
-  protected final DAOESInvoice daoInvoice;
-  protected final DAOTicket daoTicket;
+    protected final DAOESInvoice daoInvoice;
+    protected final DAOTicket daoTicket;
 
-  @Inject
-  public ESInvoicePersistenceService(DAOESInvoice daoInvoice, DAOTicket daoTicket) {
-    this.daoInvoice = daoInvoice;
-    this.daoTicket = daoTicket;
-  }
-
-  public ESInvoice update(final Builder<ESInvoice> builder) {
-    try {
-      return new TransactionWrapper<ESInvoice>(daoInvoice) {
-
-        @Override
-        public ESInvoice runTransaction() throws Exception {
-          ESInvoiceEntity entity = (ESInvoiceEntity) builder.build();
-          return (ESInvoice) daoInvoice.update(entity);
-        }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
+    @Inject
+    public ESInvoicePersistenceService(DAOESInvoice daoInvoice, DAOTicket daoTicket) {
+        this.daoInvoice = daoInvoice;
+        this.daoTicket = daoTicket;
     }
-  }
 
-  public ESInvoice get(final UID uid) {
-    try {
-      return new TransactionWrapper<ESInvoice>(daoInvoice) {
+    public ESInvoice update(final Builder<ESInvoice> builder) {
+        try {
+            return new TransactionWrapper<ESInvoice>(this.daoInvoice) {
 
-        @Override
-        public ESInvoice runTransaction() throws Exception {
-          return (ESInvoice) daoInvoice.get(uid);
+                @Override
+                public ESInvoice runTransaction() throws Exception {
+                    ESInvoiceEntity entity = (ESInvoiceEntity) builder.build();
+                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.update(entity);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
 
-  public ESInvoice getWithTicket(final UID ticketUID)
-      throws NoResultException, BillyRuntimeException {
+    public ESInvoice get(final UID uid) {
+        try {
+            return new TransactionWrapper<ESInvoice>(this.daoInvoice) {
 
-    try {
-      return new TransactionWrapper<ESInvoice>(daoInvoice) {
+                @Override
+                public ESInvoice runTransaction() throws Exception {
+                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.get(uid);
+                }
 
-        @Override
-        public ESInvoice runTransaction() throws Exception {
-          UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
-          return (ESInvoice) daoInvoice.get(objectUID);
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (NoResultException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
 
-  public ESInvoice findByNumber(final UID uidBusiness, final String number) {
-    try {
-      return new TransactionWrapper<ESInvoice>(daoInvoice) {
+    public ESInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
-        @Override
-        public ESInvoice runTransaction() throws Exception {
-          return (ESInvoice) daoInvoice.findByNumber(uidBusiness, number);
+        try {
+            return new TransactionWrapper<ESInvoice>(this.daoInvoice) {
+
+                @Override
+                public ESInvoice runTransaction() throws Exception {
+                    UID objectUID = ESInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.get(objectUID);
+                }
+
+            }.execute();
+        } catch (NoResultException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
         }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
     }
-  }
+
+    public ESInvoice findByNumber(final UID uidBusiness, final String number) {
+        try {
+            return new TransactionWrapper<ESInvoice>(this.daoInvoice) {
+
+                @Override
+                public ESInvoice runTransaction() throws Exception {
+                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.findByNumber(uidBusiness, number);
+                }
+
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
 }

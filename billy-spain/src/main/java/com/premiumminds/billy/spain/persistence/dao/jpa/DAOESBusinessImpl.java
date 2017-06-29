@@ -31,24 +31,24 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESBusinessEntity
 
 public class DAOESBusinessImpl extends DAOBusinessImpl implements DAOESBusiness {
 
-  @Inject
-  public DAOESBusinessImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+    @Inject
+    public DAOESBusinessImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-  @Override
-  public ESBusinessEntity getEntityInstance() {
-    return new JPAESBusinessEntity();
-  }
+    @Override
+    public ESBusinessEntity getEntityInstance() {
+        return new JPAESBusinessEntity();
+    }
 
-  @Override
-  protected Class<JPAESBusinessEntity> getEntityClass() {
-    return JPAESBusinessEntity.class;
-  }
+    @Override
+    protected Class<JPAESBusinessEntity> getEntityClass() {
+        return JPAESBusinessEntity.class;
+    }
 
-  @Override
-  public ESBusinessEntity get(UID uid) throws NoResultException {
-    return (ESBusinessEntity) super.get(uid);
-  }
+    @Override
+    public ESBusinessEntity get(UID uid) throws NoResultException {
+        return (ESBusinessEntity) super.get(uid);
+    }
 
 }

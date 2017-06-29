@@ -33,29 +33,28 @@ import com.premiumminds.billy.spain.services.builders.impl.ESManualInvoiceBuilde
 
 public interface ESInvoice extends ESGenericInvoice {
 
-  public static class Builder extends ESInvoiceBuilderImpl<Builder, ESInvoiceEntry, ESInvoice> {
+    public static class Builder extends ESInvoiceBuilderImpl<Builder, ESInvoiceEntry, ESInvoice> {
 
-    @Inject
-    public Builder(DAOESInvoice daoESInvoice, DAOESBusiness daoESBusiness,
-        DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
-      super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+        @Inject
+        public Builder(DAOESInvoice daoESInvoice, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
+                DAOESSupplier daoESSupplier) {
+            super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+        }
     }
-  }
 
-  public static class ManualBuilder
-      extends ESManualInvoiceBuilderImpl<ManualBuilder, ESInvoiceEntry, ESInvoice> {
+    public static class ManualBuilder extends ESManualInvoiceBuilderImpl<ManualBuilder, ESInvoiceEntry, ESInvoice> {
 
-    @Inject
-    public ManualBuilder(DAOESInvoice daoESInvoice, DAOESBusiness daoESBusiness,
-        DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
-      super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+        @Inject
+        public ManualBuilder(DAOESInvoice daoESInvoice, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
+                DAOESSupplier daoESSupplier) {
+            super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+        }
     }
-  }
 
-  @Override
-  public <T extends GenericInvoiceEntry> List<T> getEntries();
+    @Override
+    public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-  @Override
-  public <T extends Payment> List<T> getPayments();
+    @Override
+    public <T extends Payment> List<T> getPayments();
 
 }
