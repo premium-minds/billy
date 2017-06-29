@@ -14,18 +14,18 @@ Add the following maven dependency to your project `pom.xml`:
 <dependency>
    <groupId>com.premiumminds</groupId>
    <artifactId>billy-portugal</artifactId>
-   <version>1.0b</version>
+   <version>2.0.0</version>
 </dependency>
 ```
 Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search;quick~billy) for latest snapshots and releases.
 
 
-##Continuous Integration
+## Continuous Integration
 [![Build Status](https://travis-ci.org/premium-minds/billy.png?branch=master)](https://travis-ci.org/premium-minds/billy)
 
 CI is hosted by [travis-ci.org](https://travis-ci.org/)
 
-##Licence
+## Licence
 Copyright (C) 2013 [Premium Minds](http://www.premium-minds.com/)
 
 Licensed under the [GNU Lesser General Public Licence](http://www.gnu.org/licenses/lgpl.html)
