@@ -24,12 +24,11 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
-public interface PTCreditNoteEntity extends PTGenericInvoiceEntity,
-	PTCreditNote {
+public interface PTCreditNoteEntity extends PTGenericInvoiceEntity, PTCreditNote {
 
-	@Override
-	public List<PTCreditNoteEntry> getEntries();
+    @Override
+    public List<PTCreditNoteEntry> getEntries();
 
-	@Override
-	public List<PTPayment> getPayments();
+    @Override
+    public List<PTPayment> getPayments();
 }

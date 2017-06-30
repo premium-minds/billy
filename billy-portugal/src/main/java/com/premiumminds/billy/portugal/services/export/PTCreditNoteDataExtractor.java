@@ -33,31 +33,38 @@ import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtracto
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 
-public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<PTCreditNoteData> {
-	
-	private final DAOPTCreditNote daoPTCreditNote;
-	
-	@Inject
-	public PTCreditNoteDataExtractor(DAOPTCreditNote daoPTCreditNote) {
-		this.daoPTCreditNote = daoPTCreditNote;
-	}
+public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
+        implements BillyDataExtractor<PTCreditNoteData> {
 
-	@Override
-	public PTCreditNoteData extract(UID uid) throws ExportServiceException {
-		PTCreditNoteEntity entity = (PTCreditNoteEntity) daoPTCreditNote.get(uid); //FIXME: Fix the DAOs to remove this cast
-		if (entity == null) {
-			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
-		}
-		
-		List<PaymentData> payments = extractPayments(entity.getPayments());
-		CostumerData costumer = extractCostumer(entity.getCustomer());
-		BusinessData business = extractBusiness(entity.getBusiness());
-		List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
-		
-		return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
-				payments, costumer, business, entries, 
-				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
-				entity.getSettlementDescription(), entity.getHash());
-	}
-	
+    private final DAOPTCreditNote daoPTCreditNote;
+
+    @Inject
+    public PTCreditNoteDataExtractor(DAOPTCreditNote daoPTCreditNote) {
+        this.daoPTCreditNote = daoPTCreditNote;
+    }
+
+    @Override
+    public PTCreditNoteData extract(UID uid) throws ExportServiceException {
+        PTCreditNoteEntity entity = this.daoPTCreditNote.get(uid); // FIXME:
+        // Fix
+        // the
+        // DAOs
+        // to
+        // remove
+        // this
+        // cast
+        if (entity == null) {
+            throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
+        }
+
+        List<PaymentData> payments = this.extractPayments(entity.getPayments());
+        CostumerData costumer = this.extractCostumer(entity.getCustomer());
+        BusinessData business = this.extractBusiness(entity.getBusiness());
+        List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
+
+        return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
+                costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+                entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash());
+    }
+
 }

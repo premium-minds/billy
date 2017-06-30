@@ -19,7 +19,6 @@
 package com.premiumminds.billy.spain.util;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -28,7 +27,7 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
@@ -41,30 +40,31 @@ import com.premiumminds.billy.spain.services.persistence.ESSimpleInvoicePersiste
 
 public class SimpleInvoices {
 
-    private final Injector	injector;
+    private final Injector injector;
     private final ESSimpleInvoicePersistenceService persistenceService;
     private final DocumentIssuingService issuingService;
     private final ExportService exportService;
 
     public SimpleInvoices(Injector injector) {
         this.injector = injector;
-        this.persistenceService = getInstance(ESSimpleInvoicePersistenceService.class);
-        this.issuingService = injector
-                .getInstance(DocumentIssuingService.class);
+        this.persistenceService = this.getInstance(ESSimpleInvoicePersistenceService.class);
+        this.issuingService = injector.getInstance(DocumentIssuingService.class);
         this.issuingService.addHandler(ESSimpleInvoiceEntity.class,
                 this.injector.getInstance(ESSimpleInvoiceIssuingHandler.class));
-        this.exportService = getInstance(ExportService.class);
+        this.exportService = this.getInstance(ExportService.class);
 
-        this.exportService.addDataExtractor(ESSimpleInvoiceData.class, getInstance(ESSimpleInvoiceDataExtractor.class));
-        this.exportService.addTransformerMapper(ESSimpleInvoicePDFExportRequest.class, ESSimpleInvoicePDFFOPTransformer.class);
+        this.exportService.addDataExtractor(ESSimpleInvoiceData.class,
+                this.getInstance(ESSimpleInvoiceDataExtractor.class));
+        this.exportService.addTransformerMapper(ESSimpleInvoicePDFExportRequest.class,
+                ESSimpleInvoicePDFFOPTransformer.class);
     }
 
     public ESSimpleInvoice.Builder builder() {
-        return getInstance(ESSimpleInvoice.Builder.class);
+        return this.getInstance(ESSimpleInvoice.Builder.class);
     }
 
     public ESSimpleInvoice.Builder builder(ESSimpleInvoice customer) {
-        ESSimpleInvoice.Builder builder = getInstance(ESSimpleInvoice.Builder.class);
+        ESSimpleInvoice.Builder builder = this.getInstance(ESSimpleInvoice.Builder.class);
         BuilderManager.setTypeInstance(builder, customer);
         return builder;
     }
@@ -73,18 +73,19 @@ public class SimpleInvoices {
         return this.persistenceService;
     }
 
-    public ESSimpleInvoice issue(ESSimpleInvoice.Builder builder, ESIssuingParams params) throws DocumentIssuingException {
-        return issuingService.issue(builder, params);
+    public ESSimpleInvoice issue(ESSimpleInvoice.Builder builder, ESIssuingParams params)
+            throws DocumentIssuingException {
+        return this.issuingService.issue(builder, params);
     }
 
-    public InputStream pdfExport(ESSimpleInvoicePDFExportRequest  request) throws ExportServiceException {
-        return exportService.exportToStream(request);
+    public InputStream pdfExport(ESSimpleInvoicePDFExportRequest request) throws ExportServiceException {
+        return this.exportService.exportToStream(request);
     }
-    
-    public void pdfExport(UID uidDoc, BillyPDFTransformer<ESSimpleInvoiceData> dataTransformer, OutputStream outputStream) 
+
+    public <O> void pdfExport(UID uidDoc, BillyExportTransformer<ESSimpleInvoiceData, O> dataTransformer, O output)
             throws ExportServiceException {
 
-        exportService.export(uidDoc, dataTransformer, outputStream);
+        this.exportService.export(uidDoc, dataTransformer, output);
     }
 
     private <T> T getInstance(Class<T> clazz) {

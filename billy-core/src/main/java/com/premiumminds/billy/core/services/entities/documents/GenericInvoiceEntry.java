@@ -40,63 +40,62 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 
 public interface GenericInvoiceEntry extends Entity {
 
-	public static class Builder 
-	extends GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry, DAOGenericInvoiceEntry, DAOGenericInvoice> {
+    public static class Builder extends
+            GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry, DAOGenericInvoiceEntry, DAOGenericInvoice> {
 
-		@Inject
-		public Builder(DAOGenericInvoiceEntry daoEntry,
-				DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
-				DAOProduct daoProduct, DAOContext daoContext) {
-			super(daoEntry, daoGenericInvoice, daoTax, daoProduct, daoContext);
-		}
-	}
+        @Inject
+        public Builder(DAOGenericInvoiceEntry daoEntry, DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
+                DAOProduct daoProduct, DAOContext daoContext) {
+            super(daoEntry, daoGenericInvoice, daoTax, daoProduct, daoContext);
+        }
+    }
 
-	public Integer getEntryNumber();
+    public Integer getEntryNumber();
 
-	public <T extends ShippingPoint> T getShippingOrigin();
+    public <T extends ShippingPoint> T getShippingOrigin();
 
-	public <T extends ShippingPoint> T getShippingDestination();
+    public <T extends ShippingPoint> T getShippingDestination();
 
-	public <T extends Product> T getProduct();
+    public <T extends Product> T getProduct();
 
-	public BigDecimal getQuantity();
+    public BigDecimal getQuantity();
 
-	public String getUnitOfMeasure();
+    public String getUnitOfMeasure();
 
-	public BigDecimal getUnitAmountWithTax();
+    public BigDecimal getUnitAmountWithTax();
 
-	public BigDecimal getUnitAmountWithoutTax();
+    public BigDecimal getUnitAmountWithoutTax();
 
-	public BigDecimal getUnitTaxAmount();
+    public BigDecimal getUnitTaxAmount();
 
-	public BigDecimal getUnitDiscountAmount();
+    public BigDecimal getUnitDiscountAmount();
 
-	public BigDecimal getAmountWithTax();
+    public BigDecimal getAmountWithTax();
 
-	public BigDecimal getAmountWithoutTax();
+    public BigDecimal getAmountWithoutTax();
 
-	public BigDecimal getTaxAmount();
+    public BigDecimal getTaxAmount();
 
-	public BigDecimal getDiscountAmount();
+    public BigDecimal getDiscountAmount();
 
-	public Date getTaxPointDate();
+    public Date getTaxPointDate();
 
-	public <T extends GenericInvoice> Collection<T> getDocumentReferences();
+    public <T extends GenericInvoice> Collection<T> getDocumentReferences();
 
-	public String getDescription();
+    public String getDescription();
 
-	public CreditOrDebit getCreditOrDebit();
+    public CreditOrDebit getCreditOrDebit();
 
-	public BigDecimal getShippingCostsAmount();
+    public BigDecimal getShippingCostsAmount();
 
-	public Currency getCurrency();
+    public Currency getCurrency();
 
-	public BigDecimal getExchangeRateToDocumentCurrency();
+    public BigDecimal getExchangeRateToDocumentCurrency();
 
-	public <T extends Tax> Collection<T> getTaxes();
+    public <T extends Tax> Collection<T> getTaxes();
 
-	public String getTaxExemptionReason();
+    public String getTaxExemptionReason();
 
-	public AmountType getAmountType();
+    public AmountType getAmountType();
 
 }

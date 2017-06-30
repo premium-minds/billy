@@ -23,6 +23,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESSupplierEntity;
 
 public interface DAOESSupplier extends DAOSupplier {
 
-	@Override
-	public ESSupplierEntity getEntityInstance();
+    @Override
+    public ESSupplierEntity getEntityInstance();
 }

@@ -19,33 +19,33 @@
 package com.premiumminds.billy.gin.services.export;
 
 public class BusinessData {
-	
-	private final String name;
-	private final String financialId;
-	private final AddressData address;
-	private final ContactData mainContact;
-	
-	public BusinessData(String name, String financialId, AddressData address, ContactData mainContact) {
-		this.name = name;
-		this.financialId = financialId;
-		this.address = address;
-		this.mainContact = mainContact;
-	}
 
-	public String getName() {
-		return name;
-	}
+    private final String name;
+    private final String financialId;
+    private final AddressData address;
+    private final ContactData mainContact;
 
-	public String getFinancialID() {
-		return financialId;
-	}
+    public BusinessData(String name, String financialId, AddressData address, ContactData mainContact) {
+        this.name = name;
+        this.financialId = financialId;
+        this.address = address;
+        this.mainContact = mainContact;
+    }
 
-	public AddressData getAddress() {
-		return address;
-	}
+    public String getName() {
+        return this.name;
+    }
 
-	public ContactData getMainContact() {
-		return mainContact;
-	}
-	
+    public String getFinancialID() {
+        return this.financialId;
+    }
+
+    public AddressData getAddress() {
+        return this.address;
+    }
+
+    public ContactData getMainContact() {
+        return this.mainContact;
+    }
+
 }

@@ -26,23 +26,23 @@ import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
 
-public class DAOGenericInvoiceEntryImpl 
-extends AbstractDAOGenericInvoiceEntryImpl<GenericInvoiceEntryEntity, JPAGenericInvoiceEntryEntity>
-implements DAOGenericInvoiceEntry {
+public class DAOGenericInvoiceEntryImpl
+        extends AbstractDAOGenericInvoiceEntryImpl<GenericInvoiceEntryEntity, JPAGenericInvoiceEntryEntity>
+        implements DAOGenericInvoiceEntry {
 
-	@Inject
-	public DAOGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	public GenericInvoiceEntryEntity getEntityInstance() {
-		return new JPAGenericInvoiceEntryEntity();
-	}
+    @Override
+    public GenericInvoiceEntryEntity getEntityInstance() {
+        return new JPAGenericInvoiceEntryEntity();
+    }
 
-	@Override
-	protected Class<? extends JPAGenericInvoiceEntryEntity> getEntityClass() {
-		return JPAGenericInvoiceEntryEntity.class;
-	}
-	
+    @Override
+    protected Class<? extends JPAGenericInvoiceEntryEntity> getEntityClass() {
+        return JPAGenericInvoiceEntryEntity.class;
+    }
+
 }

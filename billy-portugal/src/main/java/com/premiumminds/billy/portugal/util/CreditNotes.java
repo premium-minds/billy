@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.util;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -28,7 +27,7 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.documents.PTCreditNoteIssuingHandler;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
@@ -42,88 +41,88 @@ import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersiste
 
 public class CreditNotes {
 
-	private final Injector	injector;
-	private final PTCreditNotePersistenceService persistenceService;
-	private final DocumentIssuingService issuingService;
-	private final ExportService exportService;
+    private final Injector injector;
+    private final PTCreditNotePersistenceService persistenceService;
+    private final DocumentIssuingService issuingService;
+    private final ExportService exportService;
 
-	public CreditNotes(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(PTCreditNotePersistenceService.class);
-		this.issuingService = injector
-				.getInstance(DocumentIssuingService.class);
-		this.issuingService.addHandler(PTCreditNoteEntity.class,
-				this.injector.getInstance(PTCreditNoteIssuingHandler.class));
-		this.exportService = getInstance(ExportService.class);
+    public CreditNotes(Injector injector) {
+        this.injector = injector;
+        this.persistenceService = this.getInstance(PTCreditNotePersistenceService.class);
+        this.issuingService = injector.getInstance(DocumentIssuingService.class);
+        this.issuingService.addHandler(PTCreditNoteEntity.class,
+                this.injector.getInstance(PTCreditNoteIssuingHandler.class));
+        this.exportService = this.getInstance(ExportService.class);
 
-		this.exportService.addDataExtractor(PTCreditNoteData.class, getInstance(PTCreditNoteDataExtractor.class));
-		this.exportService.addTransformerMapper(PTCreditNotePDFExportRequest.class, PTCreditNotePDFFOPTransformer.class);
-	}
-
-	public PTCreditNote.Builder builder() {
-		return getInstance(PTCreditNote.Builder.class);
-	}
-
-	public PTCreditNote.Builder builder(PTCreditNote invoice) {
-		PTCreditNote.Builder builder = getInstance(PTCreditNote.Builder.class);
-		BuilderManager.setTypeInstance(builder, invoice);
-		return builder;
-	}
-	
-	public PTCreditNoteEntry.Builder entryBuilder() {
-		return getInstance(PTCreditNoteEntry.Builder.class);
-	}
-
-	public PTCreditNoteEntry.Builder entryBuilder(PTCreditNoteEntry entry) {
-		PTCreditNoteEntry.Builder builder = getInstance(PTCreditNoteEntry.Builder.class);
-		BuilderManager.setTypeInstance(builder, entry);
-		return builder;
-	}
-
-	public PTCreditNotePersistenceService persistence() {
-		return this.persistenceService;
-	}
-
-	public PTCreditNote issue(PTCreditNote.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
-		return issuingService.issue(builder, params);
-	}
-
-	public InputStream pdfExport(PTCreditNotePDFExportRequest request) throws ExportServiceException {
-		return exportService.exportToStream(request);
-	}
-	
-	public void pdfExport(UID uidDoc, BillyPDFTransformer<PTCreditNoteData> dataTransformer, OutputStream outputStream) 
-            throws ExportServiceException {
-        
-        exportService.export(uidDoc, dataTransformer, outputStream);
+        this.exportService.addDataExtractor(PTCreditNoteData.class, this.getInstance(PTCreditNoteDataExtractor.class));
+        this.exportService.addTransformerMapper(PTCreditNotePDFExportRequest.class,
+                PTCreditNotePDFFOPTransformer.class);
     }
-	
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
 
-	
-	public PTCreditNote.ManualBuilder manualBuilder() {
-		return getInstance(PTCreditNote.ManualBuilder.class);
-	}
+    public PTCreditNote.Builder builder() {
+        return this.getInstance(PTCreditNote.Builder.class);
+    }
 
-	public PTCreditNote.ManualBuilder manualbuilder(PTCreditNote invoice) {
-		PTCreditNote.ManualBuilder builder = getInstance(PTCreditNote.ManualBuilder.class);
-		BuilderManager.setTypeInstance(builder, invoice);
-		return builder;
-	}
-	
-	public PTCreditNoteEntry.ManualBuilder manualEntryBuilder() {
-		return getInstance(PTCreditNoteEntry.ManualBuilder.class);
-	}
+    public PTCreditNote.Builder builder(PTCreditNote invoice) {
+        PTCreditNote.Builder builder = this.getInstance(PTCreditNote.Builder.class);
+        BuilderManager.setTypeInstance(builder, invoice);
+        return builder;
+    }
 
-	public PTCreditNoteEntry.ManualBuilder manualEntryBuilder(PTCreditNoteEntry entry) {
-		PTCreditNoteEntry.ManualBuilder builder = getInstance(PTCreditNoteEntry.ManualBuilder.class);
-		BuilderManager.setTypeInstance(builder, entry);
-		return builder;
-	}
-	
-	public PTCreditNote issue(PTCreditNote.ManualBuilder builder, PTIssuingParams params) throws DocumentIssuingException {
-		return issuingService.issue(builder, params);
-	}
+    public PTCreditNoteEntry.Builder entryBuilder() {
+        return this.getInstance(PTCreditNoteEntry.Builder.class);
+    }
+
+    public PTCreditNoteEntry.Builder entryBuilder(PTCreditNoteEntry entry) {
+        PTCreditNoteEntry.Builder builder = this.getInstance(PTCreditNoteEntry.Builder.class);
+        BuilderManager.setTypeInstance(builder, entry);
+        return builder;
+    }
+
+    public PTCreditNotePersistenceService persistence() {
+        return this.persistenceService;
+    }
+
+    public PTCreditNote issue(PTCreditNote.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
+        return this.issuingService.issue(builder, params);
+    }
+
+    public InputStream pdfExport(PTCreditNotePDFExportRequest request) throws ExportServiceException {
+        return this.exportService.exportToStream(request);
+    }
+
+    public <O> void pdfExport(UID uidDoc, BillyExportTransformer<PTCreditNoteData, O> dataTransformer, O output)
+            throws ExportServiceException {
+
+        this.exportService.export(uidDoc, dataTransformer, output);
+    }
+
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
+
+    public PTCreditNote.ManualBuilder manualBuilder() {
+        return this.getInstance(PTCreditNote.ManualBuilder.class);
+    }
+
+    public PTCreditNote.ManualBuilder manualbuilder(PTCreditNote invoice) {
+        PTCreditNote.ManualBuilder builder = this.getInstance(PTCreditNote.ManualBuilder.class);
+        BuilderManager.setTypeInstance(builder, invoice);
+        return builder;
+    }
+
+    public PTCreditNoteEntry.ManualBuilder manualEntryBuilder() {
+        return this.getInstance(PTCreditNoteEntry.ManualBuilder.class);
+    }
+
+    public PTCreditNoteEntry.ManualBuilder manualEntryBuilder(PTCreditNoteEntry entry) {
+        PTCreditNoteEntry.ManualBuilder builder = this.getInstance(PTCreditNoteEntry.ManualBuilder.class);
+        BuilderManager.setTypeInstance(builder, entry);
+        return builder;
+    }
+
+    public PTCreditNote issue(PTCreditNote.ManualBuilder builder, PTIssuingParams params)
+            throws DocumentIssuingException {
+        return this.issuingService.issue(builder, params);
+    }
 }

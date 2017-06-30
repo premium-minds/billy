@@ -25,28 +25,23 @@ import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.PaymentData;
+import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceData;
 import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.PTSimpleInvoicePDFTransformer;
 
-public class PTSimpleInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTSimpleInvoiceData> 
-implements PTSimpleInvoicePDFTransformer {
+public class PTSimpleInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTSimpleInvoiceData>
+        implements PTSimpleInvoicePDFTransformer {
 
-    public PTSimpleInvoicePDFFOPTransformer(
-            MathContext mathContext,
-            String logoImagePath,
-            InputStream xsltFileStream, 
-            String softwareCertificationId,
-            Config config) {
+    public PTSimpleInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
+            String softwareCertificationId, Config config) {
 
         super(PTSimpleInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
 
-    public PTSimpleInvoicePDFFOPTransformer(
-            String logoImagePath,
-            InputStream xsltFileStream, 
+    public PTSimpleInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
             String softwareCertificationId) {
 
         this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
@@ -57,12 +52,13 @@ implements PTSimpleInvoicePDFTransformer {
     }
 
     @Override
-    protected ParamsTree<String, String> mapDocumentToParamsTree( PTSimpleInvoiceData invoice) {
+    protected ParamsTree<String, String> mapDocumentToParamsTree(PTSimpleInvoiceData invoice) {
 
         ParamsTree<String, String> params = super.mapDocumentToParamsTree(invoice);
 
-        params.getRoot().addChild(PTParamKeys.INVOICE_HASH, getVerificationHashString(invoice.getHash().getBytes()));
-        params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, getSoftwareCertificationId());
+        params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
+                this.getVerificationHashString(invoice.getHash().getBytes()));
+        params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
 
         return params;
     }
@@ -72,29 +68,27 @@ implements PTSimpleInvoicePDFTransformer {
         params.getRoot().addChild(ParamKeys.ID, entity.getNumber());
 
         if (null != entity.getPayments()) {
-            for(PaymentData p : entity.getPayments()) {
-                params.getRoot().addChild(
-                        ParamKeys.INVOICE_PAYMETHOD,
-                        getPaymentMechanismTranslation(p.getPaymentMethod()));
+            for (PaymentData p : entity.getPayments()) {
+                params.getRoot().addChild(ParamKeys.INVOICE_PAYMETHOD,
+                        this.getPaymentMechanismTranslation(p.getPaymentMethod()));
             }
         }
 
         params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-                DATE_FORMAT.format(entity.getDate()));
+                AbstractFOPPDFTransformer.DATE_FORMAT.format(entity.getDate()));
     }
 
     @Override
     protected void setCustomer(ParamsTree<String, String> params, PTSimpleInvoiceData entity) {
 
-        Node<String, String> customer = params.getRoot().addChild(
-                ParamKeys.CUSTOMER);
+        Node<String, String> customer = params.getRoot().addChild(ParamKeys.CUSTOMER);
 
-        customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, getCustomerFinancialId(entity));
+        customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, this.getCustomerFinancialId(entity));
     }
 
     @Override
     protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
-        //Do Nothing
+        // Do Nothing
     }
 
 }

@@ -28,19 +28,18 @@ import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 
 public class ESReceiptIssuingHandler extends ESGenericInvoiceIssuingHandler<ESReceiptEntity, ESIssuingParams> {
 
-	private final DAOESReceipt daoReceipt;
-	
-	@Inject
-	public ESReceiptIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
-			DAOESReceipt daoReceipt) {
-		super(daoInvoiceSeries);
-		this.daoReceipt = daoReceipt;
-	}
+    private final DAOESReceipt daoReceipt;
 
-	@Override
-	public ESReceiptEntity issue(ESReceiptEntity document, ESIssuingParams parameters) throws DocumentIssuingException {
+    @Inject
+    public ESReceiptIssuingHandler(DAOInvoiceSeries daoInvoiceSeries, DAOESReceipt daoReceipt) {
+        super(daoInvoiceSeries);
+        this.daoReceipt = daoReceipt;
+    }
 
-		return issue(document, parameters, daoReceipt);
-	}
+    @Override
+    public ESReceiptEntity issue(ESReceiptEntity document, ESIssuingParams parameters) throws DocumentIssuingException {
+
+        return this.issue(document, parameters, this.daoReceipt);
+    }
 
 }

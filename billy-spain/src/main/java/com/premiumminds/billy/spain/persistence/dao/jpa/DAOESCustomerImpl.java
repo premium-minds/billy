@@ -29,18 +29,18 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCustomerEntity
 
 public class DAOESCustomerImpl extends DAOCustomerImpl implements DAOESCustomer {
 
-	@Inject
-	public DAOESCustomerImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOESCustomerImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	public ESCustomerEntity getEntityInstance() {
-		return new JPAESCustomerEntity();
-	}
+    @Override
+    public ESCustomerEntity getEntityInstance() {
+        return new JPAESCustomerEntity();
+    }
 
-	@Override
-	protected Class<JPAESCustomerEntity> getEntityClass() {
-		return JPAESCustomerEntity.class;
-	}
+    @Override
+    protected Class<JPAESCustomerEntity> getEntityClass() {
+        return JPAESCustomerEntity.class;
+    }
 }

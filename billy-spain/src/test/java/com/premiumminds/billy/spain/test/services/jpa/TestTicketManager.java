@@ -30,36 +30,36 @@ import com.premiumminds.billy.core.services.entities.Ticket;
 
 public class TestTicketManager extends ESJPAAbstractTest {
 
-	private static final String	OBJECT_UID		= "object_uid";
-	private static final Date	CREATION_DATE	= new Date();
-	private static final Date	PROCESS_DATE	= new Date();
-	private TicketManager		manager			= null;
-	String						ticket			= null;
+    private static final String OBJECT_UID = "object_uid";
+    private static final Date CREATION_DATE = new Date();
+    private static final Date PROCESS_DATE = new Date();
+    private TicketManager manager = null;
+    String ticket = null;
 
-	@Before
-	public void setUp() {
-		manager = getInstance(TicketManager.class);
+    @Before
+    public void setUp() {
+        this.manager = this.getInstance(TicketManager.class);
 
-	}
+    }
 
-	@Test
-	public void generateTicketTest() {
-		ticket = manager.generateTicket(getInstance(Ticket.Builder.class));
-		Assert.assertTrue(ticket != null);
-	}
+    @Test
+    public void generateTicketTest() {
+        this.ticket = this.manager.generateTicket(this.getInstance(Ticket.Builder.class));
+        Assert.assertTrue(this.ticket != null);
+    }
 
-	@Test
-	public void ticketExistsTest() {
-		ticket = manager.generateTicket(getInstance(Ticket.Builder.class));
-		Assert.assertTrue(manager.ticketExists(ticket));
-	}
+    @Test
+    public void ticketExistsTest() {
+        this.ticket = this.manager.generateTicket(this.getInstance(Ticket.Builder.class));
+        Assert.assertTrue(this.manager.ticketExists(this.ticket));
+    }
 
-	@Test
-	public void updateTicketTest() {
-		ticket = manager.generateTicket(getInstance(Ticket.Builder.class));
-		manager.updateTicket(new UID(ticket), new UID(OBJECT_UID),
-				CREATION_DATE, PROCESS_DATE);
-		Assert.assertTrue(manager.ticketExists(ticket));
-	}
+    @Test
+    public void updateTicketTest() {
+        this.ticket = this.manager.generateTicket(this.getInstance(Ticket.Builder.class));
+        this.manager.updateTicket(new UID(this.ticket), new UID(TestTicketManager.OBJECT_UID),
+                TestTicketManager.CREATION_DATE, TestTicketManager.PROCESS_DATE);
+        Assert.assertTrue(this.manager.ticketExists(this.ticket));
+    }
 
 }

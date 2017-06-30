@@ -20,9 +20,9 @@ package com.premiumminds.billy.spain.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
-import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.services.builders.ESManualCreditNoteBuilder;
@@ -30,24 +30,24 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESManualCreditNoteBuilderImpl<TBuilder extends ESManualCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESCreditNoteEntry, TDocument extends ESCreditNote>
-	extends ESManualBuilderImpl<TBuilder, TEntry, TDocument> implements
-	ESManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+        extends ESManualBuilderImpl<TBuilder, TEntry, TDocument>
+        implements ESManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-	public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESManualCreditNoteBuilderImpl(TDAO daoESCreditNote,
-			DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
-			DAOESSupplier daoESSupplier) {
-		super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
-	}
-	
-	@Override
-	protected ESCreditNoteEntity getTypeInstance() {
-		return (ESCreditNoteEntity) super.getTypeInstance();
-	}
-	
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		ESCreditNoteEntity i = getTypeInstance();
-		i.setCreditOrDebit(CreditOrDebit.DEBIT);
-		super.validateInstance();
-	}
+    public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESManualCreditNoteBuilderImpl(
+            TDAO daoESCreditNote, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
+            DAOESSupplier daoESSupplier) {
+        super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
+    }
+
+    @Override
+    protected ESCreditNoteEntity getTypeInstance() {
+        return (ESCreditNoteEntity) super.getTypeInstance();
+    }
+
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        ESCreditNoteEntity i = this.getTypeInstance();
+        i.setCreditOrDebit(CreditOrDebit.DEBIT);
+        super.validateInstance();
+    }
 }

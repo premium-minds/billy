@@ -37,64 +37,55 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNote
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity> implements
-	DAOPTCreditNote {
+public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity>
+        implements DAOPTCreditNote {
 
-	@Inject
-	public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	public PTCreditNoteEntity getEntityInstance() {
-		return new JPAPTCreditNoteEntity();
-	}
+    @Override
+    public PTCreditNoteEntity getEntityInstance() {
+        return new JPAPTCreditNoteEntity();
+    }
 
-	@Override
-	protected Class<JPAPTCreditNoteEntity> getEntityClass() {
-		return JPAPTCreditNoteEntity.class;
-	}
+    @Override
+    protected Class<JPAPTCreditNoteEntity> getEntityClass() {
+        return JPAPTCreditNoteEntity.class;
+    }
 
-	@Override
-	public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid,
-			Date from, Date to) {
-		QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+    @Override
+    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid, Date from, Date to) {
+        QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 
-		JPAQuery query = createQuery();
+        JPAQuery query = this.createQuery();
 
-		query.from(creditNote)
-			.where(creditNote.instanceOf(JPAPTCreditNoteEntity.class)
-					.and(creditNote.date.between(from, to))
-					.and(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
+        query.from(creditNote)
+                .where(creditNote.instanceOf(JPAPTCreditNoteEntity.class).and(creditNote.date.between(from, to))
+                        .and(this.toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
 
-		List<PTCreditNoteEntity> result = this.checkEntityList(
-				query.list(creditNote), PTCreditNoteEntity.class);
-		return result;
-	}
+        List<PTCreditNoteEntity> result = this.checkEntityList(query.list(creditNote), PTCreditNoteEntity.class);
+        return result;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<PTCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice) {
-		QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
-		QJPAPTCreditNoteEntryEntity entry = QJPAPTCreditNoteEntryEntity.jPAPTCreditNoteEntryEntity;
-		QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
-			
-		JPASubQuery invQ = new JPASubQuery()
-			.from(invoice)
-			.where(invoice.uid.eq(uidInvoice.toString()));
-		
-		JPASubQuery entQ = new JPASubQuery()
-		.from(entry)
-		.where(toDSL(entry.reference, QJPAPTGenericInvoiceEntity.class).uid.in(
-				invQ.list(invoice.uid)));
-		
-		return (List<PTCreditNote>) (List<?>) createQuery()
-				.from(creditNote)
-				.where(toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString())
-						.and(toDSL(creditNote.entries.any(), QJPAPTCreditNoteEntryEntity.class).uid.in(
-								entQ.list(entry.uid))))
-				.list(creditNote);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<PTCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
+        QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+        QJPAPTCreditNoteEntryEntity entry = QJPAPTCreditNoteEntryEntity.jPAPTCreditNoteEntryEntity;
+        QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
+
+        JPASubQuery invQ = new JPASubQuery().from(invoice).where(invoice.uid.eq(uidInvoice.toString()));
+
+        JPASubQuery entQ = new JPASubQuery().from(entry)
+                .where(this.toDSL(entry.reference, QJPAPTGenericInvoiceEntity.class).uid.in(invQ.list(invoice.uid)));
+
+        return (List<PTCreditNote>) (List<?>) this.createQuery().from(creditNote)
+                .where(this.toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString())
+                        .and(this.toDSL(creditNote.entries.any(), QJPAPTCreditNoteEntryEntity.class).uid
+                                .in(entQ.list(entry.uid))))
+                .list(creditNote);
+    }
 
 }

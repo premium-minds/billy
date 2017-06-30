@@ -27,13 +27,11 @@ import com.premiumminds.billy.spain.services.builders.impl.ESBusinessBuilderImpl
 
 public interface ESBusiness extends Business {
 
-	public static class Builder extends
-		ESBusinessBuilderImpl<Builder, ESBusiness> {
+    public static class Builder extends ESBusinessBuilderImpl<Builder, ESBusiness> {
 
-		@Inject
-		public Builder(DAOESBusiness daoESBusiness,
-						DAOESRegionContext daoESRegionContext) {
-			super(daoESBusiness, daoESRegionContext);
-		}
-	}
+        @Inject
+        public Builder(DAOESBusiness daoESBusiness, DAOESRegionContext daoESRegionContext) {
+            super(daoESBusiness, daoESRegionContext);
+        }
+    }
 }

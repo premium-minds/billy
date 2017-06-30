@@ -25,29 +25,25 @@ import java.io.OutputStream;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
 
 public interface ExportService {
 
-	public <T extends ExportServiceRequest> InputStream exportToStream(T request)
-		throws ExportServiceException;
+    public <T extends ExportServiceRequest> InputStream exportToStream(T request) throws ExportServiceException;
 
-	public <T extends ExportServiceRequest> File exportToFile(T request)
-		throws ExportServiceException;
+    public <T extends ExportServiceRequest> File exportToFile(T request) throws ExportServiceException;
 
-	@Deprecated
-	public void addHandler(Class<? extends ExportServiceRequest> requestClass,
-			ExportServiceHandler handler);
+    @Deprecated
+    public void addHandler(Class<? extends ExportServiceRequest> requestClass, ExportServiceHandler handler);
 
-	public <T extends GenericInvoiceData> void addDataExtractor(Class<T> dataClass, 
-			BillyDataExtractor<T> dataExtractor);
-	
-	public void addTransformerMapper(Class<? extends ExportServiceRequest> requestClazz,
-			Class<? extends BillyPDFTransformer<? extends GenericInvoiceData>> transformerClazz);
+    public <T extends GenericInvoiceData> void addDataExtractor(Class<T> dataClass,
+            BillyDataExtractor<T> dataExtractor);
 
-	public <T extends GenericInvoiceData> void export(UID uidDoc, BillyPDFTransformer<T> dataTransformer, 
-			OutputStream outputStream)
-			throws ExportServiceException;
+    public void addTransformerMapper(Class<? extends ExportServiceRequest> requestClazz,
+            Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>> transformerClazz);
+
+    public <T extends GenericInvoiceData, O> void export(UID uidDoc, BillyExportTransformer<T, O> dataTransformer,
+            O output) throws ExportServiceException;
 
 }

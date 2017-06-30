@@ -25,10 +25,9 @@ import com.premiumminds.billy.core.exceptions.NotImplementedException;
 
 public class NotImplementedInterceptor implements MethodInterceptor {
 
-	@Override
-	public Object invoke(MethodInvocation arg0) throws Throwable {
-		throw new NotImplementedException("The method is not implemented : "
-				+ arg0.getMethod().getName());
-	}
+    @Override
+    public Object invoke(MethodInvocation arg0) throws Throwable {
+        throw new NotImplementedException("The method is not implemented : " + arg0.getMethod().getName());
+    }
 
 }

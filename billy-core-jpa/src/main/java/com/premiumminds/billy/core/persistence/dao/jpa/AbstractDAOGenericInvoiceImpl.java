@@ -32,43 +32,45 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEnt
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 
-public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity> // & GenericInvoiceEntity>  FIXME: Fix entities inheritance 
-extends AbstractDAO<TInterface, TEntity> 
-implements AbstractDAOGenericInvoice<TInterface> {
+public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity> // &
+                                                                                                                                      // GenericInvoiceEntity>
+                                                                                                                                      // FIXME:
+                                                                                                                                      // Fix
+                                                                                                                                      // entities
+                                                                                                                                      // inheritance
+        extends AbstractDAO<TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
 
-	@Inject
-	public AbstractDAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public AbstractDAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public TInterface getLatestInvoiceFromSeries(String series, String businessUID) {
+    @SuppressWarnings("unchecked")
+    @Override
+    public TInterface getLatestInvoiceFromSeries(String series, String businessUID) {
 
-		QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
-		QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
+        QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
+        QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
-		JPAQuery query = new JPAQuery(this.getEntityManager());
+        JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		BusinessEntity businessEnity = query.from(business)
-				.where(business.uid.eq(businessUID)).uniqueResult(business);
+        BusinessEntity businessEnity = query.from(business).where(business.uid.eq(businessUID)).uniqueResult(business);
 
-		if (businessEnity == null) {
-			throw new BillyRuntimeException();
-		}
+        if (businessEnity == null) {
+            throw new BillyRuntimeException();
+        }
 
-		query = new JPAQuery(this.getEntityManager());
+        query = new JPAQuery(this.getEntityManager());
 
-		query.from(genericInvoice);
-		query.where(genericInvoice.series.eq(series));
-		query.where(genericInvoice.business.eq(businessEnity));
-		query.where(genericInvoice.seriesNumber.eq(new JPASubQuery()
-				.from(genericInvoice).where(genericInvoice.series.eq(series))
-				.where(genericInvoice.business.eq(businessEnity))
-				.unique(genericInvoice.seriesNumber.max())));
+        query.from(genericInvoice);
+        query.where(genericInvoice.series.eq(series));
+        query.where(genericInvoice.business.eq(businessEnity));
+        query.where(genericInvoice.seriesNumber
+                .eq(new JPASubQuery().from(genericInvoice).where(genericInvoice.series.eq(series))
+                        .where(genericInvoice.business.eq(businessEnity)).unique(genericInvoice.seriesNumber.max())));
 
-		GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
+        GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
 
-		return (TInterface) invoice; //FIXME: CAST
-	}
+        return (TInterface) invoice; // FIXME: CAST
+    }
 }

@@ -23,24 +23,25 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public interface ESIssuingParams extends IssuingParams {
 
-	public static class Util {
-		public static ESIssuingParams newInstance() {
-			return new ESIssuingParamsImpl();
-		}
-	}
-	
-	public static class Keys {
+    public static class Util {
 
-		public static final String	INVOICE_SERIES		= "invoice_series";
-		public static final String	EAC_CODE			= "eac_code";
-	}
+        public static ESIssuingParams newInstance() {
+            return new ESIssuingParamsImpl();
+        }
+    }
 
-	public String getInvoiceSeries() throws ParameterNotFoundException;
+    public static class Keys {
 
-	public String getEACCode() throws ParameterNotFoundException;
+        public static final String INVOICE_SERIES = "invoice_series";
+        public static final String EAC_CODE = "eac_code";
+    }
 
-	public void setInvoiceSeries(String series);
+    public String getInvoiceSeries() throws ParameterNotFoundException;
 
-	public void setEACCode(String eacCode);
+    public String getEACCode() throws ParameterNotFoundException;
+
+    public void setInvoiceSeries(String series);
+
+    public void setEACCode(String eacCode);
 
 }

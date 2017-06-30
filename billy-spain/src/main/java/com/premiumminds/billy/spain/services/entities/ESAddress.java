@@ -26,12 +26,11 @@ import com.premiumminds.billy.spain.services.builders.impl.ESAddressBuilderImpl;
 
 public interface ESAddress extends Address {
 
-	public static class Builder extends
-		ESAddressBuilderImpl<Builder, ESAddress> {
+    public static class Builder extends ESAddressBuilderImpl<Builder, ESAddress> {
 
-		@Inject
-		public Builder(DAOESAddress daoESAddress) {
-			super(daoESAddress);
-		}
-	}
+        @Inject
+        public Builder(DAOESAddress daoESAddress) {
+            super(daoESAddress);
+        }
+    }
 }

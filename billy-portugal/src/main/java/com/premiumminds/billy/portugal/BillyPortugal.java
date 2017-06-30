@@ -40,140 +40,138 @@ import com.premiumminds.billy.portugal.util.Taxes;
 
 /**
  * Portuguese Module for Billy.
- * 
+ *
  */
 @Singleton
 public class BillyPortugal {
-	
-	static final String DEFAULT_PERSISTENCE_UNIT = "BillyPortugalPersistenceUnit";
 
-	private final Injector injector;
+    static final String DEFAULT_PERSISTENCE_UNIT = "BillyPortugalPersistenceUnit";
 
-	private Contexts contexts;
-	private Taxes taxes;
-	private Customers customers;
-	private Addresses addresses;
-	private Businesses businesses;
-	private Invoices invoices;
-	private SimpleInvoices simpleInvoices;
-	private CreditNotes creditNotes;
-	private Products products;
-	private SAFTs saft;
-	private Applications applications;
-	private Contacts contacts;
-	private Payments payments;
-	
-	
-	public BillyPortugal() {
-		this(DEFAULT_PERSISTENCE_UNIT);
-	}
-	
-	public BillyPortugal(String persistenceUnitId) {
-		this.injector = Guice.createInjector(
-				new PortugalDependencyModule(),
-				new PortugalPersistenceDependencyModule(persistenceUnitId));
-		this.injector.getInstance(PersistService.class).start();
-	}
+    private final Injector injector;
 
-	@Inject
-	public BillyPortugal(Injector injector) {
-		this.injector = injector;
-	}
+    private Contexts contexts;
+    private Taxes taxes;
+    private Customers customers;
+    private Addresses addresses;
+    private Businesses businesses;
+    private Invoices invoices;
+    private SimpleInvoices simpleInvoices;
+    private CreditNotes creditNotes;
+    private Products products;
+    private SAFTs saft;
+    private Applications applications;
+    private Contacts contacts;
+    private Payments payments;
 
-	/**
-	 * Provides access to predefined taxes for Billy-Portugal module.
-	 * 
-	 * @return {@link Taxes}
-	 */
-	public Taxes taxes() {
-		if(this.taxes == null) {
-			this.taxes = new Taxes(injector);
-		}
-		return this.taxes;
-	}
+    public BillyPortugal() {
+        this(BillyPortugal.DEFAULT_PERSISTENCE_UNIT);
+    }
 
-	public Customers customers() {
-		if(this.customers == null) {
-			this.customers = new Customers(injector);
-		}
-		return this.customers;
-	}
-	
-	public Addresses addresses() {
-		if(this.addresses == null) {
-			this.addresses = new Addresses(injector);
-		}
-		return this.addresses;
-	}
-	
-	public Businesses businesses() {
-		if(this.businesses == null) {
-			this.businesses = new Businesses(injector);
-		}
-		return this.businesses;
-	}
-	
-	public Invoices invoices() {
-		if(this.invoices == null) {
-			this.invoices = new Invoices(injector);
-		}
-		return this.invoices;
-	}
-	
-	public SimpleInvoices simpleInvoices() {
-		if(this.simpleInvoices == null) {
-			this.simpleInvoices = new SimpleInvoices(injector);
-		}
-		return this.simpleInvoices;
-	}
+    public BillyPortugal(String persistenceUnitId) {
+        this.injector = Guice.createInjector(new PortugalDependencyModule(),
+                new PortugalPersistenceDependencyModule(persistenceUnitId));
+        this.injector.getInstance(PersistService.class).start();
+    }
 
-	public CreditNotes creditNotes() {
-		if(this.creditNotes == null) {
-			this.creditNotes = new CreditNotes(injector);
-		}
-		return this.creditNotes;
-	}
-	
-	public Products products() {
-		if(this.products == null) {
-			this.products = new Products(injector);
-		}
-		return this.products;
-	}
+    @Inject
+    public BillyPortugal(Injector injector) {
+        this.injector = injector;
+    }
 
-	public Contexts contexts() {
-		if(this.contexts == null) {
-			this.contexts = new Contexts(injector);
-		}
-		return this.contexts;
-	}
-	
-	public SAFTs saft() {
-		if(this.saft == null) {
-			this.saft = new SAFTs(injector);
-		}
-		return this.saft;
-	}
-	
-	public Applications applications() {
-		if(this.applications == null) {
-			this.applications = new Applications(injector);
-		}
-		return this.applications;
-	} 
-	
-	public Contacts contacts() {
-		if(this.contacts == null) {
-			this.contacts = new Contacts(injector);
-		}
-		return this.contacts;
-	}
-	
-	public Payments payments() {
-		if(this.payments == null) {
-			this.payments = new Payments(injector);
-		}
-		return this.payments;
-	}
+    /**
+     * Provides access to predefined taxes for Billy-Portugal module.
+     *
+     * @return {@link Taxes}
+     */
+    public Taxes taxes() {
+        if (this.taxes == null) {
+            this.taxes = new Taxes(this.injector);
+        }
+        return this.taxes;
+    }
+
+    public Customers customers() {
+        if (this.customers == null) {
+            this.customers = new Customers(this.injector);
+        }
+        return this.customers;
+    }
+
+    public Addresses addresses() {
+        if (this.addresses == null) {
+            this.addresses = new Addresses(this.injector);
+        }
+        return this.addresses;
+    }
+
+    public Businesses businesses() {
+        if (this.businesses == null) {
+            this.businesses = new Businesses(this.injector);
+        }
+        return this.businesses;
+    }
+
+    public Invoices invoices() {
+        if (this.invoices == null) {
+            this.invoices = new Invoices(this.injector);
+        }
+        return this.invoices;
+    }
+
+    public SimpleInvoices simpleInvoices() {
+        if (this.simpleInvoices == null) {
+            this.simpleInvoices = new SimpleInvoices(this.injector);
+        }
+        return this.simpleInvoices;
+    }
+
+    public CreditNotes creditNotes() {
+        if (this.creditNotes == null) {
+            this.creditNotes = new CreditNotes(this.injector);
+        }
+        return this.creditNotes;
+    }
+
+    public Products products() {
+        if (this.products == null) {
+            this.products = new Products(this.injector);
+        }
+        return this.products;
+    }
+
+    public Contexts contexts() {
+        if (this.contexts == null) {
+            this.contexts = new Contexts(this.injector);
+        }
+        return this.contexts;
+    }
+
+    public SAFTs saft() {
+        if (this.saft == null) {
+            this.saft = new SAFTs(this.injector);
+        }
+        return this.saft;
+    }
+
+    public Applications applications() {
+        if (this.applications == null) {
+            this.applications = new Applications(this.injector);
+        }
+        return this.applications;
+    }
+
+    public Contacts contacts() {
+        if (this.contacts == null) {
+            this.contacts = new Contacts(this.injector);
+        }
+        return this.contacts;
+    }
+
+    public Payments payments() {
+        if (this.payments == null) {
+            this.payments = new Payments(this.injector);
+        }
+        return this.payments;
+    }
 
 }

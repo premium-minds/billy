@@ -30,9 +30,8 @@ import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
-public class JPAESBusinessEntity extends JPABusinessEntity implements
-	ESBusinessEntity {
+public class JPAESBusinessEntity extends JPABusinessEntity implements ESBusinessEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
 }

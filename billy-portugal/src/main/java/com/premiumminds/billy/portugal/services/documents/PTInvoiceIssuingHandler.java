@@ -29,20 +29,19 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandler<PTInvoiceEntity, PTIssuingParams> {
 
-	public final static TYPE	INVOICE_TYPE	= TYPE.FT;
+    public final static TYPE INVOICE_TYPE = TYPE.FT;
 
-	private final DAOPTInvoice	daoInvoice;
+    private final DAOPTInvoice daoInvoice;
 
-	@Inject
-	public PTInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
-									DAOPTInvoice daoInvoice) {
-		super(daoInvoiceSeries);
-		this.daoInvoice = daoInvoice;
-	}
+    @Inject
+    public PTInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries, DAOPTInvoice daoInvoice) {
+        super(daoInvoiceSeries);
+        this.daoInvoice = daoInvoice;
+    }
 
-	@Override
-	public PTInvoiceEntity issue(PTInvoiceEntity document, PTIssuingParams parameters) throws DocumentIssuingException {
-		return issue(document, parameters, daoInvoice, PTInvoiceIssuingHandler.INVOICE_TYPE);
-	}
+    @Override
+    public PTInvoiceEntity issue(PTInvoiceEntity document, PTIssuingParams parameters) throws DocumentIssuingException {
+        return this.issue(document, parameters, this.daoInvoice, PTInvoiceIssuingHandler.INVOICE_TYPE);
+    }
 
 }

@@ -24,6 +24,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEnti
 
 public interface AbstractDAOPTGenericInvoice<T extends PTGenericInvoiceEntity> extends AbstractDAOGenericInvoice<T> {
 
-	public T findByNumber(UID uidBusiness, String number);
-	
+    public T findByNumber(UID uidBusiness, String number);
+
 }

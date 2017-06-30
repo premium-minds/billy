@@ -24,26 +24,25 @@ import java.io.ObjectOutputStream;
 
 public abstract class Comparer {
 
-	public static <T extends Object> boolean areEqual(T o1, T o2)
-		throws IOException {
-		ByteArrayOutputStream bos1 = new ByteArrayOutputStream(), bos2 = new ByteArrayOutputStream();
-		ObjectOutputStream oos1 = new ObjectOutputStream(bos1);
-		ObjectOutputStream oos2 = new ObjectOutputStream(bos2);
-		oos1.writeObject(o1);
-		oos2.writeObject(o2);
-		byte[] o1Bytes = bos1.toByteArray();
-		byte[] o2Bytes = bos2.toByteArray();
+    public static <T extends Object> boolean areEqual(T o1, T o2) throws IOException {
+        ByteArrayOutputStream bos1 = new ByteArrayOutputStream(), bos2 = new ByteArrayOutputStream();
+        ObjectOutputStream oos1 = new ObjectOutputStream(bos1);
+        ObjectOutputStream oos2 = new ObjectOutputStream(bos2);
+        oos1.writeObject(o1);
+        oos2.writeObject(o2);
+        byte[] o1Bytes = bos1.toByteArray();
+        byte[] o2Bytes = bos2.toByteArray();
 
-		if (o1Bytes.length != o2Bytes.length) {
-			return false;
-		}
+        if (o1Bytes.length != o2Bytes.length) {
+            return false;
+        }
 
-		for (int i = 0; i < o1Bytes.length; ++i) {
-			if (o1Bytes[i] != o2Bytes[i]) {
-				return false;
-			}
-		}
-		return true;
-	}
+        for (int i = 0; i < o1Bytes.length; ++i) {
+            if (o1Bytes[i] != o2Bytes[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

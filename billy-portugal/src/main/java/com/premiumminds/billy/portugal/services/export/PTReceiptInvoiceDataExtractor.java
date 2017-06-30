@@ -33,31 +33,38 @@ import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtracto
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
-public class PTReceiptInvoiceDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<PTReceiptInvoiceData> {
-	
-	private final DAOPTReceiptInvoice daoPTReceiptInvoice;
-	
-	@Inject
-	public PTReceiptInvoiceDataExtractor(DAOPTReceiptInvoice daoPTReceiptInvoice) {
-		this.daoPTReceiptInvoice = daoPTReceiptInvoice;
-	}
+public class PTReceiptInvoiceDataExtractor extends AbstractBillyDataExtractor
+        implements BillyDataExtractor<PTReceiptInvoiceData> {
 
-	@Override
-	public PTReceiptInvoiceData extract(UID uid) throws ExportServiceException {
-		PTReceiptInvoice entity = (PTReceiptInvoice) daoPTReceiptInvoice.get(uid); //FIXME: Fix the DAOs to remove this cast
-		if (entity == null) {
-			throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
-		}
-		
-		List<PaymentData> payments = extractPayments(entity.getPayments());
-		CostumerData costumer = extractCostumer(entity.getCustomer());
-		BusinessData business = extractBusiness(entity.getBusiness());
-		List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
-		
-		return new PTReceiptInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), 
-				payments, costumer, business, entries, 
-				entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(), 
-				entity.getSettlementDescription(), entity.getHash());
-	}
-	
+    private final DAOPTReceiptInvoice daoPTReceiptInvoice;
+
+    @Inject
+    public PTReceiptInvoiceDataExtractor(DAOPTReceiptInvoice daoPTReceiptInvoice) {
+        this.daoPTReceiptInvoice = daoPTReceiptInvoice;
+    }
+
+    @Override
+    public PTReceiptInvoiceData extract(UID uid) throws ExportServiceException {
+        PTReceiptInvoice entity = this.daoPTReceiptInvoice.get(uid); // FIXME:
+        // Fix
+        // the
+        // DAOs
+        // to
+        // remove
+        // this
+        // cast
+        if (entity == null) {
+            throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
+        }
+
+        List<PaymentData> payments = this.extractPayments(entity.getPayments());
+        CostumerData costumer = this.extractCostumer(entity.getCustomer());
+        BusinessData business = this.extractBusiness(entity.getBusiness());
+        List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
+
+        return new PTReceiptInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
+                costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+                entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash());
+    }
+
 }

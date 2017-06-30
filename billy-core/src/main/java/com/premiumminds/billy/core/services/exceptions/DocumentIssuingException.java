@@ -20,21 +20,21 @@ package com.premiumminds.billy.core.services.exceptions;
 
 public class DocumentIssuingException extends Exception {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	public DocumentIssuingException() {
-	}
+    public DocumentIssuingException() {
+    }
 
-	public DocumentIssuingException(String message) {
-		super(message);
-	}
+    public DocumentIssuingException(String message) {
+        super(message);
+    }
 
-	public DocumentIssuingException(Throwable t) {
-		super(t);
-	}
+    public DocumentIssuingException(Throwable t) {
+        super(t);
+    }
 
-	public DocumentIssuingException(String message, Throwable t) {
-		super(message, t);
-	}
+    public DocumentIssuingException(String message, Throwable t) {
+        super(message, t);
+    }
 
 }

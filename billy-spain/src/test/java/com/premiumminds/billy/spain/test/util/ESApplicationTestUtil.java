@@ -26,46 +26,38 @@ import com.premiumminds.billy.spain.services.entities.ESContact;
 
 public class ESApplicationTestUtil {
 
-	private static final String		KEYS_PATH				= "http://url";
-	private static final String		COMPANY_NAME			= "company_name";
-	private static final String		COMPANY_TAX_ID			= "12432353426435";
-	private static final String		APP_NAME				= "APP";
-	private static final String		VERSION					= "1";
-	private static final String		WEBSITE					= "http://app.ex";
+    private static final String KEYS_PATH = "http://url";
+    private static final String COMPANY_NAME = "company_name";
+    private static final String COMPANY_TAX_ID = "12432353426435";
+    private static final String APP_NAME = "APP";
+    private static final String VERSION = "1";
+    private static final String WEBSITE = "http://app.ex";
 
-	private Injector				injector;
-	private ESContactTestUtil		contact;
+    private Injector injector;
+    private ESContactTestUtil contact;
 
-	public ESApplicationTestUtil(Injector injector) {
-		this.injector = injector;
-		this.contact = new ESContactTestUtil(injector);
-	}
+    public ESApplicationTestUtil(Injector injector) {
+        this.injector = injector;
+        this.contact = new ESContactTestUtil(injector);
+    }
 
-	public ESApplication.Builder getApplicationBuilder(String appName,
-			String version, String companyName, String companyTaxId,
-			String website, ESContact.Builder contactBuilder) throws MalformedURLException {
+    public ESApplication.Builder getApplicationBuilder(String appName, String version, String companyName,
+            String companyTaxId, String website, ESContact.Builder contactBuilder) throws MalformedURLException {
 
-		ESApplication.Builder applicationBuilder = this.injector
-				.getInstance(ESApplication.Builder.class);
+        ESApplication.Builder applicationBuilder = this.injector.getInstance(ESApplication.Builder.class);
 
-		applicationBuilder.addContact(contactBuilder)
-				.setDeveloperCompanyName(companyName)
-				.setDeveloperCompanyTaxIdentifier(companyTaxId)
-				.setName(appName)
-				.setVersion(version).setWebsiteAddress(website);
+        applicationBuilder.addContact(contactBuilder).setDeveloperCompanyName(companyName)
+                .setDeveloperCompanyTaxIdentifier(companyTaxId).setName(appName).setVersion(version)
+                .setWebsiteAddress(website);
 
-		return applicationBuilder;
-	}
+        return applicationBuilder;
+    }
 
-	public ESApplication.Builder getApplicationBuilder()
-		throws MalformedURLException {
-		ESContact.Builder contactBuilder = this.contact.getContactBuilder();
+    public ESApplication.Builder getApplicationBuilder() throws MalformedURLException {
+        ESContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-		return this.getApplicationBuilder(ESApplicationTestUtil.APP_NAME,
-				ESApplicationTestUtil.VERSION,
-				ESApplicationTestUtil.COMPANY_NAME,
-				ESApplicationTestUtil.COMPANY_TAX_ID,
-				ESApplicationTestUtil.WEBSITE,
-				contactBuilder);
-	}
+        return this.getApplicationBuilder(ESApplicationTestUtil.APP_NAME, ESApplicationTestUtil.VERSION,
+                ESApplicationTestUtil.COMPANY_NAME, ESApplicationTestUtil.COMPANY_TAX_ID, ESApplicationTestUtil.WEBSITE,
+                contactBuilder);
+    }
 }

@@ -25,5 +25,5 @@ import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 public interface PTPaymentEntity extends PaymentEntity, PTPayment {
 
-	public void setPaymentAmount(BigDecimal amount);
+    public void setPaymentAmount(BigDecimal amount);
 }

@@ -28,19 +28,19 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.services.builders.impl.PTPaymentBuilderImpl;
 
 public interface PTPayment extends Payment {
-	
-	public static class Builder extends PTPaymentBuilderImpl<Builder, PTPayment> {
 
-		@Inject
-		public Builder(DAOPTPayment daoPTPayment) {
-			super(daoPTPayment);
-		}
-		
-	}
-	
-	public BigDecimal getPaymentAmount();
-	
-	@Override
-	public PaymentMechanism getPaymentMethod();
+    public static class Builder extends PTPaymentBuilderImpl<Builder, PTPayment> {
+
+        @Inject
+        public Builder(DAOPTPayment daoPTPayment) {
+            super(daoPTPayment);
+        }
+
+    }
+
+    public BigDecimal getPaymentAmount();
+
+    @Override
+    public PaymentMechanism getPaymentMethod();
 
 }

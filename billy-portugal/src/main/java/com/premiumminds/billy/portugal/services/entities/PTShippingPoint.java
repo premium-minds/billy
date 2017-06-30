@@ -26,12 +26,11 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTShippingPointBui
 
 public interface PTShippingPoint extends ShippingPoint {
 
-	public static class Builder extends
-		PTShippingPointBuilderImpl<Builder, PTShippingPoint> {
+    public static class Builder extends PTShippingPointBuilderImpl<Builder, PTShippingPoint> {
 
-		@Inject
-		public Builder(DAOPTShippingPoint daoPTShippingPoint) {
-			super(daoPTShippingPoint);
-		}
-	}
+        @Inject
+        public Builder(DAOPTShippingPoint daoPTShippingPoint) {
+            super(daoPTShippingPoint);
+        }
+    }
 }

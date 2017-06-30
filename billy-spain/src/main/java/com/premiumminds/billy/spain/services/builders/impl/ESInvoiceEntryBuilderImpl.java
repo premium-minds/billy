@@ -33,31 +33,26 @@ import com.premiumminds.billy.spain.services.builders.ESInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 
 public class ESInvoiceEntryBuilderImpl<TBuilder extends ESInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESInvoiceEntry>
-	extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESInvoiceEntry, DAOESInvoice> implements
-	ESInvoiceEntryBuilder<TBuilder, TEntry> {
+        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESInvoiceEntry, DAOESInvoice>
+        implements ESInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public ESInvoiceEntryBuilderImpl(DAOESInvoiceEntry daoESEntry,
-										DAOESInvoice daoESInvoice,
-										DAOESTax daoESTax,
-										DAOESProduct daoESProduct,
-										DAOESRegionContext daoESRegionContext) {
-		super(daoESEntry, daoESInvoice, daoESTax, daoESProduct,
-				daoESRegionContext);
-	}
+    @Inject
+    public ESInvoiceEntryBuilderImpl(DAOESInvoiceEntry daoESEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
+            DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
+        super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
+    }
 
-	@Override
-	protected ESInvoiceEntryEntity getTypeInstance() {
-		return (ESInvoiceEntryEntity) super.getTypeInstance();
-	}
+    @Override
+    protected ESInvoiceEntryEntity getTypeInstance() {
+        return (ESInvoiceEntryEntity) super.getTypeInstance();
+    }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
-		super.validateInstance();
-	}
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        this.getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
+        super.validateInstance();
+    }
 
 }

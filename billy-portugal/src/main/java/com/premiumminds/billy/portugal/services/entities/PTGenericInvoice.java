@@ -33,55 +33,52 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTGenericInvoiceBu
 
 public interface PTGenericInvoice extends GenericInvoice {
 
-	public static enum TYPE {
-		FT, FS, FR, NC, ND
-	}
+    public static enum TYPE {
+        FT, FS, FR, NC, ND
+    }
 
-	/**
-	 * Represents if an invoice was emitted by the application or manually
-	 * emitted.
-	 * 
-	 * @author Hugo Correia
-	 * 
-	 */
-	public static enum SourceBilling {
-		P, M
-	}
+    /**
+     * Represents if an invoice was emitted by the application or manually
+     * emitted.
+     *
+     * @author Hugo Correia
+     *
+     */
+    public static enum SourceBilling {
+        P, M
+    }
 
-	public static class Builder
-		extends
-		PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
+    public static class Builder extends PTGenericInvoiceBuilderImpl<Builder, PTGenericInvoiceEntry, PTGenericInvoice> {
 
-		@Inject
-		public Builder(DAOPTGenericInvoice daoPTGenericInvoice,
-						DAOPTBusiness daoPTBusiness,
-						DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-			super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer,
-					daoPTSupplier);
-		}
-	}
+        @Inject
+        public Builder(DAOPTGenericInvoice daoPTGenericInvoice, DAOPTBusiness daoPTBusiness,
+                DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+            super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+        }
+    }
 
-	public TYPE getType();
+    public TYPE getType();
 
-	public boolean isCancelled();
+    public boolean isCancelled();
 
-	public boolean isBilled();
+    public boolean isBilled();
 
-	public String getHash();
+    public String getHash();
 
-	public String getSourceHash();
+    public String getSourceHash();
 
-	public String getHashControl();
+    public String getHashControl();
 
-	public String getEACCode();
+    public String getEACCode();
 
-	public SourceBilling getSourceBilling();
+    public SourceBilling getSourceBilling();
 
-	public String getChangeReason();
+    public String getChangeReason();
 
-	@Override
-	public <T extends GenericInvoiceEntry> List<T> getEntries();
-	
-	public <T extends Payment> List<T> getPayments();
+    @Override
+    public <T extends GenericInvoiceEntry> List<T> getEntries();
+
+    @Override
+    public <T extends Payment> List<T> getPayments();
 
 }

@@ -36,28 +36,27 @@ import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 @Table(name = Config.TABLE_PREFIX + "PAYMENT")
 public class JPAPTPaymentEntity extends JPAPaymentEntity implements PTPaymentEntity {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Column(name = "PAYMENT_AMOUNT")
-	protected BigDecimal paymentAmount;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
+    @Column(name = "PAYMENT_AMOUNT")
+    protected BigDecimal paymentAmount;
 
-	@Override
-	public BigDecimal getPaymentAmount() {
-		return paymentAmount;
-	}
+    @Override
+    public BigDecimal getPaymentAmount() {
+        return this.paymentAmount;
+    }
 
-	@Override
-	public void setPaymentAmount(BigDecimal amount) {
-		this.paymentAmount = amount;
-	}
+    @Override
+    public void setPaymentAmount(BigDecimal amount) {
+        this.paymentAmount = amount;
+    }
 
-	@Override
-	public PaymentMechanism getPaymentMethod() {
-		return PaymentMechanism.valueOf(paymentMethod);
-	}
+    @Override
+    public PaymentMechanism getPaymentMethod() {
+        return PaymentMechanism.valueOf(this.paymentMethod);
+    }
 
 }

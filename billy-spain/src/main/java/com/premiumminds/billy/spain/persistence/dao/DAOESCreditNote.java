@@ -26,7 +26,6 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 
 public interface DAOESCreditNote extends AbstractDAOESGenericInvoice<ESCreditNoteEntity> {
 
-	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
-			UID uidInvoice);
+    public List<ESCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice);
 
 }

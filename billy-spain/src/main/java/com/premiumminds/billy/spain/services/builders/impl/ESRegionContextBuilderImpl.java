@@ -28,19 +28,17 @@ import com.premiumminds.billy.spain.services.builders.ESRegionContextBuilder;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 
 public class ESRegionContextBuilderImpl<TBuilder extends ESRegionContextBuilderImpl<TBuilder, TContext>, TContext extends ESRegionContext>
-	extends ContextBuilderImpl<TBuilder, TContext> implements
-	ESRegionContextBuilder<TBuilder, TContext> {
+        extends ContextBuilderImpl<TBuilder, TContext> implements ESRegionContextBuilder<TBuilder, TContext> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public ESRegionContextBuilderImpl(DAOESRegionContext daoESContext) {
-		super(daoESContext);
-	}
+    @Inject
+    public ESRegionContextBuilderImpl(DAOESRegionContext daoESContext) {
+        super(daoESContext);
+    }
 
-	@Override
-	protected ESRegionContextEntity getTypeInstance() {
-		return (ESRegionContextEntity) super.getTypeInstance();
-	}
+    @Override
+    protected ESRegionContextEntity getTypeInstance() {
+        return (ESRegionContextEntity) super.getTypeInstance();
+    }
 }

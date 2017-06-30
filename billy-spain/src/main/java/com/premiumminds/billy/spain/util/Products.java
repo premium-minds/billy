@@ -25,31 +25,30 @@ import com.premiumminds.billy.spain.services.persistence.ESProductPersistenceSer
 
 public class Products {
 
-	private final Injector	injector;
-	private final ESProductPersistenceService persistenceService;
+    private final Injector injector;
+    private final ESProductPersistenceService persistenceService;
 
+    public Products(Injector injector) {
+        this.injector = injector;
+        this.persistenceService = this.getInstance(ESProductPersistenceService.class);
+    }
 
-	public Products(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(ESProductPersistenceService.class);
-	}
+    public ESProduct.Builder builder() {
+        return this.getInstance(ESProduct.Builder.class);
+    }
 
-	public ESProduct.Builder builder() {
-		return getInstance(ESProduct.Builder.class);
-	}
-	
-	public ESProduct.Builder builder(ESProduct customer) {
-		ESProduct.Builder builder = getInstance(ESProduct.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
-		return builder;
-	}
-	
-	public ESProductPersistenceService persistence() {
-		return this.persistenceService;
-	}
+    public ESProduct.Builder builder(ESProduct customer) {
+        ESProduct.Builder builder = this.getInstance(ESProduct.Builder.class);
+        BuilderManager.setTypeInstance(builder, customer);
+        return builder;
+    }
 
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+    public ESProductPersistenceService persistence() {
+        return this.persistenceService;
+    }
+
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
+
 }

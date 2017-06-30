@@ -33,95 +33,84 @@ import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTe
 
 public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
-	private ESInvoiceIssuingHandler handler;
-	private UID issuedInvoiceUID;
-	
-	private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+    private ESInvoiceIssuingHandler handler;
+    private UID issuedInvoiceUID;
 
-	@Before
-	public void setUpNewInvoice() {
-		this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
+    private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
-		try {
-			ESInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
+    @Before
+    public void setUpNewInvoice() {
+        this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
 
-			this.issueNewInvoice(this.handler, invoice, DEFAULT_SERIES);
-			this.issuedInvoiceUID = invoice.getUID();
-		} catch (DocumentIssuingException e) {
-			e.printStackTrace();
-		}
+        try {
+            ESInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
 
-	}
+            this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
+            this.issuedInvoiceUID = invoice.getUID();
+        } catch (DocumentIssuingException e) {
+            e.printStackTrace();
+        }
 
-	@Test
-	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
-		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
-				DAOESInvoice.class).get(this.issuedInvoiceUID);
+    }
 
-		Assert.assertEquals( DEFAULT_SERIES,
-				issuedInvoice.getSeries());
-		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-		String formatedNumber = DEFAULT_SERIES + "/1";
-		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-	}
+    @Test
+    public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+        ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
 
-	@Test
-	public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
-		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
-				DAOESInvoice.class).get(this.issuedInvoiceUID);
-		Integer nextNumber = 2;
+        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        String formatedNumber = this.DEFAULT_SERIES + "/1";
+        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+    }
 
-		ESInvoiceEntity newInvoice = this.newInvoice(
-				INVOICE_TYPE.FT);
+    @Test
+    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
+        ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
+        Integer nextNumber = 2;
 
-		UID newInvoiceUID = newInvoice.getUID();
-		newInvoice.setBusiness(issuedInvoice.getBusiness());
+        ESInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
-		this.issueNewInvoice(this.handler, newInvoice, DEFAULT_SERIES);
+        UID newInvoiceUID = newInvoice.getUID();
+        newInvoice.setBusiness(issuedInvoice.getBusiness());
 
-		ESInvoice lastInvoice = (ESInvoice) this
-				.getInstance(DAOESInvoice.class).get(newInvoiceUID);
+        this.issueNewInvoice(this.handler, newInvoice, this.DEFAULT_SERIES);
 
-		Assert.assertEquals(DEFAULT_SERIES,
-				lastInvoice.getSeries());
-		Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
-		String formatedNumber = DEFAULT_SERIES + "/" + nextNumber;
-		Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
-	}
+        ESInvoice lastInvoice = this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
 
-	@Test
-	public void testIssuedInvoiceDifferentSeries()
-			throws DocumentIssuingException {
-		Integer nextNumber = 1;
-		String newSeries = "FT NEW_SERIES";
+        Assert.assertEquals(this.DEFAULT_SERIES, lastInvoice.getSeries());
+        Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
+        String formatedNumber = this.DEFAULT_SERIES + "/" + nextNumber;
+        Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
+    }
 
-		ESInvoiceEntity newInvoice = this.newInvoice(
-				INVOICE_TYPE.FT);
+    @Test
+    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException {
+        Integer nextNumber = 1;
+        String newSeries = "FT NEW_SERIES";
 
-		UID newInvoiceUID = newInvoice.getUID();
+        ESInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
-		this.issueNewInvoice(this.handler, newInvoice, newSeries);
+        UID newInvoiceUID = newInvoice.getUID();
 
-		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
-				DAOESInvoice.class).get(newInvoiceUID);
+        this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
-		Assert.assertEquals(newSeries, issuedInvoice.getSeries());
-		Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
-		String formatedNumber = newSeries + "/" + nextNumber;
-		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-	}
+        ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
 
-	@Test
-	public void testIssuedInvoiceSameSourceBilling()
-			throws DocumentIssuingException {
-		ESInvoiceEntity newInvoice = this.newInvoice(
-				INVOICE_TYPE.FT);
+        Assert.assertEquals(newSeries, issuedInvoice.getSeries());
+        Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
+        String formatedNumber = newSeries + "/" + nextNumber;
+        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+    }
 
-		UID newInvoiceUID = newInvoice.getUID();
+    @Test
+    public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException {
+        ESInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
-		this.issueNewInvoice(this.handler, newInvoice, DEFAULT_SERIES);
+        UID newInvoiceUID = newInvoice.getUID();
 
-		this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
-	}
+        this.issueNewInvoice(this.handler, newInvoice, this.DEFAULT_SERIES);
+
+        this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
+    }
 
 }

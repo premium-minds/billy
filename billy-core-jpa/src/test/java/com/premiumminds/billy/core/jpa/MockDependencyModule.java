@@ -26,20 +26,19 @@ import com.premiumminds.billy.core.CoreDependencyModule;
 
 public class MockDependencyModule extends AbstractModule {
 
-	@Override
-	protected void configure() {
-		JpaPersistModule persistModule = new JpaPersistModule(
-				"BillyPersistenceUnit");
-		this.install(persistModule);
-		this.install(new CoreDependencyModule());
-	}
+    @Override
+    protected void configure() {
+        JpaPersistModule persistModule = new JpaPersistModule("BillyPersistenceUnit");
+        this.install(persistModule);
+        this.install(new CoreDependencyModule());
+    }
 
-	public static class Initializer {
+    public static class Initializer {
 
-		@Inject
-		public Initializer(PersistService persistService) {
-			persistService.start();
-		}
-	}
+        @Inject
+        public Initializer(PersistService persistService) {
+            persistService.start();
+        }
+    }
 
 }

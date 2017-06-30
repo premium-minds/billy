@@ -22,6 +22,6 @@ import com.premiumminds.billy.core.services.builders.ShippingPointBuilder;
 import com.premiumminds.billy.spain.services.entities.ESShippingPoint;
 
 public interface ESShippingPointBuilder<TBuilder extends ESShippingPointBuilder<TBuilder, TShippingPoint>, TShippingPoint extends ESShippingPoint>
-	extends ShippingPointBuilder<TBuilder, TShippingPoint> {
+        extends ShippingPointBuilder<TBuilder, TShippingPoint> {
 
 }

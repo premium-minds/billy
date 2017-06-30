@@ -39,111 +39,100 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.util.GenerateHash;
 
-public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceEntity, P extends PTIssuingParams> 
-implements DocumentIssuingHandler<T, P>	 {
+public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceEntity, P extends PTIssuingParams>
+        implements DocumentIssuingHandler<T, P> {
 
-	protected DAOInvoiceSeries	daoInvoiceSeries;
+    protected DAOInvoiceSeries daoInvoiceSeries;
 
-	@Inject
-	public PTGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
-		this.daoInvoiceSeries = daoInvoiceSeries;
-	}
+    @Inject
+    public PTGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
+        this.daoInvoiceSeries = daoInvoiceSeries;
+    }
 
-	protected void validateDocumentType(TYPE documentType, TYPE expectedType,
-			String series) throws InvalidInvoiceTypeException {
-		if (documentType != expectedType) {
-			throw new InvalidInvoiceTypeException(series,
-					documentType.toString(), expectedType.toString());
-		}
-	}
+    protected void validateDocumentType(TYPE documentType, TYPE expectedType, String series)
+            throws InvalidInvoiceTypeException {
+        if (documentType != expectedType) {
+            throw new InvalidInvoiceTypeException(series, documentType.toString(), expectedType.toString());
+        }
+    }
 
-	protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(
-			final T document, final PTIssuingParams parametersPT,
-			final D daoInvoice, final TYPE invoiceType)
-		throws DocumentIssuingException {
+    protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(final T document, final PTIssuingParams parametersPT,
+            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException {
 
-		String series = parametersPT.getInvoiceSeries();
-		
-		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document,
-				series, LockModeType.PESSIMISTIC_WRITE);
-		
-		SourceBilling sourceBilling = ((PTGenericInvoice) document)
-				.getSourceBilling();
-		
-		document.initializeEntityDates();
-		
-		//If the date is null then the invoice date is the current date
-		Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
-		Date systemDate = document.getCreateTimestamp();
+        String series = parametersPT.getInvoiceSeries();
 
-		Integer seriesNumber = 1;
-		String previousHash = null;
+        InvoiceSeriesEntity invoiceSeriesEntity =
+                this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
 
-		T latestInvoice = daoInvoice
-				.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(), document.getBusiness()
-						.getUID().toString());
+        SourceBilling sourceBilling = ((PTGenericInvoice) document).getSourceBilling();
 
-		if (null != latestInvoice) {
-			seriesNumber = latestInvoice.getSeriesNumber() + 1;
-			previousHash = latestInvoice.getHash();
-			Date latestInvoiceDate = latestInvoice.getDate();
-			
-			validateDocumentType(invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
+        document.initializeEntityDates();
 
-			if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
-				throw new InvalidSourceBillingException(invoiceSeriesEntity.getSeries(),
-						sourceBilling.toString(), latestInvoice
-								.getSourceBilling().toString());
-			}
+        // If the date is null then the invoice date is the current date
+        Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
+        Date systemDate = document.getCreateTimestamp();
 
-			if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
-				throw new InvalidInvoiceDateException();
-			}
-		}
+        Integer seriesNumber = 1;
+        String previousHash = null;
 
-		String formatedNumber = invoiceType.toString() + " "
-				+ parametersPT.getInvoiceSeries() + "/" + seriesNumber;
+        T latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
+                document.getBusiness().getUID().toString());
 
-		String newHash = GenerateHash.generateHash(
-				parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
-				invoiceDate, systemDate, formatedNumber,
-				document.getAmountWithTax(), previousHash);
+        if (null != latestInvoice) {
+            seriesNumber = latestInvoice.getSeriesNumber() + 1;
+            previousHash = latestInvoice.getHash();
+            Date latestInvoiceDate = latestInvoice.getDate();
 
-		String sourceHash = GenerateHash.generateSourceHash(invoiceDate,
-				systemDate, formatedNumber, document.getAmountWithTax(),
-				previousHash);
+            this.validateDocumentType(invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
 
-		document.setDate(invoiceDate);
-		document.setNumber(formatedNumber);
-		document.setSeries(invoiceSeriesEntity.getSeries());
-		document.setSeriesNumber(seriesNumber);
-		document.setHash(newHash);
-		document.setBilled(false);
-		document.setCancelled(false);
-		document.setType(invoiceType);
-		document.setSourceHash(sourceHash);
-		document.setHashControl(parametersPT.getPrivateKeyVersion());
-		document.setEACCode(parametersPT.getEACCode());
-		document.setCurrency(document.getCurrency());
+            if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
+                throw new InvalidSourceBillingException(invoiceSeriesEntity.getSeries(), sourceBilling.toString(),
+                        latestInvoice.getSourceBilling().toString());
+            }
 
-		daoInvoice.create(document);
+            if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+                throw new InvalidInvoiceDateException();
+            }
+        }
 
-		return document;
+        String formatedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
-	}
+        String newHash = GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
+                invoiceDate, systemDate, formatedNumber, document.getAmountWithTax(), previousHash);
 
-	private InvoiceSeriesEntity getInvoiceSeries(
-			final T document, String series, LockModeType lockMode) {
-		InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(
-				series, document.getBusiness().getUID().toString(), lockMode);
+        String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formatedNumber,
+                document.getAmountWithTax(), previousHash);
 
-		if (null == invoiceSeriesEntity) {
-			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-			entity.setBusiness(document.getBusiness());
-			entity.setSeries(series);
+        document.setDate(invoiceDate);
+        document.setNumber(formatedNumber);
+        document.setSeries(invoiceSeriesEntity.getSeries());
+        document.setSeriesNumber(seriesNumber);
+        document.setHash(newHash);
+        document.setBilled(false);
+        document.setCancelled(false);
+        document.setType(invoiceType);
+        document.setSourceHash(sourceHash);
+        document.setHashControl(parametersPT.getPrivateKeyVersion());
+        document.setEACCode(parametersPT.getEACCode());
+        document.setCurrency(document.getCurrency());
 
-			invoiceSeriesEntity = daoInvoiceSeries.create(entity);
-		}
-		return invoiceSeriesEntity;
-	}
+        daoInvoice.create(document);
+
+        return document;
+
+    }
+
+    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
+        InvoiceSeriesEntity invoiceSeriesEntity =
+                this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
+
+        if (null == invoiceSeriesEntity) {
+            InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
+            entity.setBusiness(document.getBusiness());
+            entity.setSeries(series);
+
+            invoiceSeriesEntity = this.daoInvoiceSeries.create(entity);
+        }
+        return invoiceSeriesEntity;
+    }
 }

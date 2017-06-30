@@ -20,5 +20,4 @@ package com.premiumminds.billy.gin.services.export;
 
 public interface BillyTransformerData {
 
-
 }

@@ -27,21 +27,20 @@ import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.spain.persistence.dao.DAOESPayment;
 import com.premiumminds.billy.spain.services.builders.impl.ESPaymentBuilderImpl;
 
-
 public interface ESPayment extends Payment {
-	
-	public static class Builder extends ESPaymentBuilderImpl<Builder, ESPayment> {
 
-		@Inject
-		public Builder(DAOESPayment daoESPayment) {
-			super(daoESPayment);
-		}
-		
-	}
-	
-	public BigDecimal getPaymentAmount();
-	
-	@Override
-	public PaymentMechanism getPaymentMethod();
+    public static class Builder extends ESPaymentBuilderImpl<Builder, ESPayment> {
+
+        @Inject
+        public Builder(DAOESPayment daoESPayment) {
+            super(daoESPayment);
+        }
+
+    }
+
+    public BigDecimal getPaymentAmount();
+
+    @Override
+    public PaymentMechanism getPaymentMethod();
 
 }
