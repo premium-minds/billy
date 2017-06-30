@@ -20,8 +20,6 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -32,64 +30,63 @@ import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BANK_ACCOUNT")
-public class JPABankAccountEntity extends JPABaseEntity implements
-	BankAccountEntity {
+public class JPABankAccountEntity extends JPABaseEntity implements BankAccountEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "IBAN")
-	protected String			iban;
+    @Column(name = "IBAN")
+    protected String iban;
 
-	@Column(name = "BANK_IDENTIFIER")
-	protected String			bankIdentifier;
+    @Column(name = "BANK_IDENTIFIER")
+    protected String bankIdentifier;
 
-	@Column(name = "BANK_ACCOUNT_NUMBER")
-	protected String			bankAccountNumber;
+    @Column(name = "BANK_ACCOUNT_NUMBER")
+    protected String bankAccountNumber;
 
-	@Column(name = "OWNER_NAME")
-	protected String			ownerName;
+    @Column(name = "OWNER_NAME")
+    protected String ownerName;
 
-	public JPABankAccountEntity() {
-	}
+    public JPABankAccountEntity() {
+    }
 
-	@Override
-	public String getIBANNumber() {
-		return this.iban;
-	}
+    @Override
+    public String getIBANNumber() {
+        return this.iban;
+    }
 
-	@Override
-	public String getBankIdentifier() {
-		return this.bankIdentifier;
-	}
+    @Override
+    public String getBankIdentifier() {
+        return this.bankIdentifier;
+    }
 
-	@Override
-	public String getBankAccountNumber() {
-		return this.bankAccountNumber;
-	}
+    @Override
+    public String getBankAccountNumber() {
+        return this.bankAccountNumber;
+    }
 
-	@Override
-	public String getOwnerName() {
-		return this.ownerName;
-	}
+    @Override
+    public String getOwnerName() {
+        return this.ownerName;
+    }
 
-	@Override
-	public void setIBANNumber(String iban) {
-		this.iban = iban;
-	}
+    @Override
+    public void setIBANNumber(String iban) {
+        this.iban = iban;
+    }
 
-	@Override
-	public void setBankIdentifier(String bankId) {
-		this.bankIdentifier = bankId;
-	}
+    @Override
+    public void setBankIdentifier(String bankId) {
+        this.bankIdentifier = bankId;
+    }
 
-	@Override
-	public void setBankAccountNumber(String accountNumber) {
-		this.bankAccountNumber = accountNumber;
-	}
+    @Override
+    public void setBankAccountNumber(String accountNumber) {
+        this.bankAccountNumber = accountNumber;
+    }
 
-	@Override
-	public void setOwnerName(String ownerName) {
-		this.ownerName = ownerName;
-	}
+    @Override
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
 }

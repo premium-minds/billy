@@ -35,70 +35,62 @@ import com.premiumminds.billy.portugal.util.Contexts;
 
 public class PTBusinessTestUtil {
 
-	private static final String		NAME			= "Business";
-	private static final String		FINANCIAL_ID	= "123456789";
-	private static final String		WEBSITE			= "http://business.com";
-	protected static final String	PT_COUNTRY_CODE	= "PT";
+    private static final String NAME = "Business";
+    private static final String FINANCIAL_ID = "123456789";
+    private static final String WEBSITE = "http://business.com";
+    protected static final String PT_COUNTRY_CODE = "PT";
 
-	private Injector				injector;
-	private PTApplicationTestUtil	application;
-	private PTContactTestUtil		contact;
-	private PTAddressTestUtil		address;
-	private PTRegionContext			context;
+    private Injector injector;
+    private PTApplicationTestUtil application;
+    private PTContactTestUtil contact;
+    private PTAddressTestUtil address;
+    private PTRegionContext context;
 
-	public PTBusinessTestUtil(Injector injector) {
-		this.injector = injector;
-		this.application = new PTApplicationTestUtil(injector);
-		this.contact = new PTContactTestUtil(injector);
-		this.address = new PTAddressTestUtil(injector);
+    public PTBusinessTestUtil(Injector injector) {
+        this.injector = injector;
+        this.application = new PTApplicationTestUtil(injector);
+        this.contact = new PTContactTestUtil(injector);
+        this.address = new PTAddressTestUtil(injector);
 
-		this.context = new Contexts(injector).portugal().allRegions();
-	}
+        this.context = new Contexts(injector).portugal().allRegions();
+    }
 
-	public PTBusinessEntity getBusinessEntity() {
-		return getBusinessEntity(new UID().toString());
-	}
+    public PTBusinessEntity getBusinessEntity() {
+        return this.getBusinessEntity(new UID().toString());
+    }
 
-	public PTBusinessEntity getBusinessEntity(String uid) {
-		PTBusinessEntity business = null;
-		try {
-			business = (PTBusinessEntity) this.injector.getInstance(
-					DAOPTBusiness.class).get(new UID(uid));
-		} catch (NoResultException e) {
-			business = (PTBusinessEntity) this.getBusinessBuilder().build();
-			business.setUID(new UID(uid));
-			injector.getInstance(DAOPTBusiness.class).create(business);
-		}
+    public PTBusinessEntity getBusinessEntity(String uid) {
+        PTBusinessEntity business = null;
+        try {
+            business = this.injector.getInstance(DAOPTBusiness.class).get(new UID(uid));
+        } catch (NoResultException e) {
+            business = (PTBusinessEntity) this.getBusinessBuilder().build();
+            business.setUID(new UID(uid));
+            this.injector.getInstance(DAOPTBusiness.class).create(business);
+        }
 
-		return business;
-	}
+        return business;
+    }
 
-	public PTBusiness.Builder getBusinessBuilder() {
-		PTBusiness.Builder businessBuilder = this.injector
-				.getInstance(PTBusiness.Builder.class);
+    public PTBusiness.Builder getBusinessBuilder() {
+        PTBusiness.Builder businessBuilder = this.injector.getInstance(PTBusiness.Builder.class);
 
-		PTApplication.Builder applicationBuilder = null;
-		try {
-			applicationBuilder = this.application.getApplicationBuilder();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
+        PTApplication.Builder applicationBuilder = null;
+        try {
+            applicationBuilder = this.application.getApplicationBuilder();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
-		PTContact.Builder contactBuilder = this.contact.getContactBuilder();
-		PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
+        PTContact.Builder contactBuilder = this.contact.getContactBuilder();
+        PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-		businessBuilder
-				.addApplication(applicationBuilder)
-				.addContact(contactBuilder, true)
-				.setAddress(addressBuilder)
-				.setBillingAddress(addressBuilder)
-				.setCommercialName(PTBusinessTestUtil.NAME)
-				.setFinancialID(PTBusinessTestUtil.FINANCIAL_ID,
-						PT_COUNTRY_CODE)
-				.setOperationalContextUID(this.context.getUID())
-				.setWebsite(PTBusinessTestUtil.WEBSITE)
-				.setName(PTBusinessTestUtil.NAME);
+        businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true).setAddress(addressBuilder)
+                .setBillingAddress(addressBuilder).setCommercialName(PTBusinessTestUtil.NAME)
+                .setFinancialID(PTBusinessTestUtil.FINANCIAL_ID, PTBusinessTestUtil.PT_COUNTRY_CODE)
+                .setOperationalContextUID(this.context.getUID()).setWebsite(PTBusinessTestUtil.WEBSITE)
+                .setName(PTBusinessTestUtil.NAME);
 
-		return businessBuilder;
-	}
+        return businessBuilder;
+    }
 }

@@ -24,35 +24,38 @@ import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
 public class AbstractExportRequest implements ExportServiceRequest {
 
-	private static final String DEFAULT_PATH_TEMPLATE = System
-			.getProperty("java.io.tmpdir") + "/billy_export_request_%s_%d.pdf";
+    private static final String DEFAULT_PATH_TEMPLATE =
+            System.getProperty("java.io.tmpdir") + "/billy_export_request_%s_%d.pdf";
 
-	protected UID uid;
-	protected BillyTemplateBundle bundle;
-	protected String resultPath;
+    protected UID uid;
+    protected BillyTemplateBundle bundle;
+    protected String resultPath;
 
-	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle) {
-		this.uid = uid;
-		this.bundle = bundle;
-		this.resultPath = String.format(DEFAULT_PATH_TEMPLATE, uid.toString(), System.currentTimeMillis());
-	}
-	
-	public AbstractExportRequest(UID uid, BillyTemplateBundle bundle, String resultPath) {
-		this.uid = uid;
-		this.bundle = bundle;
-		this.resultPath = resultPath;
-	}
+    public AbstractExportRequest(UID uid, BillyTemplateBundle bundle) {
+        this.uid = uid;
+        this.bundle = bundle;
+        this.resultPath =
+                String.format(AbstractExportRequest.DEFAULT_PATH_TEMPLATE, uid.toString(), System.currentTimeMillis());
+    }
 
-	public UID getDocumentUID() {
-		return this.uid;
-	}
+    public AbstractExportRequest(UID uid, BillyTemplateBundle bundle, String resultPath) {
+        this.uid = uid;
+        this.bundle = bundle;
+        this.resultPath = resultPath;
+    }
 
-	public BillyTemplateBundle getBundle() {
-		return this.bundle;
-	}
+    public UID getDocumentUID() {
+        return this.uid;
+    }
 
-	public String getResultPath() {
-		return this.resultPath;
-	}
+    @Override
+    public BillyTemplateBundle getBundle() {
+        return this.bundle;
+    }
+
+    @Override
+    public String getResultPath() {
+        return this.resultPath;
+    }
 
 }

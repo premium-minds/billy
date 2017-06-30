@@ -33,31 +33,25 @@ import com.premiumminds.billy.portugal.services.builders.PTInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTInvoiceEntry>
-	extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements
-	PTInvoiceEntryBuilder<TBuilder, TEntry> {
+        extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements PTInvoiceEntryBuilder<TBuilder, TEntry> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public PTInvoiceEntryBuilderImpl(DAOPTInvoiceEntry daoPTEntry,
-										DAOPTInvoice daoPTInvoice,
-										DAOPTTax daoPTTax,
-										DAOPTProduct daoPTProduct,
-										DAOPTRegionContext daoPTRegionContext) {
-		super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct,
-				daoPTRegionContext);
-	}
+    @Inject
+    public PTInvoiceEntryBuilderImpl(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
+            DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+        super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
+    }
 
-	@Override
-	protected PTInvoiceEntryEntity getTypeInstance() {
-		return (PTInvoiceEntryEntity) super.getTypeInstance();
-	}
+    @Override
+    protected PTInvoiceEntryEntity getTypeInstance() {
+        return (PTInvoiceEntryEntity) super.getTypeInstance();
+    }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
-		super.validateInstance();
-	}
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        this.getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
+        super.validateInstance();
+    }
 
 }

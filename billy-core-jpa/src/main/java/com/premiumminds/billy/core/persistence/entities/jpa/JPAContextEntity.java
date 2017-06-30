@@ -20,8 +20,6 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -37,50 +35,50 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Table(name = Config.TABLE_PREFIX + "CONTEXT")
 public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Column(name = "NAME")
-	protected String			name;
+    @Column(name = "NAME")
+    protected String name;
 
-	@Column(name = "DESCRIPTION")
-	protected String			description;
+    @Column(name = "DESCRIPTION")
+    protected String description;
 
-	@ManyToOne(targetEntity = JPAContextEntity.class)
-	@JoinColumn(name = "ID_CONTEXT_PARENT", referencedColumnName = "ID")
-	protected Context			parent;
+    @ManyToOne(targetEntity = JPAContextEntity.class)
+    @JoinColumn(name = "ID_CONTEXT_PARENT", referencedColumnName = "ID")
+    protected Context parent;
 
-	public JPAContextEntity() {
-	}
+    public JPAContextEntity() {
+    }
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public String getDescription() {
-		return this.description;
-	}
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Context getParentContext() {
-		return this.parent;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Context getParentContext() {
+        return this.parent;
+    }
 
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	@Override
-	public <T extends ContextEntity> void setParentContext(T parent) {
-		this.parent = parent;
-	}
+    @Override
+    public <T extends ContextEntity> void setParentContext(T parent) {
+        this.parent = parent;
+    }
 
 }

@@ -25,16 +25,15 @@ import com.premiumminds.billy.core.services.entities.Entity;
 
 /**
  * @author Francisco Vargas
- * 
+ *
  *         Represents the entity with all basic fields needed for a valid billy
  *         entity
  */
 public interface BaseEntity extends Entity, Serializable {
 
-	@Override
-	public void setUID(UID uid);
-	
-	public void initializeEntityDates();	
-	
+    @Override
+    public void setUID(UID uid);
+
+    public void initializeEntityDates();
 
 }

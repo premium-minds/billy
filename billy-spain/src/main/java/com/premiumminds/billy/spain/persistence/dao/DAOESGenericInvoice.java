@@ -24,9 +24,9 @@ import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 
 public interface DAOESGenericInvoice extends DAOGenericInvoice {
 
-	@Override
-	public ESGenericInvoiceEntity getEntityInstance();
+    @Override
+    public ESGenericInvoiceEntity getEntityInstance();
 
-	public <T extends ESGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number);
-	
+    public <T extends ESGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number);
+
 }

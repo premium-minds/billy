@@ -35,33 +35,32 @@ import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
 
 public class AbstractTest {
 
-	private static Injector			injector;
-	protected final static String	YML_CONFIGS_DIR	= "src/test/resources/yml/";
+    private static Injector injector;
+    protected final static String YML_CONFIGS_DIR = "src/test/resources/yml/";
 
-	@BeforeClass
-	public static void setUpClass() {
-		AbstractTest.injector = Guice.createInjector(Modules.override(
-				new CoreDependencyModule()).with(new MockDependencyModule()));
-	}
+    @BeforeClass
+    public static void setUpClass() {
+        AbstractTest.injector =
+                Guice.createInjector(Modules.override(new CoreDependencyModule()).with(new MockDependencyModule()));
+    }
 
-	public <T> T getInstance(Class<T> clazz) {
-		return AbstractTest.injector.getInstance(clazz);
-	}
+    public <T> T getInstance(Class<T> clazz) {
+        return AbstractTest.injector.getInstance(clazz);
+    }
 
-	public <T> T getMock(Class<T> clazz) {
-		return Mockito.mock(clazz);
-	}
+    public <T> T getMock(Class<T> clazz) {
+        return Mockito.mock(clazz);
+    }
 
-	@SuppressWarnings("unchecked")
-	public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz,
-			String path) {
-		Yaml yaml = new Yaml(new Constructor(clazz));
+    @SuppressWarnings("unchecked")
+    public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz, String path) {
+        Yaml yaml = new Yaml(new Constructor(clazz));
 
-		try {
-			return (T) yaml.load(new BufferedReader(new FileReader(path)));
-		} catch (FileNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
+        try {
+            return (T) yaml.load(new BufferedReader(new FileReader(path)));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }

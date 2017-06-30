@@ -29,19 +29,19 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESAddressEntity;
 
 public class DAOESAddressImpl extends DAOAddressImpl implements DAOESAddress {
 
-	@Inject
-	public DAOESAddressImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOESAddressImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	public ESAddressEntity getEntityInstance() {
-		return new JPAESAddressEntity();
-	}
+    @Override
+    public ESAddressEntity getEntityInstance() {
+        return new JPAESAddressEntity();
+    }
 
-	@Override
-	protected Class<JPAESAddressEntity> getEntityClass() {
-		return JPAESAddressEntity.class;
-	}
+    @Override
+    protected Class<JPAESAddressEntity> getEntityClass() {
+        return JPAESAddressEntity.class;
+    }
 
 }

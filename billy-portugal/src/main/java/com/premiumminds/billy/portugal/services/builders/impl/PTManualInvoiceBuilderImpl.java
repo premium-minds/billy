@@ -33,26 +33,25 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public class PTManualInvoiceBuilderImpl<TBuilder extends PTManualInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
-extends PTManualBuilderImpl<TBuilder, TEntry, TDocument>
-implements PTManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
-	
-	@Inject
-	public PTManualInvoiceBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice,
-			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-			DAOPTSupplier daoPTSupplier) {
-		super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-	}
-	
-	@Override
-	protected PTInvoiceEntity getTypeInstance() {
-		return (PTInvoiceEntity) super.getTypeInstance();
-	}
-	
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		PTGenericInvoiceEntity i = getTypeInstance();
-		i.setCreditOrDebit(CreditOrDebit.CREDIT);
-		super.validateInstance();
-	}
-	
+        extends PTManualBuilderImpl<TBuilder, TEntry, TDocument>
+        implements PTManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
+
+    @Inject
+    public PTManualInvoiceBuilderImpl(DAOPTGenericInvoice daoPTGenericInvoice, DAOPTBusiness daoPTBusiness,
+            DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+        super(daoPTGenericInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+    }
+
+    @Override
+    protected PTInvoiceEntity getTypeInstance() {
+        return (PTInvoiceEntity) super.getTypeInstance();
+    }
+
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        PTGenericInvoiceEntity i = this.getTypeInstance();
+        i.setCreditOrDebit(CreditOrDebit.CREDIT);
+        super.validateInstance();
+    }
+
 }

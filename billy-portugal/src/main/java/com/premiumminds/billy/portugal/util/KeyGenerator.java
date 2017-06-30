@@ -29,71 +29,74 @@ import java.security.Security;
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generates {@link PrivateKey} and {@link PublicKey}.
  */
 public class KeyGenerator {
 
-	private String	privateKeyPath;
+    private static final Logger log = LoggerFactory.getLogger(KeyGenerator.class);
 
-	/**
-	 * Generates the {@link PrivateKey} and {@link PublicKey} based on the
-	 * {@link PrivateKey} location.
-	 * 
-	 * @param privateKeyPath
-	 */
-	public KeyGenerator(String privateKeyPath) {
-		if (Security.getProvider("BC") == null) {
-			Security.addProvider(new BouncyCastleProvider());
-		}
-		this.privateKeyPath = privateKeyPath;
-	}
+    private String privateKeyPath;
 
-	private String getKeyFromFile() {
-		InputStream inputStream = null;
-		String key = "";
+    /**
+     * Generates the {@link PrivateKey} and {@link PublicKey} based on the
+     * {@link PrivateKey} location.
+     *
+     * @param privateKeyPath
+     */
+    public KeyGenerator(String privateKeyPath) {
+        if (Security.getProvider("BC") == null) {
+            Security.addProvider(new BouncyCastleProvider());
+        }
+        this.privateKeyPath = privateKeyPath;
+    }
 
-		try {
-			inputStream = this.getClass().getResourceAsStream(privateKeyPath);
-			key = IOUtils.toString(inputStream);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			IOUtils.closeQuietly(inputStream);
-		}
+    private String getKeyFromFile() {
+        InputStream inputStream = null;
+        String key = "";
 
-		return key;
-	}
+        try {
+            inputStream = this.getClass().getResourceAsStream(this.privateKeyPath);
+            key = IOUtils.toString(inputStream);
+        } catch (IOException e) {
+            KeyGenerator.log.error(e.getMessage(), e);
+        } finally {
+            IOUtils.closeQuietly(inputStream);
+        }
 
-	private KeyPair getKeyPair() {
-		PEMReader pemReader = new PEMReader(new StringReader(
-				this.getKeyFromFile()));
-		KeyPair pair = null;
+        return key;
+    }
 
-		try {
-			pair = (KeyPair) pemReader.readObject();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			IOUtils.closeQuietly(pemReader);
-		}
+    private KeyPair getKeyPair() {
+        PEMReader pemReader = new PEMReader(new StringReader(this.getKeyFromFile()));
+        KeyPair pair = null;
 
-		return pair;
-	}
+        try {
+            pair = (KeyPair) pemReader.readObject();
+        } catch (IOException e) {
+            KeyGenerator.log.error(e.getMessage(), e);
+        } finally {
+            IOUtils.closeQuietly(pemReader);
+        }
 
-	/**
-	 * @return {@link PrivateKey}
-	 */
-	public PrivateKey getPrivateKey() {
-		return this.getKeyPair().getPrivate();
-	}
+        return pair;
+    }
 
-	/**
-	 * @return {@link PublicKey}
-	 */
-	public PublicKey getPublicKey() {
-		return this.getKeyPair().getPublic();
-	}
+    /**
+     * @return {@link PrivateKey}
+     */
+    public PrivateKey getPrivateKey() {
+        return this.getKeyPair().getPrivate();
+    }
+
+    /**
+     * @return {@link PublicKey}
+     */
+    public PublicKey getPublicKey() {
+        return this.getKeyPair().getPublic();
+    }
 
 }

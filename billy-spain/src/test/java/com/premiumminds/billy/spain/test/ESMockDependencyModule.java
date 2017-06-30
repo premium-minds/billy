@@ -54,53 +54,32 @@ import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESSimpleInvoiceImpl;
 
 public class ESMockDependencyModule extends MockDependencyModule {
 
-	@Override
-	protected void configure() {
-		super.configure();
+    @Override
+    protected void configure() {
+        super.configure();
 
-		this.bind(DAOESRegionContext.class).toInstance(
-				Mockito.mock(DAOESRegionContext.class));
-		this.bind(DAOESContact.class).toInstance(
-				Mockito.mock(DAOESContact.class));
-		this.bind(DAOESAddress.class).toInstance(
-				Mockito.mock(DAOESAddress.class));
-		this.bind(DAOESApplication.class).toInstance(
-				Mockito.mock(DAOESApplication.class));
-		this.bind(DAOESTax.class).toInstance(Mockito.mock(DAOESTax.class));
-		this.bind(DAOESProduct.class).toInstance(
-				Mockito.mock(DAOESProduct.class));
-		this.bind(DAOESSupplier.class).toInstance(
-				Mockito.mock(DAOESSupplier.class));
-		this.bind(DAOESBusiness.class).toInstance(
-				Mockito.mock(DAOESBusiness.class));
-		this.bind(DAOESShippingPoint.class).toInstance(
-				Mockito.mock(DAOESShippingPoint.class));
-		this.bind(DAOESCustomer.class).toInstance(
-				Mockito.mock(DAOESCustomer.class));
-		this.bind(DAOESInvoiceEntry.class).toInstance(
-				Mockito.mock(DAOESInvoiceEntry.class));
-		this.bind(DAOESInvoice.class).toInstance(
-				Mockito.mock(DAOESInvoice.class));
-		this.bind(DAOESCreditNote.class).toInstance(
-				Mockito.mock(DAOESCreditNoteImpl.class));
-		this.bind(DAOESCreditNoteEntry.class).toInstance(
-				Mockito.mock(DAOESCreditNoteEntryImpl.class));
-		this.bind(DAOESGenericInvoice.class).toInstance(
-				Mockito.mock(DAOESGenericInvoiceImpl.class));
-		this.bind(DAOESGenericInvoiceEntry.class).toInstance(
-				Mockito.mock(DAOESGenericInvoiceEntryImpl.class));
-		this.bind(DAOESSimpleInvoice.class).toInstance(
-				Mockito.mock(DAOESSimpleInvoiceImpl.class));
-		this.bind(DAOESPayment.class).toInstance(
-				Mockito.mock(DAOESPaymentImpl.class));
-		this.bind(DAOESReceipt.class).toInstance(
-				Mockito.mock(DAOESReceipt.class));
-		this.bind(DAOESReceiptEntry.class).toInstance(
-				Mockito.mock(DAOESReceiptEntry.class));
-		this.bind(DAOESCreditReceipt.class).toInstance(
-				Mockito.mock(DAOESCreditReceiptImpl.class));
-		this.bind(DAOESCreditReceiptEntry.class).toInstance(
-				Mockito.mock(DAOESCreditReceiptEntryImpl.class));
-	}
+        this.bind(DAOESRegionContext.class).toInstance(Mockito.mock(DAOESRegionContext.class));
+        this.bind(DAOESContact.class).toInstance(Mockito.mock(DAOESContact.class));
+        this.bind(DAOESAddress.class).toInstance(Mockito.mock(DAOESAddress.class));
+        this.bind(DAOESApplication.class).toInstance(Mockito.mock(DAOESApplication.class));
+        this.bind(DAOESTax.class).toInstance(Mockito.mock(DAOESTax.class));
+        this.bind(DAOESProduct.class).toInstance(Mockito.mock(DAOESProduct.class));
+        this.bind(DAOESSupplier.class).toInstance(Mockito.mock(DAOESSupplier.class));
+        this.bind(DAOESBusiness.class).toInstance(Mockito.mock(DAOESBusiness.class));
+        this.bind(DAOESShippingPoint.class).toInstance(Mockito.mock(DAOESShippingPoint.class));
+        this.bind(DAOESCustomer.class).toInstance(Mockito.mock(DAOESCustomer.class));
+        this.bind(DAOESInvoiceEntry.class).toInstance(Mockito.mock(DAOESInvoiceEntry.class));
+        this.bind(DAOESInvoice.class).toInstance(Mockito.mock(DAOESInvoice.class));
+        this.bind(DAOESCreditNote.class).toInstance(Mockito.mock(DAOESCreditNoteImpl.class));
+        this.bind(DAOESCreditNoteEntry.class).toInstance(Mockito.mock(DAOESCreditNoteEntryImpl.class));
+        this.bind(DAOESGenericInvoice.class).toInstance(Mockito.mock(DAOESGenericInvoiceImpl.class));
+        this.bind(DAOESGenericInvoiceEntry.class).toInstance(Mockito.mock(DAOESGenericInvoiceEntryImpl.class));
+        this.bind(DAOESSimpleInvoice.class).toInstance(Mockito.mock(DAOESSimpleInvoiceImpl.class));
+        this.bind(DAOESPayment.class).toInstance(Mockito.mock(DAOESPaymentImpl.class));
+        this.bind(DAOESReceipt.class).toInstance(Mockito.mock(DAOESReceipt.class));
+        this.bind(DAOESReceiptEntry.class).toInstance(Mockito.mock(DAOESReceiptEntry.class));
+        this.bind(DAOESCreditReceipt.class).toInstance(Mockito.mock(DAOESCreditReceiptImpl.class));
+        this.bind(DAOESCreditReceiptEntry.class).toInstance(Mockito.mock(DAOESCreditReceiptEntryImpl.class));
+    }
 
 }

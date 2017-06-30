@@ -26,32 +26,31 @@ import com.premiumminds.billy.spain.services.persistence.ESCustomerPersistenceSe
 
 public class Customers {
 
-	private Config			configuration	= new Config();
-	private final Injector	injector;
-	private final ESCustomerPersistenceService persistenceService;
+    private Config configuration = new Config();
+    private final Injector injector;
+    private final ESCustomerPersistenceService persistenceService;
 
+    public Customers(Injector injector) {
+        this.injector = injector;
+        this.persistenceService = this.getInstance(ESCustomerPersistenceService.class);
+    }
 
-	public Customers(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(ESCustomerPersistenceService.class);
-	}
+    public ESCustomer.Builder builder() {
+        return this.getInstance(ESCustomer.Builder.class);
+    }
 
-	public ESCustomer.Builder builder() {
-		return getInstance(ESCustomer.Builder.class);
-	}
-	
-	public ESCustomer.Builder builder(ESCustomer customer) {
-		ESCustomer.Builder builder = getInstance(ESCustomer.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
-		return builder;
-	}
-	
-	public ESCustomerPersistenceService persistence() {
-		return this.persistenceService;
-	}
+    public ESCustomer.Builder builder(ESCustomer customer) {
+        ESCustomer.Builder builder = this.getInstance(ESCustomer.Builder.class);
+        BuilderManager.setTypeInstance(builder, customer);
+        return builder;
+    }
 
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+    public ESCustomerPersistenceService persistence() {
+        return this.persistenceService;
+    }
+
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
+
 }

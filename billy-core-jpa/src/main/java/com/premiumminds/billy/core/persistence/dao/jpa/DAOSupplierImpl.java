@@ -28,35 +28,32 @@ import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
 
-public class DAOSupplierImpl extends
-	AbstractDAO<SupplierEntity, JPASupplierEntity> implements DAOSupplier {
+public class DAOSupplierImpl extends AbstractDAO<SupplierEntity, JPASupplierEntity> implements DAOSupplier {
 
-	@Inject
-	public DAOSupplierImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOSupplierImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	protected Class<? extends JPASupplierEntity> getEntityClass() {
-		return JPASupplierEntity.class;
-	}
+    @Override
+    protected Class<? extends JPASupplierEntity> getEntityClass() {
+        return JPASupplierEntity.class;
+    }
 
-	@Override
-	public SupplierEntity getEntityInstance() {
-		return new JPASupplierEntity();
-	}
+    @Override
+    public SupplierEntity getEntityInstance() {
+        return new JPASupplierEntity();
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<SupplierEntity> getAllActiveSuppliers() {
-		List<JPASupplierEntity> result = (List<JPASupplierEntity>) this
-				.getEntityManager()
-				.createQuery(
-						"select c from "
-								+ this.getEntityClass().getCanonicalName()
-								+ " c " + "where c.active=true",
-						this.getEntityClass()).getResultList();
-		return this.checkEntityList(result, SupplierEntity.class);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<SupplierEntity> getAllActiveSuppliers() {
+        List<JPASupplierEntity> result = (List<JPASupplierEntity>) this.getEntityManager()
+                .createQuery(
+                        "select c from " + this.getEntityClass().getCanonicalName() + " c " + "where c.active=true",
+                        this.getEntityClass())
+                .getResultList();
+        return this.checkEntityList(result, SupplierEntity.class);
+    }
 
 }

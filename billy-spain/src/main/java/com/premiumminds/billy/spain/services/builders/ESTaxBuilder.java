@@ -22,6 +22,6 @@ import com.premiumminds.billy.core.services.builders.TaxBuilder;
 import com.premiumminds.billy.spain.services.entities.ESTax;
 
 public interface ESTaxBuilder<TBuilder extends ESTaxBuilder<TBuilder, TTax>, TTax extends ESTax>
-	extends TaxBuilder<TBuilder, TTax> {
+        extends TaxBuilder<TBuilder, TTax> {
 
 }

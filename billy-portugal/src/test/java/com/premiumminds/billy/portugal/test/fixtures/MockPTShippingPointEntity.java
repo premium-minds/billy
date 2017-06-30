@@ -21,7 +21,6 @@ package com.premiumminds.billy.portugal.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockShippingPointEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
 
-public class MockPTShippingPointEntity extends MockShippingPointEntity
-	implements PTShippingPointEntity {
+public class MockPTShippingPointEntity extends MockShippingPointEntity implements PTShippingPointEntity {
 
 }

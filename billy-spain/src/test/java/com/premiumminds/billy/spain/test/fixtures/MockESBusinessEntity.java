@@ -21,9 +21,8 @@ package com.premiumminds.billy.spain.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 
-public class MockESBusinessEntity extends MockBusinessEntity implements
-	ESBusinessEntity {
+public class MockESBusinessEntity extends MockBusinessEntity implements ESBusinessEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
 }

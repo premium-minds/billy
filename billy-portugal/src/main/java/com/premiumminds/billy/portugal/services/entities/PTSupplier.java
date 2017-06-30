@@ -26,14 +26,13 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTSupplierBuilderI
 
 public interface PTSupplier extends Supplier {
 
-	public static class Builder extends
-		PTSupplierBuilderImpl<Builder, PTSupplier> {
+    public static class Builder extends PTSupplierBuilderImpl<Builder, PTSupplier> {
 
-		@Inject
-		public Builder(DAOPTSupplier daoPTSupplier) {
-			super(daoPTSupplier);
-		}
-	}
+        @Inject
+        public Builder(DAOPTSupplier daoPTSupplier) {
+            super(daoPTSupplier);
+        }
+    }
 
-	public String getReferralName();
+    public String getReferralName();
 }

@@ -21,61 +21,75 @@ package com.premiumminds.billy.spain.util;
 import java.io.InputStream;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
-import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoicePDFExportHandler;
+import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceData;
+import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceDataExtractor;
 import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoicePDFExportRequest;
+import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.impl.ESSimpleInvoicePDFFOPTransformer;
 import com.premiumminds.billy.spain.services.persistence.ESSimpleInvoicePersistenceService;
 
 public class SimpleInvoices {
 
-	private final Injector	injector;
-	private final ESSimpleInvoicePersistenceService persistenceService;
-	private final DocumentIssuingService issuingService;
-	private final ExportService exportService;
+    private final Injector injector;
+    private final ESSimpleInvoicePersistenceService persistenceService;
+    private final DocumentIssuingService issuingService;
+    private final ExportService exportService;
 
-	public SimpleInvoices(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(ESSimpleInvoicePersistenceService.class);
-		this.issuingService = injector
-				.getInstance(DocumentIssuingService.class);
-		this.issuingService.addHandler(ESSimpleInvoiceEntity.class,
-				this.injector.getInstance(ESSimpleInvoiceIssuingHandler.class));
-		this.exportService = getInstance(ExportService.class);
-		this.exportService.addHandler(ESSimpleInvoicePDFExportRequest.class, getInstance(ESSimpleInvoicePDFExportHandler.class));
-	}
+    public SimpleInvoices(Injector injector) {
+        this.injector = injector;
+        this.persistenceService = this.getInstance(ESSimpleInvoicePersistenceService.class);
+        this.issuingService = injector.getInstance(DocumentIssuingService.class);
+        this.issuingService.addHandler(ESSimpleInvoiceEntity.class,
+                this.injector.getInstance(ESSimpleInvoiceIssuingHandler.class));
+        this.exportService = this.getInstance(ExportService.class);
 
-	public ESSimpleInvoice.Builder builder() {
-		return getInstance(ESSimpleInvoice.Builder.class);
-	}
+        this.exportService.addDataExtractor(ESSimpleInvoiceData.class,
+                this.getInstance(ESSimpleInvoiceDataExtractor.class));
+        this.exportService.addTransformerMapper(ESSimpleInvoicePDFExportRequest.class,
+                ESSimpleInvoicePDFFOPTransformer.class);
+    }
 
-	public ESSimpleInvoice.Builder builder(ESSimpleInvoice customer) {
-		ESSimpleInvoice.Builder builder = getInstance(ESSimpleInvoice.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
-		return builder;
-	}
+    public ESSimpleInvoice.Builder builder() {
+        return this.getInstance(ESSimpleInvoice.Builder.class);
+    }
 
-	public ESSimpleInvoicePersistenceService persistence() {
-		return this.persistenceService;
-	}
+    public ESSimpleInvoice.Builder builder(ESSimpleInvoice customer) {
+        ESSimpleInvoice.Builder builder = this.getInstance(ESSimpleInvoice.Builder.class);
+        BuilderManager.setTypeInstance(builder, customer);
+        return builder;
+    }
 
-	public ESSimpleInvoice issue(ESSimpleInvoice.Builder builder, ESIssuingParams params) throws DocumentIssuingException {
-		return issuingService.issue(builder, params);
-	}
-	
-	public InputStream pdfExport(ESSimpleInvoicePDFExportRequest  request) throws ExportServiceException {
-		return exportService.exportToStream(request);
-	}
+    public ESSimpleInvoicePersistenceService persistence() {
+        return this.persistenceService;
+    }
 
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
+    public ESSimpleInvoice issue(ESSimpleInvoice.Builder builder, ESIssuingParams params)
+            throws DocumentIssuingException {
+        return this.issuingService.issue(builder, params);
+    }
+
+    public InputStream pdfExport(ESSimpleInvoicePDFExportRequest request) throws ExportServiceException {
+        return this.exportService.exportToStream(request);
+    }
+
+    public <O> void pdfExport(UID uidDoc, BillyExportTransformer<ESSimpleInvoiceData, O> dataTransformer, O output)
+            throws ExportServiceException {
+
+        this.exportService.export(uidDoc, dataTransformer, output);
+    }
+
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
 
 }

@@ -24,8 +24,8 @@ import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
 public interface DAOESCreditReceiptEntry extends DAOESGenericInvoiceEntry {
 
-	@Override
-	public ESCreditReceiptEntryEntity getEntityInstance();
+    @Override
+    public ESCreditReceiptEntryEntity getEntityInstance();
 
-	ESCreditReceiptEntity checkCreditReceipt(ESReceipt invoice);
+    ESCreditReceiptEntity checkCreditReceipt(ESReceipt invoice);
 }

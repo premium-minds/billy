@@ -20,18 +20,30 @@ package com.premiumminds.billy.gin.services;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.OutputStream;
 
+import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
+import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
 
 public interface ExportService {
 
-	public <T extends ExportServiceRequest> InputStream exportToStream(T request)
-		throws ExportServiceException;
+    public <T extends ExportServiceRequest> InputStream exportToStream(T request) throws ExportServiceException;
 
-	public <T extends ExportServiceRequest> File exportToFile(T request)
-		throws ExportServiceException;
+    public <T extends ExportServiceRequest> File exportToFile(T request) throws ExportServiceException;
 
-	public void addHandler(Class<? extends ExportServiceRequest> requestClass,
-			ExportServiceHandler handler);
+    @Deprecated
+    public void addHandler(Class<? extends ExportServiceRequest> requestClass, ExportServiceHandler handler);
+
+    public <T extends GenericInvoiceData> void addDataExtractor(Class<T> dataClass,
+            BillyDataExtractor<T> dataExtractor);
+
+    public void addTransformerMapper(Class<? extends ExportServiceRequest> requestClazz,
+            Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>> transformerClazz);
+
+    public <T extends GenericInvoiceData, O> void export(UID uidDoc, BillyExportTransformer<T, O> dataTransformer,
+            O output) throws ExportServiceException;
 
 }

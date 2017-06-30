@@ -23,18 +23,16 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class ESCreditReceiptPDFExportRequest extends AbstractExportRequest {
 
-	public ESCreditReceiptPDFExportRequest(UID uid,
-			ESCreditReceiptTemplateBundle bundle) {
-		super(uid, bundle);
-	}
+    public ESCreditReceiptPDFExportRequest(UID uid, ESCreditReceiptTemplateBundle bundle) {
+        super(uid, bundle);
+    }
 
-	public ESCreditReceiptPDFExportRequest(UID uid,
-			ESCreditReceiptTemplateBundle bundle, String resultPath) {
-		super(uid, bundle, resultPath);
-	}
+    public ESCreditReceiptPDFExportRequest(UID uid, ESCreditReceiptTemplateBundle bundle, String resultPath) {
+        super(uid, bundle, resultPath);
+    }
 
-	@Override
-	public ESCreditReceiptTemplateBundle getBundle() {
-		return (ESCreditReceiptTemplateBundle) bundle;
-	}
+    @Override
+    public ESCreditReceiptTemplateBundle getBundle() {
+        return (ESCreditReceiptTemplateBundle) this.bundle;
+    }
 }

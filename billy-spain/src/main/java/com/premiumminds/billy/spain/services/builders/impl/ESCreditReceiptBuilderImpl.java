@@ -33,57 +33,44 @@ import com.premiumminds.billy.spain.services.entities.ESCreditReceipt;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
 public class ESCreditReceiptBuilderImpl<TBuilder extends ESCreditReceiptBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESCreditReceiptEntry, TDocument extends ESCreditReceipt>
-	extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument> implements
-	ESCreditReceiptBuilder<TBuilder, TEntry, TDocument> {
-	
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+        extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+        implements ESCreditReceiptBuilder<TBuilder, TEntry, TDocument> {
 
-	public ESCreditReceiptBuilderImpl(DAOESCreditReceipt daoESCreditReceipt,
-									DAOESBusiness daoESBusiness,
-									DAOESCustomer daoESCustomer,
-									DAOESSupplier daoESSupplier) {
-		super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
-	}
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Override
-	protected ESCreditReceiptEntity getTypeInstance() {
-		return (ESCreditReceiptEntity) super.getTypeInstance();
-	}
-	
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		ESCreditReceiptEntity i = getTypeInstance();
-		i.setCreditOrDebit(CreditOrDebit.DEBIT);
-		super.validateInstance();
-	}
-	
-	@Override
-	protected void validateESInstance(ESGenericInvoiceEntity i) {
-		super.validateDate();
+    public ESCreditReceiptBuilderImpl(DAOESCreditReceipt daoESCreditReceipt, DAOESBusiness daoESBusiness,
+            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+        super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
+    }
 
-		BillyValidator
-				.mandatory(i.getSourceId(),
-						ESGenericInvoiceBuilderImpl.LOCALIZER
-								.getString("field.source"));
-		BillyValidator.mandatory(i.getDate(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
-		if(i.isSelfBilled() != null) {
-		BillyValidator.mandatory(i.isSelfBilled(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.self_billed"));
-		} else  {
-			i.setSelfBilled(false);
-		}
-		BillyValidator.mandatory(i.isCancelled(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.cancelled"));
-		BillyValidator
-				.mandatory(i.isBilled(), ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.billed"));
-		BillyValidator.notEmpty(i.getPayments(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.payment_mechanism"));
-		return;
-	}
+    @Override
+    protected ESCreditReceiptEntity getTypeInstance() {
+        return (ESCreditReceiptEntity) super.getTypeInstance();
+    }
+
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        ESCreditReceiptEntity i = this.getTypeInstance();
+        i.setCreditOrDebit(CreditOrDebit.DEBIT);
+        super.validateInstance();
+    }
+
+    @Override
+    protected void validateESInstance(ESGenericInvoiceEntity i) {
+        super.validateDate();
+
+        BillyValidator.mandatory(i.getSourceId(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+        BillyValidator.mandatory(i.getDate(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
+        if (i.isSelfBilled() != null) {
+            BillyValidator.mandatory(i.isSelfBilled(),
+                    ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+        } else {
+            i.setSelfBilled(false);
+        }
+        BillyValidator.mandatory(i.isCancelled(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+        BillyValidator.mandatory(i.isBilled(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+        BillyValidator.notEmpty(i.getPayments(),
+                ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
+        return;
+    }
 }

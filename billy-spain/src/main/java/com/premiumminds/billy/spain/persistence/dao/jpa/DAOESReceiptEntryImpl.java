@@ -26,22 +26,21 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESReceiptEntry;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptEntryEntity;
 
-public class DAOESReceiptEntryImpl extends DAOESGenericInvoiceEntryImpl
-	implements DAOESReceiptEntry{
+public class DAOESReceiptEntryImpl extends DAOESGenericInvoiceEntryImpl implements DAOESReceiptEntry {
 
-	@Inject
-	public DAOESReceiptEntryImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
-	
-	@Override
-	public ESReceiptEntryEntity getEntityInstance() {
-		return new JPAESReceiptEntryEntity();
-	}
-	
-	@Override
-	protected Class<? extends JPAESReceiptEntryEntity> getEntityClass() {
-		return JPAESReceiptEntryEntity.class;
-	}
+    @Inject
+    public DAOESReceiptEntryImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
+
+    @Override
+    public ESReceiptEntryEntity getEntityInstance() {
+        return new JPAESReceiptEntryEntity();
+    }
+
+    @Override
+    protected Class<? extends JPAESReceiptEntryEntity> getEntityClass() {
+        return JPAESReceiptEntryEntity.class;
+    }
 
 }

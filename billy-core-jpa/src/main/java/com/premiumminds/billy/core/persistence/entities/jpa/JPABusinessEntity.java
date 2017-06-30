@@ -25,8 +25,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -51,176 +49,164 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
 public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	@ManyToOne(targetEntity = JPAContextEntity.class)
-	@JoinColumn(name = "ID_OPERATIONAL_CONTEXT", referencedColumnName = "ID")
-	protected Context			operationalContext;
+    @ManyToOne(targetEntity = JPAContextEntity.class)
+    @JoinColumn(name = "ID_OPERATIONAL_CONTEXT", referencedColumnName = "ID")
+    protected Context operationalContext;
 
-	@Column(name = "TAX_ID")
-	protected String			taxId;
+    @Column(name = "TAX_ID")
+    protected String taxId;
 
-	@Column(name = "NAME")
-	protected String			name;
+    @Column(name = "NAME")
+    protected String name;
 
-	@Column(name = "COMMERCIAL_NAME")
-	protected String			commercialName;
+    @Column(name = "COMMERCIAL_NAME")
+    protected String commercialName;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
-				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-	protected Address			address;
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
+    protected Address address;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
-				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
-	protected Address			billingAddress;
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
+    protected Address billingAddress;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
-				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
-	protected Address			shippingAddress;
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
+    protected Address shippingAddress;
 
-	@OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
-				cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
-	protected Contact			mainContact;
+    @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
+    protected Contact mainContact;
 
-	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(
-				name = Config.TABLE_PREFIX + "BUSINESS_CONTACT",
-				joinColumns = { @JoinColumn(name = "ID_BUSINESS",
-											referencedColumnName = "ID") },
-				inverseJoinColumns = { @JoinColumn(
-													name = "ID_CONTACT",
-													referencedColumnName = "ID",
-													unique = true) })
-	protected List<Contact>		contacts;
+    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_CONTACT",
+            joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") },
+            inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
+    protected List<Contact> contacts;
 
-	@Column(name = "WEBSITE")
-	protected String			website;
+    @Column(name = "WEBSITE")
+    protected String website;
 
-	@OneToMany(targetEntity = JPAApplicationEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(
-				name = Config.TABLE_PREFIX + "BUSINESS_APPLICATION",
-				joinColumns = { @JoinColumn(name = "ID_BUSINESS",
-											referencedColumnName = "ID") },
-				inverseJoinColumns = { @JoinColumn(
-													name = "ID_APPLICATION",
-													referencedColumnName = "ID",
-													unique = true) })
-	protected List<Application>	applications;
+    @OneToMany(targetEntity = JPAApplicationEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_APPLICATION",
+            joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") },
+            inverseJoinColumns = { @JoinColumn(name = "ID_APPLICATION", referencedColumnName = "ID", unique = true) })
+    protected List<Application> applications;
 
-	public JPABusinessEntity() {
-		this.contacts = new ArrayList<Contact>();
-		this.applications = new ArrayList<Application>();
-	}
+    public JPABusinessEntity() {
+        this.contacts = new ArrayList<>();
+        this.applications = new ArrayList<>();
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Context getOperationalContext() {
-		return this.operationalContext;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Context getOperationalContext() {
+        return this.operationalContext;
+    }
 
-	@Override
-	public String getFinancialID() {
-		return this.taxId;
-	}
+    @Override
+    public String getFinancialID() {
+        return this.taxId;
+    }
 
-	@Override
-	public String getName() {
-		return this.name;
-	}
+    @Override
+    public String getName() {
+        return this.name;
+    }
 
-	@Override
-	public String getCommercialName() {
-		return this.commercialName;
-	}
+    @Override
+    public String getCommercialName() {
+        return this.commercialName;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Address getAddress() {
-		return this.address;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Address getAddress() {
+        return this.address;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Address getBillingAddress() {
-		return this.billingAddress;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Address getBillingAddress() {
+        return this.billingAddress;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Address getShippingAddress() {
-		return this.shippingAddress;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Address getShippingAddress() {
+        return this.shippingAddress;
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Contact getMainContact() {
-		return this.mainContact;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public Contact getMainContact() {
+        return this.mainContact;
+    }
 
-	@Override
-	public String getWebsiteAddress() {
-		return this.website;
-	}
+    @Override
+    public String getWebsiteAddress() {
+        return this.website;
+    }
 
-	@Override
-	public <T extends ContextEntity> void setOperationalContext(T context) {
-		this.operationalContext = context;
-	}
+    @Override
+    public <T extends ContextEntity> void setOperationalContext(T context) {
+        this.operationalContext = context;
+    }
 
-	@Override
-	public void setFinancialID(String id) {
-		this.taxId = id;
-	}
+    @Override
+    public void setFinancialID(String id) {
+        this.taxId = id;
+    }
 
-	@Override
-	public void setName(String name) {
-		this.name = name;
-	}
+    @Override
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	@Override
-	public void setWebsiteAddress(String address) {
-		this.website = address;
-	}
+    @Override
+    public void setWebsiteAddress(String address) {
+        this.website = address;
+    }
 
-	@Override
-	public void setCommercialName(String name) {
-		this.commercialName = name;
-	}
+    @Override
+    public void setCommercialName(String name) {
+        this.commercialName = name;
+    }
 
-	@Override
-	public <T extends AddressEntity> void setAddress(T address) {
-		this.address = address;
-	}
+    @Override
+    public <T extends AddressEntity> void setAddress(T address) {
+        this.address = address;
+    }
 
-	@Override
-	public <T extends AddressEntity> void setBillingAddress(T address) {
-		this.billingAddress = address;
-	}
+    @Override
+    public <T extends AddressEntity> void setBillingAddress(T address) {
+        this.billingAddress = address;
+    }
 
-	@Override
-	public <T extends AddressEntity> void setShippingAddress(T address) {
-		this.shippingAddress = address;
-	}
+    @Override
+    public <T extends AddressEntity> void setShippingAddress(T address) {
+        this.shippingAddress = address;
+    }
 
-	@Override
-	public List<Contact> getContacts() {
-		return this.contacts;
-	}
+    @Override
+    public List<Contact> getContacts() {
+        return this.contacts;
+    }
 
-	@Override
-	public <T extends ContactEntity> void setMainContact(T contact) {
-		this.mainContact = contact;
-	}
+    @Override
+    public <T extends ContactEntity> void setMainContact(T contact) {
+        this.mainContact = contact;
+    }
 
-	@Override
-	public List<Application> getApplications() {
-		return this.applications;
-	}
+    @Override
+    public List<Application> getApplications() {
+        return this.applications;
+    }
 
 }

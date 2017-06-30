@@ -30,9 +30,8 @@ import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
-public class JPAPTProductEntity extends JPAProductEntity implements
-	PTProductEntity {
+public class JPAPTProductEntity extends JPAProductEntity implements PTProductEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
 }

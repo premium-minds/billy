@@ -29,17 +29,16 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTApplicationBuild
 
 public interface PTApplication extends Application {
 
-	public static class Builder extends
-		PTApplicationBuilderImpl<Builder, PTApplication> {
+    public static class Builder extends PTApplicationBuilderImpl<Builder, PTApplication> {
 
-		@Inject
-		public Builder(DAOPTApplication daoPTApplication) {
-			super(daoPTApplication);
-		}
+        @Inject
+        public Builder(DAOPTApplication daoPTApplication) {
+            super(daoPTApplication);
+        }
 
-	}
+    }
 
-	public Integer getSoftwareCertificationNumber();
+    public Integer getSoftwareCertificationNumber();
 
-	public URL getApplicationKeysPath() throws MalformedURLException;
+    public URL getApplicationKeysPath() throws MalformedURLException;
 }

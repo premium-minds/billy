@@ -23,8 +23,6 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,93 +39,91 @@ import com.premiumminds.billy.core.services.entities.Address;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
-public class JPAShippingPointEntity extends JPABaseEntity implements
-	ShippingPointEntity {
+public class JPAShippingPointEntity extends JPABaseEntity implements ShippingPointEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
-			CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-	protected Address			address;
+    @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
+    protected Address address;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "DATE")
-	protected Date				date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "DATE")
+    protected Date date;
 
-	@Column(name = "DELIVERY_ID")
-	protected String			deliveryId;
+    @Column(name = "DELIVERY_ID")
+    protected String deliveryId;
 
-	@Column(name = "LOCATION_ID")
-	protected String			locationId;
+    @Column(name = "LOCATION_ID")
+    protected String locationId;
 
-	@Column(name = "UCR")
-	protected String			ucr;
+    @Column(name = "UCR")
+    protected String ucr;
 
-	@Column(name = "WAREHOUSE_ID")
-	protected String			warehouseId;
+    @Column(name = "WAREHOUSE_ID")
+    protected String warehouseId;
 
-	public JPAShippingPointEntity() {
-	}
+    public JPAShippingPointEntity() {
+    }
 
-	@Override
-	public Date getDate() {
-		return this.date;
-	}
+    @Override
+    public Date getDate() {
+        return this.date;
+    }
 
-	@Override
-	public String getWarehouseId() {
-		return this.warehouseId;
-	}
+    @Override
+    public String getWarehouseId() {
+        return this.warehouseId;
+    }
 
-	@Override
-	public String getLocationId() {
-		return this.locationId;
-	}
+    @Override
+    public String getLocationId() {
+        return this.locationId;
+    }
 
-	@Override
-	public String getUCR() {
-		return this.ucr;
-	}
+    @Override
+    public String getUCR() {
+        return this.ucr;
+    }
 
-	@Override
-	public Address getAddress() {
-		return this.address;
-	}
+    @Override
+    public Address getAddress() {
+        return this.address;
+    }
 
-	@Override
-	public String getDeliveryId() {
-		return this.deliveryId;
-	}
+    @Override
+    public String getDeliveryId() {
+        return this.deliveryId;
+    }
 
-	@Override
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    @Override
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
-	@Override
-	public void setWarehouseId(String id) {
-		this.warehouseId = id;
-	}
+    @Override
+    public void setWarehouseId(String id) {
+        this.warehouseId = id;
+    }
 
-	@Override
-	public void setLocationId(String id) {
-		this.locationId = id;
-	}
+    @Override
+    public void setLocationId(String id) {
+        this.locationId = id;
+    }
 
-	@Override
-	public void setUCR(String UCR) {
-		this.ucr = UCR;
-	}
+    @Override
+    public void setUCR(String UCR) {
+        this.ucr = UCR;
+    }
 
-	@Override
-	public <T extends AddressEntity> void setAddress(T address) {
-		this.address = address;
-	}
+    @Override
+    public <T extends AddressEntity> void setAddress(T address) {
+        this.address = address;
+    }
 
-	@Override
-	public void setDeliveryId(String deliveryId) {
-		this.deliveryId = deliveryId;
-	}
+    @Override
+    public void setDeliveryId(String deliveryId) {
+        this.deliveryId = deliveryId;
+    }
 
 }

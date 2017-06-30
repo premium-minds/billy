@@ -36,105 +36,84 @@ import com.premiumminds.billy.spain.services.entities.ESGenericInvoice;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
 public class ESGenericInvoiceBuilderImpl<TBuilder extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESGenericInvoiceEntry, TDocument extends ESGenericInvoice>
-		extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-		implements ESGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+        extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+        implements ESGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-	protected static final Localizer	LOCALIZER	= new Localizer(
-			"com/premiumminds/billy/core/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-	@Inject
-	public ESGenericInvoiceBuilderImpl(DAOESGenericInvoice daoESGenericInvoice,
-			DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
-			DAOESSupplier daoESSupplier) {
-		super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
-	}
+    @Inject
+    public ESGenericInvoiceBuilderImpl(DAOESGenericInvoice daoESGenericInvoice, DAOESBusiness daoESBusiness,
+            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+        super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+    }
 
-	@Override
-	@NotOnUpdate
-	public TBuilder setSelfBilled(boolean selfBilled) {
-		BillyValidator.notNull(selfBilled,
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.self_billed"));
-		this.getTypeInstance().setSelfBilled(selfBilled);
-		return this.getBuilder();
-	}
+    @Override
+    @NotOnUpdate
+    public TBuilder setSelfBilled(boolean selfBilled) {
+        BillyValidator.notNull(selfBilled, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+        this.getTypeInstance().setSelfBilled(selfBilled);
+        return this.getBuilder();
+    }
 
-	@Override
-	protected ESGenericInvoiceEntity getTypeInstance() {
-		return (ESGenericInvoiceEntity) super.getTypeInstance();
-	}
+    @Override
+    protected ESGenericInvoiceEntity getTypeInstance() {
+        return (ESGenericInvoiceEntity) super.getTypeInstance();
+    }
 
-	@Override
-	public TBuilder setCancelled(boolean cancelled) {
-		if (this.getTypeInstance().isCancelled()) {
-			throw new BillyUpdateException("Invoice is allready cancelled!");
-		}
-		BillyValidator.notNull(cancelled, ESGenericInvoiceBuilderImpl.LOCALIZER
-				.getString("field.cancelled"));
-		this.getTypeInstance().setCancelled(cancelled);
-		return this.getBuilder();
-	}
+    @Override
+    public TBuilder setCancelled(boolean cancelled) {
+        if (this.getTypeInstance().isCancelled()) {
+            throw new BillyUpdateException("Invoice is allready cancelled!");
+        }
+        BillyValidator.notNull(cancelled, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+        this.getTypeInstance().setCancelled(cancelled);
+        return this.getBuilder();
+    }
 
-	@Override
-	public TBuilder setBilled(boolean billed) {
-		if (this.getTypeInstance().isCancelled()) {
-			throw new BillyUpdateException("Invoice is allready cancelled!");
-		}
-		if (this.getTypeInstance().isBilled()) {
-			throw new BillyUpdateException("Invoice is allready billed!");
-		}
-		BillyValidator
-				.notNull(billed, ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.billed"));
-		this.getTypeInstance().setBilled(billed);
-		return this.getBuilder();
-	}
+    @Override
+    public TBuilder setBilled(boolean billed) {
+        if (this.getTypeInstance().isCancelled()) {
+            throw new BillyUpdateException("Invoice is allready cancelled!");
+        }
+        if (this.getTypeInstance().isBilled()) {
+            throw new BillyUpdateException("Invoice is allready billed!");
+        }
+        BillyValidator.notNull(billed, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+        this.getTypeInstance().setBilled(billed);
+        return this.getBuilder();
+    }
 
-	@Override
-	@NotOnUpdate
-	public TBuilder setSourceId(String source) {
-		BillyValidator
-				.notBlank(source, ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.source"));
-		this.getTypeInstance().setSourceId(source);
-		return this.getBuilder();
-	}
+    @Override
+    @NotOnUpdate
+    public TBuilder setSourceId(String source) {
+        BillyValidator.notBlank(source, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+        this.getTypeInstance().setSourceId(source);
+        return this.getBuilder();
+    }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		ESGenericInvoiceEntity i = this.getTypeInstance();
-		super.validateValues();
-		this.validateESInstance(i);
-	}
+    @Override
+    protected void validateInstance() throws BillyValidationException {
+        ESGenericInvoiceEntity i = this.getTypeInstance();
+        super.validateValues();
+        this.validateESInstance(i);
+    }
 
-	protected void validateESInstance(ESGenericInvoiceEntity i) {
-		super.validateDate();
-		BillyValidator
-				.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.customer"));
+    protected void validateESInstance(ESGenericInvoiceEntity i) {
+        super.validateDate();
+        BillyValidator.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
 
-		BillyValidator
-				.mandatory(i.getSourceId(),
-						ESGenericInvoiceBuilderImpl.LOCALIZER
-								.getString("field.source"));
-		BillyValidator.mandatory(i.getDate(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
-		if(i.isSelfBilled() != null) {
-		BillyValidator.mandatory(i.isSelfBilled(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.self_billed"));
-		} else  {
-			i.setSelfBilled(false);
-		}
-		BillyValidator.mandatory(i.isCancelled(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.cancelled"));
-		BillyValidator
-				.mandatory(i.isBilled(), ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.billed"));
-		BillyValidator.notEmpty(i.getPayments(),
-				ESGenericInvoiceBuilderImpl.LOCALIZER
-						.getString("field.payment_mechanism"));
-	}
+        BillyValidator.mandatory(i.getSourceId(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+        BillyValidator.mandatory(i.getDate(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
+        if (i.isSelfBilled() != null) {
+            BillyValidator.mandatory(i.isSelfBilled(),
+                    ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+        } else {
+            i.setSelfBilled(false);
+        }
+        BillyValidator.mandatory(i.isCancelled(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+        BillyValidator.mandatory(i.isBilled(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+        BillyValidator.notEmpty(i.getPayments(),
+                ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
+    }
 
 }

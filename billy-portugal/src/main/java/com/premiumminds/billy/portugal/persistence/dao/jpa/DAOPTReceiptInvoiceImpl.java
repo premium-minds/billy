@@ -33,40 +33,35 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTReceiptInvo
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTReceiptInvoiceEntity;
 
+public class DAOPTReceiptInvoiceImpl extends DAOPTInvoiceImpl implements DAOPTReceiptInvoice {
 
-public class DAOPTReceiptInvoiceImpl extends DAOPTInvoiceImpl implements
-		DAOPTReceiptInvoice {
+    @Inject
+    public DAOPTReceiptInvoiceImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Inject
-	public DAOPTReceiptInvoiceImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
-	
-	@Override
-	public PTReceiptInvoiceEntity getEntityInstance() {
-		return new JPAPTReceiptInvoiceEntity();
-	}
+    @Override
+    public PTReceiptInvoiceEntity getEntityInstance() {
+        return new JPAPTReceiptInvoiceEntity();
+    }
 
-	@Override
-	protected Class<JPAPTReceiptInvoiceEntity> getEntityClass() {
-		return JPAPTReceiptInvoiceEntity.class;
-	}
+    @Override
+    protected Class<JPAPTReceiptInvoiceEntity> getEntityClass() {
+        return JPAPTReceiptInvoiceEntity.class;
+    }
 
-	@Override
-	public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID uid,
-			Date from, Date to) {
-		QJPAPTReceiptInvoiceEntity invoice = QJPAPTReceiptInvoiceEntity.jPAPTReceiptInvoiceEntity;
+    @Override
+    public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID uid, Date from, Date to) {
+        QJPAPTReceiptInvoiceEntity invoice = QJPAPTReceiptInvoiceEntity.jPAPTReceiptInvoiceEntity;
 
-		JPAQuery query = createQuery();
+        JPAQuery query = this.createQuery();
 
-		query.from(invoice)
-			.where(invoice.instanceOf(JPAPTReceiptInvoiceEntity.class)
-					.and(invoice.date.between(from, to))
-					.and(toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
+        query.from(invoice)
+                .where(invoice.instanceOf(JPAPTReceiptInvoiceEntity.class).and(invoice.date.between(from, to))
+                        .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
 
-		List<PTReceiptInvoiceEntity> result = this.checkEntityList(
-				query.list(invoice), PTReceiptInvoiceEntity.class);
-		return result;
-	}
+        List<PTReceiptInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTReceiptInvoiceEntity.class);
+        return result;
+    }
 
 }
