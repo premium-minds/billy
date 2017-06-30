@@ -63,7 +63,7 @@ implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 			"com/premiumminds/billy/core/i18n/FieldNames");
 
 	protected TDAOEntry daoEntry;
-	protected TDAOInvoice daoGenericInvoice;
+	protected TDAOInvoice daoInvoice;
 	protected DAOTax daoTax;
 	protected DAOProduct daoProduct;
 	protected DAOContext daoContext;
@@ -73,13 +73,13 @@ implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 	@Inject
 	public GenericInvoiceEntryBuilderImpl(
 			TDAOEntry daoEntry,
-			TDAOInvoice daoGenericInvoice, 
+			TDAOInvoice daoInvoice, 
 			DAOTax daoTax,
 			DAOProduct daoProduct, 
 			DAOContext daoContext) {
 		super(daoEntry);
 		this.daoEntry = daoEntry;
-		this.daoGenericInvoice = daoGenericInvoice;
+		this.daoInvoice = daoInvoice;
 		this.daoTax = daoTax;
 		this.daoProduct = daoProduct;
 		this.daoContext = daoContext;
@@ -160,7 +160,7 @@ implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 		BillyValidator.notNull(referenceUID,
 				GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.reference"));
-		GenericInvoiceEntity d = this.daoGenericInvoice.get(referenceUID);
+		GenericInvoiceEntity d = this.daoInvoice.get(referenceUID);
 		BillyValidator.found(d, GenericInvoiceEntryBuilderImpl.LOCALIZER
 				.getString("field.reference"));
 		this.getTypeInstance().getDocumentReferences().add(d);

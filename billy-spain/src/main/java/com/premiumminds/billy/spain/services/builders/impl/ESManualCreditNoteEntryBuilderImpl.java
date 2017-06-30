@@ -35,84 +35,72 @@ import com.premiumminds.billy.spain.services.builders.ESManualCreditNoteEntryBui
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditNoteEntry>
-	extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESCreditNoteEntry, DAOESInvoice> implements
-	ESManualCreditNoteEntryBuilder<TBuilder, TEntry> {
+    extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESCreditNoteEntry, DAOESInvoice>
+    implements ESManualCreditNoteEntryBuilder<TBuilder, TEntry> {
 
-	public ESManualCreditNoteEntryBuilderImpl(DAOESCreditNoteEntry daoESCreditNoteEntry,
-			DAOESInvoice daoESInvoice,
-			DAOESTax daoESTax,
-			DAOESProduct daoESProduct,
-			DAOESRegionContext daoESRegionContext) {
-		super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct,
-				daoESRegionContext);
-	}
+  public ESManualCreditNoteEntryBuilderImpl(
+      DAOESCreditNoteEntry daoESCreditNoteEntry,
+      DAOESInvoice daoESInvoice,
+      DAOESTax daoESTax,
+      DAOESProduct daoESProduct,
+      DAOESRegionContext daoESRegionContext) {
+    super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
+  }
 
-	@NotOnUpdate
-	public TBuilder setReferenceUID(UID referenceUID) {
-		BillyValidator.notNull(referenceUID,
-				ESCreditNoteEntryBuilderImpl.LOCALIZER
-				.getString("field.invoice_reference"));
-		ESInvoiceEntity i = (ESInvoiceEntity) this.daoGenericInvoice
-				.get(referenceUID);
-		BillyValidator.found(i, ESGenericInvoiceBuilderImpl.LOCALIZER
-				.getString("field.invoice_reference"));
-		this.getTypeInstance().setReference(i);
-		return this.getBuilder();
-	}
+  @NotOnUpdate
+  public TBuilder setReferenceUID(UID referenceUID) {
+    BillyValidator.notNull(referenceUID,
+        ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+    ESInvoiceEntity i = this.daoInvoice.get(referenceUID);
+    BillyValidator.found(i,
+        ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+    this.getTypeInstance().setReference(i);
+    return this.getBuilder();
+  }
 
-	@NotOnUpdate
-	public TBuilder setReason(String reason) {
-		BillyValidator.notBlank(reason, ESCreditNoteEntryBuilderImpl.LOCALIZER
-				.getString("field.reason"));
-		this.getTypeInstance().setReason(reason);
-		return this.getBuilder();
-	}
+  @NotOnUpdate
+  public TBuilder setReason(String reason) {
+    BillyValidator.notBlank(reason,
+        ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
+    this.getTypeInstance().setReason(reason);
+    return this.getBuilder();
+  }
 
-	@Override
-	protected ESCreditNoteEntryEntity getTypeInstance() {
-		return (ESCreditNoteEntryEntity) super.getTypeInstance();
-	}
+  @Override
+  protected ESCreditNoteEntryEntity getTypeInstance() {
+    return (ESCreditNoteEntryEntity) super.getTypeInstance();
+  }
 
-	@Override
-	protected void validateInstance() throws BillyValidationException {
-		getTypeInstance().setCreditOrDebit(CreditOrDebit.DEBIT);
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    getTypeInstance().setCreditOrDebit(CreditOrDebit.DEBIT);
 
-		super.validateInstance();
-		ESCreditNoteEntryEntity cn = this.getTypeInstance();
-		BillyValidator.mandatory(cn.getQuantity(),
-				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.quantity"));
-		BillyValidator.mandatory(cn.getUnitOfMeasure(),
-				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.unit"));
-		BillyValidator.mandatory(cn.getProduct(),
-				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.product"));
-		BillyValidator.notEmpty(cn.getTaxes(),
-				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.tax"));
-		BillyValidator.mandatory(cn.getTaxAmount(),
-				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.tax"));
-		BillyValidator.mandatory(cn.getTaxPointDate(),
-				ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-				.getString("field.tax_point_date"));		
-		BillyValidator.mandatory(cn.getReference(),
-				ESCreditNoteEntryBuilderImpl.LOCALIZER
-				.getString("field.invoice_reference"));
+    super.validateInstance();
+    ESCreditNoteEntryEntity cn = this.getTypeInstance();
+    BillyValidator.mandatory(cn.getQuantity(),
+        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
+    BillyValidator.mandatory(cn.getUnitOfMeasure(),
+        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
+    BillyValidator.mandatory(cn.getProduct(),
+        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
+    BillyValidator.notEmpty(cn.getTaxes(),
+        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
+    BillyValidator.mandatory(cn.getTaxAmount(),
+        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
+    BillyValidator.mandatory(cn.getTaxPointDate(),
+        ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+    BillyValidator.mandatory(cn.getReference(),
+        ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
-		BillyValidator.mandatory(cn.getReason(),
-				ESCreditNoteEntryBuilderImpl.LOCALIZER
-				.getString("field.reason"));
+    BillyValidator.mandatory(cn.getReason(),
+        ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
 
-		this.ValidateESCreditNoteEntry(cn);
-	}
+    this.ValidateESCreditNoteEntry(cn);
+  }
 
-	private void ValidateESCreditNoteEntry(ESCreditNoteEntryEntity cn) {
-		DAOESCreditNoteEntry daoESCreditNoteEntry = (DAOESCreditNoteEntry) this.daoEntry;
-
-		if (daoESCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
-			throw new DuplicateCreditNoteException();
-		}
-	}
+  private void ValidateESCreditNoteEntry(ESCreditNoteEntryEntity cn) {
+    if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
+      throw new DuplicateCreditNoteException();
+    }
+  }
 }
