@@ -137,14 +137,6 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         this.issueNewInvoice(newHandler, diffentTypeInvoice, series);
     }
 
-    // @Test(expected = InvalidInvoiceDateException.class)
-    // public void testIssuedInvoiceBeforeDate() throws DocumentIssuingException {
-    // this.issueNewInvoice(this.handler, this.newInvoice(
-    // TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
-    // TestPTInvoiceIssuingHandler.SOURCE_BILLING),
-    // PTPersistencyAbstractTest.DEFAULT_SERIES, new Date(0));
-    // }
-
     @Test
     public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException {
         PTGenericInvoiceEntity newInvoice =

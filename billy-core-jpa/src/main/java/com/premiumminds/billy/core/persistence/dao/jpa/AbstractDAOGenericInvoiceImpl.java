@@ -32,12 +32,7 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEnt
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 
-public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity> // &
-                                                                                                                                      // GenericInvoiceEntity>
-                                                                                                                                      // FIXME:
-                                                                                                                                      // Fix
-                                                                                                                                      // entities
-                                                                                                                                      // inheritance
+public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity> 
         extends AbstractDAO<TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
 
     @Inject
@@ -71,6 +66,6 @@ public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericIn
 
         GenericInvoiceEntity invoice = query.uniqueResult(genericInvoice);
 
-        return (TInterface) invoice; // FIXME: CAST
+        return (TInterface) invoice;
     }
 }

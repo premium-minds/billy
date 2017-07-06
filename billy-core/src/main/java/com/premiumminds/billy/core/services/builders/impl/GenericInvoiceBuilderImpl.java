@@ -201,8 +201,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
     public <T extends GenericInvoiceEntry> TBuilder addEntry(Builder<T> entryBuilder) {
         BillyValidator.notNull(entryBuilder, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.entry"));
         T entry = entryBuilder.build();
-        Validate.isInstanceOf(GenericInvoiceEntryEntity.class, entry); // TODO
-        // message
+        Validate.isInstanceOf(GenericInvoiceEntryEntity.class, entry); // TODO message
         GenericInvoiceEntity i = this.getTypeInstance();
         GenericInvoiceEntryEntity e = (GenericInvoiceEntryEntity) entry;
         i.getEntries().add(e);
@@ -223,8 +222,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
     @NotOnUpdate
     public TBuilder setSettlementDiscount(BigDecimal discount) {
         Validate.isTrue(discount == null || discount.compareTo(BigDecimal.ZERO) >= 0,
-                GenericInvoiceBuilderImpl.LOCALIZER.getString("field.discount")); // TODO
-        // message
+                GenericInvoiceBuilderImpl.LOCALIZER.getString("field.discount")); // TODO message
         this.getTypeInstance().setSettlementDiscount(discount);
         return this.getBuilder();
     }
@@ -284,9 +282,9 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
     protected void validateValues() throws ValidationException {
 
         GenericInvoiceEntity i = this.getTypeInstance();
-        i.setCurrency(Currency.getInstance("EUR")); // FIXME: Hardcoded currency.
-                                                    // Blocks usage of any other
-                                                    // currency
+        
+        // FIXME: Hardcoded currency. Blocks usage of any other currency
+        i.setCurrency(Currency.getInstance("EUR")); 
 
         MathContext mc = BillyMathContext.get();
 
@@ -322,8 +320,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
                 i.getAmountWithTax().compareTo(BigDecimal.ZERO) > 0 &&
                         i.getAmountWithoutTax().compareTo(BigDecimal.ZERO) >= 0 &&
                         i.getTaxAmount().compareTo(BigDecimal.ZERO) > 0,
-                "The invoice values are lower than zero", // TODO
-                // message
+                "The invoice values are lower than zero", // TODO message
                 i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
     }
 

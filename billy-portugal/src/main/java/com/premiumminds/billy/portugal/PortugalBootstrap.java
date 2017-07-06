@@ -81,8 +81,7 @@ public class PortugalBootstrap {
         if (args.length > 0 && !args[0].isEmpty()) {
             PortugalBootstrap.execute(args[0]);
         } else {
-            PortugalBootstrap.execute(BillyPortugal.DEFAULT_PERSISTENCE_UNIT); // backward
-                                                                               // compatibility
+            PortugalBootstrap.execute(BillyPortugal.DEFAULT_PERSISTENCE_UNIT); // backward compatibility
         }
     }
 

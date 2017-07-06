@@ -71,8 +71,6 @@ public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TB
 
     public <T extends Payment> TBuilder addPayment(Builder<T> paymentBuilder);
 
-    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
-
     public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 
     public TBuilder setCurrency(Currency currency);

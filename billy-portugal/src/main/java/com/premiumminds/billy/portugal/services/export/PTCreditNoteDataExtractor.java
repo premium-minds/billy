@@ -45,14 +45,7 @@ public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
 
     @Override
     public PTCreditNoteData extract(UID uid) throws ExportServiceException {
-        PTCreditNoteEntity entity = this.daoPTCreditNote.get(uid); // FIXME:
-        // Fix
-        // the
-        // DAOs
-        // to
-        // remove
-        // this
-        // cast
+        PTCreditNoteEntity entity = this.daoPTCreditNote.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }

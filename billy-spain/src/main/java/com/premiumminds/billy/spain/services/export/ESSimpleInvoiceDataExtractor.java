@@ -45,14 +45,7 @@ public class ESSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
 
     @Override
     public ESSimpleInvoiceData extract(UID uid) throws ExportServiceException {
-        ESSimpleInvoiceEntity entity = this.daoESSimpleInvoice.get(uid); // FIXME:
-        // Fix
-        // the
-        // DAOs
-        // to
-        // remove
-        // this
-        // cast
+        ESSimpleInvoiceEntity entity = this.daoESSimpleInvoice.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }

@@ -91,8 +91,7 @@ public class ExportServiceImpl implements ExportService {
         Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>> transformerClazz =
                 this.requestMapper.get(request.getClass());
 
-        // TODO: This logic should be part of the interface instead of depending of
-        // an instance type
+        // TODO: This logic should be part of the interface instead of depending of an instance type
         if (!(request instanceof AbstractExportRequest)) {
             RuntimeException e = new RuntimeException(
                     "Could not find a handler for export request : " + request.getClass().getCanonicalName());
