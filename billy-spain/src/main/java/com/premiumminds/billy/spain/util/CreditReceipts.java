@@ -19,6 +19,7 @@
 package com.premiumminds.billy.spain.util;
 
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -27,7 +28,7 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.services.documents.ESCreditReceiptIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
@@ -94,11 +95,10 @@ public class CreditReceipts {
     return exportService.exportToStream(request);
   }
 
-  public <O> void pdfExport(UID uidDoc,
-      BillyExportTransformer<ESCreditReceiptData, O> dataTransformer, O output)
-      throws ExportServiceException {
+  public void pdfExport(UID uidDoc, BillyPDFTransformer<ESCreditReceiptData> dataTransformer,
+      OutputStream outputStream) throws ExportServiceException {
 
-    exportService.export(uidDoc, dataTransformer, output);
+    exportService.export(uidDoc, dataTransformer, outputStream);
   }
 
   private <T> T getInstance(Class<T> clazz) {

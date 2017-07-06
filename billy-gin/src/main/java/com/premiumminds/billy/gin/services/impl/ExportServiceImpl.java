@@ -39,7 +39,7 @@ import com.premiumminds.billy.gin.services.ExportServiceHandler;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
-import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
+import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
@@ -48,11 +48,11 @@ public class ExportServiceImpl implements ExportService {
   private static final Logger log = LoggerFactory.getLogger(ExportServiceImpl.class);
 
   private final Map<Class<? extends GenericInvoiceData>, BillyDataExtractor<? extends GenericInvoiceData>> dataExtractors;
-  private final Map<Class<? extends ExportServiceRequest>, Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>>> requestMapper;
+  private final Map<Class<? extends ExportServiceRequest>, Class<? extends BillyPDFTransformer<? extends GenericInvoiceData>>> requestMapper;
 
   public ExportServiceImpl() {
     this.dataExtractors = new HashMap<Class<? extends GenericInvoiceData>, BillyDataExtractor<? extends GenericInvoiceData>>();
-    this.requestMapper = new HashMap<Class<? extends ExportServiceRequest>, Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>>>();
+    this.requestMapper = new HashMap<Class<? extends ExportServiceRequest>, Class<? extends BillyPDFTransformer<? extends GenericInvoiceData>>>();
   }
 
   @Override
@@ -91,7 +91,7 @@ public class ExportServiceImpl implements ExportService {
 
   protected <T extends ExportServiceRequest> void exportWithTransformer(T request,
       OutputStream outputStream) throws ExportServiceException {
-    Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>> transformerClazz = requestMapper
+    Class<? extends BillyPDFTransformer<? extends GenericInvoiceData>> transformerClazz = requestMapper
         .get(request.getClass());
 
     // TODO: This logic should be part of the interface instead of depending of
@@ -106,10 +106,10 @@ public class ExportServiceImpl implements ExportService {
     UID uidDoc = exportRequest.getDocumentUID();
 
     try {
-      Constructor<? extends BillyExportTransformer<?, OutputStream>> transformerConstructor = transformerClazz
+      Constructor<? extends BillyPDFTransformer<?>> transformerConstructor = transformerClazz
           .getDeclaredConstructor(request.getBundle().getClass());
 
-      BillyExportTransformer<?, OutputStream> dataTransformer = transformerConstructor
+      BillyPDFTransformer<?> dataTransformer = transformerConstructor
           .newInstance(request.getBundle());
       doExport(uidDoc, dataTransformer, outputStream);
 
@@ -120,13 +120,15 @@ public class ExportServiceImpl implements ExportService {
   }
 
   @Override
-  public <T extends GenericInvoiceData, O> void export(UID uidDoc,
-      BillyExportTransformer<T, O> dataTransformer, O output) throws ExportServiceException {
-    doExport(uidDoc, dataTransformer, output);
+  public <T extends GenericInvoiceData> void export(UID uidDoc,
+      BillyPDFTransformer<T> dataTransformer, OutputStream outputStream)
+      throws ExportServiceException {
+    doExport(uidDoc, dataTransformer, outputStream);
   }
 
-  private <T extends GenericInvoiceData, O> void doExport(UID uidDoc,
-      BillyExportTransformer<T, O> dataTransformer, O output) throws ExportServiceException {
+  private <T extends GenericInvoiceData> void doExport(UID uidDoc,
+      BillyPDFTransformer<T> dataTransformer, OutputStream outputStream)
+      throws ExportServiceException {
     Class<T> clazz = dataTransformer.getTransformableClass();
     if (!dataExtractors.containsKey(clazz)) {
       RuntimeException e = new RuntimeException(
@@ -136,7 +138,7 @@ public class ExportServiceImpl implements ExportService {
     }
 
     T document = clazz.cast(dataExtractors.get(clazz).extract(uidDoc));
-    dataTransformer.transform(document, output);
+    dataTransformer.transform(document, outputStream);
   }
 
   @Override
@@ -153,7 +155,7 @@ public class ExportServiceImpl implements ExportService {
 
   @Override
   public void addTransformerMapper(Class<? extends ExportServiceRequest> requestClazz,
-      Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>> transformerClazz) {
+      Class<? extends BillyPDFTransformer<? extends GenericInvoiceData>> transformerClazz) {
 
     requestMapper.put(requestClazz, transformerClazz);
   }
