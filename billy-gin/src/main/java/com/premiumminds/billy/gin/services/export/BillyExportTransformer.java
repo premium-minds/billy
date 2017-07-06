@@ -18,14 +18,12 @@
  */
 package com.premiumminds.billy.gin.services.export;
 
-import java.io.OutputStream;
-
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 
-public interface BillyPDFTransformer<T extends GenericInvoiceData> {
+public interface BillyExportTransformer<T extends GenericInvoiceData, O> {
 	
 	public Class<T> getTransformableClass();
 	
-	public void transform(T entity, OutputStream outputStream) throws ExportServiceException;
+	public void transform(T entity, O output) throws ExportServiceException;
 	
 }
