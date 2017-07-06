@@ -21,12 +21,12 @@ package com.premiumminds.billy.spain.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEntity;
 
-public class MockESGenericInvoiceEntryEntity extends MockGenericInvoiceEntryEntity
-    implements ESGenericInvoiceEntryEntity {
+public class MockESGenericInvoiceEntryEntity extends
+	MockGenericInvoiceEntryEntity implements ESGenericInvoiceEntryEntity {
 
-  private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-  public MockESGenericInvoiceEntryEntity() {
+	public MockESGenericInvoiceEntryEntity() {
 
-  }
+	}
 }

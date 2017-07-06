@@ -22,6 +22,6 @@ import com.premiumminds.billy.core.services.builders.AddressBuilder;
 import com.premiumminds.billy.spain.services.entities.ESAddress;
 
 public interface ESAddressBuilder<TBuilder extends ESAddressBuilder<TBuilder, TAddress>, TAddress extends ESAddress>
-    extends AddressBuilder<TBuilder, TAddress> {
+	extends AddressBuilder<TBuilder, TAddress> {
 
 }

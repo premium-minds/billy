@@ -41,65 +41,64 @@ import com.premiumminds.billy.spain.services.export.pdf.receipt.ESReceiptPDFFOPT
 import com.premiumminds.billy.spain.services.persistence.ESReceiptPersistenceService;
 
 public class Receipts {
-  private final Injector injector;
-  private final ESReceiptPersistenceService persistenceService;
-  private final DocumentIssuingService issuingService;
-  private final ExportService exportService;
+    private final Injector injector;
+    private final ESReceiptPersistenceService persistenceService;
+    private final DocumentIssuingService issuingService;
+    private final ExportService exportService;
 
-  public Receipts(Injector injector) {
-    this.injector = injector;
-    this.persistenceService = getInstance(ESReceiptPersistenceService.class);
-    this.issuingService = getInstance(DocumentIssuingService.class);
-    this.issuingService.addHandler(ESReceiptEntity.class,
-        getInstance(ESReceiptIssuingHandler.class));
-    this.exportService = getInstance(ExportService.class);
+    public Receipts(Injector injector) {
+        this.injector = injector;
+        this.persistenceService = getInstance(ESReceiptPersistenceService.class);
+        this.issuingService = getInstance(DocumentIssuingService.class);
+        this.issuingService.addHandler(ESReceiptEntity.class
+                , getInstance(ESReceiptIssuingHandler.class));
+        this.exportService = getInstance(ExportService.class);
 
-    this.exportService.addDataExtractor(ESReceiptData.class,
-        getInstance(ESReceiptDataExtractor.class));
-    this.exportService.addTransformerMapper(ESReceiptPDFExportRequest.class,
-        ESReceiptPDFFOPTransformer.class);
-  }
+        this.exportService.addDataExtractor(ESReceiptData.class, getInstance(ESReceiptDataExtractor.class));
+        this.exportService.addTransformerMapper(ESReceiptPDFExportRequest.class, ESReceiptPDFFOPTransformer.class);
+    }
 
-  public ESReceipt.Builder builder() {
-    return getInstance(ESReceipt.Builder.class);
-  }
+    public ESReceipt.Builder builder() {
+        return getInstance(ESReceipt.Builder.class);
+    }
 
-  public ESReceipt.Builder builder(ESReceipt receipt) {
-    ESReceipt.Builder builder = getInstance(ESReceipt.Builder.class);
-    BuilderManager.setTypeInstance(builder, receipt);
-    return builder;
-  }
+    public ESReceipt.Builder builder(ESReceipt receipt) {
+        ESReceipt.Builder builder = getInstance(ESReceipt.Builder.class);
+        BuilderManager.setTypeInstance(builder, receipt);
+        return builder;
+    }
 
-  public ESReceiptEntry.Builder entryBuilder() {
-    return getInstance(ESReceiptEntry.Builder.class);
-  }
+    public ESReceiptEntry.Builder entryBuilder() {
+        return getInstance(ESReceiptEntry.Builder.class);
+    }
 
-  public ESReceiptEntry.Builder entryBuilder(ESReceiptEntry entry) {
-    ESReceiptEntry.Builder builder = getInstance(ESReceiptEntry.Builder.class);
-    BuilderManager.setTypeInstance(builder, entry);
-    return builder;
-  }
+    public ESReceiptEntry.Builder entryBuilder(ESReceiptEntry entry) {
+        ESReceiptEntry.Builder builder = getInstance(ESReceiptEntry.Builder.class);
+        BuilderManager.setTypeInstance(builder, entry);
+        return builder;
+    }
 
-  public ESReceiptPersistenceService persistence() {
-    return this.persistenceService;
-  }
+    public ESReceiptPersistenceService persistence() {
+        return this.persistenceService;
+    }
 
-  public ESReceipt issue(ESReceipt.Builder builder, ESIssuingParams params)
-      throws DocumentIssuingException {
-    return this.issuingService.issue(builder, params);
-  }
+    public ESReceipt issue(ESReceipt.Builder builder, ESIssuingParams params) 
+            throws DocumentIssuingException {
+        return this.issuingService.issue(builder, params);
+    }
 
-  public InputStream pdfExport(ESReceiptPDFExportRequest request) throws ExportServiceException {
-    return this.exportService.exportToStream(request);
-  }
+    public InputStream pdfExport(ESReceiptPDFExportRequest request) 
+            throws ExportServiceException {
+        return this.exportService.exportToStream(request);
+    }
 
-  public void pdfExport(UID uidDoc, BillyPDFTransformer<ESReceiptData> dataTransformer,
-      OutputStream outputStream) throws ExportServiceException {
+    public void pdfExport(UID uidDoc, BillyPDFTransformer<ESReceiptData> dataTransformer, OutputStream outputStream) 
+            throws ExportServiceException {
 
-    exportService.export(uidDoc, dataTransformer, outputStream);
-  }
+        exportService.export(uidDoc, dataTransformer, outputStream);
+    }
 
-  private <T> T getInstance(Class<T> clazz) {
-    return this.injector.getInstance(clazz);
-  }
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
 }

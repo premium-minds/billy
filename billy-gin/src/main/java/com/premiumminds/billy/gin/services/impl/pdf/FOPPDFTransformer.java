@@ -51,103 +51,107 @@ import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import net.sf.saxon.TransformerFactoryImpl;
 
 public abstract class FOPPDFTransformer {
-
-  private static final Logger log = LoggerFactory.getLogger(FOPPDFTransformer.class);
-
-  private final TransformerFactoryImpl transformerFactory;
-
-  public FOPPDFTransformer(TransformerFactoryImpl transformerFactory) {
-    this.transformerFactory = transformerFactory;
-  }
-
-  public FOPPDFTransformer() {
-    this(new TransformerFactoryImpl());
-  }
-
-  private Source mapParamsToSource(ParamsTree<String, String> documentParams) {
-    return new StreamSource(new StringReader(generateXML(documentParams)));
-  }
-
-  private String generateXML(ParamsTree<String, String> tree) {
-    StringBuilder strBuilder = new StringBuilder();
-    strBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-
-    writeXML(strBuilder, tree.getRoot());
-
-    return strBuilder.toString();
-  }
-
-  private void writeXML(StringBuilder strBuilder, Node<String, String> node) {
-    strBuilder.append("<").append(node.getKey());
-    if (null == node.getValue() && !node.hasChildren()) {
-      strBuilder.append("/>");
-    } else {
-      strBuilder.append("> ");
-      if (null != node.getValue()) {
-        strBuilder.append(StringEscapeUtils.escapeXml(node.getValue()));
-      }
-
-      for (Node<String, String> child : node.getChildren()) {
-        writeXML(strBuilder, child);
-      }
-      strBuilder.append("</").append(node.getKey()).append(">");
+	
+	private static final Logger log = LoggerFactory.getLogger(FOPPDFTransformer.class);
+	
+	private final TransformerFactoryImpl transformerFactory;
+	
+	public FOPPDFTransformer(TransformerFactoryImpl transformerFactory) {
+        this.transformerFactory = transformerFactory;
     }
-  }
+	
+	public FOPPDFTransformer() {
+	    this(new TransformerFactoryImpl());
+	}
 
-  protected void transformToStream(InputStream templateStream,
-      ParamsTree<String, String> documentParams, OutputStream outStream)
-      throws ExportServiceException {
+	private Source mapParamsToSource(ParamsTree<String, String> documentParams) {
+		return new StreamSource(new StringReader(generateXML(documentParams)));
+	}
 
-    // the XML file from which we take the name
-    Source source = this.mapParamsToSource(documentParams);
-    // creation of transform source
-    StreamSource transformSource = new StreamSource(templateStream);
+	private String generateXML(ParamsTree<String, String> tree) {
+	    StringBuilder strBuilder = new StringBuilder();
+	    strBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+	    
+		writeXML(strBuilder, tree.getRoot());
+		
+		return strBuilder.toString();
+	}
 
-    // create an instance of fop factory
-    FopFactory fopFactory = FopFactory.newInstance();
-    // a user agent is needed for transformation
-    FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
-    // to store output
+	private void writeXML(StringBuilder strBuilder, Node<String, String> node) {
+	    strBuilder.append("<").append(node.getKey());
+		if (null == node.getValue() && !node.hasChildren()) {
+		    strBuilder.append("/>");
+		} else {
+		    strBuilder.append("> ");
+			if (null != node.getValue()) {
+			    strBuilder.append(StringEscapeUtils.escapeXml(node.getValue()));
+			}
+			
+			for (Node<String, String> child : node.getChildren()) {
+				writeXML(strBuilder, child);
+			}
+			strBuilder.append("</").append(node.getKey()).append(">");
+		}
+	}
 
-    try {
-      Transformer xslfoTransformer = this.getTransformer(transformSource);
+	protected void transformToStream(InputStream templateStream,
+			ParamsTree<String, String> documentParams,
+			OutputStream outStream)
+		throws ExportServiceException {
 
-      // Construct fop with desired output format
-      Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, outStream);
+		// the XML file from which we take the name
+		Source source = this.mapParamsToSource(documentParams);
+		// creation of transform source
+		StreamSource transformSource = new StreamSource(templateStream);
 
-      // Resulting SAX events (the generated FO)
-      // must be piped through to FOP
-      Result res = new SAXResult(fop.getDefaultHandler());
+		// create an instance of fop factory
+		FopFactory fopFactory = FopFactory.newInstance();
+		// a user agent is needed for transformation
+		FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+		// to store output
 
-      // Start XSLT transformation and FOP processing
-      // everything will happen here..
-      xslfoTransformer.transform(source, res);
-    } catch (FOPException e) {
-      log.error(e.getMessage(), e);
-      throw new ExportServiceException("Error using FOP to open the template", e);
-    } catch (TransformerException e) {
-      log.error(e.getMessage(), e);
-      throw new ExportServiceException("Error generating pdf from template and data source", e);
-    }
-  }
+		try {
+		    Transformer xslfoTransformer = this.getTransformer(transformSource);
+		    
+			// Construct fop with desired output format
+			Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent,
+					outStream);
+			
+			// Resulting SAX events (the generated FO)
+			// must be piped through to FOP
+			Result res = new SAXResult(fop.getDefaultHandler());
 
-  public File toFile(URI fileURI, InputStream templateStream,
-      ParamsTree<String, String> documentParams) throws ExportServiceException {
-    // if you want to save PDF file use the following code
-    File pdffile = new File(fileURI);
-    try (OutputStream out = new java.io.BufferedOutputStream(new FileOutputStream(pdffile))) {
-      transformToStream(templateStream, documentParams, out);
-      return pdffile;
-    } catch (FileNotFoundException e) {
-      throw new ExportServiceException("Could not create pdf file", e);
-    } catch (IOException e) {
-      throw new ExportServiceException("IO error while saving the pdf file", e);
-    }
-  }
+			// Start XSLT transformation and FOP processing
+			// everything will happen here..
+			xslfoTransformer.transform(source, res);
+		} catch (FOPException e) {
+		    log.error(e.getMessage(), e);
+			throw new ExportServiceException(
+					"Error using FOP to open the template", e);
+		} catch (TransformerException e) {
+		    log.error(e.getMessage(), e);
+			throw new ExportServiceException(
+					"Error generating pdf from template and data source", e);
+		}
+	}
 
-  private Transformer getTransformer(StreamSource streamSource)
-      throws TransformerConfigurationException {
-    return transformerFactory.newTransformer(streamSource);
-  }
+	public File toFile(URI fileURI, InputStream templateStream,
+			ParamsTree<String, String> documentParams) throws ExportServiceException {
+		// if you want to save PDF file use the following code
+		File pdffile = new File(fileURI);
+		try (OutputStream out = new java.io.BufferedOutputStream(new FileOutputStream(pdffile))){
+			transformToStream(templateStream, documentParams, out);
+			return pdffile;
+		} catch (FileNotFoundException e) {
+			throw new ExportServiceException("Could not create pdf file", e);
+		} catch (IOException e) {
+			throw new ExportServiceException(
+					"IO error while saving the pdf file", e);
+		}
+	}
+
+	private Transformer getTransformer(StreamSource streamSource) throws TransformerConfigurationException {
+	    return transformerFactory.newTransformer(streamSource);
+	}
 
 }

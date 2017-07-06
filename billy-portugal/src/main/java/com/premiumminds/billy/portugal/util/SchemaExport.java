@@ -28,27 +28,30 @@ import org.hibernate.tool.EnversSchemaGenerator;
 @SuppressWarnings("deprecation")
 public class SchemaExport {
 
-  public static void main(String[] args) {
+	public static void main(String[] args) {
 
-    exportSchema(args[0], args[1], Boolean.parseBoolean(args[2]), Boolean.parseBoolean(args[3]),
-        args[4]);
-  }
+		exportSchema(args[0], args[1], Boolean.parseBoolean(args[2]),
+				Boolean.parseBoolean(args[3]), args[4]);
+	}
 
-  private static void exportSchema(String persistenceUnit, String outputDir, Boolean drop,
-      Boolean create, String delemiter) {
-    File file = new File(outputDir);
-    new File(file.getParent()).mkdirs();
+	private static void exportSchema(String persistenceUnit, String outputDir,
+			Boolean drop, Boolean create, String delemiter) {
+		File file = new File(outputDir);
+		new File(file.getParent()).mkdirs();
 
-    Ejb3Configuration jpaConfiguration = new Ejb3Configuration().configure(persistenceUnit, null);
-    jpaConfiguration.buildMappings();
-    Configuration hibernateConfiguration = jpaConfiguration.getHibernateConfiguration();
-    AuditConfiguration.getFor(hibernateConfiguration);
-    EnversSchemaGenerator esg = new EnversSchemaGenerator(hibernateConfiguration);
-    org.hibernate.tool.hbm2ddl.SchemaExport se = esg.export();
-    se.setOutputFile(outputDir);
-    se.setFormat(true);
-    se.setDelimiter(delemiter);
-    se.drop(drop, false);
-    se.create(create, false);
-  }
+		Ejb3Configuration jpaConfiguration = new Ejb3Configuration().configure(
+				persistenceUnit, null);
+		jpaConfiguration.buildMappings();
+		Configuration hibernateConfiguration = jpaConfiguration
+				.getHibernateConfiguration();
+		AuditConfiguration.getFor(hibernateConfiguration);
+		EnversSchemaGenerator esg = new EnversSchemaGenerator(
+				hibernateConfiguration);
+		org.hibernate.tool.hbm2ddl.SchemaExport se = esg.export();
+		se.setOutputFile(outputDir);
+		se.setFormat(true);
+		se.setDelimiter(delemiter);
+		se.drop(drop, false);
+		se.create(create, false);
+	}
 }

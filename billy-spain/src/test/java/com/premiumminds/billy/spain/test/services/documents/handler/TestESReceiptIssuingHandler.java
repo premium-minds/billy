@@ -32,32 +32,34 @@ import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTest;
 
 public class TestESReceiptIssuingHandler extends ESDocumentAbstractTest {
-
-  private ESReceiptIssuingHandler handler;
-  private UID issuedReceiptUID;
-
-  private String DEFAULT_SERIES = INVOICE_TYPE.RC + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
-
-  @Before
-  public void setUpNewReceipt() {
-    handler = getInstance(ESReceiptIssuingHandler.class);
-
-    ESReceiptEntity receipt = newInvoice(INVOICE_TYPE.RC);
-    try {
-      issueNewInvoice(handler, receipt, DEFAULT_SERIES);
-      issuedReceiptUID = receipt.getUID();
-    } catch (DocumentIssuingException e) {
-      e.printStackTrace();
-    }
-  }
-
-  @Test
-  public void testIssueReceipt() {
-    ESReceipt issuedReceipt = (ESReceipt) getInstance(DAOESReceipt.class).get(issuedReceiptUID);
-
-    Assert.assertEquals(DEFAULT_SERIES, issuedReceipt.getSeries());
-    Assert.assertTrue(1 == issuedReceipt.getSeriesNumber());
-    String formatedNumber = DEFAULT_SERIES + "/1";
-    Assert.assertEquals(formatedNumber, issuedReceipt.getNumber());
-  }
+	
+	private ESReceiptIssuingHandler handler;
+	private UID issuedReceiptUID;
+	
+	private String DEFAULT_SERIES = INVOICE_TYPE.RC + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+	
+	@Before
+	public void setUpNewReceipt() {
+		handler = getInstance(ESReceiptIssuingHandler.class);
+		
+		ESReceiptEntity receipt = newInvoice(INVOICE_TYPE.RC);
+		try {
+			issueNewInvoice(handler, receipt, DEFAULT_SERIES);
+			issuedReceiptUID = receipt.getUID();
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testIssueReceipt() {
+		ESReceipt issuedReceipt = (ESReceipt) getInstance(DAOESReceipt.class)
+				.get(issuedReceiptUID);
+		
+		Assert.assertEquals( DEFAULT_SERIES,
+				issuedReceipt.getSeries());
+		Assert.assertTrue(1 == issuedReceipt.getSeriesNumber());
+		String formatedNumber = DEFAULT_SERIES + "/1";
+		Assert.assertEquals(formatedNumber, issuedReceipt.getNumber());
+	}
 }

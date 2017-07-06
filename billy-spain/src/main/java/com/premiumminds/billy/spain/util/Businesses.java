@@ -25,30 +25,31 @@ import com.premiumminds.billy.spain.services.persistence.ESBusinessPersistenceSe
 
 public class Businesses {
 
-  private final Injector injector;
-  private final ESBusinessPersistenceService persistenceService;
+	private final Injector	injector;
+	private final ESBusinessPersistenceService persistenceService;
 
-  public Businesses(Injector injector) {
-    this.injector = injector;
-    this.persistenceService = getInstance(ESBusinessPersistenceService.class);
-  }
 
-  public ESBusiness.Builder builder() {
-    return getInstance(ESBusiness.Builder.class);
-  }
+	public Businesses(Injector injector) {
+		this.injector = injector;
+		this.persistenceService = getInstance(ESBusinessPersistenceService.class);
+	}
 
-  public ESBusiness.Builder builder(ESBusiness customer) {
-    ESBusiness.Builder builder = getInstance(ESBusiness.Builder.class);
-    BuilderManager.setTypeInstance(builder, customer);
-    return builder;
-  }
+	public ESBusiness.Builder builder() {
+		return getInstance(ESBusiness.Builder.class);
+	}
+	
+	public ESBusiness.Builder builder(ESBusiness customer) {
+		ESBusiness.Builder builder = getInstance(ESBusiness.Builder.class);
+		BuilderManager.setTypeInstance(builder, customer);
+		return builder;
+	}
+	
+	public ESBusinessPersistenceService persistence() {
+		return this.persistenceService;
+	}
 
-  public ESBusinessPersistenceService persistence() {
-    return this.persistenceService;
-  }
-
-  private <T> T getInstance(Class<T> clazz) {
-    return this.injector.getInstance(clazz);
-  }
-
+	private <T> T getInstance(Class<T> clazz) {
+		return this.injector.getInstance(clazz);
+	}
+	
 }

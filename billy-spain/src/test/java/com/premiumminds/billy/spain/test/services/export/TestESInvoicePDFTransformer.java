@@ -53,127 +53,128 @@ import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 
 public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 
-  public static final int NUM_ENTRIES = 10;
-  public static final String XSL_PATH = "src/main/resources/templates/es_invoice.xsl";
-  public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+	public static final int NUM_ENTRIES = 10;
+	public static final String XSL_PATH = "src/main/resources/templates/es_invoice.xsl";
+	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-  ESInvoiceTestUtil test;
-  private Injector mockedInjector;
-  private ESInvoicePDFFOPTransformer transformer;
-  private ESInvoiceDataExtractor extractor;
+	ESInvoiceTestUtil test;
+	private Injector mockedInjector;
+	private ESInvoicePDFFOPTransformer transformer;
+	private ESInvoiceDataExtractor extractor;
 
-  @Before
-  public void setUp() throws FileNotFoundException {
+	@Before
+	public void setUp() throws FileNotFoundException {
+		
+		mockedInjector = Guice.createInjector(Modules.override(
+				new SpainDependencyModule()).with(
+				new ESMockDependencyModule()));
+		
+		InputStream xsl = new FileInputStream(XSL_PATH);
 
-    mockedInjector = Guice.createInjector(
-        Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
+		transformer = new ESInvoicePDFFOPTransformer(LOGO_PATH, xsl);
+		extractor = mockedInjector.getInstance(ESInvoiceDataExtractor.class);
+		test = new ESInvoiceTestUtil(ESAbstractTest.injector);
+	}
 
-    InputStream xsl = new FileInputStream(XSL_PATH);
+	@Test
+	public void testPDFcreation() throws NoSuchAlgorithmException,
+			ExportServiceException, URISyntaxException, IOException {
 
-    transformer = new ESInvoicePDFFOPTransformer(LOGO_PATH, xsl);
-    extractor = mockedInjector.getInstance(ESInvoiceDataExtractor.class);
-    test = new ESInvoiceTestUtil(ESAbstractTest.injector);
-  }
+		ESInvoiceEntity entity = generateESInvoice();
+		DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
+		Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+		
+		OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+		
+		ESInvoiceData entityData = extractor.extract(entity.getUID());
+		transformer.transform(entityData, os);
+	}
+	
+	@Test(expected = ExportServiceException.class)
+	public void testNonExistentEntity() throws NoSuchAlgorithmException,
+		ExportServiceException, URISyntaxException, DocumentIssuingException,
+		IOException {
 
-  @Test
-  public void testPDFcreation()
-      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+		UID uidEntity = UID.fromString("12345");
+		
+		extractor.extract(uidEntity);
+	}
 
-    ESInvoiceEntity entity = generateESInvoice();
-    DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+	@Test
+	public void testDiferentRegion() throws NoSuchAlgorithmException,
+			ExportServiceException, URISyntaxException, IOException {
 
-    OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+		ESInvoiceEntity entity = generateOtherRegionsInvoice();
+		DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
+		Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+		
+		OutputStream os = new FileOutputStream(File.createTempFile("ResultDiferentRegions", ".pdf"));
+		
+		ESInvoiceData entityData = extractor.extract(entity.getUID());
+		transformer.transform(entityData, os);
+	}
 
-    ESInvoiceData entityData = extractor.extract(entity.getUID());
-    transformer.transform(entityData, os);
-  }
+	@Test
+	public void testManyEntries() throws NoSuchAlgorithmException,
+			ExportServiceException, URISyntaxException, IOException {
 
-  @Test(expected = ExportServiceException.class)
-  public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException,
-      URISyntaxException, DocumentIssuingException, IOException {
+		ESInvoiceEntity entity = generateManyEntriesInvoice();
+		DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
+		Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+		
+		OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntries", ".pdf"));
+		
+		ESInvoiceData entityData = extractor.extract(entity.getUID());
+		transformer.transform(entityData, os);
+	}
+	
+	@Test
+	public void testManyEntriesWithDifrentRegions() throws NoSuchAlgorithmException,
+			ExportServiceException, URISyntaxException, IOException {
 
-    UID uidEntity = UID.fromString("12345");
+		ESInvoiceEntity entity = generateManyEntriesWithDiferentRegionsInvoice();
+		DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
+		Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+		
+		OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf"));
+		
+		ESInvoiceData entityData = extractor.extract(entity.getUID());
+		transformer.transform(entityData, os);
+	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+        ESInvoiceEntity entity = generateESInvoice();
+        DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        
+        OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        ESInvoiceTemplateBundle bundle = new ESInvoiceTemplateBundle(LOGO_PATH, xsl);
+        ESInvoicePDFFOPTransformer transformerBundle = new ESInvoicePDFFOPTransformer(bundle);
+        
+        ESInvoiceData entityData = extractor.extract(entity.getUID());
+        transformerBundle.transform(entityData, os);
+    }
 
-    extractor.extract(uidEntity);
-  }
-
-  @Test
-  public void testDiferentRegion()
-      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
-
-    ESInvoiceEntity entity = generateOtherRegionsInvoice();
-    DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
-
-    OutputStream os = new FileOutputStream(File.createTempFile("ResultDiferentRegions", ".pdf"));
-
-    ESInvoiceData entityData = extractor.extract(entity.getUID());
-    transformer.transform(entityData, os);
-  }
-
-  @Test
-  public void testManyEntries()
-      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
-
-    ESInvoiceEntity entity = generateManyEntriesInvoice();
-    DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
-
-    OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntries", ".pdf"));
-
-    ESInvoiceData entityData = extractor.extract(entity.getUID());
-    transformer.transform(entityData, os);
-  }
-
-  @Test
-  public void testManyEntriesWithDifrentRegions()
-      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
-
-    ESInvoiceEntity entity = generateManyEntriesWithDiferentRegionsInvoice();
-    DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
-
-    OutputStream os = new FileOutputStream(
-        File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf"));
-
-    ESInvoiceData entityData = extractor.extract(entity.getUID());
-    transformer.transform(entityData, os);
-  }
-
-  @Test
-  public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
-    ESInvoiceEntity entity = generateESInvoice();
-    DAOESInvoice dao = mockedInjector.getInstance(DAOESInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
-
-    OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
-
-    InputStream xsl = new FileInputStream(XSL_PATH);
-    ESInvoiceTemplateBundle bundle = new ESInvoiceTemplateBundle(LOGO_PATH, xsl);
-    ESInvoicePDFFOPTransformer transformerBundle = new ESInvoicePDFFOPTransformer(bundle);
-
-    ESInvoiceData entityData = extractor.extract(entity.getUID());
-    transformerBundle.transform(entityData, os);
-  }
-
-  private ESInvoiceEntity generateESInvoice() {
-    ESInvoiceEntity invoice = test.getInvoiceEntity();
-    return invoice;
-  }
-
-  private ESInvoiceEntity generateManyEntriesInvoice() {
-    ESInvoiceEntity invoice = test.getManyEntriesInvoice();
-    return invoice;
-  }
-
-  private ESInvoiceEntity generateOtherRegionsInvoice() {
-    ESInvoiceEntity invoice = test.getDiferentRegionsInvoice();
-    return invoice;
-  }
-
-  private ESInvoiceEntity generateManyEntriesWithDiferentRegionsInvoice() {
-    ESInvoiceEntity invoice = test.getManyEntriesWithDiferentRegionsInvoice();
-    return invoice;
-  }
+	private ESInvoiceEntity generateESInvoice() {
+		ESInvoiceEntity invoice = test.getInvoiceEntity();
+		return invoice;
+	}
+	
+	private ESInvoiceEntity generateManyEntriesInvoice() {
+		ESInvoiceEntity invoice = test.getManyEntriesInvoice();
+		return invoice;
+	}
+	
+	private ESInvoiceEntity generateOtherRegionsInvoice() {
+		ESInvoiceEntity invoice = test.getDiferentRegionsInvoice();
+		return invoice;
+	}
+	
+	private ESInvoiceEntity generateManyEntriesWithDiferentRegionsInvoice() {
+		ESInvoiceEntity invoice = test.getManyEntriesWithDiferentRegionsInvoice();
+		return invoice;
+	}
 }

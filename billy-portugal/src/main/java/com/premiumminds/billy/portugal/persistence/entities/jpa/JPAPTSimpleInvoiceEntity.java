@@ -40,26 +40,27 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
-public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements PTSimpleInvoiceEntity {
+public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements
+		PTSimpleInvoiceEntity {
 
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  @Column(name = "CLIENT_TYPE")
-  protected CLIENTTYPE clientType;
+	@Column(name = "CLIENT_TYPE")
+	protected CLIENTTYPE clientType;
 
-  @Override
-  public List<PTInvoiceEntry> getEntries() {
-    return super.getEntries();
-  }
+	@Override
+	public List<PTInvoiceEntry> getEntries() {
+		return super.getEntries();
+	}
 
-  @Override
-  public CLIENTTYPE getClientType() {
-    return clientType;
-  }
+	@Override
+	public CLIENTTYPE getClientType() {
+		return clientType;
+	}
 
-  @Override
-  public void setClientType(CLIENTTYPE type) {
-    this.clientType = type;
-  }
+	@Override
+	public void setClientType(CLIENTTYPE type) {
+		this.clientType = type;
+	}
 
 }

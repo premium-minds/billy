@@ -29,25 +29,26 @@ import com.premiumminds.billy.spain.services.builders.ESApplicationBuilder;
 import com.premiumminds.billy.spain.services.entities.ESApplication;
 
 public class ESApplicationBuilderImpl<TBuilder extends ESApplicationBuilderImpl<TBuilder, TApplication>, TApplication extends ESApplication>
-    extends ApplicationBuilderImpl<TBuilder, TApplication>
-    implements ESApplicationBuilder<TBuilder, TApplication> {
+	extends ApplicationBuilderImpl<TBuilder, TApplication> implements
+	ESApplicationBuilder<TBuilder, TApplication> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-  @Inject
-  public ESApplicationBuilderImpl(DAOESApplication daoESApplication) {
-    super(daoESApplication);
-  }
+	@Inject
+	public ESApplicationBuilderImpl(DAOESApplication daoESApplication) {
+		super(daoESApplication);
+	}
 
-  @Override
-  protected ESApplicationEntity getTypeInstance() {
-    return (ESApplicationEntity) super.getTypeInstance();
-  }
+	@Override
+	protected ESApplicationEntity getTypeInstance() {
+		return (ESApplicationEntity) super.getTypeInstance();
+	}
 
-  @Override
-  protected void validateInstance() throws ValidationException {
-    super.validateInstance();
-  }
+
+	@Override
+	protected void validateInstance() throws ValidationException {
+		super.validateInstance();
+	}
 
 }

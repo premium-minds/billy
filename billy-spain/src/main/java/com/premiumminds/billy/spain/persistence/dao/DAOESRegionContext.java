@@ -23,7 +23,7 @@ import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 
 public interface DAOESRegionContext extends DAOContext {
 
-  @Override
-  public ESRegionContextEntity getEntityInstance();
+	@Override
+	public ESRegionContextEntity getEntityInstance();
 
 }

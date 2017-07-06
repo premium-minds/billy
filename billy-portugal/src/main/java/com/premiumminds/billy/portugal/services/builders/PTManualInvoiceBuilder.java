@@ -25,9 +25,9 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public interface PTManualInvoiceBuilder<TBuilder extends PTManualInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTGenericInvoiceEntry, TDocument extends PTGenericInvoice>
-    extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+extends PTGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-  public TBuilder setAmount(AmountType type, BigDecimal amount);
+	public TBuilder setAmount(AmountType type, BigDecimal amount);
 
-  public TBuilder setTaxAmount(BigDecimal taxAmount);
+	public TBuilder setTaxAmount(BigDecimal taxAmount);
 }

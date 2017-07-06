@@ -26,20 +26,21 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTRegionContextBui
 
 public interface PTRegionContext extends Context {
 
-  public static class Builder extends PTRegionContextBuilderImpl<Builder, PTRegionContext> {
+	public static class Builder extends
+		PTRegionContextBuilderImpl<Builder, PTRegionContext> {
 
-    @Inject
-    public Builder(DAOPTRegionContext daoPTRegionContext) {
-      super(daoPTRegionContext);
-    }
-  }
+		@Inject
+		public Builder(DAOPTRegionContext daoPTRegionContext) {
+			super(daoPTRegionContext);
+		}
+	}
 
-  /**
-   * @return ISO 3166-1-alpha-2
-   */
-  public String getRegionCode();
+	/**
+	 * @return ISO 3166-1-alpha-2
+	 */
+	public String getRegionCode();
 
-  @Override
-  public <T extends Context> T getParentContext();
+	@Override
+	public <T extends Context> T getParentContext();
 
 }

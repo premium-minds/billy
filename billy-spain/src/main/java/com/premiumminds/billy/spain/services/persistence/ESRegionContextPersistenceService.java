@@ -30,78 +30,81 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 
-public class ESRegionContextPersistenceService implements PersistenceService<ESRegionContext> {
+public class ESRegionContextPersistenceService implements
+	PersistenceService<ESRegionContext> {
 
-  protected final DAOESRegionContext daoRegionContext;
+	protected final DAOESRegionContext	daoRegionContext;
 
-  @Inject
-  public ESRegionContextPersistenceService(DAOESRegionContext daoRegionContext) {
-    this.daoRegionContext = daoRegionContext;
-  }
+	@Inject
+	public ESRegionContextPersistenceService(DAOESRegionContext daoRegionContext) {
+		this.daoRegionContext = daoRegionContext;
+	}
 
-  @Override
-  public ESRegionContext create(final Builder<ESRegionContext> builder) {
-    try {
-      return new TransactionWrapper<ESRegionContext>(daoRegionContext) {
+	@Override
+	public ESRegionContext create(final Builder<ESRegionContext> builder) {
+		try {
+			return new TransactionWrapper<ESRegionContext>(daoRegionContext) {
 
-        @Override
-        public ESRegionContext runTransaction() throws Exception {
-          ESRegionContextEntity entity = (ESRegionContextEntity) builder.build();
-          return (ESRegionContext) daoRegionContext.create(entity);
-        }
+				@Override
+				public ESRegionContext runTransaction() throws Exception {
+					ESRegionContextEntity entity = (ESRegionContextEntity) builder
+							.build();
+					return (ESRegionContext) daoRegionContext.create(entity);
+				}
 
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
-  @Override
-  public ESRegionContext update(final Builder<ESRegionContext> builder) {
-    try {
-      return new TransactionWrapper<ESRegionContext>(daoRegionContext) {
+	@Override
+	public ESRegionContext update(final Builder<ESRegionContext> builder) {
+		try {
+			return new TransactionWrapper<ESRegionContext>(daoRegionContext) {
 
-        @Override
-        public ESRegionContext runTransaction() throws Exception {
-          ESRegionContextEntity entity = (ESRegionContextEntity) builder.build();
-          return (ESRegionContext) daoRegionContext.update(entity);
-        }
+				@Override
+				public ESRegionContext runTransaction() throws Exception {
+					ESRegionContextEntity entity = (ESRegionContextEntity) builder
+							.build();
+					return (ESRegionContext) daoRegionContext.update(entity);
+				}
 
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
-  @Override
-  public ESRegionContext get(final UID uid) {
-    try {
-      return new TransactionWrapper<ESRegionContext>(daoRegionContext) {
+	@Override
+	public ESRegionContext get(final UID uid) {
+		try {
+			return new TransactionWrapper<ESRegionContext>(daoRegionContext) {
 
-        @Override
-        public ESRegionContext runTransaction() throws Exception {
-          return (ESRegionContext) daoRegionContext.get(uid);
-        }
+				@Override
+				public ESRegionContext runTransaction() throws Exception {
+					return (ESRegionContext) daoRegionContext.get(uid);
+				}
 
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
+	
+	public boolean isPartOf(final ESRegionContext parent, final Context child) {
+		try {
+			return new TransactionWrapper<Boolean>(daoRegionContext) {
 
-  public boolean isPartOf(final ESRegionContext parent, final Context child) {
-    try {
-      return new TransactionWrapper<Boolean>(daoRegionContext) {
+				@Override
+				public Boolean runTransaction() throws Exception {
+					return daoRegionContext.isSubContext(child, parent);
+				}
 
-        @Override
-        public Boolean runTransaction() throws Exception {
-          return daoRegionContext.isSubContext(child, parent);
-        }
-
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
 }

@@ -27,27 +27,27 @@ import com.premiumminds.billy.core.services.entities.Supplier;
 
 public interface SupplierEntity extends Supplier, BaseEntity {
 
-  public void setName(String name);
+	public void setName(String name);
 
-  public void setTaxRegistrationNumber(String number);
+	public void setTaxRegistrationNumber(String number);
 
-  @Override
-  public List<Address> getAddresses();
+	@Override
+	public List<Address> getAddresses();
 
-  public <T extends AddressEntity> void setMainAddress(T address);
+	public <T extends AddressEntity> void setMainAddress(T address);
 
-  public <T extends AddressEntity> void setBillingAddress(T address);
+	public <T extends AddressEntity> void setBillingAddress(T address);
 
-  public <T extends AddressEntity> void setShippingAddress(T address);
+	public <T extends AddressEntity> void setShippingAddress(T address);
 
-  @Override
-  public <T extends Contact> List<T> getContacts();
+	@Override
+	public <T extends Contact> List<T> getContacts();
 
-  public <T extends ContactEntity> void setMainContact(T contact);
+	public <T extends ContactEntity> void setMainContact(T contact);
 
-  @Override
-  public List<BankAccount> getBankAccounts();
+	@Override
+	public List<BankAccount> getBankAccounts();
 
-  public void setSelfBillingAgreement(boolean selfBilling);
+	public void setSelfBillingAgreement(boolean selfBilling);
 
 }

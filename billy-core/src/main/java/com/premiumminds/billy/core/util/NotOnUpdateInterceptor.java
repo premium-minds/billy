@@ -38,34 +38,39 @@ import com.premiumminds.billy.core.services.builders.impl.AbstractBuilder;
  */
 public class NotOnUpdateInterceptor implements MethodInterceptor {
 
-  public static final String METHOD_NAME = "getTypeInstance";
+	public static final String	METHOD_NAME	= "getTypeInstance";
 
-  @Override
-  public Object invoke(MethodInvocation invocation) throws Throwable {
+	@Override
+	public Object invoke(MethodInvocation invocation) throws Throwable {
 
-    String exceptionMessage = invocation.getMethod().getAnnotation(NotOnUpdate.class).message();
+		String exceptionMessage = invocation.getMethod()
+				.getAnnotation(NotOnUpdate.class).message();
 
-    Method method = getMethod(invocation.getThis().getClass());
-    BaseEntity entity = (BaseEntity) method.invoke(invocation.getThis(), new Object[] {});
+		Method method = getMethod(invocation.getThis().getClass());
+		BaseEntity entity = (BaseEntity) method.invoke(invocation.getThis(),
+				new Object[] {});
 
-    if (entity.isNew()) {
-      return invocation.proceed();
+		if (entity.isNew()) {
+			return invocation.proceed();
 
-    } else
-      throw new BillyUpdateException(exceptionMessage);
-  }
+		} else
+			throw new BillyUpdateException(exceptionMessage);
+	}
 
-  private Method getMethod(Class<? extends Object> clazz) throws NoSuchMethodException {
-    if (clazz.getCanonicalName().equals(Object.class.getCanonicalName()))
-      throw new NoSuchMethodException(METHOD_NAME);
-    if (clazz.getCanonicalName().equals(AbstractBuilder.class.getCanonicalName())) {
+	private Method getMethod(Class<? extends Object> clazz)
+		throws NoSuchMethodException {
+		if (clazz.getCanonicalName().equals(Object.class.getCanonicalName()))
+			throw new NoSuchMethodException(METHOD_NAME);
+		if (clazz.getCanonicalName().equals(
+				AbstractBuilder.class.getCanonicalName())) {
 
-      Method foundMethod = clazz.getDeclaredMethod(METHOD_NAME, new Class[] {});
-      foundMethod.setAccessible(true);
-      return foundMethod;
-    } else {
-      return getMethod(clazz.getSuperclass());
-    }
+			Method foundMethod = clazz.getDeclaredMethod(METHOD_NAME,
+					new Class[] {});
+			foundMethod.setAccessible(true);
+			return foundMethod;
+		} else {
+			return getMethod(clazz.getSuperclass());
+		}
 
-  }
+	}
 }

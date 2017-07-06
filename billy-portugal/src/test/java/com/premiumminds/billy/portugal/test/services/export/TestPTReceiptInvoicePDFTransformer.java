@@ -54,78 +54,76 @@ import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 
 public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
-  public static final int NUM_ENTRIES = 10;
-  public static final String XSL_PATH = "src/main/resources/templates/pt_receiptinvoice.xsl";
-  public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-  public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
+	public static final int		NUM_ENTRIES					= 10;
+	public static final String	XSL_PATH					= "src/main/resources/templates/pt_receiptinvoice.xsl";
+	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
+	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
 
-  private Injector mockedInjector;
-  private PTReceiptInvoicePDFFOPTransformer transformer;
-  private PTReceiptInvoiceDataExtractor extractor;
+	private Injector mockedInjector;
+	private PTReceiptInvoicePDFFOPTransformer transformer;
+	private PTReceiptInvoiceDataExtractor extractor;
 
-  @Before
-  public void setUp() throws FileNotFoundException {
+	@Before
+	public void setUp() throws FileNotFoundException {
+		
+		mockedInjector = Guice.createInjector(Modules.override(
+				new PortugalDependencyModule()).with(
+				new PTMockDependencyModule()));
+		
+		InputStream xsl = new FileInputStream(XSL_PATH);
 
-    mockedInjector = Guice.createInjector(
-        Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
+		transformer = new PTReceiptInvoicePDFFOPTransformer(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
+		extractor = mockedInjector.getInstance(PTReceiptInvoiceDataExtractor.class);
+	}
+	
+	@Test
+	public void testPDFcreation() throws NoSuchAlgorithmException,
+		ExportServiceException, URISyntaxException, IOException {
 
-    InputStream xsl = new FileInputStream(XSL_PATH);
+		UID uidEntity = UID.fromString("12345");
+		PTReceiptInvoiceEntity invoice = generatePTReceiptInvoice(PaymentMechanism.CASH);
+		DAOPTReceiptInvoice dao = mockedInjector.getInstance(DAOPTReceiptInvoice.class);
+		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+		
+		OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+		
+		PTReceiptInvoiceData entityData = extractor.extract(uidEntity);
+		transformer.transform(entityData, os);
+	}
+	
+	@Test(expected = ExportServiceException.class)
+	public void testNonExistentEntity() throws DocumentIssuingException, FileNotFoundException, 
+	IOException, ExportServiceException {
 
-    transformer = new PTReceiptInvoicePDFFOPTransformer(LOGO_PATH, xsl,
-        SOFTWARE_CERTIFICATE_NUMBER);
-    extractor = mockedInjector.getInstance(PTReceiptInvoiceDataExtractor.class);
-  }
+		UID uidEntity = UID.fromString("12345");
+		extractor.extract(uidEntity);
+	}
+	
+	@Test
+    public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
+        UID uidEntity = UID.fromString("12345");
+        PTReceiptInvoiceEntity invoice = generatePTReceiptInvoice(PaymentMechanism.CASH);
+        DAOPTReceiptInvoice dao = mockedInjector.getInstance(DAOPTReceiptInvoice.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        
+        InputStream xsl = new FileInputStream(XSL_PATH);
+        PTReceiptInvoiceTemplateBundle bundle = new PTReceiptInvoiceTemplateBundle(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
+        PTReceiptInvoicePDFFOPTransformer transformerBundle = new PTReceiptInvoicePDFFOPTransformer(bundle);
+        
+        PTReceiptInvoiceData entityData = extractor.extract(uidEntity);
+        transformerBundle.transform(entityData, os);
+    }
 
-  @Test
-  public void testPDFcreation()
-      throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+	private PTReceiptInvoiceEntity generatePTReceiptInvoice(
+			PaymentMechanism paymentMechanism) {
 
-    UID uidEntity = UID.fromString("12345");
-    PTReceiptInvoiceEntity invoice = generatePTReceiptInvoice(PaymentMechanism.CASH);
-    DAOPTReceiptInvoice dao = mockedInjector.getInstance(DAOPTReceiptInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+		PTReceiptInvoiceEntity receiptInvoice = new PTReceiptInvoiceTestUtil(
+				PTAbstractTest.injector).getReceiptInvoiceEntity();
+		receiptInvoice
+				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
-    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
-
-    PTReceiptInvoiceData entityData = extractor.extract(uidEntity);
-    transformer.transform(entityData, os);
-  }
-
-  @Test(expected = ExportServiceException.class)
-  public void testNonExistentEntity()
-      throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
-
-    UID uidEntity = UID.fromString("12345");
-    extractor.extract(uidEntity);
-  }
-
-  @Test
-  public void testPDFCreationFromBundle()
-      throws ExportServiceException, IOException, DocumentIssuingException {
-    UID uidEntity = UID.fromString("12345");
-    PTReceiptInvoiceEntity invoice = generatePTReceiptInvoice(PaymentMechanism.CASH);
-    DAOPTReceiptInvoice dao = mockedInjector.getInstance(DAOPTReceiptInvoice.class);
-    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
-
-    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
-
-    InputStream xsl = new FileInputStream(XSL_PATH);
-    PTReceiptInvoiceTemplateBundle bundle = new PTReceiptInvoiceTemplateBundle(LOGO_PATH, xsl,
-        SOFTWARE_CERTIFICATE_NUMBER);
-    PTReceiptInvoicePDFFOPTransformer transformerBundle = new PTReceiptInvoicePDFFOPTransformer(
-        bundle);
-
-    PTReceiptInvoiceData entityData = extractor.extract(uidEntity);
-    transformerBundle.transform(entityData, os);
-  }
-
-  private PTReceiptInvoiceEntity generatePTReceiptInvoice(PaymentMechanism paymentMechanism) {
-
-    PTReceiptInvoiceEntity receiptInvoice = new PTReceiptInvoiceTestUtil(PTAbstractTest.injector)
-        .getReceiptInvoiceEntity();
-    receiptInvoice.setHash(
-        "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
-
-    return receiptInvoice;
-  }
+		return receiptInvoice;
+	}
 }

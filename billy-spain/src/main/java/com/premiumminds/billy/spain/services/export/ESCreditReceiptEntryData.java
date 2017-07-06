@@ -26,20 +26,20 @@ import com.premiumminds.billy.gin.services.export.ProductData;
 import com.premiumminds.billy.gin.services.export.TaxData;
 
 public class ESCreditReceiptEntryData extends InvoiceEntryData {
+	
+	private final ESReceiptData reference;
 
-  private final ESReceiptData reference;
+	public ESCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity, BigDecimal taxAmount,
+			BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
+			List<TaxData> taxes, ESReceiptData reference) {
+		super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax,
+				taxes);
+		
+		this.reference = reference;
+	}
 
-  public ESCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity,
-      BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax,
-      BigDecimal amountWithoutTax, List<TaxData> taxes, ESReceiptData reference) {
-    super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax,
-        amountWithoutTax, taxes);
-
-    this.reference = reference;
-  }
-
-  public ESReceiptData getReference() {
-    return reference;
-  }
-
+	public ESReceiptData getReference() {
+		return reference;
+	}
+	
 }

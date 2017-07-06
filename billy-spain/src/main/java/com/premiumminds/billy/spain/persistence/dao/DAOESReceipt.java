@@ -22,6 +22,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 
 public interface DAOESReceipt extends DAOESGenericInvoice {
 
-  @Override
-  public ESReceiptEntity getEntityInstance();
+	@Override
+	public ESReceiptEntity getEntityInstance();
 }

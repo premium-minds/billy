@@ -27,21 +27,22 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESRegionContextEntity;
 
-public class DAOESRegionContextImpl extends DAOContextImpl implements DAOESRegionContext {
+public class DAOESRegionContextImpl extends DAOContextImpl implements
+	DAOESRegionContext {
 
-  @Inject
-  public DAOESRegionContextImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+	@Inject
+	public DAOESRegionContextImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-  @Override
-  public ESRegionContextEntity getEntityInstance() {
-    return new JPAESRegionContextEntity();
-  }
+	@Override
+	public ESRegionContextEntity getEntityInstance() {
+		return new JPAESRegionContextEntity();
+	}
 
-  @Override
-  protected Class<JPAESRegionContextEntity> getEntityClass() {
-    return JPAESRegionContextEntity.class;
-  }
+	@Override
+	protected Class<JPAESRegionContextEntity> getEntityClass() {
+		return JPAESRegionContextEntity.class;
+	}
 
 }

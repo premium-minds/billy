@@ -25,18 +25,19 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOPayment;
 import com.premiumminds.billy.core.services.builders.impl.PaymentBuilderImpl;
 
+
 public interface Payment extends Entity {
+	
+	public static class Builder extends PaymentBuilderImpl<Builder, Payment> {
 
-  public static class Builder extends PaymentBuilderImpl<Builder, Payment> {
-
-    @Inject
-    public Builder(DAOPayment daoPayment) {
-      super(daoPayment);
-    }
-
-  }
-
-  public <T extends Enum<?>> T getPaymentMethod();
-
-  public Date getPaymentDate();
+		@Inject
+		public Builder(DAOPayment daoPayment) {
+			super(daoPayment);
+		}
+		
+	}
+	
+	public <T extends Enum<?>> T getPaymentMethod();
+	
+	public Date getPaymentDate();
 }

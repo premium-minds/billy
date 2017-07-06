@@ -31,36 +31,38 @@ import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class PaymentBuilderImpl<TBuilder extends PaymentBuilderImpl<TBuilder, TPayment>, TPayment extends Payment>
-    extends AbstractBuilder<TBuilder, TPayment> implements PaymentBuilder<TBuilder, TPayment> {
+		extends AbstractBuilder<TBuilder, TPayment> implements
+		PaymentBuilder<TBuilder, TPayment> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/portugal/i18n/FieldNames");
+	protected static final Localizer LOCALIZER = new Localizer(
+			"com/premiumminds/billy/portugal/i18n/FieldNames");
 
-  @Inject
-  public PaymentBuilderImpl(DAOPayment daoPayment) {
-    super(daoPayment);
-  }
+	@Inject
+	public PaymentBuilderImpl(DAOPayment daoPayment) {
+		super(daoPayment);
+	}
 
-  @SuppressWarnings("unchecked")
-  @Override
-  protected PaymentEntity getTypeInstance() {
-    return (PaymentEntity) super.getTypeInstance();
-  }
+	@SuppressWarnings("unchecked")
+	@Override
+	protected PaymentEntity getTypeInstance() {
+		return (PaymentEntity) super.getTypeInstance();
+	}
 
-  @Override
-  public TBuilder setPaymentMethod(Enum<?> method) {
-    this.getTypeInstance().setPaymentMethod(method);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setPaymentMethod(Enum<?> method) {
+		this.getTypeInstance().setPaymentMethod(method);
+		return this.getBuilder();
+	}
 
-  @Override
-  public TBuilder setPaymentDate(Date date) {
-    this.getTypeInstance().setPaymentDate(date);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setPaymentDate(Date date) {
+		this.getTypeInstance().setPaymentDate(date);
+		return this.getBuilder();
+	}
 
-  @Override
-  protected void validateInstance() throws BillyValidationException, ValidationException {
-  }
+	@Override
+	protected void validateInstance() throws BillyValidationException,
+			ValidationException {
+	}
 
 }

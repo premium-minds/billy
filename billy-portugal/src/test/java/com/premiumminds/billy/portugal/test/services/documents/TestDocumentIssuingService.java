@@ -33,24 +33,24 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 
-  private DocumentIssuingService service;
+	private DocumentIssuingService	service;
+	
+	@Before
+	public void setUp() {
+		
+		this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
+		this.service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
+				.getInstance(PTInvoiceIssuingHandler.class));
 
-  @Before
-  public void setUp() {
+		this.parameters.setInvoiceSeries("A");
+	}
 
-    this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
-    this.service.addHandler(PTInvoiceEntity.class,
-        PTAbstractTest.injector.getInstance(PTInvoiceIssuingHandler.class));
+	@Test
+	public void testIssuingService() throws DocumentIssuingException {
 
-    this.parameters.setInvoiceSeries("A");
-  }
-
-  @Test
-  public void testIssuingService() throws DocumentIssuingException {
-
-    this.service.issue(
-        new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(
-            new PTBusinessTestUtil(injector).getBusinessEntity(), SourceBilling.P),
-        this.parameters);
-  }
+		this.service.issue(new PTInvoiceTestUtil(PTAbstractTest.injector)
+				.getInvoiceBuilder(
+						new PTBusinessTestUtil(injector).getBusinessEntity(),
+						SourceBilling.P), this.parameters);
+	}
 }

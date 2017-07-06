@@ -25,43 +25,46 @@ import com.premiumminds.billy.spain.services.entities.ESContact;
 
 public class ESContactTestUtil {
 
-  private static final String NAME = "name";
-  private static final String TELEPHONE = "998887999";
-  private static final String MOBILE = "999999999";
-  private static final String EMAIL = "email@email.em";
-  private static final String FAX = "9999999122";
-  private static final String WEBSITE = "website@website.web";
+	private static final String	NAME		= "name";
+	private static final String	TELEPHONE	= "998887999";
+	private static final String	MOBILE		= "999999999";
+	private static final String	EMAIL		= "email@email.em";
+	private static final String	FAX			= "9999999122";
+	private static final String	WEBSITE		= "website@website.web";
 
-  private Injector injector;
+	private Injector			injector;
 
-  public ESContactTestUtil(Injector injector) {
-    this.injector = injector;
-  }
+	public ESContactTestUtil(Injector injector) {
+		this.injector = injector;
+	}
 
-  public ESContact.Builder getContactBuilder(String name, String telephone, String mobile,
-      String fax, String email, String website) {
-    ESContact.Builder contactBuilder = this.injector.getInstance(ESContact.Builder.class);
+	public ESContact.Builder getContactBuilder(String name, String telephone,
+			String mobile, String fax, String email, String website) {
+		ESContact.Builder contactBuilder = this.injector
+				.getInstance(ESContact.Builder.class);
 
-    contactBuilder.setName(name).setEmail(email).setMobile(mobile).setFax(fax)
-        .setTelephone(telephone).setWebsite(website);
+		contactBuilder.setName(name).setEmail(email).setMobile(mobile)
+				.setFax(fax).setTelephone(telephone).setWebsite(website);
 
-    return contactBuilder;
+		return contactBuilder;
 
-  }
+	}
 
-  public ESContactEntity getContactEntity(String uid) {
-    ESContactEntity entity = (ESContactEntity) this.getContactBuilder().build();
-    entity.setUID(new UID(uid));
-    return entity;
-  }
+	public ESContactEntity getContactEntity(String uid) {
+		ESContactEntity entity = (ESContactEntity) this.getContactBuilder()
+				.build();
+		entity.setUID(new UID(uid));
+		return entity;
+	}
 
-  public ESContactEntity getContactEntity() {
-    return (ESContactEntity) this.getContactBuilder().build();
-  }
+	public ESContactEntity getContactEntity() {
+		return (ESContactEntity) this.getContactBuilder().build();
+	}
 
-  public ESContact.Builder getContactBuilder() {
-    return this.getContactBuilder(ESContactTestUtil.NAME, ESContactTestUtil.TELEPHONE,
-        ESContactTestUtil.MOBILE, ESContactTestUtil.FAX, ESContactTestUtil.EMAIL,
-        ESContactTestUtil.WEBSITE);
-  }
+	public ESContact.Builder getContactBuilder() {
+		return this.getContactBuilder(ESContactTestUtil.NAME,
+				ESContactTestUtil.TELEPHONE, ESContactTestUtil.MOBILE,
+				ESContactTestUtil.FAX, ESContactTestUtil.EMAIL,
+				ESContactTestUtil.WEBSITE);
+	}
 }

@@ -22,8 +22,8 @@ import com.google.inject.AbstractModule;
 
 public class MockDependencyModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
-  }
+	@Override
+	protected void configure() {
+	}
 
 }

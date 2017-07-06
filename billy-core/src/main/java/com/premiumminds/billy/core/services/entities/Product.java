@@ -28,35 +28,35 @@ import com.premiumminds.billy.core.services.builders.impl.ProductBuilderImpl;
 
 public interface Product extends Entity {
 
-  public static class Builder extends ProductBuilderImpl<Builder, Product> {
+	public static class Builder extends ProductBuilderImpl<Builder, Product> {
 
-    @Inject
-    public Builder(DAOProduct daoProduct, DAOTax daoTax) {
-      super(daoProduct, daoTax);
-    }
+		@Inject
+		public Builder(DAOProduct daoProduct, DAOTax daoTax) {
+			super(daoProduct, daoTax);
+		}
 
-  }
+	}
 
-  public enum ProductType {
-    GOODS, SERVICE, OTHER, CHARGE // Taxes, tax rates and parafiscal charges
-  }
+	public enum ProductType {
+		GOODS, SERVICE, OTHER, CHARGE // Taxes, tax rates and parafiscal charges
+	}
 
-  public String getProductCode();
+	public String getProductCode();
 
-  public String getProductGroup();
+	public String getProductGroup();
 
-  public String getDescription();
+	public String getDescription();
 
-  public ProductType getType();
+	public ProductType getType();
 
-  public String getCommodityCode();
+	public String getCommodityCode();
 
-  public String getNumberCode();
+	public String getNumberCode();
 
-  public String getValuationMethod();
+	public String getValuationMethod();
 
-  public String getUnitOfMeasure();
+	public String getUnitOfMeasure();
 
-  public <T extends Tax> Collection<T> getTaxes();
+	public <T extends Tax> Collection<T> getTaxes();
 
 }

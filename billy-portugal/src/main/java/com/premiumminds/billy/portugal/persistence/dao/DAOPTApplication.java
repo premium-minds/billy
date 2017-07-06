@@ -24,10 +24,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
 public interface DAOPTApplication extends DAOApplication {
 
-  @Override
-  public PTApplicationEntity getEntityInstance();
+	@Override
+	public PTApplicationEntity getEntityInstance();
 
-  @Override
-  public PTApplicationEntity get(UID uid);
-
+	@Override
+	public PTApplicationEntity get(UID uid);
+	
 }

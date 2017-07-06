@@ -22,6 +22,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity
 
 public interface DAOPTInvoiceEntry extends DAOPTGenericInvoiceEntry {
 
-  @Override
-  public PTInvoiceEntryEntity getEntityInstance();
+	@Override
+	public PTInvoiceEntryEntity getEntityInstance();
 }

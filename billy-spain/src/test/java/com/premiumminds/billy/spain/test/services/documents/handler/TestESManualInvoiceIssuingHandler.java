@@ -31,33 +31,36 @@ import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTest;
 
 public class TestESManualInvoiceIssuingHandler extends ESDocumentAbstractTest {
-  private ESInvoiceIssuingHandler handler;
-  private UID issuedInvoiceUID;
+	private ESInvoiceIssuingHandler		handler;
+	private UID							issuedInvoiceUID;
 
-  private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+	private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+	
+	@Before
+	public void setUpNewManualInvoice() {
+		this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
 
-  @Before
-  public void setUpNewManualInvoice() {
-    this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
+		try {
+			ESInvoiceEntity invoice = this.newInvoice(
+					INVOICE_TYPE.FT,
+					SOURCE_BILLING.MANUAL);
 
-    try {
-      ESInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT, SOURCE_BILLING.MANUAL);
+			this.issueNewInvoice(this.handler, invoice, DEFAULT_SERIES);
+			this.issuedInvoiceUID = invoice.getUID();
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+	}
 
-      this.issueNewInvoice(this.handler, invoice, DEFAULT_SERIES);
-      this.issuedInvoiceUID = invoice.getUID();
-    } catch (DocumentIssuingException e) {
-      e.printStackTrace();
-    }
-  }
+	@Test
+	public void testIssuedManualInvoiceSimple() throws DocumentIssuingException {
+		ESInvoiceEntity issuedInvoice = (ESInvoiceEntity) this.getInstance(
+				DAOESInvoice.class).get(this.issuedInvoiceUID);
 
-  @Test
-  public void testIssuedManualInvoiceSimple() throws DocumentIssuingException {
-    ESInvoiceEntity issuedInvoice = (ESInvoiceEntity) this.getInstance(DAOESInvoice.class)
-        .get(this.issuedInvoiceUID);
-
-    Assert.assertEquals(DEFAULT_SERIES, issuedInvoice.getSeries());
-    Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-    String formatedNumber = DEFAULT_SERIES + "/1";
-    Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-  }
+		Assert.assertEquals(DEFAULT_SERIES,
+				issuedInvoice.getSeries());
+		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+		String formatedNumber = DEFAULT_SERIES + "/1";
+		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+	}
 }

@@ -20,6 +20,7 @@ package com.premiumminds.billy.spain.persistence.entities;
 
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 
-public interface ESInvoiceEntryEntity extends ESGenericInvoiceEntryEntity, ESInvoiceEntry {
+public interface ESInvoiceEntryEntity extends ESGenericInvoiceEntryEntity,
+	ESInvoiceEntry {
 
 }

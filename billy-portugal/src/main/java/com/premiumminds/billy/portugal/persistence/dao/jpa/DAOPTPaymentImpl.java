@@ -27,21 +27,23 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTPaymentEntity;
 
+
 public class DAOPTPaymentImpl extends DAOPaymentImpl implements DAOPTPayment {
 
-  @Inject
-  public DAOPTPaymentImpl(Provider<EntityManager> emProvider) {
-    super(emProvider);
-  }
+	@Inject
+	public DAOPTPaymentImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-  @Override
-  public PTPaymentEntity getEntityInstance() {
-    return new JPAPTPaymentEntity();
-  }
+	@Override
+	public PTPaymentEntity getEntityInstance() {
+		return new JPAPTPaymentEntity();
+	}
 
-  @Override
-  protected Class<JPAPTPaymentEntity> getEntityClass() {
-    return JPAPTPaymentEntity.class;
-  }
+
+	@Override
+	protected Class<JPAPTPaymentEntity> getEntityClass() {
+		return JPAPTPaymentEntity.class;
+	}
 
 }

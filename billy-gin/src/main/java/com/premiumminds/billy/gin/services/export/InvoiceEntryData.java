@@ -22,60 +22,60 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class InvoiceEntryData {
+	
+	private final ProductData product;
+	private final String description;
+	private final BigDecimal quantity;
+	private final BigDecimal taxAmount;
+	private final BigDecimal unitAmountWithTax;
+	private final BigDecimal amountWithTax;
+	private final BigDecimal amountWithoutTax;
+	private final List<TaxData> taxes;
+	
+	public InvoiceEntryData(ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
+			BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
+			List<TaxData> taxes) {
+		
+		this.product = product;
+		this.description = description;
+		this.quantity = quantity;
+		this.taxAmount = taxAmount;
+		this.unitAmountWithTax = unitAmountWithTax;
+		this.amountWithTax = amountWithTax;
+		this.amountWithoutTax = amountWithoutTax;
+		this.taxes = taxes;
+	}
 
-  private final ProductData product;
-  private final String description;
-  private final BigDecimal quantity;
-  private final BigDecimal taxAmount;
-  private final BigDecimal unitAmountWithTax;
-  private final BigDecimal amountWithTax;
-  private final BigDecimal amountWithoutTax;
-  private final List<TaxData> taxes;
+	public ProductData getProduct() {
+		return product;
+	}
 
-  public InvoiceEntryData(ProductData product, String description, BigDecimal quantity,
-      BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax,
-      BigDecimal amountWithoutTax, List<TaxData> taxes) {
+	public String getDescription() {
+		return description;
+	}
 
-    this.product = product;
-    this.description = description;
-    this.quantity = quantity;
-    this.taxAmount = taxAmount;
-    this.unitAmountWithTax = unitAmountWithTax;
-    this.amountWithTax = amountWithTax;
-    this.amountWithoutTax = amountWithoutTax;
-    this.taxes = taxes;
-  }
+	public BigDecimal getQuantity() {
+		return quantity;
+	}
 
-  public ProductData getProduct() {
-    return product;
-  }
+	public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
 
-  public String getDescription() {
-    return description;
-  }
+	public BigDecimal getUnitAmountWithTax() {
+		return unitAmountWithTax;
+	}
 
-  public BigDecimal getQuantity() {
-    return quantity;
-  }
+	public BigDecimal getAmountWithTax() {
+		return amountWithTax;
+	}
 
-  public BigDecimal getTaxAmount() {
-    return taxAmount;
-  }
+	public BigDecimal getAmountWithoutTax() {
+		return amountWithoutTax;
+	}
 
-  public BigDecimal getUnitAmountWithTax() {
-    return unitAmountWithTax;
-  }
-
-  public BigDecimal getAmountWithTax() {
-    return amountWithTax;
-  }
-
-  public BigDecimal getAmountWithoutTax() {
-    return amountWithoutTax;
-  }
-
-  public List<TaxData> getTaxes() {
-    return taxes;
-  }
-
+	public List<TaxData> getTaxes() {
+		return taxes;
+	}
+	
 }

@@ -26,18 +26,18 @@ import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.TicketBuilderImpl;
 
-public interface Ticket extends Entity {
-  public static class Builder extends TicketBuilderImpl<Builder, Ticket> {
+public interface Ticket extends Entity{
+	public static class Builder extends TicketBuilderImpl<Builder, Ticket> {
 
-    @Inject
-    public Builder(DAOTicket daoTicket) {
-      super(daoTicket);
-    }
-  }
-
-  public UID getObjectUID();
-
-  public Date getCreationDate();
-
-  public Date getProcessDate();
+		@Inject
+		public Builder(DAOTicket daoTicket) {
+			super(daoTicket);
+		}
+	}
+	
+	public UID getObjectUID();
+	
+	public Date getCreationDate();
+	
+	public Date getProcessDate();
 }

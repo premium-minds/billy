@@ -23,11 +23,11 @@ import java.util.Date;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Ticket;
 
-public interface TicketEntity extends BaseEntity, Ticket {
-
-  public void setObjectUID(UID objectUID);
-
-  public void setCreationDate(Date creationDate);
-
-  public void setProcessDate(Date processDate);
+public interface TicketEntity extends BaseEntity, Ticket{
+	
+	public void setObjectUID(UID objectUID);
+	
+	public void setCreationDate(Date creationDate);
+	
+	public void setProcessDate(Date processDate);
 }

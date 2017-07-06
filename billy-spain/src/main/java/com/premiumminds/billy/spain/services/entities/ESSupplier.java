@@ -26,13 +26,14 @@ import com.premiumminds.billy.spain.services.builders.impl.ESSupplierBuilderImpl
 
 public interface ESSupplier extends Supplier {
 
-  public static class Builder extends ESSupplierBuilderImpl<Builder, ESSupplier> {
+	public static class Builder extends
+		ESSupplierBuilderImpl<Builder, ESSupplier> {
 
-    @Inject
-    public Builder(DAOESSupplier daoESSupplier) {
-      super(daoESSupplier);
-    }
-  }
+		@Inject
+		public Builder(DAOESSupplier daoESSupplier) {
+			super(daoESSupplier);
+		}
+	}
 
-  public String getReferralName();
+	public String getReferralName();
 }

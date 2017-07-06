@@ -37,53 +37,52 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 
 public class Services {
 
-  private final Injector injector;
-  private DocumentIssuingService issuingService;
-  private PersistenceServices persistenceService;
+	private final Injector injector;
+	private DocumentIssuingService issuingService;
+	private PersistenceServices persistenceService;
 
-  public Services(Injector injector) {
-    this.injector = injector;
-    this.issuingService = injector.getInstance(DocumentIssuingServiceImpl.class);
-    this.persistenceService = new PersistenceServices(injector);
-    this.setupServices();
-  }
+	public Services(Injector injector) {
+		this.injector = injector;
+		this.issuingService = injector.getInstance(DocumentIssuingServiceImpl.class);
+		this.persistenceService = new PersistenceServices(injector);
+		this.setupServices();
+	}
 
-  private void setupServices() {
-    this.issuingService.addHandler(PTInvoiceEntity.class,
-        this.injector.getInstance(PTInvoiceIssuingHandler.class));
-    this.issuingService.addHandler(PTCreditNoteEntity.class,
-        this.injector.getInstance(PTCreditNoteIssuingHandler.class));
-    this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
-        this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
-    this.issuingService.addHandler(PTReceiptInvoiceEntity.class,
-        this.injector.getInstance(PTReceiptInvoiceIssuingHandler.class));
-  }
+	private void setupServices() {
+		this.issuingService.addHandler(PTInvoiceEntity.class,
+				this.injector.getInstance(PTInvoiceIssuingHandler.class));
+		this.issuingService.addHandler(PTCreditNoteEntity.class,
+				this.injector.getInstance(PTCreditNoteIssuingHandler.class));
+		this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
+				this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
+		this.issuingService.addHandler(PTReceiptInvoiceEntity.class,
+				this.injector.getInstance(PTReceiptInvoiceIssuingHandler.class));
+	}
 
-  /**
-   * @return {@link PersistenceServices}
-   */
-  public PersistenceServices entities() {
-    return this.persistenceService;
-  }
+	/**
+	 * @return {@link PersistenceServices}
+	 */
+	public PersistenceServices entities() {
+		return this.persistenceService;
+	}
 
-  /**
-   * Issue a new document and store it in the database.
-   * 
-   * @param {@link
-   *          Builder} of the document to issue.
-   * @param {@link
-   *          IssuingParams} required to issue the document.
-   * @return The newly issued document
-   * @throws DocumentIssuingException
-   */
-  public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder,
-      PTIssuingParams issuingParameters) throws DocumentIssuingException {
-    return this.issuingService.issue(builder, issuingParameters);
-  }
+	/**
+	 * Issue a new document and store it in the database.
+	 * 
+	 * @param {@link Builder} of the document to issue.
+	 * @param {@link IssuingParams} required to issue the document.
+	 * @return The newly issued document
+	 * @throws DocumentIssuingException
+	 */
+	public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder,
+			PTIssuingParams issuingParameters) throws DocumentIssuingException {
+		return this.issuingService.issue(builder, issuingParameters);
+	}
 
-  public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder,
-      PTIssuingParams issuingParameters, String ticketUID) throws DocumentIssuingException {
-    return this.issuingService.issue(builder, issuingParameters, ticketUID);
-  }
+	public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder,
+			PTIssuingParams issuingParameters, String ticketUID)
+			throws DocumentIssuingException {
+		return this.issuingService.issue(builder, issuingParameters, ticketUID);
+	}
 
 }

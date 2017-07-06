@@ -34,74 +34,77 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ShippingPointBuilderImpl<TBuilder extends ShippingPointBuilderImpl<TBuilder, TShippingPoint>, TShippingPoint extends ShippingPoint>
-    extends AbstractBuilder<TBuilder, TShippingPoint>
-    implements ShippingPointBuilder<TBuilder, TShippingPoint> {
+	extends AbstractBuilder<TBuilder, TShippingPoint> implements
+	ShippingPointBuilder<TBuilder, TShippingPoint> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-  protected DAOShippingPoint daoShippingPoint;
+	protected DAOShippingPoint			daoShippingPoint;
 
-  @Inject
-  public ShippingPointBuilderImpl(DAOShippingPoint daoShippingPoint) {
-    super(daoShippingPoint);
-    this.daoShippingPoint = daoShippingPoint;
-  }
+	@Inject
+	public ShippingPointBuilderImpl(DAOShippingPoint daoShippingPoint) {
+		super(daoShippingPoint);
+		this.daoShippingPoint = daoShippingPoint;
+	}
 
-  @Override
-  public TBuilder setDeliveryId(String deliveryId) {
-    BillyValidator.notBlank(deliveryId,
-        ShippingPointBuilderImpl.LOCALIZER.getString("field.delivery_id"));
-    this.getTypeInstance().setDeliveryId(deliveryId);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setDeliveryId(String deliveryId) {
+		BillyValidator.notBlank(deliveryId, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.delivery_id"));
+		this.getTypeInstance().setDeliveryId(deliveryId);
+		return this.getBuilder();
+	}
 
-  @Override
-  public TBuilder setDate(Date date) {
-    BillyValidator.notNull(date,
-        ShippingPointBuilderImpl.LOCALIZER.getString("field.shipping_date"));
-    this.getTypeInstance().setDate(date);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setDate(Date date) {
+		BillyValidator.notNull(date, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.shipping_date"));
+		this.getTypeInstance().setDate(date);
+		return this.getBuilder();
+	}
 
-  @Override
-  public TBuilder setWarehouseId(String id) {
-    BillyValidator.notBlank(id, ShippingPointBuilderImpl.LOCALIZER.getString("field.warehouse_id"));
-    this.getTypeInstance().setWarehouseId(id);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setWarehouseId(String id) {
+		BillyValidator.notBlank(id, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.warehouse_id"));
+		this.getTypeInstance().setWarehouseId(id);
+		return this.getBuilder();
+	}
 
-  @Override
-  public TBuilder setLocationId(String id) {
-    BillyValidator.notBlank(id, ShippingPointBuilderImpl.LOCALIZER.getString("field.location_id"));
-    this.getTypeInstance().setLocationId(id);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setLocationId(String id) {
+		BillyValidator.notBlank(id, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.location_id"));
+		this.getTypeInstance().setLocationId(id);
+		return this.getBuilder();
+	}
 
-  @Override
-  public TBuilder setUCR(String UCR) {
-    BillyValidator.notBlank(UCR, ShippingPointBuilderImpl.LOCALIZER.getString("field.ucr"));
-    this.getTypeInstance().setUCR(UCR);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setUCR(String UCR) {
+		BillyValidator.notBlank(UCR,
+				ShippingPointBuilderImpl.LOCALIZER.getString("field.ucr"));
+		this.getTypeInstance().setUCR(UCR);
+		return this.getBuilder();
+	}
 
-  @Override
-  public <T extends Address> TBuilder setAddress(Builder<T> address) {
-    BillyValidator.notNull(address,
-        ShippingPointBuilderImpl.LOCALIZER.getString("field.shipping_address"));
-    this.getTypeInstance().setAddress((AddressEntity) address.build());
-    return this.getBuilder();
-  }
+	@Override
+	public <T extends Address> TBuilder setAddress(Builder<T> address) {
+		BillyValidator.notNull(address, ShippingPointBuilderImpl.LOCALIZER
+				.getString("field.shipping_address"));
+		this.getTypeInstance().setAddress((AddressEntity) address.build());
+		return this.getBuilder();
+	}
 
-  @SuppressWarnings("unchecked")
-  @Override
-  protected ShippingPointEntity getTypeInstance() {
-    return (ShippingPointEntity) super.getTypeInstance();
-  }
+	@SuppressWarnings("unchecked")
+	@Override
+	protected ShippingPointEntity getTypeInstance() {
+		return (ShippingPointEntity) super.getTypeInstance();
+	}
 
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    return;
-  }
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		return;
+	}
 
 }

@@ -29,33 +29,33 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
-public class TestInvoiceGenerationAndExport extends ESPersistenceServiceAbstractTest {
 
-  private ESInvoice invoice;
-  private ESCreditNote creditNote;
-  private UID appUID;
-
-  @Before
-  public void setUp() throws DocumentIssuingException, MalformedURLException {
-    // this.invoice = getNewIssuedInvoice();
-    // this.creditNote = getNewIssuedCreditnote(invoice);
-    //
-    // ESApplication.Builder appBuilder = new
-    // ESApplicationTestUtil(injector).getApplicationBuilder();
-    // appUID = new UID();
-    // appBuilder.setUID(appUID);
-    // billy.applications().persistence().create(appBuilder);
-
-  }
-
-  @Test
-  public void testExportInvoice() throws IOException {
-    // TO USE with EOS DB
-    // Calendar calendar = Calendar.getInstance();
-    // calendar.set(2013, 1, 1);
-    // Date tau = calendar.getTime();
-    // billy.saft().export(new UID("EOS"), new UID("MAKSU_ES"), "1", tau, new
-    // Date());
-  }
+public class TestInvoiceGenerationAndExport extends
+		ESPersistenceServiceAbstractTest {
+	
+	private ESInvoice invoice;
+	private ESCreditNote creditNote;
+	private UID appUID;
+	
+	@Before
+	public void setUp() throws DocumentIssuingException, MalformedURLException {
+//		this.invoice = getNewIssuedInvoice();
+//		this.creditNote = getNewIssuedCreditnote(invoice);
+//		
+//		ESApplication.Builder appBuilder = new ESApplicationTestUtil(injector).getApplicationBuilder();
+//		appUID = new UID();
+//		appBuilder.setUID(appUID);
+//		billy.applications().persistence().create(appBuilder);
+		
+	}
+	
+	@Test
+	public void testExportInvoice() throws IOException {
+//		TO USE with EOS DB
+//		Calendar calendar = Calendar.getInstance();
+//		calendar.set(2013, 1, 1);
+//		Date tau = calendar.getTime();
+//		billy.saft().export(new UID("EOS"), new UID("MAKSU_ES"), "1", tau, new Date());
+	}
 
 }

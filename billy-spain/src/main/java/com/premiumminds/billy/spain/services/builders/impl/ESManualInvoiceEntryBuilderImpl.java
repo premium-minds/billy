@@ -39,41 +39,46 @@ import com.premiumminds.billy.spain.services.builders.ESManualInvoiceEntryBuilde
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
 public class ESManualInvoiceEntryBuilderImpl<TBuilder extends ESManualInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-    extends ESManualEntryBuilderImpl<TBuilder, TEntry>
-    implements ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
+	extends ESManualEntryBuilderImpl<TBuilder, TEntry> implements
+	ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-  public ESManualInvoiceEntryBuilderImpl(DAOESGenericInvoiceEntry daoESEntry,
-      DAOESInvoice daoESInvoice, DAOESTax daoESTax, DAOESProduct daoESProduct,
-      DAOESRegionContext daoESRegionContext) {
-    super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
-  }
+	public ESManualInvoiceEntryBuilderImpl(DAOESGenericInvoiceEntry daoESEntry,
+			DAOESInvoice daoESInvoice,
+			DAOESTax daoESTax,
+			DAOESProduct daoESProduct,
+			DAOESRegionContext daoESRegionContext) {
+		super(daoESEntry, daoESInvoice, daoESTax, daoESProduct,
+				daoESRegionContext);
+	}
 
-  @Override
-  protected ESInvoiceEntryEntity getTypeInstance() {
-    return (ESInvoiceEntryEntity) super.getTypeInstance();
-  }
+	@Override
+	protected ESInvoiceEntryEntity getTypeInstance() {
+		return (ESInvoiceEntryEntity) super.getTypeInstance();
+	}
 
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
-    this.validateValues();
-    super.validateInstance();
-  }
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
+		this.validateValues();
+		super.validateInstance();
+	}
 
-  @Override
-  protected void validateValues() throws BillyValidationException {
-    GenericInvoiceEntryEntity e = this.getTypeInstance();
-    for (Tax t : e.getProduct().getTaxes()) {
-      if (this.daoContext.isSubContext(t.getContext(), this.context)) {
-        Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
-        if (DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(taxDate)) {
-          e.getTaxes().add(t);
-        }
-      }
-    }
-    if (e.getTaxes().isEmpty()) {
-      throw new ValidationException(
-          GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("exception.invalid_taxes"));
-    }
-  }
+	@Override
+	protected void validateValues() throws BillyValidationException {
+		GenericInvoiceEntryEntity e = this.getTypeInstance();
+		for (Tax t : e.getProduct().getTaxes()) {
+			if (this.daoContext.isSubContext(t.getContext(), this.context)) {
+				Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
+				if (DateUtils.isSameDay(t.getValidTo(), taxDate)
+						|| t.getValidTo().after(taxDate)) {
+					e.getTaxes().add(t);
+				}
+			}
+		}
+		if (e.getTaxes().isEmpty()) {
+			throw new ValidationException(
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+					.getString("exception.invalid_taxes"));
+		}
+	}
 }
