@@ -18,9 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf;
 
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import java.io.OutputStream;
+
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.portugal.services.export.PTReceiptInvoiceData;
 
-public interface PTReceiptInvoicePDFTransformer extends BillyPDFTransformer<PTReceiptInvoiceData> {
+public interface PTReceiptInvoicePDFTransformer extends BillyExportTransformer<PTReceiptInvoiceData, OutputStream> {
 
 }

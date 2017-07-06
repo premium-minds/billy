@@ -19,7 +19,6 @@
 package com.premiumminds.billy.spain.util;
 
 import java.io.InputStream;
-import java.io.OutputStream;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -28,7 +27,7 @@ import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyPDFTransformer;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
@@ -92,10 +91,10 @@ public class Invoices {
 		return exportService.exportToStream(request);
 	}
 	
-	public void pdfExport(UID uidDoc, BillyPDFTransformer<ESInvoiceData> dataTransformer, OutputStream outputStream) 
+	public <O> void pdfExport(UID uidDoc, BillyExportTransformer<ESInvoiceData, O> dataTransformer, O output) 
             throws ExportServiceException {
         
-        exportService.export(uidDoc, dataTransformer, outputStream);
+        exportService.export(uidDoc, dataTransformer, output);
     }
 	
 	public ESInvoice.ManualBuilder manualBuilder() {
