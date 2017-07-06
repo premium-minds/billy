@@ -28,23 +28,23 @@ import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 
 public interface TaxBuilder<TBuilder extends TaxBuilder<TBuilder, TTax>, TTax extends Tax>
-    extends Builder<TTax> {
+	extends Builder<TTax> {
 
-  public TBuilder setContextUID(UID uid);
+	public TBuilder setContextUID(UID uid);
 
-  public TBuilder setDesignation(String designation);
+	public TBuilder setDesignation(String designation);
 
-  public TBuilder setDescription(String description);
+	public TBuilder setDescription(String description);
 
-  public TBuilder setCode(String code);
+	public TBuilder setCode(String code);
 
-  public TBuilder setValidFrom(Date from);
+	public TBuilder setValidFrom(Date from);
 
-  public TBuilder setValidTo(Date to);
+	public TBuilder setValidTo(Date to);
 
-  public TBuilder setTaxRate(TaxRateType rateType, BigDecimal amount);
+	public TBuilder setTaxRate(TaxRateType rateType, BigDecimal amount);
 
-  public TBuilder setCurrency(Currency currency);
+	public TBuilder setCurrency(Currency currency);
 
-  public TBuilder setValue(BigDecimal value);
+	public TBuilder setValue(BigDecimal value);
 }

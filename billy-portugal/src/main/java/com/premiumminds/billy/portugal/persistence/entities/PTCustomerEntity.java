@@ -23,5 +23,5 @@ import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 
 public interface PTCustomerEntity extends CustomerEntity, PTCustomer {
 
-  public void setReferralName(String referralName);
+	public void setReferralName(String referralName);
 }

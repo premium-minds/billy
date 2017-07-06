@@ -41,60 +41,74 @@ import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.fixtures.MockESReceiptEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESReceiptEntryEntity;
 
-public class TestESReceiptEntryBuilder extends ESAbstractTest {
-  private static final String ES_RECEIPT_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-      + "ESInvoiceEntry.yml";
-  private static final String ES_RECEIPT_YML = AbstractTest.YML_CONFIGS_DIR + "ESInvoice.yml";
+public class TestESReceiptEntryBuilder extends ESAbstractTest{
+	private static final String ES_RECEIPT_ENTRY_YML =
+			AbstractTest.YML_CONFIGS_DIR + "ESInvoiceEntry.yml";
+	private static final String ES_RECEIPT_YML =
+			AbstractTest.YML_CONFIGS_DIR + "ESInvoice.yml";
+	
+	@Test
+	public void doTest() {
+		MockESReceiptEntryEntity mockEntry = createMockEntity(
+				MockESReceiptEntryEntity.class, ES_RECEIPT_ENTRY_YML);
+		mockEntry.setCurrency(Currency.getInstance("EUR"));
+		
+		when(getInstance(DAOESReceiptEntry.class).getEntityInstance())
+			.thenReturn(new MockESReceiptEntryEntity());
+		
+		MockESReceiptEntity mockReceipt = createMockEntity(
+				MockESReceiptEntity.class, ES_RECEIPT_YML);
+		
+		when(getInstance(DAOESReceipt.class).get(Matchers.any(UID.class)))
+			.thenReturn(mockReceipt);
+		
+		when(getInstance(DAOESProduct.class).get(
+				Matchers.any(UID.class)))
+			.thenReturn((ESProductEntity) mockEntry.getProduct());
+		
+		when(getInstance(DAOESRegionContext.class)
+				.isSubContext(Matchers.any(Context.class),
+						Matchers.any(Context.class)))
+			.thenReturn(true);
+		
+		mockEntry.getDocumentReferences().add(mockReceipt);
+		
+		ESReceiptEntry.Builder builder = this.getInstance(
+				ESReceiptEntry.Builder.class);
+		
+		builder.setDescription(mockEntry.getDescription())
+				.addDocumentReferenceUID(
+						mockEntry.getDocumentReferences().get(0).getUID())
+				.setQuantity(mockEntry.getQuantity())
+				.setUnitAmount(AmountType.WITH_TAX,
+						mockEntry.getUnitAmountWithTax())
+				.setUnitOfMeasure(mockEntry.getUnitOfMeasure())
+				.setProductUID(mockEntry.getProduct().getUID())
+				.setTaxPointDate(mockEntry.getTaxPointDate())
+				.setCurrency(Currency.getInstance("EUR"));
+		
+		ESReceiptEntry entry = builder.build();
+		
+		if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
+			Assert.assertTrue(mockEntry.getUnitAmountWithoutTax().compareTo(
+					entry.getUnitAmountWithoutTax()) == 0);
+		} else {
+			Assert.assertTrue(mockEntry.getUnitAmountWithTax().compareTo(
+					entry.getUnitAmountWithTax()) == 0);
+		}
 
-  @Test
-  public void doTest() {
-    MockESReceiptEntryEntity mockEntry = createMockEntity(MockESReceiptEntryEntity.class,
-        ES_RECEIPT_ENTRY_YML);
-    mockEntry.setCurrency(Currency.getInstance("EUR"));
+		Assert.assertTrue(mockEntry.getUnitDiscountAmount().compareTo(
+				entry.getUnitDiscountAmount()) == 0);
 
-    when(getInstance(DAOESReceiptEntry.class).getEntityInstance())
-        .thenReturn(new MockESReceiptEntryEntity());
-
-    MockESReceiptEntity mockReceipt = createMockEntity(MockESReceiptEntity.class, ES_RECEIPT_YML);
-
-    when(getInstance(DAOESReceipt.class).get(Matchers.any(UID.class))).thenReturn(mockReceipt);
-
-    when(getInstance(DAOESProduct.class).get(Matchers.any(UID.class)))
-        .thenReturn((ESProductEntity) mockEntry.getProduct());
-
-    when(getInstance(DAOESRegionContext.class).isSubContext(Matchers.any(Context.class),
-        Matchers.any(Context.class))).thenReturn(true);
-
-    mockEntry.getDocumentReferences().add(mockReceipt);
-
-    ESReceiptEntry.Builder builder = this.getInstance(ESReceiptEntry.Builder.class);
-
-    builder.setDescription(mockEntry.getDescription())
-        .addDocumentReferenceUID(mockEntry.getDocumentReferences().get(0).getUID())
-        .setQuantity(mockEntry.getQuantity())
-        .setUnitAmount(AmountType.WITH_TAX, mockEntry.getUnitAmountWithTax())
-        .setUnitOfMeasure(mockEntry.getUnitOfMeasure())
-        .setProductUID(mockEntry.getProduct().getUID()).setTaxPointDate(mockEntry.getTaxPointDate())
-        .setCurrency(Currency.getInstance("EUR"));
-
-    ESReceiptEntry entry = builder.build();
-
-    if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
-      Assert.assertTrue(
-          mockEntry.getUnitAmountWithoutTax().compareTo(entry.getUnitAmountWithoutTax()) == 0);
-    } else {
-      Assert.assertTrue(
-          mockEntry.getUnitAmountWithTax().compareTo(entry.getUnitAmountWithTax()) == 0);
-    }
-
-    Assert.assertTrue(
-        mockEntry.getUnitDiscountAmount().compareTo(entry.getUnitDiscountAmount()) == 0);
-
-    Assert.assertTrue(mockEntry.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
-    Assert.assertTrue(mockEntry.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
-    Assert.assertTrue(mockEntry.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()) == 0);
-    Assert.assertTrue(mockEntry.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
-    Assert.assertTrue(mockEntry.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
-
-  }
+		Assert.assertTrue(mockEntry.getUnitTaxAmount().compareTo(
+				entry.getUnitTaxAmount()) == 0);
+		Assert.assertTrue(mockEntry.getAmountWithTax().compareTo(
+				entry.getAmountWithTax()) == 0);
+		Assert.assertTrue(mockEntry.getAmountWithoutTax().compareTo(
+				entry.getAmountWithoutTax()) == 0);
+		Assert.assertTrue(mockEntry.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
+		Assert.assertTrue(mockEntry.getDiscountAmount().compareTo(
+				entry.getDiscountAmount()) == 0);
+		
+	}
 }

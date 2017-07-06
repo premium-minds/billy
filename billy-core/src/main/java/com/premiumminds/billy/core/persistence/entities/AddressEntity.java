@@ -27,30 +27,30 @@ import com.premiumminds.billy.core.services.entities.Address;
  */
 public interface AddressEntity extends Address, BaseEntity {
 
-  public void setStreetName(String streetName);
+	public void setStreetName(String streetName);
 
-  public void setNumber(String number);
+	public void setNumber(String number);
 
-  public void setDetails(String details);
+	public void setDetails(String details);
 
-  public void setBuilding(String building);
+	public void setBuilding(String building);
 
-  public void setCity(String city);
+	public void setCity(String city);
 
-  public void setPostalCode(String postalCode);
+	public void setPostalCode(String postalCode);
 
-  /**
-   * Gets the ISO 3166-2 code for the country region
-   * 
-   * @return The region ISO code
-   */
-  public void setRegion(String region);
+	/**
+	 * Gets the ISO 3166-2 code for the country region
+	 * 
+	 * @return The region ISO code
+	 */
+	public void setRegion(String region);
 
-  /**
-   * Gets the address country ISO 3166-1 code.
-   * 
-   * @return The country iso code.
-   */
-  public void setISOCountry(String country);
+	/**
+	 * Gets the address country ISO 3166-1 code.
+	 * 
+	 * @return The country iso code.
+	 */
+	public void setISOCountry(String country);
 
 }

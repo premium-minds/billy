@@ -39,42 +39,47 @@ import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceEntryBui
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public class PTManualInvoiceEntryBuilderImpl<TBuilder extends PTManualInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-    extends PTManualEntryBuilderImpl<TBuilder, TEntry>
-    implements PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
+	extends PTManualEntryBuilderImpl<TBuilder, TEntry> implements
+	PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-  public PTManualInvoiceEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTEntry,
-      DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax, DAOPTProduct daoPTProduct,
-      DAOPTRegionContext daoPTRegionContext) {
-    super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
-  }
-
-  @Override
-  protected PTInvoiceEntryEntity getTypeInstance() {
-    return (PTInvoiceEntryEntity) super.getTypeInstance();
-  }
-
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
-    this.validateValues();
-    super.validateInstance();
-  }
-
-  @Override
-  protected void validateValues() throws BillyValidationException {
-    GenericInvoiceEntryEntity e = this.getTypeInstance();
-    for (Tax t : e.getProduct().getTaxes()) {
-      if (this.daoContext.isSubContext(t.getContext(), this.context)) {
-        Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
-        if (DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(taxDate)) {
-          e.getTaxes().add(t);
-        }
-      }
-    }
-    if (e.getTaxes().isEmpty()) {
-      throw new ValidationException(
-          GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("exception.invalid_taxes"));
-    }
-  }
+	public PTManualInvoiceEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTEntry,
+			DAOPTInvoice daoPTInvoice,
+			DAOPTTax daoPTTax,
+			DAOPTProduct daoPTProduct,
+			DAOPTRegionContext daoPTRegionContext) {
+		super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct,
+				daoPTRegionContext);
+	}
+	
+	@Override
+	protected PTInvoiceEntryEntity getTypeInstance() {
+		return (PTInvoiceEntryEntity) super.getTypeInstance();
+	}
+	
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		getTypeInstance().setCreditOrDebit(CreditOrDebit.CREDIT);
+		this.validateValues();
+		super.validateInstance();
+	}
+	
+	@Override
+	protected void validateValues() throws BillyValidationException {
+		GenericInvoiceEntryEntity e = this.getTypeInstance();
+		for (Tax t : e.getProduct().getTaxes()) {
+			if (this.daoContext.isSubContext(t.getContext(), this.context)) {
+				Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
+				if (DateUtils.isSameDay(t.getValidTo(), taxDate)
+						|| t.getValidTo().after(taxDate)) {
+					e.getTaxes().add(t);
+				}
+			}
+		}
+		if (e.getTaxes().isEmpty()) {
+			throw new ValidationException(
+					GenericInvoiceEntryBuilderImpl.LOCALIZER
+							.getString("exception.invalid_taxes"));
+		}
+	}
 
 }

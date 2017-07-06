@@ -23,8 +23,8 @@ import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 
 public interface PTSimpleInvoiceBuilder<TBuilder extends PTSimpleInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTSimpleInvoice>
-    extends PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
-
-  public TBuilder setClientType(CLIENTTYPE type);
+	extends PTInvoiceBuilder<TBuilder, TEntry, TDocument> {
+	
+	public TBuilder setClientType(CLIENTTYPE type);
 
 }

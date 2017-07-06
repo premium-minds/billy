@@ -33,60 +33,61 @@ import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl
  */
 public interface Application extends Entity {
 
-  /**
-   * @author Francisco The builder for the {@link Application} entity.
-   */
-  public static class Builder extends ApplicationBuilderImpl<Builder, Application> {
+	/**
+	 * @author Francisco The builder for the {@link Application} entity.
+	 */
+	public static class Builder extends
+		ApplicationBuilderImpl<Builder, Application> {
 
-    @Inject
-    public Builder(DAOApplication daoApplication) {
-      super(daoApplication);
-    }
-  }
+		@Inject
+		public Builder(DAOApplication daoApplication) {
+			super(daoApplication);
+		}
+	}
 
-  /**
-   * Gets the name of the application.
-   * 
-   * @return The application name.
-   */
-  public String getName();
+	/**
+	 * Gets the name of the application.
+	 * 
+	 * @return The application name.
+	 */
+	public String getName();
 
-  /**
-   * Gets the application version.
-   * 
-   * @return The application version.
-   */
-  public String getVersion();
+	/**
+	 * Gets the application version.
+	 * 
+	 * @return The application version.
+	 */
+	public String getVersion();
 
-  /**
-   * Gets the name of the application developer company.
-   * 
-   * @return The name of the developer company.
-   */
-  public String getDeveloperCompanyName();
+	/**
+	 * Gets the name of the application developer company.
+	 * 
+	 * @return The name of the developer company.
+	 */
+	public String getDeveloperCompanyName();
 
-  /**
-   * Gets the tax identifier for the application developer company.
-   * 
-   * @return The company tax identifier.
-   */
-  public String getDeveloperCompanyTaxIdentifier();
+	/**
+	 * Gets the tax identifier for the application developer company.
+	 * 
+	 * @return The company tax identifier.
+	 */
+	public String getDeveloperCompanyTaxIdentifier();
 
-  /**
-   * Gets the application developer company website address.
-   * 
-   * @return The website address.
-   */
-  public String getWebsiteAddress();
+	/**
+	 * Gets the application developer company website address.
+	 * 
+	 * @return The website address.
+	 */
+	public String getWebsiteAddress();
 
-  /**
-   * Gets the application developer company collection of {@link Contact}
-   * contacts.
-   * 
-   * @return The list of contacts.
-   */
-  public <T extends Contact> Collection<T> getContacts();
+	/**
+	 * Gets the application developer company collection of {@link Contact}
+	 * contacts.
+	 * 
+	 * @return The list of contacts.
+	 */
+	public <T extends Contact> Collection<T> getContacts();
 
-  public <T extends Contact> Contact getMainContact();
+	public <T extends Contact> Contact getMainContact();
 
 }

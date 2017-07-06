@@ -26,34 +26,35 @@ import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.spain.persistence.entities.ESPaymentEntity;
 import com.premiumminds.billy.spain.services.entities.ESPayment;
 
+
 public class ESPaymentTestUtil {
+	
+	private static final BigDecimal AMOUNT = new BigDecimal(20);
+	private static final Date DATE = new Date();
+	private static final Enum<PaymentMechanism> METHOD = PaymentMechanism.CASH;
 
-  private static final BigDecimal AMOUNT = new BigDecimal(20);
-  private static final Date DATE = new Date();
-  private static final Enum<PaymentMechanism> METHOD = PaymentMechanism.CASH;
-
-  private Injector injector;
-
-  public ESPaymentTestUtil(Injector injector) {
-    this.injector = injector;
-  }
-
-  public ESPayment.Builder getPaymentBuilder(BigDecimal amount, Date date, Enum<?> method) {
-    ESPayment.Builder paymentBuilder = this.injector.getInstance(ESPayment.Builder.class);
-    paymentBuilder.setPaymentAmount(amount).setPaymentDate(date).setPaymentMethod(method);
-
-    return paymentBuilder;
-  }
-
-  public ESPayment.Builder getPaymentBuilder() {
-    return this.getPaymentBuilder(AMOUNT, DATE, METHOD);
-  }
-
-  public ESPaymentEntity getPaymentEntity(BigDecimal amount, Date date, Enum<?> method) {
-    return (ESPaymentEntity) getPaymentBuilder(amount, date, method).build();
-  }
-
-  public ESPaymentEntity getPaymentEntity() {
-    return (ESPaymentEntity) getPaymentBuilder().build();
-  }
+	private Injector injector;
+	
+	public ESPaymentTestUtil(Injector injector) {
+		this.injector = injector;
+	}
+	
+	public ESPayment.Builder getPaymentBuilder(BigDecimal amount, Date date, Enum<?> method) {
+		ESPayment.Builder paymentBuilder = this.injector.getInstance(ESPayment.Builder.class);
+		paymentBuilder.setPaymentAmount(amount).setPaymentDate(date).setPaymentMethod(method);
+		
+		return paymentBuilder;
+	}
+	
+	public ESPayment.Builder getPaymentBuilder() {
+		return this.getPaymentBuilder(AMOUNT, DATE, METHOD);
+	}
+	
+	public ESPaymentEntity getPaymentEntity(BigDecimal amount, Date date, Enum<?> method) {
+		return (ESPaymentEntity) getPaymentBuilder(amount, date, method).build();
+	}
+	
+	public ESPaymentEntity getPaymentEntity() {
+		return (ESPaymentEntity) getPaymentBuilder().build();
+	}
 }

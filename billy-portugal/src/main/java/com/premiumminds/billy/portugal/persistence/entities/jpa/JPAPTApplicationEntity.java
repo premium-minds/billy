@@ -37,47 +37,48 @@ import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
-public class JPAPTApplicationEntity extends JPAApplicationEntity implements PTApplicationEntity {
+public class JPAPTApplicationEntity extends JPAApplicationEntity implements
+	PTApplicationEntity {
 
-  /**
-   * 
-   */
-  private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
 
-  @Basic(optional = false)
-  @Column(name = "NUMBER")
-  protected Integer number;
+	@Basic(optional = false)
+	@Column(name = "NUMBER")
+	protected Integer			number;
 
-  @Basic(optional = true)
-  @Column(name = "KEYS_PATH")
-  protected String path;
+	@Basic(optional = true)
+	@Column(name = "KEYS_PATH")
+	protected String			path;
 
-  public JPAPTApplicationEntity() {
+	public JPAPTApplicationEntity() {
 
-  }
+	}
 
-  @Override
-  public List<Contact> getContacts() {
-    return super.getContacts();
-  }
+	@Override
+	public List<Contact> getContacts() {
+		return super.getContacts();
+	}
 
-  @Override
-  public Integer getSoftwareCertificationNumber() {
-    return this.number;
-  }
+	@Override
+	public Integer getSoftwareCertificationNumber() {
+		return this.number;
+	}
 
-  @Override
-  public void setSoftwareCertificateNum(Integer number) {
-    this.number = number;
-  }
+	@Override
+	public void setSoftwareCertificateNum(Integer number) {
+		this.number = number;
+	}
 
-  @Override
-  public URL getApplicationKeysPath() throws MalformedURLException {
-    return new URL(this.path);
-  }
+	@Override
+	public URL getApplicationKeysPath() throws MalformedURLException {
+		return new URL(this.path);
+	}
 
-  public void setApplicationKeysPath(URL path) {
-    this.path = path.toExternalForm();
-  }
+	public void setApplicationKeysPath(URL path) {
+		this.path = path.toExternalForm();
+	}
 
 }

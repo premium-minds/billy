@@ -32,75 +32,79 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
-public class PTReceiptInvoicePersistenceService implements PersistenceService<PTReceiptInvoice> {
+public class PTReceiptInvoicePersistenceService implements
+		PersistenceService<PTReceiptInvoice> {
 
-  protected final DAOPTReceiptInvoice daoReceiptInvoice;
-  protected final DAOTicket daoTicket;
+	protected final DAOPTReceiptInvoice daoReceiptInvoice;
+	protected final DAOTicket daoTicket;
 
-  @Inject
-  public PTReceiptInvoicePersistenceService(DAOPTReceiptInvoice daoReceiptInvoice,
-      DAOTicket daoTicket) {
-    this.daoReceiptInvoice = daoReceiptInvoice;
-    this.daoTicket = daoTicket;
-  }
+	@Inject
+	public PTReceiptInvoicePersistenceService(
+			DAOPTReceiptInvoice daoReceiptInvoice, DAOTicket daoTicket) {
+		this.daoReceiptInvoice = daoReceiptInvoice;
+		this.daoTicket = daoTicket;
+	}
 
-  @Override
-  @NotImplemented
-  public PTReceiptInvoice create(final Builder<PTReceiptInvoice> builder) {
-    return null;
-  }
+	@Override
+	@NotImplemented
+	public PTReceiptInvoice create(final Builder<PTReceiptInvoice> builder) {
+		return null;
+	}
 
-  @NotImplemented
-  @Override
-  public PTReceiptInvoice update(final Builder<PTReceiptInvoice> builder) {
-    try {
-      return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
+	@NotImplemented
+	@Override
+	public PTReceiptInvoice update(final Builder<PTReceiptInvoice> builder) {
+		try {
+			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
 
-        @Override
-        public PTReceiptInvoice runTransaction() throws Exception {
-          PTReceiptInvoiceEntity entity = (PTReceiptInvoiceEntity) builder.build();
-          return (PTReceiptInvoice) daoReceiptInvoice.update(entity);
-        }
+				@Override
+				public PTReceiptInvoice runTransaction() throws Exception {
+					PTReceiptInvoiceEntity entity = (PTReceiptInvoiceEntity) builder
+							.build();
+					return (PTReceiptInvoice) daoReceiptInvoice.update(entity);
+				}
 
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
-  @Override
-  public PTReceiptInvoice get(final UID uid) {
-    try {
-      return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
+	@Override
+	public PTReceiptInvoice get(final UID uid) {
+		try {
+			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
 
-        @Override
-        public PTReceiptInvoice runTransaction() throws Exception {
-          return (PTReceiptInvoice) daoReceiptInvoice.get(uid);
-        }
+				@Override
+				public PTReceiptInvoice runTransaction() throws Exception {
+					return (PTReceiptInvoice) daoReceiptInvoice.get(uid);
+				}
 
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
-  public PTReceiptInvoice getWithTicket(final UID ticketUID) {
+	public PTReceiptInvoice getWithTicket(final UID ticketUID) {
 
-    try {
-      return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
+		try {
+			return new TransactionWrapper<PTReceiptInvoice>(daoReceiptInvoice) {
 
-        @Override
-        public PTReceiptInvoice runTransaction() throws NoResultException, BillyRuntimeException {
-          UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
-          return (PTReceiptInvoice) daoReceiptInvoice.get(objectUID);
-        }
+				@Override
+				public PTReceiptInvoice runTransaction() throws NoResultException, BillyRuntimeException {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (PTReceiptInvoice) daoReceiptInvoice.get(objectUID);
+				}
 
-      }.execute();
-    } catch (NoResultException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		}catch(NoResultException e){
+			throw e;
+		}
+		catch (Exception e){
+			throw new BillyRuntimeException(e);
+		}
+	}
 
 }

@@ -26,57 +26,58 @@ import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.services.entities.ESPayment;
 
-public class MockESInvoiceEntity extends MockGenericInvoiceEntity implements ESInvoiceEntity {
+public class MockESInvoiceEntity extends MockGenericInvoiceEntity implements
+	ESInvoiceEntity {
 
-  private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-  protected boolean cancelled;
-  protected boolean billed;
-  protected String eacCode;
-  protected List<ESPayment> payments;
+	protected boolean			cancelled;
+	protected boolean			billed;
+	protected String			eacCode;
+	protected List<ESPayment>	payments;
 
-  public MockESInvoiceEntity() {
-    this.payments = new ArrayList<ESPayment>();
-  }
+	public MockESInvoiceEntity() {
+		this.payments = new ArrayList<ESPayment>();
+	}
 
-  @Override
-  public void setCancelled(boolean cancelled) {
-    this.cancelled = cancelled;
-  }
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.cancelled = cancelled;
+	}
 
-  @Override
-  public void setBilled(boolean billed) {
-    this.billed = billed;
-  }
+	@Override
+	public void setBilled(boolean billed) {
+		this.billed = billed;
+	}
 
-  @Override
-  public boolean isCancelled() {
-    return this.cancelled;
-  }
+	@Override
+	public boolean isCancelled() {
+		return this.cancelled;
+	}
 
-  @Override
-  public boolean isBilled() {
-    return this.billed;
-  }
+	@Override
+	public boolean isBilled() {
+		return this.billed;
+	}
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<ESInvoiceEntry> getEntries() {
-    return (List<ESInvoiceEntry>) (List<?>) super.getEntries();
-  }
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ESInvoiceEntry> getEntries() {
+		return (List<ESInvoiceEntry>) (List<?>) super.getEntries();
+	}
 
-  @Override
-  public void setEACCode(String eacCode) {
-    this.eacCode = eacCode;
-  }
+	@Override
+	public void setEACCode(String eacCode) {
+		this.eacCode = eacCode;
+	}
 
-  @Override
-  public String getEACCode() {
-    return eacCode;
-  }
+	@Override
+	public String getEACCode() {
+		return eacCode;
+	}
 
-  @Override
-  public List<ESPayment> getPayments() {
-    return payments;
-  }
+	@Override
+	public List<ESPayment> getPayments() {
+		return payments;
+	}
 }

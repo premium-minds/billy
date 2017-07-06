@@ -30,36 +30,38 @@ import com.premiumminds.billy.portugal.services.builders.PTRegionContextBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderImpl<TBuilder, TContext>, TContext extends PTRegionContext>
-    extends ContextBuilderImpl<TBuilder, TContext>
-    implements PTRegionContextBuilder<TBuilder, TContext> {
+	extends ContextBuilderImpl<TBuilder, TContext> implements
+	PTRegionContextBuilder<TBuilder, TContext> {
 
-  protected static final Localizer LOCALIZER = new Localizer(
-      "com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-  @Inject
-  public PTRegionContextBuilderImpl(DAOPTRegionContext daoPTContext) {
-    super(daoPTContext);
-  }
+	@Inject
+	public PTRegionContextBuilderImpl(DAOPTRegionContext daoPTContext) {
+		super(daoPTContext);
+	}
 
-  @Override
-  public TBuilder setRegionCode(String regionCode) {
-    BillyValidator.mandatory(regionCode,
-        PTRegionContextBuilderImpl.LOCALIZER.getString("field.region_code"));
-    this.getTypeInstance().setRegionCode(regionCode);
-    return this.getBuilder();
-  }
+	@Override
+	public TBuilder setRegionCode(String regionCode) {
+		BillyValidator.mandatory(regionCode,
+				PTRegionContextBuilderImpl.LOCALIZER
+						.getString("field.region_code"));
+		this.getTypeInstance().setRegionCode(regionCode);
+		return this.getBuilder();
+	}
 
-  @Override
-  protected PTRegionContextEntity getTypeInstance() {
-    return (PTRegionContextEntity) super.getTypeInstance();
-  }
+	@Override
+	protected PTRegionContextEntity getTypeInstance() {
+		return (PTRegionContextEntity) super.getTypeInstance();
+	}
 
-  @Override
-  protected void validateInstance() throws BillyValidationException {
-    super.validateInstance();
-    PTRegionContextEntity c = this.getTypeInstance();
-    BillyValidator.mandatory(c.getRegionCode(),
-        PTRegionContextBuilderImpl.LOCALIZER.getString("field.region_code"));
-  }
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
+		PTRegionContextEntity c = this.getTypeInstance();
+		BillyValidator.mandatory(c.getRegionCode(),
+				PTRegionContextBuilderImpl.LOCALIZER
+						.getString("field.region_code"));
+	}
 
 }

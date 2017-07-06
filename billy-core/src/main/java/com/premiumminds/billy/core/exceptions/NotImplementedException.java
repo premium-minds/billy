@@ -27,24 +27,24 @@ import com.premiumminds.billy.core.util.NotImplemented;
  */
 public class NotImplementedException extends RuntimeException {
 
-  private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-  /**
-   * Default constructor
-   */
-  @NotImplemented
-  public NotImplementedException() {
-    super();
-  }
+	/**
+	 * Default constructor
+	 */
+	@NotImplemented
+	public NotImplementedException() {
+		super();
+	}
 
-  /**
-   * A Constructor which takes a message
-   * 
-   * @param string
-   *          The exception message.
-   */
-  public NotImplementedException(String string) {
-    super(string);
-  }
+	/**
+	 * A Constructor which takes a message
+	 * 
+	 * @param string
+	 *            The exception message.
+	 */
+	public NotImplementedException(String string) {
+		super(string);
+	}
 
 }

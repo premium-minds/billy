@@ -30,21 +30,20 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 
 public class PTGenericInvoiceData extends GenericInvoiceData {
 
-  private final String hash;
+	private final String hash;
 
-  public PTGenericInvoiceData(String number, Date date, Date settlementDate,
-      List<PaymentData> payments, CostumerData customer, BusinessData business,
-      List<InvoiceEntryData> entries, BigDecimal taxAmount, BigDecimal amountWithTax,
-      BigDecimal amountWithoutTax, String settlementDescription, String hash) {
+	public PTGenericInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
+			CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
+			BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription, String hash) {
+		
+		super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
+				amountWithoutTax, settlementDescription);
+		
+		this.hash = hash;
+	}
 
-    super(number, date, settlementDate, payments, customer, business, entries, taxAmount,
-        amountWithTax, amountWithoutTax, settlementDescription);
-
-    this.hash = hash;
-  }
-
-  public String getHash() {
-    return hash;
-  }
+	public String getHash() {
+		return hash;
+	}
 
 }

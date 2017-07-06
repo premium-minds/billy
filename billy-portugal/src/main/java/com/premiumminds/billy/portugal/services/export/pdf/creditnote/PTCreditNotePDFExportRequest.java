@@ -23,17 +23,18 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class PTCreditNotePDFExportRequest extends AbstractExportRequest {
 
-  public PTCreditNotePDFExportRequest(UID uid, PTCreditNoteTemplateBundle bundle) {
-    super(uid, bundle);
-  }
+	public PTCreditNotePDFExportRequest(UID uid,
+			PTCreditNoteTemplateBundle bundle) {
+		super(uid, bundle);
+	}
 
-  public PTCreditNotePDFExportRequest(UID uid, PTCreditNoteTemplateBundle bundle,
-      String resultPath) {
-    super(uid, bundle, resultPath);
-  }
+	public PTCreditNotePDFExportRequest(UID uid,
+			PTCreditNoteTemplateBundle bundle, String resultPath) {
+		super(uid, bundle, resultPath);
+	}
 
-  @Override
-  public PTCreditNoteTemplateBundle getBundle() {
-    return (PTCreditNoteTemplateBundle) bundle;
-  }
+	@Override
+	public PTCreditNoteTemplateBundle getBundle() {
+		return (PTCreditNoteTemplateBundle) bundle;
+	}
 }

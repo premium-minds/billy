@@ -32,63 +32,67 @@ import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
 
 public class ESSimpleInvoicePersistenceService {
 
-  protected final DAOESSimpleInvoice daoInvoice;
-  protected final DAOTicket daoTicket;
+	protected final DAOESSimpleInvoice daoInvoice;
+	protected final DAOTicket daoTicket;
 
-  @Inject
-  public ESSimpleInvoicePersistenceService(DAOESSimpleInvoice daoInvoice, DAOTicket daoTicket) {
-    this.daoInvoice = daoInvoice;
-    this.daoTicket = daoTicket;
-  }
+	@Inject
+	public ESSimpleInvoicePersistenceService(DAOESSimpleInvoice daoInvoice,
+			DAOTicket daoTicket) {
+		this.daoInvoice = daoInvoice;
+		this.daoTicket = daoTicket;
+	}
 
-  public ESSimpleInvoice update(final Builder<ESSimpleInvoice> builder) {
-    try {
-      return new TransactionWrapper<ESSimpleInvoice>(daoInvoice) {
+	public ESSimpleInvoice update(final Builder<ESSimpleInvoice> builder) {
+		try {
+			return new TransactionWrapper<ESSimpleInvoice>(daoInvoice) {
 
-        @Override
-        public ESSimpleInvoice runTransaction() throws Exception {
-          ESSimpleInvoiceEntity entity = (ESSimpleInvoiceEntity) builder.build();
-          return (ESSimpleInvoice) daoInvoice.update(entity);
-        }
+				@Override
+				public ESSimpleInvoice runTransaction() throws Exception {
+					ESSimpleInvoiceEntity entity = (ESSimpleInvoiceEntity) builder
+							.build();
+					return (ESSimpleInvoice) daoInvoice.update(entity);
+				}
 
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
-  public ESSimpleInvoice get(final UID uid) {
-    try {
-      return new TransactionWrapper<ESSimpleInvoice>(daoInvoice) {
+	public ESSimpleInvoice get(final UID uid) {
+		try {
+			return new TransactionWrapper<ESSimpleInvoice>(daoInvoice) {
 
-        @Override
-        public ESSimpleInvoice runTransaction() throws Exception {
-          return (ESSimpleInvoice) daoInvoice.get(uid);
-        }
+				@Override
+				public ESSimpleInvoice runTransaction() throws Exception {
+					return (ESSimpleInvoice) daoInvoice.get(uid);
+				}
 
-      }.execute();
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		} catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
-  public ESSimpleInvoice getWithTicket(final UID ticketUID) {
+	public ESSimpleInvoice getWithTicket(final UID ticketUID) {
 
-    try {
-      return new TransactionWrapper<ESSimpleInvoice>(daoInvoice) {
+		try {
+			return new TransactionWrapper<ESSimpleInvoice>(daoInvoice) {
 
-        @Override
-        public ESSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
-          UID objectUID = daoTicket.getObjectEntityUID(ticketUID.getValue());
-          return (ESSimpleInvoice) daoInvoice.get(objectUID);
-        }
+				@Override
+				public ESSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
+					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
+							.getValue());
+					return (ESSimpleInvoice) daoInvoice.get(objectUID);
+				}
 
-      }.execute();
-    } catch (NoResultException e) {
-      throw e;
-    } catch (Exception e) {
-      throw new BillyRuntimeException(e);
-    }
-  }
+			}.execute();
+		}catch(NoResultException e){
+			throw e;
+		}
+		catch (Exception e) {
+			throw new BillyRuntimeException(e);
+		}
+	}
 
 }

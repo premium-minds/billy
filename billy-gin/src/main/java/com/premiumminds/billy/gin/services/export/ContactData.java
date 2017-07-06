@@ -19,27 +19,27 @@
 package com.premiumminds.billy.gin.services.export;
 
 public class ContactData {
+	
+	private final String phone;
+	private final String fax;
+	private final String email;
+	
+	public ContactData(String phone, String fax, String email) {
+		this.phone = phone;
+		this.fax = fax;
+		this.email = email;
+	}
 
-  private final String phone;
-  private final String fax;
-  private final String email;
+	public String getTelephone() {
+		return phone;
+	}
 
-  public ContactData(String phone, String fax, String email) {
-    this.phone = phone;
-    this.fax = fax;
-    this.email = email;
-  }
+	public String getFax() {
+		return fax;
+	}
 
-  public String getTelephone() {
-    return phone;
-  }
-
-  public String getFax() {
-    return fax;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
+	public String getEmail() {
+		return email;
+	}
+	
 }

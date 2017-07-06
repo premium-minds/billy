@@ -23,6 +23,6 @@ import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 
 public interface BillyDataExtractor<T extends GenericInvoiceData> {
 
-  public T extract(UID uidDoc) throws ExportServiceException;
+	public T extract(UID uidDoc) throws ExportServiceException;
 
 }

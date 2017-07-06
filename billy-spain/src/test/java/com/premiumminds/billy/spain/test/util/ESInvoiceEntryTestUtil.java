@@ -34,87 +34,108 @@ import com.premiumminds.billy.spain.util.Contexts;
 
 public class ESInvoiceEntryTestUtil {
 
-  private static final BigDecimal AMOUNT = new BigDecimal(20);
-  private static final Currency CURRENCY = Currency.getInstance("EUR");
-  private static final BigDecimal QUANTITY = new BigDecimal("1");
+	private static final BigDecimal	AMOUNT		= new BigDecimal(20);
+	private static final Currency	CURRENCY	= Currency.getInstance("EUR");
+	private static final BigDecimal	QUANTITY	= new BigDecimal("1");
 
-  private Injector injector;
-  private ESProductTestUtil product;
-  private Contexts contexts;
-  private ESRegionContext context;
-  private ESShippingPointTestUtil shippingPoint;
+	private Injector				injector;
+	private ESProductTestUtil		product;
+	private Contexts				contexts;
+	private ESRegionContext			context;
+	private ESShippingPointTestUtil	shippingPoint;
 
-  public ESInvoiceEntryTestUtil(Injector injector) {
-    this.injector = injector;
-    this.product = new ESProductTestUtil(injector);
-    this.contexts = new Contexts(injector);
-    this.shippingPoint = new ESShippingPointTestUtil(injector);
-  }
+	public ESInvoiceEntryTestUtil(Injector injector) {
+		this.injector = injector;
+		this.product = new ESProductTestUtil(injector);
+		this.contexts = new Contexts(injector);
+		this.shippingPoint = new ESShippingPointTestUtil(injector);
+	}
 
-  public ESInvoiceEntry.Builder getInvoiceEntryBuilder(ESProductEntity product) {
-    ESInvoiceEntry.Builder invoiceEntryBuilder = this.injector
-        .getInstance(ESInvoiceEntry.Builder.class);
-    ESShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-    this.context = this.contexts.spain().allRegions();
+	public ESInvoiceEntry.Builder getInvoiceEntryBuilder(ESProductEntity product) {
+		ESInvoiceEntry.Builder invoiceEntryBuilder = this.injector
+				.getInstance(ESInvoiceEntry.Builder.class);
+		ESShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
+		this.context = this.contexts.spain().allRegions();
 
-    invoiceEntryBuilder.clear();
+		invoiceEntryBuilder.clear();
 
-    invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESInvoiceEntryTestUtil.AMOUNT)
-        .setTaxPointDate(new Date()).setDescription(product.getDescription())
-        .setQuantity(ESInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-        .setProductUID(product.getUID()).setContextUID(this.context.getUID())
-        .setShippingOrigin(originBuilder).setCurrency(CURRENCY);
+		invoiceEntryBuilder
+				.setUnitAmount(AmountType.WITH_TAX,
+						ESInvoiceEntryTestUtil.AMOUNT)
+				.setTaxPointDate(new Date())
+				.setDescription(product.getDescription())
+				.setQuantity(ESInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder)
+				.setCurrency(CURRENCY);
 
-    return invoiceEntryBuilder;
+		return invoiceEntryBuilder;
 
-  }
+	}
+	
+	private ManualBuilder getManualInvoiceEntryBuilder(ESProductEntity product) {
+		ESInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.injector
+				.getInstance(ESInvoiceEntry.ManualBuilder.class);
+		ESShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
+		this.context = this.contexts.spain().allRegions();
+	
+		invoiceEntryBuilder.clear();
+	
+		invoiceEntryBuilder
+				.setUnitAmount(AmountType.WITH_TAX,
+						ESInvoiceEntryTestUtil.AMOUNT)
+				.setTaxPointDate(new Date())
+				.setDescription(product.getDescription())
+				.setQuantity(ESInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder)
+				.setCurrency(CURRENCY);
+	
+		return invoiceEntryBuilder;
+	}
 
-  private ManualBuilder getManualInvoiceEntryBuilder(ESProductEntity product) {
-    ESInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.injector
-        .getInstance(ESInvoiceEntry.ManualBuilder.class);
-    ESShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-    this.context = this.contexts.spain().allRegions();
+	public ESInvoiceEntry.Builder getInvoiceEntryBuilder() {
+		ESProductEntity newProduct = this.product.getProductEntity();
+		return this.getInvoiceEntryBuilder((ESProductEntity) this.injector
+				.getInstance(DAOESProduct.class).create(newProduct));
+	}
+	
+	public ManualBuilder getManualInvoiceEntryBuilder() {
+		ESProductEntity newProduct = this.product.getProductEntity();
+		return this.getManualInvoiceEntryBuilder((ESProductEntity) this.injector
+				.getInstance(DAOESProduct.class).create(newProduct));
+	}
+	
+	public ESInvoiceEntry.Builder getInvoiceOtherRegionsEntryBuilder() {
+		ESProductEntity product = (ESProductEntity) this.injector
+				.getInstance(DAOESProduct.class).create(this.product.getOtherRegionProductEntity());
+		this.context = this.contexts.canaryIslands().staCruzDeTenerife().getParentContext();
 
-    invoiceEntryBuilder.clear();
+		ESInvoiceEntry.Builder invoiceEntryBuilder = this.injector
+				.getInstance(ESInvoiceEntry.Builder.class);
+		ESShippingPoint.Builder originBuilder = this.shippingPoint
+				.getShippingPointBuilder();
 
-    invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESInvoiceEntryTestUtil.AMOUNT)
-        .setTaxPointDate(new Date()).setDescription(product.getDescription())
-        .setQuantity(ESInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-        .setProductUID(product.getUID()).setContextUID(this.context.getUID())
-        .setShippingOrigin(originBuilder).setCurrency(CURRENCY);
+		invoiceEntryBuilder.clear();
 
-    return invoiceEntryBuilder;
-  }
+		invoiceEntryBuilder
+				.setUnitAmount(AmountType.WITHOUT_TAX,
+						ESInvoiceEntryTestUtil.AMOUNT)
+				.setTaxPointDate(new Date())
+				.setDescription(product.getDescription())
+				.setQuantity(ESInvoiceEntryTestUtil.QUANTITY)
+				.setUnitOfMeasure(product.getUnitOfMeasure())
+				.setProductUID(product.getUID())
+				.setContextUID(this.context.getUID())
+				.setShippingOrigin(originBuilder)
+				.setCurrency(Currency.getInstance("EUR"));
 
-  public ESInvoiceEntry.Builder getInvoiceEntryBuilder() {
-    ESProductEntity newProduct = this.product.getProductEntity();
-    return this.getInvoiceEntryBuilder(
-        (ESProductEntity) this.injector.getInstance(DAOESProduct.class).create(newProduct));
-  }
-
-  public ManualBuilder getManualInvoiceEntryBuilder() {
-    ESProductEntity newProduct = this.product.getProductEntity();
-    return this.getManualInvoiceEntryBuilder(
-        (ESProductEntity) this.injector.getInstance(DAOESProduct.class).create(newProduct));
-  }
-
-  public ESInvoiceEntry.Builder getInvoiceOtherRegionsEntryBuilder() {
-    ESProductEntity product = (ESProductEntity) this.injector.getInstance(DAOESProduct.class)
-        .create(this.product.getOtherRegionProductEntity());
-    this.context = this.contexts.canaryIslands().staCruzDeTenerife().getParentContext();
-
-    ESInvoiceEntry.Builder invoiceEntryBuilder = this.injector
-        .getInstance(ESInvoiceEntry.Builder.class);
-    ESShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-
-    invoiceEntryBuilder.clear();
-
-    invoiceEntryBuilder.setUnitAmount(AmountType.WITHOUT_TAX, ESInvoiceEntryTestUtil.AMOUNT)
-        .setTaxPointDate(new Date()).setDescription(product.getDescription())
-        .setQuantity(ESInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-        .setProductUID(product.getUID()).setContextUID(this.context.getUID())
-        .setShippingOrigin(originBuilder).setCurrency(Currency.getInstance("EUR"));
-
-    return invoiceEntryBuilder;
-  }
+		return invoiceEntryBuilder;
+	}
 }

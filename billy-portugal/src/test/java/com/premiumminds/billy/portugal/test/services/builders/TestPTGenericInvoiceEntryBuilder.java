@@ -41,62 +41,80 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntryEn
 
 public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 
-  private static final String PT_GENERIC_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
-      + "PTGenericInvoiceEntry.yml";
-  private static final String PT_GENERIC_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
-      + "PTGenericInvoice.yml";
+	private static final String	PT_GENERIC_INVOICE_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																		+ "PTGenericInvoiceEntry.yml";
+	private static final String	PT_GENERIC_INVOICE_YML			= AbstractTest.YML_CONFIGS_DIR
+																		+ "PTGenericInvoice.yml";
 
-  @Test
-  public void doTest() {
-    MockPTGenericInvoiceEntryEntity mock = this.createMockEntity(
-        MockPTGenericInvoiceEntryEntity.class,
-        TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_ENTRY_YML);
+	@Test
+	public void doTest() {
+		MockPTGenericInvoiceEntryEntity mock = this.createMockEntity(
+				MockPTGenericInvoiceEntryEntity.class,
+				TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_ENTRY_YML);
 
-    mock.currency = Currency.getInstance("EUR");
+		mock.currency = Currency.getInstance("EUR");
 
-    Mockito.when(this.getInstance(DAOPTGenericInvoiceEntry.class).getEntityInstance())
-        .thenReturn(new MockPTGenericInvoiceEntryEntity());
+		Mockito.when(
+				this.getInstance(DAOPTGenericInvoiceEntry.class)
+						.getEntityInstance()).thenReturn(
+				new MockPTGenericInvoiceEntryEntity());
 
-    MockPTGenericInvoiceEntity mockInvoice = this.createMockEntity(MockPTGenericInvoiceEntity.class,
-        TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_YML);
+		MockPTGenericInvoiceEntity mockInvoice = this.createMockEntity(
+				MockPTGenericInvoiceEntity.class,
+				TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_YML);
 
-    Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Matchers.any(UID.class)))
-        .thenReturn(mockInvoice);
+		Mockito.when(
+				this.getInstance(DAOPTGenericInvoice.class).get(
+						Matchers.any(UID.class))).thenReturn(mockInvoice);
 
-    Mockito.when(this.getInstance(DAOPTProduct.class).get(Matchers.any(UID.class)))
-        .thenReturn((PTProductEntity) mock.getProduct());
+		Mockito.when(
+				this.getInstance(DAOPTProduct.class).get(
+						Matchers.any(UID.class))).thenReturn(
+				(PTProductEntity) mock.getProduct());
 
-    Mockito
-        .when(this.getInstance(DAOPTRegionContext.class)
-            .isSubContext(Matchers.any(PTRegionContext.class), Matchers.any(PTRegionContext.class)))
-        .thenReturn(true);
+		Mockito.when(
+				this.getInstance(DAOPTRegionContext.class).isSubContext(
+						Matchers.any(PTRegionContext.class),
+						Matchers.any(PTRegionContext.class))).thenReturn(true);
 
-    mock.getDocumentReferences().add(mockInvoice);
+		mock.getDocumentReferences().add(mockInvoice);
 
-    PTGenericInvoiceEntry.Builder builder = this.getInstance(PTGenericInvoiceEntry.Builder.class);
+		PTGenericInvoiceEntry.Builder builder = this
+				.getInstance(PTGenericInvoiceEntry.Builder.class);
 
-    builder.setDescription(mock.getDescription())
-        .addDocumentReferenceUID(mock.getDocumentReferences().get(0).getUID())
-        .setQuantity(mock.getQuantity()).setShippingCostsAmount(mock.getShippingCostsAmount())
-        .setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
-        .setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
-        .setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"));
+		builder.setDescription(mock.getDescription())
+				.addDocumentReferenceUID(
+						mock.getDocumentReferences().get(0).getUID())
+				.setQuantity(mock.getQuantity())
+				.setShippingCostsAmount(mock.getShippingCostsAmount())
+				.setUnitAmount(AmountType.WITH_TAX,
+						mock.getUnitAmountWithTax())
+				.setUnitOfMeasure(mock.getUnitOfMeasure())
+				.setProductUID(mock.getProduct().getUID())
+				.setTaxPointDate(mock.getTaxPointDate())
+				.setCurrency(Currency.getInstance("EUR"));
 
-    PTGenericInvoiceEntry entry = builder.build();
+		PTGenericInvoiceEntry entry = builder.build();
 
-    if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
-      Assert.assertTrue(
-          mock.getUnitAmountWithoutTax().compareTo(entry.getUnitAmountWithoutTax()) == 0);
-    } else {
-      Assert.assertTrue(mock.getUnitAmountWithTax().compareTo(entry.getUnitAmountWithTax()) == 0);
-    }
+		if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
+			Assert.assertTrue(mock.getUnitAmountWithoutTax().compareTo(
+					entry.getUnitAmountWithoutTax()) == 0);
+		} else {
+			Assert.assertTrue(mock.getUnitAmountWithTax().compareTo(
+					entry.getUnitAmountWithTax()) == 0);
+		}
 
-    Assert.assertTrue(mock.getUnitDiscountAmount().compareTo(entry.getUnitDiscountAmount()) == 0);
+		Assert.assertTrue(mock.getUnitDiscountAmount().compareTo(
+				entry.getUnitDiscountAmount()) == 0);
 
-    Assert.assertTrue(mock.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
-    Assert.assertTrue(mock.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
-    Assert.assertTrue(mock.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()) == 0);
-    Assert.assertTrue(mock.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
-    Assert.assertTrue(mock.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
-  }
+		Assert.assertTrue(mock.getUnitTaxAmount().compareTo(
+				entry.getUnitTaxAmount()) == 0);
+		Assert.assertTrue(mock.getAmountWithTax().compareTo(
+				entry.getAmountWithTax()) == 0);
+		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
+				entry.getAmountWithoutTax()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
+		Assert.assertTrue(mock.getDiscountAmount().compareTo(
+				entry.getDiscountAmount()) == 0);
+	}
 }

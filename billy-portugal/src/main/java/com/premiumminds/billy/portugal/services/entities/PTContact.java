@@ -26,13 +26,14 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTContactBuilderIm
 
 public interface PTContact extends Contact {
 
-  public static class Builder extends PTContactBuilderImpl<Builder, PTContact> {
+	public static class Builder extends
+		PTContactBuilderImpl<Builder, PTContact> {
 
-    @Inject
-    public Builder(DAOPTContact daoPTContact) {
-      super(daoPTContact);
-    }
+		@Inject
+		public Builder(DAOPTContact daoPTContact) {
+			super(daoPTContact);
+		}
 
-  }
+	}
 
 }

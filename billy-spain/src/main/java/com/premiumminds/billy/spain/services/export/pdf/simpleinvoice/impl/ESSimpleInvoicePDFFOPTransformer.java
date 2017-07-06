@@ -30,59 +30,65 @@ import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransfor
 import com.premiumminds.billy.spain.services.export.pdf.ESSimpleInvoicePDFTransformer;
 import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoiceTemplateBundle;
 
-public class ESSimpleInvoicePDFFOPTransformer extends
-    ESAbstractFOPPDFTransformer<ESSimpleInvoiceData> implements ESSimpleInvoicePDFTransformer {
+public class ESSimpleInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESSimpleInvoiceData> 
+implements ESSimpleInvoicePDFTransformer {
+	
+	public static final String PARAM_KEYS_ROOT = "invoice";
 
-  public static final String PARAM_KEYS_ROOT = "invoice";
-
-  public ESSimpleInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath,
-      InputStream xsltFileStream) {
-
-    super(ESSimpleInvoiceData.class, mathContext, logoImagePath, xsltFileStream);
-  }
-
-  public ESSimpleInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream) {
-
-    this(BillyMathContext.get(), logoImagePath, xsltFileStream);
-  }
-
-  public ESSimpleInvoicePDFFOPTransformer(ESSimpleInvoiceTemplateBundle bundle) {
-    super(ESSimpleInvoiceData.class, BillyMathContext.get(), bundle);
-  }
-
-  @Override
-  protected ParamsTree<String, String> getNewParamsTree() {
-    return new ParamsTree<String, String>(PARAM_KEYS_ROOT);
-  }
-
-  @Override
-  public void setHeader(ParamsTree<String, String> params, ESSimpleInvoiceData entity) {
-    params.getRoot().addChild(ParamKeys.ID, entity.getNumber());
-
-    if (null != entity.getPayments()) {
-      for (PaymentData p : entity.getPayments()) {
-        params.getRoot().addChild(ParamKeys.INVOICE_PAYMETHOD,
-            getPaymentMechanismTranslation(p.getPaymentMethod()));
-      }
+	public ESSimpleInvoicePDFFOPTransformer(
+			MathContext mathContext,
+			String logoImagePath,
+			InputStream xsltFileStream) {
+		
+		super(ESSimpleInvoiceData.class, mathContext, logoImagePath, xsltFileStream);
+	}
+	
+	public ESSimpleInvoicePDFFOPTransformer(
+			String logoImagePath,
+			InputStream xsltFileStream) {
+		
+		this(BillyMathContext.get(), logoImagePath, xsltFileStream);
+	}
+	
+	public ESSimpleInvoicePDFFOPTransformer(ESSimpleInvoiceTemplateBundle bundle) {
+        super(ESSimpleInvoiceData.class, BillyMathContext.get(), bundle);
     }
+	
+	@Override
+	protected ParamsTree<String, String> getNewParamsTree() {
+		return new ParamsTree<String, String>(PARAM_KEYS_ROOT);
+	}
 
-    params.getRoot().addChild(ParamKeys.EMISSION_DATE, DATE_FORMAT.format(entity.getDate()));
-  }
+	@Override
+	public void setHeader(ParamsTree<String, String> params, ESSimpleInvoiceData entity) {
+		params.getRoot().addChild(ParamKeys.ID, entity.getNumber());
 
-  @Override
-  protected void setCustomer(ParamsTree<String, String> params, ESSimpleInvoiceData entity) {
-    Node<String, String> customer = params.getRoot().addChild(ParamKeys.CUSTOMER);
-    customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, getCustomerFinancialId(entity));
-  }
+		if (null != entity.getPayments()) {
+			for(PaymentData p : entity.getPayments()) {
+			params.getRoot().addChild(
+					ParamKeys.INVOICE_PAYMETHOD,
+					getPaymentMechanismTranslation(p.getPaymentMethod()));
+			}
+		}
 
-  @Override
-  protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
-    // Do nothing
-  }
+		params.getRoot().addChild(ParamKeys.EMISSION_DATE,
+		        DATE_FORMAT.format(entity.getDate()));
+	}
 
-  @Override
-  public String getCustomerFinancialId(ESSimpleInvoiceData entity) {
-    return entity.getCustomer().getTaxRegistrationNumber();
-  }
+	@Override
+	protected void setCustomer(ParamsTree<String, String> params, ESSimpleInvoiceData entity) {
+		Node<String, String> customer = params.getRoot().addChild(ParamKeys.CUSTOMER);
+		customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, getCustomerFinancialId(entity));
+	}
+
+	@Override
+	protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
+		//Do nothing
+	}
+
+	@Override
+	public String getCustomerFinancialId(ESSimpleInvoiceData entity) {
+		return entity.getCustomer().getTaxRegistrationNumber();
+	}
 
 }

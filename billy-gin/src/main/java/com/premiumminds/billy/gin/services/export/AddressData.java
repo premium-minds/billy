@@ -19,40 +19,39 @@
 package com.premiumminds.billy.gin.services.export;
 
 public class AddressData {
+	
+	private final String isoCountry;
+	private final String details;
+	private final String city;
+	private final String region;
+	private final String postalCode;
+	
+	public AddressData(String isoCountry, String details, String city, String region, String postalCode) {
+		this.isoCountry = isoCountry;
+		this.details = details;
+		this.city = city;
+		this.region = region;
+		this.postalCode = postalCode;
+	}
 
-  private final String isoCountry;
-  private final String details;
-  private final String city;
-  private final String region;
-  private final String postalCode;
+	public String getISOCountry() {
+		return isoCountry;
+	}
 
-  public AddressData(String isoCountry, String details, String city, String region,
-      String postalCode) {
-    this.isoCountry = isoCountry;
-    this.details = details;
-    this.city = city;
-    this.region = region;
-    this.postalCode = postalCode;
-  }
+	public String getDetails() {
+		return details;
+	}
 
-  public String getISOCountry() {
-    return isoCountry;
-  }
+	public String getCity() {
+		return city;
+	}
 
-  public String getDetails() {
-    return details;
-  }
+	public String getRegion() {
+		return region;
+	}
 
-  public String getCity() {
-    return city;
-  }
-
-  public String getRegion() {
-    return region;
-  }
-
-  public String getPostalCode() {
-    return postalCode;
-  }
-
+	public String getPostalCode() {
+		return postalCode;
+	}
+	
 }

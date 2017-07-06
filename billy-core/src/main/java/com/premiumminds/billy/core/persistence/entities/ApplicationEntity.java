@@ -32,19 +32,19 @@ import com.premiumminds.billy.core.services.entities.Contact;
  */
 public interface ApplicationEntity extends Application, BaseEntity {
 
-  public void setName(String name);
+	public void setName(String name);
 
-  public void setVersion(String version);
+	public void setVersion(String version);
 
-  public void setDeveloperCompanyName(String name);
+	public void setDeveloperCompanyName(String name);
 
-  public void setDeveloperCompanyTaxIdentifier(String id);
+	public void setDeveloperCompanyTaxIdentifier(String id);
 
-  @Override
-  public <T extends Contact> List<T> getContacts();
+	@Override
+	public <T extends Contact> List<T> getContacts();
 
-  public <T extends ContactEntity> void setMainContact(T contact);
+	public <T extends ContactEntity> void setMainContact(T contact);
 
-  public void setWebsiteAddress(String website);
+	public void setWebsiteAddress(String website);
 
 }

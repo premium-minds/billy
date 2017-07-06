@@ -28,19 +28,20 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class PTPersistenceServiceAbstractTest extends PTPersistencyAbstractTest {
 
-  protected PTIssuingParams parameters;
-  protected BillyPortugal billy;
+	protected PTIssuingParams	parameters;
+	protected BillyPortugal billy;
 
-  @Before
-  public void setUpParamenters() {
-    KeyGenerator generator = new KeyGenerator(PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
+	@Before
+	public void setUpParamenters() {
+		KeyGenerator generator = new KeyGenerator(
+				PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
 
-    this.parameters = new PTIssuingParamsImpl();
-    this.parameters.setPrivateKey(generator.getPrivateKey());
-    this.parameters.setPublicKey(generator.getPublicKey());
-    this.parameters.setPrivateKeyVersion("1");
-    this.parameters.setEACCode("31400");
+		this.parameters = new PTIssuingParamsImpl();
+		this.parameters.setPrivateKey(generator.getPrivateKey());
+		this.parameters.setPublicKey(generator.getPublicKey());
+		this.parameters.setPrivateKeyVersion("1");
+		this.parameters.setEACCode("31400");
 
-    billy = getInstance(BillyPortugal.class);
-  }
+		billy = getInstance(BillyPortugal.class);
+	}
 }

@@ -42,90 +42,87 @@ import com.premiumminds.billy.spain.services.persistence.ESInvoicePersistenceSer
 
 public class Invoices {
 
-  private final Injector injector;
-  private final ESInvoicePersistenceService persistenceService;
-  private final DocumentIssuingService issuingService;
-  private final ExportService exportService;
+	private final Injector	injector;
+	private final ESInvoicePersistenceService persistenceService;
+	private final DocumentIssuingService issuingService;
+	private final ExportService exportService;
+	
+	public Invoices(Injector injector) {
+		this.injector = injector;
+		this.persistenceService = getInstance(ESInvoicePersistenceService.class);
+		this.issuingService = injector
+				.getInstance(DocumentIssuingService.class);
+		this.issuingService.addHandler(ESInvoiceEntity.class,
+				this.injector.getInstance(ESInvoiceIssuingHandler.class));
+		this.exportService = getInstance(ExportService.class);
+		
+		this.exportService.addDataExtractor(ESInvoiceData.class, getInstance(ESInvoiceDataExtractor.class));
+		this.exportService.addTransformerMapper(ESInvoicePDFExportRequest.class, ESInvoicePDFFOPTransformer.class);
+	}
 
-  public Invoices(Injector injector) {
-    this.injector = injector;
-    this.persistenceService = getInstance(ESInvoicePersistenceService.class);
-    this.issuingService = injector.getInstance(DocumentIssuingService.class);
-    this.issuingService.addHandler(ESInvoiceEntity.class,
-        this.injector.getInstance(ESInvoiceIssuingHandler.class));
-    this.exportService = getInstance(ExportService.class);
+	public ESInvoice.Builder builder() {
+		return getInstance(ESInvoice.Builder.class);
+	}
 
-    this.exportService.addDataExtractor(ESInvoiceData.class,
-        getInstance(ESInvoiceDataExtractor.class));
-    this.exportService.addTransformerMapper(ESInvoicePDFExportRequest.class,
-        ESInvoicePDFFOPTransformer.class);
-  }
+	public ESInvoice.Builder builder(ESInvoice invoice) {
+		ESInvoice.Builder builder = getInstance(ESInvoice.Builder.class);
+		BuilderManager.setTypeInstance(builder, invoice);
+		return builder;
+	}
+	
+	public ESInvoiceEntry.Builder entryBuilder() {
+		return getInstance(ESInvoiceEntry.Builder.class);
+	}
 
-  public ESInvoice.Builder builder() {
-    return getInstance(ESInvoice.Builder.class);
-  }
+	public ESInvoiceEntry.Builder entrybuilder(ESInvoiceEntry entry) {
+		ESInvoiceEntry.Builder builder = getInstance(ESInvoiceEntry.Builder.class);
+		BuilderManager.setTypeInstance(builder, entry);
+		return builder;
+	}
 
-  public ESInvoice.Builder builder(ESInvoice invoice) {
-    ESInvoice.Builder builder = getInstance(ESInvoice.Builder.class);
-    BuilderManager.setTypeInstance(builder, invoice);
-    return builder;
-  }
+	public ESInvoicePersistenceService persistence() {
+		return this.persistenceService;
+	}
 
-  public ESInvoiceEntry.Builder entryBuilder() {
-    return getInstance(ESInvoiceEntry.Builder.class);
-  }
+	public ESInvoice issue(ESInvoice.Builder builder, ESIssuingParams params) throws DocumentIssuingException {
+		return issuingService.issue(builder, params);
+	}
 
-  public ESInvoiceEntry.Builder entrybuilder(ESInvoiceEntry entry) {
-    ESInvoiceEntry.Builder builder = getInstance(ESInvoiceEntry.Builder.class);
-    BuilderManager.setTypeInstance(builder, entry);
-    return builder;
-  }
-
-  public ESInvoicePersistenceService persistence() {
-    return this.persistenceService;
-  }
-
-  public ESInvoice issue(ESInvoice.Builder builder, ESIssuingParams params)
-      throws DocumentIssuingException {
-    return issuingService.issue(builder, params);
-  }
-
-  public InputStream pdfExport(ESInvoicePDFExportRequest request) throws ExportServiceException {
-    return exportService.exportToStream(request);
-  }
-
-  public void pdfExport(UID uidDoc, BillyPDFTransformer<ESInvoiceData> dataTransformer,
-      OutputStream outputStream) throws ExportServiceException {
-
-    exportService.export(uidDoc, dataTransformer, outputStream);
-  }
-
-  public ESInvoice.ManualBuilder manualBuilder() {
-    return getInstance(ESInvoice.ManualBuilder.class);
-  }
-
-  public ESInvoice.ManualBuilder manualBuilder(ESInvoice invoice) {
-    ESInvoice.ManualBuilder builder = getInstance(ESInvoice.ManualBuilder.class);
-    BuilderManager.setTypeInstance(builder, invoice);
-    return builder;
-  }
-
-  public ESInvoiceEntry.ManualBuilder manualEntryBuilder() {
-    return getInstance(ESInvoiceEntry.ManualBuilder.class);
-  }
-
-  public ESInvoiceEntry.ManualBuilder manualEntrybuilder(ESInvoiceEntry entry) {
-    ESInvoiceEntry.ManualBuilder builder = getInstance(ESInvoiceEntry.ManualBuilder.class);
-    BuilderManager.setTypeInstance(builder, entry);
-    return builder;
-  }
-
-  public ESInvoice issue(ESInvoice.ManualBuilder builder, ESIssuingParams params)
-      throws DocumentIssuingException {
-    return issuingService.issue(builder, params);
-  }
-
-  private <T> T getInstance(Class<T> clazz) {
-    return this.injector.getInstance(clazz);
-  }
+	public InputStream pdfExport(ESInvoicePDFExportRequest  request) throws ExportServiceException {
+		return exportService.exportToStream(request);
+	}
+	
+	public void pdfExport(UID uidDoc, BillyPDFTransformer<ESInvoiceData> dataTransformer, OutputStream outputStream) 
+            throws ExportServiceException {
+        
+        exportService.export(uidDoc, dataTransformer, outputStream);
+    }
+	
+	public ESInvoice.ManualBuilder manualBuilder() {
+		return getInstance(ESInvoice.ManualBuilder.class);
+	}
+	
+	public ESInvoice.ManualBuilder manualBuilder(ESInvoice invoice) {
+		ESInvoice.ManualBuilder builder = getInstance(ESInvoice.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, invoice);
+		return builder;
+	}
+	
+	public ESInvoiceEntry.ManualBuilder manualEntryBuilder() {
+		return getInstance(ESInvoiceEntry.ManualBuilder.class);
+	}
+	
+	public ESInvoiceEntry.ManualBuilder manualEntrybuilder(ESInvoiceEntry entry) {
+		ESInvoiceEntry.ManualBuilder builder = getInstance(ESInvoiceEntry.ManualBuilder.class);
+		BuilderManager.setTypeInstance(builder, entry);
+		return builder;
+	}
+	
+	public ESInvoice issue(ESInvoice.ManualBuilder builder, ESIssuingParams params) throws DocumentIssuingException {
+		return issuingService.issue(builder, params);
+	}
+	
+	private <T> T getInstance(Class<T> clazz) {
+		return this.injector.getInstance(clazz);
+	}
 }

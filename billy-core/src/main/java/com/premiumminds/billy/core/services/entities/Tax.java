@@ -30,38 +30,38 @@ import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
 
 public interface Tax extends Entity {
 
-  public static class Builder extends TaxBuilderImpl<Builder, Tax> {
+	public static class Builder extends TaxBuilderImpl<Builder, Tax> {
 
-    @Inject
-    public Builder(DAOTax daoTax, DAOContext daoContext) {
-      super(daoTax, daoContext);
-    }
-  }
+		@Inject
+		public Builder(DAOTax daoTax, DAOContext daoContext) {
+			super(daoTax, daoContext);
+		}
+	}
 
-  public static enum TaxRateType {
-    PERCENTAGE, FLAT, NONE
-  }
+	public static enum TaxRateType {
+		PERCENTAGE, FLAT, NONE
+	}
 
-  public <T extends Context> T getContext();
+	public <T extends Context> T getContext();
 
-  public String getDesignation();
+	public String getDesignation();
 
-  public String getDescription();
+	public String getDescription();
 
-  public String getCode();
+	public String getCode();
 
-  public BigDecimal getValue();
+	public BigDecimal getValue();
 
-  public Date getValidFrom();
+	public Date getValidFrom();
 
-  public Date getValidTo();
+	public Date getValidTo();
 
-  public TaxRateType getTaxRateType();
+	public TaxRateType getTaxRateType();
 
-  public BigDecimal getPercentageRateValue();
+	public BigDecimal getPercentageRateValue();
 
-  public BigDecimal getFlatRateAmount();
+	public BigDecimal getFlatRateAmount();
 
-  public Currency getCurrency();
+	public Currency getCurrency();
 
 }

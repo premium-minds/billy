@@ -36,136 +36,136 @@ import com.premiumminds.billy.portugal.services.entities.PTPayment;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
 public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity
-    implements PTGenericInvoiceEntity {
+	implements PTGenericInvoiceEntity {
 
-  private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-  @Column(name = "CANCELLED")
-  protected boolean cancelled;
+	@Column(name = "CANCELLED")
+	protected boolean			cancelled;
 
-  @Column(name = "EAC_CODE")
-  protected String eacCode;
+	@Column(name = "EAC_CODE")
+	protected String			eacCode;
 
-  @Column(name = "BILLED")
-  protected boolean billed;
+	@Column(name = "BILLED")
+	protected boolean			billed;
 
-  @Column(name = "CHANGE_REASON")
-  protected String reason;
+	@Column(name = "CHANGE_REASON")
+	protected String			reason;
 
-  @Column(name = "HASH")
-  protected String hash;
+	@Column(name = "HASH")
+	protected String			hash;
 
-  @Column(name = "SOURCE_HASH")
-  protected String sourceHash;
+	@Column(name = "SOURCE_HASH")
+	protected String			sourceHash;
 
-  @Column(name = "HASH_CONTROL")
-  protected String hashControl;
+	@Column(name = "HASH_CONTROL")
+	protected String			hashControl;
 
-  @Column(name = "SOURCE_BILLING")
-  protected SourceBilling sourceBilling;
+	@Column(name = "SOURCE_BILLING")
+	protected SourceBilling		sourceBilling;
 
-  @Column(name = "INVOICE_TYPE")
-  protected TYPE type;
+	@Column(name = "INVOICE_TYPE")
+	protected TYPE				type;
 
-  @Override
-  public TYPE getType() {
-    return this.type;
-  }
+	@Override
+	public TYPE getType() {
+		return this.type;
+	}
 
-  @Override
-  public void setType(TYPE type) {
-    this.type = type;
-  }
+	@Override
+	public void setType(TYPE type) {
+		this.type = type;
+	}
 
-  @Override
-  public boolean isCancelled() {
-    return this.cancelled;
-  }
+	@Override
+	public boolean isCancelled() {
+		return this.cancelled;
+	}
 
-  @Override
-  public boolean isBilled() {
-    return this.billed;
-  }
+	@Override
+	public boolean isBilled() {
+		return this.billed;
+	}
 
-  @Override
-  public String getChangeReason() {
-    return reason;
-  }
+	@Override
+	public String getChangeReason() {
+		return reason;
+	}
 
-  @Override
-  public String getHash() {
-    return this.hash;
-  }
+	@Override
+	public String getHash() {
+		return this.hash;
+	}
 
-  @Override
-  public String getSourceHash() {
-    return this.sourceHash;
-  }
+	@Override
+	public String getSourceHash() {
+		return this.sourceHash;
+	}
 
-  @Override
-  public String getHashControl() {
-    return hashControl;
-  }
+	@Override
+	public String getHashControl() {
+		return hashControl;
+	}
 
-  @Override
-  public SourceBilling getSourceBilling() {
-    return this.sourceBilling;
-  }
+	@Override
+	public SourceBilling getSourceBilling() {
+		return this.sourceBilling;
+	}
 
-  @Override
-  public String getEACCode() {
-    return eacCode;
-  }
+	@Override
+	public String getEACCode() {
+		return eacCode;
+	}
 
-  @Override
-  public void setCancelled(boolean cancelled) {
-    this.cancelled = cancelled;
-  }
+	@Override
+	public void setCancelled(boolean cancelled) {
+		this.cancelled = cancelled;
+	}
 
-  @Override
-  public void setBilled(boolean billed) {
-    this.billed = billed;
-  }
+	@Override
+	public void setBilled(boolean billed) {
+		this.billed = billed;
+	}
 
-  @Override
-  public void setChangeReason(String reason) {
-    this.reason = reason;
-  }
+	@Override
+	public void setChangeReason(String reason) {
+		this.reason = reason;
+	}
 
-  @Override
-  public void setHash(String hash) {
-    this.hash = hash;
-  }
+	@Override
+	public void setHash(String hash) {
+		this.hash = hash;
+	}
 
-  @Override
-  public void setSourceHash(String source) {
-    this.sourceHash = source;
-  }
+	@Override
+	public void setSourceHash(String source) {
+		this.sourceHash = source;
+	}
 
-  @Override
-  public void setHashControl(String hashControl) {
-    this.hashControl = hashControl;
-  }
+	@Override
+	public void setHashControl(String hashControl) {
+		this.hashControl = hashControl;
+	}
 
-  @SuppressWarnings({ "unchecked" })
-  @Override
-  public List<? extends PTGenericInvoiceEntry> getEntries() {
-    return (List<PTGenericInvoiceEntry>) super.getEntries();
-  }
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<? extends PTGenericInvoiceEntry> getEntries() {
+		return (List<PTGenericInvoiceEntry>) super.getEntries();
+	}
 
-  @Override
-  public void setSourceBilling(SourceBilling sourceBilling) {
-    this.sourceBilling = sourceBilling;
-  }
+	@Override
+	public void setSourceBilling(SourceBilling sourceBilling) {
+		this.sourceBilling = sourceBilling;
+	}
 
-  @Override
-  public void setEACCode(String eacCode) {
-    this.eacCode = eacCode;
-  }
+	@Override
+	public void setEACCode(String eacCode) {
+		this.eacCode = eacCode;
+	}
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public List<PTPayment> getPayments() {
-    return (List<PTPayment>) super.getPayments();
-  }
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PTPayment> getPayments() {
+		return (List<PTPayment>) super.getPayments();
+	}
 }

@@ -23,23 +23,24 @@ import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 
-public class MockESRegionContextEntity extends MockContextEntity implements ESRegionContextEntity {
+public class MockESRegionContextEntity extends MockContextEntity implements
+	ESRegionContextEntity {
 
-  private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-  public String regionCode;
+	public String				regionCode;
 
-  public MockESRegionContextEntity() {
-  }
+	public MockESRegionContextEntity() {
+	}
 
-  @Override
-  public <T extends ContextEntity> void setParentContext(T parent) {
-    super.setParentContext(parent);
-  }
+	@Override
+	public <T extends ContextEntity> void setParentContext(T parent) {
+		super.setParentContext(parent);
+	}
 
-  @SuppressWarnings("unchecked")
-  @Override
-  public Context getParentContext() {
-    return super.getParentContext();
-  }
+	@SuppressWarnings("unchecked")
+	@Override
+	public Context getParentContext() {
+		return super.getParentContext();
+	}
 }

@@ -21,6 +21,6 @@ package com.premiumminds.billy.spain.services.builders;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 
 public interface ESInvoiceEntryBuilder<TBuilder extends ESInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends ESInvoiceEntry>
-    extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+	extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
 }

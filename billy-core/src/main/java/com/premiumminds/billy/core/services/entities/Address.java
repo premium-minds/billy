@@ -30,43 +30,43 @@ import com.premiumminds.billy.core.services.builders.impl.AddressBuilderImpl;
  */
 public interface Address extends Entity {
 
-  /**
-   * @author Francisco Vargas
-   * 
-   *         The builder for and {@link Address} instance.
-   */
-  public static class Builder extends AddressBuilderImpl<Builder, Address> {
+	/**
+	 * @author Francisco Vargas
+	 * 
+	 *         The builder for and {@link Address} instance.
+	 */
+	public static class Builder extends AddressBuilderImpl<Builder, Address> {
 
-    @Inject
-    public Builder(DAOAddress daoAddress) {
-      super(daoAddress);
-    }
-  }
+		@Inject
+		public Builder(DAOAddress daoAddress) {
+			super(daoAddress);
+		}
+	}
 
-  public String getStreetName();
+	public String getStreetName();
 
-  public String getNumber();
+	public String getNumber();
 
-  public String getDetails();
+	public String getDetails();
 
-  public String getBuilding();
+	public String getBuilding();
 
-  public String getCity();
+	public String getCity();
 
-  public String getPostalCode();
+	public String getPostalCode();
 
-  /**
-   * Gets the ISO 3166-2 code for the country region
-   * 
-   * @return The region ISO code
-   */
-  public String getRegion();
+	/**
+	 * Gets the ISO 3166-2 code for the country region
+	 * 
+	 * @return The region ISO code
+	 */
+	public String getRegion();
 
-  /**
-   * Gets the address country ISO 3166-1 code.
-   * 
-   * @return The country iso code.
-   */
-  public String getISOCountry();
+	/**
+	 * Gets the address country ISO 3166-1 code.
+	 * 
+	 * @return The country iso code.
+	 */
+	public String getISOCountry();
 
 }

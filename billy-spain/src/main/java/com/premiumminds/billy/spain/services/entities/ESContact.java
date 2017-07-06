@@ -26,13 +26,14 @@ import com.premiumminds.billy.spain.services.builders.impl.ESContactBuilderImpl;
 
 public interface ESContact extends Contact {
 
-  public static class Builder extends ESContactBuilderImpl<Builder, ESContact> {
+	public static class Builder extends
+		ESContactBuilderImpl<Builder, ESContact> {
 
-    @Inject
-    public Builder(DAOESContact daoESContact) {
-      super(daoESContact);
-    }
+		@Inject
+		public Builder(DAOESContact daoESContact) {
+			super(daoESContact);
+		}
 
-  }
+	}
 
 }

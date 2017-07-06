@@ -22,20 +22,20 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 
 public class ESDocumentIssuingException extends DocumentIssuingException {
 
-  private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-  public ESDocumentIssuingException() {
-  }
+	public ESDocumentIssuingException() {
+	}
 
-  public ESDocumentIssuingException(String message) {
-    super(message);
-  }
+	public ESDocumentIssuingException(String message) {
+		super(message);
+	}
 
-  public ESDocumentIssuingException(Throwable t) {
-    super(t);
-  }
+	public ESDocumentIssuingException(Throwable t) {
+		super(t);
+	}
 
-  public ESDocumentIssuingException(String message, Throwable t) {
-    super(message, t);
-  }
+	public ESDocumentIssuingException(String message, Throwable t) {
+		super(message, t);
+	}
 }
