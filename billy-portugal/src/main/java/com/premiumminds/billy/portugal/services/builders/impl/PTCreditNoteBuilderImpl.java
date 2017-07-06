@@ -22,8 +22,8 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
@@ -38,8 +38,8 @@ public class PTCreditNoteBuilderImpl<TBuilder extends PTCreditNoteBuilderImpl<TB
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    public PTCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote, DAOPTBusiness daoPTBusiness,
-            DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+    public <TDAO extends AbstractDAOPTGenericInvoice<? extends TDocument>> PTCreditNoteBuilderImpl(TDAO daoPTCreditNote,
+            DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
         super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
         this.setSourceBilling(SourceBilling.P);
     }

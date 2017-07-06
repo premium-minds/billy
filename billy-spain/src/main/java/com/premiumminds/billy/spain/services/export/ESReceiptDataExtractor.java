@@ -43,12 +43,7 @@ public class ESReceiptDataExtractor extends AbstractBillyDataExtractor implement
 
     @Override
     public ESReceiptData extract(UID uid) throws ExportServiceException {
-        ESReceiptEntity entity = (ESReceiptEntity) this.daoESReceipt.get(uid); // FIXME:
-        // Fix the
-        // DAOs to
-        // remove
-        // this
-        // cast
+        ESReceiptEntity entity = this.daoESReceipt.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }

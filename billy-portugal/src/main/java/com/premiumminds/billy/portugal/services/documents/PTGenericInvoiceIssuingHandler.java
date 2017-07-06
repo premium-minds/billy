@@ -23,16 +23,12 @@ import java.util.Date;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
-import com.premiumminds.billy.core.services.documents.IssuingParams;
-import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingHandlerImpl;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
@@ -43,8 +39,8 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.util.GenerateHash;
 
-public abstract class PTGenericInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
-        implements DocumentIssuingHandler {
+public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceEntity, P extends PTIssuingParams>
+        implements DocumentIssuingHandler<T, P> {
 
     protected DAOInvoiceSeries daoInvoiceSeries;
 
@@ -60,44 +56,34 @@ public abstract class PTGenericInvoiceIssuingHandler extends DocumentIssuingHand
         }
     }
 
-    @Override
-    public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(T document, P parameters)
-            throws DocumentIssuingException;
-
-    protected <T extends GenericInvoice, D extends DAOGenericInvoice> T issue(final T document,
-            final PTIssuingParams parametersPT, final D daoInvoice, final TYPE invoiceType)
-            throws DocumentIssuingException {
+    protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(final T document, final PTIssuingParams parametersPT,
+            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException {
 
         String series = parametersPT.getInvoiceSeries();
 
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
 
-        PTGenericInvoiceEntity documentEntity = (PTGenericInvoiceEntity) document;
         SourceBilling sourceBilling = ((PTGenericInvoice) document).getSourceBilling();
 
-        ((BaseEntity) document).initializeEntityDates();
+        document.initializeEntityDates();
 
         // If the date is null then the invoice date is the current date
         Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
         Date systemDate = document.getCreateTimestamp();
 
-        // if (systemDate..after(invoiceDate)) {
-        // throw new InvalidInvoiceDateException();
-        // }
-
         Integer seriesNumber = 1;
         String previousHash = null;
 
-        PTGenericInvoiceEntity latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
+        T latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
                 document.getBusiness().getUID().toString());
 
         if (null != latestInvoice) {
             seriesNumber = latestInvoice.getSeriesNumber() + 1;
             previousHash = latestInvoice.getHash();
             Date latestInvoiceDate = latestInvoice.getDate();
-            PTGenericInvoiceIssuingHandler.this.validateDocumentType(invoiceType, latestInvoice.getType(),
-                    invoiceSeriesEntity.getSeries());
+
+            this.validateDocumentType(invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
 
             if (!latestInvoice.getSourceBilling().equals(sourceBilling)) {
                 throw new InvalidSourceBillingException(invoiceSeriesEntity.getSeries(), sourceBilling.toString(),
@@ -117,27 +103,26 @@ public abstract class PTGenericInvoiceIssuingHandler extends DocumentIssuingHand
         String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formatedNumber,
                 document.getAmountWithTax(), previousHash);
 
-        documentEntity.setDate(invoiceDate);
-        documentEntity.setNumber(formatedNumber);
-        documentEntity.setSeries(invoiceSeriesEntity.getSeries());
-        documentEntity.setSeriesNumber(seriesNumber);
-        documentEntity.setHash(newHash);
-        documentEntity.setBilled(false);
-        documentEntity.setCancelled(false);
-        documentEntity.setType(invoiceType);
-        documentEntity.setSourceHash(sourceHash);
-        documentEntity.setHashControl(parametersPT.getPrivateKeyVersion());
-        documentEntity.setEACCode(parametersPT.getEACCode());
-        documentEntity.setCurrency(document.getCurrency());
+        document.setDate(invoiceDate);
+        document.setNumber(formatedNumber);
+        document.setSeries(invoiceSeriesEntity.getSeries());
+        document.setSeriesNumber(seriesNumber);
+        document.setHash(newHash);
+        document.setBilled(false);
+        document.setCancelled(false);
+        document.setType(invoiceType);
+        document.setSourceHash(sourceHash);
+        document.setHashControl(parametersPT.getPrivateKeyVersion());
+        document.setEACCode(parametersPT.getEACCode());
+        document.setCurrency(document.getCurrency());
 
-        daoInvoice.create(documentEntity);
+        daoInvoice.create(document);
 
-        return (T) documentEntity;
+        return document;
 
     }
 
-    private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(final T document, String series,
-            LockModeType lockMode) {
+    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 

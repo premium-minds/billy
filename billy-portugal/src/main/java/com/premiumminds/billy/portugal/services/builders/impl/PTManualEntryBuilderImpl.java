@@ -26,12 +26,12 @@ import javax.validation.ValidationException;
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -39,12 +39,12 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntr
 import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
-public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-        extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>
+public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends PTGenericInvoiceEntry, TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOGenericInvoice<?>>
+        extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
         implements PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-    public PTManualEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTEntry, DAOPTGenericInvoice daoPTInvoice,
-            DAOPTTax daoPTTax, DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+    public PTManualEntryBuilderImpl(TDAOEntry daoPTEntry, TDAOInvoice daoPTInvoice, DAOPTTax daoPTTax,
+            DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
         super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
     }
 

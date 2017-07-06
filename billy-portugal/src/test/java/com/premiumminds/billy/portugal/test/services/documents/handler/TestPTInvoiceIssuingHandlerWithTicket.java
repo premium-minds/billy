@@ -86,7 +86,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
 
     @Test
     public void testIssuedInvoiceSimpleWithTicket() throws DocumentIssuingException {
-        PTInvoice issuedInvoice = (PTInvoice) this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
+        PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
         PTInvoicePersistenceService service = PTAbstractTest.injector.getInstance(PTInvoicePersistenceService.class);
 

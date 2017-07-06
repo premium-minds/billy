@@ -189,6 +189,18 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>com.mysema.maven</groupId>
     			<artifactId>maven-apt-plugin</artifactId>
     			<version>1.0.4</version>
@@ -221,18 +233,4 @@
 		</plugins>
 	</build>
 
-<!-- 	<dependencyManagement> -->
-<!-- 		<dependencies> -->
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.apache.avalon.framework</groupId> -->
-<!-- 				<artifactId>avalon-framework-api</artifactId> -->
-<!-- 				<version>4.3.1</version> -->
-<!-- 			</dependency> -->
-<!-- 			<dependency> -->
-<!-- 				<groupId>org.apache.avalon.framework</groupId> -->
-<!-- 				<artifactId>avalon-framework-impl</artifactId> -->
-<!-- 				<version>4.3.1</version> -->
-<!-- 			</dependency> -->
-<!-- 		</dependencies> -->
-<!-- 	</dependencyManagement> -->
 </project>

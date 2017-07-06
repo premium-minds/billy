@@ -33,7 +33,8 @@ import com.premiumminds.billy.spain.services.builders.ESInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 
 public class ESInvoiceEntryBuilderImpl<TBuilder extends ESInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESInvoiceEntry>
-        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements ESInvoiceEntryBuilder<TBuilder, TEntry> {
+        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESInvoiceEntry, DAOESInvoice>
+        implements ESInvoiceEntryBuilder<TBuilder, TEntry> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 

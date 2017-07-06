@@ -20,15 +20,13 @@ package com.premiumminds.billy.spain.services.builders.impl;
 
 import java.math.BigDecimal;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.spain.exceptions.BillySimpleInvoiceException;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
-import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.builders.ESSimpleInvoiceBuilder;
@@ -37,14 +35,14 @@ import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice.CLIENTTYPE;
 
 public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESInvoiceEntry, TDocument extends ESSimpleInvoice>
-        extends ESInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+        extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
         implements ESSimpleInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    public ESSimpleInvoiceBuilderImpl(DAOESSimpleInvoice daoESSimpleInvoice, DAOESBusiness daoESBusiness,
-            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+    public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESSimpleInvoiceBuilderImpl(
+            TDAO daoESSimpleInvoice, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
+            DAOESSupplier daoESSupplier) {
         super(daoESSimpleInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
     }
 

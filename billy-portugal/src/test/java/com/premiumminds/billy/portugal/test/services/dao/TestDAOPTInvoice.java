@@ -50,9 +50,9 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
         PTInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         PTInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
-        PTInvoiceEntity resultInvoice1 = (PTInvoiceEntity) this.getInstance(DAOPTInvoice.class)
+        PTInvoiceEntity resultInvoice1 = this.getInstance(DAOPTInvoice.class)
                 .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID().toString());
-        PTInvoiceEntity resultInvoice2 = (PTInvoiceEntity) this.getInstance(DAOPTInvoice.class)
+        PTInvoiceEntity resultInvoice2 = this.getInstance(DAOPTInvoice.class)
                 .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID().toString());
 
         PTInvoiceEntity inv3 = this.getNewIssuedInvoice(B1);

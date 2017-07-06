@@ -53,8 +53,7 @@ public class TestESManualInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
     @Test
     public void testIssuedManualInvoiceSimple() throws DocumentIssuingException {
-        ESInvoiceEntity issuedInvoice =
-                (ESInvoiceEntity) this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
+        ESInvoiceEntity issuedInvoice = this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
 
         Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
         Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());

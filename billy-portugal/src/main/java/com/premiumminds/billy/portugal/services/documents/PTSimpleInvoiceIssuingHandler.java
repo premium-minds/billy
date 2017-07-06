@@ -21,15 +21,14 @@ package com.premiumminds.billy.portugal.services.documents;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
-import com.premiumminds.billy.core.services.documents.IssuingParams;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
+import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
-public class PTSimpleInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandler implements DocumentIssuingHandler {
+public class PTSimpleInvoiceIssuingHandler
+        extends PTGenericInvoiceIssuingHandler<PTSimpleInvoiceEntity, PTIssuingParams> {
 
     public final static TYPE INVOICE_TYPE = TYPE.FS;
     private final DAOPTSimpleInvoice daoSimpleInvoice;
@@ -41,11 +40,9 @@ public class PTSimpleInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandle
     }
 
     @Override
-    public <T extends GenericInvoice, P extends IssuingParams> T issue(T document, P parameters)
+    public PTSimpleInvoiceEntity issue(PTSimpleInvoiceEntity document, PTIssuingParams parameters)
             throws DocumentIssuingException {
-        final PTIssuingParams parametersPT = (PTIssuingParams) parameters;
-
-        return this.issue(document, parametersPT, this.daoSimpleInvoice, PTSimpleInvoiceIssuingHandler.INVOICE_TYPE);
+        return this.issue(document, parameters, this.daoSimpleInvoice, PTSimpleInvoiceIssuingHandler.INVOICE_TYPE);
     }
 
 }

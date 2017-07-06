@@ -57,8 +57,7 @@ public class SpainBootstrap {
         if (args.length > 0 && !args[0].isEmpty()) {
             SpainBootstrap.execute(args[0]);
         } else {
-            SpainBootstrap.execute(BillySpain.DEFAULT_PERSISTENCE_UNIT); // backward
-                                                                         // compatibility
+            SpainBootstrap.execute(BillySpain.DEFAULT_PERSISTENCE_UNIT); // backward compatibility
         }
     }
 

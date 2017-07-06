@@ -29,9 +29,9 @@ import javax.validation.ValidationException;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.time.DateUtils;
 
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
@@ -52,13 +52,13 @@ import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
-public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
+public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends GenericInvoiceEntry, TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOGenericInvoice<?>>
         extends AbstractBuilder<TBuilder, TEntry> implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    protected DAOGenericInvoiceEntry daoEntry;
-    protected DAOGenericInvoice daoGenericInvoice;
+    protected TDAOEntry daoEntry;
+    protected TDAOInvoice daoInvoice;
     protected DAOTax daoTax;
     protected DAOProduct daoProduct;
     protected DAOContext daoContext;
@@ -66,11 +66,11 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     protected Context context;
 
     @Inject
-    public GenericInvoiceEntryBuilderImpl(DAOGenericInvoiceEntry daoEntry, DAOGenericInvoice daoGenericInvoice,
-            DAOTax daoTax, DAOProduct daoProduct, DAOContext daoContext) {
+    public GenericInvoiceEntryBuilderImpl(TDAOEntry daoEntry, TDAOInvoice daoInvoice, DAOTax daoTax,
+            DAOProduct daoProduct, DAOContext daoContext) {
         super(daoEntry);
         this.daoEntry = daoEntry;
-        this.daoGenericInvoice = daoGenericInvoice;
+        this.daoInvoice = daoInvoice;
         this.daoTax = daoTax;
         this.daoProduct = daoProduct;
         this.daoContext = daoContext;
@@ -117,8 +117,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @Override
     @NotOnUpdate
     public TBuilder setQuantity(BigDecimal quantity) {
-        Validate.isTrue(quantity.compareTo(BigDecimal.ZERO) > 0, "The quantity must be positive"); // TODO
-                                                                                                   // message
+        Validate.isTrue(quantity.compareTo(BigDecimal.ZERO) > 0, "The quantity must be positive"); // TODO message
         this.getTypeInstance().setQuantity(quantity);
         return this.getBuilder();
     }
@@ -143,7 +142,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @NotOnUpdate
     public TBuilder addDocumentReferenceUID(UID referenceUID) {
         BillyValidator.notNull(referenceUID, GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.reference"));
-        GenericInvoiceEntity d = this.daoGenericInvoice.get(referenceUID);
+        GenericInvoiceEntity d = this.daoInvoice.get(referenceUID);
         BillyValidator.found(d, GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.reference"));
         this.getTypeInstance().getDocumentReferences().add(d);
         return this.getBuilder();
@@ -156,16 +155,6 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
         this.getTypeInstance().setDescription(description);
         return this.getBuilder();
     }
-
-    // @Override
-    // @NotOnUpdate
-    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-    // BillyValidator.notNull(creditOrDebit,
-    // GenericInvoiceEntryBuilderImpl.LOCALIZER
-    // .getString("field.entry_credit_or_debit"));
-    // this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-    // return this.getBuilder();
-    // }
 
     @Override
     @NotOnUpdate
@@ -241,9 +230,6 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
         GenericInvoiceEntry i = this.getTypeInstance();
         BillyValidator.mandatory(i.getDescription(),
                 GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.description"));
-        // BillyValidator.mandatory(i.getCreditOrDebit(),
-        // GenericInvoiceEntryBuilderImpl.LOCALIZER
-        // .getString("field.entry_credit_or_debit"));
         BillyValidator.mandatory(i.getTaxPointDate(),
                 GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
         BillyValidator.mandatory(i.getCurrency(), GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.currency"));
@@ -317,6 +303,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
                         unitTaxAmount = unitTaxAmount.add(e.getUnitAmountWithoutTax()
                                 .multiply(t.getPercentageRateValue(), mc).divide(new BigDecimal("100"), mc), mc);
                         unitAmountWithTax = unitAmountWithTax.add(unitTaxAmount, mc);
+                        break;
+                    default:
                         break;
                 }
             }

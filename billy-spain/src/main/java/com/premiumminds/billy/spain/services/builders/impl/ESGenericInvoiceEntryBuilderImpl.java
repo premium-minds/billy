@@ -26,8 +26,8 @@ import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBui
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoiceEntry;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
@@ -35,15 +35,14 @@ import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEn
 import com.premiumminds.billy.spain.services.builders.ESGenericInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
-public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-        extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>
+public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends ESGenericInvoiceEntry, TDAOEntry extends AbstractDAOESGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOESGenericInvoice<?>>
+        extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
         implements ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    public ESGenericInvoiceEntryBuilderImpl(DAOESGenericInvoiceEntry daoESGenericInvoiceEntry,
-            DAOESGenericInvoice daoESGenericInvoice, DAOESTax daoESTax, DAOESProduct daoESProduct,
-            DAOESRegionContext daoESRegionContext) {
+    public ESGenericInvoiceEntryBuilderImpl(TDAOEntry daoESGenericInvoiceEntry, TDAOInvoice daoESGenericInvoice,
+            DAOESTax daoESTax, DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
         super(daoESGenericInvoiceEntry, daoESGenericInvoice, daoESTax, daoESProduct, daoESRegionContext);
     }
 
@@ -59,16 +58,6 @@ public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceE
         this.getTypeInstance().setTaxPointDate(date);
         return this.getBuilder();
     }
-
-    // @Override
-    // @NotOnUpdate
-    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-    // BillyValidator.mandatory(creditOrDebit,
-    // ESGenericInvoiceEntryBuilderImpl.LOCALIZER
-    // .getString("field.entry_credit_or_debit"));
-    // this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-    // return this.getBuilder();
-    // }
 
     @Override
     protected void validateInstance() throws BillyValidationException {

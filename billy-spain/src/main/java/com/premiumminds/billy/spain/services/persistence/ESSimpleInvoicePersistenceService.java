@@ -48,7 +48,7 @@ public class ESSimpleInvoicePersistenceService {
                 @Override
                 public ESSimpleInvoice runTransaction() throws Exception {
                     ESSimpleInvoiceEntity entity = (ESSimpleInvoiceEntity) builder.build();
-                    return (ESSimpleInvoice) ESSimpleInvoicePersistenceService.this.daoInvoice.update(entity);
+                    return ESSimpleInvoicePersistenceService.this.daoInvoice.update(entity);
                 }
 
             }.execute();
@@ -63,7 +63,7 @@ public class ESSimpleInvoicePersistenceService {
 
                 @Override
                 public ESSimpleInvoice runTransaction() throws Exception {
-                    return (ESSimpleInvoice) ESSimpleInvoicePersistenceService.this.daoInvoice.get(uid);
+                    return ESSimpleInvoicePersistenceService.this.daoInvoice.get(uid);
                 }
 
             }.execute();
@@ -81,7 +81,7 @@ public class ESSimpleInvoicePersistenceService {
                 public ESSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
                     UID objectUID =
                             ESSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
-                    return (ESSimpleInvoice) ESSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
+                    return ESSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
                 }
 
             }.execute();

@@ -59,7 +59,7 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
                 @Override
                 public ESCreditReceipt runTransaction() throws Exception {
                     ESCreditReceiptEntity entity = (ESCreditReceiptEntity) builder.build();
-                    return (ESCreditReceipt) ESCreditReceiptPersistenceService.this.daoCreditReceipt.update(entity);
+                    return ESCreditReceiptPersistenceService.this.daoCreditReceipt.update(entity);
                 }
 
             }.execute();
@@ -75,7 +75,7 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
 
                 @Override
                 public ESCreditReceipt runTransaction() throws Exception {
-                    return (ESCreditReceipt) ESCreditReceiptPersistenceService.this.daoCreditReceipt.get(uid);
+                    return ESCreditReceiptPersistenceService.this.daoCreditReceipt.get(uid);
                 }
 
             }.execute();
@@ -93,7 +93,7 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
                 public ESCreditReceipt runTransaction() throws Exception {
                     UID objectUID =
                             ESCreditReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
-                    return (ESCreditReceipt) ESCreditReceiptPersistenceService.this.daoCreditReceipt.get(objectUID);
+                    return ESCreditReceiptPersistenceService.this.daoCreditReceipt.get(objectUID);
                 }
 
             }.execute();
@@ -110,8 +110,7 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
 
                 @Override
                 public ESCreditReceipt runTransaction() throws Exception {
-                    return (ESCreditReceipt) ESCreditReceiptPersistenceService.this.daoCreditReceipt
-                            .findByNumber(uidBusiness, number);
+                    return ESCreditReceiptPersistenceService.this.daoCreditReceipt.findByNumber(uidBusiness, number);
                 }
 
             }.execute();

@@ -16,19 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.core.services.documents.impl;
+package com.premiumminds.billy.core.persistence.dao;
 
-import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
-import com.premiumminds.billy.core.services.documents.IssuingParams;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 
-public abstract class DocumentIssuingHandlerImpl implements DocumentIssuingHandler {
+public interface AbstractDAOGenericInvoiceEntry<T extends GenericInvoiceEntryEntity> extends DAO<T> {
 
-    public DocumentIssuingHandlerImpl() {
-    }
-
-    @Override
-    public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(T document, P parameters)
-            throws DocumentIssuingException;
 }

@@ -54,9 +54,9 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         ESInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         ESInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
-        ESInvoiceEntity resultInvoice1 = (ESInvoiceEntity) this.getInstance(DAOESInvoice.class)
+        ESInvoiceEntity resultInvoice1 = this.getInstance(DAOESInvoice.class)
                 .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID().toString());
-        ESInvoiceEntity resultInvoice2 = (ESInvoiceEntity) this.getInstance(DAOESInvoice.class)
+        ESInvoiceEntity resultInvoice2 = this.getInstance(DAOESInvoice.class)
                 .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID().toString());
 
         ESInvoiceEntity inv3 = this.getNewIssuedInvoice(B1);
@@ -108,7 +108,7 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         DAOESInvoice invoiceDao = this.getInstance(DAOESInvoice.class);
         DAOESReceipt receiptDao = this.getInstance(DAOESReceipt.class);
 
-        ESReceiptEntity found = (ESReceiptEntity) receiptDao.get(rec1.getUID());
+        ESReceiptEntity found = receiptDao.get(rec1.getUID());
         Assert.assertEquals(rec1.getUID(), found.getUID());
 
         try {

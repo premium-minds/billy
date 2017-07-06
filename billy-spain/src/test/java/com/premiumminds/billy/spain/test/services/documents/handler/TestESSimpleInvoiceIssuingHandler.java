@@ -58,8 +58,7 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
     @Test
     public void testIssuedInvoiceSimple() throws DocumentIssuingException {
-        ESSimpleInvoice issuedInvoice =
-                (ESSimpleInvoice) this.getInstance(DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
+        ESSimpleInvoice issuedInvoice = this.getInstance(DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
 
         Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
         Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
@@ -69,8 +68,7 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
     @Test(expected = BillySimpleInvoiceException.class)
     public void testBusinessSimpleInvoice() {
-        ESSimpleInvoiceEntity invoice =
-                new ESSimpleInvoiceTestUtil(ESAbstractTest.injector).getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS);
+        new ESSimpleInvoiceTestUtil(ESAbstractTest.injector).getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS);
     }
 
 }

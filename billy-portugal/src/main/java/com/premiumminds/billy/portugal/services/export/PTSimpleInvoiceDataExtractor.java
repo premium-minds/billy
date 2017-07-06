@@ -45,14 +45,7 @@ public class PTSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
 
     @Override
     public PTSimpleInvoiceData extract(UID uid) throws ExportServiceException {
-        PTSimpleInvoice entity = (PTSimpleInvoice) this.daoPTSimpleInvoice.get(uid); // FIXME:
-        // Fix
-        // the
-        // DAOs
-        // to
-        // remove
-        // this
-        // cast
+        PTSimpleInvoice entity = this.daoPTSimpleInvoice.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }

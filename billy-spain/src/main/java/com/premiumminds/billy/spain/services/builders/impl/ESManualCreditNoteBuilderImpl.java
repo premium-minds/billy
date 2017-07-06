@@ -20,8 +20,8 @@ package com.premiumminds.billy.spain.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
-import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
@@ -33,8 +33,9 @@ public class ESManualCreditNoteBuilderImpl<TBuilder extends ESManualCreditNoteBu
         extends ESManualBuilderImpl<TBuilder, TEntry, TDocument>
         implements ESManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-    public ESManualCreditNoteBuilderImpl(DAOESCreditNote daoESCreditNote, DAOESBusiness daoESBusiness,
-            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+    public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESManualCreditNoteBuilderImpl(
+            TDAO daoESCreditNote, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
+            DAOESSupplier daoESSupplier) {
         super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
     }
 

@@ -31,7 +31,6 @@ public class TestPaymentBuilder extends AbstractTest {
 
     private static final String PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "Payment.yml";
 
-    @SuppressWarnings("unchecked")
     @Test
     public void doTest() {
         MockPaymentEntity mock = this.createMockEntity(MockPaymentEntity.class, TestPaymentBuilder.PAYMENT_YML);

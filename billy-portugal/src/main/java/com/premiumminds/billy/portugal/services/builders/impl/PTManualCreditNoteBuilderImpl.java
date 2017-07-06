@@ -20,8 +20,8 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
@@ -33,8 +33,9 @@ public class PTManualCreditNoteBuilderImpl<TBuilder extends PTManualCreditNoteBu
         extends PTManualBuilderImpl<TBuilder, TEntry, TDocument>
         implements PTManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-    public PTManualCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote, DAOPTBusiness daoPTBusiness,
-            DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+    public <TDAO extends AbstractDAOPTGenericInvoice<? extends TDocument>> PTManualCreditNoteBuilderImpl(
+            TDAO daoPTCreditNote, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
+            DAOPTSupplier daoPTSupplier) {
         super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
     }
 

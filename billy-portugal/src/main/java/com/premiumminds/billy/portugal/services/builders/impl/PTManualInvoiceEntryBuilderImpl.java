@@ -29,8 +29,8 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -39,10 +39,11 @@ import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceEntryBui
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
 public class PTManualInvoiceEntryBuilderImpl<TBuilder extends PTManualInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-        extends PTManualEntryBuilderImpl<TBuilder, TEntry> implements PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
+        extends PTManualEntryBuilderImpl<TBuilder, TEntry, DAOPTInvoiceEntry, DAOPTInvoice>
+        implements PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-    public PTManualInvoiceEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice,
-            DAOPTTax daoPTTax, DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
+    public PTManualInvoiceEntryBuilderImpl(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
+            DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
         super(daoPTEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
     }
 

@@ -1,22 +1,15 @@
-<!--
-  ~ Copyright (C) 2013 Premium Minds.
-  ~
-  ~ This file is part of billy-gin.
-  ~
-  ~ billy-gin is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Lesser General Public License as published
-  ~ by the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ billy-gin is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public License
-  ~ along with billy-gin.  If not, see <http://www.gnu.org/licenses />.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-gin. 
+	~ ~ billy-gin is free software: you can redistribute it and/or modify ~ it 
+	under the terms of the GNU Lesser General Public License as published ~ by 
+	the Free Software Foundation, either version 3 of the License, or ~ (at your 
+	option) any later version. ~ ~ billy-gin is distributed in the hope that 
+	it will be useful, ~ but WITHOUT ANY WARRANTY; without even the implied warranty 
+	of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the ~ GNU Lesser 
+	General Public License for more details. ~ ~ You should have received a copy 
+	of the GNU Lesser General Public License ~ along with billy-gin. If not, 
+	see <http://www.gnu.org/licenses />. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy-gin</artifactId>
 	<name>billy GIN</name>
@@ -27,16 +20,16 @@
 		<artifactId>billy</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 	</parent>
-	
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-  		<main.dir>${project.parent.basedir}</main.dir>
-  		
+		<main.dir>${project.parent.basedir}</main.dir>
+
 		<guice.version>3.0</guice.version>
 		<env>DEV</env>
 		<hibernate.version>4.1.6.Final</hibernate.version>
-		
+
 		<!-- plugins versions -->
 		<plugins.maven-war.version>2.2</plugins.maven-war.version>
 	</properties>
@@ -129,6 +122,18 @@
 					<source>${java.version}</source>
 					<target>${java.version}</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.jvnet.jaxb2.maven2</groupId>

@@ -43,7 +43,7 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
         FT, // Invoice
         RC, // Receipt
         FS, // Simple Invoice
-        NC // Credit Note
+        NC	// Credit Note
     }
 
     public enum SOURCE_BILLING {
@@ -77,8 +77,8 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
         }
     }
 
-    protected <T extends DocumentIssuingHandler, I extends ESGenericInvoiceEntity> void issueNewInvoice(T handler,
-            I invoice, String series) throws DocumentIssuingException {
+    protected <T extends DocumentIssuingHandler<I, ESIssuingParams>, I extends ESGenericInvoiceEntity> void
+            issueNewInvoice(T handler, I invoice, String series) throws DocumentIssuingException {
         DAOESInvoice dao = this.getInstance(DAOESInvoice.class);
         try {
             dao.beginTransaction();
@@ -91,8 +91,8 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
         }
     }
 
-    protected <T extends DocumentIssuingHandler, I extends ESGenericInvoiceEntity> void issueNewInvoice(T handler,
-            I invoice, String series, Date date) throws DocumentIssuingException {
+    protected <T extends DocumentIssuingHandler<I, ESIssuingParams>, I extends ESGenericInvoiceEntity> void
+            issueNewInvoice(T handler, I invoice, String series, Date date) throws DocumentIssuingException {
         this.parameters.setInvoiceSeries(series);
         invoice.setDate(date);
         handler.issue(invoice, this.parameters);

@@ -32,9 +32,9 @@ import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.builders.ESManualInvoiceBuilder;
@@ -45,8 +45,8 @@ public abstract class ESManualBuilderImpl<TBuilder extends ESManualBuilderImpl<T
         extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
         implements ESManualInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-    public ESManualBuilderImpl(DAOESGenericInvoice daoESGenericInvoice, DAOESBusiness daoESBusiness,
-            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+    public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESManualBuilderImpl(TDAO daoESGenericInvoice,
+            DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
         super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
     }
 

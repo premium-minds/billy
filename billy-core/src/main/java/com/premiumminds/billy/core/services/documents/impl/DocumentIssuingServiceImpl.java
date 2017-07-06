@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.UID;
@@ -44,19 +43,23 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
     private static final Logger log = LoggerFactory.getLogger(DocumentIssuingServiceImpl.class);
 
-    protected Map<Class<? extends GenericInvoiceEntity>, DocumentIssuingHandler> handlers;
+    protected Map<Class<? extends GenericInvoice>, DocumentIssuingHandler<? extends GenericInvoice, ? extends IssuingParams>> handlers;
     protected DAOGenericInvoice daoInvoice;
     protected TicketManager ticketManager;
 
     @Inject
     public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice, TicketManager ticketManager) {
-        this.handlers = new HashMap<>();
+
+        this.handlers =
+                new HashMap<>();
         this.daoInvoice = daoInvoice;
         this.ticketManager = ticketManager;
     }
 
     @Override
-    public void addHandler(Class<? extends GenericInvoiceEntity> handledClass, DocumentIssuingHandler handler) {
+    public <T extends GenericInvoice, P extends IssuingParams> void addHandler(Class<T> handledClass,
+            DocumentIssuingHandler<T, P> handler) {
+
         this.handlers.put(handledClass, handler);
     }
 
@@ -117,7 +120,10 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
         final Type[] types = document.getClass().getGenericInterfaces();
         for (Type type : types) {
             if (this.handlers.containsKey(type)) {
-                return this.handlers.get(type).issue(document, parameters);
+                @SuppressWarnings("unchecked")
+                DocumentIssuingHandler<T, IssuingParams> handler =
+                        (DocumentIssuingHandler<T, IssuingParams>) this.handlers.get(type);
+                return handler.issue(document, parameters);
             }
         }
 

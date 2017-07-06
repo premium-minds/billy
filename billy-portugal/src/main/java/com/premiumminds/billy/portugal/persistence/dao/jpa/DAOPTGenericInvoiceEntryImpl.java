@@ -22,12 +22,14 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceEntryImpl;
+import com.premiumminds.billy.core.persistence.dao.jpa.AbstractDAOGenericInvoiceEntryImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntryEntity;
 
-public class DAOPTGenericInvoiceEntryImpl extends DAOGenericInvoiceEntryImpl implements DAOPTGenericInvoiceEntry {
+public class DAOPTGenericInvoiceEntryImpl
+        extends AbstractDAOGenericInvoiceEntryImpl<PTGenericInvoiceEntryEntity, JPAPTGenericInvoiceEntryEntity>
+        implements DAOPTGenericInvoiceEntry {
 
     @Inject
     public DAOPTGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {

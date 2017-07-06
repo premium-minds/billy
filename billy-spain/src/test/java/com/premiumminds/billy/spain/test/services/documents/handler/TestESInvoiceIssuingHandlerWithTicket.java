@@ -83,7 +83,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
 
     @Test
     public void testIssuedInvoiceSimpleWithTicket() throws DocumentIssuingException {
-        ESInvoice issuedInvoice = (ESInvoice) this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
+        ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
 
         ESInvoicePersistenceService service = ESAbstractTest.injector.getInstance(ESInvoicePersistenceService.class);
 

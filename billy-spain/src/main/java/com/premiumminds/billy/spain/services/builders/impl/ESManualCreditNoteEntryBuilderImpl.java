@@ -35,7 +35,8 @@ import com.premiumminds.billy.spain.services.builders.ESManualCreditNoteEntryBui
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditNoteEntry>
-        extends ESManualEntryBuilderImpl<TBuilder, TEntry> implements ESManualCreditNoteEntryBuilder<TBuilder, TEntry> {
+        extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESCreditNoteEntry, DAOESInvoice>
+        implements ESManualCreditNoteEntryBuilder<TBuilder, TEntry> {
 
     public ESManualCreditNoteEntryBuilderImpl(DAOESCreditNoteEntry daoESCreditNoteEntry, DAOESInvoice daoESInvoice,
             DAOESTax daoESTax, DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
@@ -47,7 +48,7 @@ public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditN
     public TBuilder setReferenceUID(UID referenceUID) {
         BillyValidator.notNull(referenceUID,
                 ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
-        ESInvoiceEntity i = (ESInvoiceEntity) this.daoGenericInvoice.get(referenceUID);
+        ESInvoiceEntity i = this.daoInvoice.get(referenceUID);
         BillyValidator.found(i, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         this.getTypeInstance().setReference(i);
         return this.getBuilder();
@@ -91,9 +92,7 @@ public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditN
     }
 
     private void ValidateESCreditNoteEntry(ESCreditNoteEntryEntity cn) {
-        DAOESCreditNoteEntry daoESCreditNoteEntry = (DAOESCreditNoteEntry) this.daoEntry;
-
-        if (daoESCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
+        if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
             throw new DuplicateCreditNoteException();
         }
     }

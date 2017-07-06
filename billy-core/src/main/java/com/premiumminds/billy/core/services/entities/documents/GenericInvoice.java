@@ -30,6 +30,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Customer;
@@ -44,7 +45,7 @@ public interface GenericInvoice extends Entity {
         CREDIT, DEBIT
     }
 
-    public static class Builder extends GenericInvoiceBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoice> {
+    public static class Builder extends GenericInvoiceBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoiceEntity> {
 
         @Inject
         public Builder(DAOGenericInvoice daoGenericInvoice, DAOBusiness daoBusiness, DAOCustomer daoCustomer,

@@ -30,7 +30,8 @@ import com.premiumminds.billy.spain.services.builders.ESReceiptEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESReceiptEntry;
 
 public class ESReceiptEntryBuilderImpl<TBuilder extends ESReceiptEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESReceiptEntry>
-        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry> implements ESReceiptEntryBuilder<TBuilder, TEntry> {
+        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESReceiptEntry, DAOESReceipt>
+        implements ESReceiptEntryBuilder<TBuilder, TEntry> {
 
     public ESReceiptEntryBuilderImpl(DAOESReceiptEntry daoESReceiptEntry, DAOESReceipt daoESReceipt, DAOESTax daoESTax,
             DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {

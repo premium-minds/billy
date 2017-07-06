@@ -62,7 +62,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
     @Test
     public void testIssuedInvoiceSimple() throws DocumentIssuingException {
-        PTInvoice issuedInvoice = (PTInvoice) this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
+        PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
         Assert.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
         Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
@@ -74,7 +74,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
     @Test
     public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
-        PTInvoice issuedInvoice = (PTInvoice) this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
+        PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
         Integer nextNumber = 2;
 
         PTGenericInvoiceEntity newInvoice =
@@ -85,7 +85,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
-        PTInvoice lastInvoice = (PTInvoice) this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
+        PTInvoice lastInvoice = this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
 
         Assert.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, lastInvoice.getSeries());
         Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
@@ -106,7 +106,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
-        PTInvoice issuedInvoice = (PTInvoice) this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
+        PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
 
         Assert.assertEquals(newSeries, issuedInvoice.getSeries());
         Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
@@ -137,14 +137,6 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         this.issueNewInvoice(newHandler, diffentTypeInvoice, series);
     }
 
-    // @Test(expected = InvalidInvoiceDateException.class)
-    // public void testIssuedInvoiceBeforeDate() throws DocumentIssuingException {
-    // this.issueNewInvoice(this.handler, this.newInvoice(
-    // TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
-    // TestPTInvoiceIssuingHandler.SOURCE_BILLING),
-    // PTPersistencyAbstractTest.DEFAULT_SERIES, new Date(0));
-    // }
-
     @Test
     public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException {
         PTGenericInvoiceEntity newInvoice =
@@ -154,7 +146,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
-        PTInvoice issuedInvoice = (PTInvoice) this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
+        PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
 
         Assert.assertEquals(TestPTInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
     }

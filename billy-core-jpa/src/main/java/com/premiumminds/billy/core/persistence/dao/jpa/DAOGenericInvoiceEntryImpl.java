@@ -26,7 +26,8 @@ import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
 
-public class DAOGenericInvoiceEntryImpl extends AbstractDAO<GenericInvoiceEntryEntity, JPAGenericInvoiceEntryEntity>
+public class DAOGenericInvoiceEntryImpl
+        extends AbstractDAOGenericInvoiceEntryImpl<GenericInvoiceEntryEntity, JPAGenericInvoiceEntryEntity>
         implements DAOGenericInvoiceEntry {
 
     @Inject
@@ -35,13 +36,13 @@ public class DAOGenericInvoiceEntryImpl extends AbstractDAO<GenericInvoiceEntryE
     }
 
     @Override
-    protected Class<? extends JPAGenericInvoiceEntryEntity> getEntityClass() {
-        return JPAGenericInvoiceEntryEntity.class;
+    public GenericInvoiceEntryEntity getEntityInstance() {
+        return new JPAGenericInvoiceEntryEntity();
     }
 
     @Override
-    public GenericInvoiceEntryEntity getEntityInstance() {
-        return new JPAGenericInvoiceEntryEntity();
+    protected Class<? extends JPAGenericInvoiceEntryEntity> getEntityClass() {
+        return JPAGenericInvoiceEntryEntity.class;
     }
 
 }

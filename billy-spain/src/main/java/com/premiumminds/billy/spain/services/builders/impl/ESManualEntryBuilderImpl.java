@@ -30,8 +30,8 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
-import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoiceEntry;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
+import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
@@ -39,12 +39,12 @@ import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEn
 import com.premiumminds.billy.spain.services.builders.ESManualInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
-public class ESManualEntryBuilderImpl<TBuilder extends ESManualEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>
+public class ESManualEntryBuilderImpl<TBuilder extends ESManualEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends ESGenericInvoiceEntry, TDAOEntry extends AbstractDAOESGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOESGenericInvoice<?>>
+        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
         implements ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
 
-    public ESManualEntryBuilderImpl(DAOESGenericInvoiceEntry daoESEntry, DAOESGenericInvoice daoESInvoice,
-            DAOESTax daoESTax, DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
+    public ESManualEntryBuilderImpl(TDAOEntry daoESEntry, TDAOInvoice daoESInvoice, DAOESTax daoESTax,
+            DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
         super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
     }
 

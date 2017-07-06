@@ -22,12 +22,12 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
@@ -35,15 +35,14 @@ import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntr
 import com.premiumminds.billy.portugal.services.builders.PTGenericInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
-public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-        extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry>
+public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends PTGenericInvoiceEntry, TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOGenericInvoice<?>>
+        extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
         implements PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    public PTGenericInvoiceEntryBuilderImpl(DAOPTGenericInvoiceEntry daoPTGenericInvoiceEntry,
-            DAOPTGenericInvoice daoPTGenericInvoice, DAOPTTax daoPTTax, DAOPTProduct daoPTProduct,
-            DAOPTRegionContext daoPTRegionContext) {
+    public PTGenericInvoiceEntryBuilderImpl(TDAOEntry daoPTGenericInvoiceEntry, TDAOInvoice daoPTGenericInvoice,
+            DAOPTTax daoPTTax, DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
         super(daoPTGenericInvoiceEntry, daoPTGenericInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
     }
 
@@ -59,16 +58,6 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
         this.getTypeInstance().setTaxPointDate(date);
         return this.getBuilder();
     }
-
-    // @Override
-    // @NotOnUpdate
-    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-    // BillyValidator.mandatory(creditOrDebit,
-    // PTGenericInvoiceEntryBuilderImpl.LOCALIZER
-    // .getString("field.entry_credit_or_debit"));
-    // this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-    // return this.getBuilder();
-    // }
 
     @Override
     protected void validateInstance() throws BillyValidationException {

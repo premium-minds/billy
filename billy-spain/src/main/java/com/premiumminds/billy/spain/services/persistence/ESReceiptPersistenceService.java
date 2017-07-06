@@ -48,7 +48,7 @@ public class ESReceiptPersistenceService {
                 @Override
                 public ESReceipt runTransaction() throws Exception {
                     ESReceiptEntity entity = (ESReceiptEntity) builder.build();
-                    return (ESReceipt) ESReceiptPersistenceService.this.daoReceipt.update(entity);
+                    return ESReceiptPersistenceService.this.daoReceipt.update(entity);
                 }
             }.execute();
         } catch (Exception e) {
@@ -62,7 +62,7 @@ public class ESReceiptPersistenceService {
 
                 @Override
                 public ESReceipt runTransaction() throws Exception {
-                    return (ESReceipt) ESReceiptPersistenceService.this.daoReceipt.get(uid);
+                    return ESReceiptPersistenceService.this.daoReceipt.get(uid);
                 }
             }.execute();
         } catch (Exception e) {
@@ -78,7 +78,7 @@ public class ESReceiptPersistenceService {
                 public ESReceipt runTransaction() throws Exception {
                     UID receiptUID =
                             ESReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
-                    return (ESReceipt) ESReceiptPersistenceService.this.daoReceipt.get(receiptUID);
+                    return ESReceiptPersistenceService.this.daoReceipt.get(receiptUID);
                 }
             }.execute();
         } catch (NoResultException e) {
@@ -94,7 +94,7 @@ public class ESReceiptPersistenceService {
 
                 @Override
                 public ESReceipt runTransaction() throws Exception {
-                    return (ESReceipt) ESReceiptPersistenceService.this.daoReceipt.findByNumber(uidBusiness, number);
+                    return ESReceiptPersistenceService.this.daoReceipt.findByNumber(uidBusiness, number);
                 }
             }.execute();
         } catch (Exception e) {

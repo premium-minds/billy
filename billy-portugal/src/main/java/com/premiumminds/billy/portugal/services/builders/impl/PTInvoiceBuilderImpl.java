@@ -18,15 +18,13 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTInvoiceBuilder;
@@ -40,9 +38,8 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    public PTInvoiceBuilderImpl(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-            DAOPTSupplier daoPTSupplier) {
+    public <TDAO extends AbstractDAOPTGenericInvoice<? extends TDocument>> PTInvoiceBuilderImpl(TDAO daoPTInvoice,
+            DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
         super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
         this.setSourceBilling(SourceBilling.P);
     }

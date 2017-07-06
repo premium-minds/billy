@@ -48,7 +48,7 @@ public class ESInvoicePersistenceService {
                 @Override
                 public ESInvoice runTransaction() throws Exception {
                     ESInvoiceEntity entity = (ESInvoiceEntity) builder.build();
-                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.update(entity);
+                    return ESInvoicePersistenceService.this.daoInvoice.update(entity);
                 }
 
             }.execute();
@@ -63,7 +63,7 @@ public class ESInvoicePersistenceService {
 
                 @Override
                 public ESInvoice runTransaction() throws Exception {
-                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.get(uid);
+                    return ESInvoicePersistenceService.this.daoInvoice.get(uid);
                 }
 
             }.execute();
@@ -80,7 +80,7 @@ public class ESInvoicePersistenceService {
                 @Override
                 public ESInvoice runTransaction() throws Exception {
                     UID objectUID = ESInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
-                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.get(objectUID);
+                    return ESInvoicePersistenceService.this.daoInvoice.get(objectUID);
                 }
 
             }.execute();
@@ -97,7 +97,7 @@ public class ESInvoicePersistenceService {
 
                 @Override
                 public ESInvoice runTransaction() throws Exception {
-                    return (ESInvoice) ESInvoicePersistenceService.this.daoInvoice.findByNumber(uidBusiness, number);
+                    return ESInvoicePersistenceService.this.daoInvoice.findByNumber(uidBusiness, number);
                 }
 
             }.execute();

@@ -48,7 +48,7 @@ public class PTSimpleInvoicePersistenceService {
                 @Override
                 public PTSimpleInvoice runTransaction() throws Exception {
                     PTSimpleInvoiceEntity entity = (PTSimpleInvoiceEntity) builder.build();
-                    return (PTSimpleInvoice) PTSimpleInvoicePersistenceService.this.daoInvoice.update(entity);
+                    return PTSimpleInvoicePersistenceService.this.daoInvoice.update(entity);
                 }
 
             }.execute();
@@ -63,7 +63,7 @@ public class PTSimpleInvoicePersistenceService {
 
                 @Override
                 public PTSimpleInvoice runTransaction() throws Exception {
-                    return (PTSimpleInvoice) PTSimpleInvoicePersistenceService.this.daoInvoice.get(uid);
+                    return PTSimpleInvoicePersistenceService.this.daoInvoice.get(uid);
                 }
 
             }.execute();
@@ -81,7 +81,7 @@ public class PTSimpleInvoicePersistenceService {
                 public PTSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
                     UID objectUID =
                             PTSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
-                    return (PTSimpleInvoice) PTSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
+                    return PTSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
                 }
 
             }.execute();

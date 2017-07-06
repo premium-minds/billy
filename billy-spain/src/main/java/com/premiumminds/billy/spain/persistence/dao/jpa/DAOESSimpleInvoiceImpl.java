@@ -26,7 +26,8 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSimpleInvoiceEntity;
 
-public class DAOESSimpleInvoiceImpl extends DAOESInvoiceImpl implements DAOESSimpleInvoice {
+public class DAOESSimpleInvoiceImpl extends
+        AbstractDAOESGenericInvoiceImpl<ESSimpleInvoiceEntity, JPAESSimpleInvoiceEntity> implements DAOESSimpleInvoice {
 
     @Inject
     public DAOESSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -42,4 +43,5 @@ public class DAOESSimpleInvoiceImpl extends DAOESInvoiceImpl implements DAOESSim
     protected Class<JPAESSimpleInvoiceEntity> getEntityClass() {
         return JPAESSimpleInvoiceEntity.class;
     }
+
 }

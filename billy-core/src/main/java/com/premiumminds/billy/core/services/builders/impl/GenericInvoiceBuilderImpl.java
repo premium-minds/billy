@@ -23,14 +23,13 @@ import java.math.MathContext;
 import java.util.Currency;
 import java.util.Date;
 
-import javax.inject.Inject;
 import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
 
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
@@ -56,14 +55,13 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    protected DAOGenericInvoice daoGenericInvoice;
+    protected AbstractDAOGenericInvoice<? extends TDocument> daoGenericInvoice;
     protected DAOBusiness daoBusiness;
     protected DAOCustomer daoCustomer;
     protected DAOSupplier daoSupplier;
 
-    @Inject
-    public GenericInvoiceBuilderImpl(DAOGenericInvoice daoGenericInvoice, DAOBusiness daoBusiness,
-            DAOCustomer daoCustomer, DAOSupplier daoSupplier) {
+    public <TDAO extends AbstractDAOGenericInvoice<? extends TDocument>> GenericInvoiceBuilderImpl(
+            TDAO daoGenericInvoice, DAOBusiness daoBusiness, DAOCustomer daoCustomer, DAOSupplier daoSupplier) {
         super(daoGenericInvoice);
         this.daoGenericInvoice = daoGenericInvoice;
         this.daoBusiness = daoBusiness;
@@ -203,8 +201,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
     public <T extends GenericInvoiceEntry> TBuilder addEntry(Builder<T> entryBuilder) {
         BillyValidator.notNull(entryBuilder, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.entry"));
         T entry = entryBuilder.build();
-        Validate.isInstanceOf(GenericInvoiceEntryEntity.class, entry); // TODO
-        // message
+        Validate.isInstanceOf(GenericInvoiceEntryEntity.class, entry); // TODO message
         GenericInvoiceEntity i = this.getTypeInstance();
         GenericInvoiceEntryEntity e = (GenericInvoiceEntryEntity) entry;
         i.getEntries().add(e);
@@ -225,8 +222,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
     @NotOnUpdate
     public TBuilder setSettlementDiscount(BigDecimal discount) {
         Validate.isTrue(discount == null || discount.compareTo(BigDecimal.ZERO) >= 0,
-                GenericInvoiceBuilderImpl.LOCALIZER.getString("field.discount")); // TODO
-        // message
+                GenericInvoiceBuilderImpl.LOCALIZER.getString("field.discount")); // TODO message
         this.getTypeInstance().setSettlementDiscount(discount);
         return this.getBuilder();
     }
@@ -254,16 +250,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
         this.getTypeInstance().getPayments().add(paymentBuilder.build());
         return this.getBuilder();
     }
-
-    // @Override
-    // @NotOnUpdate
-    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit) {
-    // BillyValidator.notNull(creditOrDebit,
-    // GenericInvoiceBuilderImpl.LOCALIZER
-    // .getString("field.credit_or_debit"));
-    // this.getTypeInstance().setCreditOrDebit(creditOrDebit);
-    // return this.getBuilder();
-    // }
 
     @Override
     public TBuilder setScale(int scale) {
@@ -296,7 +282,9 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
     protected void validateValues() throws ValidationException {
 
         GenericInvoiceEntity i = this.getTypeInstance();
-        i.setCurrency(Currency.getInstance("EUR"));
+        
+        // FIXME: Hardcoded currency. Blocks usage of any other currency
+        i.setCurrency(Currency.getInstance("EUR")); 
 
         MathContext mc = BillyMathContext.get();
 
@@ -332,8 +320,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
                 i.getAmountWithTax().compareTo(BigDecimal.ZERO) > 0 &&
                         i.getAmountWithoutTax().compareTo(BigDecimal.ZERO) >= 0 &&
                         i.getTaxAmount().compareTo(BigDecimal.ZERO) > 0,
-                "The invoice values are lower than zero", // TODO
-                // message
+                "The invoice values are lower than zero", // TODO message
                 i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
     }
 

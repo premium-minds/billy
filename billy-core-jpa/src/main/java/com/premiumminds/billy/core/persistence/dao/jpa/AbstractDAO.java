@@ -22,7 +22,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
@@ -50,7 +49,6 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 
     protected Provider<EntityManager> emProvider;
 
-    @Inject
     public AbstractDAO(Provider<EntityManager> emProvider) {
         this.emProvider = emProvider;
         this.getEntityManager().setFlushMode(FlushModeType.AUTO);

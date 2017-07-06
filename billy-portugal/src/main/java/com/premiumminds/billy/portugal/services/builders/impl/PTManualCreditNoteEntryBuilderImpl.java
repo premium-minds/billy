@@ -35,7 +35,8 @@ import com.premiumminds.billy.portugal.services.builders.PTManualCreditNoteEntry
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-        extends PTManualEntryBuilderImpl<TBuilder, TEntry> implements PTManualCreditNoteEntryBuilder<TBuilder, TEntry> {
+        extends PTManualEntryBuilderImpl<TBuilder, TEntry, DAOPTCreditNoteEntry, DAOPTInvoice>
+        implements PTManualCreditNoteEntryBuilder<TBuilder, TEntry> {
 
     public PTManualCreditNoteEntryBuilderImpl(DAOPTCreditNoteEntry daoPTCreditNoteEntry, DAOPTInvoice daoPTInvoice,
             DAOPTTax daoPTTax, DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
@@ -47,7 +48,7 @@ public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditN
     public TBuilder setReferenceUID(UID referenceUID) {
         BillyValidator.notNull(referenceUID,
                 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
-        PTInvoiceEntity i = (PTInvoiceEntity) this.daoGenericInvoice.get(referenceUID);
+        PTInvoiceEntity i = this.daoInvoice.get(referenceUID);
         BillyValidator.found(i, PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         this.getTypeInstance().setReference(i);
         return this.getBuilder();
@@ -91,9 +92,7 @@ public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditN
     }
 
     private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
-        DAOPTCreditNoteEntry daoPTCreditNoteEntry = (DAOPTCreditNoteEntry) this.daoEntry;
-
-        if (daoPTCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
+        if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
             throw new DuplicateCreditNoteException();
         }
     }

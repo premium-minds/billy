@@ -53,7 +53,7 @@ public class TestESReceiptIssuingHandler extends ESDocumentAbstractTest {
 
     @Test
     public void testIssueReceipt() {
-        ESReceipt issuedReceipt = (ESReceipt) this.getInstance(DAOESReceipt.class).get(this.issuedReceiptUID);
+        ESReceipt issuedReceipt = this.getInstance(DAOESReceipt.class).get(this.issuedReceiptUID);
 
         Assert.assertEquals(this.DEFAULT_SERIES, issuedReceipt.getSeries());
         Assert.assertTrue(1 == issuedReceipt.getSeriesNumber());

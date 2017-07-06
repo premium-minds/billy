@@ -59,7 +59,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
                 @Override
                 public PTCreditNote runTransaction() throws Exception {
                     PTCreditNoteEntity entity = (PTCreditNoteEntity) builder.build();
-                    return (PTCreditNote) PTCreditNotePersistenceService.this.daoCreditNote.update(entity);
+                    return PTCreditNotePersistenceService.this.daoCreditNote.update(entity);
                 }
 
             }.execute();
@@ -75,7 +75,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
 
                 @Override
                 public PTCreditNote runTransaction() throws Exception {
-                    return (PTCreditNote) PTCreditNotePersistenceService.this.daoCreditNote.get(uid);
+                    return PTCreditNotePersistenceService.this.daoCreditNote.get(uid);
                 }
 
             }.execute();
@@ -93,7 +93,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
                 public PTCreditNote runTransaction() throws Exception {
                     UID objectUID =
                             PTCreditNotePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
-                    return (PTCreditNote) PTCreditNotePersistenceService.this.daoCreditNote.get(objectUID);
+                    return PTCreditNotePersistenceService.this.daoCreditNote.get(objectUID);
                 }
 
             }.execute();
@@ -110,8 +110,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
 
                 @Override
                 public PTCreditNote runTransaction() throws Exception {
-                    return (PTCreditNote) PTCreditNotePersistenceService.this.daoCreditNote.findByNumber(uidBusiness,
-                            number);
+                    return PTCreditNotePersistenceService.this.daoCreditNote.findByNumber(uidBusiness, number);
                 }
 
             }.execute();

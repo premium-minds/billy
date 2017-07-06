@@ -58,7 +58,7 @@ public class PTReceiptInvoicePersistenceService implements PersistenceService<PT
                 @Override
                 public PTReceiptInvoice runTransaction() throws Exception {
                     PTReceiptInvoiceEntity entity = (PTReceiptInvoiceEntity) builder.build();
-                    return (PTReceiptInvoice) PTReceiptInvoicePersistenceService.this.daoReceiptInvoice.update(entity);
+                    return PTReceiptInvoicePersistenceService.this.daoReceiptInvoice.update(entity);
                 }
 
             }.execute();
@@ -74,7 +74,7 @@ public class PTReceiptInvoicePersistenceService implements PersistenceService<PT
 
                 @Override
                 public PTReceiptInvoice runTransaction() throws Exception {
-                    return (PTReceiptInvoice) PTReceiptInvoicePersistenceService.this.daoReceiptInvoice.get(uid);
+                    return PTReceiptInvoicePersistenceService.this.daoReceiptInvoice.get(uid);
                 }
 
             }.execute();
@@ -92,7 +92,7 @@ public class PTReceiptInvoicePersistenceService implements PersistenceService<PT
                 public PTReceiptInvoice runTransaction() throws NoResultException, BillyRuntimeException {
                     UID objectUID =
                             PTReceiptInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
-                    return (PTReceiptInvoice) PTReceiptInvoicePersistenceService.this.daoReceiptInvoice.get(objectUID);
+                    return PTReceiptInvoicePersistenceService.this.daoReceiptInvoice.get(objectUID);
                 }
 
             }.execute();

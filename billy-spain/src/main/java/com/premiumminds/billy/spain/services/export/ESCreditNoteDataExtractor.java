@@ -50,14 +50,7 @@ public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor
 
     @Override
     public ESCreditNoteData extract(UID uid) throws ExportServiceException {
-        ESCreditNoteEntity entity = (ESCreditNoteEntity) this.daoESCreditNote.get(uid); // FIXME:
-        // Fix
-        // the
-        // DAOs
-        // to
-        // remove
-        // this
-        // cast
+        ESCreditNoteEntity entity = this.daoESCreditNote.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }
