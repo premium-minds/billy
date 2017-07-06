@@ -20,10 +20,10 @@ package com.premiumminds.billy.core.exceptions;
 
 public class BillyUpdateException extends BillyRuntimeException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public BillyUpdateException(String message) {
-        super(message);
-    }
+  public BillyUpdateException(String message) {
+    super(message);
+  }
 
 }

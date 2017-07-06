@@ -35,38 +35,41 @@ import com.premiumminds.billy.core.test.fixtures.MockProductEntity;
 
 public class TestProductBuilder extends AbstractTest {
 
-    private static final String PRODUCT_YML = AbstractTest.YML_CONFIGS_DIR + "Product.yml";
+  private static final String PRODUCT_YML = AbstractTest.YML_CONFIGS_DIR + "Product.yml";
 
-    @Test
-    public void doTest() {
-        MockProductEntity mockProduct = this.createMockEntity(MockProductEntity.class, TestProductBuilder.PRODUCT_YML);
+  @Test
+  public void doTest() {
+    MockProductEntity mockProduct = this.createMockEntity(MockProductEntity.class,
+        TestProductBuilder.PRODUCT_YML);
 
-        Mockito.when(this.getInstance(DAOProduct.class).getEntityInstance()).thenReturn(new MockProductEntity());
+    Mockito.when(this.getInstance(DAOProduct.class).getEntityInstance())
+        .thenReturn(new MockProductEntity());
 
-        for (TaxEntity tax : mockProduct.getTaxes()) {
-            tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOTax.class).get(Matchers.any(UID.class))).thenReturn(tax);
-        }
-
-        Product.Builder builder = this.getInstance(Product.Builder.class);
-
-        builder.addTaxUID(mockProduct.getTaxes().get(0).getUID()).setCommodityCode(mockProduct.getCommodityCode())
-                .setDescription(mockProduct.getDescription()).setNumberCode(mockProduct.getNumberCode())
-                .setProductCode(mockProduct.getProductCode()).setProductGroup(mockProduct.getProductGroup())
-                .setType(mockProduct.getType()).setUnitOfMeasure(mockProduct.getUnitOfMeasure())
-                .setValuationMethod(mockProduct.getValuationMethod());
-
-        Product product = builder.build();
-
-        Assert.assertTrue(product != null);
-
-        Assert.assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
-        Assert.assertEquals(mockProduct.getDescription(), product.getDescription());
-        Assert.assertEquals(mockProduct.getNumberCode(), product.getNumberCode());
-        Assert.assertEquals(mockProduct.getProductCode(), product.getProductCode());
-        Assert.assertEquals(mockProduct.getProductGroup(), product.getProductGroup());
-        Assert.assertEquals(mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
-        Assert.assertEquals(mockProduct.getValuationMethod(), product.getValuationMethod());
-
+    for (TaxEntity tax : mockProduct.getTaxes()) {
+      tax.setCurrency(Currency.getInstance("EUR"));
+      Mockito.when(this.getInstance(DAOTax.class).get(Matchers.any(UID.class))).thenReturn(tax);
     }
+
+    Product.Builder builder = this.getInstance(Product.Builder.class);
+
+    builder.addTaxUID(mockProduct.getTaxes().get(0).getUID())
+        .setCommodityCode(mockProduct.getCommodityCode())
+        .setDescription(mockProduct.getDescription()).setNumberCode(mockProduct.getNumberCode())
+        .setProductCode(mockProduct.getProductCode()).setProductGroup(mockProduct.getProductGroup())
+        .setType(mockProduct.getType()).setUnitOfMeasure(mockProduct.getUnitOfMeasure())
+        .setValuationMethod(mockProduct.getValuationMethod());
+
+    Product product = builder.build();
+
+    Assert.assertTrue(product != null);
+
+    Assert.assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
+    Assert.assertEquals(mockProduct.getDescription(), product.getDescription());
+    Assert.assertEquals(mockProduct.getNumberCode(), product.getNumberCode());
+    Assert.assertEquals(mockProduct.getProductCode(), product.getProductCode());
+    Assert.assertEquals(mockProduct.getProductGroup(), product.getProductGroup());
+    Assert.assertEquals(mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
+    Assert.assertEquals(mockProduct.getValuationMethod(), product.getValuationMethod());
+
+  }
 }

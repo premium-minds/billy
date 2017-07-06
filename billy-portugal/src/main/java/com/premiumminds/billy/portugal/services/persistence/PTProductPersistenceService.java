@@ -31,65 +31,65 @@ import com.premiumminds.billy.portugal.services.entities.PTProduct;
 
 public class PTProductPersistenceService implements PersistenceService<PTProduct> {
 
-    protected final DAOPTProduct daoProduct;
+  protected final DAOPTProduct daoProduct;
 
-    @Inject
-    public PTProductPersistenceService(DAOPTProduct daoProduct) {
-        this.daoProduct = daoProduct;
-    }
+  @Inject
+  public PTProductPersistenceService(DAOPTProduct daoProduct) {
+    this.daoProduct = daoProduct;
+  }
 
-    @Override
-    public PTProduct create(final Builder<PTProduct> builder) {
-        try {
-            return new TransactionWrapper<PTProduct>(this.daoProduct) {
+  @Override
+  public PTProduct create(final Builder<PTProduct> builder) {
+    try {
+      return new TransactionWrapper<PTProduct>(daoProduct) {
 
-                @Override
-                public PTProduct runTransaction() throws Exception {
-                    PTProductEntity entity = (PTProductEntity) builder.build();
-                    return (PTProduct) PTProductPersistenceService.this.daoProduct.create(entity);
-                }
-
-            }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
+        @Override
+        public PTProduct runTransaction() throws Exception {
+          PTProductEntity entity = (PTProductEntity) builder.build();
+          return (PTProduct) daoProduct.create(entity);
         }
+
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
     }
+  }
 
-    @Override
-    public PTProduct update(final Builder<PTProduct> builder) {
-        try {
-            return new TransactionWrapper<PTProduct>(this.daoProduct) {
+  @Override
+  public PTProduct update(final Builder<PTProduct> builder) {
+    try {
+      return new TransactionWrapper<PTProduct>(daoProduct) {
 
-                @Override
-                public PTProduct runTransaction() throws Exception {
-                    PTProductEntity entity = (PTProductEntity) builder.build();
-                    return (PTProduct) PTProductPersistenceService.this.daoProduct.update(entity);
-                }
-
-            }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
+        @Override
+        public PTProduct runTransaction() throws Exception {
+          PTProductEntity entity = (PTProductEntity) builder.build();
+          return (PTProduct) daoProduct.update(entity);
         }
+
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
     }
+  }
 
-    @Override
-    public PTProduct get(final UID uid) {
-        try {
-            return new TransactionWrapper<PTProduct>(this.daoProduct) {
+  @Override
+  public PTProduct get(final UID uid) {
+    try {
+      return new TransactionWrapper<PTProduct>(daoProduct) {
 
-                @Override
-                public PTProduct runTransaction() throws Exception {
-                    return (PTProduct) PTProductPersistenceService.this.daoProduct.get(uid);
-                }
-
-            }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
+        @Override
+        public PTProduct runTransaction() throws Exception {
+          return (PTProduct) daoProduct.get(uid);
         }
-    }
 
-    public boolean exists(final UID uid) {
-        return this.daoProduct.exists(uid);
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
     }
+  }
+
+  public boolean exists(final UID uid) {
+    return daoProduct.exists(uid);
+  }
 
 }

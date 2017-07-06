@@ -31,24 +31,24 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTBusinessEnt
 
 public class DAOPTBusinessImpl extends DAOBusinessImpl implements DAOPTBusiness {
 
-    @Inject
-    public DAOPTBusinessImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOPTBusinessImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public PTBusinessEntity getEntityInstance() {
-        return new JPAPTBusinessEntity();
-    }
+  @Override
+  public PTBusinessEntity getEntityInstance() {
+    return new JPAPTBusinessEntity();
+  }
 
-    @Override
-    protected Class<JPAPTBusinessEntity> getEntityClass() {
-        return JPAPTBusinessEntity.class;
-    }
+  @Override
+  protected Class<JPAPTBusinessEntity> getEntityClass() {
+    return JPAPTBusinessEntity.class;
+  }
 
-    @Override
-    public PTBusinessEntity get(UID uid) throws NoResultException {
-        return (PTBusinessEntity) super.get(uid);
-    }
+  @Override
+  public PTBusinessEntity get(UID uid) throws NoResultException {
+    return (PTBusinessEntity) super.get(uid);
+  }
 
 }

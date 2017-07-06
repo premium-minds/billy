@@ -27,42 +27,42 @@ import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 
 public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
 
-    private EntityFactory<?> factory;
-    protected TType typeInstance;
+  private EntityFactory<?> factory;
+  protected TType typeInstance;
 
-    public AbstractBuilder(EntityFactory<?> entityFactory) {
-        this.factory = entityFactory;
-        this.setTypeInstance((TType) entityFactory.getEntityInstance());
-    }
+  public AbstractBuilder(EntityFactory<?> entityFactory) {
+    this.factory = entityFactory;
+    this.setTypeInstance((TType) entityFactory.getEntityInstance());
+  }
 
-    @SuppressWarnings("unchecked")
-    protected TBuilder getBuilder() {
-        return (TBuilder) this;
-    }
+  @SuppressWarnings("unchecked")
+  protected TBuilder getBuilder() {
+    return (TBuilder) this;
+  }
 
-    protected abstract void validateInstance() throws BillyValidationException, ValidationException;
+  protected abstract void validateInstance() throws BillyValidationException, ValidationException;
 
-    protected <T extends TType> void setTypeInstance(T instance) {
-        this.typeInstance = instance;
-    }
+  protected <T extends TType> void setTypeInstance(T instance) {
+    this.typeInstance = instance;
+  }
 
-    public void clear() {
-        this.typeInstance = (TType) this.factory.getEntityInstance();
-    }
+  public void clear() {
+    this.typeInstance = (TType) this.factory.getEntityInstance();
+  }
 
-    @SuppressWarnings("unchecked")
-    protected <T extends TType> T getTypeInstance() {
-        return (T) this.typeInstance;
-    }
+  @SuppressWarnings("unchecked")
+  protected <T extends TType> T getTypeInstance() {
+    return (T) this.typeInstance;
+  }
 
-    public TBuilder setUID(UID uid) {
-        ((BaseEntity) this.typeInstance).setUID(uid);
-        return this.getBuilder();
-    }
+  public TBuilder setUID(UID uid) {
+    ((BaseEntity) this.typeInstance).setUID(uid);
+    return getBuilder();
+  }
 
-    public TType build() throws BillyValidationException, ValidationException {
-        this.validateInstance();
-        return this.getTypeInstance();
-    }
+  public TType build() throws BillyValidationException, ValidationException {
+    this.validateInstance();
+    return this.getTypeInstance();
+  }
 
 }

@@ -26,72 +26,73 @@ import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.services.entities.ESPayment;
 
-public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity implements ESSimpleInvoiceEntity {
+public class MockESSimpleInvoiceEntity extends MockGenericInvoiceEntity
+    implements ESSimpleInvoiceEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    protected boolean cancelled;
-    protected boolean billed;
-    protected String hash;
-    protected String sourceHash;
-    protected String hashControl;
-    protected String eacCode;
-    protected List<ESPayment> payments;
-    public CLIENTTYPE clientType;
+  protected boolean cancelled;
+  protected boolean billed;
+  protected String hash;
+  protected String sourceHash;
+  protected String hashControl;
+  protected String eacCode;
+  protected List<ESPayment> payments;
+  public CLIENTTYPE clientType;
 
-    public MockESSimpleInvoiceEntity() {
-        this.payments = new ArrayList<>();
-    }
+  public MockESSimpleInvoiceEntity() {
+    this.payments = new ArrayList<ESPayment>();
+  }
 
-    @Override
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
+  @Override
+  public void setCancelled(boolean cancelled) {
+    this.cancelled = cancelled;
+  }
 
-    @Override
-    public void setBilled(boolean billed) {
-        this.billed = billed;
-    }
+  @Override
+  public void setBilled(boolean billed) {
+    this.billed = billed;
+  }
 
-    @Override
-    public boolean isCancelled() {
-        return this.cancelled;
-    }
+  @Override
+  public boolean isCancelled() {
+    return this.cancelled;
+  }
 
-    @Override
-    public boolean isBilled() {
-        return this.billed;
-    }
+  @Override
+  public boolean isBilled() {
+    return this.billed;
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<ESInvoiceEntry> getEntries() {
-        return (List<ESInvoiceEntry>) (List<?>) super.getEntries();
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<ESInvoiceEntry> getEntries() {
+    return (List<ESInvoiceEntry>) (List<?>) super.getEntries();
+  }
 
-    @Override
-    public void setEACCode(String eacCode) {
-        this.eacCode = eacCode;
-    }
+  @Override
+  public void setEACCode(String eacCode) {
+    this.eacCode = eacCode;
+  }
 
-    @Override
-    public String getEACCode() {
-        return this.eacCode;
-    }
+  @Override
+  public String getEACCode() {
+    return eacCode;
+  }
 
-    @Override
-    public List<ESPayment> getPayments() {
-        return this.payments;
-    }
+  @Override
+  public List<ESPayment> getPayments() {
+    return payments;
+  }
 
-    @Override
-    public CLIENTTYPE getClientType() {
-        return this.clientType;
-    }
+  @Override
+  public CLIENTTYPE getClientType() {
+    return clientType;
+  }
 
-    @Override
-    public void setClientType(CLIENTTYPE type) {
-        this.clientType = type;
-    }
+  @Override
+  public void setClientType(CLIENTTYPE type) {
+    clientType = type;
+  }
 
 }

@@ -22,32 +22,33 @@ import com.premiumminds.billy.core.services.UID;
 
 public class CostumerData {
 
-    private final UID uid;
-    private final String taxRegistrationNumber;
-    private final String name;
-    private final AddressData billingAddress;
+  private final UID uid;
+  private final String taxRegistrationNumber;
+  private final String name;
+  private final AddressData billingAddress;
 
-    public CostumerData(UID uid, String taxRegistrationNumber, String name, AddressData billingAddress) {
-        this.uid = uid;
-        this.taxRegistrationNumber = taxRegistrationNumber;
-        this.name = name;
-        this.billingAddress = billingAddress;
-    }
+  public CostumerData(UID uid, String taxRegistrationNumber, String name,
+      AddressData billingAddress) {
+    this.uid = uid;
+    this.taxRegistrationNumber = taxRegistrationNumber;
+    this.name = name;
+    this.billingAddress = billingAddress;
+  }
 
-    public UID getUID() {
-        return this.uid;
-    }
+  public UID getUID() {
+    return uid;
+  }
 
-    public String getTaxRegistrationNumber() {
-        return this.taxRegistrationNumber;
-    }
+  public String getTaxRegistrationNumber() {
+    return taxRegistrationNumber;
+  }
 
-    public String getName() {
-        return this.name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public AddressData getBillingAddress() {
-        return this.billingAddress;
-    }
+  public AddressData getBillingAddress() {
+    return billingAddress;
+  }
 
 }

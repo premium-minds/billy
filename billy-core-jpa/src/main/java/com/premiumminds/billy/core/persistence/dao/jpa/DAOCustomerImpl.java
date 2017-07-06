@@ -28,32 +28,31 @@ import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity;
 
-public class DAOCustomerImpl extends AbstractDAO<CustomerEntity, JPACustomerEntity> implements DAOCustomer {
+public class DAOCustomerImpl extends AbstractDAO<CustomerEntity, JPACustomerEntity>
+    implements DAOCustomer {
 
-    @Inject
-    public DAOCustomerImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOCustomerImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<CustomerEntity> getAllActiveCustomers() {
-        List<JPACustomerEntity> result = (List<JPACustomerEntity>) this.getEntityManager()
-                .createQuery(
-                        "select c from " + this.getEntityClass().getCanonicalName() + " c " + "where c.active=true",
-                        this.getEntityClass())
-                .getResultList();
-        return this.checkEntityList(result, CustomerEntity.class);
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<CustomerEntity> getAllActiveCustomers() {
+    List<JPACustomerEntity> result = (List<JPACustomerEntity>) this.getEntityManager().createQuery(
+        "select c from " + this.getEntityClass().getCanonicalName() + " c " + "where c.active=true",
+        this.getEntityClass()).getResultList();
+    return this.checkEntityList(result, CustomerEntity.class);
+  }
 
-    @Override
-    protected Class<? extends JPACustomerEntity> getEntityClass() {
-        return JPACustomerEntity.class;
-    }
+  @Override
+  protected Class<? extends JPACustomerEntity> getEntityClass() {
+    return JPACustomerEntity.class;
+  }
 
-    @Override
-    public CustomerEntity getEntityInstance() {
-        return new JPACustomerEntity();
-    }
+  @Override
+  public CustomerEntity getEntityInstance() {
+    return new JPACustomerEntity();
+  }
 
 }

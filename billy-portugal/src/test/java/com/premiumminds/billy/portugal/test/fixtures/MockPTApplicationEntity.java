@@ -25,33 +25,31 @@ import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
 public class MockPTApplicationEntity extends MockApplicationEntity implements PTApplicationEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public Integer number;
-    public URL keysPath;
+  public Integer number;
+  public URL keysPath;
 
-    public MockPTApplicationEntity() {
+  public MockPTApplicationEntity() {
 
-    }
+  }
 
-    @Override
-    public Integer getSoftwareCertificationNumber() {
-        return this.number;
-    }
+  @Override
+  public Integer getSoftwareCertificationNumber() {
+    return this.number;
+  }
 
-    @Override
-    public void setSoftwareCertificateNum(Integer number) {
-        this.number = number;
-    }
+  @Override
+  public void setSoftwareCertificateNum(Integer number) {
+    this.number = number;
+  }
 
-    @Override
-    public URL getApplicationKeysPath() {
-        return this.keysPath;
-    }
+  public URL getApplicationKeysPath() {
+    return this.keysPath;
+  }
 
-    @Override
-    public void setApplicationKeysPath(URL keysPath) {
-        this.keysPath = keysPath;
-    }
+  public void setApplicationKeysPath(URL keysPath) {
+    this.keysPath = keysPath;
+  }
 
 }

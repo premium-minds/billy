@@ -29,41 +29,44 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESCreditNoteTestUtil {
 
-    private static final Boolean BILLED = false;
-    private static final Boolean CANCELLED = false;
-    private static final Boolean SELFBILL = false;
-    private static final String SOURCEID = "SOURCE";
+  private static final Boolean BILLED = false;
+  private static final Boolean CANCELLED = false;
+  private static final Boolean SELFBILL = false;
+  private static final String SOURCEID = "SOURCE";
 
-    private Injector injector;
-    private ESCreditNoteEntryTestUtil creditNoteEntry;
-    protected ESPaymentTestUtil payment;
+  private Injector injector;
+  private ESCreditNoteEntryTestUtil creditNoteEntry;
+  protected ESPaymentTestUtil payment;
 
-    public ESCreditNoteTestUtil(Injector injector) {
-        this.injector = injector;
-        this.creditNoteEntry = new ESCreditNoteEntryTestUtil(injector);
-        this.payment = new ESPaymentTestUtil(injector);
-    }
+  public ESCreditNoteTestUtil(Injector injector) {
+    this.injector = injector;
+    this.creditNoteEntry = new ESCreditNoteEntryTestUtil(injector);
+    this.payment = new ESPaymentTestUtil(injector);
+  }
 
-    public ESCreditNoteEntity getCreditNoteEntity(ESInvoiceEntity reference) {
+  public ESCreditNoteEntity getCreditNoteEntity(ESInvoiceEntity reference) {
 
-        ESCreditNoteEntity creditNote = (ESCreditNoteEntity) this.getCreditNoteBuilder(reference).build();
+    ESCreditNoteEntity creditNote = (ESCreditNoteEntity) this.getCreditNoteBuilder(reference)
+        .build();
 
-        ESCreditNoteEntryEntity creditNoteEntry = (ESCreditNoteEntryEntity) creditNote.getEntries().get(0);
-        creditNoteEntry.getDocumentReferences().add(creditNote);
+    ESCreditNoteEntryEntity creditNoteEntry = (ESCreditNoteEntryEntity) creditNote.getEntries()
+        .get(0);
+    creditNoteEntry.getDocumentReferences().add(creditNote);
 
-        return creditNote;
-    }
+    return creditNote;
+  }
 
-    public ESCreditNote.Builder getCreditNoteBuilder(ESInvoiceEntity reference) {
+  public ESCreditNote.Builder getCreditNoteBuilder(ESInvoiceEntity reference) {
 
-        ESCreditNote.Builder creditNoteBuilder = this.injector.getInstance(ESCreditNote.Builder.class);
+    ESCreditNote.Builder creditNoteBuilder = this.injector.getInstance(ESCreditNote.Builder.class);
 
-        ESCreditNoteEntry.Builder creditNoteEntryBuilder = this.creditNoteEntry.getCreditNoteEntryBuilder(reference);
+    ESCreditNoteEntry.Builder creditNoteEntryBuilder = this.creditNoteEntry
+        .getCreditNoteEntryBuilder(reference);
 
-        return creditNoteBuilder.setBilled(ESCreditNoteTestUtil.BILLED).setCancelled(ESCreditNoteTestUtil.CANCELLED)
-                .setSelfBilled(ESCreditNoteTestUtil.SELFBILL).setDate(new Date())
-                .setSourceId(ESCreditNoteTestUtil.SOURCEID).addEntry(creditNoteEntryBuilder)
-                .setBusinessUID(reference.getBusiness().getUID()).setCustomerUID(reference.getCustomer().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
-    }
+    return creditNoteBuilder.setBilled(ESCreditNoteTestUtil.BILLED)
+        .setCancelled(ESCreditNoteTestUtil.CANCELLED).setSelfBilled(ESCreditNoteTestUtil.SELFBILL)
+        .setDate(new Date()).setSourceId(ESCreditNoteTestUtil.SOURCEID)
+        .addEntry(creditNoteEntryBuilder).setBusinessUID(reference.getBusiness().getUID())
+        .setCustomerUID(reference.getCustomer().getUID()).addPayment(payment.getPaymentBuilder());
+  }
 }

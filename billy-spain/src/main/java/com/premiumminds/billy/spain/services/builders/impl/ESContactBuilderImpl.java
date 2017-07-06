@@ -29,21 +29,22 @@ import com.premiumminds.billy.spain.services.builders.ESContactBuilder;
 import com.premiumminds.billy.spain.services.entities.ESContact;
 
 public class ESContactBuilderImpl<TBuilder extends ESContactBuilderImpl<TBuilder, TContact>, TContact extends ESContact>
-        extends ContactBuilderImpl<TBuilder, TContact> implements ESContactBuilder<TBuilder, TContact> {
+    extends ContactBuilderImpl<TBuilder, TContact> implements ESContactBuilder<TBuilder, TContact> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    public ESContactBuilderImpl(DAOESContact daoESContact) {
-        super(daoESContact);
-    }
+  @Inject
+  public ESContactBuilderImpl(DAOESContact daoESContact) {
+    super(daoESContact);
+  }
 
-    @Override
-    protected ESContactEntity getTypeInstance() {
-        return (ESContactEntity) super.getTypeInstance();
-    }
+  @Override
+  protected ESContactEntity getTypeInstance() {
+    return (ESContactEntity) super.getTypeInstance();
+  }
 
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-    }
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+  }
 }

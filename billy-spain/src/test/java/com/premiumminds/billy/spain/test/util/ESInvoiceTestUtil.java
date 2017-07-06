@@ -34,162 +34,170 @@ import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTe
 
 public class ESInvoiceTestUtil {
 
-    protected static final Boolean BILLED = false;
-    protected static final Boolean CANCELLED = false;
-    protected static final Boolean SELFBILL = false;
-    protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIE = "A";
-    protected static final Integer SERIE_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
+  protected static final Boolean BILLED = false;
+  protected static final Boolean CANCELLED = false;
+  protected static final Boolean SELFBILL = false;
+  protected static final String SOURCE_ID = "SOURCE";
+  protected static final String SERIE = "A";
+  protected static final Integer SERIE_NUMBER = 1;
+  protected static final int MAX_PRODUCTS = 5;
 
-    protected Injector injector;
-    protected ESInvoiceEntryTestUtil invoiceEntry;
-    protected ESBusinessTestUtil business;
-    protected ESCustomerTestUtil customer;
-    protected ESPaymentTestUtil payment;
+  protected Injector injector;
+  protected ESInvoiceEntryTestUtil invoiceEntry;
+  protected ESBusinessTestUtil business;
+  protected ESCustomerTestUtil customer;
+  protected ESPaymentTestUtil payment;
 
-    public ESInvoiceTestUtil(Injector injector) {
-        this.injector = injector;
-        this.invoiceEntry = new ESInvoiceEntryTestUtil(injector);
-        this.business = new ESBusinessTestUtil(injector);
-        this.customer = new ESCustomerTestUtil(injector);
-        this.payment = new ESPaymentTestUtil(injector);
+  public ESInvoiceTestUtil(Injector injector) {
+    this.injector = injector;
+    this.invoiceEntry = new ESInvoiceEntryTestUtil(injector);
+    this.business = new ESBusinessTestUtil(injector);
+    this.customer = new ESCustomerTestUtil(injector);
+    this.payment = new ESPaymentTestUtil(injector);
+  }
+
+  public ESInvoiceEntity getInvoiceEntity() {
+    return this.getInvoiceEntity(SOURCE_BILLING.APPLICATION);
+  }
+
+  public ESInvoiceEntity getInvoiceEntity(SOURCE_BILLING billing) {
+    ESInvoiceEntity invoice;
+    switch (billing) {
+    case MANUAL:
+      invoice = (ESInvoiceEntity) this.getManualInvoiceBuilder(business.getBusinessEntity())
+          .build();
+      break;
+    case APPLICATION:
+    default:
+      invoice = (ESInvoiceEntity) this.getInvoiceBuilder(business.getBusinessEntity()).build();
+      break;
     }
 
-    public ESInvoiceEntity getInvoiceEntity() {
-        return this.getInvoiceEntity(SOURCE_BILLING.APPLICATION);
+    return invoice;
+  }
+
+  public ESInvoice.Builder getInvoiceBuilder(ESBusinessEntity business) {
+    BigDecimal price = new BigDecimal("0.450");
+    ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
+
+    DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
+
+    ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
+    UID customerUID = daoESCustomer.create(customerEntity).getUID();
+
+    ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+    invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
+    invoiceBuilder.addEntry(invoiceEntryBuilder);
+
+    return invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED)
+        .setCancelled(ESInvoiceTestUtil.CANCELLED).setSelfBilled(ESInvoiceTestUtil.SELFBILL)
+        .setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID).setCustomerUID(customerUID)
+        .setBusinessUID(business.getUID()).addPayment(payment.getPaymentBuilder());
+  }
+
+  public ESInvoice.ManualBuilder getManualInvoiceBuilder(ESBusinessEntity business) {
+    BigDecimal price = new BigDecimal("0.450");
+    BigDecimal tax = new BigDecimal("0.078");
+    ESInvoice.ManualBuilder invoiceBuilder = this.injector
+        .getInstance(ESInvoice.ManualBuilder.class);
+
+    DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
+
+    ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
+    UID customerUID = daoESCustomer.create(customerEntity).getUID();
+
+    ESInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry
+        .getManualInvoiceEntryBuilder().setUnitAmount(AmountType.WITH_TAX, price)
+        .setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setUnitTaxAmount(tax)
+        .setAmount(AmountType.WITH_TAX, price)
+        .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax);
+    invoiceBuilder.addEntry(invoiceEntryBuilder);
+
+    return invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED)
+        .setCancelled(ESInvoiceTestUtil.CANCELLED).setSelfBilled(ESInvoiceTestUtil.SELFBILL)
+        .setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID).setCustomerUID(customerUID)
+        .setBusinessUID(business.getUID()).setAmount(AmountType.WITH_TAX, price)
+        .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax)
+        .addPayment(payment.getPaymentBuilder());
+  }
+
+  public ESInvoiceEntity getDiferentRegionsInvoice() {
+    BigDecimal entriesPrice = new BigDecimal("16.0145");
+    ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
+
+    DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
+
+    ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
+    UID customerUID = daoESCustomer.create(customerEntity).getUID();
+
+    for (int i = 0; i < 9; i++) {
+      ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+      invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
+      invoiceBuilder.addEntry(invoiceEntryBuilder);
     }
 
-    public ESInvoiceEntity getInvoiceEntity(SOURCE_BILLING billing) {
-        ESInvoiceEntity invoice;
-        switch (billing) {
-            case MANUAL:
-                invoice = (ESInvoiceEntity) this.getManualInvoiceBuilder(this.business.getBusinessEntity()).build();
-                break;
-            case APPLICATION:
-            default:
-                invoice = (ESInvoiceEntity) this.getInvoiceBuilder(this.business.getBusinessEntity()).build();
-                break;
-        }
+    invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
+        .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
+        .setSourceId(ESInvoiceTestUtil.SOURCE_ID).setCustomerUID(customerUID)
+        .setBusinessUID(business.getBusinessEntity().getUID())
+        .addPayment(payment.getPaymentBuilder());
 
-        return invoice;
+    return (ESInvoiceEntity) invoiceBuilder.build();
+  }
+
+  public ESInvoiceEntity getManyEntriesInvoice() {
+    BigDecimal entriesPrice = new BigDecimal("16.0145");
+    ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
+
+    DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
+
+    ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
+    UID customerUID = daoESCustomer.create(customerEntity).getUID();
+
+    for (int i = 0; i < 9; i++) {
+      ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+      invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
+      invoiceBuilder.addEntry(invoiceEntryBuilder);
     }
 
-    public ESInvoice.Builder getInvoiceBuilder(ESBusinessEntity business) {
-        BigDecimal price = new BigDecimal("0.450");
-        ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
+    invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
+        .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
+        .setSourceId(ESInvoiceTestUtil.SOURCE_ID).setCustomerUID(customerUID)
+        .setBusinessUID(business.getBusinessEntity().getUID())
+        .addPayment(payment.getPaymentBuilder());
 
-        DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
+    return (ESInvoiceEntity) invoiceBuilder.build();
+  }
 
-        ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
+  public ESInvoiceEntity getManyEntriesWithDiferentRegionsInvoice() {
+    BigDecimal entriesPrice = new BigDecimal("0.355555");
+    ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
 
-        ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
-        invoiceBuilder.addEntry(invoiceEntryBuilder);
+    DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
 
-        return invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
-                .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-                .setCustomerUID(customerUID).setBusinessUID(business.getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+    ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
+    UID customerUID = daoESCustomer.create(customerEntity).getUID();
+
+    for (int i = 0; i < 9; i++) {
+      ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+      invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
+      invoiceBuilder.addEntry(invoiceEntryBuilder);
     }
 
-    public ESInvoice.ManualBuilder getManualInvoiceBuilder(ESBusinessEntity business) {
-        BigDecimal price = new BigDecimal("0.450");
-        BigDecimal tax = new BigDecimal("0.078");
-        ESInvoice.ManualBuilder invoiceBuilder = this.injector.getInstance(ESInvoice.ManualBuilder.class);
-
-        DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
-
-        ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
-
-        ESInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry.getManualInvoiceEntryBuilder()
-                .setUnitAmount(AmountType.WITH_TAX, price).setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
-                .setUnitTaxAmount(tax).setAmount(AmountType.WITH_TAX, price)
-                .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax);
-        invoiceBuilder.addEntry(invoiceEntryBuilder);
-
-        return invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
-                .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-                .setCustomerUID(customerUID).setBusinessUID(business.getUID()).setAmount(AmountType.WITH_TAX, price)
-                .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax)
-                .addPayment(this.payment.getPaymentBuilder());
+    for (int i = 0; i < 9; i++) {
+      ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry
+          .getInvoiceOtherRegionsEntryBuilder();
+      invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
+      invoiceBuilder.addEntry(invoiceEntryBuilder);
     }
 
-    public ESInvoiceEntity getDiferentRegionsInvoice() {
-        BigDecimal entriesPrice = new BigDecimal("16.0145");
-        ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
+    invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
+        .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date())
+        .setSourceId(ESInvoiceTestUtil.SOURCE_ID).setCustomerUID(customerUID)
+        .setBusinessUID(business.getBusinessEntity().getUID())
+        .addPayment(payment.getPaymentBuilder());
 
-        DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
-
-        ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
-
-        for (int i = 0; i < 9; i++) {
-            ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-            invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
-
-        invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
-                .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-                .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
-
-        return (ESInvoiceEntity) invoiceBuilder.build();
-    }
-
-    public ESInvoiceEntity getManyEntriesInvoice() {
-        BigDecimal entriesPrice = new BigDecimal("16.0145");
-        ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
-
-        DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
-
-        ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
-
-        for (int i = 0; i < 9; i++) {
-            ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-            invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
-
-        invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
-                .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-                .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
-
-        return (ESInvoiceEntity) invoiceBuilder.build();
-    }
-
-    public ESInvoiceEntity getManyEntriesWithDiferentRegionsInvoice() {
-        BigDecimal entriesPrice = new BigDecimal("0.355555");
-        ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
-
-        DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
-
-        ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
-
-        for (int i = 0; i < 9; i++) {
-            ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-            invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
-
-        for (int i = 0; i < 9; i++) {
-            ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceOtherRegionsEntryBuilder();
-            invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, entriesPrice);
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
-
-        invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
-                .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
-                .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
-
-        return (ESInvoiceEntity) invoiceBuilder.build();
-    }
+    return (ESInvoiceEntity) invoiceBuilder.build();
+  }
 
 }

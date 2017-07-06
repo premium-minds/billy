@@ -24,10 +24,10 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.entities.Payment;
 
 public interface PaymentBuilder<TBuilder extends PaymentBuilder<TBuilder, TPayment>, TPayment extends Payment>
-        extends Builder<TPayment> {
+    extends Builder<TPayment> {
 
-    public TBuilder setPaymentMethod(Enum<?> method);
+  public TBuilder setPaymentMethod(Enum<?> method);
 
-    public TBuilder setPaymentDate(Date date);
+  public TBuilder setPaymentDate(Date date);
 
 }

@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.spain.services.export.ESReceiptData;
 
-public interface ESReceiptPDFTransformer extends BillyExportTransformer<ESReceiptData, OutputStream> {
+public interface ESReceiptPDFTransformer
+    extends BillyExportTransformer<ESReceiptData, OutputStream> {
 
 }

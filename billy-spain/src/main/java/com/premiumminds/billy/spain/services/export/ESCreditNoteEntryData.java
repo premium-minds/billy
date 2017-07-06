@@ -27,18 +27,19 @@ import com.premiumminds.billy.gin.services.export.TaxData;
 
 public class ESCreditNoteEntryData extends InvoiceEntryData {
 
-    private final ESInvoiceData reference;
+  private final ESInvoiceData reference;
 
-    public ESCreditNoteEntryData(ProductData productCode, String description, BigDecimal quantity, BigDecimal taxAmount,
-            BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
-            ESInvoiceData reference) {
-        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes);
+  public ESCreditNoteEntryData(ProductData productCode, String description, BigDecimal quantity,
+      BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax,
+      BigDecimal amountWithoutTax, List<TaxData> taxes, ESInvoiceData reference) {
+    super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax,
+        amountWithoutTax, taxes);
 
-        this.reference = reference;
-    }
+    this.reference = reference;
+  }
 
-    public ESInvoiceData getReference() {
-        return this.reference;
-    }
+  public ESInvoiceData getReference() {
+    return reference;
+  }
 
 }

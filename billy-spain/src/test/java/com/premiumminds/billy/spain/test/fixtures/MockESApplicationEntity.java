@@ -23,9 +23,9 @@ import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
 
 public class MockESApplicationEntity extends MockApplicationEntity implements ESApplicationEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public MockESApplicationEntity() {
-    }
+  public MockESApplicationEntity() {
+  }
 
 }

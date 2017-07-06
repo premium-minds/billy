@@ -32,29 +32,32 @@ import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
 
 public class TestContextBuilder extends AbstractTest {
 
-    private static final String CONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "Context.yml";
+  private static final String CONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "Context.yml";
 
-    @Test
-    public void doTest() {
-        MockContextEntity mockContext = this.createMockEntity(MockContextEntity.class, TestContextBuilder.CONTEXT_YML);
+  @Test
+  public void doTest() {
+    MockContextEntity mockContext = this.createMockEntity(MockContextEntity.class,
+        TestContextBuilder.CONTEXT_YML);
 
-        Mockito.when(this.getInstance(DAOContext.class).getEntityInstance()).thenReturn(new MockContextEntity());
+    Mockito.when(this.getInstance(DAOContext.class).getEntityInstance())
+        .thenReturn(new MockContextEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
-                .thenReturn((ContextEntity) mockContext.getParentContext());
+    Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+        .thenReturn((ContextEntity) mockContext.getParentContext());
 
-        Context.Builder builder = this.getInstance(Context.Builder.class);
+    Context.Builder builder = this.getInstance(Context.Builder.class);
 
-        builder.setDescription(mockContext.getDescription()).setName(mockContext.getName())
-                .setParentContextUID(mockContext.getParentContext().getUID());
+    builder.setDescription(mockContext.getDescription()).setName(mockContext.getName())
+        .setParentContextUID(mockContext.getParentContext().getUID());
 
-        Context context = builder.build();
+    Context context = builder.build();
 
-        assert (context != null);
-        Assert.assertEquals(mockContext.getName(), context.getName());
-        Assert.assertEquals(mockContext.getDescription(), context.getDescription());
-        Assert.assertEquals(mockContext.getParentContext().getUID(), context.getParentContext().getUID());
+    assert (context != null);
+    Assert.assertEquals(mockContext.getName(), context.getName());
+    Assert.assertEquals(mockContext.getDescription(), context.getDescription());
+    Assert.assertEquals(mockContext.getParentContext().getUID(),
+        context.getParentContext().getUID());
 
-    }
+  }
 
 }

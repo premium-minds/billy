@@ -25,26 +25,26 @@ import com.google.inject.persist.jpa.JpaPersistModule;
 
 public class PortugalTestPersistenceDependencyModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        JpaPersistModule persistModule = new JpaPersistModule("BillyPortugalTestPersistenceUnit");
-        this.install(persistModule);
+  @Override
+  protected void configure() {
+    JpaPersistModule persistModule = new JpaPersistModule("BillyPortugalTestPersistenceUnit");
+    this.install(persistModule);
+  }
+
+  public static class Initializer {
+
+    @Inject
+    public Initializer(PersistService persistService) {
+      persistService.start();
     }
+  }
 
-    public static class Initializer {
+  public static class Finalizer {
 
-        @Inject
-        public Initializer(PersistService persistService) {
-            persistService.start();
-        }
+    @Inject
+    public Finalizer(PersistService persistService) {
+      persistService.stop();
     }
-
-    public static class Finalizer {
-
-        @Inject
-        public Finalizer(PersistService persistService) {
-            persistService.stop();
-        }
-    }
+  }
 
 }

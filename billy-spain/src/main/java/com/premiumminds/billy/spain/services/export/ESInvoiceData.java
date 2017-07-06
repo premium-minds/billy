@@ -30,12 +30,13 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 
 public class ESInvoiceData extends GenericInvoiceData {
 
-    public ESInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+  public ESInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
+      CostumerData customer, BusinessData business, List<InvoiceEntryData> entries,
+      BigDecimal taxAmount, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
+      String settlementDescription) {
 
-        super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
-                amountWithoutTax, settlementDescription);
-    }
+    super(number, date, settlementDate, payments, customer, business, entries, taxAmount,
+        amountWithTax, amountWithoutTax, settlementDescription);
+  }
 
 }

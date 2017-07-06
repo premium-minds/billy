@@ -34,41 +34,41 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInv
 
 public class DAOPTGenericInvoiceImpl extends DAOGenericInvoiceImpl implements DAOPTGenericInvoice {
 
-    @Inject
-    public DAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public PTGenericInvoiceEntity getEntityInstance() {
-        return new JPAPTGenericInvoiceEntity();
-    }
+  @Override
+  public PTGenericInvoiceEntity getEntityInstance() {
+    return new JPAPTGenericInvoiceEntity();
+  }
 
-    @Override
-    protected Class<? extends JPAPTGenericInvoiceEntity> getEntityClass() {
-        return JPAPTGenericInvoiceEntity.class;
-    }
+  @Override
+  protected Class<? extends JPAPTGenericInvoiceEntity> getEntityClass() {
+    return JPAPTGenericInvoiceEntity.class;
+  }
 
-    protected PTBusinessEntity getBusinessEntity(UID uid) {
+  protected PTBusinessEntity getBusinessEntity(UID uid) {
 
-        QJPAPTBusinessEntity business = QJPAPTBusinessEntity.jPAPTBusinessEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+    QJPAPTBusinessEntity business = QJPAPTBusinessEntity.jPAPTBusinessEntity;
+    JPAQuery query = new JPAQuery(this.getEntityManager());
 
-        query.from(business).where(business.uid.eq(uid.getValue()));
+    query.from(business).where(business.uid.eq(uid.getValue()));
 
-        return this.checkEntity(query.singleResult(business), PTBusinessEntity.class);
-    }
+    return this.checkEntity(query.singleResult(business), PTBusinessEntity.class);
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T extends PTGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number) {
-        QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T extends PTGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number) {
+    QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
 
-        return (T) this.checkEntity(
-                this.createQuery()
-                        .from(invoice).where(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid
-                                .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
-                        .singleResult(invoice),
-                PTGenericInvoiceEntity.class);
-    }
+    return (T) this.checkEntity(
+        createQuery().from(invoice)
+            .where(toDSL(invoice.business, QJPAPTBusinessEntity.class).uid
+                .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
+            .singleResult(invoice),
+        PTGenericInvoiceEntity.class);
+  }
 }

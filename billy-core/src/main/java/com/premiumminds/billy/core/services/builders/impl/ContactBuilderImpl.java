@@ -28,71 +28,75 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TContact>, TContact extends Contact>
-        extends AbstractBuilder<TBuilder, TContact> implements ContactBuilder<TBuilder, TContact> {
+    extends AbstractBuilder<TBuilder, TContact> implements ContactBuilder<TBuilder, TContact> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    protected DAOContact daoContact;
+  protected DAOContact daoContact;
 
-    @Inject
-    public ContactBuilderImpl(DAOContact daoContact) {
-        super(daoContact);
-        this.daoContact = daoContact;
-    }
+  @Inject
+  public ContactBuilderImpl(DAOContact daoContact) {
+    super(daoContact);
+    this.daoContact = daoContact;
+  }
 
-    @Override
-    public TBuilder setName(String name) {
-        BillyValidator.notBlankButNull(name, ContactBuilderImpl.LOCALIZER.getString("field.contact_name"));
-        this.getTypeInstance().setName(name);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setName(String name) {
+    BillyValidator.notBlankButNull(name,
+        ContactBuilderImpl.LOCALIZER.getString("field.contact_name"));
+    this.getTypeInstance().setName(name);
+    return this.getBuilder();
+  }
 
-    @Override
-    public TBuilder setTelephone(String telephone) {
-        BillyValidator.notBlankButNull(telephone, ContactBuilderImpl.LOCALIZER.getString("field.telephone"));
-        this.getTypeInstance().setTelephone(telephone);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setTelephone(String telephone) {
+    BillyValidator.notBlankButNull(telephone,
+        ContactBuilderImpl.LOCALIZER.getString("field.telephone"));
+    this.getTypeInstance().setTelephone(telephone);
+    return this.getBuilder();
+  }
 
-    @Override
-    public TBuilder setMobile(String mobile) {
-        BillyValidator.notBlankButNull(mobile, ContactBuilderImpl.LOCALIZER.getString("field.mobile"));
-        this.getTypeInstance().setMobile(mobile);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setMobile(String mobile) {
+    BillyValidator.notBlankButNull(mobile, ContactBuilderImpl.LOCALIZER.getString("field.mobile"));
+    this.getTypeInstance().setMobile(mobile);
+    return this.getBuilder();
+  }
 
-    @Override
-    public TBuilder setFax(String fax) {
-        BillyValidator.notBlankButNull(fax, ContactBuilderImpl.LOCALIZER.getString("field.fax"));
-        this.getTypeInstance().setFax(fax);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setFax(String fax) {
+    BillyValidator.notBlankButNull(fax, ContactBuilderImpl.LOCALIZER.getString("field.fax"));
+    this.getTypeInstance().setFax(fax);
+    return this.getBuilder();
+  }
 
-    @Override
-    public TBuilder setEmail(String email) {
-        BillyValidator.notBlankButNull(email, ContactBuilderImpl.LOCALIZER.getString("field.email"));
-        this.getTypeInstance().setEmail(email);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setEmail(String email) {
+    BillyValidator.notBlankButNull(email, ContactBuilderImpl.LOCALIZER.getString("field.email"));
+    this.getTypeInstance().setEmail(email);
+    return this.getBuilder();
+  }
 
-    @Override
-    public TBuilder setWebsite(String website) {
-        BillyValidator.notBlankButNull(website, ContactBuilderImpl.LOCALIZER.getString("field.website"));
-        this.getTypeInstance().setWebsite(website);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setWebsite(String website) {
+    BillyValidator.notBlankButNull(website,
+        ContactBuilderImpl.LOCALIZER.getString("field.website"));
+    this.getTypeInstance().setWebsite(website);
+    return this.getBuilder();
+  }
 
-    @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
-        Contact c = this.getTypeInstance();
-        BillyValidator.mandatory(c.getTelephone(), "field.contact_telephone");
-        BillyValidator.mandatory(c.getName(), "field.contact_name");
-    }
+  @Override
+  protected void validateInstance() throws javax.validation.ValidationException {
+    Contact c = this.getTypeInstance();
+    BillyValidator.mandatory(c.getTelephone(), "field.contact_telephone");
+    BillyValidator.mandatory(c.getName(), "field.contact_name");
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    protected ContactEntity getTypeInstance() {
-        return (ContactEntity) super.getTypeInstance();
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  protected ContactEntity getTypeInstance() {
+    return (ContactEntity) super.getTypeInstance();
+  }
 
 }

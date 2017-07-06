@@ -32,6 +32,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
 public class JPAPTContactEntity extends JPAContactEntity implements PTContactEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
 }

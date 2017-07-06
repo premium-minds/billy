@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.persistence.entities;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
-public interface PTGenericInvoiceEntryEntity extends GenericInvoiceEntryEntity, PTGenericInvoiceEntry {
+public interface PTGenericInvoiceEntryEntity
+    extends GenericInvoiceEntryEntity, PTGenericInvoiceEntry {
 
 }

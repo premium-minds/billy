@@ -26,26 +26,26 @@ import com.premiumminds.billy.spain.persistence.entities.ESPaymentEntity;
 
 public class MockESPaymentEntity extends MockPaymentEntity implements ESPaymentEntity {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
-    protected BigDecimal paymentAmount;
+  protected BigDecimal paymentAmount;
 
-    @Override
-    public BigDecimal getPaymentAmount() {
-        return this.paymentAmount;
-    }
+  @Override
+  public BigDecimal getPaymentAmount() {
+    return paymentAmount;
+  }
 
-    @Override
-    public void setPaymentAmount(BigDecimal amount) {
-        this.paymentAmount = amount;
-    }
+  @Override
+  public void setPaymentAmount(BigDecimal amount) {
+    this.paymentAmount = amount;
+  }
 
-    @Override
-    public PaymentMechanism getPaymentMethod() {
-        return PaymentMechanism.valueOf(this.paymentMethod.toString());
-    }
+  @Override
+  public PaymentMechanism getPaymentMethod() {
+    return PaymentMechanism.valueOf(this.paymentMethod.toString());
+  }
 
 }

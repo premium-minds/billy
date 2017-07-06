@@ -23,6 +23,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESAddressEntity;
 
 public interface DAOESAddress extends DAOAddress {
 
-    @Override
-    public ESAddressEntity getEntityInstance();
+  @Override
+  public ESAddressEntity getEntityInstance();
 }

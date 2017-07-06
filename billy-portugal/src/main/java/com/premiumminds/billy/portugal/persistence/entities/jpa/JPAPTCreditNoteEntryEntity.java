@@ -35,39 +35,40 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE_ENTRY")
-public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity implements PTCreditNoteEntryEntity {
+public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity
+    implements PTCreditNoteEntryEntity {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class,
-            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "ID_PTINVOICE", referencedColumnName = "ID")
-    protected PTInvoice reference;
+  @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class, cascade = {
+      CascadeType.PERSIST, CascadeType.MERGE })
+  @JoinColumn(name = "ID_PTINVOICE", referencedColumnName = "ID")
+  protected PTInvoice reference;
 
-    @Column(name = "REASON")
-    protected String reason;
+  @Column(name = "REASON")
+  protected String reason;
 
-    @Override
-    public String getReason() {
-        return this.reason;
-    }
+  @Override
+  public String getReason() {
+    return this.reason;
+  }
 
-    @Override
-    public PTInvoice getReference() {
-        return this.reference;
-    }
+  @Override
+  public PTInvoice getReference() {
+    return this.reference;
+  }
 
-    @Override
-    public void setReference(PTInvoice reference) {
-        this.reference = reference;
-    }
+  @Override
+  public void setReference(PTInvoice reference) {
+    this.reference = reference;
+  }
 
-    @Override
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
+  @Override
+  public void setReason(String reason) {
+    this.reason = reason;
+  }
 
 }

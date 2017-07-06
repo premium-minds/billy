@@ -24,8 +24,8 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public interface DAOPTCreditNoteEntry extends DAOPTGenericInvoiceEntry {
 
-    @Override
-    public PTCreditNoteEntryEntity getEntityInstance();
+  @Override
+  public PTCreditNoteEntryEntity getEntityInstance();
 
-    PTCreditNoteEntity checkCreditNote(PTInvoice invoice);
+  PTCreditNoteEntity checkCreditNote(PTInvoice invoice);
 }

@@ -36,55 +36,56 @@ import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
 public class TestBusinessBuilder extends AbstractTest {
 
-    private static final String BUSINESS_YML = AbstractTest.YML_CONFIGS_DIR + "Business.yml";
+  private static final String BUSINESS_YML = AbstractTest.YML_CONFIGS_DIR + "Business.yml";
 
-    @Test
-    public void doTest() {
-        MockBusinessEntity mockBusiness =
-                this.createMockEntity(MockBusinessEntity.class, TestBusinessBuilder.BUSINESS_YML);
+  @Test
+  public void doTest() {
+    MockBusinessEntity mockBusiness = this.createMockEntity(MockBusinessEntity.class,
+        TestBusinessBuilder.BUSINESS_YML);
 
-        Mockito.when(this.getInstance(DAOBusiness.class).getEntityInstance()).thenReturn(new MockBusinessEntity());
+    Mockito.when(this.getInstance(DAOBusiness.class).getEntityInstance())
+        .thenReturn(new MockBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
-                .thenReturn((ContextEntity) mockBusiness.getOperationalContext());
+    Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+        .thenReturn((ContextEntity) mockBusiness.getOperationalContext());
 
-        Business.Builder builder = this.getInstance(Business.Builder.class);
+    Business.Builder builder = this.getInstance(Business.Builder.class);
 
-        Contact.Builder mockMainContactBuilder = this.getMock(Contact.Builder.class);
-        Mockito.when(mockMainContactBuilder.build()).thenReturn(mockBusiness.getMainContact());
+    Contact.Builder mockMainContactBuilder = this.getMock(Contact.Builder.class);
+    Mockito.when(mockMainContactBuilder.build()).thenReturn(mockBusiness.getMainContact());
 
-        Application.Builder mockApplicationBuilder = this.getMock(Application.Builder.class);
-        Mockito.when(mockApplicationBuilder.build()).thenReturn(mockBusiness.getApplications().get(0));
+    Application.Builder mockApplicationBuilder = this.getMock(Application.Builder.class);
+    Mockito.when(mockApplicationBuilder.build()).thenReturn(mockBusiness.getApplications().get(0));
 
-        Address.Builder mockAddressBuilder = this.getMock(Address.Builder.class);
-        Mockito.when(mockAddressBuilder.build()).thenReturn(mockBusiness.getAddress());
+    Address.Builder mockAddressBuilder = this.getMock(Address.Builder.class);
+    Mockito.when(mockAddressBuilder.build()).thenReturn(mockBusiness.getAddress());
 
-        Address.Builder mockShippingAddressBuilder = this.getMock(Address.Builder.class);
-        Mockito.when(mockShippingAddressBuilder.build()).thenReturn(mockBusiness.getShippingAddress());
+    Address.Builder mockShippingAddressBuilder = this.getMock(Address.Builder.class);
+    Mockito.when(mockShippingAddressBuilder.build()).thenReturn(mockBusiness.getShippingAddress());
 
-        Address.Builder mockBillingAddressBuilder = this.getMock(Address.Builder.class);
-        Mockito.when(mockBillingAddressBuilder.build()).thenReturn(mockBusiness.getBillingAddress());
+    Address.Builder mockBillingAddressBuilder = this.getMock(Address.Builder.class);
+    Mockito.when(mockBillingAddressBuilder.build()).thenReturn(mockBusiness.getBillingAddress());
 
-        builder.setFinancialID(mockBusiness.getFinancialID(), null).setName(mockBusiness.getName())
-                .setCommercialName(mockBusiness.getCommercialName()).setAddress(mockAddressBuilder)
-                .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
-                .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
-                .setWebsite(mockBusiness.getWebsiteAddress())
-                .setOperationalContextUID(mockBusiness.getOperationalContext().getUID());
+    builder.setFinancialID(mockBusiness.getFinancialID(), null).setName(mockBusiness.getName())
+        .setCommercialName(mockBusiness.getCommercialName()).setAddress(mockAddressBuilder)
+        .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
+        .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
+        .setWebsite(mockBusiness.getWebsiteAddress())
+        .setOperationalContextUID(mockBusiness.getOperationalContext().getUID());
 
-        Business business = builder.build();
+    Business business = builder.build();
 
-        Assert.assertTrue(business != null);
+    Assert.assertTrue(business != null);
 
-        Assert.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
-        Assert.assertEquals(mockBusiness.getName(), business.getName());
-        Assert.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
-        Assert.assertEquals(mockBusiness.getCommercialName(), business.getCommercialName());
-        Assert.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
+    Assert.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+    Assert.assertEquals(mockBusiness.getName(), business.getName());
+    Assert.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
+    Assert.assertEquals(mockBusiness.getCommercialName(), business.getCommercialName());
+    Assert.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
 
-        Assert.assertTrue(business.getContacts() != null);
+    Assert.assertTrue(business.getContacts() != null);
 
-        Assert.assertTrue(business.getApplications() != null);
-        Assert.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
-    }
+    Assert.assertTrue(business.getApplications() != null);
+    Assert.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
+  }
 }

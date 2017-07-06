@@ -20,43 +20,47 @@ package com.premiumminds.billy.portugal.test.services.persistence;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
+import com.premiumminds.billy.portugal.test.util.PTApplicationTestUtil;
 
 public class TestInvoiceGenerationAndExport extends PTPersistenceServiceAbstractTest {
 
-    private PTInvoice invoice;
-    private PTCreditNote creditNote;
-    private UID appUID;
+  private PTInvoice invoice;
+  private PTCreditNote creditNote;
+  private UID appUID;
 
-    @Before
-    public void setUp() throws DocumentIssuingException, MalformedURLException {
-        // this.invoice = getNewIssuedInvoice();
-        // this.creditNote = getNewIssuedCreditnote(invoice);
-        //
-        // PTApplication.Builder appBuilder = new
-        // PTApplicationTestUtil(injector).getApplicationBuilder();
-        // appUID = new UID();
-        // appBuilder.setUID(appUID);
-        // billy.applications().persistence().create(appBuilder);
+  @Before
+  public void setUp() throws DocumentIssuingException, MalformedURLException {
+    // this.invoice = getNewIssuedInvoice();
+    // this.creditNote = getNewIssuedCreditnote(invoice);
+    //
+    // PTApplication.Builder appBuilder = new
+    // PTApplicationTestUtil(injector).getApplicationBuilder();
+    // appUID = new UID();
+    // appBuilder.setUID(appUID);
+    // billy.applications().persistence().create(appBuilder);
 
-    }
+  }
 
-    @Test
-    public void testExportInvoice() throws SAFTPTExportException, IOException {
-        // TO USE with EOS DB
-        // Calendar calendar = Calendar.getInstance();
-        // calendar.set(2013, 1, 1);
-        // Date tau = calendar.getTime();
-        // billy.saft().export(new UID("EOS"), new UID("MAKSU_PT"), "1", tau, new
-        // Date());
-    }
+  @Test
+  public void testExportInvoice() throws SAFTPTExportException, IOException {
+    // TO USE with EOS DB
+    // Calendar calendar = Calendar.getInstance();
+    // calendar.set(2013, 1, 1);
+    // Date tau = calendar.getTime();
+    // billy.saft().export(new UID("EOS"), new UID("MAKSU_PT"), "1", tau, new
+    // Date());
+  }
 
 }

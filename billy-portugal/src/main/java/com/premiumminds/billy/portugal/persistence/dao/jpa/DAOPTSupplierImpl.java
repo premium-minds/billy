@@ -29,18 +29,18 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSupplierEnt
 
 public class DAOPTSupplierImpl extends DAOSupplierImpl implements DAOPTSupplier {
 
-    @Inject
-    public DAOPTSupplierImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOPTSupplierImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public PTSupplierEntity getEntityInstance() {
-        return new JPAPTSupplierEntity();
-    }
+  @Override
+  public PTSupplierEntity getEntityInstance() {
+    return new JPAPTSupplierEntity();
+  }
 
-    @Override
-    protected Class<JPAPTSupplierEntity> getEntityClass() {
-        return JPAPTSupplierEntity.class;
-    }
+  @Override
+  protected Class<JPAPTSupplierEntity> getEntityClass() {
+    return JPAPTSupplierEntity.class;
+  }
 }

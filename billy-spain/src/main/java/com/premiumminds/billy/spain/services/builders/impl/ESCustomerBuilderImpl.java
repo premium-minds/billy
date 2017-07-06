@@ -37,69 +37,73 @@ import com.premiumminds.billy.spain.services.entities.ESCustomer;
 import com.premiumminds.billy.spain.util.ESFinancialValidator;
 
 public class ESCustomerBuilderImpl<TBuilder extends ESCustomerBuilderImpl<TBuilder, TCustomer>, TCustomer extends ESCustomer>
-        extends CustomerBuilderImpl<TBuilder, TCustomer> implements ESCustomerBuilder<TBuilder, TCustomer> {
+    extends CustomerBuilderImpl<TBuilder, TCustomer>
+    implements ESCustomerBuilder<TBuilder, TCustomer> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    protected ESCustomerBuilderImpl(DAOESCustomer daoESCustomer, DAOESContact daoESContact) {
-        super(daoESCustomer, daoESContact);
+  @Inject
+  protected ESCustomerBuilderImpl(DAOESCustomer daoESCustomer, DAOESContact daoESContact) {
+    super(daoESCustomer, daoESContact);
+  }
+
+  @Override
+  @NotOnUpdate
+  public TBuilder setTaxRegistrationNumber(String number, String countryCode)
+      throws InvalidTaxIdentificationNumberException {
+    BillyValidator.notBlank(number,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+
+    ESFinancialValidator validator = new ESFinancialValidator(number);
+
+    if (ESFinancialValidator.ES_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
+      throw new InvalidTaxIdentificationNumberException();
     }
+    this.getTypeInstance().setTaxRegistrationNumber(number);
+    return this.getBuilder();
+  }
 
-    @Override
-    @NotOnUpdate
-    public TBuilder setTaxRegistrationNumber(String number, String countryCode)
-            throws InvalidTaxIdentificationNumberException {
-        BillyValidator.notBlank(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+  @Override
+  protected ESCustomerEntity getTypeInstance() {
+    return (ESCustomerEntity) super.getTypeInstance();
+  }
 
-        ESFinancialValidator validator = new ESFinancialValidator(number);
+  @Override
+  public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
+    BillyValidator.notNull(addressBuilder,
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
+    this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
+    return this.getBuilder();
+  }
 
-        if (ESFinancialValidator.ES_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
-            throw new InvalidTaxIdentificationNumberException();
-        }
-        this.getTypeInstance().setTaxRegistrationNumber(number);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
+    BillyValidator.notNull(selfBiling,
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
+    this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
+    return this.getBuilder();
+  }
 
-    @Override
-    protected ESCustomerEntity getTypeInstance() {
-        return (ESCustomerEntity) super.getTypeInstance();
-    }
+  public TBuilder setReferralName(String referralName) {
+    this.getTypeInstance().setReferralName(referralName);
+    return this.getBuilder();
+  }
 
-    @Override
-    public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
-        BillyValidator.notNull(addressBuilder,
-                ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
-        this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
-        return this.getBuilder();
-    }
-
-    @Override
-    public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
-        BillyValidator.notNull(selfBiling,
-                ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
-        this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
-        return this.getBuilder();
-    }
-
-    @Override
-    public TBuilder setReferralName(String referralName) {
-        this.getTypeInstance().setReferralName(referralName);
-        return this.getBuilder();
-    }
-
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        ESCustomerEntity c = this.getTypeInstance();
-        BillyValidator.mandatory(c.getName(), ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
-        BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-                ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-        BillyValidator.mandatory(c.getMainAddress(),
-                ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
-        BillyValidator.mandatory(c.getBillingAddress(),
-                ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
-        BillyValidator.mandatory(c.hasSelfBillingAgreement(),
-                ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
-        BillyValidator.notEmpty(c.getAddresses(), ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
-    }
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    ESCustomerEntity c = this.getTypeInstance();
+    BillyValidator.mandatory(c.getName(),
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
+    BillyValidator.mandatory(c.getTaxRegistrationNumber(),
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+    BillyValidator.mandatory(c.getMainAddress(),
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
+    BillyValidator.mandatory(c.getBillingAddress(),
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
+    BillyValidator.mandatory(c.hasSelfBillingAgreement(),
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
+    BillyValidator.notEmpty(c.getAddresses(),
+        ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
+  }
 }

@@ -30,25 +30,28 @@ import com.premiumminds.billy.spain.services.builders.ESAddressBuilder;
 import com.premiumminds.billy.spain.services.entities.ESAddress;
 
 public class ESAddressBuilderImpl<TBuilder extends ESAddressBuilderImpl<TBuilder, TAddress>, TAddress extends ESAddress>
-        extends AddressBuilderImpl<TBuilder, TAddress> implements ESAddressBuilder<TBuilder, TAddress> {
+    extends AddressBuilderImpl<TBuilder, TAddress> implements ESAddressBuilder<TBuilder, TAddress> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    protected ESAddressBuilderImpl(DAOESAddress daoESAddress) {
-        super(daoESAddress);
-    }
+  @Inject
+  protected ESAddressBuilderImpl(DAOESAddress daoESAddress) {
+    super(daoESAddress);
+  }
 
-    @Override
-    protected ESAddressEntity getTypeInstance() {
-        return (ESAddressEntity) super.getTypeInstance();
-    }
+  @Override
+  protected ESAddressEntity getTypeInstance() {
+    return (ESAddressEntity) super.getTypeInstance();
+  }
 
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        super.validateInstance();
-        ESAddressEntity address = this.getTypeInstance();
-        BillyValidator.mandatory(address.getDetails(), ESAddressBuilderImpl.LOCALIZER.getString("field.details"));
-        BillyValidator.mandatory(address.getISOCountry(), ESAddressBuilderImpl.LOCALIZER.getString("field.country"));
-    }
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    super.validateInstance();
+    ESAddressEntity address = this.getTypeInstance();
+    BillyValidator.mandatory(address.getDetails(),
+        ESAddressBuilderImpl.LOCALIZER.getString("field.details"));
+    BillyValidator.mandatory(address.getISOCountry(),
+        ESAddressBuilderImpl.LOCALIZER.getString("field.country"));
+  }
 }

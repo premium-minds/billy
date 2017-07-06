@@ -20,21 +20,21 @@ package com.premiumminds.billy.core.services.exceptions;
 
 public class ConfigurationServiceException extends Exception {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public ConfigurationServiceException() {
-    }
+  public ConfigurationServiceException() {
+  }
 
-    public ConfigurationServiceException(String message) {
-        super(message);
-    }
+  public ConfigurationServiceException(String message) {
+    super(message);
+  }
 
-    public ConfigurationServiceException(Throwable t) {
-        super(t);
-    }
+  public ConfigurationServiceException(Throwable t) {
+    super(t);
+  }
 
-    public ConfigurationServiceException(String message, Throwable t) {
-        super(message, t);
-    }
+  public ConfigurationServiceException(String message, Throwable t) {
+    super(message, t);
+  }
 
 }

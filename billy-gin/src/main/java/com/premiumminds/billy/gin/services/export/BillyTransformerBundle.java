@@ -23,13 +23,13 @@ import java.io.OutputStream;
 
 public interface BillyTransformerBundle {
 
-    /**
-     * returns the path to the xslt file to be used as the pdf template generator
-     *
-     * @return The path of the xslt template file.
-     */
-    public InputStream getXSLTFileStream();
+  /**
+   * returns the path to the xslt file to be used as the pdf template generator
+   * 
+   * @return The path of the xslt template file.
+   */
+  public InputStream getXSLTFileStream();
 
-    public OutputStream getResultOutputStream();
+  public OutputStream getResultOutputStream();
 
 }

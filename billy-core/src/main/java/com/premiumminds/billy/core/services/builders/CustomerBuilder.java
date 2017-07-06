@@ -26,24 +26,24 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 
 public interface CustomerBuilder<TBuilder extends CustomerBuilder<TBuilder, TCustomer>, TCustomer extends Customer>
-        extends Builder<TCustomer> {
+    extends Builder<TCustomer> {
 
-    public TBuilder setName(String name);
+  public TBuilder setName(String name);
 
-    public TBuilder setTaxRegistrationNumber(String number, String countryCode);
+  public TBuilder setTaxRegistrationNumber(String number, String countryCode);
 
-    public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder, boolean mainAddress);
+  public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder, boolean mainAddress);
 
-    public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder);
+  public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder);
 
-    public <T extends Address> TBuilder setShippingAddress(Builder<T> addressBuilder);
+  public <T extends Address> TBuilder setShippingAddress(Builder<T> addressBuilder);
 
-    public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder);
+  public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder);
 
-    public TBuilder setMainContactUID(UID contactUID);
+  public TBuilder setMainContactUID(UID contactUID);
 
-    public <T extends BankAccount> TBuilder addBankAccount(Builder<T> accountBuilder);
+  public <T extends BankAccount> TBuilder addBankAccount(Builder<T> accountBuilder);
 
-    public TBuilder setHasSelfBillingAgreement(boolean selfBiling);
+  public TBuilder setHasSelfBillingAgreement(boolean selfBiling);
 
 }

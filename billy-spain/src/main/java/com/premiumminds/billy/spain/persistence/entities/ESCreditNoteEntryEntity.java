@@ -23,7 +23,7 @@ import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
 public interface ESCreditNoteEntryEntity extends ESGenericInvoiceEntryEntity, ESCreditNoteEntry {
 
-    public void setReference(ESInvoice reference);
+  public void setReference(ESInvoice reference);
 
-    public void setReason(String reason);
+  public void setReason(String reason);
 }

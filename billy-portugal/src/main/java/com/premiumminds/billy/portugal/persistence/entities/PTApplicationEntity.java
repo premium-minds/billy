@@ -25,7 +25,7 @@ import com.premiumminds.billy.portugal.services.entities.PTApplication;
 
 public interface PTApplicationEntity extends ApplicationEntity, PTApplication {
 
-    public void setSoftwareCertificateNum(Integer number);
+  public void setSoftwareCertificateNum(Integer number);
 
-    public void setApplicationKeysPath(URL path);
+  public void setApplicationKeysPath(URL path);
 }

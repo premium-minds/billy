@@ -27,26 +27,26 @@ import java.util.concurrent.Future;
 
 public class ConcurrentTestUtil {
 
-    private int totalThreads;
+  private int totalThreads;
 
-    public ConcurrentTestUtil(int totalThreads) {
-        this.totalThreads = totalThreads;
+  public ConcurrentTestUtil(int totalThreads) {
+    this.totalThreads = totalThreads;
+  }
+
+  public List<Future<?>> runThreads(Callable<?> callable) {
+    ExecutorService executor = Executors.newFixedThreadPool(this.totalThreads);
+    ArrayList<Future<?>> futures = new ArrayList<Future<?>>();
+
+    for (int i = 0; i < this.totalThreads; i++) {
+      futures.add(executor.submit(callable));
     }
 
-    public List<Future<?>> runThreads(Callable<?> callable) {
-        ExecutorService executor = Executors.newFixedThreadPool(this.totalThreads);
-        ArrayList<Future<?>> futures = new ArrayList<>();
+    executor.shutdown();
+    while (!executor.isTerminated()) {
 
-        for (int i = 0; i < this.totalThreads; i++) {
-            futures.add(executor.submit(callable));
-        }
-
-        executor.shutdown();
-        while (!executor.isTerminated()) {
-
-        }
-
-        return futures;
     }
+
+    return futures;
+  }
 
 }

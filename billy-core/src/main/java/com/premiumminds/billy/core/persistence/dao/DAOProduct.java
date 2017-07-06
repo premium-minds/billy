@@ -24,6 +24,6 @@ import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 
 public interface DAOProduct extends DAO<ProductEntity> {
 
-    List<ProductEntity> getAllActiveProducts();
+  List<ProductEntity> getAllActiveProducts();
 
 }

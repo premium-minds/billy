@@ -35,58 +35,59 @@ import com.premiumminds.billy.spain.services.entities.ESPayment;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
-public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity implements ESGenericInvoiceEntity {
+public class JPAESGenericInvoiceEntity extends JPAGenericInvoiceEntity
+    implements ESGenericInvoiceEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Column(name = "CANCELLED")
-    protected boolean cancelled;
+  @Column(name = "CANCELLED")
+  protected boolean cancelled;
 
-    @Column(name = "EAC_CODE")
-    protected String eacCode;
+  @Column(name = "EAC_CODE")
+  protected String eacCode;
 
-    @Column(name = "BILLED")
-    protected boolean billed;
+  @Column(name = "BILLED")
+  protected boolean billed;
 
-    @Override
-    public boolean isCancelled() {
-        return this.cancelled;
-    }
+  @Override
+  public boolean isCancelled() {
+    return this.cancelled;
+  }
 
-    @Override
-    public boolean isBilled() {
-        return this.billed;
-    }
+  @Override
+  public boolean isBilled() {
+    return this.billed;
+  }
 
-    @Override
-    public String getEACCode() {
-        return this.eacCode;
-    }
+  @Override
+  public String getEACCode() {
+    return eacCode;
+  }
 
-    @Override
-    public void setCancelled(boolean cancelled) {
-        this.cancelled = cancelled;
-    }
+  @Override
+  public void setCancelled(boolean cancelled) {
+    this.cancelled = cancelled;
+  }
 
-    @Override
-    public void setBilled(boolean billed) {
-        this.billed = billed;
-    }
+  @Override
+  public void setBilled(boolean billed) {
+    this.billed = billed;
+  }
 
-    @SuppressWarnings({ "unchecked" })
-    @Override
-    public List<? extends ESGenericInvoiceEntry> getEntries() {
-        return (List<ESGenericInvoiceEntry>) super.getEntries();
-    }
+  @SuppressWarnings({ "unchecked" })
+  @Override
+  public List<? extends ESGenericInvoiceEntry> getEntries() {
+    return (List<ESGenericInvoiceEntry>) super.getEntries();
+  }
 
-    @Override
-    public void setEACCode(String eacCode) {
-        this.eacCode = eacCode;
-    }
+  @Override
+  public void setEACCode(String eacCode) {
+    this.eacCode = eacCode;
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<ESPayment> getPayments() {
-        return (List<ESPayment>) super.getPayments();
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<ESPayment> getPayments() {
+    return (List<ESPayment>) super.getPayments();
+  }
 }

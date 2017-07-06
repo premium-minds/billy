@@ -33,35 +33,37 @@ import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtracto
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 
-public class ESInvoiceDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<ESInvoiceData> {
+public class ESInvoiceDataExtractor extends AbstractBillyDataExtractor
+    implements BillyDataExtractor<ESInvoiceData> {
 
-    private final DAOESInvoice daoESInvoice;
+  private final DAOESInvoice daoESInvoice;
 
-    @Inject
-    public ESInvoiceDataExtractor(DAOESInvoice daoESInvoice) {
-        this.daoESInvoice = daoESInvoice;
+  @Inject
+  public ESInvoiceDataExtractor(DAOESInvoice daoESInvoice) {
+    this.daoESInvoice = daoESInvoice;
+  }
+
+  @Override
+  public ESInvoiceData extract(UID uid) throws ExportServiceException {
+    ESInvoiceEntity entity = (ESInvoiceEntity) daoESInvoice.get(uid); // FIXME:
+                                                                      // Fix the
+                                                                      // DAOs to
+                                                                      // remove
+                                                                      // this
+                                                                      // cast
+    if (entity == null) {
+      throw new ExportServiceException(
+          "Unable to find entity with uid " + uid.toString() + " to be extracted");
     }
 
-    @Override
-    public ESInvoiceData extract(UID uid) throws ExportServiceException {
-        ESInvoiceEntity entity = (ESInvoiceEntity) this.daoESInvoice.get(uid); // FIXME:
-        // Fix the
-        // DAOs to
-        // remove
-        // this
-        // cast
-        if (entity == null) {
-            throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
-        }
+    List<PaymentData> payments = extractPayments(entity.getPayments());
+    CostumerData costumer = extractCostumer(entity.getCustomer());
+    BusinessData business = extractBusiness(entity.getBusiness());
+    List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
 
-        List<PaymentData> payments = this.extractPayments(entity.getPayments());
-        CostumerData costumer = this.extractCostumer(entity.getCustomer());
-        BusinessData business = this.extractBusiness(entity.getBusiness());
-        List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
-
-        return new ESInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments, costumer,
-                business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
-                entity.getSettlementDescription());
-    }
+    return new ESInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(),
+        payments, costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+        entity.getAmountWithoutTax(), entity.getSettlementDescription());
+  }
 
 }

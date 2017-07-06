@@ -27,27 +27,27 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 
 public interface PTGenericInvoiceEntity extends GenericInvoiceEntity, PTGenericInvoice {
 
-    public void setType(TYPE type);
+  public void setType(TYPE type);
 
-    public void setCancelled(boolean cancelled);
+  public void setCancelled(boolean cancelled);
 
-    public void setBilled(boolean billed);
+  public void setBilled(boolean billed);
 
-    public void setHash(String hash);
+  public void setHash(String hash);
 
-    public void setSourceHash(String source);
+  public void setSourceHash(String source);
 
-    public void setHashControl(String hashControl);
+  public void setHashControl(String hashControl);
 
-    public void setSourceBilling(SourceBilling sourceBilling);
+  public void setSourceBilling(SourceBilling sourceBilling);
 
-    public void setChangeReason(String reason);
+  public void setChangeReason(String reason);
 
-    public void setEACCode(String eacCode);
+  public void setEACCode(String eacCode);
 
-    @Override
-    public <T extends GenericInvoiceEntry> List<T> getEntries();
+  @Override
+  public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-    @Override
-    public <T extends Payment> List<T> getPayments();
+  @Override
+  public <T extends Payment> List<T> getPayments();
 }

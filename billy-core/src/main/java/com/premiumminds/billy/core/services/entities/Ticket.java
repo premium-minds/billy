@@ -27,18 +27,17 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.TicketBuilderImpl;
 
 public interface Ticket extends Entity {
+  public static class Builder extends TicketBuilderImpl<Builder, Ticket> {
 
-    public static class Builder extends TicketBuilderImpl<Builder, Ticket> {
-
-        @Inject
-        public Builder(DAOTicket daoTicket) {
-            super(daoTicket);
-        }
+    @Inject
+    public Builder(DAOTicket daoTicket) {
+      super(daoTicket);
     }
+  }
 
-    public UID getObjectUID();
+  public UID getObjectUID();
 
-    public Date getCreationDate();
+  public Date getCreationDate();
 
-    public Date getProcessDate();
+  public Date getProcessDate();
 }

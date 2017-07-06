@@ -25,18 +25,18 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 
 public interface ShippingPointBuilder<TBuilder extends ShippingPointBuilder<TBuilder, TShippingPoint>, TShippingPoint extends ShippingPoint>
-        extends Builder<TShippingPoint> {
+    extends Builder<TShippingPoint> {
 
-    public TBuilder setDeliveryId(String deliveryId);
+  public TBuilder setDeliveryId(String deliveryId);
 
-    public TBuilder setDate(Date date);
+  public TBuilder setDate(Date date);
 
-    public TBuilder setWarehouseId(String id);
+  public TBuilder setWarehouseId(String id);
 
-    public TBuilder setLocationId(String id);
+  public TBuilder setLocationId(String id);
 
-    public TBuilder setUCR(String UCR);
+  public TBuilder setUCR(String UCR);
 
-    public <T extends Address> TBuilder setAddress(Builder<T> address);
+  public <T extends Address> TBuilder setAddress(Builder<T> address);
 
 }

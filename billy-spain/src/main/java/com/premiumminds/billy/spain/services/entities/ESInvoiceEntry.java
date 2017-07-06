@@ -30,21 +30,22 @@ import com.premiumminds.billy.spain.services.builders.impl.ESManualInvoiceEntryB
 
 public interface ESInvoiceEntry extends ESGenericInvoiceEntry {
 
-    public static class Builder extends ESInvoiceEntryBuilderImpl<Builder, ESInvoiceEntry> {
+  public static class Builder extends ESInvoiceEntryBuilderImpl<Builder, ESInvoiceEntry> {
 
-        @Inject
-        public Builder(DAOESInvoiceEntry daoESEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
-                DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
-            super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
-        }
+    @Inject
+    public Builder(DAOESInvoiceEntry daoESEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
+        DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
+      super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
     }
+  }
 
-    public static class ManualBuilder extends ESManualInvoiceEntryBuilderImpl<ManualBuilder, ESInvoiceEntry> {
+  public static class ManualBuilder
+      extends ESManualInvoiceEntryBuilderImpl<ManualBuilder, ESInvoiceEntry> {
 
-        @Inject
-        public ManualBuilder(DAOESInvoiceEntry daoESEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
-                DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
-            super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
-        }
+    @Inject
+    public ManualBuilder(DAOESInvoiceEntry daoESEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
+        DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
+      super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
     }
+  }
 }

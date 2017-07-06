@@ -38,80 +38,80 @@ import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoice
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 
 public abstract class ESGenericInvoiceIssuingHandler extends DocumentIssuingHandlerImpl
-        implements DocumentIssuingHandler {
+    implements DocumentIssuingHandler {
 
-    protected DAOInvoiceSeries daoInvoiceSeries;
+  protected DAOInvoiceSeries daoInvoiceSeries;
 
-    @Inject
-    public ESGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
-        this.daoInvoiceSeries = daoInvoiceSeries;
+  @Inject
+  public ESGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
+    this.daoInvoiceSeries = daoInvoiceSeries;
+  }
+
+  @Override
+  public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(T document,
+      P parameters) throws DocumentIssuingException;
+
+  protected <T extends GenericInvoice, D extends DAOGenericInvoice> T issue(final T document,
+      final ESIssuingParams parametersES, final D daoInvoice) throws DocumentIssuingException {
+
+    String series = parametersES.getInvoiceSeries();
+
+    InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document, series,
+        LockModeType.PESSIMISTIC_WRITE);
+
+    ESGenericInvoiceEntity documentEntity = (ESGenericInvoiceEntity) document;
+
+    ((BaseEntity) document).initializeEntityDates();
+
+    // If the date is null then the invoice date is the current date
+    Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
+
+    // if (systemDate..after(invoiceDate)) {
+    // throw new InvalidInvoiceDateException();
+    // }
+
+    Integer seriesNumber = 1;
+
+    ESGenericInvoiceEntity latestInvoice = daoInvoice.getLatestInvoiceFromSeries(
+        invoiceSeriesEntity.getSeries(), document.getBusiness().getUID().toString());
+
+    if (null != latestInvoice) {
+      seriesNumber = latestInvoice.getSeriesNumber() + 1;
+      Date latestInvoiceDate = latestInvoice.getDate();
+
+      if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+        throw new InvalidInvoiceDateException();
+      }
     }
 
-    @Override
-    public abstract <T extends GenericInvoice, P extends IssuingParams> T issue(T document, P parameters)
-            throws DocumentIssuingException;
+    String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
 
-    protected <T extends GenericInvoice, D extends DAOGenericInvoice> T issue(final T document,
-            final ESIssuingParams parametersES, final D daoInvoice) throws DocumentIssuingException {
+    documentEntity.setDate(invoiceDate);
+    documentEntity.setNumber(formatedNumber);
+    documentEntity.setSeries(invoiceSeriesEntity.getSeries());
+    documentEntity.setSeriesNumber(seriesNumber);
+    documentEntity.setBilled(false);
+    documentEntity.setCancelled(false);
+    documentEntity.setEACCode(parametersES.getEACCode());
+    documentEntity.setCurrency(document.getCurrency());
 
-        String series = parametersES.getInvoiceSeries();
+    daoInvoice.create(documentEntity);
 
-        InvoiceSeriesEntity invoiceSeriesEntity =
-                this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
+    return (T) documentEntity;
+  }
 
-        ESGenericInvoiceEntity documentEntity = (ESGenericInvoiceEntity) document;
+  private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(final T document,
+      String series, LockModeType lockMode) {
+    InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(series,
+        document.getBusiness().getUID().toString(), lockMode);
 
-        ((BaseEntity) document).initializeEntityDates();
+    if (null == invoiceSeriesEntity) {
+      InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
+      entity.setBusiness(document.getBusiness());
+      entity.setSeries(series);
 
-        // If the date is null then the invoice date is the current date
-        Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
-
-        // if (systemDate..after(invoiceDate)) {
-        // throw new InvalidInvoiceDateException();
-        // }
-
-        Integer seriesNumber = 1;
-
-        ESGenericInvoiceEntity latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
-                document.getBusiness().getUID().toString());
-
-        if (null != latestInvoice) {
-            seriesNumber = latestInvoice.getSeriesNumber() + 1;
-            Date latestInvoiceDate = latestInvoice.getDate();
-
-            if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
-                throw new InvalidInvoiceDateException();
-            }
-        }
-
-        String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
-
-        documentEntity.setDate(invoiceDate);
-        documentEntity.setNumber(formatedNumber);
-        documentEntity.setSeries(invoiceSeriesEntity.getSeries());
-        documentEntity.setSeriesNumber(seriesNumber);
-        documentEntity.setBilled(false);
-        documentEntity.setCancelled(false);
-        documentEntity.setEACCode(parametersES.getEACCode());
-        documentEntity.setCurrency(document.getCurrency());
-
-        daoInvoice.create(documentEntity);
-
-        return (T) documentEntity;
+      invoiceSeriesEntity = daoInvoiceSeries.create(entity);
     }
-
-    private <T extends GenericInvoice> InvoiceSeriesEntity getInvoiceSeries(final T document, String series,
-            LockModeType lockMode) {
-        InvoiceSeriesEntity invoiceSeriesEntity =
-                this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
-
-        if (null == invoiceSeriesEntity) {
-            InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-            entity.setBusiness(document.getBusiness());
-            entity.setSeries(series);
-
-            invoiceSeriesEntity = this.daoInvoiceSeries.create(entity);
-        }
-        return invoiceSeriesEntity;
-    }
+    return invoiceSeriesEntity;
+  }
 }

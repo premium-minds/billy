@@ -23,25 +23,25 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 
 public class MockPTSupplierEntity extends MockSupplierEntity implements PTSupplierEntity {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
 
-    private String referral;
+  private String referral;
 
-    public MockPTSupplierEntity() {
+  public MockPTSupplierEntity() {
 
-    }
+  }
 
-    @Override
-    public String getReferralName() {
-        return this.referral;
-    }
+  @Override
+  public String getReferralName() {
+    return this.referral;
+  }
 
-    @Override
-    public void setReferralName(String referralName) {
-        this.referral = referralName;
-    }
+  @Override
+  public void setReferralName(String referralName) {
+    this.referral = referralName;
+  }
 
 }

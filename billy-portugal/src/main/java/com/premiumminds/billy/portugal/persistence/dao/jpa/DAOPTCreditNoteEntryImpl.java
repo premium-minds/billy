@@ -34,42 +34,43 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNote
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
-public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl implements DAOPTCreditNoteEntry {
+public class DAOPTCreditNoteEntryImpl extends DAOPTGenericInvoiceEntryImpl
+    implements DAOPTCreditNoteEntry {
 
-    @Inject
-    public DAOPTCreditNoteEntryImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOPTCreditNoteEntryImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public PTCreditNoteEntryEntity getEntityInstance() {
-        return new JPAPTCreditNoteEntryEntity();
-    }
+  @Override
+  public PTCreditNoteEntryEntity getEntityInstance() {
+    return new JPAPTCreditNoteEntryEntity();
+  }
 
-    @Override
-    protected Class<JPAPTCreditNoteEntryEntity> getEntityClass() {
-        return JPAPTCreditNoteEntryEntity.class;
-    }
+  @Override
+  protected Class<JPAPTCreditNoteEntryEntity> getEntityClass() {
+    return JPAPTCreditNoteEntryEntity.class;
+  }
 
-    @Override
-    public PTCreditNoteEntity checkCreditNote(PTInvoice invoice) {
+  @Override
+  public PTCreditNoteEntity checkCreditNote(PTInvoice invoice) {
 
-        QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+    QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+    JPAQuery query = new JPAQuery(this.getEntityManager());
 
-        query.from(creditNoteEntity);
+    query.from(creditNoteEntity);
 
-        List<JPAPTCreditNoteEntity> allCns = query.list(creditNoteEntity);
+    List<JPAPTCreditNoteEntity> allCns = query.list(creditNoteEntity);
 
-        // TODO make a query to do this
-        for (JPAPTCreditNoteEntity cne : allCns) {
-            for (PTCreditNoteEntry cnee : cne.getEntries()) {
-                if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
-                    return cne;
-                }
-            }
+    // TODO make a query to do this
+    for (JPAPTCreditNoteEntity cne : allCns) {
+      for (PTCreditNoteEntry cnee : cne.getEntries()) {
+        if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
+          return cne;
         }
-        return null;
+      }
     }
+    return null;
+  }
 }

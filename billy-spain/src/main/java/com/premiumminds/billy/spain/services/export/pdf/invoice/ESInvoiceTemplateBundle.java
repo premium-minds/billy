@@ -24,8 +24,8 @@ import com.premiumminds.billy.spain.services.export.pdf.ESAbstractTemplateBundle
 
 public class ESInvoiceTemplateBundle extends ESAbstractTemplateBundle {
 
-    public ESInvoiceTemplateBundle(String logoImagePath, InputStream xsltFileStream) {
+  public ESInvoiceTemplateBundle(String logoImagePath, InputStream xsltFileStream) {
 
-        super(logoImagePath, xsltFileStream);
-    }
+    super(logoImagePath, xsltFileStream);
+  }
 }

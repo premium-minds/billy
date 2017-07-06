@@ -25,5 +25,5 @@ import com.premiumminds.billy.spain.services.entities.ESPayment;
 
 public interface ESPaymentEntity extends PaymentEntity, ESPayment {
 
-    public void setPaymentAmount(BigDecimal amount);
+  public void setPaymentAmount(BigDecimal amount);
 }

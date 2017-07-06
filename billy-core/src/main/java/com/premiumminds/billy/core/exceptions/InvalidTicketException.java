@@ -20,9 +20,9 @@ package com.premiumminds.billy.core.exceptions;
 
 public class InvalidTicketException extends BillyValidationException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public InvalidTicketException() {
+  public InvalidTicketException() {
 
-    }
+  }
 }

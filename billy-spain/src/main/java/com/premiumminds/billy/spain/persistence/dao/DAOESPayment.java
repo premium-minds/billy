@@ -23,6 +23,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESPaymentEntity;
 
 public interface DAOESPayment extends DAOPayment {
 
-    @Override
-    public ESPaymentEntity getEntityInstance();
+  @Override
+  public ESPaymentEntity getEntityInstance();
 }

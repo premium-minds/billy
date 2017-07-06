@@ -24,7 +24,7 @@ import com.premiumminds.billy.core.services.entities.Payment;
 
 public interface PaymentEntity extends BaseEntity, Payment {
 
-    public void setPaymentMethod(Enum<?> method);
+  public void setPaymentMethod(Enum<?> method);
 
-    public void setPaymentDate(Date paymentDate);
+  public void setPaymentDate(Date paymentDate);
 }

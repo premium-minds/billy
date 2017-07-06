@@ -26,9 +26,9 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 
 public interface DAOPTInvoice extends DAOPTGenericInvoice {
 
-    @Override
-    public PTInvoiceEntity getEntityInstance();
+  @Override
+  public PTInvoiceEntity getEntityInstance();
 
-    public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid, Date from, Date to);
+  public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid, Date from, Date to);
 
 }

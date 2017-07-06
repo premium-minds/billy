@@ -34,37 +34,38 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 
 public class ESSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
-        implements BillyDataExtractor<ESSimpleInvoiceData> {
+    implements BillyDataExtractor<ESSimpleInvoiceData> {
 
-    private final DAOESSimpleInvoice daoESSimpleInvoice;
+  private final DAOESSimpleInvoice daoESSimpleInvoice;
 
-    @Inject
-    public ESSimpleInvoiceDataExtractor(DAOESSimpleInvoice daoESSimpleInvoice) {
-        this.daoESSimpleInvoice = daoESSimpleInvoice;
+  @Inject
+  public ESSimpleInvoiceDataExtractor(DAOESSimpleInvoice daoESSimpleInvoice) {
+    this.daoESSimpleInvoice = daoESSimpleInvoice;
+  }
+
+  @Override
+  public ESSimpleInvoiceData extract(UID uid) throws ExportServiceException {
+    ESSimpleInvoiceEntity entity = (ESSimpleInvoiceEntity) daoESSimpleInvoice.get(uid); // FIXME:
+                                                                                        // Fix
+                                                                                        // the
+                                                                                        // DAOs
+                                                                                        // to
+                                                                                        // remove
+                                                                                        // this
+                                                                                        // cast
+    if (entity == null) {
+      throw new ExportServiceException(
+          "Unable to find entity with uid " + uid.toString() + " to be extracted");
     }
 
-    @Override
-    public ESSimpleInvoiceData extract(UID uid) throws ExportServiceException {
-        ESSimpleInvoiceEntity entity = (ESSimpleInvoiceEntity) this.daoESSimpleInvoice.get(uid); // FIXME:
-        // Fix
-        // the
-        // DAOs
-        // to
-        // remove
-        // this
-        // cast
-        if (entity == null) {
-            throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
-        }
+    List<PaymentData> payments = extractPayments(entity.getPayments());
+    CostumerData costumer = extractCostumer(entity.getCustomer());
+    BusinessData business = extractBusiness(entity.getBusiness());
+    List<InvoiceEntryData> entries = extractEntries(entity.getEntries());
 
-        List<PaymentData> payments = this.extractPayments(entity.getPayments());
-        CostumerData costumer = this.extractCostumer(entity.getCustomer());
-        BusinessData business = this.extractBusiness(entity.getBusiness());
-        List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
-
-        return new ESSimpleInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
-                costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-                entity.getAmountWithoutTax(), entity.getSettlementDescription());
-    }
+    return new ESSimpleInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(),
+        payments, costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+        entity.getAmountWithoutTax(), entity.getSettlementDescription());
+  }
 
 }

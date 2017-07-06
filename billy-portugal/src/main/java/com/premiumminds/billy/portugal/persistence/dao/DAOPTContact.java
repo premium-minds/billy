@@ -23,6 +23,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 
 public interface DAOPTContact extends DAOContact {
 
-    @Override
-    public PTContactEntity getEntityInstance();
+  @Override
+  public PTContactEntity getEntityInstance();
 }

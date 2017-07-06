@@ -26,21 +26,22 @@ import com.premiumminds.billy.core.persistence.dao.DAOPayment;
 import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity;
 
-public class DAOPaymentImpl extends AbstractDAO<PaymentEntity, JPAPaymentEntity> implements DAOPayment {
+public class DAOPaymentImpl extends AbstractDAO<PaymentEntity, JPAPaymentEntity>
+    implements DAOPayment {
 
-    @Inject
-    public DAOPaymentImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOPaymentImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public PaymentEntity getEntityInstance() {
-        return new JPAPaymentEntity();
-    }
+  @Override
+  public PaymentEntity getEntityInstance() {
+    return new JPAPaymentEntity();
+  }
 
-    @Override
-    protected Class<? extends JPAPaymentEntity> getEntityClass() {
-        return JPAPaymentEntity.class;
-    }
+  @Override
+  protected Class<? extends JPAPaymentEntity> getEntityClass() {
+    return JPAPaymentEntity.class;
+  }
 
 }

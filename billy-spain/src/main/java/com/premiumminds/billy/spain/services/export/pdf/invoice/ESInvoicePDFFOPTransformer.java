@@ -28,42 +28,43 @@ import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransfor
 import com.premiumminds.billy.spain.services.export.pdf.ESInvoicePDFTransformer;
 
 public class ESInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESInvoiceData>
-        implements ESInvoicePDFTransformer {
+    implements ESInvoicePDFTransformer {
 
-    public static final String PARAM_KEYS_ROOT = "invoice";
-    public static final String PARAM_KEYS_INVOICE_PAYSETTLEMENT = "paymentSettlement";
+  public static final String PARAM_KEYS_ROOT = "invoice";
+  public static final String PARAM_KEYS_INVOICE_PAYSETTLEMENT = "paymentSettlement";
 
-    public ESInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream) {
+  public ESInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath,
+      InputStream xsltFileStream) {
 
-        super(ESInvoiceData.class, mathContext, logoImagePath, xsltFileStream);
+    super(ESInvoiceData.class, mathContext, logoImagePath, xsltFileStream);
+  }
+
+  public ESInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream) {
+
+    this(BillyMathContext.get(), logoImagePath, xsltFileStream);
+  }
+
+  public ESInvoicePDFFOPTransformer(ESInvoiceTemplateBundle bundle) {
+    super(ESInvoiceData.class, BillyMathContext.get(), bundle);
+  }
+
+  @Override
+  protected ParamsTree<String, String> getNewParamsTree() {
+    return new ParamsTree<String, String>(PARAM_KEYS_ROOT);
+  }
+
+  @Override
+  protected void setHeader(ParamsTree<String, String> params, ESInvoiceData entity) {
+    if (null != entity.getSettlementDescription()) {
+      params.getRoot().addChild(PARAM_KEYS_INVOICE_PAYSETTLEMENT,
+          entity.getSettlementDescription());
     }
+    super.setHeader(params, entity);
+  }
 
-    public ESInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream) {
-
-        this(BillyMathContext.get(), logoImagePath, xsltFileStream);
-    }
-
-    public ESInvoicePDFFOPTransformer(ESInvoiceTemplateBundle bundle) {
-        super(ESInvoiceData.class, BillyMathContext.get(), bundle);
-    }
-
-    @Override
-    protected ParamsTree<String, String> getNewParamsTree() {
-        return new ParamsTree<>(ESInvoicePDFFOPTransformer.PARAM_KEYS_ROOT);
-    }
-
-    @Override
-    protected void setHeader(ParamsTree<String, String> params, ESInvoiceData entity) {
-        if (null != entity.getSettlementDescription()) {
-            params.getRoot().addChild(ESInvoicePDFFOPTransformer.PARAM_KEYS_INVOICE_PAYSETTLEMENT,
-                    entity.getSettlementDescription());
-        }
-        super.setHeader(params, entity);
-    }
-
-    @Override
-    protected String getCustomerFinancialId(ESInvoiceData invoice) {
-        return invoice.getCustomer().getTaxRegistrationNumber();
-    }
+  @Override
+  protected String getCustomerFinancialId(ESInvoiceData invoice) {
+    return invoice.getCustomer().getTaxRegistrationNumber();
+  }
 
 }

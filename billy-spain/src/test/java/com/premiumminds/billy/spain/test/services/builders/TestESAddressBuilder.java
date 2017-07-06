@@ -30,32 +30,33 @@ import com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity;
 
 public class TestESAddressBuilder extends ESAbstractTest {
 
-    private static final String ESADDRESS_YML = AbstractTest.YML_CONFIGS_DIR + "ESAddress.yml";
+  private static final String ESADDRESS_YML = AbstractTest.YML_CONFIGS_DIR + "ESAddress.yml";
 
-    @Test
-    public void doTest() {
+  @Test
+  public void doTest() {
 
-        MockESAddressEntity mockAddress =
-                this.createMockEntity(MockESAddressEntity.class, TestESAddressBuilder.ESADDRESS_YML);
+    MockESAddressEntity mockAddress = this.createMockEntity(MockESAddressEntity.class,
+        TestESAddressBuilder.ESADDRESS_YML);
 
-        Mockito.when(this.getInstance(DAOESAddress.class).getEntityInstance()).thenReturn(new MockESAddressEntity());
+    Mockito.when(this.getInstance(DAOESAddress.class).getEntityInstance())
+        .thenReturn(new MockESAddressEntity());
 
-        ESAddress.Builder builder = this.getInstance(ESAddress.Builder.class);
+    ESAddress.Builder builder = this.getInstance(ESAddress.Builder.class);
 
-        builder.setCity(mockAddress.getCity()).setDetails(mockAddress.getDetails())
-                .setISOCountry(mockAddress.getISOCountry()).setNumber(mockAddress.getNumber())
-                .setPostalCode(mockAddress.getPostalCode()).setRegion(mockAddress.getRegion())
-                .setStreetName(mockAddress.getStreetName());
+    builder.setCity(mockAddress.getCity()).setDetails(mockAddress.getDetails())
+        .setISOCountry(mockAddress.getISOCountry()).setNumber(mockAddress.getNumber())
+        .setPostalCode(mockAddress.getPostalCode()).setRegion(mockAddress.getRegion())
+        .setStreetName(mockAddress.getStreetName());
 
-        ESAddress address = builder.build();
+    ESAddress address = builder.build();
 
-        assert (address != null);
-        Assert.assertEquals(mockAddress.getCity(), address.getCity());
-        Assert.assertEquals(mockAddress.getDetails(), address.getDetails());
-        Assert.assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
-        Assert.assertEquals(mockAddress.getNumber(), address.getNumber());
-        Assert.assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
-        Assert.assertEquals(mockAddress.getRegion(), address.getRegion());
-        Assert.assertEquals(mockAddress.getStreetName(), address.getStreetName());
-    }
+    assert (address != null);
+    Assert.assertEquals(mockAddress.getCity(), address.getCity());
+    Assert.assertEquals(mockAddress.getDetails(), address.getDetails());
+    Assert.assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
+    Assert.assertEquals(mockAddress.getNumber(), address.getNumber());
+    Assert.assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
+    Assert.assertEquals(mockAddress.getRegion(), address.getRegion());
+    Assert.assertEquals(mockAddress.getStreetName(), address.getStreetName());
+  }
 }

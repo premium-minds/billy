@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.portugal.services.export.PTInvoiceData;
 
-public interface PTInvoicePDFTransformer extends BillyExportTransformer<PTInvoiceData, OutputStream> {
+public interface PTInvoicePDFTransformer
+    extends BillyExportTransformer<PTInvoiceData, OutputStream> {
 
 }

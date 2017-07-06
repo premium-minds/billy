@@ -33,28 +33,29 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTManualInvoiceBui
 
 public interface PTInvoice extends PTGenericInvoice {
 
-    public static class Builder extends PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
+  public static class Builder extends PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
 
-        @Inject
-        public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-                DAOPTSupplier daoPTSupplier) {
-            super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-        }
+    @Inject
+    public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
+        DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+      super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
     }
+  }
 
-    public static class ManualBuilder extends PTManualInvoiceBuilderImpl<ManualBuilder, PTInvoiceEntry, PTInvoice> {
+  public static class ManualBuilder
+      extends PTManualInvoiceBuilderImpl<ManualBuilder, PTInvoiceEntry, PTInvoice> {
 
-        @Inject
-        public ManualBuilder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-                DAOPTSupplier daoPTSupplier) {
-            super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-        }
+    @Inject
+    public ManualBuilder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness,
+        DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+      super(daoPTInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
     }
+  }
 
-    @Override
-    public <T extends GenericInvoiceEntry> List<T> getEntries();
+  @Override
+  public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-    @Override
-    public <T extends Payment> List<T> getPayments();
+  @Override
+  public <T extends Payment> List<T> getPayments();
 
 }

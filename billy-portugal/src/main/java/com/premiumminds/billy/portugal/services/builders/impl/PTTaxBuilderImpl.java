@@ -32,34 +32,39 @@ import com.premiumminds.billy.portugal.services.builders.PTTaxBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
 public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>, TTax extends PTTax>
-        extends TaxBuilderImpl<TBuilder, TTax> implements PTTaxBuilder<TBuilder, TTax> {
+    extends TaxBuilderImpl<TBuilder, TTax> implements PTTaxBuilder<TBuilder, TTax> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {
-        super(daoPTTax, daoPTContext);
+  @Inject
+  public PTTaxBuilderImpl(DAOPTTax daoPTTax, DAOPTRegionContext daoPTContext) {
+    super(daoPTTax, daoPTContext);
+  }
+
+  @Override
+  protected PTTaxEntity getTypeInstance() {
+    return (PTTaxEntity) super.getTypeInstance();
+  }
+
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    PTTaxEntity e = this.getTypeInstance();
+
+    BillyValidator.mandatory(e.getContext(),
+        PTTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
+    BillyValidator.mandatory(e.getTaxRateType(),
+        PTTaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
+    BillyValidator.mandatory(e.getCode(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
+    BillyValidator.mandatory(e.getDescription(),
+        PTTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
+
+    if (!((DAOPTTax) this.daoTax)
+        .getTaxes((PTRegionContextEntity) e.getContext(), e.getValidFrom(), e.getValidTo())
+        .isEmpty()) {
+      throw new BillyValidationException();
     }
-
-    @Override
-    protected PTTaxEntity getTypeInstance() {
-        return (PTTaxEntity) super.getTypeInstance();
-    }
-
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        PTTaxEntity e = this.getTypeInstance();
-
-        BillyValidator.mandatory(e.getContext(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-        BillyValidator.mandatory(e.getTaxRateType(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
-        BillyValidator.mandatory(e.getCode(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
-        BillyValidator.mandatory(e.getDescription(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
-
-        if (!((DAOPTTax) this.daoTax).getTaxes((PTRegionContextEntity) e.getContext(), e.getValidFrom(), e.getValidTo())
-                .isEmpty()) {
-            throw new BillyValidationException();
-        }
-        super.validateInstance();
-    }
+    super.validateInstance();
+  }
 
 }
