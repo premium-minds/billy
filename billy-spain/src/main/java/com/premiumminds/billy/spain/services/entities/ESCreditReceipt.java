@@ -29,23 +29,24 @@ import com.premiumminds.billy.spain.services.builders.impl.ESManualCreditReceipt
 
 public interface ESCreditReceipt extends ESGenericInvoice {
 
-    public static class Builder extends ESCreditReceiptBuilderImpl<Builder, ESCreditReceiptEntry, ESCreditReceipt> {
+  public static class Builder
+      extends ESCreditReceiptBuilderImpl<Builder, ESCreditReceiptEntry, ESCreditReceipt> {
 
-        @Inject
-        public Builder(DAOESCreditReceipt daoESCreditReceipt, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
-                DAOESSupplier daoESSupplier) {
-            super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
-        }
+    @Inject
+    public Builder(DAOESCreditReceipt daoESCreditReceipt, DAOESBusiness daoESBusiness,
+        DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+      super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
     }
+  }
 
-    public static class ManualBuilder
-            extends ESManualCreditReceiptBuilderImpl<ManualBuilder, ESCreditReceiptEntry, ESCreditReceipt> {
+  public static class ManualBuilder extends
+      ESManualCreditReceiptBuilderImpl<ManualBuilder, ESCreditReceiptEntry, ESCreditReceipt> {
 
-        @Inject
-        public ManualBuilder(DAOESCreditReceipt daoESCreditReceipt, DAOESBusiness daoESBusiness,
-                DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
-            super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
-        }
+    @Inject
+    public ManualBuilder(DAOESCreditReceipt daoESCreditReceipt, DAOESBusiness daoESBusiness,
+        DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+      super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
     }
+  }
 
 }

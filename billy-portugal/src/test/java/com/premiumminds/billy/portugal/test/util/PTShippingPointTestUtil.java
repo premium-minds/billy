@@ -26,27 +26,29 @@ import com.premiumminds.billy.portugal.services.entities.PTShippingPoint;
 
 public class PTShippingPointTestUtil {
 
-    private final String deliveryId = "delivery_spot";
-    private final String locationId = "location_spot";
-    private final String warehouseId = "warehouse1";
+  private final String deliveryId = "delivery_spot";
+  private final String locationId = "location_spot";
+  private final String warehouseId = "warehouse1";
 
-    private Injector injector;
-    private PTAddressTestUtil address;
+  private Injector injector;
+  private PTAddressTestUtil address;
 
-    public PTShippingPointTestUtil(Injector injector) {
-        this.injector = injector;
-        this.address = new PTAddressTestUtil(injector);
-    }
+  public PTShippingPointTestUtil(Injector injector) {
+    this.injector = injector;
+    this.address = new PTAddressTestUtil(injector);
+  }
 
-    public PTShippingPoint.Builder getShippingPointBuilder() {
-        PTShippingPoint.Builder shippingPointBuilder = this.injector.getInstance(PTShippingPoint.Builder.class);
-        PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
+  public PTShippingPoint.Builder getShippingPointBuilder() {
+    PTShippingPoint.Builder shippingPointBuilder = this.injector
+        .getInstance(PTShippingPoint.Builder.class);
+    PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-        shippingPointBuilder.clear();
+    shippingPointBuilder.clear();
 
-        shippingPointBuilder.setAddress(addressBuilder).setDate(new Date()).setDeliveryId(this.deliveryId)
-                .setLocationId(this.locationId).setWarehouseId(this.warehouseId);
+    shippingPointBuilder.setAddress(addressBuilder).setDate(new Date())
+        .setDeliveryId(this.deliveryId).setLocationId(this.locationId)
+        .setWarehouseId(this.warehouseId);
 
-        return shippingPointBuilder;
-    }
+    return shippingPointBuilder;
+  }
 }

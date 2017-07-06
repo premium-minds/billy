@@ -20,6 +20,8 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
@@ -32,87 +34,87 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
 public class JPAContactEntity extends JPABaseEntity implements ContactEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Column(name = "NAME")
-    protected String name;
+  @Column(name = "NAME")
+  protected String name;
 
-    @Column(name = "PHONE")
-    protected String phone;
+  @Column(name = "PHONE")
+  protected String phone;
 
-    @Column(name = "MOBILE")
-    protected String mobile;
+  @Column(name = "MOBILE")
+  protected String mobile;
 
-    @Column(name = "FAX")
-    protected String fax;
+  @Column(name = "FAX")
+  protected String fax;
 
-    @Column(name = "EMAIL")
-    protected String email;
+  @Column(name = "EMAIL")
+  protected String email;
 
-    @Column(name = "WEBSITE")
-    protected String website;
+  @Column(name = "WEBSITE")
+  protected String website;
 
-    public JPAContactEntity() {
-    }
+  public JPAContactEntity() {
+  }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
+  @Override
+  public String getName() {
+    return this.name;
+  }
 
-    @Override
-    public String getTelephone() {
-        return this.phone;
-    }
+  @Override
+  public String getTelephone() {
+    return this.phone;
+  }
 
-    @Override
-    public String getMobile() {
-        return this.mobile;
-    }
+  @Override
+  public String getMobile() {
+    return this.mobile;
+  }
 
-    @Override
-    public String getFax() {
-        return this.fax;
-    }
+  @Override
+  public String getFax() {
+    return this.fax;
+  }
 
-    @Override
-    public String getEmail() {
-        return this.email;
-    }
+  @Override
+  public String getEmail() {
+    return this.email;
+  }
 
-    @Override
-    public String getWebsite() {
-        return this.website;
-    }
+  @Override
+  public String getWebsite() {
+    return this.website;
+  }
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
+  @Override
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    @Override
-    public void setTelephone(String telephone) {
-        this.phone = telephone;
-    }
+  @Override
+  public void setTelephone(String telephone) {
+    this.phone = telephone;
+  }
 
-    @Override
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
+  @Override
+  public void setMobile(String mobile) {
+    this.mobile = mobile;
+  }
 
-    @Override
-    public void setFax(String fax) {
-        this.fax = fax;
-    }
+  @Override
+  public void setFax(String fax) {
+    this.fax = fax;
+  }
 
-    @Override
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  @Override
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    @Override
-    public void setWebsite(String website) {
-        this.website = website;
-    }
+  @Override
+  public void setWebsite(String website) {
+    this.website = website;
+  }
 
 }

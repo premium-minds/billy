@@ -37,114 +37,122 @@ import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
 public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, TCustomer>, TCustomer extends Customer>
-        extends AbstractBuilder<TBuilder, TCustomer> implements CustomerBuilder<TBuilder, TCustomer> {
+    extends AbstractBuilder<TBuilder, TCustomer> implements CustomerBuilder<TBuilder, TCustomer> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    protected DAOCustomer daoCustomer;
-    protected DAOContact daoContact;
+  protected DAOCustomer daoCustomer;
+  protected DAOContact daoContact;
 
-    @Inject
-    public CustomerBuilderImpl(DAOCustomer daoCustomer, DAOContact daoContact) {
-        super(daoCustomer);
-        this.daoCustomer = daoCustomer;
-        this.daoContact = daoContact;
+  @Inject
+  public CustomerBuilderImpl(DAOCustomer daoCustomer, DAOContact daoContact) {
+    super(daoCustomer);
+    this.daoCustomer = daoCustomer;
+    this.daoContact = daoContact;
+  }
+
+  @Override
+  public TBuilder setName(String name) {
+    BillyValidator.mandatory(name, CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
+    this.getTypeInstance().setName(name);
+    return this.getBuilder();
+  }
+
+  @Override
+  @NotOnUpdate
+  public TBuilder setTaxRegistrationNumber(String number, String countryCode) {
+
+    BillyValidator.mandatory(number,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+    this.getTypeInstance().setTaxRegistrationNumber(number);
+    return this.getBuilder();
+  }
+
+  @Override
+  public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder, boolean mainAddress) {
+    BillyValidator.notNull(addressBuilder,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
+
+    Address address = addressBuilder.build();
+    if (mainAddress) {
+      this.getTypeInstance().setMainAddress((AddressEntity) address);
     }
+    this.getTypeInstance().getAddresses().add(address);
 
-    @Override
-    public TBuilder setName(String name) {
-        BillyValidator.mandatory(name, CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
-        this.getTypeInstance().setName(name);
-        return this.getBuilder();
+    return this.getBuilder();
+  }
+
+  @Override
+  public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
+    BillyValidator.notNull(addressBuilder,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
+    this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
+    return this.getBuilder();
+  }
+
+  @Override
+  public <T extends Address> TBuilder setShippingAddress(Builder<T> addressBuilder) {
+    BillyValidator.notNull(addressBuilder,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_shipping_address"));
+    this.getTypeInstance().setShippingAddress((AddressEntity) addressBuilder.build());
+    return this.getBuilder();
+  }
+
+  @Override
+  public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
+    BillyValidator.notNull(contactBuilder,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_contact"));
+    this.getTypeInstance().getContacts().add(contactBuilder.build());
+    return this.getBuilder();
+  }
+
+  @Override
+  public TBuilder setMainContactUID(UID contactUID) {
+    BillyValidator.notNull(contactUID,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
+
+    Contact c = null;
+    for (Contact contact : this.getTypeInstance().getContacts()) {
+      if (contact.getUID().equals(contactUID)) {
+        this.getTypeInstance().setMainContact((ContactEntity) contact);
+        c = contact;
+        break;
+      }
     }
+    BillyValidator.found(c, CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
+    return this.getBuilder();
+  }
 
-    @Override
-    @NotOnUpdate
-    public TBuilder setTaxRegistrationNumber(String number, String countryCode) {
+  @Override
+  public <T extends BankAccount> TBuilder addBankAccount(Builder<T> accountBuilder) {
+    BillyValidator.notNull(accountBuilder,
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_bank_account"));
+    this.getTypeInstance().getBankAccounts().add(accountBuilder.build());
+    return this.getBuilder();
+  }
 
-        BillyValidator.mandatory(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-        this.getTypeInstance().setTaxRegistrationNumber(number);
-        return this.getBuilder();
-    }
+  @Override
+  public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
+    this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
+    return this.getBuilder();
+  }
 
-    @Override
-    public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder, boolean mainAddress) {
-        BillyValidator.notNull(addressBuilder, CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
+  @Override
+  protected void validateInstance() throws javax.validation.ValidationException {
+    CustomerEntity c = this.getTypeInstance();
+    BillyValidator.mandatory(c.getName(),
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
+    BillyValidator.mandatory(c.getTaxRegistrationNumber(),
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+    BillyValidator.notEmpty(c.getAddresses(),
+        CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
+  }
 
-        Address address = addressBuilder.build();
-        if (mainAddress) {
-            this.getTypeInstance().setMainAddress((AddressEntity) address);
-        }
-        this.getTypeInstance().getAddresses().add(address);
-
-        return this.getBuilder();
-    }
-
-    @Override
-    public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
-        BillyValidator.notNull(addressBuilder,
-                CustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
-        this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
-        return this.getBuilder();
-    }
-
-    @Override
-    public <T extends Address> TBuilder setShippingAddress(Builder<T> addressBuilder) {
-        BillyValidator.notNull(addressBuilder,
-                CustomerBuilderImpl.LOCALIZER.getString("field.customer_shipping_address"));
-        this.getTypeInstance().setShippingAddress((AddressEntity) addressBuilder.build());
-        return this.getBuilder();
-    }
-
-    @Override
-    public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
-        BillyValidator.notNull(contactBuilder, CustomerBuilderImpl.LOCALIZER.getString("field.customer_contact"));
-        this.getTypeInstance().getContacts().add(contactBuilder.build());
-        return this.getBuilder();
-    }
-
-    @Override
-    public TBuilder setMainContactUID(UID contactUID) {
-        BillyValidator.notNull(contactUID, CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
-
-        Contact c = null;
-        for (Contact contact : this.getTypeInstance().getContacts()) {
-            if (contact.getUID().equals(contactUID)) {
-                this.getTypeInstance().setMainContact((ContactEntity) contact);
-                c = contact;
-                break;
-            }
-        }
-        BillyValidator.found(c, CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
-        return this.getBuilder();
-    }
-
-    @Override
-    public <T extends BankAccount> TBuilder addBankAccount(Builder<T> accountBuilder) {
-        BillyValidator.notNull(accountBuilder, CustomerBuilderImpl.LOCALIZER.getString("field.customer_bank_account"));
-        this.getTypeInstance().getBankAccounts().add(accountBuilder.build());
-        return this.getBuilder();
-    }
-
-    @Override
-    public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
-        this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
-        return this.getBuilder();
-    }
-
-    @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
-        CustomerEntity c = this.getTypeInstance();
-        BillyValidator.mandatory(c.getName(), CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
-        BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-                CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-        BillyValidator.notEmpty(c.getAddresses(), CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected CustomerEntity getTypeInstance() {
-        return (CustomerEntity) super.getTypeInstance();
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  protected CustomerEntity getTypeInstance() {
+    return (CustomerEntity) super.getTypeInstance();
+  }
 
 }

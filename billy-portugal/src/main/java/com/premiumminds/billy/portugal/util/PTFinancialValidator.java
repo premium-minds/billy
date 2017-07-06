@@ -22,46 +22,44 @@ import com.premiumminds.billy.core.util.FinancialValidator;
 
 public class PTFinancialValidator extends FinancialValidator {
 
-    public static final String PT_COUNTRY_CODE = "PT";
+  public static final String PT_COUNTRY_CODE = "PT";
 
-    public PTFinancialValidator(String financialID) {
-        super(financialID);
+  public PTFinancialValidator(String financialID) {
+    super(financialID);
+  }
+
+  @Override
+  public boolean isValid() {
+    // Must have exactly 9 numeric digits
+    if (financialID.length() != 9 || !financialID.matches("\\d+"))
+      return false;
+
+    // Fist digit must be 1, 2, 5, 6, 8 or 9
+    char firstDigit = financialID.charAt(0);
+    String validChars = "125689";
+    if (validChars.indexOf(firstDigit) == -1)
+      return false;
+
+    int checkSum = 0;
+    for (int i = 1; i < financialID.length(); i++) {
+      int digit = Character.getNumericValue(financialID.charAt(i - 1));
+      checkSum += (10 - i) * digit;
     }
 
-    @Override
-    public boolean isValid() {
-        // Must have exactly 9 numeric digits
-        if (this.financialID.length() != 9 || !this.financialID.matches("\\d+")) {
-            return false;
-        }
-
-        // Fist digit must be 1, 2, 5, 6, 8 or 9
-        char firstDigit = this.financialID.charAt(0);
-        String validChars = "125689";
-        if (validChars.indexOf(firstDigit) == -1) {
-            return false;
-        }
-
-        int checkSum = 0;
-        for (int i = 1; i < this.financialID.length(); i++) {
-            int digit = Character.getNumericValue(this.financialID.charAt(i - 1));
-            checkSum += (10 - i) * digit;
-        }
-
-        int lastDigit = Character.getNumericValue(this.financialID.charAt(8));
-        int val = (checkSum / 11) * 11;
-        checkSum -= val;
-        if (checkSum == 0 || checkSum == 1) {
-            checkSum = 0;
-        } else {
-            checkSum = 11 - checkSum;
-        }
-
-        if (checkSum == lastDigit) {
-            return true;
-        } else {
-            return false;
-        }
+    int lastDigit = Character.getNumericValue(financialID.charAt(8));
+    int val = (checkSum / 11) * 11;
+    checkSum -= val;
+    if (checkSum == 0 || checkSum == 1) {
+      checkSum = 0;
+    } else {
+      checkSum = 11 - checkSum;
     }
+
+    if (checkSum == lastDigit) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }

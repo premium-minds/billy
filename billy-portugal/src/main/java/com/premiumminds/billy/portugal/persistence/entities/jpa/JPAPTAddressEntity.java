@@ -32,6 +32,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
 public class JPAPTAddressEntity extends JPAAddressEntity implements PTAddressEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
 }

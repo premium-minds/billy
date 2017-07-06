@@ -30,30 +30,31 @@ import com.premiumminds.billy.portugal.test.util.PTCustomerTestUtil;
 
 public class TestJPAPTCustomer extends PTJPAAbstractTest {
 
-    private TransactionWrapper<Void> transaction;
+  private TransactionWrapper<Void> transaction;
 
-    @Before
-    public void setUp() {
-        this.transaction = new TransactionWrapper<Void>(PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
+  @Before
+  public void setUp() {
+    this.transaction = new TransactionWrapper<Void>(
+        PTAbstractTest.injector.getInstance(DAOPTInvoice.class)) {
 
-            @Override
-            public Void runTransaction() throws Exception {
-                final PTCustomerTestUtil customer = new PTCustomerTestUtil(PTAbstractTest.injector);
-                DAOPTCustomer daoPTCustomer = PTAbstractTest.injector.getInstance(DAOPTCustomer.class);
+      @Override
+      public Void runTransaction() throws Exception {
+        final PTCustomerTestUtil customer = new PTCustomerTestUtil(PTAbstractTest.injector);
+        DAOPTCustomer daoPTCustomer = PTAbstractTest.injector.getInstance(DAOPTCustomer.class);
 
-                PTCustomerEntity newCustomer = customer.getCustomerEntity();
+        PTCustomerEntity newCustomer = customer.getCustomerEntity();
 
-                daoPTCustomer.create(newCustomer);
+        daoPTCustomer.create(newCustomer);
 
-                return null;
-            }
+        return null;
+      }
 
-        };
-    }
+    };
+  }
 
-    @Test
-    public void testSimpleCustomerCreate() throws Exception {
-        PTJPAAbstractTest.execute(PTAbstractTest.injector, this.transaction);
-    }
+  @Test
+  public void testSimpleCustomerCreate() throws Exception {
+    PTJPAAbstractTest.execute(PTAbstractTest.injector, this.transaction);
+  }
 
 }

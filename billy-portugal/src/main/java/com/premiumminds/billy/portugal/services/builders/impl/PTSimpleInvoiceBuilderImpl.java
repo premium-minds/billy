@@ -37,42 +37,47 @@ import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
 
 public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTSimpleInvoice>
-        extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
-        implements PTSimpleInvoiceBuilder<TBuilder, TEntry, TDocument> {
+    extends PTInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
+    implements PTSimpleInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    public PTSimpleInvoiceBuilderImpl(DAOPTSimpleInvoice daoPTSimpleInvoice, DAOPTBusiness daoPTBusiness,
-            DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-        super(daoPTSimpleInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+  @Inject
+  public PTSimpleInvoiceBuilderImpl(DAOPTSimpleInvoice daoPTSimpleInvoice,
+      DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+    super(daoPTSimpleInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+  }
+
+  @Override
+  public TBuilder setClientType(CLIENTTYPE type) {
+    BillyValidator.mandatory(type,
+        PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
+    this.getTypeInstance().setClientType(type);
+    return this.getBuilder();
+  }
+
+  @Override
+  protected PTSimpleInvoiceEntity getTypeInstance() {
+    return (PTSimpleInvoiceEntity) super.getTypeInstance();
+  }
+
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    PTSimpleInvoiceEntity i = this.getTypeInstance();
+    BillyValidator.mandatory(i.getClientType(),
+        PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
+    super.validateInstance();
+
+    if (i.getClientType() == CLIENTTYPE.CUSTOMER
+        && i.getAmountWithTax().compareTo(new BigDecimal(1000)) >= 0) {
+      throw new BillySimpleInvoiceException(
+          "Amount > 1000 for customer simple invoice. Issue invoice");
+    } else if (i.getClientType() == CLIENTTYPE.BUSINESS
+        && i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
+      throw new BillySimpleInvoiceException(
+          "Amount > 100 for business simple invoice. Issue invoice");
     }
-
-    @Override
-    public TBuilder setClientType(CLIENTTYPE type) {
-        BillyValidator.mandatory(type, PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
-        this.getTypeInstance().setClientType(type);
-        return this.getBuilder();
-    }
-
-    @Override
-    protected PTSimpleInvoiceEntity getTypeInstance() {
-        return (PTSimpleInvoiceEntity) super.getTypeInstance();
-    }
-
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        PTSimpleInvoiceEntity i = this.getTypeInstance();
-        BillyValidator.mandatory(i.getClientType(),
-                PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
-        super.validateInstance();
-
-        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal(1000)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 1000 for customer simple invoice. Issue invoice");
-        } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
-                i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 100 for business simple invoice. Issue invoice");
-        }
-    }
+  }
 
 }

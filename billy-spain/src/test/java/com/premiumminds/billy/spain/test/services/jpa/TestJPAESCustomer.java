@@ -30,30 +30,31 @@ import com.premiumminds.billy.spain.test.util.ESCustomerTestUtil;
 
 public class TestJPAESCustomer extends ESJPAAbstractTest {
 
-    private TransactionWrapper<Void> transaction;
+  private TransactionWrapper<Void> transaction;
 
-    @Before
-    public void setUp() {
-        this.transaction = new TransactionWrapper<Void>(ESAbstractTest.injector.getInstance(DAOESInvoice.class)) {
+  @Before
+  public void setUp() {
+    this.transaction = new TransactionWrapper<Void>(
+        ESAbstractTest.injector.getInstance(DAOESInvoice.class)) {
 
-            @Override
-            public Void runTransaction() throws Exception {
-                final ESCustomerTestUtil customer = new ESCustomerTestUtil(ESAbstractTest.injector);
-                DAOESCustomer daoESCustomer = ESAbstractTest.injector.getInstance(DAOESCustomer.class);
+      @Override
+      public Void runTransaction() throws Exception {
+        final ESCustomerTestUtil customer = new ESCustomerTestUtil(ESAbstractTest.injector);
+        DAOESCustomer daoESCustomer = ESAbstractTest.injector.getInstance(DAOESCustomer.class);
 
-                ESCustomerEntity newCustomer = customer.getCustomerEntity();
+        ESCustomerEntity newCustomer = customer.getCustomerEntity();
 
-                daoESCustomer.create(newCustomer);
+        daoESCustomer.create(newCustomer);
 
-                return null;
-            }
+        return null;
+      }
 
-        };
-    }
+    };
+  }
 
-    @Test
-    public void testSimpleCustomerCreate() throws Exception {
-        ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
-    }
+  @Test
+  public void testSimpleCustomerCreate() throws Exception {
+    ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
+  }
 
 }

@@ -32,19 +32,19 @@ import com.premiumminds.billy.spain.services.builders.impl.ESReceiptBuilderImpl;
 
 public interface ESReceipt extends ESGenericInvoice {
 
-    public static class Builder extends ESReceiptBuilderImpl<Builder, ESReceiptEntry, ESReceipt> {
+  public static class Builder extends ESReceiptBuilderImpl<Builder, ESReceiptEntry, ESReceipt> {
 
-        @Inject
-        public Builder(DAOESReceipt daoESInvoice, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
-                DAOESSupplier daoESSupplier) {
-            super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
-        }
+    @Inject
+    public Builder(DAOESReceipt daoESInvoice, DAOESBusiness daoESBusiness,
+        DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+      super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
     }
+  }
 
-    @Override
-    public <T extends GenericInvoiceEntry> List<T> getEntries();
+  @Override
+  public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-    @Override
-    public <T extends Payment> List<T> getPayments();
+  @Override
+  public <T extends Payment> List<T> getPayments();
 
 }

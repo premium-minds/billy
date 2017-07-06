@@ -23,5 +23,5 @@ import com.premiumminds.billy.spain.services.entities.ESSupplier;
 
 public interface ESSupplierEntity extends ESSupplier, SupplierEntity {
 
-    public void setReferralName(String referralName);
+  public void setReferralName(String referralName);
 }

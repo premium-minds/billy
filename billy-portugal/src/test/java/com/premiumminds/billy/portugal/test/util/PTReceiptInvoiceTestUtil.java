@@ -18,73 +18,78 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTReceiptInvoiceTestUtil {
 
-    protected static final Boolean BILLED = false;
-    protected static final Boolean CANCELLED = false;
-    protected static final Boolean SELFBILL = false;
-    protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIE = "R";
-    protected static final Integer SERIE_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
+  protected static final Boolean BILLED = false;
+  protected static final Boolean CANCELLED = false;
+  protected static final Boolean SELFBILL = false;
+  protected static final String SOURCE_ID = "SOURCE";
+  protected static final String SERIE = "R";
+  protected static final Integer SERIE_NUMBER = 1;
+  protected static final int MAX_PRODUCTS = 5;
 
-    protected TYPE INVOICE_TYPE;
-    protected Injector injector;
-    protected PTInvoiceEntryTestUtil invoiceEntry;
-    protected PTBusinessTestUtil business;
-    protected PTCustomerTestUtil customer;
-    protected PTPaymentTestUtil payment;
+  protected TYPE INVOICE_TYPE;
+  protected Injector injector;
+  protected PTInvoiceEntryTestUtil invoiceEntry;
+  protected PTBusinessTestUtil business;
+  protected PTCustomerTestUtil customer;
+  protected PTPaymentTestUtil payment;
 
-    public PTReceiptInvoiceTestUtil(Injector injector) {
-        this.injector = injector;
-        this.INVOICE_TYPE = TYPE.FS;
-        this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
-        this.business = new PTBusinessTestUtil(injector);
-        this.customer = new PTCustomerTestUtil(injector);
-        this.payment = new PTPaymentTestUtil(injector);
+  public PTReceiptInvoiceTestUtil(Injector injector) {
+    this.injector = injector;
+    this.INVOICE_TYPE = TYPE.FS;
+    this.invoiceEntry = new PTInvoiceEntryTestUtil(injector);
+    this.business = new PTBusinessTestUtil(injector);
+    this.customer = new PTCustomerTestUtil(injector);
+    this.payment = new PTPaymentTestUtil(injector);
+  }
+
+  public PTReceiptInvoiceEntity getReceiptInvoiceEntity() {
+    return this.getReceiptInvoiceEntity(SourceBilling.P);
+  }
+
+  public PTReceiptInvoiceEntity getReceiptInvoiceEntity(SourceBilling billing) {
+    PTReceiptInvoiceEntity invoice = (PTReceiptInvoiceEntity) this
+        .getReceiptInvoiceBuilder(business.getBusinessEntity(), billing).build();
+    invoice.setType(this.INVOICE_TYPE);
+
+    return invoice;
+  }
+
+  public PTReceiptInvoice.Builder getReceiptInvoiceBuilder(PTBusinessEntity businessEntity,
+      SourceBilling billing) {
+    PTReceiptInvoice.Builder invoiceBuilder = this.injector
+        .getInstance(PTReceiptInvoice.Builder.class);
+
+    DAOPTCustomer daoPTCustomer = this.injector.getInstance(DAOPTCustomer.class);
+
+    PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+    UID customerUID = daoPTCustomer.create(customerEntity).getUID();
+    for (int i = 0; i < PTReceiptInvoiceTestUtil.MAX_PRODUCTS; ++i) {
+      PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+      invoiceBuilder.addEntry(invoiceEntryBuilder);
     }
 
-    public PTReceiptInvoiceEntity getReceiptInvoiceEntity() {
-        return this.getReceiptInvoiceEntity(SourceBilling.P);
-    }
-
-    public PTReceiptInvoiceEntity getReceiptInvoiceEntity(SourceBilling billing) {
-        PTReceiptInvoiceEntity invoice = (PTReceiptInvoiceEntity) this
-                .getReceiptInvoiceBuilder(this.business.getBusinessEntity(), billing).build();
-        invoice.setType(this.INVOICE_TYPE);
-
-        return invoice;
-    }
-
-    public PTReceiptInvoice.Builder getReceiptInvoiceBuilder(PTBusinessEntity businessEntity, SourceBilling billing) {
-        PTReceiptInvoice.Builder invoiceBuilder = this.injector.getInstance(PTReceiptInvoice.Builder.class);
-
-        DAOPTCustomer daoPTCustomer = this.injector.getInstance(DAOPTCustomer.class);
-
-        PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoPTCustomer.create(customerEntity).getUID();
-        for (int i = 0; i < PTReceiptInvoiceTestUtil.MAX_PRODUCTS; ++i) {
-            PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
-
-        return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED).setCancelled(PTInvoiceTestUtil.CANCELLED)
-                .setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID)
-                .setCustomerUID(customerUID).setSourceBilling(billing).setBusinessUID(businessEntity.getUID())
-                .addPayment(this.payment.getPaymentBuilder());
-    }
+    return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED)
+        .setCancelled(PTInvoiceTestUtil.CANCELLED).setSelfBilled(PTInvoiceTestUtil.SELFBILL)
+        .setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID).setCustomerUID(customerUID)
+        .setSourceBilling(billing).setBusinessUID(businessEntity.getUID())
+        .addPayment(payment.getPaymentBuilder());
+  }
 
 }

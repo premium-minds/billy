@@ -29,28 +29,28 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESInvoiceEntity;
 
 public class DAOESInvoiceImpl extends DAOESGenericInvoiceImpl implements DAOESInvoice {
 
-    @Inject
-    public DAOESInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOESInvoiceImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public ESInvoiceEntity getEntityInstance() {
-        return new JPAESInvoiceEntity();
-    }
+  @Override
+  public ESInvoiceEntity getEntityInstance() {
+    return new JPAESInvoiceEntity();
+  }
 
-    @Override
-    protected Class<? extends JPAESInvoiceEntity> getEntityClass() {
-        return JPAESInvoiceEntity.class;
-    }
+  @Override
+  protected Class<? extends JPAESInvoiceEntity> getEntityClass() {
+    return JPAESInvoiceEntity.class;
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public ESInvoiceEntity findByNumber(UID uidBusiness, String number) {
-        try {
-            return super.<ESInvoiceEntity>findByNumber(uidBusiness, number);
-        } catch (ClassCastException e) {
-            return null;
-        }
+  @SuppressWarnings("unchecked")
+  @Override
+  public ESInvoiceEntity findByNumber(UID uidBusiness, String number) {
+    try {
+      return super.<ESInvoiceEntity>findByNumber(uidBusiness, number);
+    } catch (ClassCastException e) {
+      return null;
     }
+  }
 }

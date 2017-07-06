@@ -29,23 +29,24 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTManualCreditNote
 
 public interface PTCreditNote extends PTGenericInvoice {
 
-    public static class Builder extends PTCreditNoteBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
+  public static class Builder
+      extends PTCreditNoteBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
 
-        @Inject
-        public Builder(DAOPTCreditNote daoPTCreditNote, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-                DAOPTSupplier daoPTSupplier) {
-            super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-        }
+    @Inject
+    public Builder(DAOPTCreditNote daoPTCreditNote, DAOPTBusiness daoPTBusiness,
+        DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+      super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
     }
+  }
 
-    public static class ManualBuilder
-            extends PTManualCreditNoteBuilderImpl<ManualBuilder, PTCreditNoteEntry, PTCreditNote> {
+  public static class ManualBuilder
+      extends PTManualCreditNoteBuilderImpl<ManualBuilder, PTCreditNoteEntry, PTCreditNote> {
 
-        @Inject
-        public ManualBuilder(DAOPTCreditNote daoPTCreditNote, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
-                DAOPTSupplier daoPTSupplier) {
-            super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-        }
+    @Inject
+    public ManualBuilder(DAOPTCreditNote daoPTCreditNote, DAOPTBusiness daoPTBusiness,
+        DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+      super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
     }
+  }
 
 }

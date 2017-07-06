@@ -23,10 +23,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESContactEntity;
 
 public class MockESContactEntity extends MockContactEntity implements ESContactEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public MockESContactEntity() {
+  public MockESContactEntity() {
 
-    }
+  }
 
 }

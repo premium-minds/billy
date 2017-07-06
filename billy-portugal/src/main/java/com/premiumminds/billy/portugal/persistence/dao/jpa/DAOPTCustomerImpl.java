@@ -29,18 +29,18 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCustomerEnt
 
 public class DAOPTCustomerImpl extends DAOCustomerImpl implements DAOPTCustomer {
 
-    @Inject
-    public DAOPTCustomerImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOPTCustomerImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public PTCustomerEntity getEntityInstance() {
-        return new JPAPTCustomerEntity();
-    }
+  @Override
+  public PTCustomerEntity getEntityInstance() {
+    return new JPAPTCustomerEntity();
+  }
 
-    @Override
-    protected Class<JPAPTCustomerEntity> getEntityClass() {
-        return JPAPTCustomerEntity.class;
-    }
+  @Override
+  protected Class<JPAPTCustomerEntity> getEntityClass() {
+    return JPAPTCustomerEntity.class;
+  }
 }

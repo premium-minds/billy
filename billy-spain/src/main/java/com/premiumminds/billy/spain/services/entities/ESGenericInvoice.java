@@ -33,25 +33,25 @@ import com.premiumminds.billy.spain.services.builders.impl.ESGenericInvoiceBuild
 
 public interface ESGenericInvoice extends GenericInvoice {
 
-    public static class Builder extends ESGenericInvoiceBuilderImpl<Builder, ESGenericInvoiceEntry, ESGenericInvoice> {
+  public static class Builder
+      extends ESGenericInvoiceBuilderImpl<Builder, ESGenericInvoiceEntry, ESGenericInvoice> {
 
-        @Inject
-        public Builder(DAOESGenericInvoice daoESGenericInvoice, DAOESBusiness daoESBusiness,
-                DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
-            super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
-        }
+    @Inject
+    public Builder(DAOESGenericInvoice daoESGenericInvoice, DAOESBusiness daoESBusiness,
+        DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+      super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
     }
+  }
 
-    public boolean isCancelled();
+  public boolean isCancelled();
 
-    public boolean isBilled();
+  public boolean isBilled();
 
-    public String getEACCode();
+  public String getEACCode();
 
-    @Override
-    public <T extends GenericInvoiceEntry> List<T> getEntries();
+  @Override
+  public <T extends GenericInvoiceEntry> List<T> getEntries();
 
-    @Override
-    public <T extends Payment> List<T> getPayments();
+  public <T extends Payment> List<T> getPayments();
 
 }

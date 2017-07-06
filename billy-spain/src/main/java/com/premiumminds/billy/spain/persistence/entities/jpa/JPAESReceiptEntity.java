@@ -38,17 +38,17 @@ import com.premiumminds.billy.spain.services.entities.ESReceiptEntry;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class JPAESReceiptEntity extends JPAESGenericInvoiceEntity implements ESReceiptEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<ESReceiptEntry> getEntries() {
-        return (List<ESReceiptEntry>) super.getEntries();
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<ESReceiptEntry> getEntries() {
+    return (List<ESReceiptEntry>) super.getEntries();
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<ESPayment> getPayments() {
-        return super.getPayments();
-    }
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<ESPayment> getPayments() {
+    return (List<ESPayment>) super.getPayments();
+  }
 }

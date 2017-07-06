@@ -29,28 +29,28 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESReceiptEntity;
 
 public class DAOESReceiptImpl extends DAOESGenericInvoiceImpl implements DAOESReceipt {
 
-    @Inject
-    public DAOESReceiptImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOESReceiptImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public ESReceiptEntity getEntityInstance() {
-        return new JPAESReceiptEntity();
-    }
+  @Override
+  public ESReceiptEntity getEntityInstance() {
+    return new JPAESReceiptEntity();
+  }
 
-    @Override
-    protected Class<? extends JPAESReceiptEntity> getEntityClass() {
-        return JPAESReceiptEntity.class;
-    }
+  @Override
+  protected Class<? extends JPAESReceiptEntity> getEntityClass() {
+    return JPAESReceiptEntity.class;
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public ESReceiptEntity findByNumber(UID uidBusiness, String number) {
-        try {
-            return super.<ESReceiptEntity>findByNumber(uidBusiness, number);
-        } catch (ClassCastException e) {
-            return null;
-        }
+  @SuppressWarnings("unchecked")
+  @Override
+  public ESReceiptEntity findByNumber(UID uidBusiness, String number) {
+    try {
+      return super.<ESReceiptEntity>findByNumber(uidBusiness, number);
+    } catch (ClassCastException e) {
+      return null;
     }
+  }
 }

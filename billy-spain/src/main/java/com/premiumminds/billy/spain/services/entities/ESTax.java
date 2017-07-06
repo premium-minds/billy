@@ -27,22 +27,22 @@ import com.premiumminds.billy.spain.services.builders.impl.ESTaxBuilderImpl;
 
 public interface ESTax extends Tax {
 
-    public static class Builder extends ESTaxBuilderImpl<Builder, ESTax> {
+  public static class Builder extends ESTaxBuilderImpl<Builder, ESTax> {
 
-        @Inject
-        public Builder(DAOESTax daoESTax, DAOESRegionContext daoESRegionContext) {
-            super(daoESTax, daoESRegionContext);
-        }
-
+    @Inject
+    public Builder(DAOESTax daoESTax, DAOESRegionContext daoESRegionContext) {
+      super(daoESTax, daoESRegionContext);
     }
 
-    public static class ESVATCode {
+  }
 
-        public static final String REDUCED = "RED";
-        public static final String INTERMEDIATE = "INT";
-        public static final String NORMAL = "NOR";
-        public static final String EXEMPT = "ISE";
-        public static final String OTHER = "OUT";
-    }
+  public static class ESVATCode {
+
+    public static final String REDUCED = "RED";
+    public static final String INTERMEDIATE = "INT";
+    public static final String NORMAL = "NOR";
+    public static final String EXEMPT = "ISE";
+    public static final String OTHER = "OUT";
+  }
 
 }

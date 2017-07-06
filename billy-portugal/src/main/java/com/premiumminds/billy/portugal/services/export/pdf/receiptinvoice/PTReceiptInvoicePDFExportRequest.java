@@ -23,12 +23,12 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class PTReceiptInvoicePDFExportRequest extends AbstractExportRequest {
 
-    public PTReceiptInvoicePDFExportRequest(UID uid, PTReceiptInvoiceTemplateBundle bundle) {
-        super(uid, bundle);
-    }
+  public PTReceiptInvoicePDFExportRequest(UID uid, PTReceiptInvoiceTemplateBundle bundle) {
+    super(uid, bundle);
+  }
 
-    @Override
-    public PTReceiptInvoiceTemplateBundle getBundle() {
-        return (PTReceiptInvoiceTemplateBundle) this.bundle;
-    }
+  @Override
+  public PTReceiptInvoiceTemplateBundle getBundle() {
+    return (PTReceiptInvoiceTemplateBundle) bundle;
+  }
 }

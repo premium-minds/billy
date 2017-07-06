@@ -23,10 +23,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 
 public class MockPTContactEntity extends MockContactEntity implements PTContactEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public MockPTContactEntity() {
+  public MockPTContactEntity() {
 
-    }
+  }
 
 }

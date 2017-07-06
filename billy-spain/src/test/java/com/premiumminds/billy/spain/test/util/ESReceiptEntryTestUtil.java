@@ -32,38 +32,37 @@ import com.premiumminds.billy.spain.util.Contexts;
 
 public class ESReceiptEntryTestUtil {
 
-    private static final BigDecimal AMOUNT = new BigDecimal(20);
-    private static final Currency CURRENCY = Currency.getInstance("EUR");
-    private static final BigDecimal QUANTITY = new BigDecimal("1");
+  private static final BigDecimal AMOUNT = new BigDecimal(20);
+  private static final Currency CURRENCY = Currency.getInstance("EUR");
+  private static final BigDecimal QUANTITY = new BigDecimal("1");
 
-    private Injector injector;
-    private ESProductTestUtil product;
-    private Contexts contexts;
-    private ESRegionContext context;
+  private Injector injector;
+  private ESProductTestUtil product;
+  private Contexts contexts;
+  private ESRegionContext context;
 
-    public ESReceiptEntryTestUtil(Injector injector) {
-        this.injector = injector;
-        this.product = new ESProductTestUtil(injector);
-        this.contexts = new Contexts(injector);
-    }
+  public ESReceiptEntryTestUtil(Injector injector) {
+    this.injector = injector;
+    this.product = new ESProductTestUtil(injector);
+    this.contexts = new Contexts(injector);
+  }
 
-    public ESReceiptEntry.Builder getReceiptEntryBuilder(ESProductEntity product) {
-        ESReceiptEntry.Builder receiptEntryBuilder = this.injector.getInstance(ESReceiptEntry.Builder.class);
-        this.context = this.contexts.spain().allRegions();
+  public ESReceiptEntry.Builder getReceiptEntryBuilder(ESProductEntity product) {
+    ESReceiptEntry.Builder receiptEntryBuilder = injector.getInstance(ESReceiptEntry.Builder.class);
+    context = contexts.spain().allRegions();
 
-        receiptEntryBuilder.clear();
-        receiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESReceiptEntryTestUtil.AMOUNT)
-                .setTaxPointDate(new Date()).setDescription(product.getDescription())
-                .setQuantity(ESReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-                .setProductUID(product.getUID()).setContextUID(this.context.getUID())
-                .setCurrency(ESReceiptEntryTestUtil.CURRENCY);
+    receiptEntryBuilder.clear();
+    receiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, AMOUNT).setTaxPointDate(new Date())
+        .setDescription(product.getDescription()).setQuantity(QUANTITY)
+        .setUnitOfMeasure(product.getUnitOfMeasure()).setProductUID(product.getUID())
+        .setContextUID(context.getUID()).setCurrency(CURRENCY);
 
-        return receiptEntryBuilder;
-    }
+    return receiptEntryBuilder;
+  }
 
-    public ESReceiptEntry.Builder getReceiptEntryBuilder() {
-        ESProductEntity newProduct = this.product.getProductEntity();
-        return this.getReceiptEntryBuilder(
-                (ESProductEntity) this.injector.getInstance(DAOESProduct.class).create(newProduct));
-    }
+  public ESReceiptEntry.Builder getReceiptEntryBuilder() {
+    ESProductEntity newProduct = product.getProductEntity();
+    return getReceiptEntryBuilder(
+        (ESProductEntity) injector.getInstance(DAOESProduct.class).create(newProduct));
+  }
 }

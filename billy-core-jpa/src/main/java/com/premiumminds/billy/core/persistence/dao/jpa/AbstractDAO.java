@@ -44,201 +44,204 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
 public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends JPABaseEntity & BaseEntity>
-        implements DAO<TInterface> {
+    implements DAO<TInterface> {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractDAO.class);
+  private static final Logger log = LoggerFactory.getLogger(AbstractDAO.class);
 
-    protected Provider<EntityManager> emProvider;
+  protected Provider<EntityManager> emProvider;
 
-    @Inject
-    public AbstractDAO(Provider<EntityManager> emProvider) {
-        this.emProvider = emProvider;
-        this.getEntityManager().setFlushMode(FlushModeType.AUTO);
+  @Inject
+  public AbstractDAO(Provider<EntityManager> emProvider) {
+    this.emProvider = emProvider;
+    this.getEntityManager().setFlushMode(FlushModeType.AUTO);
+  }
+
+  @Override
+  public void beginTransaction() {
+    this.getEntityManager().getTransaction().begin();
+  }
+
+  @Override
+  public void rollback() {
+    this.getEntityManager().getTransaction().rollback();
+  }
+
+  @Override
+  public void setForRollback() {
+    this.getEntityManager().getTransaction().setRollbackOnly();
+  }
+
+  @Override
+  public boolean isSetForRollback() {
+    return this.getEntityManager().getTransaction().getRollbackOnly();
+  }
+
+  @Override
+  public void commit() {
+    this.getEntityManager().getTransaction().commit();
+  }
+
+  @Override
+  public void lock(TInterface entity, LockModeType type) {
+    if (isTransactionActive()) {
+      this.getEntityManager().lock(entity, type);
     }
+  }
 
-    @Override
-    public void beginTransaction() {
-        this.getEntityManager().getTransaction().begin();
+  @Override
+  public boolean isTransactionActive() {
+    return this.getEntityManager().getTransaction().isActive();
+  }
+
+  public EntityManager getEntityManager() {
+    return this.emProvider.get();
+  }
+
+  @SuppressWarnings("unchecked")
+  protected <T2 extends BaseEntity> T2 checkEntity(Object candidate, Class<T2> entityClass) {
+    if (candidate == null) {
+      return null;
     }
-
-    @Override
-    public void rollback() {
-        this.getEntityManager().getTransaction().rollback();
+    if (entityClass.isInstance(candidate)) {
+      return (T2) candidate;
     }
+    throw new RuntimeException(
+        "The entity is not a JPA implementation : " + candidate.getClass().getCanonicalName());
+  }
 
-    @Override
-    public void setForRollback() {
-        this.getEntityManager().getTransaction().setRollbackOnly();
+  @SuppressWarnings("unchecked")
+  protected <T2 extends BaseEntity> List<T2> checkEntityList(List<?> candidates,
+      Class<T2> entityClass) {
+    if (candidates == null) {
+      return null;
     }
-
-    @Override
-    public boolean isSetForRollback() {
-        return this.getEntityManager().getTransaction().getRollbackOnly();
-    }
-
-    @Override
-    public void commit() {
-        this.getEntityManager().getTransaction().commit();
-    }
-
-    @Override
-    public void lock(TInterface entity, LockModeType type) {
-        if (this.isTransactionActive()) {
-            this.getEntityManager().lock(entity, type);
-        }
-    }
-
-    @Override
-    public boolean isTransactionActive() {
-        return this.getEntityManager().getTransaction().isActive();
-    }
-
-    public EntityManager getEntityManager() {
-        return this.emProvider.get();
-    }
-
-    @SuppressWarnings("unchecked")
-    protected <T2 extends BaseEntity> T2 checkEntity(Object candidate, Class<T2> entityClass) {
-        if (candidate == null) {
-            return null;
-        }
-        if (entityClass.isInstance(candidate)) {
-            return (T2) candidate;
-        }
+    List<T2> result = new ArrayList<T2>();
+    for (Object candidate : candidates) {
+      if (!entityClass.isInstance(candidate)) {
         throw new RuntimeException(
-                "The entity is not a JPA implementation : " + candidate.getClass().getCanonicalName());
+            "The entity is not a JPA implementation : " + candidate.getClass().getCanonicalName());
+      }
+      result.add((T2) candidate);
+    }
+    return result;
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public TInterface get(UID uid) throws NoResultException {
+    return (TInterface) this.getEntity(uid);
+  }
+
+  protected TEntity getEntity(UID uid) throws NoResultException {
+
+    TEntity result = null;
+    Class<? extends TEntity> entityClass = this.getEntityClass();
+    try {
+      result = this.getEntityManager()
+          .createQuery(
+              "select e from " + entityClass.getCanonicalName() + " e "
+                  + "where e.uid=:uid and e.active=true " + "order by e.entityVersion desc",
+              entityClass)
+          .setParameter("uid", uid.toString()).setMaxResults(1).getSingleResult();
+    } catch (NoResultException e) {
+      throw e;
+    } catch (Exception e) {
+      throw new PersistenceException(e);
     }
 
-    @SuppressWarnings("unchecked")
-    protected <T2 extends BaseEntity> List<T2> checkEntityList(List<?> candidates, Class<T2> entityClass) {
-        if (candidates == null) {
-            return null;
-        }
-        List<T2> result = new ArrayList<>();
-        for (Object candidate : candidates) {
-            if (!entityClass.isInstance(candidate)) {
-                throw new RuntimeException(
-                        "The entity is not a JPA implementation : " + candidate.getClass().getCanonicalName());
-            }
-            result.add((T2) candidate);
-        }
-        return result;
+    return result;
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public TInterface create(final TInterface entity) throws PersistenceException {
+    if (!entity.isNew()) {
+      throw new PersistenceException("Cannot create. The entity is marked as not new.");
     }
+    try {
+      return new TransactionWrapper<TInterface>(this) {
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public TInterface get(UID uid) throws NoResultException {
-        return (TInterface) this.getEntity(uid);
-    }
-
-    protected TEntity getEntity(UID uid) throws NoResultException {
-
-        TEntity result = null;
-        Class<? extends TEntity> entityClass = this.getEntityClass();
-        try {
-            result = this.getEntityManager()
-                    .createQuery(
-                            "select e from " + entityClass.getCanonicalName() + " e " +
-                                    "where e.uid=:uid and e.active=true " + "order by e.entityVersion desc",
-                            entityClass)
-                    .setParameter("uid", uid.toString()).setMaxResults(1).getSingleResult();
-        } catch (NoResultException e) {
+        @Override
+        public TInterface runTransaction() throws Exception {
+          try {
+            AbstractDAO.this.getEntity(entity.getUID());
+            throw new RuntimeException(
+                "Cannot create the new entity since its uid already exists in the table : "
+                    + entity.getUID());
+          } catch (NoResultException e) {
+            // Ok so do nothing
+          } catch (Exception e) {
             throw e;
-        } catch (Exception e) {
-            throw new PersistenceException(e);
+          }
+          TEntity newEntity = (TEntity) entity;
+          AbstractDAO.this.getEntityManager().persist(newEntity);
+          return AbstractDAO.this.get(entity.getUID());
         }
+      }.execute();
+    } catch (Exception e) {
+      throw new PersistenceException(e);
+    }
+  }
 
-        return result;
+  @Override
+  @SuppressWarnings("unchecked")
+  public final synchronized TInterface update(final TInterface entity) throws PersistenceException {
+    if (entity.isNew()) {
+      throw new PersistenceException("Cannot update. The entity is marked as new.");
+    }
+    try {
+      return new TransactionWrapper<TInterface>(this) {
+
+        @Override
+        public TInterface runTransaction() throws Exception {
+          TEntity oldVersion = AbstractDAO.this.getEntity(entity.getUID());
+          if (oldVersion == null) {
+            throw new RuntimeException("Cannot update a non existing entity : " + entity.getUID());
+          }
+
+          TEntity newVersion = (TEntity) entity;
+          AbstractDAO.this.getEntityManager().merge(newVersion);
+
+          return AbstractDAO.this.get(entity.getUID());
+        }
+      }.execute();
+    } catch (Exception e) {
+      throw new PersistenceException(e);
+    }
+  }
+
+  @Override
+  public boolean exists(UID uid) {
+    Class<? extends TEntity> entityClass = this.getEntityClass();
+    TEntity entity = null;
+    try {
+      entity = this.getEntityManager()
+          .createQuery(
+              "select e from " + entityClass.getCanonicalName() + " e " + "where e.uid=:uid",
+              entityClass)
+          .setParameter("uid", uid.toString()).getSingleResult();
+    } catch (NoResultException e) {
+      return false;
+    }
+    return entity != null;
+  }
+
+  protected JPAQuery createQuery() {
+    return new JPAQuery(getEntityManager(), JPQLTemplates.DEFAULT);
+  }
+
+  protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path,
+      Class<D2> dslEntityClass) {
+    try {
+      return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
+    } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+        | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+      log.error(e.getMessage(), e);
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public TInterface create(final TInterface entity) throws PersistenceException {
-        if (!entity.isNew()) {
-            throw new PersistenceException("Cannot create. The entity is marked as not new.");
-        }
-        try {
-            return new TransactionWrapper<TInterface>(this) {
+    return null;
+  }
 
-                @Override
-                public TInterface runTransaction() throws Exception {
-                    try {
-                        AbstractDAO.this.getEntity(entity.getUID());
-                        throw new RuntimeException(
-                                "Cannot create the new entity since its uid already exists in the table : " +
-                                        entity.getUID());
-                    } catch (NoResultException e) {
-                        // Ok so do nothing
-                    } catch (Exception e) {
-                        throw e;
-                    }
-                    TEntity newEntity = (TEntity) entity;
-                    AbstractDAO.this.getEntityManager().persist(newEntity);
-                    return AbstractDAO.this.get(entity.getUID());
-                }
-            }.execute();
-        } catch (Exception e) {
-            throw new PersistenceException(e);
-        }
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public final synchronized TInterface update(final TInterface entity) throws PersistenceException {
-        if (entity.isNew()) {
-            throw new PersistenceException("Cannot update. The entity is marked as new.");
-        }
-        try {
-            return new TransactionWrapper<TInterface>(this) {
-
-                @Override
-                public TInterface runTransaction() throws Exception {
-                    TEntity oldVersion = AbstractDAO.this.getEntity(entity.getUID());
-                    if (oldVersion == null) {
-                        throw new RuntimeException("Cannot update a non existing entity : " + entity.getUID());
-                    }
-
-                    TEntity newVersion = (TEntity) entity;
-                    AbstractDAO.this.getEntityManager().merge(newVersion);
-
-                    return AbstractDAO.this.get(entity.getUID());
-                }
-            }.execute();
-        } catch (Exception e) {
-            throw new PersistenceException(e);
-        }
-    }
-
-    @Override
-    public boolean exists(UID uid) {
-        Class<? extends TEntity> entityClass = this.getEntityClass();
-        TEntity entity = null;
-        try {
-            entity = this.getEntityManager()
-                    .createQuery("select e from " + entityClass.getCanonicalName() + " e " + "where e.uid=:uid",
-                            entityClass)
-                    .setParameter("uid", uid.toString()).getSingleResult();
-        } catch (NoResultException e) {
-            return false;
-        }
-        return entity != null;
-    }
-
-    protected JPAQuery createQuery() {
-        return new JPAQuery(this.getEntityManager(), JPQLTemplates.DEFAULT);
-    }
-
-    protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
-        try {
-            return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
-                InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            AbstractDAO.log.error(e.getMessage(), e);
-        }
-
-        return null;
-    }
-
-    protected abstract Class<? extends TEntity> getEntityClass();
+  protected abstract Class<? extends TEntity> getEntityClass();
 
 }

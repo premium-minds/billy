@@ -25,26 +25,26 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Supplier;
 
 public interface SupplierBuilder<TBuilder extends SupplierBuilder<TBuilder, TSupplier>, TSupplier extends Supplier>
-        extends Builder<TSupplier> {
+    extends Builder<TSupplier> {
 
-    public TBuilder setName(String name);
+  public TBuilder setName(String name);
 
-    public TBuilder setTaxRegistrationNumber(String number, String countryCode);
+  public TBuilder setTaxRegistrationNumber(String number, String countryCode);
 
-    public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder);
+  public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder);
 
-    public <T extends Address> TBuilder setMainAddress(Builder<T> addressBuilder);
+  public <T extends Address> TBuilder setMainAddress(Builder<T> addressBuilder);
 
-    public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder);
+  public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder);
 
-    public <T extends Address> TBuilder setShippingAddress(Builder<T> addressBuilder);
+  public <T extends Address> TBuilder setShippingAddress(Builder<T> addressBuilder);
 
-    public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder);
+  public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder);
 
-    public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder);
+  public <T extends Contact> TBuilder setMainContact(Builder<T> contactBuilder);
 
-    public <T extends BankAccount> TBuilder addBankAccount(Builder<T> accountBuilder);
+  public <T extends BankAccount> TBuilder addBankAccount(Builder<T> accountBuilder);
 
-    public TBuilder setSelfBillingAgreement(boolean selfBilling);
+  public TBuilder setSelfBillingAgreement(boolean selfBilling);
 
 }

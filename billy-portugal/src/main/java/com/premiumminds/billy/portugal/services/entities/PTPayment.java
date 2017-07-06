@@ -29,18 +29,18 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTPaymentBuilderIm
 
 public interface PTPayment extends Payment {
 
-    public static class Builder extends PTPaymentBuilderImpl<Builder, PTPayment> {
+  public static class Builder extends PTPaymentBuilderImpl<Builder, PTPayment> {
 
-        @Inject
-        public Builder(DAOPTPayment daoPTPayment) {
-            super(daoPTPayment);
-        }
-
+    @Inject
+    public Builder(DAOPTPayment daoPTPayment) {
+      super(daoPTPayment);
     }
 
-    public BigDecimal getPaymentAmount();
+  }
 
-    @Override
-    public PaymentMechanism getPaymentMethod();
+  public BigDecimal getPaymentAmount();
+
+  @Override
+  public PaymentMechanism getPaymentMethod();
 
 }

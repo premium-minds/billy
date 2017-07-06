@@ -32,6 +32,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
 public class JPAPTBusinessEntity extends JPABusinessEntity implements PTBusinessEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
 }

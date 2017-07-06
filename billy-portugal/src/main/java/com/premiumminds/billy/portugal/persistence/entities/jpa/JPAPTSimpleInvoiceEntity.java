@@ -26,33 +26,40 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.Payment;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
 public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements PTSimpleInvoiceEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Column(name = "CLIENT_TYPE")
-    protected CLIENTTYPE clientType;
+  @Column(name = "CLIENT_TYPE")
+  protected CLIENTTYPE clientType;
 
-    @Override
-    public List<PTInvoiceEntry> getEntries() {
-        return super.getEntries();
-    }
+  @Override
+  public List<PTInvoiceEntry> getEntries() {
+    return super.getEntries();
+  }
 
-    @Override
-    public CLIENTTYPE getClientType() {
-        return this.clientType;
-    }
+  @Override
+  public CLIENTTYPE getClientType() {
+    return clientType;
+  }
 
-    @Override
-    public void setClientType(CLIENTTYPE type) {
-        this.clientType = type;
-    }
+  @Override
+  public void setClientType(CLIENTTYPE type) {
+    this.clientType = type;
+  }
 
 }

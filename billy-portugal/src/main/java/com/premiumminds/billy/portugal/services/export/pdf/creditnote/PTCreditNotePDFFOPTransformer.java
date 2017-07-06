@@ -29,51 +29,55 @@ import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTrans
 import com.premiumminds.billy.portugal.services.export.pdf.PTCreditNotePDFTransformer;
 
 public class PTCreditNotePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTCreditNoteData>
-        implements PTCreditNotePDFTransformer {
+    implements PTCreditNotePDFTransformer {
 
-    public static final String PARAM_KEYS_ROOT = "creditnote";
+  public static final String PARAM_KEYS_ROOT = "creditnote";
 
-    public PTCreditNotePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId, Config config) {
+  public PTCreditNotePDFFOPTransformer(MathContext mathContext, String logoImagePath,
+      InputStream xsltFileStream, String softwareCertificationId, Config config) {
 
-        super(PTCreditNoteData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
+    super(PTCreditNoteData.class, mathContext, logoImagePath, xsltFileStream,
+        softwareCertificationId, config);
+
+  }
+
+  public PTCreditNotePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
+      String softwareCertificationId) {
+
+    this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId,
+        new Config());
+  }
+
+  public PTCreditNotePDFFOPTransformer(PTCreditNoteTemplateBundle bundle) {
+    super(PTCreditNoteData.class, BillyMathContext.get(), bundle, new Config());
+  }
+
+  @Override
+  protected ParamsTree<String, String> getNewParamsTree() {
+    return new ParamsTree<String, String>(PARAM_KEYS_ROOT);
+  }
+
+  @Override
+  protected ParamsTree<String, String> mapDocumentToParamsTree(PTCreditNoteData entity) {
+
+    ParamsTree<String, String> params = super.mapDocumentToParamsTree(entity);
+
+    params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
+        getVerificationHashString(entity.getHash().getBytes()));
+    params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER,
+        getSoftwareCertificationId());
+
+    return params;
+  }
+
+  @Override
+  protected void setHeader(ParamsTree<String, String> params, PTCreditNoteData entity) {
+    if (null != entity.getSettlementDescription()) {
+      params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT,
+          entity.getSettlementDescription());
 
     }
-
-    public PTCreditNotePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId) {
-
-        this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
-    }
-
-    public PTCreditNotePDFFOPTransformer(PTCreditNoteTemplateBundle bundle) {
-        super(PTCreditNoteData.class, BillyMathContext.get(), bundle, new Config());
-    }
-
-    @Override
-    protected ParamsTree<String, String> getNewParamsTree() {
-        return new ParamsTree<>(PTCreditNotePDFFOPTransformer.PARAM_KEYS_ROOT);
-    }
-
-    @Override
-    protected ParamsTree<String, String> mapDocumentToParamsTree(PTCreditNoteData entity) {
-
-        ParamsTree<String, String> params = super.mapDocumentToParamsTree(entity);
-
-        params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
-                this.getVerificationHashString(entity.getHash().getBytes()));
-        params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
-
-        return params;
-    }
-
-    @Override
-    protected void setHeader(ParamsTree<String, String> params, PTCreditNoteData entity) {
-        if (null != entity.getSettlementDescription()) {
-            params.getRoot().addChild(PTParamKeys.INVOICE_PAYSETTLEMENT, entity.getSettlementDescription());
-
-        }
-        super.setHeader(params, entity);
-    }
+    super.setHeader(params, entity);
+  }
 
 }

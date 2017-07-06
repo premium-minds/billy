@@ -32,12 +32,13 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "RECEIPT_INVOICE")
-public class JPAPTReceiptInvoiceEntity extends JPAPTInvoiceEntity implements PTReceiptInvoiceEntity {
+public class JPAPTReceiptInvoiceEntity extends JPAPTInvoiceEntity
+    implements PTReceiptInvoiceEntity {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    @Override
-    public List<PTInvoiceEntry> getEntries() {
-        return super.getEntries();
-    }
+  @Override
+  public List<PTInvoiceEntry> getEntries() {
+    return super.getEntries();
+  }
 }

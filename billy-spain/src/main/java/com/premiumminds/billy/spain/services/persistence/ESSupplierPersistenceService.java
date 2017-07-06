@@ -31,61 +31,61 @@ import com.premiumminds.billy.spain.services.entities.ESSupplier;
 
 public class ESSupplierPersistenceService implements PersistenceService<ESSupplier> {
 
-    protected final DAOESSupplier daoSupplier;
+  protected final DAOESSupplier daoSupplier;
 
-    @Inject
-    public ESSupplierPersistenceService(DAOESSupplier daoSupplier) {
-        this.daoSupplier = daoSupplier;
-    }
+  @Inject
+  public ESSupplierPersistenceService(DAOESSupplier daoSupplier) {
+    this.daoSupplier = daoSupplier;
+  }
 
-    @Override
-    public ESSupplier create(final Builder<ESSupplier> builder) {
-        try {
-            return new TransactionWrapper<ESSupplier>(this.daoSupplier) {
+  @Override
+  public ESSupplier create(final Builder<ESSupplier> builder) {
+    try {
+      return new TransactionWrapper<ESSupplier>(daoSupplier) {
 
-                @Override
-                public ESSupplier runTransaction() throws Exception {
-                    ESSupplierEntity entity = (ESSupplierEntity) builder.build();
-                    return (ESSupplier) ESSupplierPersistenceService.this.daoSupplier.create(entity);
-                }
-
-            }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
+        @Override
+        public ESSupplier runTransaction() throws Exception {
+          ESSupplierEntity entity = (ESSupplierEntity) builder.build();
+          return (ESSupplier) daoSupplier.create(entity);
         }
+
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
     }
+  }
 
-    @Override
-    public ESSupplier update(final Builder<ESSupplier> builder) {
-        try {
-            return new TransactionWrapper<ESSupplier>(this.daoSupplier) {
+  @Override
+  public ESSupplier update(final Builder<ESSupplier> builder) {
+    try {
+      return new TransactionWrapper<ESSupplier>(daoSupplier) {
 
-                @Override
-                public ESSupplier runTransaction() throws Exception {
-                    ESSupplierEntity entity = (ESSupplierEntity) builder.build();
-                    return (ESSupplier) ESSupplierPersistenceService.this.daoSupplier.update(entity);
-                }
-
-            }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
+        @Override
+        public ESSupplier runTransaction() throws Exception {
+          ESSupplierEntity entity = (ESSupplierEntity) builder.build();
+          return (ESSupplier) daoSupplier.update(entity);
         }
+
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
     }
+  }
 
-    @Override
-    public ESSupplier get(final UID uid) {
-        try {
-            return new TransactionWrapper<ESSupplier>(this.daoSupplier) {
+  @Override
+  public ESSupplier get(final UID uid) {
+    try {
+      return new TransactionWrapper<ESSupplier>(daoSupplier) {
 
-                @Override
-                public ESSupplier runTransaction() throws Exception {
-                    return (ESSupplier) ESSupplierPersistenceService.this.daoSupplier.get(uid);
-                }
-
-            }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
+        @Override
+        public ESSupplier runTransaction() throws Exception {
+          return (ESSupplier) daoSupplier.get(uid);
         }
+
+      }.execute();
+    } catch (Exception e) {
+      throw new BillyRuntimeException(e);
     }
+  }
 
 }

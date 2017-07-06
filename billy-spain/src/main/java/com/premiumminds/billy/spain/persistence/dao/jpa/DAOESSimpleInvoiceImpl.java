@@ -28,18 +28,18 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSimpleInvoiceE
 
 public class DAOESSimpleInvoiceImpl extends DAOESInvoiceImpl implements DAOESSimpleInvoice {
 
-    @Inject
-    public DAOESSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOESSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public ESSimpleInvoiceEntity getEntityInstance() {
-        return new JPAESSimpleInvoiceEntity();
-    }
+  @Override
+  public ESSimpleInvoiceEntity getEntityInstance() {
+    return new JPAESSimpleInvoiceEntity();
+  }
 
-    @Override
-    protected Class<JPAESSimpleInvoiceEntity> getEntityClass() {
-        return JPAESSimpleInvoiceEntity.class;
-    }
+  @Override
+  protected Class<JPAESSimpleInvoiceEntity> getEntityClass() {
+    return JPAESSimpleInvoiceEntity.class;
+  }
 }

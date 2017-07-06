@@ -31,24 +31,24 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTApplication
 
 public class DAOPTApplicationImpl extends DAOApplicationImpl implements DAOPTApplication {
 
-    @Inject
-    public DAOPTApplicationImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOPTApplicationImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public PTApplicationEntity getEntityInstance() {
-        return new JPAPTApplicationEntity();
-    }
+  @Override
+  public PTApplicationEntity getEntityInstance() {
+    return new JPAPTApplicationEntity();
+  }
 
-    @Override
-    protected Class<JPAPTApplicationEntity> getEntityClass() {
-        return JPAPTApplicationEntity.class;
-    }
+  @Override
+  protected Class<JPAPTApplicationEntity> getEntityClass() {
+    return JPAPTApplicationEntity.class;
+  }
 
-    @Override
-    public PTApplicationEntity get(UID uid) throws NoResultException {
-        return (PTApplicationEntity) super.get(uid);
-    }
+  @Override
+  public PTApplicationEntity get(UID uid) throws NoResultException {
+    return (PTApplicationEntity) super.get(uid);
+  }
 
 }

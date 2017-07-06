@@ -28,12 +28,13 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTReceiptInvoiceBu
 
 public interface PTReceiptInvoice extends PTInvoice {
 
-    public static class Builder extends PTReceiptInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTReceiptInvoice> {
+  public static class Builder
+      extends PTReceiptInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTReceiptInvoice> {
 
-        @Inject
-        public Builder(DAOPTReceiptInvoice daoPTReceiptInvoice, DAOPTBusiness daoPTBusiness,
-                DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-            super(daoPTReceiptInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-        }
+    @Inject
+    public Builder(DAOPTReceiptInvoice daoPTReceiptInvoice, DAOPTBusiness daoPTBusiness,
+        DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
+      super(daoPTReceiptInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
     }
+  }
 }

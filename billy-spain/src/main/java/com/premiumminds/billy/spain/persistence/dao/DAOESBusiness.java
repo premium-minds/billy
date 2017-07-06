@@ -24,10 +24,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 
 public interface DAOESBusiness extends DAOBusiness {
 
-    @Override
-    public ESBusinessEntity getEntityInstance();
+  @Override
+  public ESBusinessEntity getEntityInstance();
 
-    @Override
-    public ESBusinessEntity get(UID uid);
+  @Override
+  public ESBusinessEntity get(UID uid);
 
 }

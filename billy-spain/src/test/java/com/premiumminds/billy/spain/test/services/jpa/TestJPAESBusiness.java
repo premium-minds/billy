@@ -35,49 +35,50 @@ import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 
 public class TestJPAESBusiness extends ESJPAAbstractTest {
 
-    private TransactionWrapper<Void> transaction;
-    private static final String BUSINESS_UID = "Biz";
+  private TransactionWrapper<Void> transaction;
+  private static final String BUSINESS_UID = "Biz";
 
-    class TestRunner implements Callable<Void> {
+  class TestRunner implements Callable<Void> {
 
-        private Injector injector;
+    private Injector injector;
 
-        public TestRunner(Injector inject) {
-            this.injector = inject;
+    public TestRunner(Injector inject) {
+      this.injector = inject;
 
-        }
-
-        @Override
-        public Void call() throws Exception {
-            ESJPAAbstractTest.execute(this.injector, TestJPAESBusiness.this.transaction);
-            return null;
-        }
     }
 
-    @Before
-    public void setUp() {
-        this.transaction = new TransactionWrapper<Void>(ESAbstractTest.injector.getInstance(DAOESInvoice.class)) {
-
-            @Override
-            public Void runTransaction() throws Exception {
-                new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(TestJPAESBusiness.BUSINESS_UID);
-                return null;
-            }
-        };
+    @Override
+    public Void call() throws Exception {
+      ESJPAAbstractTest.execute(this.injector, TestJPAESBusiness.this.transaction);
+      return null;
     }
+  }
 
-    @Test
-    public void doTest() throws Exception {
-        ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
-    }
+  @Before
+  public void setUp() {
+    this.transaction = new TransactionWrapper<Void>(
+        ESAbstractTest.injector.getInstance(DAOESInvoice.class)) {
 
-    @Test
-    public void testConcurrentCreate() throws Exception {
-        ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+      @Override
+      public Void runTransaction() throws Exception {
+        new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(BUSINESS_UID);
+        return null;
+      }
+    };
+  }
 
-        test.runThreads(new TestRunner(ESAbstractTest.injector));
+  @Test
+  public void doTest() throws Exception {
+    ESJPAAbstractTest.execute(ESAbstractTest.injector, this.transaction);
+  }
 
-        DAOESBusiness biz = ESAbstractTest.injector.getInstance(DAOESBusiness.class);
-        Assert.assertTrue(biz.exists(new UID(TestJPAESBusiness.BUSINESS_UID)));
-    }
+  @Test
+  public void testConcurrentCreate() throws Exception {
+    ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+
+    test.runThreads(new TestRunner(ESAbstractTest.injector));
+
+    DAOESBusiness biz = ESAbstractTest.injector.getInstance(DAOESBusiness.class);
+    Assert.assertTrue(biz.exists(new UID(BUSINESS_UID)));
+  }
 }

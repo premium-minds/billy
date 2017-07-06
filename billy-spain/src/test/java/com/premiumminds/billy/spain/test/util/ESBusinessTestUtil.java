@@ -35,62 +35,64 @@ import com.premiumminds.billy.spain.util.Contexts;
 
 public class ESBusinessTestUtil {
 
-    private static final String NAME = "Business";
-    private static final String FINANCIAL_ID = "11111111H";
-    private static final String WEBSITE = "http://business.com";
-    protected static final String ES_COUNTRY_CODE = "ES";
+  private static final String NAME = "Business";
+  private static final String FINANCIAL_ID = "11111111H";
+  private static final String WEBSITE = "http://business.com";
+  protected static final String ES_COUNTRY_CODE = "ES";
 
-    private Injector injector;
-    private ESApplicationTestUtil application;
-    private ESContactTestUtil contact;
-    private ESAddressTestUtil address;
-    private ESRegionContext context;
+  private Injector injector;
+  private ESApplicationTestUtil application;
+  private ESContactTestUtil contact;
+  private ESAddressTestUtil address;
+  private ESRegionContext context;
 
-    public ESBusinessTestUtil(Injector injector) {
-        this.injector = injector;
-        this.application = new ESApplicationTestUtil(injector);
-        this.contact = new ESContactTestUtil(injector);
-        this.address = new ESAddressTestUtil(injector);
+  public ESBusinessTestUtil(Injector injector) {
+    this.injector = injector;
+    this.application = new ESApplicationTestUtil(injector);
+    this.contact = new ESContactTestUtil(injector);
+    this.address = new ESAddressTestUtil(injector);
 
-        this.context = new Contexts(injector).spain().allRegions();
+    this.context = new Contexts(injector).spain().allRegions();
+  }
+
+  public ESBusinessEntity getBusinessEntity() {
+    return getBusinessEntity(new UID().toString());
+  }
+
+  public ESBusinessEntity getBusinessEntity(String uid) {
+    ESBusinessEntity business = null;
+    try {
+      business = (ESBusinessEntity) this.injector.getInstance(DAOESBusiness.class)
+          .get(new UID(uid));
+    } catch (NoResultException e) {
+      business = (ESBusinessEntity) this.getBusinessBuilder().build();
+      business.setUID(new UID(uid));
+      injector.getInstance(DAOESBusiness.class).create(business);
     }
 
-    public ESBusinessEntity getBusinessEntity() {
-        return this.getBusinessEntity(new UID().toString());
+    return business;
+  }
+
+  public ESBusiness.Builder getBusinessBuilder() {
+    ESBusiness.Builder businessBuilder = this.injector.getInstance(ESBusiness.Builder.class);
+
+    ESApplication.Builder applicationBuilder = null;
+    try {
+      applicationBuilder = this.application.getApplicationBuilder();
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
     }
 
-    public ESBusinessEntity getBusinessEntity(String uid) {
-        ESBusinessEntity business = null;
-        try {
-            business = this.injector.getInstance(DAOESBusiness.class).get(new UID(uid));
-        } catch (NoResultException e) {
-            business = (ESBusinessEntity) this.getBusinessBuilder().build();
-            business.setUID(new UID(uid));
-            this.injector.getInstance(DAOESBusiness.class).create(business);
-        }
+    ESContact.Builder contactBuilder = this.contact.getContactBuilder();
+    ESAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-        return business;
-    }
+    businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true)
+        .setAddress(addressBuilder).setBillingAddress(addressBuilder)
+        .setCommercialName(ESBusinessTestUtil.NAME)
+        .setFinancialID(ESBusinessTestUtil.FINANCIAL_ID, ES_COUNTRY_CODE)
+        .setOperationalContextUID(this.context.getUID()).setWebsite(ESBusinessTestUtil.WEBSITE)
+        .setName(ESBusinessTestUtil.NAME);
 
-    public ESBusiness.Builder getBusinessBuilder() {
-        ESBusiness.Builder businessBuilder = this.injector.getInstance(ESBusiness.Builder.class);
-
-        ESApplication.Builder applicationBuilder = null;
-        try {
-            applicationBuilder = this.application.getApplicationBuilder();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        ESContact.Builder contactBuilder = this.contact.getContactBuilder();
-        ESAddress.Builder addressBuilder = this.address.getAddressBuilder();
-
-        businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true).setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder).setCommercialName(ESBusinessTestUtil.NAME)
-                .setFinancialID(ESBusinessTestUtil.FINANCIAL_ID, ESBusinessTestUtil.ES_COUNTRY_CODE)
-                .setOperationalContextUID(this.context.getUID()).setWebsite(ESBusinessTestUtil.WEBSITE)
-                .setName(ESBusinessTestUtil.NAME);
-
-        return businessBuilder;
-    }
+    return businessBuilder;
+  }
 }

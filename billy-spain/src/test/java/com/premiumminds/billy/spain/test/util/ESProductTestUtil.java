@@ -30,76 +30,77 @@ import com.premiumminds.billy.spain.util.Taxes;
 
 public class ESProductTestUtil {
 
-    private static final String NUMBER_CODE = "123";
-    private static final String UNIT_OF_MEASURE = "Kg";
-    private static final String PRODUCT_CODE = "12345";
-    private static final String DESCRIPTION = "DESCRIPTION";
-    private static final String GROUP = "FOOD";
-    private static final ProductType TYPE = ProductType.GOODS;
+  private static final String NUMBER_CODE = "123";
+  private static final String UNIT_OF_MEASURE = "Kg";
+  private static final String PRODUCT_CODE = "12345";
+  private static final String DESCRIPTION = "DESCRIPTION";
+  private static final String GROUP = "FOOD";
+  private static final ProductType TYPE = ProductType.GOODS;
 
-    private Injector injector;
-    private Taxes taxes;
-    private ESTaxEntity tax;
+  private Injector injector;
+  private Taxes taxes;
+  private ESTaxEntity tax;
 
-    public ESProductTestUtil(Injector injector) {
-        this.injector = injector;
-        this.taxes = new Taxes(injector);
-        this.tax = (ESTaxEntity) this.taxes.continent().normal();
-        this.setExpireOneMonthAhead(this.tax);
-    }
+  public ESProductTestUtil(Injector injector) {
+    this.injector = injector;
+    this.taxes = new Taxes(injector);
+    this.tax = (ESTaxEntity) this.taxes.continent().normal();
+    setExpireOneMonthAhead(tax);
+  }
 
-    public ESProductEntity getProductEntity(String uid) {
-        ESProductEntity product = (ESProductEntity) this.getProductBuilder().build();
-        product.setUID(new UID(uid));
+  public ESProductEntity getProductEntity(String uid) {
+    ESProductEntity product = (ESProductEntity) this.getProductBuilder().build();
+    product.setUID(new UID(uid));
 
-        return product;
-    }
+    return product;
+  }
 
-    public ESProductEntity getProductEntity() {
-        return (ESProductEntity) this.getProductBuilder().build();
-    }
+  public ESProductEntity getProductEntity() {
+    return (ESProductEntity) this.getProductBuilder().build();
+  }
 
-    public ESProduct.Builder getProductBuilder(String productCode, String unitMesure, String numberCode, String group,
-            String description, ProductType type) {
-        ESProduct.Builder productBuilder = this.injector.getInstance(ESProduct.Builder.class);
+  public ESProduct.Builder getProductBuilder(String productCode, String unitMesure,
+      String numberCode, String group, String description, ProductType type) {
+    ESProduct.Builder productBuilder = this.injector.getInstance(ESProduct.Builder.class);
 
-        return productBuilder.addTaxUID(this.tax.getUID()).setNumberCode(numberCode).setUnitOfMeasure(unitMesure)
-                .setProductCode(productCode).setDescription(description).setType(type).setProductGroup(group);
+    return productBuilder.addTaxUID(this.tax.getUID()).setNumberCode(numberCode)
+        .setUnitOfMeasure(unitMesure).setProductCode(productCode).setDescription(description)
+        .setType(type).setProductGroup(group);
 
-    }
+  }
 
-    public ESProduct.Builder getProductBuilder() {
-        return this.getProductBuilder(ESProductTestUtil.PRODUCT_CODE, ESProductTestUtil.UNIT_OF_MEASURE,
-                ESProductTestUtil.NUMBER_CODE, ESProductTestUtil.GROUP, ESProductTestUtil.DESCRIPTION,
-                ESProductTestUtil.TYPE);
-    }
+  public ESProduct.Builder getProductBuilder() {
+    return this.getProductBuilder(ESProductTestUtil.PRODUCT_CODE, ESProductTestUtil.UNIT_OF_MEASURE,
+        ESProductTestUtil.NUMBER_CODE, ESProductTestUtil.GROUP, ESProductTestUtil.DESCRIPTION,
+        ESProductTestUtil.TYPE);
+  }
 
-    public ESProductEntity getProductEntity(String productCode, String unitMesure, String numberCode, String group,
-            ProductType type) {
-        return (ESProductEntity) this
-                .getProductBuilder(productCode, unitMesure, numberCode, group, ESProductTestUtil.DESCRIPTION, type)
-                .build();
+  public ESProductEntity getProductEntity(String productCode, String unitMesure, String numberCode,
+      String group, ProductType type) {
+    return (ESProductEntity) this.getProductBuilder(productCode, unitMesure, numberCode, group,
+        ESProductTestUtil.DESCRIPTION, type).build();
 
-    }
+  }
 
-    public ESProductEntity getOtherRegionProductEntity() {
-        ESProduct.Builder productBuilder = this.injector.getInstance(ESProduct.Builder.class);
+  public ESProductEntity getOtherRegionProductEntity() {
+    ESProduct.Builder productBuilder = this.injector.getInstance(ESProduct.Builder.class);
 
-        ESTaxEntity taxRegion = (ESTaxEntity) this.taxes.canaryIslands().normal();
-        this.setExpireOneMonthAhead(taxRegion);
+    ESTaxEntity taxRegion = (ESTaxEntity) this.taxes.canaryIslands().normal();
+    setExpireOneMonthAhead(taxRegion);
 
-        productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ESProductTestUtil.NUMBER_CODE)
-                .setUnitOfMeasure(ESProductTestUtil.UNIT_OF_MEASURE).setProductCode(ESProductTestUtil.PRODUCT_CODE)
-                .setDescription(ESProductTestUtil.DESCRIPTION).setType(ESProductTestUtil.TYPE)
-                .setProductGroup(ESProductTestUtil.GROUP);
+    productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ESProductTestUtil.NUMBER_CODE)
+        .setUnitOfMeasure(ESProductTestUtil.UNIT_OF_MEASURE)
+        .setProductCode(ESProductTestUtil.PRODUCT_CODE)
+        .setDescription(ESProductTestUtil.DESCRIPTION).setType(ESProductTestUtil.TYPE)
+        .setProductGroup(ESProductTestUtil.GROUP);
 
-        return (ESProductEntity) productBuilder.build();
-    }
+    return (ESProductEntity) productBuilder.build();
+  }
 
-    private ESTaxEntity setExpireOneMonthAhead(ESTaxEntity tax) {
-        Date oneMonthFromNow = new Date();
-        oneMonthFromNow.setTime(oneMonthFromNow.getTime() + 30 * 24 * 60 * 60 * 1000L);
-        tax.setValidTo(oneMonthFromNow);
-        return tax;
-    }
+  private ESTaxEntity setExpireOneMonthAhead(ESTaxEntity tax) {
+    Date oneMonthFromNow = new Date();
+    oneMonthFromNow.setTime(oneMonthFromNow.getTime() + 30 * 24 * 60 * 60 * 1000L);
+    tax.setValidTo(oneMonthFromNow);
+    return tax;
+  }
 }

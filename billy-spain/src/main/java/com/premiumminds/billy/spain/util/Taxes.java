@@ -29,111 +29,110 @@ import com.premiumminds.billy.spain.services.persistence.ESTaxPersistenceService
  */
 public class Taxes {
 
-    Config configuration = new Config();
+  Config configuration = new Config();
+
+  /**
+   * Provides Continent tax information
+   */
+  public class Continent {
 
     /**
-     * Provides Continent tax information
+     * @return Normal VAT value for Continent.
      */
-    public class Continent {
-
-        /**
-         * @return Normal VAT value for Continent.
-         */
-        public ESTax normal() {
-            DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
-            return (ESTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.NORMAL_UUID));
-        }
-
-        /**
-         * @return Intermediate VAT value for Continent.
-         */
-        public ESTax intermediate() {
-            DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
-            return (ESTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.INTERMEDIATE_UUID));
-        }
-
-        /**
-         * @return Reduced VAT value for Continent.
-         */
-        public ESTax reduced() {
-            DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
-            return (ESTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.REDUCED_UUID));
-        }
-
-    }
-
-    public class CanaryIslands {
-
-        /**
-         * @return Normal IGIC value for the Canary Islands.
-         */
-        public ESTax normal() {
-            DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
-            return (ESTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.NORMAL_UUID));
-        }
-
-        /**
-         * @return Intermediate IGIC value for the Canary Islands.
-         */
-        public ESTax intermediate() {
-            DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
-            return (ESTax) dao.get(
-                    Taxes.this.configuration.getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.INTERMEDIATE_UUID));
-        }
-
-        /**
-         * @return Reduced IGIC value for the Canary Islands.
-         */
-        public ESTax reduced() {
-            DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
-            return (ESTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.REDUCED_UUID));
-        }
+    public ESTax normal() {
+      DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
+      return (ESTax) dao.get(
+          Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.NORMAL_UUID));
     }
 
     /**
-     * @return Exemption tax value.
+     * @return Intermediate VAT value for Continent.
      */
-    public ESTax exempt() {
-        DAOESTax dao = this.getInstance(DAOESTax.class);
-        return (ESTax) dao.get(this.configuration.getUID(Config.Key.Context.Spain.TAX_EXEMPT_UUID));
-    }
-
-    private final Continent continent;
-    private final CanaryIslands canaryIslands;
-    private final Injector injector;
-    private final ESTaxPersistenceService persistenceService;
-
-    public Taxes(Injector injector) {
-        this.continent = new Continent();
-        this.canaryIslands = new CanaryIslands();
-        this.injector = injector;
-        this.persistenceService = this.getInstance(ESTaxPersistenceService.class);
+    public ESTax intermediate() {
+      DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
+      return (ESTax) dao.get(Taxes.this.configuration
+          .getUID(Config.Key.Context.Spain.Continental.VAT.INTERMEDIATE_UUID));
     }
 
     /**
-     * @return Spanish tax information from {@link Continent} region.
+     * @return Reduced VAT value for Continent.
      */
-    public Continent continent() {
-        return this.continent;
+    public ESTax reduced() {
+      DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
+      return (ESTax) dao.get(
+          Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.REDUCED_UUID));
+    }
+
+  }
+
+  public class CanaryIslands {
+    /**
+     * @return Normal IGIC value for the Canary Islands.
+     */
+    public ESTax normal() {
+      DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
+      return (ESTax) dao.get(
+          Taxes.this.configuration.getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.NORMAL_UUID));
     }
 
     /**
-     * @return Spanish tax information from {@link CanaryIslands} region.
+     * @return Intermediate IGIC value for the Canary Islands.
      */
-    public CanaryIslands canaryIslands() {
-        return this.canaryIslands;
+    public ESTax intermediate() {
+      DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
+      return (ESTax) dao.get(Taxes.this.configuration
+          .getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.INTERMEDIATE_UUID));
     }
 
-    public ESTaxPersistenceService persistence() {
-        return this.persistenceService;
+    /**
+     * @return Reduced IGIC value for the Canary Islands.
+     */
+    public ESTax reduced() {
+      DAOESTax dao = Taxes.this.getInstance(DAOESTax.class);
+      return (ESTax) dao.get(Taxes.this.configuration
+          .getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.REDUCED_UUID));
     }
+  }
 
-    private <T> T getInstance(Class<T> clazz) {
-        return this.injector.getInstance(clazz);
-    }
+  /**
+   * @return Exemption tax value.
+   */
+  public ESTax exempt() {
+    DAOESTax dao = this.getInstance(DAOESTax.class);
+    return (ESTax) dao.get(this.configuration.getUID(Config.Key.Context.Spain.TAX_EXEMPT_UUID));
+  }
+
+  private final Continent continent;
+  private final CanaryIslands canaryIslands;
+  private final Injector injector;
+  private final ESTaxPersistenceService persistenceService;
+
+  public Taxes(Injector injector) {
+    this.continent = new Continent();
+    this.canaryIslands = new CanaryIslands();
+    this.injector = injector;
+    this.persistenceService = getInstance(ESTaxPersistenceService.class);
+  }
+
+  /**
+   * @return Spanish tax information from {@link Continent} region.
+   */
+  public Continent continent() {
+    return this.continent;
+  }
+
+  /**
+   * @return Spanish tax information from {@link CanaryIslands} region.
+   */
+  public CanaryIslands canaryIslands() {
+    return this.canaryIslands;
+  }
+
+  public ESTaxPersistenceService persistence() {
+    return this.persistenceService;
+  }
+
+  private <T> T getInstance(Class<T> clazz) {
+    return this.injector.getInstance(clazz);
+  }
 }

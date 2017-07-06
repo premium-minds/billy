@@ -30,23 +30,23 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
 public class ESManualCreditNoteBuilderImpl<TBuilder extends ESManualCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESCreditNoteEntry, TDocument extends ESCreditNote>
-        extends ESManualBuilderImpl<TBuilder, TEntry, TDocument>
-        implements ESManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+    extends ESManualBuilderImpl<TBuilder, TEntry, TDocument>
+    implements ESManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-    public ESManualCreditNoteBuilderImpl(DAOESCreditNote daoESCreditNote, DAOESBusiness daoESBusiness,
-            DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
-        super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
-    }
+  public ESManualCreditNoteBuilderImpl(DAOESCreditNote daoESCreditNote, DAOESBusiness daoESBusiness,
+      DAOESCustomer daoESCustomer, DAOESSupplier daoESSupplier) {
+    super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
+  }
 
-    @Override
-    protected ESCreditNoteEntity getTypeInstance() {
-        return (ESCreditNoteEntity) super.getTypeInstance();
-    }
+  @Override
+  protected ESCreditNoteEntity getTypeInstance() {
+    return (ESCreditNoteEntity) super.getTypeInstance();
+  }
 
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        ESCreditNoteEntity i = this.getTypeInstance();
-        i.setCreditOrDebit(CreditOrDebit.DEBIT);
-        super.validateInstance();
-    }
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    ESCreditNoteEntity i = getTypeInstance();
+    i.setCreditOrDebit(CreditOrDebit.DEBIT);
+    super.validateInstance();
+  }
 }

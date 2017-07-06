@@ -24,10 +24,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
 
 public interface DAOESApplication extends DAOApplication {
 
-    @Override
-    public ESApplicationEntity getEntityInstance();
+  @Override
+  public ESApplicationEntity getEntityInstance();
 
-    @Override
-    public ESApplicationEntity get(UID uid);
+  @Override
+  public ESApplicationEntity get(UID uid);
 
 }

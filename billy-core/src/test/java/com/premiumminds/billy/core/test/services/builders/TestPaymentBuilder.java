@@ -29,23 +29,25 @@ import com.premiumminds.billy.core.test.fixtures.MockPaymentEntity;
 
 public class TestPaymentBuilder extends AbstractTest {
 
-    private static final String PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "Payment.yml";
+  private static final String PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "Payment.yml";
 
-    @SuppressWarnings("unchecked")
-    @Test
-    public void doTest() {
-        MockPaymentEntity mock = this.createMockEntity(MockPaymentEntity.class, TestPaymentBuilder.PAYMENT_YML);
+  @SuppressWarnings("unchecked")
+  @Test
+  public void doTest() {
+    MockPaymentEntity mock = this.createMockEntity(MockPaymentEntity.class,
+        TestPaymentBuilder.PAYMENT_YML);
 
-        Mockito.when(this.getInstance(DAOPayment.class).getEntityInstance()).thenReturn(new MockPaymentEntity());
+    Mockito.when(this.getInstance(DAOPayment.class).getEntityInstance())
+        .thenReturn(new MockPaymentEntity());
 
-        Payment.Builder builder = this.getInstance(Payment.Builder.class);
+    Payment.Builder builder = this.getInstance(Payment.Builder.class);
 
-        builder.setPaymentDate(mock.getPaymentDate());
+    builder.setPaymentDate(mock.getPaymentDate());
 
-        Payment payment = builder.build();
+    Payment payment = builder.build();
 
-        Assert.assertTrue(payment != null);
-        Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
-    }
+    Assert.assertTrue(payment != null);
+    Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
+  }
 
 }

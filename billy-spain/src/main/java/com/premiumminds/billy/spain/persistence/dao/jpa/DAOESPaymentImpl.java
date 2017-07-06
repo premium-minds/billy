@@ -29,19 +29,19 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESPaymentEntity;
 
 public class DAOESPaymentImpl extends DAOPaymentImpl implements DAOESPayment {
 
-    @Inject
-    public DAOESPaymentImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+  @Inject
+  public DAOESPaymentImpl(Provider<EntityManager> emProvider) {
+    super(emProvider);
+  }
 
-    @Override
-    public ESPaymentEntity getEntityInstance() {
-        return new JPAESPaymentEntity();
-    }
+  @Override
+  public ESPaymentEntity getEntityInstance() {
+    return new JPAESPaymentEntity();
+  }
 
-    @Override
-    protected Class<JPAESPaymentEntity> getEntityClass() {
-        return JPAESPaymentEntity.class;
-    }
+  @Override
+  protected Class<JPAESPaymentEntity> getEntityClass() {
+    return JPAESPaymentEntity.class;
+  }
 
 }

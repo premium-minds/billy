@@ -45,68 +45,70 @@ import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 
 public class GenericTest {
 
-    static Injector injector;
+  static Injector injector;
 
-    @Before
-    public void setUpClass() {
-        GenericTest.injector =
-                Guice.createInjector(new CoreJPADependencyModule(), new CoreJPATestPersistenceDependencyModule());
-        GenericTest.injector.getInstance(CoreJPATestPersistenceDependencyModule.Initializer.class);
-    }
+  @Before
+  public void setUpClass() {
+    GenericTest.injector = Guice.createInjector(new CoreJPADependencyModule(),
+        new CoreJPATestPersistenceDependencyModule());
+    GenericTest.injector.getInstance(CoreJPATestPersistenceDependencyModule.Initializer.class);
+  }
 
-    @After
-    public void tearDown() {
-        GenericTest.injector.getInstance(CoreJPATestPersistenceDependencyModule.Finalizer.class);
-    }
+  @After
+  public void tearDown() {
+    GenericTest.injector.getInstance(CoreJPATestPersistenceDependencyModule.Finalizer.class);
+  }
 
-    @Test
-    public void test1() {
-        Business.Builder builder = GenericTest.injector.getInstance(Business.Builder.class);
-        Contact.Builder contactBuilder = GenericTest.injector.getInstance(Contact.Builder.class);
-        Contact.Builder contactBuilder2 = GenericTest.injector.getInstance(Contact.Builder.class);
-        Context.Builder contextBuilder = GenericTest.injector.getInstance(Context.Builder.class);
-        Address.Builder addressBuilder = GenericTest.injector.getInstance(Address.Builder.class);
-        Address.Builder addressBuilder2 = GenericTest.injector.getInstance(Address.Builder.class);
-        Application.Builder applicationBuilder = GenericTest.injector.getInstance(Application.Builder.class);
-        Tax.Builder taxBuilder = GenericTest.injector.getInstance(Tax.Builder.class);
+  @Test
+  public void test1() {
+    Business.Builder builder = GenericTest.injector.getInstance(Business.Builder.class);
+    Contact.Builder contactBuilder = GenericTest.injector.getInstance(Contact.Builder.class);
+    Contact.Builder contactBuilder2 = GenericTest.injector.getInstance(Contact.Builder.class);
+    Context.Builder contextBuilder = GenericTest.injector.getInstance(Context.Builder.class);
+    Address.Builder addressBuilder = GenericTest.injector.getInstance(Address.Builder.class);
+    Address.Builder addressBuilder2 = GenericTest.injector.getInstance(Address.Builder.class);
+    Application.Builder applicationBuilder = GenericTest.injector
+        .getInstance(Application.Builder.class);
+    Tax.Builder taxBuilder = GenericTest.injector.getInstance(Tax.Builder.class);
 
-        DAOContext daoContext = GenericTest.injector.getInstance(DAOContext.class);
-        DAOTax daoTax = GenericTest.injector.getInstance(DAOTax.class);
+    DAOContext daoContext = GenericTest.injector.getInstance(DAOContext.class);
+    DAOTax daoTax = GenericTest.injector.getInstance(DAOTax.class);
 
-        daoContext.beginTransaction();
+    daoContext.beginTransaction();
 
-        Context parent = contextBuilder.setName("parent name").setDescription("the parent description")
-                .setParentContextUID(null).build();
-        parent = daoContext.create((ContextEntity) parent);
+    Context parent = contextBuilder.setName("parent name").setDescription("the parent description")
+        .setParentContextUID(null).build();
+    parent = daoContext.create((ContextEntity) parent);
 
-        contextBuilder.clear();
-        Context child = contextBuilder.setName("child name").setDescription("the child description")
-                .setParentContextUID(parent.getUID()).build();
-        child = daoContext.create((ContextEntity) child);
+    contextBuilder.clear();
+    Context child = contextBuilder.setName("child name").setDescription("the child description")
+        .setParentContextUID(parent.getUID()).build();
+    child = daoContext.create((ContextEntity) child);
 
-        builder.setOperationalContextUID(child.getUID()).setName("name").setCommercialName("commercial name")
-                .addContact(contactBuilder.setName("name").setEmail("email").setFax("fax").setMobile("mobile")
-                        .setTelephone("phone").setWebsite("website"), true)
-                .setAddress(
-                        addressBuilder.setBuilding("building").setCity("city").setDetails("details").setISOCountry("PT")
-                                .setNumber("number").setPostalCode("2345").setRegion("region").setStreetName("street"))
-                .setBillingAddress(addressBuilder2.setBuilding("building").setCity("city").setDetails("details")
-                        .setISOCountry("PT").setNumber("number").setPostalCode("2345").setRegion("region")
-                        .setStreetName("street"))
-                .addApplication(applicationBuilder.setDeveloperCompanyName("name")
-                        .setDeveloperCompanyTaxIdentifier("taxid").setName("application name")
-                        .setVersion("1.0").addContact(contactBuilder2.setName("name").setEmail("email").setFax("fax")
-                                .setMobile("mobile").setTelephone("phone").setWebsite("website")))
-                .setFinancialID("financial id", null);
+    builder.setOperationalContextUID(child.getUID()).setName("name")
+        .setCommercialName("commercial name")
+        .addContact(contactBuilder.setName("name").setEmail("email").setFax("fax")
+            .setMobile("mobile").setTelephone("phone").setWebsite("website"), true)
+        .setAddress(addressBuilder.setBuilding("building").setCity("city").setDetails("details")
+            .setISOCountry("PT").setNumber("number").setPostalCode("2345").setRegion("region")
+            .setStreetName("street"))
+        .setBillingAddress(addressBuilder2.setBuilding("building").setCity("city")
+            .setDetails("details").setISOCountry("PT").setNumber("number").setPostalCode("2345")
+            .setRegion("region").setStreetName("street"))
+        .addApplication(applicationBuilder.setDeveloperCompanyName("name")
+            .setDeveloperCompanyTaxIdentifier("taxid").setName("application name").setVersion("1.0")
+            .addContact(contactBuilder2.setName("name").setEmail("email").setFax("fax")
+                .setMobile("mobile").setTelephone("phone").setWebsite("website")))
+        .setFinancialID("financial id", null);
 
-        GenericTest.injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
+    GenericTest.injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
 
-        taxBuilder.setCode("PT").setContextUID(child.getUID()).setCurrency(Currency.getInstance("EUR"))
-                .setDescription("description").setDesignation("designation")
-                .setTaxRate(TaxRateType.PERCENTAGE, BigDecimal.TEN).setValidFrom(new Date()).setValidTo(new Date())
-                .setValue(BigDecimal.TEN);
+    taxBuilder.setCode("PT").setContextUID(child.getUID()).setCurrency(Currency.getInstance("EUR"))
+        .setDescription("description").setDesignation("designation")
+        .setTaxRate(TaxRateType.PERCENTAGE, BigDecimal.TEN).setValidFrom(new Date())
+        .setValidTo(new Date()).setValue(BigDecimal.TEN);
 
-        daoTax.create((TaxEntity) taxBuilder.build());
-    }
+    daoTax.create((TaxEntity) taxBuilder.build());
+  }
 
 }

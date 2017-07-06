@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
 import com.premiumminds.billy.spain.services.export.ESCreditNoteData;
 
-public interface ESCreditNotePDFTransformer extends BillyExportTransformer<ESCreditNoteData, OutputStream> {
+public interface ESCreditNotePDFTransformer
+    extends BillyExportTransformer<ESCreditNoteData, OutputStream> {
 
 }

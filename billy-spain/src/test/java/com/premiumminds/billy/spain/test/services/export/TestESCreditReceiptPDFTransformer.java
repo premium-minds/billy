@@ -60,89 +60,90 @@ import com.premiumminds.billy.spain.util.Services;
 
 public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
-    public static final String XSL_PATH = "src/main/resources/templates/es_creditreceipt.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+  public static final int NUM_ENTRIES = 10;
+  public static final String XSL_PATH = "src/main/resources/templates/es_creditreceipt.xsl";
+  public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-    private Injector mockedInjector;
-    private ESCreditReceiptPDFFOPTransformer transformer;
-    private ESCreditReceiptDataExtractor extractor;
+  private Injector mockedInjector;
+  private ESCreditReceiptPDFFOPTransformer transformer;
+  private ESCreditReceiptDataExtractor extractor;
 
-    @Before
-    public void setUp() throws FileNotFoundException {
+  @Before
+  public void setUp() throws FileNotFoundException {
 
-        this.mockedInjector =
-                Guice.createInjector(Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
+    mockedInjector = Guice.createInjector(
+        Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
 
-        InputStream xsl = new FileInputStream(TestESCreditReceiptPDFTransformer.XSL_PATH);
+    InputStream xsl = new FileInputStream(XSL_PATH);
 
-        this.transformer = new ESCreditReceiptPDFFOPTransformer(TestESCreditReceiptPDFTransformer.LOGO_PATH, xsl);
-        this.extractor = this.mockedInjector.getInstance(ESCreditReceiptDataExtractor.class);
-    }
+    transformer = new ESCreditReceiptPDFFOPTransformer(LOGO_PATH, xsl);
+    extractor = mockedInjector.getInstance(ESCreditReceiptDataExtractor.class);
+  }
 
-    @Test
-    public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
-            DocumentIssuingException, IOException {
+  @Test
+  public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
-        ESReceiptEntity receipt = this.getNewIssuedReceipt((new UID()).toString());
-        ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
-        DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
-        DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
-        Mockito.when(daoReceipt.get(Matchers.eq(receipt.getUID()))).thenReturn(receipt);
+    UID uidEntity = UID.fromString("12345");
+    ESReceiptEntity receipt = getNewIssuedReceipt((new UID()).toString());
+    ESCreditReceiptEntity entity = generateESCreditReceipt(PaymentMechanism.CASH, receipt);
+    DAOESCreditReceipt dao = mockedInjector.getInstance(DAOESCreditReceipt.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+    DAOESReceipt daoReceipt = mockedInjector.getInstance(DAOESReceipt.class);
+    Mockito.when(daoReceipt.get(Matchers.eq(receipt.getUID()))).thenReturn(receipt);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
-        ESCreditReceiptData entityData = this.extractor.extract(uidEntity);
-        this.transformer.transform(entityData, os);
-    }
+    ESCreditReceiptData entityData = extractor.extract(uidEntity);
+    transformer.transform(entityData, os);
+  }
 
-    @Test(expected = ExportServiceException.class)
-    public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
-            DocumentIssuingException, IOException {
+  @Test(expected = ExportServiceException.class)
+  public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
+    UID uidEntity = UID.fromString("12345");
 
-        this.extractor.extract(uidEntity);
-    }
+    extractor.extract(uidEntity);
+  }
 
-    @Test
-    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
-            DocumentIssuingException, IOException {
+  @Test
+  public void testPDFCreationFromBundle() throws NoSuchAlgorithmException, ExportServiceException,
+      URISyntaxException, DocumentIssuingException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
-        ESReceiptEntity receipt = this.getNewIssuedReceipt((new UID()).toString());
-        ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
-        DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
-        DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
-        Mockito.when(daoReceipt.get(Matchers.eq(receipt.getUID()))).thenReturn(receipt);
+    UID uidEntity = UID.fromString("12345");
+    ESReceiptEntity receipt = getNewIssuedReceipt((new UID()).toString());
+    ESCreditReceiptEntity entity = generateESCreditReceipt(PaymentMechanism.CASH, receipt);
+    DAOESCreditReceipt dao = mockedInjector.getInstance(DAOESCreditReceipt.class);
+    Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+    DAOESReceipt daoReceipt = mockedInjector.getInstance(DAOESReceipt.class);
+    Mockito.when(daoReceipt.get(Matchers.eq(receipt.getUID()))).thenReturn(receipt);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+    OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
-        InputStream xsl = new FileInputStream(TestESCreditReceiptPDFTransformer.XSL_PATH);
-        ESCreditReceiptTemplateBundle bundle =
-                new ESCreditReceiptTemplateBundle(TestESCreditReceiptPDFTransformer.LOGO_PATH, xsl);
-        ESCreditReceiptPDFFOPTransformer transformerBundle = new ESCreditReceiptPDFFOPTransformer(bundle);
+    InputStream xsl = new FileInputStream(XSL_PATH);
+    ESCreditReceiptTemplateBundle bundle = new ESCreditReceiptTemplateBundle(LOGO_PATH, xsl);
+    ESCreditReceiptPDFFOPTransformer transformerBundle = new ESCreditReceiptPDFFOPTransformer(
+        bundle);
 
-        ESCreditReceiptData entityData = this.extractor.extract(uidEntity);
-        transformerBundle.transform(entityData, os);
-    }
+    ESCreditReceiptData entityData = extractor.extract(uidEntity);
+    transformerBundle.transform(entityData, os);
+  }
 
-    private ESCreditReceiptEntity generateESCreditReceipt(PaymentMechanism paymentMechanism, ESReceiptEntity reference)
-            throws DocumentIssuingException {
+  private ESCreditReceiptEntity generateESCreditReceipt(PaymentMechanism paymentMechanism,
+      ESReceiptEntity reference) throws DocumentIssuingException {
 
-        Services services = new Services(ESAbstractTest.injector);
+    Services services = new Services(ESAbstractTest.injector);
 
-        ESIssuingParams params = this.getParameters("AC", "3000");
+    ESIssuingParams params = this.getParameters("AC", "3000");
 
-        ESCreditReceiptEntity creditReceipt = (ESCreditReceiptEntity) services.issueDocument(
-                new ESCreditReceiptTestUtil(ESAbstractTest.injector).getCreditReceiptBuilder(reference), params);
+    ESCreditReceiptEntity creditReceipt = (ESCreditReceiptEntity) services.issueDocument(
+        new ESCreditReceiptTestUtil(ESAbstractTest.injector).getCreditReceiptBuilder(reference),
+        params);
 
-        creditReceipt.setBusiness((BusinessEntity) reference.getBusiness());
-        creditReceipt.setCreditOrDebit(CreditOrDebit.CREDIT);
+    creditReceipt.setBusiness((BusinessEntity) reference.getBusiness());
+    creditReceipt.setCreditOrDebit(CreditOrDebit.CREDIT);
 
-        return creditReceipt;
-    }
+    return creditReceipt;
+  }
 }

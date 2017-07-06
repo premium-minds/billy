@@ -24,9 +24,9 @@ import com.premiumminds.billy.gin.services.impl.ExportServiceImpl;
 
 public class GINDependencyModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        this.bind(ExportService.class).to(ExportServiceImpl.class);
-    }
+  @Override
+  protected void configure() {
+    this.bind(ExportService.class).to(ExportServiceImpl.class);
+  }
 
 }

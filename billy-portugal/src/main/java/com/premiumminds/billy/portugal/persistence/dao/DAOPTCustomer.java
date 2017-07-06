@@ -23,6 +23,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 
 public interface DAOPTCustomer extends DAOCustomer {
 
-    @Override
-    public PTCustomerEntity getEntityInstance();
+  @Override
+  public PTCustomerEntity getEntityInstance();
 }

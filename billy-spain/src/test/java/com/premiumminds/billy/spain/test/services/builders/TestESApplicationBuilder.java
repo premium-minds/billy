@@ -34,42 +34,45 @@ import com.premiumminds.billy.spain.test.fixtures.MockESApplicationEntity;
 
 public class TestESApplicationBuilder extends ESAbstractTest {
 
-    private static final String ESAPPLICATION_YML = AbstractTest.YML_CONFIGS_DIR + "ESApplication.yml";
+  private static final String ESAPPLICATION_YML = AbstractTest.YML_CONFIGS_DIR
+      + "ESApplication.yml";
 
-    @Test
-    public void doTest() throws MalformedURLException {
+  @Test
+  public void doTest() throws MalformedURLException {
 
-        MockESApplicationEntity mockApplication =
-                this.createMockEntity(MockESApplicationEntity.class, TestESApplicationBuilder.ESAPPLICATION_YML);
+    MockESApplicationEntity mockApplication = this.createMockEntity(MockESApplicationEntity.class,
+        TestESApplicationBuilder.ESAPPLICATION_YML);
 
-        Mockito.when(this.getInstance(DAOESApplication.class).getEntityInstance())
-                .thenReturn(new MockESApplicationEntity());
+    Mockito.when(this.getInstance(DAOESApplication.class).getEntityInstance())
+        .thenReturn(new MockESApplicationEntity());
 
-        ESApplication.Builder builder = this.getInstance(ESApplication.Builder.class);
+    ESApplication.Builder builder = this.getInstance(ESApplication.Builder.class);
 
-        ESContact.Builder mockContactBuilder = this.getMock(ESContact.Builder.class);
-        Mockito.when(mockContactBuilder.build()).thenReturn(Mockito.mock(ESContactEntity.class));
+    ESContact.Builder mockContactBuilder = this.getMock(ESContact.Builder.class);
+    Mockito.when(mockContactBuilder.build()).thenReturn(Mockito.mock(ESContactEntity.class));
 
-        ESContact.Builder mockMainContactBuilder = this.getMock(ESContact.Builder.class);
-        Mockito.when(mockMainContactBuilder.build()).thenReturn(Mockito.mock(ESContactEntity.class));
+    ESContact.Builder mockMainContactBuilder = this.getMock(ESContact.Builder.class);
+    Mockito.when(mockMainContactBuilder.build()).thenReturn(Mockito.mock(ESContactEntity.class));
 
-        builder.addContact(mockContactBuilder).addContact(mockMainContactBuilder)
-                .setDeveloperCompanyName(mockApplication.getDeveloperCompanyName())
-                .setDeveloperCompanyTaxIdentifier(mockApplication.getDeveloperCompanyTaxIdentifier())
-                .setMainContact(mockMainContactBuilder).setName(mockApplication.getName())
-                .setVersion(mockApplication.getVersion()).setWebsiteAddress(mockApplication.getWebsiteAddress());
+    builder.addContact(mockContactBuilder).addContact(mockMainContactBuilder)
+        .setDeveloperCompanyName(mockApplication.getDeveloperCompanyName())
+        .setDeveloperCompanyTaxIdentifier(mockApplication.getDeveloperCompanyTaxIdentifier())
+        .setMainContact(mockMainContactBuilder).setName(mockApplication.getName())
+        .setVersion(mockApplication.getVersion())
+        .setWebsiteAddress(mockApplication.getWebsiteAddress());
 
-        ESApplication application = builder.build();
+    ESApplication application = builder.build();
 
-        assert (application != null);
-        Assert.assertEquals(mockApplication.getName(), application.getName());
-        Assert.assertEquals(mockApplication.getVersion(), application.getVersion());
-        Assert.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
-        Assert.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
-                application.getDeveloperCompanyTaxIdentifier());
-        Assert.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
-        assert (application.getContacts() != null);
-        assert (application.getMainContact() != null);
+    assert (application != null);
+    Assert.assertEquals(mockApplication.getName(), application.getName());
+    Assert.assertEquals(mockApplication.getVersion(), application.getVersion());
+    Assert.assertEquals(mockApplication.getDeveloperCompanyName(),
+        application.getDeveloperCompanyName());
+    Assert.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
+        application.getDeveloperCompanyTaxIdentifier());
+    Assert.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
+    assert (application.getContacts() != null);
+    assert (application.getMainContact() != null);
 
-    }
+  }
 }
