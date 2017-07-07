@@ -25,13 +25,12 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public interface DAOPTCreditNote extends DAOPTGenericInvoice {
+public interface DAOPTCreditNote extends AbstractDAOPTGenericInvoice<PTCreditNoteEntity> {
 
-    @Override
-    public PTCreditNoteEntity getEntityInstance();
+	public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid,
+			Date from, Date to);
 
-    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid, Date from, Date to);
-
-    public List<PTCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice);
+	public List<PTCreditNote> findByReferencedDocument(UID uidCompany,
+			UID uidInvoice);
 
 }

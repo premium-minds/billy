@@ -22,6 +22,6 @@ import com.premiumminds.billy.core.services.builders.ContextBuilder;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 
 public interface ESRegionContextBuilder<TBuilder extends ESRegionContextBuilder<TBuilder, TContext>, TContext extends ESRegionContext>
-        extends ContextBuilder<TBuilder, TContext> {
+	extends ContextBuilder<TBuilder, TContext> {
 
 }

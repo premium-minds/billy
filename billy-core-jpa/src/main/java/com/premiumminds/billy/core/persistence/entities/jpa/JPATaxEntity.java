@@ -44,157 +44,157 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Table(name = Config.TABLE_PREFIX + "TAX")
 public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    @Column(name = "CODE")
-    protected String code;
+	@Column(name = "CODE")
+	protected String			code;
 
-    @ManyToOne(targetEntity = JPAContextEntity.class)
-    @JoinColumn(name = "ID_CONTEXT", referencedColumnName = "ID")
-    protected Context context;
+	@ManyToOne(targetEntity = JPAContextEntity.class)
+	@JoinColumn(name = "ID_CONTEXT", referencedColumnName = "ID")
+	protected Context			context;
 
-    @Column(name = "CURRENCY")
-    protected Currency currency;
+	@Column(name = "CURRENCY")
+	protected Currency			currency;
 
-    @Column(name = "DESCRIPTION")
-    protected String description;
+	@Column(name = "DESCRIPTION")
+	protected String			description;
 
-    @Column(name = "DESIGNATION")
-    protected String designation;
+	@Column(name = "DESIGNATION")
+	protected String			designation;
 
-    @Column(name = "FLAT_RATE_AMOUNT", precision = 19, scale = 7)
-    protected BigDecimal flatRateAmount;
+	@Column(name = "FLAT_RATE_AMOUNT", precision=19, scale = 7)
+	protected BigDecimal		flatRateAmount;
 
-    @Column(name = "PERCENT_RATE_VALUE", precision = 19, scale = 7)
-    protected BigDecimal percentageRateValue;
+	@Column(name = "PERCENT_RATE_VALUE", precision=19, scale = 7)
+	protected BigDecimal		percentageRateValue;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "RATE_TYPE")
-    protected TaxRateType taxRateType;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "RATE_TYPE")
+	protected TaxRateType		taxRateType;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "VALID_FROM")
-    protected Date validFrom;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "VALID_FROM")
+	protected Date				validFrom;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "VALID_TO")
-    protected Date validTo;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "VALID_TO")
+	protected Date				validTo;
 
-    @Column(name = "VALUE", precision = 19, scale = 7)
-    protected BigDecimal value;
+	@Column(name = "VALUE", precision=19, scale = 7)
+	protected BigDecimal		value;
 
-    public JPATaxEntity() {
-    }
+	public JPATaxEntity() {
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public Context getContext() {
-        return this.context;
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	public Context getContext() {
+		return this.context;
+	}
 
-    @Override
-    public String getDesignation() {
-        return this.designation;
-    }
+	@Override
+	public String getDesignation() {
+		return this.designation;
+	}
 
-    @Override
-    public String getDescription() {
-        return this.description;
-    }
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
 
-    @Override
-    public String getCode() {
-        return this.code;
-    }
+	@Override
+	public String getCode() {
+		return this.code;
+	}
 
-    @Override
-    public BigDecimal getValue() {
-        return this.value;
-    }
+	@Override
+	public BigDecimal getValue() {
+		return this.value;
+	}
 
-    @Override
-    public Date getValidFrom() {
-        return this.validFrom;
-    }
+	@Override
+	public Date getValidFrom() {
+		return this.validFrom;
+	}
 
-    @Override
-    public Date getValidTo() {
-        return this.validTo;
-    }
+	@Override
+	public Date getValidTo() {
+		return this.validTo;
+	}
 
-    @Override
-    public TaxRateType getTaxRateType() {
-        return this.taxRateType;
-    }
+	@Override
+	public TaxRateType getTaxRateType() {
+		return this.taxRateType;
+	}
 
-    @Override
-    public BigDecimal getPercentageRateValue() {
-        return this.percentageRateValue;
-    }
+	@Override
+	public BigDecimal getPercentageRateValue() {
+		return this.percentageRateValue;
+	}
 
-    @Override
-    public BigDecimal getFlatRateAmount() {
-        return this.flatRateAmount;
-    }
+	@Override
+	public BigDecimal getFlatRateAmount() {
+		return this.flatRateAmount;
+	}
 
-    @Override
-    public Currency getCurrency() {
-        return this.currency;
-    }
+	@Override
+	public Currency getCurrency() {
+		return this.currency;
+	}
 
-    @Override
-    public <T extends ContextEntity> void setContext(T context) {
-        this.context = context;
-    }
+	@Override
+	public <T extends ContextEntity> void setContext(T context) {
+		this.context = context;
+	}
 
-    @Override
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
+	@Override
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
 
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    @Override
-    public void setCode(String code) {
-        this.code = code;
-    }
+	@Override
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    @Override
-    public void setValidFrom(Date from) {
-        this.validFrom = from;
-    }
+	@Override
+	public void setValidFrom(Date from) {
+		this.validFrom = from;
+	}
 
-    @Override
-    public void setValidTo(Date to) {
-        this.validTo = to;
-    }
+	@Override
+	public void setValidTo(Date to) {
+		this.validTo = to;
+	}
 
-    @Override
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
+	@Override
+	public void setValue(BigDecimal value) {
+		this.value = value;
+	}
 
-    @Override
-    public void setTaxRateType(TaxRateType type) {
-        this.taxRateType = type;
-    }
+	@Override
+	public void setTaxRateType(TaxRateType type) {
+		this.taxRateType = type;
+	}
 
-    @Override
-    public void setPercentageRateValue(BigDecimal value) {
-        this.percentageRateValue = value;
-    }
+	@Override
+	public void setPercentageRateValue(BigDecimal value) {
+		this.percentageRateValue = value;
+	}
 
-    @Override
-    public void setFlatRateAmount(BigDecimal amount) {
-        this.flatRateAmount = amount;
-    }
+	@Override
+	public void setFlatRateAmount(BigDecimal amount) {
+		this.flatRateAmount = amount;
+	}
 
-    @Override
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
+	@Override
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 
 }

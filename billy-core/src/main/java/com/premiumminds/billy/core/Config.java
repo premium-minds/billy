@@ -30,36 +30,36 @@ import org.slf4j.LoggerFactory;
 @Singleton
 public class Config {
 
-    private static final Logger log = LoggerFactory.getLogger(Config.class);
+	private static final Logger log = LoggerFactory.getLogger(Config.class);
+	
+	public static final long	SERIAL_VERSION				= -4303676531780572465L;
+	public static final String	TABLE_PREFIX				= "BILLY_CORE_";
 
-    public static final long SERIAL_VERSION = -4303676531780572465L;
-    public static final String TABLE_PREFIX = "BILLY_CORE_";
+	private static final String	CONFIGURATIONS_FILE_NAME	= "";
 
-    private static final String CONFIGURATIONS_FILE_NAME = "";
+	private Properties			properties;
 
-    private Properties properties;
+	public Config() {
+		this.properties = this.load();
+		this.validateProperties(this.properties);
+	}
 
-    public Config() {
-        this.properties = this.load();
-        this.validateProperties(this.properties);
-    }
+	private Properties load() {
+		InputStream stream = Thread.currentThread().getContextClassLoader()
+				.getResourceAsStream(Config.CONFIGURATIONS_FILE_NAME);
+		Properties properties = new Properties();
+		try {
+			properties.load(stream);
+			stream.close();
+		} catch (IOException e) {
+			log.error(e.getMessage(), e);
+			throw new RuntimeException(e);
+		}
+		return properties;
+	};
 
-    private Properties load() {
-        InputStream stream =
-                Thread.currentThread().getContextClassLoader().getResourceAsStream(Config.CONFIGURATIONS_FILE_NAME);
-        Properties properties = new Properties();
-        try {
-            properties.load(stream);
-            stream.close();
-        } catch (IOException e) {
-            Config.log.error(e.getMessage(), e);
-            throw new RuntimeException(e);
-        }
-        return properties;
-    };
-
-    private void validateProperties(Properties properties) {
-        // TODO
-    }
+	private void validateProperties(Properties properties) {
+		// TODO
+	}
 
 }

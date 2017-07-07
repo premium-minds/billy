@@ -23,34 +23,34 @@ import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntryEnt
 import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
 public class MockESCreditReceiptEntryEntity extends MockGenericInvoiceEntryEntity
-        implements ESCreditReceiptEntryEntity {
+	implements ESCreditReceiptEntryEntity {
 
-    private static final long serialVersionUID = 1L;
-    private ESReceipt reference;
-    private String reason;
+	private static final long	serialVersionUID	= 1L;
+	private ESReceipt			reference;
+	private String				reason;
 
-    public MockESCreditReceiptEntryEntity() {
+	public MockESCreditReceiptEntryEntity() {
 
-    }
+	}
 
-    @Override
-    public ESReceipt getReference() {
-        return this.reference;
-    }
+	@Override
+	public ESReceipt getReference() {
+		return this.reference;
+	}
 
-    @Override
-    public String getReason() {
-        return this.reason;
-    }
+	@Override
+	public String getReason() {
+		return this.reason;
+	}
 
-    @Override
-    public void setReference(ESReceipt reference) {
-        this.reference = reference;
-    }
+	@Override
+	public void setReference(ESReceipt reference) {
+		this.reference = reference;
+	}
 
-    @Override
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
+	@Override
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
 
 }

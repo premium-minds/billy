@@ -20,8 +20,8 @@ package com.premiumminds.billy.core.exceptions;
 
 public class BillyValidationException extends BillyRuntimeException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    public BillyValidationException() {
-    }
+	public BillyValidationException() {
+	}
 }

@@ -23,7 +23,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntit
 
 public interface DAOPTRegionContext extends DAOContext {
 
-    @Override
-    public PTRegionContextEntity getEntityInstance();
+	@Override
+	public PTRegionContextEntity getEntityInstance();
 
 }

@@ -38,55 +38,81 @@ import com.premiumminds.billy.spain.test.fixtures.MockESCustomerEntity;
 
 public class TestESCustomerBuilder extends ESAbstractTest {
 
-    private static final String ESCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "ESCustomer.yml";
+	private static final String	ESCUSTOMER_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "ESCustomer.yml";
 
-    @Test
-    public void doTest() {
-        MockESCustomerEntity mockCustomer =
-                this.createMockEntity(MockESCustomerEntity.class, TestESCustomerBuilder.ESCUSTOMER_YML);
+	@Test
+	public void doTest() {
+		MockESCustomerEntity mockCustomer = this.createMockEntity(
+				MockESCustomerEntity.class,
+				TestESCustomerBuilder.ESCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).getEntityInstance()).thenReturn(new MockESCustomerEntity());
+		Mockito.when(this.getInstance(DAOESCustomer.class).getEntityInstance())
+				.thenReturn(new MockESCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOESContact.class).get(Matchers.any(UID.class)))
-                .thenReturn((ESContactEntity) mockCustomer.getMainContact());
+		Mockito.when(
+				this.getInstance(DAOESContact.class).get(
+						Matchers.any(UID.class))).thenReturn(
+				(ESContactEntity) mockCustomer.getMainContact());
 
-        ESCustomer.Builder builder = this.getInstance(ESCustomer.Builder.class);
+		ESCustomer.Builder builder = this.getInstance(ESCustomer.Builder.class);
 
-        ESAddress.Builder mockMainAddressBuilder = this.getMock(ESAddress.Builder.class);
-        Mockito.when(mockMainAddressBuilder.build()).thenReturn((ESAddressEntity) mockCustomer.getMainAddress());
+		ESAddress.Builder mockMainAddressBuilder = this
+				.getMock(ESAddress.Builder.class);
+		Mockito.when(mockMainAddressBuilder.build()).thenReturn(
+				(ESAddressEntity) mockCustomer.getMainAddress());
 
-        ESAddress.Builder mockBillingAddressBuilder = this.getMock(ESAddress.Builder.class);
-        Mockito.when(mockBillingAddressBuilder.build()).thenReturn((ESAddressEntity) mockCustomer.getBillingAddress());
+		ESAddress.Builder mockBillingAddressBuilder = this
+				.getMock(ESAddress.Builder.class);
+		Mockito.when(mockBillingAddressBuilder.build()).thenReturn(
+				(ESAddressEntity) mockCustomer.getBillingAddress());
 
-        ESAddress.Builder mockShippingAddressBuilder = this.getMock(ESAddress.Builder.class);
-        Mockito.when(mockShippingAddressBuilder.build())
-                .thenReturn((ESAddressEntity) mockCustomer.getShippingAddress());
+		ESAddress.Builder mockShippingAddressBuilder = this
+				.getMock(ESAddress.Builder.class);
+		Mockito.when(mockShippingAddressBuilder.build()).thenReturn(
+				(ESAddressEntity) mockCustomer.getShippingAddress());
 
-        ESContact.Builder mockMainContactBuilder = this.getMock(ESContact.Builder.class);
-        Mockito.when(mockMainContactBuilder.build()).thenReturn((ESContactEntity) mockCustomer.getMainContact());
+		ESContact.Builder mockMainContactBuilder = this
+				.getMock(ESContact.Builder.class);
+		Mockito.when(mockMainContactBuilder.build()).thenReturn(
+				(ESContactEntity) mockCustomer.getMainContact());
 
-        ESContact.Builder mockContactBuilder1 = this.getMock(ESContact.Builder.class);
-        Mockito.when(mockContactBuilder1.build()).thenReturn((ESContactEntity) mockCustomer.getContacts().get(0));
+		ESContact.Builder mockContactBuilder1 = this
+				.getMock(ESContact.Builder.class);
+		Mockito.when(mockContactBuilder1.build()).thenReturn(
+				(ESContactEntity) mockCustomer.getContacts().get(0));
 
-        ESContact.Builder mockContactBuilder2 = this.getMock(ESContact.Builder.class);
-        Mockito.when(mockContactBuilder2.build()).thenReturn((ESContactEntity) mockCustomer.getContacts().get(1));
+		ESContact.Builder mockContactBuilder2 = this
+				.getMock(ESContact.Builder.class);
+		Mockito.when(mockContactBuilder2.build()).thenReturn(
+				(ESContactEntity) mockCustomer.getContacts().get(1));
 
-        builder.addAddress(mockMainAddressBuilder, true).addContact(mockMainContactBuilder)
-                .addContact(mockContactBuilder1).addContact(mockContactBuilder2)
-                .setBillingAddress(mockBillingAddressBuilder)
-                .setHasSelfBillingAgreement(mockCustomer.hasSelfBillingAgreement()).setName(mockCustomer.getName())
-                .setShippingAddress(mockShippingAddressBuilder)
-                .setTaxRegistrationNumber(mockCustomer.getTaxRegistrationNumber(), ESAbstractTest.ES_COUNTRY_CODE)
-                .setMainContactUID(mockCustomer.getMainContact().getUID());
+		builder.addAddress(mockMainAddressBuilder, true)
+				.addContact(mockMainContactBuilder)
+				.addContact(mockContactBuilder1)
+				.addContact(mockContactBuilder2)
+				.setBillingAddress(mockBillingAddressBuilder)
+				.setHasSelfBillingAgreement(
+						mockCustomer.hasSelfBillingAgreement())
+				.setName(mockCustomer.getName())
+				.setShippingAddress(mockShippingAddressBuilder)
+				.setTaxRegistrationNumber(
+						mockCustomer.getTaxRegistrationNumber(),
+						ES_COUNTRY_CODE)
+				.setMainContactUID(mockCustomer.getMainContact().getUID());
 
-        Customer customer = builder.build();
+		Customer customer = builder.build();
 
-        Assert.assertTrue(customer != null);
+		Assert.assertTrue(customer != null);
 
-        Assert.assertEquals(mockCustomer.getName(), customer.getName());
-        Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
-        Assert.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
-        Assert.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
-        Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());
-    }
+		Assert.assertEquals(mockCustomer.getName(), customer.getName());
+		Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(),
+				customer.getTaxRegistrationNumber());
+		Assert.assertEquals(mockCustomer.getMainAddress(),
+				customer.getMainAddress());
+		Assert.assertEquals(mockCustomer.getShippingAddress(),
+				customer.getShippingAddress());
+		Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(),
+				customer.hasSelfBillingAgreement());
+	}
 }

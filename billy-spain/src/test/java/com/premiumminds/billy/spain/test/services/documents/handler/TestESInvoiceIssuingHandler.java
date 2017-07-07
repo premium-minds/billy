@@ -25,7 +25,6 @@ import org.junit.Test;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
-import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESInvoiceIssuingHandler;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
@@ -34,84 +33,95 @@ import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTe
 
 public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
-    private ESInvoiceIssuingHandler handler;
-    private UID issuedInvoiceUID;
+	private ESInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
+	
+	private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
-    private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+	@Before
+	public void setUpNewInvoice() {
+		this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
 
-    @Before
-    public void setUpNewInvoice() {
-        this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
+		try {
+			ESInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
 
-        try {
-            ESInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
+			this.issueNewInvoice(this.handler, invoice, DEFAULT_SERIES);
+			this.issuedInvoiceUID = invoice.getUID();
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
 
-            this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
-            this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException e) {
-            e.printStackTrace();
-        }
+	}
 
-    }
+	@Test
+	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
+				DAOESInvoice.class).get(this.issuedInvoiceUID);
 
-    @Test
-    public void testIssuedInvoiceSimple() throws DocumentIssuingException {
-        ESInvoice issuedInvoice = (ESInvoice) this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
+		Assert.assertEquals( DEFAULT_SERIES,
+				issuedInvoice.getSeries());
+		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+		String formatedNumber = DEFAULT_SERIES + "/1";
+		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+	}
 
-        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-        String formatedNumber = this.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-    }
+	@Test
+	public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
+		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
+				DAOESInvoice.class).get(this.issuedInvoiceUID);
+		Integer nextNumber = 2;
 
-    @Test
-    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
-        ESInvoice issuedInvoice = (ESInvoice) this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
-        Integer nextNumber = 2;
+		ESInvoiceEntity newInvoice = this.newInvoice(
+				INVOICE_TYPE.FT);
 
-        ESGenericInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
+		UID newInvoiceUID = newInvoice.getUID();
+		newInvoice.setBusiness(issuedInvoice.getBusiness());
 
-        UID newInvoiceUID = newInvoice.getUID();
-        newInvoice.setBusiness(issuedInvoice.getBusiness());
+		this.issueNewInvoice(this.handler, newInvoice, DEFAULT_SERIES);
 
-        this.issueNewInvoice(this.handler, newInvoice, this.DEFAULT_SERIES);
+		ESInvoice lastInvoice = (ESInvoice) this
+				.getInstance(DAOESInvoice.class).get(newInvoiceUID);
 
-        ESInvoice lastInvoice = (ESInvoice) this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
+		Assert.assertEquals(DEFAULT_SERIES,
+				lastInvoice.getSeries());
+		Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
+		String formatedNumber = DEFAULT_SERIES + "/" + nextNumber;
+		Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
+	}
 
-        Assert.assertEquals(this.DEFAULT_SERIES, lastInvoice.getSeries());
-        Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
-        String formatedNumber = this.DEFAULT_SERIES + "/" + nextNumber;
-        Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
-    }
+	@Test
+	public void testIssuedInvoiceDifferentSeries()
+			throws DocumentIssuingException {
+		Integer nextNumber = 1;
+		String newSeries = "FT NEW_SERIES";
 
-    @Test
-    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException {
-        Integer nextNumber = 1;
-        String newSeries = "FT NEW_SERIES";
+		ESInvoiceEntity newInvoice = this.newInvoice(
+				INVOICE_TYPE.FT);
 
-        ESGenericInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
+		UID newInvoiceUID = newInvoice.getUID();
 
-        UID newInvoiceUID = newInvoice.getUID();
+		this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
-        this.issueNewInvoice(this.handler, newInvoice, newSeries);
+		ESInvoice issuedInvoice = (ESInvoice) this.getInstance(
+				DAOESInvoice.class).get(newInvoiceUID);
 
-        ESInvoice issuedInvoice = (ESInvoice) this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
+		Assert.assertEquals(newSeries, issuedInvoice.getSeries());
+		Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
+		String formatedNumber = newSeries + "/" + nextNumber;
+		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+	}
 
-        Assert.assertEquals(newSeries, issuedInvoice.getSeries());
-        Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
-        String formatedNumber = newSeries + "/" + nextNumber;
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-    }
+	@Test
+	public void testIssuedInvoiceSameSourceBilling()
+			throws DocumentIssuingException {
+		ESInvoiceEntity newInvoice = this.newInvoice(
+				INVOICE_TYPE.FT);
 
-    @Test
-    public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException {
-        ESGenericInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
+		UID newInvoiceUID = newInvoice.getUID();
 
-        UID newInvoiceUID = newInvoice.getUID();
+		this.issueNewInvoice(this.handler, newInvoice, DEFAULT_SERIES);
 
-        this.issueNewInvoice(this.handler, newInvoice, this.DEFAULT_SERIES);
-
-        ESInvoice issuedInvoice = (ESInvoice) this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
-    }
+		this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
+	}
 
 }

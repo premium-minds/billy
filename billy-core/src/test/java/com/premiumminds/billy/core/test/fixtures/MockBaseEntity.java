@@ -25,51 +25,51 @@ import com.premiumminds.billy.core.services.UID;
 
 public class MockBaseEntity implements BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    public Integer id;
-    public UID uid;
-    public Date createTimestamp;
-    public Date updateTimestamp;
-    public boolean isNew;
+	public Integer id;
+	public UID uid;
+	public Date createTimestamp;
+	public Date updateTimestamp;
+	public boolean isNew;
 
-    public MockBaseEntity() {
-        this.isNew = true;
-    }
+	public MockBaseEntity() {
+		this.isNew = true;
+	}
 
-    @Override
-    public boolean isNew() {
-        return this.isNew;
-    }
+	@Override
+	public boolean isNew() {
+		return this.isNew;
+	}
+	
+	@Override
+	public Integer getID() {
+		return id;
+	}
 
-    @Override
-    public Integer getID() {
-        return this.id;
-    }
+	@Override
+	public UID getUID() {
+		return this.uid;
+	}
 
-    @Override
-    public UID getUID() {
-        return this.uid;
-    }
+	@Override
+	public void setUID(UID uid) {
+		this.uid = uid;
+	}
 
-    @Override
-    public void setUID(UID uid) {
-        this.uid = uid;
-    }
+	@Override
+	public Date getCreateTimestamp() {
+		return this.createTimestamp;
+	}
 
-    @Override
-    public Date getCreateTimestamp() {
-        return this.createTimestamp;
-    }
+	@Override
+	public Date getUpdateTimestamp() {
+		return this.updateTimestamp;
+	}
 
-    @Override
-    public Date getUpdateTimestamp() {
-        return this.updateTimestamp;
-    }
-
-    @Override
-    public void initializeEntityDates() {
-        this.createTimestamp = this.updateTimestamp = new Date();
-    }
+	@Override
+	public void initializeEntityDates() {
+		this.createTimestamp = updateTimestamp = new Date();
+	}
 
 }

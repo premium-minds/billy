@@ -22,7 +22,7 @@ import com.premiumminds.billy.core.services.exceptions.ParameterNotFoundExceptio
 
 public interface IssuingParams {
 
-    public Object getParameter(String key) throws ParameterNotFoundException;
+	public Object getParameter(String key) throws ParameterNotFoundException;
 
-    public void setParameter(String key, Object obj);
+	public void setParameter(String key, Object obj);
 }

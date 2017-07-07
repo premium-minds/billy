@@ -22,6 +22,6 @@ import com.premiumminds.billy.spain.services.entities.ESReceipt;
 import com.premiumminds.billy.spain.services.entities.ESReceiptEntry;
 
 public interface ESReceiptBuilder<TBuilder extends ESReceiptBuilder<TBuilder, TEntry, TDocument>, TEntry extends ESReceiptEntry, TDocument extends ESReceipt>
-        extends ESGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
+	extends ESGenericInvoiceBuilder<TBuilder, TEntry, TDocument> {
 
 }

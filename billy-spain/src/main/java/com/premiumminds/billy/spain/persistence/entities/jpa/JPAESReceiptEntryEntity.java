@@ -31,8 +31,9 @@ import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntryEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "RECEIPT_ENTRY")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class JPAESReceiptEntryEntity extends JPAESGenericInvoiceEntryEntity implements ESReceiptEntryEntity {
+@Inheritance(strategy=InheritanceType.JOINED)
+public class JPAESReceiptEntryEntity extends JPAESGenericInvoiceEntryEntity
+	implements ESReceiptEntryEntity{
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 }

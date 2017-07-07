@@ -43,79 +43,107 @@ import com.premiumminds.billy.spain.test.fixtures.MockESPaymentEntity;
 
 public class TestESGenericInvoiceBuilder extends ESAbstractTest {
 
-    private static final String ES_GENERIC_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "ESGenericInvoice.yml";
-    private static final String ES_GENERIC_INVOICE_ENTRY_YML =
-            AbstractTest.YML_CONFIGS_DIR + "ESGenericInvoiceEntry.yml";
-    private static final String ESCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "ESCustomer.yml";
+	private static final String ES_GENERIC_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESGenericInvoice.yml";
+	private static final String ES_GENERIC_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESGenericInvoiceEntry.yml";
+	private static final String ESCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESCustomer.yml";
 
-    private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "ESPayment.yml";
+	private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESPayment.yml";
 
-    @Test
-    public void doTest() {
-        MockESGenericInvoiceEntity mock = this.createMockEntity(MockESGenericInvoiceEntity.class,
-                TestESGenericInvoiceBuilder.ES_GENERIC_INVOICE_YML);
+	@Test
+	public void doTest() {
+		MockESGenericInvoiceEntity mock = this.createMockEntity(
+				MockESGenericInvoiceEntity.class,
+				TestESGenericInvoiceBuilder.ES_GENERIC_INVOICE_YML);
 
-        MockESCustomerEntity mockCustomerEntity =
-                this.createMockEntity(MockESCustomerEntity.class, TestESGenericInvoiceBuilder.ESCUSTOMER_YML);
+		MockESCustomerEntity mockCustomerEntity = this.createMockEntity(
+				MockESCustomerEntity.class, ESCUSTOMER_YML);
 
-        mock.setCurrency(Currency.getInstance("EUR"));
 
-        Mockito.when(this.getInstance(DAOESGenericInvoice.class).getEntityInstance())
-                .thenReturn(new MockESGenericInvoiceEntity());
+		mock.setCurrency(Currency.getInstance("EUR"));
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+		Mockito.when(
+				this.getInstance(DAOESGenericInvoice.class).getEntityInstance())
+				.thenReturn(new MockESGenericInvoiceEntity());
 
-        MockESGenericInvoiceEntryEntity entryMock = this.createMockEntity(MockESGenericInvoiceEntryEntity.class,
-                TestESGenericInvoiceBuilder.ES_GENERIC_INVOICE_ENTRY_YML);
+		Mockito.when(
+				this.getInstance(DAOESCustomer.class).get(
+						Matchers.any(UID.class)))
+				.thenReturn(mockCustomerEntity);
 
-        Mockito.when(this.getInstance(DAOESGenericInvoiceEntry.class).get(Matchers.any(UID.class)))
-                .thenReturn(entryMock);
+		MockESGenericInvoiceEntryEntity entryMock = this.createMockEntity(
+				MockESGenericInvoiceEntryEntity.class,
+				TestESGenericInvoiceBuilder.ES_GENERIC_INVOICE_ENTRY_YML);
 
-        mock.getEntries().add(entryMock);
+		Mockito.when(
+				this.getInstance(DAOESGenericInvoiceEntry.class).get(
+						Matchers.any(UID.class))).thenReturn(entryMock);
 
-        ArrayList<ESGenericInvoiceEntry> entries = (ArrayList<ESGenericInvoiceEntry>) mock.getEntries();
+		mock.getEntries().add(entryMock);
 
-        ESGenericInvoice.Builder builder = this.getInstance(ESGenericInvoice.Builder.class);
+		ArrayList<ESGenericInvoiceEntry> entries = (ArrayList<ESGenericInvoiceEntry>) mock
+				.getEntries();
 
-        ESGenericInvoiceEntry.Builder entry = this.getMock(ESGenericInvoiceEntry.Builder.class);
+		ESGenericInvoice.Builder builder = this
+				.getInstance(ESGenericInvoice.Builder.class);
 
-        Mockito.when(entry.build()).thenReturn(entries.get(0));
+		ESGenericInvoiceEntry.Builder entry = this
+				.getMock(ESGenericInvoiceEntry.Builder.class);
 
-        MockESPaymentEntity mockPayment =
-                this.createMockEntity(MockESPaymentEntity.class, TestESGenericInvoiceBuilder.ES_PAYMENT_YML);
+		Mockito.when(entry.build()).thenReturn(entries.get(0));
 
-        Mockito.when(this.getInstance(DAOESPayment.class).getEntityInstance()).thenReturn(new MockESPaymentEntity());
+		MockESPaymentEntity mockPayment = this.createMockEntity(
+				MockESPaymentEntity.class,
+				TestESGenericInvoiceBuilder.ES_PAYMENT_YML);
 
-        ESPayment.Builder builderPayment = this.getInstance(ESPayment.Builder.class);
+		Mockito.when(this.getInstance(DAOESPayment.class).getEntityInstance())
+				.thenReturn(new MockESPaymentEntity());
 
-        builderPayment.setPaymentAmount(mockPayment.getPaymentAmount()).setPaymentDate(mockPayment.getPaymentDate())
-                .setPaymentMethod(mockPayment.getPaymentMethod());
+		ESPayment.Builder builderPayment = this
+				.getInstance(ESPayment.Builder.class);
 
-        builder.addEntry(entry).setBilled(mock.isBilled()).setCancelled(mock.isCancelled())
-                .setBatchId(mock.getBatchId()).setDate(mock.getDate()).setGeneralLedgerDate(mock.getGeneralLedgerDate())
-                .setOfficeNumber(mock.getOfficeNumber()).setPaymentTerms(mock.getPaymentTerms())
-                .setSelfBilled(mock.selfBilled).setSettlementDate(mock.getSettlementDate())
-                .setSettlementDescription(mock.getSettlementDescription())
-                .setSettlementDiscount(mock.getSettlementDiscount()).setSourceId(mock.getSourceId())
-                .setTransactionId(mock.getTransactionId()).setCustomerUID(mockCustomerEntity.getUID())
-                .addPayment(builderPayment);
+		builderPayment.setPaymentAmount(mockPayment.getPaymentAmount())
+				.setPaymentDate(mockPayment.getPaymentDate())
+				.setPaymentMethod(mockPayment.getPaymentMethod());
 
-        ESGenericInvoice invoice = builder.build();
+		builder.addEntry(entry).setBilled(mock.isBilled())
+				.setCancelled(mock.isCancelled()).setBatchId(mock.getBatchId())
+				.setDate(mock.getDate())
+				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
+				.setOfficeNumber(mock.getOfficeNumber())
+				.setPaymentTerms(mock.getPaymentTerms())
+				.setSelfBilled(mock.selfBilled)
+				.setSettlementDate(mock.getSettlementDate())
+				.setSettlementDescription(mock.getSettlementDescription())
+				.setSettlementDiscount(mock.getSettlementDiscount())
+				.setSourceId(mock.getSourceId())
+				.setTransactionId(mock.getTransactionId())
+				.setCustomerUID(mockCustomerEntity.getUID())
+				.addPayment(builderPayment);
 
-        Assert.assertTrue(invoice != null);
-        Assert.assertTrue(invoice.getEntries() != null);
-        Assert.assertEquals(invoice.getEntries().size(), mock.getEntries().size());
+		ESGenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice.isBilled() == mock.isBilled());
-        Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
+		Assert.assertTrue(invoice != null);
+		Assert.assertTrue(invoice.getEntries() != null);
+		Assert.assertEquals(invoice.getEntries().size(), mock.getEntries()
+				.size());
 
-        Assert.assertEquals(mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
-        Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
-        Assert.assertEquals(mock.getDate(), invoice.getDate());
-        Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
+		Assert.assertTrue(invoice.isBilled() == mock.isBilled());
+		Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
 
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
-    }
+		Assert.assertEquals(mock.getGeneralLedgerDate(),
+				invoice.getGeneralLedgerDate());
+		Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
+		Assert.assertEquals(mock.getDate(), invoice.getDate());
+		Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
+
+		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
+				invoice.getAmountWithoutTax()) == 0);
+		Assert.assertTrue(mock.getAmountWithTax().compareTo(
+				invoice.getAmountWithTax()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
+	}
 }

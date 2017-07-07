@@ -23,12 +23,12 @@ import com.premiumminds.billy.spain.persistence.entities.ESTaxEntity;
 
 public class MockESTaxEntity extends MockTaxEntity implements ESTaxEntity {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
 
-    public MockESTaxEntity() {
-    }
+	public MockESTaxEntity() {
+	}
 
 }

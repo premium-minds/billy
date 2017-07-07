@@ -26,11 +26,12 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTAddressBuilderIm
 
 public interface PTAddress extends Address {
 
-    public static class Builder extends PTAddressBuilderImpl<Builder, PTAddress> {
+	public static class Builder extends
+		PTAddressBuilderImpl<Builder, PTAddress> {
 
-        @Inject
-        public Builder(DAOPTAddress daoPTAddress) {
-            super(daoPTAddress);
-        }
-    }
+		@Inject
+		public Builder(DAOPTAddress daoPTAddress) {
+			super(daoPTAddress);
+		}
+	}
 }

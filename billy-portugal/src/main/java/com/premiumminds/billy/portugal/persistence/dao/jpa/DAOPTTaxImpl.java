@@ -39,101 +39,107 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTTaxEntity;
 
 public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
-    @Inject
-    public DAOPTTaxImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+	@Inject
+	public DAOPTTaxImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-    @Override
-    public PTTaxEntity getEntityInstance() {
-        return new JPAPTTaxEntity();
-    }
+	@Override
+	public PTTaxEntity getEntityInstance() {
+		return new JPAPTTaxEntity();
+	}
 
-    @Override
-    protected Class<JPAPTTaxEntity> getEntityClass() {
-        return JPAPTTaxEntity.class;
-    }
+	@Override
+	protected Class<JPAPTTaxEntity> getEntityClass() {
+		return JPAPTTaxEntity.class;
+	}
 
-    @Override
-    public List<JPAPTTaxEntity> getTaxesForSAFTPT(PTRegionContextEntity context, Date validFrom, Date validTo) {
-        QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+	@Override
+	public List<JPAPTTaxEntity> getTaxesForSAFTPT(
+			PTRegionContextEntity context, Date validFrom, Date validTo) {
+		QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-        List<BooleanExpression> predicates = new ArrayList<>();
-        BooleanExpression active = tax.active.eq(true);
-        predicates.add(active);
-        BooleanExpression regionContext = tax.context.eq(context);
-        predicates.add(regionContext);
-        if (validFrom != null) {
-            BooleanExpression dateFrom = tax.validFrom.eq(validFrom);
-            predicates.add(dateFrom);
-        }
+		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
+		BooleanExpression active = tax.active.eq(true);
+		predicates.add(active);
+		BooleanExpression regionContext = tax.context.eq(context);
+		predicates.add(regionContext);
+		if (validFrom != null) {
+			BooleanExpression dateFrom = tax.validFrom.eq(validFrom);
+			predicates.add(dateFrom);
+		}
 
-        if (validTo != null) {
-            BooleanExpression dateTo = tax.validTo.eq(validTo);
-            predicates.add(dateTo);
-        }
+		if (validTo != null) {
+			BooleanExpression dateTo = tax.validTo.eq(validTo);
+			predicates.add(dateTo);
+		}
 
-        query.from(tax);
-        for (BooleanExpression e : predicates) {
-            query.where(e);
-        }
-        List<JPAPTTaxEntity> list = query.list(tax);
-        List<JPAPTRegionContextEntity> childContexts = null;
-        List<JPAPTTaxEntity> taxResult = null;
-        List<JPAPTTaxEntity> taxContextResult = new ArrayList<>();
+		query.from(tax);
+		for (BooleanExpression e : predicates) {
+			query.where(e);
+		}
+		List<JPAPTTaxEntity> list = query.list(tax);
+		List<JPAPTRegionContextEntity> childContexts = null;
+		List<JPAPTTaxEntity> taxResult = null;
+		List<JPAPTTaxEntity> taxContextResult = new ArrayList<JPAPTTaxEntity>();
 
-        for (JPAPTTaxEntity t : list) {
-            childContexts = this.getChildContexts((PTRegionContextEntity) t.getContext());
-            for (JPAPTRegionContextEntity c : childContexts) {
-                taxResult = this.getTaxesForSAFTPT(c, validFrom, validTo);
-                if (taxResult != null) {
-                    taxContextResult.addAll(taxResult);
-                }
-            }
-        }
-        if (taxContextResult != null) {
-            list.addAll(taxContextResult);
-        }
-        return list;
-    }
+		for (JPAPTTaxEntity t : list) {
+			childContexts = this.getChildContexts((PTRegionContextEntity) t
+					.getContext());
+			for (JPAPTRegionContextEntity c : childContexts) {
+				taxResult = this.getTaxesForSAFTPT(c, validFrom, validTo);
+				if (taxResult != null) {
+					taxContextResult.addAll(taxResult);
+				}
+			}
+		}
+		if (taxContextResult != null) {
+			list.addAll(taxContextResult);
+		}
+		return list;
+	}
 
-    private List<JPAPTRegionContextEntity> getChildContexts(PTRegionContextEntity parentContext) {
-        QJPAPTRegionContextEntity contexts = QJPAPTRegionContextEntity.jPAPTRegionContextEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+	private List<JPAPTRegionContextEntity> getChildContexts(
+			PTRegionContextEntity parentContext) {
+		QJPAPTRegionContextEntity contexts = QJPAPTRegionContextEntity.jPAPTRegionContextEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-        query.from(contexts).where(contexts.parent.eq(parentContext));
-        return query.list(contexts);
-    }
+		query.from(contexts).where(contexts.parent.eq(parentContext));
+		return query.list(contexts);
+	}
 
-    @Override
-    public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo) {
+	@Override
+	public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context,
+			Date validFrom, Date validTo) {
 
-        QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+		QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
+		JPAQuery query = new JPAQuery(this.getEntityManager());
 
-        query.from(tax);
-        List<BooleanExpression> predicates = new ArrayList<>();
-        BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
-        predicates.add(validFromPredicate);
-        BooleanExpression validToPredicate = tax.validTo.eq(validTo);
-        predicates.add(validToPredicate);
-        BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
-        predicates.add(lessOrEqual);
-        BooleanExpression active = tax.active.eq(true);
-        predicates.add(active);
-        BooleanExpression contextPredicate = tax.context.eq(context);
-        predicates.add(contextPredicate);
+		query.from(tax);
+		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
+		BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
+		predicates.add(validFromPredicate);
+		BooleanExpression validToPredicate = tax.validTo.eq(validTo);
+		predicates.add(validToPredicate);
+		BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
+		predicates.add(lessOrEqual);
+		BooleanExpression active = tax.active.eq(true);
+		predicates.add(active);
+		BooleanExpression contextPredicate = tax.context.eq(context);
+		predicates.add(contextPredicate);
 
-        for (BooleanExpression e : predicates) {
-            query.where(e);
-        }
+		for (BooleanExpression e : predicates) {
+			query.where(e);
+		}
 
-        List<JPAPTTaxEntity> list = null;
-        list = query.list(tax);
-        if (context.getParentContext() != null) {
-            list.addAll(this.getTaxes((PTRegionContextEntity) context.getParentContext(), validFrom, validTo));
-        }
-        return list;
-    }
+		List<JPAPTTaxEntity> list = null;
+		list = query.list(tax);
+		if (context.getParentContext() != null) {
+			list.addAll(this.getTaxes(
+					(PTRegionContextEntity) context.getParentContext(),
+					validFrom, validTo));
+		}
+		return list;
+	}
 }

@@ -22,15 +22,16 @@ import com.premiumminds.billy.core.services.Builder;
 
 public class BuilderManager {
 
-    public static <T> void setTypeInstance(Builder<T> b, T entity) {
-        @SuppressWarnings("unchecked")
-        AbstractBuilder<?, T> builder = (AbstractBuilder<?, T>) b;
-        builder.setTypeInstance(entity);
-    }
 
-    public static <T> T getTypeInstance(Builder<T> b) {
-        @SuppressWarnings("unchecked")
-        AbstractBuilder<?, T> builder = (AbstractBuilder<?, T>) b;
-        return builder.getTypeInstance();
-    }
+	public static <T> void setTypeInstance(Builder<T> b, T entity) {
+		@SuppressWarnings("unchecked")
+		AbstractBuilder<?, T> builder = (AbstractBuilder<?, T>) b;
+		builder.setTypeInstance(entity);
+	}
+
+	public static <T> T getTypeInstance(Builder<T> b) {
+		@SuppressWarnings("unchecked")
+		AbstractBuilder<?, T> builder = (AbstractBuilder<?, T>) b;
+		return builder.getTypeInstance();
+	}
 }

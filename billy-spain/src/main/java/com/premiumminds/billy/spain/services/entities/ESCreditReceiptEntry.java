@@ -30,26 +30,34 @@ import com.premiumminds.billy.spain.services.builders.impl.ESManualCreditReceipt
 
 public interface ESCreditReceiptEntry extends ESGenericInvoiceEntry {
 
-    public static class Builder extends ESCreditReceiptEntryBuilderImpl<Builder, ESCreditReceiptEntry> {
+	public static class Builder extends
+		ESCreditReceiptEntryBuilderImpl<Builder, ESCreditReceiptEntry> {
 
-        @Inject
-        public Builder(DAOESCreditReceiptEntry daoESCreditReceiptEntry, DAOESReceipt daoESReceipt, DAOESTax daoESTax,
-                DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
-            super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct, daoESRegionContext);
-        }
-    }
+		@Inject
+		public Builder(DAOESCreditReceiptEntry daoESCreditReceiptEntry,
+						DAOESReceipt daoESReceipt, DAOESTax daoESTax,
+						DAOESProduct daoESProduct,
+						DAOESRegionContext daoESRegionContext) {
+			super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct,
+					daoESRegionContext);
+		}
+	}
+	
+	public static class ManualBuilder extends
+		ESManualCreditReceiptEntryBuilderImpl<ManualBuilder, ESCreditReceiptEntry> {
+	
+		@Inject
+		public ManualBuilder(DAOESCreditReceiptEntry daoESCreditReceiptEntry,
+				DAOESReceipt daoESReceipt, DAOESTax daoESTax,
+				DAOESProduct daoESProduct,
+				DAOESRegionContext daoESRegionContext) {
+			super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct,
+					daoESRegionContext);
+		}
+	}
+	
 
-    public static class ManualBuilder
-            extends ESManualCreditReceiptEntryBuilderImpl<ManualBuilder, ESCreditReceiptEntry> {
+	public ESReceipt getReference();
 
-        @Inject
-        public ManualBuilder(DAOESCreditReceiptEntry daoESCreditReceiptEntry, DAOESReceipt daoESReceipt,
-                DAOESTax daoESTax, DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
-            super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct, daoESRegionContext);
-        }
-    }
-
-    public ESReceipt getReference();
-
-    public String getReason();
+	public String getReason();
 }

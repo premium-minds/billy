@@ -30,8 +30,8 @@ import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceiptEntry;
-import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
+import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.entities.ESProductEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
@@ -41,59 +41,84 @@ import com.premiumminds.billy.spain.test.fixtures.MockESReceiptEntity;
 
 public class TestESCreditReceiptEntryBuilder extends ESAbstractTest {
 
-    private static final String ES_CREDIT_RECEIPT_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "ESCreditReceiptEntry.yml";
-    private static final String ES_RECEIPT_YML = AbstractTest.YML_CONFIGS_DIR + "ESReceipt.yml";
+	private static final String	ES_CREDIT_RECEIPT_ENTRY_YML	= AbstractTest.YML_CONFIGS_DIR
+																	+ "ESCreditReceiptEntry.yml";
+	private static final String	ES_RECEIPT_YML				= AbstractTest.YML_CONFIGS_DIR
+																	+ "ESReceipt.yml";
 
-    @Test
-    public void doTest() {
-        MockESCreditReceiptEntryEntity mock = this.createMockEntity(MockESCreditReceiptEntryEntity.class,
-                TestESCreditReceiptEntryBuilder.ES_CREDIT_RECEIPT_ENTRY_YML);
+	@Test
+	public void doTest() {
+		MockESCreditReceiptEntryEntity mock = this.createMockEntity(
+				MockESCreditReceiptEntryEntity.class,
+				TestESCreditReceiptEntryBuilder.ES_CREDIT_RECEIPT_ENTRY_YML);
 
-        mock.setCurrency(Currency.getInstance("EUR"));
+		mock.setCurrency(Currency.getInstance("EUR"));
 
-        Mockito.when(this.getInstance(DAOESCreditReceiptEntry.class).getEntityInstance())
-                .thenReturn(new MockESCreditReceiptEntryEntity());
+		Mockito.when(
+				this.getInstance(DAOESCreditReceiptEntry.class)
+						.getEntityInstance()).thenReturn(
+				new MockESCreditReceiptEntryEntity());
 
-        MockESReceiptEntity mockReceiptEntity =
-                this.createMockEntity(MockESReceiptEntity.class, TestESCreditReceiptEntryBuilder.ES_RECEIPT_YML);
+		MockESReceiptEntity mockReceiptEntity = this.createMockEntity(
+				MockESReceiptEntity.class,
+				TestESCreditReceiptEntryBuilder.ES_RECEIPT_YML);
 
-        Mockito.when(this.getInstance(DAOESReceipt.class).get(Matchers.any(UID.class))).thenReturn(mockReceiptEntity);
+		Mockito.when(
+				this.getInstance(DAOESReceipt.class).get(
+						Matchers.any(UID.class))).thenReturn(mockReceiptEntity);
 
-        Mockito.when(this.getInstance(DAOESProduct.class).get(Matchers.any(UID.class)))
-                .thenReturn((ESProductEntity) mock.getProduct());
+		Mockito.when(
+				this.getInstance(DAOESProduct.class).get(
+						Matchers.any(UID.class))).thenReturn(
+				(ESProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).isSubContext(Matchers.any(Context.class),
-                Matchers.any(Context.class))).thenReturn(true);
+		Mockito.when(
+				this.getInstance(DAOESRegionContext.class).isSubContext(
+						Matchers.any(Context.class),
+						Matchers.any(Context.class))).thenReturn(true);
 
-        mock.setReference(mockReceiptEntity);
+		mock.setReference(mockReceiptEntity);
 
-        ESCreditReceiptEntry.Builder builder = this.getInstance(ESCreditReceiptEntry.Builder.class);
+		ESCreditReceiptEntry.Builder builder = this
+				.getInstance(ESCreditReceiptEntry.Builder.class);
 
-        builder.setDescription(mock.getDescription()).setReferenceUID(mock.getReference().getUID())
-                .setReason(mock.getReason()).setQuantity(mock.getQuantity())
-                .setShippingCostsAmount(mock.getShippingCostsAmount())
-                .setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
-                .setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
-                .setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"));
+		builder.setDescription(mock.getDescription())
+				.setReferenceUID(mock.getReference().getUID())
+				.setReason(mock.getReason())
+				.setQuantity(mock.getQuantity())
+				.setShippingCostsAmount(mock.getShippingCostsAmount())
+				.setUnitAmount(AmountType.WITH_TAX,
+						mock.getUnitAmountWithTax())
+				.setUnitOfMeasure(mock.getUnitOfMeasure())
+				.setProductUID(mock.getProduct().getUID())
+				.setTaxPointDate(mock.getTaxPointDate())
+				.setCurrency(Currency.getInstance("EUR"));
 
-        ESCreditReceiptEntry entry = builder.build();
+		ESCreditReceiptEntry entry = builder.build();
 
-        if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
-            Assert.assertTrue(mock.getUnitAmountWithoutTax().compareTo(entry.getUnitAmountWithoutTax()) == 0);
-        } else {
-            Assert.assertTrue(mock.getUnitAmountWithTax().compareTo(entry.getUnitAmountWithTax()) == 0);
-        }
+		if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
+			Assert.assertTrue(mock.getUnitAmountWithoutTax().compareTo(
+					entry.getUnitAmountWithoutTax()) == 0);
+		} else {
+			Assert.assertTrue(mock.getUnitAmountWithTax().compareTo(
+					entry.getUnitAmountWithTax()) == 0);
+		}
 
-        Assert.assertTrue(mock.getUnitDiscountAmount().compareTo(entry.getUnitDiscountAmount()) == 0);
+		Assert.assertTrue(mock.getUnitDiscountAmount().compareTo(
+				entry.getUnitDiscountAmount()) == 0);
 
-        Assert.assertTrue(mock.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
-        Assert.assertTrue(mock.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
+		Assert.assertTrue(mock.getUnitTaxAmount().compareTo(
+				entry.getUnitTaxAmount()) == 0);
+		Assert.assertTrue(mock.getAmountWithTax().compareTo(
+				entry.getAmountWithTax()) == 0);
+		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
+				entry.getAmountWithoutTax()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
+		Assert.assertTrue(mock.getDiscountAmount().compareTo(
+				entry.getDiscountAmount()) == 0);
 
-        Assert.assertTrue(entry.getReason().equals(mock.getReason()));
-        Assert.assertTrue(entry.getReference().equals(mock.getReference()));
+		Assert.assertTrue(entry.getReason().equals(mock.getReason()));
+		Assert.assertTrue(entry.getReference().equals(mock.getReference()));
 
-    }
+	}
 }

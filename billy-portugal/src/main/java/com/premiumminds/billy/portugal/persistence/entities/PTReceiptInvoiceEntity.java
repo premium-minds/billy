@@ -24,13 +24,15 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 
-public interface PTReceiptInvoiceEntity extends PTInvoiceEntity, PTReceiptInvoice {
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<PTInvoiceEntry> getEntries();
+public interface PTReceiptInvoiceEntity extends PTInvoiceEntity,
+		PTReceiptInvoice {
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<PTPayment> getPayments();
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PTInvoiceEntry> getEntries();
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PTPayment> getPayments();
 }

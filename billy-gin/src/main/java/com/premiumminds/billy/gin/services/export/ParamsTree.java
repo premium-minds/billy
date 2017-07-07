@@ -23,87 +23,88 @@ import java.util.List;
 
 public class ParamsTree<K, V> {
 
-    private Node<K, V> root;
+	private Node<K, V>	root;
 
-    public ParamsTree(K rootKey) {
-        this(rootKey, null);
-    }
+	public ParamsTree(K rootKey) {
+		this(rootKey, null);
+	}
 
-    public ParamsTree(K rootKey, V rootValue) {
-        this.root = new Node<>(rootKey, rootValue, null);
-        this.root.value = rootValue;
-        this.root.children = new ArrayList<>();
-    }
+	public ParamsTree(K rootKey, V rootValue) {
+		this.root = new Node<K, V>(rootKey, rootValue, null);
+		this.root.value = rootValue;
+		this.root.children = new ArrayList<Node<K, V>>();
+	}
 
-    public Node<K, V> getRoot() {
-        return this.root;
-    }
+	public Node<K, V> getRoot() {
+		return this.root;
+	}
 
-    @Override
-    public String toString() {
-        return this.root.toString();
-    }
+	@Override
+	public String toString() {
+		return this.root.toString();
+	}
 
-    public static class Node<K, V> {
+	public static class Node<K, V> {
 
-        private K key;
-        private V value;
-        private Node<K, V> parent;
-        private List<Node<K, V>> children;
+		private K					key;
+		private V					value;
+		private Node<K, V>			parent;
+		private List<Node<K, V>>	children;
 
-        public Node(K key, Node<K, V> parent) {
-            this(key, null, parent);
-        }
+		public Node(K key, Node<K, V> parent) {
+			this(key, null, parent);
+		}
 
-        public Node(K key, V value, Node<K, V> parent) {
-            this.key = key;
-            this.value = value;
-            this.parent = parent;
-            this.children = new ArrayList<>();
-        }
+		public Node(K key, V value, Node<K, V> parent) {
+			this.key = key;
+			this.value = value;
+			this.parent = parent;
+			this.children = new ArrayList<Node<K, V>>();
+		}
 
-        public Node<K, V> addChild(K key) {
-            return this.addChild(key, null);
-        }
+		public Node<K, V> addChild(K key) {
+			return this.addChild(key, null);
+		}
 
-        public Node<K, V> addChild(K key, V value) {
-            Node<K, V> newBorn = new Node<>(key, value, this);
-            this.children.add(newBorn);
-            return newBorn;
-        }
+		public Node<K, V> addChild(K key, V value) {
+			Node<K, V> newBorn = new Node<K, V>(key, value, this);
+			this.children.add(newBorn);
+			return newBorn;
+		}
 
-        public K getKey() {
-            return this.key;
-        }
+		public K getKey() {
+			return this.key;
+		}
 
-        public V getValue() {
-            return this.value;
-        }
+		public V getValue() {
+			return this.value;
+		}
 
-        public Node<K, V> getParent() {
-            return this.parent;
-        }
+		public Node<K, V> getParent() {
+			return this.parent;
+		}
 
-        public List<Node<K, V>> getChildren() {
-            return this.children;
-        }
+		public List<Node<K, V>> getChildren() {
+			return this.children;
+		}
 
-        @Override
-        public String toString() {
-            return this.toString("");
-        }
+		@Override
+		public String toString() {
+			return this.toString("");
+		}
 
-        public boolean hasChildren() {
-            return !this.children.isEmpty();
-        }
+		public boolean hasChildren() {
+			return !this.children.isEmpty();
+		}
 
-        private String toString(String indentation) {
-            String rval = indentation + "[" + this.key.toString() + "]" +
-                    (null != this.value ? " - " + this.value.toString() : "") + "\n";
-            for (Node<K, V> child : this.children) {
-                rval += indentation + child.toString(indentation + " ");
-            }
-            return rval;
-        }
-    }
+		private String toString(String indentation) {
+			String rval = indentation + "[" + this.key.toString() + "]"
+					+ (null != this.value ? " - " + this.value.toString() : "")
+					+ "\n";
+			for (Node<K, V> child : this.children) {
+				rval += indentation + child.toString(indentation + " ");
+			}
+			return rval;
+		}
+	}
 }

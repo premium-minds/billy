@@ -37,72 +37,81 @@ import com.premiumminds.billy.spain.services.entities.ESSupplier;
 import com.premiumminds.billy.spain.util.ESFinancialValidator;
 
 public class ESSupplierBuilderImpl<TBuilder extends ESSupplierBuilderImpl<TBuilder, TSupplier>, TSupplier extends ESSupplier>
-        extends SupplierBuilderImpl<TBuilder, TSupplier> implements ESSupplierBuilder<TBuilder, TSupplier> {
+	extends SupplierBuilderImpl<TBuilder, TSupplier> implements
+	ESSupplierBuilder<TBuilder, TSupplier> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    public ESSupplierBuilderImpl(DAOESSupplier daoESSupplier) {
-        super(daoESSupplier);
-    }
+	@Inject
+	public ESSupplierBuilderImpl(DAOESSupplier daoESSupplier) {
+		super(daoESSupplier);
+	}
 
-    @Override
-    protected ESSupplierEntity getTypeInstance() {
-        return (ESSupplierEntity) super.getTypeInstance();
-    }
+	@Override
+	protected ESSupplierEntity getTypeInstance() {
+		return (ESSupplierEntity) super.getTypeInstance();
+	}
 
-    @Override
-    @NotOnUpdate
-    public TBuilder setTaxRegistrationNumber(String number, String countryCode)
-            throws InvalidTaxIdentificationNumberException {
-        BillyValidator.mandatory(number, ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
+	@Override
+	@NotOnUpdate
+	public TBuilder setTaxRegistrationNumber(String number, String countryCode)
+		throws InvalidTaxIdentificationNumberException {
+		BillyValidator.mandatory(number, ESSupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_tax_number"));
 
-        ESFinancialValidator validator = new ESFinancialValidator(number);
+		ESFinancialValidator validator = new ESFinancialValidator(number);
 
-        if (ESFinancialValidator.ES_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
-            throw new InvalidTaxIdentificationNumberException();
-        }
-        this.getTypeInstance().setTaxRegistrationNumber(number);
-        return this.getBuilder();
-    }
+		if (ESFinancialValidator.ES_COUNTRY_CODE.equals(countryCode)
+				&& !validator.isValid()) {
+			throw new InvalidTaxIdentificationNumberException();
+		}
+		this.getTypeInstance().setTaxRegistrationNumber(number);
+		return this.getBuilder();
+	}
 
-    @Override
-    public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
-        BillyValidator.mandatory(addressBuilder,
-                ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
-        this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
-        return this.getBuilder();
-    }
+	@Override
+	public <T extends Address> TBuilder setBillingAddress(
+			Builder<T> addressBuilder) {
+		BillyValidator.mandatory(addressBuilder,
+				ESSupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_billing_address"));
+		this.getTypeInstance().setBillingAddress(
+				(AddressEntity) addressBuilder.build());
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setSelfBillingAgreement(boolean selfBilling) {
-        BillyValidator.mandatory(selfBilling,
-                ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
-        this.getTypeInstance().setSelfBillingAgreement(selfBilling);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setSelfBillingAgreement(boolean selfBilling) {
+		BillyValidator.mandatory(selfBilling, ESSupplierBuilderImpl.LOCALIZER
+				.getString("field.supplier_self_billing_agreement"));
+		this.getTypeInstance().setSelfBillingAgreement(selfBilling);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setReferralName(String referralName) {
-        this.getTypeInstance().setReferralName(referralName);
-        return this.getBuilder();
-    }
+	public TBuilder setReferralName(String referralName) {
+		this.getTypeInstance().setReferralName(referralName);
+		return this.getBuilder();
+	}
 
-    @Deprecated
-    @NotImplemented
-    public TBuilder setAccountID(String accountID) {
-        return null;
-    }
+	@Deprecated
+	@NotImplemented
+	public TBuilder setAccountID(String accountID) {
+		return null;
+	}
 
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        super.validateInstance();
-        ESSupplier s = this.getTypeInstance();
-        BillyValidator.mandatory(s.getTaxRegistrationNumber(),
-                ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
-        BillyValidator.mandatory(s.getBillingAddress(),
-                ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
-        BillyValidator.mandatory(s.hasSelfBillingAgreement(),
-                ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
-    }
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
+		ESSupplier s = this.getTypeInstance();
+		BillyValidator.mandatory(s.getTaxRegistrationNumber(),
+				ESSupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_tax_number"));
+		BillyValidator.mandatory(s.getBillingAddress(),
+				ESSupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_billing_address"));
+		BillyValidator.mandatory(s.hasSelfBillingAgreement(),
+				ESSupplierBuilderImpl.LOCALIZER
+						.getString("field.supplier_self_billing_agreement"));
+	}
 }

@@ -29,86 +29,98 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
 public class AddressBuilderImpl<TBuilder extends AddressBuilderImpl<TBuilder, TAddress>, TAddress extends Address>
-        extends AbstractBuilder<TBuilder, TAddress> implements AddressBuilder<TBuilder, TAddress> {
+	extends AbstractBuilder<TBuilder, TAddress> implements
+	AddressBuilder<TBuilder, TAddress> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+															"com/premiumminds/billy/core/i18n/FieldNames");
 
-    protected DAOAddress daoAddress;
-    protected AddressEntity address;
+	protected DAOAddress				daoAddress;
+	protected AddressEntity				address;
 
-    @Inject
-    protected AddressBuilderImpl(DAOAddress daoAddress) {
-        super(daoAddress);
-        this.daoAddress = daoAddress;
-    }
+	@Inject
+	protected AddressBuilderImpl(DAOAddress daoAddress) {
+		super(daoAddress);
+		this.daoAddress = daoAddress;
+	}
 
-    @Override
-    public TBuilder setStreetName(String streetName) {
-        BillyValidator.notBlankButNull(streetName, AddressBuilderImpl.LOCALIZER.getString("field.street_name"));
-        this.getTypeInstance().setStreetName(streetName);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setStreetName(String streetName) {
+		BillyValidator.notBlankButNull(streetName,
+				AddressBuilderImpl.LOCALIZER.getString("field.street_name"));
+		this.getTypeInstance().setStreetName(streetName);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setNumber(String number) {
-        BillyValidator.notBlankButNull(number, AddressBuilderImpl.LOCALIZER.getString("field.number"));
-        this.getTypeInstance().setNumber(number);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setNumber(String number) {
+		BillyValidator.notBlankButNull(number,
+				AddressBuilderImpl.LOCALIZER.getString("field.number"));
+		this.getTypeInstance().setNumber(number);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setDetails(String details) {
-        BillyValidator.notBlank(details, AddressBuilderImpl.LOCALIZER.getString("field.details"));
-        this.getTypeInstance().setDetails(details);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setDetails(String details) {
+		BillyValidator.notBlank(details,
+				AddressBuilderImpl.LOCALIZER.getString("field.details"));
+		this.getTypeInstance().setDetails(details);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setBuilding(String building) {
-        BillyValidator.notBlankButNull(building, AddressBuilderImpl.LOCALIZER.getString("field.building"));
-        this.getTypeInstance().setBuilding(building);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setBuilding(String building) {
+		BillyValidator.notBlankButNull(building,
+				AddressBuilderImpl.LOCALIZER.getString("field.building"));
+		this.getTypeInstance().setBuilding(building);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setCity(String city) {
-        BillyValidator.notBlank(city, AddressBuilderImpl.LOCALIZER.getString("field.city"));
-        this.getTypeInstance().setCity(city);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setCity(String city) {
+		BillyValidator.notBlank(city,
+				AddressBuilderImpl.LOCALIZER.getString("field.city"));
+		this.getTypeInstance().setCity(city);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setPostalCode(String postalCode) {
-        BillyValidator.notBlank(postalCode, AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
-        this.getTypeInstance().setPostalCode(postalCode);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setPostalCode(String postalCode) {
+		BillyValidator.notBlank(postalCode,
+				AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
+		this.getTypeInstance().setPostalCode(postalCode);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setRegion(String region) {
-        BillyValidator.notBlankButNull(region, AddressBuilderImpl.LOCALIZER.getString("field.region"));
-        this.getTypeInstance().setRegion(region);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setRegion(String region) {
+		BillyValidator.notBlankButNull(region,
+				AddressBuilderImpl.LOCALIZER.getString("field.region"));
+		this.getTypeInstance().setRegion(region);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setISOCountry(String country) {
-        BillyValidator.notBlank(country, AddressBuilderImpl.LOCALIZER.getString("field.country"));
-        this.getTypeInstance().setISOCountry(country);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setISOCountry(String country) {
+		BillyValidator.notBlank(country,
+				AddressBuilderImpl.LOCALIZER.getString("field.country"));
+		this.getTypeInstance().setISOCountry(country);
+		return this.getBuilder();
+	}
 
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        AddressEntity address = this.getTypeInstance();
-        BillyValidator.mandatory(address.getCity(), AddressBuilderImpl.LOCALIZER.getString("field.city"));
-        BillyValidator.mandatory(address.getPostalCode(), AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
-    }
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		AddressEntity address = this.getTypeInstance();
+		BillyValidator.mandatory(address.getCity(),
+				AddressBuilderImpl.LOCALIZER.getString("field.city"));
+		BillyValidator.mandatory(address.getPostalCode(),
+				AddressBuilderImpl.LOCALIZER.getString("field.postal_code"));
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    protected AddressEntity getTypeInstance() {
-        return (AddressEntity) super.getTypeInstance();
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	protected AddressEntity getTypeInstance() {
+		return (AddressEntity) super.getTypeInstance();
+	}
 
 }

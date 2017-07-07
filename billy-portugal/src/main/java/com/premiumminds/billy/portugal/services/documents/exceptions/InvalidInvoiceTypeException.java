@@ -20,13 +20,15 @@ package com.premiumminds.billy.portugal.services.documents.exceptions;
 
 public class InvalidInvoiceTypeException extends PTDocumentIssuingException {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    public InvalidInvoiceTypeException(String series, String type, String expectedType) {
-        super("Invalid invoice type " + type + "in series " + series + " when expected " + expectedType);
-    }
+	public InvalidInvoiceTypeException(String series, String type,
+										String expectedType) {
+		super("Invalid invoice type " + type + "in series " + series
+				+ " when expected " + expectedType);
+	}
 
-    public InvalidInvoiceTypeException(String series, String type) {
-        super("Invalid invoice type " + type + "in series " + series);
-    }
+	public InvalidInvoiceTypeException(String series, String type) {
+		super("Invalid invoice type " + type + "in series " + series);
+	}
 }

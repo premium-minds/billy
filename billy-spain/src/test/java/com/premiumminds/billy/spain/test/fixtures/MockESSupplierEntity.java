@@ -21,27 +21,28 @@ package com.premiumminds.billy.spain.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESSupplierEntity;
 
-public class MockESSupplierEntity extends MockSupplierEntity implements ESSupplierEntity {
+public class MockESSupplierEntity extends MockSupplierEntity implements
+	ESSupplierEntity {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long	serialVersionUID	= 1L;
 
-    private String referral;
+	private String				referral;
 
-    public MockESSupplierEntity() {
+	public MockESSupplierEntity() {
 
-    }
+	}
 
-    @Override
-    public String getReferralName() {
-        return this.referral;
-    }
+	@Override
+	public String getReferralName() {
+		return this.referral;
+	}
 
-    @Override
-    public void setReferralName(String referralName) {
-        this.referral = referralName;
-    }
+	@Override
+	public void setReferralName(String referralName) {
+		this.referral = referralName;
+	}
 
 }

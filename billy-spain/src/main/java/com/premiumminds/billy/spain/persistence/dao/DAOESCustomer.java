@@ -23,6 +23,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 
 public interface DAOESCustomer extends DAOCustomer {
 
-    @Override
-    public ESCustomerEntity getEntityInstance();
+	@Override
+	public ESCustomerEntity getEntityInstance();
 }

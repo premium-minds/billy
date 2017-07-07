@@ -33,35 +33,40 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoi
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTSimpleInvoiceEntity;
 
-public class DAOPTSimpleInvoiceImpl extends DAOPTInvoiceImpl implements DAOPTSimpleInvoice {
+public class DAOPTSimpleInvoiceImpl extends AbstractDAOPTGenericInvoiceImpl<PTSimpleInvoiceEntity, JPAPTSimpleInvoiceEntity> 
+implements DAOPTSimpleInvoice {
 
-    @Inject
-    public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+	@Inject
+	public DAOPTSimpleInvoiceImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-    @Override
-    public PTSimpleInvoiceEntity getEntityInstance() {
-        return new JPAPTSimpleInvoiceEntity();
-    }
+	@Override
+	public PTSimpleInvoiceEntity getEntityInstance() {
+		return new JPAPTSimpleInvoiceEntity();
+	}
 
-    @Override
-    protected Class<JPAPTSimpleInvoiceEntity> getEntityClass() {
-        return JPAPTSimpleInvoiceEntity.class;
-    }
+	@Override
+	protected Class<JPAPTSimpleInvoiceEntity> getEntityClass() {
+		return JPAPTSimpleInvoiceEntity.class;
+	}
 
-    @Override
-    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(UID uid, Date from, Date to) {
+	@Override
+	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(
+			UID uid, Date from, Date to) {
 
-        QJPAPTSimpleInvoiceEntity invoice = QJPAPTSimpleInvoiceEntity.jPAPTSimpleInvoiceEntity;
+		QJPAPTSimpleInvoiceEntity invoice = QJPAPTSimpleInvoiceEntity.jPAPTSimpleInvoiceEntity;
 
-        JPAQuery query = this.createQuery();
+		JPAQuery query = createQuery();
 
-        query.from(invoice).where(invoice.instanceOf(JPAPTSimpleInvoiceEntity.class).and(invoice.date.between(from, to))
-                .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
-
-        List<PTSimpleInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTSimpleInvoiceEntity.class);
-        return result;
-    }
+		query.from(invoice)
+			.where(invoice.instanceOf(JPAPTSimpleInvoiceEntity.class)
+					.and(invoice.date.between(from, to))
+					.and(toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
+		
+		List<PTSimpleInvoiceEntity> result = this.checkEntityList(
+				query.list(invoice), PTSimpleInvoiceEntity.class);
+		return result;
+	}
 
 }

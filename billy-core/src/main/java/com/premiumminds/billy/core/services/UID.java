@@ -25,42 +25,42 @@ import com.premiumminds.billy.core.Config;
 
 public class UID implements Serializable, Comparable<UID> {
 
-    private static final long serialVersionUID = Config.SERIAL_VERSION;
+	private static final long	serialVersionUID	= Config.SERIAL_VERSION;
 
-    private String value;
+	private String				value;
 
-    public UID() {
-        this.setValue(UUID.randomUUID().toString());
-    }
+	public UID() {
+		this.setValue(UUID.randomUUID().toString());
+	}
 
-    public UID(String value) {
-        this.setValue(value);
-    }
+	public UID(String value) {
+		this.setValue(value);
+	}
 
-    private void setValue(String value) {
-        this.value = value;
-    }
+	private void setValue(String value) {
+		this.value = value;
+	}
 
-    public String getValue() {
-        return this.value;
-    }
+	public String getValue() {
+		return this.value;
+	}
 
-    @Override
-    public int compareTo(UID other) {
-        return this.getValue().compareTo(other.getValue());
-    }
+	@Override
+	public int compareTo(UID other) {
+		return this.getValue().compareTo(other.getValue());
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        return obj.toString().equals(this.toString());
-    }
+	@Override
+	public boolean equals(Object obj) {
+		return obj.toString().equals(this.toString());
+	}
 
-    @Override
-    public String toString() {
-        return this.value;
-    }
+	@Override
+	public String toString() {
+		return this.value;
+	}
 
-    public static UID fromString(String uid) {
-        return new UID(uid);
-    }
+	public static UID fromString(String uid) {
+		return new UID(uid);
+	}
 }

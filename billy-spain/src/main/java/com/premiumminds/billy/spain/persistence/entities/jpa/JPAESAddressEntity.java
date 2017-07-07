@@ -30,8 +30,9 @@ import com.premiumminds.billy.spain.persistence.entities.ESAddressEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
-public class JPAESAddressEntity extends JPAAddressEntity implements ESAddressEntity {
+public class JPAESAddressEntity extends JPAAddressEntity implements
+	ESAddressEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 }

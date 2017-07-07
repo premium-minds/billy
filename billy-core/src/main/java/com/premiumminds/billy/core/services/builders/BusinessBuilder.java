@@ -26,28 +26,32 @@ import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBusiness>, TBusiness extends Business>
-        extends Builder<TBusiness> {
+	extends Builder<TBusiness> {
 
-    public TBuilder setOperationalContextUID(UID contextUID);
+	public TBuilder setOperationalContextUID(UID contextUID);
 
-    public TBuilder setFinancialID(String id, String countyCode);
+	public TBuilder setFinancialID(String id, String countyCode);
 
-    public TBuilder setName(String name);
+	public TBuilder setName(String name);
 
-    public TBuilder setCommercialName(String name);
+	public TBuilder setCommercialName(String name);
 
-    public TBuilder setWebsite(String website);
+	public TBuilder setWebsite(String website);
 
-    public <T extends Address> TBuilder setAddress(Builder<T> addressBuilder);
+	public <T extends Address> TBuilder setAddress(Builder<T> addressBuilder);
 
-    public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder);
+	public <T extends Address> TBuilder setBillingAddress(
+			Builder<T> addressBuilder);
 
-    public <T extends Address> TBuilder setShippingAddress(Builder<T> addressBuilder);
+	public <T extends Address> TBuilder setShippingAddress(
+			Builder<T> addressBuilder);
 
-    public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder, boolean isMainContact);
+	public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder,
+			boolean isMainContact);
 
-    public TBuilder setMainContactUID(UID contactUID);
+	public TBuilder setMainContactUID(UID contactUID);
 
-    public <T extends Application> TBuilder addApplication(Builder<T> applicationBuilder);
+	public <T extends Application> TBuilder addApplication(
+			Builder<T> applicationBuilder);
 
 }

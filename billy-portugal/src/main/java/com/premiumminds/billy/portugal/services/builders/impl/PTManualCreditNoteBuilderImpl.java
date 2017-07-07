@@ -21,8 +21,8 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
+import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.builders.PTManualCreditNoteBuilder;
@@ -30,24 +30,25 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTManualCreditNoteBuilderImpl<TBuilder extends PTManualCreditNoteBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTCreditNoteEntry, TDocument extends PTCreditNote>
-        extends PTManualBuilderImpl<TBuilder, TEntry, TDocument>
-        implements PTManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
+	extends PTManualBuilderImpl<TBuilder, TEntry, TDocument> implements
+	PTManualCreditNoteBuilder<TBuilder, TEntry, TDocument> {
 
-    public PTManualCreditNoteBuilderImpl(DAOPTCreditNote daoPTCreditNote, DAOPTBusiness daoPTBusiness,
-            DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier) {
-        super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
-    }
-
-    @Override
-    protected PTCreditNoteEntity getTypeInstance() {
-        return (PTCreditNoteEntity) super.getTypeInstance();
-    }
-
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        PTCreditNoteEntity i = this.getTypeInstance();
-        i.setCreditOrDebit(CreditOrDebit.DEBIT);
-        super.validateInstance();
-    }
-
+	public <TDAO extends AbstractDAOPTGenericInvoice<? extends TDocument>> PTManualCreditNoteBuilderImpl(TDAO daoPTCreditNote,
+			DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
+			DAOPTSupplier daoPTSupplier) {
+		super(daoPTCreditNote, daoPTBusiness, daoPTCustomer, daoPTSupplier);
+	}
+	
+	@Override
+	protected PTCreditNoteEntity getTypeInstance() {
+		return (PTCreditNoteEntity) super.getTypeInstance();
+	}
+	
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		PTCreditNoteEntity i = getTypeInstance();
+		i.setCreditOrDebit(CreditOrDebit.DEBIT);
+		super.validateInstance();
+	}
+	
 }

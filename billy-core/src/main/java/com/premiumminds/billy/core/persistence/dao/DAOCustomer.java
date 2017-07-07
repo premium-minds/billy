@@ -24,6 +24,6 @@ import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 
 public interface DAOCustomer extends DAO<CustomerEntity> {
 
-    List<CustomerEntity> getAllActiveCustomers();
+	List<CustomerEntity> getAllActiveCustomers();
 
 }

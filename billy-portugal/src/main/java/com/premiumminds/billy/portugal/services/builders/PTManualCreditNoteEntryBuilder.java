@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.builders;
 
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public interface PTManualCreditNoteEntryBuilder<TBuilder extends PTManualCreditNoteEntryBuilder<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-        extends PTManualInvoiceEntryBuilder<TBuilder, TEntry>, PTCreditNoteEntryBuilder<TBuilder, TEntry> {
-
+public interface PTManualCreditNoteEntryBuilder <TBuilder extends PTManualCreditNoteEntryBuilder<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
+extends PTManualInvoiceEntryBuilder<TBuilder, TEntry>,  PTCreditNoteEntryBuilder<TBuilder, TEntry>{
+	
 }

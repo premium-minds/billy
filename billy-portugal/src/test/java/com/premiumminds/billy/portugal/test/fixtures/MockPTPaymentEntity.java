@@ -24,28 +24,31 @@ import com.premiumminds.billy.core.test.fixtures.MockPaymentEntity;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 
-public class MockPTPaymentEntity extends MockPaymentEntity implements PTPaymentEntity {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class MockPTPaymentEntity extends MockPaymentEntity implements
+		PTPaymentEntity {
 
-    protected BigDecimal paymentAmount;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	protected BigDecimal paymentAmount;
 
-    @Override
-    public BigDecimal getPaymentAmount() {
-        return this.paymentAmount;
-    }
+	@Override
+	public BigDecimal getPaymentAmount() {
+		return paymentAmount;
+	}
 
-    @Override
-    public void setPaymentAmount(BigDecimal amount) {
-        this.paymentAmount = amount;
-    }
 
-    @Override
-    public PaymentMechanism getPaymentMethod() {
-        return PaymentMechanism.valueOf(this.paymentMethod.toString());
-    }
+	@Override
+	public void setPaymentAmount(BigDecimal amount) {
+		this.paymentAmount = amount;
+	}
+	
+	@Override
+	public PaymentMechanism getPaymentMethod() {
+		return PaymentMechanism.valueOf(this.paymentMethod.toString());
+	}
 
 }

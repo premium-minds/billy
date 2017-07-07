@@ -28,18 +28,18 @@ import com.premiumminds.billy.spain.SpainDependencyModule;
 
 public class ESAbstractTest extends AbstractTest {
 
-    protected static Injector injector;
-    protected static final String ES_COUNTRY_CODE = "ES";
+	protected static Injector		injector;
+	protected static final String	ES_COUNTRY_CODE	= "ES";
 
-    @BeforeClass
-    public static void setUpClass() {
-        ESAbstractTest.injector =
-                Guice.createInjector(Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
-    }
+	@BeforeClass
+	public static void setUpClass() {
+		ESAbstractTest.injector = Guice.createInjector(Modules.override(
+				new SpainDependencyModule()).with(
+				new ESMockDependencyModule()));
+	}
 
-    @Override
-    public <T> T getInstance(Class<T> clazz) {
-        return ESAbstractTest.injector.getInstance(clazz);
-    }
+	public <T> T getInstance(Class<T> clazz) {
+		return ESAbstractTest.injector.getInstance(clazz);
+	}
 
 }
