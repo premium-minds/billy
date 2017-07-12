@@ -60,88 +60,86 @@ import com.premiumminds.billy.portugal.util.Services;
 
 public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
-	public static final int		NUM_ENTRIES					= 10;
-	public static final String	XSL_PATH					= "src/main/resources/templates/pt_creditnote.xsl";
-	public static final String	LOGO_PATH					= "src/main/resources/logoBig.png";
+    public static final int NUM_ENTRIES = 10;
+    public static final String XSL_PATH = "src/main/resources/templates/pt_creditnote.xsl";
+    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-	public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "4321";
-	private Injector mockedInjector;
-	private PTCreditNotePDFFOPTransformer transformer;
-	private PTCreditNoteDataExtractor extractor;
-	
-	@Before
-	public void setUp() throws FileNotFoundException {
-		
-		mockedInjector = Guice.createInjector(Modules.override(
-				new PortugalDependencyModule()).with(
-				new PTMockDependencyModule()));
-		
-		InputStream xsl = new FileInputStream(XSL_PATH);
+    public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
+    private Injector mockedInjector;
+    private PTCreditNotePDFFOPTransformer transformer;
+    private PTCreditNoteDataExtractor extractor;
 
-		transformer = new PTCreditNotePDFFOPTransformer(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
-		extractor = mockedInjector.getInstance(PTCreditNoteDataExtractor.class);
-	}
+    @Before
+    public void setUp() throws FileNotFoundException {
 
-	@Test
-	public void testPDFcreation() throws NoSuchAlgorithmException,
-		ExportServiceException, URISyntaxException, DocumentIssuingException,
-		IOException {
+        this.mockedInjector = Guice
+                .createInjector(Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
 
-		UID uidEntity = UID.fromString("12345");
-		PTCreditNoteEntity invoice = generatePTCreditNote(PaymentMechanism.CASH, getNewIssuedInvoice());
-		DAOPTCreditNote dao = mockedInjector.getInstance(DAOPTCreditNote.class);
-		Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
-		
-		OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
-		
-		PTCreditNoteData entityData = extractor.extract(uidEntity);
-		transformer.transform(entityData, os);
-	}
-	
-	@Test(expected = ExportServiceException.class)
-	public void testNonExistentEntity() throws DocumentIssuingException, FileNotFoundException, 
-	IOException, ExportServiceException {
+        InputStream xsl = new FileInputStream(TestPTCreditNotePDFTransformer.XSL_PATH);
 
-		UID uidEntity = UID.fromString("12345");
-		extractor.extract(uidEntity);
-	}
-	
-	@Test
+        this.transformer = new PTCreditNotePDFFOPTransformer(TestPTCreditNotePDFTransformer.LOGO_PATH, xsl,
+                TestPTCreditNotePDFTransformer.SOFTWARE_CERTIFICATE_NUMBER);
+        this.extractor = this.mockedInjector.getInstance(PTCreditNoteDataExtractor.class);
+    }
+
+    @Test
+    public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+            DocumentIssuingException, IOException {
+
+        UID uidEntity = UID.fromString("12345");
+        PTCreditNoteEntity invoice = this.generatePTCreditNote(PaymentMechanism.CASH, this.getNewIssuedInvoice());
+        DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+
+        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+
+        PTCreditNoteData entityData = this.extractor.extract(uidEntity);
+        this.transformer.transform(entityData, os);
+    }
+
+    @Test(expected = ExportServiceException.class)
+    public void testNonExistentEntity()
+            throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
+
+        UID uidEntity = UID.fromString("12345");
+        this.extractor.extract(uidEntity);
+    }
+
+    @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
         UID uidEntity = UID.fromString("12345");
-        PTCreditNoteEntity invoice = generatePTCreditNote(PaymentMechanism.CASH, getNewIssuedInvoice());
-        DAOPTCreditNote dao = mockedInjector.getInstance(DAOPTCreditNote.class);
+        PTCreditNoteEntity invoice = this.generatePTCreditNote(PaymentMechanism.CASH, this.getNewIssuedInvoice());
+        DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
         Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
-        
+
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
-        
-        InputStream xsl = new FileInputStream(XSL_PATH);
-        PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(LOGO_PATH, xsl, SOFTWARE_CERTIFICATE_NUMBER);
+
+        InputStream xsl = new FileInputStream(TestPTCreditNotePDFTransformer.XSL_PATH);
+        PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(TestPTCreditNotePDFTransformer.LOGO_PATH,
+                xsl, TestPTCreditNotePDFTransformer.SOFTWARE_CERTIFICATE_NUMBER);
         PTCreditNotePDFFOPTransformer transformerBundle = new PTCreditNotePDFFOPTransformer(bundle);
-        
-        PTCreditNoteData entityData = extractor.extract(uidEntity);
+
+        PTCreditNoteData entityData = this.extractor.extract(uidEntity);
         transformerBundle.transform(entityData, os);
     }
 
-	private PTCreditNoteEntity generatePTCreditNote(
-			PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
-		throws DocumentIssuingException {
+    private PTCreditNoteEntity generatePTCreditNote(PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
+            throws DocumentIssuingException {
 
-		Services services = new Services(PTAbstractTest.injector);
+        Services services = new Services(PTAbstractTest.injector);
 
-		PTIssuingParams params = this.getParameters("AC", "3000", "1");
+        PTIssuingParams params = this.getParameters("AC", "3000", "1");
 
-		PTCreditNoteEntity creditNote = null;
-		creditNote = (PTCreditNoteEntity) services.issueDocument(
-				new PTCreditNoteTestUtil(PTAbstractTest.injector)
-						.getCreditNoteBuilder(reference), params);
+        PTCreditNoteEntity creditNote = null;
+        creditNote = (PTCreditNoteEntity) services.issueDocument(
+                new PTCreditNoteTestUtil(PTAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
-		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
-		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-		creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
-		creditNote
-				.setHash("mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+        creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+        creditNote.setBusiness((BusinessEntity) reference.getBusiness());
+        creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+        creditNote.setHash(
+                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
 
-		return creditNote;
-	}
+        return creditNote;
+    }
 }

@@ -21,13 +21,12 @@ package com.premiumminds.billy.spain.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockContactEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESContactEntity;
 
-public class MockESContactEntity extends MockContactEntity implements
-	ESContactEntity {
+public class MockESContactEntity extends MockContactEntity implements ESContactEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	public MockESContactEntity() {
+    public MockESContactEntity() {
 
-	}
+    }
 
 }

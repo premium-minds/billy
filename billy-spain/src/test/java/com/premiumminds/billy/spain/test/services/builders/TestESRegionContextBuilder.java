@@ -33,43 +33,33 @@ import com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity;
 
 public class TestESRegionContextBuilder extends ESAbstractTest {
 
-	private static final String	ESCONTEXT_YML	= AbstractTest.YML_CONFIGS_DIR
-														+ "ESContext.yml";
+    private static final String ESCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "ESContext.yml";
 
-	@Test
-	public void testRegionCode() {
-		MockESRegionContextEntity mockRegionContextEntity = this
-				.createMockEntity(MockESRegionContextEntity.class,
-						TestESRegionContextBuilder.ESCONTEXT_YML);
+    @Test
+    public void testRegionCode() {
+        MockESRegionContextEntity mockRegionContextEntity =
+                this.createMockEntity(MockESRegionContextEntity.class, TestESRegionContextBuilder.ESCONTEXT_YML);
 
-		Mockito.when(
-				this.getInstance(DAOESRegionContext.class).getEntityInstance())
-				.thenReturn(new MockESRegionContextEntity());
+        Mockito.when(this.getInstance(DAOESRegionContext.class).getEntityInstance())
+                .thenReturn(new MockESRegionContextEntity());
 
-		Mockito.when(
-				this.getInstance(DAOESRegionContext.class).get(
-						Matchers.any(UID.class))).thenReturn(
-				(ContextEntity) mockRegionContextEntity.getParentContext());
+        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Matchers.any(UID.class)))
+                .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
-		ESRegionContext.Builder builder = this
-				.getInstance(ESRegionContext.Builder.class);
+        ESRegionContext.Builder builder = this.getInstance(ESRegionContext.Builder.class);
 
-		builder.setDescription(mockRegionContextEntity.getDescription())
-				.setName(mockRegionContextEntity.getName())
-				.setParentContextUID(
-						mockRegionContextEntity.getParentContext().getUID());
+        builder.setDescription(mockRegionContextEntity.getDescription()).setName(mockRegionContextEntity.getName())
+                .setParentContextUID(mockRegionContextEntity.getParentContext().getUID());
 
-		ESRegionContext regionContex = builder.build();
+        ESRegionContext regionContex = builder.build();
 
-		Assert.assertTrue(regionContex != null);
-		Assert.assertTrue(regionContex.getParentContext() != null);
+        Assert.assertTrue(regionContex != null);
+        Assert.assertTrue(regionContex.getParentContext() != null);
 
-		Assert.assertEquals(regionContex.getDescription(),
-				mockRegionContextEntity.getDescription());
-		Assert.assertEquals(regionContex.getName(),
-				mockRegionContextEntity.getName());
+        Assert.assertEquals(regionContex.getDescription(), mockRegionContextEntity.getDescription());
+        Assert.assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
 
-		Assert.assertEquals(regionContex.getParentContext().getUID(),
-				mockRegionContextEntity.getParentContext().getUID());
-	}
+        Assert.assertEquals(regionContex.getParentContext().getUID(),
+                mockRegionContextEntity.getParentContext().getUID());
+    }
 }

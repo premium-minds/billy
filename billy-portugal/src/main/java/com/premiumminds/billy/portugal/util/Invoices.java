@@ -41,90 +41,87 @@ import com.premiumminds.billy.portugal.services.persistence.PTInvoicePersistence
 
 public class Invoices {
 
-	private final Injector	injector;
-	private final PTInvoicePersistenceService persistenceService;
-	private final DocumentIssuingService issuingService;
-	private final ExportService exportService;
-	
-	public Invoices(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(PTInvoicePersistenceService.class);
-		this.issuingService = injector
-				.getInstance(DocumentIssuingService.class);
-		this.issuingService.addHandler(PTInvoiceEntity.class,
-				this.injector.getInstance(PTInvoiceIssuingHandler.class));
-		this.exportService = getInstance(ExportService.class);
-		
-		this.exportService.addDataExtractor(PTInvoiceData.class, getInstance(PTInvoiceDataExtractor.class));
-		this.exportService.addTransformerMapper(PTInvoicePDFExportRequest.class, PTInvoicePDFFOPTransformer.class);
-	      
-	}
+    private final Injector injector;
+    private final PTInvoicePersistenceService persistenceService;
+    private final DocumentIssuingService issuingService;
+    private final ExportService exportService;
 
-	public PTInvoice.Builder builder() {
-		return getInstance(PTInvoice.Builder.class);
-	}
+    public Invoices(Injector injector) {
+        this.injector = injector;
+        this.persistenceService = this.getInstance(PTInvoicePersistenceService.class);
+        this.issuingService = injector.getInstance(DocumentIssuingService.class);
+        this.issuingService.addHandler(PTInvoiceEntity.class, this.injector.getInstance(PTInvoiceIssuingHandler.class));
+        this.exportService = this.getInstance(ExportService.class);
 
-	public PTInvoice.Builder builder(PTInvoice invoice) {
-		PTInvoice.Builder builder = getInstance(PTInvoice.Builder.class);
-		BuilderManager.setTypeInstance(builder, invoice);
-		return builder;
-	}
-	
-	public PTInvoiceEntry.Builder entryBuilder() {
-		return getInstance(PTInvoiceEntry.Builder.class);
-	}
+        this.exportService.addDataExtractor(PTInvoiceData.class, this.getInstance(PTInvoiceDataExtractor.class));
+        this.exportService.addTransformerMapper(PTInvoicePDFExportRequest.class, PTInvoicePDFFOPTransformer.class);
 
-	public PTInvoiceEntry.Builder entrybuilder(PTInvoiceEntry entry) {
-		PTInvoiceEntry.Builder builder = getInstance(PTInvoiceEntry.Builder.class);
-		BuilderManager.setTypeInstance(builder, entry);
-		return builder;
-	}
+    }
 
-	public PTInvoicePersistenceService persistence() {
-		return this.persistenceService;
-	}
+    public PTInvoice.Builder builder() {
+        return this.getInstance(PTInvoice.Builder.class);
+    }
 
-	public PTInvoice issue(PTInvoice.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
-		return issuingService.issue(builder, params);
-	}
+    public PTInvoice.Builder builder(PTInvoice invoice) {
+        PTInvoice.Builder builder = this.getInstance(PTInvoice.Builder.class);
+        BuilderManager.setTypeInstance(builder, invoice);
+        return builder;
+    }
 
-	public InputStream pdfExport(PTInvoicePDFExportRequest  request) throws ExportServiceException {
-		return exportService.exportToStream(request);
-	}
-	
-	public <O> void pdfExport(UID uidDoc, BillyExportTransformer<PTInvoiceData, O> dataTransformer, O output) 
-	        throws ExportServiceException {
-	    
-	    exportService.export(uidDoc, dataTransformer, output);
-	}
-	
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
-	
-	public PTInvoice.ManualBuilder manualBuilder() {
-		return getInstance(PTInvoice.ManualBuilder.class);
-	}
+    public PTInvoiceEntry.Builder entryBuilder() {
+        return this.getInstance(PTInvoiceEntry.Builder.class);
+    }
 
-	public PTInvoice.ManualBuilder manualBuilder(PTInvoice invoice) {
-		PTInvoice.ManualBuilder builder = getInstance(PTInvoice.ManualBuilder.class);
-		BuilderManager.setTypeInstance(builder, invoice);
-		return builder;
-	}
-	
-	public PTInvoiceEntry.ManualBuilder manualEntryBuilder() {
-		return getInstance(PTInvoiceEntry.ManualBuilder.class);
-	}
+    public PTInvoiceEntry.Builder entrybuilder(PTInvoiceEntry entry) {
+        PTInvoiceEntry.Builder builder = this.getInstance(PTInvoiceEntry.Builder.class);
+        BuilderManager.setTypeInstance(builder, entry);
+        return builder;
+    }
 
-	public PTInvoiceEntry.ManualBuilder manualEntrybuilder(PTInvoiceEntry entry) {
-		PTInvoiceEntry.ManualBuilder builder = getInstance(PTInvoiceEntry.ManualBuilder.class);
-		BuilderManager.setTypeInstance(builder, entry);
-		return builder;
-	}
-	
-	public PTInvoice issue(PTInvoice.ManualBuilder builder, PTIssuingParams params) throws DocumentIssuingException {
-		return issuingService.issue(builder, params);
-	}
+    public PTInvoicePersistenceService persistence() {
+        return this.persistenceService;
+    }
+
+    public PTInvoice issue(PTInvoice.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
+        return this.issuingService.issue(builder, params);
+    }
+
+    public InputStream pdfExport(PTInvoicePDFExportRequest request) throws ExportServiceException {
+        return this.exportService.exportToStream(request);
+    }
+
+    public <O> void pdfExport(UID uidDoc, BillyExportTransformer<PTInvoiceData, O> dataTransformer, O output)
+            throws ExportServiceException {
+
+        this.exportService.export(uidDoc, dataTransformer, output);
+    }
+
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
+
+    public PTInvoice.ManualBuilder manualBuilder() {
+        return this.getInstance(PTInvoice.ManualBuilder.class);
+    }
+
+    public PTInvoice.ManualBuilder manualBuilder(PTInvoice invoice) {
+        PTInvoice.ManualBuilder builder = this.getInstance(PTInvoice.ManualBuilder.class);
+        BuilderManager.setTypeInstance(builder, invoice);
+        return builder;
+    }
+
+    public PTInvoiceEntry.ManualBuilder manualEntryBuilder() {
+        return this.getInstance(PTInvoiceEntry.ManualBuilder.class);
+    }
+
+    public PTInvoiceEntry.ManualBuilder manualEntrybuilder(PTInvoiceEntry entry) {
+        PTInvoiceEntry.ManualBuilder builder = this.getInstance(PTInvoiceEntry.ManualBuilder.class);
+        BuilderManager.setTypeInstance(builder, entry);
+        return builder;
+    }
+
+    public PTInvoice issue(PTInvoice.ManualBuilder builder, PTIssuingParams params) throws DocumentIssuingException {
+        return this.issuingService.issue(builder, params);
+    }
 
 }

@@ -28,21 +28,19 @@ import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 
 public class ESCreditNoteIssuingHandler extends ESGenericInvoiceIssuingHandler<ESCreditNoteEntity, ESIssuingParams> {
 
-	private final DAOESCreditNote daoCreditNote;
+    private final DAOESCreditNote daoCreditNote;
 
-	@Inject
-	public ESCreditNoteIssuingHandler(
-			DAOInvoiceSeries invoiceSeries,
-			DAOESCreditNote daoCreditNote) {
-		
-		super(invoiceSeries);
-		this.daoCreditNote = daoCreditNote;
-	}
+    @Inject
+    public ESCreditNoteIssuingHandler(DAOInvoiceSeries invoiceSeries, DAOESCreditNote daoCreditNote) {
 
-	@Override
-	public ESCreditNoteEntity issue(ESCreditNoteEntity document, ESIssuingParams parameters)
-			throws DocumentIssuingException {
+        super(invoiceSeries);
+        this.daoCreditNote = daoCreditNote;
+    }
 
-		return issue(document, parameters, daoCreditNote);
-	}
+    @Override
+    public ESCreditNoteEntity issue(ESCreditNoteEntity document, ESIssuingParams parameters)
+            throws DocumentIssuingException {
+
+        return this.issue(document, parameters, this.daoCreditNote);
+    }
 }

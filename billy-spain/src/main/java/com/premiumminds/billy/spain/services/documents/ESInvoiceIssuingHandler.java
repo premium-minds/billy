@@ -28,18 +28,17 @@ import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 
 public class ESInvoiceIssuingHandler extends ESGenericInvoiceIssuingHandler<ESInvoiceEntity, ESIssuingParams> {
 
-	private final DAOESInvoice	daoInvoice;
+    private final DAOESInvoice daoInvoice;
 
-	@Inject
-	public ESInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
-									DAOESInvoice daoInvoice) {
-		super(daoInvoiceSeries);
-		this.daoInvoice = daoInvoice;
-	}
+    @Inject
+    public ESInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries, DAOESInvoice daoInvoice) {
+        super(daoInvoiceSeries);
+        this.daoInvoice = daoInvoice;
+    }
 
-	@Override
-	public ESInvoiceEntity issue(ESInvoiceEntity document, ESIssuingParams parameters) throws DocumentIssuingException {
-		return issue(document, parameters, daoInvoice);
-	}
+    @Override
+    public ESInvoiceEntity issue(ESInvoiceEntity document, ESIssuingParams parameters) throws DocumentIssuingException {
+        return this.issue(document, parameters, this.daoInvoice);
+    }
 
 }

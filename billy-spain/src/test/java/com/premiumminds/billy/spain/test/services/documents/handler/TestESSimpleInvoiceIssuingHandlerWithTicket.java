@@ -37,6 +37,7 @@ import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice.CLIENTTYPE;
 import com.premiumminds.billy.spain.services.persistence.ESSimpleInvoicePersistenceService;
+import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTest;
@@ -44,174 +45,150 @@ import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
 import com.premiumminds.billy.spain.util.Services;
 
-public class TestESSimpleInvoiceIssuingHandlerWithTicket extends
-	ESDocumentAbstractTest {
+public class TestESSimpleInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTest {
 
-	private UID							issuedInvoiceUID;
-	private UID							ticketUID;
-	private TicketManager				ticketManager;
-	
-	private String DEFAULT_SERIES = INVOICE_TYPE.FS
-			+ " "
-			+ ESPersistencyAbstractTest.DEFAULT_SERIES;
+    private UID issuedInvoiceUID;
+    private UID ticketUID;
+    private TicketManager ticketManager;
 
-	@Before
-	public void setUpNewSimpleInvoice() {
+    private String DEFAULT_SERIES = INVOICE_TYPE.FS + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
-		try {
-			setUpParamenters();
-			this.parameters
-					.setInvoiceSeries(DEFAULT_SERIES);
+    @Before
+    public void setUpNewSimpleInvoice() {
 
-			ESBusinessEntity business = new ESBusinessTestUtil(injector)
-					.getBusinessEntity("business");
-			ESSimpleInvoice.Builder simpleInvoiceBuilder = new ESSimpleInvoiceTestUtil(
-					injector).getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
+        try {
+            this.setUpParamenters();
+            this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-			ticketManager = getInstance(TicketManager.class);
+            ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+            ESSimpleInvoice.Builder simpleInvoiceBuilder = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
+                    .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
-			String ticketValue = ticketManager
-					.generateTicket(getInstance(Ticket.Builder.class));
-			ticketUID = new UID(ticketValue);
+            this.ticketManager = this.getInstance(TicketManager.class);
 
-			Services services = new Services(injector);
-			services.issueDocument(simpleInvoiceBuilder, this.parameters,
-					ticketValue);
+            String ticketValue = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
+            this.ticketUID = new UID(ticketValue);
 
-			ESSimpleInvoice simpleInvoice = simpleInvoiceBuilder.build();
-			this.issuedInvoiceUID = simpleInvoice.getUID();
+            Services services = new Services(ESAbstractTest.injector);
+            services.issueDocument(simpleInvoiceBuilder, this.parameters, ticketValue);
 
-		} catch (InvalidTicketException e) {
-			e.printStackTrace();
-		} catch (DocumentIssuingException e) {
-			e.printStackTrace();
-		}
-	}
+            ESSimpleInvoice simpleInvoice = simpleInvoiceBuilder.build();
+            this.issuedInvoiceUID = simpleInvoice.getUID();
 
-	@Test
-	public void testIssuedInvoiceSimpleWithTicket()
-		throws DocumentIssuingException {
-		ESSimpleInvoice issuedInvoice = (ESSimpleInvoice) this.getInstance(
-				DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
+        } catch (InvalidTicketException e) {
+            e.printStackTrace();
+        } catch (DocumentIssuingException e) {
+            e.printStackTrace();
+        }
+    }
 
-		ESSimpleInvoicePersistenceService service = injector
-				.getInstance(ESSimpleInvoicePersistenceService.class);
+    @Test
+    public void testIssuedInvoiceSimpleWithTicket() throws DocumentIssuingException {
+        ESSimpleInvoice issuedInvoice = this.getInstance(DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
 
-		ESSimpleInvoiceEntity ticketEntity = (ESSimpleInvoiceEntity) service
-				.getWithTicket(ticketUID);
+        ESSimpleInvoicePersistenceService service =
+                ESAbstractTest.injector.getInstance(ESSimpleInvoicePersistenceService.class);
 
-		Assert.assertTrue(issuedInvoice != null);
-		Assert.assertEquals(DEFAULT_SERIES,
-				issuedInvoice.getSeries());
-		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-		String formatedNumber = DEFAULT_SERIES
-				+ "/1";
-		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        ESSimpleInvoiceEntity ticketEntity = (ESSimpleInvoiceEntity) service.getWithTicket(this.ticketUID);
 
-		Assert.assertTrue(ticketManager.ticketExists(ticketUID.getValue()) == true);
-		Assert.assertTrue(ticketEntity != null);
-		Assert.assertTrue(ticketEntity.getUID().getValue()
-				.equals(issuedInvoice.getUID().getValue()));
-		Assert.assertTrue(ticketEntity.getNumber().equals(
-				issuedInvoice.getNumber()));
-		Assert.assertTrue(ticketEntity.getSeries().equals(
-				issuedInvoice.getSeries()));
+        Assert.assertTrue(issuedInvoice != null);
+        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        String formatedNumber = this.DEFAULT_SERIES + "/1";
+        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
 
-	}
+        Assert.assertTrue(this.ticketManager.ticketExists(this.ticketUID.getValue()) == true);
+        Assert.assertTrue(ticketEntity != null);
+        Assert.assertTrue(ticketEntity.getUID().getValue().equals(issuedInvoice.getUID().getValue()));
+        Assert.assertTrue(ticketEntity.getNumber().equals(issuedInvoice.getNumber()));
+        Assert.assertTrue(ticketEntity.getSeries().equals(issuedInvoice.getSeries()));
 
-	@Test
-	public void testTicketAssociateEntity() throws DocumentIssuingException {
+    }
 
-		ESSimpleInvoicePersistenceService service = injector
-				.getInstance(ESSimpleInvoicePersistenceService.class);
-		ESSimpleInvoiceEntity ticketEntity = null;
-		UID noResultUID = new UID("noresult");
-		String notIssuedUID = ticketManager
-				.generateTicket(getInstance(Ticket.Builder.class));
+    @Test
+    public void testTicketAssociateEntity() throws DocumentIssuingException {
 
-		try {
-			ticketEntity = (ESSimpleInvoiceEntity) service
-					.getWithTicket(noResultUID);
-		} catch (NoResultException e) {
+        ESSimpleInvoicePersistenceService service =
+                ESAbstractTest.injector.getInstance(ESSimpleInvoicePersistenceService.class);
+        ESSimpleInvoiceEntity ticketEntity = null;
+        UID noResultUID = new UID("noresult");
+        String notIssuedUID = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
 
-		}
+        try {
+            ticketEntity = (ESSimpleInvoiceEntity) service.getWithTicket(noResultUID);
+        } catch (NoResultException e) {
 
-		Assert.assertTrue(ticketManager.ticketExists(noResultUID.getValue()) == false);
-		Assert.assertTrue(ticketEntity == null);
+        }
 
-		try {
-			ticketEntity = (ESSimpleInvoiceEntity) service
-					.getWithTicket(new UID(notIssuedUID));
-		} catch (NoResultException e) {}
+        Assert.assertTrue(this.ticketManager.ticketExists(noResultUID.getValue()) == false);
+        Assert.assertTrue(ticketEntity == null);
 
-		Assert.assertTrue(ticketManager.ticketExists(new UID(notIssuedUID)
-				.getValue()) == true);
-		Assert.assertFalse(ticketManager.ticketIssued(notIssuedUID) == false);
-		Assert.assertTrue(ticketEntity == null);
+        try {
+            ticketEntity = (ESSimpleInvoiceEntity) service.getWithTicket(new UID(notIssuedUID));
+        } catch (NoResultException e) {
+        }
 
-	}
+        Assert.assertTrue(this.ticketManager.ticketExists(new UID(notIssuedUID).getValue()) == true);
+        Assert.assertFalse(this.ticketManager.ticketIssued(notIssuedUID) == false);
+        Assert.assertTrue(ticketEntity == null);
 
-	@Test
-	public void testIssueWithUsedTicket() {
-		Services services = new Services(injector);
-		ESSimpleInvoiceEntity entity = null;
-		this.parameters
-				.setInvoiceSeries(DEFAULT_SERIES);
+    }
 
-		ESBusinessEntity business = new ESBusinessTestUtil(injector)
-				.getBusinessEntity("business");
-		ESSimpleInvoice.Builder builder = new ESSimpleInvoiceTestUtil(injector)
-				.getSimpleInvoiceBuilder(
-						business, CLIENTTYPE.CUSTOMER);
+    @Test
+    public void testIssueWithUsedTicket() {
+        Services services = new Services(ESAbstractTest.injector);
+        ESSimpleInvoiceEntity entity = null;
+        this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-		try {
+        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+        ESSimpleInvoice.Builder builder = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
+                .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
-			entity = (ESSimpleInvoiceEntity) services.issueDocument(builder,
-					this.parameters, issuedInvoiceUID.getValue());
-		} catch (InvalidTicketException e) {
+        try {
 
-		} catch (DocumentIssuingException e) {
-			e.printStackTrace();
-		}
-		Assert.assertTrue(entity == null);
-	}
+            entity = (ESSimpleInvoiceEntity) services.issueDocument(builder, this.parameters,
+                    this.issuedInvoiceUID.getValue());
+        } catch (InvalidTicketException e) {
 
-	@Test
-	public void testOpenCloseConnections() {
+        } catch (DocumentIssuingException e) {
+            e.printStackTrace();
+        }
+        Assert.assertTrue(entity == null);
+    }
 
-		Services services = new Services(injector);
-		ESSimpleInvoicePersistenceService persistenceService = injector
-				.getInstance(ESSimpleInvoicePersistenceService.class);
-		ESBusinessEntity business = new ESBusinessTestUtil(injector)
-				.getBusinessEntity("business");
-		ESSimpleInvoice.Builder testinvoice = new ESSimpleInvoiceTestUtil(
-				injector).getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
+    @Test
+    public void testOpenCloseConnections() {
 
-		EntityManager em = injector.getInstance(EntityManager.class);
-		em.getTransaction().begin();
+        Services services = new Services(ESAbstractTest.injector);
+        ESSimpleInvoicePersistenceService persistenceService =
+                ESAbstractTest.injector.getInstance(ESSimpleInvoicePersistenceService.class);
+        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+        ESSimpleInvoice.Builder testinvoice = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
+                .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
-		TicketManager newTicketManager = injector
-				.getInstance(TicketManager.class);
-		String testValue = newTicketManager
-				.generateTicket(getInstance(Ticket.Builder.class));
-		UID testUID = new UID(testValue);
-		em.getTransaction().commit();
+        EntityManager em = ESAbstractTest.injector.getInstance(EntityManager.class);
+        em.getTransaction().begin();
 
-		em.clear();
+        TicketManager newTicketManager = ESAbstractTest.injector.getInstance(TicketManager.class);
+        String testValue = newTicketManager.generateTicket(this.getInstance(Ticket.Builder.class));
+        UID testUID = new UID(testValue);
+        em.getTransaction().commit();
 
-		services = new Services(
-				Guice.createInjector(new ESMockDependencyModule()));
+        em.clear();
 
-		try {
-			services.issueDocument(testinvoice, this.parameters, testValue);
-		} catch (Exception e) {}
+        services = new Services(Guice.createInjector(new ESMockDependencyModule()));
 
-		ESSimpleInvoiceEntity ticketEntity = null;
-		try {
-			ticketEntity = (ESSimpleInvoiceEntity) persistenceService
-					.getWithTicket(testUID);
-		} catch (Exception e) {}
-		Assert.assertTrue(ticketEntity == null);
-	}
+        try {
+            services.issueDocument(testinvoice, this.parameters, testValue);
+        } catch (Exception e) {
+        }
+
+        ESSimpleInvoiceEntity ticketEntity = null;
+        try {
+            ticketEntity = (ESSimpleInvoiceEntity) persistenceService.getWithTicket(testUID);
+        } catch (Exception e) {
+        }
+        Assert.assertTrue(ticketEntity == null);
+    }
 
 }

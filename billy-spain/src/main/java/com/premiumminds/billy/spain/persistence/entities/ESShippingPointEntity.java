@@ -21,7 +21,6 @@ package com.premiumminds.billy.spain.persistence.entities;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.spain.services.entities.ESShippingPoint;
 
-public interface ESShippingPointEntity extends ShippingPointEntity,
-	ESShippingPoint {
+public interface ESShippingPointEntity extends ShippingPointEntity, ESShippingPoint {
 
 }

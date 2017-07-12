@@ -26,6 +26,5 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntit
 
 public interface DAOPTSimpleInvoice extends AbstractDAOPTGenericInvoice<PTSimpleInvoiceEntity> {
 
-	public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(
-			UID uid, Date from, Date to);
+    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(UID uid, Date from, Date to);
 }

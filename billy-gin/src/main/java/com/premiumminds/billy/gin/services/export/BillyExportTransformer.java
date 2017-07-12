@@ -21,9 +21,9 @@ package com.premiumminds.billy.gin.services.export;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 
 public interface BillyExportTransformer<T extends GenericInvoiceData, O> {
-	
-	public Class<T> getTransformableClass();
-	
-	public void transform(T entity, O output) throws ExportServiceException;
-	
+
+    public Class<T> getTransformableClass();
+
+    public void transform(T entity, O output) throws ExportServiceException;
+
 }

@@ -32,24 +32,22 @@ import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 
 public class TestDocumentIssuingService extends ESDocumentAbstractTest {
 
-	private DocumentIssuingService	service;
-	
-	@Before
-	public void setUp() {
-		
-		this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
-		this.service.addHandler(ESInvoiceEntity.class, ESAbstractTest.injector
-				.getInstance(ESInvoiceIssuingHandler.class));
+    private DocumentIssuingService service;
 
-		this.parameters.setInvoiceSeries("A");
-	}
+    @Before
+    public void setUp() {
 
-	@Test
-	public void testIssuingService() throws DocumentIssuingException {
+        this.service = ESAbstractTest.injector.getInstance(DocumentIssuingServiceImpl.class);
+        this.service.addHandler(ESInvoiceEntity.class,
+                ESAbstractTest.injector.getInstance(ESInvoiceIssuingHandler.class));
 
-		this.service.issue(new ESInvoiceTestUtil(ESAbstractTest.injector)
-				.getInvoiceBuilder(
-						new ESBusinessTestUtil(injector).getBusinessEntity())
-						, this.parameters);
-	}
+        this.parameters.setInvoiceSeries("A");
+    }
+
+    @Test
+    public void testIssuingService() throws DocumentIssuingException {
+
+        this.service.issue(new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(
+                new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity()), this.parameters);
+    }
 }

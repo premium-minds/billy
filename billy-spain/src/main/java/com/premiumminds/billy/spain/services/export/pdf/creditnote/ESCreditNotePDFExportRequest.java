@@ -23,18 +23,16 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class ESCreditNotePDFExportRequest extends AbstractExportRequest {
 
-	public ESCreditNotePDFExportRequest(UID uid,
-			ESCreditNoteTemplateBundle bundle) {
-		super(uid, bundle);
-	}
+    public ESCreditNotePDFExportRequest(UID uid, ESCreditNoteTemplateBundle bundle) {
+        super(uid, bundle);
+    }
 
-	public ESCreditNotePDFExportRequest(UID uid,
-			ESCreditNoteTemplateBundle bundle, String resultPath) {
-		super(uid, bundle, resultPath);
-	}
+    public ESCreditNotePDFExportRequest(UID uid, ESCreditNoteTemplateBundle bundle, String resultPath) {
+        super(uid, bundle, resultPath);
+    }
 
-	@Override
-	public ESCreditNoteTemplateBundle getBundle() {
-		return (ESCreditNoteTemplateBundle) bundle;
-	}
+    @Override
+    public ESCreditNoteTemplateBundle getBundle() {
+        return (ESCreditNoteTemplateBundle) this.bundle;
+    }
 }

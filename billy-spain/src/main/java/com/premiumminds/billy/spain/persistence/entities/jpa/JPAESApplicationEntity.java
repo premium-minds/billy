@@ -33,20 +33,19 @@ import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
-public class JPAESApplicationEntity extends JPAApplicationEntity implements
-	ESApplicationEntity {
+public class JPAESApplicationEntity extends JPAApplicationEntity implements ESApplicationEntity {
 
-	/**
-	 * 
-	 */
-	private static final long	serialVersionUID	= 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	public JPAESApplicationEntity() {
-	}
+    public JPAESApplicationEntity() {
+    }
 
-	@Override
-	public List<Contact> getContacts() {
-		return super.getContacts();
-	}
+    @Override
+    public List<Contact> getContacts() {
+        return super.getContacts();
+    }
 
 }

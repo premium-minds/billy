@@ -25,39 +25,36 @@ import java.util.ResourceBundle;
 
 public class Localizer {
 
-	private static Locale	currentLocale	= Locale.getDefault();
+    private static Locale currentLocale = Locale.getDefault();
 
-	private String			bundleBaseName;
-	private ResourceBundle	bundle;
+    private String bundleBaseName;
+    private ResourceBundle bundle;
 
-	public Localizer(String bundleBaseName) {
-		this.bundleBaseName = bundleBaseName;
-	}
+    public Localizer(String bundleBaseName) {
+        this.bundleBaseName = bundleBaseName;
+    }
 
-	private ResourceBundle getBundle() {
-		if (this.bundle == null
-				|| !Localizer.currentLocale.equals(this.bundle.getLocale())) {
-			this.bundle = ResourceBundle.getBundle(this.bundleBaseName,
-					Localizer.currentLocale);
-		}
-		return this.bundle;
-	}
+    private ResourceBundle getBundle() {
+        if (this.bundle == null || !Localizer.currentLocale.equals(this.bundle.getLocale())) {
+            this.bundle = ResourceBundle.getBundle(this.bundleBaseName, Localizer.currentLocale);
+        }
+        return this.bundle;
+    }
 
-	public String getString(String key) {
-		try {
-			return this.getBundle().getString(key);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
-	}
+    public String getString(String key) {
+        try {
+            return this.getBundle().getString(key);
+        } catch (MissingResourceException e) {
+            return '!' + key + '!';
+        }
+    }
 
-	public String getString(String key, Object... params) {
-		try {
-			return MessageFormat
-					.format(this.getBundle().getString(key), params);
-		} catch (MissingResourceException e) {
-			return '!' + key + '!';
-		}
-	}
+    public String getString(String key, Object... params) {
+        try {
+            return MessageFormat.format(this.getBundle().getString(key), params);
+        } catch (MissingResourceException e) {
+            return '!' + key + '!';
+        }
+    }
 
 }

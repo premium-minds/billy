@@ -27,22 +27,22 @@ import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEnti
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
-public class PTReceiptInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandler<PTReceiptInvoiceEntity, PTIssuingParams> {
+public class PTReceiptInvoiceIssuingHandler
+        extends PTGenericInvoiceIssuingHandler<PTReceiptInvoiceEntity, PTIssuingParams> {
 
-	public final static TYPE INVOICE_TYPE = TYPE.FR;
-	private final DAOPTReceiptInvoice daoReceiptInvoice;
+    public final static TYPE INVOICE_TYPE = TYPE.FR;
+    private final DAOPTReceiptInvoice daoReceiptInvoice;
 
-	@Inject
-	public PTReceiptInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries,
-											DAOPTReceiptInvoice daoRecepit) {
-		super(daoInvoiceSeries);
-		this.daoReceiptInvoice = daoRecepit;
-	}
+    @Inject
+    public PTReceiptInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries, DAOPTReceiptInvoice daoRecepit) {
+        super(daoInvoiceSeries);
+        this.daoReceiptInvoice = daoRecepit;
+    }
 
-	@Override
-	public PTReceiptInvoiceEntity issue(PTReceiptInvoiceEntity document, PTIssuingParams parameters)
-			throws DocumentIssuingException {
-		return issue(document, parameters, daoReceiptInvoice, PTReceiptInvoiceIssuingHandler.INVOICE_TYPE);
-	}
+    @Override
+    public PTReceiptInvoiceEntity issue(PTReceiptInvoiceEntity document, PTIssuingParams parameters)
+            throws DocumentIssuingException {
+        return this.issue(document, parameters, this.daoReceiptInvoice, PTReceiptInvoiceIssuingHandler.INVOICE_TYPE);
+    }
 
 }

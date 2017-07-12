@@ -27,32 +27,32 @@ import com.premiumminds.billy.core.services.builders.impl.SupplierBuilderImpl;
 
 public interface Supplier extends Entity {
 
-	public static class Builder extends SupplierBuilderImpl<Builder, Supplier> {
+    public static class Builder extends SupplierBuilderImpl<Builder, Supplier> {
 
-		@Inject
-		public Builder(DAOSupplier daoSupplier) {
-			super(daoSupplier);
-		}
-	}
+        @Inject
+        public Builder(DAOSupplier daoSupplier) {
+            super(daoSupplier);
+        }
+    }
 
-	public String getName();
+    public String getName();
 
-	public String getTaxRegistrationNumber();
+    public String getTaxRegistrationNumber();
 
-	public Collection<Address> getAddresses();
+    public Collection<Address> getAddresses();
 
-	public Address getMainAddress();
+    public Address getMainAddress();
 
-	public Address getBillingAddress();
+    public Address getBillingAddress();
 
-	public Address getShippingAddress();
+    public Address getShippingAddress();
 
-	public <T extends Contact> Collection<T> getContacts();
+    public <T extends Contact> Collection<T> getContacts();
 
-	public Contact getMainContact();
+    public Contact getMainContact();
 
-	public Collection<BankAccount> getBankAccounts();
+    public Collection<BankAccount> getBankAccounts();
 
-	public boolean hasSelfBillingAgreement();
+    public boolean hasSelfBillingAgreement();
 
 }

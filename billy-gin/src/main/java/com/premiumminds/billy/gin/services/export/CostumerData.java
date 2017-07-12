@@ -21,33 +21,33 @@ package com.premiumminds.billy.gin.services.export;
 import com.premiumminds.billy.core.services.UID;
 
 public class CostumerData {
-	
-	private final UID uid;
-	private final String taxRegistrationNumber;
-	private final String name;
-	private final AddressData billingAddress;
 
-	public CostumerData(UID uid, String taxRegistrationNumber, String name, AddressData billingAddress) {
-		this.uid = uid;
-		this.taxRegistrationNumber = taxRegistrationNumber;
-		this.name = name;
-		this.billingAddress = billingAddress;
-	}
+    private final UID uid;
+    private final String taxRegistrationNumber;
+    private final String name;
+    private final AddressData billingAddress;
 
-	public UID getUID() {
-		return uid;
-	}
+    public CostumerData(UID uid, String taxRegistrationNumber, String name, AddressData billingAddress) {
+        this.uid = uid;
+        this.taxRegistrationNumber = taxRegistrationNumber;
+        this.name = name;
+        this.billingAddress = billingAddress;
+    }
 
-	public String getTaxRegistrationNumber() {
-		return taxRegistrationNumber;
-	}
+    public UID getUID() {
+        return this.uid;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getTaxRegistrationNumber() {
+        return this.taxRegistrationNumber;
+    }
 
-	public AddressData getBillingAddress() {
-		return billingAddress;
-	}
-	
+    public String getName() {
+        return this.name;
+    }
+
+    public AddressData getBillingAddress() {
+        return this.billingAddress;
+    }
+
 }

@@ -24,6 +24,6 @@ import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
 public interface DAOESCreditNoteEntry extends AbstractDAOESGenericInvoiceEntry<ESCreditNoteEntryEntity> {
 
-	public ESCreditNoteEntity checkCreditNote(ESInvoice invoice);
-	
+    public ESCreditNoteEntity checkCreditNote(ESInvoice invoice);
+
 }

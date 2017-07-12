@@ -25,31 +25,30 @@ import com.premiumminds.billy.portugal.services.persistence.PTBusinessPersistenc
 
 public class Businesses {
 
-	private final Injector	injector;
-	private final PTBusinessPersistenceService persistenceService;
+    private final Injector injector;
+    private final PTBusinessPersistenceService persistenceService;
 
+    public Businesses(Injector injector) {
+        this.injector = injector;
+        this.persistenceService = this.getInstance(PTBusinessPersistenceService.class);
+    }
 
-	public Businesses(Injector injector) {
-		this.injector = injector;
-		this.persistenceService = getInstance(PTBusinessPersistenceService.class);
-	}
+    public PTBusiness.Builder builder() {
+        return this.getInstance(PTBusiness.Builder.class);
+    }
 
-	public PTBusiness.Builder builder() {
-		return getInstance(PTBusiness.Builder.class);
-	}
-	
-	public PTBusiness.Builder builder(PTBusiness customer) {
-		PTBusiness.Builder builder = getInstance(PTBusiness.Builder.class);
-		BuilderManager.setTypeInstance(builder, customer);
-		return builder;
-	}
-	
-	public PTBusinessPersistenceService persistence() {
-		return this.persistenceService;
-	}
+    public PTBusiness.Builder builder(PTBusiness customer) {
+        PTBusiness.Builder builder = this.getInstance(PTBusiness.Builder.class);
+        BuilderManager.setTypeInstance(builder, customer);
+        return builder;
+    }
 
-	private <T> T getInstance(Class<T> clazz) {
-		return this.injector.getInstance(clazz);
-	}
-	
+    public PTBusinessPersistenceService persistence() {
+        return this.persistenceService;
+    }
+
+    private <T> T getInstance(Class<T> clazz) {
+        return this.injector.getInstance(clazz);
+    }
+
 }

@@ -37,52 +37,49 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESTaxEntity;
 
 public class DAOESTaxImpl extends DAOTaxImpl implements DAOESTax {
 
-	@Inject
-	public DAOESTaxImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOESTaxImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	public ESTaxEntity getEntityInstance() {
-		return new JPAESTaxEntity();
-	}
+    @Override
+    public ESTaxEntity getEntityInstance() {
+        return new JPAESTaxEntity();
+    }
 
-	@Override
-	protected Class<JPAESTaxEntity> getEntityClass() {
-		return JPAESTaxEntity.class;
-	}
+    @Override
+    protected Class<JPAESTaxEntity> getEntityClass() {
+        return JPAESTaxEntity.class;
+    }
 
-	@Override
-	public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context,
-			Date validFrom, Date validTo) {
+    @Override
+    public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context, Date validFrom, Date validTo) {
 
-		QJPAESTaxEntity tax = QJPAESTaxEntity.jPAESTaxEntity;
-		JPAQuery query = new JPAQuery(this.getEntityManager());
+        QJPAESTaxEntity tax = QJPAESTaxEntity.jPAESTaxEntity;
+        JPAQuery query = new JPAQuery(this.getEntityManager());
 
-		query.from(tax);
-		List<BooleanExpression> predicates = new ArrayList<BooleanExpression>();
-		BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
-		predicates.add(validFromPredicate);
-		BooleanExpression validToPredicate = tax.validTo.eq(validTo);
-		predicates.add(validToPredicate);
-		BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
-		predicates.add(lessOrEqual);
-		BooleanExpression active = tax.active.eq(true);
-		predicates.add(active);
-		BooleanExpression contextPredicate = tax.context.eq(context);
-		predicates.add(contextPredicate);
+        query.from(tax);
+        List<BooleanExpression> predicates = new ArrayList<>();
+        BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
+        predicates.add(validFromPredicate);
+        BooleanExpression validToPredicate = tax.validTo.eq(validTo);
+        predicates.add(validToPredicate);
+        BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
+        predicates.add(lessOrEqual);
+        BooleanExpression active = tax.active.eq(true);
+        predicates.add(active);
+        BooleanExpression contextPredicate = tax.context.eq(context);
+        predicates.add(contextPredicate);
 
-		for (BooleanExpression e : predicates) {
-			query.where(e);
-		}
+        for (BooleanExpression e : predicates) {
+            query.where(e);
+        }
 
-		List<JPAESTaxEntity> list = null;
-		list = query.list(tax);
-		if (context.getParentContext() != null) {
-			list.addAll(this.getTaxes(
-					(ESRegionContextEntity) context.getParentContext(),
-					validFrom, validTo));
-		}
-		return list;
-	}
+        List<JPAESTaxEntity> list = null;
+        list = query.list(tax);
+        if (context.getParentContext() != null) {
+            list.addAll(this.getTaxes((ESRegionContextEntity) context.getParentContext(), validFrom, validTo));
+        }
+        return list;
+    }
 }

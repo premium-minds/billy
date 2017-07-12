@@ -30,25 +30,24 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvo
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
 
-public abstract class AbstractDAOPTGenericInvoiceImpl<TInterface extends PTGenericInvoiceEntity, TEntity extends JPAPTGenericInvoiceEntity> 
-extends AbstractDAOGenericInvoiceImpl<TInterface , TEntity> implements
-AbstractDAOPTGenericInvoice<TInterface> {
+public abstract class AbstractDAOPTGenericInvoiceImpl<TInterface extends PTGenericInvoiceEntity, TEntity extends JPAPTGenericInvoiceEntity>
+        extends AbstractDAOGenericInvoiceImpl<TInterface, TEntity> implements AbstractDAOPTGenericInvoice<TInterface> {
 
-	@Inject
-	public AbstractDAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public AbstractDAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public TInterface findByNumber(UID uidBusiness, String number) {
-		QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
+    @SuppressWarnings("unchecked")
+    @Override
+    public TInterface findByNumber(UID uidBusiness, String number) {
+        QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
 
-		return (TInterface) this.checkEntity(createQuery()
-				.from(invoice)
-				.where(
-						toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uidBusiness.toString())
-						.and(invoice.number.eq(number)))
-				.singleResult(invoice), PTGenericInvoiceEntity.class);
-	}
+        return (TInterface) this.checkEntity(
+                this.createQuery()
+                        .from(invoice).where(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid
+                                .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
+                        .singleResult(invoice),
+                PTGenericInvoiceEntity.class);
+    }
 }

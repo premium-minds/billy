@@ -33,31 +33,30 @@ import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "REGION_CONTEXT")
-public class JPAPTRegionContextEntity extends JPAContextEntity implements
-	PTRegionContextEntity {
+public class JPAPTRegionContextEntity extends JPAContextEntity implements PTRegionContextEntity {
 
-	private static final long	serialVersionUID	= 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Basic(optional = false)
-	@Column(name = "REGION_CODE")
-	protected String			regionCode;
+    @Basic(optional = false)
+    @Column(name = "REGION_CODE")
+    protected String regionCode;
 
-	public JPAPTRegionContextEntity() {
-	}
+    public JPAPTRegionContextEntity() {
+    }
 
-	@Override
-	public String getRegionCode() {
-		return this.regionCode;
-	}
+    @Override
+    public String getRegionCode() {
+        return this.regionCode;
+    }
 
-	@Override
-	public void setRegionCode(String regionCode) {
-		this.regionCode = regionCode;
-	}
+    @Override
+    public void setRegionCode(String regionCode) {
+        this.regionCode = regionCode;
+    }
 
-	@Override
-	public PTRegionContext getParentContext() {
-		return (PTRegionContext) super.getParentContext();
-	}
+    @Override
+    public PTRegionContext getParentContext() {
+        return (PTRegionContext) super.getParentContext();
+    }
 
 }

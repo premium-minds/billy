@@ -24,9 +24,8 @@ import com.premiumminds.billy.spain.services.export.pdf.ESAbstractTemplateBundle
 
 public class ESCreditNoteTemplateBundle extends ESAbstractTemplateBundle {
 
-	public ESCreditNoteTemplateBundle(String logoImagePath,
-										InputStream xsltFileStream) {
+    public ESCreditNoteTemplateBundle(String logoImagePath, InputStream xsltFileStream) {
 
-		super(logoImagePath, xsltFileStream);
-	}
+        super(logoImagePath, xsltFileStream);
+    }
 }

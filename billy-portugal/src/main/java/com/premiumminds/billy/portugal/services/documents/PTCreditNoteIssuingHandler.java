@@ -29,20 +29,19 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 
 public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler<PTCreditNoteEntity, PTIssuingParams> {
 
-	public final static TYPE		INVOICE_TYPE	= TYPE.NC;
-	private final DAOPTCreditNote	daoCreditNote;
+    public final static TYPE INVOICE_TYPE = TYPE.NC;
+    private final DAOPTCreditNote daoCreditNote;
 
-	@Inject
-	public PTCreditNoteIssuingHandler(DAOInvoiceSeries invoiceSeries,
-										DAOPTCreditNote daoCreditNote) {
-		super(invoiceSeries);
-		this.daoCreditNote = daoCreditNote;
-	}
+    @Inject
+    public PTCreditNoteIssuingHandler(DAOInvoiceSeries invoiceSeries, DAOPTCreditNote daoCreditNote) {
+        super(invoiceSeries);
+        this.daoCreditNote = daoCreditNote;
+    }
 
-	@Override
-	public PTCreditNoteEntity issue(PTCreditNoteEntity document, PTIssuingParams parameters)
-			throws DocumentIssuingException {
-		
-		return issue(document, parameters, daoCreditNote, PTCreditNoteIssuingHandler.INVOICE_TYPE);
-	}
+    @Override
+    public PTCreditNoteEntity issue(PTCreditNoteEntity document, PTIssuingParams parameters)
+            throws DocumentIssuingException {
+
+        return this.issue(document, parameters, this.daoCreditNote, PTCreditNoteIssuingHandler.INVOICE_TYPE);
+    }
 }

@@ -29,13 +29,13 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 /**
  * Annotate builder set methods that can only be executed when the entity is not persisted.
- * 
+ *
  * See {@link NotOnUpdateInterceptor}
- * 
+ *
  * @author Hugo Correia
  *
  */
 public @interface NotOnUpdate {
 
-	String message() default "Enitity is marked as not new, can't update this field!";
+    String message() default "Enitity is marked as not new, can't update this field!";
 }

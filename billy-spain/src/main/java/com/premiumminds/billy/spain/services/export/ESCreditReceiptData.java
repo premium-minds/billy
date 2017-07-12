@@ -30,21 +30,21 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 
 public class ESCreditReceiptData extends GenericInvoiceData {
 
-	private final List<ESCreditReceiptEntryData> entries;
+    private final List<ESCreditReceiptEntryData> entries;
 
-	public ESCreditReceiptData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-			BusinessData business, List<ESCreditReceiptEntryData> entries, BigDecimal taxAmount,
-			BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+    public ESCreditReceiptData(String number, Date date, Date settlementDate, List<PaymentData> payments,
+            BusinessData business, List<ESCreditReceiptEntryData> entries, BigDecimal taxAmount,
+            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
 
-		super(number, date, settlementDate, payments, null, business, new ArrayList<InvoiceEntryData>(0), taxAmount, amountWithTax,
-				amountWithoutTax, settlementDescription);
+        super(number, date, settlementDate, payments, null, business, new ArrayList<InvoiceEntryData>(0), taxAmount,
+                amountWithTax, amountWithoutTax, settlementDescription);
 
-		this.entries = entries;
-	}
+        this.entries = entries;
+    }
 
-	@Override
-	public List<ESCreditReceiptEntryData> getEntries() {
-		return entries;
-	}
+    @Override
+    public List<ESCreditReceiptEntryData> getEntries() {
+        return this.entries;
+    }
 
 }

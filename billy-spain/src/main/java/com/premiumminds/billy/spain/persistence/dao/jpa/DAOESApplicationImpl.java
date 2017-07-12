@@ -29,27 +29,26 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESApplication;
 import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESApplicationEntity;
 
-public class DAOESApplicationImpl extends DAOApplicationImpl implements
-	DAOESApplication {
+public class DAOESApplicationImpl extends DAOApplicationImpl implements DAOESApplication {
 
-	@Inject
-	public DAOESApplicationImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOESApplicationImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	public ESApplicationEntity getEntityInstance() {
-		return new JPAESApplicationEntity();
-	}
+    @Override
+    public ESApplicationEntity getEntityInstance() {
+        return new JPAESApplicationEntity();
+    }
 
-	@Override
-	protected Class<JPAESApplicationEntity> getEntityClass() {
-		return JPAESApplicationEntity.class;
-	}
+    @Override
+    protected Class<JPAESApplicationEntity> getEntityClass() {
+        return JPAESApplicationEntity.class;
+    }
 
-	@Override
-	public ESApplicationEntity get(UID uid) throws NoResultException {
-		return (ESApplicationEntity) super.get(uid);
-	}
-	
+    @Override
+    public ESApplicationEntity get(UID uid) throws NoResultException {
+        return (ESApplicationEntity) super.get(uid);
+    }
+
 }

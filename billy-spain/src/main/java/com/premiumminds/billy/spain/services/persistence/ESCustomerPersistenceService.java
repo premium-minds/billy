@@ -29,66 +29,63 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 import com.premiumminds.billy.spain.services.entities.ESCustomer;
 
-public class ESCustomerPersistenceService implements
-	PersistenceService<ESCustomer> {
+public class ESCustomerPersistenceService implements PersistenceService<ESCustomer> {
 
-	protected final DAOESCustomer	daoCustomer;
+    protected final DAOESCustomer daoCustomer;
 
-	@Inject
-	public ESCustomerPersistenceService(DAOESCustomer daoCustomer) {
-		this.daoCustomer = daoCustomer;
-	}
+    @Inject
+    public ESCustomerPersistenceService(DAOESCustomer daoCustomer) {
+        this.daoCustomer = daoCustomer;
+    }
 
-	@Override
-	public ESCustomer create(final Builder<ESCustomer> builder) {
-		try {
-			return new TransactionWrapper<ESCustomer>(daoCustomer) {
+    @Override
+    public ESCustomer create(final Builder<ESCustomer> builder) {
+        try {
+            return new TransactionWrapper<ESCustomer>(this.daoCustomer) {
 
-				@Override
-				public ESCustomer runTransaction() throws Exception {
-					ESCustomerEntity entity = (ESCustomerEntity) builder
-							.build();
-					return (ESCustomer) daoCustomer.create(entity);
-				}
+                @Override
+                public ESCustomer runTransaction() throws Exception {
+                    ESCustomerEntity entity = (ESCustomerEntity) builder.build();
+                    return (ESCustomer) ESCustomerPersistenceService.this.daoCustomer.create(entity);
+                }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
-	@Override
-	public ESCustomer update(final Builder<ESCustomer> builder) {
-		try {
-			return new TransactionWrapper<ESCustomer>(daoCustomer) {
+    @Override
+    public ESCustomer update(final Builder<ESCustomer> builder) {
+        try {
+            return new TransactionWrapper<ESCustomer>(this.daoCustomer) {
 
-				@Override
-				public ESCustomer runTransaction() throws Exception {
-					ESCustomerEntity entity = (ESCustomerEntity) builder
-							.build();
-					return (ESCustomer) daoCustomer.update(entity);
-				}
+                @Override
+                public ESCustomer runTransaction() throws Exception {
+                    ESCustomerEntity entity = (ESCustomerEntity) builder.build();
+                    return (ESCustomer) ESCustomerPersistenceService.this.daoCustomer.update(entity);
+                }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
-	@Override
-	public ESCustomer get(final UID uid) {
-		try {
-			return new TransactionWrapper<ESCustomer>(daoCustomer) {
+    @Override
+    public ESCustomer get(final UID uid) {
+        try {
+            return new TransactionWrapper<ESCustomer>(this.daoCustomer) {
 
-				@Override
-				public ESCustomer runTransaction() throws Exception {
-					return (ESCustomer) daoCustomer.get(uid);
-				}
+                @Override
+                public ESCustomer runTransaction() throws Exception {
+                    return (ESCustomer) ESCustomerPersistenceService.this.daoCustomer.get(uid);
+                }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
 }

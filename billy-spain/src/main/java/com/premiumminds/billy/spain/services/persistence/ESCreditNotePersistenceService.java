@@ -34,111 +34,107 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 
-public class ESCreditNotePersistenceService implements
-	PersistenceService<ESCreditNote> {
+public class ESCreditNotePersistenceService implements PersistenceService<ESCreditNote> {
 
-	protected final DAOESCreditNote	daoCreditNote;
-	protected final DAOTicket daoTicket;
+    protected final DAOESCreditNote daoCreditNote;
+    protected final DAOTicket daoTicket;
 
-	@Inject
-	public ESCreditNotePersistenceService(DAOESCreditNote daoCreditNote,
-			DAOTicket daoTicket) {
-		this.daoCreditNote = daoCreditNote;
-		this.daoTicket = daoTicket;
-	}
+    @Inject
+    public ESCreditNotePersistenceService(DAOESCreditNote daoCreditNote, DAOTicket daoTicket) {
+        this.daoCreditNote = daoCreditNote;
+        this.daoTicket = daoTicket;
+    }
 
-	@Override
-	@NotImplemented
-	public ESCreditNote create(final Builder<ESCreditNote> builder) {
-		return null;
-	}
+    @Override
+    @NotImplemented
+    public ESCreditNote create(final Builder<ESCreditNote> builder) {
+        return null;
+    }
 
-	@Override
-	public ESCreditNote update(final Builder<ESCreditNote> builder) {
-		try {
-			return new TransactionWrapper<ESCreditNote>(daoCreditNote) {
+    @Override
+    public ESCreditNote update(final Builder<ESCreditNote> builder) {
+        try {
+            return new TransactionWrapper<ESCreditNote>(this.daoCreditNote) {
 
-				@Override
-				public ESCreditNote runTransaction() throws Exception {
-					ESCreditNoteEntity entity = (ESCreditNoteEntity) builder
-							.build();
-					return (ESCreditNote) daoCreditNote.update(entity);
-				}
+                @Override
+                public ESCreditNote runTransaction() throws Exception {
+                    ESCreditNoteEntity entity = (ESCreditNoteEntity) builder.build();
+                    return ESCreditNotePersistenceService.this.daoCreditNote.update(entity);
+                }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
-	@Override
-	public ESCreditNote get(final UID uid) {
-		try {
-			return new TransactionWrapper<ESCreditNote>(daoCreditNote) {
+    @Override
+    public ESCreditNote get(final UID uid) {
+        try {
+            return new TransactionWrapper<ESCreditNote>(this.daoCreditNote) {
 
-				@Override
-				public ESCreditNote runTransaction() throws Exception {
-					return (ESCreditNote) daoCreditNote.get(uid);
-				}
+                @Override
+                public ESCreditNote runTransaction() throws Exception {
+                    return ESCreditNotePersistenceService.this.daoCreditNote.get(uid);
+                }
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
-	public ESCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException{
+    public ESCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
-		try {
-			return new TransactionWrapper<ESCreditNote>(daoCreditNote) {
+        try {
+            return new TransactionWrapper<ESCreditNote>(this.daoCreditNote) {
 
-				@Override
-				public ESCreditNote runTransaction() throws Exception {
-					UID objectUID = daoTicket.getObjectEntityUID(ticketUID
-							.getValue());
-					return (ESCreditNote) daoCreditNote.get(objectUID);
-				}
+                @Override
+                public ESCreditNote runTransaction() throws Exception {
+                    UID objectUID =
+                            ESCreditNotePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    return ESCreditNotePersistenceService.this.daoCreditNote.get(objectUID);
+                }
 
-			}.execute();
-		}catch(NoResultException e){
-			throw e;
-		} 
-		catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
-	
-	public ESCreditNote findByNumber(final UID uidBusiness, final String number) {
-		try {
-			return new TransactionWrapper<ESCreditNote>(daoCreditNote) {
+            }.execute();
+        } catch (NoResultException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
-				@Override
-				public ESCreditNote runTransaction() throws Exception {
-					return (ESCreditNote) daoCreditNote.findByNumber(uidBusiness, number);
-				}
+    public ESCreditNote findByNumber(final UID uidBusiness, final String number) {
+        try {
+            return new TransactionWrapper<ESCreditNote>(this.daoCreditNote) {
 
-			}.execute();
-		} catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+                @Override
+                public ESCreditNote runTransaction() throws Exception {
+                    return ESCreditNotePersistenceService.this.daoCreditNote.findByNumber(uidBusiness, number);
+                }
 
-	public List<ESCreditNote> findByReferencedDocument(final UID uidCompany, final UID uidInvoice) {
-		try {
-			return new TransactionWrapper<List<ESCreditNote>>(daoCreditNote) {
+            }.execute();
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
-				@Override
-				public List<ESCreditNote> runTransaction() throws Exception {
-					return (List<ESCreditNote>) daoCreditNote.findByReferencedDocument(uidCompany, uidInvoice);
-				}
+    public List<ESCreditNote> findByReferencedDocument(final UID uidCompany, final UID uidInvoice) {
+        try {
+            return new TransactionWrapper<List<ESCreditNote>>(this.daoCreditNote) {
 
-			}.execute();
-		}catch(NoResultException e){
-			throw e;
-		} 
-		catch (Exception e) {
-			throw new BillyRuntimeException(e);
-		}
-	}
+                @Override
+                public List<ESCreditNote> runTransaction() throws Exception {
+                    return ESCreditNotePersistenceService.this.daoCreditNote.findByReferencedDocument(uidCompany,
+                            uidInvoice);
+                }
+
+            }.execute();
+        } catch (NoResultException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new BillyRuntimeException(e);
+        }
+    }
 
 }

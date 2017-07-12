@@ -30,25 +30,24 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESGenericInvoice
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESGenericInvoiceEntity;
 
-public abstract class AbstractDAOESGenericInvoiceImpl<TInterface extends ESGenericInvoiceEntity, TEntity extends JPAESGenericInvoiceEntity> 
-extends AbstractDAOGenericInvoiceImpl<TInterface, TEntity> 
-implements AbstractDAOESGenericInvoice<TInterface> {
+public abstract class AbstractDAOESGenericInvoiceImpl<TInterface extends ESGenericInvoiceEntity, TEntity extends JPAESGenericInvoiceEntity>
+        extends AbstractDAOGenericInvoiceImpl<TInterface, TEntity> implements AbstractDAOESGenericInvoice<TInterface> {
 
-	@Inject
-	public AbstractDAOESGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public AbstractDAOESGenericInvoiceImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public TInterface findByNumber(UID uidBusiness, String number) {
-		QJPAESGenericInvoiceEntity invoice = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
+    @SuppressWarnings("unchecked")
+    @Override
+    public TInterface findByNumber(UID uidBusiness, String number) {
+        QJPAESGenericInvoiceEntity invoice = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
 
-		return (TInterface) this.checkEntity(createQuery()
-				.from(invoice)
-				.where(
-						toDSL(invoice.business, QJPAESBusinessEntity.class).uid.eq(uidBusiness.toString())
-						.and(invoice.number.eq(number)))
-				.singleResult(invoice), ESGenericInvoiceEntity.class); //FIXME: CAST!!
-	}
+        return (TInterface) this.checkEntity(
+                this.createQuery()
+                        .from(invoice).where(this.toDSL(invoice.business, QJPAESBusinessEntity.class).uid
+                                .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
+                        .singleResult(invoice),
+                ESGenericInvoiceEntity.class); // FIXME: CAST!!
+    }
 }

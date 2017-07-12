@@ -23,7 +23,6 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 
 public interface AbstractDAOGenericInvoice<T extends GenericInvoiceEntity> extends DAO<T> {
 
-	public  T getLatestInvoiceFromSeries(
-			String series, String businessUID) throws BillyRuntimeException;
-	
+    public T getLatestInvoiceFromSeries(String series, String businessUID) throws BillyRuntimeException;
+
 }

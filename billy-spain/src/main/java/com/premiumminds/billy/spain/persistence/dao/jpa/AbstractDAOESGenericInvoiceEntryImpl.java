@@ -27,13 +27,13 @@ import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoiceE
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESGenericInvoiceEntryEntity;
 
-public abstract class AbstractDAOESGenericInvoiceEntryImpl<TInterface extends ESGenericInvoiceEntryEntity, TEntity extends JPAESGenericInvoiceEntryEntity> 
-extends AbstractDAOGenericInvoiceEntryImpl<TInterface, TEntity> 
-	implements AbstractDAOESGenericInvoiceEntry<TInterface> {
+public abstract class AbstractDAOESGenericInvoiceEntryImpl<TInterface extends ESGenericInvoiceEntryEntity, TEntity extends JPAESGenericInvoiceEntryEntity>
+        extends AbstractDAOGenericInvoiceEntryImpl<TInterface, TEntity>
+        implements AbstractDAOESGenericInvoiceEntry<TInterface> {
 
-	@Inject
-	public AbstractDAOESGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public AbstractDAOESGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
 }

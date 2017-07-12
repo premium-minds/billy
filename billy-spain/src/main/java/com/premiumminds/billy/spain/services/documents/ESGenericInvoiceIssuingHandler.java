@@ -33,73 +33,70 @@ import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 
-public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceEntity, P extends ESIssuingParams> implements DocumentIssuingHandler<T, P> {
+public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceEntity, P extends ESIssuingParams>
+        implements DocumentIssuingHandler<T, P> {
 
-	protected DAOInvoiceSeries	daoInvoiceSeries;
+    protected DAOInvoiceSeries daoInvoiceSeries;
 
-	@Inject
-	public ESGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
-		this.daoInvoiceSeries = daoInvoiceSeries;
-	}
-	
-	protected <D extends AbstractDAOGenericInvoice<T>> T issue(
-			final T document, final ESIssuingParams parametersES,
-			final D daoInvoice)
-		throws DocumentIssuingException {
-		
-		String series  = parametersES.getInvoiceSeries();
-		
-		InvoiceSeriesEntity invoiceSeriesEntity = getInvoiceSeries(document, 
-				series, LockModeType.PESSIMISTIC_WRITE);
+    @Inject
+    public ESGenericInvoiceIssuingHandler(DAOInvoiceSeries daoInvoiceSeries) {
+        this.daoInvoiceSeries = daoInvoiceSeries;
+    }
 
-		document.initializeEntityDates();
-		
-		//If the date is null then the invoice date is the current date
-		Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
+    protected <D extends AbstractDAOGenericInvoice<T>> T issue(final T document, final ESIssuingParams parametersES,
+            final D daoInvoice) throws DocumentIssuingException {
 
-		Integer seriesNumber = 1;
+        String series = parametersES.getInvoiceSeries();
 
-		T latestInvoice = daoInvoice
-				.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(), document.getBusiness()
-						.getUID().toString());
+        InvoiceSeriesEntity invoiceSeriesEntity =
+                this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
 
-		if (null != latestInvoice) {
-			seriesNumber = latestInvoice.getSeriesNumber() + 1;
-			Date latestInvoiceDate = latestInvoice.getDate();
+        document.initializeEntityDates();
 
-			if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
-				throw new InvalidInvoiceDateException();
-			}
-		}
+        // If the date is null then the invoice date is the current date
+        Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
 
-		String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
+        Integer seriesNumber = 1;
 
-		document.setDate(invoiceDate);
-		document.setNumber(formatedNumber);
-		document.setSeries(invoiceSeriesEntity.getSeries());
-		document.setSeriesNumber(seriesNumber);
-		document.setBilled(false);
-		document.setCancelled(false);
-		document.setEACCode(parametersES.getEACCode());
-		document.setCurrency(document.getCurrency());
+        T latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
+                document.getBusiness().getUID().toString());
 
-		daoInvoice.create(document);
+        if (null != latestInvoice) {
+            seriesNumber = latestInvoice.getSeriesNumber() + 1;
+            Date latestInvoiceDate = latestInvoice.getDate();
 
-		return document;
-	}
+            if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+                throw new InvalidInvoiceDateException();
+            }
+        }
 
-	private InvoiceSeriesEntity getInvoiceSeries(
-			final T document, String series, LockModeType lockMode) {
-		InvoiceSeriesEntity invoiceSeriesEntity = daoInvoiceSeries.getSeries(
-				series, document.getBusiness().getUID().toString(), lockMode);
+        String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
 
-		if (null == invoiceSeriesEntity) {
-			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-			entity.setBusiness(document.getBusiness());
-			entity.setSeries(series);
+        document.setDate(invoiceDate);
+        document.setNumber(formatedNumber);
+        document.setSeries(invoiceSeriesEntity.getSeries());
+        document.setSeriesNumber(seriesNumber);
+        document.setBilled(false);
+        document.setCancelled(false);
+        document.setEACCode(parametersES.getEACCode());
+        document.setCurrency(document.getCurrency());
 
-			invoiceSeriesEntity = daoInvoiceSeries.create(entity);
-		}
-		return invoiceSeriesEntity;
-	}
+        daoInvoice.create(document);
+
+        return document;
+    }
+
+    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
+        InvoiceSeriesEntity invoiceSeriesEntity =
+                this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
+
+        if (null == invoiceSeriesEntity) {
+            InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
+            entity.setBusiness(document.getBusiness());
+            entity.setSeries(series);
+
+            invoiceSeriesEntity = this.daoInvoiceSeries.create(entity);
+        }
+        return invoiceSeriesEntity;
+    }
 }

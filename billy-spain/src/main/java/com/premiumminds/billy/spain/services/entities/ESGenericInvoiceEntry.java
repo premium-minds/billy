@@ -30,16 +30,13 @@ import com.premiumminds.billy.spain.services.builders.impl.ESGenericInvoiceEntry
 
 public interface ESGenericInvoiceEntry extends GenericInvoiceEntry {
 
-	public static class Builder extends
-		ESGenericInvoiceEntryBuilderImpl<Builder, ESGenericInvoiceEntry, DAOESGenericInvoiceEntry, DAOESGenericInvoice> {
+    public static class Builder extends
+            ESGenericInvoiceEntryBuilderImpl<Builder, ESGenericInvoiceEntry, DAOESGenericInvoiceEntry, DAOESGenericInvoice> {
 
-		@Inject
-		public Builder(DAOESGenericInvoiceEntry daoESGenericInvoiceEntry,
-						DAOESGenericInvoice daoESGenericInvoice,
-						DAOESTax daoESTax, DAOESProduct daoESProduct,
-						DAOESRegionContext daoESRegionContext) {
-			super(daoESGenericInvoiceEntry, daoESGenericInvoice, daoESTax,
-					daoESProduct, daoESRegionContext);
-		}
-	}
+        @Inject
+        public Builder(DAOESGenericInvoiceEntry daoESGenericInvoiceEntry, DAOESGenericInvoice daoESGenericInvoice,
+                DAOESTax daoESTax, DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
+            super(daoESGenericInvoiceEntry, daoESGenericInvoice, daoESTax, daoESProduct, daoESRegionContext);
+        }
+    }
 }

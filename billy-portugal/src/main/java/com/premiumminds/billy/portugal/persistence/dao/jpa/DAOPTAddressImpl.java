@@ -29,19 +29,19 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEnti
 
 public class DAOPTAddressImpl extends DAOAddressImpl implements DAOPTAddress {
 
-	@Inject
-	public DAOPTAddressImpl(Provider<EntityManager> emProvider) {
-		super(emProvider);
-	}
+    @Inject
+    public DAOPTAddressImpl(Provider<EntityManager> emProvider) {
+        super(emProvider);
+    }
 
-	@Override
-	public PTAddressEntity getEntityInstance() {
-		return new JPAPTAddressEntity();
-	}
+    @Override
+    public PTAddressEntity getEntityInstance() {
+        return new JPAPTAddressEntity();
+    }
 
-	@Override
-	protected Class<JPAPTAddressEntity> getEntityClass() {
-		return JPAPTAddressEntity.class;
-	}
+    @Override
+    protected Class<JPAPTAddressEntity> getEntityClass() {
+        return JPAPTAddressEntity.class;
+    }
 
 }

@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.persistence.dao;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 
-public interface AbstractDAOPTGenericInvoiceEntry<T extends PTGenericInvoiceEntryEntity> extends AbstractDAOGenericInvoiceEntry<T> {
+public interface AbstractDAOPTGenericInvoiceEntry<T extends PTGenericInvoiceEntryEntity>
+        extends AbstractDAOGenericInvoiceEntry<T> {
 
 }

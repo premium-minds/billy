@@ -50,47 +50,29 @@ import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTSimpleInvoiceImp
 
 public class PTMockDependencyModule extends MockDependencyModule {
 
-	@Override
-	protected void configure() {
-		super.configure();
+    @Override
+    protected void configure() {
+        super.configure();
 
-		this.bind(DAOPTRegionContext.class).toInstance(
-				Mockito.mock(DAOPTRegionContext.class));
-		this.bind(DAOPTContact.class).toInstance(
-				Mockito.mock(DAOPTContact.class));
-		this.bind(DAOPTAddress.class).toInstance(
-				Mockito.mock(DAOPTAddress.class));
-		this.bind(DAOPTApplication.class).toInstance(
-				Mockito.mock(DAOPTApplication.class));
-		this.bind(DAOPTTax.class).toInstance(Mockito.mock(DAOPTTax.class));
-		this.bind(DAOPTProduct.class).toInstance(
-				Mockito.mock(DAOPTProduct.class));
-		this.bind(DAOPTSupplier.class).toInstance(
-				Mockito.mock(DAOPTSupplier.class));
-		this.bind(DAOPTBusiness.class).toInstance(
-				Mockito.mock(DAOPTBusiness.class));
-		this.bind(DAOPTShippingPoint.class).toInstance(
-				Mockito.mock(DAOPTShippingPoint.class));
-		this.bind(DAOPTCustomer.class).toInstance(
-				Mockito.mock(DAOPTCustomer.class));
-		this.bind(DAOPTInvoiceEntry.class).toInstance(
-				Mockito.mock(DAOPTInvoiceEntry.class));
-		this.bind(DAOPTInvoice.class).toInstance(
-				Mockito.mock(DAOPTInvoice.class));
-		this.bind(DAOPTCreditNote.class).toInstance(
-				Mockito.mock(DAOPTCreditNoteImpl.class));
-		this.bind(DAOPTCreditNoteEntry.class).toInstance(
-				Mockito.mock(DAOPTCreditNoteEntryImpl.class));
-		this.bind(DAOPTGenericInvoice.class).toInstance(
-				Mockito.mock(DAOPTGenericInvoiceImpl.class));
-		this.bind(DAOPTGenericInvoiceEntry.class).toInstance(
-				Mockito.mock(DAOPTGenericInvoiceEntryImpl.class));
-		this.bind(DAOPTSimpleInvoice.class).toInstance(
-				Mockito.mock(DAOPTSimpleInvoiceImpl.class));
-		this.bind(DAOPTPayment.class).toInstance(
-				Mockito.mock(DAOPTPaymentImpl.class));
-		this.bind(DAOPTReceiptInvoice.class).toInstance(
-				Mockito.mock(DAOPTReceiptInvoiceImpl.class));
-	}
+        this.bind(DAOPTRegionContext.class).toInstance(Mockito.mock(DAOPTRegionContext.class));
+        this.bind(DAOPTContact.class).toInstance(Mockito.mock(DAOPTContact.class));
+        this.bind(DAOPTAddress.class).toInstance(Mockito.mock(DAOPTAddress.class));
+        this.bind(DAOPTApplication.class).toInstance(Mockito.mock(DAOPTApplication.class));
+        this.bind(DAOPTTax.class).toInstance(Mockito.mock(DAOPTTax.class));
+        this.bind(DAOPTProduct.class).toInstance(Mockito.mock(DAOPTProduct.class));
+        this.bind(DAOPTSupplier.class).toInstance(Mockito.mock(DAOPTSupplier.class));
+        this.bind(DAOPTBusiness.class).toInstance(Mockito.mock(DAOPTBusiness.class));
+        this.bind(DAOPTShippingPoint.class).toInstance(Mockito.mock(DAOPTShippingPoint.class));
+        this.bind(DAOPTCustomer.class).toInstance(Mockito.mock(DAOPTCustomer.class));
+        this.bind(DAOPTInvoiceEntry.class).toInstance(Mockito.mock(DAOPTInvoiceEntry.class));
+        this.bind(DAOPTInvoice.class).toInstance(Mockito.mock(DAOPTInvoice.class));
+        this.bind(DAOPTCreditNote.class).toInstance(Mockito.mock(DAOPTCreditNoteImpl.class));
+        this.bind(DAOPTCreditNoteEntry.class).toInstance(Mockito.mock(DAOPTCreditNoteEntryImpl.class));
+        this.bind(DAOPTGenericInvoice.class).toInstance(Mockito.mock(DAOPTGenericInvoiceImpl.class));
+        this.bind(DAOPTGenericInvoiceEntry.class).toInstance(Mockito.mock(DAOPTGenericInvoiceEntryImpl.class));
+        this.bind(DAOPTSimpleInvoice.class).toInstance(Mockito.mock(DAOPTSimpleInvoiceImpl.class));
+        this.bind(DAOPTPayment.class).toInstance(Mockito.mock(DAOPTPaymentImpl.class));
+        this.bind(DAOPTReceiptInvoice.class).toInstance(Mockito.mock(DAOPTReceiptInvoiceImpl.class));
+    }
 
 }

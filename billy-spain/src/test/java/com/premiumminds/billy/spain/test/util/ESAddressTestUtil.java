@@ -23,42 +23,37 @@ import com.premiumminds.billy.spain.services.entities.ESAddress;
 
 public class ESAddressTestUtil {
 
-	private static final String	NUMBER		= "1";
-	private static final String	STREET		= "street";
-	private static final String	BUILDING	= "building";
-	private static final String	CITY		= "city";
-	private static final String	REGION		= "region";
-	private static final String	ISOCODE		= "ES";
-	private static final String	DETAILS		= "details";
-	private static final String	POSTAL_CODE	= "10000";
+    private static final String NUMBER = "1";
+    private static final String STREET = "street";
+    private static final String BUILDING = "building";
+    private static final String CITY = "city";
+    private static final String REGION = "region";
+    private static final String ISOCODE = "ES";
+    private static final String DETAILS = "details";
+    private static final String POSTAL_CODE = "10000";
 
-	private Injector			injector;
+    private Injector injector;
 
-	public ESAddressTestUtil(Injector injector) {
-		this.injector = injector;
-	}
+    public ESAddressTestUtil(Injector injector) {
+        this.injector = injector;
+    }
 
-	public ESAddress.Builder getAddressBuilder(String streetName,
-			String number, String details, String building, String city,
-			String postalCode, String region, String isoCountry) {
+    public ESAddress.Builder getAddressBuilder(String streetName, String number, String details, String building,
+            String city, String postalCode, String region, String isoCountry) {
 
-		ESAddress.Builder addressBuilder = this.injector
-				.getInstance(ESAddress.Builder.class);
+        ESAddress.Builder addressBuilder = this.injector.getInstance(ESAddress.Builder.class);
 
-		addressBuilder.clear();
+        addressBuilder.clear();
 
-		addressBuilder.setBuilding(building).setCity(city).setDetails(details)
-				.setISOCountry(isoCountry).setNumber(number).setRegion(region)
-				.setStreetName(streetName).setPostalCode(postalCode);
+        addressBuilder.setBuilding(building).setCity(city).setDetails(details).setISOCountry(isoCountry)
+                .setNumber(number).setRegion(region).setStreetName(streetName).setPostalCode(postalCode);
 
-		return addressBuilder;
-	}
+        return addressBuilder;
+    }
 
-	public ESAddress.Builder getAddressBuilder() {
-		return this.getAddressBuilder(ESAddressTestUtil.STREET,
-				ESAddressTestUtil.NUMBER, ESAddressTestUtil.DETAILS,
-				ESAddressTestUtil.BUILDING, ESAddressTestUtil.CITY,
-				ESAddressTestUtil.POSTAL_CODE, ESAddressTestUtil.REGION,
-				ESAddressTestUtil.ISOCODE);
-	}
+    public ESAddress.Builder getAddressBuilder() {
+        return this.getAddressBuilder(ESAddressTestUtil.STREET, ESAddressTestUtil.NUMBER, ESAddressTestUtil.DETAILS,
+                ESAddressTestUtil.BUILDING, ESAddressTestUtil.CITY, ESAddressTestUtil.POSTAL_CODE,
+                ESAddressTestUtil.REGION, ESAddressTestUtil.ISOCODE);
+    }
 }

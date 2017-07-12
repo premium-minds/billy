@@ -24,19 +24,19 @@ import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 import com.premiumminds.billy.spain.services.entities.ESPayment;
 
-public class MockESReceiptEntity extends MockESGenericInvoiceEntity
-	implements ESReceiptEntity {
-	private static final long serialVersionUID = 1L;
+public class MockESReceiptEntity extends MockESGenericInvoiceEntity implements ESReceiptEntity {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ESGenericInvoiceEntry> getEntries() {
-		return (List<ESGenericInvoiceEntry>)(List<?>) super.getEntries();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ESPayment> getPayments() {
-		return super.getPayments();
-	}
+    private static final long serialVersionUID = 1L;
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ESGenericInvoiceEntry> getEntries() {
+        return (List<ESGenericInvoiceEntry>) (List<?>) super.getEntries();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ESPayment> getPayments() {
+        return super.getPayments();
+    }
 }

@@ -26,13 +26,13 @@ import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
 
 public interface ESSimpleInvoiceEntity extends ESInvoiceEntity, ESSimpleInvoice {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ESInvoiceEntry> getEntries();
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ESInvoiceEntry> getEntries();
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ESPayment> getPayments();
-	
-	public void setClientType(CLIENTTYPE type);
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<ESPayment> getPayments();
+
+    public void setClientType(CLIENTTYPE type);
 }
