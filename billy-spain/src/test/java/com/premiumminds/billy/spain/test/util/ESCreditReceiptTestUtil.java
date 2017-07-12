@@ -29,41 +29,48 @@ import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
 public class ESCreditReceiptTestUtil {
 
-    private static final Boolean BILLED = false;
-    private static final Boolean CANCELLED = false;
-    private static final Boolean SELFBILL = false;
-    private static final String SOURCEID = "SOURCE";
+	private static final Boolean		BILLED		= false;
+	private static final Boolean		CANCELLED	= false;
+	private static final Boolean		SELFBILL	= false;
+	private static final String			SOURCEID	= "SOURCE";
 
-    private Injector injector;
-    private ESCreditReceiptEntryTestUtil creditReceiptEntry;
-    protected ESPaymentTestUtil payment;
+	private Injector					injector;
+	private ESCreditReceiptEntryTestUtil	creditReceiptEntry;
+	protected ESPaymentTestUtil			payment;
 
-    public ESCreditReceiptTestUtil(Injector injector) {
-        this.injector = injector;
-        this.creditReceiptEntry = new ESCreditReceiptEntryTestUtil(injector);
-        this.payment = new ESPaymentTestUtil(injector);
-    }
+	public ESCreditReceiptTestUtil(Injector injector) {
+		this.injector = injector;
+		this.creditReceiptEntry = new ESCreditReceiptEntryTestUtil(injector);
+		this.payment = new ESPaymentTestUtil(injector);
+	}
 
-    public ESCreditReceiptEntity getCreditReceiptEntity(ESReceiptEntity reference) {
+	public ESCreditReceiptEntity getCreditReceiptEntity(ESReceiptEntity reference) {
 
-        ESCreditReceiptEntity creditReceipt = (ESCreditReceiptEntity) this.getCreditReceiptBuilder(reference).build();
+		ESCreditReceiptEntity creditReceipt = (ESCreditReceiptEntity) this
+				.getCreditReceiptBuilder(reference).build();
 
-        ESCreditReceiptEntryEntity creditReceiptEntry = (ESCreditReceiptEntryEntity) creditReceipt.getEntries().get(0);
-        creditReceiptEntry.getDocumentReferences().add(creditReceipt);
+		ESCreditReceiptEntryEntity creditReceiptEntry = (ESCreditReceiptEntryEntity) creditReceipt
+				.getEntries().get(0);
+		creditReceiptEntry.getDocumentReferences().add(creditReceipt);
 
-        return creditReceipt;
-    }
+		return creditReceipt;
+	}
 
-    public ESCreditReceipt.Builder getCreditReceiptBuilder(ESReceiptEntity reference) {
+	public ESCreditReceipt.Builder getCreditReceiptBuilder(ESReceiptEntity reference) {
 
-        ESCreditReceipt.Builder creditReceiptBuilder = this.injector.getInstance(ESCreditReceipt.Builder.class);
+		ESCreditReceipt.Builder creditReceiptBuilder = this.injector
+				.getInstance(ESCreditReceipt.Builder.class);
 
-        ESCreditReceiptEntry.Builder creditReceiptEntryBuilder =
-                this.creditReceiptEntry.getCreditReceiptEntryBuilder(reference);
+		ESCreditReceiptEntry.Builder creditReceiptEntryBuilder = this.creditReceiptEntry
+				.getCreditReceiptEntryBuilder(reference);
 
-        return creditReceiptBuilder.setBilled(ESCreditReceiptTestUtil.BILLED)
-                .setCancelled(ESCreditReceiptTestUtil.CANCELLED).setSelfBilled(ESCreditReceiptTestUtil.SELFBILL)
-                .setDate(new Date()).setSourceId(ESCreditReceiptTestUtil.SOURCEID).addEntry(creditReceiptEntryBuilder)
-                .setBusinessUID(reference.getBusiness().getUID()).addPayment(this.payment.getPaymentBuilder());
-    }
+		return creditReceiptBuilder
+				.setBilled(ESCreditReceiptTestUtil.BILLED)
+				.setCancelled(ESCreditReceiptTestUtil.CANCELLED)
+				.setSelfBilled(ESCreditReceiptTestUtil.SELFBILL)
+				.setDate(new Date()).setSourceId(ESCreditReceiptTestUtil.SOURCEID)
+				.addEntry(creditReceiptEntryBuilder)
+				.setBusinessUID(reference.getBusiness().getUID())
+				.addPayment(payment.getPaymentBuilder());
+	}
 }

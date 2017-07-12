@@ -28,131 +28,131 @@ import com.premiumminds.billy.core.services.entities.Context;
 
 public class MockTaxEntity extends MockBaseEntity implements TaxEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    public ContextEntity context;
-    public String designation;
-    public String description;
-    public String code;
-    public BigDecimal value;
-    public Date validFrom;
-    public Date validTo;
-    public TaxRateType taxRateType;
-    public BigDecimal percentageRateValue;
-    public BigDecimal flatRateAmount;
-    public Currency currency;
+	public ContextEntity		context;
+	public String				designation;
+	public String				description;
+	public String				code;
+	public BigDecimal			value;
+	public Date					validFrom;
+	public Date					validTo;
+	public TaxRateType			taxRateType;
+	public BigDecimal			percentageRateValue;
+	public BigDecimal			flatRateAmount;
+	public Currency				currency;
 
-    public MockTaxEntity() {
+	public MockTaxEntity() {
 
-    }
+	}
 
-    @Override
-    public Context getContext() {
-        return this.context;
-    }
+	@Override
+	public Context getContext() {
+		return this.context;
+	}
 
-    @Override
-    public String getDesignation() {
-        return this.designation;
-    }
+	@Override
+	public String getDesignation() {
+		return this.designation;
+	}
 
-    @Override
-    public String getDescription() {
-        return this.description;
-    }
+	@Override
+	public String getDescription() {
+		return this.description;
+	}
 
-    @Override
-    public String getCode() {
-        return this.code;
-    }
+	@Override
+	public String getCode() {
+		return this.code;
+	}
 
-    @Override
-    public BigDecimal getValue() {
-        return this.value;
-    }
+	@Override
+	public BigDecimal getValue() {
+		return this.value;
+	}
 
-    @Override
-    public Date getValidFrom() {
-        return this.validFrom;
-    }
+	@Override
+	public Date getValidFrom() {
+		return this.validFrom;
+	}
 
-    @Override
-    public Date getValidTo() {
-        return this.validTo;
-    }
+	@Override
+	public Date getValidTo() {
+		return this.validTo;
+	}
 
-    @Override
-    public TaxRateType getTaxRateType() {
-        return this.taxRateType;
-    }
+	@Override
+	public TaxRateType getTaxRateType() {
+		return this.taxRateType;
+	}
 
-    @Override
-    public BigDecimal getPercentageRateValue() {
-        return this.percentageRateValue;
-    }
+	@Override
+	public BigDecimal getPercentageRateValue() {
+		return this.percentageRateValue;
+	}
 
-    @Override
-    public BigDecimal getFlatRateAmount() {
-        return this.flatRateAmount;
-    }
+	@Override
+	public BigDecimal getFlatRateAmount() {
+		return this.flatRateAmount;
+	}
 
-    @Override
-    public Currency getCurrency() {
-        return this.currency;
-    }
+	@Override
+	public Currency getCurrency() {
+		return this.currency;
+	}
 
-    @Override
-    public <T extends ContextEntity> void setContext(T context) {
-        this.context = context;
-    }
+	@Override
+	public <T extends ContextEntity> void setContext(T context) {
+		this.context = context;
+	}
 
-    @Override
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
+	@Override
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
 
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	@Override
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    @Override
-    public void setCode(String code) {
-        this.code = code;
-    }
+	@Override
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    @Override
-    public void setValidFrom(Date from) {
-        this.validFrom = from;
-    }
+	@Override
+	public void setValidFrom(Date from) {
+		this.validFrom = from;
+	}
 
-    @Override
-    public void setValidTo(Date to) {
-        this.validTo = to;
-    }
+	@Override
+	public void setValidTo(Date to) {
+		this.validTo = to;
+	}
 
-    @Override
-    public void setTaxRateType(TaxRateType type) {
-        this.taxRateType = type;
-    }
+	@Override
+	public void setTaxRateType(TaxRateType type) {
+		this.taxRateType = type;
+	}
 
-    @Override
-    public void setPercentageRateValue(BigDecimal percentage) {
-        this.percentageRateValue = percentage;
-    }
+	@Override
+	public void setPercentageRateValue(BigDecimal percentage) {
+		this.percentageRateValue = percentage;
+	}
 
-    @Override
-    public void setFlatRateAmount(BigDecimal amount) {
-        this.flatRateAmount = amount;
-    }
+	@Override
+	public void setFlatRateAmount(BigDecimal amount) {
+		this.flatRateAmount = amount;
+	}
 
-    @Override
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
+	@Override
+	public void setCurrency(Currency currency) {
+		this.currency = currency;
+	}
 
-    @Override
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
+	@Override
+	public void setValue(BigDecimal value) {
+		this.value = value;
+	}
 }

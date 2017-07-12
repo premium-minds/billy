@@ -24,11 +24,9 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 
-public interface DAOESCreditNote extends DAOESGenericInvoice {
+public interface DAOESCreditNote extends AbstractDAOESGenericInvoice<ESCreditNoteEntity> {
 
-    @Override
-    public ESCreditNoteEntity getEntityInstance();
-
-    public List<ESCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice);
+	public List<ESCreditNote> findByReferencedDocument(UID uidCompany,
+			UID uidInvoice);
 
 }

@@ -22,53 +22,26 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceImpl;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;
-import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESGenericInvoiceEntity;
-import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESBusinessEntity;
-import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESGenericInvoiceEntity;
 
-public class DAOESGenericInvoiceImpl extends DAOGenericInvoiceImpl implements DAOESGenericInvoice {
+public class DAOESGenericInvoiceImpl extends AbstractDAOESGenericInvoiceImpl<ESGenericInvoiceEntity, JPAESGenericInvoiceEntity> 
+implements DAOESGenericInvoice {
 
-    @Inject
-    public DAOESGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+	@Inject
+	public DAOESGenericInvoiceImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-    @Override
-    public ESGenericInvoiceEntity getEntityInstance() {
-        return new JPAESGenericInvoiceEntity();
-    }
+	@Override
+	public ESGenericInvoiceEntity getEntityInstance() {
+		return new JPAESGenericInvoiceEntity();
+	}
 
-    @Override
-    protected Class<? extends JPAESGenericInvoiceEntity> getEntityClass() {
-        return JPAESGenericInvoiceEntity.class;
-    }
+	@Override
+	protected Class<? extends JPAESGenericInvoiceEntity> getEntityClass() {
+		return JPAESGenericInvoiceEntity.class;
+	}
 
-    protected ESBusinessEntity getBusinessEntity(UID uid) {
-
-        QJPAESBusinessEntity business = QJPAESBusinessEntity.jPAESBusinessEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-
-        query.from(business).where(business.uid.eq(uid.getValue()));
-
-        return this.checkEntity(query.singleResult(business), ESBusinessEntity.class);
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T extends ESGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number) {
-        QJPAESGenericInvoiceEntity invoice = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
-
-        return (T) this.checkEntity(
-                this.createQuery()
-                        .from(invoice).where(this.toDSL(invoice.business, QJPAESBusinessEntity.class).uid
-                                .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
-                        .singleResult(invoice),
-                ESGenericInvoiceEntity.class);
-    }
 }

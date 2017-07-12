@@ -23,5 +23,5 @@ import com.premiumminds.billy.core.services.UID;
 
 public interface DAOTicket extends DAO<TicketEntity> {
 
-    public UID getObjectEntityUID(String ticketUID);
+	public UID getObjectEntityUID(String ticketUID);
 }

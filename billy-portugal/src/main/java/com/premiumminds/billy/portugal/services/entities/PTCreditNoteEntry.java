@@ -30,25 +30,33 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTManualCreditNote
 
 public interface PTCreditNoteEntry extends PTGenericInvoiceEntry {
 
-    public static class Builder extends PTCreditNoteEntryBuilderImpl<Builder, PTCreditNoteEntry> {
+	public static class Builder extends
+		PTCreditNoteEntryBuilderImpl<Builder, PTCreditNoteEntry> {
 
-        @Inject
-        public Builder(DAOPTCreditNoteEntry daoPTCreditNoteEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-                DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
-            super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
-        }
-    }
+		@Inject
+		public Builder(DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+						DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
+						DAOPTProduct daoPTProduct,
+						DAOPTRegionContext daoPTRegionContext) {
+			super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct,
+					daoPTRegionContext);
+		}
+	}
+	
+	public static class ManualBuilder extends
+	PTManualCreditNoteEntryBuilderImpl<ManualBuilder, PTCreditNoteEntry> {
 
-    public static class ManualBuilder extends PTManualCreditNoteEntryBuilderImpl<ManualBuilder, PTCreditNoteEntry> {
+	@Inject
+	public ManualBuilder(DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+			DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
+			DAOPTProduct daoPTProduct,
+			DAOPTRegionContext daoPTRegionContext) {
+		super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct,
+				daoPTRegionContext);
+	}
+}
 
-        @Inject
-        public ManualBuilder(DAOPTCreditNoteEntry daoPTCreditNoteEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
-                DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
-            super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
-        }
-    }
+	public PTInvoice getReference();
 
-    public PTInvoice getReference();
-
-    public String getReason();
+	public String getReason();
 }

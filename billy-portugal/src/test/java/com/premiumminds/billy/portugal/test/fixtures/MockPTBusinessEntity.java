@@ -21,8 +21,9 @@ package com.premiumminds.billy.portugal.test.fixtures;
 import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 
-public class MockPTBusinessEntity extends MockBusinessEntity implements PTBusinessEntity {
+public class MockPTBusinessEntity extends MockBusinessEntity implements
+	PTBusinessEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 }

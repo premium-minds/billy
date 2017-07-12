@@ -35,40 +35,47 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditReceipt
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceipt;
 
-public class DAOESCreditReceiptImpl extends DAOESGenericInvoiceImpl implements DAOESCreditReceipt {
+public class DAOESCreditReceiptImpl extends AbstractDAOESGenericInvoiceImpl<ESCreditReceiptEntity, JPAESCreditReceiptEntity> implements
+	DAOESCreditReceipt {
 
-    @Inject
-    public DAOESCreditReceiptImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
+	@Inject
+	public DAOESCreditReceiptImpl(Provider<EntityManager> emProvider) {
+		super(emProvider);
+	}
 
-    @Override
-    public ESCreditReceiptEntity getEntityInstance() {
-        return new JPAESCreditReceiptEntity();
-    }
+	@Override
+	public ESCreditReceiptEntity getEntityInstance() {
+		return new JPAESCreditReceiptEntity();
+	}
 
-    @Override
-    protected Class<JPAESCreditReceiptEntity> getEntityClass() {
-        return JPAESCreditReceiptEntity.class;
-    }
+	@Override
+	protected Class<JPAESCreditReceiptEntity> getEntityClass() {
+		return JPAESCreditReceiptEntity.class;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<ESCreditReceipt> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
-        QJPAESCreditReceiptEntity creditReceipt = QJPAESCreditReceiptEntity.jPAESCreditReceiptEntity;
-        QJPAESCreditReceiptEntryEntity entry = QJPAESCreditReceiptEntryEntity.jPAESCreditReceiptEntryEntity;
-        QJPAESGenericInvoiceEntity recepit = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
-
-        JPASubQuery invQ = new JPASubQuery().from(recepit).where(recepit.uid.eq(uidInvoice.toString()));
-
-        JPASubQuery entQ = new JPASubQuery().from(entry)
-                .where(this.toDSL(entry.reference, QJPAESGenericInvoiceEntity.class).uid.in(invQ.list(recepit.uid)));
-
-        return (List<ESCreditReceipt>) (List<?>) this.createQuery().from(creditReceipt)
-                .where(this.toDSL(creditReceipt.business, QJPAESBusinessEntity.class).uid.eq(uidCompany.toString())
-                        .and(this.toDSL(creditReceipt.entries.any(), QJPAESCreditReceiptEntryEntity.class).uid
-                                .in(entQ.list(entry.uid))))
-                .list(creditReceipt);
-    }
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<ESCreditReceipt> findByReferencedDocument(UID uidCompany,
+			UID uidInvoice) {
+		QJPAESCreditReceiptEntity creditReceipt = QJPAESCreditReceiptEntity.jPAESCreditReceiptEntity;
+		QJPAESCreditReceiptEntryEntity entry = QJPAESCreditReceiptEntryEntity.jPAESCreditReceiptEntryEntity;
+		QJPAESGenericInvoiceEntity recepit = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
+			
+		JPASubQuery invQ = new JPASubQuery()
+			.from(recepit)
+			.where(recepit.uid.eq(uidInvoice.toString()));
+		
+		JPASubQuery entQ = new JPASubQuery()
+		.from(entry)
+		.where(toDSL(entry.reference, QJPAESGenericInvoiceEntity.class).uid.in(
+				invQ.list(recepit.uid)));
+		
+		return (List<ESCreditReceipt>) (List<?>) createQuery()
+				.from(creditReceipt)
+				.where(toDSL(creditReceipt.business, QJPAESBusinessEntity.class).uid.eq(uidCompany.toString())
+						.and(toDSL(creditReceipt.entries.any(), QJPAESCreditReceiptEntryEntity.class).uid.in(
+								entQ.list(entry.uid))))
+				.list(creditReceipt);
+	}
 
 }

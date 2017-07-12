@@ -70,43 +70,43 @@ import com.premiumminds.billy.spain.persistence.dao.jpa.DAOESTaxImpl;
 
 public class SpainDependencyModule extends AbstractModule {
 
-    @Override
-    protected void configure() {
-        this.install(new CoreDependencyModule());
-        this.install(new CoreJPADependencyModule());
-        this.install(new GINDependencyModule());
+  @Override
+  protected void configure() {
+    this.install(new CoreDependencyModule());
+    this.install(new CoreJPADependencyModule());
+    this.install(new GINDependencyModule());
 
-        this.bind(DAOESContact.class).to(DAOESContactImpl.class);
-        this.bind(DAOESBusiness.class).to(DAOESBusinessImpl.class);
-        this.bind(DAOESRegionContext.class).to(DAOESRegionContextImpl.class);
-        this.bind(DAOESAddress.class).to(DAOESAddressImpl.class);
-        this.bind(DAOESApplication.class).to(DAOESApplicationImpl.class);
-        this.bind(DAOESTax.class).to(DAOESTaxImpl.class);
-        this.bind(DAOESProduct.class).to(DAOESProductImpl.class);
-        this.bind(DAOESSupplier.class).to(DAOESSupplierImpl.class);
-        this.bind(DAOESShippingPoint.class).to(DAOESShippingPointImpl.class);
-        this.bind(DAOESCustomer.class).to(DAOESCustomerImpl.class);
-        this.bind(DAOESInvoice.class).to(DAOESInvoiceImpl.class);
-        this.bind(DAOESInvoiceEntry.class).to(DAOESInvoiceEntryImpl.class);
-        this.bind(DAOESCreditNote.class).to(DAOESCreditNoteImpl.class);
-        this.bind(DAOESCreditNoteEntry.class).to(DAOESCreditNoteEntryImpl.class);
-        this.bind(DAOESGenericInvoice.class).to(DAOESGenericInvoiceImpl.class);
-        this.bind(DAOESGenericInvoiceEntry.class).to(DAOESGenericInvoiceEntryImpl.class);
-        this.bind(DAOESSimpleInvoice.class).to(DAOESSimpleInvoiceImpl.class);
-        this.bind(DAOESReceipt.class).to(DAOESReceiptImpl.class);
-        this.bind(DAOESReceiptEntry.class).to(DAOESReceiptEntryImpl.class);
-        this.bind(DAOESPayment.class).to(DAOESPaymentImpl.class);
-        this.bind(DAOESCreditReceipt.class).to(DAOESCreditReceiptImpl.class);
-        this.bind(DAOESCreditReceiptEntry.class).to(DAOESCreditReceiptEntryImpl.class);
-        this.bind(BillySpain.class);
+    this.bind(DAOESContact.class).to(DAOESContactImpl.class);
+    this.bind(DAOESBusiness.class).to(DAOESBusinessImpl.class);
+    this.bind(DAOESRegionContext.class).to(DAOESRegionContextImpl.class);
+    this.bind(DAOESAddress.class).to(DAOESAddressImpl.class);
+    this.bind(DAOESApplication.class).to(DAOESApplicationImpl.class);
+    this.bind(DAOESTax.class).to(DAOESTaxImpl.class);
+    this.bind(DAOESProduct.class).to(DAOESProductImpl.class);
+    this.bind(DAOESSupplier.class).to(DAOESSupplierImpl.class);
+    this.bind(DAOESShippingPoint.class).to(DAOESShippingPointImpl.class);
+    this.bind(DAOESCustomer.class).to(DAOESCustomerImpl.class);
+    this.bind(DAOESInvoice.class).to(DAOESInvoiceImpl.class);
+    this.bind(DAOESInvoiceEntry.class).to(DAOESInvoiceEntryImpl.class);
+    this.bind(DAOESCreditNote.class).to(DAOESCreditNoteImpl.class);
+    this.bind(DAOESCreditNoteEntry.class).to(DAOESCreditNoteEntryImpl.class);
+    this.bind(DAOESGenericInvoice.class).to(DAOESGenericInvoiceImpl.class);
+    this.bind(DAOESGenericInvoiceEntry.class).to(DAOESGenericInvoiceEntryImpl.class);
+    this.bind(DAOESSimpleInvoice.class).to(DAOESSimpleInvoiceImpl.class);
+    this.bind(DAOESReceipt.class).to(DAOESReceiptImpl.class);
+    this.bind(DAOESReceiptEntry.class).to(DAOESReceiptEntryImpl.class);
+    this.bind(DAOESPayment.class).to(DAOESPaymentImpl.class);
+    this.bind(DAOESCreditReceipt.class).to(DAOESCreditReceiptImpl.class);
+    this.bind(DAOESCreditReceiptEntry.class).to(DAOESCreditReceiptEntryImpl.class);
+    this.bind(BillySpain.class);
+  }
+
+  public static class Initializer {
+
+    @Inject
+    public Initializer() {
+      // Nothing to initialize
     }
-
-    public static class Initializer {
-
-        @Inject
-        public Initializer() {
-            // Nothing to initialize
-        }
-    }
+  }
 
 }

@@ -45,140 +45,162 @@ import com.premiumminds.billy.core.services.entities.Contact;
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
 public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_ADDRESS",
-            joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID", unique = true) })
-    protected List<Address> addresses;
+	@OneToMany(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "SUPPLIER_ADDRESS",
+				joinColumns = { @JoinColumn(name = "ID_SUPPLIER",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_ADDRESS",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<Address>		addresses;
 
-    @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_BANK_ACCOUNT",
-            joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_BANK_ACCOUNT", referencedColumnName = "ID", unique = true) })
-    protected List<BankAccount> bankAccounts;
+	@OneToMany(targetEntity = JPABankAccountEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "SUPPLIER_BANK_ACCOUNT",
+				joinColumns = { @JoinColumn(name = "ID_SUPPLIER",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_BANK_ACCOUNT",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<BankAccount>	bankAccounts;
 
-    @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "ID_BILLING_ADDRESS")
-    protected Address billingAddress;
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_BILLING_ADDRESS")
+	protected Address			billingAddress;
 
-    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_CONTACT",
-            joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
-    protected List<Contact> contacts;
+	@OneToMany(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(
+				name = Config.TABLE_PREFIX + "SUPPLIER_CONTACT",
+				joinColumns = { @JoinColumn(name = "ID_SUPPLIER",
+											referencedColumnName = "ID") },
+				inverseJoinColumns = { @JoinColumn(
+													name = "ID_CONTACT",
+													referencedColumnName = "ID",
+													unique = true) })
+	protected List<Contact>		contacts;
 
-    @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "ID_MAIN_ADDRESS")
-    protected Address mainAddress;
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_MAIN_ADDRESS")
+	protected Address			mainAddress;
 
-    @OneToOne(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "ID_MAIN_CONTACT")
-    protected Contact mainContact;
+	@OneToOne(targetEntity = JPAContactEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_MAIN_CONTACT")
+	protected Contact			mainContact;
 
-    @Column(name = "NAME")
-    protected String name;
+	@Column(name = "NAME")
+	protected String			name;
 
-    @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinColumn(name = "ID_SHIPPING_ADDRESS")
-    protected Address shippingAddress;
+	@OneToOne(targetEntity = JPAAddressEntity.class, cascade = {
+			CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name = "ID_SHIPPING_ADDRESS")
+	protected Address			shippingAddress;
 
-    @Column(name = "TAX_ID")
-    protected String taxRegistrationNumber;
+	@Column(name = "TAX_ID")
+	protected String			taxRegistrationNumber;
 
-    @Column(name = "SELF_BILLING_AGREEMENT")
-    protected Boolean selfBillingAgreement;
+	@Column(name = "SELF_BILLING_AGREEMENT")
+	protected Boolean			selfBillingAgreement;
 
-    public JPASupplierEntity() {
-        this.addresses = new ArrayList<>();
-        this.bankAccounts = new ArrayList<>();
-        this.contacts = new ArrayList<>();
-    }
+	public JPASupplierEntity() {
+		this.addresses = new ArrayList<Address>();
+		this.bankAccounts = new ArrayList<BankAccount>();
+		this.contacts = new ArrayList<Contact>();
+	}
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
+	@Override
+	public String getName() {
+		return this.name;
+	}
 
-    @Override
-    public String getTaxRegistrationNumber() {
-        return this.taxRegistrationNumber;
-    }
+	@Override
+	public String getTaxRegistrationNumber() {
+		return this.taxRegistrationNumber;
+	}
 
-    @Override
-    public Address getMainAddress() {
-        return this.mainAddress;
-    }
+	@Override
+	public Address getMainAddress() {
+		return this.mainAddress;
+	}
 
-    @Override
-    public Address getBillingAddress() {
-        return this.billingAddress;
-    }
+	@Override
+	public Address getBillingAddress() {
+		return this.billingAddress;
+	}
 
-    @Override
-    public Address getShippingAddress() {
-        return this.shippingAddress;
-    }
+	@Override
+	public Address getShippingAddress() {
+		return this.shippingAddress;
+	}
 
-    @Override
-    public Contact getMainContact() {
-        return this.mainContact;
-    }
+	@Override
+	public Contact getMainContact() {
+		return this.mainContact;
+	}
 
-    @Override
-    public List<BankAccount> getBankAccounts() {
-        return this.bankAccounts;
-    }
+	@Override
+	public List<BankAccount> getBankAccounts() {
+		return this.bankAccounts;
+	}
 
-    @Override
-    public boolean hasSelfBillingAgreement() {
-        return this.selfBillingAgreement;
-    }
+	@Override
+	public boolean hasSelfBillingAgreement() {
+		return this.selfBillingAgreement;
+	}
 
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
+	@Override
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    @Override
-    public void setTaxRegistrationNumber(String number) {
-        this.taxRegistrationNumber = number;
-    }
+	@Override
+	public void setTaxRegistrationNumber(String number) {
+		this.taxRegistrationNumber = number;
+	}
 
-    @Override
-    public List<Address> getAddresses() {
-        return this.addresses;
-    }
+	@Override
+	public List<Address> getAddresses() {
+		return this.addresses;
+	}
 
-    @Override
-    public <T extends AddressEntity> void setMainAddress(T address) {
-        this.mainAddress = address;
-    }
+	@Override
+	public <T extends AddressEntity> void setMainAddress(T address) {
+		this.mainAddress = address;
+	}
 
-    @Override
-    public <T extends AddressEntity> void setBillingAddress(T address) {
-        this.billingAddress = address;
-    }
+	@Override
+	public <T extends AddressEntity> void setBillingAddress(T address) {
+		this.billingAddress = address;
+	}
 
-    @Override
-    public <T extends AddressEntity> void setShippingAddress(T address) {
-        this.shippingAddress = address;
-    }
+	@Override
+	public <T extends AddressEntity> void setShippingAddress(T address) {
+		this.shippingAddress = address;
+	}
 
-    @Override
-    public List<Contact> getContacts() {
-        return this.contacts;
-    }
+	@Override
+	public List<Contact> getContacts() {
+		return this.contacts;
+	}
 
-    @Override
-    public <T extends ContactEntity> void setMainContact(T contact) {
-        this.mainContact = contact;
-    }
+	@Override
+	public <T extends ContactEntity> void setMainContact(T contact) {
+		this.mainContact = contact;
+	}
 
-    @Override
-    public void setSelfBillingAgreement(boolean selfBilling) {
-        this.selfBillingAgreement = selfBilling;
-    }
+	@Override
+	public void setSelfBillingAgreement(boolean selfBilling) {
+		this.selfBillingAgreement = selfBilling;
+	}
 
 }

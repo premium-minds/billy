@@ -31,39 +31,44 @@ import com.premiumminds.billy.spain.services.builders.ESProductBuilder;
 import com.premiumminds.billy.spain.services.entities.ESProduct;
 
 public class ESProductBuilderImpl<TBuilder extends ESProductBuilderImpl<TBuilder, TProduct>, TProduct extends ESProduct>
-        extends ProductBuilderImpl<TBuilder, TProduct> implements ESProductBuilder<TBuilder, TProduct> {
+	extends ProductBuilderImpl<TBuilder, TProduct> implements
+	ESProductBuilder<TBuilder, TProduct> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+	protected static final Localizer	LOCALIZER	= new Localizer(
+			"com/premiumminds/billy/core/i18n/FieldNames");
 
-    @Inject
-    public ESProductBuilderImpl(DAOESProduct daoESProduct, DAOESTax daoESTax) {
-        super(daoESProduct, daoESTax);
-    }
+	@Inject
+	public ESProductBuilderImpl(DAOESProduct daoESProduct, DAOESTax daoESTax) {
+		super(daoESProduct, daoESTax);
+	}
 
-    @Override
-    protected ESProductEntity getTypeInstance() {
-        return (ESProductEntity) super.getTypeInstance();
-    }
+	@Override
+	protected ESProductEntity getTypeInstance() {
+		return (ESProductEntity) super.getTypeInstance();
+	}
 
-    @Override
-    public TBuilder setNumberCode(String code) {
-        BillyValidator.mandatory(code, ESProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
-        this.getTypeInstance().setNumberCode(code);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setNumberCode(String code) {
+		BillyValidator.mandatory(code, ESProductBuilderImpl.LOCALIZER
+				.getString("field.product_number_code"));
+		this.getTypeInstance().setNumberCode(code);
+		return this.getBuilder();
+	}
 
-    @Override
-    public TBuilder setUnitOfMeasure(String unit) {
-        BillyValidator.mandatory(unit, ESProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
-        this.getTypeInstance().setUnitOfMeasure(unit);
-        return this.getBuilder();
-    }
+	@Override
+	public TBuilder setUnitOfMeasure(String unit) {
+		BillyValidator.mandatory(unit, ESProductBuilderImpl.LOCALIZER
+				.getString("field.unit_of_measure"));
+		this.getTypeInstance().setUnitOfMeasure(unit);
+		return this.getBuilder();
+	}
 
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        super.validateInstance();
-        ESProduct p = this.getTypeInstance();
-        BillyValidator.mandatory(p.getNumberCode(),
-                ESProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
-    }
+	@Override
+	protected void validateInstance() throws BillyValidationException {
+		super.validateInstance();
+		ESProduct p = this.getTypeInstance();
+		BillyValidator.mandatory(p.getNumberCode(),
+				ESProductBuilderImpl.LOCALIZER
+						.getString("field.product_number_code"));
+	}
 }

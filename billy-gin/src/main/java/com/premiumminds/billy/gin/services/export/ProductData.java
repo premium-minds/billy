@@ -19,21 +19,21 @@
 package com.premiumminds.billy.gin.services.export;
 
 public class ProductData {
+	
+	private final String productCode;
+	private final String description;
 
-    private final String productCode;
-    private final String description;
+	public ProductData(String productCode, String description) {
+		this.productCode = productCode;
+		this.description = description;
+	}
 
-    public ProductData(String productCode, String description) {
-        this.productCode = productCode;
-        this.description = description;
-    }
+	public String getProductCode() {
+		return productCode;
+	}
 
-    public String getProductCode() {
-        return this.productCode;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
+	public String getDescription() {
+		return description;
+	}
+	
 }

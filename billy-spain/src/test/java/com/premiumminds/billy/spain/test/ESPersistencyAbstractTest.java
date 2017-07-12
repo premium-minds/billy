@@ -40,84 +40,91 @@ import com.premiumminds.billy.spain.util.Services;
 
 public class ESPersistencyAbstractTest extends ESAbstractTest {
 
-    protected static final String PRIVATE_KEY_DIR = "/keys/private.pem";
-    protected static final String DEFAULT_SERIES = "DEFAULT";
+	protected static final String	PRIVATE_KEY_DIR	= "/keys/private.pem";
+	protected static final String	DEFAULT_SERIES	= "DEFAULT";
 
-    @Before
-    public void setUpModules() {
-        ESAbstractTest.injector =
-                Guice.createInjector(new SpainDependencyModule(), new SpainTestPersistenceDependencyModule());
-        ESAbstractTest.injector.getInstance(SpainDependencyModule.Initializer.class);
-        ESAbstractTest.injector.getInstance(SpainTestPersistenceDependencyModule.Initializer.class);
-        SpainBootstrap.execute(ESAbstractTest.injector);
-    }
+	@Before
+	public void setUpModules() {
+		ESAbstractTest.injector = Guice.createInjector(
+				new SpainDependencyModule(),
+				new SpainTestPersistenceDependencyModule());
+		ESAbstractTest.injector
+				.getInstance(SpainDependencyModule.Initializer.class);
+		ESAbstractTest.injector
+				.getInstance(SpainTestPersistenceDependencyModule.Initializer.class);
+		SpainBootstrap.execute(ESAbstractTest.injector);
+	}
 
-    @After
-    public void tearDown() {
-        ESAbstractTest.injector.getInstance(SpainTestPersistenceDependencyModule.Finalizer.class);
-    }
+	@After
+	public void tearDown() {
+		ESAbstractTest.injector
+				.getInstance(SpainTestPersistenceDependencyModule.Finalizer.class);
+	}
 
-    public ESInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice((new UID()).toString());
+	public ESInvoiceEntity getNewIssuedInvoice() {
+		return this.getNewIssuedInvoice((new UID()).toString());
 
-    }
+	}
 
-    public ESInvoiceEntity getNewIssuedInvoice(String businessUID) {
-        Services service = new Services(ESAbstractTest.injector);
-        ESIssuingParams parameters = new ESIssuingParamsImpl();
+	public ESInvoiceEntity getNewIssuedInvoice(String businessUID) {
+		Services service = new Services(ESAbstractTest.injector);
+		ESIssuingParams parameters = new ESIssuingParamsImpl();
 
-        parameters = this.getParameters(ESPersistencyAbstractTest.DEFAULT_SERIES, "30000");
+		parameters = this.getParameters(
+				ESPersistencyAbstractTest.DEFAULT_SERIES, "30000");
 
-        try {
-            return (ESInvoiceEntity) service.issueDocument(
-                    new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(
-                            new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)),
-                    parameters);
-        } catch (DocumentIssuingException e) {
-            e.printStackTrace();
-        }
+		try {
+			return (ESInvoiceEntity) service.issueDocument(
+					new ESInvoiceTestUtil(ESAbstractTest.injector)
+							.getInvoiceBuilder(new ESBusinessTestUtil(injector)
+									.getBusinessEntity(businessUID))
+							, parameters);
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
 
-        return null;
-    }
+		return null;
+	}
+	
+	public ESReceiptEntity getNewIssuedReceipt(String businessUID) {
+		Services service = new Services(ESAbstractTest.injector);
+		ESIssuingParams parameters = new ESIssuingParamsImpl();
+		
+		parameters = this.getParameters(DEFAULT_SERIES, "007");
+		
+		try {
+			return (ESReceiptEntity) service.issueDocument(
+					new ESReceiptTestUtil(injector)
+					.getReceiptBuilder(
+							new ESBusinessTestUtil(injector).getBusinessEntity(businessUID))
+					, parameters);
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public ESCreditNoteEntity getNewIssuedCreditnote(ESInvoice reference) {
+		Services service = new Services(ESAbstractTest.injector);
+		ESIssuingParams parameters = new ESIssuingParamsImpl();
 
-    public ESReceiptEntity getNewIssuedReceipt(String businessUID) {
-        Services service = new Services(ESAbstractTest.injector);
-        ESIssuingParams parameters = new ESIssuingParamsImpl();
+		parameters = this.getParameters("NC", "30000");
 
-        parameters = this.getParameters(ESPersistencyAbstractTest.DEFAULT_SERIES, "007");
+		try {
+			return (ESCreditNoteEntity) service.issueDocument(
+					new ESCreditNoteTestUtil(ESAbstractTest.injector)
+							.getCreditNoteBuilder((ESInvoiceEntity) reference), parameters);
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
 
-        try {
-            return (ESReceiptEntity) service.issueDocument(
-                    new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
-                            new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)),
-                    parameters);
-        } catch (DocumentIssuingException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+		return null;
+	}
 
-    public ESCreditNoteEntity getNewIssuedCreditnote(ESInvoice reference) {
-        Services service = new Services(ESAbstractTest.injector);
-        ESIssuingParams parameters = new ESIssuingParamsImpl();
-
-        parameters = this.getParameters("NC", "30000");
-
-        try {
-            return (ESCreditNoteEntity) service.issueDocument(
-                    new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder((ESInvoiceEntity) reference),
-                    parameters);
-        } catch (DocumentIssuingException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    protected ESIssuingParams getParameters(String series, String EACCode) {
-        ESIssuingParams parameters = new ESIssuingParamsImpl();
-        parameters.setEACCode(EACCode);
-        parameters.setInvoiceSeries(series);
-        return parameters;
-    }
+	protected ESIssuingParams getParameters(String series, String EACCode) {
+		ESIssuingParams parameters = new ESIssuingParamsImpl();
+		parameters.setEACCode(EACCode);
+		parameters.setInvoiceSeries(series);
+		return parameters;
+	}
 }

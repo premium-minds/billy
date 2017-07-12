@@ -28,28 +28,28 @@ import com.premiumminds.billy.spain.services.entities.ESPayment;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.fixtures.MockESPaymentEntity;
 
+
 public class TestESPaymentBuilder extends ESAbstractTest {
-
-    private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "ESPayment.yml";
-
-    @Test
-    public void doTest() {
-        MockESPaymentEntity mock =
-                this.createMockEntity(MockESPaymentEntity.class, TestESPaymentBuilder.ES_PAYMENT_YML);
-
-        Mockito.when(this.getInstance(DAOESPayment.class).getEntityInstance()).thenReturn(new MockESPaymentEntity());
-
-        ESPayment.Builder builder = this.getInstance(ESPayment.Builder.class);
-
-        builder.setPaymentAmount(mock.getPaymentAmount()).setPaymentDate(mock.getPaymentDate())
-                .setPaymentMethod(mock.getPaymentMethod());
-
-        ESPayment payment = builder.build();
-
-        Assert.assertTrue(payment != null);
-        Assert.assertEquals(payment.getPaymentMethod(), mock.getPaymentMethod());
-        Assert.assertEquals(payment.getPaymentAmount(), mock.getPaymentAmount());
-        Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
-    }
+	
+	private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESPayment.yml";
+	
+	@Test
+	public void doTest() {
+		MockESPaymentEntity mock = this.createMockEntity(MockESPaymentEntity.class, TestESPaymentBuilder.ES_PAYMENT_YML);
+		
+		Mockito.when(this.getInstance(DAOESPayment.class).getEntityInstance()).thenReturn(new MockESPaymentEntity());
+		
+		ESPayment.Builder builder  = this.getInstance(ESPayment.Builder.class);
+		
+		builder.setPaymentAmount(mock.getPaymentAmount()).setPaymentDate(mock.getPaymentDate()).setPaymentMethod(mock.getPaymentMethod());
+		
+		ESPayment payment = builder.build();
+		
+		Assert.assertTrue(payment != null);
+		Assert.assertEquals(payment.getPaymentMethod(), mock.getPaymentMethod());
+		Assert.assertEquals(payment.getPaymentAmount(), mock.getPaymentAmount());
+		Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());		
+	}
 
 }

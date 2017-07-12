@@ -24,39 +24,39 @@ import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 
 public class TaxData {
+	
+	private final UID uid;
+	private final BigDecimal value;
+	private final TaxRateType taxRateType;
+	private final String description;
+	private final String designation;
+	
+	public TaxData(UID uid, BigDecimal value, TaxRateType taxRateType, String description, String designation) {
+		this.uid = uid;
+		this.value = value;
+		this.taxRateType = taxRateType;
+		this.description = description;
+		this.designation = designation;
+	}
 
-    private final UID uid;
-    private final BigDecimal value;
-    private final TaxRateType taxRateType;
-    private final String description;
-    private final String designation;
+	public UID getUID() {
+		return uid;
+	}
 
-    public TaxData(UID uid, BigDecimal value, TaxRateType taxRateType, String description, String designation) {
-        this.uid = uid;
-        this.value = value;
-        this.taxRateType = taxRateType;
-        this.description = description;
-        this.designation = designation;
-    }
+	public BigDecimal getValue() {
+		return value;
+	}
 
-    public UID getUID() {
-        return this.uid;
-    }
+	public TaxRateType getTaxRateType() {
+		return taxRateType;
+	}
 
-    public BigDecimal getValue() {
-        return this.value;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public TaxRateType getTaxRateType() {
-        return this.taxRateType;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public String getDesignation() {
-        return this.designation;
-    }
-
+	public String getDesignation() {
+		return designation;
+	}
+	
 }

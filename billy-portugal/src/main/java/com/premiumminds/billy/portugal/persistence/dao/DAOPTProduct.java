@@ -23,6 +23,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 
 public interface DAOPTProduct extends DAOProduct {
 
-    @Override
-    public PTProductEntity getEntityInstance();
+	@Override
+	public PTProductEntity getEntityInstance();
 }

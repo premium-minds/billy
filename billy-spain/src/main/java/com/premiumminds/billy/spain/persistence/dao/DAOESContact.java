@@ -23,6 +23,6 @@ import com.premiumminds.billy.spain.persistence.entities.ESContactEntity;
 
 public interface DAOESContact extends DAOContact {
 
-    @Override
-    public ESContactEntity getEntityInstance();
+	@Override
+	public ESContactEntity getEntityInstance();
 }

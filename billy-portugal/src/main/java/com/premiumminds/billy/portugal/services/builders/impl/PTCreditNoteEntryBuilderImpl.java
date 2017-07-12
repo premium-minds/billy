@@ -36,60 +36,64 @@ import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilde
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-        extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry>
-        implements PTCreditNoteEntryBuilder<TBuilder, TEntry> {
+    extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOPTCreditNoteEntry, DAOPTInvoice>
+    implements PTCreditNoteEntryBuilder<TBuilder, TEntry> {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
+  protected static final Localizer LOCALIZER = new Localizer(
+      "com/premiumminds/billy/core/i18n/FieldNames");
 
-    public PTCreditNoteEntryBuilderImpl(DAOPTCreditNoteEntry daoPTCreditNoteEntry, DAOPTInvoice daoPTInvoice,
-            DAOPTTax daoPTTax, DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
-        super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
+  public PTCreditNoteEntryBuilderImpl(
+      DAOPTCreditNoteEntry daoPTCreditNoteEntry,
+      DAOPTInvoice daoPTInvoice,
+      DAOPTTax daoPTTax,
+      DAOPTProduct daoPTProduct,
+      DAOPTRegionContext daoPTRegionContext) {
+    super(daoPTCreditNoteEntry, daoPTInvoice, daoPTTax, daoPTProduct, daoPTRegionContext);
+  }
+
+  @NotOnUpdate
+  public TBuilder setReferenceUID(UID referenceUID) {
+    BillyValidator.notNull(referenceUID,
+        PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+    PTInvoiceEntity i = this.daoInvoice.get(referenceUID);
+    BillyValidator.found(i,
+        PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+    this.getTypeInstance().setReference(i);
+    return this.getBuilder();
+  }
+
+  @NotOnUpdate
+  public TBuilder setReason(String reason) {
+    BillyValidator.notBlank(reason,
+        PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
+    this.getTypeInstance().setReason(reason);
+    return this.getBuilder();
+  }
+
+  @Override
+  protected void validateInstance() throws BillyValidationException {
+    getTypeInstance().setCreditOrDebit(CreditOrDebit.DEBIT);
+
+    super.validateInstance();
+    PTCreditNoteEntryEntity cn = this.getTypeInstance();
+    BillyValidator.mandatory(cn.getReference(),
+        PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+
+    BillyValidator.mandatory(cn.getReason(),
+        PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
+
+    this.ValidatePTCreditNoteEntry(cn);
+  }
+
+  private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
+    if (daoEntry.checkCreditNote(cn.getReference()) != null) {
+      throw new DuplicateCreditNoteException();
     }
+  }
 
-    @Override
-    @NotOnUpdate
-    public TBuilder setReferenceUID(UID referenceUID) {
-        BillyValidator.notNull(referenceUID,
-                PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
-        PTInvoiceEntity i = (PTInvoiceEntity) this.daoGenericInvoice.get(referenceUID);
-        BillyValidator.found(i, PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
-        this.getTypeInstance().setReference(i);
-        return this.getBuilder();
-    }
-
-    @Override
-    @NotOnUpdate
-    public TBuilder setReason(String reason) {
-        BillyValidator.notBlank(reason, PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
-        this.getTypeInstance().setReason(reason);
-        return this.getBuilder();
-    }
-
-    @Override
-    protected void validateInstance() throws BillyValidationException {
-        this.getTypeInstance().setCreditOrDebit(CreditOrDebit.DEBIT);
-
-        super.validateInstance();
-        PTCreditNoteEntryEntity cn = this.getTypeInstance();
-        BillyValidator.mandatory(cn.getReference(),
-                PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
-
-        BillyValidator.mandatory(cn.getReason(), PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
-
-        this.ValidatePTCreditNoteEntry(cn);
-    }
-
-    private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
-        DAOPTCreditNoteEntry daoPTCreditNoteEntry = (DAOPTCreditNoteEntry) this.daoEntry;
-
-        if (daoPTCreditNoteEntry.checkCreditNote(cn.getReference()) != null) {
-            throw new DuplicateCreditNoteException();
-        }
-    }
-
-    @Override
-    protected PTCreditNoteEntryEntity getTypeInstance() {
-        return (PTCreditNoteEntryEntity) super.getTypeInstance();
-    }
+  @Override
+  protected PTCreditNoteEntryEntity getTypeInstance() {
+    return (PTCreditNoteEntryEntity) super.getTypeInstance();
+  }
 
 }

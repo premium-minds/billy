@@ -23,78 +23,78 @@ import java.util.Date;
 import java.util.List;
 
 public class GenericInvoiceData {
+	
+	private final String number;
+	private final Date date;
+	private final Date settlementDate;
+	private final List<PaymentData> payments;
+	private final CostumerData customer;
+	private final BusinessData business;
+	private final List<InvoiceEntryData> entries;
+	private final BigDecimal taxAmount;
+	private final BigDecimal amountWithTax;
+	private final BigDecimal amountWithoutTax;
+	private final String settlementDescription;
+	
+	public GenericInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
+			CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
+			BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+		
+		this.number = number;
+		this.date = date;
+		this.settlementDate = settlementDate;
+		this.payments = payments;
+		this.customer = customer;
+		this.business = business;
+		this.entries = entries;
+		this.taxAmount = taxAmount;
+		this.amountWithTax = amountWithTax;
+		this.amountWithoutTax = amountWithoutTax;
+		this.settlementDescription = settlementDescription;
+	}
 
-    private final String number;
-    private final Date date;
-    private final Date settlementDate;
-    private final List<PaymentData> payments;
-    private final CostumerData customer;
-    private final BusinessData business;
-    private final List<InvoiceEntryData> entries;
-    private final BigDecimal taxAmount;
-    private final BigDecimal amountWithTax;
-    private final BigDecimal amountWithoutTax;
-    private final String settlementDescription;
+	public String getNumber() {
+		return number;
+	}
 
-    public GenericInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+	public Date getDate() {
+		return date;
+	}
 
-        this.number = number;
-        this.date = date;
-        this.settlementDate = settlementDate;
-        this.payments = payments;
-        this.customer = customer;
-        this.business = business;
-        this.entries = entries;
-        this.taxAmount = taxAmount;
-        this.amountWithTax = amountWithTax;
-        this.amountWithoutTax = amountWithoutTax;
-        this.settlementDescription = settlementDescription;
-    }
+	public Date getSettlementDate() {
+		return settlementDate;
+	}
 
-    public String getNumber() {
-        return this.number;
-    }
+	public List<PaymentData> getPayments() {
+		return payments;
+	}
 
-    public Date getDate() {
-        return this.date;
-    }
+	public CostumerData getCustomer() {
+		return customer;
+	}
 
-    public Date getSettlementDate() {
-        return this.settlementDate;
-    }
+	public BusinessData getBusiness() {
+		return business;
+	}
 
-    public List<PaymentData> getPayments() {
-        return this.payments;
-    }
+	public List<? extends InvoiceEntryData> getEntries() {
+		return entries;
+	}
 
-    public CostumerData getCustomer() {
-        return this.customer;
-    }
+	public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
 
-    public BusinessData getBusiness() {
-        return this.business;
-    }
+	public BigDecimal getAmountWithTax() {
+		return amountWithTax;
+	}
 
-    public List<? extends InvoiceEntryData> getEntries() {
-        return this.entries;
-    }
+	public BigDecimal getAmountWithoutTax() {
+		return amountWithoutTax;
+	}
 
-    public BigDecimal getTaxAmount() {
-        return this.taxAmount;
-    }
-
-    public BigDecimal getAmountWithTax() {
-        return this.amountWithTax;
-    }
-
-    public BigDecimal getAmountWithoutTax() {
-        return this.amountWithoutTax;
-    }
-
-    public String getSettlementDescription() {
-        return this.settlementDescription;
-    }
-
+	public String getSettlementDescription() {
+		return settlementDescription;
+	}
+	
 }

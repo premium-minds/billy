@@ -29,42 +29,44 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 import com.premiumminds.billy.core.util.DiscountType;
 
 public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
-        extends Builder<TEntry> {
+	extends Builder<TEntry> {
 
-    public static enum AmountType {
-        WITH_TAX, WITHOUT_TAX
-    }
+	public static enum AmountType {
+		WITH_TAX, WITHOUT_TAX
+	}
 
-    public <T extends ShippingPoint> TBuilder setShippingOrigin(Builder<T> originBuilder);
+	public <T extends ShippingPoint> TBuilder setShippingOrigin(
+			Builder<T> originBuilder);
 
-    public <T extends ShippingPoint> TBuilder setShippingDestination(Builder<T> destinationBuilder);
+	public <T extends ShippingPoint> TBuilder setShippingDestination(
+			Builder<T> destinationBuilder);
 
-    public TBuilder setProductUID(UID productUID);
+	public TBuilder setProductUID(UID productUID);
 
-    public TBuilder setQuantity(BigDecimal quantity);
+	public TBuilder setQuantity(BigDecimal quantity);
 
-    public TBuilder setUnitAmount(AmountType type, BigDecimal amount);
+	public TBuilder setUnitAmount(AmountType type, BigDecimal amount);
 
-    public TBuilder setUnitOfMeasure(String unit);
+	public TBuilder setUnitOfMeasure(String unit);
 
-    public TBuilder setTaxPointDate(Date date);
+	public TBuilder setTaxPointDate(Date date);
 
-    public TBuilder addDocumentReferenceUID(UID referenceUID);
+	public TBuilder addDocumentReferenceUID(UID referenceUID);
 
-    public TBuilder setDescription(String description);
+	public TBuilder setDescription(String description);
 
-    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
+//	public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
 
-    public TBuilder setShippingCostsAmount(BigDecimal amount);
+	public TBuilder setShippingCostsAmount(BigDecimal amount);
 
-    public TBuilder setContextUID(UID uidContext);
+	public TBuilder setContextUID(UID uidContext);
 
-    public TBuilder setTaxExemptionReason(String exemptionReason);
+	public TBuilder setTaxExemptionReason(String exemptionReason);
 
-    public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
+	public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 
-    public TBuilder setAmountType(AmountType type);
-
-    public TBuilder setCurrency(Currency currency);
+	public TBuilder setAmountType(AmountType type);
+	
+	public TBuilder setCurrency(Currency currency);
 
 }

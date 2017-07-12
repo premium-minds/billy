@@ -32,13 +32,14 @@ import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CREDIT_RECEIPT")
-public class JPAESCreditReceiptEntity extends JPAESGenericInvoiceEntity implements ESCreditReceiptEntity {
+public class JPAESCreditReceiptEntity extends JPAESGenericInvoiceEntity implements
+	ESCreditReceiptEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    @SuppressWarnings({ "unchecked" })
-    @Override
-    public List<ESCreditReceiptEntry> getEntries() {
-        return (List<ESCreditReceiptEntry>) super.getEntries();
-    }
+	@SuppressWarnings({ "unchecked" })
+	@Override
+	public List<ESCreditReceiptEntry> getEntries() {
+		return (List<ESCreditReceiptEntry>) super.getEntries();
+	}
 }

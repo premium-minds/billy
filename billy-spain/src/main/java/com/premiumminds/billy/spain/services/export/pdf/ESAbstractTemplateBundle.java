@@ -23,44 +23,46 @@ import java.io.InputStream;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractTemplateBundle;
 
-public abstract class ESAbstractTemplateBundle extends AbstractTemplateBundle implements ESTemplateBundle {
+public abstract class ESAbstractTemplateBundle extends AbstractTemplateBundle 
+	implements ESTemplateBundle {
 
-    public ESAbstractTemplateBundle(String logoImagePath, InputStream xsltFileStream) {
-        super(logoImagePath, xsltFileStream);
-    }
+	public ESAbstractTemplateBundle(String logoImagePath,
+			InputStream xsltFileStream) {
+		super(logoImagePath, xsltFileStream);
+	}
 
-    @Override
-    public String getPaymentMechanismTranslation(Enum<?> pmc) {
-        if (null == pmc) {
-            return null;
-        }
-        PaymentMechanism payment = (PaymentMechanism) pmc;
-        switch (payment) {
-            case BANK_TRANSFER:
-                return ESTemplateBundle.BANK_TRANSFER_TEXT;
-            case CASH:
-                return ESTemplateBundle.CASH_TEXT;
-            case CREDIT_CARD:
-                return ESTemplateBundle.CREDIT_CARD_TEXT;
-            case CHECK:
-                return ESTemplateBundle.CHECK_TEXT;
-            case DEBIT_CARD:
-                return ESTemplateBundle.DEBIT_CARD_TEXT;
-            case COMPENSATION:
-                return ESTemplateBundle.COMPENSATION_TEXT;
-            case COMMERCIAL_LETTER:
-                return ESTemplateBundle.COMMERCIAL_LETTER_TEXT;
-            case ATM:
-                return ESTemplateBundle.ATM_TEXT;
-            case RESTAURANT_TICKET:
-                return ESTemplateBundle.RESTAURANT_TICKET_TEXT;
-            case EXCHANGE:
-                return ESTemplateBundle.EXCHANGE_TEXT;
-            case ELECTRONIC_MONEY:
-                return ESTemplateBundle.ELECTRONIC_MONEY_TEXT;
-            default:
-                return null;
-        }
-    }
+	@Override
+	public String getPaymentMechanismTranslation(Enum<?> pmc) {
+		if (null == pmc) {
+			return null;
+		}
+		PaymentMechanism payment = (PaymentMechanism) pmc;
+		switch (payment) {
+		case BANK_TRANSFER:
+			return BANK_TRANSFER_TEXT;
+		case CASH:
+			return CASH_TEXT;
+		case CREDIT_CARD:
+			return CREDIT_CARD_TEXT;
+		case CHECK:
+			return CHECK_TEXT;
+		case DEBIT_CARD:
+			return DEBIT_CARD_TEXT;
+		case COMPENSATION:
+			return COMPENSATION_TEXT;
+		case COMMERCIAL_LETTER:
+			return COMMERCIAL_LETTER_TEXT;
+		case ATM:
+			return ATM_TEXT;
+		case RESTAURANT_TICKET:
+			return RESTAURANT_TICKET_TEXT;
+		case EXCHANGE:
+			return EXCHANGE_TEXT;
+		case ELECTRONIC_MONEY:
+			return ELECTRONIC_MONEY_TEXT;
+		default:
+			return null;
+		}
+	}
 
 }

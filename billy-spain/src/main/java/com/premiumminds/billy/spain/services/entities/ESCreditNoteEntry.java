@@ -30,25 +30,34 @@ import com.premiumminds.billy.spain.services.builders.impl.ESManualCreditNoteEnt
 
 public interface ESCreditNoteEntry extends ESGenericInvoiceEntry {
 
-    public static class Builder extends ESCreditNoteEntryBuilderImpl<Builder, ESCreditNoteEntry> {
+	public static class Builder extends
+		ESCreditNoteEntryBuilderImpl<Builder, ESCreditNoteEntry> {
 
-        @Inject
-        public Builder(DAOESCreditNoteEntry daoESCreditNoteEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
-                DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
-            super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
-        }
-    }
+		@Inject
+		public Builder(DAOESCreditNoteEntry daoESCreditNoteEntry,
+						DAOESInvoice daoESInvoice, DAOESTax daoESTax,
+						DAOESProduct daoESProduct,
+						DAOESRegionContext daoESRegionContext) {
+			super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct,
+					daoESRegionContext);
+		}
+	}
+	
+	public static class ManualBuilder extends
+		ESManualCreditNoteEntryBuilderImpl<ManualBuilder, ESCreditNoteEntry> {
+	
+		@Inject
+		public ManualBuilder(DAOESCreditNoteEntry daoESCreditNoteEntry,
+				DAOESInvoice daoESInvoice, DAOESTax daoESTax,
+				DAOESProduct daoESProduct,
+				DAOESRegionContext daoESRegionContext) {
+			super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct,
+					daoESRegionContext);
+		}
+	}
+	 
 
-    public static class ManualBuilder extends ESManualCreditNoteEntryBuilderImpl<ManualBuilder, ESCreditNoteEntry> {
+	public ESInvoice getReference();
 
-        @Inject
-        public ManualBuilder(DAOESCreditNoteEntry daoESCreditNoteEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
-                DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {
-            super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
-        }
-    }
-
-    public ESInvoice getReference();
-
-    public String getReason();
+	public String getReason();
 }

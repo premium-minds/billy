@@ -31,16 +31,17 @@ import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "REGION_CONTEXT")
-public class JPAESRegionContextEntity extends JPAContextEntity implements ESRegionContextEntity {
+public class JPAESRegionContextEntity extends JPAContextEntity implements
+	ESRegionContextEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    public JPAESRegionContextEntity() {
-    }
+	public JPAESRegionContextEntity() {
+	}
 
-    @Override
-    public ESRegionContext getParentContext() {
-        return (ESRegionContext) super.getParentContext();
-    }
+	@Override
+	public ESRegionContext getParentContext() {
+		return (ESRegionContext) super.getParentContext();
+	}
 
 }

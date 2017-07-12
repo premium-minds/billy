@@ -45,182 +45,219 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 
-    private DocumentIssuingService service;
+	private DocumentIssuingService	service;
 
-    @Before
-    public void setUp() {
+	@Before
+	public void setUp() {
 
-        this.service = PTAbstractTest.injector.getInstance(DocumentIssuingServiceImpl.class);
-        this.service.addHandler(PTInvoiceEntity.class,
-                PTAbstractTest.injector.getInstance(PTInvoiceIssuingHandler.class));
-        this.parameters.setInvoiceSeries("A");
-    }
+		this.service = injector.getInstance(DocumentIssuingServiceImpl.class);
+		this.service.addHandler(PTInvoiceEntity.class, PTAbstractTest.injector
+				.getInstance(PTInvoiceIssuingHandler.class));
+		this.parameters.setInvoiceSeries("A");
+	}
 
-    class TestRunner implements Callable<PTInvoice> {
+	class TestRunner implements Callable<PTInvoice> {
 
-        private Injector injector;
-        private String series;
-        private PTBusinessEntity business;
+		private Injector			injector;
+		private String				series;
+		private PTBusinessEntity	business;
 
-        public TestRunner(Injector inject, String series, PTBusinessEntity business) {
-            this.injector = inject;
-            this.series = series;
-            this.business = business;
-        }
+		public TestRunner(Injector inject, String series,
+							PTBusinessEntity business) {
+			this.injector = inject;
+			this.series = series;
+			this.business = business;
+		}
 
-        @Override
-        public PTInvoice call() throws Exception {
-            TestConcurrentIssuing.this.parameters.setInvoiceSeries(this.series);
-            try {
-                PTInvoice invoice = TestConcurrentIssuing.this.service.issue(
-                        new PTInvoiceTestUtil(this.injector).getInvoiceBuilder(this.business, SourceBilling.P),
-                        TestConcurrentIssuing.this.parameters);
-                return invoice;
-            } catch (DocumentIssuingException e) {
-                System.out.println(e.getMessage());
-                return null;
-            }
-        }
-    }
+		@Override
+		public PTInvoice call() throws Exception {
+			TestConcurrentIssuing.this.parameters.setInvoiceSeries(this.series);
+			try {
+				PTInvoice invoice = TestConcurrentIssuing.this.service.issue(
+						new PTInvoiceTestUtil(this.injector).getInvoiceBuilder(
+								this.business, SourceBilling.P),
+						TestConcurrentIssuing.this.parameters);
+				return invoice;
+			} catch (DocumentIssuingException e) {
+				System.out.println(e.getMessage());
+				return null;
+			}
+		}
+	}
 
-    @Test
-    public void testConcurrentIssuing() throws InterruptedException, ExecutionException {
-        ConcurrentTestUtil test = new ConcurrentTestUtil(10);
-        String B1 = "Business 1";
-        PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B1);
-        String B2 = "Business 2";
-        PTBusinessEntity businessEntity2 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B2);
+	@Test
+	public void testConcurrentIssuing() throws InterruptedException,
+		ExecutionException {
+		ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+		String B1 = "Business 1";
+		PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(injector)
+				.getBusinessEntity(B1);
+		String B2 = "Business 2";
+		PTBusinessEntity businessEntity2 = new PTBusinessTestUtil(injector)
+				.getBusinessEntity(B2);
 
-        List<Future<?>> results1 = test.runThreads(new TestRunner(PTAbstractTest.injector, "A", businessEntity1));
+		List<Future<?>> results1 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "A", businessEntity1));
 
-        List<PTInvoice> invoices1 = this.executeThreads(results1);
+		List<PTInvoice> invoices1 = this.executeThreads(results1);
 
-        List<Future<?>> results2 = test.runThreads(new TestRunner(PTAbstractTest.injector, "A", businessEntity2));
+		List<Future<?>> results2 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "A", businessEntity2));
 
-        List<PTInvoice> invoices2 = this.executeThreads(results2);
+		List<PTInvoice> invoices2 = this.executeThreads(results2);
 
-        if (invoices1.isEmpty() || invoices2.isEmpty()) {
-            Assert.fail(((invoices1.isEmpty()) ? "Invoice1" : "Invoice2") + " is empty!");
-        }
+		if (invoices1.isEmpty() || invoices2.isEmpty()) {
+			Assert.fail(((invoices1.isEmpty()) ? "Invoice1" : "Invoice2")
+					+ " is empty!");
+		}
 
-        PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
-        PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertNotNull(entity1);
-        Assert.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
-        Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+		PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
+		PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("A", B1);
+		Assert.assertNotNull(entity1);
+		Assert.assertEquals(entity1.getSeriesNumber(),
+				latestInvoice1.getSeriesNumber());
+		Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
 
-        PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
-        PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B2);
-        Assert.assertNotNull(entity2);
-        Assert.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
-        Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
-    }
+		PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
+		PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("A", B2);
+		Assert.assertNotNull(entity2);
+		Assert.assertEquals(entity2.getSeriesNumber(),
+				latestInvoice2.getSeriesNumber());
+		Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+	}
 
-    @Test
-    public void testConcurrentIssuing2() throws InterruptedException, ExecutionException {
-        String B1 = "Business 1";
-        PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B1);
-        ConcurrentTestUtil test = new ConcurrentTestUtil(10);
-        List<Future<?>> results1 = test.runThreads(new TestRunner(PTAbstractTest.injector, "A", businessEntity1));
-        List<Future<?>> results2 = test.runThreads(new TestRunner(PTAbstractTest.injector, "A", businessEntity1));
+	@Test
+	public void testConcurrentIssuing2() throws InterruptedException,
+		ExecutionException {
+		String B1 = "Business 1";
+		PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(injector)
+				.getBusinessEntity(B1);
+		ConcurrentTestUtil test = new ConcurrentTestUtil(10);
+		List<Future<?>> results1 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "A", businessEntity1));
+		List<Future<?>> results2 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "A", businessEntity1));
 
-        List<PTInvoice> invoices1 = this.executeThreads(results1);
-        List<PTInvoice> invoices2 = this.executeThreads(results2);
+		List<PTInvoice> invoices1 = this.executeThreads(results1);
+		List<PTInvoice> invoices2 = this.executeThreads(results2);
 
-        PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
-        PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
+		PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
+		PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
 
-        Integer latestInvoiceNumber = (entity1.getSeriesNumber() < entity2.getSeriesNumber())
-                ? entity2.getSeriesNumber() : entity1.getSeriesNumber();
+		Integer latestInvoiceNumber = (entity1.getSeriesNumber() < entity2
+				.getSeriesNumber()) ? entity2.getSeriesNumber() : entity1
+				.getSeriesNumber();
 
-        PTInvoiceEntity latestInvocie = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertEquals(latestInvoiceNumber, latestInvocie.getSeriesNumber());
-    }
+		PTInvoiceEntity latestInvocie = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("A", B1);
+		Assert.assertEquals(latestInvoiceNumber,
+				latestInvocie.getSeriesNumber());
+	}
 
-    @Test
-    public void testDifferenteBusinessAndSeries() throws InterruptedException, ExecutionException {
-        ConcurrentTestUtil test = new ConcurrentTestUtil(30);
-        String B1 = "Business 1";
-        PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B1);
-        String B2 = "Business 2";
-        PTBusinessEntity businessEntity2 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B2);
+	@Test
+	public void testDifferenteBusinessAndSeries() throws InterruptedException,
+		ExecutionException {
+		ConcurrentTestUtil test = new ConcurrentTestUtil(30);
+		String B1 = "Business 1";
+		PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(injector)
+				.getBusinessEntity(B1);
+		String B2 = "Business 2";
+		PTBusinessEntity businessEntity2 = new PTBusinessTestUtil(injector)
+				.getBusinessEntity(B2);
 
-        List<Future<?>> results1 = test.runThreads(new TestRunner(PTAbstractTest.injector, "A", businessEntity1));
+		List<Future<?>> results1 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "A", businessEntity1));
 
-        List<PTInvoice> invoices1 = this.executeThreads(results1);
+		List<PTInvoice> invoices1 = this.executeThreads(results1);
 
-        List<Future<?>> results2 = test.runThreads(new TestRunner(PTAbstractTest.injector, "B", businessEntity2));
+		List<Future<?>> results2 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "B", businessEntity2));
 
-        List<PTInvoice> invoices2 = this.executeThreads(results2);
+		List<PTInvoice> invoices2 = this.executeThreads(results2);
 
-        PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
-        PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
-        Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+		PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
+		PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("A", B1);
+		Assert.assertEquals(entity1.getSeriesNumber(),
+				latestInvoice1.getSeriesNumber());
+		Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
 
-        PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
-        PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("B", B2);
-        Assert.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
-        Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+		PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
+		PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("B", B2);
+		Assert.assertEquals(entity2.getSeriesNumber(),
+				latestInvoice2.getSeriesNumber());
+		Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
 
-    }
+	}
 
-    @Test
-    public void testMultipleSeriesIssuing() throws InterruptedException, ExecutionException {
-        String B1 = "Business 1";
-        PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B1);
-        Integer totalThreads = 10;
-        ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);
+	@Test
+	public void testMultipleSeriesIssuing() throws InterruptedException,
+		ExecutionException {
+		String B1 = "Business 1";
+		PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(injector)
+				.getBusinessEntity(B1);
+		Integer totalThreads = 10;
+		ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);
 
-        List<Future<?>> results1 = test.runThreads(new TestRunner(PTAbstractTest.injector, "A", businessEntity1));
-        List<Future<?>> results2 = test.runThreads(new TestRunner(PTAbstractTest.injector, "B", businessEntity1));
-        List<Future<?>> results3 = test.runThreads(new TestRunner(PTAbstractTest.injector, "C", businessEntity1));
+		List<Future<?>> results1 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "A", businessEntity1));
+		List<Future<?>> results2 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "B", businessEntity1));
+		List<Future<?>> results3 = test.runThreads(new TestRunner(
+				PTAbstractTest.injector, "C", businessEntity1));
 
-        List<PTInvoice> invoices1 = this.executeThreads(results1);
-        List<PTInvoice> invoices2 = this.executeThreads(results2);
-        List<PTInvoice> invoices3 = this.executeThreads(results3);
+		List<PTInvoice> invoices1 = this.executeThreads(results1);
+		List<PTInvoice> invoices2 = this.executeThreads(results2);
+		List<PTInvoice> invoices3 = this.executeThreads(results3);
 
-        PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertEquals(this.filterNotNull(invoices1).size(), latestInvoice1.getSeriesNumber().intValue());
-        PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("B", B1);
-        Assert.assertEquals(this.filterNotNull(invoices2).size(), latestInvoice2.getSeriesNumber().intValue());
-        PTInvoiceEntity latestInvoice3 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("C", B1);
-        Assert.assertEquals(this.filterNotNull(invoices3).size(), latestInvoice3.getSeriesNumber().intValue());
+		PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("A", B1);
+		Assert.assertEquals(filterNotNull(invoices1).size(), latestInvoice1.getSeriesNumber().intValue());
+		PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("B", B1);
+		Assert.assertEquals(filterNotNull(invoices2).size(), latestInvoice2.getSeriesNumber().intValue());
+		PTInvoiceEntity latestInvoice3 = this.getInstance(DAOPTInvoice.class)
+				.getLatestInvoiceFromSeries("C", B1);
+		Assert.assertEquals(filterNotNull(invoices3).size(), latestInvoice3.getSeriesNumber().intValue());
 
-    }
+	}
 
-    private PTInvoiceEntity getLatestInvoice(List<PTInvoice> invoices) {
-        int lastSeriesNumber = 0;
-        PTInvoiceEntity entity = null;
-        for (PTInvoice invoice : invoices) {
-            if (lastSeriesNumber < invoice.getSeriesNumber()) {
-                lastSeriesNumber = invoice.getSeriesNumber();
-                entity = (PTInvoiceEntity) invoice;
-            }
-        }
-        return entity;
-    }
+	private PTInvoiceEntity getLatestInvoice(List<PTInvoice> invoices) {
+		int lastSeriesNumber = 0;
+		PTInvoiceEntity entity = null;
+		for (PTInvoice invoice : invoices) {
+			if (lastSeriesNumber < invoice.getSeriesNumber()) {
+				lastSeriesNumber = invoice.getSeriesNumber();
+				entity = (PTInvoiceEntity) invoice;
+			}
+		}
+		return entity;
+	}
 
-    private List<PTInvoice> executeThreads(List<Future<?>> results) throws InterruptedException, ExecutionException {
-        List<PTInvoice> invoices = new ArrayList<>();
+	private List<PTInvoice> executeThreads(List<Future<?>> results)
+		throws InterruptedException, ExecutionException {
+		List<PTInvoice> invoices = new ArrayList<PTInvoice>();
 
-        for (int i = 0; i < results.size(); i++) {
-            PTInvoice invoice = (PTInvoice) results.get(i).get();
-            if (invoice != null) {
-                invoices.add(invoice);
-            }
-        }
-        return invoices;
-    }
-
-    private <T> List<T> filterNotNull(List<T> in) {
-        List<T> out = new ArrayList<>();
-        for (T e : in) {
-            if (null != e) {
-                out.add(e);
-            }
-        }
-        return out;
-    }
+		for (int i = 0; i < results.size(); i++) {
+			PTInvoice invoice = (PTInvoice) results.get(i).get();
+			if (invoice != null) {
+				invoices.add(invoice);
+			}
+		}
+		return invoices;
+	}
+	
+	private <T> List<T> filterNotNull(List<T> in){
+		List<T> out = new ArrayList<T>();
+		for(T e : in){
+			if(null != e){
+				out.add(e);
+			}
+		}
+		return out;
+	}
 
 }

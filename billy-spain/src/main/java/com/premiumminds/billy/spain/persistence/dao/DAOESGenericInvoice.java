@@ -18,15 +18,8 @@
  */
 package com.premiumminds.billy.spain.persistence.dao;
 
-import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 
-public interface DAOESGenericInvoice extends DAOGenericInvoice {
-
-    @Override
-    public ESGenericInvoiceEntity getEntityInstance();
-
-    public <T extends ESGenericInvoiceEntity> T findByNumber(UID uidBusiness, String number);
+public interface DAOESGenericInvoice extends AbstractDAOESGenericInvoice<ESGenericInvoiceEntity> {
 
 }

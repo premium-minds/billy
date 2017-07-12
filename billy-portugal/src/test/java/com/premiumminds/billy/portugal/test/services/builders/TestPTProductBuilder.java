@@ -36,40 +36,55 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity;
 
 public class TestPTProductBuilder extends PTAbstractTest {
 
-    private static final String PTPRODUCT_YML = AbstractTest.YML_CONFIGS_DIR + "PTProduct.yml";
+	private static final String	PTPRODUCT_YML	= AbstractTest.YML_CONFIGS_DIR
+														+ "PTProduct.yml";
 
-    @Test
-    public void doTest() {
+	@Test
+	public void doTest() {
 
-        MockPTProductEntity mockProduct =
-                this.createMockEntity(MockPTProductEntity.class, TestPTProductBuilder.PTPRODUCT_YML);
+		MockPTProductEntity mockProduct = this.createMockEntity(
+				MockPTProductEntity.class, TestPTProductBuilder.PTPRODUCT_YML);
 
-        Mockito.when(this.getInstance(DAOPTProduct.class).getEntityInstance()).thenReturn(new MockPTProductEntity());
+		Mockito.when(this.getInstance(DAOPTProduct.class).getEntityInstance())
+				.thenReturn(new MockPTProductEntity());
 
-        for (TaxEntity tax : mockProduct.getTaxes()) {
-            tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOPTTax.class).get(Matchers.any(UID.class))).thenReturn(tax);
-        }
+		for (TaxEntity tax : mockProduct.getTaxes()) {
+			tax.setCurrency(Currency.getInstance("EUR"));
+			Mockito.when(
+					this.getInstance(DAOPTTax.class).get(
+							Matchers.any(UID.class))).thenReturn(tax);
+		}
 
-        PTProduct.Builder builder = this.getInstance(PTProduct.Builder.class);
+		PTProduct.Builder builder = this.getInstance(PTProduct.Builder.class);
 
-        builder.addTaxUID(mockProduct.getTaxes().get(0).getUID()).setCommodityCode(mockProduct.getCommodityCode())
-                .setDescription(mockProduct.getDescription()).setNumberCode(mockProduct.getNumberCode())
-                .setProductCode(mockProduct.getProductCode()).setProductGroup(mockProduct.getProductGroup())
-                .setType(mockProduct.getType()).setUnitOfMeasure(mockProduct.getUnitOfMeasure())
-                .setValuationMethod(mockProduct.getValuationMethod());
+		builder.addTaxUID(mockProduct.getTaxes().get(0).getUID())
+				.setCommodityCode(mockProduct.getCommodityCode())
+				.setDescription(mockProduct.getDescription())
+				.setNumberCode(mockProduct.getNumberCode())
+				.setProductCode(mockProduct.getProductCode())
+				.setProductGroup(mockProduct.getProductGroup())
+				.setType(mockProduct.getType())
+				.setUnitOfMeasure(mockProduct.getUnitOfMeasure())
+				.setValuationMethod(mockProduct.getValuationMethod());
 
-        PTProduct product = builder.build();
+		PTProduct product = builder.build();
 
-        Assert.assertTrue(product != null);
+		Assert.assertTrue(product != null);
 
-        Assert.assertEquals(mockProduct.getCommodityCode(), product.getCommodityCode());
-        Assert.assertEquals(mockProduct.getDescription(), product.getDescription());
-        Assert.assertEquals(mockProduct.getNumberCode(), product.getNumberCode());
-        Assert.assertEquals(mockProduct.getProductCode(), product.getProductCode());
-        Assert.assertEquals(mockProduct.getProductGroup(), product.getProductGroup());
-        Assert.assertEquals(mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
-        Assert.assertEquals(mockProduct.getValuationMethod(), product.getValuationMethod());
-    }
+		Assert.assertEquals(mockProduct.getCommodityCode(),
+				product.getCommodityCode());
+		Assert.assertEquals(mockProduct.getDescription(),
+				product.getDescription());
+		Assert.assertEquals(mockProduct.getNumberCode(),
+				product.getNumberCode());
+		Assert.assertEquals(mockProduct.getProductCode(),
+				product.getProductCode());
+		Assert.assertEquals(mockProduct.getProductGroup(),
+				product.getProductGroup());
+		Assert.assertEquals(mockProduct.getUnitOfMeasure(),
+				product.getUnitOfMeasure());
+		Assert.assertEquals(mockProduct.getValuationMethod(),
+				product.getValuationMethod());
+	}
 
 }

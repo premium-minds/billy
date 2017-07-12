@@ -20,6 +20,6 @@ package com.premiumminds.billy.core.services.entities.util;
 
 public interface EntityFactory<T> {
 
-    public T getEntityInstance();
+	public T getEntityInstance();
 
 }

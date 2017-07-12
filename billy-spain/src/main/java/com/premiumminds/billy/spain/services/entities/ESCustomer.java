@@ -27,13 +27,14 @@ import com.premiumminds.billy.spain.services.builders.impl.ESCustomerBuilderImpl
 
 public interface ESCustomer extends Customer {
 
-    public static class Builder extends ESCustomerBuilderImpl<Builder, ESCustomer> {
+	public static class Builder extends
+		ESCustomerBuilderImpl<Builder, ESCustomer> {
 
-        @Inject
-        public Builder(DAOESCustomer daoESCustomer, DAOESContact daoESContact) {
-            super(daoESCustomer, daoESContact);
-        }
-    }
+		@Inject
+		public Builder(DAOESCustomer daoESCustomer, DAOESContact daoESContact) {
+			super(daoESCustomer, daoESContact);
+		}
+	}
 
-    public String getReferralName();
+	public String getReferralName();
 }

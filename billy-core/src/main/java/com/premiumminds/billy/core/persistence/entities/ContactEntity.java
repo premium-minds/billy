@@ -22,16 +22,16 @@ import com.premiumminds.billy.core.services.entities.Contact;
 
 public interface ContactEntity extends Contact, BaseEntity {
 
-    public void setName(String name);
+	public void setName(String name);
 
-    public void setTelephone(String telephone);
+	public void setTelephone(String telephone);
 
-    public void setMobile(String mobile);
+	public void setMobile(String mobile);
 
-    public void setFax(String fax);
+	public void setFax(String fax);
 
-    public void setEmail(String email);
+	public void setEmail(String email);
 
-    public void setWebsite(String website);
+	public void setWebsite(String website);
 
 }

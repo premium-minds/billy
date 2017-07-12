@@ -37,40 +37,41 @@ import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
 
 public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
-    private String DEFAULT_SERIES = INVOICE_TYPE.FS + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+	private String DEFAULT_SERIES = INVOICE_TYPE.FS + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+	
+	private ESSimpleInvoiceIssuingHandler handler;
+	private UID issuedInvoiceUID;
 
-    private ESSimpleInvoiceIssuingHandler handler;
-    private UID issuedInvoiceUID;
+	@Before
+	public void setUpNewSimpleInvoice() {
+		this.handler = this.getInstance(ESSimpleInvoiceIssuingHandler.class);
 
-    @Before
-    public void setUpNewSimpleInvoice() {
-        this.handler = this.getInstance(ESSimpleInvoiceIssuingHandler.class);
+		try {
+			ESSimpleInvoiceEntity invoice = this.newInvoice(
+					INVOICE_TYPE.FS, 
+					SOURCE_BILLING.APPLICATION);
 
-        try {
-            ESSimpleInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FS, SOURCE_BILLING.APPLICATION);
+			this.issueNewInvoice(this.handler, invoice, DEFAULT_SERIES);
+			this.issuedInvoiceUID = invoice.getUID();
+		} catch (DocumentIssuingException e) {
+			e.printStackTrace();
+		}
+	}
 
-            this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
-            this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException e) {
-            e.printStackTrace();
-        }
-    }
+	@Test
+	public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+		ESSimpleInvoice issuedInvoice = (ESSimpleInvoice) this.getInstance(
+				DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
 
-    @Test
-    public void testIssuedInvoiceSimple() throws DocumentIssuingException {
-        ESSimpleInvoice issuedInvoice =
-                (ESSimpleInvoice) this.getInstance(DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
+		Assert.assertEquals(DEFAULT_SERIES, issuedInvoice.getSeries());
+		Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+		String formatedNumber = DEFAULT_SERIES + "/1";
+		Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+	}
 
-        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
-        String formatedNumber = this.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-    }
-
-    @Test(expected = BillySimpleInvoiceException.class)
-    public void testBusinessSimpleInvoice() {
-        ESSimpleInvoiceEntity invoice =
-                new ESSimpleInvoiceTestUtil(ESAbstractTest.injector).getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS);
-    }
+	@Test(expected=BillySimpleInvoiceException.class)
+	public void testBusinessSimpleInvoice() {
+		new ESSimpleInvoiceTestUtil(ESAbstractTest.injector).getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS);
+	}
 
 }

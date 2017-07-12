@@ -26,11 +26,12 @@ import com.premiumminds.billy.spain.services.builders.impl.ESShippingPointBuilde
 
 public interface ESShippingPoint extends ShippingPoint {
 
-    public static class Builder extends ESShippingPointBuilderImpl<Builder, ESShippingPoint> {
+	public static class Builder extends
+		ESShippingPointBuilderImpl<Builder, ESShippingPoint> {
 
-        @Inject
-        public Builder(DAOESShippingPoint daoESShippingPoint) {
-            super(daoESShippingPoint);
-        }
-    }
+		@Inject
+		public Builder(DAOESShippingPoint daoESShippingPoint) {
+			super(daoESShippingPoint);
+		}
+	}
 }

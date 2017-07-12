@@ -30,9 +30,9 @@ import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEn
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
-public class JPAESGenericInvoiceEntryEntity extends JPAGenericInvoiceEntryEntity
-        implements ESGenericInvoiceEntryEntity {
+public class JPAESGenericInvoiceEntryEntity extends
+	JPAGenericInvoiceEntryEntity implements ESGenericInvoiceEntryEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
 }

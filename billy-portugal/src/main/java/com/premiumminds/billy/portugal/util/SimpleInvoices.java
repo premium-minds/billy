@@ -40,56 +40,54 @@ import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersi
 
 public class SimpleInvoices {
 
-    private final Injector injector;
-    private final PTSimpleInvoicePersistenceService persistenceService;
-    private final DocumentIssuingService issuingService;
-    private final ExportService exportService;
+	private final Injector	injector;
+	private final PTSimpleInvoicePersistenceService persistenceService;
+	private final DocumentIssuingService issuingService;
+	private final ExportService exportService;
 
-    public SimpleInvoices(Injector injector) {
-        this.injector = injector;
-        this.persistenceService = this.getInstance(PTSimpleInvoicePersistenceService.class);
-        this.issuingService = injector.getInstance(DocumentIssuingService.class);
-        this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
-                this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
-        this.exportService = this.getInstance(ExportService.class);
+	public SimpleInvoices(Injector injector) {
+		this.injector = injector;
+		this.persistenceService = getInstance(PTSimpleInvoicePersistenceService.class);
+		this.issuingService = injector
+				.getInstance(DocumentIssuingService.class);
+		this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
+				this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
+		this.exportService = getInstance(ExportService.class);
+		
+		this.exportService.addDataExtractor(PTSimpleInvoiceData.class, getInstance(PTSimpleInvoiceDataExtractor.class));
+        this.exportService.addTransformerMapper(PTSimpleInvoicePDFExportRequest.class, PTSimpleInvoicePDFFOPTransformer.class);
+	}
 
-        this.exportService.addDataExtractor(PTSimpleInvoiceData.class,
-                this.getInstance(PTSimpleInvoiceDataExtractor.class));
-        this.exportService.addTransformerMapper(PTSimpleInvoicePDFExportRequest.class,
-                PTSimpleInvoicePDFFOPTransformer.class);
-    }
+	public PTSimpleInvoice.Builder builder() {
+		return getInstance(PTSimpleInvoice.Builder.class);
+	}
 
-    public PTSimpleInvoice.Builder builder() {
-        return this.getInstance(PTSimpleInvoice.Builder.class);
-    }
+	public PTSimpleInvoice.Builder builder(PTSimpleInvoice customer) {
+		PTSimpleInvoice.Builder builder = getInstance(PTSimpleInvoice.Builder.class);
+		BuilderManager.setTypeInstance(builder, customer);
+		return builder;
+	}
 
-    public PTSimpleInvoice.Builder builder(PTSimpleInvoice customer) {
-        PTSimpleInvoice.Builder builder = this.getInstance(PTSimpleInvoice.Builder.class);
-        BuilderManager.setTypeInstance(builder, customer);
-        return builder;
-    }
+	public PTSimpleInvoicePersistenceService persistence() {
+		return this.persistenceService;
+	}
 
-    public PTSimpleInvoicePersistenceService persistence() {
-        return this.persistenceService;
-    }
-
-    public PTSimpleInvoice issue(PTSimpleInvoice.Builder builder, PTIssuingParams params)
-            throws DocumentIssuingException {
-        return this.issuingService.issue(builder, params);
-    }
-
-    public InputStream pdfExport(PTSimpleInvoicePDFExportRequest request) throws ExportServiceException {
-        return this.exportService.exportToStream(request);
-    }
-
-    public <O> void pdfExport(UID uidDoc, BillyExportTransformer<PTSimpleInvoiceData, O> dataTransformer, O output)
+	public PTSimpleInvoice issue(PTSimpleInvoice.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
+		return issuingService.issue(builder, params);
+	}
+	
+	public InputStream pdfExport(PTSimpleInvoicePDFExportRequest  request) throws ExportServiceException {
+		return exportService.exportToStream(request);
+	}
+	
+	public <O> void pdfExport(UID uidDoc, BillyExportTransformer<PTSimpleInvoiceData, O> dataTransformer, O output) 
             throws ExportServiceException {
-
-        this.exportService.export(uidDoc, dataTransformer, output);
+        
+        exportService.export(uidDoc, dataTransformer, output);
     }
 
-    private <T> T getInstance(Class<T> clazz) {
-        return this.injector.getInstance(clazz);
-    }
+	private <T> T getInstance(Class<T> clazz) {
+		return this.injector.getInstance(clazz);
+	}
 
 }

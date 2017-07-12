@@ -45,81 +45,114 @@ import com.premiumminds.billy.spain.test.fixtures.MockESSimpleInvoiceEntity;
 
 public class TestESCreditNoteBuilder extends ESAbstractTest {
 
-    private static final String ES_CREDIT_NOTE_YML = AbstractTest.YML_CONFIGS_DIR + "ESCreditNote.yml";
-    private static final String ES_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "ESCreditNoteEntry.yml";
+	private static final String ES_CREDIT_NOTE_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESCreditNote.yml";
+	private static final String ES_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESCreditNoteEntry.yml";
 
-    private static final String ESCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "ESCustomer.yml";
+	private static final String ESCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESCustomer.yml";
 
-    private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "ESPayment.yml";
+	private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR
+			+ "ESPayment.yml";
 
-    @Test
-    public void doTest() {
-        MockESCreditNoteEntity mock =
-                this.createMockEntity(MockESCreditNoteEntity.class, TestESCreditNoteBuilder.ES_CREDIT_NOTE_YML);
+	@Test
+	public void doTest() {
+		MockESCreditNoteEntity mock = this.createMockEntity(
+				MockESCreditNoteEntity.class,
+				TestESCreditNoteBuilder.ES_CREDIT_NOTE_YML);
 
-        mock.setCurrency(Currency.getInstance("EUR"));
+		mock.setCurrency(Currency.getInstance("EUR"));
 
-        MockESCustomerEntity mockCustomerEntity =
-                this.createMockEntity(MockESCustomerEntity.class, TestESCreditNoteBuilder.ESCUSTOMER_YML);
+		MockESCustomerEntity mockCustomerEntity = this.createMockEntity(
+				MockESCustomerEntity.class, ESCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+		Mockito.when(
+				this.getInstance(DAOESCustomer.class).get(
+						Matchers.any(UID.class)))
+				.thenReturn(mockCustomerEntity);
 
-        Mockito.when(this.getInstance(DAOESSimpleInvoice.class).getEntityInstance())
-                .thenReturn(new MockESSimpleInvoiceEntity());
+		Mockito.when(
+				this.getInstance(DAOESSimpleInvoice.class).getEntityInstance())
+				.thenReturn(new MockESSimpleInvoiceEntity());
 
-        Mockito.when(this.getInstance(DAOESCreditNote.class).getEntityInstance())
-                .thenReturn(new MockESCreditNoteEntity());
+		Mockito.when(
+				this.getInstance(DAOESCreditNote.class).getEntityInstance())
+				.thenReturn(new MockESCreditNoteEntity());
 
-        MockESCreditNoteEntryEntity entryMock = this.createMockEntity(MockESCreditNoteEntryEntity.class,
-                TestESCreditNoteBuilder.ES_CREDIT_NOTE_ENTRY_YML);
+		MockESCreditNoteEntryEntity entryMock = this.createMockEntity(
+				MockESCreditNoteEntryEntity.class,
+				TestESCreditNoteBuilder.ES_CREDIT_NOTE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESCreditNoteEntry.class).get(Matchers.any(UID.class))).thenReturn(entryMock);
+		Mockito.when(
+				this.getInstance(DAOESCreditNoteEntry.class).get(
+						Matchers.any(UID.class))).thenReturn(entryMock);
 
-        mock.getEntries().add(entryMock);
+		mock.getEntries().add(entryMock);
 
-        ArrayList<ESCreditNoteEntry> creditNodeEntries = (ArrayList<ESCreditNoteEntry>) mock.getEntries();
+		ArrayList<ESCreditNoteEntry> creditNodeEntries = (ArrayList<ESCreditNoteEntry>) mock
+				.getEntries();
 
-        ESCreditNote.Builder builder = this.getInstance(ESCreditNote.Builder.class);
+		ESCreditNote.Builder builder = this
+				.getInstance(ESCreditNote.Builder.class);
 
-        ESCreditNoteEntry.Builder entry1 = this.getMock(ESCreditNoteEntry.Builder.class);
-        Mockito.when(entry1.build()).thenReturn(creditNodeEntries.get(0));
+		ESCreditNoteEntry.Builder entry1 = this
+				.getMock(ESCreditNoteEntry.Builder.class);
+		Mockito.when(entry1.build()).thenReturn(creditNodeEntries.get(0));
 
-        MockESPaymentEntity mockPayment =
-                this.createMockEntity(MockESPaymentEntity.class, TestESCreditNoteBuilder.ES_PAYMENT_YML);
+		MockESPaymentEntity mockPayment = this.createMockEntity(
+				MockESPaymentEntity.class,
+				TestESCreditNoteBuilder.ES_PAYMENT_YML);
 
-        Mockito.when(this.getInstance(DAOESPayment.class).getEntityInstance()).thenReturn(new MockESPaymentEntity());
+		Mockito.when(this.getInstance(DAOESPayment.class).getEntityInstance())
+				.thenReturn(new MockESPaymentEntity());
 
-        ESPayment.Builder builderPayment = this.getInstance(ESPayment.Builder.class);
+		ESPayment.Builder builderPayment = this
+				.getInstance(ESPayment.Builder.class);
 
-        builderPayment.setPaymentAmount(mockPayment.getPaymentAmount()).setPaymentDate(mockPayment.getPaymentDate())
-                .setPaymentMethod(mockPayment.getPaymentMethod());
+		builderPayment.setPaymentAmount(mockPayment.getPaymentAmount())
+				.setPaymentDate(mockPayment.getPaymentDate())
+				.setPaymentMethod(mockPayment.getPaymentMethod());
 
-        builder.addEntry(entry1).setBilled(mock.isBilled()).setCancelled(mock.isCancelled())
-                .setBatchId(mock.getBatchId()).setDate(mock.getDate()).setGeneralLedgerDate(mock.getGeneralLedgerDate())
-                .setOfficeNumber(mock.getOfficeNumber()).setPaymentTerms(mock.getPaymentTerms())
-                .setSelfBilled(mock.selfBilled).setSettlementDate(mock.getSettlementDate())
-                .setSettlementDescription(mock.getSettlementDescription())
-                .setSettlementDiscount(mock.getSettlementDiscount()).setSourceId(mock.getSourceId())
-                .setTransactionId(mock.getTransactionId()).setCustomerUID(mockCustomerEntity.getUID())
-                .addPayment(builderPayment);
+		builder.addEntry(entry1)
+				.setBilled(mock.isBilled()).setCancelled(mock.isCancelled())
+				.setBatchId(mock.getBatchId())
+				.setDate(mock.getDate())
+				.setGeneralLedgerDate(mock.getGeneralLedgerDate())
+				.setOfficeNumber(mock.getOfficeNumber())
+				.setPaymentTerms(mock.getPaymentTerms())
+				.setSelfBilled(mock.selfBilled)
+				.setSettlementDate(mock.getSettlementDate())
+				.setSettlementDescription(mock.getSettlementDescription())
+				.setSettlementDiscount(mock.getSettlementDiscount())
+				.setSourceId(mock.getSourceId())
+				.setTransactionId(mock.getTransactionId())
+				.setCustomerUID(mockCustomerEntity.getUID())
+				.addPayment(builderPayment);
 
-        ESCreditNote creditNote = builder.build();
+		ESCreditNote creditNote = builder.build();
 
-        Assert.assertTrue(creditNote != null);
-        Assert.assertTrue(creditNote.getEntries() != null);
-        Assert.assertEquals(creditNote.getEntries().size(), mock.getEntries().size());
+		Assert.assertTrue(creditNote != null);
+		Assert.assertTrue(creditNote.getEntries() != null);
+		Assert.assertEquals(creditNote.getEntries().size(), mock.getEntries()
+				.size());
 
-        Assert.assertTrue(creditNote.isBilled() == mock.isBilled());
-        Assert.assertTrue(creditNote.isCancelled() == mock.isCancelled());
+		Assert.assertTrue(creditNote.isBilled() == mock.isBilled());
+		Assert.assertTrue(creditNote.isCancelled() == mock.isCancelled());
 
-        Assert.assertEquals(mock.getGeneralLedgerDate(), creditNote.getGeneralLedgerDate());
-        Assert.assertEquals(mock.getBatchId(), creditNote.getBatchId());
-        Assert.assertEquals(mock.getDate(), creditNote.getDate());
-        Assert.assertEquals(mock.getPaymentTerms(), creditNote.getPaymentTerms());
+		Assert.assertEquals(mock.getGeneralLedgerDate(),
+				creditNote.getGeneralLedgerDate());
+		Assert.assertEquals(mock.getBatchId(), creditNote.getBatchId());
+		Assert.assertEquals(mock.getDate(), creditNote.getDate());
+		Assert.assertEquals(mock.getPaymentTerms(),
+				creditNote.getPaymentTerms());
 
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(creditNote.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(creditNote.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(creditNote.getTaxAmount()) == 0);
+		Assert.assertTrue(mock.getAmountWithoutTax().compareTo(
+				creditNote.getAmountWithoutTax()) == 0);
+		Assert.assertTrue(mock.getAmountWithTax().compareTo(
+				creditNote.getAmountWithTax()) == 0);
+		Assert.assertTrue(mock.getTaxAmount().compareTo(
+				creditNote.getTaxAmount()) == 0);
 
-    }
+	}
 }

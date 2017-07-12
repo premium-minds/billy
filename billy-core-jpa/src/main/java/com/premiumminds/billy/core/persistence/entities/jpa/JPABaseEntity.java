@@ -42,109 +42,112 @@ import com.premiumminds.billy.core.services.UID;
 
 /**
  * @author Francisco Vargas
- *
+ * 
  *         The Billy JPA implementation of {@link JPABaseEntity}
  */
 @MappedSuperclass
 @Audited
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class JPABaseEntity implements BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long	serialVersionUID	= 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
-    protected Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "ID")
+	protected Integer			id;
 
-    @Basic(optional = false)
-    @Column(name = "UID", nullable = false, insertable = true, updatable = false, unique = true)
-    protected String uid;
+	@Basic(optional = false)
+	@Column(name = "UID", nullable = false, insertable = true,
+			updatable = false, unique = true)
+	protected String			uid;
 
-    @Basic(optional = false)
-    @Column(name = "UID_ROW", nullable = false, insertable = true, updatable = false, unique = true)
-    protected String uidRow;
+	@Basic(optional = false)
+	@Column(name = "UID_ROW", nullable = false, insertable = true,
+			updatable = false, unique = true)
+	protected String			uidRow;
 
-    @Basic(optional = false)
-    @Column(name = "ENTITY_VERSION", nullable = false, insertable = true, updatable = false, unique = false)
-    protected int entityVersion;
+	@Basic(optional = false)
+	@Column(name = "ENTITY_VERSION", nullable = false, insertable = true,
+			updatable = false, unique = false)
+	protected int				entityVersion;
 
-    @Column(name = "CREATE_TIMESTAMP", updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Date createTimestamp;
+	@Column(name = "CREATE_TIMESTAMP", updatable = false)
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date				createTimestamp;
 
-    @Column(name = "UPDATE_TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
-    protected Date updateTimestamp;
+	@Column(name = "UPDATE_TIMESTAMP")
+	@Temporal(TemporalType.TIMESTAMP)
+	protected Date				updateTimestamp;
 
-    @Column(name = "ACTIVE")
-    protected Boolean active;
+	@Column(name = "ACTIVE")
+	protected Boolean			active;
 
-    /**
-     * Constructor
-     */
-    public JPABaseEntity() {
-        this.uid = this.generateUUID().toString();
-    }
+	/**
+	 * Constructor
+	 */
+	public JPABaseEntity() {
+		this.uid = this.generateUUID().toString();
+	}
 
-    @Override
-    public boolean isNew() {
-        return this.id == null;
-    }
+	@Override
+	public boolean isNew() {
+		return this.id == null;
+	}
 
-    @PrePersist
-    protected void onPersist() {
-        if (this.isNew()) {
-            this.uidRow = this.generateUUID().toString();
-            this.entityVersion = 1;
-            this.active = true;
-            if (this.createTimestamp == null) {
-                this.initializeEntityDates();
-            }
-        }
-    }
+	@PrePersist
+	protected void onPersist() {
+		if (this.isNew()) {
+			this.uidRow = this.generateUUID().toString();
+			this.entityVersion = 1;
+			this.active = true;
+			if(this.createTimestamp == null) {
+				initializeEntityDates();
+			}
+		}
+	}
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updateTimestamp = new Date();
-    }
+	@PreUpdate
+	protected void onUpdate() {
+		this.updateTimestamp = new Date();
+	}
+	
+	@Override
+	public Integer getID() {
+		return id;
+	}
 
-    @Override
-    public Integer getID() {
-        return this.id;
-    }
+	@Override
+	public UID getUID() {
+		return new UID(this.uid);
+	}
 
-    @Override
-    public UID getUID() {
-        return new UID(this.uid);
-    }
+	@Override
+	public void setUID(UID uid) {
+		Validate.notNull(uid);
+		this.uid = uid.toString();
+	}
 
-    @Override
-    public void setUID(UID uid) {
-        Validate.notNull(uid);
-        this.uid = uid.toString();
-    }
+	@Override
+	public Date getCreateTimestamp() {
+		return this.createTimestamp;
+	}
 
-    @Override
-    public Date getCreateTimestamp() {
-        return this.createTimestamp;
-    }
+	@Override
+	public Date getUpdateTimestamp() {
+		return this.updateTimestamp;
+	}
 
-    @Override
-    public Date getUpdateTimestamp() {
-        return this.updateTimestamp;
-    }
-
-    @Override
-    public void initializeEntityDates() {
-        if (!this.isNew()) {
-            throw new RuntimeException("Cannot redefine the creation date for a persisted entity");
-        }
-        this.updateTimestamp = this.createTimestamp = new Date();
-    }
-
-    protected UUID generateUUID() {
-        return UUID.randomUUID();
-    }
+	@Override
+	public void initializeEntityDates() {
+		if(!isNew()) {
+			throw new RuntimeException("Cannot redefine the creation date for a persisted entity");
+		}
+		this.updateTimestamp = this.createTimestamp = new Date();
+	}
+	
+	protected UUID generateUUID() {
+		return UUID.randomUUID();
+	}
 
 }

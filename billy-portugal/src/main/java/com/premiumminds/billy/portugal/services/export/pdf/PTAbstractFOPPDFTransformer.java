@@ -32,32 +32,36 @@ import com.premiumminds.billy.portugal.Config;
 public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> extends AbstractFOPPDFTransformer<T> {
 
     protected static class PTParamKeys {
-
-        public static final String ROOT = "invoice";
-        public static final String INVOICE_HASH = "hash";
-        public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
-        public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
+        public static final String  ROOT                        = "invoice";
+        public static final String	INVOICE_HASH				= "hash";
+        public static final String	SOFTWARE_CERTIFICATE_NUMBER	= "certificateNumber";
+        public static final String	INVOICE_PAYSETTLEMENT		= "paymentSettlement";
     }
 
-    protected static final String GENERIC_CUSTOMER_TEXT = "Consumidor Final";
-    protected static final String BANK_TRANSFER_TEXT = "Transferência Bancária";
-    protected static final String CASH_TEXT = "Numerário";
-    protected static final String CREDIT_CARD_TEXT = "Cartão Crédito";
-    protected static final String CHECK_TEXT = "Cheque";
-    protected static final String DEBIT_CARD_TEXT = "Cartão Débito";
-    protected static final String COMPENSATION_TEXT = "Compensação de saldos em conta corrente";
-    protected static final String COMMERCIAL_LETTER_TEXT = "Letra Comercial";
-    protected static final String RESTAURANT_TICKET_TEXT = "Ticket Restaurante";
-    protected static final String ATM_TEXT = "Multibanco";
-    protected static final String EXCHANGE_TEXT = "Permuta";
-    protected static final String ELECTRONIC_MONEY_TEXT = "Dinheiro Eletrónico";
+    protected static final String	GENERIC_CUSTOMER_TEXT	= "Consumidor Final";
+    protected static final String	BANK_TRANSFER_TEXT		= "Transferência Bancária";
+    protected static final String	CASH_TEXT				= "Numerário";
+    protected static final String	CREDIT_CARD_TEXT		= "Cartão Crédito";
+    protected static final String	CHECK_TEXT				= "Cheque";
+    protected static final String	DEBIT_CARD_TEXT			= "Cartão Débito";
+    protected static final String	COMPENSATION_TEXT		= "Compensação de saldos em conta corrente";
+    protected static final String	COMMERCIAL_LETTER_TEXT	= "Letra Comercial";
+    protected static final String	RESTAURANT_TICKET_TEXT	= "Ticket Restaurante";
+    protected static final String	ATM_TEXT				= "Multibanco";
+    protected static final String	EXCHANGE_TEXT			= "Permuta";
+    protected static final String 	ELECTRONIC_MONEY_TEXT 	= "Dinheiro Eletrónico";
 
     protected final Config config;
     protected final String softwareCertificationId;
     private final PTTemplateBundle externalBundle;
 
-    public PTAbstractFOPPDFTransformer(Class<T> transformableClass, MathContext mc, String logoImagePath,
-            InputStream xsltFileStream, String softwareCertificationId, Config config) {
+    public PTAbstractFOPPDFTransformer(
+            Class<T> transformableClass, 
+            MathContext mc, 
+            String logoImagePath,
+            InputStream xsltFileStream,
+            String softwareCertificationId,
+            Config config) {
 
         super(transformableClass, mc, logoImagePath, xsltFileStream);
 
@@ -66,7 +70,10 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
         this.externalBundle = null;
     }
 
-    public PTAbstractFOPPDFTransformer(Class<T> transformableClass, MathContext mc, PTTemplateBundle bundle,
+    public PTAbstractFOPPDFTransformer(
+            Class<T> transformableClass, 
+            MathContext mc, 
+            PTTemplateBundle bundle,
             Config config) {
 
         super(transformableClass, mc, bundle.getLogoImagePath(), bundle.getXSLTFileStream());
@@ -77,7 +84,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
 
     @Override
     protected ParamsTree<String, String> getNewParamsTree() {
-        return new ParamsTree<>(PTParamKeys.ROOT);
+        return new ParamsTree<String, String>(PTParamKeys.ROOT);
     }
 
     @Override
@@ -86,61 +93,62 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
             return null;
         }
 
-        if (this.externalBundle != null) {
-            return this.externalBundle.getPaymentMechanismTranslation(pmc);
+        if (externalBundle != null) {
+            return externalBundle.getPaymentMechanismTranslation(pmc);
         } else {
             PaymentMechanism payment = (PaymentMechanism) pmc;
             switch (payment) {
-                case BANK_TRANSFER:
-                    return PTAbstractFOPPDFTransformer.BANK_TRANSFER_TEXT;
-                case CASH:
-                    return PTAbstractFOPPDFTransformer.CASH_TEXT;
-                case CREDIT_CARD:
-                    return PTAbstractFOPPDFTransformer.CREDIT_CARD_TEXT;
-                case CHECK:
-                    return PTAbstractFOPPDFTransformer.CHECK_TEXT;
-                case DEBIT_CARD:
-                    return PTAbstractFOPPDFTransformer.DEBIT_CARD_TEXT;
-                case COMPENSATION:
-                    return PTAbstractFOPPDFTransformer.COMPENSATION_TEXT;
-                case COMMERCIAL_LETTER:
-                    return PTAbstractFOPPDFTransformer.COMMERCIAL_LETTER_TEXT;
-                case ATM:
-                    return PTAbstractFOPPDFTransformer.ATM_TEXT;
-                case RESTAURANT_TICKET:
-                    return PTAbstractFOPPDFTransformer.RESTAURANT_TICKET_TEXT;
-                case EXCHANGE:
-                    return PTAbstractFOPPDFTransformer.EXCHANGE_TEXT;
-                case ELECTRONIC_MONEY:
-                    return PTAbstractFOPPDFTransformer.ELECTRONIC_MONEY_TEXT;
-                default:
-                    return null;
+            case BANK_TRANSFER:
+                return BANK_TRANSFER_TEXT;
+            case CASH:
+                return CASH_TEXT;
+            case CREDIT_CARD:
+                return CREDIT_CARD_TEXT;
+            case CHECK:
+                return CHECK_TEXT;
+            case DEBIT_CARD:
+                return DEBIT_CARD_TEXT;
+            case COMPENSATION:
+                return COMPENSATION_TEXT;
+            case COMMERCIAL_LETTER:
+                return COMMERCIAL_LETTER_TEXT;
+            case ATM:
+                return ATM_TEXT;
+            case RESTAURANT_TICKET:
+                return RESTAURANT_TICKET_TEXT;
+            case EXCHANGE:
+                return EXCHANGE_TEXT;
+            case ELECTRONIC_MONEY:
+                return ELECTRONIC_MONEY_TEXT;
+            default:
+                return null;
             }
         }
     }
 
     protected String getSoftwareCertificationId() {
-        return this.softwareCertificationId;
+        return softwareCertificationId;
     }
 
     @Override
     protected String getCustomerFinancialId(T entity) {
-        return (entity.getCustomer().getUID().equals(this.config.getUUID(Config.Key.Customer.Generic.UUID))
-                ? this.getGenericCustomer() : entity.getCustomer().getTaxRegistrationNumber());
+        return (entity.getCustomer().getUID()
+                .equals(this.config.getUUID(Config.Key.Customer.Generic.UUID)) ? 
+                        getGenericCustomer() : entity.getCustomer().getTaxRegistrationNumber());
     }
 
     private String getGenericCustomer() {
-        if (this.externalBundle == null) {
-            return PTAbstractFOPPDFTransformer.GENERIC_CUSTOMER_TEXT;
+        if (externalBundle == null) {
+            return GENERIC_CUSTOMER_TEXT;
         } else {
-            return this.externalBundle.getGenericCustomer();
+            return externalBundle.getGenericCustomer();
         }
     }
 
     protected String getVerificationHashString(byte[] hash) {
         String hashString = Base64.encodeBase64String(hash);
-        String rval = hashString.substring(0, 1) + hashString.substring(10, 11) + hashString.substring(20, 21) +
-                hashString.substring(30, 31);
+        String rval = hashString.substring(0, 1) + hashString.substring(10, 11)
+        + hashString.substring(20, 21) + hashString.substring(30, 31);
 
         return rval;
     }
