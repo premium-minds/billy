@@ -25,14 +25,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.Business;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE_SERIES",
         uniqueConstraints = @UniqueConstraint(columnNames = { "SERIES", "ID_BUSINESS" }))
 public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeriesEntity {

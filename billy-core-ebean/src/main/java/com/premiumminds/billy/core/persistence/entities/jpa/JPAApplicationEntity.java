@@ -31,15 +31,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
 public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEntity {
 

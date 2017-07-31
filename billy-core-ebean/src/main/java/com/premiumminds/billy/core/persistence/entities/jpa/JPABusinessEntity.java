@@ -32,8 +32,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
@@ -45,7 +43,6 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
 public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 

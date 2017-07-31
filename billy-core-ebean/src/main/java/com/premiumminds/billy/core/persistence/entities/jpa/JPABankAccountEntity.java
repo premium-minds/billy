@@ -22,13 +22,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "BANK_ACCOUNT")
 public class JPABankAccountEntity extends JPABaseEntity implements BankAccountEntity {
 

@@ -32,15 +32,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "TAX")
 public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 

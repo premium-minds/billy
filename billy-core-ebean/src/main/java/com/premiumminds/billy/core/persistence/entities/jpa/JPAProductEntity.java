@@ -30,14 +30,11 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.services.entities.Tax;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
 public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
 

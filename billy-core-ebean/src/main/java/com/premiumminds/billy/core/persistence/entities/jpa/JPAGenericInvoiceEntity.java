@@ -41,8 +41,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
@@ -56,7 +54,6 @@ import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE",
         uniqueConstraints = { @UniqueConstraint(columnNames = { "NUMBER", "ID_BUSINESS" }),
                 @UniqueConstraint(columnNames = { "SERIES", "SERIES_NUMBER", "ID_BUSINESS" }) })

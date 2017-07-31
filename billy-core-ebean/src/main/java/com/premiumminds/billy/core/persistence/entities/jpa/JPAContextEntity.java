@@ -24,14 +24,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "CONTEXT")
 public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
 
