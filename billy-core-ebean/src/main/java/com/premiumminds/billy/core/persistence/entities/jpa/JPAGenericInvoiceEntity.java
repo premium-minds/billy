@@ -31,7 +31,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -154,15 +153,9 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
     protected Integer scale;
 
     @OneToMany(targetEntity = JPAGenericInvoiceEntryEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY",
-            joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID", unique = true) })
     protected List<GenericInvoiceEntry> entries;
 
     @OneToMany(targetEntity = JPAPaymentEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "PAYMENTS",
-            joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_PAYMENT", referencedColumnName = "ID", unique = true) })
     protected List<Payment> payments;
 
     public JPAGenericInvoiceEntity() {

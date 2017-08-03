@@ -26,7 +26,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -82,18 +81,12 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
     protected Contact mainContact;
 
     @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_CONTACT",
-            joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
     protected List<Contact> contacts;
 
     @Column(name = "WEBSITE")
     protected String website;
 
     @OneToMany(targetEntity = JPAApplicationEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "BUSINESS_APPLICATION",
-            joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_APPLICATION", referencedColumnName = "ID", unique = true) })
     protected List<Application> applications;
 
     public JPABusinessEntity() {

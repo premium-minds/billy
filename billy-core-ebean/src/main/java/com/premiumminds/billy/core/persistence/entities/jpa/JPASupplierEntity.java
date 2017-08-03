@@ -25,7 +25,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -45,15 +44,9 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_ADDRESS",
-            joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID", unique = true) })
     protected List<Address> addresses;
 
     @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_BANK_ACCOUNT",
-            joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_BANK_ACCOUNT", referencedColumnName = "ID", unique = true) })
     protected List<BankAccount> bankAccounts;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -61,9 +54,6 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     protected Address billingAddress;
 
     @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "SUPPLIER_CONTACT",
-            joinColumns = { @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
     protected List<Contact> contacts;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })

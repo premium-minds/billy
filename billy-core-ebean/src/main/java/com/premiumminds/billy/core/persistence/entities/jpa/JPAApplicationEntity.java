@@ -26,7 +26,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -64,9 +63,6 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = Config.TABLE_PREFIX + "APPLICATION_CONTACT",
-            joinColumns = { @JoinColumn(name = "ID_APPLIATION", referencedColumnName = "ID") },
-            inverseJoinColumns = { @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID", unique = true) })
     protected List<Contact> contacts;
 
     public JPAApplicationEntity() {
