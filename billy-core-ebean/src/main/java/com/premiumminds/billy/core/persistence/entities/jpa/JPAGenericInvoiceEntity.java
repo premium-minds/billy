@@ -20,14 +20,13 @@ package com.premiumminds.billy.core.persistence.entities.jpa;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -154,12 +153,6 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
     @Column(name = "SCALE")
     protected Integer scale;
 
-    @ElementCollection
-    @CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER",
-            joinColumns = @JoinColumn(name = "ID_INVOICE"))
-    @Column(name = "RECEIPT_NUMBER")
-    protected List<String> receiptNumbers;
-
     @OneToMany(targetEntity = JPAGenericInvoiceEntryEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = Config.TABLE_PREFIX + "INVOICE_ENTRY",
             joinColumns = { @JoinColumn(name = "ID_INVOICE", referencedColumnName = "ID") },
@@ -174,7 +167,6 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
 
     public JPAGenericInvoiceEntity() {
         this.entries = new ArrayList<>();
-        this.receiptNumbers = new ArrayList<>();
         this.payments = new ArrayList<>();
     }
 
@@ -413,7 +405,8 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
 
     @Override
     public List<String> getReceiptNumbers() {
-        return this.receiptNumbers;
+        // Unused. Needed to Override because of billy-core.
+        return Collections.emptyList();
     }
 
     @SuppressWarnings("unchecked")
