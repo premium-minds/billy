@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -31,11 +28,6 @@ import com.premiumminds.billy.core.persistence.entities.jpa.QJPATicketEntity;
 import com.premiumminds.billy.core.services.UID;
 
 public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity> implements DAOTicket {
-
-    @Inject
-    public DAOTicketImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     protected Class<? extends JPATicketEntity> getEntityClass() {

@@ -20,20 +20,11 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPASupplierEntity;
 
 public class DAOSupplierImpl extends AbstractDAO<SupplierEntity, JPASupplierEntity> implements DAOSupplier {
-
-    @Inject
-    public DAOSupplierImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     protected Class<? extends JPASupplierEntity> getEntityClass() {

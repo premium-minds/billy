@@ -18,21 +18,12 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
 
 public class DAOGenericInvoiceImpl extends AbstractDAOGenericInvoiceImpl<GenericInvoiceEntity, JPAGenericInvoiceEntity>
         implements DAOGenericInvoice {
-
-    @Inject
-    public DAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     protected Class<? extends JPAGenericInvoiceEntity> getEntityClass() {

@@ -18,10 +18,6 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.mysema.query.jpa.JPASubQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
@@ -34,11 +30,6 @@ import com.premiumminds.billy.core.persistence.entities.jpa.QJPAGenericInvoiceEn
 
 public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity>
         extends AbstractDAO<TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
-
-    @Inject
-    public AbstractDAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @SuppressWarnings("unchecked")
     @Override

@@ -20,20 +20,11 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity;
 
 public class DAOProductImpl extends AbstractDAO<ProductEntity, JPAProductEntity> implements DAOProduct {
-
-    @Inject
-    public DAOProductImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @SuppressWarnings("unchecked")
     @Override

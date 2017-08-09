@@ -20,9 +20,6 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 
 import java.lang.reflect.InvocationTargetException;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
 import org.slf4j.Logger;
@@ -43,11 +40,6 @@ public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAIn
         implements DAOInvoiceSeries {
 
     private static final Logger log = LoggerFactory.getLogger(DAOInvoiceSeriesImpl.class);
-
-    @Inject
-    public DAOInvoiceSeriesImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     public InvoiceSeriesEntity getEntityInstance() {
