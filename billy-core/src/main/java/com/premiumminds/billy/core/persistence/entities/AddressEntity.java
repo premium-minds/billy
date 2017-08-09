@@ -42,14 +42,14 @@ public interface AddressEntity extends Address, BaseEntity {
     /**
      * Gets the ISO 3166-2 code for the country region
      *
-     * @return The region ISO code
+     * @param region The region ISO code
      */
     public void setRegion(String region);
 
     /**
      * Gets the address country ISO 3166-1 code.
      *
-     * @return The country iso code.
+     * @param country The country iso code.
      */
     public void setISOCountry(String country);
 

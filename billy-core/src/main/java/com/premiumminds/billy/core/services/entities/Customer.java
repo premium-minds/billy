@@ -25,12 +25,13 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.services.builders.impl.CustomerBuilderImpl;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 
 /**
  * @author Francisco Vargas
  *
  *         The Billy services entity for a customer. A customer is someone for
- *         which a {@link FinancialDocument} is issued.
+ *         which a {@link GenericInvoice} is issued.
  */
 public interface Customer extends Entity {
 

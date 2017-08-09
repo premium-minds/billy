@@ -31,7 +31,7 @@ public class PTSAFTFileGenerator {
 
 	@Inject
 	private com.premiumminds.billy.portugal.services.export.saftpt.v1_02_01.PTSAFTFileGenerator saftGenV1_02_01;
-	
+
 	@Inject
 	private com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.PTSAFTFileGenerator saftGenV1_03_01;
 
@@ -41,30 +41,19 @@ public class PTSAFTFileGenerator {
 	public static enum SAFTVersion {
 		CURRENT, V10201, V10301, V10401
 	}
-	
+
 	/**
 	 * Constructs a new SAFT a.k.a. AuditFile
-	 * 
-	 * @param targetStream
-	 * 
-	 * @param businessEntity
-	 *            - the company
-	 * @param application
-	 * @param certificateNumber
-	 * @param fromDate
-	 * @param toDate
-	 * @param daoCustomer
-	 * @param daoSupplier
-	 * @param daoProduct
-	 * @param daoPTTax
-	 * @param daoPTRegionContext
-	 * @param daoPTInvoice
-	 * @param daoPTSimpleInvoice
-	 * @param daoPTCreditNote
-	 * @return the SAFT for that business entity, given lists of customers,
-	 *         products, taxes and financial documents; depends on a period of
-	 *         time
-	 * @throws SAFTPTExportException
+	 *
+	 * @param targetStream the target stream
+	 * @param businessEntity the company
+	 * @param application the application
+	 * @param certificateNumber the certificate number
+	 * @param fromDate the date from when the saft will be generated
+	 * @param toDate the date until when the saft will be generated
+	 * @param version the SAFT version
+	 *
+	 * @throws SAFTPTExportException when export exception occurs
 	 */
 	public void generateSAFTFile(final OutputStream targetStream,
 			final PTBusinessEntity businessEntity,
@@ -72,7 +61,7 @@ public class PTSAFTFileGenerator {
 			final String certificateNumber, final Date fromDate,
 			final Date toDate,
 			final SAFTVersion version) throws SAFTPTExportException {
-		
+
 		switch (version) {
 		case V10201:
 			saftGenV1_02_01.generateSAFTFile(targetStream, businessEntity, application, certificateNumber, fromDate, toDate);

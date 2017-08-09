@@ -39,14 +39,16 @@ public interface AddressBuilder<TBuilder extends AddressBuilder<TBuilder, TAddre
     /**
      * Gets the ISO 3166-2 code for the country region
      *
-     * @return The region ISO code
+     * @param region The region ISO code
+     * @return the builder
      */
     public TBuilder setRegion(String region);
 
     /**
      * Gets the address country ISO 3166-1 code.
      *
-     * @return The country iso code.
+     * @param country The country iso code.
+     * @return the builder
      */
     public TBuilder setISOCountry(String country);
 }

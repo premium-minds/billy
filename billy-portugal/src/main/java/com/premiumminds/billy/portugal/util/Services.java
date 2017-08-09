@@ -68,12 +68,11 @@ public class Services {
     /**
      * Issue a new document and store it in the database.
      *
-     * @param {@link
-     *        Builder} of the document to issue.
-     * @param {@link
-     *        IssuingParams} required to issue the document.
+     * @param <T> document type
+     * @param builder of the document to issue.
+     * @param issuingParameters required to issue the document.
      * @return The newly issued document
-     * @throws DocumentIssuingException
+     * @throws DocumentIssuingException exception when document is not issued
      */
     public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder, PTIssuingParams issuingParameters)
             throws DocumentIssuingException {

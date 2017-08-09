@@ -42,10 +42,10 @@
 
 	<scm>
 		<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
-		<developerConnection>scm:git:git://github.com/premium-minds/billy.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
 		<url>https://github.com/premium-minds/billy</url>
-		<tag>HEAD</tag>
-	</scm>
+	 	<tag>HEAD</tag>
+  </scm>
 
 	<url>http://premium-minds.github.io/billy/</url>
 
@@ -65,7 +65,7 @@
 		<snapshotRepository>
 			<id>premiumminds-nexus-snapshots</id>
 			<name>premiumminds-nexus-snapshots</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots </url>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
 
@@ -73,7 +73,7 @@
 		<pluginRepository>
 			<id>mc-release</id>
 			<name>Local Maven repository of releases</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/releases </url>
+			<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -257,4 +257,5 @@
 			</build>
 		</profile>
 	</profiles>
+
 </project>

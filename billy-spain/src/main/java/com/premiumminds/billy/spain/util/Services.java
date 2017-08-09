@@ -71,12 +71,12 @@ public class Services {
     /**
      * Issue a new document and store it in the database.
      *
-     * @param {@link
-     *        Builder} of the document to issue.
-     * @param {@link
-     *        IssuingParams} required to issue the document.
+     * @param <T> the invoice generic type
+     *
+     * @param builder of the document to issue.
+     * @param issuingParameters required to issue the document.
      * @return The newly issued document
-     * @throws DocumentIssuingException
+     * @throws DocumentIssuingException when an exception occurs during the issue
      */
     public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder, ESIssuingParams issuingParameters)
             throws DocumentIssuingException {

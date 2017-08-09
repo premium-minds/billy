@@ -63,7 +63,7 @@ public abstract class TransactionWrapper<T> {
      * Executes the transaction wrapping steps
      *
      * @return The transaction return value
-     * @throws Exception
+     * @throws Exception when something went wrong
      */
     public T execute() throws Exception {
         this.setupTransaction();

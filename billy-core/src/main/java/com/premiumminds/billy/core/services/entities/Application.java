@@ -34,7 +34,7 @@ import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl
 public interface Application extends Entity {
 
     /**
-     * @author Francisco The builder for the {@link Application} entity.
+     * The builder for the {@link Application} entity.
      */
     public static class Builder extends ApplicationBuilderImpl<Builder, Application> {
 
@@ -83,6 +83,7 @@ public interface Application extends Entity {
      * Gets the application developer company collection of {@link Contact}
      * contacts.
      *
+     * @param <T> contact type class
      * @return The list of contacts.
      */
     public <T extends Contact> Collection<T> getContacts();

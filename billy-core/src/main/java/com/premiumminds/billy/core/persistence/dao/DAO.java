@@ -64,6 +64,9 @@ public interface DAO<T extends BaseEntity> extends EntityFactory<T> {
 
     /**
      * Lock the entity type being managed by the DAO.
+     *
+     * @param entity entity to lock
+     * @param type lock type
      */
     public void lock(T entity, LockModeType type);
 
