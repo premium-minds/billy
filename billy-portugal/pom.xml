@@ -272,6 +272,17 @@
 							<generatePackage>com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema</generatePackage>
 						</configuration>
 					</execution>
+					<execution>
+						<id>generate-1.04_01</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<schemaIncludes><include>SAFTPT1.04_01.xsd</include></schemaIncludes>
+							<generatePackage>com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema</generatePackage>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>
