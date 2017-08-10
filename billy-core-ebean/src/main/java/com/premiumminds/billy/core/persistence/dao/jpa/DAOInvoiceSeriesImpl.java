@@ -18,23 +18,14 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.persistence.LockModeType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Path;
-import com.mysema.query.types.path.EntityPathBase;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.QJPAInvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 
 public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAInvoiceSeriesEntity>
         implements DAOInvoiceSeries {
@@ -53,7 +44,7 @@ public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAIn
 
     @Override
     public InvoiceSeriesEntity getSeries(String series, String businessUID, LockModeType lockMode) {
-        QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
+        /*QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
 
         JPAQuery query = new JPAQuery(this.getEntityManager());
 
@@ -64,11 +55,12 @@ public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAIn
         query.where(this.toDSL(entity.business, QJPABusinessEntity.class).uid.eq(businessUID));
 
         InvoiceSeries seriesEntity = query.setLockMode(lockMode).singleResult(entity);
-
-        return (InvoiceSeriesEntity) seriesEntity;
+        
+        return (InvoiceSeriesEntity) seriesEntity;*/
+        return null;
     }
 
-    protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
+    /*protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
         try {
             return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
@@ -77,5 +69,5 @@ public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAIn
         }
 
         return null;
-    }
+    }*/
 }

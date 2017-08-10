@@ -39,12 +39,13 @@ public class DAOSupplierImpl extends AbstractDAO<SupplierEntity, JPASupplierEnti
     @SuppressWarnings("unchecked")
     @Override
     public List<SupplierEntity> getAllActiveSuppliers() {
-        List<JPASupplierEntity> result = (List<JPASupplierEntity>) this.getEntityManager()
+        /*List<JPASupplierEntity> result = (List<JPASupplierEntity>) this.getEntityManager()
                 .createQuery(
                         "select c from " + this.getEntityClass().getCanonicalName() + " c " + "where c.active=true",
                         this.getEntityClass())
                 .getResultList();
-        return this.checkEntityList(result, SupplierEntity.class);
+        return this.checkEntityList(result, SupplierEntity.class);*/
+        return null;
     }
 
 }

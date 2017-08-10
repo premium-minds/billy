@@ -29,12 +29,13 @@ public class DAOProductImpl extends AbstractDAO<ProductEntity, JPAProductEntity>
     @SuppressWarnings("unchecked")
     @Override
     public List<ProductEntity> getAllActiveProducts() {
-        List<JPAProductEntity> result = (List<JPAProductEntity>) this.getEntityManager()
+        /*List<JPAProductEntity> result = (List<JPAProductEntity>) this.getEntityManager()
                 .createQuery(
                         "select p from " + this.getEntityClass().getCanonicalName() + " p " + "where p.active=true",
                         this.getEntityClass())
                 .getResultList();
-        return this.checkEntityList(result, ProductEntity.class);
+        return this.checkEntityList(result, ProductEntity.class);*/
+        return null;
     }
 
     @Override

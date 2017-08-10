@@ -29,12 +29,13 @@ public class DAOCustomerImpl extends AbstractDAO<CustomerEntity, JPACustomerEnti
     @SuppressWarnings("unchecked")
     @Override
     public List<CustomerEntity> getAllActiveCustomers() {
-        List<JPACustomerEntity> result = (List<JPACustomerEntity>) this.getEntityManager()
+        /*List<JPACustomerEntity> result = (List<JPACustomerEntity>) this.getEntityManager()
                 .createQuery(
                         "select c from " + this.getEntityClass().getCanonicalName() + " c " + "where c.active=true",
                         this.getEntityClass())
                 .getResultList();
-        return this.checkEntityList(result, CustomerEntity.class);
+        return this.checkEntityList(result, CustomerEntity.class);*/
+        return null;
     }
 
     @Override

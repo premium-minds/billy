@@ -20,11 +20,9 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 
 import javax.persistence.NoResultException;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.QJPATicketEntity;
 import com.premiumminds.billy.core.services.UID;
 
 public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity> implements DAOTicket {
@@ -41,7 +39,7 @@ public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity> im
 
     @Override
     public UID getObjectEntityUID(String ticketUID) throws NoResultException {
-        QJPATicketEntity ticket = QJPATicketEntity.jPATicketEntity;
+        /*QJPATicketEntity ticket = QJPATicketEntity.jPATicketEntity;
 
         JPAQuery query = new JPAQuery(this.getEntityManager());
 
@@ -50,7 +48,8 @@ public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity> im
         if (ticketEntity == null) {
             throw new NoResultException();
         }
-
-        return ticketEntity.getObjectUID();
+        
+        return ticketEntity.getObjectUID();*/
+        return null;
     }
 }
