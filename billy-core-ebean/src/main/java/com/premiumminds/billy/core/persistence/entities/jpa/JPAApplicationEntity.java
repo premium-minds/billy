@@ -59,11 +59,11 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
-    protected Contact mainContact;
+    protected JPAContactEntity mainContact;
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Contact> contacts;
+    protected List<JPAContactEntity> contacts;
 
     public JPAApplicationEntity() {
         this.contacts = new ArrayList<>();
@@ -100,7 +100,7 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
     }
 
     @Override
-    public List<Contact> getContacts() {
+    public List<JPAContactEntity> getContacts() {
         return this.contacts;
     }
 
@@ -126,7 +126,7 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
 
     @Override
     public <T extends ContactEntity> void setMainContact(T contact) {
-        this.mainContact = contact;
+        this.mainContact = (JPAContactEntity) contact;
     }
 
     @Override

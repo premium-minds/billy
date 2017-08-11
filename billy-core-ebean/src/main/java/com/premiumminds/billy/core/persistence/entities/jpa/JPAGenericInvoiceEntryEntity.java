@@ -43,8 +43,6 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
-import com.premiumminds.billy.core.services.entities.Tax;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 
 @Entity
@@ -67,7 +65,7 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
     @JoinTable(name = Config.TABLE_PREFIX + "ENTRY_REFERENCE",
             joinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID") },
             inverseJoinColumns = { @JoinColumn(name = "ID_REFERENCE", referencedColumnName = "ID") })
-    protected List<GenericInvoice> references;
+    protected List<JPAGenericInvoiceEntity> references;
 
     @Column(name = "NUMBER")
     protected Integer number;
@@ -89,7 +87,7 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
 
     @ManyToOne(targetEntity = JPAProductEntity.class)
     @JoinColumn(name = "ID_PRODUCT", referencedColumnName = "ID")
-    protected Product product;
+    protected JPAProductEntity product;
 
     @Column(name = "QUANTITY", precision = 19, scale = 7)
     protected BigDecimal quantity;
@@ -99,17 +97,17 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
 
     @OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_SHIPPING_DESTINATION")
-    protected ShippingPoint shippingDestination;
+    protected JPAShippingPointEntity shippingDestination;
 
     @OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_SHIPPING_ORIGIN")
-    protected ShippingPoint shippingOrigin;
+    protected JPAShippingPointEntity shippingOrigin;
 
     @ManyToMany(targetEntity = JPATaxEntity.class)
     @JoinTable(name = Config.TABLE_PREFIX + "ENTRY_TAX",
             joinColumns = { @JoinColumn(name = "ID_ENTRY", referencedColumnName = "ID") },
             inverseJoinColumns = { @JoinColumn(name = "ID_TAX", referencedColumnName = "ID") })
-    protected List<Tax> taxes;
+    protected List<JPATaxEntity> taxes;
 
     @Column(name = "TAX_EXEMPTION_REASON")
     protected String taxExemptionReason;
@@ -261,17 +259,17 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
 
     @Override
     public <T extends ShippingPoint> void setShippingOrigin(T origin) {
-        this.shippingOrigin = origin;
+        this.shippingOrigin = (JPAShippingPointEntity) origin;
     }
 
     @Override
     public <T extends ShippingPoint> void setShippingDestination(T destination) {
-        this.shippingDestination = destination;
+        this.shippingDestination = (JPAShippingPointEntity) destination;
     }
 
     @Override
     public <T extends Product> void setProduct(T product) {
-        this.product = product;
+        this.product = (JPAProductEntity) product;
     }
 
     @Override
@@ -330,7 +328,7 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
     }
 
     @Override
-    public List<GenericInvoice> getDocumentReferences() {
+    public List<JPAGenericInvoiceEntity> getDocumentReferences() {
         return this.references;
     }
 
@@ -360,7 +358,7 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
     }
 
     @Override
-    public List<Tax> getTaxes() {
+    public List<JPATaxEntity> getTaxes() {
         return this.taxes;
     }
 

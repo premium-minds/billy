@@ -34,7 +34,6 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
@@ -50,32 +49,32 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     protected String taxId;
 
     @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Address> addresses;
+    protected List<JPAAddressEntity> addresses;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-    protected Address mainAddress;
+    protected JPAAddressEntity mainAddress;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
-    protected Address billingAddress;
+    protected JPAAddressEntity billingAddress;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
-    protected Address shippingAddress;
+    protected JPAAddressEntity shippingAddress;
 
     @OneToOne(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID")
-    protected Contact mainContact;
+    protected JPAContactEntity mainContact;
 
     @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Contact> contacts;
+    protected List<JPAContactEntity> contacts;
 
     @Column(name = "SELF_BILLING")
     protected Boolean selfBilling;
 
     @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<BankAccount> bankAccounts;
+    protected List<JPABankAccountEntity> bankAccounts;
 
     public JPACustomerEntity() {
         this.addresses = new ArrayList<>();
@@ -134,37 +133,37 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     }
 
     @Override
-    public List<Address> getAddresses() {
+    public List<JPAAddressEntity> getAddresses() {
         return this.addresses;
     }
 
     @Override
     public <T extends AddressEntity> void setMainAddress(T address) {
-        this.mainAddress = address;
+        this.mainAddress = (JPAAddressEntity) address;
     }
 
     @Override
     public <T extends AddressEntity> void setBillingAddress(T address) {
-        this.billingAddress = address;
+        this.billingAddress = (JPAAddressEntity) address;
     }
 
     @Override
     public <T extends AddressEntity> void setShippingAddress(T address) {
-        this.shippingAddress = address;
+        this.shippingAddress = (JPAAddressEntity) address;
     }
 
     @Override
-    public List<Contact> getContacts() {
+    public List<JPAContactEntity> getContacts() {
         return this.contacts;
     }
 
     @Override
     public <T extends ContactEntity> void setMainContact(T contact) {
-        this.mainContact = contact;
+        this.mainContact = (JPAContactEntity) contact;
     }
 
     @Override
-    public List<BankAccount> getBankAccounts() {
+    public List<JPABankAccountEntity> getBankAccounts() {
         return this.bankAccounts;
     }
 

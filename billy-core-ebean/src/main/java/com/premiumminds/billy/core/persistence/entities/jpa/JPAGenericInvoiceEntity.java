@@ -70,15 +70,15 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
 
     @ManyToOne(targetEntity = JPABusinessEntity.class)
     @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
-    protected Business business;
+    protected JPABusinessEntity business;
 
     @ManyToOne(targetEntity = JPACustomerEntity.class)
     @JoinColumn(name = "ID_CUSTOMER", referencedColumnName = "ID")
-    protected Customer customer;
+    protected JPACustomerEntity customer;
 
     @ManyToOne(targetEntity = JPASupplierEntity.class)
     @JoinColumn(name = "ID_SUPPLIER", referencedColumnName = "ID")
-    protected Supplier supplier;
+    protected JPASupplierEntity supplier;
 
     @Column(name = "OFFICE_NUMBER")
     protected String officeNumber;
@@ -101,11 +101,11 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
 
     @OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_SHIPPING_POINT_ORIGIN", referencedColumnName = "ID")
-    protected ShippingPoint shippingOrigin;
+    protected JPAShippingPointEntity shippingOrigin;
 
     @OneToOne(targetEntity = JPAShippingPointEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_SHIPPING_POINT_DESTINATION", referencedColumnName = "ID")
-    protected ShippingPoint shippingDestination;
+    protected JPAShippingPointEntity shippingDestination;
 
     @Column(name = "PAYMENT_TERMS")
     protected String paymentTerms;
@@ -153,10 +153,10 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
     protected Integer scale;
 
     @OneToMany(targetEntity = JPAGenericInvoiceEntryEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<GenericInvoiceEntry> entries;
+    protected List<JPAGenericInvoiceEntryEntity> entries;
 
     @OneToMany(targetEntity = JPAPaymentEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Payment> payments;
+    protected List<JPAPaymentEntity> payments;
 
     public JPAGenericInvoiceEntity() {
         this.entries = new ArrayList<>();
@@ -313,17 +313,17 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
 
     @Override
     public <T extends Business> void setBusiness(T business) {
-        this.business = business;
+        this.business = (JPABusinessEntity) business;
     }
 
     @Override
     public <T extends CustomerEntity> void setCustomer(T customer) {
-        this.customer = customer;
+        this.customer = (JPACustomerEntity) customer;
     }
 
     @Override
     public <T extends SupplierEntity> void setSupplier(T supplier) {
-        this.supplier = supplier;
+        this.supplier = (JPASupplierEntity) supplier;
     }
 
     @Override
@@ -358,12 +358,12 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
 
     @Override
     public <T extends ShippingPointEntity> void setShippingOrigin(T origin) {
-        this.shippingOrigin = origin;
+        this.shippingOrigin = (JPAShippingPointEntity) origin;
     }
 
     @Override
     public <T extends ShippingPointEntity> void setShippingDestination(T destination) {
-        this.shippingDestination = destination;
+        this.shippingDestination = (JPAShippingPointEntity) destination;
     }
 
     @Override

@@ -41,7 +41,7 @@ public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeri
 
     @ManyToOne(targetEntity = JPABusinessEntity.class)
     @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
-    protected Business business;
+    protected JPABusinessEntity business;
 
     @Override
     public String getSeries() {
@@ -60,8 +60,6 @@ public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeri
 
     @Override
     public <T extends Business> void setBusiness(T business) {
-        this.business = business;
-
+        this.business = (JPABusinessEntity) business;
     }
-
 }

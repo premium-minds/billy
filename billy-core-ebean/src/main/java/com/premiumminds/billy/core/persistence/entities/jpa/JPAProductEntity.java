@@ -32,7 +32,6 @@ import javax.persistence.Table;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
-import com.premiumminds.billy.core.services.entities.Tax;
 
 @Entity
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
@@ -69,7 +68,7 @@ public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
     @JoinTable(name = Config.TABLE_PREFIX + "PRODUCT_TAX",
             joinColumns = { @JoinColumn(name = "ID_PRODUCT", referencedColumnName = "ID") },
             inverseJoinColumns = { @JoinColumn(name = "ID_TAX", referencedColumnName = "ID") })
-    protected List<Tax> taxes;
+    protected List<JPATaxEntity> taxes;
 
     public JPAProductEntity() {
         this.taxes = new ArrayList<>();
@@ -156,7 +155,7 @@ public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
     }
 
     @Override
-    public List<Tax> getTaxes() {
+    public List<JPATaxEntity> getTaxes() {
         return this.taxes;
     }
 

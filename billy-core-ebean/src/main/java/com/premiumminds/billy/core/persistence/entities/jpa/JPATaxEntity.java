@@ -48,7 +48,7 @@ public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 
     @ManyToOne(targetEntity = JPAContextEntity.class)
     @JoinColumn(name = "ID_CONTEXT", referencedColumnName = "ID")
-    protected Context context;
+    protected JPAContextEntity context;
 
     @Column(name = "CURRENCY")
     protected Currency currency;
@@ -141,7 +141,7 @@ public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
 
     @Override
     public <T extends ContextEntity> void setContext(T context) {
-        this.context = context;
+        this.context = (JPAContextEntity) context;
     }
 
     @Override

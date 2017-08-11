@@ -37,7 +37,6 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 
@@ -49,7 +48,7 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
     @ManyToOne(targetEntity = JPAContextEntity.class)
     @JoinColumn(name = "ID_OPERATIONAL_CONTEXT", referencedColumnName = "ID")
-    protected Context operationalContext;
+    protected JPAContextEntity operationalContext;
 
     @Column(name = "TAX_ID")
     protected String taxId;
@@ -63,31 +62,31 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-    protected Address address;
+    protected JPAAddressEntity address;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_BILLING_ADDRESS", referencedColumnName = "ID")
-    protected Address billingAddress;
+    protected JPAAddressEntity billingAddress;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAAddressEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_SHIPPING_ADDRESS", referencedColumnName = "ID")
-    protected Address shippingAddress;
+    protected JPAAddressEntity shippingAddress;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
-    protected Contact mainContact;
+    protected JPAContactEntity mainContact;
 
     @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Contact> contacts;
+    protected List<JPAContactEntity> contacts;
 
     @Column(name = "WEBSITE")
     protected String website;
 
     @OneToMany(targetEntity = JPAApplicationEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Application> applications;
+    protected List<JPAApplicationEntity> applications;
 
     public JPABusinessEntity() {
         this.contacts = new ArrayList<>();
@@ -146,7 +145,7 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
     @Override
     public <T extends ContextEntity> void setOperationalContext(T context) {
-        this.operationalContext = context;
+        this.operationalContext = (JPAContextEntity) context;
     }
 
     @Override
@@ -171,32 +170,31 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
     @Override
     public <T extends AddressEntity> void setAddress(T address) {
-        this.address = address;
+        this.address = (JPAAddressEntity) address;
     }
 
     @Override
     public <T extends AddressEntity> void setBillingAddress(T address) {
-        this.billingAddress = address;
+        this.billingAddress = (JPAAddressEntity) address;
     }
 
     @Override
     public <T extends AddressEntity> void setShippingAddress(T address) {
-        this.shippingAddress = address;
+        this.shippingAddress = (JPAAddressEntity) address;
     }
 
     @Override
-    public List<Contact> getContacts() {
+    public List<JPAContactEntity> getContacts() {
         return this.contacts;
     }
 
     @Override
     public <T extends ContactEntity> void setMainContact(T contact) {
-        this.mainContact = contact;
+        this.mainContact = (JPAContactEntity) contact;
     }
 
     @Override
-    public List<Application> getApplications() {
+    public List<JPAApplicationEntity> getApplications() {
         return this.applications;
     }
-
 }

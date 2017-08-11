@@ -34,7 +34,6 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
@@ -44,32 +43,32 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     private static final long serialVersionUID = 1L;
 
     @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Address> addresses;
+    protected List<JPAAddressEntity> addresses;
 
     @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<BankAccount> bankAccounts;
+    protected List<JPABankAccountEntity> bankAccounts;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_BILLING_ADDRESS")
-    protected Address billingAddress;
+    protected JPAAddressEntity billingAddress;
 
     @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    protected List<Contact> contacts;
+    protected List<JPAContactEntity> contacts;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_MAIN_ADDRESS")
-    protected Address mainAddress;
+    protected JPAAddressEntity mainAddress;
 
     @OneToOne(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_MAIN_CONTACT")
-    protected Contact mainContact;
+    protected JPAContactEntity mainContact;
 
     @Column(name = "NAME")
     protected String name;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_SHIPPING_ADDRESS")
-    protected Address shippingAddress;
+    protected JPAAddressEntity shippingAddress;
 
     @Column(name = "TAX_ID")
     protected String taxRegistrationNumber;
@@ -114,7 +113,7 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     }
 
     @Override
-    public List<BankAccount> getBankAccounts() {
+    public List<JPABankAccountEntity> getBankAccounts() {
         return this.bankAccounts;
     }
 
@@ -134,33 +133,33 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     }
 
     @Override
-    public List<Address> getAddresses() {
+    public List<JPAAddressEntity> getAddresses() {
         return this.addresses;
     }
 
     @Override
     public <T extends AddressEntity> void setMainAddress(T address) {
-        this.mainAddress = address;
+        this.mainAddress = (JPAAddressEntity) address;
     }
 
     @Override
     public <T extends AddressEntity> void setBillingAddress(T address) {
-        this.billingAddress = address;
+        this.billingAddress = (JPAAddressEntity) address;
     }
 
     @Override
     public <T extends AddressEntity> void setShippingAddress(T address) {
-        this.shippingAddress = address;
+        this.shippingAddress = (JPAAddressEntity) address;
     }
 
     @Override
-    public List<Contact> getContacts() {
+    public List<JPAContactEntity> getContacts() {
         return this.contacts;
     }
 
     @Override
     public <T extends ContactEntity> void setMainContact(T contact) {
-        this.mainContact = contact;
+        this.mainContact = (JPAContactEntity) contact;
     }
 
     @Override

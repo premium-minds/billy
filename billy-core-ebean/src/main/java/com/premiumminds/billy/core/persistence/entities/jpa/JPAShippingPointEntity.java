@@ -42,7 +42,7 @@ public class JPAShippingPointEntity extends JPABaseEntity implements ShippingPoi
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
-    protected Address address;
+    protected JPAAddressEntity address;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "DATE")
@@ -115,7 +115,7 @@ public class JPAShippingPointEntity extends JPABaseEntity implements ShippingPoi
 
     @Override
     public <T extends AddressEntity> void setAddress(T address) {
-        this.address = address;
+        this.address = (JPAAddressEntity) address;
     }
 
     @Override

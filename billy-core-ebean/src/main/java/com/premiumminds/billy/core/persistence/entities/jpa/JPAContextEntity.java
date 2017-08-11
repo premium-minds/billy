@@ -42,7 +42,7 @@ public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
 
     @ManyToOne(targetEntity = JPAContextEntity.class)
     @JoinColumn(name = "ID_CONTEXT_PARENT", referencedColumnName = "ID")
-    protected Context parent;
+    protected JPAContextEntity parent;
 
     public JPAContextEntity() {
     }
@@ -75,7 +75,7 @@ public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
 
     @Override
     public <T extends ContextEntity> void setParentContext(T parent) {
-        this.parent = parent;
+        this.parent = (JPAContextEntity) parent;
     }
 
 }
