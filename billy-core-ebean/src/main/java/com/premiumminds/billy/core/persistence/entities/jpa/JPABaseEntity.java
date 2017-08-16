@@ -39,11 +39,6 @@ import org.apache.commons.lang3.Validate;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
-/**
- * @author Francisco Vargas
- *
- *         The Billy JPA implementation of {@link JPABaseEntity}
- */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class JPABaseEntity implements BaseEntity {
@@ -78,9 +73,6 @@ public abstract class JPABaseEntity implements BaseEntity {
     @Column(name = "ACTIVE")
     protected Boolean active;
 
-    /**
-     * Constructor
-     */
     public JPABaseEntity() {
         this.uid = this.generateUUID().toString();
     }

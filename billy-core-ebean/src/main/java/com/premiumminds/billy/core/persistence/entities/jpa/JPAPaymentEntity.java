@@ -33,9 +33,6 @@ import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 @Table(name = Config.TABLE_PREFIX + "PAYMENT")
 public class JPAPaymentEntity extends JPABaseEntity implements PaymentEntity {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     @Column(name = "PAYMENT_METHOD")
