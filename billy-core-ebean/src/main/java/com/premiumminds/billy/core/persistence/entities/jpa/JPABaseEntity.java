@@ -37,6 +37,8 @@ import org.apache.commons.lang3.Validate;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 @MappedSuperclass
 public abstract class JPABaseEntity implements BaseEntity {
 
@@ -76,11 +78,11 @@ public abstract class JPABaseEntity implements BaseEntity {
 
     @Override
     public boolean isNew() {
-        return this.id == null;
+        return Ebean.getBeanState(this).isNew();
     }
 
     @PrePersist
-    protected void onPersist() {
+    public void onPersist() {
         if (this.isNew()) {
             this.uidRow = this.generateUUID().toString();
             this.entityVersion = 1;
@@ -92,7 +94,7 @@ public abstract class JPABaseEntity implements BaseEntity {
     }
 
     @PreUpdate
-    protected void onUpdate() {
+    public void onUpdate() {
         this.updateTimestamp = new Date();
     }
 
