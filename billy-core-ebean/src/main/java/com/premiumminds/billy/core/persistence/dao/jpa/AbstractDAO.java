@@ -18,81 +18,62 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
 import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.mysema.query.jpa.JPQLTemplates;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Path;
-import com.mysema.query.types.path.EntityPathBase;
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPABaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends JPABaseEntity & BaseEntity>
         implements DAO<TInterface> {
 
-    private static final Logger log = LoggerFactory.getLogger(AbstractDAO.class);
-
-    protected Provider<EntityManager> emProvider;
-
-    public AbstractDAO(Provider<EntityManager> emProvider) {
-        this.emProvider = emProvider;
-        this.getEntityManager().setFlushMode(FlushModeType.AUTO);
-    }
+    private boolean isForRollback = false;
 
     @Override
     public void beginTransaction() {
-        this.getEntityManager().getTransaction().begin();
+        Ebean.beginTransaction();
+        this.isForRollback = false;
     }
 
     @Override
     public void rollback() {
-        this.getEntityManager().getTransaction().rollback();
+        Ebean.rollbackTransaction();
     }
 
     @Override
     public void setForRollback() {
-        this.getEntityManager().getTransaction().setRollbackOnly();
+        Ebean.setRollbackOnly();
+        this.isForRollback = true;
     }
 
     @Override
     public boolean isSetForRollback() {
-        return this.getEntityManager().getTransaction().getRollbackOnly();
+        return this.isForRollback;
     }
 
     @Override
     public void commit() {
-        this.getEntityManager().getTransaction().commit();
+        Ebean.commitTransaction();
     }
 
     @Override
     public void lock(TInterface entity, LockModeType type) {
-        if (this.isTransactionActive()) {
-            this.getEntityManager().lock(entity, type);
-        }
+        // Not used. Needed to override DAO.java interface from billy-core
+        throw new RuntimeException("Unsupported operation: lock(...)");
     }
 
     @Override
     public boolean isTransactionActive() {
-        return this.getEntityManager().getTransaction().isActive();
-    }
-
-    public EntityManager getEntityManager() {
-        return this.emProvider.get();
+        return Ebean.currentTransaction() != null;
     }
 
     @SuppressWarnings("unchecked")
@@ -130,20 +111,15 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
     }
 
     protected TEntity getEntity(UID uid) throws NoResultException {
-
         TEntity result = null;
         Class<? extends TEntity> entityClass = this.getEntityClass();
         try {
-            result = this.getEntityManager()
-                    .createQuery(
-                            "select e from " + entityClass.getCanonicalName() + " e " +
-                                    "where e.uid=:uid and e.active=true " + "order by e.entityVersion desc",
-                            entityClass)
-                    .setParameter("uid", uid.toString()).setMaxResults(1).getSingleResult();
-        } catch (NoResultException e) {
-            throw e;
+            result = Ebean.find(entityClass).where().eq("uid", uid.toString()).and().eq("active", true).findOne();
         } catch (Exception e) {
             throw new PersistenceException(e);
+        }
+        if (result == null) {
+            throw new NoResultException("Could not find " + entityClass.getSimpleName() + " with uid: " + uid);
         }
 
         return result;
@@ -171,7 +147,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
                         throw e;
                     }
                     TEntity newEntity = (TEntity) entity;
-                    AbstractDAO.this.getEntityManager().persist(newEntity);
+                    Ebean.save(newEntity);
                     return AbstractDAO.this.get(entity.getUID());
                 }
             }.execute();
@@ -197,7 +173,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
                     }
 
                     TEntity newVersion = (TEntity) entity;
-                    AbstractDAO.this.getEntityManager().merge(newVersion);
+                    Ebean.save(newVersion);
 
                     return AbstractDAO.this.get(entity.getUID());
                 }
@@ -210,31 +186,8 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
     @Override
     public boolean exists(UID uid) {
         Class<? extends TEntity> entityClass = this.getEntityClass();
-        TEntity entity = null;
-        try {
-            entity = this.getEntityManager()
-                    .createQuery("select e from " + entityClass.getCanonicalName() + " e " + "where e.uid=:uid",
-                            entityClass)
-                    .setParameter("uid", uid.toString()).getSingleResult();
-        } catch (NoResultException e) {
-            return false;
-        }
+        TEntity entity = Ebean.find(entityClass).where().eq("uid", uid.toString()).findOne();
         return entity != null;
-    }
-
-    protected JPAQuery createQuery() {
-        return new JPAQuery(this.getEntityManager(), JPQLTemplates.DEFAULT);
-    }
-
-    protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
-        try {
-            return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
-                InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            AbstractDAO.log.error(e.getMessage(), e);
-        }
-
-        return null;
     }
 
     protected abstract Class<? extends TEntity> getEntityClass();
