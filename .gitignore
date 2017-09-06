@@ -24,3 +24,6 @@ billy-gin/src/main/filters/*.properties
 billy-portugal/src/main/filters/*.properties
 billy-spain/src/main/filters/*.properties
 
+billy-core-ebean/db-create-all.sql
+billy-core-ebean/db-drop-all.sql
+

@@ -1,0 +1,3 @@
+entity-packages: com.premiumminds.billy.core
+transactional-packages: com.premiumminds.billy.core
+querybean-packages: com.premiumminds.billy.core
