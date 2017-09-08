@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import java.util.List;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
@@ -27,6 +25,8 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.query.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.query.QJPAGenericInvoiceEntity;
+
+import io.ebean.QueryIterator;
 
 public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity>
         extends AbstractDAO<TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
@@ -39,9 +39,9 @@ public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericIn
             throw new BillyRuntimeException("No Business found for id: " + businessUID);
         }
 
-        List<JPAGenericInvoiceEntity> invoiceList =
-                this.queryInvoice(series, business).orderBy().seriesNumber.desc().findList();
-        return (TInterface) (invoiceList.isEmpty() ? null : invoiceList.get(0));
+        QueryIterator<JPAGenericInvoiceEntity> invoiceIterator =
+                this.queryInvoice(series, business).orderBy().seriesNumber.desc().findIterate();
+        return (TInterface) (invoiceIterator.hasNext() ? invoiceIterator.next() : null);
     }
 
     private QJPABusinessEntity queryBusiness(String businessUID) {
