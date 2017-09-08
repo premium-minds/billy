@@ -23,19 +23,17 @@ import java.util.List;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.query.QJPACustomerEntity;
 
 public class DAOCustomerImpl extends AbstractDAO<CustomerEntity, JPACustomerEntity> implements DAOCustomer {
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<CustomerEntity> getAllActiveCustomers() {
-        /*List<JPACustomerEntity> result = (List<JPACustomerEntity>) this.getEntityManager()
-                .createQuery(
-                        "select c from " + this.getEntityClass().getCanonicalName() + " c " + "where c.active=true",
-                        this.getEntityClass())
-                .getResultList();
-        return this.checkEntityList(result, CustomerEntity.class);*/
-        return null;
+        return this.checkEntityList(this.queryCustomer().active.eq(true).findList(), CustomerEntity.class);
+    }
+
+    private QJPACustomerEntity queryCustomer() {
+        return new QJPACustomerEntity();
     }
 
     @Override

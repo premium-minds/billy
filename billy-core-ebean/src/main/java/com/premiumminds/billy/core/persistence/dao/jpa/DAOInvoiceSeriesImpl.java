@@ -20,17 +20,13 @@ package com.premiumminds.billy.core.persistence.dao.jpa;
 
 import javax.persistence.LockModeType;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import com.premiumminds.billy.core.persistence.entities.jpa.query.QJPAInvoiceSeriesEntity;
 
 public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAInvoiceSeriesEntity>
         implements DAOInvoiceSeries {
-
-    private static final Logger log = LoggerFactory.getLogger(DAOInvoiceSeriesImpl.class);
 
     @Override
     public InvoiceSeriesEntity getEntityInstance() {
@@ -44,30 +40,14 @@ public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAIn
 
     @Override
     public InvoiceSeriesEntity getSeries(String series, String businessUID, LockModeType lockMode) {
-        /*QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
-
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-
-        query = new JPAQuery(this.getEntityManager());
-
-        query.from(entity);
-        query.where(entity.series.eq(series));
-        query.where(this.toDSL(entity.business, QJPABusinessEntity.class).uid.eq(businessUID));
-
-        InvoiceSeries seriesEntity = query.setLockMode(lockMode).singleResult(entity);
-        
-        return (InvoiceSeriesEntity) seriesEntity;*/
-        return null;
+        QJPAInvoiceSeriesEntity querySeries = this.queryInvoiceSeries(series, businessUID);
+        if (lockMode == LockModeType.WRITE || lockMode == LockModeType.PESSIMISTIC_WRITE) {
+            querySeries = querySeries.forUpdate();
+        }
+        return querySeries.findOne();
     }
 
-    /*protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
-        try {
-            return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
-                InvocationTargetException | NoSuchMethodException | SecurityException e) {
-            DAOInvoiceSeriesImpl.log.error(e.getMessage(), e);
-        }
-
-        return null;
-    }*/
+    private QJPAInvoiceSeriesEntity queryInvoiceSeries(String series, String businessUID) {
+        return new QJPAInvoiceSeriesEntity().series.eq(series).business.uid.eq(businessUID);
+    }
 }
