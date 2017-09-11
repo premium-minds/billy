@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
+import javax.persistence.LockModeType;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,13 +88,35 @@ public class DAOInvoiceSeriesImplTest extends BaseH2Test {
     }
 
     @Test
-    public void getSeries_concurrent() {
-        /*DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.beginTransaction();
+    public void getSeries_concurrent_deadlock() {
+        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.beginTransaction();
         InvoiceSeriesEntity series =
                 DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(DAOInvoiceSeriesImplTest.rightSeries,
                         DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
-        
-        series.setSeries("Changed Series");
-        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.commit();*/
+
+        long threadTimeout = 1000;
+        long millis = System.currentTimeMillis();
+        Thread concurrentThread = new Thread() {
+
+            @Override
+            public void run() {
+                DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.beginTransaction();
+                InvoiceSeriesEntity series =
+                        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(DAOInvoiceSeriesImplTest.rightSeries,
+                                DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
+                DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.commit();
+            }
+        };
+        concurrentThread.start();
+        try {
+            concurrentThread.join(threadTimeout);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long diff = System.currentTimeMillis() - millis;
+
+        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.commit();
+
+        Assert.assertEquals(diff >= threadTimeout, true);
     }
 }
