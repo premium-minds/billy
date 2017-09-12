@@ -35,22 +35,22 @@ import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOApplicationImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOBankAccountImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOBusinessImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOContactImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOContextImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOCustomerImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceEntryImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOGenericInvoiceImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOInvoiceSeriesImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOPaymentImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOProductImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOShippingPointImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOSupplierImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOTicketImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOAddressImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOApplicationImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOBankAccountImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOBusinessImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOContactImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOContextImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOCustomerImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOGenericInvoiceEntryImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOGenericInvoiceImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOInvoiceSeriesImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOPaymentImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOProductImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOShippingPointImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOSupplierImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOTaxImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOTicketImpl;
 
 public class CoreJPADependencyModule extends AbstractModule {
 
