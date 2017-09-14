@@ -18,21 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOContactImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTContactEntity;
 
 public class DAOPTContactImpl extends DAOContactImpl implements DAOPTContact {
-
-    @Inject
-    public DAOPTContactImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     public PTContactEntity getEntityInstance() {

@@ -21,10 +21,6 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
@@ -36,11 +32,6 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTReceiptInv
 public class DAOPTReceiptInvoiceImpl
         extends AbstractDAOPTGenericInvoiceImpl<PTReceiptInvoiceEntity, JPAPTReceiptInvoiceEntity>
         implements DAOPTReceiptInvoice {
-
-    @Inject
-    public DAOPTReceiptInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     public PTReceiptInvoiceEntity getEntityInstance() {

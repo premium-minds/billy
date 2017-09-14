@@ -21,10 +21,6 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.mysema.query.jpa.JPASubQuery;
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.services.UID;
@@ -39,11 +35,6 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity>
         implements DAOPTCreditNote {
-
-    @Inject
-    public DAOPTCreditNoteImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     public PTCreditNoteEntity getEntityInstance() {

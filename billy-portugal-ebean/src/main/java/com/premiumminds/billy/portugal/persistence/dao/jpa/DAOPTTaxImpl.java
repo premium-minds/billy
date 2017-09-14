@@ -22,10 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
@@ -38,11 +34,6 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTRegionCont
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTTaxEntity;
 
 public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
-
-    @Inject
-    public DAOPTTaxImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     public PTTaxEntity getEntityInstance() {

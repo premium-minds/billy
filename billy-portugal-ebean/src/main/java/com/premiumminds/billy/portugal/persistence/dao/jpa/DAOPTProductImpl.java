@@ -18,21 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOProductImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTProductEntity;
 
 public class DAOPTProductImpl extends DAOProductImpl implements DAOPTProduct {
-
-    @Inject
-    public DAOPTProductImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     public PTProductEntity getEntityInstance() {

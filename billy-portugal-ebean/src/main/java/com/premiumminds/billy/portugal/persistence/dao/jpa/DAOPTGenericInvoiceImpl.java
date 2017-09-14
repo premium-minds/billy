@@ -18,10 +18,6 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity;
@@ -29,11 +25,6 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvo
 public class DAOPTGenericInvoiceImpl
         extends AbstractDAOPTGenericInvoiceImpl<PTGenericInvoiceEntity, JPAPTGenericInvoiceEntity>
         implements DAOPTGenericInvoice {
-
-    @Inject
-    public DAOPTGenericInvoiceImpl(Provider<EntityManager> emProvider) {
-        super(emProvider);
-    }
 
     @Override
     public PTGenericInvoiceEntity getEntityInstance() {
