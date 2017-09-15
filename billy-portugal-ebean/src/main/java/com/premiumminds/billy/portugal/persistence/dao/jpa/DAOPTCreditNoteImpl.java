@@ -21,16 +21,10 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 import java.util.Date;
 import java.util.List;
 
-import com.mysema.query.jpa.JPASubQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity>
@@ -48,22 +42,23 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
 
     @Override
     public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid, Date from, Date to) {
-        QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
-
+        /*QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+        
         JPAQuery query = this.createQuery();
-
+        
         query.from(creditNote)
                 .where(creditNote.instanceOf(JPAPTCreditNoteEntity.class).and(creditNote.date.between(from, to))
                         .and(this.toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
-
+        
         List<PTCreditNoteEntity> result = this.checkEntityList(query.list(creditNote), PTCreditNoteEntity.class);
-        return result;
+        return result;*/
+        return null;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<PTCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
-        QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+        /*QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
         QJPAPTCreditNoteEntryEntity entry = QJPAPTCreditNoteEntryEntity.jPAPTCreditNoteEntryEntity;
         QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
 
@@ -76,7 +71,8 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
                 .where(this.toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString())
                         .and(this.toDSL(creditNote.entries.any(), QJPAPTCreditNoteEntryEntity.class).uid
                                 .in(entQ.list(entry.uid))))
-                .list(creditNote);
+                .list(creditNote);*/
+        return null;
     }
 
 }

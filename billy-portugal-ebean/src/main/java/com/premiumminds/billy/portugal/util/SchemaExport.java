@@ -18,13 +18,6 @@
  */
 package com.premiumminds.billy.portugal.util;
 
-import java.io.File;
-
-import org.hibernate.cfg.Configuration;
-import org.hibernate.ejb.Ejb3Configuration;
-import org.hibernate.envers.configuration.AuditConfiguration;
-import org.hibernate.tool.EnversSchemaGenerator;
-
 @SuppressWarnings("deprecation")
 public class SchemaExport {
 
@@ -36,9 +29,9 @@ public class SchemaExport {
 
     private static void exportSchema(String persistenceUnit, String outputDir, Boolean drop, Boolean create,
             String delemiter) {
-        File file = new File(outputDir);
+        /*File file = new File(outputDir);
         new File(file.getParent()).mkdirs();
-
+        
         Ejb3Configuration jpaConfiguration = new Ejb3Configuration().configure(persistenceUnit, null);
         jpaConfiguration.buildMappings();
         Configuration hibernateConfiguration = jpaConfiguration.getHibernateConfiguration();
@@ -49,6 +42,6 @@ public class SchemaExport {
         se.setFormat(true);
         se.setDelimiter(delemiter);
         se.drop(drop, false);
-        se.create(create, false);
+        se.create(create, false);*/
     }
 }

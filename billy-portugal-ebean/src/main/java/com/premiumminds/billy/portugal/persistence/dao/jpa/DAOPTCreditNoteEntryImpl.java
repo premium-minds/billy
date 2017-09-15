@@ -18,16 +18,10 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import java.util.List;
-
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntryEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class DAOPTCreditNoteEntryImpl
@@ -47,14 +41,14 @@ public class DAOPTCreditNoteEntryImpl
     @Override
     public PTCreditNoteEntity checkCreditNote(PTInvoice invoice) {
 
-        QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
-
+        /*QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+        
         JPAQuery query = new JPAQuery(this.getEntityManager());
-
+        
         query.from(creditNoteEntity);
-
+        
         List<JPAPTCreditNoteEntity> allCns = query.list(creditNoteEntity);
-
+        
         // TODO make a query to do this
         for (JPAPTCreditNoteEntity cne : allCns) {
             for (PTCreditNoteEntry cnee : cne.getEntries()) {
@@ -62,7 +56,7 @@ public class DAOPTCreditNoteEntryImpl
                     return cne;
                 }
             }
-        }
+        }*/
         return null;
     }
 }

@@ -21,13 +21,10 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 import java.util.Date;
 import java.util.List;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
-import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTInvoiceEntity;
 
 public class DAOPTInvoiceImpl extends AbstractDAOPTGenericInvoiceImpl<PTInvoiceEntity, JPAPTInvoiceEntity>
         implements DAOPTInvoice {
@@ -44,16 +41,16 @@ public class DAOPTInvoiceImpl extends AbstractDAOPTGenericInvoiceImpl<PTInvoiceE
 
     @Override
     public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid, Date from, Date to) {
-
-        QJPAPTInvoiceEntity invoice = QJPAPTInvoiceEntity.jPAPTInvoiceEntity;
-
+        /*QJPAPTInvoiceEntity invoice = QJPAPTInvoiceEntity.jPAPTInvoiceEntity;
+        
         JPAQuery query = this.createQuery();
-
+        
         query.from(invoice).where(invoice.instanceOf(JPAPTInvoiceEntity.class).and(invoice.date.between(from, to))
                 .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
-
+        
         List<PTInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTInvoiceEntity.class);
-        return result;
+        return result;*/
+        return null;
     }
 
 }
