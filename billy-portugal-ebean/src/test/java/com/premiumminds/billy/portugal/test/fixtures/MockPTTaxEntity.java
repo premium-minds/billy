@@ -23,9 +23,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 
 public class MockPTTaxEntity extends MockTaxEntity implements PTTaxEntity {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public MockPTTaxEntity() {

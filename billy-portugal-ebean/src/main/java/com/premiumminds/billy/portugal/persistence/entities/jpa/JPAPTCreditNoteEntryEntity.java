@@ -37,9 +37,6 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 @Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE_ENTRY")
 public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity implements PTCreditNoteEntryEntity {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class,

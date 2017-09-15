@@ -40,9 +40,6 @@ public interface PTGenericInvoice extends GenericInvoice {
     /**
      * Represents if an invoice was emitted by the application or manually
      * emitted.
-     *
-     * @author Hugo Correia
-     *
      */
     public static enum SourceBilling {
         P, M

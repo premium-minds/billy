@@ -39,9 +39,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
 public class JPAPTApplicationEntity extends JPAApplicationEntity implements PTApplicationEntity {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     @Basic(optional = false)

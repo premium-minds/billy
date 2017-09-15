@@ -26,9 +26,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 
 public class MockPTPaymentEntity extends MockPaymentEntity implements PTPaymentEntity {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     protected BigDecimal paymentAmount;
