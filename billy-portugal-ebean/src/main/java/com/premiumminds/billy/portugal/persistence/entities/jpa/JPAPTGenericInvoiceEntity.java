@@ -24,8 +24,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
@@ -33,7 +31,6 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
 public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity implements PTGenericInvoiceEntity {
 

@@ -21,15 +21,12 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.persistence.entities.jpa.JPATaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "TAX")
 public class JPAPTTaxEntity extends JPATaxEntity implements PTTaxEntity {
 

@@ -24,14 +24,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 @Entity
-@Audited
 @Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
 public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements PTSimpleInvoiceEntity {
 
