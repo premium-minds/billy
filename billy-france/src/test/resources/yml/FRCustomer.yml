@@ -1,0 +1,75 @@
+#
+# Copyright (C) 2017 Premium Minds.
+#
+# This file is part of billy france (FR Pack).
+#
+# billy france (FR Pack) is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# billy france (FR Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with billy france (FR Pack). If not, see <http://www.gnu.org/licenses/>.
+#
+
+uid : uid
+name : name
+taxRegistrationNumber : 11111111H
+mainAddress : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
+  streetName : street_name
+  number : number
+  details : details
+  building : building
+  city : city
+  postalCode : postal_code
+  region : region
+  country : country
+billingAddress : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
+  streetName : street_name_billing
+  number : number_billing
+  details : details_billing
+  building : building_billing
+  city : city_billing
+  postalCode : postal_code_billing
+  region : region_billing
+  country : country_billing
+shippingAddress : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
+  streetName : street_name_shipping
+  number : number_shipping
+  details : details_shipping
+  building : building_shipping
+  city : city_shipping
+  postalCode : postal_code_shipping
+  region : region_shipping
+  country : country_shipping
+mainContact : !!com.premiumminds.billy.france.test.fixtures.MockFRContactEntity
+  uid : uid_mainContact
+  name : contact_main
+  telephone : telephone_main
+  mobile : mobile_main
+  fax : fax_main
+  email : email_main
+  website : website_main
+contacts :
+  - !!com.premiumminds.billy.france.test.fixtures.MockFRContactEntity
+    uid : uid_contact_1
+    name : contact_1
+    telephone : telephone_1
+    mobile : mobile_1
+    fax : fax_1
+    email : email_1
+    website : website_1
+  - !!com.premiumminds.billy.france.test.fixtures.MockFRContactEntity
+    uid : uid_contact_2
+    name : contact_2
+    telephone : telephone_2
+    mobile : mobile_2
+    fax : fax_2
+    email : email_2
+    website : website_2
+hasSelfBillingAgreement : false

@@ -33,6 +33,7 @@
 		<module>billy-portugal</module>
 		<module>billy-portugal-ebean</module>
 		<module>billy-spain</module>
+		<module>billy-france</module>
 	</modules>
 
 	<licenses>

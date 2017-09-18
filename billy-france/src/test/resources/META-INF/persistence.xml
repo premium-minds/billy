@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2017 Premium Minds.
+
+    This file is part of billy france (FR Pack).
+
+    billy france (FR Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy france (FR Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy france (FR Pack). If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<!-- Copyright (C) 2013 Premium Minds. This file is part of billy france 
+	(ES Pack). billy france (ES Pack) is free software: you can redistribute 
+	it and/or modify it under the terms of the GNU Lesser General Public License 
+	as published by the Free Software Foundation, either version 3 of the License, 
+	or (at your option) any later version. billy france (ES Pack) is distributed 
+	in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even 
+	the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+	See the GNU Lesser General Public License for more details. You should have 
+	received a copy of the GNU Lesser General Public License along with billy 
+	france (ES Pack). If not, see <http://www.gnu.org/licenses/>. -->
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+	version="2.0">
+
+	<persistence-unit name="BillyFranceTestPersistenceUnit">
+		
+		<description>billy persistence unit for tests</description>
+
+		<mapping-file>META-INF/orm-core.xml</mapping-file>
+		<mapping-file>META-INF/orm-france.xml</mapping-file>
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:h2:/tmp/h2db" />
+			<property name="javax.persistence.jdbc.user" value="billytest" />
+			<property name="javax.persistence.jdbc.password" value="billytest" />
+
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

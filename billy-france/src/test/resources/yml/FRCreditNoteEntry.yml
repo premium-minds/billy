@@ -1,0 +1,131 @@
+#
+# Copyright (C) 2017 Premium Minds.
+#
+# This file is part of billy france (FR Pack).
+#
+# billy france (FR Pack) is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# billy france (FR Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with billy france (FR Pack). If not, see <http://www.gnu.org/licenses/>.
+#
+
+uid : CreditNoteEntry_uid
+creditOrDebit : CREDIT
+description : description
+number : 143
+exchangeRateToDocumentCurrency : !!java.math.BigDecimal
+  1
+amountWithoutTax : !!java.math.BigDecimal
+  460
+amountWithTax : !!java.math.BigDecimal
+ 565.8
+taxAmount : !!java.math.BigDecimal
+  105.8
+discountAmount : !!java.math.BigDecimal
+  0
+product : !!com.premiumminds.billy.france.test.fixtures.MockFRProductEntity
+    uid : product_uid
+    productCode : product_code
+    productGroup : product_group
+    unitOfMeasure : unit_of_measure
+    numberCode : number_code
+    comodityCode : comodity_code
+    type : GOODS
+    description : product_description
+    valuationMethod : valuation_method
+    taxes:
+      - !!com.premiumminds.billy.france.test.fixtures.MockFRTaxEntity
+        uid : UID_TAX
+        designation : desgination_1
+        description : description_1
+        code : VAT
+        value : 23
+        validFrom: 2013-01-01
+        validTo: 2013-12-12
+        taxRateType : PERCENTAGE
+        percentageRateValue : 23
+        flatRateAmount : 13
+        context : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+          uid : context_uid
+          name : name
+          description : description
+          parentContext : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+            uid : context_parent_uid
+            name : parent_name
+            description : parent_description
+quantity : !!java.math.BigDecimal
+  46
+shippingCostsAmount : !!java.math.BigDecimal
+  0
+shippingDestination : !!com.premiumminds.billy.france.test.fixtures.MockFRShippingPointEntity
+  deliveryId : delivery_id
+  warehouseId : warehouse_id
+  locationId : location_id
+  UCR : ucr
+  date : 2013-01-01
+  address : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
+    streetName : street_name
+    number : number
+    details : details
+    building : building
+    city : city
+    postalCode : postal_code
+    region : region
+    country : country
+shippingOrigin : !!com.premiumminds.billy.france.test.fixtures.MockFRShippingPointEntity
+  deliveryId : delivery_id
+  warehouseId : warehouse_id
+  locationId : location_id
+  UCR : ucr
+  date : 2013-01-01
+  address : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
+    streetName : street_name
+    number : number
+    details : details
+    building : building
+    city : city
+    postalCode : postal_code
+    region : region
+    country : country
+taxes:
+  - !!com.premiumminds.billy.france.test.fixtures.MockFRTaxEntity
+    uid : tax_uid_2
+    designation : desgination_2
+    description : description_2
+    code : code_1
+    value : 202
+    validFrom: 2013-01-02
+    validTo: 2013-12-12
+    taxRateType : FLAT
+    percentageRateValue : 23
+    flatRateAmount : 12
+    context : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+      uid : context_uid
+      name : name
+      description : description
+      parentContext : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+        uid : context_parent_uid
+        name : parent_name
+        description : parent_description
+taxExemptionReason : exemption_reason
+taxPointDate : 2013-10-20
+unitAmountWithoutTax : !!java.math.BigDecimal
+  10
+unitAmountWithTax : !!java.math.BigDecimal
+  12.3
+unitTaxAmount : !!java.math.BigDecimal
+  2.3
+unitDiscountAmount : !!java.math.BigDecimal
+  0
+unitOfMeasure : kg
+
+reason: Reason_for_credit_note
+
