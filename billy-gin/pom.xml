@@ -52,7 +52,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.premiumminds</groupId>
-			<artifactId>billy-core-jpa</artifactId>
+			<artifactId>billy-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
