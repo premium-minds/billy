@@ -3,20 +3,20 @@
 
     Copyright (C) 2017 Premium Minds.
 
-    This file is part of billy portugal (PT Pack).
+    This file is part of billy portugal Ebean (PT Pack).
 
-    billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
+    billy portugal Ebean (PT Pack) is free software: you can redistribute it and/or modify it under
     the terms of the GNU Lesser General Public License as published by the Free
     Software Foundation, either version 3 of the License, or (at your option) any
     later version.
 
-    billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    billy portugal Ebean (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
     WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
     A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
     details.
 
     You should have received a copy of the GNU Lesser General Public License
-    along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+    along with billy portugal Ebean (PT Pack). If not, see <http://www.gnu.org/licenses/>.
 
 -->
 <xs:schema xmlns:doc="urn:schemas-basda-org:schema-extensions:documentation" xmlns:ns="urn:OECD:StandardAuditFile-Tax:PT_1.03_01" xmlns="urn:OECD:StandardAuditFile-Tax:PT_1.03_01" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="urn:OECD:StandardAuditFile-Tax:PT_1.03_01" version="1.03_01" id="SAF-T_PT" xmlns:xs="http://www.w3.org/2001/XMLSchema">
@@ -895,7 +895,7 @@
     </xs:annotation>
     <xs:simpleType>
       <xs:restriction base="xs:string">
-        <xs:pattern value="([0-9]{9})+|([a-zA-Z0-9\-/_ãÃõÕéÉêÊàÀáÁóÓçÇíÍúÚºª&amp; ]+ [0-9/]+)"/>
+        <xs:pattern value="([0-9]{9})+|([a-zA-Z0-9\-/_ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½&amp; ]+ [0-9/]+)"/>
         <xs:minLength value="1"/>
         <xs:maxLength value="50"/>
       </xs:restriction>
@@ -993,7 +993,7 @@
   <xs:element name="InvoiceType">
     <xs:annotation>
       <xs:documentation>
-        Restricao:FT para Fatura, emitida nos termos do artigo 36. do Codigo do IVA, FS para Fatura simplificada, emitida nos termos do artigo 40. do Codigo do IVA, FR para Fatura-recibo, ND para Nota de debito, NC para Nota de credito, VD para Venda a dinheiro e factura/recibo (a), TV para Talao de venda (a), TD para Talao de devolucao (a), AA para Alienacao de ativos (a), DA para Devolucao de  ativos (a). Para o setor Segurador, ainda pode ser preenchido com: RP para Premio ou recibo de premio, RE para Estorno ou recibo de estorno, CS para Imputacao a co-seguradoras, LD para Imputacao a co-seguradora líder, RA para Resseguro aceite. (a) Para os dados ate 2012-12-31
+        Restricao:FT para Fatura, emitida nos termos do artigo 36. do Codigo do IVA, FS para Fatura simplificada, emitida nos termos do artigo 40. do Codigo do IVA, FR para Fatura-recibo, ND para Nota de debito, NC para Nota de credito, VD para Venda a dinheiro e factura/recibo (a), TV para Talao de venda (a), TD para Talao de devolucao (a), AA para Alienacao de ativos (a), DA para Devolucao de  ativos (a). Para o setor Segurador, ainda pode ser preenchido com: RP para Premio ou recibo de premio, RE para Estorno ou recibo de estorno, CS para Imputacao a co-seguradoras, LD para Imputacao a co-seguradora lï¿½der, RA para Resseguro aceite. (a) Para os dados ate 2012-12-31
       </xs:documentation>
     </xs:annotation>
     <xs:simpleType>
