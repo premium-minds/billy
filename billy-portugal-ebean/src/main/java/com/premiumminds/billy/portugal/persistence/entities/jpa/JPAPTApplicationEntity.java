@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -28,7 +27,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAApplicationEntity;
-import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
@@ -48,11 +46,6 @@ public class JPAPTApplicationEntity extends JPAApplicationEntity implements PTAp
 
     public JPAPTApplicationEntity() {
 
-    }
-
-    @Override
-    public List<Contact> getContacts() {
-        return super.getContacts();
     }
 
     @Override
