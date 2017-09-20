@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
 import javax.persistence.NoResultException;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOApplicationImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOApplicationImpl;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;

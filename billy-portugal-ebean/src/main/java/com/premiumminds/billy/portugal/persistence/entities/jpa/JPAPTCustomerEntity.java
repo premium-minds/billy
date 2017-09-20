@@ -22,7 +22,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPACustomerEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPACustomerEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 

@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOContactImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOContactImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTContactEntity;

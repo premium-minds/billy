@@ -21,7 +21,7 @@ package com.premiumminds.billy.portugal.persistence.entities.jpa;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAContactEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAContactEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 

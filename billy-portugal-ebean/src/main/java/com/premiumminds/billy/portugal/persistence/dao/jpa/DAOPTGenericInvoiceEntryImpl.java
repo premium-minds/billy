@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.AbstractDAOGenericInvoiceEntryImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.AbstractDAOGenericInvoiceEntryImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntryEntity;

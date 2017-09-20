@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOAddressImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTAddressEntity;

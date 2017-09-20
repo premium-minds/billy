@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOPaymentImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOPaymentImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTPaymentEntity;

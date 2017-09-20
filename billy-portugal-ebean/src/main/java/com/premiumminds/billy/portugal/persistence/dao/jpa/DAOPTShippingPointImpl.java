@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOShippingPointImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOShippingPointImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
 import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTShippingPointEntity;

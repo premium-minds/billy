@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOSupplierImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOSupplierImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSupplierEntity;

@@ -24,7 +24,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAPaymentEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAPaymentEntity;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;

@@ -24,7 +24,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;

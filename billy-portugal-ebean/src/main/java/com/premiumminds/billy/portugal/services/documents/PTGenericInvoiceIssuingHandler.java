@@ -25,7 +25,7 @@ import javax.persistence.LockModeType;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;

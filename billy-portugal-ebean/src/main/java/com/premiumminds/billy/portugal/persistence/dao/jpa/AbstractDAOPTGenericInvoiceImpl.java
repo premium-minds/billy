@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.AbstractDAOGenericInvoiceImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.AbstractDAOGenericInvoiceImpl;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
@@ -31,7 +31,7 @@ public abstract class AbstractDAOPTGenericInvoiceImpl<TInterface extends PTGener
     @Override
     public TInterface findByNumber(UID uidBusiness, String number) {
         /*QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
-
+        
         return (TInterface) this.checkEntity(
                 this.createQuery()
                         .from(invoice).where(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid

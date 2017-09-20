@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
 import javax.persistence.NoResultException;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOBusinessImpl;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOBusinessImpl;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
