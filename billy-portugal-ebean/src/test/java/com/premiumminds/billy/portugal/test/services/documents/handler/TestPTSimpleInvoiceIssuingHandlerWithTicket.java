@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import org.junit.Assert;
@@ -175,15 +174,15 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends PTDocumentAbstr
                 new PTSimpleInvoiceTestUtil(PTAbstractTest.injector).getSimpleInvoiceBuilder(business,
                         TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, CLIENTTYPE.CUSTOMER);
 
-        EntityManager em = PTAbstractTest.injector.getInstance(EntityManager.class);
-        em.getTransaction().begin();
+        /*EntityManager em = PTAbstractTest.injector.getInstance(EntityManager.class);
+        em.getTransaction().begin();*/
 
         TicketManager newTicketManager = PTAbstractTest.injector.getInstance(TicketManager.class);
         String testValue = newTicketManager.generateTicket(this.getInstance(Ticket.Builder.class));
         UID testUID = new UID(testValue);
-        em.getTransaction().commit();
+        // em.getTransaction().commit();
 
-        em.clear();
+        // em.clear();
 
         services = new Services(Guice.createInjector(new PTMockDependencyModule()));
 
