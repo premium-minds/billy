@@ -28,6 +28,8 @@ import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPACustomerEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public class DAOCustomerImplTest extends BaseH2Test {
 
     private static UID existingObjUid1 = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
@@ -52,11 +54,11 @@ public class DAOCustomerImplTest extends BaseH2Test {
 
     @Test
     public void getAllActiveCustomers_noActiveCustomers() {
-        DAOCustomerImplTest.daoCustomerImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPACustomerEntity customer = new JPACustomerEntity();
         customer.setUID(DAOCustomerImplTest.inactiveObjUid);
         customer.setName("Test Customer 0");
-        DAOCustomerImplTest.daoCustomerImpl.commit();
+        Ebean.commitTransaction();
 
         List<CustomerEntity> customers = DAOCustomerImplTest.daoCustomerImpl.getAllActiveCustomers();
 
@@ -65,7 +67,7 @@ public class DAOCustomerImplTest extends BaseH2Test {
 
     @Test
     public void getAllActiveCustomers() {
-        DAOCustomerImplTest.daoCustomerImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPACustomerEntity customer = new JPACustomerEntity();
         customer.setUID(DAOCustomerImplTest.existingObjUid1);
         customer.setName("Test Customer 1");
@@ -75,7 +77,7 @@ public class DAOCustomerImplTest extends BaseH2Test {
         customer.setUID(DAOCustomerImplTest.existingObjUid2);
         customer.setName("Test Customer 2");
         DAOCustomerImplTest.daoCustomerImpl.create(customer);
-        DAOCustomerImplTest.daoCustomerImpl.commit();
+        Ebean.commitTransaction();
 
         List<CustomerEntity> customers = DAOCustomerImplTest.daoCustomerImpl.getAllActiveCustomers();
 

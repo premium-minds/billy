@@ -28,6 +28,8 @@ import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAProductEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public class DAOProductImplTest extends BaseH2Test {
 
     private static UID existingObjUid1 = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
@@ -52,11 +54,11 @@ public class DAOProductImplTest extends BaseH2Test {
 
     @Test
     public void getAllActiveProducts_noActiveProducts() {
-        DAOProductImplTest.daoProductImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPAProductEntity product = new JPAProductEntity();
         product.setUID(DAOProductImplTest.inactiveObjUid);
         product.setDescription("Test Product 0");
-        DAOProductImplTest.daoProductImpl.commit();
+        Ebean.commitTransaction();
 
         List<ProductEntity> products = DAOProductImplTest.daoProductImpl.getAllActiveProducts();
 
@@ -65,7 +67,7 @@ public class DAOProductImplTest extends BaseH2Test {
 
     @Test
     public void getAllActiveProducts() {
-        DAOProductImplTest.daoProductImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPAProductEntity product = new JPAProductEntity();
         product.setUID(DAOProductImplTest.existingObjUid1);
         product.setDescription("Test Product 1");
@@ -75,7 +77,7 @@ public class DAOProductImplTest extends BaseH2Test {
         product.setUID(DAOProductImplTest.existingObjUid2);
         product.setDescription("Test Product 2");
         DAOProductImplTest.daoProductImpl.create(product);
-        DAOProductImplTest.daoProductImpl.commit();
+        Ebean.commitTransaction();
 
         List<ProductEntity> products = DAOProductImplTest.daoProductImpl.getAllActiveProducts();
 

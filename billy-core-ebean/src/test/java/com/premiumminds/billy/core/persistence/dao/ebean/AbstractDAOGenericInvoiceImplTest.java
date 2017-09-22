@@ -30,6 +30,8 @@ import com.premiumminds.billy.core.persistence.entities.ebean.JPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public class AbstractDAOGenericInvoiceImplTest extends BaseH2Test {
 
     private static UID olderInvoiceUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
@@ -51,16 +53,16 @@ public class AbstractDAOGenericInvoiceImplTest extends BaseH2Test {
 
     @Before
     public void prepare() {
+        Ebean.beginTransaction();
         DAOBusinessImpl businessDAO = new DAOBusinessImpl();
-        businessDAO.beginTransaction();
         JPABusinessEntity business = new JPABusinessEntity();
         business.setUID(AbstractDAOGenericInvoiceImplTest.rightBusinessUid);
         business.setName("Test Business");
         businessDAO.create(business);
-        businessDAO.commit();
+        Ebean.commitTransaction();
 
+        Ebean.beginTransaction();
         AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO = new DAOGenericInvoiceImpl();
-        AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.beginTransaction();
         JPAGenericInvoiceEntity invoice1 = new JPAGenericInvoiceEntity();
         invoice1.setUID(AbstractDAOGenericInvoiceImplTest.olderInvoiceUid);
         invoice1.setSeries(AbstractDAOGenericInvoiceImplTest.rightSeries);
@@ -73,7 +75,7 @@ public class AbstractDAOGenericInvoiceImplTest extends BaseH2Test {
         invoice2.setSeriesNumber(2);
         invoice2.setBusiness(business);
         AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.create(invoice2);
-        AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.commit();
+        Ebean.commitTransaction();
     }
 
     @Test

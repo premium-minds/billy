@@ -29,6 +29,8 @@ import org.junit.rules.ExpectedException;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPATicketEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public class DAOTicketImplTest extends BaseH2Test {
 
     private static UID rightTicketUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
@@ -55,12 +57,12 @@ public class DAOTicketImplTest extends BaseH2Test {
 
     @Test
     public void getObjectEntityUID_noSuchUID() {
-        DAOTicketImplTest.daoTicketImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPATicketEntity ticket = new JPATicketEntity();
         ticket.setUID(DAOTicketImplTest.rightTicketUid);
         ticket.setObjectUID(DAOTicketImplTest.referencedObjUid);
         DAOTicketImplTest.daoTicketImpl.create(ticket);
-        DAOTicketImplTest.daoTicketImpl.commit();
+        Ebean.commitTransaction();
 
         this.expectedException.expect(NoResultException.class);
         DAOTicketImplTest.daoTicketImpl.getObjectEntityUID(DAOTicketImplTest.wrongTicketUid.toString());
@@ -68,12 +70,12 @@ public class DAOTicketImplTest extends BaseH2Test {
 
     @Test
     public void getObjectEntityUID() {
-        DAOTicketImplTest.daoTicketImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPATicketEntity ticket = new JPATicketEntity();
         ticket.setUID(DAOTicketImplTest.rightTicketUid);
         ticket.setObjectUID(DAOTicketImplTest.referencedObjUid);
         DAOTicketImplTest.daoTicketImpl.create(ticket);
-        DAOTicketImplTest.daoTicketImpl.commit();
+        Ebean.commitTransaction();
 
         UID objUid = DAOTicketImplTest.daoTicketImpl.getObjectEntityUID(DAOTicketImplTest.rightTicketUid.toString());
 

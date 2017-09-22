@@ -28,6 +28,8 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPASupplierEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public class DAOSupplierImplTest extends BaseH2Test {
 
     private static UID existingObjUid1 = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
@@ -52,11 +54,11 @@ public class DAOSupplierImplTest extends BaseH2Test {
 
     @Test
     public void getAllActiveSuppliers_noActiveSuppliers() {
-        DAOSupplierImplTest.daoSupplierImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPASupplierEntity supplier = new JPASupplierEntity();
         supplier.setUID(DAOSupplierImplTest.inactiveObjUid);
         supplier.setName("Test Supplier 0");
-        DAOSupplierImplTest.daoSupplierImpl.commit();
+        Ebean.commitTransaction();
 
         List<SupplierEntity> suppliers = DAOSupplierImplTest.daoSupplierImpl.getAllActiveSuppliers();
 
@@ -65,7 +67,7 @@ public class DAOSupplierImplTest extends BaseH2Test {
 
     @Test
     public void getAllActiveSuppliers() {
-        DAOSupplierImplTest.daoSupplierImpl.beginTransaction();
+        Ebean.beginTransaction();
         JPASupplierEntity supplier = new JPASupplierEntity();
         supplier.setUID(DAOSupplierImplTest.existingObjUid1);
         supplier.setName("Test Supplier 1");
@@ -75,7 +77,7 @@ public class DAOSupplierImplTest extends BaseH2Test {
         supplier.setUID(DAOSupplierImplTest.existingObjUid2);
         supplier.setName("Test Supplier 2");
         DAOSupplierImplTest.daoSupplierImpl.create(supplier);
-        DAOSupplierImplTest.daoSupplierImpl.commit();
+        Ebean.commitTransaction();
 
         List<SupplierEntity> suppliers = DAOSupplierImplTest.daoSupplierImpl.getAllActiveSuppliers();
 

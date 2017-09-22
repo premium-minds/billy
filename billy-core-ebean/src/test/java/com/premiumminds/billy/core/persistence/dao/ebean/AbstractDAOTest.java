@@ -31,6 +31,8 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPABusinessEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public class AbstractDAOTest extends BaseH2Test {
 
     private static UID existingObjUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
@@ -46,8 +48,8 @@ public class AbstractDAOTest extends BaseH2Test {
 
     @Before
     public void prepare() {
+        Ebean.beginTransaction();
         AbstractDAOTest.abstractDAO = new DAOBusinessImpl();
-        AbstractDAOTest.abstractDAO.beginTransaction();
 
         JPABusinessEntity activeBusiness = new JPABusinessEntity();
         activeBusiness.setUID(AbstractDAOTest.existingObjUid);
@@ -58,7 +60,7 @@ public class AbstractDAOTest extends BaseH2Test {
         inactiveBusiness.setName("Inactive Test Business");
 
         AbstractDAOTest.abstractDAO.create(activeBusiness);
-        AbstractDAOTest.abstractDAO.commit();
+        Ebean.commitTransaction();
     }
 
     @Test

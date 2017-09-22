@@ -29,6 +29,8 @@ import com.premiumminds.billy.core.persistence.entities.ebean.JPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.UID;
 
+import io.ebean.Ebean;
+
 public class DAOInvoiceSeriesImplTest extends BaseH2Test {
 
     private static String rightSeries = "Right Series";
@@ -45,22 +47,22 @@ public class DAOInvoiceSeriesImplTest extends BaseH2Test {
 
     @Before
     public void prepare() {
+        Ebean.beginTransaction();
         DAOBusinessImpl businessDAO = new DAOBusinessImpl();
-        businessDAO.beginTransaction();
         JPABusinessEntity business = new JPABusinessEntity();
         business.setUID(DAOInvoiceSeriesImplTest.rightBusinessUid);
         business.setName("Test Business");
         businessDAO.create(business);
-        businessDAO.commit();
+        Ebean.commitTransaction();
 
+        Ebean.beginTransaction();
         DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl = new DAOInvoiceSeriesImpl();
-        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.beginTransaction();
         JPAInvoiceSeriesEntity series = new JPAInvoiceSeriesEntity();
         series.setUID(DAOInvoiceSeriesImplTest.invoiceSeriesUid);
         series.setBusiness(business);
         series.setSeries(DAOInvoiceSeriesImplTest.rightSeries);
         DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.create(series);
-        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.commit();
+        Ebean.commitTransaction();
     }
 
     @Test
@@ -89,7 +91,7 @@ public class DAOInvoiceSeriesImplTest extends BaseH2Test {
 
     @Test
     public void getSeries_concurrent_deadlock() {
-        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.beginTransaction();
+        Ebean.beginTransaction();
         InvoiceSeriesEntity series =
                 DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(DAOInvoiceSeriesImplTest.rightSeries,
                         DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
@@ -100,11 +102,11 @@ public class DAOInvoiceSeriesImplTest extends BaseH2Test {
 
             @Override
             public void run() {
-                DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.beginTransaction();
+                Ebean.beginTransaction();
                 InvoiceSeriesEntity series =
                         DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(DAOInvoiceSeriesImplTest.rightSeries,
                                 DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
-                DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.commit();
+                Ebean.commitTransaction();
             }
         };
         concurrentThread.start();
@@ -115,7 +117,7 @@ public class DAOInvoiceSeriesImplTest extends BaseH2Test {
         }
         long diff = System.currentTimeMillis() - millis;
 
-        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.commit();
+        Ebean.commitTransaction();
 
         Assert.assertEquals(diff >= threadTimeout, true);
     }
