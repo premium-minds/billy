@@ -32,7 +32,7 @@ public interface SupplierEntity extends Supplier, BaseEntity {
     public void setTaxRegistrationNumber(String number);
 
     @Override
-    public List<Address> getAddresses();
+    public <T extends Address> List<T> getAddresses();
 
     public <T extends AddressEntity> void setMainAddress(T address);
 
@@ -46,7 +46,7 @@ public interface SupplierEntity extends Supplier, BaseEntity {
     public <T extends ContactEntity> void setMainContact(T contact);
 
     @Override
-    public List<BankAccount> getBankAccounts();
+    public <T extends BankAccount> List<T> getBankAccounts();
 
     public void setSelfBillingAgreement(boolean selfBilling);
 

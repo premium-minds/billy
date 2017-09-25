@@ -39,7 +39,7 @@ public interface Supplier extends Entity {
 
     public String getTaxRegistrationNumber();
 
-    public Collection<Address> getAddresses();
+    public <T extends Address> Collection<T> getAddresses();
 
     public Address getMainAddress();
 
@@ -51,7 +51,7 @@ public interface Supplier extends Entity {
 
     public Contact getMainContact();
 
-    public Collection<BankAccount> getBankAccounts();
+    public <T extends BankAccount> Collection<T> getBankAccounts();
 
     public boolean hasSelfBillingAgreement();
 
