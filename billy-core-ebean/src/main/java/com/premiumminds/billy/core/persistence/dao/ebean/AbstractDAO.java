@@ -32,16 +32,14 @@ import com.premiumminds.billy.core.persistence.entities.ebean.JPABaseEntity;
 import com.premiumminds.billy.core.services.UID;
 
 import io.ebean.Ebean;
+import io.ebean.Transaction;
 
 public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends JPABaseEntity & BaseEntity>
         implements DAO<TInterface> {
 
-    private boolean isForRollback = false;
-
     @Override
     public void beginTransaction() {
         Ebean.beginTransaction();
-        this.isForRollback = false;
     }
 
     @Override
@@ -52,12 +50,12 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
     @Override
     public void setForRollback() {
         Ebean.setRollbackOnly();
-        this.isForRollback = true;
     }
 
     @Override
     public boolean isSetForRollback() {
-        return this.isForRollback;
+        Transaction transaction = Ebean.currentTransaction();
+        return transaction != null && transaction.isRollbackOnly();
     }
 
     @Override
