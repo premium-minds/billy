@@ -16,22 +16,23 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy portugal Ebean (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.portugal.persistence.dao;
+package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
-import java.util.Date;
-import java.util.List;
+import com.premiumminds.billy.core.persistence.dao.ebean.DAOContactImpl;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
+import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
+import com.premiumminds.billy.portugal.persistence.entities.ebean.JPAPTContactEntity;
 
-import com.premiumminds.billy.core.persistence.dao.DAOTax;
-import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
-import com.premiumminds.billy.portugal.persistence.entities.ebean.JPAPTTaxEntity;
-
-public interface DAOPTTax extends DAOTax {
+public class DAOPTContactImpl extends DAOContactImpl implements DAOPTContact {
 
     @Override
-    public PTTaxEntity getEntityInstance();
+    public PTContactEntity getEntityInstance() {
+        return new JPAPTContactEntity();
+    }
 
-    public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo);
+    @Override
+    protected Class<JPAPTContactEntity> getEntityClass() {
+        return JPAPTContactEntity.class;
+    }
 
-    public List<JPAPTTaxEntity> getTaxesForSAFTPT(PTRegionContextEntity context, Date validFrom, Date validTo);
 }

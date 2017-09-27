@@ -40,13 +40,13 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTShippingPoint;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCreditNoteEntryImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTCreditNoteImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceEntryImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTGenericInvoiceImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTPaymentImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTReceiptInvoiceImpl;
-import com.premiumminds.billy.portugal.persistence.dao.jpa.DAOPTSimpleInvoiceImpl;
+import com.premiumminds.billy.portugal.persistence.dao.ebean.DAOPTCreditNoteEntryImpl;
+import com.premiumminds.billy.portugal.persistence.dao.ebean.DAOPTCreditNoteImpl;
+import com.premiumminds.billy.portugal.persistence.dao.ebean.DAOPTGenericInvoiceEntryImpl;
+import com.premiumminds.billy.portugal.persistence.dao.ebean.DAOPTGenericInvoiceImpl;
+import com.premiumminds.billy.portugal.persistence.dao.ebean.DAOPTPaymentImpl;
+import com.premiumminds.billy.portugal.persistence.dao.ebean.DAOPTReceiptInvoiceImpl;
+import com.premiumminds.billy.portugal.persistence.dao.ebean.DAOPTSimpleInvoiceImpl;
 
 public class PTMockDependencyModule extends MockDependencyModule {
 
