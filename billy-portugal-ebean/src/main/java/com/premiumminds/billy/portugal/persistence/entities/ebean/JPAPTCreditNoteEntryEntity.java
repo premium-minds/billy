@@ -39,7 +39,7 @@ public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity i
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_PTINVOICE", referencedColumnName = "ID")
-    protected PTInvoice reference;
+    protected JPAPTInvoiceEntity reference;
 
     @Column(name = "REASON")
     protected String reason;
@@ -50,13 +50,13 @@ public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity i
     }
 
     @Override
-    public PTInvoice getReference() {
+    public JPAPTInvoiceEntity getReference() {
         return this.reference;
     }
 
     @Override
     public void setReference(PTInvoice reference) {
-        this.reference = reference;
+        this.reference = (JPAPTInvoiceEntity) reference;
     }
 
     @Override
