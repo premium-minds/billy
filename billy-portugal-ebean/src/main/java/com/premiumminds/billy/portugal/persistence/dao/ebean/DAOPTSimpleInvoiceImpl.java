@@ -18,9 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
@@ -40,17 +43,18 @@ public class DAOPTSimpleInvoiceImpl extends
     }
 
     @Override
-    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(UID uid, Date from, Date to) {
-        /*QJPAPTSimpleInvoiceEntity invoice = QJPAPTSimpleInvoiceEntity.jPAPTSimpleInvoiceEntity;
-        
-        JPAQuery query = this.createQuery();
-        
-        query.from(invoice).where(invoice.instanceOf(JPAPTSimpleInvoiceEntity.class).and(invoice.date.between(from, to))
-                .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
-        
-        List<PTSimpleInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTSimpleInvoiceEntity.class);
-        return result;*/
-        return null;
+    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(UID businessUid, Date from, Date to) {
+        List<JPAGenericInvoiceEntity> genericInvoices = this.queryInvoice(businessUid, from, to).findList();
+        List<PTSimpleInvoiceEntity> invoices = new ArrayList<>();
+        for (JPAGenericInvoiceEntity genericInvoice : genericInvoices) {
+            if (genericInvoice instanceof JPAPTSimpleInvoiceEntity) {
+                invoices.add((JPAPTSimpleInvoiceEntity) genericInvoice);
+            }
+        }
+        return invoices;
     }
 
+    private QJPAGenericInvoiceEntity queryInvoice(UID businessUid, Date from, Date to) {
+        return new QJPAGenericInvoiceEntity().business.uid.eq(businessUid.toString()).date.between(from, to);
+    }
 }

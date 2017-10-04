@@ -18,9 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -40,17 +43,18 @@ public class DAOPTInvoiceImpl extends AbstractDAOPTGenericInvoiceImpl<PTInvoiceE
     }
 
     @Override
-    public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid, Date from, Date to) {
-        /*QJPAPTInvoiceEntity invoice = QJPAPTInvoiceEntity.jPAPTInvoiceEntity;
-        
-        JPAQuery query = this.createQuery();
-        
-        query.from(invoice).where(invoice.instanceOf(JPAPTInvoiceEntity.class).and(invoice.date.between(from, to))
-                .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
-        
-        List<PTInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTInvoiceEntity.class);
-        return result;*/
-        return null;
+    public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID businessUid, Date from, Date to) {
+        List<JPAGenericInvoiceEntity> genericInvoices = this.queryInvoice(businessUid, from, to).findList();
+        List<PTInvoiceEntity> invoices = new ArrayList<>();
+        for (JPAGenericInvoiceEntity genericInvoice : genericInvoices) {
+            if (genericInvoice instanceof JPAPTInvoiceEntity) {
+                invoices.add((JPAPTInvoiceEntity) genericInvoice);
+            }
+        }
+        return invoices;
     }
 
+    private QJPAGenericInvoiceEntity queryInvoice(UID businessUid, Date from, Date to) {
+        return new QJPAGenericInvoiceEntity().business.uid.eq(businessUid.toString()).date.between(from, to);
+    }
 }

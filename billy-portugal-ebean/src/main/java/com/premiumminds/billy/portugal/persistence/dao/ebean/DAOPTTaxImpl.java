@@ -18,10 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.dao.ebean.DAOTaxImpl;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAContextEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPATaxEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPAContextEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPATaxEntity;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
@@ -42,86 +47,77 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
     @Override
     public List<JPAPTTaxEntity> getTaxesForSAFTPT(PTRegionContextEntity context, Date validFrom, Date validTo) {
-        /*QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-
-        List<BooleanExpression> predicates = new ArrayList<>();
-        BooleanExpression active = tax.active.eq(true);
-        predicates.add(active);
-        BooleanExpression regionContext = tax.context.eq(context);
-        predicates.add(regionContext);
+        QJPATaxEntity query = this.queryTax().active.eq(true).context.equalTo((JPAContextEntity) context);
         if (validFrom != null) {
-            BooleanExpression dateFrom = tax.validFrom.eq(validFrom);
-            predicates.add(dateFrom);
+            query.validFrom.eq(validFrom);
         }
-
         if (validTo != null) {
-            BooleanExpression dateTo = tax.validTo.eq(validTo);
-            predicates.add(dateTo);
+            query.validTo.eq(validTo);
         }
 
-        query.from(tax);
-        for (BooleanExpression e : predicates) {
-            query.where(e);
+        List<JPATaxEntity> taxes = query.findList();
+        List<JPAPTTaxEntity> ptTaxes = new ArrayList<>();
+        for (JPATaxEntity tax : taxes) {
+            if (tax instanceof JPAPTTaxEntity) {
+                ptTaxes.add((JPAPTTaxEntity) tax);
+            }
         }
-        List<JPAPTTaxEntity> list = query.list(tax);
+
         List<JPAPTRegionContextEntity> childContexts = null;
         List<JPAPTTaxEntity> taxResult = null;
         List<JPAPTTaxEntity> taxContextResult = new ArrayList<>();
 
-        for (JPAPTTaxEntity t : list) {
-            childContexts = this.getChildContexts((PTRegionContextEntity) t.getContext());
-            for (JPAPTRegionContextEntity c : childContexts) {
-                taxResult = this.getTaxesForSAFTPT(c, validFrom, validTo);
+        for (JPAPTTaxEntity tax : ptTaxes) {
+            childContexts = this.getChildContexts((PTRegionContextEntity) tax.getContext());
+            for (JPAPTRegionContextEntity childContext : childContexts) {
+                taxResult = this.getTaxesForSAFTPT(childContext, validFrom, validTo);
                 if (taxResult != null) {
                     taxContextResult.addAll(taxResult);
                 }
             }
         }
         if (taxContextResult != null) {
-            list.addAll(taxContextResult);
+            ptTaxes.addAll(taxContextResult);
         }
-        return list;*/
-        return null;
+
+        return ptTaxes;
     }
 
     private List<JPAPTRegionContextEntity> getChildContexts(PTRegionContextEntity parentContext) {
-        /*QJPAPTRegionContextEntity contexts = QJPAPTRegionContextEntity.jPAPTRegionContextEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-        
-        query.from(contexts).where(contexts.parent.eq(parentContext));
-        return query.list(contexts);*/
-        return null;
+        List<JPAContextEntity> childContexts = this.queryContext(parentContext).findList();
+
+        List<JPAPTRegionContextEntity> childPTContexts = new ArrayList<>();
+        for (JPAContextEntity childContext : childContexts) {
+            if (childContext instanceof JPAPTRegionContextEntity) {
+                childPTContexts.add((JPAPTRegionContextEntity) childContext);
+            }
+        }
+        return childPTContexts;
+    }
+
+    private QJPAContextEntity queryContext(PTRegionContextEntity parentContext) {
+        return new QJPAContextEntity().parent.equalTo((JPAContextEntity) parentContext);
     }
 
     @Override
     public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo) {
-        /*QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-
-        query.from(tax);
-        List<BooleanExpression> predicates = new ArrayList<>();
-        BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
-        predicates.add(validFromPredicate);
-        BooleanExpression validToPredicate = tax.validTo.eq(validTo);
-        predicates.add(validToPredicate);
-        BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
-        predicates.add(lessOrEqual);
-        BooleanExpression active = tax.active.eq(true);
-        predicates.add(active);
-        BooleanExpression contextPredicate = tax.context.eq(context);
-        predicates.add(contextPredicate);
-
-        for (BooleanExpression e : predicates) {
-            query.where(e);
+        List<JPATaxEntity> taxes =
+                this.queryTax().validFrom.eq(validFrom).validTo.eq(validTo).validTo.lessOrEqualTo(validFrom).active
+                        .eq(true).context.equalTo((JPAContextEntity) context).findList();
+        List<JPAPTTaxEntity> ptTaxes = new ArrayList<>();
+        for (JPATaxEntity tax : taxes) {
+            if (tax instanceof JPAPTTaxEntity) {
+                ptTaxes.add((JPAPTTaxEntity) tax);
+            }
         }
 
-        List<JPAPTTaxEntity> list = null;
-        list = query.list(tax);
         if (context.getParentContext() != null) {
-            list.addAll(this.getTaxes((PTRegionContextEntity) context.getParentContext(), validFrom, validTo));
+            ptTaxes.addAll(this.getTaxes((PTRegionContextEntity) context.getParentContext(), validFrom, validTo));
         }
-        return list;*/
-        return null;
+        return ptTaxes;
+    }
+
+    private QJPATaxEntity queryTax() {
+        return new QJPATaxEntity();
     }
 }

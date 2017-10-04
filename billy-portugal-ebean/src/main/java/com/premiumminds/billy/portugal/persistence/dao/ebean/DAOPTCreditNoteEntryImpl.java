@@ -18,10 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
+import java.util.List;
+
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.ebean.JPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.ebean.JPAPTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.ebean.query.QJPAPTCreditNoteEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class DAOPTCreditNoteEntryImpl
@@ -40,23 +45,20 @@ public class DAOPTCreditNoteEntryImpl
 
     @Override
     public PTCreditNoteEntity checkCreditNote(PTInvoice invoice) {
+        List<JPAPTCreditNoteEntity> creditNotes = this.queryCreditNote().findList();
 
-        /*QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
-        
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-        
-        query.from(creditNoteEntity);
-        
-        List<JPAPTCreditNoteEntity> allCns = query.list(creditNoteEntity);
-        
         // TODO make a query to do this
-        for (JPAPTCreditNoteEntity cne : allCns) {
-            for (PTCreditNoteEntry cnee : cne.getEntries()) {
-                if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
-                    return cne;
+        for (JPAPTCreditNoteEntity creditNote : creditNotes) {
+            for (PTCreditNoteEntry entry : creditNote.getEntries()) {
+                if (entry.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
+                    return creditNote;
                 }
             }
-        }*/
+        }
         return null;
+    }
+
+    private QJPAPTCreditNoteEntity queryCreditNote() {
+        return new QJPAPTCreditNoteEntity();
     }
 }

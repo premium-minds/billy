@@ -18,13 +18,20 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPAGenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.ebean.JPAPTCreditNoteEntity;
+import com.premiumminds.billy.portugal.persistence.entities.ebean.JPAPTCreditNoteEntryEntity;
+import com.premiumminds.billy.portugal.persistence.entities.ebean.JPAPTInvoiceEntity;
+import com.premiumminds.billy.portugal.persistence.entities.ebean.query.QJPAPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
 public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity>
@@ -41,38 +48,54 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
     }
 
     @Override
-    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid, Date from, Date to) {
-        /*QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
-        
-        JPAQuery query = this.createQuery();
-        
-        query.from(creditNote)
-                .where(creditNote.instanceOf(JPAPTCreditNoteEntity.class).and(creditNote.date.between(from, to))
-                        .and(this.toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
-        
-        List<PTCreditNoteEntity> result = this.checkEntityList(query.list(creditNote), PTCreditNoteEntity.class);
-        return result;*/
-        return null;
+    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID businessUid, Date from, Date to) {
+        List<JPAGenericInvoiceEntity> invoices =
+                this.queryInvoice().business.uid.eq(businessUid.toString()).date.between(from, to).findList();
+
+        ArrayList<PTCreditNoteEntity> creditNotes = new ArrayList<>();
+        for (JPAGenericInvoiceEntity invoice : invoices) {
+            if (invoice instanceof JPAPTCreditNoteEntity) {
+                creditNotes.add((JPAPTCreditNoteEntity) invoice);
+            }
+        }
+        return creditNotes;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public List<PTCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
-        /*QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
-        QJPAPTCreditNoteEntryEntity entry = QJPAPTCreditNoteEntryEntity.jPAPTCreditNoteEntryEntity;
-        QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
+        JPAGenericInvoiceEntity invoice = this.queryInvoice().uid.eq(uidInvoice.toString()).findOne();
 
-        JPASubQuery invQ = new JPASubQuery().from(invoice).where(invoice.uid.eq(uidInvoice.toString()));
+        List<JPAPTCreditNoteEntryEntity> referencingEntries =
+                this.queryCreditNoteEntry().reference.equalTo((JPAPTInvoiceEntity) invoice).findList();
+        List<Integer> referencingEntryIDs = new ArrayList<>();
+        for (JPAPTCreditNoteEntryEntity referencingEntry : referencingEntries) {
+            referencingEntryIDs.add(referencingEntry.getID());
+        }
 
-        JPASubQuery entQ = new JPASubQuery().from(entry)
-                .where(this.toDSL(entry.reference, QJPAPTGenericInvoiceEntity.class).uid.in(invQ.list(invoice.uid)));
+        List<JPAGenericInvoiceEntity> referencingDocuments =
+                this.queryInvoice().business.uid.eq(uidCompany.toString()).entries
+                        .filterMany(this.queryGenericInvoiceEntry().setIdIn(referencingEntryIDs).getExpressionList())
+                        .findList();
 
-        return (List<PTCreditNote>) (List<?>) this.createQuery().from(creditNote)
-                .where(this.toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uidCompany.toString())
-                        .and(this.toDSL(creditNote.entries.any(), QJPAPTCreditNoteEntryEntity.class).uid
-                                .in(entQ.list(entry.uid))))
-                .list(creditNote);*/
-        return null;
+        List<PTCreditNote> referencingCreditNotes = new ArrayList<>();
+        for (JPAGenericInvoiceEntity referencingInvoice : referencingDocuments) {
+            if (referencingInvoice instanceof JPAPTCreditNoteEntity) {
+                referencingCreditNotes.add((JPAPTCreditNoteEntity) referencingInvoice);
+            }
+        }
+        return referencingCreditNotes;
     }
 
+    private QJPAGenericInvoiceEntity queryInvoice() {
+        return new QJPAGenericInvoiceEntity();
+    }
+
+    private QJPAGenericInvoiceEntryEntity queryGenericInvoiceEntry() {
+        return new QJPAGenericInvoiceEntryEntity();
+    }
+
+    private QJPAPTCreditNoteEntryEntity queryCreditNoteEntry() {
+        return new QJPAPTCreditNoteEntryEntity();
+    }
 }

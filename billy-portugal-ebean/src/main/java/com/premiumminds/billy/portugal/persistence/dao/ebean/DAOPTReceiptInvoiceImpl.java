@@ -18,9 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
@@ -41,18 +44,18 @@ public class DAOPTReceiptInvoiceImpl
     }
 
     @Override
-    public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID uid, Date from, Date to) {
-        /*QJPAPTReceiptInvoiceEntity invoice = QJPAPTReceiptInvoiceEntity.jPAPTReceiptInvoiceEntity;
-        
-        JPAQuery query = this.createQuery();
-        
-        query.from(invoice)
-                .where(invoice.instanceOf(JPAPTReceiptInvoiceEntity.class).and(invoice.date.between(from, to))
-                        .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
-        
-        List<PTReceiptInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTReceiptInvoiceEntity.class);
-        return result;*/
-        return null;
+    public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID businessUid, Date from, Date to) {
+        List<JPAGenericInvoiceEntity> genericInvoices = this.queryInvoice(businessUid, from, to).findList();
+        List<PTReceiptInvoiceEntity> invoices = new ArrayList<>();
+        for (JPAGenericInvoiceEntity genericInvoice : genericInvoices) {
+            if (genericInvoice instanceof JPAPTReceiptInvoiceEntity) {
+                invoices.add((JPAPTReceiptInvoiceEntity) genericInvoice);
+            }
+        }
+        return invoices;
     }
 
+    private QJPAGenericInvoiceEntity queryInvoice(UID businessUid, Date from, Date to) {
+        return new QJPAGenericInvoiceEntity().business.uid.eq(businessUid.toString()).date.between(from, to);
+    }
 }

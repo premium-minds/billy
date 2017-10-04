@@ -19,6 +19,8 @@
 package com.premiumminds.billy.portugal.persistence.dao.ebean;
 
 import com.premiumminds.billy.core.persistence.dao.ebean.AbstractDAOGenericInvoiceImpl;
+import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ebean.query.QJPAGenericInvoiceEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
@@ -30,14 +32,14 @@ public abstract class AbstractDAOPTGenericInvoiceImpl<TInterface extends PTGener
     @SuppressWarnings("unchecked")
     @Override
     public TInterface findByNumber(UID uidBusiness, String number) {
-        /*QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
-        
-        return (TInterface) this.checkEntity(
-                this.createQuery()
-                        .from(invoice).where(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid
-                                .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
-                        .singleResult(invoice),
-                PTGenericInvoiceEntity.class);*/
-        return null;
+        JPAGenericInvoiceEntity invoice = this.queryInvoice(uidBusiness.toString(), number).findOne();
+        if (!(invoice instanceof PTGenericInvoiceEntity)) {
+            return null;
+        }
+        return (TInterface) invoice;
+    }
+
+    private QJPAGenericInvoiceEntity queryInvoice(String uidBusiness, String number) {
+        return new QJPAGenericInvoiceEntity().business.uid.eq(uidBusiness).number.eq(number);
     }
 }
