@@ -65,6 +65,9 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
     @Override
     public List<PTCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
         JPAGenericInvoiceEntity invoice = this.queryInvoice().uid.eq(uidInvoice.toString()).findOne();
+        if (invoice == null) {
+            return new ArrayList<>();
+        }
 
         List<JPAPTCreditNoteEntryEntity> referencingEntries =
                 this.queryCreditNoteEntry().reference.equalTo((JPAPTInvoiceEntity) invoice).findList();
