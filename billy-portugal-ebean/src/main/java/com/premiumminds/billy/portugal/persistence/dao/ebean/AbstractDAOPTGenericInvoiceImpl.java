@@ -34,7 +34,8 @@ public abstract class AbstractDAOPTGenericInvoiceImpl<TInterface extends PTGener
     public TInterface findByNumber(UID uidBusiness, String number) {
         JPAGenericInvoiceEntity invoice = this.queryInvoice(uidBusiness.toString(), number).findOne();
         if (!(invoice instanceof PTGenericInvoiceEntity)) {
-            return null;
+            throw new RuntimeException("Invoice number " + number + " of business " + uidBusiness +
+                    " is not of class " + PTGenericInvoiceEntity.class.getSimpleName());
         }
         return (TInterface) invoice;
     }
