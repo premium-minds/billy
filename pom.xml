@@ -28,6 +28,7 @@
 	<modules>
 		<module>billy-core</module>
 		<module>billy-core-jpa</module>
+		<module>billy-core-ebean</module>
 		<module>billy-gin</module>
 		<module>billy-portugal</module>
 		<module>billy-spain</module>
