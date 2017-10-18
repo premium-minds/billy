@@ -1,4 +1,4 @@
-<!-- ~ Copyright (C) 2013 Premium Minds. ~ ~ This file is part of billy-france.
+<!-- ~ Copyright (C) 2017 Premium Minds. ~ ~ This file is part of billy-france.
 	~ ~ billy-france is free software: you can redistribute it and/or modify
 	~ it under the terms of the GNU Lesser General Public License as published
 	~ by the Free Software Foundation, either version 3 of the License, or ~
@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>3.0.1-SNAPSHOT</version>
+		<version>3.1.0-SNAPSHOT</version>
 	</parent>
 	
 	<properties>
