@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAProductEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "PRODUCT")
+@DiscriminatorValue("JPAPTProductEntity")
 public class JPAPTProductEntity extends JPAProductEntity implements PTProductEntity {
 
     private static final long serialVersionUID = 1L;

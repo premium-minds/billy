@@ -20,18 +20,17 @@ package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE_ENTRY")
+@DiscriminatorValue("JPAPTCreditNoteEntryEntity")
 public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity implements PTCreditNoteEntryEntity {
 
     private static final long serialVersionUID = 1L;

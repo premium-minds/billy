@@ -18,16 +18,15 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPATaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "TAX")
+@DiscriminatorValue("JPAPTTaxEntity")
 public class JPAPTTaxEntity extends JPATaxEntity implements PTTaxEntity {
 
     private static final long serialVersionUID = 1L;

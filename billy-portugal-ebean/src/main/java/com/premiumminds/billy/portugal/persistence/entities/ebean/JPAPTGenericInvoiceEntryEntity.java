@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntryEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
+@DiscriminatorValue("JPAPTGenericInvoiceEntryEntity")
 public class JPAPTGenericInvoiceEntryEntity extends JPAGenericInvoiceEntryEntity
         implements PTGenericInvoiceEntryEntity {
 

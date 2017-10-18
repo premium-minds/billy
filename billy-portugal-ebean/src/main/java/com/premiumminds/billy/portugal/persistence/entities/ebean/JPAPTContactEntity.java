@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAContactEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "CONTACT")
+@DiscriminatorValue("JPAPTContactEntity")
 public class JPAPTContactEntity extends JPAContactEntity implements PTContactEntity {
 
     private static final long serialVersionUID = 1L;

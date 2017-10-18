@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAShippingPointEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTShippingPointEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
+@DiscriminatorValue("JPAPTShippingPointEntity")
 public class JPAPTShippingPointEntity extends JPAShippingPointEntity implements PTShippingPointEntity {
 
     private static final long serialVersionUID = 1L;

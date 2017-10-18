@@ -19,15 +19,14 @@
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPACustomerEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "CUSTOMER")
+@DiscriminatorValue("JPAPTCustomerEntity")
 public class JPAPTCustomerEntity extends JPACustomerEntity implements PTCustomerEntity {
 
     private static final long serialVersionUID = 1L;

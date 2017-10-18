@@ -20,15 +20,14 @@ package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "CREDIT_NOTE")
+@DiscriminatorValue("JPAPTCreditNoteEntity")
 public class JPAPTCreditNoteEntity extends JPAPTGenericInvoiceEntity implements PTCreditNoteEntity {
 
     private static final long serialVersionUID = 1L;

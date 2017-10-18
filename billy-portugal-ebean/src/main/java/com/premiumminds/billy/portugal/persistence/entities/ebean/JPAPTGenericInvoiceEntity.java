@@ -21,17 +21,16 @@ package com.premiumminds.billy.portugal.persistence.entities.ebean;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAGenericInvoiceEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE")
+@DiscriminatorValue("JPAPTGenericInvoiceEntity")
 public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity implements PTGenericInvoiceEntity {
 
     private static final long serialVersionUID = 1L;

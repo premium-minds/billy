@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPABusinessEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "BUSINESS")
+@DiscriminatorValue("JPAPTBusinessEntity")
 public class JPAPTBusinessEntity extends JPABusinessEntity implements PTBusinessEntity {
 
     private static final long serialVersionUID = 1L;

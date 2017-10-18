@@ -20,16 +20,15 @@ package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAContextEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "REGION_CONTEXT")
+@DiscriminatorValue("JPAPTRegionContextEntity")
 public class JPAPTRegionContextEntity extends JPAContextEntity implements PTRegionContextEntity {
 
     private static final long serialVersionUID = 1L;

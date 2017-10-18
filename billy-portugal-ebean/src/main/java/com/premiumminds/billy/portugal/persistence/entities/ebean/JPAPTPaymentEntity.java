@@ -21,16 +21,15 @@ package com.premiumminds.billy.portugal.persistence.entities.ebean;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAPaymentEntity;
 import com.premiumminds.billy.core.util.PaymentMechanism;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "PAYMENT")
+@DiscriminatorValue("JPAPTPaymentEntity")
 public class JPAPTPaymentEntity extends JPAPaymentEntity implements PTPaymentEntity {
 
     private static final long serialVersionUID = 1L;

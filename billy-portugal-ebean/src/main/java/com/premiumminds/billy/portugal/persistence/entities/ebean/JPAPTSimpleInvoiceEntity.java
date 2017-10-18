@@ -21,15 +21,14 @@ package com.premiumminds.billy.portugal.persistence.entities.ebean;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "SIMPLE_INVOICE")
+@DiscriminatorValue("JPAPTSimpleInvoiceEntity")
 public class JPAPTSimpleInvoiceEntity extends JPAPTInvoiceEntity implements PTSimpleInvoiceEntity {
 
     private static final long serialVersionUID = 1L;

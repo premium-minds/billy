@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.entities.ebean;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAAddressEntity;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 
 @Entity
-@Table(name = Config.TABLE_PREFIX + "ADDRESS")
+@DiscriminatorValue("JPAPTAddressEntity")
 public class JPAPTAddressEntity extends JPAAddressEntity implements PTAddressEntity {
 
     private static final long serialVersionUID = 1L;
