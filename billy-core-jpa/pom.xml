@@ -28,7 +28,6 @@
 		<guice.version>3.0</guice.version>
 		<env>DEV</env>
 
-		<querydsl.version>2.9.0</querydsl.version>
 		<hibernate.version>4.2.3.Final</hibernate.version>
 		<querydsl.version>3.2.2</querydsl.version>
 
