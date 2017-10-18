@@ -19,13 +19,19 @@
 package com.premiumminds.billy.core.persistence.entities.ebean;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPAAddressEntity")
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
 public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
 

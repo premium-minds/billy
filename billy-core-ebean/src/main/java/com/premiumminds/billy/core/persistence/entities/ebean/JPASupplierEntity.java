@@ -23,7 +23,10 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,6 +40,9 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPASupplierEntity")
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
 public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 

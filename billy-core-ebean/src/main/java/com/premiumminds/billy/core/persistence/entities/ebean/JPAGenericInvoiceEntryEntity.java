@@ -26,9 +26,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -46,6 +49,9 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPAGenericInvoiceEntryEntity")
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
 public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements GenericInvoiceEntryEntity {
 

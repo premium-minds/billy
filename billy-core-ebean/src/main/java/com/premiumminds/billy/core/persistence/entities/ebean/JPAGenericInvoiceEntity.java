@@ -27,9 +27,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -52,6 +55,9 @@ import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPAGenericInvoiceEntity")
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE",
         uniqueConstraints = { @UniqueConstraint(columnNames = { "NUMBER", "ID_BUSINESS" }),
                 @UniqueConstraint(columnNames = { "SERIES", "SERIES_NUMBER", "ID_BUSINESS" }) })

@@ -23,8 +23,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -41,6 +44,9 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPABusinessEntity")
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
 public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
 
