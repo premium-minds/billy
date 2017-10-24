@@ -38,13 +38,9 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
-import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTContactEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
-import com.premiumminds.billy.portugal.services.entities.PTAddress.Builder;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
@@ -86,13 +82,9 @@ public class PortugalBootstrap {
     }
 
     private static void execute(String persistenceUnitId) {
-        // Load dependency injector
-        Injector injector = Guice.createInjector(new PortugalDependencyModule(),
-                new PortugalPersistenceDependencyModule(persistenceUnitId));
+        Injector injector = Guice.createInjector(new PortugalDependencyModule());
         injector.getInstance(PortugalDependencyModule.Initializer.class);
-        injector.getInstance(PortugalPersistenceDependencyModule.Initializer.class);
         PortugalBootstrap.execute(injector);
-
     }
 
     public static void execute(final Injector dependencyInjector) {
@@ -119,20 +111,6 @@ public class PortugalBootstrap {
                     PTTax.Builder taxBuilder = dependencyInjector.getInstance(PTTax.Builder.class);
                     PTAddress.Builder addressBuilder = dependencyInjector.getInstance(PTAddress.Builder.class);
                     PTContact.Builder contactBuilder = dependencyInjector.getInstance(PTContact.Builder.class);
-
-                    // Generic Address
-                    final PTAddressEntity GENERIC_ADDRESS = this.buildAddressEntity(daoPTAddress, addressBuilder, null,
-                            null, null, "Desconhecido", null, "Desconhecido", "Desconhecido", "Desconhecido",
-                            Config.Key.Address.Generic.UUID);
-
-                    // Generic contact
-                    final PTContactEntity GENERIC_CONTACT = this.buildContactEntity(daoPTContact, contactBuilder, null,
-                            null, null, null, null, null, Config.Key.Contact.Generic.UUID);
-
-                    // Generic Customer
-                    final PTCustomerEntity GENERIC_CUSTOMER =
-                            this.buildCustomerEntity(daoPTCustomer, customerBuilder, "Consumidor final", "999999990",
-                                    addressBuilder, contactBuilder, false, Config.Key.Customer.Generic.UUID);
 
                     // Portugal Contexts
                     final PTRegionContextEntity CONTEXT_PORTUGAL = this.buildContextEntity(daoPTRegionContext,
@@ -314,40 +292,6 @@ public class PortugalBootstrap {
                     return null;
                 }
 
-                private PTAddressEntity buildAddressEntity(DAOPTAddress daoPTAddress, Builder addressBuilder,
-                        String number, String street, String building, String city, String region, String isoCode,
-                        String details, String postalCode, String key) {
-
-                    addressBuilder.setCity(city).setDetails(details).setISOCountry(isoCode).setNumber(number)
-                            .setRegion(region).setStreetName(street).setPostalCode(postalCode).setBuilding(building);
-
-                    PTAddressEntity address = (PTAddressEntity) addressBuilder.build();
-
-                    address.setUID(configuration.getUID(key));
-
-                    daoPTAddress.create(address);
-
-                    return address;
-                }
-
-                private PTContactEntity buildContactEntity(DAOPTContact daoPTContact, PTContact.Builder contactBuilder,
-                        String name, String telephone, String mobile, String email, String fax, String website,
-                        String key) {
-
-                    contactBuilder.clear();
-
-                    contactBuilder.setName(name).setEmail(email).setMobile(mobile).setFax(fax).setTelephone(telephone)
-                            .setWebsite(website);
-
-                    final PTContactEntity contact = (PTContactEntity) contactBuilder.build();
-
-                    contact.setUID(configuration.getUID(key));
-
-                    daoPTContact.create(contact);
-
-                    return contact;
-                }
-
                 private PTTaxEntity buildTaxEntity(DAOPTTax daoPTTax, PTTax.Builder taxBuilder, String taxCode,
                         PTRegionContextEntity context, Currency currency, String description, String designation,
                         Tax.TaxRateType type, Date validFrom, Date validTo, String valueKey, String key) {
@@ -385,31 +329,6 @@ public class PortugalBootstrap {
 
                     return context;
                 }
-
-                private PTCustomerEntity buildCustomerEntity(DAOPTCustomer daoPTCustomer,
-                        PTCustomer.Builder customerBuilder, String name, String taxRegistrationID,
-                        PTAddress.Builder addressBuilder, PTContact.Builder contactBuilder, boolean hasSelfAgreement,
-                        String key) {
-
-                    customerBuilder.clear();
-
-                    customerBuilder.setName(name).addContact(contactBuilder)
-                            .setMainContactUID(contactBuilder.build().getUID())
-                            .setHasSelfBillingAgreement(hasSelfAgreement)
-                            .setTaxRegistrationNumber(taxRegistrationID, PortugalBootstrap.CODE_PT)
-                            .setBillingAddress(addressBuilder).setShippingAddress(addressBuilder)
-                            .addAddress(addressBuilder, true);
-
-                    PTCustomerEntity customer = (PTCustomerEntity) customerBuilder.build();
-
-                    customer.setUID(configuration.getUID(key));
-                    customer.setTaxRegistrationNumber(null);
-
-                    daoPTCustomer.create(customer);
-
-                    return customer;
-                }
-
             }.execute();
         } catch (Exception e) {
             PortugalBootstrap.log.error(e.getMessage(), e);
