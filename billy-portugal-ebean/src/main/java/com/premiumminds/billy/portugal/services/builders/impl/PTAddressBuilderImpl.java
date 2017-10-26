@@ -48,7 +48,11 @@ public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder
     protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
         PTAddressEntity address = this.getTypeInstance();
-        BillyValidator.mandatory(address.getDetails(), PTAddressBuilderImpl.LOCALIZER.getString("field.details"));
-        BillyValidator.mandatory(address.getISOCountry(), PTAddressBuilderImpl.LOCALIZER.getString("field.country"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(address.getDetails(),
+                PTAddressBuilderImpl.LOCALIZER.getString("field.details"));
+        BillyValidator.<String>mandatory(address.getISOCountry(),
+                PTAddressBuilderImpl.LOCALIZER.getString("field.country"));
     }
 }

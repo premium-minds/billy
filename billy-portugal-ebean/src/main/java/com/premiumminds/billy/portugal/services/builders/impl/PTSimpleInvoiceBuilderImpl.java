@@ -51,7 +51,9 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
 
     @Override
     public TBuilder setClientType(CLIENTTYPE type) {
-        BillyValidator.mandatory(type, PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<CLIENTTYPE>mandatory(type, PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         this.getTypeInstance().setClientType(type);
         return this.getBuilder();
     }
@@ -64,7 +66,9 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
     @Override
     protected void validateInstance() throws BillyValidationException {
         PTSimpleInvoiceEntity i = this.getTypeInstance();
-        BillyValidator.mandatory(i.getClientType(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<CLIENTTYPE>mandatory(i.getClientType(),
                 PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();
 

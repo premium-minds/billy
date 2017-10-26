@@ -41,7 +41,10 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
 
     @Override
     public TBuilder setRegionCode(String regionCode) {
-        BillyValidator.mandatory(regionCode, PTRegionContextBuilderImpl.LOCALIZER.getString("field.region_code"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(regionCode,
+                PTRegionContextBuilderImpl.LOCALIZER.getString("field.region_code"));
         this.getTypeInstance().setRegionCode(regionCode);
         return this.getBuilder();
     }
@@ -55,7 +58,9 @@ public class PTRegionContextBuilderImpl<TBuilder extends PTRegionContextBuilderI
     protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
         PTRegionContextEntity c = this.getTypeInstance();
-        BillyValidator.mandatory(c.getRegionCode(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(c.getRegionCode(),
                 PTRegionContextBuilderImpl.LOCALIZER.getString("field.region_code"));
     }
 

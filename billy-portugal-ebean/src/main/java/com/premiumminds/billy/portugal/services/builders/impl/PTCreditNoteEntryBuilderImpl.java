@@ -34,6 +34,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEnt
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTCreditNoteEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
         extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOPTCreditNoteEntry, DAOPTInvoice>
@@ -71,10 +72,13 @@ public class PTCreditNoteEntryBuilderImpl<TBuilder extends PTCreditNoteEntryBuil
 
         super.validateInstance();
         PTCreditNoteEntryEntity cn = this.getTypeInstance();
-        BillyValidator.mandatory(cn.getReference(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<PTInvoice>mandatory(cn.getReference(),
                 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
-        BillyValidator.mandatory(cn.getReason(), PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
+        BillyValidator.<String>mandatory(cn.getReason(),
+                PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
 
         this.ValidatePTCreditNoteEntry(cn);
     }

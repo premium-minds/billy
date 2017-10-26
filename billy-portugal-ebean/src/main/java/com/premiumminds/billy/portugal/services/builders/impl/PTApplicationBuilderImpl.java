@@ -64,7 +64,9 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
     protected void validateInstance() throws ValidationException {
         super.validateInstance();
         PTApplicationEntity c = this.getTypeInstance();
-        BillyValidator.mandatory(c.getSoftwareCertificationNumber(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<Integer>mandatory(c.getSoftwareCertificationNumber(),
                 PTApplicationBuilderImpl.LOCALIZER.getString("field.certificate_number"));
     }
 

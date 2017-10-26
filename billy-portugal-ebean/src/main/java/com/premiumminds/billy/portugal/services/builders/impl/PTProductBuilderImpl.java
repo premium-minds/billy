@@ -47,14 +47,18 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
 
     @Override
     public TBuilder setNumberCode(String code) {
-        BillyValidator.mandatory(code, PTProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(code, PTProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
         this.getTypeInstance().setNumberCode(code);
         return this.getBuilder();
     }
 
     @Override
     public TBuilder setUnitOfMeasure(String unit) {
-        BillyValidator.mandatory(unit, PTProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(unit, PTProductBuilderImpl.LOCALIZER.getString("field.unit_of_measure"));
         this.getTypeInstance().setUnitOfMeasure(unit);
         return this.getBuilder();
     }
@@ -63,7 +67,9 @@ public class PTProductBuilderImpl<TBuilder extends PTProductBuilderImpl<TBuilder
     protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
         PTProduct p = this.getTypeInstance();
-        BillyValidator.mandatory(p.getNumberCode(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(p.getNumberCode(),
                 PTProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
     }
 }

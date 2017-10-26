@@ -29,6 +29,7 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -53,14 +54,18 @@ public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBui
         this.validateValues();
 
         PTGenericInvoiceEntryEntity i = this.getTypeInstance();
-        BillyValidator.mandatory(i.getQuantity(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<BigDecimal>mandatory(i.getQuantity(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(i.getUnitOfMeasure(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
-        BillyValidator.mandatory(i.getProduct(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
+        BillyValidator.<Product>mandatory(i.getProduct(),
+                PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(i.getTaxes(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-        BillyValidator.mandatory(i.getTaxAmount(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-        BillyValidator.mandatory(i.getTaxPointDate(),
+        BillyValidator.<BigDecimal>mandatory(i.getTaxAmount(),
+                PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
+        BillyValidator.<Date>mandatory(i.getTaxPointDate(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
     }
 

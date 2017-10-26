@@ -27,6 +27,7 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.InvalidTaxIdentificationNumberException;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.services.builders.impl.BusinessBuilderImpl;
+import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -76,11 +77,15 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
     protected void validateInstance() throws BillyValidationException {
         BusinessEntity b = this.getTypeInstance();
 
-        BillyValidator.mandatory(b.getFinancialID(), PTBusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
-        BillyValidator.mandatory(b.getName(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
-        BillyValidator.mandatory(b.getCommercialName(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(b.getFinancialID(),
+                PTBusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
+        BillyValidator.<String>mandatory(b.getName(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
+        BillyValidator.<String>mandatory(b.getCommercialName(),
                 PTBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
-        BillyValidator.mandatory(b.getAddress(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+        BillyValidator.<Address>mandatory(b.getAddress(),
+                PTBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
 
         Pattern pattern;
         pattern = Pattern.compile("[0-9]{4}-[0-9]{3}");

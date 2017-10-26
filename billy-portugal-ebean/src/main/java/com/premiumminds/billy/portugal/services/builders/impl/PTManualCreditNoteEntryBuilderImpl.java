@@ -18,9 +18,13 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -33,6 +37,7 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEnt
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTManualCreditNoteEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
         extends PTManualEntryBuilderImpl<TBuilder, TEntry, DAOPTCreditNoteEntry, DAOPTInvoice>
@@ -73,20 +78,24 @@ public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditN
 
         super.validateInstance();
         PTCreditNoteEntryEntity cn = this.getTypeInstance();
-        BillyValidator.mandatory(cn.getQuantity(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<BigDecimal>mandatory(cn.getQuantity(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
-        BillyValidator.mandatory(cn.getUnitOfMeasure(),
+        BillyValidator.<String>mandatory(cn.getUnitOfMeasure(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
-        BillyValidator.mandatory(cn.getProduct(),
+        BillyValidator.<Product>mandatory(cn.getProduct(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(cn.getTaxes(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-        BillyValidator.mandatory(cn.getTaxAmount(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-        BillyValidator.mandatory(cn.getTaxPointDate(),
+        BillyValidator.<BigDecimal>mandatory(cn.getTaxAmount(),
+                PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
+        BillyValidator.<Date>mandatory(cn.getTaxPointDate(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
-        BillyValidator.mandatory(cn.getReference(),
+        BillyValidator.<PTInvoice>mandatory(cn.getReference(),
                 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
-        BillyValidator.mandatory(cn.getReason(), PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
+        BillyValidator.<String>mandatory(cn.getReason(),
+                PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
 
         this.ValidatePTCreditNoteEntry(cn);
     }

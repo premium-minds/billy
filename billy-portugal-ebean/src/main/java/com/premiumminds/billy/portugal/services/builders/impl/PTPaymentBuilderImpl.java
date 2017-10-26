@@ -28,6 +28,7 @@ import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.PaymentBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 import com.premiumminds.billy.portugal.services.builders.PTPaymentBuilder;
@@ -73,11 +74,14 @@ public class PTPaymentBuilderImpl<TBuilder extends PTPaymentBuilderImpl<TBuilder
     protected void validateInstance() throws BillyValidationException, ValidationException {
         super.validateInstance();
         PTPaymentEntity p = this.getTypeInstance();
-        BillyValidator.mandatory(p.getPaymentAmount(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<BigDecimal>mandatory(p.getPaymentAmount(),
                 PTPaymentBuilderImpl.LOCALIZER.getString("field.payment_amount"));
-        BillyValidator.mandatory(p.getPaymentMethod(),
+        BillyValidator.<PaymentMechanism>mandatory(p.getPaymentMethod(),
                 PTPaymentBuilderImpl.LOCALIZER.getString("field.payment_method"));
-        BillyValidator.mandatory(p.getPaymentDate(), PTPaymentBuilderImpl.LOCALIZER.getString("field.payment_date"));
+        BillyValidator.<Date>mandatory(p.getPaymentDate(),
+                PTPaymentBuilderImpl.LOCALIZER.getString("field.payment_date"));
     }
 
 }

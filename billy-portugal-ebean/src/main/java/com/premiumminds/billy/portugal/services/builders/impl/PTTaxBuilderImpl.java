@@ -22,6 +22,8 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
+import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
@@ -50,10 +52,14 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
     protected void validateInstance() throws BillyValidationException {
         PTTaxEntity e = this.getTypeInstance();
 
-        BillyValidator.mandatory(e.getContext(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
-        BillyValidator.mandatory(e.getTaxRateType(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
-        BillyValidator.mandatory(e.getCode(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
-        BillyValidator.mandatory(e.getDescription(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<Context>mandatory(e.getContext(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
+        BillyValidator.<TaxRateType>mandatory(e.getTaxRateType(),
+                PTTaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
+        BillyValidator.<String>mandatory(e.getCode(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
+        BillyValidator.<String>mandatory(e.getDescription(),
+                PTTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
 
         if (!((DAOPTTax) this.daoTax).getTaxes((PTRegionContextEntity) e.getContext(), e.getValidFrom(), e.getValidTo())
                 .isEmpty()) {

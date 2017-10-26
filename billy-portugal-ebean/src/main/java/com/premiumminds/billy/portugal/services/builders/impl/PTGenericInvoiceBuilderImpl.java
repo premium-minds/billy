@@ -18,9 +18,12 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.util.Date;
+
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceBuilderImpl;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -108,7 +111,9 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
     @Override
     protected void validateInstance() throws BillyValidationException {
         PTGenericInvoiceEntity i = this.getTypeInstance();
-        BillyValidator.mandatory(i.getSourceBilling(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<SourceBilling>mandatory(i.getSourceBilling(),
                 PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source_billing"));
 
         switch (i.getSourceBilling()) {
@@ -126,18 +131,24 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
     private void validatePTInstance(PTGenericInvoiceEntity i) {
         super.validateDate();
-        BillyValidator.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<Customer>mandatory(i.getCustomer(),
+                GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
 
-        BillyValidator.mandatory(i.getSourceId(), PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
-        BillyValidator.mandatory(i.getDate(), PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
+        BillyValidator.<String>mandatory(i.getSourceId(),
+                PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
+        BillyValidator.<Date>mandatory(i.getDate(), PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
         if (i.isSelfBilled() != null) {
-            BillyValidator.mandatory(i.isSelfBilled(),
+            BillyValidator.<Boolean>mandatory(i.isSelfBilled(),
                     PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
         } else {
             i.setSelfBilled(false);
         }
-        BillyValidator.mandatory(i.isCancelled(), PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
-        BillyValidator.mandatory(i.isBilled(), PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+        BillyValidator.<Boolean>mandatory(i.isCancelled(),
+                PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
+        BillyValidator.<Boolean>mandatory(i.isBilled(),
+                PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
         BillyValidator.notEmpty(i.getPayments(),
                 PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
     }

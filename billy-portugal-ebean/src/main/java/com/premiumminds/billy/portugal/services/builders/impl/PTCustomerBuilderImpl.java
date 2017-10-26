@@ -91,14 +91,16 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
     @Override
     protected void validateInstance() throws BillyValidationException {
         PTCustomerEntity c = this.getTypeInstance();
-        BillyValidator.mandatory(c.getName(), PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
-        BillyValidator.mandatory(c.getTaxRegistrationNumber(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(c.getName(), PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
+        BillyValidator.<String>mandatory(c.getTaxRegistrationNumber(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-        BillyValidator.mandatory(c.getMainAddress(),
+        BillyValidator.<Address>mandatory(c.getMainAddress(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
-        BillyValidator.mandatory(c.getBillingAddress(),
+        BillyValidator.<Address>mandatory(c.getBillingAddress(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
-        BillyValidator.mandatory(c.hasSelfBillingAgreement(),
+        BillyValidator.<Boolean>mandatory(c.hasSelfBillingAgreement(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
         BillyValidator.notEmpty(c.getAddresses(), PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
     }

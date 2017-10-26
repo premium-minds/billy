@@ -55,7 +55,10 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
     @NotOnUpdate
     public TBuilder setTaxRegistrationNumber(String number, String countryCode)
             throws InvalidTaxIdentificationNumberException {
-        BillyValidator.mandatory(number, PTSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(number,
+                PTSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
 
         PTFinancialValidator validator = new PTFinancialValidator(number);
 
@@ -68,7 +71,9 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 
     @Override
     public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
-        BillyValidator.mandatory(addressBuilder,
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<Builder<?>>mandatory(addressBuilder,
                 PTSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
         this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
         return this.getBuilder();
@@ -76,7 +81,9 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
 
     @Override
     public TBuilder setSelfBillingAgreement(boolean selfBilling) {
-        BillyValidator.mandatory(selfBilling,
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<Boolean>mandatory(selfBilling,
                 PTSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
         this.getTypeInstance().setSelfBillingAgreement(selfBilling);
         return this.getBuilder();
@@ -98,11 +105,13 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
     protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
         PTSupplier s = this.getTypeInstance();
-        BillyValidator.mandatory(s.getTaxRegistrationNumber(),
+        // The <generic> specs below are necessary because type inference fails here for unknown reasons
+        // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
+        BillyValidator.<String>mandatory(s.getTaxRegistrationNumber(),
                 PTSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
-        BillyValidator.mandatory(s.getBillingAddress(),
+        BillyValidator.<Address>mandatory(s.getBillingAddress(),
                 PTSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
-        BillyValidator.mandatory(s.hasSelfBillingAgreement(),
+        BillyValidator.<Boolean>mandatory(s.hasSelfBillingAgreement(),
                 PTSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
     }
 }
