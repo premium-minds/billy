@@ -54,7 +54,8 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     @Column(name = "TAX_ID")
     protected String taxId;
 
-    @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "customer")
     protected List<JPAAddressEntity> addresses;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })

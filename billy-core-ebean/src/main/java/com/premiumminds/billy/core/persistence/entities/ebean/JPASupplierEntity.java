@@ -48,7 +48,8 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
 
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "supplier")
     protected List<JPAAddressEntity> addresses;
 
     @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
