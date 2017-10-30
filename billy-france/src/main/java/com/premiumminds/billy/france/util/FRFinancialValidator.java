@@ -24,15 +24,61 @@ public class FRFinancialValidator extends FinancialValidator {
 
     public static final String FR_COUNTRY_CODE = "FR";
     private static final int TIN_CITIZEN_LEN = 13;
-	private static final int[] TIN_FIRST_DIGITS = { 0, 1, 2, 3 };
+    private static final int TIN_ENTERPRISE_LEN = 9;
+	private static final int[] TIN_CITIZEN_FIRST_DIGITS = { 0, 1, 2, 3 };
 
     public FRFinancialValidator(String financialID) {
         super(financialID);
     }
 
     @Override
-    public boolean isValid() {
-    	if(financialID.length() != TIN_CITIZEN_LEN) {
+	public boolean isValid()
+	{
+		if(financialID.length() == TIN_CITIZEN_LEN) {
+			return isValidCitizen();
+		}
+		else if (financialID.length() == TIN_ENTERPRISE_LEN) {
+			return isValidEnterprise();
+		}
+		else {
+			return false;
+		}
+	}
+    
+	// validates the SIREN code using the Luhn algorithm. Source: https://en.wikipedia.org/wiki/SIREN_code
+	public boolean isValidEnterprise()
+	{
+		// regex check
+		if(this.financialID.matches("(^[0-9]{"+ TIN_ENTERPRISE_LEN +"}$)") == false) {
+			return false;
+		}
+		
+		// luhn algorithm
+		
+		int sum = 0;
+		
+		for (int i = 0; i < TIN_ENTERPRISE_LEN; i++) {
+			
+			// gets digits in reverse order
+			char c = financialID.charAt(TIN_ENTERPRISE_LEN - i - 1);
+			int digit = Integer.parseInt("" + c); 
+			
+			// every 2nd number multiply with 2
+			if (i % 2 == 1) {
+				digit *= 2;
+			}
+			
+			// corrects the digits that are greater than 9
+			sum += digit > 9 ? digit - 9 : digit;
+		}
+		
+		return (sum % 10 == 0);
+	}
+	
+	private boolean isValidCitizen()
+	{
+		// regex check
+		if(this.financialID.matches("(^[0-9]{"+ TIN_CITIZEN_LEN +"}$)") == false) {
 			return false;
 		}
 		
@@ -50,9 +96,8 @@ public class FRFinancialValidator extends FinancialValidator {
 			}
 		}
 		
-		// first digit must be either 0, 1, 2, or 3
 		boolean firstDigitValid = false;
-		for (int f : TIN_FIRST_DIGITS) {
+		for (int f : TIN_CITIZEN_FIRST_DIGITS) {
 			if (tin[0] == f) {
 				firstDigitValid = true;
 				break;
@@ -79,6 +124,6 @@ public class FRFinancialValidator extends FinancialValidator {
 		}
 		
 		return true;
-    }
+	}
 
 }
