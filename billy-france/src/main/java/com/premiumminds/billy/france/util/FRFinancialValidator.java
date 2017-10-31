@@ -45,8 +45,13 @@ public class FRFinancialValidator extends FinancialValidator {
 		}
 	}
     
-	// validates the SIREN code using the Luhn algorithm. Source: https://en.wikipedia.org/wiki/SIREN_code
-	public boolean isValidEnterprise()
+    /**
+	 * Validates the SIREN code using the Luhn algorithm.
+	 * 
+	 * @return 	result of the validation (boolean value)
+	 * @see		https://en.wikipedia.org/wiki/SIREN_code
+	 */
+	private boolean isValidEnterprise()
 	{
 		// regex check
 		if(this.financialID.matches("(^[0-9]{"+ TIN_ENTERPRISE_LEN +"}$)") == false) {
