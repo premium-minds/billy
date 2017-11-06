@@ -23,4 +23,6 @@ import com.premiumminds.billy.france.persistence.entities.FRShippingPointEntity;
 
 public class MockFRShippingPointEntity extends MockShippingPointEntity implements FRShippingPointEntity {
 
+	private static final long serialVersionUID = 1L;
+
 }

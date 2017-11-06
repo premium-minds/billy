@@ -36,7 +36,7 @@ import com.premiumminds.billy.france.util.Contexts;
 public class FRBusinessTestUtil {
 
     private static final String NAME = "Business";
-    private static final String FINANCIAL_ID = "11111111H";
+    private static final String FINANCIAL_ID = "829128768";
     private static final String WEBSITE = "http://business.com";
     protected static final String FR_COUNTRY_CODE = "FR";
 

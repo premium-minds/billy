@@ -19,7 +19,7 @@
 
 uid : uid
 name : name
-taxRegistrationNumber : 11111111H
+taxRegistrationNumber : 829128768
 mainAddress : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
   streetName : street_name
   number : number

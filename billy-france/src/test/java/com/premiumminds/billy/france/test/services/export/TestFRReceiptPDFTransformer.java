@@ -53,7 +53,7 @@ import com.premiumminds.billy.france.test.util.FRReceiptTestUtil;
 
 public class TestFRReceiptPDFTransformer extends FRPersistencyAbstractTest {
 
-    private static final String XSL_PATH = "src/main/resources/templates/es_receipt.xsl";
+    private static final String XSL_PATH = "src/main/resources/templates/fr_receipt.xsl";
     private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private FRReceiptTestUtil receipts;

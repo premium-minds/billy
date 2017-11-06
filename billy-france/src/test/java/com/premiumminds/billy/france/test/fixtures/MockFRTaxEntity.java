@@ -23,9 +23,6 @@ import com.premiumminds.billy.france.persistence.entities.FRTaxEntity;
 
 public class MockFRTaxEntity extends MockTaxEntity implements FRTaxEntity {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     public MockFRTaxEntity() {

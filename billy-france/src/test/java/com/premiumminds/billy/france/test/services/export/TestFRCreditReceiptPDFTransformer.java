@@ -61,7 +61,7 @@ import com.premiumminds.billy.france.test.util.FRCreditReceiptTestUtil;
 public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest {
 
     public static final int NUM_ENTRIES = 10;
-    public static final String XSL_PATH = "src/main/resources/templates/es_creditreceipt.xsl";
+    public static final String XSL_PATH = "src/main/resources/templates/fr_creditreceipt.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private Injector mockedInjector;

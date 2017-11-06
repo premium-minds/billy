@@ -27,7 +27,7 @@ import com.premiumminds.billy.france.services.entities.FRSupplier;
 public class FRSupplierTestUtil {
 
     private static final Boolean SELF_BILLING = false;
-    private static final String NUMBER = "11111111H";
+    private static final String NUMBER = "829128768";
     private static final String NAME = "Supplier";
     protected static final String FR_COUNTRY_CODE = "FR";
 

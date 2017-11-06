@@ -23,9 +23,6 @@ import com.premiumminds.billy.france.persistence.entities.FRSupplierEntity;
 
 public class MockFRSupplierEntity extends MockSupplierEntity implements FRSupplierEntity {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     private String referral;

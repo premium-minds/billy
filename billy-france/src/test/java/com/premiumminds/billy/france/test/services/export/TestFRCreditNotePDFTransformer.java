@@ -62,7 +62,7 @@ import com.premiumminds.billy.france.test.util.FRCreditNoteTestUtil;
 public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
 
     public static final int NUM_ENTRIES = 10;
-    public static final String XSL_PATH = "src/main/resources/templates/es_creditnote.xsl";
+    public static final String XSL_PATH = "src/main/resources/templates/fr_creditnote.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
     private Injector mockedInjector;
     private FRCreditNotePDFFOPTransformer transformer;

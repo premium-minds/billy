@@ -60,7 +60,7 @@ public class FRCreditNoteEntryTestUtil {
                 .setQuantity(FRCreditNoteEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
                 .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
                 .setReason(FRCreditNoteEntryTestUtil.REASON).setReferenceUID(reference.getUID())
-                .setCurrency(Currency.getInstance("EUR"));
+                .setCurrency(CURRENCY);
 
         return creditNoteEntryBuilder;
     }

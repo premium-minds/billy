@@ -61,7 +61,7 @@ public class FRCreditReceiptEntryTestUtil {
                 .setQuantity(FRCreditReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
                 .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
                 .setReason(FRCreditReceiptEntryTestUtil.REASON).setReferenceUID(reference.getUID())
-                .setCurrency(Currency.getInstance("EUR"));
+                .setCurrency(CURRENCY);
 
         return creditReceiptEntryBuilder;
     }

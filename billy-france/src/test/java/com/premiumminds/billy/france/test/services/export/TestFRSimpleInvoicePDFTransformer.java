@@ -55,7 +55,7 @@ import com.premiumminds.billy.france.test.util.FRSimpleInvoiceTestUtil;
 public class TestFRSimpleInvoicePDFTransformer extends FRPersistencyAbstractTest {
 
     public static final int NUM_ENTRIES = 10;
-    public static final String XSL_PATH = "src/main/resources/templates/es_simpleinvoice.xsl";
+    public static final String XSL_PATH = "src/main/resources/templates/fr_simpleinvoice.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private Injector mockedInjector;

@@ -26,7 +26,6 @@ import com.premiumminds.billy.france.services.entities.FRContact;
 
 public class FRApplicationTestUtil {
 
-    private static final String KEYS_PATH = "http://url";
     private static final String COMPANY_NAME = "company_name";
     private static final String COMPANY_TAX_ID = "12432353426435";
     private static final String APP_NAME = "APP";

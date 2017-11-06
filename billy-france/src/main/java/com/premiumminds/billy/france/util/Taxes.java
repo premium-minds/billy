@@ -94,7 +94,7 @@ public class Taxes {
     }
 
     /**
-     * @return Spanish tax information from {@link Continent} region.
+     * @return French tax information from {@link Continent} region.
      */
     public Continent continent() {
         return this.continent;

@@ -28,7 +28,7 @@ import com.premiumminds.billy.france.services.entities.FRCustomer;
 public class FRCustomerTestUtil {
 
     private static final String NAME = "Name";
-    private static final String TAX_NUMBER = "11111111H";
+    private static final String TAX_NUMBER = "829128768";
     private static final Boolean SELF_BILLING_AGREE = false;
     protected static final String FR_COUNTRY_CODE = "FR";
 
