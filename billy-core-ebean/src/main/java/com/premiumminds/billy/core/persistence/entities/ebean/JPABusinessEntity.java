@@ -85,7 +85,8 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
     @JoinColumn(name = "ID_MAIN_CONTACT", referencedColumnName = "ID")
     protected JPAContactEntity mainContact;
 
-    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "business")
     protected List<JPAContactEntity> contacts;
 
     @Column(name = "WEBSITE")

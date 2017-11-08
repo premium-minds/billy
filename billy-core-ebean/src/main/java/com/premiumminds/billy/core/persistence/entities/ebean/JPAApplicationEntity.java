@@ -68,7 +68,7 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
     protected JPAContactEntity mainContact;
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
-            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "application")
     protected List<JPAContactEntity> contacts;
 
     public JPAApplicationEntity() {

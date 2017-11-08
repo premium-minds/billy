@@ -74,7 +74,8 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID")
     protected JPAContactEntity mainContact;
 
-    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "customer")
     protected List<JPAContactEntity> contacts;
 
     @Column(name = "SELF_BILLING")

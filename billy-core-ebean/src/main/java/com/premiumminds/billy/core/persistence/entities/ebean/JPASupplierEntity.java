@@ -59,7 +59,8 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     @JoinColumn(name = "ID_BILLING_ADDRESS")
     protected JPAAddressEntity billingAddress;
 
-    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "supplier")
     protected List<JPAContactEntity> contacts;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
