@@ -53,6 +53,7 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     protected List<JPAAddressEntity> addresses;
 
     @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_SUPPLIER")
     protected List<JPABankAccountEntity> bankAccounts;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })

@@ -93,6 +93,7 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
     protected String website;
 
     @OneToMany(targetEntity = JPAApplicationEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_BUSINESS")
     protected List<JPAApplicationEntity> applications;
 
     public JPABusinessEntity() {

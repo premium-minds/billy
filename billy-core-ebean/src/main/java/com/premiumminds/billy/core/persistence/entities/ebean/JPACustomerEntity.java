@@ -82,6 +82,7 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     protected Boolean selfBilling;
 
     @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_CUSTOMER")
     protected List<JPABankAccountEntity> bankAccounts;
 
     public JPACustomerEntity() {

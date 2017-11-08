@@ -159,9 +159,11 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInv
     protected Integer scale;
 
     @OneToMany(targetEntity = JPAGenericInvoiceEntryEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_INVOICE")
     protected List<JPAGenericInvoiceEntryEntity> entries;
 
     @OneToMany(targetEntity = JPAPaymentEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_INVOICE")
     protected List<JPAPaymentEntity> payments;
 
     public JPAGenericInvoiceEntity() {
