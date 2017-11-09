@@ -24,7 +24,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.UID;
@@ -38,7 +37,6 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.persistence.PTInvoicePersistenceService;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
-import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
@@ -70,7 +68,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
             String ticketValue = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
             this.ticketUID = new UID(ticketValue);
 
-            Services services = new Services(PTAbstractTest.injector);
+            Services services = PTAbstractTest.injector.getInstance(Services.class);
             services.issueDocument(invoiceBuilder, this.parameters, ticketValue);
 
             PTInvoice invoice = invoiceBuilder.build();
@@ -138,7 +136,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
 
     @Test
     public void testIssueWithUsedTicket() {
-        Services services = new Services(PTAbstractTest.injector);
+        Services services = PTAbstractTest.injector.getInstance(Services.class);
         PTInvoiceEntity entity = null;
         this.parameters.setInvoiceSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
 
@@ -161,7 +159,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
     @Test
     public void testOpenCloseConnections() {
 
-        Services services = new Services(PTAbstractTest.injector);
+        Services services = PTAbstractTest.injector.getInstance(Services.class);
         PTInvoicePersistenceService persistenceService =
                 PTAbstractTest.injector.getInstance(PTInvoicePersistenceService.class);
         PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity("business");
@@ -178,7 +176,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
 
         // em.clear();
 
-        services = new Services(Guice.createInjector(new PTMockDependencyModule()));
+        services = PTAbstractTest.injector.getInstance(Services.class);
 
         try {
             services.issueDocument(testinvoice, this.parameters, testValue);

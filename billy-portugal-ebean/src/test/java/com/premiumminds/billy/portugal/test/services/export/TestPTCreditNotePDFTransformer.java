@@ -126,7 +126,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     private PTCreditNoteEntity generatePTCreditNote(PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
             throws DocumentIssuingException {
 
-        Services services = new Services(PTAbstractTest.injector);
+        Services services = PTAbstractTest.injector.getInstance(Services.class);
 
         PTIssuingParams params = this.getParameters("AC", "3000", "1");
 

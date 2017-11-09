@@ -63,7 +63,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
     }
 
     public PTInvoiceEntity getNewIssuedInvoice(String businessUID) {
-        Services service = new Services(PTAbstractTest.injector);
+        Services service = PTAbstractTest.injector.getInstance(Services.class);
         PTIssuingParams parameters = new PTIssuingParamsImpl();
 
         parameters = this.getParameters(PTPersistencyAbstractTest.DEFAULT_SERIES, "30000", "1");
@@ -81,7 +81,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
     }
 
     public PTCreditNoteEntity getNewIssuedCreditnote(PTInvoice reference) {
-        Services service = new Services(PTAbstractTest.injector);
+        Services service = PTAbstractTest.injector.getInstance(Services.class);
         PTIssuingParams parameters = new PTIssuingParamsImpl();
 
         parameters = this.getParameters("NC", "30000", "1");

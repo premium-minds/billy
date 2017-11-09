@@ -18,10 +18,9 @@
  */
 package com.premiumminds.billy.portugal.util;
 
-import com.google.inject.Injector;
+import com.google.inject.Inject;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
-import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
@@ -37,25 +36,38 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 
 public class Services {
 
-    private final Injector injector;
     private DocumentIssuingService issuingService;
+
     private PersistenceServices persistenceService;
 
-    public Services(Injector injector) {
-        this.injector = injector;
-        this.issuingService = injector.getInstance(DocumentIssuingServiceImpl.class);
-        this.persistenceService = new PersistenceServices(injector);
+    private PTInvoiceIssuingHandler invoiceIssuingHandler;
+
+    private PTCreditNoteIssuingHandler creditNoteIssuingHandler;
+
+    private PTSimpleInvoiceIssuingHandler simpleInvoiceIssuingHandler;
+
+    private PTReceiptInvoiceIssuingHandler receiptInvoiceIssuingHandler;
+
+    @Inject
+    public Services(DocumentIssuingServiceImpl issuingService, PersistenceServices persistenceService,
+            PTInvoiceIssuingHandler invoiceIssuingHandler, PTCreditNoteIssuingHandler creditNoteIssuingHandler,
+            PTSimpleInvoiceIssuingHandler simpleInvoiceIssuingHandler,
+            PTReceiptInvoiceIssuingHandler receiptInvoiceIssuingHandler) {
+        this.issuingService = issuingService;
+        this.persistenceService = persistenceService;
+        this.invoiceIssuingHandler = invoiceIssuingHandler;
+        this.creditNoteIssuingHandler = creditNoteIssuingHandler;
+        this.simpleInvoiceIssuingHandler = simpleInvoiceIssuingHandler;
+        this.receiptInvoiceIssuingHandler = receiptInvoiceIssuingHandler;
+
         this.setupServices();
     }
 
     private void setupServices() {
-        this.issuingService.addHandler(PTInvoiceEntity.class, this.injector.getInstance(PTInvoiceIssuingHandler.class));
-        this.issuingService.addHandler(PTCreditNoteEntity.class,
-                this.injector.getInstance(PTCreditNoteIssuingHandler.class));
-        this.issuingService.addHandler(PTSimpleInvoiceEntity.class,
-                this.injector.getInstance(PTSimpleInvoiceIssuingHandler.class));
-        this.issuingService.addHandler(PTReceiptInvoiceEntity.class,
-                this.injector.getInstance(PTReceiptInvoiceIssuingHandler.class));
+        this.issuingService.addHandler(PTInvoiceEntity.class, this.invoiceIssuingHandler);
+        this.issuingService.addHandler(PTCreditNoteEntity.class, this.creditNoteIssuingHandler);
+        this.issuingService.addHandler(PTSimpleInvoiceEntity.class, this.simpleInvoiceIssuingHandler);
+        this.issuingService.addHandler(PTReceiptInvoiceEntity.class, this.receiptInvoiceIssuingHandler);
     }
 
     /**
@@ -68,11 +80,15 @@ public class Services {
     /**
      * Issue a new document and store it in the database.
      *
-     * @param <T> document type
-     * @param builder of the document to issue.
-     * @param issuingParameters required to issue the document.
+     * @param <T>
+     *        document type
+     * @param builder
+     *        of the document to issue.
+     * @param issuingParameters
+     *        required to issue the document.
      * @return The newly issued document
-     * @throws DocumentIssuingException exception when document is not issued
+     * @throws DocumentIssuingException
+     *         exception when document is not issued
      */
     public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder, PTIssuingParams issuingParameters)
             throws DocumentIssuingException {

@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.util;
 
-import com.google.inject.Injector;
+import com.google.inject.Inject;
 import com.premiumminds.billy.portugal.services.persistence.PTBusinessPersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersistenceService;
 import com.premiumminds.billy.portugal.services.persistence.PTCustomerPersistenceService;
@@ -34,72 +34,103 @@ import com.premiumminds.billy.portugal.services.persistence.PTTaxPersistenceServ
  */
 public class PersistenceServices {
 
-    private Injector injector;
+    private PTBusinessPersistenceService businessPersistService;
 
-    public PersistenceServices(Injector injector) {
-        this.injector = injector;
+    private PTCustomerPersistenceService customerPersistService;
+
+    private PTProductPersistenceService productPersistService;
+
+    private PTRegionContextPersistenceService contextPersistService;
+
+    private PTSupplierPersistenceService supplierPersistService;
+
+    private PTTaxPersistenceService taxPersistService;
+
+    private PTInvoicePersistenceService invoicePersistService;
+
+    private PTSimpleInvoicePersistenceService simpleInvoicePersistService;
+
+    private PTCreditNotePersistenceService creditNotePersistService;
+
+    @Inject
+    public PersistenceServices(PTBusinessPersistenceService businessPersistService,
+            PTCustomerPersistenceService customerPersistService, PTProductPersistenceService productPersistService,
+            PTRegionContextPersistenceService contextPersistService,
+            PTSupplierPersistenceService supplierPersistService, PTTaxPersistenceService taxPersistService,
+            PTInvoicePersistenceService invoicePersistService,
+            PTSimpleInvoicePersistenceService simpleInvoicePersistService,
+            PTCreditNotePersistenceService creditNotePersistService) {
+        this.businessPersistService = businessPersistService;
+        this.customerPersistService = customerPersistService;
+        this.productPersistService = productPersistService;
+        this.contextPersistService = contextPersistService;
+        this.supplierPersistService = supplierPersistService;
+        this.taxPersistService = taxPersistService;
+        this.invoicePersistService = invoicePersistService;
+        this.simpleInvoicePersistService = simpleInvoicePersistService;
+        this.creditNotePersistService = creditNotePersistService;
     }
 
     /**
      * @return {@link PTBusinessPersistenceService}.
      */
     public PTBusinessPersistenceService business() {
-        return this.injector.getInstance(PTBusinessPersistenceService.class);
+        return this.businessPersistService;
     }
 
     /**
      * @return {@link PTCustomerPersistenceService}.
      */
     public PTCustomerPersistenceService customer() {
-        return this.injector.getInstance(PTCustomerPersistenceService.class);
+        return this.customerPersistService;
     }
 
     /**
      * @return {@link PTProductPersistenceService}.
      */
     public PTProductPersistenceService product() {
-        return this.injector.getInstance(PTProductPersistenceService.class);
+        return this.productPersistService;
     }
 
     /**
      * @return {@link PTRegionContextPersistenceService}.
      */
     public PTRegionContextPersistenceService context() {
-        return this.injector.getInstance(PTRegionContextPersistenceService.class);
+        return this.contextPersistService;
     }
 
     /**
      * @return {@link PTSupplierPersistenceService}.
      */
     public PTSupplierPersistenceService supplier() {
-        return this.injector.getInstance(PTSupplierPersistenceService.class);
+        return this.supplierPersistService;
     }
 
     /**
      * @return {@link PTTaxPersistenceService}.
      */
     public PTTaxPersistenceService tax() {
-        return this.injector.getInstance(PTTaxPersistenceService.class);
+        return this.taxPersistService;
     }
 
     /**
      * @return {@link PTSimpleInvoicePersistenceService}.
      */
     public PTInvoicePersistenceService invoice() {
-        return this.injector.getInstance(PTInvoicePersistenceService.class);
+        return this.invoicePersistService;
     }
 
     /**
      * @return {@link PTSimpleInvoicePersistenceService}.
      */
     public PTSimpleInvoicePersistenceService simpleInvoice() {
-        return this.injector.getInstance(PTSimpleInvoicePersistenceService.class);
+        return this.simpleInvoicePersistService;
     }
 
     /**
      * @return {@link PTCreditNotePersistenceService}.
      */
     public PTCreditNotePersistenceService creditNote() {
-        return this.injector.getInstance(PTCreditNotePersistenceService.class);
+        return this.creditNotePersistService;
     }
 }
