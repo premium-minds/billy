@@ -24,7 +24,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
@@ -35,7 +35,7 @@ public class JPAPTCreditNoteEntryEntity extends JPAPTGenericInvoiceEntryEntity i
 
     private static final long serialVersionUID = 1L;
 
-    @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class,
+    @ManyToOne(fetch = FetchType.EAGER, targetEntity = JPAPTInvoiceEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_PTINVOICE", referencedColumnName = "ID")
     protected JPAPTInvoiceEntity reference;
