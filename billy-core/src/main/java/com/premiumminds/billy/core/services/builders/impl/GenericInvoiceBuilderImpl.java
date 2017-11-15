@@ -321,7 +321,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
         Validate.isTrue(
                 i.getAmountWithTax().compareTo(BigDecimal.ZERO) > 0 &&
                         i.getAmountWithoutTax().compareTo(BigDecimal.ZERO) >= 0 &&
-                        i.getTaxAmount().compareTo(BigDecimal.ZERO) > 0,
+                        i.getTaxAmount().compareTo(BigDecimal.ZERO) >= 0,
                 "The invoice values are lower than zero", // TODO
                 // message
                 i.getAmountWithTax(), i.getAmountWithoutTax(), i.getTaxAmount());
