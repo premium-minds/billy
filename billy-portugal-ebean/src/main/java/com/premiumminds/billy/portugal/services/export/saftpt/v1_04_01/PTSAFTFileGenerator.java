@@ -885,9 +885,9 @@ public class PTSAFTFileGenerator {
 				line.setTax(tax);
 
 				if ((tax.getTaxPercentage() != null && tax.getTaxPercentage()
-						.equals(BigDecimal.ZERO))
+						.compareTo(BigDecimal.ZERO) == 0)
 						|| (tax.getTaxAmount() != null && tax.getTaxAmount()
-								.equals(BigDecimal.ZERO))) {
+								.compareTo(BigDecimal.ZERO) == 0)) {
 					line.setTaxExemptionReason(this.validateString(
 							"TaxExemptionReason",
 							entry.getTaxExemptionReason(), this.MAX_LENGTH_60,
