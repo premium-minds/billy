@@ -54,8 +54,8 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
         if (validTo != null) {
             query.validTo.eq(validTo);
         }
-
         List<JPATaxEntity> taxes = query.findList();
+
         List<JPAPTTaxEntity> ptTaxes = new ArrayList<>();
         for (JPATaxEntity tax : taxes) {
             if (tax instanceof JPAPTTaxEntity) {
@@ -63,21 +63,9 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
             }
         }
 
-        List<JPAPTRegionContextEntity> childContexts = null;
-        List<JPAPTTaxEntity> taxResult = null;
-        List<JPAPTTaxEntity> taxContextResult = new ArrayList<>();
-
-        for (JPAPTTaxEntity tax : ptTaxes) {
-            childContexts = this.getChildContexts((PTRegionContextEntity) tax.getContext());
-            for (JPAPTRegionContextEntity childContext : childContexts) {
-                taxResult = this.getTaxesForSAFTPT(childContext, validFrom, validTo);
-                if (taxResult != null) {
-                    taxContextResult.addAll(taxResult);
-                }
-            }
-        }
-        if (taxContextResult != null) {
-            ptTaxes.addAll(taxContextResult);
+        List<JPAPTRegionContextEntity> childContexts = this.getChildContexts(context);
+        for (JPAPTRegionContextEntity childContext : childContexts) {
+            ptTaxes.addAll(this.getTaxesForSAFTPT(childContext, validFrom, validTo));
         }
 
         return ptTaxes;
