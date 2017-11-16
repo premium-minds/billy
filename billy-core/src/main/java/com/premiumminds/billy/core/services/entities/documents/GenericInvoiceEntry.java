@@ -96,6 +96,8 @@ public interface GenericInvoiceEntry extends Entity {
 
     public String getTaxExemptionReason();
 
+    public String getTaxExemptionCode();
+
     public AmountType getAmountType();
 
 }

@@ -212,6 +212,15 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
         return this.getBuilder();
     }
 
+    @Override
+    @NotOnUpdate
+    public TBuilder setTaxExemptionCode(String exemptionCode) {
+        BillyValidator.notBlank(exemptionCode,
+                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
+        this.getTypeInstance().setTaxExemptionCode(exemptionCode);
+        return this.getBuilder();
+    }
+
     @NotImplemented
     @Deprecated
     @Override

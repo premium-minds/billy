@@ -53,6 +53,7 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements Gen
     public ShippingPoint shippingOrigin;
     public List<Tax> taxes;
     public String taxExemptionReason;
+    public String taxExemptionCode;
     public Date taxPointDate;
     public BigDecimal unitAmountWithoutTax;
     public BigDecimal unitAmountWithTax;
@@ -169,6 +170,11 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements Gen
     @Override
     public String getTaxExemptionReason() {
         return this.taxExemptionReason;
+    }
+
+    @Override
+    public String getTaxExemptionCode() {
+        return this.taxExemptionCode;
     }
 
     @Override
@@ -289,6 +295,11 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements Gen
     @Override
     public void setTaxExemptionReason(String exemptionReason) {
         this.taxExemptionReason = exemptionReason;
+    }
+
+    @Override
+    public void setTaxExemptionCode(String exemptionCode) {
+        this.taxExemptionCode = exemptionCode;
     }
 
     @Override

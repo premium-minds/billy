@@ -887,11 +887,15 @@ public class PTSAFTFileGenerator {
 				if ((tax.getTaxPercentage() != null && tax.getTaxPercentage()
 						.compareTo(BigDecimal.ZERO) == 0)
 						|| (tax.getTaxAmount() != null && tax.getTaxAmount()
-								.compareTo(BigDecimal.ZERO) == 0 )) {
+								.compareTo(BigDecimal.ZERO) == 0)) {
 					line.setTaxExemptionReason(this.validateString(
 							"TaxExemptionReason",
 							entry.getTaxExemptionReason(), this.MAX_LENGTH_60,
 							true));
+                    line.setTaxExemptionCode(this.validateString(
+                            "TaxExemptionCode",
+                            entry.getTaxExemptionCode(), this.MAX_LENGTH_60,
+                            true));
 				}
 			}
 

@@ -61,6 +61,8 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
     public TBuilder setTaxExemptionReason(String exemptionReason);
 
+    public TBuilder setTaxExemptionCode(String exemptionCode);
+
     public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 
     public TBuilder setAmountType(AmountType type);

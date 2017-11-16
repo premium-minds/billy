@@ -892,6 +892,10 @@ public class PTSAFTFileGenerator {
 							"TaxExemptionReason",
 							entry.getTaxExemptionReason(), this.MAX_LENGTH_60,
 							true));
+                    line.setTaxExemptionCode(this.validateString(
+                            "TaxExemptionCode",
+                            entry.getTaxExemptionCode(), this.MAX_LENGTH_60,
+                            true));
 				}
 			}
 
