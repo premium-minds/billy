@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.test.util.PTSupplierTestUtil;
 
 public class TestJPAPTSupplier extends PTJPAAbstractTest {
 
-    private TransactionWrapper<Void> transaction;
+    /*private TransactionWrapper<Void> transaction;
 
     @Before
     public void setUp() {
@@ -54,6 +54,6 @@ public class TestJPAPTSupplier extends PTJPAAbstractTest {
     @Test
     public void doTest() throws Exception {
         PTJPAAbstractTest.execute(PTAbstractTest.injector, this.transaction);
-    }
+    }*/
 
 }

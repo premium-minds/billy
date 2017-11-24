@@ -34,7 +34,7 @@ import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 
 public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
-    @Test
+    /*@Test
     public void testLastInvoiceNumber() {
         String B1 = "B1";
         this.getNewIssuedInvoice(B1);
@@ -95,5 +95,5 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
         Assert.assertEquals(0, cn0.size());
         Assert.assertEquals(1, cn1.size());
-    }
+    }*/
 }

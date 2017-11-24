@@ -31,6 +31,7 @@
 		<module>billy-core-ebean</module>
 		<module>billy-gin</module>
 		<module>billy-portugal</module>
+		<module>billy-portugal-ebean</module>
 		<module>billy-spain</module>
 	</modules>
 

@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.services.entities.Ticket;
 
 public class TestTicketManager extends PTJPAAbstractTest {
 
-    private static final String OBJECT_UID = "object_uid";
+    /*private static final String OBJECT_UID = "object_uid";
     private static final Date CREATION_DATE = new Date();
     private static final Date PROCESS_DATE = new Date();
     private TicketManager manager = null;
@@ -60,6 +60,6 @@ public class TestTicketManager extends PTJPAAbstractTest {
         this.manager.updateTicket(new UID(this.ticket), new UID(TestTicketManager.OBJECT_UID),
                 TestTicketManager.CREATION_DATE, TestTicketManager.PROCESS_DATE);
         Assert.assertTrue(this.manager.ticketExists(this.ticket));
-    }
+    }*/
 
 }

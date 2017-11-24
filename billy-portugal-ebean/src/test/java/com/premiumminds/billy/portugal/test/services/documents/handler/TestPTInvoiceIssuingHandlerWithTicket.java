@@ -45,7 +45,7 @@ import com.premiumminds.billy.portugal.util.Services;
 
 public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTest {
 
-    private static final TYPE DEFAULT_TYPE = TYPE.FT;
+    /*private static final TYPE DEFAULT_TYPE = TYPE.FT;
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
     private UID issuedInvoiceUID;
@@ -166,8 +166,8 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
         PTInvoice.Builder testinvoice = new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(business,
                 TestPTInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
 
-        /*EntityManager em = PTAbstractTest.injector.getInstance(EntityManager.class);
-        em.getTransaction().begin();*/
+        //EntityManager em = PTAbstractTest.injector.getInstance(EntityManager.class);
+        //em.getTransaction().begin();
 
         TicketManager newTicketManager = PTAbstractTest.injector.getInstance(TicketManager.class);
         String testValue = newTicketManager.generateTicket(this.getInstance(Ticket.Builder.class));
@@ -189,6 +189,6 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
         } catch (Exception e) {
         }
         Assert.assertTrue(ticketEntity == null);
-    }
+    }*/
 
 }

@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTPaymentEntity;
 
 public class TestPTPaymentBuilder extends PTAbstractTest {
 
-    private static final String PT_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "PTPayment.yml";
+    /*private static final String PT_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "PTPayment.yml";
 
     @Test
     public void doTest() {
@@ -50,6 +50,6 @@ public class TestPTPaymentBuilder extends PTAbstractTest {
         Assert.assertEquals(payment.getPaymentMethod(), mock.getPaymentMethod());
         Assert.assertEquals(payment.getPaymentAmount(), mock.getPaymentAmount());
         Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
-    }
+    }*/
 
 }

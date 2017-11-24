@@ -45,7 +45,7 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 
-    private DocumentIssuingService service;
+    /*private DocumentIssuingService service;
 
     @Before
     public void setUp() {
@@ -221,6 +221,6 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
             }
         }
         return out;
-    }
+    }*/
 
 }

@@ -41,7 +41,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
 
 public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
-    private static final String PT_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "PTCreditNoteEntry.yml";
+    /*private static final String PT_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "PTCreditNoteEntry.yml";
     private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "PTInvoice.yml";
 
     @Test
@@ -95,5 +95,5 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
         Assert.assertTrue(entry.getReason().equals(mock.getReason()));
         Assert.assertTrue(entry.getReference().equals(mock.getReference()));
 
-    }
+    }*/
 }

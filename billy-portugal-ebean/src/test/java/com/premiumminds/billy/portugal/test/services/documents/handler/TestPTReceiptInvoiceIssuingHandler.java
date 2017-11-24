@@ -35,7 +35,7 @@ import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstrac
 
 public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
-    private static final TYPE DEFAULT_TYPE = TYPE.FR;
+    /*private static final TYPE DEFAULT_TYPE = TYPE.FR;
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
     private PTReceiptInvoiceIssuingHandler handler;
@@ -67,7 +67,7 @@ public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
                 TestPTReceiptInvoiceIssuingHandler.DEFAULT_TYPE + " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
         Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
         Assert.assertEquals(TestPTReceiptInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
-    }
+    }*/
 
     // @Test
     // public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {

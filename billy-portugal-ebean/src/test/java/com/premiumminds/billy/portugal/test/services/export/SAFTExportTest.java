@@ -76,7 +76,7 @@ import com.premiumminds.billy.portugal.util.KeyGenerator;
 
 public class SAFTExportTest extends PTPersistencyAbstractTest {
 
-    private static final String SAFT_OUTPUT = System.getProperty("java.io.tmpdir") + "/";
+    /*private static final String SAFT_OUTPUT = System.getProperty("java.io.tmpdir") + "/";
 
     private DocumentIssuingService service;
     protected PTIssuingParams parameters;
@@ -121,7 +121,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
         DAOPTRegionContext daoPTRegionContext = PTAbstractTest.injector.getInstance(DAOPTRegionContext.class);
 
-        /* ADDRESSES */
+        // ADDRESSES
         // PTAddress.Builder addressBuilder1 = address.getAddressBuilder(
         // "Av. Republica", "Nº 3 - 3º Esq.",
         // "Av. Republica Nº 3 - 3º Esq.", "", "Lisboa", "1700-232", "",
@@ -131,7 +131,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
         PTAddress.Builder addressBuilder3 = address.getAddressBuilder("Campo Grande", "Condomínio X",
                 "Lote 20, Andar 3", "Building nr K", "Lisboa", "1000-253", "Lisboa", "PT");
 
-        /* CONTACTS */
+        // CONTACTS
         PTContact.Builder contactBuilder = contact.getContactBuilder("My Business", "299999999", "999999999",
                 "299999998", "mybusiness@email.me", "http://www.mybusiness.web");
 
@@ -141,31 +141,31 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
         PTContact.Builder contactBuilder3 = contact.getContactBuilder("YourSupplier", "299999993", "999999993",
                 "299999994", "maildoyourbusiness@email.me", "http://www.yourbusinessnaweb.web");
 
-        /* APPLICATION */
+        // APPLICATION
         PTApplication.Builder applicationBuilder = application.getApplicationBuilder("APP", "1.0", "My Business",
                 "500001758", "hhtp://www.app.mybusiness.web", 1, "http://here", contactBuilder);
         PTApplicationEntity applicationEntity = (PTApplicationEntity) applicationBuilder.build();
 
-        /* BUSINESS */
+        // BUSINESS
         PTBusinessEntity businessEntity = business.getBusinessEntity();
 
-        /* CUSTOMERS */
+        // CUSTOMERS
         DAOPTCustomer daoPTCustomer = PTAbstractTest.injector.getInstance(DAOPTCustomer.class);
         PTCustomer.Builder customerBuilder =
                 customer.getCustomerBuilder("Zé", "213512351", false, addressBuilder2, contactBuilder2);
         customerPersistenceService.create(customerBuilder);
 
-        /* SUPPLIERS */
+        // SUPPLIERS
         DAOPTSupplier daoPTSupplier = PTAbstractTest.injector.getInstance(DAOPTSupplier.class);
 
         PTSupplier.Builder supplierBuilder =
                 supplier.getSupplierBuilder("YourSupplier", "500001758", false, addressBuilder3, contactBuilder3);
         supplierPersistenceService.create(supplierBuilder);
 
-        /* TAXES */
+        // TAXES
         DAOPTTax daoPTTax = PTAbstractTest.injector.getInstance(DAOPTTax.class);
 
-        /* PRODUCTS */
+        // PRODUCTS
         DAOPTProduct daoPTProduct = PTAbstractTest.injector.getInstance(DAOPTProduct.class);
 
         // INVOICES
@@ -218,5 +218,5 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
         stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT + "SAFT_10301.xml");
         generator.generateSAFTFile(stream, businessEntity, applicationEntity, "1234", calendar.getTime(), new Date(),
                 SAFTVersion.V10301);
-    }
+    }*/
 }

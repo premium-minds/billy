@@ -34,7 +34,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTSupplierEntity;
 
 public class TestPTSupplierBuilder extends PTAbstractTest {
 
-    private static final String PTSUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR + "PTSupplier.yml";
+    /*private static final String PTSUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR + "PTSupplier.yml";
 
     @Test
     public void doTest() {
@@ -79,6 +79,6 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
         Assert.assertEquals(mockSupplier.getTaxRegistrationNumber(), supplier.getTaxRegistrationNumber());
         Assert.assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
         Assert.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier.getBankAccounts().size());
-    }
+    }*/
 
 }

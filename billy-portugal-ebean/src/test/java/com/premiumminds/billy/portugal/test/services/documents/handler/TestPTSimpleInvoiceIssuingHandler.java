@@ -39,7 +39,7 @@ import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
 
 public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
-    private static final TYPE DEFAULT_TYPE = TYPE.FS;
+    /*private static final TYPE DEFAULT_TYPE = TYPE.FS;
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
     private PTSimpleInvoiceIssuingHandler handler;
@@ -76,6 +76,6 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
     public void testBusinessSimpleInvoice() {
         new PTSimpleInvoiceTestUtil(PTAbstractTest.injector)
                 .getSimpleInvoiceEntity(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING, CLIENTTYPE.BUSINESS);
-    }
+    }*/
 
 }

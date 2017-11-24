@@ -32,7 +32,7 @@ import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportEx
 
 public class TestInvoiceGenerationAndExport extends PTPersistenceServiceAbstractTest {
 
-    private PTInvoice invoice;
+    /*private PTInvoice invoice;
     private PTCreditNote creditNote;
     private UID appUID;
 
@@ -55,6 +55,6 @@ public class TestInvoiceGenerationAndExport extends PTPersistenceServiceAbstract
         // calendar.set(2013, 1, 1);
         // Date tau = calendar.getTime();
         // billy.saft().export(new UID("EOS"), new UID("MAKSU_PT"), "1", tau, new Date());
-    }
+    }*/
 
 }

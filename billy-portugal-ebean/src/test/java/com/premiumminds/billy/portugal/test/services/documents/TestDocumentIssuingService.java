@@ -33,7 +33,7 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 
-    private DocumentIssuingService service;
+    /*private DocumentIssuingService service;
 
     @Before
     public void setUp() {
@@ -52,5 +52,5 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
                 new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(
                         new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(), SourceBilling.P),
                 this.parameters);
-    }
+    }*/
 }

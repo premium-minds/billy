@@ -35,7 +35,7 @@ import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstrac
 
 public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
-    private static final TYPE DEFAULT_TYPE = TYPE.FT;
+    /*private static final TYPE DEFAULT_TYPE = TYPE.FT;
     private static final SourceBilling SOURCE_BILLING = SourceBilling.M;
 
     private PTInvoiceIssuingHandler handler;
@@ -66,14 +66,14 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
                 TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE + " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
         Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
         Assert.assertEquals(TestPTManualInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
-    }
+    }*/
 
     /**
      * Test the issue of a normal invoice in a manual series.
      *
      * @throws DocumentIssuingException
      */
-    @Test(expected = InvalidSourceBillingException.class)
+    /*@Test(expected = InvalidSourceBillingException.class)
     public void testDifferentBilling() throws DocumentIssuingException {
         PTInvoiceEntity issuedInvoice = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
@@ -82,5 +82,5 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
         normalInvoice.setBusiness(issuedInvoice.getBusiness());
 
         this.issueNewInvoice(this.handler, normalInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
-    }
+    }*/
 }

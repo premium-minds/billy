@@ -39,7 +39,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTTaxEntity;
 
 public class TestPTTaxBuilder extends PTAbstractTest {
 
-    private static final String PTTAX_YML = AbstractTest.YML_CONFIGS_DIR + "PTTax.yml";
+    /*private static final String PTTAX_YML = AbstractTest.YML_CONFIGS_DIR + "PTTax.yml";
     private static final String REGIONCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "PTContext.yml";
 
     @Test
@@ -93,5 +93,5 @@ public class TestPTTaxBuilder extends PTAbstractTest {
         result.currency = Currency.getInstance("EUR");
 
         return result;
-    }
+    }*/
 }

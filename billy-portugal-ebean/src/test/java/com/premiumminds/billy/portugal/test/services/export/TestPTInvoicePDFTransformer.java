@@ -53,7 +53,7 @@ import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 
 public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
+    /*public static final int NUM_ENTRIES = 10;
     public static final String XSL_PATH = "src/main/resources/templates/pt_invoice.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
     public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
@@ -189,5 +189,5 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         return invoice;
-    }
+    }*/
 }

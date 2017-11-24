@@ -36,7 +36,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity;
 
 public class TestPTProductBuilder extends PTAbstractTest {
 
-    private static final String PTPRODUCT_YML = AbstractTest.YML_CONFIGS_DIR + "PTProduct.yml";
+    /*private static final String PTPRODUCT_YML = AbstractTest.YML_CONFIGS_DIR + "PTProduct.yml";
 
     @Test
     public void doTest() {
@@ -70,6 +70,6 @@ public class TestPTProductBuilder extends PTAbstractTest {
         Assert.assertEquals(mockProduct.getProductGroup(), product.getProductGroup());
         Assert.assertEquals(mockProduct.getUnitOfMeasure(), product.getUnitOfMeasure());
         Assert.assertEquals(mockProduct.getValuationMethod(), product.getValuationMethod());
-    }
+    }*/
 
 }

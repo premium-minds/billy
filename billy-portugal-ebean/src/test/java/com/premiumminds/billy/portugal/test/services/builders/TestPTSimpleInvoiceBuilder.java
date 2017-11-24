@@ -43,7 +43,7 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTSimpleInvoiceEntity;
 
 public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
 
-    private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "PTInvoice.yml";
+    /*private static final String PT_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "PTInvoice.yml";
     private static final String PT_INVOICE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "PTInvoiceEntry.yml";
 
     private static final String PTCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "PTCustomer.yml";
@@ -117,6 +117,6 @@ public class TestPTSimpleInvoiceBuilder extends PTAbstractTest {
         Assert.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
         Assert.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
         Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
-    }
+    }*/
 
 }

@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 
-    private PTInvoice issuedInvoice;
+    /*private PTInvoice issuedInvoice;
 
     @Before
     public void setUp() throws DocumentIssuingException {
@@ -83,5 +83,5 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
         PTInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
         builder.setSourceBilling(SourceBilling.M);
-    }
+    }*/
 }
