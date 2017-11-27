@@ -81,6 +81,8 @@ public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry, BaseEnti
 
     public void setTaxExemptionReason(String exemptionReason);
 
+    public void setTaxExemptionCode(String exemptionCode);
+
     public void setAmountType(AmountType type);
 
 }

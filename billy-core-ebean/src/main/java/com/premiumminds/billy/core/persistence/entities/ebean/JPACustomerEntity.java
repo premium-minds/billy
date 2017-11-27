@@ -23,7 +23,10 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -37,6 +40,9 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPACustomerEntity")
 @Table(name = Config.TABLE_PREFIX + "CUSTOMER")
 public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
 
@@ -48,7 +54,8 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     @Column(name = "TAX_ID")
     protected String taxId;
 
-    @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "customer")
     protected List<JPAAddressEntity> addresses;
 
     @OneToOne(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -67,13 +74,15 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     @JoinColumn(name = "ID_CONTACT", referencedColumnName = "ID")
     protected JPAContactEntity mainContact;
 
-    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @OneToMany(targetEntity = JPAContactEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+            mappedBy = "customer")
     protected List<JPAContactEntity> contacts;
 
     @Column(name = "SELF_BILLING")
     protected Boolean selfBilling;
 
     @OneToMany(targetEntity = JPABankAccountEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(name = "ID_CUSTOMER")
     protected List<JPABankAccountEntity> bankAccounts;
 
     public JPACustomerEntity() {

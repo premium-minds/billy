@@ -23,8 +23,11 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -36,6 +39,9 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPAApplicationEntity")
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
 public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEntity {
 
@@ -62,7 +68,7 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
     protected JPAContactEntity mainContact;
 
     @OneToMany(fetch = FetchType.EAGER, targetEntity = JPAContactEntity.class,
-            cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+            cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "application")
     protected List<JPAContactEntity> contacts;
 
     public JPAApplicationEntity() {

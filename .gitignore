@@ -16,6 +16,7 @@ billy-portugal/src/test/resources/documents/
 billy-portugal/src/main/java/com/premiumminds/billy/portugal/services/export/saftpt/schema/*
 
 billy-portugal/src-generated/*
+billy-portugal-ebean/src-generated/*
 billy-spain/src-generated/*
 
 billy-core-jpa/src/main/filters/*.properties

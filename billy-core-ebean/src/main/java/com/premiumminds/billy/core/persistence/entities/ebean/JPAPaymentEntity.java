@@ -21,7 +21,10 @@ package com.premiumminds.billy.core.persistence.entities.ebean;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +33,9 @@ import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPAPaymentEntity")
 @Table(name = Config.TABLE_PREFIX + "PAYMENT")
 public class JPAPaymentEntity extends JPABaseEntity implements PaymentEntity {
 

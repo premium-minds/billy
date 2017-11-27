@@ -19,17 +19,34 @@
 package com.premiumminds.billy.core.persistence.entities.ebean;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 
 @Entity
+@Inheritance
+@DiscriminatorColumn(length = 255)
+@DiscriminatorValue("JPAAddressEntity")
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
 public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
 
     private static final long serialVersionUID = 1L;
+
+    // Private field without getters or setters that is needed to map the inverse @OneToMany relation
+    // Avoids ownership limitation problem of Ebean http://ebean-orm.github.io/docs/mapping/jpa/oneToMany
+    @ManyToOne(targetEntity = JPACustomerEntity.class)
+    private JPACustomerEntity customer;
+
+    // Private field without getters or setters that is needed to map the inverse @OneToMany relation
+    // Avoids ownership limitation problem of Ebean http://ebean-orm.github.io/docs/mapping/jpa/oneToMany
+    @ManyToOne(targetEntity = JPASupplierEntity.class)
+    private JPASupplierEntity supplier;
 
     @Column(name = "NUMBER")
     protected String number;

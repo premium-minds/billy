@@ -117,6 +117,9 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
     @Column(name = "TAX_EXEMPTION_REASON")
     protected String taxExemptionReason;
 
+    @Column(name = "TAX_EXEMPTION_CODE")
+    protected String taxExemptionCode;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "TAX_POINT_DATE")
     protected Date taxPointDate;
@@ -253,6 +256,11 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
     }
 
     @Override
+    public String getTaxExemptionCode() {
+        return this.taxExemptionCode;
+    }
+
+    @Override
     public AmountType getAmountType() {
         return this.type;
     }
@@ -370,6 +378,11 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements Gener
     @Override
     public void setTaxExemptionReason(String exemptionReason) {
         this.taxExemptionReason = exemptionReason;
+    }
+
+    @Override
+    public void setTaxExemptionCode(String exemptionCode) {
+        this.taxExemptionCode = exemptionCode;
     }
 
     @Override
