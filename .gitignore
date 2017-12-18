@@ -18,6 +18,7 @@ billy-portugal/src/main/java/com/premiumminds/billy/portugal/services/export/saf
 billy-portugal/src-generated/*
 billy-portugal-ebean/src-generated/*
 billy-spain/src-generated/*
+billy-france/src-generated/*
 
 billy-core-jpa/src/main/filters/*.properties
 billy-core/src/main/filters/*.properties

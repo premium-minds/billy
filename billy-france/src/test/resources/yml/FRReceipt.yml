@@ -1,0 +1,78 @@
+#
+# Copyright (C) 2017 Premium Minds.
+#
+# This file is part of billy france (FR Pack).
+#
+# billy france (FR Pack) is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# billy france (FR Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with billy france (FR Pack). If not, see <http://www.gnu.org/licenses/>.
+#
+
+
+uid : uid_receipt
+number :  receipt_1 
+officeNumber : office_1
+date : 2013-08-30
+cancelled : false 
+billed : false
+amountWithoutTax : !!java.math.BigDecimal
+  460
+amountWithTax : !!java.math.BigDecimal
+ 565.8
+taxAmount : !!java.math.BigDecimal
+  105.8
+discountsAmount : !!java.math.BigDecimal
+  0
+shippingDestination : !!com.premiumminds.billy.france.test.fixtures.MockFRShippingPointEntity
+  deliveryId : delivery_id
+  warehouseId : warehouse_id
+  locationId : location_id
+  UCR : ucr
+  date : 2013-01-01
+  address : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
+    streetName : street_name
+    number : number
+    details : details
+    building : building
+    city : city
+    postalCode : postal_code
+    region : region
+    country : country
+shippingOrigin : !!com.premiumminds.billy.france.test.fixtures.MockFRShippingPointEntity
+  deliveryId : delivery_id
+  warehouseId : warehouse_id
+  locationId : location_id
+  UCR : ucr
+  date : 2013-01-01
+  address : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
+    streetName : street_name
+    number : number
+    details : details
+    building : building
+    city : city
+    postalCode : postal_code
+    region : region
+    country : country
+paymentTerms : terms_1
+selfBilled : false
+sourceId : source_1
+generalLedgerDate : 2013-10-10
+batchId : batch_1
+transactionsId : transId_1
+receiptNumbers :
+  - receipt_number_1
+  - receipt_number_2
+settlementDescription : description_1
+settlementDiscount : !!java.math.BigDecimal
+  0
+settlementDate : 2013-12-24
+creditOrDebit : CREDIT

@@ -1,0 +1,71 @@
+#
+# Copyright (C) 2017 Premium Minds.
+#
+# This file is part of billy france (FR Pack).
+#
+# billy france (FR Pack) is free software: you can redistribute it and/or modify it under
+# the terms of the GNU Lesser General Public License as published by the Free
+# Software Foundation, either version 3 of the License, or (at your option) any
+# later version.
+#
+# billy france (FR Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+# WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+# A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with billy france (FR Pack). If not, see <http://www.gnu.org/licenses/>.
+#
+
+productCode : product_code
+productGroup : product_group
+unitOfMeasure : unit_of_measure
+numberCode : number_code
+comodityCode : comodity_code
+type : GOODS
+description : product_description  
+valuationMethod : valuation_method
+taxes:
+  - !!com.premiumminds.billy.france.test.fixtures.MockFRTaxEntity
+    uid : tax_uid_1
+    designation : desgination_1
+    description : description_1
+    code : code_1
+    value : 201
+    validFrom: 2013-01-01
+    validTo: 2013-12-12
+    taxRateType : FLAT
+    percentageRateValue : 23
+    flatRateAmount : 13
+    context : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+      uid : context_uid
+      name : name
+      regionCode : 3166-2:PT
+      description : description
+      parentContext : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+        uid : context_parent_uid
+        name : parent_name
+        regionCode : 3166-2:PT
+        description : parent_description
+  - !!com.premiumminds.billy.france.test.fixtures.MockFRTaxEntity
+    uid : tax_uid_2
+    designation : desgination_2
+    description : description_2
+    code : code_1
+    value : 202
+    validFrom: 2013-01-02
+    validTo: 2013-12-12
+    taxRateType : FLAT
+    percentageRateValue : 23
+    flatRateAmount : 12
+    context : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+      uid : context_uid
+      name : name
+      regionCode : 3166-2:PT
+      description : description
+      parentContext : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity
+        uid : context_parent_uid
+        name : parent_name
+        regionCode : 3166-2:PT
+        description : parent_description
+      

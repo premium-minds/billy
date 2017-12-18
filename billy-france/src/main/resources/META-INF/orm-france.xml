@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (C) 2017 Premium Minds.
+
+    This file is part of billy france (FR Pack).
+
+    billy france (FR Pack) is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+
+    billy france (FR Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+    A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with billy france (FR Pack). If not, see <http://www.gnu.org/licenses/>.
+
+-->
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm orm_2_0.xsd"
+  version="2.0">
+  
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRAddressEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRApplicationEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRBusinessEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRContactEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditNoteEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditNoteEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCustomerEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRGenericInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRGenericInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRInvoiceEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRProductEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRRegionContextEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRShippingPointEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRSimpleInvoiceEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRReceiptEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRReceiptEntryEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRSupplierEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRTaxEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRPaymentEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditReceiptEntity"></entity>
+	<entity class="com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditReceiptEntryEntity"></entity>
+
+</entity-mappings>
