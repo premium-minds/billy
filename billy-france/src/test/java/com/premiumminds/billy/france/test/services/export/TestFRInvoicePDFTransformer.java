@@ -29,6 +29,7 @@ import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
@@ -75,6 +76,7 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
         this.test = new FRInvoiceTestUtil(FRAbstractTest.injector);
     }
 
+    @Ignore
     @Test
     public void testPDFcreation()
             throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
@@ -140,6 +142,7 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
         this.transformer.transform(entityData, os);
     }
 
+	@Ignore
     @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
         FRInvoiceEntity entity = this.generateFRInvoice();

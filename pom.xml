@@ -24,7 +24,7 @@
 		<main.dir>${basedir}</main.dir>
 		<java.version>1.7</java.version>
 	</properties>
-	
+
 	<modules>
 		<module>billy-core</module>
 		<module>billy-core-jpa</module>
@@ -48,7 +48,7 @@
 		<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
 		<url>https://github.com/premium-minds/billy</url>
 	 	<tag>HEAD</tag>
-  </scm>
+  	</scm>
 
 	<url>http://premium-minds.github.io/billy/</url>
 
@@ -166,6 +166,19 @@
 						<version>1.8.1</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.20.1</version>
+				<configuration>
+					<systemProperties>
+						<property>
+							<name>java.util.logging.config.file</name>
+							<value>src/test/resources/logging.properties</value>
+						</property>
+					</systemProperties>
+				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
