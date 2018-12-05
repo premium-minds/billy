@@ -86,7 +86,7 @@ public class ESCreditReceiptPDFFOPTransformer extends ESAbstractFOPPDFTransforme
             entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct().getProductCode());
             entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct().getDescription());
             entryNode.addChild(ParamKeys.ENTRY_QUANTITY,
-                    entry.getQuantity().setScale(2, this.mc.getRoundingMode()).toPlainString());
+                    entry.getQuantityWithUnitOfMeasure(this.mc.getRoundingMode()));
             entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE,
                     entry.getUnitAmountWithTax().setScale(2, this.mc.getRoundingMode()).toPlainString());
             entryNode.addChild(ParamKeys.ENTRY_TOTAL,

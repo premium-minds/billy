@@ -203,8 +203,7 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
 
             entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getDescription());
 
-            entryNode.addChild(ParamKeys.ENTRY_QUANTITY,
-                    entry.getQuantity().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString());
+            entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantityWithUnitOfMeasure(this.mc.getRoundingMode()));
 
             entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry.getUnitAmountWithTax()
                     .setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString());

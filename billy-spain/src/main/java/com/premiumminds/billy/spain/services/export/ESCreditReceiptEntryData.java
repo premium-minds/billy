@@ -31,8 +31,9 @@ public class ESCreditReceiptEntryData extends InvoiceEntryData {
 
     public ESCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity,
             BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
-            List<TaxData> taxes, ESReceiptData reference) {
-        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes);
+            List<TaxData> taxes, ESReceiptData reference, String unitOfMeasure) {
+        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes, 
+        		unitOfMeasure);
 
         this.reference = reference;
     }

@@ -19,7 +19,10 @@
 package com.premiumminds.billy.gin.services.export;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+
+import com.premiumminds.billy.core.util.BillyMathContext;
 
 public class InvoiceEntryData {
 
@@ -31,9 +34,12 @@ public class InvoiceEntryData {
     private final BigDecimal amountWithTax;
     private final BigDecimal amountWithoutTax;
     private final List<TaxData> taxes;
+    private final String unitOfMeasure;
 
-    public InvoiceEntryData(ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
-            BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes) {
+    
+	public InvoiceEntryData(ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
+            BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes, 
+            String unitOfMeasure) {
 
         this.product = product;
         this.description = description;
@@ -43,6 +49,7 @@ public class InvoiceEntryData {
         this.amountWithTax = amountWithTax;
         this.amountWithoutTax = amountWithoutTax;
         this.taxes = taxes;
+        this.unitOfMeasure = unitOfMeasure;
     }
 
     public ProductData getProduct() {
@@ -75,6 +82,18 @@ public class InvoiceEntryData {
 
     public List<TaxData> getTaxes() {
         return this.taxes;
+    }
+
+	public String getUnitOfMeasure() {
+		return unitOfMeasure;
+	}
+	
+	public String getQuantityWithUnitOfMeasure(RoundingMode mode) {
+		StringBuilder builder = new StringBuilder(quantity.setScale(BillyMathContext.SCALE, mode).toPlainString());
+		builder.append(" ");
+		builder.append(unitOfMeasure);
+
+		return builder.toString();
     }
 
 }

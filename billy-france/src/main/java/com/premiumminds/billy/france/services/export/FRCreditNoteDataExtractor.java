@@ -78,7 +78,7 @@ public class FRCreditNoteDataExtractor extends AbstractBillyDataExtractor
 
             entries.add(new FRCreditNoteEntryData(product, entry.getDescription(), entry.getQuantity(),
                     entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
-                    entry.getAmountWithoutTax(), taxes, reference));
+                    entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure()));
         }
 
         return entries;
