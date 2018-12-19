@@ -78,7 +78,7 @@ public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor
 
             entries.add(new ESCreditNoteEntryData(product, entry.getDescription(), entry.getQuantity(),
                     entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
-                    entry.getAmountWithoutTax(), taxes, reference));
+                    entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure()));
         }
 
         return entries;

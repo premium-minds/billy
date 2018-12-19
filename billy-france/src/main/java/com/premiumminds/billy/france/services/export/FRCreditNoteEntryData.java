@@ -31,8 +31,9 @@ public class FRCreditNoteEntryData extends InvoiceEntryData {
 
     public FRCreditNoteEntryData(ProductData productCode, String description, BigDecimal quantity, BigDecimal taxAmount,
             BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
-            FRInvoiceData reference) {
-        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes);
+            FRInvoiceData reference, String unitOfMeasure) {
+        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes, 
+        		unitOfMeasure);
 
         this.reference = reference;
     }
