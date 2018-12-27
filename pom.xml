@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>billy</artifactId>
 	<name>billy</name>
-	<version>3.1.1</version>
+	<version>3.1.2-SNAPSHOT</version>
 	<description>An opensource invoicing engine</description>
 	<packaging>pom</packaging>
 	<groupId>com.premiumminds</groupId>
@@ -47,7 +47,7 @@
 		<connection>scm:git:git@github.com:premium-minds/billy.git</connection>
 		<developerConnection>scm:git:git@github.com:premium-minds/billy.git</developerConnection>
 		<url>https://github.com/premium-minds/billy</url>
-	 	<tag>v3.1.1</tag>
+	 	<tag>HEAD</tag>
   	</scm>
 
 	<url>http://premium-minds.github.io/billy/</url>
