@@ -86,6 +86,7 @@ public class FRCreditReceiptPDFFOPTransformer extends FRAbstractFOPPDFTransforme
             entryNode.addChild(ParamKeys.ENTRY_ID, entry.getProduct().getProductCode());
             entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getProduct().getDescription());
             entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantityWithUnitOfMeasure(this.mc.getRoundingMode()));
+            entryNode.addChild(ParamKeys.ENTRY_UNIT_OF_MEASURE, entry.getUnitOfMeasure());
             entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE,
                     entry.getUnitAmountWithTax().setScale(2, this.mc.getRoundingMode()).toPlainString());
             entryNode.addChild(ParamKeys.ENTRY_TOTAL,

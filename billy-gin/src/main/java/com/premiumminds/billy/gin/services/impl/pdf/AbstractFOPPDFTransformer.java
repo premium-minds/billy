@@ -88,6 +88,7 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
         public static final String ENTRY_DESCRIPTION = "description";
         public static final String ENTRY_QUANTITY = "qty";
         public static final String ENTRY_UNIT_PRICE = "unitPrice";
+        public static final String ENTRY_UNIT_OF_MEASURE = "unitOfMeasure";
         public static final String ENTRY_TOTAL = "total";
         public static final String ENTRY_TAX = "tax";
 
@@ -204,6 +205,8 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
             entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getDescription());
 
             entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantityWithUnitOfMeasure(this.mc.getRoundingMode()));
+            
+            entryNode.addChild(ParamKeys.ENTRY_UNIT_OF_MEASURE, entry.getUnitOfMeasure());
 
             entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry.getUnitAmountWithTax()
                     .setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString());
