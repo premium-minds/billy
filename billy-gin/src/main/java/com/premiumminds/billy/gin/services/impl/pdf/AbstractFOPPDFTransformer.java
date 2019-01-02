@@ -27,8 +27,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.Validate;
-
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -297,10 +295,6 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
                 document.getTaxAmount().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString());
         params.getRoot().addChild(ParamKeys.TOTAL, document.getAmountWithTax()
                 .setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString());
-
-        Validate.isTrue(document.getAmountWithoutTax().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode())
-                .add(document.getTaxAmount().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode())).compareTo(
-                        document.getAmountWithTax().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode())) == 0);
     }
 
     protected class TaxTotals {
