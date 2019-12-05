@@ -37,5 +37,5 @@ import java.lang.annotation.Target;
  */
 public @interface NotOnUpdate {
 
-    String message() default "Enitity is marked as not new, can't update this field!";
+    String message() default "Entity is marked as not new, can't update this field!";
 }
