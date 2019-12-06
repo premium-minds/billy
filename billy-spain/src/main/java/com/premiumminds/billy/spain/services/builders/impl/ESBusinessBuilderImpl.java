@@ -80,7 +80,7 @@ public class ESBusinessBuilderImpl<TBuilder extends ESBusinessBuilderImpl<TBuild
         BillyValidator.mandatory(b.getName(), ESBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
         BillyValidator.mandatory(b.getCommercialName(),
                 ESBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
-        BillyValidator.mandatory(b.getAddress(), ESBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+        BillyValidator.<Object>mandatory(b.getAddress(), ESBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
 
         Pattern pattern;
         pattern = Pattern.compile("[0-9]{5}");

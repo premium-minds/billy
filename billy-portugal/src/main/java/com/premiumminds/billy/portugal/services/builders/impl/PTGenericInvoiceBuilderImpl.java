@@ -126,7 +126,7 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
     private void validatePTInstance(PTGenericInvoiceEntity i) {
         super.validateDate();
-        BillyValidator.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
+        BillyValidator.<Object>mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
 
         BillyValidator.mandatory(i.getSourceId(), PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
         BillyValidator.mandatory(i.getDate(), PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));

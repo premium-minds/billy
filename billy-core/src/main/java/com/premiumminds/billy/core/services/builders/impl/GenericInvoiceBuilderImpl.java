@@ -267,8 +267,8 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
         if (i.isSelfBilled() != null) {
             i.setSelfBilled(false);
         }
-        BillyValidator.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
-        BillyValidator.mandatory(i.getSupplier(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));
+        BillyValidator.<Object>mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
+        BillyValidator.<Object>mandatory(i.getSupplier(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));
         this.validateDate();
         this.validateValues();
     }

@@ -80,7 +80,7 @@ public class FRBusinessBuilderImpl<TBuilder extends FRBusinessBuilderImpl<TBuild
         BillyValidator.mandatory(b.getName(), FRBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
         BillyValidator.mandatory(b.getCommercialName(),
                 FRBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
-        BillyValidator.mandatory(b.getAddress(), FRBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+        BillyValidator.<Object>mandatory(b.getAddress(), FRBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
 
         Pattern pattern;
         pattern = Pattern.compile("[0-9]{5}");

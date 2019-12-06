@@ -50,7 +50,7 @@ public class PTTaxBuilderImpl<TBuilder extends PTTaxBuilderImpl<TBuilder, TTax>,
     protected void validateInstance() throws BillyValidationException {
         PTTaxEntity e = this.getTypeInstance();
 
-        BillyValidator.mandatory(e.getContext(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
+        BillyValidator.<Object>mandatory(e.getContext(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
         BillyValidator.mandatory(e.getTaxRateType(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));
         BillyValidator.mandatory(e.getCode(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
         BillyValidator.mandatory(e.getDescription(), PTTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));

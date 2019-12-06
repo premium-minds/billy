@@ -94,9 +94,9 @@ public class ESCustomerBuilderImpl<TBuilder extends ESCustomerBuilderImpl<TBuild
         BillyValidator.mandatory(c.getName(), ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
         BillyValidator.mandatory(c.getTaxRegistrationNumber(),
                 ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-        BillyValidator.mandatory(c.getMainAddress(),
+        BillyValidator.<Object>mandatory(c.getMainAddress(),
                 ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
-        BillyValidator.mandatory(c.getBillingAddress(),
+        BillyValidator.<Object>mandatory(c.getBillingAddress(),
                 ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
         BillyValidator.mandatory(c.hasSelfBillingAgreement(),
                 ESCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));

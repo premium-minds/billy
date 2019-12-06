@@ -98,7 +98,7 @@ public class FRGenericInvoiceBuilderImpl<TBuilder extends FRGenericInvoiceBuilde
 
     protected void validateFRInstance(FRGenericInvoiceEntity i) {
         super.validateDate();
-        BillyValidator.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
+        BillyValidator.<Object>mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
 
         BillyValidator.mandatory(i.getSourceId(), FRGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
         BillyValidator.mandatory(i.getDate(), FRGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));

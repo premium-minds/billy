@@ -158,7 +158,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
         BusinessEntity b = this.getTypeInstance();
         BillyValidator.mandatory(b.getFinancialID(), BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
         BillyValidator.mandatory(b.getName(), BusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
-        BillyValidator.mandatory(b.getAddress(), BusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+        BillyValidator.<Object>mandatory(b.getAddress(), BusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
         BillyValidator.notEmpty(b.getContacts(), BusinessBuilderImpl.LOCALIZER.getString("field.business_contact"));
     }
 

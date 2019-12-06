@@ -94,9 +94,9 @@ public class FRCustomerBuilderImpl<TBuilder extends FRCustomerBuilderImpl<TBuild
         BillyValidator.mandatory(c.getName(), FRCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
         BillyValidator.mandatory(c.getTaxRegistrationNumber(),
                 FRCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-        BillyValidator.mandatory(c.getMainAddress(),
+        BillyValidator.<Object>mandatory(c.getMainAddress(),
                 FRCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
-        BillyValidator.mandatory(c.getBillingAddress(),
+        BillyValidator.<Object>mandatory(c.getBillingAddress(),
                 FRCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
         BillyValidator.mandatory(c.hasSelfBillingAgreement(),
                 FRCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));

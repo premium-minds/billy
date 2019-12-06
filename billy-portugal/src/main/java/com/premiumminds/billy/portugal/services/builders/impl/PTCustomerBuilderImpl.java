@@ -94,9 +94,9 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
         BillyValidator.mandatory(c.getName(), PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
         BillyValidator.mandatory(c.getTaxRegistrationNumber(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
-        BillyValidator.mandatory(c.getMainAddress(),
+        BillyValidator.<Object>mandatory(c.getMainAddress(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
-        BillyValidator.mandatory(c.getBillingAddress(),
+        BillyValidator.<Object>mandatory(c.getBillingAddress(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
         BillyValidator.mandatory(c.hasSelfBillingAgreement(),
                 PTCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
