@@ -103,7 +103,7 @@
 		<dependency>
 			<groupId>org.jvnet.jaxb2_commons</groupId>
 			<artifactId>jaxb2-basics-runtime</artifactId>
-			<version>0.6.4</version>
+			<version>1.11.1-PUBLISHED-BY-MISTAKE</version>
 		</dependency>
 
 		<!-- FOP -->
