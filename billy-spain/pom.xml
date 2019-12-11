@@ -28,9 +28,6 @@
 		<env>DEV</env>
 		<hibernate.version>4.2.3.Final</hibernate.version>
 		<querydsl.version>3.2.2</querydsl.version>
-
-		<!-- plugins versions -->
-		<plugins.maven-war.version>2.2</plugins.maven-war.version>
 	</properties>
 
 	<dependencies>

@@ -27,9 +27,6 @@
 		<main.dir>${project.parent.basedir}</main.dir>
 
 		<env>DEV</env>
-
-		<!-- plugins versions -->
-		<plugins.maven-war.version>2.2</plugins.maven-war.version>
 	</properties>
 
 	<dependencies>
