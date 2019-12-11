@@ -78,6 +78,14 @@
 				<artifactId>guice-assistedinject</artifactId>
 				<version>${guice.version}</version>
 			</dependency>
+
+			<!-- SnakeYaml -->
+			<dependency>
+				<groupId>org.yaml</groupId>
+				<artifactId>snakeyaml</artifactId>
+				<version>1.25</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 

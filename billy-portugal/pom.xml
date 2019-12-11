@@ -149,6 +149,12 @@
 			<version>1.46</version>
 		</dependency>
 
+		<!-- SnakeYaml -->
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
