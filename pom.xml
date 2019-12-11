@@ -24,7 +24,7 @@
 		<main.dir>${basedir}</main.dir>
 		<java.version>1.7</java.version>
 		<guice.version>4.2.2</guice.version>
-		<querydsl.version>3.2.4</querydsl.version>
+		<querydsl.version>3.7.4</querydsl.version>
 	</properties>
 
 	<modules>
