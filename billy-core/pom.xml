@@ -33,8 +33,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<main.dir>${project.parent.basedir}</main.dir>
 
-		<guice.version>3.0</guice.version>
-
 		<!-- plugins versions -->
 		<plugins.maven-war.version>2.2</plugins.maven-war.version>
 	</properties>
@@ -51,17 +49,14 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>${guice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
-			<version>${guice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assistedinject</artifactId>
-			<version>${guice.version}</version>
 		</dependency>
 
 		<!-- JODA -->
