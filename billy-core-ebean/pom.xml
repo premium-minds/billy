@@ -56,7 +56,7 @@
             <version>10.2.1</version>
             <scope>compile</scope>
         </dependency>
-		
+
 		<!-- H2 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -115,24 +115,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.2</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
 			</plugin>
-			
+
 			<plugin>
 			  <groupId>io.repaint.maven</groupId>
 			  <artifactId>tiles-maven-plugin</artifactId>
-			  <version>2.16</version>
-			  <extensions>true</extensions>
-			  <configuration>
-			    <tiles>
-			      <tile>org.avaje.tile:java-compile:1.1</tile>
-			      <tile>io.ebean.tile:enhancement:2.8</tile>
-			    </tiles>
-			  </configuration>
 			</plugin>
 		</plugins>
 	</build>
