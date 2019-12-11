@@ -33,7 +33,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   		<main.dir>${project.parent.basedir}</main.dir>
   		
-		<guice.version>3.0</guice.version>
+		<guice.version>4.2.2</guice.version>
 		<env>DEV</env>
 		<hibernate.version>4.1.6.Final</hibernate.version>
 		
