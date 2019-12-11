@@ -28,7 +28,6 @@
 
 		<env>DEV</env>
 		<hibernate.version>4.2.3.Final</hibernate.version>
-		<querydsl.version>3.2.2</querydsl.version>
 	</properties>
 
 	<dependencies>
