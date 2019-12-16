@@ -37,9 +37,9 @@ public class Products {
         return this.getInstance(FRProduct.Builder.class);
     }
 
-    public FRProduct.Builder builder(FRProduct customer) {
+    public FRProduct.Builder builder(FRProduct product) {
         FRProduct.Builder builder = this.getInstance(FRProduct.Builder.class);
-        BuilderManager.setTypeInstance(builder, customer);
+        BuilderManager.setTypeInstance(builder, product);
         return builder;
     }
 

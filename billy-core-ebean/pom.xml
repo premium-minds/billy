@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>3.1.2-SNAPSHOT</version>
+		<version>3.1.3-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -25,11 +25,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<main.dir>${project.parent.basedir}</main.dir>
-		<guice.version>3.0</guice.version>
 		<env>DEV</env>
-
-		<!-- plugins versions -->
-		<plugins.maven-war.version>2.2</plugins.maven-war.version>
 	</properties>
 
 	<dependencies>
@@ -56,7 +52,7 @@
             <version>10.2.1</version>
             <scope>compile</scope>
         </dependency>
-		
+
 		<!-- H2 -->
 		<dependency>
 			<groupId>com.h2database</groupId>
@@ -69,17 +65,14 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>${guice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-persist</artifactId>
-			<version>${guice.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-assistedinject</artifactId>
-			<version>${guice.version}</version>
 		</dependency>
 
 		<!-- JODA -->
@@ -93,8 +86,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.10</version>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- LOG4J -->
@@ -115,24 +106,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.2</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
 			</plugin>
-			
+
 			<plugin>
 			  <groupId>io.repaint.maven</groupId>
 			  <artifactId>tiles-maven-plugin</artifactId>
-			  <version>2.8</version>
-			  <extensions>true</extensions>
-			  <configuration>
-			    <tiles>
-			      <tile>org.avaje.tile:java-compile:1.1</tile>
-			      <tile>io.ebean.tile:enhancement:2.8</tile>
-			    </tiles>
-			  </configuration>
 			</plugin>
 		</plugins>
 	</build>
