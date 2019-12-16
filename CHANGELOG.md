@@ -23,7 +23,8 @@
  - [Bump commons-lang3 from 3.1 to 3.9](https://github.com/premium-minds/billy/pull/59)
  - [Bump jaxb2-basics-runtime from 0.6.4 to 0.12.0](https://github.com/premium-minds/billy/pull/58)
  - [Bump slf4j-api to 1.7.29](https://github.com/premium-minds/billy/pull/55)
-
+ - [Upgrade to java 8](https://github.com/premium-minds/billy/pull/34)
+ 
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
  
