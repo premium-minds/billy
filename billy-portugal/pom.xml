@@ -27,7 +27,7 @@
 		<main.dir>${project.parent.basedir}</main.dir>
 
 		<env>DEV</env>
-		<hibernate.version>4.2.3.Final</hibernate.version>
+		<hibernate.version>5.2.18.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
