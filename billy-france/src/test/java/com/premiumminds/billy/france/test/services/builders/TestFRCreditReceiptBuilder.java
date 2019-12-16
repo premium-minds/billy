@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright (C) 2017 Premium Minds.
  *
  * This file is part of billy france (FR Pack).

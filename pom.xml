@@ -171,9 +171,9 @@
 		<plugins>
 			<plugin>
 				<inherited>true</inherited>
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.10.b1</version>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>3.0</version>
 				<configuration>
 					<header>${main.dir}/share/licence-preamble.txt</header>
 					<strictCheck>true</strictCheck>
@@ -187,6 +187,7 @@
 						<exclude>**/test/resources/keys/**</exclude>
 					</excludes>
 					<mapping>
+						<java>SLASHSTAR_STYLE</java>
 						<yml>SCRIPT_STYLE</yml>
 					</mapping>
 					<properties>
