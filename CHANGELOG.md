@@ -24,6 +24,7 @@
  - [Bump jaxb2-basics-runtime from 0.6.4 to 0.12.0](https://github.com/premium-minds/billy/pull/58)
  - [Bump slf4j-api to 1.7.29](https://github.com/premium-minds/billy/pull/55)
  - [Upgrade to java 8](https://github.com/premium-minds/billy/pull/34)
+ - [Bump hibernate-validator to version 5.4.3.FINAL](https://github.com/premium-minds/billy/pull/62)
  
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
