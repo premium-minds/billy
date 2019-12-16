@@ -98,7 +98,7 @@ public class ESGenericInvoiceBuilderImpl<TBuilder extends ESGenericInvoiceBuilde
 
     protected void validateESInstance(ESGenericInvoiceEntity i) {
         super.validateDate();
-        BillyValidator.mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
+        BillyValidator.<Object>mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
 
         BillyValidator.mandatory(i.getSourceId(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));
         BillyValidator.mandatory(i.getDate(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));

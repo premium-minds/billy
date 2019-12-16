@@ -57,7 +57,7 @@ public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBui
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(i.getUnitOfMeasure(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
-        BillyValidator.mandatory(i.getProduct(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
+        BillyValidator.<Object>mandatory(i.getProduct(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(i.getTaxes(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxAmount(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxPointDate(),

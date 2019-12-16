@@ -57,7 +57,7 @@ public class FRManualEntryBuilderImpl<TBuilder extends FRManualEntryBuilderImpl<
                 FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(i.getUnitOfMeasure(),
                 FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
-        BillyValidator.mandatory(i.getProduct(), FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
+        BillyValidator.<Object>mandatory(i.getProduct(), FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(i.getTaxes(), FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxAmount(), FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxPointDate(),

@@ -80,7 +80,7 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
         BillyValidator.mandatory(b.getName(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
         BillyValidator.mandatory(b.getCommercialName(),
                 PTBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
-        BillyValidator.mandatory(b.getAddress(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+        BillyValidator.<Object>mandatory(b.getAddress(), PTBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
 
         Pattern pattern;
         pattern = Pattern.compile("[0-9]{4}-[0-9]{3}");
