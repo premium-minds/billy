@@ -27,7 +27,6 @@
 		<main.dir>${project.parent.basedir}</main.dir>
 
 		<env>DEV</env>
-		<hibernate.version>4.2.3.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
@@ -55,15 +54,11 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>${hibernate.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-envers</artifactId>
-			<version>${hibernate.version}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
