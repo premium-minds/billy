@@ -26,6 +26,7 @@
  - [Upgrade to java 8](https://github.com/premium-minds/billy/pull/34)
  - [Bump hibernate-validator to version 5.4.3.FINAL](https://github.com/premium-minds/billy/pull/62)
  - [Bump hibernate-entitymanager to version 4.2.21.Final](https://github.com/premium-minds/billy/pull/63)
+ - Replace maven-license-plugin with [license-maven-plugin](http://mycila.mathieu.photography/license-maven-plugin/), version 3.0
  
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
