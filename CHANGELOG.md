@@ -25,6 +25,7 @@
  - [Bump slf4j-api to 1.7.29](https://github.com/premium-minds/billy/pull/55)
  - [Upgrade to java 8](https://github.com/premium-minds/billy/pull/34)
  - [Bump hibernate-validator to version 5.4.3.FINAL](https://github.com/premium-minds/billy/pull/62)
+ - [Bump hibernate-entitymanager to version 4.2.21.Final](https://github.com/premium-minds/billy/pull/63)
  
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
