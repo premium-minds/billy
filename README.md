@@ -28,6 +28,17 @@ Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search
 
 CI is hosted by [travis-ci.org](https://travis-ci.org/)
 
+## Javadoc
+
+| Module               | Javadoc |
+|----------------------|---------|
+| billy-core           | [![javadoc](https://javadoc.io/badge2/com.premiumminds/billy-core/javadoc.svg)](https://javadoc.io/doc/com.premiumminds/billy-core) |
+| billy-core-jpa       | [![javadoc](https://javadoc.io/badge2/com.premiumminds/billy-core-jpa/javadoc.svg)](https://javadoc.io/doc/com.premiumminds/billy-core-jpa) |
+| billy-gin            | [![javadoc](https://javadoc.io/badge2/com.premiumminds/billy-gin/javadoc.svg)](https://javadoc.io/doc/com.premiumminds/billy-gin) |
+| billy-portugal       | [![javadoc](https://javadoc.io/badge2/com.premiumminds/billy-portugal/javadoc.svg)](https://javadoc.io/doc/com.premiumminds/billy-portugal) |
+| billy-spain          | [![javadoc](https://javadoc.io/badge2/com.premiumminds/billy-spain/javadoc.svg)](https://javadoc.io/doc/com.premiumminds/billy-spain) |
+| billy-france         | [![javadoc](https://javadoc.io/badge2/com.premiumminds/billy-france/javadoc.svg)](https://javadoc.io/doc/com.premiumminds/billy-france) |
+
 ## Licence
 ![GitHub](https://img.shields.io/github/license/premium-minds/billy)
 
