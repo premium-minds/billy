@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## Changed
+### Changed
  - [Bump mockito-all from 1.9.5 to 1.10.19](https://github.com/premium-minds/billy/pull/37) and set scope to test
  - [Bump maven-source-plugin from 2.2.1 to 3.2.0](https://github.com/premium-minds/billy/pull/35)
  - [Bump validation-api from 1.1.0.Final to 2.0.1.Final](https://github.com/premium-minds/billy/pull/36)
@@ -22,7 +22,10 @@
  - [Bump jaxb2-basics-annotate from 0.6.2 to 1.1.0](https://github.com/premium-minds/billy/pull/60)
  - [Bump commons-lang3 from 3.1 to 3.9](https://github.com/premium-minds/billy/pull/59)
  - [Bump jaxb2-basics-runtime from 0.6.4 to 0.12.0](https://github.com/premium-minds/billy/pull/58)
+ - [Bump slf4j-api to 1.7.29](https://github.com/premium-minds/billy/pull/55)
 
+### Removed
+ - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
  
 ## [3.1.2] - 2019-12-16
 ### Changed
