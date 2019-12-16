@@ -34,7 +34,6 @@
   		<main.dir>${project.parent.basedir}</main.dir>
 
 		<env>DEV</env>
-		<hibernate.version>4.1.6.Final</hibernate.version>
 	</properties>
 
 	<dependencies>
