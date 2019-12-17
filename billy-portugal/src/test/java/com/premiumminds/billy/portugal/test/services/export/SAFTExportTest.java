@@ -196,15 +196,11 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
         this.parameters.setInvoiceSeries("C");
         this.service.issue(creditNote.getCreditNoteBuilder(invoiceEntity), this.parameters);
 
-        this.exportSAFT(daoPTRegionContext, applicationEntity, businessEntity, daoPTCustomer, daoPTSupplier, daoPTTax,
-                daoPTProduct, daoPTInvoice, daoPTSimpleInvoice, daoPTReceiptInvoice, daoPTCreditNote);
+        this.exportSAFT(applicationEntity, businessEntity);
     }
 
-    private void exportSAFT(DAOPTRegionContext daoPTRegionContext, PTApplicationEntity applicationEntity,
-            PTBusinessEntity businessEntity, DAOPTCustomer daoPTCustomer, DAOPTSupplier daoPTSupplier,
-            DAOPTTax daoPTTax, DAOPTProduct daoPTProduct, DAOPTInvoice daoPTInvoice,
-            DAOPTSimpleInvoice daoPTSimpleInvoice, DAOPTReceiptInvoice daoPTReceiptInvoice,
-            DAOPTCreditNote daoPTCreditNote) throws FileNotFoundException, SAFTPTExportException {
+    private void exportSAFT(PTApplicationEntity applicationEntity,
+							PTBusinessEntity businessEntity) throws FileNotFoundException, SAFTPTExportException {
 
         PTSAFTFileGenerator generator = this.getInstance(PTSAFTFileGenerator.class);
 
