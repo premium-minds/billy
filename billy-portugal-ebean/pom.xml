@@ -54,12 +54,10 @@
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean</artifactId>
-            <version>10.3.1</version>
         </dependency>
         <dependency>
             <groupId>io.ebean</groupId>
             <artifactId>ebean-querybean</artifactId>
-            <version>10.3.1</version>
         </dependency>
         <dependency>
             <groupId>io.ebean</groupId>

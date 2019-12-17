@@ -123,7 +123,6 @@
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>
-				<version>1.0.9</version>
 				<executions>
 					<execution>
 						<goals>
