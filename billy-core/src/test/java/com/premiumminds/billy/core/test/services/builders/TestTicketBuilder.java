@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -25,8 +26,6 @@ import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockTicketEntity;
-
-import junit.framework.Assert;
 
 public class TestTicketBuilder extends AbstractTest {
 
