@@ -91,7 +91,6 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
 
     @Override
     public TBuilder setValidTo(Date to) {
-        BillyValidator.notNull(to, TaxBuilderImpl.LOCALIZER.getString("field.valid_to"));
         this.getTypeInstance().setValidTo(to);
         return this.getBuilder();
     }

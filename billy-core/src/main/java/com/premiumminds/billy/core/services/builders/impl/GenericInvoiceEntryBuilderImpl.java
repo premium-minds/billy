@@ -260,7 +260,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
         for (Tax t : e.getProduct().getTaxes()) {
             if (this.daoContext.isSubContext(t.getContext(), this.context)) {
                 Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
-                if (DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(taxDate)) {
+                if (t.getValidTo() == null || DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(taxDate)) {
                     e.getTaxes().add(t);
                 }
             }
