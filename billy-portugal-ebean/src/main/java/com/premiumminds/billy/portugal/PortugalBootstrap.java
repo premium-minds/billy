@@ -227,7 +227,7 @@ public class PortugalBootstrap {
 
                     // Taxes
                     Date from = new DateTime(2017, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
-                    Date to = new DateTime(2018, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
+                    Date to = null;
                     final PTTaxEntity VAT_NORMAL_CONTINENTAL_PORTUGAL = this.buildTaxEntity(daoPTTax, taxBuilder,
                             PTVATCode.NORMAL, CONTEXT_CONTINENTAL_PORTUGAL, Currency.getInstance("EUR"),
                             "IVA Normal Continente", "IVA", Tax.TaxRateType.PERCENTAGE, from, to,

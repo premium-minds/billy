@@ -22,7 +22,6 @@ description : description
 code : code
 value : 201
 validFrom: 2013-01-01
-validTo: 2013-12-12
 taxRateType : FLAT
 percentageRateValue : 23
 flatRateAmount : 50
