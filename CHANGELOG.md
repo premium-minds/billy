@@ -31,6 +31,7 @@
  - [Bump javax.el-api from 2.2.4 to 3.0.0](https://github.com/premium-minds/billy/pull/67)
  - [Bump javax.el from 2.2.4 to 2.2.6](https://github.com/premium-minds/billy/pull/66)
  - [Bump maven-surefire-plugin from 2.20.1 to 2.22.2](https://github.com/premium-minds/billy/pull/74)
+ - Bump [Joda-Time](https://www.joda.org/joda-time/) to 2.10.5
  
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
