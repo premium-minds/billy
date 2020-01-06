@@ -9,7 +9,7 @@
  - [Bump tiles-maven-plugin from 2.8 to 2.16](https://github.com/premium-minds/billy/pull/40)
  - Bump [Guice](https://github.com/google/guice) to version 4.2.2
  - Bump [snakeyaml](https://bitbucket.org/asomov/snakeyaml/src/default/) to version 1.25 and set scope to test
- - Bump [Junit](https://junit.org/junit4/) to version 4.12
+ - Bump [Junit](https://junit.org/junit4/) to version 4.13
  - Bump [querydsl](https://github.com/querydsl/querydsl) to version 3.7.4
  - Bump [build-helper-maven-plugin](https://www.mojohaus.org/build-helper-maven-plugin/) to 3.0.0
  - Replaced maven-apt-plugin with [apt-maven-plugin](https://github.com/querydsl/apt-maven-plugin), version 1.1.3
