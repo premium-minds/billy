@@ -108,7 +108,7 @@
 			<dependency>
 				<groupId>io.ebean</groupId>
 				<artifactId>ebean</artifactId>
-				<version>10.3.1</version>
+				<version>10.4.7</version>
 			</dependency>
 			<dependency>
 				<groupId>io.ebean</groupId>
