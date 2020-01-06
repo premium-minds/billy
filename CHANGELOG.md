@@ -16,7 +16,7 @@
  - [Bump nexus-staging-maven-plugin from 1.6.2 to 1.6.8](https://github.com/premium-minds/billy/pull/49)
  - [Bump maven-jar-plugin from 2.4 to 3.2.0](https://github.com/premium-minds/billy/pull/46)
  - [Bump maven-gpg-plugin from 1.5 to 1.6](https://github.com/premium-minds/billy/pull/48)
- - [Bump commons-codec from 1.7 to 1.13](https://github.com/premium-minds/billy/pull/54)
+ - Bump [commons-codec](https://commons.apache.org/proper/commons-codec/) from 1.7 to 1.14
  - [Bump maven-javadoc-plugin from 2.9.1 to 3.1.1](https://github.com/premium-minds/billy/pull/53)
  - [Bump maven-scm-provider-gitexe from 1.8.1 to 1.11.2](https://github.com/premium-minds/billy/pull/51)
  - [Bump jaxb2-basics-annotate from 0.6.2 to 1.1.0](https://github.com/premium-minds/billy/pull/60)
