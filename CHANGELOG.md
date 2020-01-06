@@ -4,7 +4,7 @@
 
 ### Changed
  - [Bump mockito-all from 1.9.5 to 1.10.19](https://github.com/premium-minds/billy/pull/37) and set scope to test
- - [Bump maven-source-plugin from 2.2.1 to 3.2.0](https://github.com/premium-minds/billy/pull/35)
+ - Bump [maven-source-plugin](https://github.com/apache/maven-source-plugin) from 2.2.1 to 3.2.1
  - [Bump validation-api from 1.1.0.Final to 2.0.1.Final](https://github.com/premium-minds/billy/pull/36)
  - [Bump tiles-maven-plugin from 2.8 to 2.16](https://github.com/premium-minds/billy/pull/40)
  - Bump [Guice](https://github.com/google/guice) to version 4.2.2
