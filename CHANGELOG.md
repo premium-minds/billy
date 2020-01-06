@@ -35,6 +35,7 @@
  - [Removed mandatory end date to taxes](https://github.com/premium-minds/billy/pull/69)
  - Replaced hibernate-jpa-2.0-api with hibernate-jpa-2.1-api
  - [Bump jaxb2-basics from 0.6.2 to 0.12.0](https://github.com/premium-minds/billy/pull/76)
+ - [Bump ebean from 10.3.1 to 10.4.7](https://github.com/premium-minds/billy/pull/79)
  
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
