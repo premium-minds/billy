@@ -95,7 +95,7 @@ public class FRRegionContextPersistenceService implements PersistenceService<FRR
 
                 @Override
                 public Boolean runTransaction() throws Exception {
-                    return FRRegionContextPersistenceService.this.daoRegionContext.isSubContext(child, parent);
+                    return FRRegionContextPersistenceService.this.daoRegionContext.isSameOrSubContext(child, parent);
                 }
 
             }.execute();

@@ -63,7 +63,7 @@ public class PTManualInvoiceEntryBuilderImpl<TBuilder extends PTManualInvoiceEnt
     protected void validateValues() throws BillyValidationException {
         GenericInvoiceEntryEntity e = this.getTypeInstance();
         for (Tax t : e.getProduct().getTaxes()) {
-            if (this.daoContext.isSubContext(t.getContext(), this.context)) {
+            if (this.daoContext.isSameOrSubContext(t.getContext(), this.context)) {
                 Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
                 if (DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(taxDate)) {
                     e.getTaxes().add(t);

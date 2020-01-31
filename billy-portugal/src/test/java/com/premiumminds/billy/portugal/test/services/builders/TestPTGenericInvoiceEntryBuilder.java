@@ -63,8 +63,8 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
         Mockito.when(this.getInstance(DAOPTProduct.class).get(Matchers.any(UID.class)))
                 .thenReturn((PTProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOPTRegionContext.class).isSubContext(Matchers.any(PTRegionContext.class),
-                Matchers.any(PTRegionContext.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Matchers.any(PTRegionContext.class),
+																				   Matchers.any(PTRegionContext.class))).thenReturn(true);
 
         mock.getDocumentReferences().add(mockInvoice);
 

@@ -63,7 +63,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
         } else {
             ContextEntity c = this.daoContext.get(parentUID);
             BillyValidator.found(c, ContextBuilderImpl.LOCALIZER.getString("field.parent_context"));
-            if (!this.getTypeInstance().isNew() && this.daoContext.isSubContext(c, this.getTypeInstance())) {
+            if (!this.getTypeInstance().isNew() && this.daoContext.isSameOrSubContext(c, this.getTypeInstance())) {
                 throw new BillyRuntimeException();
             }
             this.getTypeInstance().setParentContext(c);
