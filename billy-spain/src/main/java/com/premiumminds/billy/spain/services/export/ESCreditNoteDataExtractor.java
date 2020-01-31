@@ -77,8 +77,9 @@ public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor
             ESInvoiceData reference = this.invoiceExtractor.extract(entry.getReference().getUID());
 
             entries.add(new ESCreditNoteEntryData(product, entry.getDescription(), entry.getQuantity(),
-                    entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
-                    entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure()));
+												  entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
+												  entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
+												  entry.getTaxExemptionCode(), entry.getTaxExemptionReason()));
         }
 
         return entries;

@@ -30,10 +30,10 @@ public class FRCreditNoteEntryData extends InvoiceEntryData {
     private final FRInvoiceData reference;
 
     public FRCreditNoteEntryData(ProductData productCode, String description, BigDecimal quantity, BigDecimal taxAmount,
-            BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
-            FRInvoiceData reference, String unitOfMeasure) {
-        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes, 
-        		unitOfMeasure);
+		BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
+		FRInvoiceData reference, String unitOfMeasure, String exemptionCode, String exemptionReason) {
+        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes,
+			  unitOfMeasure, exemptionCode, exemptionReason);
 
         this.reference = reference;
     }

@@ -75,8 +75,9 @@ public class FRCreditReceiptDataExtractor extends AbstractBillyDataExtractor
             FRReceiptData reference = this.receiptExtractor.extract(entry.getReference().getUID());
 
             entries.add(new FRCreditReceiptEntryData(product, entry.getDescription(), entry.getQuantity(),
-                    entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
-                    entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure()));
+													 entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
+													 entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
+													 entry.getTaxExemptionCode(), entry.getTaxExemptionReason()));
         }
 
         return entries;

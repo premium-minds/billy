@@ -35,11 +35,13 @@ public class InvoiceEntryData {
     private final BigDecimal amountWithoutTax;
     private final List<TaxData> taxes;
     private final String unitOfMeasure;
+    private final String exemptionCode;
+    private final String exemptionReason;
 
-    
+
 	public InvoiceEntryData(ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
-            BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes, 
-            String unitOfMeasure) {
+		BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
+		String unitOfMeasure, String exemptionCode, String exemptionReason) {
 
         this.product = product;
         this.description = description;
@@ -50,7 +52,9 @@ public class InvoiceEntryData {
         this.amountWithoutTax = amountWithoutTax;
         this.taxes = taxes;
         this.unitOfMeasure = unitOfMeasure;
-    }
+		this.exemptionCode = exemptionCode;
+		this.exemptionReason = exemptionReason;
+	}
 
     public ProductData getProduct() {
         return this.product;
@@ -87,7 +91,7 @@ public class InvoiceEntryData {
 	public String getUnitOfMeasure() {
 		return unitOfMeasure;
 	}
-	
+
 	public String getQuantityWithUnitOfMeasure(RoundingMode mode) {
 		StringBuilder builder = new StringBuilder(quantity.setScale(BillyMathContext.SCALE, mode).toPlainString());
 		builder.append(" ");
@@ -96,4 +100,11 @@ public class InvoiceEntryData {
 		return builder.toString();
     }
 
+	public String getExemptionCode() {
+		return exemptionCode;
+	}
+
+	public String getExemptionReason() {
+		return exemptionReason;
+	}
 }

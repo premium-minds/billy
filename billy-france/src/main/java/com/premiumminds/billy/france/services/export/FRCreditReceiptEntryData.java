@@ -29,11 +29,12 @@ public class FRCreditReceiptEntryData extends InvoiceEntryData {
 
     private final FRReceiptData reference;
 
-    public FRCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity,
-            BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
-            List<TaxData> taxes, FRReceiptData reference, String unitOfMeasure) {
-        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes,
-        		unitOfMeasure);
+	public FRCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity, BigDecimal
+		taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
+		List<TaxData> taxes, FRReceiptData reference, String unitOfMeasure, String exemptionCode,
+		String exemptionReason) {
+		super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax,
+			  taxes, unitOfMeasure, exemptionCode, exemptionReason);
 
         this.reference = reference;
     }

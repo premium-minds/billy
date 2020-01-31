@@ -71,8 +71,8 @@ public abstract class AbstractBillyDataExtractor {
             List<TaxData> taxes = this.extractTaxes(entry.getTaxes());
 
             entries.add(new InvoiceEntryData(product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(),
-                    entry.getUnitAmountWithTax(), entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, 
-                    entry.getUnitOfMeasure()));
+                    entry.getUnitAmountWithTax(), entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes,
+                    entry.getUnitOfMeasure(), entry.getTaxExemptionCode(), entry.getTaxExemptionReason()));
         }
 
         return entries;
