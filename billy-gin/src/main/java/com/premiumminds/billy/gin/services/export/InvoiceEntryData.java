@@ -35,13 +35,13 @@ public class InvoiceEntryData {
     private final BigDecimal amountWithoutTax;
     private final List<TaxData> taxes;
     private final String unitOfMeasure;
-    private final Exemption exemption;
+    private final TaxExemption exemption;
 
 
-	public InvoiceEntryData(
-		ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
-		BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
-		String unitOfMeasure, Exemption exemption) {
+    public InvoiceEntryData(
+        ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
+        BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
+        String unitOfMeasure, TaxExemption exemption) {
 
         this.product = product;
         this.description = description;
@@ -52,8 +52,8 @@ public class InvoiceEntryData {
         this.amountWithoutTax = amountWithoutTax;
         this.taxes = taxes;
         this.unitOfMeasure = unitOfMeasure;
-		this.exemption = exemption;
-	}
+        this.exemption = exemption;
+    }
 
     public ProductData getProduct() {
         return this.product;
@@ -87,19 +87,19 @@ public class InvoiceEntryData {
         return this.taxes;
     }
 
-	public String getUnitOfMeasure() {
-		return unitOfMeasure;
-	}
-
-	public String getQuantityWithUnitOfMeasure(RoundingMode mode) {
-		StringBuilder builder = new StringBuilder(quantity.setScale(BillyMathContext.SCALE, mode).toPlainString());
-		builder.append(" ");
-		builder.append(unitOfMeasure);
-
-		return builder.toString();
+    public String getUnitOfMeasure() {
+        return unitOfMeasure;
     }
 
-	public Optional<Exemption> getExemption() {
-		return Optional.ofNullable(exemption);
-	}
+    public String getQuantityWithUnitOfMeasure(RoundingMode mode) {
+        StringBuilder builder = new StringBuilder(quantity.setScale(BillyMathContext.SCALE, mode).toPlainString());
+        builder.append(" ");
+        builder.append(unitOfMeasure);
+
+        return builder.toString();
+    }
+
+    public Optional<TaxExemption> getExemption() {
+        return Optional.ofNullable(exemption);
+    }
 }

@@ -18,21 +18,21 @@
  */
 package com.premiumminds.billy.gin.services.export;
 
-public class Exemption {
+public class TaxExemption {
 
     private final String exemptionCode;
     private final String exemptionReason;
 
-    private Exemption(String exemptionCode, String exemptionReason) {
+    private TaxExemption(String exemptionCode, String exemptionReason) {
         this.exemptionCode = exemptionCode;
         this.exemptionReason = exemptionReason;
     }
 
-    public static Exemption setExemption(String exemptionCode, String exemptionReason) {
+    public static TaxExemption setExemption(String exemptionCode, String exemptionReason) {
         if(exemptionCode == null || exemptionReason == null) {
             return null;
         }
-        return new Exemption(exemptionCode, exemptionReason);
+        return new TaxExemption(exemptionCode, exemptionReason);
     }
 
     public String getExemptionCode() {

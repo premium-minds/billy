@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
-import com.premiumminds.billy.gin.services.export.Exemption;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -216,7 +216,7 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
                     .setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString());
 
             if(entry.getExemption().isPresent()) {
-                final Exemption exemption = entry.getExemption().get();
+                final TaxExemption exemption = entry.getExemption().get();
 
                 entryNode.addChild(ParamKeys.ENTRY_TAX_EXEMPTION_CODE, exemption.getExemptionCode());
                 entryNode.addChild(ParamKeys.ENTRY_TAX_EXEMPTION_REASON, exemption.getExemptionReason());

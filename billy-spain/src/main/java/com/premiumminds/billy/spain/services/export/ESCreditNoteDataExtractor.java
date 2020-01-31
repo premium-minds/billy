@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.export;
 
-import com.premiumminds.billy.gin.services.export.Exemption;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +80,7 @@ public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor
             entries.add(new ESCreditNoteEntryData(
 				product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), entry.getUnitAmountWithTax(),
 				entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
-				Exemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
+				TaxExemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
         }
 
         return entries;

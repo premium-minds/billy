@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.export;
 
-import com.premiumminds.billy.gin.services.export.Exemption;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class ESCreditNoteEntryData extends InvoiceEntryData {
     public ESCreditNoteEntryData(
         ProductData productCode, String description, BigDecimal quantity, BigDecimal taxAmount,
         BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
-        ESInvoiceData reference, String unitOfMeasure, Exemption exemption) {
+        ESInvoiceData reference, String unitOfMeasure, TaxExemption exemption) {
         super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes,
               unitOfMeasure, exemption);
 

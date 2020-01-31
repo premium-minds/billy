@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.gin.services.export.impl;
 
-import com.premiumminds.billy.gin.services.export.Exemption;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -72,9 +72,9 @@ public abstract class AbstractBillyDataExtractor {
             List<TaxData> taxes = this.extractTaxes(entry.getTaxes());
 
             entries.add(new InvoiceEntryData(
-                product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), entry.getUnitAmountWithTax(),
-                entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, entry.getUnitOfMeasure(),
-                Exemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
+				product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), entry.getUnitAmountWithTax(),
+				entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, entry.getUnitOfMeasure(),
+				TaxExemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
         }
 
         return entries;
