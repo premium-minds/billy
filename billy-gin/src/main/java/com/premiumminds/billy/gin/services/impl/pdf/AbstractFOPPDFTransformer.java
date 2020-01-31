@@ -226,12 +226,16 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
             for (TaxData tax : taxList) {
                 entryNode.addChild(ParamKeys.ENTRY_TAX,
                         tax.getValue().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString() +
-                                (tax.getTaxRateType() == TaxRateType.PERCENTAGE ? "%" : "&#8364;"));
-                taxTotals.add((tax.getTaxRateType() == TaxRateType.PERCENTAGE ? true : false), tax.getValue(),
-                        entry.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().getValue(),
-                        tax.getDesignation(), tax.getDescription());
+                                (shouldPrintPercent(tax.getTaxRateType()) ? "%" : "&#8364;"));
+                taxTotals.add(shouldPrintPercent(tax.getTaxRateType()), tax.getValue(),
+                              entry.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().getValue(),
+                              tax.getDesignation(), tax.getDescription());
             }
         }
+    }
+
+    protected boolean shouldPrintPercent(TaxRateType type) {
+        return (type == TaxRateType.PERCENTAGE || type == TaxRateType.NONE);
     }
 
     protected void setBusiness(ParamsTree<String, String> params, T document) {

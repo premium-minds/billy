@@ -18,12 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.export.pdf.creditnote;
 
-import java.io.InputStream;
-import java.math.MathContext;
-import java.util.Collection;
-import java.util.List;
-
-import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
@@ -32,6 +26,10 @@ import com.premiumminds.billy.spain.services.export.ESCreditNoteData;
 import com.premiumminds.billy.spain.services.export.ESCreditNoteEntryData;
 import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransformer;
 import com.premiumminds.billy.spain.services.export.pdf.ESCreditNotePDFTransformer;
+import java.io.InputStream;
+import java.math.MathContext;
+import java.util.Collection;
+import java.util.List;
 
 public class ESCreditNotePDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESCreditNoteData>
         implements ESCreditNotePDFTransformer {
@@ -79,10 +77,10 @@ public class ESCreditNotePDFFOPTransformer extends ESAbstractFOPPDFTransformer<E
             Collection<TaxData> list = entry.getTaxes();
             for (TaxData tax : list) {
                 entryNode.addChild(ParamKeys.ENTRY_TAX, tax.getValue().setScale(2, this.mc.getRoundingMode()) +
-                        (tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? "%" : "&#8364;"));
-                taxTotals.add((tax.getTaxRateType() == Tax.TaxRateType.PERCENTAGE ? true : false), tax.getValue(),
-                        entry.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().toString(),
-                        tax.getDesignation(), tax.getDescription());
+                        (shouldPrintPercent(tax.getTaxRateType()) ? "%" : "&#8364;"));
+                taxTotals.add(shouldPrintPercent(tax.getTaxRateType()), tax.getValue(),
+                              entry.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().toString(),
+                              tax.getDesignation(), tax.getDescription());
             }
             entryNode.addChild(ESCreditNotePDFFOPTransformer.PARAM_KEYS_INVOICE).addChild(ParamKeys.ID,
                     entry.getReference().getNumber());
