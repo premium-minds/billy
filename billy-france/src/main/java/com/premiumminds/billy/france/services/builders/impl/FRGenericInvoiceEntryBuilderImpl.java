@@ -75,6 +75,8 @@ public class FRGenericInvoiceEntryBuilderImpl<TBuilder extends FRGenericInvoiceE
         if (i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0) {
             BillyValidator.mandatory(i.getTaxExemptionReason(),
                     FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+            BillyValidator.mandatory(i.getTaxExemptionCode(),
+                    FRGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
         }
     }
 

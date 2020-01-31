@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.gin.services.export;
 
+import com.premiumminds.billy.core.util.BillyMathContext;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-
-import com.premiumminds.billy.core.util.BillyMathContext;
+import java.util.Optional;
 
 public class InvoiceEntryData {
 
@@ -35,13 +35,13 @@ public class InvoiceEntryData {
     private final BigDecimal amountWithoutTax;
     private final List<TaxData> taxes;
     private final String unitOfMeasure;
-    private final String exemptionCode;
-    private final String exemptionReason;
+    private final Exemption exemption;
 
 
-	public InvoiceEntryData(ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
+	public InvoiceEntryData(
+		ProductData product, String description, BigDecimal quantity, BigDecimal taxAmount,
 		BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
-		String unitOfMeasure, String exemptionCode, String exemptionReason) {
+		String unitOfMeasure, Exemption exemption) {
 
         this.product = product;
         this.description = description;
@@ -52,8 +52,7 @@ public class InvoiceEntryData {
         this.amountWithoutTax = amountWithoutTax;
         this.taxes = taxes;
         this.unitOfMeasure = unitOfMeasure;
-		this.exemptionCode = exemptionCode;
-		this.exemptionReason = exemptionReason;
+		this.exemption = exemption;
 	}
 
     public ProductData getProduct() {
@@ -100,11 +99,7 @@ public class InvoiceEntryData {
 		return builder.toString();
     }
 
-	public String getExemptionCode() {
-		return exemptionCode;
-	}
-
-	public String getExemptionReason() {
-		return exemptionReason;
+	public Optional<Exemption> getExemption() {
+		return Optional.ofNullable(exemption);
 	}
 }

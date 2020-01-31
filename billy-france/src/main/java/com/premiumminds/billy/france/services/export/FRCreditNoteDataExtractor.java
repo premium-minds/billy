@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.services.export;
 
+import com.premiumminds.billy.gin.services.export.Exemption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,10 +77,10 @@ public class FRCreditNoteDataExtractor extends AbstractBillyDataExtractor
             List<TaxData> taxes = this.extractTaxes(entry.getTaxes());
             FRInvoiceData reference = this.invoiceExtractor.extract(entry.getReference().getUID());
 
-            entries.add(new FRCreditNoteEntryData(product, entry.getDescription(), entry.getQuantity(),
-												  entry.getTaxAmount(), entry.getUnitAmountWithTax(), entry.getAmountWithTax(),
-												  entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
-												  entry.getTaxExemptionCode(), entry.getTaxExemptionReason()));
+            entries.add(new FRCreditNoteEntryData(
+                product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), entry.getUnitAmountWithTax(),
+                entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
+                Exemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
         }
 
         return entries;

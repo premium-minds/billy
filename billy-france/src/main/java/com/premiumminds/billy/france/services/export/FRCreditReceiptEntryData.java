@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.services.export;
 
+import com.premiumminds.billy.gin.services.export.Exemption;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -29,12 +30,11 @@ public class FRCreditReceiptEntryData extends InvoiceEntryData {
 
     private final FRReceiptData reference;
 
-	public FRCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity, BigDecimal
-		taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
-		List<TaxData> taxes, FRReceiptData reference, String unitOfMeasure, String exemptionCode,
-		String exemptionReason) {
-		super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax,
-			  taxes, unitOfMeasure, exemptionCode, exemptionReason);
+    public FRCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity,
+        BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
+        List<TaxData> taxes, FRReceiptData reference, String unitOfMeasure, Exemption exemption) {
+        super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax,
+              taxes, unitOfMeasure, exemption);
 
         this.reference = reference;
     }
