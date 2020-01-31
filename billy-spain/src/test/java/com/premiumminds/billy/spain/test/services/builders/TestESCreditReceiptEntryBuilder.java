@@ -62,8 +62,8 @@ public class TestESCreditReceiptEntryBuilder extends ESAbstractTest {
         Mockito.when(this.getInstance(DAOESProduct.class).get(Matchers.any(UID.class)))
                 .thenReturn((ESProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).isSubContext(Matchers.any(Context.class),
-                Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOESRegionContext.class).isSameOrSubContext(Matchers.any(Context.class),
+																				   Matchers.any(Context.class))).thenReturn(true);
 
         mock.setReference(mockReceiptEntity);
 

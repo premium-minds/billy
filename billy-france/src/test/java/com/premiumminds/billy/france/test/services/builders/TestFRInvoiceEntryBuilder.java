@@ -62,8 +62,8 @@ public class TestFRInvoiceEntryBuilder extends FRAbstractTest {
         Mockito.when(this.getInstance(DAOFRProduct.class).get(Matchers.any(UID.class)))
                 .thenReturn((FRProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).isSubContext(Matchers.any(Context.class),
-                Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).isSameOrSubContext(Matchers.any(Context.class),
+																				   Matchers.any(Context.class))).thenReturn(true);
 
         mock.getDocumentReferences().add(mockInvoice);
 

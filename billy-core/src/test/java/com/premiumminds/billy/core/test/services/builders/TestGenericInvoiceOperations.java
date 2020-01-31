@@ -66,8 +66,8 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOGenericInvoice.class).getEntityInstance())
                 .thenReturn(new MockGenericInvoiceEntity());
-        Mockito.when(this.getInstance(DAOContext.class).isSubContext(Matchers.any(Context.class),
-                Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Matchers.any(Context.class),
+																		   Matchers.any(Context.class))).thenReturn(true);
 
         this.mockCustomerEntity =
                 this.createMockEntity(MockCustomerEntity.class, TestGenericInvoiceOperations.CUSTOMER_YML);

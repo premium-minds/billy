@@ -95,7 +95,7 @@ public class ESRegionContextPersistenceService implements PersistenceService<ESR
 
                 @Override
                 public Boolean runTransaction() throws Exception {
-                    return ESRegionContextPersistenceService.this.daoRegionContext.isSubContext(child, parent);
+                    return ESRegionContextPersistenceService.this.daoRegionContext.isSameOrSubContext(child, parent);
                 }
 
             }.execute();
