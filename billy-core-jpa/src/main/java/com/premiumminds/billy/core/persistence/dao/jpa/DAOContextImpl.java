@@ -46,13 +46,13 @@ public class DAOContextImpl extends AbstractDAO<ContextEntity, JPAContextEntity>
 
     @Override
     public boolean isSameOrSubContext(Context sub, Context context) {
-		if (sub.getUID().equals(context.getUID())) {
-			return true;
-		}
-		if (sub.getParentContext() == null) {
-			return false;
-		}
-		if (sub.getParentContext().getUID().equals(context.getUID())) {
+        if (sub.getUID().equals(context.getUID())) {
+            return true;
+        }
+        if (sub.getParentContext() == null) {
+            return false;
+        }
+        if (sub.getParentContext().getUID().equals(context.getUID())) {
             return true;
         }
         return this.isSameOrSubContext(sub.getParentContext(), context);
