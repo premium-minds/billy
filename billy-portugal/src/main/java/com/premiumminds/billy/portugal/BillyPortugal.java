@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal;
 
+import com.premiumminds.billy.portugal.util.ReceiptInvoices;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -55,6 +56,7 @@ public class BillyPortugal {
     private Addresses addresses;
     private Businesses businesses;
     private Invoices invoices;
+    private ReceiptInvoices receiptInvoices;
     private SimpleInvoices simpleInvoices;
     private CreditNotes creditNotes;
     private Products products;
@@ -117,6 +119,13 @@ public class BillyPortugal {
         }
         return this.invoices;
     }
+
+    public ReceiptInvoices receiptInvoices() {
+    	if (this.receiptInvoices == null) {
+    		this.receiptInvoices = new ReceiptInvoices(this.injector);
+		}
+    	return this.receiptInvoices;
+	}
 
     public SimpleInvoices simpleInvoices() {
         if (this.simpleInvoices == null) {
