@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -89,6 +90,8 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
         public static final String ENTRY_UNIT_OF_MEASURE = "unitOfMeasure";
         public static final String ENTRY_TOTAL = "total";
         public static final String ENTRY_TAX = "tax";
+        public static final String ENTRY_TAX_EXEMPTION_CODE = "exemption_code";
+        public static final String ENTRY_TAX_EXEMPTION_REASON = "exemption_reason";
 
         public static final String TAX_DETAILS = "taxDetails";
         public static final String TAX_DETAIL = "detail";
@@ -203,7 +206,7 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
             entryNode.addChild(ParamKeys.ENTRY_DESCRIPTION, entry.getDescription());
 
             entryNode.addChild(ParamKeys.ENTRY_QUANTITY, entry.getQuantityWithUnitOfMeasure(this.mc.getRoundingMode()));
-            
+
             entryNode.addChild(ParamKeys.ENTRY_UNIT_OF_MEASURE, entry.getUnitOfMeasure());
 
             entryNode.addChild(ParamKeys.ENTRY_UNIT_PRICE, entry.getUnitAmountWithTax()
@@ -211,6 +214,13 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
 
             entryNode.addChild(ParamKeys.ENTRY_TOTAL, entry.getAmountWithTax()
                     .setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString());
+
+            if(entry.getExemption().isPresent()) {
+                final TaxExemption exemption = entry.getExemption().get();
+
+                entryNode.addChild(ParamKeys.ENTRY_TAX_EXEMPTION_CODE, exemption.getExemptionCode());
+                entryNode.addChild(ParamKeys.ENTRY_TAX_EXEMPTION_REASON, exemption.getExemptionReason());
+            }
 
             Collection<TaxData> taxList = entry.getTaxes();
             for (TaxData tax : taxList) {

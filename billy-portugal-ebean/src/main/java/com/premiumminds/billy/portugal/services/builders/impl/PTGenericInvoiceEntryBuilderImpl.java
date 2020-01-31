@@ -57,7 +57,7 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
     public TBuilder setTaxPointDate(Date date) {
         // The <generic> specs below are necessary because type inference fails here for unknown reasons
         // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
-        BillyValidator.<Date>mandatory(date,
+        BillyValidator.mandatory(date,
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
         this.getTypeInstance().setTaxPointDate(date);
         return this.getBuilder();
@@ -69,20 +69,22 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
         PTGenericInvoiceEntryEntity i = this.getTypeInstance();
         // The <generic> specs below are necessary because type inference fails here for unknown reasons
         // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
-        BillyValidator.<BigDecimal>mandatory(i.getQuantity(),
+        BillyValidator.mandatory(i.getQuantity(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
-        BillyValidator.<String>mandatory(i.getUnitOfMeasure(),
+        BillyValidator.mandatory(i.getUnitOfMeasure(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
         BillyValidator.<Product>mandatory(i.getProduct(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(i.getTaxes(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-        BillyValidator.<BigDecimal>mandatory(i.getTaxAmount(),
+        BillyValidator.mandatory(i.getTaxAmount(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
-        BillyValidator.<Date>mandatory(i.getTaxPointDate(),
+        BillyValidator.mandatory(i.getTaxPointDate(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
         if (i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0) {
-            BillyValidator.<String>mandatory(i.getTaxExemptionReason(),
+            BillyValidator.mandatory(i.getTaxExemptionReason(),
                     PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+            BillyValidator.mandatory(i.getTaxExemptionCode(),
+                    PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
         }
     }
 
