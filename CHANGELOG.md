@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [3.2.0]
+
+### Added 
+ - [Adds exemption reason and code to InvoiceEntryData](https://github.com/premium-minds/billy/pull/85)
+ - [Adds TaxRateType.NONE to the types that use percent as a unit](https://github.com/premium-minds/billy/pull/87)
+ - [Adds Support for Receipt Invoices to Billy Portugal](https://github.com/premium-minds/billy/pull/88)
+
 ### Changed
  - [Bump mockito-all from 1.9.5 to 1.10.19](https://github.com/premium-minds/billy/pull/37) and set scope to test
  - Bump [maven-source-plugin](https://github.com/apache/maven-source-plugin) from 2.2.1 to 3.2.1
@@ -36,6 +43,7 @@
  - Replaced hibernate-jpa-2.0-api with hibernate-jpa-2.1-api
  - [Bump jaxb2-basics from 0.6.2 to 0.12.0](https://github.com/premium-minds/billy/pull/76)
  - [Bump ebean from 10.3.1 to 10.4.7](https://github.com/premium-minds/billy/pull/79)
+ - [ Clarify isSubContext in DAOContext](https://github.com/premium-minds/billy/pull/86)
  
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
@@ -48,3 +56,4 @@
  
 [unreleased]: https://github.com/premium-minds/billy/compare/v3.1.2...HEAD
 [3.1.2]: https://github.com/premium-minds/billy/compare/v3.1.1...v3.1.2
+[3.2.0]: https://github.com/premium-minds/billy/compare/v3.1.2...v3.2.0
