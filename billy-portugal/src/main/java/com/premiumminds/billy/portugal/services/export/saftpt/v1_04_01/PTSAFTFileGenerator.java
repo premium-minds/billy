@@ -875,12 +875,18 @@ public class PTSAFTFileGenerator {
 								.getContext()).getRegionCode()),
 						this.MAX_LENGTH_5, true));
 
-				if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
-					tax.setTaxAmount(this.validateBigDecimal(taxEntity
-							.getValue()));
-				} else if (taxEntity.getTaxRateType().equals(
-						TaxRateType.PERCENTAGE)) {
-					tax.setTaxPercentage(taxEntity.getValue());
+				switch (taxEntity.getTaxRateType()) {
+					case FLAT:
+						tax.setTaxAmount(this.validateBigDecimal(taxEntity.getValue()));
+						break;
+					case PERCENTAGE:
+						tax.setTaxPercentage(taxEntity.getValue());
+						break;
+					case NONE:
+						tax.setTaxPercentage(BigDecimal.ZERO);
+						break;
+					default:
+						throw new InvalidTaxTypeException(taxEntity.getTaxRateType().toString());
 				}
 				line.setTax(tax);
 
