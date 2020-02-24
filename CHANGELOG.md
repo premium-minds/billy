@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [3.2.1]
+
 ### Added
  - [Adds support for NS/NA taxed items](https://github.com/premium-minds/billy/pull/89)
 
