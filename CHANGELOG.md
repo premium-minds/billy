@@ -59,6 +59,7 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
  
  
-[unreleased]: https://github.com/premium-minds/billy/compare/v3.1.2...HEAD
-[3.1.2]: https://github.com/premium-minds/billy/compare/v3.1.1...v3.1.2
+[unreleased]: https://github.com/premium-minds/billy/compare/v3.2.1...HEAD
+[3.2.1]: https://github.com/premium-minds/billy/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/premium-minds/billy/compare/v3.1.2...v3.2.0
+[3.1.2]: https://github.com/premium-minds/billy/compare/v3.1.1...v3.1.2
