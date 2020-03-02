@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+ - [Bump snakeyaml from 1.25 to 1.26](https://github.com/premium-minds/billy/pull/91)
+ 
 ## [3.2.1]
 
 ### Added
