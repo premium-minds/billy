@@ -7,6 +7,7 @@
  - [Bump snakeyaml from 1.25 to 1.26](https://github.com/premium-minds/billy/pull/91)
  - [Bump build-helper-maven-plugin from 3.0.0 to 3.1.0](https://github.com/premium-minds/billy/pull/92)
  - [Bump maven-javadoc-plugin from 3.1.1 to 3.2.0](https://github.com/premium-minds/billy/pull/93)
+ - [Bump guice.version from 4.2.2 to 4.2.3](https://github.com/premium-minds/billy/pull/94)
  
 ## [3.2.1]
 
