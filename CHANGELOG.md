@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+### Changed
+
+ - [Bump snakeyaml from 1.25 to 1.26](https://github.com/premium-minds/billy/pull/91)
+ - [Bump build-helper-maven-plugin from 3.0.0 to 3.1.0](https://github.com/premium-minds/billy/pull/92)
+ - [Bump maven-javadoc-plugin from 3.1.1 to 3.2.0](https://github.com/premium-minds/billy/pull/93)
+ - [Bump guice.version from 4.2.2 to 4.2.3](https://github.com/premium-minds/billy/pull/94)
+ - [Bump commons-lang3 from 3.9 to 3.10](https://github.com/premium-minds/billy/pull/95)
+ - [Bump joda-time from 2.10.5 to 2.10.6](https://github.com/premium-minds/billy/pull/96)
+ - [Bump tiles-maven-plugin from 2.16 to 2.17](https://github.com/premium-minds/billy/pull/99)
+ - [Bump build-helper-maven-plugin from 3.1.0 to 3.2.0](https://github.com/premium-minds/billy/pull/100)
+ 
+## [3.2.1]
+
 ### Added
  - [Adds support for NS/NA taxed items](https://github.com/premium-minds/billy/pull/89)
 
@@ -57,6 +70,7 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
  
  
-[unreleased]: https://github.com/premium-minds/billy/compare/v3.1.2...HEAD
-[3.1.2]: https://github.com/premium-minds/billy/compare/v3.1.1...v3.1.2
+[unreleased]: https://github.com/premium-minds/billy/compare/v3.2.1...HEAD
+[3.2.1]: https://github.com/premium-minds/billy/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/premium-minds/billy/compare/v3.1.2...v3.2.0
+[3.1.2]: https://github.com/premium-minds/billy/compare/v3.1.1...v3.1.2
