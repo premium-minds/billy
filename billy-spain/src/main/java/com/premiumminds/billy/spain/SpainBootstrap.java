@@ -313,8 +313,8 @@ public class SpainBootstrap {
                                     Config.Key.Context.Spain.CanaryIslands.StaCruzDeTenerife.UUID);
 
                     // Taxes
-                    Date from = new DateTime(2020, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
-                    Date to = new DateTime(2021, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
+                    Date from = new DateTime(2020, 1, 1, 0, 0).withTimeAtStartOfDay().toDateTime().toDate();
+                    Date to = new DateTime(2114, 1, 1, 0, 0).withTimeAtStartOfDay().toDateTime().toDate();
                     final ESTaxEntity VAT_NORMAL_CONTINENTAL_SPAIN = this.buildTaxEntity(daoESTax, taxBuilder,
                             ESVATCode.NORMAL, CONTEXT_CONTINENTAL_SPAIN, Currency.getInstance("EUR"),
                             "IVA General Continente", "IVA", Tax.TaxRateType.PERCENTAGE, from, to,
