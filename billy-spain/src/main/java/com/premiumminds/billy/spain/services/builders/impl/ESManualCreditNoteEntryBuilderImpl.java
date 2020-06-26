@@ -77,7 +77,7 @@ public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditN
                 ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(cn.getUnitOfMeasure(),
                 ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
-        BillyValidator.mandatory(cn.getProduct(),
+        BillyValidator.<Object>mandatory(cn.getProduct(),
                 ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(cn.getTaxes(), ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(cn.getTaxAmount(), ESGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
