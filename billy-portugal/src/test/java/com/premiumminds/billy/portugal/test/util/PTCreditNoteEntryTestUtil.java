@@ -53,7 +53,7 @@ public class PTCreditNoteEntryTestUtil {
         PTProductEntity newProduct = (PTProductEntity) this.injector.getInstance(DAOPTProduct.class)
                 .create(new PTProductTestUtil(this.injector).getProductEntity());
 
-        this.context = this.contexts.portugal().allRegions();
+        this.context = this.contexts.continent().faro();
 
         creditNoteEntryBuilder.setUnitAmount(AmountType.WITH_TAX, PTCreditNoteEntryTestUtil.AMOUNT)
                 .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())

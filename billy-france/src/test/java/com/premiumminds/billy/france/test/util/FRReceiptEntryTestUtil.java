@@ -49,7 +49,7 @@ public class FRReceiptEntryTestUtil {
 
     public FRReceiptEntry.Builder getReceiptEntryBuilder(FRProductEntity product) {
         FRReceiptEntry.Builder receiptEntryBuilder = this.injector.getInstance(FRReceiptEntry.Builder.class);
-        this.context = this.contexts.france().allRegions();
+        this.context = this.contexts.continent().poitouCharentes();
 
         receiptEntryBuilder.clear();
         receiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, FRReceiptEntryTestUtil.AMOUNT)

@@ -69,7 +69,7 @@ public class FRManualEntryBuilderImpl<TBuilder extends FRManualEntryBuilderImpl<
         GenericInvoiceEntryEntity e = this.getTypeInstance();
 
         for (Tax t : e.getProduct().getTaxes()) {
-            if (this.daoContext.isSameOrSubContext(t.getContext(), this.context)) {
+            if (this.daoContext.isSameOrSubContext(this.context, t.getContext())) {
                 Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
                 if (DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(taxDate)) {
                     e.getTaxes().add(t);

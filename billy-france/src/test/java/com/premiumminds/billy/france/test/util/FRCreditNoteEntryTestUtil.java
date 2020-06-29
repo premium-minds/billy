@@ -53,7 +53,7 @@ public class FRCreditNoteEntryTestUtil {
         FRProductEntity newProduct = (FRProductEntity) this.injector.getInstance(DAOFRProduct.class)
                 .create(new FRProductTestUtil(this.injector).getProductEntity());
 
-        this.context = this.contexts.france().allRegions();
+        this.context = this.contexts.continent().limousin();
 
         creditNoteEntryBuilder.setUnitAmount(AmountType.WITH_TAX, FRCreditNoteEntryTestUtil.AMOUNT)
                 .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())

@@ -54,7 +54,7 @@ public class PTInvoiceEntryTestUtil {
     public PTInvoiceEntry.Builder getInvoiceEntryBuilder(PTProductEntity product) {
         PTInvoiceEntry.Builder invoiceEntryBuilder = this.injector.getInstance(PTInvoiceEntry.Builder.class);
         PTShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-        this.context = this.contexts.portugal().allRegions();
+        this.context = this.contexts.continent().leiria();
 
         invoiceEntryBuilder.clear();
 
@@ -72,7 +72,7 @@ public class PTInvoiceEntryTestUtil {
         PTInvoiceEntry.ManualBuilder invoiceEntryBuilder =
                 this.injector.getInstance(PTInvoiceEntry.ManualBuilder.class);
         PTShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-        this.context = this.contexts.portugal().allRegions();
+        this.context = this.contexts.continent().lisboa();
 
         invoiceEntryBuilder.clear();
 
@@ -103,11 +103,11 @@ public class PTInvoiceEntryTestUtil {
         if (region.equals("PT-20")) {
             product = (PTProductEntity) this.injector.getInstance(DAOPTProduct.class)
                     .create(this.product.getOtherRegionProductEntity(region));
-            this.context = this.contexts.azores().azores().getParentContext();
+            this.context = this.contexts.azores().azores();
         } else {
             product = (PTProductEntity) this.injector.getInstance(DAOPTProduct.class)
                     .create(this.product.getOtherRegionProductEntity(region));
-            this.context = this.contexts.madeira().madeira().getParentContext();
+            this.context = this.contexts.madeira().madeira();
         }
 
         PTInvoiceEntry.Builder invoiceEntryBuilder = this.injector.getInstance(PTInvoiceEntry.Builder.class);

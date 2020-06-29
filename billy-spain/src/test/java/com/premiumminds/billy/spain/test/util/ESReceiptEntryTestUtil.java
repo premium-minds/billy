@@ -49,7 +49,7 @@ public class ESReceiptEntryTestUtil {
 
     public ESReceiptEntry.Builder getReceiptEntryBuilder(ESProductEntity product) {
         ESReceiptEntry.Builder receiptEntryBuilder = this.injector.getInstance(ESReceiptEntry.Builder.class);
-        this.context = this.contexts.spain().allRegions();
+        this.context = this.contexts.continent().asturias();
 
         receiptEntryBuilder.clear();
         receiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESReceiptEntryTestUtil.AMOUNT)

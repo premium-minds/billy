@@ -54,7 +54,7 @@ public class PTInvoiceEntryTestUtil {
     public PTInvoiceEntry.Builder getInvoiceEntryBuilder(PTProductEntity product) {
         PTInvoiceEntry.Builder invoiceEntryBuilder = this.injector.getInstance(PTInvoiceEntry.Builder.class);
         PTShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-        this.context = this.contexts.portugal().allRegions();
+        this.context = this.contexts.continent().evora();
 
         invoiceEntryBuilder.clear();
 

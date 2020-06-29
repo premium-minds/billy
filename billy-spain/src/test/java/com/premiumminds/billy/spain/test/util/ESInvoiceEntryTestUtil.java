@@ -54,7 +54,7 @@ public class ESInvoiceEntryTestUtil {
     public ESInvoiceEntry.Builder getInvoiceEntryBuilder(ESProductEntity product) {
         ESInvoiceEntry.Builder invoiceEntryBuilder = this.injector.getInstance(ESInvoiceEntry.Builder.class);
         ESShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-        this.context = this.contexts.spain().allRegions();
+        this.context = this.contexts.continent().madrid();
 
         invoiceEntryBuilder.clear();
 
@@ -72,7 +72,7 @@ public class ESInvoiceEntryTestUtil {
         ESInvoiceEntry.ManualBuilder invoiceEntryBuilder =
                 this.injector.getInstance(ESInvoiceEntry.ManualBuilder.class);
         ESShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-        this.context = this.contexts.spain().allRegions();
+        this.context = this.contexts.continent().barcelona();
 
         invoiceEntryBuilder.clear();
 
