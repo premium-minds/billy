@@ -12,6 +12,7 @@
  - [Bump joda-time from 2.10.5 to 2.10.6](https://github.com/premium-minds/billy/pull/96)
  - [Bump tiles-maven-plugin from 2.16 to 2.17](https://github.com/premium-minds/billy/pull/99)
  - [Bump build-helper-maven-plugin from 3.1.0 to 3.2.0](https://github.com/premium-minds/billy/pull/100)
+ - [Update Canary islands 2020 IGIC normal tax value](https://github.com/premium-minds/billy/pull/90)
  
 ## [3.2.1]
 
