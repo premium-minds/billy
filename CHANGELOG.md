@@ -1,3 +1,4 @@
+<!-- https://keepachangelog.com/en/1.0.0/ -->
 # Changelog
 
 ## [Unreleased]
@@ -13,6 +14,11 @@
  - [Bump tiles-maven-plugin from 2.16 to 2.17](https://github.com/premium-minds/billy/pull/99)
  - [Bump build-helper-maven-plugin from 3.1.0 to 3.2.0](https://github.com/premium-minds/billy/pull/100)
  - [Update Canary islands 2020 IGIC normal tax value](https://github.com/premium-minds/billy/pull/90)
+ 
+### Fixed
+
+ - [Credit note issues](https://github.com/premium-minds/billy/pull/101)
+ - [Corrects behavior for tax selection for a given context](https://github.com/premium-minds/billy/pull/102)
  
 ## [3.2.1]
 
