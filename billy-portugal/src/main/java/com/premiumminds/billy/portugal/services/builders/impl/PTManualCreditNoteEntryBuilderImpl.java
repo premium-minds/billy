@@ -77,7 +77,7 @@ public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditN
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(cn.getUnitOfMeasure(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
-        BillyValidator.mandatory(cn.getProduct(),
+        BillyValidator.<Object>mandatory(cn.getProduct(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(cn.getTaxes(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(cn.getTaxAmount(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
