@@ -54,7 +54,7 @@ public class ESCreditReceiptEntryTestUtil {
         ESProductEntity newProduct = (ESProductEntity) this.injector.getInstance(DAOESProduct.class)
                 .create(new ESProductTestUtil(this.injector).getProductEntity());
 
-        this.context = this.contexts.spain().allRegions();
+        this.context = this.contexts.continent().almeria();
 
         creditReceiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESCreditReceiptEntryTestUtil.AMOUNT)
                 .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())

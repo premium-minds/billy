@@ -53,7 +53,7 @@ public class ESCreditNoteEntryTestUtil {
         ESProductEntity newProduct = (ESProductEntity) this.injector.getInstance(DAOESProduct.class)
                 .create(new ESProductTestUtil(this.injector).getProductEntity());
 
-        this.context = this.contexts.spain().allRegions();
+        this.context = this.contexts.continent().albacete();
 
         creditNoteEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESCreditNoteEntryTestUtil.AMOUNT)
                 .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())

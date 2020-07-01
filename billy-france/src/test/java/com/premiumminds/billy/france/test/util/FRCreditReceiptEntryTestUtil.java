@@ -54,7 +54,7 @@ public class FRCreditReceiptEntryTestUtil {
         FRProductEntity newProduct = (FRProductEntity) this.injector.getInstance(DAOFRProduct.class)
                 .create(new FRProductTestUtil(this.injector).getProductEntity());
 
-        this.context = this.contexts.france().allRegions();
+        this.context = this.contexts.continent().picardie();
 
         creditReceiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, FRCreditReceiptEntryTestUtil.AMOUNT)
                 .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())

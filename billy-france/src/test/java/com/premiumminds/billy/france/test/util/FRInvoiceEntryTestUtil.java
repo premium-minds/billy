@@ -54,7 +54,7 @@ public class FRInvoiceEntryTestUtil {
     public FRInvoiceEntry.Builder getInvoiceEntryBuilder(FRProductEntity product) {
         FRInvoiceEntry.Builder invoiceEntryBuilder = this.injector.getInstance(FRInvoiceEntry.Builder.class);
         FRShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-        this.context = this.contexts.france().allRegions();
+        this.context = this.contexts.continent().bretagne();
 
         invoiceEntryBuilder.clear();
 
@@ -72,7 +72,7 @@ public class FRInvoiceEntryTestUtil {
         FRInvoiceEntry.ManualBuilder invoiceEntryBuilder =
                 this.injector.getInstance(FRInvoiceEntry.ManualBuilder.class);
         FRShippingPoint.Builder originBuilder = this.shippingPoint.getShippingPointBuilder();
-        this.context = this.contexts.france().allRegions();
+        this.context = this.contexts.continent().centre();
 
         invoiceEntryBuilder.clear();
 
