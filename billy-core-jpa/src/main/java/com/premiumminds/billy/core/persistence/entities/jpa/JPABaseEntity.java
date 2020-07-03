@@ -53,9 +53,9 @@ public abstract class JPABaseEntity implements BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    protected Integer id;
+    protected Long id;
 
     @Basic(optional = false)
     @Column(name = "UID", nullable = false, insertable = true, updatable = false, unique = true)
@@ -110,7 +110,7 @@ public abstract class JPABaseEntity implements BaseEntity {
     }
 
     @Override
-    public Integer getID() {
+    public Long getID() {
         return this.id;
     }
 

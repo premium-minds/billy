@@ -27,7 +27,7 @@ public class MockBaseEntity implements BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer id;
+    public Long id;
     public UID uid;
     public Date createTimestamp;
     public Date updateTimestamp;
@@ -43,7 +43,7 @@ public class MockBaseEntity implements BaseEntity {
     }
 
     @Override
-    public Integer getID() {
+    public Long getID() {
         return this.id;
     }
 
