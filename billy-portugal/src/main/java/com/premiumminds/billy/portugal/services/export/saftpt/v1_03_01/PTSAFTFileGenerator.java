@@ -188,7 +188,7 @@ public class PTSAFTFileGenerator {
                     JAXBContext.newInstance("com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema");
             this.marshaller = this.jaxbContext.createMarshaller();
         } catch (Exception e) {
-            System.err.println("Problems with JAXBContext");
+            log.error("Problems with JAXBContext", e);
         }
     }
 
@@ -1488,7 +1488,7 @@ public class PTSAFTFileGenerator {
         } else {
             if (str != null && str.length() > maxLength) {
                 str = str.substring(0, maxLength);
-                System.err.println("WARNING: the field " + this.context + field + " has been truncated.");
+                log.warn("the field " + this.context + field + " has been truncated.");
             }
             return (str == null) ? new String() : str.trim();
         }
