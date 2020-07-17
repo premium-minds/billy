@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+ - [Replaced System.err calls with log SLf4j log call](https://github.com/premium-minds/billy/pull/104)
+
 ## [3.3.0] - 2020-07-11
 
 ### Changed
