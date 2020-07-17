@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+ - [Bump commons-lang3 from 3.10 to 3.11](https://github.com/premium-minds/billy/pull/105)
+
 ### Fixed
 
  - [Replaced System.err calls with log SLf4j log call](https://github.com/premium-minds/billy/pull/104)
