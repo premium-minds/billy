@@ -22,6 +22,7 @@ import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.TaxData;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import com.premiumminds.billy.spain.services.export.ESCreditReceiptData;
 import com.premiumminds.billy.spain.services.export.ESCreditReceiptEntryData;
 import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransformer;
@@ -98,6 +99,14 @@ public class ESCreditReceiptPDFFOPTransformer extends ESAbstractFOPPDFTransforme
                               entry.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().toString(),
                               tax.getDesignation(), tax.getDescription());
             }
+
+            if(entry.getExemption().isPresent()) {
+                final TaxExemption exemption = entry.getExemption().get();
+
+                entryNode.addChild(ParamKeys.ENTRY_TAX_EXEMPTION_CODE, exemption.getExemptionCode());
+                entryNode.addChild(ParamKeys.ENTRY_TAX_EXEMPTION_REASON, exemption.getExemptionReason());
+            }
+
             entryNode.addChild(ESCreditReceiptPDFFOPTransformer.PARAM_KEYS_RECEIPT).addChild(ParamKeys.ID,
                     entry.getReference().getNumber());
         }
