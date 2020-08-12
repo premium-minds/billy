@@ -18,23 +18,30 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
+import com.premiumminds.billy.gin.services.export.BusinessData;
+import com.premiumminds.billy.gin.services.export.CostumerData;
+import com.premiumminds.billy.gin.services.export.PaymentData;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.premiumminds.billy.gin.services.export.BusinessData;
-import com.premiumminds.billy.gin.services.export.CostumerData;
-import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
-import com.premiumminds.billy.gin.services.export.PaymentData;
-
 public class PTCreditNoteData extends PTGenericInvoiceData {
 
-    public PTCreditNoteData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription, String hash) {
+    private final List<PTCreditNoteEntryData> entries;
 
-        super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
-                amountWithoutTax, settlementDescription, hash);
+    public PTCreditNoteData(String number, Date date, Date settlementDate, List<PaymentData> payments,
+                            CostumerData customer, BusinessData business, List<PTCreditNoteEntryData> entries,
+                            BigDecimal taxAmount, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
+                            String settlementDescription, String hash) {
+
+        super(number, date, settlementDate, payments, customer, business, new ArrayList<>(0),
+              taxAmount, amountWithTax, amountWithoutTax, settlementDescription, hash);
+        this.entries = entries;
     }
 
+    @Override
+    public List<PTCreditNoteEntryData> getEntries() {
+        return entries;
+    }
 }

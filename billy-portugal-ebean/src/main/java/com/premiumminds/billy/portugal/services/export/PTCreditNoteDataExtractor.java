@@ -18,35 +18,39 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.CostumerData;
-import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
+import com.premiumminds.billy.gin.services.export.ProductData;
+import com.premiumminds.billy.gin.services.export.TaxData;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
 
 public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<PTCreditNoteData> {
 
     private final DAOPTCreditNote daoPTCreditNote;
+    private final PTInvoiceDataExtractor invoiceExtractor;
 
     @Inject
-    public PTCreditNoteDataExtractor(DAOPTCreditNote daoPTCreditNote) {
+    public PTCreditNoteDataExtractor(
+            DAOPTCreditNote daoPTCreditNote, PTInvoiceDataExtractor invoiceExtractor) {
         this.daoPTCreditNote = daoPTCreditNote;
+        this.invoiceExtractor = invoiceExtractor;
     }
 
     @Override
     public PTCreditNoteData extract(UID uid) throws ExportServiceException {
-        PTCreditNoteEntity entity = this.daoPTCreditNote.get(uid); // FIXME: Fix the DAOs to remove this
-                                                                   // cast
+        PTCreditNoteEntity entity = this.daoPTCreditNote.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }
@@ -54,11 +58,30 @@ public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
         List<PaymentData> payments = this.extractPayments(entity.getPayments());
         CostumerData costumer = this.extractCostumer(entity.getCustomer());
         BusinessData business = this.extractBusiness(entity.getBusiness());
-        List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
+        List<PTCreditNoteEntryData> entries = this.extractCreditEntries(entity.getEntries());
 
         return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
                 costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
                 entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash());
+    }
+
+    private List<PTCreditNoteEntryData> extractCreditEntries(List<PTCreditNoteEntry> entryEntities)
+            throws ExportServiceException {
+        List<PTCreditNoteEntryData> entries = new ArrayList<>(entryEntities.size());
+        for (PTCreditNoteEntry entry : entryEntities) {
+            ProductData product =
+                    new ProductData(entry.getProduct().getProductCode(), entry.getProduct().getDescription());
+
+            List<TaxData> taxes = this.extractTaxes(entry.getTaxes());
+            PTInvoiceData reference = this.invoiceExtractor.extract(entry.getReference().getUID());
+
+            entries.add(new PTCreditNoteEntryData(
+                    product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), entry.getUnitAmountWithTax(),
+                    entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
+                    TaxExemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
+        }
+
+        return entries;
     }
 
 }
