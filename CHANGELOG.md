@@ -10,6 +10,7 @@
 ### Fixed
 
  - [Replaced System.err calls with log SLf4j log call](https://github.com/premium-minds/billy/pull/104)
+ - [Pt credit note data extractor reference](https://github.com/premium-minds/billy/pull/106)
 
 ## [3.3.0] - 2020-07-11
 
