@@ -45,3 +45,7 @@ CI is hosted by [travis-ci.org](https://travis-ci.org/)
 Copyright (C) 2013 [Premium Minds](http://www.premium-minds.com/)
 
 Licensed under the [GNU Lesser General Public Licence](http://www.gnu.org/licenses/lgpl.html)
+
+## Demo
+
+There is a demonstration project on how to use billy in [premium-minds/billy-demo-app](https://github.com/premium-minds/billy-demo-app)
