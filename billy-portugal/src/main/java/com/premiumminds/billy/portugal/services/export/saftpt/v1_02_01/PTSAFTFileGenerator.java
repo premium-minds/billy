@@ -190,32 +190,45 @@ public class PTSAFTFileGenerator {
         }
     }
 
+	/**
+	 * Constructs a new SAFT a.k.a. AuditFile
+	 *
+	 * @deprecated Use the overloaded method instead
+	 *
+	 * @param targetStream
+	 *
+	 * @param businessEntity - the company
+	 * @param application - the software
+	 * @param fromDate - the period for the SAFT file
+	 * @param toDate - the period for the SAFT file
+	 * @return the SAFT for that business entity, given lists of customers,
+	 *         products, taxes and financial documents; depends on a period of
+	 *         time
+	 * @throws SAFTPTExportException
+	 */
+	@Deprecated
+	public void generateSAFTFile(final OutputStream targetStream, final PTBusinessEntity businessEntity,
+								 final PTApplicationEntity application, final String certificateNumber, final Date fromDate,
+								 final Date toDate) throws SAFTPTExportException {
+		this.generateSAFTFile(targetStream, businessEntity, application, fromDate, toDate);
+	}
+
     /**
      * Constructs a new SAFT a.k.a. AuditFile
      *
      * @param targetStream
      *
-     * @param businessEntity
-     *        - the company
-     * @param application
-     * @param certificateNumber
-     * @param fromDate
-     * @param toDate
-     * @param daoCustomer
-     * @param daoSupplier
-     * @param daoProduct
-     * @param daoPTTax
-     * @param daoPTRegionContext
-     * @param daoPTInvoice
-     * @param daoPTSimpleInvoice
-     * @param daoPTCreditNote
+	 * @param businessEntity - the company
+	 * @param application - the software
+	 * @param fromDate - the period for the SAFT file
+	 * @param toDate - the period for the SAFT file
      * @return the SAFT for that business entity, given lists of customers,
      *         products, taxes and financial documents; depends on a period of
      *         time
      * @throws SAFTPTExportException
      */
     public void generateSAFTFile(final OutputStream targetStream, final PTBusinessEntity businessEntity,
-            final PTApplicationEntity application, final String certificateNumber, final Date fromDate,
+            final PTApplicationEntity application, final Date fromDate,
             final Date toDate) throws SAFTPTExportException {
 
         try {
@@ -226,7 +239,7 @@ public class PTSAFTFileGenerator {
                     AuditFile SAFTFile = new AuditFile();
 
                     /* HEADER */
-                    Header hdr = PTSAFTFileGenerator.this.generateHeader(businessEntity, application, certificateNumber,
+                    Header hdr = PTSAFTFileGenerator.this.generateHeader(businessEntity, application,
                             fromDate, toDate);
                     SAFTFile.setHeader(hdr);
 
@@ -337,7 +350,7 @@ public class PTSAFTFileGenerator {
      * @throws InvalidContactTypeException
      */
     private Header generateHeader(PTBusinessEntity businessEntity, PTApplicationEntity application,
-            String certificateNumber, Date startDate, Date endDate)
+            Date startDate, Date endDate)
             throws DatatypeConfigurationException, RequiredFieldNotFoundException, InvalidContactTypeException {
         this.context = "Header.";
 
@@ -369,7 +382,8 @@ public class PTSAFTFileGenerator {
         hdr.setProductCompanyTaxID(this.validateString("ProductCompanyTaxID",
                 application.getDeveloperCompanyTaxIdentifier(), this.MAX_LENGTH_20, true));
         hdr.setSoftwareCertificateNumber(
-                this.validateBigInteger("SoftwareCertificateNumber", certificateNumber, this.MAX_LENGTH_255, true));
+                this.validateBigInteger("SoftwareCertificateNumber", application.getSoftwareCertificationNumber().toString(),
+					this.MAX_LENGTH_255, true));
         hdr.setProductID(this.validateString("ProductID",
                 application.getName() + "/" + application.getDeveloperCompanyName(), this.MAX_LENGTH_255, true));
         hdr.setProductVersion(
@@ -628,7 +642,6 @@ public class PTSAFTFileGenerator {
      *
      * @param document
      *        - can be an invoice, simple invoice or credit note
-     * @param documentType
      * @return an instance of Invoice (represents a financial document in the
      *         SAFT XML context)
      *

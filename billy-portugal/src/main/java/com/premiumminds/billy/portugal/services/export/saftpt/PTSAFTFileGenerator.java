@@ -37,13 +37,15 @@ public class PTSAFTFileGenerator {
 
 	@Inject
 	private com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.PTSAFTFileGenerator saftGenV1_04_01;
-	
+
 	public static enum SAFTVersion {
 		CURRENT, V10201, V10301, V10401
 	}
 
 	/**
 	 * Constructs a new SAFT a.k.a. AuditFile
+	 *
+	 * @deprecated Use the overloaded method instead
 	 *
 	 * @param targetStream the target stream
 	 * @param businessEntity the company
@@ -55,6 +57,7 @@ public class PTSAFTFileGenerator {
 	 *
 	 * @throws SAFTPTExportException when export exception occurs
 	 */
+	@Deprecated
 	public void generateSAFTFile(final OutputStream targetStream,
 			final PTBusinessEntity businessEntity,
 			final PTApplicationEntity application,
@@ -62,20 +65,42 @@ public class PTSAFTFileGenerator {
 			final Date toDate,
 			final SAFTVersion version) throws SAFTPTExportException {
 
-		switch (version) {
-		case V10201:
-			saftGenV1_02_01.generateSAFTFile(targetStream, businessEntity, application, certificateNumber, fromDate, toDate);
-			return;
-			
-		case V10301:
-			saftGenV1_03_01.generateSAFTFile(targetStream, businessEntity, application, certificateNumber, fromDate, toDate);
-			return;
+		this.generateSAFTFile(targetStream, businessEntity, application, fromDate,toDate, version);
+	}
 
-		case V10401:
-		case CURRENT:
-		default:
-			saftGenV1_04_01.generateSAFTFile(targetStream, businessEntity, application, certificateNumber, fromDate, toDate);
-			return;
+	/**
+	 * Constructs a new SAFT a.k.a. AuditFile
+	 *
+	 * @param targetStream the target stream
+	 * @param businessEntity the company
+	 * @param application the application
+	 * @param fromDate the date from when the saft will be generated
+	 * @param toDate the date until when the saft will be generated
+	 * @param version the SAFT version
+	 *
+	 * @throws SAFTPTExportException when export exception occurs
+	 */
+	public void generateSAFTFile(final OutputStream targetStream,
+								 final PTBusinessEntity businessEntity,
+								 final PTApplicationEntity application,
+								 final Date fromDate,
+								 final Date toDate,
+								 final SAFTVersion version) throws SAFTPTExportException {
+
+		switch (version) {
+			case V10201:
+				saftGenV1_02_01.generateSAFTFile(targetStream, businessEntity, application, fromDate, toDate);
+				return;
+
+			case V10301:
+				saftGenV1_03_01.generateSAFTFile(targetStream, businessEntity, application, fromDate, toDate);
+				return;
+
+			case V10401:
+			case CURRENT:
+			default:
+				saftGenV1_04_01.generateSAFTFile(targetStream, businessEntity, application, fromDate, toDate);
+				return;
 		}
 
 	}
