@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,6 +32,7 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -83,13 +85,15 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
-            DocumentIssuingException, IOException {
+    public void testPDFcreation() throws ExportServiceException, DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-        PTCreditNoteEntity invoice = this.generatePTCreditNote(PaymentMechanism.CASH, this.getNewIssuedInvoice());
+        PTInvoiceEntity invoice = this.getNewIssuedInvoice();
+        PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(creditNote);
+        DAOPTInvoice daoPTInvoice = this.mockedInjector.getInstance(DAOPTInvoice.class);
+        Mockito.when(daoPTInvoice.get(invoice.getUID())).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
@@ -99,7 +103,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
     @Test(expected = ExportServiceException.class)
     public void testNonExistentEntity()
-            throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
+            throws ExportServiceException {
 
         UID uidEntity = UID.fromString("12345");
         this.extractor.extract(uidEntity);
@@ -108,9 +112,12 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
         UID uidEntity = UID.fromString("12345");
-        PTCreditNoteEntity invoice = this.generatePTCreditNote(PaymentMechanism.CASH, this.getNewIssuedInvoice());
+        PTInvoiceEntity invoice = this.getNewIssuedInvoice();
+        PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(creditNote);
+        DAOPTInvoice daoPTInvoice = this.mockedInjector.getInstance(DAOPTInvoice.class);
+        Mockito.when(daoPTInvoice.get(invoice.getUID())).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
