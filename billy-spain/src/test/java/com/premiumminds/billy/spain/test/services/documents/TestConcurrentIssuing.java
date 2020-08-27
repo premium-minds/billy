@@ -139,7 +139,7 @@ public class TestConcurrentIssuing extends ESDocumentAbstractTest {
 
     @Test
     public void testDifferenteBusinessAndSeries() throws InterruptedException, ExecutionException {
-        ConcurrentTestUtil test = new ConcurrentTestUtil(30);
+        ConcurrentTestUtil test = new ConcurrentTestUtil(20);
         String B1 = "Business 1";
         ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B1);
         String B2 = "Business 2";
