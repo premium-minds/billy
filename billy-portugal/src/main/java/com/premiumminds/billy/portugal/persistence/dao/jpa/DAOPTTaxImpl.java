@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +28,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
@@ -57,7 +57,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
     @Override
     public List<JPAPTTaxEntity> getTaxesForSAFTPT(PTRegionContextEntity context, Date validFrom, Date validTo) {
         QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+        JPAQuery<JPAPTTaxEntity> query = new JPAQuery<>(this.getEntityManager());
 
         List<BooleanExpression> predicates = new ArrayList<>();
         BooleanExpression active = tax.active.eq(true);
@@ -78,7 +78,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
         for (BooleanExpression e : predicates) {
             query.where(e);
         }
-        List<JPAPTTaxEntity> list = query.list(tax);
+        List<JPAPTTaxEntity> list = query.select(tax).fetch();
         List<JPAPTRegionContextEntity> childContexts = null;
         List<JPAPTTaxEntity> taxResult = null;
         List<JPAPTTaxEntity> taxContextResult = new ArrayList<>();
@@ -100,17 +100,17 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
     private List<JPAPTRegionContextEntity> getChildContexts(JPAPTRegionContextEntity parentContext) {
         QJPAPTRegionContextEntity contexts = QJPAPTRegionContextEntity.jPAPTRegionContextEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+        JPAQuery<JPAPTRegionContextEntity> query = new JPAQuery<>(this.getEntityManager());
 
         query.from(contexts).where(contexts.parent.eq(parentContext));
-        return query.list(contexts);
+        return query.select(contexts).fetch();
     }
 
     @Override
     public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, Date validFrom, Date validTo) {
 
         QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+        JPAQuery<JPAPTTaxEntity> query = new JPAQuery<>(this.getEntityManager());
 
         query.from(tax);
         List<BooleanExpression> predicates = new ArrayList<>();
@@ -131,8 +131,7 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
             query.where(e);
         }
 
-        List<JPAPTTaxEntity> list = null;
-        list = query.list(tax);
+        List<JPAPTTaxEntity> list = query.select(tax).fetch();
         if (context.getParentContext() != null) {
             list.addAll(this.getTaxes((PTRegionContextEntity) context.getParentContext(), validFrom, validTo));
         }

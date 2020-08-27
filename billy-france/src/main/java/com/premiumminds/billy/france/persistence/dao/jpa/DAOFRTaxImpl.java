@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +28,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.persistence.entities.FRRegionContextEntity;
@@ -56,7 +56,7 @@ public class DAOFRTaxImpl extends DAOTaxImpl implements DAOFRTax {
     public List<JPAFRTaxEntity> getTaxes(FRRegionContextEntity context, Date validFrom, Date validTo) {
 
         QJPAFRTaxEntity tax = QJPAFRTaxEntity.jPAFRTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+        JPAQuery<JPAFRTaxEntity> query = new JPAQuery<>(this.getEntityManager());
 
         query.from(tax);
         List<BooleanExpression> predicates = new ArrayList<>();
@@ -75,8 +75,7 @@ public class DAOFRTaxImpl extends DAOTaxImpl implements DAOFRTax {
             query.where(e);
         }
 
-        List<JPAFRTaxEntity> list = null;
-        list = query.list(tax);
+        List<JPAFRTaxEntity> list = query.select(tax).fetch();
         if (context.getParentContext() != null) {
             list.addAll(this.getTaxes((FRRegionContextEntity) context.getParentContext(), validFrom, validTo));
         }

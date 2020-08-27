@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.jpa.JPQLTemplates;
+import com.querydsl.jpa.impl.JPAQuery;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +36,6 @@ import javax.persistence.PersistenceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mysema.query.jpa.JPQLTemplates;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.Path;
-import com.mysema.query.types.path.EntityPathBase;
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
@@ -222,8 +222,8 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
         return entity != null;
     }
 
-    protected JPAQuery createQuery() {
-        return new JPAQuery(this.getEntityManager(), JPQLTemplates.DEFAULT);
+    protected <T> JPAQuery<T> createQuery() {
+        return new JPAQuery<>(this.getEntityManager(), JPQLTemplates.DEFAULT);
     }
 
     protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {

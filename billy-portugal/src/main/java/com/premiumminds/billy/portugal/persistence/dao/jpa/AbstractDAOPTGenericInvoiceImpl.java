@@ -44,10 +44,13 @@ public abstract class AbstractDAOPTGenericInvoiceImpl<TInterface extends PTGener
         QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
 
         return (TInterface) this.checkEntity(
-                this.createQuery()
-                        .from(invoice).where(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid
-                                .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
-                        .singleResult(invoice),
-                PTGenericInvoiceEntity.class);
+            this.createQuery()
+                .from(invoice)
+                .where(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid
+                           .eq(uidBusiness.toString())
+                           .and(invoice.number.eq(number)))
+                .select(invoice)
+                .fetchOne(),
+            PTGenericInvoiceEntity.class);
     }
 }

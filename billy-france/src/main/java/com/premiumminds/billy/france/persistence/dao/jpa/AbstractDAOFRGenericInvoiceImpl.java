@@ -47,7 +47,7 @@ public abstract class AbstractDAOFRGenericInvoiceImpl<TInterface extends FRGener
                 this.createQuery()
                         .from(invoice).where(this.toDSL(invoice.business, QJPAFRBusinessEntity.class).uid
                                 .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
-                        .singleResult(invoice),
+                        .select(invoice).fetchOne(),
                 FRGenericInvoiceEntity.class); // FIXME: CAST!!
     }
 }

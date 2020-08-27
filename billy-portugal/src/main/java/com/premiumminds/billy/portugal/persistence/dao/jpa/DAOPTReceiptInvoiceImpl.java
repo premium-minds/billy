@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
@@ -56,14 +56,13 @@ public class DAOPTReceiptInvoiceImpl
     public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID uid, Date from, Date to) {
         QJPAPTReceiptInvoiceEntity invoice = QJPAPTReceiptInvoiceEntity.jPAPTReceiptInvoiceEntity;
 
-        JPAQuery query = this.createQuery();
+        JPAQuery<PTReceiptInvoiceEntity> query = this.createQuery();
 
         query.from(invoice)
                 .where(invoice.instanceOf(JPAPTReceiptInvoiceEntity.class).and(invoice.date.between(from, to))
                         .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
 
-        List<PTReceiptInvoiceEntity> result = this.checkEntityList(query.list(invoice), PTReceiptInvoiceEntity.class);
-        return result;
+        return this.checkEntityList(query.select(invoice).fetch(), PTReceiptInvoiceEntity.class);
     }
 
 }

@@ -18,13 +18,13 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
@@ -58,11 +58,11 @@ public class DAOPTCreditNoteEntryImpl
 
         QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+        JPAQuery<PTCreditNoteEntity> query = new JPAQuery<>(this.getEntityManager());
 
         query.from(creditNoteEntity);
 
-        List<JPAPTCreditNoteEntity> allCns = query.list(creditNoteEntity);
+        List<JPAPTCreditNoteEntity> allCns = query.select(creditNoteEntity).fetch();
 
         // TODO make a query to do this
         for (JPAPTCreditNoteEntity cne : allCns) {
