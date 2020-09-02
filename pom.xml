@@ -140,12 +140,6 @@
 				<version>2.10.6</version>
 			</dependency>
 
-			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.14</version>
-			</dependency>
-
 			<!-- SnakeYaml -->
 			<dependency>
 				<groupId>org.yaml</groupId>

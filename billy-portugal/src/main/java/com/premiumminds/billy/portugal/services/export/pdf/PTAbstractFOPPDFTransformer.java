@@ -20,8 +20,7 @@ package com.premiumminds.billy.portugal.services.export.pdf;
 
 import java.io.InputStream;
 import java.math.MathContext;
-
-import org.apache.commons.codec.binary.Base64;
+import java.util.Base64;
 
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
@@ -138,7 +137,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
     }
 
     protected String getVerificationHashString(byte[] hash) {
-        String hashString = Base64.encodeBase64String(hash);
+        String hashString = new String(Base64.getEncoder().encode(hash));
         String rval = hashString.substring(0, 1) + hashString.substring(10, 11) + hashString.substring(20, 21) +
                 hashString.substring(30, 31);
 
