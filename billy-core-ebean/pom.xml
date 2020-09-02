@@ -71,12 +71,6 @@
 			<artifactId>guice-assistedinject</artifactId>
 		</dependency>
 
-		<!-- JODA -->
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-
 		<!-- JUNIT -->
 		<dependency>
 			<groupId>junit</groupId>

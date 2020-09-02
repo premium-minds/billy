@@ -19,10 +19,11 @@
 package com.premiumminds.billy.portugal;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -226,8 +227,9 @@ public class PortugalBootstrap {
                                     PortugalBootstrap.CODE_PT_MADEIRA, Config.Key.Context.Portugal.Madeira.UUID);
 
                     // Taxes
-                    Date from = new DateTime(2017, 1, 1, 0, 0).withTimeAtStartOfDay().toDateTime().toDate();
-                    Date to = new DateTime(2114, 1, 1, 0, 0).withTimeAtStartOfDay().toDateTime().toDate();;
+                    ZoneId paris = ZoneId.of("Europe/Lisbon");
+                    Date from = Date.from(LocalDate.of(2013,1,1).atStartOfDay().atZone(paris).toInstant());
+                    Date to = Date.from(LocalDate.of(2114,1,1).atStartOfDay().atZone(paris).toInstant());
                     final PTTaxEntity VAT_NORMAL_CONTINENTAL_PORTUGAL = this.buildTaxEntity(daoPTTax, taxBuilder,
                             PTVATCode.NORMAL, CONTEXT_CONTINENTAL_PORTUGAL, Currency.getInstance("EUR"),
                             "IVA Normal Continente", "IVA", Tax.TaxRateType.PERCENTAGE, from, to,
