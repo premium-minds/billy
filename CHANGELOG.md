@@ -3,6 +3,10 @@
 
 ## [Unreleased]
 
+### Changed
+
+ - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
+
 ## [3.3.1] - 2020-08-14
 
 ### Changed
