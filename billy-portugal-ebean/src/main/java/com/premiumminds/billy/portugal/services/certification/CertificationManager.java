@@ -25,8 +25,8 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Base64;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +59,7 @@ public class CertificationManager {
     }
 
     public String getHashBase64(String source) throws InvalidHashException, InvalidKeyException {
-        String hashBase64 = Base64.encodeBase64String(this.getHashBinary(source));
+        String hashBase64 = new String(Base64.getEncoder().encode(this.getHashBinary(source)));
         if (this.autoVerifyHash) {
             if ((!this.verifyHashBase64(source, hashBase64)) ||
                     (hashBase64.length() != CertificationManager.EXPECTED_HASH_LENGTH)) {
@@ -92,7 +92,8 @@ public class CertificationManager {
     }
 
     public boolean verifyHashBase64(String source, String hashBase64) throws InvalidKeyException {
-        return (this.verifyHashBinary(source, Base64.decodeBase64(hashBase64)) &&
+        byte[] hash = Base64.getDecoder().decode(hashBase64);
+        return (this.verifyHashBinary(source, hash) &&
                 (hashBase64.length() == CertificationManager.EXPECTED_HASH_LENGTH));
     }
 
