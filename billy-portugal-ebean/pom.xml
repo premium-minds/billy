@@ -154,7 +154,6 @@
 					<generateDirectory>src-generated/main/java</generateDirectory>
 					<strict>false</strict>
 					<extension>true</extension>
-					<forceRegenerate>true</forceRegenerate>
 					<plugins>
 						<plugin>
 							<groupId>org.jvnet.jaxb2_commons</groupId>
