@@ -19,10 +19,11 @@
 package com.premiumminds.billy.spain;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -313,8 +314,9 @@ public class SpainBootstrap {
                                     Config.Key.Context.Spain.CanaryIslands.StaCruzDeTenerife.UUID);
 
                     // Taxes
-                    Date from = new DateTime(2020, 1, 1, 0, 0).withTimeAtStartOfDay().toDateTime().toDate();
-                    Date to = new DateTime(2114, 1, 1, 0, 0).withTimeAtStartOfDay().toDateTime().toDate();
+                    ZoneId madrid = ZoneId.of("Europe/Madrid");
+                    Date from = Date.from(LocalDate.of(2020,1,1).atStartOfDay().atZone(madrid).toInstant());
+                    Date to = Date.from(LocalDate.of(2114,1,1).atStartOfDay().atZone(madrid).toInstant());
                     final ESTaxEntity VAT_NORMAL_CONTINENTAL_SPAIN = this.buildTaxEntity(daoESTax, taxBuilder,
                             ESVATCode.NORMAL, CONTEXT_CONTINENTAL_SPAIN, Currency.getInstance("EUR"),
                             "IVA General Continente", "IVA", Tax.TaxRateType.PERCENTAGE, from, to,

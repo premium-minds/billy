@@ -19,10 +19,11 @@
 package com.premiumminds.billy.france;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
 
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -194,8 +195,9 @@ public class FranceBootstrap {
                 		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.RhoneAlpes.UUID);
 
                     // Taxes
-                    Date from = new DateTime(2017, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
-                    Date to = new DateTime(2018, 1, 1, 0, 0).toDateMidnight().toDateTime().toDate();
+                    ZoneId paris = ZoneId.of("Europe/Paris");
+                    Date from = Date.from(LocalDate.of(2017,1,1).atStartOfDay().atZone(paris).toInstant());
+                    Date to = Date.from(LocalDate.of(2018,1,1).atStartOfDay().atZone(paris).toInstant());
                     final FRTaxEntity VAT_NORMAL_CONTINENTAL_FRANCE = this.buildTaxEntity(daoFRTax, taxBuilder,
                             FRVATCode.NORMAL, CONTEXT_CONTINENTAL_FRANCE, Currency.getInstance("EUR"),
                             "IVA General Continente", "IVA", Tax.TaxRateType.PERCENTAGE, from, to,

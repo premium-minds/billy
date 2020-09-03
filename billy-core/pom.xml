@@ -48,12 +48,6 @@
 			<artifactId>guice</artifactId>
 		</dependency>
 
-		<!-- JODA -->
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-		</dependency>
-
 		<!-- VALIDATION -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
