@@ -71,7 +71,7 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
 
         List<JPAPTCreditNoteEntryEntity> referencingEntries =
                 this.queryCreditNoteEntry().reference.equalTo((JPAPTInvoiceEntity) invoice).findList();
-        List<Integer> referencingEntryIDs = new ArrayList<>();
+        List<Long> referencingEntryIDs = new ArrayList<>();
         for (JPAPTCreditNoteEntryEntity referencingEntry : referencingEntries) {
             referencingEntryIDs.add(referencingEntry.getID());
         }

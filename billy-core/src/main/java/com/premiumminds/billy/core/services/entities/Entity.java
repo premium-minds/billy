@@ -31,7 +31,7 @@ import com.premiumminds.billy.core.services.UID;
  */
 public interface Entity extends Serializable {
 
-    public Integer getID();
+    public Long getID();
 
     /**
      * Gets the entity unique identifier.
