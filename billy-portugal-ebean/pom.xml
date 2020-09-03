@@ -141,12 +141,8 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
-			<plugin>
-			  <groupId>io.repaint.maven</groupId>
-			  <artifactId>tiles-maven-plugin</artifactId>
+				<groupId>io.repaint.maven</groupId>
+				<artifactId>tiles-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<!-- When adding support for additional saft version via .xsd, create a separate execution element, as done below -->
