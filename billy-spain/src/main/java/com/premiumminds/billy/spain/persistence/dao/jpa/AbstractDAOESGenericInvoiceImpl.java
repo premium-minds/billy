@@ -47,7 +47,7 @@ public abstract class AbstractDAOESGenericInvoiceImpl<TInterface extends ESGener
                 this.createQuery()
                         .from(invoice).where(this.toDSL(invoice.business, QJPAESBusinessEntity.class).uid
                                 .eq(uidBusiness.toString()).and(invoice.number.eq(number)))
-                        .singleResult(invoice),
+                        .select(invoice).fetchOne(),
                 ESGenericInvoiceEntity.class); // FIXME: CAST!!
     }
 }

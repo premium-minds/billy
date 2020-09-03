@@ -18,13 +18,13 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceiptEntry;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntryEntity;
@@ -55,14 +55,12 @@ public class DAOESCreditReceiptEntryImpl
 
     @Override
     public ESCreditReceiptEntity checkCreditReceipt(ESReceipt receipt) {
-
         QJPAESCreditReceiptEntity creditReceiptEntity = QJPAESCreditReceiptEntity.jPAESCreditReceiptEntity;
 
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-
-        query.from(creditReceiptEntity);
-
-        List<JPAESCreditReceiptEntity> allCns = query.list(creditReceiptEntity);
+        List<JPAESCreditReceiptEntity> allCns = new JPAQuery<>(this.getEntityManager())
+            .from(creditReceiptEntity)
+            .select(creditReceiptEntity)
+            .fetch();
 
         // TODO make a query to do this
         for (JPAESCreditReceiptEntity cne : allCns) {

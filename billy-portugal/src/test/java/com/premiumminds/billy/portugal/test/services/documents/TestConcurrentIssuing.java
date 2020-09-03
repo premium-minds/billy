@@ -139,7 +139,7 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 
     @Test
     public void testDifferenteBusinessAndSeries() throws InterruptedException, ExecutionException {
-        ConcurrentTestUtil test = new ConcurrentTestUtil(30);
+        ConcurrentTestUtil test = new ConcurrentTestUtil(20);
         String B1 = "Business 1";
         PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B1);
         String B2 = "Business 2";

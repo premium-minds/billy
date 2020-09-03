@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,8 +28,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.expr.BooleanExpression;
 import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
@@ -56,7 +56,7 @@ public class DAOESTaxImpl extends DAOTaxImpl implements DAOESTax {
     public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context, Date validFrom, Date validTo) {
 
         QJPAESTaxEntity tax = QJPAESTaxEntity.jPAESTaxEntity;
-        JPAQuery query = new JPAQuery(this.getEntityManager());
+        JPAQuery<JPAESTaxEntity> query = new JPAQuery<>(this.getEntityManager());
 
         query.from(tax);
         List<BooleanExpression> predicates = new ArrayList<>();
@@ -75,8 +75,7 @@ public class DAOESTaxImpl extends DAOTaxImpl implements DAOESTax {
             query.where(e);
         }
 
-        List<JPAESTaxEntity> list = null;
-        list = query.list(tax);
+        List<JPAESTaxEntity> list = query.select(tax).fetch();
         if (context.getParentContext() != null) {
             list.addAll(this.getTaxes((ESRegionContextEntity) context.getParentContext(), validFrom, validTo));
         }

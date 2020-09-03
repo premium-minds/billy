@@ -18,13 +18,15 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.JPASubQuery;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
 import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
@@ -53,23 +55,30 @@ public class DAOFRCreditNoteImpl extends AbstractDAOFRGenericInvoiceImpl<FRCredi
         return JPAFRCreditNoteEntity.class;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public List<FRCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
         QJPAFRCreditNoteEntity creditNote = QJPAFRCreditNoteEntity.jPAFRCreditNoteEntity;
         QJPAFRCreditNoteEntryEntity entry = QJPAFRCreditNoteEntryEntity.jPAFRCreditNoteEntryEntity;
         QJPAFRGenericInvoiceEntity invoice = QJPAFRGenericInvoiceEntity.jPAFRGenericInvoiceEntity;
 
-        JPASubQuery invQ = new JPASubQuery().from(invoice).where(invoice.uid.eq(uidInvoice.toString()));
+        final JPQLQuery<String> invQ = JPAExpressions
+            .select(invoice.uid)
+            .from(invoice)
+            .where(invoice.uid.eq(uidInvoice.toString()));
 
-        JPASubQuery entQ = new JPASubQuery().from(entry)
-                .where(this.toDSL(entry.reference, QJPAFRGenericInvoiceEntity.class).uid.in(invQ.list(invoice.uid)));
+        final JPQLQuery<String> entQ = JPAExpressions
+            .select(entry.uid)
+            .from(entry)
+            .where(this.toDSL(entry.reference, QJPAFRGenericInvoiceEntity.class).uid.in(invQ));
 
-        return (List<FRCreditNote>) (List<?>) this.createQuery().from(creditNote)
-                .where(this.toDSL(creditNote.business, QJPAFRBusinessEntity.class).uid.eq(uidCompany.toString())
-                        .and(this.toDSL(creditNote.entries.any(), QJPAFRCreditNoteEntryEntity.class).uid
-                                .in(entQ.list(entry.uid))))
-                .list(creditNote);
+        return new ArrayList<>(this
+            .createQuery()
+            .from(creditNote)
+            .where(this.toDSL(creditNote.business, QJPAFRBusinessEntity.class).uid
+                       .eq(uidCompany.toString())
+                       .and(this.toDSL(creditNote.entries.any(), QJPAFRCreditNoteEntryEntity.class).uid.in(entQ)))
+            .select(creditNote)
+            .fetch());
     }
 
 }

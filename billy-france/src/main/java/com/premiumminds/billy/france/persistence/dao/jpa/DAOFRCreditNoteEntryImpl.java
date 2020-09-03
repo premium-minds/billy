@@ -18,13 +18,13 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNoteEntry;
 import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
 import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntryEntity;
@@ -55,14 +55,12 @@ public class DAOFRCreditNoteEntryImpl
 
     @Override
     public FRCreditNoteEntity checkCreditNote(FRInvoice invoice) {
-
         QJPAFRCreditNoteEntity creditNoteEntity = QJPAFRCreditNoteEntity.jPAFRCreditNoteEntity;
 
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-
-        query.from(creditNoteEntity);
-
-        List<JPAFRCreditNoteEntity> allCns = query.list(creditNoteEntity);
+        List<JPAFRCreditNoteEntity> allCns = new JPAQuery<>(this.getEntityManager())
+            .from(creditNoteEntity)
+            .select(creditNoteEntity)
+            .fetch();
 
         // TODO make a query to do this
         for (JPAFRCreditNoteEntity cne : allCns) {

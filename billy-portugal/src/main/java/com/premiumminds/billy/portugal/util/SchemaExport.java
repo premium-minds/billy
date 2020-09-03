@@ -19,36 +19,94 @@
 package com.premiumminds.billy.portugal.util;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
+import org.hibernate.boot.spi.MetadataImplementor;
+import org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl;
+import org.hibernate.jpa.boot.internal.ParsedPersistenceXmlDescriptor;
+import org.hibernate.jpa.boot.internal.PersistenceXmlParser;
+import org.hibernate.jpa.boot.spi.PersistenceUnitDescriptor;
+import org.hibernate.jpa.boot.spi.ProviderChecker;
+import org.hibernate.tool.schema.TargetType;
 
-import org.hibernate.cfg.Configuration;
-import org.hibernate.ejb.Ejb3Configuration;
-import org.hibernate.envers.configuration.AuditConfiguration;
-import org.hibernate.tool.EnversSchemaGenerator;
-
-@SuppressWarnings("deprecation")
 public class SchemaExport {
 
     public static void main(String[] args) {
-
-        SchemaExport.exportSchema(args[0], args[1], Boolean.parseBoolean(args[2]), Boolean.parseBoolean(args[3]),
-                args[4]);
+		SchemaExport
+			.exportSchema(args[0], args[1], args[2], args[3], args[4], args[5]);
     }
 
-    private static void exportSchema(String persistenceUnit, String outputDir, Boolean drop, Boolean create,
-            String delemiter) {
+	private static void exportSchema(String persistenceUnit, String url, String username, String password,
+		String outputDir, String delimiter) {
+
         File file = new File(outputDir);
         new File(file.getParent()).mkdirs();
 
-        Ejb3Configuration jpaConfiguration = new Ejb3Configuration().configure(persistenceUnit, null);
-        jpaConfiguration.buildMappings();
-        Configuration hibernateConfiguration = jpaConfiguration.getHibernateConfiguration();
-        AuditConfiguration.getFor(hibernateConfiguration);
-        EnversSchemaGenerator esg = new EnversSchemaGenerator(hibernateConfiguration);
-        org.hibernate.tool.hbm2ddl.SchemaExport se = esg.export();
+		Map<String, Object>  properties = setupProperties(url, username, password);
+		EntityManagerFactoryBuilderImpl entityManagerFactoryBuilder =
+			getEntityManagerFactoryBuilderOrNull(persistenceUnit, properties);
+
+		EntityManagerFactory factory = entityManagerFactoryBuilder.build();
+		MetadataImplementor metaData = entityManagerFactoryBuilder.getMetadata();
+
+		org.hibernate.tool.hbm2ddl.SchemaExport se = new org.hibernate.tool.hbm2ddl.SchemaExport();
         se.setOutputFile(outputDir);
         se.setFormat(true);
-        se.setDelimiter(delemiter);
-        se.drop(drop, false);
-        se.create(create, false);
+        se.setDelimiter(delimiter);
+		se.execute(EnumSet.of(TargetType.SCRIPT), org.hibernate.tool.hbm2ddl.SchemaExport.Action.CREATE, metaData);
+
+		factory.close();
     }
+
+    private static Map<String, Object> setupProperties(String url, String username, String password) {
+		Map<String, Object>  properties = new HashMap<>();
+		properties.put("javax.persistence.jdbc.url", url);
+		properties.put("javax.persistence.jdbc.user", username);
+		properties.put("javax.persistence.jdbc.password", password);
+
+		return Collections.unmodifiableMap(properties);
+	}
+
+	private static EntityManagerFactoryBuilderImpl getEntityManagerFactoryBuilderOrNull(String persistenceUnitName,
+		Map<String, Object> properties) {
+
+		final List<ParsedPersistenceXmlDescriptor> units;
+		try {
+			units = PersistenceXmlParser.locatePersistenceUnits(properties);
+		} catch (Exception e) {
+			throw new PersistenceException("Unable to locate persistence units", e);
+		}
+
+		if (persistenceUnitName == null && units.size() > 1) {
+			throw new PersistenceException("No name provided and multiple persistence units found");
+		}
+
+		for (ParsedPersistenceXmlDescriptor persistenceUnit : units) {
+			final boolean matches = persistenceUnitName == null || persistenceUnit.getName().equals(persistenceUnitName);
+			if (!matches) {
+				continue;
+			}
+
+			if (!ProviderChecker.isProvider(persistenceUnit, properties)) {
+				continue;
+			}
+
+			return getEntityManagerFactoryBuilder(persistenceUnit, properties, null);
+		}
+
+		return null;
+	}
+
+	private static EntityManagerFactoryBuilderImpl getEntityManagerFactoryBuilder(
+		PersistenceUnitDescriptor persistenceUnitDescriptor, Map<String, Object> integration,
+		ClassLoader providedClassLoader) {
+
+		return new EntityManagerFactoryBuilderImpl(persistenceUnitDescriptor, integration, providedClassLoader);
+	}
+
 }

@@ -18,18 +18,17 @@
  */
 package com.premiumminds.billy.core.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
-
-import com.mysema.query.jpa.impl.JPAQuery;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.InvoiceSeries;
+import com.querydsl.jpa.impl.JPAQuery;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 
 public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAInvoiceSeriesEntity>
         implements DAOInvoiceSeries {
@@ -53,15 +52,13 @@ public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAIn
     public InvoiceSeriesEntity getSeries(String series, String businessUID, LockModeType lockMode) {
         QJPAInvoiceSeriesEntity entity = QJPAInvoiceSeriesEntity.jPAInvoiceSeriesEntity;
 
-        JPAQuery query = new JPAQuery(this.getEntityManager());
-
-        query = new JPAQuery(this.getEntityManager());
-
-        query.from(entity);
-        query.where(entity.series.eq(series));
-        query.where(this.toDSL(entity.business, QJPABusinessEntity.class).uid.eq(businessUID));
-
-        InvoiceSeries seriesEntity = query.setLockMode(lockMode).singleResult(entity);
+        InvoiceSeries seriesEntity = new JPAQuery<>(this.getEntityManager())
+            .from(entity)
+            .where(entity.series.eq(series))
+            .where(this.toDSL(entity.business, QJPABusinessEntity.class).uid.eq(businessUID))
+            .setLockMode(lockMode)
+            .select(entity)
+            .fetchOne();
 
         return (InvoiceSeriesEntity) seriesEntity;
     }
