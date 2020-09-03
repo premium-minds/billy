@@ -3,6 +3,8 @@
 
 ## [Unreleased v4]
 
+## [4.0.0] - 2020-09-03
+
 ### Changed
 
  - [Change entities ids from integer to long. Use identity strategy for id generation](https://github.com/premium-minds/billy/pull/103)
@@ -103,8 +105,9 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
  
  
-[unreleased v4]: https://github.com/premium-minds/billy/compare/v3.3.1...HEAD
+[unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...HEAD
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[4.0.0]: https://github.com/premium-minds/billy/compare/release-3.x...v4.0.0
 [3.3.1]: https://github.com/premium-minds/billy/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/premium-minds/billy/compare/v3.2.1...v3.3.0
 [3.2.1]: https://github.com/premium-minds/billy/compare/v3.2.0...v3.2.1
