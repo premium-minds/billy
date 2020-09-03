@@ -7,6 +7,7 @@
 
  - [Update persistence dependencies](https://github.com/premium-minds/billy/pull/109)
  - [Removes unused dependency guice-assistedinject](https://github.com/premium-minds/billy/pull/113)
+ - [Removes Joda-time dependency and uses Java 8 LocalDate](https://github.com/premium-minds/billy/pull/112)
 
 ## [Unreleased v4]
 
