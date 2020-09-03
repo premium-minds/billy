@@ -6,6 +6,7 @@
 ### Changed
 
  - [Update persistence dependencies](https://github.com/premium-minds/billy/pull/109)
+ - [Removes unused dependency guice-assistedinject](https://github.com/premium-minds/billy/pull/113)
 
 ## [Unreleased v4]
 
