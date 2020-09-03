@@ -1,7 +1,15 @@
 <!-- https://keepachangelog.com/en/1.0.0/ -->
 # Changelog
 
-## [Unreleased]
+## [Unreleased v4]
+
+### Changed
+
+ - [Change entities ids from integer to long. Use identity strategy for id generation](https://github.com/premium-minds/billy/pull/103)
+ - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
+ - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
+ 
+## [Unreleased v3]
 
 ### Changed
 
@@ -95,7 +103,8 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
  
  
-[unreleased]: https://github.com/premium-minds/billy/compare/v3.3.1...HEAD
+[unreleased v4]: https://github.com/premium-minds/billy/compare/v3.3.1...HEAD
+[unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
 [3.3.1]: https://github.com/premium-minds/billy/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/premium-minds/billy/compare/v3.2.1...v3.3.0
 [3.2.1]: https://github.com/premium-minds/billy/compare/v3.2.0...v3.2.1
