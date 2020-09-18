@@ -3,6 +3,17 @@
 
 ## [Unreleased v5]
 
+## [Unreleased v4]
+
+## [Unreleased v3]
+
+### Changed
+
+ - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
+ - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
+
+## [5.0.0] - 2020-09-18
+
 ### Changed
 
  - [Update persistence dependencies](https://github.com/premium-minds/billy/pull/109)
@@ -10,20 +21,11 @@
  - [Removes Joda-time dependency and uses Java 8 LocalDate](https://github.com/premium-minds/billy/pull/112)
  - [Bump snakeyaml from 1.26 to 1.27](https://github.com/premium-minds/billy/pull/115)
 
-## [Unreleased v4]
-
 ## [4.0.0] - 2020-09-03
 
 ### Changed
 
  - [Change entities ids from integer to long. Use identity strategy for id generation](https://github.com/premium-minds/billy/pull/103)
- - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
- - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
- 
-## [Unreleased v3]
-
-### Changed
-
  - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
  - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
 
@@ -117,6 +119,7 @@
 [unreleased v5]: https://github.com/premium-minds/billy/compare/release-4.x...HEAD
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[5.0.0]: https://github.com/premium-minds/billy/compare/release-4.x...v5.0.0
 [4.0.0]: https://github.com/premium-minds/billy/compare/release-3.x...v4.0.0
 [3.3.1]: https://github.com/premium-minds/billy/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/premium-minds/billy/compare/v3.2.1...v3.3.0
