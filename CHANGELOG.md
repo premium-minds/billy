@@ -3,6 +3,14 @@
 
 ## [Unreleased v5]
 
+### Fixed
+
+ - [Fixes wrong PT NIF validation](https://github.com/premium-minds/billy/pull/117)
+ 
+### Changed
+
+ - [Bump querydsl.version from 4.3.1 to 4.4.0](https://github.com/premium-minds/billy/pull/116)
+
 ## [Unreleased v4]
 
 ## [Unreleased v3]
