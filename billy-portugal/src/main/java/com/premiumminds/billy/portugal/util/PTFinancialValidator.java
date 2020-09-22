@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.portugal.util;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
 import com.premiumminds.billy.core.util.FinancialValidator;
 
 public class PTFinancialValidator extends FinancialValidator {
@@ -35,10 +38,23 @@ public class PTFinancialValidator extends FinancialValidator {
             return false;
         }
 
-        // Fist digit must be 1, 2, 5, 6, 8 or 9
-        char firstDigit = this.financialID.charAt(0);
-        String validChars = "125689";
-        if (validChars.indexOf(firstDigit) == -1) {
+        List<Character> firstDigits = Lists.charactersOf("123568");
+        boolean validFirstDigit = firstDigits
+                .stream()
+                .map(c -> financialID.charAt(0) == c).filter(b -> b)
+                .findAny()
+                .orElse(false);
+
+        List<String> firstDoubleDigits =
+                Lists.newArrayList("45", "70", "71", "72", "74", "75", "77", "79", "90", "91", "98", "99");
+        boolean validDoubleDigits = firstDoubleDigits
+                .stream()
+                .map(c -> financialID.substring(0,  2).equals(c))
+                .filter(b -> b)
+                .findAny()
+                .orElse(false);
+
+        if(!validFirstDigit && !validDoubleDigits){
             return false;
         }
 
