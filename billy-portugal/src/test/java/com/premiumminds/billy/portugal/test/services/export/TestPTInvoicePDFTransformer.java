@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
+import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,6 +30,7 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
@@ -167,6 +170,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         PTInvoiceEntity invoice = this.test.getInvoiceEntity();
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+        mockQRCodeDataGenerator(invoice);
         return invoice;
     }
 
@@ -174,6 +178,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         PTInvoiceEntity invoice = this.test.getManyEntriesInvoice();
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+        mockQRCodeDataGenerator(invoice);
         return invoice;
     }
 
@@ -181,6 +186,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         PTInvoiceEntity invoice = this.test.getDiferentRegionsInvoice();
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+        mockQRCodeDataGenerator(invoice);
         return invoice;
     }
 
@@ -188,6 +194,17 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         PTInvoiceEntity invoice = this.test.getManyEntriesWithDiferentRegionsInvoice();
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+        mockQRCodeDataGenerator(invoice);
         return invoice;
+    }
+
+    private void mockQRCodeDataGenerator(final PTInvoiceEntity invoice) {
+        QRCodeDataGenerator qrCodeDataGenerator = this.mockedInjector.getInstance(QRCodeDataGenerator.class);
+        try {
+            Mockito.when(qrCodeDataGenerator.generateQRCodeData(invoice))
+                   .thenReturn("A:123456789*B:123456789*C:PT*D:FT*E:N*F:20201029*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:nVyy*R:1");
+        } catch (RequiredFieldNotFoundException e) {
+            Assert.fail();
+        }
     }
 }

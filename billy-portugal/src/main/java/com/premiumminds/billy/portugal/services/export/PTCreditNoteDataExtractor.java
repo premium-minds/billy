@@ -31,6 +31,8 @@ import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtracto
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -40,12 +42,17 @@ public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
 
     private final DAOPTCreditNote daoPTCreditNote;
     private final PTInvoiceDataExtractor invoiceExtractor;
+    private final QRCodeDataGenerator qrCodeDataGenerator;
 
     @Inject
     public PTCreditNoteDataExtractor(
-            DAOPTCreditNote daoPTCreditNote, PTInvoiceDataExtractor invoiceExtractor) {
+        final DAOPTCreditNote daoPTCreditNote,
+        final PTInvoiceDataExtractor invoiceExtractor,
+        final QRCodeDataGenerator qrCodeDataGenerator) {
+
         this.daoPTCreditNote = daoPTCreditNote;
         this.invoiceExtractor = invoiceExtractor;
+        this.qrCodeDataGenerator = qrCodeDataGenerator;
     }
 
     @Override
@@ -60,9 +67,16 @@ public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<PTCreditNoteEntryData> entries = this.extractCreditEntries(entity.getEntries());
 
+        final String qrCodeString;
+        try {
+            qrCodeString = qrCodeDataGenerator.generateQRCodeData(entity);
+        } catch (RequiredFieldNotFoundException e) {
+            throw new ExportServiceException(e);
+        }
         return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
-                costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-                entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash());
+                                    costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+                                    entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash(),
+                                    qrCodeString);
     }
 
     private List<PTCreditNoteEntryData> extractCreditEntries(List<PTCreditNoteEntry> entryEntities)

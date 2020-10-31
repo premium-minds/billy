@@ -18,28 +18,27 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf.invoice;
 
-import java.io.InputStream;
-import java.math.MathContext;
-
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.services.export.PTInvoiceData;
 import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.PTInvoicePDFTransformer;
+import java.io.InputStream;
+import java.math.MathContext;
 
 public class PTInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTInvoiceData>
         implements PTInvoicePDFTransformer {
 
     public PTInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId, Config config) {
+									  String softwareCertificationId, Config config) {
 
         super(PTInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
 
     public PTInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId) {
+									  String softwareCertificationId) {
 
         this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
     }
@@ -55,6 +54,7 @@ public class PTInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTIn
 
         params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
                 this.getVerificationHashString(entity.getHash().getBytes()));
+        entity.getQrCodeString().ifPresent(s -> params.getRoot().addChild(PTParamKeys.QRCODE, s));
         params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
 
         return params;

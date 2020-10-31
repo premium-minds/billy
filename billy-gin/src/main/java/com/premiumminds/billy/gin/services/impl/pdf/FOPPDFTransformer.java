@@ -18,6 +18,14 @@
  */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -27,6 +35,14 @@ import java.io.OutputStream;
 import java.io.StringReader;
 import java.net.URI;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -53,6 +69,8 @@ import net.sf.saxon.TransformerFactoryImpl;
 public abstract class FOPPDFTransformer {
 
     private static final Logger log = LoggerFactory.getLogger(FOPPDFTransformer.class);
+    private static final String QR_CODE_PATH = "qrCodePath";
+    private static final String QR_CODE = "qrCode";
 
     private final TransformerFactoryImpl transformerFactory;
 
@@ -97,8 +115,6 @@ public abstract class FOPPDFTransformer {
     protected void transformToStream(InputStream templateStream, ParamsTree<String, String> documentParams,
             OutputStream outStream) throws ExportServiceException {
 
-        // the XML file from which we take the name
-        Source source = this.mapParamsToSource(documentParams);
         // creation of transform source
         StreamSource transformSource = new StreamSource(templateStream);
 
@@ -108,7 +124,22 @@ public abstract class FOPPDFTransformer {
         FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
         // to store output
 
+        Optional<Node<String, String>> qrCodeString = documentParams
+            .getRoot()
+            .getChildren()
+            .stream()
+            .filter(stringStringNode -> stringStringNode.getKey().equals(QR_CODE))
+            .findAny();
+
+        Path qr = null;
         try {
+            if(qrCodeString.isPresent() && !qrCodeString.get().getValue().isEmpty()){
+                qr = createQR(qrCodeString.get().getValue(), "UTF-8");
+                documentParams.getRoot().addChild(QR_CODE_PATH, qr.toString());
+            }
+            // the XML file from which we take the name
+            Source source = this.mapParamsToSource(documentParams);
+
             Transformer xslfoTransformer = this.getTransformer(transformSource);
 
             // Construct fop with desired output format
@@ -127,6 +158,12 @@ public abstract class FOPPDFTransformer {
         } catch (TransformerException e) {
             FOPPDFTransformer.log.error(e.getMessage(), e);
             throw new ExportServiceException("Error generating pdf from template and data source", e);
+        } catch (IOException e) {
+            throw new ExportServiceException("Error generating qrCode", e);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }finally {
+            deleteTempFileIfExists(qr);
         }
     }
 
@@ -146,6 +183,38 @@ public abstract class FOPPDFTransformer {
 
     private Transformer getTransformer(StreamSource streamSource) throws TransformerConfigurationException {
         return this.transformerFactory.newTransformer(streamSource);
+    }
+
+    private Path createQR(String data, String charset)
+        throws WriterException, IOException
+    {
+        QRCodeWriter qrCodeWriter = new QRCodeWriter();
+        Hashtable hints = new Hashtable<>();
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
+        hints.put(EncodeHintType.MARGIN, 4);
+        hints.put(EncodeHintType.QR_VERSION, 9);
+        BitMatrix bitMatrix = qrCodeWriter.encode(
+            new String(data.getBytes(charset), charset),
+            BarcodeFormat.QR_CODE,
+            350, 350,hints);
+
+        final Path file = Files.createTempFile(UUID.randomUUID().toString().replace("-", ""), ".png");
+        MatrixToImageWriter.writeToPath(
+            bitMatrix,
+            "png",
+            file);
+
+        return file;
+    }
+
+    private void deleteTempFileIfExists(Path path) {
+        if(path != null) {
+            try {
+                Files.deleteIfExists(path);
+            } catch (IOException e) {
+                log.warn("Could not delete file {}", path);
+            }
+        }
     }
 
 }

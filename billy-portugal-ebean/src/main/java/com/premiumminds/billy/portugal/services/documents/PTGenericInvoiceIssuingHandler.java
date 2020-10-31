@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
-import java.util.Date;
-
-import javax.inject.Inject;
-import javax.persistence.LockModeType;
-
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAInvoiceSeriesEntity;
@@ -38,6 +33,9 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.util.GenerateHash;
+import java.util.Date;
+import javax.inject.Inject;
+import javax.persistence.LockModeType;
 
 public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceEntity, P extends PTIssuingParams>
         implements DocumentIssuingHandler<T, P> {
@@ -95,16 +93,16 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
             }
         }
 
-        String formatedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
+        String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
         String newHash = GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
-                invoiceDate, systemDate, formatedNumber, document.getAmountWithTax(), previousHash);
+                invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
 
-        String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formatedNumber,
+        String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber,
                 document.getAmountWithTax(), previousHash);
 
         document.setDate(invoiceDate);
-        document.setNumber(formatedNumber);
+        document.setNumber(formattedNumber);
         document.setSeries(invoiceSeriesEntity.getSeries());
         document.setSeriesNumber(seriesNumber);
         document.setHash(newHash);

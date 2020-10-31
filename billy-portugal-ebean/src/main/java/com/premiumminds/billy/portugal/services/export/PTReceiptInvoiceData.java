@@ -18,23 +18,33 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-
 import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 public class PTReceiptInvoiceData extends PTGenericInvoiceData {
 
-    public PTReceiptInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription, String hash) {
+    public PTReceiptInvoiceData(
+        final String number,
+        final Date date,
+        final Date settlementDate,
+        final List<PaymentData> payments,
+        final CostumerData customer,
+        final BusinessData business,
+        final List<InvoiceEntryData> entries,
+        final BigDecimal taxAmount,
+        final BigDecimal amountWithTax,
+        final BigDecimal amountWithoutTax,
+        final String settlementDescription,
+        final String hash,
+        final String qrCodeString) {
 
         super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
-                amountWithoutTax, settlementDescription, hash);
+                amountWithoutTax, settlementDescription, hash, qrCodeString);
     }
 
 }

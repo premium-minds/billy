@@ -29,12 +29,23 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 
 public class PTSimpleInvoiceData extends PTGenericInvoiceData {
 
-    public PTSimpleInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription, String hash) {
+    public PTSimpleInvoiceData(
+        final String number,
+        final Date date,
+        final Date settlementDate,
+        final List<PaymentData> payments,
+        final CostumerData customer,
+        final BusinessData business,
+        final List<InvoiceEntryData> entries,
+        final BigDecimal taxAmount,
+        final BigDecimal amountWithTax,
+        final BigDecimal amountWithoutTax,
+        final String settlementDescription,
+        final String hash,
+        final String qrCodeString) {
 
         super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
-                amountWithoutTax, settlementDescription, hash);
+                amountWithoutTax, settlementDescription, hash, qrCodeString);
     }
 
 }
