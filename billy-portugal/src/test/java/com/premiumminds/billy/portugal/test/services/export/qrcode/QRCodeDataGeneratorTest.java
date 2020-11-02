@@ -33,6 +33,8 @@ import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldN
 import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +68,19 @@ public class QRCodeDataGeneratorTest extends PTDocumentAbstractTest {
 			Assert.fail();
 		}
 
+		final LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		final String hash = String.valueOf(document.getHash().charAt(0)) + document.getHash().charAt(10) +
+			document.getHash().charAt(20) + document.getHash().charAt(30);
 		Assert.assertNotNull(result);
+		Assert.assertEquals(
+			"A:123456789*B:123456789*C:PT*D:FT*E:N*F:"
+				+ now.format(formatter)
+				+ "*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
+				+ hash
+				+ "*R:1",
+			result
+			);
 
 	}
 
@@ -82,9 +96,19 @@ public class QRCodeDataGeneratorTest extends PTDocumentAbstractTest {
 			Assert.fail();
 		}
 
-		System.out.println(result);
-
+		final LocalDateTime now = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+		final String hash = String.valueOf(document.getHash().charAt(0)) + document.getHash().charAt(10) +
+			document.getHash().charAt(20) + document.getHash().charAt(30);
 		Assert.assertNotNull(result);
+		Assert.assertEquals(
+			"A:123456789*B:123456789*C:PT*D:FT*E:N*F:"
+				+ now.format(formatter)
+				+ "*G:FT DEFAULT/1*H:0*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
+				+ hash
+				+ "*R:1",
+			result
+	   );
 
 	}
 

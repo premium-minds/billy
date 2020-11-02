@@ -20,12 +20,14 @@ package com.premiumminds.billy.gin.services.impl.pdf;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
-import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.ParamsTree;
+import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,15 +36,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringReader;
 import java.net.URI;
-
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.EnumMap;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -50,7 +49,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
-
+import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
@@ -59,12 +58,6 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.xmlgraphics.util.MimeConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.ParamsTree;
-import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
-
-import net.sf.saxon.TransformerFactoryImpl;
 
 public abstract class FOPPDFTransformer {
 
@@ -134,7 +127,7 @@ public abstract class FOPPDFTransformer {
         Path qr = null;
         try {
             if(qrCodeString.isPresent() && !qrCodeString.get().getValue().isEmpty()){
-                qr = createQR(qrCodeString.get().getValue(), "UTF-8");
+                qr = createQR(qrCodeString.get().getValue());
                 documentParams.getRoot().addChild(QR_CODE_PATH, qr.toString());
             }
             // the XML file from which we take the name
@@ -153,16 +146,12 @@ public abstract class FOPPDFTransformer {
             // everything will happen here..
             xslfoTransformer.transform(source, res);
         } catch (FOPException e) {
-            FOPPDFTransformer.log.error(e.getMessage(), e);
             throw new ExportServiceException("Error using FOP to open the template", e);
         } catch (TransformerException e) {
-            FOPPDFTransformer.log.error(e.getMessage(), e);
             throw new ExportServiceException("Error generating pdf from template and data source", e);
-        } catch (IOException e) {
+        } catch (IOException | WriterException e) {
             throw new ExportServiceException("Error generating qrCode", e);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }finally {
+        } finally {
             deleteTempFileIfExists(qr);
         }
     }
@@ -185,16 +174,16 @@ public abstract class FOPPDFTransformer {
         return this.transformerFactory.newTransformer(streamSource);
     }
 
-    private Path createQR(String data, String charset)
+    private Path createQR(String data)
         throws WriterException, IOException
     {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        Hashtable hints = new Hashtable<>();
-        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M);
-        hints.put(EncodeHintType.MARGIN, 4);
-        hints.put(EncodeHintType.QR_VERSION, 9);
+        EnumMap<EncodeHintType, String> hints = new EnumMap<> (EncodeHintType.class);
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M.name());
+        hints.put(EncodeHintType.MARGIN, String.valueOf(4));
+        hints.put(EncodeHintType.QR_VERSION, String.valueOf(9));
         BitMatrix bitMatrix = qrCodeWriter.encode(
-            new String(data.getBytes(charset), charset),
+            new String(data.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8),
             BarcodeFormat.QR_CODE,
             350, 350,hints);
 
@@ -212,7 +201,7 @@ public abstract class FOPPDFTransformer {
             try {
                 Files.deleteIfExists(path);
             } catch (IOException e) {
-                log.warn("Could not delete file {}", path);
+                log.error("Could not delete file {}", path, e);
             }
         }
     }
