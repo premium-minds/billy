@@ -197,10 +197,13 @@ public class QRCodeDataGenerator {
         final BigDecimal exemptAmount) throws RequiredFieldNotFoundException
     {
         final StringBuilder result = new StringBuilder();
+        Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> exemptPTEntry = null;
+        boolean printedASection = false;
         for(Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> entry : amountAndContextAndType.entrySet())  {
             Context context = entry.getKey();
             Map<String, TupleTaxAmountAndAmountWithoutTaxes> value = entry.getValue();
             if (context.getUID().equals(continentalUID)) {
+                printedASection = true;
                 buildContextParameters(
                     result,
                     exemptAmount,
@@ -216,6 +219,7 @@ public class QRCodeDataGenerator {
                     QRCodeData.regularTaxAmount);
 
             } else if (context.getUID().equals(azoresUID)) {
+                printedASection = true;
                 buildContextParameters(
                     result,
                     exemptAmount,
@@ -231,6 +235,7 @@ public class QRCodeDataGenerator {
                     QRCodeData.regularTaxAmountAzores);
 
             } else if (context.getUID().equals(madeiraUID)) {
+                printedASection = true;
                 buildContextParameters(
                     result,
                     exemptAmount,
@@ -245,7 +250,28 @@ public class QRCodeDataGenerator {
                     QRCodeData.regularTaxableAmountMadeira,
                     QRCodeData.regularTaxAmountMadeira);
             }
+            if (context.getUID().equals(portugalUID)){
+                exemptPTEntry = entry;
+            }
         }
+        if (!printedASection && exemptPTEntry != null) {
+            Context context = exemptPTEntry.getKey();
+            Map<String, TupleTaxAmountAndAmountWithoutTaxes> value = exemptPTEntry.getValue();
+            buildContextParameters(
+                result,
+                exemptAmount,
+                (PTRegionContext) context,
+                value,
+                QRCodeData.taxCountryRegion,
+                QRCodeData.exemptAmount,
+                QRCodeData.reducedTaxableAmount,
+                QRCodeData.reducedTaxAmount,
+                QRCodeData.intermediateTaxableAmount,
+                QRCodeData.intermediateTaxAmount,
+                QRCodeData.regularTaxableAmount,
+                QRCodeData.regularTaxAmount);
+        }
+
         return result;
     }
 
