@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.MockDependencyModule;
@@ -74,7 +74,7 @@ public class PTMockDependencyModule extends MockDependencyModule {
         this.bind(DAOPTSimpleInvoice.class).toInstance(Mockito.mock(DAOPTSimpleInvoiceImpl.class));
         this.bind(DAOPTPayment.class).toInstance(Mockito.mock(DAOPTPaymentImpl.class));
         this.bind(DAOPTReceiptInvoice.class).toInstance(Mockito.mock(DAOPTReceiptInvoiceImpl.class));
-        this.bind(QRCodeDataGenerator.class).toInstance(Mockito.mock(QRCodeDataGenerator.class));
+        this.bind(QRCodeStringGenerator.class).toInstance(Mockito.mock(QRCodeStringGenerator.class));
     }
 
 }

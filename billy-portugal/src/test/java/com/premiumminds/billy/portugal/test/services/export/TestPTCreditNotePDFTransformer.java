@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.test.services.export;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,14 +28,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Matchers;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -154,9 +151,9 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     }
 
     private void mockQRCodeDataGenerator(final PTCreditNoteEntity creditNote) {
-        QRCodeDataGenerator qrCodeDataGenerator = this.mockedInjector.getInstance(QRCodeDataGenerator.class);
+        QRCodeStringGenerator qrCodeStringGenerator = this.mockedInjector.getInstance(QRCodeStringGenerator.class);
         try {
-            Mockito.when(qrCodeDataGenerator.generateQRCodeData(creditNote))
+            Mockito.when(qrCodeStringGenerator.generateQRCodeData(creditNote))
                    .thenReturn("A:123456789*B:123456789*C:PT*D:FT*E:N*F:20201029*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:nVyy*R:1");
         } catch (RequiredFieldNotFoundException e) {
             Assert.fail();

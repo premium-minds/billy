@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.Source
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
 import java.time.LocalDateTime;
@@ -39,21 +39,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class QRCodeDataGeneratorTest extends PTDocumentAbstractTest {
+public class QRCodeStringGeneratorTest extends PTDocumentAbstractTest {
 
 	private static final TYPE DEFAULT_TYPE = TYPE.FT;
 	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
 	private PTInvoiceIssuingHandler handler;
 	private UID issuedInvoiceUID;
-	private QRCodeDataGenerator underTest;
+	private QRCodeStringGenerator underTest;
 	private DAOInvoiceSeries daoInvoiceSeries;
 
 	@Before
 	public void setUp() {
 		this.handler = this.getInstance(PTInvoiceIssuingHandler.class);
 		this.daoInvoiceSeries = this.getInstance(DAOInvoiceSeries.class);
-		this.underTest = new QRCodeDataGenerator(this.daoInvoiceSeries);
+		this.underTest = new QRCodeStringGenerator(this.daoInvoiceSeries);
 	}
 
 	@Test

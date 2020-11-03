@@ -29,7 +29,7 @@ import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtracto
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTReceiptInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -37,14 +37,14 @@ public class PTReceiptInvoiceDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<PTReceiptInvoiceData> {
 
     private final DAOPTReceiptInvoice daoPTReceiptInvoice;
-    private final QRCodeDataGenerator qrCodeDataGenerator;
+    private final QRCodeStringGenerator qrCodeStringGenerator;
 
     @Inject
     public PTReceiptInvoiceDataExtractor(
-        final DAOPTReceiptInvoice daoPTReceiptInvoice, final QRCodeDataGenerator qrCodeDataGenerator) {
+        final DAOPTReceiptInvoice daoPTReceiptInvoice, final QRCodeStringGenerator qrCodeStringGenerator) {
 
         this.daoPTReceiptInvoice = daoPTReceiptInvoice;
-        this.qrCodeDataGenerator = qrCodeDataGenerator;
+        this.qrCodeStringGenerator = qrCodeStringGenerator;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class PTReceiptInvoiceDataExtractor extends AbstractBillyDataExtractor
 
         final String qrCodeString;
         try {
-            qrCodeString = qrCodeDataGenerator.generateQRCodeData(entity);
+            qrCodeString = qrCodeStringGenerator.generateQRCodeData(entity);
         } catch (RequiredFieldNotFoundException e) {
             throw new ExportServiceException(e);
         }

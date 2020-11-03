@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.test.services.export;
 
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeDataGenerator;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -133,9 +133,9 @@ public class TestPTSimpleInvoicePDFTransformer extends PTPersistencyAbstractTest
     }
 
     private void mockQRCodeDataGenerator(final PTInvoiceEntity invoice) {
-        QRCodeDataGenerator qrCodeDataGenerator = this.mockedInjector.getInstance(QRCodeDataGenerator.class);
+        QRCodeStringGenerator qrCodeStringGenerator = this.mockedInjector.getInstance(QRCodeStringGenerator.class);
         try {
-            Mockito.when(qrCodeDataGenerator.generateQRCodeData(invoice))
+            Mockito.when(qrCodeStringGenerator.generateQRCodeData(invoice))
                    .thenReturn("A:123456789*B:123456789*C:PT*D:FT*E:N*F:20201029*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:nVyy*R:1");
         } catch (RequiredFieldNotFoundException e) {
             Assert.fail();

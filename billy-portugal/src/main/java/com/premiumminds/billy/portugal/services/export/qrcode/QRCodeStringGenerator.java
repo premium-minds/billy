@@ -20,7 +20,6 @@ package com.premiumminds.billy.portugal.services.export.qrcode;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.Config.Key;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
@@ -28,14 +27,14 @@ import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldN
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
-public class QRCodeDataGenerator {
+public class QRCodeStringGenerator {
 
     private final Config config;
     private final DAOInvoiceSeries daoInvoiceSeries;
     private final PTContexts ptContexts;
 
     @Inject
-    public QRCodeDataGenerator(
+    public QRCodeStringGenerator(
         final DAOInvoiceSeries daoInvoiceSeries) {
         this.daoInvoiceSeries = daoInvoiceSeries;
         this.config = new Config();
@@ -51,20 +50,32 @@ public class QRCodeDataGenerator {
 
     public String generateQRCodeData(PTGenericInvoice document) throws RequiredFieldNotFoundException {
 
-        final Customer customer = document.getCustomer();
-        final String customerFinancialID;
-        if (this.config.getUID(Key.Customer.Generic.UUID).equals(customer.getUID())) {
-            customerFinancialID = "999999990";
-        } else {
-            customerFinancialID = customer.getTaxRegistrationNumber();
-        }
-
         final InvoiceSeriesEntity invoiceSeries =
             this.daoInvoiceSeries.getSeries(
                 document.getSeries(),
                 document.getBusiness().getUID().toString(),
                 LockModeType.NONE);
 
-        return QRCodeBuilder.generateQRCodeString(document, customer, customerFinancialID, invoiceSeries, ptContexts);
+        QRCodeData qrCodeData = new QRCodeData.QRCodeDataBuilder()
+            .withSeriesNumber(document.getSeriesNumber())
+            .withBusinessFinancialID(document.getBusiness().getFinancialID())
+            .withDocumentType(document.getType())
+            .withIsCancelled(document.isCancelled())
+            .withIsBilled(document.isBilled())
+            .withIsSelfBilled(document.isSelfBilled())
+            .withDocumentDate(document.getDate())
+            .withDocumentNumber(document.getNumber())
+            .withEntries(document.getEntries())
+            .withTaxAmount(document.getTaxAmount())
+            .withAmountWithTax(document.getAmountWithTax())
+            .withHash(document.getHash())
+            .withApplication(document.getBusiness().getApplications())
+            .withPTContexts(ptContexts)
+            .withGenericCustomerUID(this.config.getUID(Key.Customer.Generic.UUID))
+            .withCustomer(document.getCustomer())
+            .withInvoiceSeries(invoiceSeries)
+            .build();
+
+        return QRCodeBuilder.generateQRCodeString(qrCodeData);
     }
 }

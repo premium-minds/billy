@@ -18,149 +18,250 @@
  */
 package com.premiumminds.billy.portugal.services.export.qrcode;
 
-public interface QRCodeData {
+import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
+import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
+import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
+import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
-	String dateFormat = "YYYYMMDD";
+public class QRCodeData {
 
-	class Field{
-		private final String name;
-		private final int length;
+	private final Integer seriesNumber;
+	private final String financialID;
+	private final TYPE type;
+	private final boolean cancelled;
+	private final boolean billed;
+	private final boolean selfBilled;
+	private final Date date;
+	private final String number;
+	private final List<GenericInvoiceEntry> entries;
+	private final BigDecimal taxAmount;
+	private final BigDecimal amountWithTax;
+	private final String hash;
+	private final Collection<Application> application;
+	private final PTContexts ptContexts;
+	private final UID genericCustomerUID;
+	private final Customer customer;
+	private final InvoiceSeriesEntity invoiceSeries;
 
-		Field(String name, int length) {
-			this.name = name;
-			this.length = length;
-		}
-
-		public String getName() {
-			return name;
-		}
-
-		public int getLength() {
-			return length;
-		}
+	protected QRCodeData(QRCodeDataBuilder builder){
+		this.seriesNumber = builder.seriesNumber;
+		this.financialID = builder.financialID;
+		this.type = builder.type;
+		this.cancelled = builder.cancelled;
+		this.billed = builder.billed;
+		this.selfBilled = builder.selfBilled;
+		this.date = builder.date;
+		this.number = builder.number;
+		this.entries = builder.entries;
+		this.taxAmount = builder.taxAmount;
+		this.amountWithTax = builder.amountWithTax;
+		this.hash = builder.hash;
+		this.application = builder.application;
+		this.ptContexts = builder.ptContexts;
+		this.genericCustomerUID = builder.genericCustomerUID;
+		this.customer = builder.customer;
+		this.invoiceSeries = builder.invoiceSeries;
 	}
 
-	Field emitterFinancialId =
-		new Field("A", 9);
-	
-	Field buyerFinancialId =
-		new Field("B", 30);
+	public Integer getSeriesNumber() {
+		return seriesNumber;
+	}
 
-	Field buyerCountry =
-		new Field("C", 12);
+	public String getFinancialID() {
+		return financialID;
+	}
 
-	Field documentType =
-		new Field("D", 2);
+	public TYPE getType() {
+		return type;
+	}
 
-	Field documentStatus =
-		new Field("E", 1);
+	public boolean isCancelled() {
+		return cancelled;
+	}
 
-	Field documentDate =
-		new Field("F", 8);
+	public boolean isBilled() {
+		return billed;
+	}
 
-	Field documentUniqueID =
-		new Field("G", 60);
+	public boolean isSelfBilled() {
+		return selfBilled;
+	}
 
-	Field ATCUD =
-		new Field("H", 70);
+	public Date getDate() {
+		return date;
+	}
 
-	Field taxCountryRegion =
-		new Field("I1", 5);
+	public String getNumber() {
+		return number;
+	}
 
-	Field exemptAmount =
-		new Field("I2", 16);
+	public List<GenericInvoiceEntry> getEntries() {
+		return entries;
+	}
 
-	Field reducedTaxableAmount =
-		new Field("I3", 16);
+	public BigDecimal getTaxAmount() {
+		return taxAmount;
+	}
 
-	Field reducedTaxAmount =
-		new Field("I4", 16);
+	public BigDecimal getAmountWithTax() {
+		return amountWithTax;
+	}
 
-	Field intermediateTaxableAmount =
-		new Field("I5", 16);
+	public String getHash() {
+		return hash;
+	}
 
-	Field intermediateTaxAmount =
-		new Field("I6", 16);
+	public Collection<Application> getApplication() {
+		return application;
+	}
 
-	Field regularTaxableAmount =
-		new Field("I7", 16);
+	public PTContexts getPtContexts() {
+		return ptContexts;
+	}
 
-	Field regularTaxAmount =
-		new Field("I8", 16);
+	public UID getGenericCustomerUID() {
+		return genericCustomerUID;
+	}
 
+	public Customer getCustomer() {
+		return customer;
+	}
 
-	Field taxCountryRegionAzores =
-		new Field("J1", 5);
+	public InvoiceSeriesEntity getInvoiceSeries() {
+		return invoiceSeries;
+	}
 
-	Field exemptAmountAzores =
-		new Field("J2", 16);
+	public static class QRCodeDataBuilder {
 
-	Field reducedTaxableAmountAzores =
-		new Field("J3", 16);
+		Integer seriesNumber;
+		String financialID;
+		TYPE type;
+		Boolean cancelled;
+		Boolean billed;
+		Boolean selfBilled;
+		Date date;
+		String number;
+		List<GenericInvoiceEntry> entries;
+		BigDecimal taxAmount;
+		BigDecimal amountWithTax;
+		String hash;
+		Collection<Application> application;
+		PTContexts ptContexts;
+		UID genericCustomerUID;
+		Customer customer;
+		InvoiceSeriesEntity invoiceSeries;
 
-	Field reducedTaxAmountAzores =
-		new Field("J4", 16);
+		public QRCodeDataBuilder withSeriesNumber(final Integer seriesNumber) {
+			this.seriesNumber = seriesNumber;
+			return this;
+		}
 
-	Field intermediateTaxableAmountAzores =
-		new Field("J5", 16);
+		public QRCodeDataBuilder withBusinessFinancialID(final String financialID) {
+			this.financialID = financialID;
+			return this;
+		}
 
-	Field intermediateTaxAmountAzores =
-		new Field("J6", 16);
+		public QRCodeDataBuilder withDocumentType(final TYPE type) {
+			this.type = type;
+			return this;
+		}
 
-	Field regularTaxableAmountAzores =
-		new Field("J7", 16);
+		public QRCodeDataBuilder withIsCancelled(final boolean cancelled) {
+			this.cancelled = cancelled;
+			return this;
+		}
 
-	Field regularTaxAmountAzores =
-		new Field("J8", 16);
+		public QRCodeDataBuilder withIsBilled(final boolean billed) {
+			this.billed = billed;
+			return this;
+		}
 
+		public QRCodeDataBuilder withIsSelfBilled(final boolean selfBilled) {
+			this.selfBilled = selfBilled;
+			return this;
+		}
 
-	Field taxCountryRegionMadeira =
-		new Field("K1", 5);
+		public QRCodeDataBuilder withDocumentDate(final Date date) {
+			this.date = date;
+			return this;
+		}
 
-	Field exemptAmountMadeira =
-		new Field("K2", 16);
+		public QRCodeDataBuilder withDocumentNumber(final String number) {
+			this.number = number;
+			return this;
+		}
 
-	Field reducedTaxableAmountMadeira =
-		new Field("K3", 16);
+		public QRCodeDataBuilder withEntries(final List<GenericInvoiceEntry> entries) {
+			this.entries = entries;
+			return this;
+		}
 
-	Field reducedTaxAmountMadeira =
-		new Field("K4", 16);
+		public QRCodeDataBuilder withTaxAmount(final BigDecimal taxAmount) {
+			this.taxAmount = taxAmount;
+			return this;
+		}
 
-	Field intermediateTaxableAmountMadeira =
-		new Field("K5", 16);
+		public QRCodeDataBuilder withAmountWithTax(final BigDecimal amountWithTax) {
+			this.amountWithTax = amountWithTax;
+			return this;
+		}
 
-	Field intermediateTaxAmountMadeira =
-		new Field("K6", 16);
+		public QRCodeDataBuilder withHash(final String hash) {
+			this.hash = hash;
+			return this;
+		}
 
-	Field regularTaxableAmountMadeira =
-		new Field("K7", 16);
+		public QRCodeDataBuilder withApplication(final Collection<Application> application) {
+			this.application = application;
+			return this;
+		}
 
-	Field regularTaxAmountMadeira =
-		new Field("K8", 16);
+		public QRCodeDataBuilder withPTContexts(final PTContexts ptContexts) {
+			this.ptContexts = ptContexts;
+			return this;
+		}
 
-	Field NSOrNTAmount =
-		new Field("L", 16);
+		public QRCodeDataBuilder withGenericCustomerUID(final UID genericCustomerUID) {
+			this.genericCustomerUID = genericCustomerUID;
+			return this;
+		}
 
-	Field stampDuty =
-		new Field("M", 16);
+		public QRCodeDataBuilder withCustomer(final Customer customer) {
+			this.customer = customer;
+			return this;
+		}
 
-	Field taxPayable =
-		new Field("N", 16);
+		public QRCodeDataBuilder withInvoiceSeries(final InvoiceSeriesEntity invoiceSeries) {
+			this.invoiceSeries = invoiceSeries;
+			return this;
+		}
 
-	Field grossTotal =
-		new Field("O", 16);
+		public QRCodeData build() throws RequiredFieldNotFoundException {
+			validateThatAllFieldsArePresent();
+			return new QRCodeData(this);
+		}
 
-	Field withholdingTaxAmount =
-		new Field("P", 16);
+		private void validateThatAllFieldsArePresent() throws RequiredFieldNotFoundException {
+			for(Field f : this.getClass().getDeclaredFields()){
+				try {
+					if(!f.getType().isPrimitive() && f.get(this) == null){
+						throw new RequiredFieldNotFoundException(f.getName());
+					}
+				} catch (IllegalAccessException e) {
+					throw new RequiredFieldNotFoundException(f.getName());
+				}
+			}
+		}
 
-	Field hash =
-		new Field("Q", 4);
-
-	Field certificateNumber =
-		new Field("R", 4);
-
-	Field otherInfo =
-		new Field("S", 16);
+	}
 
 
 }

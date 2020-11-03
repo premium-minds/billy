@@ -1,38 +1,37 @@
 /*
  * Copyright (C) 2017 Premium Minds.
  *
- * This file is part of billy portugal Ebean (PT Pack).
+ * This file is part of billy portugal (PT Pack).
  *
- * billy portugal Ebean (PT Pack) is free software: you can redistribute it and/or modify it under
+ * billy portugal (PT Pack) is free software: you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
  * Software Foundation, either version 3 of the License, or (at your option) any
  * later version.
  *
- * billy portugal Ebean (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
+ * billy portugal (PT Pack) is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with billy portugal Ebean (PT Pack). If not, see <http://www.gnu.org/licenses/>.
+ * along with billy portugal (PT Pack). If not, see <http://www.gnu.org/licenses/>.
  */
 package com.premiumminds.billy.portugal.services.export.qrcode;
 
-import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Context;
-import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeData.Field;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeConstants.Field;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -46,57 +45,63 @@ public class QRCodeBuilder {
 	private static final String FIELD_SEPARATOR = "*";
 	private static final MathContext MATH_CONTEXT = BillyMathContext.get();
 
-	public static String generateQRCodeString(
-		final PTGenericInvoice document,
-		final Customer customer,
-		final String customerFinancialID,
-		final InvoiceSeriesEntity invoiceSeries,
-		final PTContexts ptContexts) throws RequiredFieldNotFoundException
+	private QRCodeBuilder() {
+		//Silence is golden
+	}
+
+	public static String generateQRCodeString(final QRCodeData qrCodeData) throws RequiredFieldNotFoundException
 	{
-		final String atcud = invoiceSeries
+		final String atcud = qrCodeData.getInvoiceSeries()
 			.getSeriesUniqueCode()
 			.map(s -> new StringBuilder()
 				.append(s)
 				.append("-")
-				.append(document.getSeriesNumber()))
+				.append(qrCodeData.getSeriesNumber()))
 			.orElse(new StringBuilder().append("0")).toString();
 
+		final String customerFinancialID;
+		if (qrCodeData.getGenericCustomerUID().equals(qrCodeData.getCustomer().getUID())) {
+			customerFinancialID = "999999990";
+		} else {
+			customerFinancialID = qrCodeData.getCustomer().getTaxRegistrationNumber();
+		}
+
 		final StringBuilder result = new StringBuilder()
-			.append(QRCodeData.emitterFinancialId.getName()).append(DATA_SEPARATOR)
-			.append(validateString(QRCodeData.emitterFinancialId, document.getBusiness().getFinancialID(), true))
+			.append(QRCodeConstants.emitterFinancialId.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.emitterFinancialId, qrCodeData.getFinancialID(), true))
 			.append(FIELD_SEPARATOR)
-			.append(QRCodeData.buyerFinancialId.getName()).append(DATA_SEPARATOR)
-			.append(validateString(QRCodeData.buyerFinancialId, customerFinancialID, true))
+			.append(QRCodeConstants.buyerFinancialId.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.buyerFinancialId, customerFinancialID, true))
 			.append(FIELD_SEPARATOR)
-			.append(QRCodeData.buyerCountry.getName()).append(DATA_SEPARATOR)
-			.append(validateString(QRCodeData.buyerCountry, customer.getBillingAddress().getISOCountry(), true))
+			.append(QRCodeConstants.buyerCountry.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.buyerCountry, qrCodeData.getCustomer().getBillingAddress().getISOCountry(), true))
 			.append(FIELD_SEPARATOR)
-			.append(QRCodeData.documentType.getName()).append(DATA_SEPARATOR)
-			.append(validateString(QRCodeData.documentType, document.getType().name(), true))
+			.append(QRCodeConstants.documentType.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.documentType, qrCodeData.getType().name(), true))
 			.append(FIELD_SEPARATOR)
-			.append(QRCodeData.documentStatus.getName()).append(DATA_SEPARATOR)
-			.append(validateString(QRCodeData.documentStatus, getDocumentStatus(document), true))
+			.append(QRCodeConstants.documentStatus.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.documentStatus, getDocumentStatus(qrCodeData), true))
 			.append(FIELD_SEPARATOR)
-			.append(QRCodeData.documentDate.getName()).append(DATA_SEPARATOR)
-			.append(validateString(QRCodeData.documentDate, formatDate(document.getDate()), true))
+			.append(QRCodeConstants.documentDate.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.documentDate, formatDate(qrCodeData.getDate()), true))
 			.append(FIELD_SEPARATOR)
-			.append(QRCodeData.documentUniqueID.getName()).append(DATA_SEPARATOR)
-			.append(validateString(QRCodeData.documentUniqueID, document.getNumber() , true))
+			.append(QRCodeConstants.documentUniqueID.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.documentUniqueID, qrCodeData.getNumber() , true))
 			;
 
 		if(!atcud.isEmpty()) {
 			result
 				.append(FIELD_SEPARATOR)
-				.append(QRCodeData.ATCUD.getName()).append(DATA_SEPARATOR)
-				.append(validateString(QRCodeData.ATCUD, atcud, true));
+				.append(QRCodeConstants.ATCUD.getName()).append(DATA_SEPARATOR)
+				.append(validateString(QRCodeConstants.ATCUD, atcud, true));
 		}
 
 		final Map<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> amountAndContextAndType =
-			getTaxAmountByContextAndType(document);
+			getTaxAmountByContextAndType(qrCodeData.getEntries());
 
 		BigDecimal exemptAmount = BigDecimal.ZERO;
 		for(Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> entry : amountAndContextAndType.entrySet()){
-			if(entry.getKey().getUID().equals(ptContexts.getPortugalUID())){
+			if(entry.getKey().getUID().equals(qrCodeData.getPtContexts().getPortugalUID())){
 				TupleTaxAmountAndAmountWithoutTaxes ise = entry.getValue().get("ISE");
 				if(ise != null) {
 					exemptAmount = ise.amountWithoutTaxes;
@@ -104,50 +109,49 @@ public class QRCodeBuilder {
 			}
 		}
 
-		result.append(buildContextSpecificParameters(amountAndContextAndType, exemptAmount, ptContexts));
+		result.append(buildContextSpecificParameters(amountAndContextAndType, exemptAmount, qrCodeData.getPtContexts()));
 
 		if(!exemptAmount.equals(BigDecimal.ZERO)) {
 			result.append(FIELD_SEPARATOR)
-				  .append(QRCodeData.NSOrNTAmount.getName()).append(DATA_SEPARATOR)
+				  .append(QRCodeConstants.NSOrNTAmount.getName()).append(DATA_SEPARATOR)
 				  .append(validateBigDecimal(exemptAmount));
 		}
 
 		//QRCodeData.stampDuty not implemented
 
-		if(!document.getTaxAmount().equals(BigDecimal.ZERO)) {
+		if(!qrCodeData.getTaxAmount().equals(BigDecimal.ZERO)) {
 			result.append(FIELD_SEPARATOR)
-				  .append(QRCodeData.taxPayable.getName()).append(DATA_SEPARATOR)
-				  .append(validateBigDecimal(document.getTaxAmount()));
+				  .append(QRCodeConstants.taxPayable.getName()).append(DATA_SEPARATOR)
+				  .append(validateBigDecimal(qrCodeData.getTaxAmount()));
 		}
 
-		if(!document.getAmountWithTax().equals(BigDecimal.ZERO)) {
+		if(!qrCodeData.getAmountWithTax().equals(BigDecimal.ZERO)) {
 			result.append(FIELD_SEPARATOR)
-				  .append(QRCodeData.grossTotal.getName()).append(DATA_SEPARATOR)
-				  .append(validateBigDecimal(document.getAmountWithTax()));
+				  .append(QRCodeConstants.grossTotal.getName()).append(DATA_SEPARATOR)
+				  .append(validateBigDecimal(qrCodeData.getAmountWithTax()));
 		}
 
 		//RQRCodeData.withholdingTaxAmount not implemented
 
-		final String hash = String.valueOf(document.getHash().charAt(0)) + document.getHash().charAt(10) +
-			document.getHash().charAt(20) + document.getHash().charAt(30);
+		final String hash = String.valueOf(qrCodeData.getHash().charAt(0)) + qrCodeData.getHash().charAt(10) +
+			qrCodeData.getHash().charAt(20) + qrCodeData.getHash().charAt(30);
 		result.append(FIELD_SEPARATOR)
-			  .append(QRCodeData.hash.getName()).append(DATA_SEPARATOR)
+			  .append(QRCodeConstants.hash.getName()).append(DATA_SEPARATOR)
 			  .append(validateString(
-				  QRCodeData.hash,
+				  QRCodeConstants.hash,
 				  hash,
 				  true));
-		// 1.ª, 11.ª, 21.ª e 31.ª
-		final Optional<Application> applicationOptional = document.getBusiness().getApplications().stream().findAny();
+		final Optional<Application> applicationOptional = qrCodeData.getApplication().stream().findAny();
 
 		if(applicationOptional.isPresent()) {
 			result.append(FIELD_SEPARATOR)
-				  .append(QRCodeData.certificateNumber.getName()).append(DATA_SEPARATOR)
+				  .append(QRCodeConstants.certificateNumber.getName()).append(DATA_SEPARATOR)
 				  .append(validateInteger(
-					  QRCodeData.certificateNumber,
+					  QRCodeConstants.certificateNumber,
 					  ((PTApplicationEntity)applicationOptional.get()).getSoftwareCertificationNumber(),
 					  true));
 		} else {
-			throw new RequiredFieldNotFoundException(QRCodeData.certificateNumber.getName());
+			throw new RequiredFieldNotFoundException(QRCodeConstants.certificateNumber.getName());
 		}
 
 		return result.toString();
@@ -171,14 +175,14 @@ public class QRCodeBuilder {
 					exemptAmount,
 					(PTRegionContext) context,
 					value,
-					QRCodeData.taxCountryRegion,
-					QRCodeData.exemptAmount,
-					QRCodeData.reducedTaxableAmount,
-					QRCodeData.reducedTaxAmount,
-					QRCodeData.intermediateTaxableAmount,
-					QRCodeData.intermediateTaxAmount,
-					QRCodeData.regularTaxableAmount,
-					QRCodeData.regularTaxAmount);
+					QRCodeConstants.taxCountryRegion,
+					QRCodeConstants.exemptAmount,
+					QRCodeConstants.reducedTaxableAmount,
+					QRCodeConstants.reducedTaxAmount,
+					QRCodeConstants.intermediateTaxableAmount,
+					QRCodeConstants.intermediateTaxAmount,
+					QRCodeConstants.regularTaxableAmount,
+					QRCodeConstants.regularTaxAmount);
 
 			} else if (context.getUID().equals(ptContexts.getAzoresUID())) {
 				printedASection = true;
@@ -187,14 +191,14 @@ public class QRCodeBuilder {
 					exemptAmount,
 					(PTRegionContext) context,
 					value,
-					QRCodeData.taxCountryRegionAzores,
-					QRCodeData.exemptAmountAzores,
-					QRCodeData.reducedTaxableAmountAzores,
-					QRCodeData.reducedTaxAmountAzores,
-					QRCodeData.intermediateTaxableAmountAzores,
-					QRCodeData.intermediateTaxAmountAzores,
-					QRCodeData.regularTaxableAmountAzores,
-					QRCodeData.regularTaxAmountAzores);
+					QRCodeConstants.taxCountryRegionAzores,
+					QRCodeConstants.exemptAmountAzores,
+					QRCodeConstants.reducedTaxableAmountAzores,
+					QRCodeConstants.reducedTaxAmountAzores,
+					QRCodeConstants.intermediateTaxableAmountAzores,
+					QRCodeConstants.intermediateTaxAmountAzores,
+					QRCodeConstants.regularTaxableAmountAzores,
+					QRCodeConstants.regularTaxAmountAzores);
 
 			} else if (context.getUID().equals(ptContexts.getMadeiraUID())) {
 				printedASection = true;
@@ -203,14 +207,14 @@ public class QRCodeBuilder {
 					exemptAmount,
 					(PTRegionContext) context,
 					value,
-					QRCodeData.taxCountryRegionMadeira,
-					QRCodeData.exemptAmountMadeira,
-					QRCodeData.reducedTaxableAmountMadeira,
-					QRCodeData.reducedTaxAmountMadeira,
-					QRCodeData.intermediateTaxableAmountMadeira,
-					QRCodeData.intermediateTaxAmountMadeira,
-					QRCodeData.regularTaxableAmountMadeira,
-					QRCodeData.regularTaxAmountMadeira);
+					QRCodeConstants.taxCountryRegionMadeira,
+					QRCodeConstants.exemptAmountMadeira,
+					QRCodeConstants.reducedTaxableAmountMadeira,
+					QRCodeConstants.reducedTaxAmountMadeira,
+					QRCodeConstants.intermediateTaxableAmountMadeira,
+					QRCodeConstants.intermediateTaxAmountMadeira,
+					QRCodeConstants.regularTaxableAmountMadeira,
+					QRCodeConstants.regularTaxAmountMadeira);
 			}
 			if (context.getUID().equals(ptContexts.getPortugalUID())){
 				exemptPTEntry = entry;
@@ -224,14 +228,14 @@ public class QRCodeBuilder {
 				exemptAmount,
 				(PTRegionContext) context,
 				value,
-				QRCodeData.taxCountryRegion,
-				QRCodeData.exemptAmount,
-				QRCodeData.reducedTaxableAmount,
-				QRCodeData.reducedTaxAmount,
-				QRCodeData.intermediateTaxableAmount,
-				QRCodeData.intermediateTaxAmount,
-				QRCodeData.regularTaxableAmount,
-				QRCodeData.regularTaxAmount);
+				QRCodeConstants.taxCountryRegion,
+				QRCodeConstants.exemptAmount,
+				QRCodeConstants.reducedTaxableAmount,
+				QRCodeConstants.reducedTaxAmount,
+				QRCodeConstants.intermediateTaxableAmount,
+				QRCodeConstants.intermediateTaxAmount,
+				QRCodeConstants.regularTaxableAmount,
+				QRCodeConstants.regularTaxAmount);
 		}
 
 		return result;
@@ -280,23 +284,23 @@ public class QRCodeBuilder {
 	}
 
 	private static Map<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> getTaxAmountByContextAndType(
-		final PTGenericInvoice document)
+		final List<? extends GenericInvoiceEntry> entries)
 	{
-		return document.getEntries()
-					   .stream()
-					   .flatMap(TupleContextTypeAmount.getTupleContextTypeAmountStreamFunction())
-					   .collect(
-						   Collectors.groupingBy(
-							   tupleContextTypeAmount -> tupleContextTypeAmount.context,
-							   Collectors.groupingBy(
-								   tupleContextTypeAmount -> tupleContextTypeAmount.type,
-								   Collectors.mapping(
-									   t -> new TupleTaxAmountAndAmountWithoutTaxes(t.taxAmount, t.amountWithoutTaxes),
-									   Collectors.reducing(
-										   new TupleTaxAmountAndAmountWithoutTaxes(BigDecimal.ZERO, BigDecimal.ZERO),
-										   (o, o2) ->  new TupleTaxAmountAndAmountWithoutTaxes(
-											   o.taxAmount.add(o2.taxAmount),
-											   o.amountWithoutTaxes.add(o2.amountWithoutTaxes)))))));
+		return entries
+			.stream()
+			.flatMap(TupleContextTypeAmount.getTupleContextTypeAmountStreamFunction())
+			.collect(
+				Collectors.groupingBy(
+					tupleContextTypeAmount -> tupleContextTypeAmount.context,
+					Collectors.groupingBy(
+						tupleContextTypeAmount -> tupleContextTypeAmount.type,
+						Collectors.mapping(
+							t -> new TupleTaxAmountAndAmountWithoutTaxes(t.taxAmount, t.amountWithoutTaxes),
+							Collectors.reducing(
+								new TupleTaxAmountAndAmountWithoutTaxes(BigDecimal.ZERO, BigDecimal.ZERO),
+								(o, o2) ->  new TupleTaxAmountAndAmountWithoutTaxes(
+									o.taxAmount.add(o2.taxAmount),
+									o.amountWithoutTaxes.add(o2.amountWithoutTaxes)))))));
 	}
 
 	private static String formatDate(final Date date) {
@@ -304,13 +308,13 @@ public class QRCodeBuilder {
 		return dateFormat.format(date);
 	}
 
-	private static String getDocumentStatus(PTGenericInvoice document)
+	private static String getDocumentStatus(QRCodeData qrCodeData)
 	{
-		if (document.isCancelled()) {
+		if (qrCodeData.isCancelled()) {
 			return "A";
-		} else if (document.isBilled()) {
+		} else if (qrCodeData.isBilled()) {
 			return "F";
-		} else if (document.isSelfBilled()) {
+		} else if (qrCodeData.isSelfBilled()) {
 			return "S";
 		}
 
@@ -318,7 +322,7 @@ public class QRCodeBuilder {
 	}
 
 	private static String validateString(
-		final QRCodeData.Field field,
+		final QRCodeConstants.Field field,
 		final String str,
 		final boolean isRequired) throws RequiredFieldNotFoundException {
 
@@ -347,7 +351,7 @@ public class QRCodeBuilder {
 	}
 
 	private static int validateInteger(
-		final QRCodeData.Field field,
+		final QRCodeConstants.Field field,
 		final Integer integer,
 		final boolean isRequired) throws RequiredFieldNotFoundException {
 
