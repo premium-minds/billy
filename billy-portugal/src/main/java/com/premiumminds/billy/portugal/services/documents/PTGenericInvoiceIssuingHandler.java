@@ -95,16 +95,16 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
             }
         }
 
-        String formatedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
+        String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
         String newHash = GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
-                invoiceDate, systemDate, formatedNumber, document.getAmountWithTax(), previousHash);
+                invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
 
-        String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formatedNumber,
+        String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber,
                 document.getAmountWithTax(), previousHash);
 
         document.setDate(invoiceDate);
-        document.setNumber(formatedNumber);
+        document.setNumber(formattedNumber);
         document.setSeries(invoiceSeriesEntity.getSeries());
         document.setSeriesNumber(seriesNumber);
         document.setHash(newHash);

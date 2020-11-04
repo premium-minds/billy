@@ -30,13 +30,23 @@ public class PTCreditNoteData extends PTGenericInvoiceData {
 
     private final List<PTCreditNoteEntryData> entries;
 
-    public PTCreditNoteData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-                            CostumerData customer, BusinessData business, List<PTCreditNoteEntryData> entries,
-                            BigDecimal taxAmount, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
-                            String settlementDescription, String hash) {
+    public PTCreditNoteData(
+        final String number,
+        final Date date,
+        final Date settlementDate,
+        final List<PaymentData> payments,
+        final CostumerData customer,
+        final BusinessData business,
+        final List<PTCreditNoteEntryData> entries,
+        final BigDecimal taxAmount,
+        final BigDecimal amountWithTax,
+        final BigDecimal amountWithoutTax,
+        final String settlementDescription,
+        final String hash,
+        final String qrCodeString) {
 
         super(number, date, settlementDate, payments, customer, business, new ArrayList<>(0),
-              taxAmount, amountWithTax, amountWithoutTax, settlementDescription, hash);
+              taxAmount, amountWithTax, amountWithoutTax, settlementDescription, hash, qrCodeString);
         this.entries = entries;
     }
 

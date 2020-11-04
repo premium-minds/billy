@@ -39,8 +39,8 @@ public class PTInvoiceTestUtil {
     protected static final Boolean CANCELLED = false;
     protected static final Boolean SELFBILL = false;
     protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIE = "A";
-    protected static final Integer SERIE_NUMBER = 1;
+    public static final String SERIE = "A";
+    public static final Integer SERIE_NUMBER = 1;
     protected static final int MAX_PRODUCTS = 5;
 
     protected TYPE INVOICE_TYPE;

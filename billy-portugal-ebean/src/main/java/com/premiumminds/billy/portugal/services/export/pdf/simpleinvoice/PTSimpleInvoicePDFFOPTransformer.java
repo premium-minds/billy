@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice;
 
-import java.io.InputStream;
-import java.math.MathContext;
-
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
@@ -30,19 +27,21 @@ import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceData;
 import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.PTSimpleInvoicePDFTransformer;
+import java.io.InputStream;
+import java.math.MathContext;
 
 public class PTSimpleInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTSimpleInvoiceData>
         implements PTSimpleInvoicePDFTransformer {
 
     public PTSimpleInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId, Config config) {
+											String softwareCertificationId, Config config) {
 
         super(PTSimpleInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
 
     public PTSimpleInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId) {
+											String softwareCertificationId) {
 
         this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
     }
@@ -58,6 +57,7 @@ public class PTSimpleInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransforme
 
         params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
                 this.getVerificationHashString(invoice.getHash().getBytes()));
+        invoice.getQrCodeString().ifPresent(s -> params.getRoot().addChild(PTParamKeys.QRCODE, s));
         params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
 
         return params;

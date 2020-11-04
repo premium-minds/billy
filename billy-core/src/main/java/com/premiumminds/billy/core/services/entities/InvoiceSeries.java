@@ -18,10 +18,14 @@
  */
 package com.premiumminds.billy.core.services.entities;
 
+import java.util.Optional;
+
 public interface InvoiceSeries extends Entity {
 
-    public String getSeries();
+    String getSeries();
 
-    public <T extends Business> T getBusiness();
+    <T extends Business> T getBusiness();
+
+    Optional<String> getSeriesUniqueCode();
 
 }

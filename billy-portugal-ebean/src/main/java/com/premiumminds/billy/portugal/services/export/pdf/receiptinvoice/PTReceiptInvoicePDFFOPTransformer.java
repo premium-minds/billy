@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf.receiptinvoice;
 
-import java.io.InputStream;
-import java.math.MathContext;
-
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
@@ -30,19 +27,21 @@ import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.services.export.PTReceiptInvoiceData;
 import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.PTReceiptInvoicePDFTransformer;
+import java.io.InputStream;
+import java.math.MathContext;
 
 public class PTReceiptInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTReceiptInvoiceData>
         implements PTReceiptInvoicePDFTransformer {
 
     public PTReceiptInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId, Config config) {
+											 String softwareCertificationId, Config config) {
 
         super(PTReceiptInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
 
     public PTReceiptInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId) {
+											 String softwareCertificationId) {
 
         this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
     }
@@ -58,6 +57,7 @@ public class PTReceiptInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransform
 
         params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
                 this.getVerificationHashString(invoice.getHash().getBytes()));
+        invoice.getQrCodeString().ifPresent(s -> params.getRoot().addChild(PTParamKeys.QRCODE, s));
         params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
 
         return params;

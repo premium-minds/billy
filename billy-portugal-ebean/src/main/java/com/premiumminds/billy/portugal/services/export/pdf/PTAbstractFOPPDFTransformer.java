@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf;
 
-import java.io.InputStream;
-import java.math.MathContext;
-import java.util.Base64;
-
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.Config;
+import java.io.InputStream;
+import java.math.MathContext;
+import java.util.Base64;
 
 public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> extends AbstractFOPPDFTransformer<T> {
 
@@ -34,6 +33,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
 
         public static final String ROOT = "invoice";
         public static final String INVOICE_HASH = "hash";
+        public static final String QRCODE = "qrCode";
         public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
         public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
     }
@@ -56,7 +56,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
     private final PTTemplateBundle externalBundle;
 
     public PTAbstractFOPPDFTransformer(Class<T> transformableClass, MathContext mc, String logoImagePath,
-            InputStream xsltFileStream, String softwareCertificationId, Config config) {
+									   InputStream xsltFileStream, String softwareCertificationId, Config config) {
 
         super(transformableClass, mc, logoImagePath, xsltFileStream);
 
@@ -66,7 +66,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
     }
 
     public PTAbstractFOPPDFTransformer(Class<T> transformableClass, MathContext mc, PTTemplateBundle bundle,
-            Config config) {
+									   Config config) {
 
         super(transformableClass, mc, bundle.getLogoImagePath(), bundle.getXSLTFileStream());
         this.config = config;

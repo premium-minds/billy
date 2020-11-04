@@ -18,19 +18,18 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf.creditnote;
 
+import com.premiumminds.billy.core.util.BillyMathContext;
+import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.TaxData;
 import com.premiumminds.billy.gin.services.export.TaxExemption;
-import com.premiumminds.billy.portugal.services.export.PTCreditNoteEntryData;
-import java.io.InputStream;
-import java.math.MathContext;
-
-import com.premiumminds.billy.core.util.BillyMathContext;
-import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.services.export.PTCreditNoteData;
+import com.premiumminds.billy.portugal.services.export.PTCreditNoteEntryData;
 import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.PTCreditNotePDFTransformer;
+import java.io.InputStream;
+import java.math.MathContext;
 import java.util.Collection;
 import java.util.List;
 
@@ -41,14 +40,14 @@ public class PTCreditNotePDFFOPTransformer extends PTAbstractFOPPDFTransformer<P
     public static final String PARAM_KEYS_INVOICE = "invoice";
 
     public PTCreditNotePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId, Config config) {
+										 String softwareCertificationId, Config config) {
 
         super(PTCreditNoteData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
 
     public PTCreditNotePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-            String softwareCertificationId) {
+										 String softwareCertificationId) {
 
         this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
     }
@@ -108,6 +107,8 @@ public class PTCreditNotePDFFOPTransformer extends PTAbstractFOPPDFTransformer<P
 
         params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
                 this.getVerificationHashString(entity.getHash().getBytes()));
+
+        entity.getQrCodeString().ifPresent(s -> params.getRoot().addChild(PTParamKeys.QRCODE, s));
         params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
 
         return params;

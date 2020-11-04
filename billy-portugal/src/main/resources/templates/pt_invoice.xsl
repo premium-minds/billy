@@ -417,6 +417,15 @@
 							</fo:table-body>
 						</fo:table>
 					</fo:block>
+					<xsl:choose>
+						<xsl:when test="./qrCodePath">
+							<fo:block text-align="end">
+								<fo:external-graphic
+									height="35mm" content-width="35mm" src="{concat('url(', ./qrCodePath, ')')}">
+								</fo:external-graphic>
+							</fo:block>
+						</xsl:when>
+					</xsl:choose>
 					<fo:block>
 						<fo:footnote>
 							<fo:inline />

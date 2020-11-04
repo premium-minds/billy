@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
+import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,16 +39,19 @@ public class PTReceiptInvoiceDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<PTReceiptInvoiceData> {
 
     private final DAOPTReceiptInvoice daoPTReceiptInvoice;
+    private final QRCodeStringGenerator qrCodeStringGenerator;
 
     @Inject
-    public PTReceiptInvoiceDataExtractor(DAOPTReceiptInvoice daoPTReceiptInvoice) {
+    public PTReceiptInvoiceDataExtractor(
+        final DAOPTReceiptInvoice daoPTReceiptInvoice, final QRCodeStringGenerator qrCodeStringGenerator) {
+
         this.daoPTReceiptInvoice = daoPTReceiptInvoice;
+        this.qrCodeStringGenerator = qrCodeStringGenerator;
     }
 
     @Override
     public PTReceiptInvoiceData extract(UID uid) throws ExportServiceException {
-        PTReceiptInvoice entity = this.daoPTReceiptInvoice.get(uid); // FIXME: Fix the DAOs to remove this
-                                                                     // cast
+        PTReceiptInvoice entity = this.daoPTReceiptInvoice.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }
@@ -56,9 +61,16 @@ public class PTReceiptInvoiceDataExtractor extends AbstractBillyDataExtractor
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
 
+        final String qrCodeString;
+        try {
+            qrCodeString = qrCodeStringGenerator.generateQRCodeData(entity);
+        } catch (RequiredFieldNotFoundException e) {
+            throw new ExportServiceException(e);
+        }
         return new PTReceiptInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
-                costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-                entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash());
+                                        costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+                                        entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash(),
+                                        qrCodeString);
     }
 
 }

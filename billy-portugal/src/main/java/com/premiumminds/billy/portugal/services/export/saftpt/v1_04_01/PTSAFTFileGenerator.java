@@ -18,29 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01;
 
-import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
@@ -74,10 +56,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntit
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidContactTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentStateException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentTypeException;
@@ -90,6 +72,7 @@ import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportEx
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AddressStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AddressStructurePT;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AuditFile;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AuditFile.MasterFiles;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Currency;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Customer;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Header;
@@ -100,18 +83,35 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SA
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Settlement;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.ShippingPointStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SpecialRegimes;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Supplier;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SupplierAddressStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Tax;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTable;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTableEntry;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AuditFile.MasterFiles;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
+import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.inject.Inject;
+import javax.persistence.LockModeType;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PTSAFTFileGenerator {
 
@@ -166,16 +166,21 @@ public class PTSAFTFileGenerator {
 	private final DAOPTSimpleInvoice	daoPTSimpleInvoice;
 	private final DAOPTReceiptInvoice	daoPTReceiptInvoice;
 	private final DAOPTCreditNote		daoPTCreditNote;
+	private final DAOInvoiceSeries      daoInvoiceSeries;
 
 	@Inject
-	public PTSAFTFileGenerator(DAOPTCustomer daoCustomer,
-								DAOPTSupplier daoSupplier,
-								DAOPTProduct daoProduct, DAOPTTax daoPTTax,
-								DAOPTRegionContext daoPTRegionContext,
-								DAOPTInvoice daoPTInvoice,
-								DAOPTSimpleInvoice daoPTSimpleInvoice,
-								DAOPTReceiptInvoice daoPTReceiptInvoice,
-								DAOPTCreditNote daoPTCreditNote) {
+	public PTSAFTFileGenerator(
+		DAOPTCustomer daoCustomer,
+		DAOPTSupplier daoSupplier,
+		DAOPTProduct daoProduct,
+		DAOPTTax daoPTTax,
+		DAOPTRegionContext daoPTRegionContext,
+		DAOPTInvoice daoPTInvoice,
+		DAOPTSimpleInvoice daoPTSimpleInvoice,
+		DAOPTReceiptInvoice daoPTReceiptInvoice,
+		DAOPTCreditNote daoPTCreditNote,
+		final DAOInvoiceSeries daoInvoiceSeries) {
+
 		this.daoCustomer = daoCustomer;
 		this.daoSupplier = daoSupplier;
 		this.daoProduct = daoProduct;
@@ -185,6 +190,7 @@ public class PTSAFTFileGenerator {
 		this.daoPTSimpleInvoice = daoPTSimpleInvoice;
 		this.daoPTReceiptInvoice = daoPTReceiptInvoice;
 		this.daoPTCreditNote = daoPTCreditNote;
+		this.daoInvoiceSeries = daoInvoiceSeries;
 
 		this.config = new Config();
 
@@ -725,11 +731,24 @@ public class PTSAFTFileGenerator {
 		InvalidInvoiceTypeException {
 		Invoice saftInv = new Invoice();
 
+		InvoiceSeriesEntity invoiceSeries =
+			this.daoInvoiceSeries.getSeries(
+				document.getSeries(),
+				document.getBusiness().getUID().toString(),
+				LockModeType.NONE);
+
+		StringBuilder atcudBuilder =
+			invoiceSeries.getSeriesUniqueCode()
+						 .map(s -> new StringBuilder().append(s)
+													  .append("-")
+													  .append(document.getSeriesNumber()))
+						 .orElse(new StringBuilder().append("0"));
+
 		saftInv.setDocumentStatus(this.getDocumentStatus(document));
 
 		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
 				MAX_LENGTH_60, true));
-		saftInv.setATCUD("0");
+		saftInv.setATCUD(atcudBuilder.toString());
 		saftInv.setInvoiceType(validateString("InvoiceType",
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),

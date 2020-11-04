@@ -18,29 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01;
 
-import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
@@ -74,10 +56,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntit
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidContactTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentStateException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentTypeException;
@@ -90,6 +72,7 @@ import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportEx
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AddressStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AddressStructurePT;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AuditFile;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AuditFile.MasterFiles;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Currency;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Customer;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Header;
@@ -100,23 +83,40 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SA
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Settlement;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.ShippingPointStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
+import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SpecialRegimes;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Supplier;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SupplierAddressStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Tax;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTable;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTableEntry;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.AuditFile.MasterFiles;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentStatus;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
+import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import javax.inject.Inject;
+import javax.persistence.LockModeType;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PTSAFTFileGenerator {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(Config.class);
-	
+
 	private Config						config					= null;
 	private JAXBContext					jaxbContext;
 	private Marshaller					marshaller;
@@ -166,16 +166,21 @@ public class PTSAFTFileGenerator {
 	private final DAOPTSimpleInvoice	daoPTSimpleInvoice;
 	private final DAOPTReceiptInvoice	daoPTReceiptInvoice;
 	private final DAOPTCreditNote		daoPTCreditNote;
+	private final DAOInvoiceSeries      daoInvoiceSeries;
 
 	@Inject
-	public PTSAFTFileGenerator(DAOPTCustomer daoCustomer,
-								DAOPTSupplier daoSupplier,
-								DAOPTProduct daoProduct, DAOPTTax daoPTTax,
-								DAOPTRegionContext daoPTRegionContext,
-								DAOPTInvoice daoPTInvoice,
-								DAOPTSimpleInvoice daoPTSimpleInvoice,
-								DAOPTReceiptInvoice daoPTReceiptInvoice,
-								DAOPTCreditNote daoPTCreditNote) {
+	public PTSAFTFileGenerator(
+		DAOPTCustomer daoCustomer,
+		DAOPTSupplier daoSupplier,
+		DAOPTProduct daoProduct,
+		DAOPTTax daoPTTax,
+		DAOPTRegionContext daoPTRegionContext,
+		DAOPTInvoice daoPTInvoice,
+		DAOPTSimpleInvoice daoPTSimpleInvoice,
+		DAOPTReceiptInvoice daoPTReceiptInvoice,
+		DAOPTCreditNote daoPTCreditNote,
+		final DAOInvoiceSeries daoInvoiceSeries) {
+
 		this.daoCustomer = daoCustomer;
 		this.daoSupplier = daoSupplier;
 		this.daoProduct = daoProduct;
@@ -185,6 +190,7 @@ public class PTSAFTFileGenerator {
 		this.daoPTSimpleInvoice = daoPTSimpleInvoice;
 		this.daoPTReceiptInvoice = daoPTReceiptInvoice;
 		this.daoPTCreditNote = daoPTCreditNote;
+		this.daoInvoiceSeries = daoInvoiceSeries;
 
 		this.config = new Config();
 
@@ -199,23 +205,40 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Constructs a new SAFT a.k.a. AuditFile
-	 * 
+	 *
+	 * @deprecated Use the overloaded method instead
+	 *
 	 * @param targetStream
-	 * 
-	 * @param businessEntity
-	 *            - the company
-	 * @param application
-	 * @param certificateNumber
-	 * @param fromDate
-	 * @param toDate
-	 * @param daoCustomer
-	 * @param daoSupplier
-	 * @param daoProduct
-	 * @param daoPTTax
-	 * @param daoPTRegionContext
-	 * @param daoPTInvoice
-	 * @param daoPTSimpleInvoice
-	 * @param daoPTCreditNote
+	 *
+	 * @param businessEntity - the company
+	 * @param application - the software
+	 * @param certificateNumber - ignored. It uses the softwareCertificationNumber in application
+	 * @param fromDate - the period for the SAFT file
+	 * @param toDate - the period for the SAFT file
+	 * @return the SAFT for that business entity, given lists of customers,
+	 *         products, taxes and financial documents; depends on a period of
+	 *         time
+	 * @throws SAFTPTExportException
+	 */
+	@Deprecated
+	public AuditFile generateSAFTFile(final OutputStream targetStream,
+									  final PTBusinessEntity businessEntity,
+									  final PTApplicationEntity application,
+									  final String certificateNumber,
+									  final Date fromDate,
+									  final Date toDate) throws SAFTPTExportException {
+		return this.generateSAFTFile(targetStream, businessEntity, application, fromDate, toDate);
+	}
+
+	/**
+	 * Constructs a new SAFT a.k.a. AuditFile
+	 *
+	 * @param targetStream
+	 *
+	 * @param businessEntity - the company
+	 * @param application - the software
+	 * @param fromDate - the period for the SAFT file
+	 * @param toDate - the period for the SAFT file
 	 * @return the SAFT for that business entity, given lists of customers,
 	 *         products, taxes and financial documents; depends on a period of
 	 *         time
@@ -224,7 +247,7 @@ public class PTSAFTFileGenerator {
 	public AuditFile generateSAFTFile(final OutputStream targetStream,
 			final PTBusinessEntity businessEntity,
 			final PTApplicationEntity application,
-			final String certificateNumber, final Date fromDate,
+			final Date fromDate,
 			final Date toDate) throws SAFTPTExportException {
 
 		try {
@@ -236,7 +259,7 @@ public class PTSAFTFileGenerator {
 
 					/* HEADER */
 					Header hdr = PTSAFTFileGenerator.this.generateHeader(
-							businessEntity, application, certificateNumber,
+							businessEntity, application,
 							fromDate, toDate);
 					SAFTFile.setHeader(hdr);
 
@@ -275,7 +298,7 @@ public class PTSAFTFileGenerator {
 
 					PTRegionContextEntity context = (PTRegionContextEntity) daoPTRegionContext
 							.get(PTSAFTFileGenerator.this.config
-									.getUID(Config.Key.Context.Portugal.UUID));
+									.getUID(Key.Context.Portugal.UUID));
 					// Taxes
 					@SuppressWarnings("unchecked")
 					List<PTTaxEntity> taxes = (List<PTTaxEntity>) (List<?>) daoPTTax
@@ -328,7 +351,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the SAFT XML File
-	 * 
+	 *
 	 * @param auditFile
 	 *            that will be exported
 	 * @param targetStream
@@ -347,11 +370,11 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the Header of SAFT file (Table 1)
-	 * 
-	 * @param businessEntity
-	 *            - the company
-	 * @param startDate
-	 *            , endDate - the period for the SAFT file
+	 *
+	 * @param businessEntity - the company
+	 * @param application - the software
+	 * @param startDate - the period for the SAFT file
+	 * @param endDate - the period for the SAFT file
 	 * @return the Header
 	 * @throws DatatypeConfigurationException
 	 *             - problems with dates
@@ -360,7 +383,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidContactTypeException
 	 */
 	private Header generateHeader(PTBusinessEntity businessEntity,
-			PTApplicationEntity application, String certificateNumber,
+			PTApplicationEntity application,
 			Date startDate, Date endDate)
 		throws DatatypeConfigurationException, RequiredFieldNotFoundException,
 		InvalidContactTypeException {
@@ -402,7 +425,7 @@ public class PTSAFTFileGenerator {
 				application.getDeveloperCompanyTaxIdentifier(),
 				this.MAX_LENGTH_20, true));
 		hdr.setSoftwareCertificateNumber(this.validateBigInteger(
-				"SoftwareCertificateNumber", certificateNumber,
+				"SoftwareCertificateNumber", application.getSoftwareCertificationNumber().toString(),
 				this.MAX_LENGTH_255, true));
 		hdr.setProductID(this.validateString("ProductID", application.getName()
 				+ "/" + application.getDeveloperCompanyName(),
@@ -419,7 +442,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Generates an instance of Customer to be inserted in the table 2.2
 	 * (Customer)
-	 * 
+	 *
 	 * @param customerEntity
 	 *            - the customer
 	 * @return an instance of Customer
@@ -470,7 +493,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Generates an instance of Supplier to be inserted in the table 2.3
 	 * (Supplier)
-	 * 
+	 *
 	 * @param supplierEntity
 	 *            - the supplier
 	 * @return an instance of Supplier
@@ -526,7 +549,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Generates an instance of Product to be inserted in the table 2.4
 	 * (Product)
-	 * 
+	 *
 	 * @param productEntity
 	 *            - the product/service
 	 * @return an instance of Product
@@ -565,7 +588,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the TaxTable of SAFT file (Table 2.5)
-	 * 
+	 *
 	 * @param taxEntities
 	 *            - the taxes to be inserted in this table
 	 * @return
@@ -615,7 +638,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the SourceDocuments of SAFT file (Table 4)
-	 * 
+	 *
 	 * @param invoices
 	 *            - list of invoices
 	 * @param simpleInvoices
@@ -690,13 +713,12 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Generates a financial document that will be inserted in the
 	 * SourceDocuments table
-	 * 
+	 *
 	 * @param document
 	 *            - can be an invoice, simple invoice or credit note
-	 * @param documentType
 	 * @return an instance of Invoice (represents a financial document in the
 	 *         SAFT XML context)
-	 * 
+	 *
 	 * @throws DatatypeConfigurationException
 	 * @throws RequiredFieldNotFoundException
 	 * @throws InvalidDocumentTypeException
@@ -709,11 +731,24 @@ public class PTSAFTFileGenerator {
 		InvalidInvoiceTypeException {
 		Invoice saftInv = new Invoice();
 
+		InvoiceSeriesEntity invoiceSeries =
+			this.daoInvoiceSeries.getSeries(
+				document.getSeries(),
+				document.getBusiness().getUID().toString(),
+				LockModeType.NONE);
+
+		StringBuilder atcudBuilder =
+			invoiceSeries.getSeriesUniqueCode()
+						 .map(s -> new StringBuilder().append(s)
+													  .append("-")
+													  .append(document.getSeriesNumber()))
+						 .orElse(new StringBuilder().append("0"));
+
 		saftInv.setDocumentStatus(this.getDocumentStatus(document));
 
 		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
 				MAX_LENGTH_60, true));
-		saftInv.setATCUD("0");
+		saftInv.setATCUD(atcudBuilder.toString());
 		saftInv.setInvoiceType(validateString("InvoiceType",
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),
@@ -727,8 +762,8 @@ public class PTSAFTFileGenerator {
 				MAX_LENGTH_2, true));
 		saftInv.setInvoiceDate(formatDate(document.getDate()));
 		saftInv.setSpecialRegimes(
-				getSpecialRegimes(document.isSelfBilled(), 
-						document.isCashVATEndorser(), 
+				getSpecialRegimes(document.isSelfBilled(),
+						document.isCashVATEndorser(),
 						document.isThirdPartyBilled()));
 		saftInv.setSourceID(validateString("InvoiceSourceID",
 				document.getSourceId(), MAX_LENGTH_30, true));
@@ -739,7 +774,7 @@ public class PTSAFTFileGenerator {
 		saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
 		UID customerUID = document.getCustomer().getUID();
 		String customerID = customerUID.equals(this.config
-				.getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
+				.getUID(Key.Customer.Generic.UUID)) ? "Consumidor final"
 				: document.getCustomer().getID().toString();
 
 		saftInv.setCustomerID(this.validateString("CustomerID", customerID,
@@ -796,7 +831,7 @@ public class PTSAFTFileGenerator {
 	 * Process a financial document to generate its DocumentTotals and the
 	 * document's entries to generate the table Line in the Invoice instance of
 	 * SAFT File
-	 * 
+	 *
 	 * @param saftInvoice
 	 *            - instance of Invoice (representation of financial document in
 	 *            SAFT XML context)
@@ -805,7 +840,7 @@ public class PTSAFTFileGenerator {
 	 * @param isCredit
 	 *            - to distinguish between invoices/simple invoices (credit
 	 *            transactions) and credit notes (debit transaction)
-	 * 
+	 *
 	 * @throws RequiredFieldNotFoundException
 	 * @throws DatatypeConfigurationException
 	 * @throws InvalidDocumentTypeException
@@ -875,12 +910,18 @@ public class PTSAFTFileGenerator {
 								.getContext()).getRegionCode()),
 						this.MAX_LENGTH_5, true));
 
-				if (taxEntity.getTaxRateType().equals(TaxRateType.FLAT)) {
-					tax.setTaxAmount(this.validateBigDecimal(taxEntity
-							.getValue()));
-				} else if (taxEntity.getTaxRateType().equals(
-						TaxRateType.PERCENTAGE)) {
-					tax.setTaxPercentage(taxEntity.getValue());
+				switch (taxEntity.getTaxRateType()) {
+					case FLAT:
+						tax.setTaxAmount(this.validateBigDecimal(taxEntity.getValue()));
+						break;
+					case PERCENTAGE:
+						tax.setTaxPercentage(taxEntity.getValue());
+						break;
+					case NONE:
+						tax.setTaxPercentage(BigDecimal.ZERO);
+						break;
+					default:
+						throw new InvalidTaxTypeException(taxEntity.getTaxRateType().toString());
 				}
 				line.setTax(tax);
 
@@ -916,10 +957,10 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the field OrderReferences (4.1.4.18.2) of document entry
-	 * 
+	 *
 	 * @param entry
 	 * @return an instance of OrderReferences
-	 * 
+	 *
 	 * @throws RequiredFieldNotFoundException
 	 * @throws DatatypeConfigurationException
 	 */
@@ -944,7 +985,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the field References (4.1.4.18.9) of document entry
-	 * 
+	 *
 	 * @param entry
 	 * @param document
 	 * @return an instance of References
@@ -992,7 +1033,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Constructs an instance of ShippingPointStructure needed in the
 	 * construction of a SAFT Invoice
-	 * 
+	 *
 	 * @param deliveryID
 	 *            - the id of delivery/origin
 	 * @param deliveryDate
@@ -1023,7 +1064,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Generates the field Currency (4.1.4.19.4) of DocumentTotals of a SAFT
 	 * Invoice
-	 * 
+	 *
 	 * @param document
 	 * @param isCredit
 	 * @return
@@ -1046,7 +1087,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Generates the field Settlement (4.1.4.19.5) of DocumentTotals of a SAFT
 	 * Invoice
-	 * 
+	 *
 	 * @param document
 	 * @return
 	 * @throws RequiredFieldNotFoundException
@@ -1081,7 +1122,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the DocumentTotals (4.1.4.19) of a SAFT Invoice
-	 * 
+	 *
 	 * @param document
 	 * @param isCredit
 	 * @return
@@ -1136,7 +1177,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Generates the InvoiceType (4.1.4.7) of a SAFT Invoice
-	 * 
+	 *
 	 * @param document
 	 * @return
 	 * @throws InvalidInvoiceTypeException
@@ -1166,7 +1207,7 @@ public class PTSAFTFileGenerator {
 	 *************/
 	/**
 	 * Sets the main information about the Customer
-	 * 
+	 *
 	 * @param customer
 	 * @param customerID
 	 * @param customerFinancialID
@@ -1197,7 +1238,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Converts the document state to an acronym according to the SAFT file
 	 * rules
-	 * 
+	 *
 	 * @param document
 	 * @return
 	 * @throws InvalidDocumentStateException
@@ -1260,7 +1301,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Converts the payment mechanism to an acronym according to the SAFT file
 	 * rules
-	 * 
+	 *
 	 * @param pm
 	 * @return
 	 * @throws InvalidPaymentMechanismException
@@ -1301,7 +1342,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Constructs an AddressStructures that is used in almost every fields of
 	 * SAFT file that represent addresses
-	 * 
+	 *
 	 * @param addressEntity
 	 * @return
 	 * @throws RequiredFieldNotFoundException
@@ -1345,7 +1386,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Constructs a specific AddressStructurePT that is only used in the Header
 	 * of the SAFT File
-	 * 
+	 *
 	 * @param addressEntity
 	 * @return
 	 * @throws RequiredFieldNotFoundException
@@ -1386,7 +1427,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Constructs an SupplierAddressStructures that is used in the Supplier of
 	 * the SAFT file
-	 * 
+	 *
 	 * @param addressEntity
 	 * @return
 	 * @throws RequiredFieldNotFoundException
@@ -1428,7 +1469,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Converts the ISO code of a region to the code defined in the SAFT file
 	 * rules
-	 * 
+	 *
 	 * @param regionCode
 	 * @return
 	 */
@@ -1447,7 +1488,7 @@ public class PTSAFTFileGenerator {
 	 ************/
 	/**
 	 * Sets the contacts of a company
-	 * 
+	 *
 	 * @param hdr
 	 * @param contacts
 	 *            - the company's list of contacts
@@ -1488,7 +1529,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Sets the contacts of a customer
-	 * 
+	 *
 	 * @param customer
 	 * @param contacts
 	 *            - the customer's list of contacts
@@ -1527,7 +1568,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Sets the contacts of a supplier
-	 * 
+	 *
 	 * @param supplier
 	 * @param contacts
 	 *            - the supplier's list of contacts
@@ -1569,7 +1610,7 @@ public class PTSAFTFileGenerator {
 	 ************/
 	/**
 	 * Converts the product type to an acronym according to the SAFT file rules
-	 * 
+	 *
 	 * @param type
 	 * @return
 	 * @throws InvalidProductTypeException
@@ -1595,7 +1636,7 @@ public class PTSAFTFileGenerator {
 	 *********/
 	/**
 	 * Converts the tax type to an acronym according to the SAFT file rules
-	 * 
+	 *
 	 * @param entity
 	 * @return
 	 * @throws InvalidTaxTypeException
@@ -1621,7 +1662,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Validates a string, considering the max length of that field that will be
 	 * assigned and if that field is required
-	 * 
+	 *
 	 * @param field
 	 * @param str
 	 * @param maxLength
@@ -1645,7 +1686,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Validates an integer, considering the max length of that field that will
 	 * be assigned and if that field is required
-	 * 
+	 *
 	 * @param field
 	 * @param str
 	 *            - a string that represents an integer
@@ -1663,7 +1704,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Validates a BigInteger, considering the max length of that field that
 	 * will be assigned and if that field is required
-	 * 
+	 *
 	 * @param field
 	 * @param str
 	 *            - a string that represents a BigInteger
@@ -1682,7 +1723,7 @@ public class PTSAFTFileGenerator {
 	/**
 	 * Validates a decimal number, limiting it to 2 decimal places and rounding
 	 * int
-	 * 
+	 *
 	 * @param bd
 	 * @return
 	 */
@@ -1692,7 +1733,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Gets the today's date
-	 * 
+	 *
 	 * @return
 	 * @throws DatatypeConfigurationException
 	 */
@@ -1703,7 +1744,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Returns a date in the format YYYY-MM-dd
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 * @throws DatatypeConfigurationException
@@ -1720,7 +1761,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Returns a datetime in the format YYYY-MM-ddThh-mm-ss
-	 * 
+	 *
 	 * @param date
 	 * @return
 	 * @throws DatatypeConfigurationException
@@ -1739,7 +1780,7 @@ public class PTSAFTFileGenerator {
 
 	/**
 	 * Returns a field (the month or the year) of a date
-	 * 
+	 *
 	 * @param date
 	 * @param field
 	 * @return

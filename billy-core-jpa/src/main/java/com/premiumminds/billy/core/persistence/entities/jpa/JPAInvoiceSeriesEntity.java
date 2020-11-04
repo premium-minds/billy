@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.persistence.entities.jpa;
 
+import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -46,9 +47,17 @@ public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeri
     @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID")
     protected Business business;
 
+    @Column(name = "SERIES_UNIQUE_CODE")
+    protected String seriesUniqueCode;
+
     @Override
     public String getSeries() {
         return this.series;
+    }
+
+    @Override
+    public Optional<String> getSeriesUniqueCode() {
+        return Optional.ofNullable(seriesUniqueCode);
     }
 
     @Override
@@ -67,4 +76,8 @@ public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeri
 
     }
 
+    @Override
+    public void setSeriesUniqueCode(final String seriesUniqueCode) {
+        this.seriesUniqueCode = seriesUniqueCode;
+    }
 }

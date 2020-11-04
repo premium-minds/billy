@@ -18,10 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
@@ -32,19 +28,27 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
+import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
+import java.util.List;
+import javax.inject.Inject;
 
 public class PTInvoiceDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<PTInvoiceData> {
 
     private final DAOPTInvoice daoPTInvoice;
+    private final QRCodeStringGenerator qrCodeStringGenerator;
 
     @Inject
-    public PTInvoiceDataExtractor(DAOPTInvoice daoPTInvoice) {
+    public PTInvoiceDataExtractor(
+        final DAOPTInvoice daoPTInvoice, final QRCodeStringGenerator qrCodeStringGenerator) {
+
         this.daoPTInvoice = daoPTInvoice;
+        this.qrCodeStringGenerator = qrCodeStringGenerator;
     }
 
     @Override
     public PTInvoiceData extract(UID uid) throws ExportServiceException {
-        PTInvoiceEntity entity = this.daoPTInvoice.get(uid); // FIXME: Fix the DAOs to remove this cast
+        PTInvoiceEntity entity = this.daoPTInvoice.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }
@@ -54,9 +58,15 @@ public class PTInvoiceDataExtractor extends AbstractBillyDataExtractor implement
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
 
+        final String qrCodeString;
+        try {
+            qrCodeString = qrCodeStringGenerator.generateQRCodeData(entity);
+        } catch (RequiredFieldNotFoundException e) {
+            throw new ExportServiceException(e);
+        }
         return new PTInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments, costumer,
-                business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
-                entity.getSettlementDescription(), entity.getHash());
+                                 business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
+                                 entity.getSettlementDescription(), entity.getHash(), qrCodeString);
     }
 
 }
