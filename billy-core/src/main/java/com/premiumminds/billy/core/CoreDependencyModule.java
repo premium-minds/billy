@@ -18,9 +18,13 @@
  */
 package com.premiumminds.billy.core;
 
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Method;
 import javax.inject.Inject;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.matcher.AbstractMatcher;
+import com.google.inject.matcher.Matcher;
 import com.google.inject.matcher.Matchers;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
@@ -35,10 +39,24 @@ public class CoreDependencyModule extends AbstractModule {
     protected void configure() {
         this.bind(DocumentIssuingService.class).to(DocumentIssuingServiceImpl.class);
 
-        this.bindInterceptor(Matchers.any(), Matchers.annotatedWith(NotImplemented.class),
-                new NotImplementedInterceptor());
+		Matcher<Object> allClassesMatcher = Matchers.any();
+		AbstractMatcher<Method> nonSyntheticMethods = new AbstractMatcher<Method>() {
+			@Override
+			public boolean matches(Method method) {
+				return !method.isSynthetic();
+			}
+		};
 
-        this.bindInterceptor(Matchers.any(), Matchers.annotatedWith(NotOnUpdate.class), new NotOnUpdateInterceptor());
+		Matcher<AnnotatedElement> notImplementedMatcher = Matchers.annotatedWith(NotImplemented.class);
+		Matcher<Method> combinedMethodMatcher1 = nonSyntheticMethods.and(notImplementedMatcher);
+		NotImplementedInterceptor notImplementedInterceptor = new NotImplementedInterceptor();
+		this.bindInterceptor(allClassesMatcher, combinedMethodMatcher1, notImplementedInterceptor);
+
+
+		Matcher<AnnotatedElement> annotatedElementMatcher = Matchers.annotatedWith(NotOnUpdate.class);
+		Matcher<Method> combinedMethodMatcher2 = nonSyntheticMethods.and(annotatedElementMatcher);
+		NotOnUpdateInterceptor notOnUpdateInterceptor = new NotOnUpdateInterceptor();
+		this.bindInterceptor(allClassesMatcher, combinedMethodMatcher2, notOnUpdateInterceptor);
     }
 
     public static class Initializer {
