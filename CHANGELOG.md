@@ -10,6 +10,7 @@
 ### Fixed
 
  - [Fixes wrong PT NIF validation](https://github.com/premium-minds/billy/pull/117)
+ - [Adds custom method matcher to filter synthetic methods](https://github.com/premium-minds/billy/pull/107)
  
 ### Changed
 
