@@ -16,7 +16,7 @@
 
 ### Added 
 
- - [Adds support for pt mandatory QRCode generation](https://github.com/premium-minds/billy/pull/120) - It may requires changes to XSL template files to include QR code section
+ - [Adds support for pt mandatory QRCode generation](https://github.com/premium-minds/billy/pull/120) - It may require changes to XSL template files to include QR code section
 
 ### Fixed
 
