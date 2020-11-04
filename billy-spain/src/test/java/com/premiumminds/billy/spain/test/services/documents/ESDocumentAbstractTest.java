@@ -20,7 +20,7 @@ package com.premiumminds.billy.spain.test.services.documents;
 
 import java.util.Date;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
@@ -50,7 +50,7 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
         APPLICATION, MANUAL
     }
 
-    @Before
+    @BeforeEach
     public void setUpParamenters() {
         this.parameters = new ESIssuingParamsImpl();
         this.parameters.setEACCode("31400");

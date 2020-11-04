@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.france.test.services.persistence;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.services.UID;
@@ -31,7 +31,7 @@ public class TestInvoiceUpdate extends FRPersistenceServiceAbstractTest {
 
     private FRInvoice issuedInvoice;
 
-    @Before
+    @BeforeEach
     public void setUp() throws DocumentIssuingException {
         this.issuedInvoice = this.getNewIssuedInvoice();
     }
@@ -41,39 +41,37 @@ public class TestInvoiceUpdate extends FRPersistenceServiceAbstractTest {
         FRInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
         FRInvoice peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(false, peristedInvoice.isCancelled());
+        Assertions.assertEquals(false, peristedInvoice.isCancelled());
 
         builder.setCancelled(true);
         this.billy.invoices().persistence().update(builder);
 
         peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(true, peristedInvoice.isCancelled());
+        Assertions.assertEquals(true, peristedInvoice.isCancelled());
 
     }
 
-    @Test(expected = BillyUpdateException.class)
+    @Test
     public void testBilledUpdate() {
-        FRInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
-
         FRInvoice peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(false, peristedInvoice.isBilled());
+        Assertions.assertEquals(false, peristedInvoice.isBilled());
 
-        builder = this.billy.invoices().builder(peristedInvoice);
+        FRInvoice.Builder builder = this.billy.invoices().builder(peristedInvoice);
         builder.setBilled(true);
-        builder.setBilled(false);
+        Assertions.assertThrows(BillyUpdateException.class, () -> builder.setBilled(false));
     }
 
-    @Test(expected = BillyUpdateException.class)
+    @Test
     public void testBusinessFailure() {
         FRInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
-        builder.setBusinessUID(new UID());
+        Assertions.assertThrows(BillyUpdateException.class, () ->  builder.setBusinessUID(new UID()));
     }
 
-    @Test(expected = BillyUpdateException.class)
+    @Test
     public void testCustomerFailure() {
         FRInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
-        builder.setCustomerUID(new UID());
+        Assertions.assertThrows(BillyUpdateException.class, () -> builder.setCustomerUID(new UID()));
     }
 }

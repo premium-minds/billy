@@ -23,8 +23,8 @@ import java.io.PrintStream;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
@@ -81,7 +81,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
     private DocumentIssuingService service;
     protected PTIssuingParams parameters;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.service = this.getInstance(DocumentIssuingService.class);
         this.service.addHandler(PTInvoiceEntity.class,

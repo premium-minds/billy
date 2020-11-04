@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.france.test;
 
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -31,7 +31,7 @@ public class FRAbstractTest extends AbstractTest {
     protected static Injector injector;
     protected static final String FR_COUNTRY_CODE = "FR";
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         FRAbstractTest.injector =
                 Guice.createInjector(Modules.override(new FranceDependencyModule()).with(new FRMockDependencyModule()));

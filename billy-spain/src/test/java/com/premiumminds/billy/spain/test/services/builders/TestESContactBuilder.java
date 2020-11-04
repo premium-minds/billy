@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -48,12 +48,12 @@ public class TestESContactBuilder extends ESAbstractTest {
         ESContact contact = builder.build();
 
         assert (contact != null);
-        Assert.assertEquals(mockContact.getEmail(), contact.getEmail());
-        Assert.assertEquals(mockContact.getFax(), contact.getFax());
-        Assert.assertEquals(mockContact.getMobile(), contact.getMobile());
-        Assert.assertEquals(mockContact.getName(), contact.getName());
-        Assert.assertEquals(mockContact.getTelephone(), contact.getTelephone());
-        Assert.assertEquals(mockContact.getWebsite(), contact.getWebsite());
+        Assertions.assertEquals(mockContact.getEmail(), contact.getEmail());
+        Assertions.assertEquals(mockContact.getFax(), contact.getFax());
+        Assertions.assertEquals(mockContact.getMobile(), contact.getMobile());
+        Assertions.assertEquals(mockContact.getName(), contact.getName());
+        Assertions.assertEquals(mockContact.getTelephone(), contact.getTelephone());
+        Assertions.assertEquals(mockContact.getWebsite(), contact.getWebsite());
 
     }
 }

@@ -20,8 +20,8 @@ package com.premiumminds.billy.france.test.services.builders;
 
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -78,18 +78,18 @@ public class TestFRReceiptEntryBuilder extends FRAbstractTest {
         FRReceiptEntry entry = builder.build();
 
         if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
-            Assert.assertTrue(mockEntry.getUnitAmountWithoutTax().compareTo(entry.getUnitAmountWithoutTax()) == 0);
+            Assertions.assertTrue(mockEntry.getUnitAmountWithoutTax().compareTo(entry.getUnitAmountWithoutTax()) == 0);
         } else {
-            Assert.assertTrue(mockEntry.getUnitAmountWithTax().compareTo(entry.getUnitAmountWithTax()) == 0);
+            Assertions.assertTrue(mockEntry.getUnitAmountWithTax().compareTo(entry.getUnitAmountWithTax()) == 0);
         }
 
-        Assert.assertTrue(mockEntry.getUnitDiscountAmount().compareTo(entry.getUnitDiscountAmount()) == 0);
+        Assertions.assertTrue(mockEntry.getUnitDiscountAmount().compareTo(entry.getUnitDiscountAmount()) == 0);
 
-        Assert.assertTrue(mockEntry.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
-        Assert.assertTrue(mockEntry.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
-        Assert.assertTrue(mockEntry.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mockEntry.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
-        Assert.assertTrue(mockEntry.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
+        Assertions.assertTrue(mockEntry.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
+        Assertions.assertTrue(mockEntry.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
+        Assertions.assertTrue(mockEntry.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(mockEntry.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
+        Assertions.assertTrue(mockEntry.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
 
     }
 }

@@ -20,9 +20,9 @@ package com.premiumminds.billy.core.persistence.dao.ebean;
 
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPACustomerEntity;
@@ -32,56 +32,56 @@ import io.ebean.Ebean;
 
 public class DAOCustomerImplTest extends BaseH2Test {
 
-    private static UID existingObjUid1 = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
+    private static final UID existingObjUid1 = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
 
-    private static UID existingObjUid2 = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
+    private static final UID existingObjUid2 = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
 
-    private static UID inactiveObjUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
+    private static final UID inactiveObjUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
 
     private static DAOCustomerImpl daoCustomerImpl;
 
-    @Before
+    @BeforeEach
     public void prepare() {
-        DAOCustomerImplTest.daoCustomerImpl = new DAOCustomerImpl();
+        daoCustomerImpl = new DAOCustomerImpl();
     }
 
     @Test
     public void getAllActiveCustomers_noCustomers() {
-        List<CustomerEntity> customers = DAOCustomerImplTest.daoCustomerImpl.getAllActiveCustomers();
+        List<CustomerEntity> customers = daoCustomerImpl.getAllActiveCustomers();
 
-        Assert.assertEquals(customers.size(), 0);
+        Assertions.assertEquals(customers.size(), 0);
     }
 
     @Test
     public void getAllActiveCustomers_noActiveCustomers() {
         Ebean.beginTransaction();
         JPACustomerEntity customer = new JPACustomerEntity();
-        customer.setUID(DAOCustomerImplTest.inactiveObjUid);
+        customer.setUID(inactiveObjUid);
         customer.setName("Test Customer 0");
         Ebean.commitTransaction();
 
-        List<CustomerEntity> customers = DAOCustomerImplTest.daoCustomerImpl.getAllActiveCustomers();
+        List<CustomerEntity> customers = daoCustomerImpl.getAllActiveCustomers();
 
-        Assert.assertEquals(customers.size(), 0);
+        Assertions.assertEquals(customers.size(), 0);
     }
 
     @Test
     public void getAllActiveCustomers() {
         Ebean.beginTransaction();
         JPACustomerEntity customer = new JPACustomerEntity();
-        customer.setUID(DAOCustomerImplTest.existingObjUid1);
+        customer.setUID(existingObjUid1);
         customer.setName("Test Customer 1");
-        DAOCustomerImplTest.daoCustomerImpl.create(customer);
+        daoCustomerImpl.create(customer);
 
         customer = new JPACustomerEntity();
-        customer.setUID(DAOCustomerImplTest.existingObjUid2);
+        customer.setUID(existingObjUid2);
         customer.setName("Test Customer 2");
-        DAOCustomerImplTest.daoCustomerImpl.create(customer);
+        daoCustomerImpl.create(customer);
         Ebean.commitTransaction();
 
-        List<CustomerEntity> customers = DAOCustomerImplTest.daoCustomerImpl.getAllActiveCustomers();
+        List<CustomerEntity> customers = daoCustomerImpl.getAllActiveCustomers();
 
-        Assert.assertEquals(customers.size(), 2);
+        Assertions.assertEquals(customers.size(), 2);
 
     }
 }

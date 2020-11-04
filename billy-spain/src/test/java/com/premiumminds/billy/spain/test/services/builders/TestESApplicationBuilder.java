@@ -20,8 +20,8 @@ package com.premiumminds.billy.spain.test.services.builders;
 
 import java.net.MalformedURLException;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -62,12 +62,12 @@ public class TestESApplicationBuilder extends ESAbstractTest {
         ESApplication application = builder.build();
 
         assert (application != null);
-        Assert.assertEquals(mockApplication.getName(), application.getName());
-        Assert.assertEquals(mockApplication.getVersion(), application.getVersion());
-        Assert.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
-        Assert.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
+        Assertions.assertEquals(mockApplication.getName(), application.getName());
+        Assertions.assertEquals(mockApplication.getVersion(), application.getVersion());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
                 application.getDeveloperCompanyTaxIdentifier());
-        Assert.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
+        Assertions.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
         assert (application.getContacts() != null);
         assert (application.getMainContact() != null);
 

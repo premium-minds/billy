@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -37,7 +37,7 @@ public class TestFRManualInvoiceIssuingHandler extends FRDocumentAbstractTest {
 
     private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + FRPersistencyAbstractTest.DEFAULT_SERIES;
 
-    @Before
+    @BeforeEach
     public void setUpNewManualInvoice() {
         this.handler = this.getInstance(FRInvoiceIssuingHandler.class);
 
@@ -55,9 +55,9 @@ public class TestFRManualInvoiceIssuingHandler extends FRDocumentAbstractTest {
     public void testIssuedManualInvoiceSimple() throws DocumentIssuingException {
         FRInvoiceEntity issuedInvoice = this.getInstance(DAOFRInvoice.class).get(this.issuedInvoiceUID);
 
-        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        Assertions.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
         String formatedNumber = this.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
     }
 }

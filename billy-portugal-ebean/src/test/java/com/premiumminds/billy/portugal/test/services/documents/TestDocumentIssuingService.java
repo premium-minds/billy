@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
@@ -35,7 +35,7 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 
     /*private DocumentIssuingService service;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         this.service = PTAbstractTest.injector.getInstance(DocumentIssuingServiceImpl.class);

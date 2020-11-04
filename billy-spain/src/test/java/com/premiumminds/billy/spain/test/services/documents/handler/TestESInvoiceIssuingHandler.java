@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -38,7 +38,7 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
     private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
-    @Before
+    @BeforeEach
     public void setUpNewInvoice() {
         this.handler = this.getInstance(ESInvoiceIssuingHandler.class);
 
@@ -57,10 +57,10 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
     public void testIssuedInvoiceSimple() throws DocumentIssuingException {
         ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
 
-        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        Assertions.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
         String formatedNumber = this.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
     }
 
     @Test
@@ -77,10 +77,10 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
         ESInvoice lastInvoice = this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
 
-        Assert.assertEquals(this.DEFAULT_SERIES, lastInvoice.getSeries());
-        Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
+        Assertions.assertEquals(this.DEFAULT_SERIES, lastInvoice.getSeries());
+        Assertions.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
         String formatedNumber = this.DEFAULT_SERIES + "/" + nextNumber;
-        Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
+        Assertions.assertEquals(formatedNumber, lastInvoice.getNumber());
     }
 
     @Test
@@ -96,10 +96,10 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
         ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
 
-        Assert.assertEquals(newSeries, issuedInvoice.getSeries());
-        Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
+        Assertions.assertEquals(newSeries, issuedInvoice.getSeries());
+        Assertions.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
         String formatedNumber = newSeries + "/" + nextNumber;
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
     }
 
     @Test

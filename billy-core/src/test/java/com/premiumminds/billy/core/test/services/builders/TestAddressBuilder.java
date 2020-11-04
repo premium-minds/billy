@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOAddress;
@@ -46,15 +46,15 @@ public class TestAddressBuilder extends AbstractTest {
 
         Address address = builder.build();
 
-        Assert.assertTrue(address != null);
+        Assertions.assertTrue(address != null);
 
-        Assert.assertEquals(mockAddress.getStreetName(), address.getStreetName());
-        Assert.assertEquals(mockAddress.getNumber(), address.getNumber());
-        Assert.assertEquals(mockAddress.getDetails(), address.getDetails());
-        Assert.assertEquals(mockAddress.getBuilding(), address.getBuilding());
-        Assert.assertEquals(mockAddress.getCity(), address.getCity());
-        Assert.assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
-        Assert.assertEquals(mockAddress.getRegion(), address.getRegion());
-        Assert.assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
+        Assertions.assertEquals(mockAddress.getStreetName(), address.getStreetName());
+        Assertions.assertEquals(mockAddress.getNumber(), address.getNumber());
+        Assertions.assertEquals(mockAddress.getDetails(), address.getDetails());
+        Assertions.assertEquals(mockAddress.getBuilding(), address.getBuilding());
+        Assertions.assertEquals(mockAddress.getCity(), address.getCity());
+        Assertions.assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
+        Assertions.assertEquals(mockAddress.getRegion(), address.getRegion());
+        Assertions.assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
     }
 }

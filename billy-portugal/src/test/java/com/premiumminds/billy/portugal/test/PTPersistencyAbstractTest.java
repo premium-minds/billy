@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.google.inject.Guice;
 import com.premiumminds.billy.core.services.UID;
@@ -43,7 +43,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
     protected static final String PRIVATE_KEY_DIR = "/keys/private.pem";
     protected static final String DEFAULT_SERIES = "DEFAULT";
 
-    @Before
+    @BeforeEach
     public void setUpModules() {
         PTAbstractTest.injector =
                 Guice.createInjector(new PortugalDependencyModule(), new PortugalTestPersistenceDependencyModule());
@@ -52,7 +52,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
         PortugalBootstrap.execute(PTAbstractTest.injector);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         PTAbstractTest.injector.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
     }

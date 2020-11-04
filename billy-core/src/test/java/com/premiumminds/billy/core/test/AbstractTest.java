@@ -22,7 +22,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.mockito.Mockito;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -38,7 +38,7 @@ public class AbstractTest {
     private static Injector injector;
     protected final static String YML_CONFIGS_DIR = "src/test/resources/yml/";
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         AbstractTest.injector =
                 Guice.createInjector(Modules.override(new CoreDependencyModule()).with(new MockDependencyModule()));

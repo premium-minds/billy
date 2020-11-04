@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.spain.test;
 
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -31,7 +31,7 @@ public class ESAbstractTest extends AbstractTest {
     protected static Injector injector;
     protected static final String ES_COUNTRY_CODE = "ES";
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         ESAbstractTest.injector =
                 Guice.createInjector(Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));

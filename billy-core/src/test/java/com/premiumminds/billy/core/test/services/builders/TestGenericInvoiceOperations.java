@@ -22,9 +22,9 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -59,7 +59,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
     private MockCustomerEntity mockCustomerEntity;
     private MockSupplierEntity mockSupplierEntity;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.mockInvoiceEntity =
                 this.createMockEntity(MockGenericInvoiceEntity.class, TestGenericInvoiceOperations.INVOICE_YML);
@@ -96,10 +96,10 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice != null);
-        Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(mockEntry.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(invoice.getAmountWithTax().compareTo(mockEntry.getAmountWithTax()) == 0);
-        Assert.assertTrue(invoice.getTaxAmount().compareTo(mockEntry.getTaxAmount()) == 0);
+        Assertions.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice.getAmountWithoutTax().compareTo(mockEntry.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(invoice.getAmountWithTax().compareTo(mockEntry.getAmountWithTax()) == 0);
+        Assertions.assertTrue(invoice.getTaxAmount().compareTo(mockEntry.getTaxAmount()) == 0);
 
     }
 
@@ -124,13 +124,13 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice != null);
 
-        Assert.assertTrue(invoice.getAmountWithoutTax()
+        Assertions.assertTrue(invoice.getAmountWithoutTax()
                 .compareTo(mockEntry.getAmountWithoutTax().add(mockEntry2.getAmountWithoutTax(), this.mc)) == 0);
-        Assert.assertTrue(invoice.getAmountWithTax()
+        Assertions.assertTrue(invoice.getAmountWithTax()
                 .compareTo(mockEntry.getAmountWithTax().add(mockEntry2.getAmountWithTax(), this.mc)) == 0);
-        Assert.assertTrue(invoice.getTaxAmount()
+        Assertions.assertTrue(invoice.getTaxAmount()
                 .compareTo(mockEntry.getTaxAmount().add(mockEntry2.getTaxAmount(), this.mc)) == 0);
 
     }
@@ -164,10 +164,10 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice != null);
-        Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(amountWithoutTax) == 0);
-        Assert.assertTrue(invoice.getAmountWithTax().compareTo(amountWithTax) == 0);
-        Assert.assertTrue(invoice.getTaxAmount().compareTo(taxAmount) == 0);
+        Assertions.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice.getAmountWithoutTax().compareTo(amountWithoutTax) == 0);
+        Assertions.assertTrue(invoice.getAmountWithTax().compareTo(amountWithTax) == 0);
+        Assertions.assertTrue(invoice.getTaxAmount().compareTo(taxAmount) == 0);
 
     }
 
@@ -197,7 +197,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice.getTaxAmount().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).compareTo(
+        Assertions.assertTrue(invoice.getTaxAmount().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).compareTo(
                 invoice.getAmountWithTax().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).subtract(invoice
                         .getAmountWithoutTax().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()))) == 0);
     }

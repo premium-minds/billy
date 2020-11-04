@@ -21,9 +21,9 @@ package com.premiumminds.billy.spain.test.services.documents.handler;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
@@ -52,7 +52,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
 
     private String DEFAULT_SERIES = INVOICE_TYPE.FT + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
-    @Before
+    @BeforeEach
     public void setUpNewInvoice() {
 
         try {
@@ -89,17 +89,17 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
 
         ESInvoiceEntity ticketEntity = (ESInvoiceEntity) service.getWithTicket(this.ticketUID);
 
-        Assert.assertTrue(issuedInvoice != null);
-        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        Assertions.assertTrue(issuedInvoice != null);
+        Assertions.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
         String formatedNumber = this.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
 
-        Assert.assertTrue(this.ticketManager.ticketExists(this.ticketUID.getValue()) == true);
-        Assert.assertTrue(ticketEntity != null);
-        Assert.assertTrue(ticketEntity.getUID().getValue().equals(issuedInvoice.getUID().getValue()));
-        Assert.assertTrue(ticketEntity.getNumber().equals(issuedInvoice.getNumber()));
-        Assert.assertTrue(ticketEntity.getSeries().equals(issuedInvoice.getSeries()));
+        Assertions.assertTrue(this.ticketManager.ticketExists(this.ticketUID.getValue()) == true);
+        Assertions.assertTrue(ticketEntity != null);
+        Assertions.assertTrue(ticketEntity.getUID().getValue().equals(issuedInvoice.getUID().getValue()));
+        Assertions.assertTrue(ticketEntity.getNumber().equals(issuedInvoice.getNumber()));
+        Assertions.assertTrue(ticketEntity.getSeries().equals(issuedInvoice.getSeries()));
 
     }
 
@@ -117,17 +117,17 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
 
         }
 
-        Assert.assertTrue(this.ticketManager.ticketExists(noResultUID.getValue()) == false);
-        Assert.assertTrue(ticketEntity == null);
+        Assertions.assertTrue(this.ticketManager.ticketExists(noResultUID.getValue()) == false);
+        Assertions.assertTrue(ticketEntity == null);
 
         try {
             ticketEntity = (ESInvoiceEntity) service.getWithTicket(new UID(notIssuedUID));
         } catch (NoResultException e) {
         }
 
-        Assert.assertTrue(this.ticketManager.ticketExists(new UID(notIssuedUID).getValue()) == true);
-        Assert.assertFalse(this.ticketManager.ticketIssued(notIssuedUID) == false);
-        Assert.assertTrue(ticketEntity == null);
+        Assertions.assertTrue(this.ticketManager.ticketExists(new UID(notIssuedUID).getValue()) == true);
+        Assertions.assertFalse(this.ticketManager.ticketIssued(notIssuedUID) == false);
+        Assertions.assertTrue(ticketEntity == null);
 
     }
 
@@ -149,7 +149,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
         } catch (DocumentIssuingException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(entity == null);
+        Assertions.assertTrue(entity == null);
     }
 
     @Test
@@ -183,7 +183,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
             ticketEntity = (ESInvoiceEntity) persistenceService.getWithTicket(testUID);
         } catch (Exception e) {
         }
-        Assert.assertTrue(ticketEntity == null);
+        Assertions.assertTrue(ticketEntity == null);
     }
 
 }

@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.france.test;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.google.inject.Guice;
 import com.premiumminds.billy.core.services.UID;
@@ -43,7 +43,7 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
     protected static final String PRIVATE_KEY_DIR = "/keys/private.pem";
     protected static final String DEFAULT_SERIES = "DEFAULT";
 
-    @Before
+    @BeforeEach
     public void setUpModules() {
         FRAbstractTest.injector =
                 Guice.createInjector(new FranceDependencyModule(), new FranceTestPersistenceDependencyModule());
@@ -52,7 +52,7 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
         FranceBootstrap.execute(FRAbstractTest.injector);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         FRAbstractTest.injector.getInstance(FranceTestPersistenceDependencyModule.Finalizer.class);
     }

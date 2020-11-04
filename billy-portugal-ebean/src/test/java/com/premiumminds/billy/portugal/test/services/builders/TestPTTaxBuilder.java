@@ -22,8 +22,8 @@ import java.math.BigDecimal;
 import java.util.Currency;
 
 import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -60,21 +60,21 @@ public class TestPTTaxBuilder extends PTAbstractTest {
         PTTax tax = builder.build();
 
         assert (tax != null);
-        Assert.assertEquals(mockTax.getCode(), tax.getCode());
-        Assert.assertEquals(mockTax.getContext(), tax.getContext());
-        Assert.assertEquals(mockTax.getCurrency(), tax.getCurrency());
-        Assert.assertEquals(mockTax.getDescription(), tax.getDescription());
-        Assert.assertEquals(mockTax.getDesignation(), tax.getDesignation());
-        Assert.assertEquals(mockTax.getTaxRateType(), tax.getTaxRateType());
-        Assert.assertEquals(mockTax.getValue(), tax.getValue());
+        Assertions.assertEquals(mockTax.getCode(), tax.getCode());
+        Assertions.assertEquals(mockTax.getContext(), tax.getContext());
+        Assertions.assertEquals(mockTax.getCurrency(), tax.getCurrency());
+        Assertions.assertEquals(mockTax.getDescription(), tax.getDescription());
+        Assertions.assertEquals(mockTax.getDesignation(), tax.getDesignation());
+        Assertions.assertEquals(mockTax.getTaxRateType(), tax.getTaxRateType());
+        Assertions.assertEquals(mockTax.getValue(), tax.getValue());
 
         if (mockTax.getTaxRateType() == PTTax.TaxRateType.FLAT) {
-            Assert.assertEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
-            Assert.assertThat(mockTax.getPercentageRateValue(),
+            Assertions.assertEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
+            Assertions.assertThat(mockTax.getPercentageRateValue(),
                     CoreMatchers.is(CoreMatchers.not(tax.getPercentageRateValue())));
         } else {
-            Assert.assertEquals(mockTax.getPercentageRateValue(), tax.getPercentageRateValue());
-            Assert.assertThat(mockTax.getFlatRateAmount(), CoreMatchers.is(CoreMatchers.not(tax.getFlatRateAmount())));
+            Assertions.assertEquals(mockTax.getPercentageRateValue(), tax.getPercentageRateValue());
+            Assertions.assertThat(mockTax.getFlatRateAmount(), CoreMatchers.is(CoreMatchers.not(tax.getFlatRateAmount())));
         }
     }
 

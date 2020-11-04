@@ -21,8 +21,8 @@ package com.premiumminds.billy.portugal.test.services.builders;
 import java.util.ArrayList;
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -102,20 +102,20 @@ public class TestPTGenericInvoiceBuilder extends PTAbstractTest {
     
         PTGenericInvoice invoice = builder.build();
     
-        Assert.assertTrue(invoice != null);
-        Assert.assertTrue(invoice.getEntries() != null);
-        Assert.assertEquals(invoice.getEntries().size(), mock.getEntries().size());
+        Assertions.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice.getEntries() != null);
+        Assertions.assertEquals(invoice.getEntries().size(), mock.getEntries().size());
     
-        Assert.assertTrue(invoice.isBilled() == mock.isBilled());
-        Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
+        Assertions.assertTrue(invoice.isBilled() == mock.isBilled());
+        Assertions.assertTrue(invoice.isCancelled() == mock.isCancelled());
     
-        Assert.assertEquals(mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
-        Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
-        Assert.assertEquals(mock.getDate(), invoice.getDate());
-        Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
+        Assertions.assertEquals(mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
+        Assertions.assertEquals(mock.getBatchId(), invoice.getBatchId());
+        Assertions.assertEquals(mock.getDate(), invoice.getDate());
+        Assertions.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
     
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
+        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
+        Assertions.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
     }*/
 }

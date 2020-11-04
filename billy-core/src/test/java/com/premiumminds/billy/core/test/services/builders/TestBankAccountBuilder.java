@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
@@ -48,9 +48,9 @@ public class TestBankAccountBuilder extends AbstractTest {
         BankAccount bankAccount = builder.build();
 
         assert (bankAccount != null);
-        Assert.assertEquals(mockBankAccount.getIBANNumber(), bankAccount.getIBANNumber());
-        Assert.assertEquals(mockBankAccount.getBankIdentifier(), bankAccount.getBankIdentifier());
-        Assert.assertEquals(mockBankAccount.getBankAccountNumber(), bankAccount.getBankAccountNumber());
-        Assert.assertEquals(mockBankAccount.getOwnerName(), bankAccount.getOwnerName());
+        Assertions.assertEquals(mockBankAccount.getIBANNumber(), bankAccount.getIBANNumber());
+        Assertions.assertEquals(mockBankAccount.getBankIdentifier(), bankAccount.getBankIdentifier());
+        Assertions.assertEquals(mockBankAccount.getBankAccountNumber(), bankAccount.getBankAccountNumber());
+        Assertions.assertEquals(mockBankAccount.getOwnerName(), bankAccount.getOwnerName());
     }
 }

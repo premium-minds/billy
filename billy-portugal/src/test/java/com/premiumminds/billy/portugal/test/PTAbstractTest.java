@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -31,7 +31,7 @@ public class PTAbstractTest extends AbstractTest {
     protected static Injector injector;
     protected static final String PT_COUNTRY_CODE = "PT";
 
-    @BeforeClass
+    @BeforeAll
     public static void setUpClass() {
         PTAbstractTest.injector = Guice
                 .createInjector(Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));

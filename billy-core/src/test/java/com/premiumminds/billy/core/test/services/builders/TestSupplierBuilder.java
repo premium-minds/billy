@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
@@ -77,11 +77,11 @@ public class TestSupplierBuilder extends AbstractTest {
 
         Supplier supplier = builder.build();
 
-        Assert.assertTrue(supplier != null);
-        Assert.assertEquals(mockSupplier.getName(), supplier.getName());
-        Assert.assertEquals(mockSupplier.getTaxRegistrationNumber(), supplier.getTaxRegistrationNumber());
-        Assert.assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
-        Assert.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier.getBankAccounts().size());
+        Assertions.assertTrue(supplier != null);
+        Assertions.assertEquals(mockSupplier.getName(), supplier.getName());
+        Assertions.assertEquals(mockSupplier.getTaxRegistrationNumber(), supplier.getTaxRegistrationNumber());
+        Assertions.assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
+        Assertions.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier.getBankAccounts().size());
     }
 
 }

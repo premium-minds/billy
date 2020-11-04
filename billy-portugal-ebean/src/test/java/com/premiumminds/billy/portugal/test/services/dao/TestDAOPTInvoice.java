@@ -21,8 +21,8 @@ package com.premiumminds.billy.portugal.test.services.dao;
 import java.rmi.server.UID;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
@@ -40,7 +40,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
         this.getNewIssuedInvoice(B1);
         this.getNewIssuedInvoice(B1);
         PTInvoiceEntity resultInvoice2 = this.getNewIssuedInvoice(B1);
-        Assert.assertEquals(new Integer(3), resultInvoice2.getSeriesNumber());
+        Assertions.assertEquals(new Integer(3), resultInvoice2.getSeriesNumber());
     }
 
     @Test
@@ -58,10 +58,10 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
         PTInvoiceEntity inv3 = this.getNewIssuedInvoice(B1);
         PTInvoiceEntity inv4 = this.getNewIssuedInvoice(B2);
 
-        Assert.assertEquals(inv1.getSeriesNumber(), resultInvoice1.getSeriesNumber());
-        Assert.assertEquals(inv2.getSeriesNumber(), resultInvoice2.getSeriesNumber());
-        Assert.assertEquals(new Integer(2), inv3.getSeriesNumber());
-        Assert.assertEquals(new Integer(2), inv4.getSeriesNumber());
+        Assertions.assertEquals(inv1.getSeriesNumber(), resultInvoice1.getSeriesNumber());
+        Assertions.assertEquals(inv2.getSeriesNumber(), resultInvoice2.getSeriesNumber());
+        Assertions.assertEquals(new Integer(2), inv3.getSeriesNumber());
+        Assertions.assertEquals(new Integer(2), inv4.getSeriesNumber());
     }
 
     @Test(expected = BillyRuntimeException.class)
@@ -76,8 +76,8 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
         PTGenericInvoiceEntity res =
                 this.getInstance(DAOPTInvoice.class).findByNumber(inv1.getBusiness().getUID(), inv1.getNumber());
 
-        Assert.assertEquals(inv1.getUID(), res.getUID());
-        Assert.assertNull(this.getInstance(DAOPTInvoice.class).findByNumber(
+        Assertions.assertEquals(inv1.getUID(), res.getUID());
+        Assertions.assertNull(this.getInstance(DAOPTInvoice.class).findByNumber(
                 com.premiumminds.billy.core.services.UID.fromString("INEXISTENT_BUSINESS"), inv1.getNumber()));
     }
 
@@ -93,7 +93,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
                 com.premiumminds.billy.core.services.UID.fromString("B1"),
                 com.premiumminds.billy.core.services.UID.fromString("leRandomNumbér"));
 
-        Assert.assertEquals(0, cn0.size());
-        Assert.assertEquals(1, cn1.size());
+        Assertions.assertEquals(0, cn0.size());
+        Assertions.assertEquals(1, cn1.size());
     }*/
 }

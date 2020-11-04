@@ -24,9 +24,9 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
@@ -47,7 +47,7 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 
     /*private DocumentIssuingService service;
 
-    @Before
+    @BeforeEach
     public void setUp() {
 
         this.service = PTAbstractTest.injector.getInstance(DocumentIssuingServiceImpl.class);
@@ -100,20 +100,20 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
         List<PTInvoice> invoices2 = this.executeThreads(results2);
 
         if (invoices1.isEmpty() || invoices2.isEmpty()) {
-            Assert.fail(((invoices1.isEmpty()) ? "Invoice1" : "Invoice2") + " is empty!");
+            Assertions.fail(((invoices1.isEmpty()) ? "Invoice1" : "Invoice2") + " is empty!");
         }
 
         PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
         PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertNotNull(entity1);
-        Assert.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
-        Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+        Assertions.assertNotNull(entity1);
+        Assertions.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
+        Assertions.assertEquals(entity1.getBusiness().getUID().toString(), B1);
 
         PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
         PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B2);
-        Assert.assertNotNull(entity2);
-        Assert.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
-        Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+        Assertions.assertNotNull(entity2);
+        Assertions.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
+        Assertions.assertEquals(entity2.getBusiness().getUID().toString(), B2);
     }
 
     @Test
@@ -134,7 +134,7 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
                 ? entity2.getSeriesNumber() : entity1.getSeriesNumber();
 
         PTInvoiceEntity latestInvocie = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertEquals(latestInvoiceNumber, latestInvocie.getSeriesNumber());
+        Assertions.assertEquals(latestInvoiceNumber, latestInvocie.getSeriesNumber());
     }
 
     @Test
@@ -155,13 +155,13 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
 
         PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
         PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
-        Assert.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+        Assertions.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
+        Assertions.assertEquals(entity1.getBusiness().getUID().toString(), B1);
 
         PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
         PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("B", B2);
-        Assert.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
-        Assert.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+        Assertions.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
+        Assertions.assertEquals(entity2.getBusiness().getUID().toString(), B2);
 
     }
 
@@ -181,11 +181,11 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
         List<PTInvoice> invoices3 = this.executeThreads(results3);
 
         PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
-        Assert.assertEquals(this.filterNotNull(invoices1).size(), latestInvoice1.getSeriesNumber().intValue());
+        Assertions.assertEquals(this.filterNotNull(invoices1).size(), latestInvoice1.getSeriesNumber().intValue());
         PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("B", B1);
-        Assert.assertEquals(this.filterNotNull(invoices2).size(), latestInvoice2.getSeriesNumber().intValue());
+        Assertions.assertEquals(this.filterNotNull(invoices2).size(), latestInvoice2.getSeriesNumber().intValue());
         PTInvoiceEntity latestInvoice3 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("C", B1);
-        Assert.assertEquals(this.filterNotNull(invoices3).size(), latestInvoice3.getSeriesNumber().intValue());
+        Assertions.assertEquals(this.filterNotNull(invoices3).size(), latestInvoice3.getSeriesNumber().intValue());
 
     }
 

@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -81,12 +81,12 @@ public class TestFRCustomerBuilder extends FRAbstractTest {
 
         Customer customer = builder.build();
 
-        Assert.assertTrue(customer != null);
+        Assertions.assertTrue(customer != null);
 
-        Assert.assertEquals(mockCustomer.getName(), customer.getName());
-        Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
-        Assert.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
-        Assert.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
-        Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());
+        Assertions.assertEquals(mockCustomer.getName(), customer.getName());
+        Assertions.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
+        Assertions.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
+        Assertions.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
+        Assertions.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());
     }
 }

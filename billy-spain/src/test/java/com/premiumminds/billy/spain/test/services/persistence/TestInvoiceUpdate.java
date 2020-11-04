@@ -18,9 +18,11 @@
  */
 package com.premiumminds.billy.spain.test.services.persistence;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import com.premiumminds.billy.spain.exceptions.BillySimpleInvoiceException;
+import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.services.UID;
@@ -31,7 +33,7 @@ public class TestInvoiceUpdate extends ESPersistenceServiceAbstractTest {
 
     private ESInvoice issuedInvoice;
 
-    @Before
+    @BeforeEach
     public void setUp() throws DocumentIssuingException {
         this.issuedInvoice = this.getNewIssuedInvoice();
     }
@@ -41,39 +43,38 @@ public class TestInvoiceUpdate extends ESPersistenceServiceAbstractTest {
         ESInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
         ESInvoice peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(false, peristedInvoice.isCancelled());
+        Assertions.assertEquals(false, peristedInvoice.isCancelled());
 
         builder.setCancelled(true);
         this.billy.invoices().persistence().update(builder);
 
         peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(true, peristedInvoice.isCancelled());
+        Assertions.assertEquals(true, peristedInvoice.isCancelled());
 
     }
 
-    @Test(expected = BillyUpdateException.class)
+    @Test
     public void testBilledUpdate() {
-        ESInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
         ESInvoice peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(false, peristedInvoice.isBilled());
+        Assertions.assertFalse(peristedInvoice.isBilled());
 
-        builder = this.billy.invoices().builder(peristedInvoice);
+        ESInvoice.Builder builder = this.billy.invoices().builder(peristedInvoice);
         builder.setBilled(true);
-        builder.setBilled(false);
+        Assertions.assertThrows(BillyUpdateException.class, () -> builder.setBilled(false));
     }
 
-    @Test(expected = BillyUpdateException.class)
+    @Test
     public void testBusinessFailure() {
         ESInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
-        builder.setBusinessUID(new UID());
+        Assertions.assertThrows(BillyUpdateException.class, () -> builder.setBusinessUID(new UID()));
     }
 
-    @Test(expected = BillyUpdateException.class)
+    @Test
     public void testCustomerFailure() {
         ESInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
-        builder.setCustomerUID(new UID());
+        Assertions.assertThrows(BillyUpdateException.class, () -> builder.setCustomerUID(new UID()));
     }
 }

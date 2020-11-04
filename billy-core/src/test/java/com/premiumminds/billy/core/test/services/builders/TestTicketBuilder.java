@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
@@ -45,11 +45,11 @@ public class TestTicketBuilder extends AbstractTest {
         Ticket ticket = builder.build();
         ticket.setUID(mockTicket.getUID());
 
-        Assert.assertTrue(ticket != null);
-        Assert.assertEquals(mockTicket.getCreationDate(), ticket.getCreationDate());
-        Assert.assertEquals(mockTicket.getProcessDate(), ticket.getProcessDate());
-        Assert.assertEquals(mockTicket.getObjectUID(), ticket.getObjectUID());
-        Assert.assertEquals(mockTicket.getUID(), ticket.getUID());
+        Assertions.assertTrue(ticket != null);
+        Assertions.assertEquals(mockTicket.getCreationDate(), ticket.getCreationDate());
+        Assertions.assertEquals(mockTicket.getProcessDate(), ticket.getProcessDate());
+        Assertions.assertEquals(mockTicket.getObjectUID(), ticket.getObjectUID());
+        Assertions.assertEquals(mockTicket.getUID(), ticket.getUID());
 
     }
 

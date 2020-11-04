@@ -18,11 +18,9 @@
  */
 package com.premiumminds.billy.core.persistence.dao.ebean;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
@@ -34,81 +32,76 @@ import io.ebean.Ebean;
 
 public class AbstractDAOGenericInvoiceImplTest extends BaseH2Test {
 
-    private static UID olderInvoiceUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
+    private static final UID olderInvoiceUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
 
-    private static UID latestInvoiceUid = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
+    private static final UID latestInvoiceUid = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
 
-    private static UID rightBusinessUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
+    private static final UID rightBusinessUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
 
-    private static UID wrongBusinessUid = new UID("cde197fd-a866-4959-a2bc-6750360947d4");
+    private static final UID wrongBusinessUid = new UID("cde197fd-a866-4959-a2bc-6750360947d4");
 
-    private static String rightSeries = "Series";
+    private static final String rightSeries = "Series";
 
-    private static String wrongSeries = "WrongSeries";
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    private static final String wrongSeries = "WrongSeries";
 
     private static AbstractDAOGenericInvoiceImpl<GenericInvoiceEntity, JPAGenericInvoiceEntity> genericInvoiceDAO;
 
-    @Before
+    @BeforeEach
     public void prepare() {
         Ebean.beginTransaction();
         DAOBusinessImpl businessDAO = new DAOBusinessImpl();
         JPABusinessEntity business = new JPABusinessEntity();
-        business.setUID(AbstractDAOGenericInvoiceImplTest.rightBusinessUid);
+        business.setUID(rightBusinessUid);
         business.setName("Test Business");
         businessDAO.create(business);
         Ebean.commitTransaction();
 
         Ebean.beginTransaction();
-        AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO = new DAOGenericInvoiceImpl();
+        genericInvoiceDAO = new DAOGenericInvoiceImpl();
         JPAGenericInvoiceEntity invoice1 = new JPAGenericInvoiceEntity();
-        invoice1.setUID(AbstractDAOGenericInvoiceImplTest.olderInvoiceUid);
-        invoice1.setSeries(AbstractDAOGenericInvoiceImplTest.rightSeries);
+        invoice1.setUID(olderInvoiceUid);
+        invoice1.setSeries(rightSeries);
         invoice1.setSeriesNumber(1);
         invoice1.setBusiness(business);
-        AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.create(invoice1);
+        genericInvoiceDAO.create(invoice1);
         JPAGenericInvoiceEntity invoice2 = new JPAGenericInvoiceEntity();
-        invoice2.setUID(AbstractDAOGenericInvoiceImplTest.latestInvoiceUid);
-        invoice2.setSeries(AbstractDAOGenericInvoiceImplTest.rightSeries);
+        invoice2.setUID(latestInvoiceUid);
+        invoice2.setSeries(rightSeries);
         invoice2.setSeriesNumber(2);
         invoice2.setBusiness(business);
-        AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.create(invoice2);
+        genericInvoiceDAO.create(invoice2);
         Ebean.commitTransaction();
     }
 
     @Test
     public void getLatestInvoiceFromSeries() {
-        GenericInvoiceEntity invoice = AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.getLatestInvoiceFromSeries(
-                AbstractDAOGenericInvoiceImplTest.rightSeries,
-                AbstractDAOGenericInvoiceImplTest.rightBusinessUid.toString());
+        GenericInvoiceEntity invoice = genericInvoiceDAO.getLatestInvoiceFromSeries(
+                rightSeries,
+                rightBusinessUid.toString());
 
-        Assert.assertEquals(invoice.getUID(), AbstractDAOGenericInvoiceImplTest.latestInvoiceUid);
+        Assertions.assertEquals(invoice.getUID(), latestInvoiceUid);
     }
 
     @Test
     public void getLatestInvoiceFromSeries_noBusiness() {
-        this.expectedException.expect(BillyRuntimeException.class);
-        GenericInvoiceEntity invoice = AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.getLatestInvoiceFromSeries(
-                AbstractDAOGenericInvoiceImplTest.rightSeries,
-                AbstractDAOGenericInvoiceImplTest.wrongBusinessUid.toString());
+        Assertions.assertThrows(BillyRuntimeException.class, () -> genericInvoiceDAO.getLatestInvoiceFromSeries(
+                rightSeries,
+                wrongBusinessUid.toString()));
     }
 
     @Test
     public void getLatestInvoiceFromSeries_wrongSeries() {
-        GenericInvoiceEntity invoice = AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.getLatestInvoiceFromSeries(
-                AbstractDAOGenericInvoiceImplTest.wrongSeries,
-                AbstractDAOGenericInvoiceImplTest.rightBusinessUid.toString());
+        GenericInvoiceEntity invoice = genericInvoiceDAO.getLatestInvoiceFromSeries(
+                wrongSeries,
+                rightBusinessUid.toString());
 
-        Assert.assertEquals(invoice, null);
+        Assertions.assertEquals(invoice, null);
     }
 
     @Test
     public void getLatestInvoiceFromSeries_wrongBusiness() {
-        this.expectedException.expect(BillyRuntimeException.class);
-        GenericInvoiceEntity invoice = AbstractDAOGenericInvoiceImplTest.genericInvoiceDAO.getLatestInvoiceFromSeries(
-                AbstractDAOGenericInvoiceImplTest.rightSeries,
-                AbstractDAOGenericInvoiceImplTest.wrongBusinessUid.toString());
+        Assertions.assertThrows(BillyRuntimeException.class, () -> genericInvoiceDAO.getLatestInvoiceFromSeries(
+                rightSeries,
+                wrongBusinessUid.toString()));
     }
 }

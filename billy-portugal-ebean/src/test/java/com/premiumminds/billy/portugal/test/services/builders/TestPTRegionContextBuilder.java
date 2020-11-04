@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -54,14 +54,14 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
 
         PTRegionContext regionContex = builder.build();
 
-        Assert.assertTrue(regionContex != null);
-        Assert.assertTrue(regionContex.getParentContext() != null);
+        Assertions.assertTrue(regionContex != null);
+        Assertions.assertTrue(regionContex.getParentContext() != null);
 
-        Assert.assertEquals(regionContex.getRegionCode(), mockRegionContextEntity.getRegionCode());
-        Assert.assertEquals(regionContex.getDescription(), mockRegionContextEntity.getDescription());
-        Assert.assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
+        Assertions.assertEquals(regionContex.getRegionCode(), mockRegionContextEntity.getRegionCode());
+        Assertions.assertEquals(regionContex.getDescription(), mockRegionContextEntity.getDescription());
+        Assertions.assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
 
-        Assert.assertEquals(regionContex.getParentContext().getUID(),
+        Assertions.assertEquals(regionContex.getParentContext().getUID(),
                 mockRegionContextEntity.getParentContext().getUID());
     }*/
 }

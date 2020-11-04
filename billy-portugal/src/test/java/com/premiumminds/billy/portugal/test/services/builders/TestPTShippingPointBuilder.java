@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -53,13 +53,13 @@ public class TestPTShippingPointBuilder extends PTAbstractTest {
 
         PTShippingPoint shippingPoint = builder.build();
 
-        Assert.assertTrue(shippingPoint != null);
+        Assertions.assertTrue(shippingPoint != null);
 
-        Assert.assertEquals(mockShippingPoint.getDeliveryId(), shippingPoint.getDeliveryId());
-        Assert.assertEquals(mockShippingPoint.getLocationId(), shippingPoint.getLocationId());
-        Assert.assertEquals(mockShippingPoint.getWarehouseId(), shippingPoint.getWarehouseId());
-        Assert.assertEquals(mockShippingPoint.getDate(), shippingPoint.getDate());
-        Assert.assertEquals(mockShippingPoint.getAddress(), shippingPoint.getAddress());
+        Assertions.assertEquals(mockShippingPoint.getDeliveryId(), shippingPoint.getDeliveryId());
+        Assertions.assertEquals(mockShippingPoint.getLocationId(), shippingPoint.getLocationId());
+        Assertions.assertEquals(mockShippingPoint.getWarehouseId(), shippingPoint.getWarehouseId());
+        Assertions.assertEquals(mockShippingPoint.getDate(), shippingPoint.getDate());
+        Assertions.assertEquals(mockShippingPoint.getAddress(), shippingPoint.getAddress());
     }
 
 }

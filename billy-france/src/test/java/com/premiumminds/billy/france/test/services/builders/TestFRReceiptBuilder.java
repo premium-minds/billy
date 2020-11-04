@@ -21,8 +21,8 @@ package com.premiumminds.billy.france.test.services.builders;
 import java.util.Currency;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -96,26 +96,26 @@ public class TestFRReceiptBuilder extends FRAbstractTest {
 
         FRReceipt receipt = builder.build();
 
-        Assert.assertTrue(receipt != null);
-        Assert.assertTrue(receipt.getEntries() != null);
-        Assert.assertEquals(receipt.getEntries().size(), mock.getEntries().size());
+        Assertions.assertTrue(receipt != null);
+        Assertions.assertTrue(receipt.getEntries() != null);
+        Assertions.assertEquals(receipt.getEntries().size(), mock.getEntries().size());
 
-        Assert.assertTrue(receipt.isBilled() == mock.isBilled());
-        Assert.assertTrue(receipt.isCancelled() == mock.isCancelled());
+        Assertions.assertTrue(receipt.isBilled() == mock.isBilled());
+        Assertions.assertTrue(receipt.isCancelled() == mock.isCancelled());
 
-        Assert.assertEquals(mock.getGeneralLedgerDate(), receipt.getGeneralLedgerDate());
-        Assert.assertEquals(mock.getBatchId(), receipt.getBatchId());
-        Assert.assertEquals(mock.getDate(), receipt.getDate());
-        Assert.assertEquals(mock.getPaymentTerms(), receipt.getPaymentTerms());
+        Assertions.assertEquals(mock.getGeneralLedgerDate(), receipt.getGeneralLedgerDate());
+        Assertions.assertEquals(mock.getBatchId(), receipt.getBatchId());
+        Assertions.assertEquals(mock.getDate(), receipt.getDate());
+        Assertions.assertEquals(mock.getPaymentTerms(), receipt.getPaymentTerms());
 
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(receipt.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(receipt.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(receipt.getTaxAmount()) == 0);
+        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(receipt.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(mock.getAmountWithTax().compareTo(receipt.getAmountWithTax()) == 0);
+        Assertions.assertTrue(mock.getTaxAmount().compareTo(receipt.getTaxAmount()) == 0);
 
         builder.setCustomerUID(mockCustomer.getUID());
 
         receipt = builder.build();
 
-        Assert.assertTrue(receipt.getCustomer().getUID().equals(mockCustomer.getUID()));
+        Assertions.assertTrue(receipt.getCustomer().getUID().equals(mockCustomer.getUID()));
     }
 }

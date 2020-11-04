@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -53,13 +53,13 @@ public class TestESRegionContextBuilder extends ESAbstractTest {
 
         ESRegionContext regionContex = builder.build();
 
-        Assert.assertTrue(regionContex != null);
-        Assert.assertTrue(regionContex.getParentContext() != null);
+        Assertions.assertTrue(regionContex != null);
+        Assertions.assertTrue(regionContex.getParentContext() != null);
 
-        Assert.assertEquals(regionContex.getDescription(), mockRegionContextEntity.getDescription());
-        Assert.assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
+        Assertions.assertEquals(regionContex.getDescription(), mockRegionContextEntity.getDescription());
+        Assertions.assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
 
-        Assert.assertEquals(regionContex.getParentContext().getUID(),
+        Assertions.assertEquals(regionContex.getParentContext().getUID(),
                 mockRegionContextEntity.getParentContext().getUID());
     }
 }

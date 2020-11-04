@@ -20,9 +20,9 @@ package com.premiumminds.billy.spain.test.services.jpa;
 
 import java.util.concurrent.Callable;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
@@ -54,7 +54,7 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
         }
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.transaction = new TransactionWrapper<Void>(ESAbstractTest.injector.getInstance(DAOESInvoice.class)) {
 
@@ -78,6 +78,6 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
         test.runThreads(new TestRunner(ESAbstractTest.injector));
 
         DAOESBusiness biz = ESAbstractTest.injector.getInstance(DAOESBusiness.class);
-        Assert.assertTrue(biz.exists(new UID(TestJPAESBusiness.BUSINESS_UID)));
+        Assertions.assertTrue(biz.exists(new UID(TestJPAESBusiness.BUSINESS_UID)));
     }
 }

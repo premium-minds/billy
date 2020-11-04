@@ -20,9 +20,9 @@ package com.premiumminds.billy.core.persistence.dao.ebean;
 
 import javax.persistence.LockModeType;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPABusinessEntity;
@@ -33,68 +33,68 @@ import io.ebean.Ebean;
 
 public class DAOInvoiceSeriesImplTest extends BaseH2Test {
 
-    private static String rightSeries = "Right Series";
+    private static final String rightSeries = "Right Series";
 
-    private static String wrongSeries = "Wrong Series";
+    private static final String wrongSeries = "Wrong Series";
 
-    private static UID rightBusinessUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
+    private static final UID rightBusinessUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
 
-    private static UID wrongBusinessUid = new UID("cde197fd-a866-4959-a2bc-6750360947d4");
+    private static final UID wrongBusinessUid = new UID("cde197fd-a866-4959-a2bc-6750360947d4");
 
-    private static UID invoiceSeriesUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
+    private static final UID invoiceSeriesUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
 
     private static DAOInvoiceSeriesImpl daoInvoiceSeriesImpl;
 
-    @Before
+    @BeforeEach
     public void prepare() {
         Ebean.beginTransaction();
         DAOBusinessImpl businessDAO = new DAOBusinessImpl();
         JPABusinessEntity business = new JPABusinessEntity();
-        business.setUID(DAOInvoiceSeriesImplTest.rightBusinessUid);
+        business.setUID(rightBusinessUid);
         business.setName("Test Business");
         businessDAO.create(business);
         Ebean.commitTransaction();
 
         Ebean.beginTransaction();
-        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl = new DAOInvoiceSeriesImpl();
+        daoInvoiceSeriesImpl = new DAOInvoiceSeriesImpl();
         JPAInvoiceSeriesEntity series = new JPAInvoiceSeriesEntity();
-        series.setUID(DAOInvoiceSeriesImplTest.invoiceSeriesUid);
+        series.setUID(invoiceSeriesUid);
         series.setBusiness(business);
-        series.setSeries(DAOInvoiceSeriesImplTest.rightSeries);
-        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.create(series);
+        series.setSeries(rightSeries);
+        daoInvoiceSeriesImpl.create(series);
         Ebean.commitTransaction();
     }
 
     @Test
     public void getSeries() {
-        InvoiceSeriesEntity series = DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(
-                DAOInvoiceSeriesImplTest.rightSeries, DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), null);
+        InvoiceSeriesEntity series = daoInvoiceSeriesImpl.getSeries(
+                rightSeries, rightBusinessUid.toString(), null);
 
-        Assert.assertEquals(series.getUID(), DAOInvoiceSeriesImplTest.invoiceSeriesUid);
+        Assertions.assertEquals(series.getUID(), invoiceSeriesUid);
     }
 
     @Test
     public void getSeries_wrongSeriesId() {
-        InvoiceSeriesEntity series = DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(
-                DAOInvoiceSeriesImplTest.wrongSeries, DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), null);
+        InvoiceSeriesEntity series = daoInvoiceSeriesImpl.getSeries(
+                wrongSeries, rightBusinessUid.toString(), null);
 
-        Assert.assertEquals(series, null);
+        Assertions.assertNull(series);
     }
 
     @Test
     public void getSeries_wrongBusinessId() {
-        InvoiceSeriesEntity series = DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(
-                DAOInvoiceSeriesImplTest.rightSeries, DAOInvoiceSeriesImplTest.wrongBusinessUid.toString(), null);
+        InvoiceSeriesEntity series = daoInvoiceSeriesImpl.getSeries(
+                rightSeries, wrongBusinessUid.toString(), null);
 
-        Assert.assertEquals(series, null);
+        Assertions.assertNull(series);
     }
 
     @Test
     public void getSeries_concurrent_deadlock() {
         Ebean.beginTransaction();
         InvoiceSeriesEntity series =
-                DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(DAOInvoiceSeriesImplTest.rightSeries,
-                        DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
+                daoInvoiceSeriesImpl.getSeries(rightSeries,
+                        rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
 
         long threadTimeout = 1000;
         long millis = System.currentTimeMillis();
@@ -104,8 +104,8 @@ public class DAOInvoiceSeriesImplTest extends BaseH2Test {
             public void run() {
                 Ebean.beginTransaction();
                 InvoiceSeriesEntity series =
-                        DAOInvoiceSeriesImplTest.daoInvoiceSeriesImpl.getSeries(DAOInvoiceSeriesImplTest.rightSeries,
-                                DAOInvoiceSeriesImplTest.rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
+                        daoInvoiceSeriesImpl.getSeries(rightSeries,
+                                rightBusinessUid.toString(), LockModeType.PESSIMISTIC_WRITE);
                 Ebean.commitTransaction();
             }
         };
@@ -119,6 +119,6 @@ public class DAOInvoiceSeriesImplTest extends BaseH2Test {
 
         Ebean.commitTransaction();
 
-        Assert.assertEquals(diff >= threadTimeout, true);
+        Assertions.assertTrue(diff >= threadTimeout);
     }
 }
