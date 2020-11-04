@@ -3,6 +3,17 @@
 
 ## [Unreleased v5]
 
+## [Unreleased v4]
+
+## [Unreleased v3]
+
+### Changed
+
+ - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
+ - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
+
+## [5.1.0] - 2020-11-04
+
 ### Added 
 
  - [Adds support for pt mandatory QRCode generation](https://github.com/premium-minds/billy/pull/120) - It may requires changes to XSL template files to include QR code section
@@ -18,15 +29,6 @@
  - [Bump tiles-maven-plugin from 2.17 to 2.18](https://github.com/premium-minds/billy/pull/118)
  - [[Security] Bump junit from 4.13 to 4.13.1](https://github.com/premium-minds/billy/pull/119)
  - [Bump hibernate.version from 5.4.20.Final to 5.4.23.Final](https://github.com/premium-minds/billy/pull/121)
-
-## [Unreleased v4]
-
-## [Unreleased v3]
-
-### Changed
-
- - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
- - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
 
 ## [5.0.0] - 2020-09-18
 
