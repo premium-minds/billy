@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.jpa;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
@@ -32,7 +32,7 @@ public class TestJPAFRSupplier extends FRJPAAbstractTest {
 
     private TransactionWrapper<Void> transaction;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.transaction = new TransactionWrapper<Void>(FRAbstractTest.injector.getInstance(DAOFRInvoice.class)) {
 

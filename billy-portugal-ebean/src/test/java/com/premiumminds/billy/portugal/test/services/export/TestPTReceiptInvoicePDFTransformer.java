@@ -28,8 +28,8 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -63,7 +63,7 @@ public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTes
     private PTReceiptInvoicePDFFOPTransformer transformer;
     private PTReceiptInvoiceDataExtractor extractor;
 
-    @Before
+    @BeforeEach
     public void setUp() throws FileNotFoundException {
 
         this.mockedInjector = Guice
@@ -91,12 +91,12 @@ public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTes
         this.transformer.transform(entityData, os);
     }
 
-    @Test(expected = ExportServiceException.class)
+    @Test
     public void testNonExistentEntity()
             throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
 
         UID uidEntity = UID.fromString("12345");
-        this.extractor.extract(uidEntity);
+        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test

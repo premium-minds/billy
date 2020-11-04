@@ -20,9 +20,9 @@ package com.premiumminds.billy.france.test.services.jpa;
 
 import java.util.concurrent.Callable;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
@@ -54,7 +54,7 @@ public class TestJPAFRBusiness extends FRJPAAbstractTest {
         }
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.transaction = new TransactionWrapper<Void>(FRAbstractTest.injector.getInstance(DAOFRInvoice.class)) {
 
@@ -78,6 +78,6 @@ public class TestJPAFRBusiness extends FRJPAAbstractTest {
         test.runThreads(new TestRunner(FRAbstractTest.injector));
 
         DAOFRBusiness biz = FRAbstractTest.injector.getInstance(DAOFRBusiness.class);
-        Assert.assertTrue(biz.exists(new UID(TestJPAFRBusiness.BUSINESS_UID)));
+        Assertions.assertTrue(biz.exists(new UID(TestJPAFRBusiness.BUSINESS_UID)));
     }
 }

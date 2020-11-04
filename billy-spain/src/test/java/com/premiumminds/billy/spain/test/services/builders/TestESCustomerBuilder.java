@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -47,7 +47,7 @@ public class TestESCustomerBuilder extends ESAbstractTest {
 
         Mockito.when(this.getInstance(DAOESCustomer.class).getEntityInstance()).thenReturn(new MockESCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOESContact.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESContact.class).get(Mockito.any(UID.class)))
                 .thenReturn((ESContactEntity) mockCustomer.getMainContact());
 
         ESCustomer.Builder builder = this.getInstance(ESCustomer.Builder.class);
@@ -81,12 +81,12 @@ public class TestESCustomerBuilder extends ESAbstractTest {
 
         Customer customer = builder.build();
 
-        Assert.assertTrue(customer != null);
+        Assertions.assertTrue(customer != null);
 
-        Assert.assertEquals(mockCustomer.getName(), customer.getName());
-        Assert.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
-        Assert.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
-        Assert.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
-        Assert.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());
+        Assertions.assertEquals(mockCustomer.getName(), customer.getName());
+        Assertions.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
+        Assertions.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
+        Assertions.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
+        Assertions.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());
     }
 }

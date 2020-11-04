@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -45,7 +45,7 @@ public class TestBusinessBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOBusiness.class).getEntityInstance()).thenReturn(new MockBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockBusiness.getOperationalContext());
 
         Business.Builder builder = this.getInstance(Business.Builder.class);
@@ -74,17 +74,17 @@ public class TestBusinessBuilder extends AbstractTest {
 
         Business business = builder.build();
 
-        Assert.assertTrue(business != null);
+        Assertions.assertTrue(business != null);
 
-        Assert.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
-        Assert.assertEquals(mockBusiness.getName(), business.getName());
-        Assert.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
-        Assert.assertEquals(mockBusiness.getCommercialName(), business.getCommercialName());
-        Assert.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
+        Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+        Assertions.assertEquals(mockBusiness.getName(), business.getName());
+        Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
+        Assertions.assertEquals(mockBusiness.getCommercialName(), business.getCommercialName());
+        Assertions.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
 
-        Assert.assertTrue(business.getContacts() != null);
+        Assertions.assertTrue(business.getContacts() != null);
 
-        Assert.assertTrue(business.getApplications() != null);
-        Assert.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
+        Assertions.assertTrue(business.getApplications() != null);
+        Assertions.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
     }
 }

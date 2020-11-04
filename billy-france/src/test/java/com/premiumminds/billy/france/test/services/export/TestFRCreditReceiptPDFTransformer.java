@@ -28,8 +28,9 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -68,7 +69,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
     private FRCreditReceiptPDFFOPTransformer transformer;
     private FRCreditReceiptDataExtractor extractor;
 
-    @Before
+    @BeforeEach
     public void setUp() throws FileNotFoundException {
 
         this.mockedInjector =
@@ -98,13 +99,12 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         this.transformer.transform(entityData, os);
     }
 
-    @Test(expected = ExportServiceException.class)
-    public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
-            DocumentIssuingException, IOException {
+    @Test
+    public void testNonExistentEntity() {
 
         UID uidEntity = UID.fromString("12345");
 
-        this.extractor.extract(uidEntity);
+        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test

@@ -23,7 +23,7 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.After;
+import org.junit.jupiter.api.AfterEach;
 
 import io.ebean.Ebean;
 
@@ -32,7 +32,7 @@ public abstract class BaseH2Test {
     /**
      * Resets all H2 data (and sequences) after each test. Guarantees that each test is independent from one another.
      */
-    @After
+    @AfterEach
     public void cleanup() throws Exception {
         try (Statement statement = Ebean.beginTransaction().getConnection().createStatement()) {
             statement.execute("set REFERENTIAL_INTEGRITY false");

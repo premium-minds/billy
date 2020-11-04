@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -46,10 +46,10 @@ public class TestFRPaymentBuilder extends FRAbstractTest {
 
         FRPayment payment = builder.build();
 
-        Assert.assertTrue(payment != null);
-        Assert.assertEquals(payment.getPaymentMethod(), mock.getPaymentMethod());
-        Assert.assertEquals(payment.getPaymentAmount(), mock.getPaymentAmount());
-        Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
+        Assertions.assertTrue(payment != null);
+        Assertions.assertEquals(payment.getPaymentMethod(), mock.getPaymentMethod());
+        Assertions.assertEquals(payment.getPaymentAmount(), mock.getPaymentAmount());
+        Assertions.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
     }
 
 }

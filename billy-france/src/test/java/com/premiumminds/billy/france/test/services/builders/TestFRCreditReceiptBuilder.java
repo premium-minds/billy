@@ -21,8 +21,8 @@ package com.premiumminds.billy.france.test.services.builders;
 import java.util.ArrayList;
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -62,7 +62,7 @@ public class TestFRCreditReceiptBuilder extends FRAbstractTest {
         MockFRCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockFRCustomerEntity.class, TestFRCreditReceiptBuilder.FR_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOFRReceipt.class).getEntityInstance()).thenReturn(new MockFRReceiptEntity());
 
@@ -72,7 +72,7 @@ public class TestFRCreditReceiptBuilder extends FRAbstractTest {
         MockFRCreditReceiptEntryEntity entryMock = this.createMockEntity(MockFRCreditReceiptEntryEntity.class,
                 TestFRCreditReceiptBuilder.FR_CREDIT_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRCreditReceiptEntry.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRCreditReceiptEntry.class).get(Mockito.any(UID.class)))
                 .thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
@@ -105,21 +105,21 @@ public class TestFRCreditReceiptBuilder extends FRAbstractTest {
 
         FRCreditReceipt creditReceipt = builder.build();
 
-        Assert.assertTrue(creditReceipt != null);
-        Assert.assertTrue(creditReceipt.getEntries() != null);
-        Assert.assertEquals(creditReceipt.getEntries().size(), mock.getEntries().size());
+        Assertions.assertTrue(creditReceipt != null);
+        Assertions.assertTrue(creditReceipt.getEntries() != null);
+        Assertions.assertEquals(creditReceipt.getEntries().size(), mock.getEntries().size());
 
-        Assert.assertTrue(creditReceipt.isBilled() == mock.isBilled());
-        Assert.assertTrue(creditReceipt.isCancelled() == mock.isCancelled());
+        Assertions.assertTrue(creditReceipt.isBilled() == mock.isBilled());
+        Assertions.assertTrue(creditReceipt.isCancelled() == mock.isCancelled());
 
-        Assert.assertEquals(mock.getGeneralLedgerDate(), creditReceipt.getGeneralLedgerDate());
-        Assert.assertEquals(mock.getBatchId(), creditReceipt.getBatchId());
-        Assert.assertEquals(mock.getDate(), creditReceipt.getDate());
-        Assert.assertEquals(mock.getPaymentTerms(), creditReceipt.getPaymentTerms());
+        Assertions.assertEquals(mock.getGeneralLedgerDate(), creditReceipt.getGeneralLedgerDate());
+        Assertions.assertEquals(mock.getBatchId(), creditReceipt.getBatchId());
+        Assertions.assertEquals(mock.getDate(), creditReceipt.getDate());
+        Assertions.assertEquals(mock.getPaymentTerms(), creditReceipt.getPaymentTerms());
 
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(creditReceipt.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(creditReceipt.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(creditReceipt.getTaxAmount()) == 0);
+        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(creditReceipt.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(mock.getAmountWithTax().compareTo(creditReceipt.getAmountWithTax()) == 0);
+        Assertions.assertTrue(mock.getTaxAmount().compareTo(creditReceipt.getTaxAmount()) == 0);
 
     }
 }

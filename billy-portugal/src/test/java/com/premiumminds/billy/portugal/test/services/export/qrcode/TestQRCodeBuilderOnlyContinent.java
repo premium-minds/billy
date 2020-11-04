@@ -33,8 +33,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 public class TestQRCodeBuilderOnlyContinent extends TestQRCodeBuilderBase{
@@ -86,11 +87,11 @@ public class TestQRCodeBuilderOnlyContinent extends TestQRCodeBuilderBase{
 
 			result = QRCodeBuilder.generateQRCodeString(qrCodeData);
 		} catch (RequiredFieldNotFoundException e) {
-			Assert.fail();
+			Assertions.fail();
 		}
 
-		Assert.assertNotNull(result);
-		Assert.assertEquals(
+		Assertions.assertNotNull(result);
+		Assertions.assertEquals(
 			"A:511234566*B:999999990*C:PT*D:FT*E:F*F:20201103*G:FT A/2549*H:0*"
 				+ "I1:PT*I3:100.00*I4:6.00*I5:100.00*I6:13.00*I7:100.00*I8:23.00*"
 				+ "N:42.00*O:142.00*Q:akuE*R:452",

@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -40,7 +40,7 @@ public class TestContextBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOContext.class).getEntityInstance()).thenReturn(new MockContextEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockContext.getParentContext());
 
         Context.Builder builder = this.getInstance(Context.Builder.class);
@@ -51,9 +51,9 @@ public class TestContextBuilder extends AbstractTest {
         Context context = builder.build();
 
         assert (context != null);
-        Assert.assertEquals(mockContext.getName(), context.getName());
-        Assert.assertEquals(mockContext.getDescription(), context.getDescription());
-        Assert.assertEquals(mockContext.getParentContext().getUID(), context.getParentContext().getUID());
+        Assertions.assertEquals(mockContext.getName(), context.getName());
+        Assertions.assertEquals(mockContext.getDescription(), context.getDescription());
+        Assertions.assertEquals(mockContext.getParentContext().getUID(), context.getParentContext().getUID());
 
     }
 

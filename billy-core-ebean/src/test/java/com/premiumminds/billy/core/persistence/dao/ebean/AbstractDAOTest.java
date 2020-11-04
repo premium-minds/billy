@@ -20,11 +20,9 @@ package com.premiumminds.billy.core.persistence.dao.ebean;
 
 import javax.persistence.NoResultException;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
@@ -35,74 +33,70 @@ import io.ebean.Ebean;
 
 public class AbstractDAOTest extends BaseH2Test {
 
-    private static UID existingObjUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
+    private static final UID existingObjUid = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
 
-    private static UID nonExistingObjUid = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
+    private static final UID nonExistingObjUid = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
 
-    private static UID inactiveObjUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    private static final UID inactiveObjUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
+    
 
     private static AbstractDAO<BusinessEntity, JPABusinessEntity> abstractDAO;
 
-    @Before
+    @BeforeEach
     public void prepare() {
         Ebean.beginTransaction();
-        AbstractDAOTest.abstractDAO = new DAOBusinessImpl();
+        abstractDAO = new DAOBusinessImpl();
 
         JPABusinessEntity activeBusiness = new JPABusinessEntity();
-        activeBusiness.setUID(AbstractDAOTest.existingObjUid);
+        activeBusiness.setUID(existingObjUid);
         activeBusiness.setName("Test Business");
 
         JPABusinessEntity inactiveBusiness = new JPABusinessEntity();
-        inactiveBusiness.setUID(AbstractDAOTest.inactiveObjUid);
+        inactiveBusiness.setUID(inactiveObjUid);
         inactiveBusiness.setName("Inactive Test Business");
 
-        AbstractDAOTest.abstractDAO.create(activeBusiness);
+        abstractDAO.create(activeBusiness);
         Ebean.commitTransaction();
     }
 
     @Test
     public void get() {
-        BaseEntity entity = AbstractDAOTest.abstractDAO.get(AbstractDAOTest.existingObjUid);
+        BaseEntity entity = abstractDAO.get(existingObjUid);
 
-        Assert.assertEquals(entity.getClass(), JPABusinessEntity.class);
+        Assertions.assertEquals(entity.getClass(), JPABusinessEntity.class);
         JPABusinessEntity business = (JPABusinessEntity) entity;
-        Assert.assertEquals(business.getUID(), AbstractDAOTest.existingObjUid);
-        Assert.assertEquals(business.getName(), "Test Business");
+        Assertions.assertEquals(business.getUID(), existingObjUid);
+        Assertions.assertEquals(business.getName(), "Test Business");
     }
 
     @Test
     public void get_noSuchUid() {
-        this.expectedException.expect(NoResultException.class);
-        AbstractDAOTest.abstractDAO.get(AbstractDAOTest.nonExistingObjUid);
+        Assertions.assertThrows(NoResultException.class, () -> abstractDAO.get(nonExistingObjUid));
     }
 
     @Test
     public void get_inactive() {
-        this.expectedException.expect(NoResultException.class);
-        AbstractDAOTest.abstractDAO.get(AbstractDAOTest.inactiveObjUid);
+        Assertions.assertThrows(NoResultException.class, () -> abstractDAO.get(inactiveObjUid));
     }
 
     @Test
     public void exists() {
-        boolean exists = AbstractDAOTest.abstractDAO.exists(AbstractDAOTest.existingObjUid);
+        boolean exists = abstractDAO.exists(existingObjUid);
 
-        Assert.assertEquals(exists, true);
+        Assertions.assertTrue(exists);
     }
 
     @Test
     public void exists_noSuchUid() {
-        boolean exists = AbstractDAOTest.abstractDAO.exists(AbstractDAOTest.nonExistingObjUid);
+        boolean exists = abstractDAO.exists(nonExistingObjUid);
 
-        Assert.assertEquals(exists, false);
+        Assertions.assertFalse(exists);
     }
 
     @Test
     public void exists_inactive() {
-        boolean exists = AbstractDAOTest.abstractDAO.exists(AbstractDAOTest.inactiveObjUid);
+        boolean exists = abstractDAO.exists(inactiveObjUid);
 
-        Assert.assertEquals(exists, false);
+        Assertions.assertFalse(exists);
     }
 }

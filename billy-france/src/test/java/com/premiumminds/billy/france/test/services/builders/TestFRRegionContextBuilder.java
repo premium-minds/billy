@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -43,7 +43,7 @@ public class TestFRRegionContextBuilder extends FRAbstractTest {
         Mockito.when(this.getInstance(DAOFRRegionContext.class).getEntityInstance())
                 .thenReturn(new MockFRRegionContextEntity());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
         FRRegionContext.Builder builder = this.getInstance(FRRegionContext.Builder.class);
@@ -53,13 +53,13 @@ public class TestFRRegionContextBuilder extends FRAbstractTest {
 
         FRRegionContext regionContex = builder.build();
 
-        Assert.assertTrue(regionContex != null);
-        Assert.assertTrue(regionContex.getParentContext() != null);
+        Assertions.assertTrue(regionContex != null);
+        Assertions.assertTrue(regionContex.getParentContext() != null);
 
-        Assert.assertEquals(regionContex.getDescription(), mockRegionContextEntity.getDescription());
-        Assert.assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
+        Assertions.assertEquals(regionContex.getDescription(), mockRegionContextEntity.getDescription());
+        Assertions.assertEquals(regionContex.getName(), mockRegionContextEntity.getName());
 
-        Assert.assertEquals(regionContex.getParentContext().getUID(),
+        Assertions.assertEquals(regionContex.getParentContext().getUID(),
                 mockRegionContextEntity.getParentContext().getUID());
     }
 }

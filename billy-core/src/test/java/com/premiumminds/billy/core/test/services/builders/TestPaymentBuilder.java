@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOPayment;
@@ -43,8 +43,8 @@ public class TestPaymentBuilder extends AbstractTest {
 
         Payment payment = builder.build();
 
-        Assert.assertTrue(payment != null);
-        Assert.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
+        Assertions.assertTrue(payment != null);
+        Assertions.assertEquals(payment.getPaymentDate(), mock.getPaymentDate());
     }
 
 }

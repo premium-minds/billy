@@ -21,8 +21,8 @@ package com.premiumminds.billy.spain.test.services.builders;
 import java.util.ArrayList;
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -63,12 +63,12 @@ public class TestESGenericInvoiceBuilder extends ESAbstractTest {
         Mockito.when(this.getInstance(DAOESGenericInvoice.class).getEntityInstance())
                 .thenReturn(new MockESGenericInvoiceEntity());
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         MockESGenericInvoiceEntryEntity entryMock = this.createMockEntity(MockESGenericInvoiceEntryEntity.class,
                 TestESGenericInvoiceBuilder.ES_GENERIC_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESGenericInvoiceEntry.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESGenericInvoiceEntry.class).get(Mockito.any(UID.class)))
                 .thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
@@ -102,20 +102,20 @@ public class TestESGenericInvoiceBuilder extends ESAbstractTest {
 
         ESGenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice != null);
-        Assert.assertTrue(invoice.getEntries() != null);
-        Assert.assertEquals(invoice.getEntries().size(), mock.getEntries().size());
+        Assertions.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice.getEntries() != null);
+        Assertions.assertEquals(invoice.getEntries().size(), mock.getEntries().size());
 
-        Assert.assertTrue(invoice.isBilled() == mock.isBilled());
-        Assert.assertTrue(invoice.isCancelled() == mock.isCancelled());
+        Assertions.assertTrue(invoice.isBilled() == mock.isBilled());
+        Assertions.assertTrue(invoice.isCancelled() == mock.isCancelled());
 
-        Assert.assertEquals(mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
-        Assert.assertEquals(mock.getBatchId(), invoice.getBatchId());
-        Assert.assertEquals(mock.getDate(), invoice.getDate());
-        Assert.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
+        Assertions.assertEquals(mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
+        Assertions.assertEquals(mock.getBatchId(), invoice.getBatchId());
+        Assertions.assertEquals(mock.getDate(), invoice.getDate());
+        Assertions.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
 
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
+        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
+        Assertions.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
     }
 }

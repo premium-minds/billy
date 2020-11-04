@@ -22,8 +22,10 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.premiumminds.billy.spain.exceptions.BillySimpleInvoiceException;
+import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.services.UID;
@@ -44,7 +46,7 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         this.getNewIssuedInvoice(B1);
         this.getNewIssuedInvoice(B1);
         ESInvoiceEntity resultInvoice2 = this.getNewIssuedInvoice(B1);
-        Assert.assertEquals(new Integer(3), resultInvoice2.getSeriesNumber());
+        Assertions.assertEquals(new Integer(3), resultInvoice2.getSeriesNumber());
     }
 
     @Test
@@ -62,15 +64,17 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         ESInvoiceEntity inv3 = this.getNewIssuedInvoice(B1);
         ESInvoiceEntity inv4 = this.getNewIssuedInvoice(B2);
 
-        Assert.assertEquals(inv1.getSeriesNumber(), resultInvoice1.getSeriesNumber());
-        Assert.assertEquals(inv2.getSeriesNumber(), resultInvoice2.getSeriesNumber());
-        Assert.assertEquals(new Integer(2), inv3.getSeriesNumber());
-        Assert.assertEquals(new Integer(2), inv4.getSeriesNumber());
+        Assertions.assertEquals(inv1.getSeriesNumber(), resultInvoice1.getSeriesNumber());
+        Assertions.assertEquals(inv2.getSeriesNumber(), resultInvoice2.getSeriesNumber());
+        Assertions.assertEquals(new Integer(2), inv3.getSeriesNumber());
+        Assertions.assertEquals(new Integer(2), inv4.getSeriesNumber());
     }
 
-    @Test(expected = BillyRuntimeException.class)
+    @Test
     public void testWithNoInvoice() {
-        this.getInstance(DAOESInvoice.class).getLatestInvoiceFromSeries("NON EXISTING SERIES", (new UID().toString()));
+        DAOESInvoice instance = this.getInstance(DAOESInvoice.class);
+
+        Assertions.assertThrows(BillyRuntimeException.class, () -> instance.getLatestInvoiceFromSeries("NON EXISTING SERIES", (new UID().toString())));
     }
 
     @Test
@@ -80,8 +84,8 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         ESGenericInvoiceEntity res =
                 this.getInstance(DAOESInvoice.class).findByNumber(inv1.getBusiness().getUID(), inv1.getNumber());
 
-        Assert.assertEquals(inv1.getUID(), res.getUID());
-        Assert.assertNull(this.getInstance(DAOESInvoice.class).findByNumber(UID.fromString("INEXISTENT_BUSINESS"),
+        Assertions.assertEquals(inv1.getUID(), res.getUID());
+        Assertions.assertNull(this.getInstance(DAOESInvoice.class).findByNumber(UID.fromString("INEXISTENT_BUSINESS"),
                 inv1.getNumber()));
     }
 
@@ -96,8 +100,8 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         List<ESCreditNote> cn0 = this.getInstance(DAOESCreditNote.class).findByReferencedDocument(UID.fromString("B1"),
                 UID.fromString("INEXISTENT_CN"));
 
-        Assert.assertEquals(0, cn0.size());
-        Assert.assertEquals(1, cn1.size());
+        Assertions.assertEquals(0, cn0.size());
+        Assertions.assertEquals(1, cn1.size());
     }
 
     @Test
@@ -109,17 +113,17 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         DAOESReceipt receiptDao = this.getInstance(DAOESReceipt.class);
 
         ESReceiptEntity found = receiptDao.get(rec1.getUID());
-        Assert.assertEquals(rec1.getUID(), found.getUID());
+        Assertions.assertEquals(rec1.getUID(), found.getUID());
 
         try {
             invoiceDao.get(rec1.getUID());
-            Assert.fail();
+            Assertions.fail();
         } catch (NoResultException e) {
         }
 
         try {
             receiptDao.get(inv1.getUID());
-            Assert.fail();
+            Assertions.fail();
         } catch (NoResultException e) {
         }
     }

@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -50,12 +50,12 @@ public class TestESAddressBuilder extends ESAbstractTest {
         ESAddress address = builder.build();
 
         assert (address != null);
-        Assert.assertEquals(mockAddress.getCity(), address.getCity());
-        Assert.assertEquals(mockAddress.getDetails(), address.getDetails());
-        Assert.assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
-        Assert.assertEquals(mockAddress.getNumber(), address.getNumber());
-        Assert.assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
-        Assert.assertEquals(mockAddress.getRegion(), address.getRegion());
-        Assert.assertEquals(mockAddress.getStreetName(), address.getStreetName());
+        Assertions.assertEquals(mockAddress.getCity(), address.getCity());
+        Assertions.assertEquals(mockAddress.getDetails(), address.getDetails());
+        Assertions.assertEquals(mockAddress.getISOCountry(), address.getISOCountry());
+        Assertions.assertEquals(mockAddress.getNumber(), address.getNumber());
+        Assertions.assertEquals(mockAddress.getPostalCode(), address.getPostalCode());
+        Assertions.assertEquals(mockAddress.getRegion(), address.getRegion());
+        Assertions.assertEquals(mockAddress.getStreetName(), address.getStreetName());
     }
 }

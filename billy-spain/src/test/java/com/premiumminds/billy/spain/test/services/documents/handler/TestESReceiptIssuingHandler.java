@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -38,7 +38,7 @@ public class TestESReceiptIssuingHandler extends ESDocumentAbstractTest {
 
     private String DEFAULT_SERIES = INVOICE_TYPE.RC + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
-    @Before
+    @BeforeEach
     public void setUpNewReceipt() {
         this.handler = this.getInstance(ESReceiptIssuingHandler.class);
 
@@ -55,9 +55,9 @@ public class TestESReceiptIssuingHandler extends ESDocumentAbstractTest {
     public void testIssueReceipt() {
         ESReceipt issuedReceipt = this.getInstance(DAOESReceipt.class).get(this.issuedReceiptUID);
 
-        Assert.assertEquals(this.DEFAULT_SERIES, issuedReceipt.getSeries());
-        Assert.assertTrue(1 == issuedReceipt.getSeriesNumber());
+        Assertions.assertEquals(this.DEFAULT_SERIES, issuedReceipt.getSeries());
+        Assertions.assertTrue(1 == issuedReceipt.getSeriesNumber());
         String formatedNumber = this.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedReceipt.getNumber());
+        Assertions.assertEquals(formatedNumber, issuedReceipt.getNumber());
     }
 }

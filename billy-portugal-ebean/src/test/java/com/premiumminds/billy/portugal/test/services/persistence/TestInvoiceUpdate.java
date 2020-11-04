@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.portugal.test.services.persistence;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.services.UID;
@@ -32,7 +32,7 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 
     /*private PTInvoice issuedInvoice;
 
-    @Before
+    @BeforeEach
     public void setUp() throws DocumentIssuingException {
         this.issuedInvoice = this.getNewIssuedInvoice();
     }
@@ -42,13 +42,13 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
         PTInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
         PTInvoice peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(false, peristedInvoice.isCancelled());
+        Assertions.assertEquals(false, peristedInvoice.isCancelled());
 
         builder.setCancelled(true);
         this.billy.invoices().persistence().update(builder);
 
         peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(true, peristedInvoice.isCancelled());
+        Assertions.assertEquals(true, peristedInvoice.isCancelled());
 
     }
 
@@ -57,7 +57,7 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
         PTInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
         PTInvoice peristedInvoice = this.billy.invoices().persistence().get(this.issuedInvoice.getUID());
-        Assert.assertEquals(false, peristedInvoice.isBilled());
+        Assertions.assertEquals(false, peristedInvoice.isBilled());
 
         builder = this.billy.invoices().builder(peristedInvoice);
         builder.setBilled(true);

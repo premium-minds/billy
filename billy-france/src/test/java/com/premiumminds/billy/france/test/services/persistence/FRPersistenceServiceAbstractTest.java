@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.france.test.services.persistence;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.premiumminds.billy.france.BillyFrance;
 import com.premiumminds.billy.france.services.documents.util.FRIssuingParams;
@@ -30,7 +30,7 @@ public class FRPersistenceServiceAbstractTest extends FRPersistencyAbstractTest 
     protected FRIssuingParams parameters;
     protected BillyFrance billy;
 
-    @Before
+    @BeforeEach
     public void setUpParamenters() {
         this.parameters = new FRIssuingParamsImpl();
         this.parameters.setEACCode("31400");

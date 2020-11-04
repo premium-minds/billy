@@ -30,9 +30,9 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -66,7 +66,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
     PTInvoicePDFFOPTransformer transformer;
     PTInvoiceTestUtil test;
 
-    @Before
+    @BeforeEach
     public void setUp() throws FileNotFoundException {
 
         this.mockedInjector = Guice
@@ -95,12 +95,11 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         this.transformer.transform(entityData, os);
     }
 
-    @Test(expected = ExportServiceException.class)
-    public void testNonExistentEntity()
-            throws DocumentIssuingException, FileNotFoundException, IOException, ExportServiceException {
+    @Test
+    public void testNonExistentEntity() {
 
         UID uidEntity = UID.fromString("12345");
-        this.extractor.extract(uidEntity);
+        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test
@@ -204,7 +203,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
             Mockito.when(qrCodeStringGenerator.generateQRCodeData(invoice))
                    .thenReturn("A:123456789*B:123456789*C:PT*D:FT*E:N*F:20201029*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:nVyy*R:1");
         } catch (RequiredFieldNotFoundException e) {
-            Assert.fail();
+            Assertions.fail();
         }
     }
 }

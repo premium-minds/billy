@@ -20,9 +20,8 @@ package com.premiumminds.billy.core.test.services.builders;
 
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Matchers;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -56,13 +55,13 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
         Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
                 .thenReturn(new MockGenericInvoiceEntryEntity());
 
-        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Matchers.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOProduct.class).get(Mockito.any(UID.class)))
                 .thenReturn((ProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																		   Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Mockito.any(),
+                Mockito.any(Context.class))).thenReturn(true);
 
         mock.getDocumentReferences().add(mockInvoice);
 
@@ -78,18 +77,18 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
         GenericInvoiceEntry entry = builder.build();
 
         if (entry.getAmountType().compareTo(AmountType.WITHOUT_TAX) == 0) {
-            Assert.assertTrue(mock.getUnitAmountWithoutTax().compareTo(entry.getUnitAmountWithoutTax()) == 0);
+            Assertions.assertTrue(mock.getUnitAmountWithoutTax().compareTo(entry.getUnitAmountWithoutTax()) == 0);
         } else {
-            Assert.assertTrue(mock.getUnitAmountWithTax().compareTo(entry.getUnitAmountWithTax()) == 0);
+            Assertions.assertTrue(mock.getUnitAmountWithTax().compareTo(entry.getUnitAmountWithTax()) == 0);
         }
 
-        Assert.assertTrue(mock.getUnitDiscountAmount().compareTo(entry.getUnitDiscountAmount()) == 0);
+        Assertions.assertTrue(mock.getUnitDiscountAmount().compareTo(entry.getUnitDiscountAmount()) == 0);
 
-        Assert.assertTrue(mock.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
-        Assert.assertTrue(mock.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
+        Assertions.assertTrue(mock.getUnitTaxAmount().compareTo(entry.getUnitTaxAmount()) == 0);
+        Assertions.assertTrue(mock.getAmountWithTax().compareTo(entry.getAmountWithTax()) == 0);
+        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(mock.getTaxAmount().compareTo(entry.getTaxAmount()) == 0);
+        Assertions.assertTrue(mock.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
 
     }
 }

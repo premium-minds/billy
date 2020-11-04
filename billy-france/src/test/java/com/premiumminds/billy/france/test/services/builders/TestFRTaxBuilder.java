@@ -21,9 +21,8 @@ package com.premiumminds.billy.france.test.services.builders;
 import java.math.BigDecimal;
 import java.util.Currency;
 
-import org.hamcrest.CoreMatchers;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -60,21 +59,20 @@ public class TestFRTaxBuilder extends FRAbstractTest {
         FRTax tax = builder.build();
 
         assert (tax != null);
-        Assert.assertEquals(mockTax.getCode(), tax.getCode());
-        Assert.assertEquals(mockTax.getContext(), tax.getContext());
-        Assert.assertEquals(mockTax.getCurrency(), tax.getCurrency());
-        Assert.assertEquals(mockTax.getDescription(), tax.getDescription());
-        Assert.assertEquals(mockTax.getDesignation(), tax.getDesignation());
-        Assert.assertEquals(mockTax.getTaxRateType(), tax.getTaxRateType());
-        Assert.assertEquals(mockTax.getValue(), tax.getValue());
+        Assertions.assertEquals(mockTax.getCode(), tax.getCode());
+        Assertions.assertEquals(mockTax.getContext(), tax.getContext());
+        Assertions.assertEquals(mockTax.getCurrency(), tax.getCurrency());
+        Assertions.assertEquals(mockTax.getDescription(), tax.getDescription());
+        Assertions.assertEquals(mockTax.getDesignation(), tax.getDesignation());
+        Assertions.assertEquals(mockTax.getTaxRateType(), tax.getTaxRateType());
+        Assertions.assertEquals(mockTax.getValue(), tax.getValue());
 
         if (mockTax.getTaxRateType() == FRTax.TaxRateType.FLAT) {
-            Assert.assertEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
-            Assert.assertThat(mockTax.getPercentageRateValue(),
-                    CoreMatchers.is(CoreMatchers.not(tax.getPercentageRateValue())));
+            Assertions.assertEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
+            Assertions.assertNotEquals(mockTax.getPercentageRateValue(), tax.getPercentageRateValue());
         } else {
-            Assert.assertEquals(mockTax.getPercentageRateValue(), tax.getPercentageRateValue());
-            Assert.assertThat(mockTax.getFlatRateAmount(), CoreMatchers.is(CoreMatchers.not(tax.getFlatRateAmount())));
+            Assertions.assertEquals(mockTax.getPercentageRateValue(), tax.getPercentageRateValue());
+            Assertions.assertNotEquals(mockTax.getFlatRateAmount(), tax.getFlatRateAmount());
         }
     }
 
@@ -87,7 +85,7 @@ public class TestFRTaxBuilder extends FRAbstractTest {
                 this.createMockEntity(MockFRRegionContextEntity.class, TestFRTaxBuilder.REGIONCONTEXT_YML);
 
         mockContext.uid = new UID("uid_region_context");
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Matchers.any(UID.class))).thenReturn(mockContext);
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class))).thenReturn(mockContext);
         result.context = mockContext;
 
         result.currency = Currency.getInstance("EUR");

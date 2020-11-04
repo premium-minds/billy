@@ -20,9 +20,9 @@ package com.premiumminds.billy.core.persistence.dao.ebean;
 
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAProductEntity;
@@ -32,55 +32,55 @@ import io.ebean.Ebean;
 
 public class DAOProductImplTest extends BaseH2Test {
 
-    private static UID existingObjUid1 = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
+    private static final UID existingObjUid1 = new UID("1796dc4d-462c-468c-9f0f-170b65944341");
 
-    private static UID existingObjUid2 = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
+    private static final UID existingObjUid2 = new UID("a413c9e9-f2de-4f4b-a937-a63d88504796");
 
-    private static UID inactiveObjUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
+    private static final UID inactiveObjUid = new UID("f01970a9-c004-4f29-a3e1-bf2183248d76");
 
     private static DAOProductImpl daoProductImpl;
 
-    @Before
+    @BeforeEach
     public void prepare() {
-        DAOProductImplTest.daoProductImpl = new DAOProductImpl();
+        daoProductImpl = new DAOProductImpl();
     }
 
     @Test
     public void getAllActiveProducts_noProducts() {
-        List<ProductEntity> products = DAOProductImplTest.daoProductImpl.getAllActiveProducts();
+        List<ProductEntity> products = daoProductImpl.getAllActiveProducts();
 
-        Assert.assertEquals(products.size(), 0);
+        Assertions.assertEquals(products.size(), 0);
     }
 
     @Test
     public void getAllActiveProducts_noActiveProducts() {
         Ebean.beginTransaction();
         JPAProductEntity product = new JPAProductEntity();
-        product.setUID(DAOProductImplTest.inactiveObjUid);
+        product.setUID(inactiveObjUid);
         product.setDescription("Test Product 0");
         Ebean.commitTransaction();
 
-        List<ProductEntity> products = DAOProductImplTest.daoProductImpl.getAllActiveProducts();
+        List<ProductEntity> products = daoProductImpl.getAllActiveProducts();
 
-        Assert.assertEquals(products.size(), 0);
+        Assertions.assertEquals(products.size(), 0);
     }
 
     @Test
     public void getAllActiveProducts() {
         Ebean.beginTransaction();
         JPAProductEntity product = new JPAProductEntity();
-        product.setUID(DAOProductImplTest.existingObjUid1);
+        product.setUID(existingObjUid1);
         product.setDescription("Test Product 1");
-        DAOProductImplTest.daoProductImpl.create(product);
+        daoProductImpl.create(product);
 
         product = new JPAProductEntity();
-        product.setUID(DAOProductImplTest.existingObjUid2);
+        product.setUID(existingObjUid2);
         product.setDescription("Test Product 2");
-        DAOProductImplTest.daoProductImpl.create(product);
+        daoProductImpl.create(product);
         Ebean.commitTransaction();
 
-        List<ProductEntity> products = DAOProductImplTest.daoProductImpl.getAllActiveProducts();
+        List<ProductEntity> products = daoProductImpl.getAllActiveProducts();
 
-        Assert.assertEquals(products.size(), 2);
+        Assertions.assertEquals(products.size(), 2);
     }
 }

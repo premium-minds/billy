@@ -22,9 +22,9 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -59,24 +59,24 @@ public class TestGenericInvoiceOperations extends AbstractTest {
     private MockCustomerEntity mockCustomerEntity;
     private MockSupplierEntity mockSupplierEntity;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         this.mockInvoiceEntity =
                 this.createMockEntity(MockGenericInvoiceEntity.class, TestGenericInvoiceOperations.INVOICE_YML);
 
         Mockito.when(this.getInstance(DAOGenericInvoice.class).getEntityInstance())
                 .thenReturn(new MockGenericInvoiceEntity());
-        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																		   Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Mockito.any(Context.class),
+																		   Mockito.any(Context.class))).thenReturn(true);
 
         this.mockCustomerEntity =
                 this.createMockEntity(MockCustomerEntity.class, TestGenericInvoiceOperations.CUSTOMER_YML);
         this.mockSupplierEntity =
                 this.createMockEntity(MockSupplierEntity.class, TestGenericInvoiceOperations.SUPPLIER_YML);
         this.mockInvoiceEntity.setCustomer(this.mockCustomerEntity);
-        Mockito.when(this.getInstance(DAOCustomer.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOCustomer.class).get(Mockito.any(UID.class)))
                 .thenReturn(this.mockCustomerEntity);
-        Mockito.when(this.getInstance(DAOSupplier.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOSupplier.class).get(Mockito.any(UID.class)))
                 .thenReturn(this.mockSupplierEntity);
     }
 
@@ -84,7 +84,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
     public void simpleOperationsTest() {
         MockGenericInvoiceEntryEntity mockEntry = this.getMockEntryEntity(this.mockInvoiceEntity, this.testValue2);
 
-        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Matchers.any(UID.class))).thenReturn(mockEntry);
+        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(mockEntry);
         this.mockInvoiceEntity.getEntries().clear();
         this.mockInvoiceEntity.getEntries().add(mockEntry);
 
@@ -96,10 +96,10 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice != null);
-        Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(mockEntry.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(invoice.getAmountWithTax().compareTo(mockEntry.getAmountWithTax()) == 0);
-        Assert.assertTrue(invoice.getTaxAmount().compareTo(mockEntry.getTaxAmount()) == 0);
+        Assertions.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice.getAmountWithoutTax().compareTo(mockEntry.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(invoice.getAmountWithTax().compareTo(mockEntry.getAmountWithTax()) == 0);
+        Assertions.assertTrue(invoice.getTaxAmount().compareTo(mockEntry.getTaxAmount()) == 0);
 
     }
 
@@ -109,7 +109,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         MockGenericInvoiceEntryEntity mockEntry2 = this.getMockEntryEntity(this.mockInvoiceEntity, this.testValue2);
 
-        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Matchers.any(UID.class))).thenReturn(mockEntry);
+        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(mockEntry);
         this.mockInvoiceEntity.getEntries().clear();
         this.mockInvoiceEntity.getEntries().add(mockEntry);
 
@@ -124,13 +124,13 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice != null);
 
-        Assert.assertTrue(invoice.getAmountWithoutTax()
+        Assertions.assertTrue(invoice.getAmountWithoutTax()
                 .compareTo(mockEntry.getAmountWithoutTax().add(mockEntry2.getAmountWithoutTax(), this.mc)) == 0);
-        Assert.assertTrue(invoice.getAmountWithTax()
+        Assertions.assertTrue(invoice.getAmountWithTax()
                 .compareTo(mockEntry.getAmountWithTax().add(mockEntry2.getAmountWithTax(), this.mc)) == 0);
-        Assert.assertTrue(invoice.getTaxAmount()
+        Assertions.assertTrue(invoice.getTaxAmount()
                 .compareTo(mockEntry.getTaxAmount().add(mockEntry2.getTaxAmount(), this.mc)) == 0);
 
     }
@@ -151,7 +151,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
             amountWithTax = amountWithTax.add(mockEntry.getAmountWithTax(), this.mc);
             amountWithoutTax = amountWithoutTax.add(mockEntry.getAmountWithoutTax(), this.mc);
 
-            Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Matchers.any(UID.class)))
+            Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Mockito.any(UID.class)))
                     .thenReturn(mockEntry);
             this.mockInvoiceEntity.getEntries().add(mockEntry);
 
@@ -164,10 +164,10 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice != null);
-        Assert.assertTrue(invoice.getAmountWithoutTax().compareTo(amountWithoutTax) == 0);
-        Assert.assertTrue(invoice.getAmountWithTax().compareTo(amountWithTax) == 0);
-        Assert.assertTrue(invoice.getTaxAmount().compareTo(taxAmount) == 0);
+        Assertions.assertTrue(invoice != null);
+        Assertions.assertTrue(invoice.getAmountWithoutTax().compareTo(amountWithoutTax) == 0);
+        Assertions.assertTrue(invoice.getAmountWithTax().compareTo(amountWithTax) == 0);
+        Assertions.assertTrue(invoice.getTaxAmount().compareTo(taxAmount) == 0);
 
     }
 
@@ -182,7 +182,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
         this.mockInvoiceEntity.getEntries().add(mockEntry1);
         this.mockInvoiceEntity.getEntries().add(mockEntry2);
 
-        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Mockito.any(UID.class)))
                 .thenReturn(mockEntry1);
 
         GenericInvoice.Builder builder = this.getBuilder();
@@ -197,7 +197,7 @@ public class TestGenericInvoiceOperations extends AbstractTest {
 
         GenericInvoice invoice = builder.build();
 
-        Assert.assertTrue(invoice.getTaxAmount().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).compareTo(
+        Assertions.assertTrue(invoice.getTaxAmount().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).compareTo(
                 invoice.getAmountWithTax().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).subtract(invoice
                         .getAmountWithoutTax().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()))) == 0);
     }

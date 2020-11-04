@@ -22,9 +22,9 @@ import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -47,14 +47,14 @@ public class GenericTest {
 
     static Injector injector;
 
-    @Before
+    @BeforeEach
     public void setUpClass() {
         GenericTest.injector =
                 Guice.createInjector(new CoreJPADependencyModule(), new CoreJPATestPersistenceDependencyModule());
         GenericTest.injector.getInstance(CoreJPATestPersistenceDependencyModule.Initializer.class);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         GenericTest.injector.getInstance(CoreJPATestPersistenceDependencyModule.Finalizer.class);
     }

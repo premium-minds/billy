@@ -21,9 +21,9 @@ package com.premiumminds.billy.portugal.test.services.documents.handler;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
@@ -56,7 +56,7 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends PTDocumentAbstr
     private UID ticketUID;
     private TicketManager ticketManager;
 
-    @Before
+    @BeforeEach
     public void setUpNewSimpleInvoice() {
 
         try {
@@ -95,21 +95,21 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends PTDocumentAbstr
 
         PTSimpleInvoiceEntity ticketEntity = (PTSimpleInvoiceEntity) service.getWithTicket(this.ticketUID);
 
-        Assert.assertTrue(issuedInvoice != null);
-        Assert.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        Assertions.assertTrue(issuedInvoice != null);
+        Assertions.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
         String formatedNumber = TestPTSimpleInvoiceIssuingHandlerWithTicket.DEFAULT_TYPE + " " +
                 PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-        Assert.assertEquals(TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING,
+        Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        Assertions.assertEquals(TestPTSimpleInvoiceIssuingHandlerWithTicket.SOURCE_BILLING,
                 issuedInvoice.getSourceBilling());
 
-        Assert.assertTrue(this.ticketManager.ticketExists(this.ticketUID.getValue()) == true);
-        Assert.assertTrue(ticketEntity != null);
-        Assert.assertTrue(ticketEntity.getUID().getValue().equals(issuedInvoice.getUID().getValue()));
-        Assert.assertTrue(ticketEntity.getHash().equals(issuedInvoice.getHash()));
-        Assert.assertTrue(ticketEntity.getNumber().equals(issuedInvoice.getNumber()));
-        Assert.assertTrue(ticketEntity.getSeries().equals(issuedInvoice.getSeries()));
+        Assertions.assertTrue(this.ticketManager.ticketExists(this.ticketUID.getValue()) == true);
+        Assertions.assertTrue(ticketEntity != null);
+        Assertions.assertTrue(ticketEntity.getUID().getValue().equals(issuedInvoice.getUID().getValue()));
+        Assertions.assertTrue(ticketEntity.getHash().equals(issuedInvoice.getHash()));
+        Assertions.assertTrue(ticketEntity.getNumber().equals(issuedInvoice.getNumber()));
+        Assertions.assertTrue(ticketEntity.getSeries().equals(issuedInvoice.getSeries()));
 
     }
 
@@ -128,17 +128,17 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends PTDocumentAbstr
 
         }
 
-        Assert.assertTrue(this.ticketManager.ticketExists(noResultUID.getValue()) == false);
-        Assert.assertTrue(ticketEntity == null);
+        Assertions.assertTrue(this.ticketManager.ticketExists(noResultUID.getValue()) == false);
+        Assertions.assertTrue(ticketEntity == null);
 
         try {
             ticketEntity = (PTSimpleInvoiceEntity) service.getWithTicket(new UID(notIssuedUID));
         } catch (NoResultException e) {
         }
 
-        Assert.assertTrue(this.ticketManager.ticketExists(new UID(notIssuedUID).getValue()) == true);
-        Assert.assertFalse(this.ticketManager.ticketIssued(notIssuedUID) == false);
-        Assert.assertTrue(ticketEntity == null);
+        Assertions.assertTrue(this.ticketManager.ticketExists(new UID(notIssuedUID).getValue()) == true);
+        Assertions.assertFalse(this.ticketManager.ticketIssued(notIssuedUID) == false);
+        Assertions.assertTrue(ticketEntity == null);
 
     }
 
@@ -161,7 +161,7 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends PTDocumentAbstr
         } catch (DocumentIssuingException e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(entity == null);
+        Assertions.assertTrue(entity == null);
     }
 
     @Test
@@ -197,7 +197,7 @@ public class TestPTSimpleInvoiceIssuingHandlerWithTicket extends PTDocumentAbstr
             ticketEntity = (PTSimpleInvoiceEntity) persistenceService.getWithTicket(testUID);
         } catch (Exception e) {
         }
-        Assert.assertTrue(ticketEntity == null);
+        Assertions.assertTrue(ticketEntity == null);
     }
 
 }

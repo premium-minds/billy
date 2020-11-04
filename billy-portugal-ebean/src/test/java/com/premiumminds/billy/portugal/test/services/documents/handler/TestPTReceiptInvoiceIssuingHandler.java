@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -41,7 +41,7 @@ public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
     private PTReceiptInvoiceIssuingHandler handler;
     private UID issuedInvoiceUID;
 
-    @Before
+    @BeforeEach
     public void setUpNewInvoice() {
         this.handler = this.getInstance(PTReceiptInvoiceIssuingHandler.class);
 
@@ -61,12 +61,12 @@ public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
     public void testIssuedInvoiceSimple() throws DocumentIssuingException {
         PTReceiptInvoice issuedInvoice = this.getInstance(DAOPTReceiptInvoice.class).get(this.issuedInvoiceUID);
 
-        Assert.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        Assertions.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
         String formatedNumber =
                 TestPTReceiptInvoiceIssuingHandler.DEFAULT_TYPE + " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
-        Assert.assertEquals(TestPTReceiptInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
+        Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        Assertions.assertEquals(TestPTReceiptInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
     }*/
 
     // @Test
@@ -88,13 +88,13 @@ public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
     // PTInvoice lastInvoice = (PTInvoice) this
     // .getInstance(DAOPTInvoice.class).get(newInvoiceUID);
     //
-    // Assert.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES,
+    // Assertions.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES,
     // lastInvoice.getSeries());
-    // Assert.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
+    // Assertions.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
     // String formatedNumber = TestPTReceiptInvoiceIssuingHandler.DEFAULT_TYPE
     // + " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/"
     // + nextNumber;
-    // Assert.assertEquals(formatedNumber, lastInvoice.getNumber());
+    // Assertions.assertEquals(formatedNumber, lastInvoice.getNumber());
     // }
     //
     // @Test
@@ -114,11 +114,11 @@ public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
     // PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
     // DAOPTInvoice.class).get(newInvoiceUID);
     //
-    // Assert.assertEquals(newSeries, issuedInvoice.getSeries());
-    // Assert.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
+    // Assertions.assertEquals(newSeries, issuedInvoice.getSeries());
+    // Assertions.assertEquals(nextNumber, issuedInvoice.getSeriesNumber());
     // String formatedNumber = TestPTReceiptInvoiceIssuingHandler.DEFAULT_TYPE
     // + " " + newSeries + "/" + nextNumber;
-    // Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+    // Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
     // }
     //
     // /**
@@ -169,7 +169,7 @@ public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
     // PTInvoice issuedInvoice = (PTInvoice) this.getInstance(
     // DAOPTInvoice.class).get(newInvoiceUID);
     //
-    // Assert.assertEquals(TestPTReceiptInvoiceIssuingHandler.SOURCE_BILLING,
+    // Assertions.assertEquals(TestPTReceiptInvoiceIssuingHandler.SOURCE_BILLING,
     // issuedInvoice.getSourceBilling());
     // }
 

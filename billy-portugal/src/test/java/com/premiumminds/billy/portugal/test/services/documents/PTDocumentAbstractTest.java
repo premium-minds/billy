@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.test.services.documents;
 
 import java.util.Date;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.premiumminds.billy.core.exceptions.NotImplementedException;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
@@ -42,7 +42,7 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
     protected PTIssuingParams parameters;
 
-    @Before
+    @BeforeEach
     public void setUpParamenters() {
         KeyGenerator generator = new KeyGenerator(PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
 

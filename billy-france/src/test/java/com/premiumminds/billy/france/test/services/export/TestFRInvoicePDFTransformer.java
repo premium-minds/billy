@@ -28,9 +28,10 @@ import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -38,7 +39,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.france.FranceDependencyModule;
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
@@ -63,7 +63,7 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
     private FRInvoicePDFFOPTransformer transformer;
     private FRInvoiceDataExtractor extractor;
 
-    @Before
+    @BeforeEach
     public void setUp() throws FileNotFoundException {
 
         this.mockedInjector =
@@ -76,7 +76,7 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
         this.test = new FRInvoiceTestUtil(FRAbstractTest.injector);
     }
 
-    @Ignore
+    @Disabled
     @Test
     public void testPDFcreation()
             throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
@@ -91,13 +91,12 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
         this.transformer.transform(entityData, os);
     }
 
-    @Test(expected = ExportServiceException.class)
-    public void testNonExistentEntity() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
-            DocumentIssuingException, IOException {
+    @Test
+    public void testNonExistentEntity() {
 
         UID uidEntity = UID.fromString("12345");
 
-        this.extractor.extract(uidEntity);
+        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test
@@ -142,7 +141,7 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
         this.transformer.transform(entityData, os);
     }
 
-	@Ignore
+	@Disabled
     @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
         FRInvoiceEntity entity = this.generateFRInvoice();

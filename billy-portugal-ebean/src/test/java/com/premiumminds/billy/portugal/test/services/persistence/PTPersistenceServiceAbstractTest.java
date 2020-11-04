@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.persistence;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.premiumminds.billy.portugal.BillyPortugal;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
@@ -31,7 +31,7 @@ public class PTPersistenceServiceAbstractTest extends PTPersistencyAbstractTest 
     protected PTIssuingParams parameters;
     protected BillyPortugal billy;
 
-    @Before
+    @BeforeEach
     public void setUpParamenters() {
         KeyGenerator generator = new KeyGenerator(PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
 

@@ -21,8 +21,8 @@ package com.premiumminds.billy.france.test.services.builders;
 import java.util.ArrayList;
 import java.util.Currency;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
 import org.mockito.Mockito;
 
@@ -62,7 +62,7 @@ public class TestFRCreditNoteBuilder extends FRAbstractTest {
         MockFRCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockFRCustomerEntity.class, TestFRCreditNoteBuilder.FRCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOFRSimpleInvoice.class).getEntityInstance())
                 .thenReturn(new MockFRSimpleInvoiceEntity());
@@ -73,7 +73,7 @@ public class TestFRCreditNoteBuilder extends FRAbstractTest {
         MockFRCreditNoteEntryEntity entryMock = this.createMockEntity(MockFRCreditNoteEntryEntity.class,
                 TestFRCreditNoteBuilder.FR_CREDIT_NOTE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRCreditNoteEntry.class).get(Matchers.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOFRCreditNoteEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 
@@ -105,21 +105,21 @@ public class TestFRCreditNoteBuilder extends FRAbstractTest {
 
         FRCreditNote creditNote = builder.build();
 
-        Assert.assertTrue(creditNote != null);
-        Assert.assertTrue(creditNote.getEntries() != null);
-        Assert.assertEquals(creditNote.getEntries().size(), mock.getEntries().size());
+        Assertions.assertTrue(creditNote != null);
+        Assertions.assertTrue(creditNote.getEntries() != null);
+        Assertions.assertEquals(creditNote.getEntries().size(), mock.getEntries().size());
 
-        Assert.assertTrue(creditNote.isBilled() == mock.isBilled());
-        Assert.assertTrue(creditNote.isCancelled() == mock.isCancelled());
+        Assertions.assertTrue(creditNote.isBilled() == mock.isBilled());
+        Assertions.assertTrue(creditNote.isCancelled() == mock.isCancelled());
 
-        Assert.assertEquals(mock.getGeneralLedgerDate(), creditNote.getGeneralLedgerDate());
-        Assert.assertEquals(mock.getBatchId(), creditNote.getBatchId());
-        Assert.assertEquals(mock.getDate(), creditNote.getDate());
-        Assert.assertEquals(mock.getPaymentTerms(), creditNote.getPaymentTerms());
+        Assertions.assertEquals(mock.getGeneralLedgerDate(), creditNote.getGeneralLedgerDate());
+        Assertions.assertEquals(mock.getBatchId(), creditNote.getBatchId());
+        Assertions.assertEquals(mock.getDate(), creditNote.getDate());
+        Assertions.assertEquals(mock.getPaymentTerms(), creditNote.getPaymentTerms());
 
-        Assert.assertTrue(mock.getAmountWithoutTax().compareTo(creditNote.getAmountWithoutTax()) == 0);
-        Assert.assertTrue(mock.getAmountWithTax().compareTo(creditNote.getAmountWithTax()) == 0);
-        Assert.assertTrue(mock.getTaxAmount().compareTo(creditNote.getTaxAmount()) == 0);
+        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(creditNote.getAmountWithoutTax()) == 0);
+        Assertions.assertTrue(mock.getAmountWithTax().compareTo(creditNote.getAmountWithTax()) == 0);
+        Assertions.assertTrue(mock.getTaxAmount().compareTo(creditNote.getTaxAmount()) == 0);
 
     }
 }

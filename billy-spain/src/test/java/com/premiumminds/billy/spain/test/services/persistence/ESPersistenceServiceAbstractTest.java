@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.spain.test.services.persistence;
 
-import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.premiumminds.billy.spain.BillySpain;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
@@ -30,7 +30,7 @@ public class ESPersistenceServiceAbstractTest extends ESPersistencyAbstractTest 
     protected ESIssuingParams parameters;
     protected BillySpain billy;
 
-    @Before
+    @BeforeEach
     public void setUpParamenters() {
         this.parameters = new ESIssuingParamsImpl();
         this.parameters.setEACCode("31400");

@@ -18,9 +18,10 @@
  */
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -42,7 +43,7 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
     private ESSimpleInvoiceIssuingHandler handler;
     private UID issuedInvoiceUID;
 
-    @Before
+    @BeforeEach
     public void setUpNewSimpleInvoice() {
         this.handler = this.getInstance(ESSimpleInvoiceIssuingHandler.class);
 
@@ -60,15 +61,17 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
     public void testIssuedInvoiceSimple() throws DocumentIssuingException {
         ESSimpleInvoice issuedInvoice = this.getInstance(DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
 
-        Assert.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assert.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        Assertions.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
         String formatedNumber = this.DEFAULT_SERIES + "/1";
-        Assert.assertEquals(formatedNumber, issuedInvoice.getNumber());
+        Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
     }
 
-    @Test(expected = BillySimpleInvoiceException.class)
+    @Test
     public void testBusinessSimpleInvoice() {
-        new ESSimpleInvoiceTestUtil(ESAbstractTest.injector).getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS);
+        ESSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector);
+
+        Assertions.assertThrows(BillySimpleInvoiceException.class, () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS));
     }
 
 }

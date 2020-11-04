@@ -21,8 +21,8 @@ package com.premiumminds.billy.core.test.services.builders;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
@@ -65,23 +65,23 @@ public class TestApplicationBuilder extends AbstractTest {
 
         Application application = builder.build();
 
-        Assert.assertTrue(application != null);
-        Assert.assertEquals(mockApplication.getName(), application.getName());
-        Assert.assertEquals(mockApplication.getVersion(), application.getVersion());
-        Assert.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
-        Assert.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
+        Assertions.assertTrue(application != null);
+        Assertions.assertEquals(mockApplication.getName(), application.getName());
+        Assertions.assertEquals(mockApplication.getVersion(), application.getVersion());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
                 application.getDeveloperCompanyTaxIdentifier());
-        Assert.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
+        Assertions.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
 
-        Assert.assertTrue(application.getMainContact() != null);
-        Assert.assertEquals(application.getMainContact().getName(), mockApplication.getMainContact().getName());
+        Assertions.assertTrue(application.getMainContact() != null);
+        Assertions.assertEquals(application.getMainContact().getName(), mockApplication.getMainContact().getName());
 
-        Assert.assertTrue(application.getContacts() != null);
-        Assert.assertEquals(application.getContacts().size(), mockApplication.getContacts().size() + 1);
+        Assertions.assertTrue(application.getContacts() != null);
+        Assertions.assertEquals(application.getContacts().size(), mockApplication.getContacts().size() + 1);
 
         for (int i = 0; i < application.getContacts().size() - 1; i++) {
             List<Contact> appContacts = (List<Contact>) application.getContacts();
-            Assert.assertEquals(appContacts.get(i).getName(), mockApplication.getContacts().get(i).getName());
+            Assertions.assertEquals(appContacts.get(i).getName(), mockApplication.getContacts().get(i).getName());
         }
 
     }
