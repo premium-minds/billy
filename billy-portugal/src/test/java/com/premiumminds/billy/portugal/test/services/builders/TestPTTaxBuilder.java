@@ -85,7 +85,7 @@ public class TestPTTaxBuilder extends PTAbstractTest {
                 this.createMockEntity(MockPTRegionContextEntity.class, TestPTTaxBuilder.REGIONCONTEXT_YML);
 
         mockContext.uid = new UID("uid_region_context");
-        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Matchers.any(UID.class))).thenReturn(mockContext);
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any(UID.class))).thenReturn(mockContext);
         result.context = mockContext;
 
         result.currency = Currency.getInstance("EUR");

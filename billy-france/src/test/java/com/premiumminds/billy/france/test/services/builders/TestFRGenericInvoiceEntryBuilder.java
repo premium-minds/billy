@@ -58,13 +58,13 @@ public class TestFRGenericInvoiceEntryBuilder extends FRAbstractTest {
         MockFRGenericInvoiceEntity mockInvoice = this.createMockEntity(MockFRGenericInvoiceEntity.class,
                 TestFRGenericInvoiceEntryBuilder.FR_GENERIC_INVOICE_YML);
 
-        Mockito.when(this.getInstance(DAOFRGenericInvoice.class).get(Matchers.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOFRGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOFRProduct.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRProduct.class).get(Mockito.any(UID.class)))
                 .thenReturn((FRProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).isSameOrSubContext(Matchers.any(FRRegionContext.class),
-																				   Matchers.any(FRRegionContext.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).isSameOrSubContext(Mockito.any(),
+                Mockito.any(FRRegionContext.class))).thenReturn(true);
 
         mock.getDocumentReferences().add(mockInvoice);
 

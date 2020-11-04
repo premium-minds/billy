@@ -57,13 +57,13 @@ public class TestFRCreditReceiptEntryBuilder extends FRAbstractTest {
         MockFRReceiptEntity mockReceiptEntity =
                 this.createMockEntity(MockFRReceiptEntity.class, TestFRCreditReceiptEntryBuilder.FR_RECEIPT_YML);
 
-        Mockito.when(this.getInstance(DAOFRReceipt.class).get(Matchers.any(UID.class))).thenReturn(mockReceiptEntity);
+        Mockito.when(this.getInstance(DAOFRReceipt.class).get(Mockito.any(UID.class))).thenReturn(mockReceiptEntity);
 
-        Mockito.when(this.getInstance(DAOFRProduct.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRProduct.class).get(Mockito.any(UID.class)))
                 .thenReturn((FRProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																				   Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).isSameOrSubContext(Mockito.any(),
+                Mockito.any(Context.class))).thenReturn(true);
 
         mock.setReference(mockReceiptEntity);
 

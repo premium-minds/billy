@@ -50,7 +50,7 @@ public class TestFRBusinessBuilder extends FRAbstractTest {
 
         Mockito.when(this.getInstance(DAOFRBusiness.class).getEntityInstance()).thenReturn(new MockFRBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((FRRegionContextEntity) mockBusiness.getOperationalContext());
 
         FRBusiness.Builder builder = this.getInstance(FRBusiness.Builder.class);

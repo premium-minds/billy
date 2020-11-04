@@ -62,7 +62,7 @@ public class TestFRCreditReceiptBuilder extends FRAbstractTest {
         MockFRCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockFRCustomerEntity.class, TestFRCreditReceiptBuilder.FR_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOFRReceipt.class).getEntityInstance()).thenReturn(new MockFRReceiptEntity());
 
@@ -72,7 +72,7 @@ public class TestFRCreditReceiptBuilder extends FRAbstractTest {
         MockFRCreditReceiptEntryEntity entryMock = this.createMockEntity(MockFRCreditReceiptEntryEntity.class,
                 TestFRCreditReceiptBuilder.FR_CREDIT_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRCreditReceiptEntry.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRCreditReceiptEntry.class).get(Mockito.any(UID.class)))
                 .thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);

@@ -47,7 +47,7 @@ public class TestESCustomerBuilder extends ESAbstractTest {
 
         Mockito.when(this.getInstance(DAOESCustomer.class).getEntityInstance()).thenReturn(new MockESCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOESContact.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESContact.class).get(Mockito.any(UID.class)))
                 .thenReturn((ESContactEntity) mockCustomer.getMainContact());
 
         ESCustomer.Builder builder = this.getInstance(ESCustomer.Builder.class);

@@ -63,12 +63,12 @@ public class TestFRGenericInvoiceBuilder extends FRAbstractTest {
         Mockito.when(this.getInstance(DAOFRGenericInvoice.class).getEntityInstance())
                 .thenReturn(new MockFRGenericInvoiceEntity());
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         MockFRGenericInvoiceEntryEntity entryMock = this.createMockEntity(MockFRGenericInvoiceEntryEntity.class,
                 TestFRGenericInvoiceBuilder.FR_GENERIC_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRGenericInvoiceEntry.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRGenericInvoiceEntry.class).get(Mockito.any(UID.class)))
                 .thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);

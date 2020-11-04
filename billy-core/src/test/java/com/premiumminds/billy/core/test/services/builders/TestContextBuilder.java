@@ -40,7 +40,7 @@ public class TestContextBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOContext.class).getEntityInstance()).thenReturn(new MockContextEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockContext.getParentContext());
 
         Context.Builder builder = this.getInstance(Context.Builder.class);

@@ -47,7 +47,7 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 
         Mockito.when(this.getInstance(DAOPTCustomer.class).getEntityInstance()).thenReturn(new MockPTCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOPTContact.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTContact.class).get(Mockito.any(UID.class)))
                 .thenReturn((PTContactEntity) mockCustomer.getMainContact());
 
         PTCustomer.Builder builder = this.getInstance(PTCustomer.Builder.class);

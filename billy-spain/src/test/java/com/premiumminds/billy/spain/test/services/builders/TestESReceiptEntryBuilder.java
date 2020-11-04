@@ -56,13 +56,13 @@ public class TestESReceiptEntryBuilder extends ESAbstractTest {
         MockESReceiptEntity mockReceipt =
                 this.createMockEntity(MockESReceiptEntity.class, TestESReceiptEntryBuilder.ES_RECEIPT_YML);
 
-        Mockito.when(this.getInstance(DAOESReceipt.class).get(Matchers.any(UID.class))).thenReturn(mockReceipt);
+        Mockito.when(this.getInstance(DAOESReceipt.class).get(Mockito.any(UID.class))).thenReturn(mockReceipt);
 
-        Mockito.when(this.getInstance(DAOESProduct.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESProduct.class).get(Mockito.any(UID.class)))
                 .thenReturn((ESProductEntity) mockEntry.getProduct());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																				   Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOESRegionContext.class).isSameOrSubContext(Mockito.any(),
+                Mockito.any(Context.class))).thenReturn(true);
 
         mockEntry.getDocumentReferences().add(mockReceipt);
 

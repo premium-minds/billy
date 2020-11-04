@@ -49,7 +49,7 @@ public class TestCustomerBuilder extends AbstractTest {
         // this.getInstance(DAOCustomer.class).getEntityInstance().isNew())
         // .thenReturn(true);
 
-        Mockito.when(this.getInstance(DAOContact.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContact.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContactEntity) mockCustomer.getMainContact());
 
         Customer.Builder builder = this.getInstance(Customer.Builder.class);

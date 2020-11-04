@@ -62,7 +62,7 @@ public class TestESCreditNoteBuilder extends ESAbstractTest {
         MockESCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockESCustomerEntity.class, TestESCreditNoteBuilder.ESCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOESSimpleInvoice.class).getEntityInstance())
                 .thenReturn(new MockESSimpleInvoiceEntity());
@@ -73,7 +73,7 @@ public class TestESCreditNoteBuilder extends ESAbstractTest {
         MockESCreditNoteEntryEntity entryMock = this.createMockEntity(MockESCreditNoteEntryEntity.class,
                 TestESCreditNoteBuilder.ES_CREDIT_NOTE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESCreditNoteEntry.class).get(Matchers.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOESCreditNoteEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

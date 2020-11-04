@@ -21,7 +21,6 @@ package com.premiumminds.billy.portugal.test.services.builders;
 import java.math.BigDecimal;
 import java.util.Currency;
 
-import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
@@ -87,7 +86,7 @@ public class TestPTTaxBuilder extends PTAbstractTest {
                 this.createMockEntity(MockPTRegionContextEntity.class, TestPTTaxBuilder.REGIONCONTEXT_YML);
 
         mockContext.uid = new UID("uid_region_context");
-        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Matchers.any(UID.class))).thenReturn(mockContext);
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any(UID.class))).thenReturn(mockContext);
         result.context = mockContext;
 
         result.currency = Currency.getInstance("EUR");

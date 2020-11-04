@@ -47,7 +47,7 @@ public class TestFRCustomerBuilder extends FRAbstractTest {
 
         Mockito.when(this.getInstance(DAOFRCustomer.class).getEntityInstance()).thenReturn(new MockFRCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOFRContact.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRContact.class).get(Mockito.any(UID.class)))
                 .thenReturn((FRContactEntity) mockCustomer.getMainContact());
 
         FRCustomer.Builder builder = this.getInstance(FRCustomer.Builder.class);

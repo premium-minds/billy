@@ -62,7 +62,7 @@ public class TestESCreditReceiptBuilder extends ESAbstractTest {
         MockESCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockESCustomerEntity.class, TestESCreditReceiptBuilder.ES_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOESReceipt.class).getEntityInstance()).thenReturn(new MockESReceiptEntity());
 
@@ -72,7 +72,7 @@ public class TestESCreditReceiptBuilder extends ESAbstractTest {
         MockESCreditReceiptEntryEntity entryMock = this.createMockEntity(MockESCreditReceiptEntryEntity.class,
                 TestESCreditReceiptBuilder.ES_CREDIT_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESCreditReceiptEntry.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESCreditReceiptEntry.class).get(Mockito.any(UID.class)))
                 .thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);

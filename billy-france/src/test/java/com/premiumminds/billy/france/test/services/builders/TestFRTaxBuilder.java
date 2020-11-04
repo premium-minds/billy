@@ -85,7 +85,7 @@ public class TestFRTaxBuilder extends FRAbstractTest {
                 this.createMockEntity(MockFRRegionContextEntity.class, TestFRTaxBuilder.REGIONCONTEXT_YML);
 
         mockContext.uid = new UID("uid_region_context");
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Matchers.any(UID.class))).thenReturn(mockContext);
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class))).thenReturn(mockContext);
         result.context = mockContext;
 
         result.currency = Currency.getInstance("EUR");

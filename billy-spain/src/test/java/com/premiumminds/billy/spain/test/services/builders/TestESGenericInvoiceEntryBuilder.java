@@ -58,13 +58,13 @@ public class TestESGenericInvoiceEntryBuilder extends ESAbstractTest {
         MockESGenericInvoiceEntity mockInvoice = this.createMockEntity(MockESGenericInvoiceEntity.class,
                 TestESGenericInvoiceEntryBuilder.ES_GENERIC_INVOICE_YML);
 
-        Mockito.when(this.getInstance(DAOESGenericInvoice.class).get(Matchers.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOESGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOESProduct.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESProduct.class).get(Mockito.any(UID.class)))
                 .thenReturn((ESProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).isSameOrSubContext(Matchers.any(ESRegionContext.class),
-																				   Matchers.any(ESRegionContext.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOESRegionContext.class).isSameOrSubContext(Mockito.any(),
+                Mockito.any(ESRegionContext.class))).thenReturn(true);
 
         mock.getDocumentReferences().add(mockInvoice);
 

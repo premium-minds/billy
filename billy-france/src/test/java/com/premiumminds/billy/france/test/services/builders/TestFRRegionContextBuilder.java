@@ -43,7 +43,7 @@ public class TestFRRegionContextBuilder extends FRAbstractTest {
         Mockito.when(this.getInstance(DAOFRRegionContext.class).getEntityInstance())
                 .thenReturn(new MockFRRegionContextEntity());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
         FRRegionContext.Builder builder = this.getInstance(FRRegionContext.Builder.class);

@@ -48,7 +48,7 @@ public class TestESProductBuilder extends ESAbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOESTax.class).get(Matchers.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOESTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
         }
 
         ESProduct.Builder builder = this.getInstance(ESProduct.Builder.class);

@@ -61,13 +61,13 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
         MockSupplierEntity mockSupplierEntity =
                 this.createMockEntity(MockSupplierEntity.class, TestGenericInvoiceBuilder.SUPPLIER_YML);
 
-        Mockito.when(this.getInstance(DAOCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
-        Mockito.when(this.getInstance(DAOSupplier.class).get(Matchers.any(UID.class))).thenReturn(mockSupplierEntity);
+        Mockito.when(this.getInstance(DAOCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOSupplier.class).get(Mockito.any(UID.class))).thenReturn(mockSupplierEntity);
 
         MockGenericInvoiceEntryEntity mockInvoice =
                 this.createMockEntity(MockGenericInvoiceEntryEntity.class, TestGenericInvoiceBuilder.ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Mockito.any(UID.class)))
                 .thenReturn(mockInvoice);
 
         mock.getEntries().add(mockInvoice);

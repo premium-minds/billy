@@ -50,7 +50,7 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 
         Mockito.when(this.getInstance(DAOPTBusiness.class).getEntityInstance()).thenReturn(new MockPTBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((PTRegionContextEntity) mockBusiness.getOperationalContext());
 
         PTBusiness.Builder builder = this.getInstance(PTBusiness.Builder.class);

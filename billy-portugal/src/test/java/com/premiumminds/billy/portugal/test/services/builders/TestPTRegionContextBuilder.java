@@ -43,7 +43,7 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
         Mockito.when(this.getInstance(DAOPTRegionContext.class).getEntityInstance())
                 .thenReturn(new MockPTRegionContextEntity());
 
-        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
         PTRegionContext.Builder builder = this.getInstance(PTRegionContext.Builder.class);

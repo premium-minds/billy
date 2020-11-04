@@ -43,7 +43,7 @@ public class TestESRegionContextBuilder extends ESAbstractTest {
         Mockito.when(this.getInstance(DAOESRegionContext.class).getEntityInstance())
                 .thenReturn(new MockESRegionContextEntity());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
         ESRegionContext.Builder builder = this.getInstance(ESRegionContext.Builder.class);

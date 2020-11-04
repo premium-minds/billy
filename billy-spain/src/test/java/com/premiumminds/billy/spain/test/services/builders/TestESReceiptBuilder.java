@@ -57,14 +57,14 @@ public class TestESReceiptBuilder extends ESAbstractTest {
         MockESCustomerEntity mockCustomer =
                 this.createMockEntity(MockESCustomerEntity.class, TestESReceiptBuilder.ES_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomer);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomer);
 
         Mockito.when(this.getInstance(DAOESReceipt.class).getEntityInstance()).thenReturn(new MockESReceiptEntity());
 
         MockESReceiptEntryEntity mockEntry =
                 this.createMockEntity(MockESReceiptEntryEntity.class, TestESReceiptBuilder.ES_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESReceiptEntry.class).get(Matchers.any(UID.class))).thenReturn(mockEntry);
+        Mockito.when(this.getInstance(DAOESReceiptEntry.class).get(Mockito.any(UID.class))).thenReturn(mockEntry);
 
         @SuppressWarnings("unchecked")
         List<ESReceiptEntry> entries = (List<ESReceiptEntry>) (List<?>) mock.getEntries();

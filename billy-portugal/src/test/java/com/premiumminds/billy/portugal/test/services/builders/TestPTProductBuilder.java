@@ -48,7 +48,7 @@ public class TestPTProductBuilder extends PTAbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOPTTax.class).get(Matchers.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOPTTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
         }
 
         PTProduct.Builder builder = this.getInstance(PTProduct.Builder.class);

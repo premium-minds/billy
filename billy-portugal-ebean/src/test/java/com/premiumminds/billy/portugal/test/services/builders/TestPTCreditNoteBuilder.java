@@ -62,7 +62,7 @@ public class TestPTCreditNoteBuilder extends PTAbstractTest {
         MockPTCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockPTCustomerEntity.class, TestPTCreditNoteBuilder.PTCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOPTCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOPTCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOPTSimpleInvoice.class).getEntityInstance())
                 .thenReturn(new MockPTSimpleInvoiceEntity());
@@ -73,7 +73,7 @@ public class TestPTCreditNoteBuilder extends PTAbstractTest {
         MockPTCreditNoteEntryEntity entryMock = this.createMockEntity(MockPTCreditNoteEntryEntity.class,
                 TestPTCreditNoteBuilder.PT_CREDIT_NOTE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOPTCreditNoteEntry.class).get(Matchers.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOPTCreditNoteEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

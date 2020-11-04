@@ -25,7 +25,6 @@ import java.util.Currency;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -64,15 +63,15 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
         Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
                 .thenReturn(new MockGenericInvoiceEntryEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																		   Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Mockito.any(),
+                Mockito.any(Context.class))).thenReturn(true);
 
         Mockito.when(this.getInstance(DAOGenericInvoice.class).getEntityInstance()).thenReturn(this.invoiceMock);
-        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																		   Matchers.any(Context.class))).thenReturn(true);
-        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Mockito.any(Context.class),
+                Mockito.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Mockito.any(UID.class)))
                 .thenReturn(this.invoiceMock);
-        Mockito.when(this.getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOProduct.class).get(Mockito.any(UID.class)))
                 .thenReturn((ProductEntity) this.mock.getProduct());
 
         this.builder = this.getEntryEntityBuilder(this.invoiceMock, this.mock);

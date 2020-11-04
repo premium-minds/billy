@@ -50,7 +50,7 @@ public class TestESBusinessBuilder extends ESAbstractTest {
 
         Mockito.when(this.getInstance(DAOESBusiness.class).getEntityInstance()).thenReturn(new MockESBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ESRegionContextEntity) mockBusiness.getOperationalContext());
 
         ESBusiness.Builder builder = this.getInstance(ESBusiness.Builder.class);

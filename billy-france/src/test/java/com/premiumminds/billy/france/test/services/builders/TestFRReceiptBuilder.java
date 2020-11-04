@@ -57,14 +57,14 @@ public class TestFRReceiptBuilder extends FRAbstractTest {
         MockFRCustomerEntity mockCustomer =
                 this.createMockEntity(MockFRCustomerEntity.class, TestFRReceiptBuilder.FR_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomer);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomer);
 
         Mockito.when(this.getInstance(DAOFRReceipt.class).getEntityInstance()).thenReturn(new MockFRReceiptEntity());
 
         MockFRReceiptEntryEntity mockEntry =
                 this.createMockEntity(MockFRReceiptEntryEntity.class, TestFRReceiptBuilder.FR_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRReceiptEntry.class).get(Matchers.any(UID.class))).thenReturn(mockEntry);
+        Mockito.when(this.getInstance(DAOFRReceiptEntry.class).get(Mockito.any(UID.class))).thenReturn(mockEntry);
 
         @SuppressWarnings("unchecked")
         List<FRReceiptEntry> entries = (List<FRReceiptEntry>) (List<?>) mock.getEntries();

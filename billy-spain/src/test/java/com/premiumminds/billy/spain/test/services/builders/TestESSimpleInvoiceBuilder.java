@@ -63,12 +63,12 @@ public class TestESSimpleInvoiceBuilder extends ESAbstractTest {
         Mockito.when(this.getInstance(DAOESSimpleInvoice.class).getEntityInstance())
                 .thenReturn(new MockESSimpleInvoiceEntity());
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         MockESInvoiceEntryEntity entryMock =
                 this.createMockEntity(MockESInvoiceEntryEntity.class, TestESSimpleInvoiceBuilder.ES_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESInvoiceEntry.class).get(Matchers.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOESInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

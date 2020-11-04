@@ -47,7 +47,7 @@ public class TestTaxBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOTax.class).getEntityInstance()).thenReturn(new MockTaxEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockTax.getContext());
 
         Tax.Builder builder = this.getInstance(Tax.Builder.class);

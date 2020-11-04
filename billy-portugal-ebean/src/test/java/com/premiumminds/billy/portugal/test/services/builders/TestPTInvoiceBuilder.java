@@ -58,14 +58,14 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
         MockPTCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockPTCustomerEntity.class, TestPTInvoiceBuilder.PTCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOPTCustomer.class).get(Matchers.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOPTCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOPTInvoice.class).getEntityInstance()).thenReturn(new MockPTInvoiceEntity());
 
         MockPTInvoiceEntryEntity entryMock =
                 this.createMockEntity(MockPTInvoiceEntryEntity.class, TestPTInvoiceBuilder.PT_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOPTInvoiceEntry.class).get(Matchers.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOPTInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

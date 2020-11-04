@@ -48,7 +48,7 @@ public class TestFRProductBuilder extends FRAbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOFRTax.class).get(Matchers.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOFRTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
         }
 
         FRProduct.Builder builder = this.getInstance(FRProduct.Builder.class);

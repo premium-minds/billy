@@ -45,7 +45,7 @@ public class TestProductBuilder extends AbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOTax.class).get(Matchers.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
         }
 
         Product.Builder builder = this.getInstance(Product.Builder.class);

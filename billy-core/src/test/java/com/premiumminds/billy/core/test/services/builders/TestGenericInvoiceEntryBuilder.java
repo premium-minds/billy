@@ -22,7 +22,6 @@ import java.util.Currency;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -56,13 +55,13 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
         Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
                 .thenReturn(new MockGenericInvoiceEntryEntity());
 
-        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Matchers.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOProduct.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOProduct.class).get(Mockito.any(UID.class)))
                 .thenReturn((ProductEntity) mock.getProduct());
 
-        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																		   Matchers.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Mockito.any(),
+                Mockito.any(Context.class))).thenReturn(true);
 
         mock.getDocumentReferences().add(mockInvoice);
 

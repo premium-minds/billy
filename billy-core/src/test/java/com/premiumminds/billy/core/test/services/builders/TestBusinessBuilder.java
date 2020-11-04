@@ -45,7 +45,7 @@ public class TestBusinessBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOBusiness.class).getEntityInstance()).thenReturn(new MockBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Matchers.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
                 .thenReturn((ContextEntity) mockBusiness.getOperationalContext());
 
         Business.Builder builder = this.getInstance(Business.Builder.class);
