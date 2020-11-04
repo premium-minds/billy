@@ -13,6 +13,7 @@
  - [Bump tiles-maven-plugin from 2.17 to 2.18](https://github.com/premium-minds/billy/pull/118)
  - [[Security] Bump junit from 4.13 to 4.13.1](https://github.com/premium-minds/billy/pull/119)
  - [Bump hibernate.version from 5.4.20.Final to 5.4.23.Final](https://github.com/premium-minds/billy/pull/121)
+ - [Adds support for pt mandatory QRCode generation](https://github.com/premium-minds/billy/pull/120)
 
 ## [Unreleased v4]
 
