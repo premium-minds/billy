@@ -3,6 +3,10 @@
 
 ## [Unreleased v5]
 
+### Changed
+
+ - [Bump to Junit 5 and Mockito 3.6.0](https://github.com/premium-minds/billy/pull/122)
+
 ## [Unreleased v4]
 
 ## [Unreleased v3]
