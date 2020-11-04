@@ -25,16 +25,19 @@ import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeConstants.Field;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeConstants.TaxBreakdown;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Queue;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -109,7 +112,7 @@ public class QRCodeBuilder {
 			}
 		}
 
-		result.append(buildContextSpecificParameters(amountAndContextAndType, exemptAmount, qrCodeData.getPtContexts()));
+		result.append(buildContextSpecificParameters(amountAndContextAndType, qrCodeData.getPtContexts()));
 
 		if(!exemptAmount.equals(BigDecimal.ZERO)) {
 			result.append(FIELD_SEPARATOR)
@@ -119,17 +122,13 @@ public class QRCodeBuilder {
 
 		//QRCodeData.stampDuty not implemented
 
-		if(!qrCodeData.getTaxAmount().equals(BigDecimal.ZERO)) {
-			result.append(FIELD_SEPARATOR)
-				  .append(QRCodeConstants.taxPayable.getName()).append(DATA_SEPARATOR)
-				  .append(validateBigDecimal(qrCodeData.getTaxAmount()));
-		}
+		result.append(FIELD_SEPARATOR)
+			  .append(QRCodeConstants.taxPayable.getName()).append(DATA_SEPARATOR)
+			  .append(validateBigDecimal(qrCodeData.getTaxAmount()));
 
-		if(!qrCodeData.getAmountWithTax().equals(BigDecimal.ZERO)) {
-			result.append(FIELD_SEPARATOR)
-				  .append(QRCodeConstants.grossTotal.getName()).append(DATA_SEPARATOR)
-				  .append(validateBigDecimal(qrCodeData.getAmountWithTax()));
-		}
+		result.append(FIELD_SEPARATOR)
+			  .append(QRCodeConstants.grossTotal.getName()).append(DATA_SEPARATOR)
+			  .append(validateBigDecimal(qrCodeData.getAmountWithTax()));
 
 		//RQRCodeData.withholdingTaxAmount not implemented
 
@@ -158,84 +157,74 @@ public class QRCodeBuilder {
 	}
 
 	private static StringBuilder buildContextSpecificParameters(
-		final Map<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> amountAndContextAndType,
-		final BigDecimal exemptAmount,
-		final PTContexts ptContexts) throws RequiredFieldNotFoundException
+		final Map<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> amountAndContextAndType, final PTContexts ptContexts) throws RequiredFieldNotFoundException
 	{
 		final StringBuilder result = new StringBuilder();
-		Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> exemptPTEntry = null;
 		boolean printedASection = false;
-		for(Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> entry : amountAndContextAndType.entrySet())  {
-			Context context = entry.getKey();
-			Map<String, TupleTaxAmountAndAmountWithoutTaxes> value = entry.getValue();
-			if (context.getUID().equals(ptContexts.getContinentalUID())) {
-				printedASection = true;
-				buildContextParameters(
-					result,
-					exemptAmount,
-					(PTRegionContext) context,
-					value,
-					QRCodeConstants.taxCountryRegion,
-					QRCodeConstants.exemptAmount,
-					QRCodeConstants.reducedTaxableAmount,
-					QRCodeConstants.reducedTaxAmount,
-					QRCodeConstants.intermediateTaxableAmount,
-					QRCodeConstants.intermediateTaxAmount,
-					QRCodeConstants.regularTaxableAmount,
-					QRCodeConstants.regularTaxAmount);
 
-			} else if (context.getUID().equals(ptContexts.getAzoresUID())) {
-				printedASection = true;
-				buildContextParameters(
-					result,
-					exemptAmount,
-					(PTRegionContext) context,
-					value,
-					QRCodeConstants.taxCountryRegionAzores,
-					QRCodeConstants.exemptAmountAzores,
-					QRCodeConstants.reducedTaxableAmountAzores,
-					QRCodeConstants.reducedTaxAmountAzores,
-					QRCodeConstants.intermediateTaxableAmountAzores,
-					QRCodeConstants.intermediateTaxAmountAzores,
-					QRCodeConstants.regularTaxableAmountAzores,
-					QRCodeConstants.regularTaxAmountAzores);
+		final Optional<Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>>> continentEntry =
+			amountAndContextAndType
+				.entrySet()
+				.stream()
+				.filter(contextMapEntry -> contextMapEntry.getKey().getUID().equals(ptContexts.getContinentalUID()))
+				.findAny();
+		Queue<TaxBreakdown> taxBreakdowns = new LinkedList<TaxBreakdown>() {};
+		taxBreakdowns.add(QRCodeConstants.I);
+		taxBreakdowns.add(QRCodeConstants.J);
+		taxBreakdowns.add(QRCodeConstants.K);
 
-			} else if (context.getUID().equals(ptContexts.getMadeiraUID())) {
-				printedASection = true;
-				buildContextParameters(
-					result,
-					exemptAmount,
-					(PTRegionContext) context,
-					value,
-					QRCodeConstants.taxCountryRegionMadeira,
-					QRCodeConstants.exemptAmountMadeira,
-					QRCodeConstants.reducedTaxableAmountMadeira,
-					QRCodeConstants.reducedTaxAmountMadeira,
-					QRCodeConstants.intermediateTaxableAmountMadeira,
-					QRCodeConstants.intermediateTaxAmountMadeira,
-					QRCodeConstants.regularTaxableAmountMadeira,
-					QRCodeConstants.regularTaxAmountMadeira);
-			}
-			if (context.getUID().equals(ptContexts.getPortugalUID())){
-				exemptPTEntry = entry;
-			}
-		}
-		if (!printedASection && exemptPTEntry != null) {
-			Context context = exemptPTEntry.getKey();
-			Map<String, TupleTaxAmountAndAmountWithoutTaxes> value = exemptPTEntry.getValue();
+
+		if (continentEntry.isPresent()) {
+			printedASection = true;
 			buildContextParameters(
 				result,
-				exemptAmount,
-				(PTRegionContext) context,
-				value,
-				QRCodeConstants.taxCountryRegion,
-				QRCodeConstants.exemptAmount,
-				QRCodeConstants.reducedTaxableAmount,
-				QRCodeConstants.reducedTaxAmount,
-				QRCodeConstants.intermediateTaxableAmount,
-				QRCodeConstants.intermediateTaxAmount,
-				QRCodeConstants.regularTaxableAmount,
-				QRCodeConstants.regularTaxAmount);
+				(PTRegionContext) continentEntry.get().getKey(),
+				continentEntry.get().getValue(),
+				Objects.requireNonNull(taxBreakdowns.poll()));
+		}
+
+		final Optional<Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>>> azoresEntry =
+			amountAndContextAndType
+				.entrySet()
+				.stream()
+				.filter(contextMapEntry -> contextMapEntry.getKey().getUID().equals(ptContexts.getAzoresUID()))
+				.findAny();
+		if (azoresEntry.isPresent()) {
+			printedASection = true;
+			buildContextParameters(
+				result,
+				(PTRegionContext) azoresEntry.get().getKey(),
+				azoresEntry.get().getValue(),
+				Objects.requireNonNull(taxBreakdowns.poll()));
+		}
+
+		final Optional<Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>>> madeiraEntry =
+			amountAndContextAndType
+				.entrySet()
+				.stream()
+				.filter(contextMapEntry -> contextMapEntry.getKey().getUID().equals(ptContexts.getMadeiraUID()))
+				.findAny();
+		if (madeiraEntry.isPresent()) {
+			printedASection = true;
+			buildContextParameters(
+				result,
+				(PTRegionContext) madeiraEntry.get().getKey(),
+				madeiraEntry.get().getValue(),
+				Objects.requireNonNull(taxBreakdowns.poll()));
+		}
+
+		final Optional<Entry<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>>> portugalEntry =
+			amountAndContextAndType
+				.entrySet()
+				.stream()
+				.filter(contextMapEntry -> contextMapEntry.getKey().getUID().equals(ptContexts.getPortugalUID()))
+				.findAny();
+		if (!printedASection && portugalEntry.isPresent()) {
+			buildContextParameters(
+				result,
+				(PTRegionContext) portugalEntry.get().getKey(),
+				portugalEntry.get().getValue(),
+				Objects.requireNonNull(taxBreakdowns.poll()));
 		}
 
 		return result;
@@ -243,42 +232,32 @@ public class QRCodeBuilder {
 
 	private static void buildContextParameters(
 		final StringBuilder result,
-		final BigDecimal exemptAmount,
 		final PTRegionContext context,
 		final Map<String, TupleTaxAmountAndAmountWithoutTaxes> item,
-		final Field taxCountryRegionFiled,
-		final Field exemptAmountField,
-		final Field reducedTaxableAmount,
-		final Field reducedTaxAmount,
-		final Field intermediateTaxableAmount,
-		final Field intermediateTaxAmount,
-		final Field regularTaxableAmount,
-		final Field regularTaxAmount) throws RequiredFieldNotFoundException
+		final TaxBreakdown taxBreakdown) throws RequiredFieldNotFoundException
 	{
 		result
 			.append(FIELD_SEPARATOR)
-			.append(taxCountryRegionFiled.getName()).append(DATA_SEPARATOR)
-			.append(validateString(taxCountryRegionFiled, getRegionCodeFromISOCode(context.getRegionCode()), true));
-		if (!exemptAmount.equals(BigDecimal.ZERO)) {
-			result.append(FIELD_SEPARATOR).append(exemptAmountField.getName()).append(DATA_SEPARATOR).append(
-				validateBigDecimal(exemptAmount));
-		}
+			.append(taxBreakdown.taxCountryRegion.getName()).append(DATA_SEPARATOR)
+			.append(validateString(taxBreakdown.taxCountryRegion, getRegionCodeFromISOCode(context.getRegionCode()), true));
+
+		//Not done QRCodeConstants.exemptAmount
 		if (item.get("RED") != null) {
-			result.append(FIELD_SEPARATOR).append(reducedTaxableAmount.getName()).append(DATA_SEPARATOR).append(
+			result.append(FIELD_SEPARATOR).append(taxBreakdown.reducedTaxableAmount.getName()).append(DATA_SEPARATOR).append(
 				validateBigDecimal(item.get("RED").amountWithoutTaxes));
-			result.append(FIELD_SEPARATOR).append(reducedTaxAmount.getName()).append(DATA_SEPARATOR).append(
+			result.append(FIELD_SEPARATOR).append(taxBreakdown.reducedTaxAmount.getName()).append(DATA_SEPARATOR).append(
 				validateBigDecimal(item.get("RED").taxAmount));
 		}
 		if (item.get("INT") != null) {
-			result.append(FIELD_SEPARATOR).append(intermediateTaxableAmount.getName()).append(DATA_SEPARATOR).append(
+			result.append(FIELD_SEPARATOR).append(taxBreakdown.intermediateTaxableAmount.getName()).append(DATA_SEPARATOR).append(
 				validateBigDecimal(item.get("INT").amountWithoutTaxes));
-			result.append(FIELD_SEPARATOR).append(intermediateTaxAmount.getName()).append(DATA_SEPARATOR).append(
+			result.append(FIELD_SEPARATOR).append(taxBreakdown.intermediateTaxAmount.getName()).append(DATA_SEPARATOR).append(
 				validateBigDecimal(item.get("INT").taxAmount));
 		}
 		if (item.get("NOR") != null) {
-			result.append(FIELD_SEPARATOR).append(regularTaxableAmount.getName()).append(DATA_SEPARATOR).append(
+			result.append(FIELD_SEPARATOR).append(taxBreakdown.regularTaxableAmount.getName()).append(DATA_SEPARATOR).append(
 				validateBigDecimal(item.get("NOR").amountWithoutTaxes));
-			result.append(FIELD_SEPARATOR).append(regularTaxAmount.getName()).append(DATA_SEPARATOR).append(
+			result.append(FIELD_SEPARATOR).append(taxBreakdown.regularTaxAmount.getName()).append(DATA_SEPARATOR).append(
 				validateBigDecimal(item.get("NOR").taxAmount));
 		}
 	}
@@ -304,7 +283,7 @@ public class QRCodeBuilder {
 	}
 
 	private static String formatDate(final Date date) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+		DateFormat dateFormat = new SimpleDateFormat(QRCodeConstants.DATE_FORMAT);
 		return dateFormat.format(date);
 	}
 
@@ -322,7 +301,7 @@ public class QRCodeBuilder {
 	}
 
 	private static String validateString(
-		final Field field,
+		final QRCodeConstants.Field field,
 		final String str,
 		final boolean isRequired) throws RequiredFieldNotFoundException {
 
@@ -351,7 +330,7 @@ public class QRCodeBuilder {
 	}
 
 	private static int validateInteger(
-		final Field field,
+		final QRCodeConstants.Field field,
 		final Integer integer,
 		final boolean isRequired) throws RequiredFieldNotFoundException {
 

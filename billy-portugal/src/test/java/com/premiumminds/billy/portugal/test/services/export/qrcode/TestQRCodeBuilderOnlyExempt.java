@@ -37,7 +37,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-public class TestQRCodeBuilderAll extends TestQRCodeBuilderBase{
+public class TestQRCodeBuilderOnlyExempt extends TestQRCodeBuilderBase{
 
 	@Test
 	public void test(){
@@ -49,8 +49,8 @@ public class TestQRCodeBuilderAll extends TestQRCodeBuilderBase{
 		final boolean isSelfBilled = false;
 		final Date documentDate = Date.from(Instant.ofEpochSecond(1604402305));
 		final String documentNumber = "FT A/"+seriesNumber;
-		final BigDecimal taxAmount = BigDecimal.valueOf(111);
-		final BigDecimal amountWithTax = BigDecimal.valueOf(1111);
+		final BigDecimal taxAmount = BigDecimal.valueOf(0);
+		final BigDecimal amountWithTax = BigDecimal.valueOf(100);
 		final BigDecimal itemAmount = BigDecimal.valueOf(100);
 		final String hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUWXYZ";
 
@@ -92,48 +92,24 @@ public class TestQRCodeBuilderAll extends TestQRCodeBuilderBase{
 		Assert.assertNotNull(result);
 		Assert.assertEquals(
 			"A:511234566*B:999999990*C:PT*D:FT*E:F*F:20201103*G:FT A/2549*H:0*"
-				+ "I1:PT*I3:100.00*I4:6.00*I5:100.00*I6:13.00*I7:100.00*I8:23.00*"
-				+ "J1:PT-AC*J3:100.00*J4:5.00*J5:100.00*J6:9.00*J7:100.00*J8:16.00*"
-				+ "K1:PT-MA*K3:100.00*K4:5.00*K5:100.00*K6:12.00*K7:100.00*K8:22.00*"
-				+ "L:100.00*N:111.00*O:1111.00*Q:akuE*R:452",
+				+ "I1:PT*"
+				+ "L:100.00*N:0.00*O:100.00*Q:akuE*R:452",
 			result);
 
 	}
 
 	private List<GenericInvoiceEntry> generateEntries(final BigDecimal amountWithoutTax, final PTContexts ptContexts) {
-		List<GenericInvoiceEntry> result = new ArrayList<>();
-
-		final PTRegionContext continent = Mockito.mock(PTRegionContext.class);
-		Mockito.when(continent.getUID()).thenReturn(ptContexts.getContinentalUID());
-		Mockito.when(continent.getRegionCode()).thenReturn("PT");
-
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, continent,  "NOR", 23, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, continent,  "INT", 13, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, continent,  "RED", 6, TaxRateType.PERCENTAGE));
-
-		final PTRegionContext madeira = Mockito.mock(PTRegionContext.class);
-		Mockito.when(madeira.getUID()).thenReturn(ptContexts.getMadeiraUID());
-		Mockito.when(madeira.getRegionCode()).thenReturn("PT-30");
-
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "NOR", 22, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "INT", 12, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "RED", 5, TaxRateType.PERCENTAGE));
-
-		final PTRegionContext azores = Mockito.mock(PTRegionContext.class);
-		Mockito.when(azores.getUID()).thenReturn(ptContexts.getAzoresUID());
-		Mockito.when(azores.getRegionCode()).thenReturn("PT-20");
-
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, azores,  "NOR", 16, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, azores,  "INT", 9, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, azores,  "RED", 5, TaxRateType.PERCENTAGE));
 
 		final PTRegionContext portugal = Mockito.mock(PTRegionContext.class);
 		Mockito.when(portugal.getUID()).thenReturn(ptContexts.getPortugalUID());
 		Mockito.when(portugal.getRegionCode()).thenReturn("PT");
 
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, portugal,  "ISE", 0, TaxRateType.NONE));
-
-		return result;
+		return generateOneEntryWithOneTax(
+			amountWithoutTax,
+			portugal,
+			"ISE",
+			0,
+			TaxRateType.NONE);
 	}
 
 }

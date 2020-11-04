@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.export.qrcode;
 
 public interface QRCodeConstants {
 
-	String dateFormat = "YYYYMMDD";
+	String DATE_FORMAT = "yyyyMMdd";
 
 	class Field{
 		private final String name;
@@ -64,79 +64,38 @@ public interface QRCodeConstants {
 	Field ATCUD =
 		new Field("H", 70);
 
-	Field taxCountryRegion =
-		new Field("I1", 5);
+	TaxBreakdown I = new TaxBreakdown(
+		new Field("I1", 5),
+		new Field("I2", 16),
+		new Field("I3", 16),
+		new Field("I4", 16),
+		new Field("I5", 16),
+		new Field("I6", 16),
+		new Field("I7", 16),
+		new Field("I8", 16)
+	);
 
-	Field exemptAmount =
-		new Field("I2", 16);
+	TaxBreakdown J = new TaxBreakdown(
+		new Field("J1", 5),
+		new Field("J2", 16),
+		new Field("J3", 16),
+		new Field("J4", 16),
+		new Field("J5", 16),
+		new Field("J6", 16),
+		new Field("J7", 16),
+		new Field("J8", 16)
+	);
 
-	Field reducedTaxableAmount =
-		new Field("I3", 16);
-
-	Field reducedTaxAmount =
-		new Field("I4", 16);
-
-	Field intermediateTaxableAmount =
-		new Field("I5", 16);
-
-	Field intermediateTaxAmount =
-		new Field("I6", 16);
-
-	Field regularTaxableAmount =
-		new Field("I7", 16);
-
-	Field regularTaxAmount =
-		new Field("I8", 16);
-
-
-	Field taxCountryRegionAzores =
-		new Field("J1", 5);
-
-	Field exemptAmountAzores =
-		new Field("J2", 16);
-
-	Field reducedTaxableAmountAzores =
-		new Field("J3", 16);
-
-	Field reducedTaxAmountAzores =
-		new Field("J4", 16);
-
-	Field intermediateTaxableAmountAzores =
-		new Field("J5", 16);
-
-	Field intermediateTaxAmountAzores =
-		new Field("J6", 16);
-
-	Field regularTaxableAmountAzores =
-		new Field("J7", 16);
-
-	Field regularTaxAmountAzores =
-		new Field("J8", 16);
-
-
-	Field taxCountryRegionMadeira =
-		new Field("K1", 5);
-
-	Field exemptAmountMadeira =
-		new Field("K2", 16);
-
-	Field reducedTaxableAmountMadeira =
-		new Field("K3", 16);
-
-	Field reducedTaxAmountMadeira =
-		new Field("K4", 16);
-
-	Field intermediateTaxableAmountMadeira =
-		new Field("K5", 16);
-
-	Field intermediateTaxAmountMadeira =
-		new Field("K6", 16);
-
-	Field regularTaxableAmountMadeira =
-		new Field("K7", 16);
-
-	Field regularTaxAmountMadeira =
-		new Field("K8", 16);
+	TaxBreakdown K = new TaxBreakdown(
+		new Field("K1", 5),
+		new Field("K2", 16),
+		new Field("K3", 16),
+		new Field("K4", 16),
+		new Field("K5", 16),
+		new Field("K6", 16),
+		new Field("K7", 16),
+		new Field("K8", 16)
+	);
 
 	Field NSOrNTAmount =
 		new Field("L", 16);
@@ -161,6 +120,37 @@ public interface QRCodeConstants {
 
 	Field otherInfo =
 		new Field("S", 16);
+
+	class TaxBreakdown {
+		final Field taxCountryRegion;
+		final Field exemptAmount;
+		final Field reducedTaxableAmount;
+		final Field reducedTaxAmount;
+		final Field intermediateTaxableAmount;
+		final Field intermediateTaxAmount;
+		final Field regularTaxableAmount;
+		final Field regularTaxAmount;
+
+		public TaxBreakdown(
+			final Field taxCountryRegion,
+			final Field exemptAmount,
+			final Field reducedTaxableAmount,
+			final Field reducedTaxAmount,
+			final Field intermediateTaxableAmount,
+			final Field intermediateTaxAmount,
+			final Field regularTaxableAmount,
+			final Field regularTaxAmount)
+		{
+			this.taxCountryRegion = taxCountryRegion;
+			this.exemptAmount = exemptAmount;
+			this.reducedTaxableAmount = reducedTaxableAmount;
+			this.reducedTaxAmount = reducedTaxAmount;
+			this.intermediateTaxableAmount = intermediateTaxableAmount;
+			this.intermediateTaxAmount = intermediateTaxAmount;
+			this.regularTaxableAmount = regularTaxableAmount;
+			this.regularTaxAmount = regularTaxAmount;
+		}
+	}
 
 
 }
