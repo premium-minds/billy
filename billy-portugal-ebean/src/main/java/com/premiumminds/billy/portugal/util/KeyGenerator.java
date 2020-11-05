@@ -28,7 +28,9 @@ import java.security.Security;
 
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openssl.PEMReader;
+import org.bouncycastle.openssl.PEMKeyPair;
+import org.bouncycastle.openssl.PEMParser;
+import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,11 +73,13 @@ public class KeyGenerator {
     }
 
     private KeyPair getKeyPair() {
-        PEMReader pemReader = new PEMReader(new StringReader(this.getKeyFromFile()));
+        PEMParser pemReader = new PEMParser(new StringReader(this.getKeyFromFile()));
         KeyPair pair = null;
 
         try {
-            pair = (KeyPair) pemReader.readObject();
+            PEMKeyPair pemKeyPair = (PEMKeyPair) pemReader.readObject();
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter();
+            pair = converter.getKeyPair(pemKeyPair);
         } catch (IOException e) {
             KeyGenerator.log.error(e.getMessage(), e);
         } finally {
