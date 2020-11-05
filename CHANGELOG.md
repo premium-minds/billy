@@ -3,11 +3,6 @@
 
 ## [Unreleased v5]
 
-### Changed
-
- - [Bump to Junit 5 and Mockito 3.6.0](https://github.com/premium-minds/billy/pull/122)
- - [Replace old and abandoned bouncycastle bcprov-jdk16](https://github.com/premium-minds/billy/pull/123)
-
 ## [Unreleased v4]
 
 ## [Unreleased v3]
@@ -17,6 +12,13 @@
  - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
  - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
 
+## [5.2.0] - 2020-11-05
+
+### Changed
+
+ - [Bump to Junit 5 and Mockito 3.6.0](https://github.com/premium-minds/billy/pull/122)
+ - [Replace old and abandoned bouncycastle bcprov-jdk16](https://github.com/premium-minds/billy/pull/123)
+ 
 ## [5.1.0] - 2020-11-04
 
 ### Added 
@@ -139,9 +141,10 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
  
  
-[unreleased v5]: https://github.com/premium-minds/billy/compare/v5.1.0...HEAD
+[unreleased v5]: https://github.com/premium-minds/billy/compare/v5.2.0...HEAD
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[5.2.0]: https://github.com/premium-minds/billy/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/premium-minds/billy/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/premium-minds/billy/compare/release-4.x...v5.0.0
 [4.0.0]: https://github.com/premium-minds/billy/compare/release-3.x...v4.0.0
