@@ -6,6 +6,7 @@
 ### Changed
 
  - [Bump to Junit 5 and Mockito 3.6.0](https://github.com/premium-minds/billy/pull/122)
+ - [Replace old and abandoned bouncycastle bcprov-jdk16](https://github.com/premium-minds/billy/pull/123)
 
 ## [Unreleased v4]
 
