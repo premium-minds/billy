@@ -6,6 +6,10 @@
 ### Changed 
 
  - [Bump hibernate.version from 5.4.23.Final to 5.4.24.Final](https://github.com/premium-minds/billy/pull/125)
+ 
+### Fixed
+
+- [Corrects the hash verification field](https://github.com/premium-minds/billy/pull/126)
 
 ## [Unreleased v4]
 
