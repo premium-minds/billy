@@ -57,7 +57,7 @@ public class PTSimpleInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransforme
         ParamsTree<String, String> params = super.mapDocumentToParamsTree(invoice);
 
         params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
-                this.getVerificationHashString(invoice.getHash().getBytes()));
+                this.getVerificationHashString(invoice.getHash()));
         invoice.getQrCodeString().ifPresent(s -> params.getRoot().addChild(PTParamKeys.QRCODE, s));
         params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
 
