@@ -30,6 +30,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -132,8 +133,9 @@ public class QRCodeBuilder {
 
 		//RQRCodeData.withholdingTaxAmount not implemented
 
-		final String hash = String.valueOf(qrCodeData.getHash().charAt(0)) + qrCodeData.getHash().charAt(10) +
-			qrCodeData.getHash().charAt(20) + qrCodeData.getHash().charAt(30);
+		String hashString = qrCodeData.getHash();
+		final String hash = String.valueOf(hashString.charAt(0)) + hashString.charAt(10) +
+			hashString.charAt(20) + hashString.charAt(30);
 		result.append(FIELD_SEPARATOR)
 			  .append(QRCodeConstants.hash.getName()).append(DATA_SEPARATOR)
 			  .append(validateString(

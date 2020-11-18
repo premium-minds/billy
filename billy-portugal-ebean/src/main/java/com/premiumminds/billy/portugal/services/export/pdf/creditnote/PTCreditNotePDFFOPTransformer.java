@@ -106,7 +106,7 @@ public class PTCreditNotePDFFOPTransformer extends PTAbstractFOPPDFTransformer<P
         ParamsTree<String, String> params = super.mapDocumentToParamsTree(entity);
 
         params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
-                this.getVerificationHashString(entity.getHash().getBytes()));
+                this.getVerificationHashString(entity.getHash()));
 
         entity.getQrCodeString().ifPresent(s -> params.getRoot().addChild(PTParamKeys.QRCODE, s));
         params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());

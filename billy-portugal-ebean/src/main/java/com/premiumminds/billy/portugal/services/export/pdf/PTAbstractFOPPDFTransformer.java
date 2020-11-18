@@ -25,7 +25,6 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.Config;
 import java.io.InputStream;
 import java.math.MathContext;
-import java.util.Base64;
 
 public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> extends AbstractFOPPDFTransformer<T> {
 
@@ -136,12 +135,11 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
         }
     }
 
-    protected String getVerificationHashString(byte[] hash) {
-        String hashString = new String(Base64.getEncoder().encode(hash));
-        String rval = hashString.substring(0, 1) + hashString.substring(10, 11) + hashString.substring(20, 21) +
-                hashString.substring(30, 31);
-
-        return rval;
+    protected String getVerificationHashString(String hash) {
+        return String.valueOf(hash.charAt(0))
+            + hash.charAt(10)
+            + hash.charAt(20)
+            + hash.charAt(30);
     }
 
 }
