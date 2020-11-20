@@ -115,7 +115,7 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.Ta
 
 public class PTSAFTFileGenerator {
 
-    private static final Logger log = LoggerFactory.getLogger(Config.class);
+    private static final Logger log = LoggerFactory.getLogger(PTSAFTFileGenerator.class);
 
     private Config config = null;
     private JAXBContext jaxbContext;

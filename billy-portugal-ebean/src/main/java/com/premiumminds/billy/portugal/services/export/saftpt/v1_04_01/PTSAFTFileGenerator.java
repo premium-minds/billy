@@ -115,7 +115,7 @@ import org.slf4j.LoggerFactory;
 
 public class PTSAFTFileGenerator {
 
-	private static final Logger log = LoggerFactory.getLogger(Config.class);
+	private static final Logger log = LoggerFactory.getLogger(PTSAFTFileGenerator.class);
 
 	private Config						config					= null;
 	private JAXBContext					jaxbContext;
