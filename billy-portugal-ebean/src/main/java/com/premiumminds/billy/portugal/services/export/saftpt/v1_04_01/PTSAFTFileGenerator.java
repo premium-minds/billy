@@ -126,7 +126,7 @@ public class PTSAFTFileGenerator {
 	private String						context					= null;
 	private String						optionalParam;
 
-	private static final String			FILE_ENCODING			= "WINDOWS-1252";
+	private static final String			FILE_ENCODING			= "UTF-8";
 
 	private final int					MAX_LENGTH_1			= 1;
 	private final int					MAX_LENGTH_2			= 2;
@@ -358,9 +358,8 @@ public class PTSAFTFileGenerator {
 	 */
 	private void exportSAFTFile(AuditFile auditFile, OutputStream targetStream) {
 		try {
-			this.marshaller.setProperty("jaxb.encoding",
-					PTSAFTFileGenerator.FILE_ENCODING);
-			this.marshaller.setProperty("jaxb.formatted.output", Boolean.TRUE);
+			this.marshaller.setProperty(Marshaller.JAXB_ENCODING, FILE_ENCODING);
+			this.marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			this.marshaller.marshal(auditFile, targetStream);
 
 		} catch (Exception e) {
