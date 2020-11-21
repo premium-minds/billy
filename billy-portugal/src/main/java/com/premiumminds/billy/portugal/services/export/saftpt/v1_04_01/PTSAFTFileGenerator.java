@@ -747,10 +747,11 @@ public class PTSAFTFileGenerator {
 		InvalidDocumentStateException, InvalidInvoiceTypeException,
 		InvalidTaxTypeException, InvalidTaxCodeException,
 		InvalidPaymentMechanismException {
-		Invoice saftInvoice;
+
 		for (T invoice : invoices) {
-			saftInvoice = this.generateSAFTInvoice(invoice);
-			this.processDocument(saftInvoice, invoice, true);
+			Invoice saftInvoice = this.generateSAFTInvoice(invoice);
+
+			this.processDocument(saftInvoice, invoice);
 			salesInvoices.getInvoice().add(saftInvoice);
 
 			if (!invoice.isBilled() && !invoice.isCancelled()) {
@@ -887,9 +888,6 @@ public class PTSAFTFileGenerator {
 	 *            SAFT XML context)
 	 * @param document
 	 *            - the document that is represented in the saftInvoice
-	 * @param isCredit
-	 *            - to distinguish between invoices/simple invoices (credit
-	 *            transactions) and credit notes (debit transaction)
 	 *
 	 * @throws RequiredFieldNotFoundException
 	 * @throws DatatypeConfigurationException
@@ -899,7 +897,7 @@ public class PTSAFTFileGenerator {
 	 * @throws InvalidPaymentMechanismException
 	 */
 	private void processDocument(Invoice saftInvoice,
-			PTGenericInvoiceEntity document, boolean isCredit)
+			PTGenericInvoiceEntity document)
 		throws RequiredFieldNotFoundException, DatatypeConfigurationException,
 		InvalidDocumentTypeException, InvalidTaxTypeException,
 		InvalidTaxCodeException, InvalidPaymentMechanismException {
@@ -940,10 +938,13 @@ public class PTSAFTFileGenerator {
 			/* REQUIRED */
 			line.setDescription(this.validateString("Description",
 					entry.getDescription(), this.MAX_LENGTH_200, true));
-			if (isCredit) {
-				line.setCreditAmount(entry.getAmountWithoutTax());
-			} else {
-				line.setDebitAmount(entry.getAmountWithoutTax());
+			switch (document.getCreditOrDebit()){
+				case DEBIT:
+					line.setDebitAmount(entry.getAmountWithoutTax());
+					break;
+				case CREDIT:
+					line.setCreditAmount(entry.getAmountWithoutTax());
+					break;
 			}
 
 			/* NOT REQUIRED Invoice.Line.Tax */
@@ -999,7 +1000,7 @@ public class PTSAFTFileGenerator {
 			saftInvoice.getLine().add(line);
 		}
 
-		DocumentTotals dt = this.getDocumentTotals(document, isCredit);
+		DocumentTotals dt = this.getDocumentTotals(document);
 		if (dt != null) {
 			saftInvoice.setDocumentTotals(dt);
 		}
@@ -1116,11 +1117,9 @@ public class PTSAFTFileGenerator {
 	 * Invoice
 	 *
 	 * @param document
-	 * @param isCredit
 	 * @return
 	 */
-	private Currency getCurrency(PTGenericInvoiceEntity document,
-			boolean isCredit) {
+	private Currency getCurrency(PTGenericInvoiceEntity document) {
 		Currency cur = null;
 
 		if (!document.getCurrency().getCurrencyCode()
@@ -1174,14 +1173,12 @@ public class PTSAFTFileGenerator {
 	 * Generates the DocumentTotals (4.1.4.19) of a SAFT Invoice
 	 *
 	 * @param document
-	 * @param isCredit
 	 * @return
 	 * @throws RequiredFieldNotFoundException
 	 * @throws DatatypeConfigurationException
 	 * @throws InvalidPaymentMechanismException
 	 */
-	private DocumentTotals getDocumentTotals(PTGenericInvoiceEntity document,
-			boolean isCredit) throws RequiredFieldNotFoundException,
+	private DocumentTotals getDocumentTotals(PTGenericInvoiceEntity document) throws RequiredFieldNotFoundException,
 		DatatypeConfigurationException, InvalidPaymentMechanismException {
 		DocumentTotals dt = null;
 
@@ -1203,7 +1200,7 @@ public class PTSAFTFileGenerator {
 			 * currency
 			 */
 			// 4.1.4.19.4
-			Currency cur = this.getCurrency(document, isCredit);
+			Currency cur = this.getCurrency(document);
 			if (cur != null) {
 				dt.setCurrency(cur);
 			}
