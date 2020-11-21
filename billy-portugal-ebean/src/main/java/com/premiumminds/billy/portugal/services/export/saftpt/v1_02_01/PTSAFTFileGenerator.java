@@ -729,8 +729,7 @@ public class PTSAFTFileGenerator {
                     this.MAX_LENGTH_200, true));
             line.setQuantity(this.validateBigDecimal(entry.getQuantity()));
             line.setUnitOfMeasure(this.validateString("UnitOfMeasure", this.UNIT_OF_MEASURE, this.MAX_LENGTH_20, true));
-            line.setUnitPrice(this.validateBigDecimal(
-                    entry.getAmountWithoutTax().divide(entry.getQuantity(), this.mc.getRoundingMode())));
+            line.setUnitPrice(entry.getAmountWithoutTax().divide(entry.getQuantity(), this.mc.getRoundingMode()));
             line.setTaxPointDate(this.formatDate(entry.getTaxPointDate()));
 
             /* NOT REQUIRED - Invoice.Line.References */
@@ -742,9 +741,9 @@ public class PTSAFTFileGenerator {
             /* REQUIRED */
             line.setDescription(this.validateString("Description", entry.getDescription(), this.MAX_LENGTH_200, true));
             if (isCredit) {
-                line.setCreditAmount(this.validateBigDecimal(entry.getAmountWithoutTax()));
+                line.setCreditAmount(entry.getAmountWithoutTax());
             } else {
-                line.setDebitAmount(this.validateBigDecimal(entry.getAmountWithoutTax()));
+                line.setDebitAmount(entry.getAmountWithoutTax());
             }
 
             /* NOT REQUIRED Invoice.Line.Tax */
