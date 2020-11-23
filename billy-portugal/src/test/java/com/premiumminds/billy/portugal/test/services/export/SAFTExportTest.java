@@ -208,11 +208,11 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
         calendar.set(2013, 1, 1);
 
         PrintStream stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT + "SAFT_10201.xml");
-        generator.generateSAFTFile(stream, businessEntity, applicationEntity, "1234", calendar.getTime(), new Date(),
-                SAFTVersion.V10201);
+        generator.generateSAFTFile(stream, businessEntity, applicationEntity, calendar.getTime(), new Date(),
+                SAFTVersion.CURRENT, true);
 
         stream = new PrintStream(SAFTExportTest.SAFT_OUTPUT + "SAFT_10301.xml");
-        generator.generateSAFTFile(stream, businessEntity, applicationEntity, "1234", calendar.getTime(), new Date(),
-                SAFTVersion.V10301);
+        generator.generateSAFTFile(stream, businessEntity, applicationEntity, calendar.getTime(), new Date(),
+                SAFTVersion.CURRENT, true);
     }
 }
