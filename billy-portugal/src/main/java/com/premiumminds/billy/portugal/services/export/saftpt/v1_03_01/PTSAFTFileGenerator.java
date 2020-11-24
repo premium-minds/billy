@@ -1500,8 +1500,9 @@ public class PTSAFTFileGenerator {
             throw new RequiredFieldNotFoundException(this.context + field);
         } else {
             if (str != null && str.length() > maxLength) {
+                String original = str;
                 str = str.substring(0, maxLength);
-                log.warn("the field " + this.context + field + " has been truncated.");
+                log.debug("the field {} has been truncated from '{}' to '{}'.", this.context + field, original, str);
             }
             return (str == null) ? new String() : str.trim();
         }
