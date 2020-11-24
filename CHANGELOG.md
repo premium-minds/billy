@@ -92,12 +92,12 @@
  - [Credit note issues](https://github.com/premium-minds/billy/pull/101)
  - [Corrects behavior for tax selection for a given context](https://github.com/premium-minds/billy/pull/102)
  
-## [3.2.1]
+## [3.2.1] - 2020-02-24
 
 ### Added
  - [Adds support for NS/NA taxed items](https://github.com/premium-minds/billy/pull/89)
 
-## [3.2.0]
+## [3.2.0] - 2020-01-31
 
 ### Added 
  - [Adds exemption reason and code to InvoiceEntryData](https://github.com/premium-minds/billy/pull/85)
