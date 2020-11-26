@@ -11,7 +11,7 @@
  - [Sorts invoices entries by entrynumber to export in monotonic order in SAFT](https://github.com/premium-minds/billy/pull/129)
  - [Corrects PTSAFTFileGenerator loggers to use its own](https://github.com/premium-minds/billy/pull/127)
  - [Bump mockito-core from 3.6.0 to 3.6.28](https://github.com/premium-minds/billy/pull/137)
- - []()
+ - [Changes saft.xml export from WINDOWS-1252 to UTF-8](https://github.com/premium-minds/billy/pull/128)
  
 ### Fixed
 
