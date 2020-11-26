@@ -24,6 +24,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -716,6 +718,8 @@ public class PTSAFTFileGenerator {
         if (entries == null || entries.size() < 1) {
             throw new RequiredFieldNotFoundException(this.context + " Line");
         }
+
+        entries.sort(Comparator.comparing(GenericInvoiceEntry::getEntryNumber));
 
         for (PTGenericInvoiceEntryEntity entry : entries) {
             /* REQUIRED - One Invoice.Line per IPTFinancialDocumentEntryEntity */

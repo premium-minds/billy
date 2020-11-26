@@ -26,6 +26,7 @@ import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.Config;
@@ -100,6 +101,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
@@ -857,6 +859,8 @@ public class PTSAFTFileGenerator {
 		if (entries == null || entries.size() < 1) {
 			throw new RequiredFieldNotFoundException(this.context + " Line");
 		}
+
+		entries.sort(Comparator.comparing(GenericInvoiceEntry::getEntryNumber));
 
 		for (PTGenericInvoiceEntryEntity entry : entries) {
 			/* REQUIRED - One Invoice.Line per IPTFinancialDocumentEntryEntity */
