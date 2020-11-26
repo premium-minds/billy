@@ -313,7 +313,7 @@ public class QRCodeBuilder {
 		} else {
 			if (str != null && str.length() > field.getLength()) {
 				result = str.substring(0, field.getLength());
-				LOG.warn("the field {} has been truncated.", field);
+				LOG.debug("the field {} has been truncated from '{}' to '{}'.", field, str, result);
 			} else {
 				result = str;
 			}
