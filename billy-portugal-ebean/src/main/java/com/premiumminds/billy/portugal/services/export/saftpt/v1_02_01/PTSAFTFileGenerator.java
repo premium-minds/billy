@@ -1511,7 +1511,7 @@ public class PTSAFTFileGenerator {
      * @return
      */
     private BigDecimal validateBigDecimal(BigDecimal bd) {
-        return bd.setScale(this.MAX_LENGTH_2, this.mc.getRoundingMode());
+        return bd.setScale(BillyMathContext.SCALE, this.mc.getRoundingMode());
     }
 
     /**
