@@ -6,6 +6,10 @@
 ### Changed 
 
  - [Bump hibernate.version from 5.4.23.Final to 5.4.24.Final](https://github.com/premium-minds/billy/pull/125)
+ - [Changes log level to debug for truncated fields in SAFT and QR codes](https://github.com/premium-minds/billy/pull/135)
+ - [Change constant used in string lengths to already available Math scale](https://github.com/premium-minds/billy/pull/130)
+ - [Sorts invoices entries by entrynumber to export in monotonic order in SAFT](https://github.com/premium-minds/billy/pull/129)
+ - [Corrects PTSAFTFileGenerator loggers to use its own](https://github.com/premium-minds/billy/pull/127)
  
 ### Fixed
 
