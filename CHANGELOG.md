@@ -3,6 +3,10 @@
 
 ## [Unreleased v5]
 
+### Added 
+
+ - [Adds XML validation against XSD file](https://github.com/premium-minds/billy/pull/133)
+ 
 ### Changed 
 
  - [Bump hibernate.version from 5.4.23.Final to 5.4.24.Final](https://github.com/premium-minds/billy/pull/125)
