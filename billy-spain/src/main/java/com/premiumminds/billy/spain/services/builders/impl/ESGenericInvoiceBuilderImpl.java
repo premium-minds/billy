@@ -112,6 +112,8 @@ public class ESGenericInvoiceBuilderImpl<TBuilder extends ESGenericInvoiceBuilde
         BillyValidator.mandatory(i.isBilled(), ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
         BillyValidator.notEmpty(i.getPayments(),
                 ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
+        BillyValidator.mandatory(i.getCreditOrDebit(),
+                ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.credit_or_debit"));
     }
 
 }

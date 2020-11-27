@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

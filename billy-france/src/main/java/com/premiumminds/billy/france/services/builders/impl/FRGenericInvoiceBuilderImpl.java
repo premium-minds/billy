@@ -112,6 +112,8 @@ public class FRGenericInvoiceBuilderImpl<TBuilder extends FRGenericInvoiceBuilde
         BillyValidator.mandatory(i.isBilled(), FRGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
         BillyValidator.notEmpty(i.getPayments(),
                 FRGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
+        BillyValidator.mandatory(i.getCreditOrDebit(),
+                FRGenericInvoiceBuilderImpl.LOCALIZER.getString("field.credit_or_debit"));
     }
 
 }

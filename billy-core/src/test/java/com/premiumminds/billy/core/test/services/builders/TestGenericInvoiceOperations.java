@@ -236,7 +236,8 @@ public class TestGenericInvoiceOperations extends AbstractTest {
                 .setSettlementDiscount(this.mockInvoiceEntity.getSettlementDiscount())
                 .setSourceId(this.mockInvoiceEntity.getSourceId())
                 .setTransactionId(this.mockInvoiceEntity.getTransactionId())
-                .setCustomerUID(this.mockCustomerEntity.getUID()).setSupplierUID(this.mockSupplierEntity.getUID());
+                .setCustomerUID(this.mockCustomerEntity.getUID()).setSupplierUID(this.mockSupplierEntity.getUID())
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
 
         return builder;
     }

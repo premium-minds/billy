@@ -23,6 +23,7 @@ import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.entities.FRReceipt;
@@ -61,6 +62,7 @@ public class FRReceiptTestUtil {
 
         return receiptBuilder.setBilled(FRReceiptTestUtil.BILLED).setCancelled(FRReceiptTestUtil.CANCELLED)
                 .setSelfBilled(FRReceiptTestUtil.SELFBILL).setSourceId(FRReceiptTestUtil.SOURCE_ID).setDate(new Date())
-                .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder);
+                .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
     }
 }

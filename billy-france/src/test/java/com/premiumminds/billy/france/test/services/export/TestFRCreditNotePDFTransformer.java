@@ -155,7 +155,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
 
         creditNote.setCustomer((CustomerEntity) reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-        creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+        creditNote.setCreditOrDebit(CreditOrDebit.DEBIT);
 
         return creditNote;
     }

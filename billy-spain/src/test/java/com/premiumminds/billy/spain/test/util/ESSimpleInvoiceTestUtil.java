@@ -22,6 +22,7 @@ import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
@@ -80,7 +81,8 @@ public class ESSimpleInvoiceTestUtil {
         return invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(businessEntity.getUID())
-                .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType);
+                .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
     }
 
 }
