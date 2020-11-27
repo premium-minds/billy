@@ -18,10 +18,13 @@
  */
 package com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -29,14 +32,20 @@ import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import com.google.common.io.ByteStreams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -202,25 +211,41 @@ public class PTSAFTFileGenerator {
      * @param businessEntity
      *        - the company
      * @param application
-     * @param certificateNumber
+     * @param certificateNumber - ignored
      * @param fromDate
      * @param toDate
-     * @param daoCustomer
-     * @param daoSupplier
-     * @param daoProduct
-     * @param daoPTTax
-     * @param daoPTRegionContext
-     * @param daoPTInvoice
-     * @param daoPTSimpleInvoice
-     * @param daoPTCreditNote
      * @return the SAFT for that business entity, given lists of customers,
      *         products, taxes and financial documents; depends on a period of
      *         time
      * @throws SAFTPTExportException
      */
     public AuditFile generateSAFTFile(final OutputStream targetStream, final PTBusinessEntity businessEntity,
-            final PTApplicationEntity application, final String certificateNumber, final Date fromDate,
-            final Date toDate) throws SAFTPTExportException {
+                                      final PTApplicationEntity application, final String certificateNumber, final Date fromDate,
+                                      final Date toDate) throws SAFTPTExportException {
+        return this.generateSAFTFile(targetStream, businessEntity, application, fromDate, toDate, false);
+    }
+
+    /**
+     * Constructs a new SAFT a.k.a. AuditFile
+     *
+     * @param targetStream
+     *
+     * @param businessEntity
+     *        - the company
+     * @param application
+     * @param fromDate
+     * @param toDate
+     * @return the SAFT for that business entity, given lists of customers,
+     *         products, taxes and financial documents; depends on a period of
+     *         time
+     * @throws SAFTPTExportException
+     */
+    public AuditFile generateSAFTFile(final OutputStream targetStream,
+                                      final PTBusinessEntity businessEntity,
+                                      final PTApplicationEntity application,
+                                      final Date fromDate,
+                                      final Date toDate,
+                                      final boolean validate) throws SAFTPTExportException {
 
         try {
             return new TransactionWrapper<AuditFile>(this.daoPTInvoice) {
@@ -230,7 +255,7 @@ public class PTSAFTFileGenerator {
                     AuditFile SAFTFile = new AuditFile();
 
                     /* HEADER */
-                    Header hdr = PTSAFTFileGenerator.this.generateHeader(businessEntity, application, certificateNumber,
+                    Header hdr = PTSAFTFileGenerator.this.generateHeader(businessEntity, application,
                             fromDate, toDate);
                     SAFTFile.setHeader(hdr);
 
@@ -297,7 +322,21 @@ public class PTSAFTFileGenerator {
                             creditNotes == null ? new ArrayList<PTCreditNoteEntity>() : creditNotes);
                     SAFTFile.setSourceDocuments(sd);
 
-                    PTSAFTFileGenerator.this.exportSAFTFile(SAFTFile, targetStream);
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    exportSAFTFile(SAFTFile, outputStream);
+
+                    ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
+                    if (validate){
+                        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+                        URL url = getClass().getClassLoader().getResource("documents/SAFTPT1.03_01.xsd");
+                        Schema schema = sf.newSchema(url);
+                        Validator validator = schema.newValidator();
+                        validator.validate(new StreamSource(inputStream));
+                        inputStream.reset();
+                    }
+
+                    ByteStreams.copy(inputStream, targetStream);
 
                     return SAFTFile;
                 }
@@ -341,7 +380,7 @@ public class PTSAFTFileGenerator {
      * @throws InvalidContactTypeException
      */
     private Header generateHeader(PTBusinessEntity businessEntity, PTApplicationEntity application,
-            String certificateNumber, Date startDate, Date endDate)
+                                  Date startDate, Date endDate)
             throws DatatypeConfigurationException, RequiredFieldNotFoundException, InvalidContactTypeException {
         this.context = "Header.";
 
@@ -372,8 +411,9 @@ public class PTSAFTFileGenerator {
         hdr.setTaxEntity(this.validateString("TaxEntity", this.TAX_ENTITY, this.MAX_LENGTH_20, true));
         hdr.setProductCompanyTaxID(this.validateString("ProductCompanyTaxID",
                 application.getDeveloperCompanyTaxIdentifier(), this.MAX_LENGTH_20, true));
-        hdr.setSoftwareCertificateNumber(
-                this.validateBigInteger("SoftwareCertificateNumber", certificateNumber, this.MAX_LENGTH_255, true));
+        hdr.setSoftwareCertificateNumber(this.validateBigInteger(
+                "SoftwareCertificateNumber", application.getSoftwareCertificationNumber().toString(),
+                this.MAX_LENGTH_255, true));
         hdr.setProductID(this.validateString("ProductID",
                 application.getName() + "/" + application.getDeveloperCompanyName(), this.MAX_LENGTH_255, true));
         hdr.setProductVersion(
@@ -632,7 +672,6 @@ public class PTSAFTFileGenerator {
      *
      * @param document
      *        - can be an invoice, simple invoice or credit note
-     * @param documentType
      * @return an instance of Invoice (represents a financial document in the
      *         SAFT XML context)
      *

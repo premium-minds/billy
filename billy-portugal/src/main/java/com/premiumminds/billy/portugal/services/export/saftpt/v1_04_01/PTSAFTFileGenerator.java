@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01;
 
+import com.google.common.io.ByteStreams;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -95,10 +96,14 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Su
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Tax;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTable;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTableEntry;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -106,12 +111,18 @@ import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -247,10 +258,35 @@ public class PTSAFTFileGenerator {
 	 * @throws SAFTPTExportException
 	 */
 	public AuditFile generateSAFTFile(final OutputStream targetStream,
-			final PTBusinessEntity businessEntity,
-			final PTApplicationEntity application,
-			final Date fromDate,
-			final Date toDate) throws SAFTPTExportException {
+									  final PTBusinessEntity businessEntity,
+									  final PTApplicationEntity application,
+									  final Date fromDate,
+									  final Date toDate) throws SAFTPTExportException {
+		return this.generateSAFTFile(targetStream, businessEntity, application, fromDate, toDate, false);
+	}
+
+
+	/**
+	 * Constructs a new SAFT a.k.a. AuditFile
+	 *
+	 * @param targetStream
+	 *
+	 * @param businessEntity - the company
+	 * @param application - the software
+	 * @param fromDate - the period for the SAFT file
+	 * @param toDate - the period for the SAFT file
+	 * @param validate Validate XML file against XSD schema
+	 * @return the SAFT for that business entity, given lists of customers,
+	 *         products, taxes and financial documents; depends on a period of
+	 *         time
+	 * @throws SAFTPTExportException
+	 */
+	public AuditFile generateSAFTFile(final OutputStream targetStream,
+									  final PTBusinessEntity businessEntity,
+									  final PTApplicationEntity application,
+									  final Date fromDate,
+									  final Date toDate,
+									  final boolean validate) throws SAFTPTExportException {
 
 		try {
 			return new TransactionWrapper<AuditFile>(daoPTInvoice) {
@@ -339,8 +375,21 @@ public class PTSAFTFileGenerator {
 											: creditNotes);
 					SAFTFile.setSourceDocuments(sd);
 
-					PTSAFTFileGenerator.this.exportSAFTFile(SAFTFile,
-							targetStream);
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					PTSAFTFileGenerator.this.exportSAFTFile(SAFTFile, outputStream);
+
+					ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
+					if (validate){
+						SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+						URL url = getClass().getClassLoader().getResource("documents/SAFTPT1.04_01.xsd");
+						Schema schema = sf.newSchema(url);
+						Validator validator = schema.newValidator();
+						validator.validate(new StreamSource(inputStream));
+						inputStream.reset();
+					}
+
+					ByteStreams.copy(inputStream, targetStream);
 
 					return SAFTFile;
 				}

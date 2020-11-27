@@ -47,20 +47,42 @@ public class SAFTs {
         this.generator = this.getInstance(PTSAFTFileGenerator.class);
     }
 
-    public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to,
-            SAFTVersion version) throws SAFTPTExportException, IOException {
-        return this.export(uidApplication, uidBusiness, certificateNumber, from, to, SAFTs.TMP_SAFT, version);
+    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
+                              SAFTVersion version) throws SAFTPTExportException, IOException {
+        return this.export(uidApplication, uidBusiness, from, to, SAFTs.TMP_SAFT, version);
     }
 
-    public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to,
-            String resultPath, SAFTVersion version) throws SAFTPTExportException, IOException {
+    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
+                              SAFTVersion version, boolean validate) throws SAFTPTExportException, IOException {
+        return this.export(uidApplication, uidBusiness, from, to, SAFTs.TMP_SAFT, version, validate);
+    }
+
+    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
+                              String resultPath, SAFTVersion version) throws SAFTPTExportException, IOException {
+        return this.export(uidApplication, uidBusiness, from, to, resultPath, version, false);
+    }
+
+    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
+                              String resultPath, SAFTVersion version, boolean validate) throws SAFTPTExportException, IOException {
         File outputFile = new File(resultPath);
         OutputStream oStream = new FileOutputStream(outputFile);
 
         this.generator.generateSAFTFile(oStream, this.getInstance(DAOPTBusiness.class).get(uidBusiness),
-                this.getInstance(DAOPTApplication.class).get(uidApplication), certificateNumber, from, to, version);
+                this.getInstance(DAOPTApplication.class).get(uidApplication), from, to, version, validate);
         IOUtils.closeQuietly(oStream);
         return new FileInputStream(outputFile);
+    }
+
+    @Deprecated
+    public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to,
+                              SAFTVersion version) throws SAFTPTExportException, IOException {
+        return this.export(uidApplication, uidBusiness, from, to, SAFTs.TMP_SAFT, version, false);
+    }
+
+    @Deprecated
+    public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to,
+                              String resultPath, SAFTVersion version) throws SAFTPTExportException, IOException {
+        return this.export(uidApplication, uidBusiness, from, to, resultPath, version, false);
     }
 
     private <T> T getInstance(Class<T> clazz) {
