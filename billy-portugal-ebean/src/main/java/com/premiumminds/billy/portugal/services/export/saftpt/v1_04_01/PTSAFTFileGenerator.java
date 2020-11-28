@@ -108,7 +108,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 import javax.xml.XMLConstants;
@@ -280,34 +282,57 @@ public class PTSAFTFileGenerator {
 					/* MASTER FILES */
 					MasterFiles mf = new MasterFiles();
 
-					// Customers
-					@SuppressWarnings("unchecked")
-					List<PTCustomerEntity> customers = (List<PTCustomerEntity>) (List<?>) daoCustomer
-							.getAllActiveCustomers();
-					for (PTCustomerEntity customer : customers) {
-						Customer SAFTCustomer = PTSAFTFileGenerator.this
-								.generateCustomer(customer);
-						mf.getCustomer().add(SAFTCustomer);
+					/* SOURCE DOCUMENTS */
+					List<PTInvoiceEntity> invoices = daoPTInvoice
+							.getBusinessInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+
+					List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
+							.getBusinessSimpleInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+
+					List<PTReceiptInvoiceEntity> receiptInvoices = daoPTReceiptInvoice
+							.getBusinessReceiptInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+
+					List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
+							.getBusinessCreditNotesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+
+					Map<Long, PTCustomerEntity> customers = new HashMap<>();
+					Map<Long, PTProductEntity> products = new HashMap<>();
+					for (PTGenericInvoiceEntity invoice : invoices) {
+						customers.put(invoice.getCustomer().getID(), invoice.getCustomer());
+						for (GenericInvoiceEntry entry : invoice.getEntries()) {
+							products.put(entry.getProduct().getID(), entry.getProduct());
+						}
+					}
+					for (PTGenericInvoiceEntity invoice : simpleInvoices) {
+						customers.put(invoice.getCustomer().getID(), invoice.getCustomer());
+						for (GenericInvoiceEntry entry : invoice.getEntries()) {
+							products.put(entry.getProduct().getID(), entry.getProduct());
+						}
+					}
+					for (PTGenericInvoiceEntity invoice : receiptInvoices) {
+						customers.put(invoice.getCustomer().getID(), invoice.getCustomer());
+						for (GenericInvoiceEntry entry : invoice.getEntries()) {
+							products.put(entry.getProduct().getID(), entry.getProduct());
+						}
+					}
+					for (PTGenericInvoiceEntity invoice : creditNotes) {
+						customers.put(invoice.getCustomer().getID(), invoice.getCustomer());
+						for (GenericInvoiceEntry entry : invoice.getEntries()) {
+							products.put(entry.getProduct().getID(), entry.getProduct());
+						}
 					}
 
-					// Suppliers
-					@SuppressWarnings("unchecked")
-					List<PTSupplierEntity> suppliers = (List<PTSupplierEntity>) (List<?>) daoSupplier
-							.getAllActiveSuppliers();
-					for (PTSupplierEntity sup : suppliers) {
-						Supplier SAFTSupplier = PTSAFTFileGenerator.this
-								.generateSupplier(sup);
-						mf.getSupplier().add(SAFTSupplier);
+					// Customers
+					for (PTCustomerEntity customer : customers.values()) {
+						mf.getCustomer().add(generateCustomer(customer));
 					}
+
+					// Suppliers is for MovementOfGoods (4.2) which is not exported in this version
+					// only SalesInvoices (4.1) is exported
 
 					// Products
-					@SuppressWarnings("unchecked")
-					List<PTProductEntity> products = (List<PTProductEntity>) (List<?>) daoProduct
-							.getAllActiveProducts();
-					for (PTProductEntity prod : products) {
-						Product SAFTProduct = PTSAFTFileGenerator.this
-								.generateProduct(prod);
-						mf.getProduct().add(SAFTProduct);
+					for (PTProductEntity product : products.values()) {
+						mf.getProduct().add(generateProduct(product));
 					}
 
 					PTRegionContextEntity context = (PTRegionContextEntity) daoPTRegionContext
@@ -322,33 +347,7 @@ public class PTSAFTFileGenerator {
 					mf.setTaxTable(SAFTTaxTable);
 					SAFTFile.setMasterFiles(mf);
 
-					/* SOURCE DOCUMENTS */
-					List<PTInvoiceEntity> invoices = daoPTInvoice
-							.getBusinessInvoicesForSAFTPT(
-									businessEntity.getUID(), fromDate, toDate);
-
-					List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
-							.getBusinessSimpleInvoicesForSAFTPT(
-									businessEntity.getUID(), fromDate, toDate);
-
-					List<PTReceiptInvoiceEntity> receiptInvoices = daoPTReceiptInvoice
-							.getBusinessReceiptInvoicesForSAFTPT(
-									businessEntity.getUID(), fromDate, toDate);
-
-					List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
-							.getBusinessCreditNotesForSAFTPT(
-									businessEntity.getUID(), fromDate, toDate);
-
-					SourceDocuments sd = PTSAFTFileGenerator.this
-							.generateSourceDocuments(
-									invoices == null ? new ArrayList<PTInvoiceEntity>()
-											: invoices,
-									simpleInvoices == null ? new ArrayList<PTSimpleInvoiceEntity>()
-											: simpleInvoices,
-									receiptInvoices == null ? new ArrayList<PTReceiptInvoiceEntity>()
-											: receiptInvoices,
-									creditNotes == null ? new ArrayList<PTCreditNoteEntity>()
-											: creditNotes);
+					SourceDocuments sd = generateSourceDocuments(invoices, simpleInvoices, receiptInvoices, creditNotes);
 					SAFTFile.setSourceDocuments(sd);
 
 					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
