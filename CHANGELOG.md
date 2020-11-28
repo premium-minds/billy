@@ -17,6 +17,7 @@
  - [Bump mockito-core from 3.6.0 to 3.6.28](https://github.com/premium-minds/billy/pull/137)
  - [Changes saft.xml export from WINDOWS-1252 to UTF-8](https://github.com/premium-minds/billy/pull/128)
  - [Removes rounding of credit and debit amounts in invoices lines](https://github.com/premium-minds/billy/pull/132)
+ - [Exports only the clients and products relevant to the requested period](https://github.com/premium-minds/billy/pull/134)
  
 ### Fixed
 
