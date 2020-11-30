@@ -23,6 +23,27 @@
 ### Fixed
 
 - [Corrects the hash verification field](https://github.com/premium-minds/billy/pull/126)
+- [Adds missing Credit or Debit information to some invoice types](https://github.com/premium-minds/billy/pull/138). SQL script to fix previous invoices:
+  ```
+  UPDATE billy_core_generic_invoice SET credit_or_debit = 'CREDIT'
+	WHERE id IN (
+				SELECT bcgi.id
+					FROM billy_pt_receipt_invoice bpri
+					JOIN billy_pt_invoice bpi ON bpri.id = bpi.id
+					JOIN billy_pt_generic_invoice bpgi ON bpi.id = bpgi.id
+					JOIN billy_core_generic_invoice bcgi ON bpgi.id = bcgi.id
+					WHERE credit_or_debit IS NULL 
+		)
+  UPDATE billy_core_generic_invoice SET credit_or_debit = 'CREDIT'
+	WHERE id IN (
+				SELECT bcgi.id
+					FROM billy_pt_simple_invoice bpsi
+					JOIN billy_pt_invoice bpi ON bpsi.id = bpi.id
+					JOIN billy_pt_generic_invoice bpgi ON bpi.id = bpgi.id
+					JOIN billy_core_generic_invoice bcgi ON bpgi.id = bcgi.id
+					WHERE credit_or_debit IS NULL 
+		)
+  ```
 
 ## [Unreleased v4]
 
