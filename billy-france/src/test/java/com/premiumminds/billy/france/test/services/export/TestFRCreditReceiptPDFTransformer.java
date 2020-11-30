@@ -141,7 +141,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
                 new FRCreditReceiptTestUtil(FRAbstractTest.injector).getCreditReceiptBuilder(reference), params);
 
         creditReceipt.setBusiness((BusinessEntity) reference.getBusiness());
-        creditReceipt.setCreditOrDebit(CreditOrDebit.CREDIT);
+        creditReceipt.setCreditOrDebit(CreditOrDebit.DEBIT);
 
         return creditReceipt;
     }

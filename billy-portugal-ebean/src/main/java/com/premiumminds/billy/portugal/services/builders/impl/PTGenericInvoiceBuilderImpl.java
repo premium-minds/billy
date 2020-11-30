@@ -149,6 +149,8 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
                 PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
         BillyValidator.<Boolean>mandatory(i.isBilled(),
                 PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
+        BillyValidator.mandatory(i.getCreditOrDebit(),
+                PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.credit_or_debit"));
     }
 
 }

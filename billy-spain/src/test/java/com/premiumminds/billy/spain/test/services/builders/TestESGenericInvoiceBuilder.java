@@ -21,6 +21,7 @@ package com.premiumminds.billy.spain.test.services.builders;
 import java.util.ArrayList;
 import java.util.Currency;
 
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Matchers;
@@ -98,7 +99,7 @@ public class TestESGenericInvoiceBuilder extends ESAbstractTest {
                 .setSettlementDescription(mock.getSettlementDescription())
                 .setSettlementDiscount(mock.getSettlementDiscount()).setSourceId(mock.getSourceId())
                 .setTransactionId(mock.getTransactionId()).setCustomerUID(mockCustomerEntity.getUID())
-                .addPayment(builderPayment);
+                .addPayment(builderPayment).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
 
         ESGenericInvoice invoice = builder.build();
 

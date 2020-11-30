@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
@@ -51,6 +52,10 @@ public class PTReceiptInvoiceBuilderImpl<TBuilder extends PTReceiptInvoiceBuilde
 
     @Override
     protected void validateInstance() throws BillyValidationException {
+        PTReceiptInvoiceEntity i = this.getTypeInstance();
+        i.setSourceBilling(SourceBilling.P);
+        i.setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+
         super.validateInstance();
     }
 

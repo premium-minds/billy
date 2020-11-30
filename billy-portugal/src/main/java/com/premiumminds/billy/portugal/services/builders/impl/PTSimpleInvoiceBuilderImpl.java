@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import java.math.BigDecimal;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -29,6 +30,7 @@ import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoi
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
+import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTSimpleInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -64,6 +66,10 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
     @Override
     protected void validateInstance() throws BillyValidationException {
         PTSimpleInvoiceEntity i = this.getTypeInstance();
+
+        i.setSourceBilling(SourceBilling.P);
+        i.setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+
         BillyValidator.mandatory(i.getClientType(),
                 PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();

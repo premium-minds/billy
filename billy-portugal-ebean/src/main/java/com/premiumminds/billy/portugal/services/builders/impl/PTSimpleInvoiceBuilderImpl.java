@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import java.math.BigDecimal;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -66,6 +67,10 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
     @Override
     protected void validateInstance() throws BillyValidationException {
         PTSimpleInvoiceEntity i = this.getTypeInstance();
+
+        i.setSourceBilling(SourceBilling.P);
+        i.setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+
         // The <generic> specs below are necessary because type inference fails here for unknown reasons
         // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
         BillyValidator.<CLIENTTYPE>mandatory(i.getClientType(),

@@ -156,7 +156,7 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
         creditNote.setCustomer((CustomerEntity) reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-        creditNote.setCreditOrDebit(CreditOrDebit.CREDIT);
+        creditNote.setCreditOrDebit(CreditOrDebit.DEBIT);
 
         return creditNote;
     }
