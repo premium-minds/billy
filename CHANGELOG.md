@@ -18,6 +18,7 @@
  - [Changes saft.xml export from WINDOWS-1252 to UTF-8](https://github.com/premium-minds/billy/pull/128)
  - [Removes rounding of credit and debit amounts in invoices lines](https://github.com/premium-minds/billy/pull/132)
  - [Exports only the clients and products relevant to the requested period](https://github.com/premium-minds/billy/pull/134)
+ - [Removes hardcoded temporary file for SAFT export](https://github.com/premium-minds/billy/pull/124) (fixes [Concurrency bug in saft generation](https://github.com/premium-minds/billy/issues/7))
  
 ### Fixed
 
