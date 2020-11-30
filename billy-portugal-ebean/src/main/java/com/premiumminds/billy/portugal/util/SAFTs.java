@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.util;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -25,8 +27,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
-
-import org.apache.commons.io.IOUtils;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.UID;
@@ -38,7 +38,6 @@ import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerato
 
 public class SAFTs {
 
-    private static final String TMP_SAFT = System.getProperty("java.io.tmpdir") + "/saft.xml";
     private final Injector injector;
     private final PTSAFTFileGenerator generator;
 
@@ -49,12 +48,16 @@ public class SAFTs {
 
     public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
                               SAFTVersion version) throws SAFTPTExportException, IOException {
-        return this.export(uidApplication, uidBusiness, from, to, SAFTs.TMP_SAFT, version);
+        return this.export(uidApplication, uidBusiness, from, to, version, false);
     }
 
     public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
                               SAFTVersion version, boolean validate) throws SAFTPTExportException, IOException {
-        return this.export(uidApplication, uidBusiness, from, to, SAFTs.TMP_SAFT, version, validate);
+        try (ByteArrayOutputStream oStream = new ByteArrayOutputStream()) {
+            this.generator.generateSAFTFile(oStream, this.getInstance(DAOPTBusiness.class).get(uidBusiness),
+                    this.getInstance(DAOPTApplication.class).get(uidApplication), from, to, version, validate);
+            return new ByteArrayInputStream(oStream.toByteArray());
+        }
     }
 
     public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
@@ -65,18 +68,18 @@ public class SAFTs {
     public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
                               String resultPath, SAFTVersion version, boolean validate) throws SAFTPTExportException, IOException {
         File outputFile = new File(resultPath);
-        OutputStream oStream = new FileOutputStream(outputFile);
+        try (OutputStream oStream = new FileOutputStream(outputFile)) {
+            this.generator.generateSAFTFile(oStream, this.getInstance(DAOPTBusiness.class).get(uidBusiness),
+                    this.getInstance(DAOPTApplication.class).get(uidApplication), from, to, version, validate);
+        }
 
-        this.generator.generateSAFTFile(oStream, this.getInstance(DAOPTBusiness.class).get(uidBusiness),
-                this.getInstance(DAOPTApplication.class).get(uidApplication), from, to, version, validate);
-        IOUtils.closeQuietly(oStream);
         return new FileInputStream(outputFile);
     }
 
     @Deprecated
     public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to,
                               SAFTVersion version) throws SAFTPTExportException, IOException {
-        return this.export(uidApplication, uidBusiness, from, to, SAFTs.TMP_SAFT, version, false);
+        return this.export(uidApplication, uidBusiness, from, to, version, false);
     }
 
     @Deprecated
