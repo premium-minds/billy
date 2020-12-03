@@ -44,6 +44,7 @@
 					WHERE credit_or_debit IS NULL 
 		)
   ```
+  - [Corrects credit notes to use debit amount and not credit amount in SAFT](https://github.com/premium-minds/billy/pull/131)
 
 ## [Unreleased v4]
 
