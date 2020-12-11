@@ -19,6 +19,7 @@
  - [Removes rounding of credit and debit amounts in invoices lines](https://github.com/premium-minds/billy/pull/132)
  - [Exports only the clients and products relevant to the requested period](https://github.com/premium-minds/billy/pull/134)
  - [Removes hardcoded temporary file for SAFT export](https://github.com/premium-minds/billy/pull/124) (fixes [Concurrency bug in saft generation](https://github.com/premium-minds/billy/issues/7))
+ - [Bump tiles-maven-plugin from 2.18 to 2.19](https://github.com/premium-minds/billy/pull/139)
  
 ### Fixed
 
