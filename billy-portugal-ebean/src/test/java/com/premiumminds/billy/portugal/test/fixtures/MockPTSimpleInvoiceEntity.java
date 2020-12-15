@@ -41,8 +41,9 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity implemen
     protected TYPE type;
     protected List<PTPayment> payments;
     public CLIENTTYPE clientType;
+	protected String atcud;
 
-    public MockPTSimpleInvoiceEntity() {
+	public MockPTSimpleInvoiceEntity() {
         this.payments = new ArrayList<>();
     }
 
@@ -122,7 +123,12 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity implemen
         this.reason = reason;
     }
 
-    @Override
+	@Override
+	public void setATCUD(final String atcud) {
+		this.atcud = atcud;
+	}
+
+	@Override
     public void setEACCode(String eacCode) {
         this.eacCode = eacCode;
     }
@@ -142,7 +148,12 @@ public class MockPTSimpleInvoiceEntity extends MockGenericInvoiceEntity implemen
         return this.reason;
     }
 
-    @Override
+	@Override
+	public String getATCUD() {
+		return this.atcud;
+	}
+
+	@Override
     public List<PTPayment> getPayments() {
         return this.payments;
     }
