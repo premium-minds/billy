@@ -757,24 +757,11 @@ public class PTSAFTFileGenerator {
 		InvalidInvoiceTypeException {
 		Invoice saftInv = new Invoice();
 
-		InvoiceSeriesEntity invoiceSeries =
-			this.daoInvoiceSeries.getSeries(
-				document.getSeries(),
-				document.getBusiness().getUID().toString(),
-				LockModeType.NONE);
-
-		StringBuilder atcudBuilder =
-			invoiceSeries.getSeriesUniqueCode()
-						 .map(s -> new StringBuilder().append(s)
-													  .append("-")
-													  .append(document.getSeriesNumber()))
-						 .orElse(new StringBuilder().append("0"));
-
 		saftInv.setDocumentStatus(this.getDocumentStatus(document));
 
 		saftInv.setInvoiceNo(validateString("InvoiceNo", document.getNumber(),
 				MAX_LENGTH_60, true));
-		saftInv.setATCUD(atcudBuilder.toString());
+		saftInv.setATCUD(document.getATCUD());
 		saftInv.setInvoiceType(validateString("InvoiceType",
 				getDocumentType(document), MAX_LENGTH_2, true));
 		saftInv.setHash(validateString("Hash", document.getHash(),
@@ -882,7 +869,7 @@ public class PTSAFTFileGenerator {
 		}
 
 		entries.sort(Comparator.comparing(GenericInvoiceEntry::getEntryNumber));
-		
+
 		for (PTGenericInvoiceEntryEntity entry : entries) {
 			/* REQUIRED - One Invoice.Line per IPTFinancialDocumentEntryEntity */
 			Line line = new Line();

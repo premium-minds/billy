@@ -43,6 +43,8 @@ public interface PTGenericInvoiceEntity extends GenericInvoiceEntity, PTGenericI
 
     public void setChangeReason(String reason);
 
+    public void setATCUD(String atcud);
+
     public void setEACCode(String eacCode);
 
     @Override

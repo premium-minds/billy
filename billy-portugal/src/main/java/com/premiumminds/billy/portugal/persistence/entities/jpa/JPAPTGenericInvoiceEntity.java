@@ -51,6 +51,9 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity implement
     @Column(name = "CHANGE_REASON")
     protected String reason;
 
+    @Column(name = "ATCUD")
+    protected String atcud;
+
     @Column(name = "HASH")
     protected String hash;
 
@@ -92,6 +95,11 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity implement
     }
 
     @Override
+    public String getATCUD() {
+        return this.atcud;
+    }
+
+    @Override
     public String getHash() {
         return this.hash;
     }
@@ -129,6 +137,11 @@ public class JPAPTGenericInvoiceEntity extends JPAGenericInvoiceEntity implement
     @Override
     public void setChangeReason(String reason) {
         this.reason = reason;
+    }
+
+    @Override
+    public void setATCUD(String atcud) {
+        this.atcud = atcud;
     }
 
     @Override

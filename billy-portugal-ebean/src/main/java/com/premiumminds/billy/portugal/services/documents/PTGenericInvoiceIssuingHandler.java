@@ -101,18 +101,28 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber,
                 document.getAmountWithTax(), previousHash);
 
-        document.setDate(invoiceDate);
-        document.setNumber(formattedNumber);
-        document.setSeries(invoiceSeriesEntity.getSeries());
-        document.setSeriesNumber(seriesNumber);
-        document.setHash(newHash);
-        document.setBilled(false);
-        document.setCancelled(false);
-        document.setType(invoiceType);
-        document.setSourceHash(sourceHash);
-        document.setHashControl(parametersPT.getPrivateKeyVersion());
-        document.setEACCode(parametersPT.getEACCode());
-        document.setCurrency(document.getCurrency());
+		final String atcud = invoiceSeriesEntity
+			.getSeriesUniqueCode()
+			.map(s -> new StringBuilder()
+				.append(s)
+				.append("-")
+				.append(document.getSeriesNumber()))
+			.orElse(new StringBuilder().append("0"))
+			.toString();
+
+		document.setDate(invoiceDate);
+		document.setNumber(formattedNumber);
+		document.setSeries(invoiceSeriesEntity.getSeries());
+		document.setSeriesNumber(seriesNumber);
+		document.setHash(newHash);
+		document.setBilled(false);
+		document.setCancelled(false);
+		document.setType(invoiceType);
+		document.setSourceHash(sourceHash);
+		document.setHashControl(parametersPT.getPrivateKeyVersion());
+		document.setEACCode(parametersPT.getEACCode());
+		document.setCurrency(document.getCurrency());
+		document.setATCUD(atcud);
 
         daoInvoice.create(document);
 
