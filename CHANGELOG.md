@@ -6,7 +6,7 @@
 ### Added
 
  - [Adds XML validation against XSD file](https://github.com/premium-minds/billy/pull/133)
- - [Adds new calculated field ATCUD value to PTGenericInvoice entity, in set on issue()]
+ - [Adds new calculated field ATCUD value to PTGenericInvoice entity, and set on issue()](https://github.com/premium-minds/billy/pull/140)
 
 ### Changed
 
