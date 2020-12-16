@@ -30,7 +30,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Base64;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -55,14 +54,6 @@ public class QRCodeBuilder {
 
 	public static String generateQRCodeString(final QRCodeData qrCodeData) throws RequiredFieldNotFoundException
 	{
-		final String atcud = qrCodeData.getInvoiceSeries()
-			.getSeriesUniqueCode()
-			.map(s -> new StringBuilder()
-				.append(s)
-				.append("-")
-				.append(qrCodeData.getSeriesNumber()))
-			.orElse(new StringBuilder().append("0")).toString();
-
 		final String customerFinancialID;
 		if (qrCodeData.getGenericCustomerUID().equals(qrCodeData.getCustomer().getUID())) {
 			customerFinancialID = "999999990";
@@ -91,14 +82,10 @@ public class QRCodeBuilder {
 			.append(FIELD_SEPARATOR)
 			.append(QRCodeConstants.documentUniqueID.getName()).append(DATA_SEPARATOR)
 			.append(validateString(QRCodeConstants.documentUniqueID, qrCodeData.getNumber() , true))
+			.append(FIELD_SEPARATOR)
+			.append(QRCodeConstants.ATCUD.getName()).append(DATA_SEPARATOR)
+			.append(validateString(QRCodeConstants.ATCUD, qrCodeData.getATCUD(), true))
 			;
-
-		if(!atcud.isEmpty()) {
-			result
-				.append(FIELD_SEPARATOR)
-				.append(QRCodeConstants.ATCUD.getName()).append(DATA_SEPARATOR)
-				.append(validateString(QRCodeConstants.ATCUD, atcud, true));
-		}
 
 		final Map<Context, Map<String, TupleTaxAmountAndAmountWithoutTaxes>> amountAndContextAndType =
 			getTaxAmountByContextAndType(qrCodeData.getEntries());

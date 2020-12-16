@@ -39,6 +39,7 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements PTI
     protected SourceBilling sourceBilling;
     protected String eacCode;
     protected TYPE type;
+    protected String atcud;
     protected List<PTPayment> payments;
 
     @Override
@@ -122,6 +123,11 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements PTI
     }
 
     @Override
+    public void setATCUD(final String atcud) {
+        this.atcud = atcud;
+    }
+
+    @Override
     public void setEACCode(String eacCode) {
         this.eacCode = eacCode;
     }
@@ -139,6 +145,11 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements PTI
     @Override
     public String getChangeReason() {
         return this.reason;
+    }
+
+    @Override
+    public String getATCUD() {
+        return this.atcud;
     }
 
     @Override

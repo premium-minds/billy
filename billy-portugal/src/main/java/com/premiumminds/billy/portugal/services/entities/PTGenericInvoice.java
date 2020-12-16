@@ -75,6 +75,8 @@ public interface PTGenericInvoice extends GenericInvoice {
 
     public String getChangeReason();
 
+    public String getATCUD();
+
     @Override
     public <T extends GenericInvoiceEntry> List<T> getEntries();
 

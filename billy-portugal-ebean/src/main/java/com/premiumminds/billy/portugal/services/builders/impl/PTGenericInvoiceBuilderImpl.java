@@ -94,6 +94,13 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
 
     @Override
     @NotOnUpdate
+    public TBuilder setATCUD(String atcud) {
+        this.getTypeInstance().setATCUD(atcud);
+        return this.getBuilder();
+    }
+
+    @Override
+    @NotOnUpdate
     public TBuilder setSourceBilling(SourceBilling sourceBilling) {
         BillyValidator.notNull(sourceBilling, PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source_billing"));
         this.getTypeInstance().setSourceBilling(sourceBilling);

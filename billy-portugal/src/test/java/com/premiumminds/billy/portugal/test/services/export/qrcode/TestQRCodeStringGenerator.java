@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class QRCodeStringGeneratorTest extends PTDocumentAbstractTest {
+public class TestQRCodeStringGenerator extends PTDocumentAbstractTest {
 
 	private static final TYPE DEFAULT_TYPE = TYPE.FT;
 	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
@@ -54,7 +54,7 @@ public class QRCodeStringGeneratorTest extends PTDocumentAbstractTest {
 	public void setUp() {
 		this.handler = this.getInstance(PTInvoiceIssuingHandler.class);
 		this.daoInvoiceSeries = this.getInstance(DAOInvoiceSeries.class);
-		this.underTest = new QRCodeStringGenerator(this.daoInvoiceSeries);
+		this.underTest = new QRCodeStringGenerator();
 	}
 
 	@Test
@@ -124,7 +124,6 @@ public class QRCodeStringGeneratorTest extends PTDocumentAbstractTest {
 				entity.setSeriesUniqueCode("ATCUD12345");
 				daoInvoiceSeries.create(entity);
 			}
-
 			this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException e) {

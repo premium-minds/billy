@@ -3,11 +3,12 @@
 
 ## [Unreleased v5]
 
-### Added 
+### Added
 
  - [Adds XML validation against XSD file](https://github.com/premium-minds/billy/pull/133)
- 
-### Changed 
+ - [Adds new calculated field ATCUD value to PTGenericInvoice entity, and set on issue()](https://github.com/premium-minds/billy/pull/140)
+
+### Changed
 
  - [Bump hibernate.version from 5.4.23.Final to 5.4.24.Final](https://github.com/premium-minds/billy/pull/125)
  - [Changes log level to debug for truncated fields in SAFT and QR codes](https://github.com/premium-minds/billy/pull/135)
@@ -20,30 +21,30 @@
  - [Exports only the clients and products relevant to the requested period](https://github.com/premium-minds/billy/pull/134)
  - [Removes hardcoded temporary file for SAFT export](https://github.com/premium-minds/billy/pull/124) (fixes [Concurrency bug in saft generation](https://github.com/premium-minds/billy/issues/7))
  - [Bump tiles-maven-plugin from 2.18 to 2.19](https://github.com/premium-minds/billy/pull/139)
- 
+
 ### Fixed
 
 - [Corrects the hash verification field](https://github.com/premium-minds/billy/pull/126)
 - [Adds missing Credit or Debit information to some invoice types](https://github.com/premium-minds/billy/pull/138). SQL script to fix previous invoices:
   ```
   UPDATE billy_core_generic_invoice SET credit_or_debit = 'CREDIT'
-	WHERE id IN (
-				SELECT bcgi.id
-					FROM billy_pt_receipt_invoice bpri
-					JOIN billy_pt_invoice bpi ON bpri.id = bpi.id
-					JOIN billy_pt_generic_invoice bpgi ON bpi.id = bpgi.id
-					JOIN billy_core_generic_invoice bcgi ON bpgi.id = bcgi.id
-					WHERE credit_or_debit IS NULL 
-		)
+    WHERE id IN (
+                SELECT bcgi.id
+                    FROM billy_pt_receipt_invoice bpri
+                    JOIN billy_pt_invoice bpi ON bpri.id = bpi.id
+                    JOIN billy_pt_generic_invoice bpgi ON bpi.id = bpgi.id
+                    JOIN billy_core_generic_invoice bcgi ON bpgi.id = bcgi.id
+                    WHERE credit_or_debit IS NULL
+        )
   UPDATE billy_core_generic_invoice SET credit_or_debit = 'CREDIT'
-	WHERE id IN (
-				SELECT bcgi.id
-					FROM billy_pt_simple_invoice bpsi
-					JOIN billy_pt_invoice bpi ON bpsi.id = bpi.id
-					JOIN billy_pt_generic_invoice bpgi ON bpi.id = bpgi.id
-					JOIN billy_core_generic_invoice bcgi ON bpgi.id = bcgi.id
-					WHERE credit_or_debit IS NULL 
-		)
+    WHERE id IN (
+                SELECT bcgi.id
+                    FROM billy_pt_simple_invoice bpsi
+                    JOIN billy_pt_invoice bpi ON bpsi.id = bpi.id
+                    JOIN billy_pt_generic_invoice bpgi ON bpi.id = bpgi.id
+                    JOIN billy_core_generic_invoice bcgi ON bpgi.id = bcgi.id
+                    WHERE credit_or_debit IS NULL
+        )
   ```
   - [Corrects credit notes to use debit amount and not credit amount in SAFT](https://github.com/premium-minds/billy/pull/131)
 
@@ -62,10 +63,10 @@
 
  - [Bump to Junit 5 and Mockito 3.6.0](https://github.com/premium-minds/billy/pull/122)
  - [Replace old and abandoned bouncycastle bcprov-jdk16](https://github.com/premium-minds/billy/pull/123)
- 
+
 ## [5.1.0] - 2020-11-04
 
-### Added 
+### Added
 
  - [Adds support for pt mandatory QRCode generation](https://github.com/premium-minds/billy/pull/120) - It may require changes to XSL template files to include QR code section
 
@@ -73,7 +74,7 @@
 
  - [Fixes wrong PT NIF validation](https://github.com/premium-minds/billy/pull/117)
  - [Adds custom method matcher to filter synthetic methods](https://github.com/premium-minds/billy/pull/107)
- 
+
 ### Changed
 
  - [Bump querydsl.version from 4.3.1 to 4.4.0](https://github.com/premium-minds/billy/pull/116)
@@ -122,12 +123,12 @@
  - [Bump tiles-maven-plugin from 2.16 to 2.17](https://github.com/premium-minds/billy/pull/99)
  - [Bump build-helper-maven-plugin from 3.1.0 to 3.2.0](https://github.com/premium-minds/billy/pull/100)
  - [Update Canary islands 2020 IGIC normal tax value](https://github.com/premium-minds/billy/pull/90)
- 
+
 ### Fixed
 
  - [Credit note issues](https://github.com/premium-minds/billy/pull/101)
  - [Corrects behavior for tax selection for a given context](https://github.com/premium-minds/billy/pull/102)
- 
+
 ## [3.2.1] - 2020-02-24
 
 ### Added
@@ -135,7 +136,7 @@
 
 ## [3.2.0] - 2020-01-31
 
-### Added 
+### Added
  - [Adds exemption reason and code to InvoiceEntryData](https://github.com/premium-minds/billy/pull/85)
  - [Adds TaxRateType.NONE to the types that use percent as a unit](https://github.com/premium-minds/billy/pull/87)
  - [Adds Support for Receipt Invoices to Billy Portugal](https://github.com/premium-minds/billy/pull/88)
@@ -175,16 +176,16 @@
  - [Bump jaxb2-basics from 0.6.2 to 0.12.0](https://github.com/premium-minds/billy/pull/76)
  - [Bump ebean from 10.3.1 to 10.4.7](https://github.com/premium-minds/billy/pull/79)
  - [ Clarify isSubContext in DAOContext](https://github.com/premium-minds/billy/pull/86)
- 
+
 ### Removed
  - [Removed log4j dependency](https://github.com/premium-minds/billy/pull/55)
- 
+
 ## [3.1.2] - 2019-12-16
 ### Changed
  -  [Removed tax values validation](https://github.com/premium-minds/billy/pull/32)
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
- 
- 
+
+
 [unreleased v5]: https://github.com/premium-minds/billy/compare/v5.2.0...HEAD
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x

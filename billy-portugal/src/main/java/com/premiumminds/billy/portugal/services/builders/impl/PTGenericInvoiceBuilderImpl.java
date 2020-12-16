@@ -89,6 +89,13 @@ public class PTGenericInvoiceBuilderImpl<TBuilder extends PTGenericInvoiceBuilde
         return this.getBuilder();
     }
 
+	@Override
+    @NotOnUpdate
+    public TBuilder setATCUD(String atcud) {
+        this.getTypeInstance().setATCUD(atcud);
+        return this.getBuilder();
+    }
+
     @Override
     @NotOnUpdate
     public TBuilder setSourceBilling(SourceBilling sourceBilling) {

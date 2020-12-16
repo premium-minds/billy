@@ -18,26 +18,20 @@
  */
 package com.premiumminds.billy.portugal.services.export.qrcode;
 
-import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.Config.Key;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
 import javax.inject.Inject;
-import javax.persistence.LockModeType;
 
 public class QRCodeStringGenerator {
 
     private final Config config;
-    private final DAOInvoiceSeries daoInvoiceSeries;
-    private final PTContexts ptContexts;
+	private final PTContexts ptContexts;
 
     @Inject
-    public QRCodeStringGenerator(
-        final DAOInvoiceSeries daoInvoiceSeries) {
-        this.daoInvoiceSeries = daoInvoiceSeries;
-        this.config = new Config();
+    public QRCodeStringGenerator() {
+		this.config = new Config();
 
         this.ptContexts= new PTContexts(
             this.config.getUID(Config.Key.Context.Portugal.UUID),
@@ -45,18 +39,11 @@ public class QRCodeStringGenerator {
             this.config.getUID(Config.Key.Context.Portugal.Azores.UUID),
             this.config.getUID(Config.Key.Context.Portugal.Madeira.UUID)
         );
-
     }
 
     public String generateQRCodeData(PTGenericInvoice document) throws RequiredFieldNotFoundException {
 
-        final InvoiceSeriesEntity invoiceSeries =
-            this.daoInvoiceSeries.getSeries(
-                document.getSeries(),
-                document.getBusiness().getUID().toString(),
-                LockModeType.NONE);
-
-        QRCodeData qrCodeData = new QRCodeData.QRCodeDataBuilder()
+		QRCodeData qrCodeData = new QRCodeData.QRCodeDataBuilder()
             .withSeriesNumber(document.getSeriesNumber())
             .withBusinessFinancialID(document.getBusiness().getFinancialID())
             .withDocumentType(document.getType())
@@ -73,7 +60,7 @@ public class QRCodeStringGenerator {
             .withPTContexts(ptContexts)
             .withGenericCustomerUID(this.config.getUID(Key.Customer.Generic.UUID))
             .withCustomer(document.getCustomer())
-            .withInvoiceSeries(invoiceSeries)
+            .withATCUD(document.getATCUD())
             .build();
 
         return QRCodeBuilder.generateQRCodeString(qrCodeData);

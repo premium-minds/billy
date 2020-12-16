@@ -54,6 +54,7 @@ public class TestQRCodeBuilderOnlyContinent extends TestQRCodeBuilderBase{
 		final BigDecimal amountWithTax = BigDecimal.valueOf(142);
 		final BigDecimal itemAmount = BigDecimal.valueOf(100);
 		final String hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUWXYZ";
+		final String atcud = "0";
 
 		final UID portugalUID = Mockito.mock(UID.class);
 		final UID continenteUID = Mockito.mock(UID.class);
@@ -82,7 +83,7 @@ public class TestQRCodeBuilderOnlyContinent extends TestQRCodeBuilderBase{
 				.withPTContexts(ptContexts)
 				.withGenericCustomerUID(genericCustomerUID)
 				.withCustomer(generateCustomer(genericCustomerUID))
-				.withInvoiceSeries(generateInvoiceSeries(false))
+				.withATCUD(atcud)
 				.build();
 
 			result = QRCodeBuilder.generateQRCodeString(qrCodeData);
