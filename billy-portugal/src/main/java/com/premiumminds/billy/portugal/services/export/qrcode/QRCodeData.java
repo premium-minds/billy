@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.export.qrcode;
 
-import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Customer;
@@ -49,7 +48,7 @@ public class QRCodeData {
 	private final PTContexts ptContexts;
 	private final UID genericCustomerUID;
 	private final Customer customer;
-	private final InvoiceSeriesEntity invoiceSeries;
+	private final String atcud;
 
 	protected QRCodeData(QRCodeDataBuilder builder){
 		this.seriesNumber = builder.seriesNumber;
@@ -68,7 +67,7 @@ public class QRCodeData {
 		this.ptContexts = builder.ptContexts;
 		this.genericCustomerUID = builder.genericCustomerUID;
 		this.customer = builder.customer;
-		this.invoiceSeries = builder.invoiceSeries;
+		this.atcud = builder.atcud;
 	}
 
 	public Integer getSeriesNumber() {
@@ -135,8 +134,8 @@ public class QRCodeData {
 		return customer;
 	}
 
-	public InvoiceSeriesEntity getInvoiceSeries() {
-		return invoiceSeries;
+	public String getATCUD() {
+		return atcud;
 	}
 
 	public static class QRCodeDataBuilder {
@@ -157,7 +156,7 @@ public class QRCodeData {
 		PTContexts ptContexts;
 		UID genericCustomerUID;
 		Customer customer;
-		InvoiceSeriesEntity invoiceSeries;
+		String atcud;
 
 		public QRCodeDataBuilder withSeriesNumber(final Integer seriesNumber) {
 			this.seriesNumber = seriesNumber;
@@ -239,8 +238,8 @@ public class QRCodeData {
 			return this;
 		}
 
-		public QRCodeDataBuilder withInvoiceSeries(final InvoiceSeriesEntity invoiceSeries) {
-			this.invoiceSeries = invoiceSeries;
+		public QRCodeDataBuilder withATCUD(final String atcud) {
+			this.atcud = atcud;
 			return this;
 		}
 

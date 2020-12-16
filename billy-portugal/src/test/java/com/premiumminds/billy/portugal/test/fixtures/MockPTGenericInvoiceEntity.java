@@ -37,7 +37,7 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity impleme
     protected String hashControl;
     protected SourceBilling sourceBilling;
     protected String eacCode;
-	protected String atcud;
+    protected String atcud;
     protected TYPE type;
     protected List<PTPayment> payments;
 
@@ -126,12 +126,12 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity impleme
         return this.reason;
     }
 
-	@Override
-	public String getATCUD() {
-		return this.atcud;
-	}
+    @Override
+    public String getATCUD() {
+        return this.atcud;
+    }
 
-	@Override
+    @Override
     public void setHashControl(String hashControl) {
         this.hashControl = hashControl;
     }
@@ -141,12 +141,12 @@ public class MockPTGenericInvoiceEntity extends MockGenericInvoiceEntity impleme
         this.reason = reason;
     }
 
-	@Override
-	public void setATCUD(final String atcud) {
-		this.atcud = atcud;
-	}
+    @Override
+    public void setATCUD(final String atcud) {
+        this.atcud = atcud;
+    }
 
-	@Override
+    @Override
     public void setEACCode(String eacCode) {
         this.eacCode = eacCode;
     }

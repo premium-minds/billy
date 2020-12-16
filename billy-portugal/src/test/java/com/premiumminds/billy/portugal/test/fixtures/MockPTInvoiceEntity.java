@@ -122,12 +122,12 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements PTI
         this.reason = reason;
     }
 
-	@Override
-	public void setATCUD(final String atcud) {
-		this.atcud = atcud;
-	}
+    @Override
+    public void setATCUD(final String atcud) {
+        this.atcud = atcud;
+    }
 
-	@Override
+    @Override
     public void setEACCode(String eacCode) {
         this.eacCode = eacCode;
     }
@@ -147,12 +147,12 @@ public class MockPTInvoiceEntity extends MockGenericInvoiceEntity implements PTI
         return this.reason;
     }
 
-	@Override
-	public String getATCUD() {
-		return this.atcud;
-	}
+    @Override
+    public String getATCUD() {
+        return this.atcud;
+    }
 
-	@Override
+    @Override
     public List<PTPayment> getPayments() {
         return this.payments;
     }

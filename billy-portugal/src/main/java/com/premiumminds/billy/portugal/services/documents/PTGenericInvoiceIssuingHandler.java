@@ -72,7 +72,7 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
         Date systemDate = document.getCreateTimestamp();
 
-        Integer seriesNumber = 1;
+        final Integer seriesNumber;
         String previousHash = null;
 
         T latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
@@ -93,7 +93,9 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
             if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
                 throw new InvalidInvoiceDateException();
             }
-        }
+        } else {
+			seriesNumber = 1;
+		}
 
         String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
@@ -103,14 +105,14 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber,
                 document.getAmountWithTax(), previousHash);
 
-		final String atcud = invoiceSeriesEntity
-			.getSeriesUniqueCode()
-			.map(s -> new StringBuilder()
-				.append(s)
-				.append("-")
-				.append(document.getSeriesNumber()))
-			.orElse(new StringBuilder().append("0"))
-			.toString();
+        final String atcud = invoiceSeriesEntity
+            .getSeriesUniqueCode()
+            .map(s -> new StringBuilder()
+                .append(s)
+                .append("-")
+                .append(seriesNumber.toString()))
+            .orElse(new StringBuilder().append("0"))
+            .toString();
 
         document.setDate(invoiceDate);
         document.setNumber(formattedNumber);
@@ -124,7 +126,7 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         document.setHashControl(parametersPT.getPrivateKeyVersion());
         document.setEACCode(parametersPT.getEACCode());
         document.setCurrency(document.getCurrency());
-		document.setATCUD(atcud);
+        document.setATCUD(atcud);
 
         daoInvoice.create(document);
 

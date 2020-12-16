@@ -18,13 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.export.qrcode;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-
-import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
@@ -34,18 +27,13 @@ import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import org.mockito.Mockito;
 
 public class TestQRCodeBuilderBase {
-
-	protected InvoiceSeriesEntity generateInvoiceSeries(boolean hasSeriesUniqueCode) {
-		final InvoiceSeriesEntity invoiceSeries = Mockito.mock(InvoiceSeriesEntity.class);
-
-		final Optional<String> seriesUniqueCode = hasSeriesUniqueCode ? Optional.of("ATCUD123") : Optional.empty();
-		Mockito.when(invoiceSeries.getSeriesUniqueCode()).thenReturn(seriesUniqueCode);
-
-		return invoiceSeries;
-	}
 
 	protected Customer generateCustomer(final UID customerUID) {
 		Customer customer = Mockito.mock(Customer.class);
