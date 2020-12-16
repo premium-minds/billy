@@ -7,6 +7,10 @@
 
  - [Adds XML validation against XSD file](https://github.com/premium-minds/billy/pull/133)
  - [Adds new calculated field ATCUD value to PTGenericInvoice entity, and set on issue()](https://github.com/premium-minds/billy/pull/140)
+   ```
+   ALTER TABLE billy_pt_generic_invoice ADD COLUMN IF NOT EXISTS atcud VARCHAR(255) default '0';
+   ALTER TABLE billy_pt_generic_invoice_aud ADD COLUMN IF NOT EXISTS atcud VARCHAR(255) default '0';
+   ```
 
 ### Changed
 
