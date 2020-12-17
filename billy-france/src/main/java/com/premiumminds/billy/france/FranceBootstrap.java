@@ -107,92 +107,92 @@ public class FranceBootstrap {
                             CONTEXT_FRANCE.getUID(), Config.Key.Context.France.Continental.UUID);
 
                     final FRRegionContextEntity CONTEXT_ALSACE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                    		contextBuilder, "Alsace", "The Context for the French Alsace region",
-                    		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Alsace.UUID);
+                            contextBuilder, "Alsace", "The Context for the French Alsace region",
+                            CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Alsace.UUID);
 
-                	final FRRegionContextEntity CONTEXT_AQUITAINE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Aquitaine", "The Context for the French Aquitaine region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Aquitaine.UUID);
+                    final FRRegionContextEntity CONTEXT_AQUITAINE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Aquitaine", "The Context for the French Aquitaine region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Aquitaine.UUID);
 
-                	final FRRegionContextEntity CONTEXT_AUVERGNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Auvergne", "The Context for the French Auvergne region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Auvergne.UUID);
+                    final FRRegionContextEntity CONTEXT_AUVERGNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Auvergne", "The Context for the French Auvergne region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Auvergne.UUID);
 
-                	final FRRegionContextEntity CONTEXT_BASSENORMANDIE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "BasseNormandie", "The Context for the French BasseNormandie region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.BasseNormandie.UUID);
+                    final FRRegionContextEntity CONTEXT_BASSENORMANDIE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "BasseNormandie", "The Context for the French BasseNormandie region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.BasseNormandie.UUID);
 
-                	final FRRegionContextEntity CONTEXT_BOURGOGNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Bourgogne", "The Context for the French Bourgogne region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Bourgogne.UUID);
+                    final FRRegionContextEntity CONTEXT_BOURGOGNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Bourgogne", "The Context for the French Bourgogne region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Bourgogne.UUID);
 
-                	final FRRegionContextEntity CONTEXT_BRETAGNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Bretagne", "The Context for the French Bretagne region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Bretagne.UUID);
+                    final FRRegionContextEntity CONTEXT_BRETAGNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Bretagne", "The Context for the French Bretagne region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Bretagne.UUID);
 
-                	final FRRegionContextEntity CONTEXT_CENTRE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Centre", "The Context for the French Centre region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Centre.UUID);
+                    final FRRegionContextEntity CONTEXT_CENTRE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Centre", "The Context for the French Centre region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Centre.UUID);
 
-                	final FRRegionContextEntity CONTEXT_CHAMPAGNE_ARDENNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Champagne-Ardenne", "The Context for the French Champagne-Ardenne region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Champagne_Ardenne.UUID);
+                    final FRRegionContextEntity CONTEXT_CHAMPAGNE_ARDENNE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Champagne-Ardenne", "The Context for the French Champagne-Ardenne region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Champagne_Ardenne.UUID);
 
-                	final FRRegionContextEntity CONTEXT_CORSE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Corse", "The Context for the French Corse region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Corse.UUID);
+                    final FRRegionContextEntity CONTEXT_CORSE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Corse", "The Context for the French Corse region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Corse.UUID);
 
-                	final FRRegionContextEntity CONTEXT_FRANCHE_COMTE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Franche-Comté", "The Context for the French Franche-Comté region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Franche_Comte.UUID);
+                    final FRRegionContextEntity CONTEXT_FRANCHE_COMTE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Franche-Comté", "The Context for the French Franche-Comté region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Franche_Comte.UUID);
 
-                	final FRRegionContextEntity CONTEXT_HAUTENORMANDIE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "HauteNormandie", "The Context for the French HauteNormandie region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.HauteNormandie.UUID);
+                    final FRRegionContextEntity CONTEXT_HAUTENORMANDIE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "HauteNormandie", "The Context for the French HauteNormandie region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.HauteNormandie.UUID);
 
-                	final FRRegionContextEntity CONTEXT_ILE_DE_FRANCE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Ile-de-France", "The Context for the French Ile-de-France region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Ile_de_France.UUID);
+                    final FRRegionContextEntity CONTEXT_ILE_DE_FRANCE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Ile-de-France", "The Context for the French Ile-de-France region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Ile_de_France.UUID);
 
-                	final FRRegionContextEntity CONTEXT_LANGUEDOC_ROUSSILLON_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Languedoc-Roussillon", "The Context for the French Languedoc-Roussillon region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Languedoc_Roussillon.UUID);
+                    final FRRegionContextEntity CONTEXT_LANGUEDOC_ROUSSILLON_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Languedoc-Roussillon", "The Context for the French Languedoc-Roussillon region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Languedoc_Roussillon.UUID);
 
-                	final FRRegionContextEntity CONTEXT_LIMOUSIN_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Limousin", "The Context for the French Limousin region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Limousin.UUID);
+                    final FRRegionContextEntity CONTEXT_LIMOUSIN_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Limousin", "The Context for the French Limousin region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Limousin.UUID);
 
-                	final FRRegionContextEntity CONTEXT_LORRAINE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Lorraine", "The Context for the French Lorraine region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Lorraine.UUID);
+                    final FRRegionContextEntity CONTEXT_LORRAINE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Lorraine", "The Context for the French Lorraine region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Lorraine.UUID);
 
-                	final FRRegionContextEntity CONTEXT_MIDIPYRENEES_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "MidiPyrénées", "The Context for the French MidiPyrénées region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.MidiPyrenees.UUID);
+                    final FRRegionContextEntity CONTEXT_MIDIPYRENEES_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "MidiPyrénées", "The Context for the French MidiPyrénées region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.MidiPyrenees.UUID);
 
-                	final FRRegionContextEntity CONTEXT_NORD_PAS_DE_CALAIS_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Nord-Pas-de-Calais", "The Context for the French Nord-Pas-de-Calais region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Nord_Pas_de_Calais.UUID);
+                    final FRRegionContextEntity CONTEXT_NORD_PAS_DE_CALAIS_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Nord-Pas-de-Calais", "The Context for the French Nord-Pas-de-Calais region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Nord_Pas_de_Calais.UUID);
 
-                	final FRRegionContextEntity CONTEXT_PAYS_DE_LA_LOIRE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Pays de la Loire", "The Context for the French Pays de la Loire region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Pays_de_la_Loire.UUID);
+                    final FRRegionContextEntity CONTEXT_PAYS_DE_LA_LOIRE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Pays de la Loire", "The Context for the French Pays de la Loire region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Pays_de_la_Loire.UUID);
 
-                	final FRRegionContextEntity CONTEXT_PICARDIE_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Picardie", "The Context for the French Picardie region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Picardie.UUID);
+                    final FRRegionContextEntity CONTEXT_PICARDIE_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Picardie", "The Context for the French Picardie region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Picardie.UUID);
 
-                	final FRRegionContextEntity CONTEXT_POITOU_CHARENTES_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Poitou-Charentes", "The Context for the French Poitou-Charentes region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Poitou_Charentes.UUID);
+                    final FRRegionContextEntity CONTEXT_POITOU_CHARENTES_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Poitou-Charentes", "The Context for the French Poitou-Charentes region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Poitou_Charentes.UUID);
 
-                	final FRRegionContextEntity CONTEXT_PROVENCE_ALPES_COTE_D_AZUR_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "Provence-Alpes-Côte-d'Azur", "The Context for the French Provence-Alpes-Côte-d'Azur region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Provence_Alpes_Cote_d_Azur.UUID);
+                    final FRRegionContextEntity CONTEXT_PROVENCE_ALPES_COTE_D_AZUR_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "Provence-Alpes-Côte-d'Azur", "The Context for the French Provence-Alpes-Côte-d'Azur region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.Provence_Alpes_Cote_d_Azur.UUID);
 
-                	final FRRegionContextEntity CONTEXT_RHONEALPES_FRANCE = this.buildContextEntity(daoFRRegionContext,
-                		contextBuilder, "RhôneAlpes", "The Context for the French RhôneAlpes region",
-                		CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.RhoneAlpes.UUID);
+                    final FRRegionContextEntity CONTEXT_RHONEALPES_FRANCE = this.buildContextEntity(daoFRRegionContext,
+                        contextBuilder, "RhôneAlpes", "The Context for the French RhôneAlpes region",
+                        CONTEXT_CONTINENTAL_FRANCE.getUID(), Config.Key.Context.France.Continental.RhoneAlpes.UUID);
 
                     // Taxes
                     ZoneId paris = ZoneId.of("Europe/Paris");

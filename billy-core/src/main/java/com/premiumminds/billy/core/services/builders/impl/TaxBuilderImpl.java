@@ -136,11 +136,11 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
     protected void validateInstance() throws javax.validation.ValidationException {
         Tax t = this.getTypeInstance();
         /*BillyValidator.mandatory(t.getDescription(),
-        		TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
+                TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
         BillyValidator.mandatory(t.getCode(),
-        		TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
+                TaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
         BillyValidator.mandatory(t.getTaxRateType(),
-        		TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));*/
+                TaxBuilderImpl.LOCALIZER.getString("field.tax_rate_type"));*/
         BillyValidator.mandatory(t.getCurrency(), TaxBuilderImpl.LOCALIZER.getString("field.tax_currency"));
 
         switch (t.getTaxRateType()) {

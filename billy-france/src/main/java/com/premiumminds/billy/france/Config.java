@@ -112,112 +112,112 @@ public class Config {
                     
                     public static class Alsace {
 
-                    	public static final String UUID = "context.france.alsace.uuid";
+                        public static final String UUID = "context.france.alsace.uuid";
                     }
 
                     public static class Aquitaine {
 
-                    	public static final String UUID = "context.france.aquitaine.uuid";
+                        public static final String UUID = "context.france.aquitaine.uuid";
                     }
 
                     public static class Auvergne {
 
-                    	public static final String UUID = "context.france.auvergne.uuid";
+                        public static final String UUID = "context.france.auvergne.uuid";
                     }
 
                     public static class BasseNormandie {
 
-                    	public static final String UUID = "context.france.bassenormandie.uuid";
+                        public static final String UUID = "context.france.bassenormandie.uuid";
                     }
 
                     public static class Bourgogne {
 
-                    	public static final String UUID = "context.france.bourgogne.uuid";
+                        public static final String UUID = "context.france.bourgogne.uuid";
                     }
 
                     public static class Bretagne {
 
-                    	public static final String UUID = "context.france.bretagne.uuid";
+                        public static final String UUID = "context.france.bretagne.uuid";
                     }
 
                     public static class Centre {
 
-                    	public static final String UUID = "context.france.centre.uuid";
+                        public static final String UUID = "context.france.centre.uuid";
                     }
 
                     public static class Champagne_Ardenne {
 
-                    	public static final String UUID = "context.france.champagne_ardenne.uuid";
+                        public static final String UUID = "context.france.champagne_ardenne.uuid";
                     }
 
                     public static class Corse {
 
-                    	public static final String UUID = "context.france.corse.uuid";
+                        public static final String UUID = "context.france.corse.uuid";
                     }
 
                     public static class Franche_Comte {
 
-                    	public static final String UUID = "context.france.franche_comte.uuid";
+                        public static final String UUID = "context.france.franche_comte.uuid";
                     }
 
                     public static class HauteNormandie {
 
-                    	public static final String UUID = "context.france.hautenormandie.uuid";
+                        public static final String UUID = "context.france.hautenormandie.uuid";
                     }
 
                     public static class Ile_de_France {
 
-                    	public static final String UUID = "context.france.ile_de_france.uuid";
+                        public static final String UUID = "context.france.ile_de_france.uuid";
                     }
 
                     public static class Languedoc_Roussillon {
 
-                    	public static final String UUID = "context.france.languedoc_roussillon.uuid";
+                        public static final String UUID = "context.france.languedoc_roussillon.uuid";
                     }
 
                     public static class Limousin {
 
-                    	public static final String UUID = "context.france.limousin.uuid";
+                        public static final String UUID = "context.france.limousin.uuid";
                     }
 
                     public static class Lorraine {
 
-                    	public static final String UUID = "context.france.lorraine.uuid";
+                        public static final String UUID = "context.france.lorraine.uuid";
                     }
 
                     public static class MidiPyrenees {
 
-                    	public static final String UUID = "context.france.midipyrenees.uuid";
+                        public static final String UUID = "context.france.midipyrenees.uuid";
                     }
 
                     public static class Nord_Pas_de_Calais {
 
-                    	public static final String UUID = "context.france.nord_pas_de_calais.uuid";
+                        public static final String UUID = "context.france.nord_pas_de_calais.uuid";
                     }
 
                     public static class Pays_de_la_Loire {
 
-                    	public static final String UUID = "context.france.pays_de_la_loire.uuid";
+                        public static final String UUID = "context.france.pays_de_la_loire.uuid";
                     }
 
                     public static class Picardie {
 
-                    	public static final String UUID = "context.france.picardie.uuid";
+                        public static final String UUID = "context.france.picardie.uuid";
                     }
 
                     public static class Poitou_Charentes {
 
-                    	public static final String UUID = "context.france.poitou_charentes.uuid";
+                        public static final String UUID = "context.france.poitou_charentes.uuid";
                     }
 
                     public static class Provence_Alpes_Cote_d_Azur {
 
-                    	public static final String UUID = "context.france.provence_alpes_cote_d_azur.uuid";
+                        public static final String UUID = "context.france.provence_alpes_cote_d_azur.uuid";
                     }
 
                     public static class RhoneAlpes {
 
-                    	public static final String UUID = "context.france.rhonealpes.uuid";
+                        public static final String UUID = "context.france.rhonealpes.uuid";
                     }
                     
                 }
