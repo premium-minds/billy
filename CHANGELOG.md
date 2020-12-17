@@ -3,6 +3,8 @@
 
 ## [Unreleased v5]
 
+## [5.3.0] - 2020-12-17
+
 ### Added
 
  - [Adds XML validation against XSD file](https://github.com/premium-minds/billy/pull/133)
