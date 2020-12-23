@@ -3,6 +3,10 @@
 
 ## [Unreleased v5]
 
+### Changed
+
+ - [Bump hibernate.version from 5.4.24.Final to 5.4.27.Final](https://github.com/premium-minds/billy/pull/142)
+
 ## [5.3.0] - 2020-12-17
 
 ### Added
