@@ -7,6 +7,7 @@
 
  - [Bump hibernate.version from 5.4.24.Final to 5.4.27.Final](https://github.com/premium-minds/billy/pull/142)
  - [Bump bcpkix-jdk15on from 1.67 to 1.68](https://github.com/premium-minds/billy/pull/143)
+ - [Bump mockito-core from 3.6.28 to 3.7.0](https://github.com/premium-minds/billy/pull/144)
 
 ## [5.3.0] - 2020-12-17
 
