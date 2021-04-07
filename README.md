@@ -24,7 +24,7 @@ Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search
 
 
 ## Continuous Integration
-[![Build Status](https://travis-ci.com/premium-minds/billy.png?branch=master)](https://travis-ci.com/premium-minds/billy)
+[![Build Status](https://travis-ci.com/premium-minds/billy.png?branch=master)](https://travis-ci.com/github/premium-minds/billy)
 
 CI is hosted by [travis-ci.com](https://travis-ci.com/)
 
