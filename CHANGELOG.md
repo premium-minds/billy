@@ -10,6 +10,11 @@
  - [Bump mockito-core from 3.6.28 to 3.7.0](https://github.com/premium-minds/billy/pull/144)
  - [Bump mockito-core from 3.7.0 to 3.7.7](https://github.com/premium-minds/billy/pull/145)
  - [Bump junit-jupiter-engine from 5.7.0 to 5.7.1](https://github.com/premium-minds/billy/pull/146)
+ - [Bump mockito-core from 3.7.7 to 3.9.0](https://github.com/premium-minds/billy/pull/156)
+ - [Bump snakeyaml from 1.27 to 1.28](https://github.com/premium-minds/billy/pull/148)
+ - [Bump commons-lang3 from 3.11 to 3.12.0](https://github.com/premium-minds/billy/pull/152)
+ - [Bump tiles-maven-plugin from 2.19 to 2.20](https://github.com/premium-minds/billy/pull/154)
+ - [Bump license-maven-plugin from 3.0 to 4.0](https://github.com/premium-minds/billy/pull/155)
 
 ## [5.3.0] - 2020-12-17
 
