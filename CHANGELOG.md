@@ -17,6 +17,7 @@
  - [Bump license-maven-plugin from 3.0 to 4.0](https://github.com/premium-minds/billy/pull/155)
  - [Bump license-maven-plugin from 4.0 to 4.1](https://github.com/premium-minds/billy/pull/160)
  - [Bump tiles-maven-plugin from 2.20 to 2.21](https://github.com/premium-minds/billy/pull/163)
+ - [Bump mockito-core from 3.9.0 to 3.10.0](https://github.com/premium-minds/billy/pull/166)
 
 ## [5.3.0] - 2020-12-17
 
