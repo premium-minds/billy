@@ -7,21 +7,23 @@
 
  - [Bump hibernate.version from 5.4.24.Final to 5.4.27.Final](https://github.com/premium-minds/billy/pull/142)
  - [Bump bcpkix-jdk15on from 1.67 to 1.68](https://github.com/premium-minds/billy/pull/143)
- - [Bump mockito-core from 3.6.28 to 3.7.0](https://github.com/premium-minds/billy/pull/144)
- - [Bump mockito-core from 3.7.0 to 3.7.7](https://github.com/premium-minds/billy/pull/145)
- - [Bump junit-jupiter-engine from 5.7.0 to 5.7.1](https://github.com/premium-minds/billy/pull/146)
- - [Bump mockito-core from 3.7.7 to 3.9.0](https://github.com/premium-minds/billy/pull/156)
  - [Bump snakeyaml from 1.27 to 1.28](https://github.com/premium-minds/billy/pull/148)
  - [Bump commons-lang3 from 3.11 to 3.12.0](https://github.com/premium-minds/billy/pull/152)
+ - [Bump mockito-core from 3.6.28 to 3.7.0](https://github.com/premium-minds/billy/pull/144)
+ - [Bump mockito-core from 3.7.0 to 3.7.7](https://github.com/premium-minds/billy/pull/145)
+ - [Bump mockito-core from 3.7.7 to 3.9.0](https://github.com/premium-minds/billy/pull/156)
+ - [Bump mockito-core from 3.9.0 to 3.10.0](https://github.com/premium-minds/billy/pull/166)
+ - [Bump mockito-core from 3.10.0 to 3.11.0](https://github.com/premium-minds/billy/pull/170)
+ - [Bump junit-jupiter-engine from 5.7.0 to 5.7.1](https://github.com/premium-minds/billy/pull/146)
+ - [Bump junit-jupiter-engine from 5.7.1 to 5.7.2](https://github.com/premium-minds/billy/pull/167)
  - [Bump tiles-maven-plugin from 2.19 to 2.20](https://github.com/premium-minds/billy/pull/154)
+ - [Bump tiles-maven-plugin from 2.20 to 2.21](https://github.com/premium-minds/billy/pull/163)
+ - [Bump tiles-maven-plugin from 2.21 to 2.22](https://github.com/premium-minds/billy/pull/168)
+ - [Bump maven-gpg-plugin from 1.6 to 3.0.1](https://github.com/premium-minds/billy/pull/165)
+ - [Bump maven-javadoc-plugin from 3.2.0 to 3.3.0](https://github.com/premium-minds/billy/pull/169)
  - [Bump license-maven-plugin from 3.0 to 4.0](https://github.com/premium-minds/billy/pull/155)
  - [Bump license-maven-plugin from 4.0 to 4.1](https://github.com/premium-minds/billy/pull/160)
- - [Bump tiles-maven-plugin from 2.20 to 2.21](https://github.com/premium-minds/billy/pull/163)
- - [Bump mockito-core from 3.9.0 to 3.10.0](https://github.com/premium-minds/billy/pull/166)
- - [Bump maven-gpg-plugin from 1.6 to 3.0.1](https://github.com/premium-minds/billy/pull/165)
- - [Bump junit-jupiter-engine from 5.7.1 to 5.7.2](https://github.com/premium-minds/billy/pull/167)
- - [Bump tiles-maven-plugin from 2.21 to 2.22](https://github.com/premium-minds/billy/pull/168)
- - [Bump maven-javadoc-plugin from 3.2.0 to 3.3.0](https://github.com/premium-minds/billy/pull/169)
+
 
 ## [5.3.0] - 2020-12-17
 
