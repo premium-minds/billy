@@ -16,6 +16,7 @@
  - [Bump mockito-core from 3.7.7 to 3.9.0](https://github.com/premium-minds/billy/pull/156)
  - [Bump mockito-core from 3.9.0 to 3.10.0](https://github.com/premium-minds/billy/pull/166)
  - [Bump mockito-core from 3.10.0 to 3.11.0](https://github.com/premium-minds/billy/pull/170)
+ - [Bump mockito-core from 3.11.0 to 3.11.1](https://github.com/premium-minds/billy/pull/174)
  - [Bump junit-jupiter-engine from 5.7.0 to 5.7.1](https://github.com/premium-minds/billy/pull/146)
  - [Bump junit-jupiter-engine from 5.7.1 to 5.7.2](https://github.com/premium-minds/billy/pull/167)
  - [Bump tiles-maven-plugin from 2.19 to 2.20](https://github.com/premium-minds/billy/pull/154)
