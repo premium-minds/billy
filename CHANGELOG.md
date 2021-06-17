@@ -22,6 +22,7 @@
  - [Bump tiles-maven-plugin from 2.19 to 2.20](https://github.com/premium-minds/billy/pull/154)
  - [Bump tiles-maven-plugin from 2.20 to 2.21](https://github.com/premium-minds/billy/pull/163)
  - [Bump tiles-maven-plugin from 2.21 to 2.22](https://github.com/premium-minds/billy/pull/168)
+ - [Bump tiles-maven-plugin from 2.22 to 2.23](https://github.com/premium-minds/billy/pull/175)
  - [Bump maven-gpg-plugin from 1.6 to 3.0.1](https://github.com/premium-minds/billy/pull/165)
  - [Bump maven-javadoc-plugin from 3.2.0 to 3.3.0](https://github.com/premium-minds/billy/pull/169)
  - [Bump license-maven-plugin from 3.0 to 4.0](https://github.com/premium-minds/billy/pull/155)
