@@ -11,6 +11,7 @@
  - [Bump snakeyaml from 1.27 to 1.28](https://github.com/premium-minds/billy/pull/148)
  - [Bump snakeyaml from 1.28 to 1.29](https://github.com/premium-minds/billy/pull/172)
  - [Bump commons-lang3 from 3.11 to 3.12.0](https://github.com/premium-minds/billy/pull/152)
+ - [Bump slf4j-api from 1.7.30 to 1.7.31](https://github.com/premium-minds/billy/pull/176)
  - [Bump mockito-core from 3.6.28 to 3.7.0](https://github.com/premium-minds/billy/pull/144)
  - [Bump mockito-core from 3.7.0 to 3.7.7](https://github.com/premium-minds/billy/pull/145)
  - [Bump mockito-core from 3.7.7 to 3.9.0](https://github.com/premium-minds/billy/pull/156)
