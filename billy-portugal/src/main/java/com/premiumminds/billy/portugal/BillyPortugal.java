@@ -121,11 +121,11 @@ public class BillyPortugal {
     }
 
     public ReceiptInvoices receiptInvoices() {
-    	if (this.receiptInvoices == null) {
-    		this.receiptInvoices = new ReceiptInvoices(this.injector);
-		}
-    	return this.receiptInvoices;
-	}
+        if (this.receiptInvoices == null) {
+            this.receiptInvoices = new ReceiptInvoices(this.injector);
+        }
+        return this.receiptInvoices;
+    }
 
     public SimpleInvoices simpleInvoices() {
         if (this.simpleInvoices == null) {

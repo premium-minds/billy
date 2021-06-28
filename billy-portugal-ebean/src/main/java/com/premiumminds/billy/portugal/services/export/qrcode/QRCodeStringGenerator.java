@@ -27,11 +27,11 @@ import javax.inject.Inject;
 public class QRCodeStringGenerator {
 
     private final Config config;
-	private final PTContexts ptContexts;
+    private final PTContexts ptContexts;
 
     @Inject
     public QRCodeStringGenerator() {
-		this.config = new Config();
+        this.config = new Config();
 
         this.ptContexts= new PTContexts(
             this.config.getUID(Key.Context.Portugal.UUID),
@@ -60,7 +60,7 @@ public class QRCodeStringGenerator {
             .withPTContexts(ptContexts)
             .withGenericCustomerUID(this.config.getUID(Key.Customer.Generic.UUID))
             .withCustomer(document.getCustomer())
-			.withATCUD(document.getATCUD())
+            .withATCUD(document.getATCUD())
             .build();
 
         return QRCodeBuilder.generateQRCodeString(qrCodeData);

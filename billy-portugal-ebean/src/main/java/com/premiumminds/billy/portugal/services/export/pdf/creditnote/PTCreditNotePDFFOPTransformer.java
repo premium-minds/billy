@@ -40,14 +40,14 @@ public class PTCreditNotePDFFOPTransformer extends PTAbstractFOPPDFTransformer<P
     public static final String PARAM_KEYS_INVOICE = "invoice";
 
     public PTCreditNotePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
-										 String softwareCertificationId, Config config) {
+                                         String softwareCertificationId, Config config) {
 
         super(PTCreditNoteData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
 
     public PTCreditNotePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-										 String softwareCertificationId) {
+                                         String softwareCertificationId) {
 
         this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
     }

@@ -39,78 +39,78 @@ import org.mockito.Mockito;
 
 public class TestQRCodeBuilderOnlyExempt extends TestQRCodeBuilderBase{
 
-	@Test
-	public void test(){
-		final Integer seriesNumber = 2549;
-		final String businessFinancialID = "511234566";
-		final TYPE documentType = TYPE.FT;
-		final boolean isCanceled = false;
-		final boolean isBilled = true;
-		final boolean isSelfBilled = false;
-		final Date documentDate = Date.from(Instant.ofEpochSecond(1604402305));
-		final String documentNumber = "FT A/"+seriesNumber;
-		final BigDecimal taxAmount = BigDecimal.valueOf(0);
-		final BigDecimal amountWithTax = BigDecimal.valueOf(100);
-		final BigDecimal itemAmount = BigDecimal.valueOf(100);
-		final String hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUWXYZ";
-		final String atcud = "0";
+    @Test
+    public void test(){
+        final Integer seriesNumber = 2549;
+        final String businessFinancialID = "511234566";
+        final TYPE documentType = TYPE.FT;
+        final boolean isCanceled = false;
+        final boolean isBilled = true;
+        final boolean isSelfBilled = false;
+        final Date documentDate = Date.from(Instant.ofEpochSecond(1604402305));
+        final String documentNumber = "FT A/"+seriesNumber;
+        final BigDecimal taxAmount = BigDecimal.valueOf(0);
+        final BigDecimal amountWithTax = BigDecimal.valueOf(100);
+        final BigDecimal itemAmount = BigDecimal.valueOf(100);
+        final String hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUWXYZ";
+        final String atcud = "0";
 
-		final UID portugalUID = Mockito.mock(UID.class);
-		final UID continenteUID = Mockito.mock(UID.class);
-		final UID azoresUID = Mockito.mock(UID.class);
-		final UID madeiraUID = Mockito.mock(UID.class);
-		final PTContexts ptContexts = new PTContexts(portugalUID, continenteUID, azoresUID, madeiraUID);
+        final UID portugalUID = Mockito.mock(UID.class);
+        final UID continenteUID = Mockito.mock(UID.class);
+        final UID azoresUID = Mockito.mock(UID.class);
+        final UID madeiraUID = Mockito.mock(UID.class);
+        final PTContexts ptContexts = new PTContexts(portugalUID, continenteUID, azoresUID, madeiraUID);
 
-		final UID genericCustomerUID = Mockito.mock(UID.class);
+        final UID genericCustomerUID = Mockito.mock(UID.class);
 
-		String result = null;
-		try {
-			QRCodeData qrCodeData = new QRCodeDataBuilder()
-				.withSeriesNumber(seriesNumber)
-				.withBusinessFinancialID(businessFinancialID)
-				.withDocumentType(documentType)
-				.withIsCancelled(isCanceled)
-				.withIsBilled(isBilled)
-				.withIsSelfBilled(isSelfBilled)
-				.withDocumentDate(documentDate)
-				.withDocumentNumber(documentNumber)
-				.withEntries(generateEntries(itemAmount, ptContexts))
-				.withTaxAmount(taxAmount)
-				.withAmountWithTax(amountWithTax)
-				.withHash(hash)
-				.withApplication(generateOneApplication())
-				.withPTContexts(ptContexts)
-				.withGenericCustomerUID(genericCustomerUID)
-				.withCustomer(generateCustomer(genericCustomerUID))
-				.withATCUD(atcud)
-				.build();
+        String result = null;
+        try {
+            QRCodeData qrCodeData = new QRCodeDataBuilder()
+                .withSeriesNumber(seriesNumber)
+                .withBusinessFinancialID(businessFinancialID)
+                .withDocumentType(documentType)
+                .withIsCancelled(isCanceled)
+                .withIsBilled(isBilled)
+                .withIsSelfBilled(isSelfBilled)
+                .withDocumentDate(documentDate)
+                .withDocumentNumber(documentNumber)
+                .withEntries(generateEntries(itemAmount, ptContexts))
+                .withTaxAmount(taxAmount)
+                .withAmountWithTax(amountWithTax)
+                .withHash(hash)
+                .withApplication(generateOneApplication())
+                .withPTContexts(ptContexts)
+                .withGenericCustomerUID(genericCustomerUID)
+                .withCustomer(generateCustomer(genericCustomerUID))
+                .withATCUD(atcud)
+                .build();
 
-			result = QRCodeBuilder.generateQRCodeString(qrCodeData);
-		} catch (RequiredFieldNotFoundException e) {
-			Assertions.fail();
-		}
+            result = QRCodeBuilder.generateQRCodeString(qrCodeData);
+        } catch (RequiredFieldNotFoundException e) {
+            Assertions.fail();
+        }
 
-		Assertions.assertNotNull(result);
-		Assertions.assertEquals(
-			"A:511234566*B:999999990*C:PT*D:FT*E:F*F:20201103*G:FT A/2549*H:0*"
-				+ "I1:PT*"
-				+ "L:100.00*N:0.00*O:100.00*Q:akuE*R:452",
-			result);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(
+            "A:511234566*B:999999990*C:PT*D:FT*E:F*F:20201103*G:FT A/2549*H:0*"
+                + "I1:PT*"
+                + "L:100.00*N:0.00*O:100.00*Q:akuE*R:452",
+            result);
 
-	}
+    }
 
-	private List<GenericInvoiceEntry> generateEntries(final BigDecimal amountWithoutTax, final PTContexts ptContexts) {
+    private List<GenericInvoiceEntry> generateEntries(final BigDecimal amountWithoutTax, final PTContexts ptContexts) {
 
-		final PTRegionContext portugal = Mockito.mock(PTRegionContext.class);
-		Mockito.when(portugal.getUID()).thenReturn(ptContexts.getPortugalUID());
-		Mockito.when(portugal.getRegionCode()).thenReturn("PT");
+        final PTRegionContext portugal = Mockito.mock(PTRegionContext.class);
+        Mockito.when(portugal.getUID()).thenReturn(ptContexts.getPortugalUID());
+        Mockito.when(portugal.getRegionCode()).thenReturn("PT");
 
-		return generateOneEntryWithOneTax(
-			amountWithoutTax,
-			portugal,
-			"ISE",
-			0,
-			TaxRateType.NONE);
-	}
+        return generateOneEntryWithOneTax(
+            amountWithoutTax,
+            portugal,
+            "ISE",
+            0,
+            TaxRateType.NONE);
+    }
 
 }

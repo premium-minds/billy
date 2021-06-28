@@ -116,10 +116,10 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
         List<BooleanExpression> predicates = new ArrayList<>();
         BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
         predicates.add(validFromPredicate);
-		if (validTo != null) {
-			BooleanExpression validToPredicate = tax.validTo.eq(validTo);
-			predicates.add(validToPredicate);
-		}
+        if (validTo != null) {
+            BooleanExpression validToPredicate = tax.validTo.eq(validTo);
+            predicates.add(validToPredicate);
+        }
         BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
         predicates.add(lessOrEqual);
         BooleanExpression active = tax.active.eq(true);

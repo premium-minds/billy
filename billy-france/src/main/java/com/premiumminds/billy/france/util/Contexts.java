@@ -53,135 +53,135 @@ public class Contexts {
         }
 
         public FRRegionContext alsace() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Alsace.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Alsace.UUID));
         }
 
         public FRRegionContext aquitaine() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Aquitaine.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Aquitaine.UUID));
         }
 
         public FRRegionContext auvergne() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Auvergne.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Auvergne.UUID));
         }
 
         public FRRegionContext basseNormandie() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.BasseNormandie.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.BasseNormandie.UUID));
         }
 
         public FRRegionContext bourgogne() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Bourgogne.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Bourgogne.UUID));
         }
 
         public FRRegionContext bretagne() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Bretagne.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Bretagne.UUID));
         }
 
         public FRRegionContext centre() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Centre.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Centre.UUID));
         }
 
         public FRRegionContext champagneArdenne() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Champagne_Ardenne.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Champagne_Ardenne.UUID));
         }
 
         public FRRegionContext corse() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Corse.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Corse.UUID));
         }
 
         public FRRegionContext francheComte() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Franche_Comte.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Franche_Comte.UUID));
         }
 
         public FRRegionContext hauteNormandie() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.HauteNormandie.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.HauteNormandie.UUID));
         }
 
         public FRRegionContext ileDeFrance() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Ile_de_France.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Ile_de_France.UUID));
         }
 
         public FRRegionContext languedocRoussillon() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Languedoc_Roussillon.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Languedoc_Roussillon.UUID));
         }
 
         public FRRegionContext limousin() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Limousin.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Limousin.UUID));
         }
 
         public FRRegionContext lorraine() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Lorraine.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Lorraine.UUID));
         }
 
         public FRRegionContext midiPyrenees() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.MidiPyrenees.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.MidiPyrenees.UUID));
         }
 
         public FRRegionContext nordPasDeCalais() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Nord_Pas_de_Calais.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Nord_Pas_de_Calais.UUID));
         }
 
         public FRRegionContext paysDeLaLoire() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Pays_de_la_Loire.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Pays_de_la_Loire.UUID));
         }
 
         public FRRegionContext picardie() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Picardie.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Picardie.UUID));
         }
 
         public FRRegionContext poitouCharentes() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Poitou_Charentes.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Poitou_Charentes.UUID));
         }
 
         public FRRegionContext provenceAlpesCoteDAzur() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Provence_Alpes_Cote_d_Azur.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.Provence_Alpes_Cote_d_Azur.UUID));
         }
 
         public FRRegionContext rhoneAlpes() {
-        	DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
-        	return (FRRegionContext) dao
-        		.get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.RhoneAlpes.UUID));
+            DAOFRRegionContext dao = Contexts.this.getInstance(DAOFRRegionContext.class);
+            return (FRRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.France.Continental.RhoneAlpes.UUID));
         }
     }
     

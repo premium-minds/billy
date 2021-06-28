@@ -22,32 +22,32 @@ import com.premiumminds.billy.core.services.UID;
 
 public class PTContexts {
 
-	private final UID portugalUID;
-	private final UID continentalUID;
-	private final UID azoresUID;
-	private final UID madeiraUID;
+    private final UID portugalUID;
+    private final UID continentalUID;
+    private final UID azoresUID;
+    private final UID madeiraUID;
 
-	public PTContexts(
-		final UID portugalUID, final UID continentalUID, final UID azoresUID, final UID madeiraUID) {
-		this.portugalUID = portugalUID;
-		this.continentalUID = continentalUID;
-		this.azoresUID = azoresUID;
-		this.madeiraUID = madeiraUID;
-	}
+    public PTContexts(
+        final UID portugalUID, final UID continentalUID, final UID azoresUID, final UID madeiraUID) {
+        this.portugalUID = portugalUID;
+        this.continentalUID = continentalUID;
+        this.azoresUID = azoresUID;
+        this.madeiraUID = madeiraUID;
+    }
 
-	public UID getPortugalUID() {
-		return portugalUID;
-	}
+    public UID getPortugalUID() {
+        return portugalUID;
+    }
 
-	public UID getContinentalUID() {
-		return continentalUID;
-	}
+    public UID getContinentalUID() {
+        return continentalUID;
+    }
 
-	public UID getAzoresUID() {
-		return azoresUID;
-	}
+    public UID getAzoresUID() {
+        return azoresUID;
+    }
 
-	public UID getMadeiraUID() {
-		return madeiraUID;
-	}
+    public UID getMadeiraUID() {
+        return madeiraUID;
+    }
 }

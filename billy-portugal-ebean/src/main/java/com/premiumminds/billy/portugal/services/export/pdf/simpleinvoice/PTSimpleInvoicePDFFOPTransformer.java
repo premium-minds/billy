@@ -34,14 +34,14 @@ public class PTSimpleInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransforme
         implements PTSimpleInvoicePDFTransformer {
 
     public PTSimpleInvoicePDFFOPTransformer(MathContext mathContext, String logoImagePath, InputStream xsltFileStream,
-											String softwareCertificationId, Config config) {
+                                            String softwareCertificationId, Config config) {
 
         super(PTSimpleInvoiceData.class, mathContext, logoImagePath, xsltFileStream, softwareCertificationId, config);
 
     }
 
     public PTSimpleInvoicePDFFOPTransformer(String logoImagePath, InputStream xsltFileStream,
-											String softwareCertificationId) {
+                                            String softwareCertificationId) {
 
         this(BillyMathContext.get(), logoImagePath, xsltFileStream, softwareCertificationId, new Config());
     }

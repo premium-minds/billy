@@ -26,44 +26,44 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public class TupleContextTypeAmount {
-	public final Context context;
-	public final String type;
-	public final BigDecimal taxAmount;
-	public final BigDecimal amountWithoutTaxes;
+    public final Context context;
+    public final String type;
+    public final BigDecimal taxAmount;
+    public final BigDecimal amountWithoutTaxes;
 
-	TupleContextTypeAmount(
-		final Context context, final String type, final BigDecimal taxAmount, final BigDecimal amountWithoutTaxes) {
-		this.context = context;
-		this.type = type;
-		this.taxAmount = taxAmount;
-		this.amountWithoutTaxes = amountWithoutTaxes;
-	}
+    TupleContextTypeAmount(
+        final Context context, final String type, final BigDecimal taxAmount, final BigDecimal amountWithoutTaxes) {
+        this.context = context;
+        this.type = type;
+        this.taxAmount = taxAmount;
+        this.amountWithoutTaxes = amountWithoutTaxes;
+    }
 
-	public static Function<Tax, TupleContextTypeAmount> taxToTupleContextTypeAmount(final BigDecimal amountWithoutTaxes) {
-		return tax -> {
-			Context context = tax.getContext();
-			String code = tax.getCode();
-			BigDecimal taxValue = tax.getValue();
-			final BigDecimal taxAmount;
-			switch (tax.getTaxRateType()) {
-				case FLAT:
-					taxAmount = taxValue;
-					break;
-				case PERCENTAGE:
-					taxAmount = amountWithoutTaxes.multiply(taxValue.divide(new BigDecimal(100)));
-					break;
-				case NONE:
-				default:
-					taxAmount = BigDecimal.ZERO;
-			}
-			return new TupleContextTypeAmount(context, code, taxAmount, amountWithoutTaxes);
-		};
-	}
+    public static Function<Tax, TupleContextTypeAmount> taxToTupleContextTypeAmount(final BigDecimal amountWithoutTaxes) {
+        return tax -> {
+            Context context = tax.getContext();
+            String code = tax.getCode();
+            BigDecimal taxValue = tax.getValue();
+            final BigDecimal taxAmount;
+            switch (tax.getTaxRateType()) {
+                case FLAT:
+                    taxAmount = taxValue;
+                    break;
+                case PERCENTAGE:
+                    taxAmount = amountWithoutTaxes.multiply(taxValue.divide(new BigDecimal(100)));
+                    break;
+                case NONE:
+                default:
+                    taxAmount = BigDecimal.ZERO;
+            }
+            return new TupleContextTypeAmount(context, code, taxAmount, amountWithoutTaxes);
+        };
+    }
 
-	public static Function<GenericInvoiceEntry, Stream<TupleContextTypeAmount>> getTupleContextTypeAmountStreamFunction() {
-		return entry -> {
-			BigDecimal amountWithoutTax = entry.getAmountWithoutTax();
-			return entry.getTaxes().stream().map(TupleContextTypeAmount.taxToTupleContextTypeAmount(amountWithoutTax));
-		};
-	}
+    public static Function<GenericInvoiceEntry, Stream<TupleContextTypeAmount>> getTupleContextTypeAmountStreamFunction() {
+        return entry -> {
+            BigDecimal amountWithoutTax = entry.getAmountWithoutTax();
+            return entry.getTaxes().stream().map(TupleContextTypeAmount.taxToTupleContextTypeAmount(amountWithoutTax));
+        };
+    }
 }

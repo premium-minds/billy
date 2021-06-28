@@ -74,7 +74,7 @@ public class TestFRReceiptPDFTransformer extends FRPersistencyAbstractTest {
         this.extractor = this.mockedInjector.getInstance(FRReceiptDataExtractor.class);
     }
 
-	@Disabled
+    @Disabled
     @Test
     public void testPDFCreation() throws ExportServiceException, IOException {
         FRReceiptEntity entity = this.receipts.getReceiptEntity();
@@ -95,7 +95,7 @@ public class TestFRReceiptPDFTransformer extends FRPersistencyAbstractTest {
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-	@Disabled
+    @Disabled
     @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
         FRReceiptEntity entity = this.receipts.getReceiptEntity();

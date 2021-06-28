@@ -32,235 +32,235 @@ import java.util.List;
 
 public class QRCodeData {
 
-	private final Integer seriesNumber;
-	private final String financialID;
-	private final TYPE type;
-	private final boolean cancelled;
-	private final boolean billed;
-	private final boolean selfBilled;
-	private final Date date;
-	private final String number;
-	private final List<GenericInvoiceEntry> entries;
-	private final BigDecimal taxAmount;
-	private final BigDecimal amountWithTax;
-	private final String hash;
-	private final Collection<Application> application;
-	private final PTContexts ptContexts;
-	private final UID genericCustomerUID;
-	private final Customer customer;
-	private final String atcud;
+    private final Integer seriesNumber;
+    private final String financialID;
+    private final TYPE type;
+    private final boolean cancelled;
+    private final boolean billed;
+    private final boolean selfBilled;
+    private final Date date;
+    private final String number;
+    private final List<GenericInvoiceEntry> entries;
+    private final BigDecimal taxAmount;
+    private final BigDecimal amountWithTax;
+    private final String hash;
+    private final Collection<Application> application;
+    private final PTContexts ptContexts;
+    private final UID genericCustomerUID;
+    private final Customer customer;
+    private final String atcud;
 
-	protected QRCodeData(QRCodeDataBuilder builder){
-		this.seriesNumber = builder.seriesNumber;
-		this.financialID = builder.financialID;
-		this.type = builder.type;
-		this.cancelled = builder.cancelled;
-		this.billed = builder.billed;
-		this.selfBilled = builder.selfBilled;
-		this.date = builder.date;
-		this.number = builder.number;
-		this.entries = builder.entries;
-		this.taxAmount = builder.taxAmount;
-		this.amountWithTax = builder.amountWithTax;
-		this.hash = builder.hash;
-		this.application = builder.application;
-		this.ptContexts = builder.ptContexts;
-		this.genericCustomerUID = builder.genericCustomerUID;
-		this.customer = builder.customer;
-		this.atcud = builder.atcud;
-	}
+    protected QRCodeData(QRCodeDataBuilder builder){
+        this.seriesNumber = builder.seriesNumber;
+        this.financialID = builder.financialID;
+        this.type = builder.type;
+        this.cancelled = builder.cancelled;
+        this.billed = builder.billed;
+        this.selfBilled = builder.selfBilled;
+        this.date = builder.date;
+        this.number = builder.number;
+        this.entries = builder.entries;
+        this.taxAmount = builder.taxAmount;
+        this.amountWithTax = builder.amountWithTax;
+        this.hash = builder.hash;
+        this.application = builder.application;
+        this.ptContexts = builder.ptContexts;
+        this.genericCustomerUID = builder.genericCustomerUID;
+        this.customer = builder.customer;
+        this.atcud = builder.atcud;
+    }
 
-	public Integer getSeriesNumber() {
-		return seriesNumber;
-	}
+    public Integer getSeriesNumber() {
+        return seriesNumber;
+    }
 
-	public String getFinancialID() {
-		return financialID;
-	}
+    public String getFinancialID() {
+        return financialID;
+    }
 
-	public TYPE getType() {
-		return type;
-	}
+    public TYPE getType() {
+        return type;
+    }
 
-	public boolean isCancelled() {
-		return cancelled;
-	}
+    public boolean isCancelled() {
+        return cancelled;
+    }
 
-	public boolean isBilled() {
-		return billed;
-	}
+    public boolean isBilled() {
+        return billed;
+    }
 
-	public boolean isSelfBilled() {
-		return selfBilled;
-	}
+    public boolean isSelfBilled() {
+        return selfBilled;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Date getDate() {
+        return date;
+    }
 
-	public String getNumber() {
-		return number;
-	}
+    public String getNumber() {
+        return number;
+    }
 
-	public List<GenericInvoiceEntry> getEntries() {
-		return entries;
-	}
+    public List<GenericInvoiceEntry> getEntries() {
+        return entries;
+    }
 
-	public BigDecimal getTaxAmount() {
-		return taxAmount;
-	}
+    public BigDecimal getTaxAmount() {
+        return taxAmount;
+    }
 
-	public BigDecimal getAmountWithTax() {
-		return amountWithTax;
-	}
+    public BigDecimal getAmountWithTax() {
+        return amountWithTax;
+    }
 
-	public String getHash() {
-		return hash;
-	}
+    public String getHash() {
+        return hash;
+    }
 
-	public Collection<Application> getApplication() {
-		return application;
-	}
+    public Collection<Application> getApplication() {
+        return application;
+    }
 
-	public PTContexts getPtContexts() {
-		return ptContexts;
-	}
+    public PTContexts getPtContexts() {
+        return ptContexts;
+    }
 
-	public UID getGenericCustomerUID() {
-		return genericCustomerUID;
-	}
+    public UID getGenericCustomerUID() {
+        return genericCustomerUID;
+    }
 
-	public Customer getCustomer() {
-		return customer;
-	}
+    public Customer getCustomer() {
+        return customer;
+    }
 
-	public String getATCUD() {
-		return atcud;
-	}
+    public String getATCUD() {
+        return atcud;
+    }
 
-	public static class QRCodeDataBuilder {
+    public static class QRCodeDataBuilder {
 
-		Integer seriesNumber;
-		String financialID;
-		TYPE type;
-		Boolean cancelled;
-		Boolean billed;
-		Boolean selfBilled;
-		Date date;
-		String number;
-		List<GenericInvoiceEntry> entries;
-		BigDecimal taxAmount;
-		BigDecimal amountWithTax;
-		String hash;
-		Collection<Application> application;
-		PTContexts ptContexts;
-		UID genericCustomerUID;
-		Customer customer;
-		String atcud;
+        Integer seriesNumber;
+        String financialID;
+        TYPE type;
+        Boolean cancelled;
+        Boolean billed;
+        Boolean selfBilled;
+        Date date;
+        String number;
+        List<GenericInvoiceEntry> entries;
+        BigDecimal taxAmount;
+        BigDecimal amountWithTax;
+        String hash;
+        Collection<Application> application;
+        PTContexts ptContexts;
+        UID genericCustomerUID;
+        Customer customer;
+        String atcud;
 
-		public QRCodeDataBuilder withSeriesNumber(final Integer seriesNumber) {
-			this.seriesNumber = seriesNumber;
-			return this;
-		}
+        public QRCodeDataBuilder withSeriesNumber(final Integer seriesNumber) {
+            this.seriesNumber = seriesNumber;
+            return this;
+        }
 
-		public QRCodeDataBuilder withBusinessFinancialID(final String financialID) {
-			this.financialID = financialID;
-			return this;
-		}
+        public QRCodeDataBuilder withBusinessFinancialID(final String financialID) {
+            this.financialID = financialID;
+            return this;
+        }
 
-		public QRCodeDataBuilder withDocumentType(final TYPE type) {
-			this.type = type;
-			return this;
-		}
+        public QRCodeDataBuilder withDocumentType(final TYPE type) {
+            this.type = type;
+            return this;
+        }
 
-		public QRCodeDataBuilder withIsCancelled(final boolean cancelled) {
-			this.cancelled = cancelled;
-			return this;
-		}
+        public QRCodeDataBuilder withIsCancelled(final boolean cancelled) {
+            this.cancelled = cancelled;
+            return this;
+        }
 
-		public QRCodeDataBuilder withIsBilled(final boolean billed) {
-			this.billed = billed;
-			return this;
-		}
+        public QRCodeDataBuilder withIsBilled(final boolean billed) {
+            this.billed = billed;
+            return this;
+        }
 
-		public QRCodeDataBuilder withIsSelfBilled(final boolean selfBilled) {
-			this.selfBilled = selfBilled;
-			return this;
-		}
+        public QRCodeDataBuilder withIsSelfBilled(final boolean selfBilled) {
+            this.selfBilled = selfBilled;
+            return this;
+        }
 
-		public QRCodeDataBuilder withDocumentDate(final Date date) {
-			this.date = date;
-			return this;
-		}
+        public QRCodeDataBuilder withDocumentDate(final Date date) {
+            this.date = date;
+            return this;
+        }
 
-		public QRCodeDataBuilder withDocumentNumber(final String number) {
-			this.number = number;
-			return this;
-		}
+        public QRCodeDataBuilder withDocumentNumber(final String number) {
+            this.number = number;
+            return this;
+        }
 
-		public QRCodeDataBuilder withEntries(final List<GenericInvoiceEntry> entries) {
-			this.entries = entries;
-			return this;
-		}
+        public QRCodeDataBuilder withEntries(final List<GenericInvoiceEntry> entries) {
+            this.entries = entries;
+            return this;
+        }
 
-		public QRCodeDataBuilder withTaxAmount(final BigDecimal taxAmount) {
-			this.taxAmount = taxAmount;
-			return this;
-		}
+        public QRCodeDataBuilder withTaxAmount(final BigDecimal taxAmount) {
+            this.taxAmount = taxAmount;
+            return this;
+        }
 
-		public QRCodeDataBuilder withAmountWithTax(final BigDecimal amountWithTax) {
-			this.amountWithTax = amountWithTax;
-			return this;
-		}
+        public QRCodeDataBuilder withAmountWithTax(final BigDecimal amountWithTax) {
+            this.amountWithTax = amountWithTax;
+            return this;
+        }
 
-		public QRCodeDataBuilder withHash(final String hash) {
-			this.hash = hash;
-			return this;
-		}
+        public QRCodeDataBuilder withHash(final String hash) {
+            this.hash = hash;
+            return this;
+        }
 
-		public QRCodeDataBuilder withApplication(final Collection<Application> application) {
-			this.application = application;
-			return this;
-		}
+        public QRCodeDataBuilder withApplication(final Collection<Application> application) {
+            this.application = application;
+            return this;
+        }
 
-		public QRCodeDataBuilder withPTContexts(final PTContexts ptContexts) {
-			this.ptContexts = ptContexts;
-			return this;
-		}
+        public QRCodeDataBuilder withPTContexts(final PTContexts ptContexts) {
+            this.ptContexts = ptContexts;
+            return this;
+        }
 
-		public QRCodeDataBuilder withGenericCustomerUID(final UID genericCustomerUID) {
-			this.genericCustomerUID = genericCustomerUID;
-			return this;
-		}
+        public QRCodeDataBuilder withGenericCustomerUID(final UID genericCustomerUID) {
+            this.genericCustomerUID = genericCustomerUID;
+            return this;
+        }
 
-		public QRCodeDataBuilder withCustomer(final Customer customer) {
-			this.customer = customer;
-			return this;
-		}
+        public QRCodeDataBuilder withCustomer(final Customer customer) {
+            this.customer = customer;
+            return this;
+        }
 
-		public QRCodeDataBuilder withATCUD(final String atcud) {
-			this.atcud = atcud;
-			return this;
-		}
+        public QRCodeDataBuilder withATCUD(final String atcud) {
+            this.atcud = atcud;
+            return this;
+        }
 
-		public QRCodeData build() throws RequiredFieldNotFoundException {
-			validateThatAllFieldsArePresent();
-			return new QRCodeData(this);
-		}
+        public QRCodeData build() throws RequiredFieldNotFoundException {
+            validateThatAllFieldsArePresent();
+            return new QRCodeData(this);
+        }
 
-		private void validateThatAllFieldsArePresent() throws RequiredFieldNotFoundException {
-			for(Field f : this.getClass().getDeclaredFields()){
-				try {
-					if(!f.getType().isPrimitive() && f.get(this) == null){
-						throw new RequiredFieldNotFoundException(f.getName());
-					}
-				} catch (IllegalAccessException e) {
-					throw new RequiredFieldNotFoundException(f.getName());
-				}
-			}
-		}
+        private void validateThatAllFieldsArePresent() throws RequiredFieldNotFoundException {
+            for(Field f : this.getClass().getDeclaredFields()){
+                try {
+                    if(!f.getType().isPrimitive() && f.get(this) == null){
+                        throw new RequiredFieldNotFoundException(f.getName());
+                    }
+                } catch (IllegalAccessException e) {
+                    throw new RequiredFieldNotFoundException(f.getName());
+                }
+            }
+        }
 
-	}
+    }
 
 
 }

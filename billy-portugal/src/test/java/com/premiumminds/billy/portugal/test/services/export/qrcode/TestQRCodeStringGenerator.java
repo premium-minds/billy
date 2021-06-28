@@ -42,92 +42,92 @@ import org.junit.jupiter.api.Test;
 
 public class TestQRCodeStringGenerator extends PTDocumentAbstractTest {
 
-	private static final TYPE DEFAULT_TYPE = TYPE.FT;
-	private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
+    private static final TYPE DEFAULT_TYPE = TYPE.FT;
+    private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
-	private PTInvoiceIssuingHandler handler;
-	private UID issuedInvoiceUID;
-	private QRCodeStringGenerator underTest;
-	private DAOInvoiceSeries daoInvoiceSeries;
+    private PTInvoiceIssuingHandler handler;
+    private UID issuedInvoiceUID;
+    private QRCodeStringGenerator underTest;
+    private DAOInvoiceSeries daoInvoiceSeries;
 
-	@BeforeEach
-	public void setUp() {
-		this.handler = this.getInstance(PTInvoiceIssuingHandler.class);
-		this.daoInvoiceSeries = this.getInstance(DAOInvoiceSeries.class);
-		this.underTest = new QRCodeStringGenerator();
-	}
+    @BeforeEach
+    public void setUp() {
+        this.handler = this.getInstance(PTInvoiceIssuingHandler.class);
+        this.daoInvoiceSeries = this.getInstance(DAOInvoiceSeries.class);
+        this.underTest = new QRCodeStringGenerator();
+    }
 
-	@Test
-	public void testGenerateQRCodeData() {
-		generateInvoice(true);
-		final PTInvoice document = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
+    @Test
+    public void testGenerateQRCodeData() {
+        generateInvoice(true);
+        final PTInvoice document = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
-		String result = null;
-		try {
-			result = underTest.generateQRCodeData(document);
-		} catch (RequiredFieldNotFoundException e) {
-			Assertions.fail();
-		}
+        String result = null;
+        try {
+            result = underTest.generateQRCodeData(document);
+        } catch (RequiredFieldNotFoundException e) {
+            Assertions.fail();
+        }
 
-		final LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-		final String hash = String.valueOf(document.getHash().charAt(0)) + document.getHash().charAt(10) +
-			document.getHash().charAt(20) + document.getHash().charAt(30);
-		Assertions.assertNotNull(result);
-		Assertions.assertEquals(
-			"A:123456789*B:123456789*C:PT*D:FT*E:N*F:"
-				+ now.format(formatter)
-				+ "*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
-				+ hash
-				+ "*R:1",
-			result
-			);
+        final LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        final String hash = String.valueOf(document.getHash().charAt(0)) + document.getHash().charAt(10) +
+            document.getHash().charAt(20) + document.getHash().charAt(30);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(
+            "A:123456789*B:123456789*C:PT*D:FT*E:N*F:"
+                + now.format(formatter)
+                + "*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
+                + hash
+                + "*R:1",
+            result
+            );
 
-	}
+    }
 
-	@Test
-	public void testGenerateQRCodeDataNoATCUD() {
-		generateInvoice(false);
-		final PTInvoice document = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
+    @Test
+    public void testGenerateQRCodeDataNoATCUD() {
+        generateInvoice(false);
+        final PTInvoice document = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
-		String result = null;
-		try {
-			result = underTest.generateQRCodeData(document);
-		} catch (RequiredFieldNotFoundException e) {
-			Assertions.fail();
-		}
+        String result = null;
+        try {
+            result = underTest.generateQRCodeData(document);
+        } catch (RequiredFieldNotFoundException e) {
+            Assertions.fail();
+        }
 
-		final LocalDateTime now = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-		final String hash = String.valueOf(document.getHash().charAt(0)) + document.getHash().charAt(10) +
-			document.getHash().charAt(20) + document.getHash().charAt(30);
-		Assertions.assertNotNull(result);
-		Assertions.assertEquals(
-			"A:123456789*B:123456789*C:PT*D:FT*E:N*F:"
-				+ now.format(formatter)
-				+ "*G:FT DEFAULT/1*H:0*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
-				+ hash
-				+ "*R:1",
-			result
-	   );
+        final LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        final String hash = String.valueOf(document.getHash().charAt(0)) + document.getHash().charAt(10) +
+            document.getHash().charAt(20) + document.getHash().charAt(30);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(
+            "A:123456789*B:123456789*C:PT*D:FT*E:N*F:"
+                + now.format(formatter)
+                + "*G:FT DEFAULT/1*H:0*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
+                + hash
+                + "*R:1",
+            result
+       );
 
-	}
+    }
 
-	private void generateInvoice(boolean withATCUD){
-		try {
-			PTInvoiceEntity invoice = this.newInvoice(DEFAULT_TYPE,
-													  SOURCE_BILLING);
-			if(withATCUD) {
-				InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-				entity.setBusiness(invoice.getBusiness());
-				entity.setSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
-				entity.setSeriesUniqueCode("ATCUD12345");
-				daoInvoiceSeries.create(entity);
-			}
-			this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
-			this.issuedInvoiceUID = invoice.getUID();
-		} catch (DocumentIssuingException e) {
-			Assertions.fail(e.getMessage());
-		}
-	}
+    private void generateInvoice(boolean withATCUD){
+        try {
+            PTInvoiceEntity invoice = this.newInvoice(DEFAULT_TYPE,
+                                                      SOURCE_BILLING);
+            if(withATCUD) {
+                InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
+                entity.setBusiness(invoice.getBusiness());
+                entity.setSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
+                entity.setSeriesUniqueCode("ATCUD12345");
+                daoInvoiceSeries.create(entity);
+            }
+            this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
+            this.issuedInvoiceUID = invoice.getUID();
+        } catch (DocumentIssuingException e) {
+            Assertions.fail(e.getMessage());
+        }
+    }
 }

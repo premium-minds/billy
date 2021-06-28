@@ -81,21 +81,21 @@ public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditN
         // The <generic> specs below are necessary because type inference fails here for unknown reasons
         // If removed, these lines will fail in runtime with a linkage error (ClassCastException)
         BillyValidator.mandatory(cn.getQuantity(),
-								 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
+                                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(cn.getUnitOfMeasure(),
-								 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
+                                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
         BillyValidator.<Object>mandatory(cn.getProduct(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(cn.getTaxes(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(cn.getTaxAmount(),
-								 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
+                                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(cn.getTaxPointDate(),
-								 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+                                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
         BillyValidator.mandatory(cn.getReference(),
-								 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+                                 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
         BillyValidator.mandatory(cn.getReason(),
-								 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
+                                 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
 
         this.ValidatePTCreditNoteEntry(cn);
     }

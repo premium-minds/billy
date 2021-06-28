@@ -66,9 +66,9 @@ public class PTSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
             throw new ExportServiceException(e);
         }
         return new PTSimpleInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
-									   costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-									   entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash(),
-									   qrCodeString);
+                                       costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+                                       entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash(),
+                                       qrCodeString);
     }
 
 }

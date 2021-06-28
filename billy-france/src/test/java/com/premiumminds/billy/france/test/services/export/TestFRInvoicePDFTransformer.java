@@ -141,7 +141,7 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
         this.transformer.transform(entityData, os);
     }
 
-	@Disabled
+    @Disabled
     @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
         FRInvoiceEntity entity = this.generateFRInvoice();

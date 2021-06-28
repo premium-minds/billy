@@ -435,7 +435,7 @@ public class PTSAFTFileGenerator {
                 application.getDeveloperCompanyTaxIdentifier(), this.MAX_LENGTH_20, true));
         hdr.setSoftwareCertificateNumber(
                 this.validateBigInteger("SoftwareCertificateNumber", application.getSoftwareCertificationNumber().toString(),
-					this.MAX_LENGTH_255, true));
+                    this.MAX_LENGTH_255, true));
         hdr.setProductID(this.validateString("ProductID",
                 application.getName() + "/" + application.getDeveloperCompanyName(), this.MAX_LENGTH_255, true));
         hdr.setProductVersion(

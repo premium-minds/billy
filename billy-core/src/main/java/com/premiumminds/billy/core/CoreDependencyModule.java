@@ -39,24 +39,24 @@ public class CoreDependencyModule extends AbstractModule {
     protected void configure() {
         this.bind(DocumentIssuingService.class).to(DocumentIssuingServiceImpl.class);
 
-		Matcher<Object> allClassesMatcher = Matchers.any();
-		AbstractMatcher<Method> nonSyntheticMethods = new AbstractMatcher<Method>() {
-			@Override
-			public boolean matches(Method method) {
-				return !method.isSynthetic();
-			}
-		};
+        Matcher<Object> allClassesMatcher = Matchers.any();
+        AbstractMatcher<Method> nonSyntheticMethods = new AbstractMatcher<Method>() {
+            @Override
+            public boolean matches(Method method) {
+                return !method.isSynthetic();
+            }
+        };
 
-		Matcher<AnnotatedElement> notImplementedMatcher = Matchers.annotatedWith(NotImplemented.class);
-		Matcher<Method> combinedMethodMatcher1 = nonSyntheticMethods.and(notImplementedMatcher);
-		NotImplementedInterceptor notImplementedInterceptor = new NotImplementedInterceptor();
-		this.bindInterceptor(allClassesMatcher, combinedMethodMatcher1, notImplementedInterceptor);
+        Matcher<AnnotatedElement> notImplementedMatcher = Matchers.annotatedWith(NotImplemented.class);
+        Matcher<Method> combinedMethodMatcher1 = nonSyntheticMethods.and(notImplementedMatcher);
+        NotImplementedInterceptor notImplementedInterceptor = new NotImplementedInterceptor();
+        this.bindInterceptor(allClassesMatcher, combinedMethodMatcher1, notImplementedInterceptor);
 
 
-		Matcher<AnnotatedElement> annotatedElementMatcher = Matchers.annotatedWith(NotOnUpdate.class);
-		Matcher<Method> combinedMethodMatcher2 = nonSyntheticMethods.and(annotatedElementMatcher);
-		NotOnUpdateInterceptor notOnUpdateInterceptor = new NotOnUpdateInterceptor();
-		this.bindInterceptor(allClassesMatcher, combinedMethodMatcher2, notOnUpdateInterceptor);
+        Matcher<AnnotatedElement> annotatedElementMatcher = Matchers.annotatedWith(NotOnUpdate.class);
+        Matcher<Method> combinedMethodMatcher2 = nonSyntheticMethods.and(annotatedElementMatcher);
+        NotOnUpdateInterceptor notOnUpdateInterceptor = new NotOnUpdateInterceptor();
+        this.bindInterceptor(allClassesMatcher, combinedMethodMatcher2, notOnUpdateInterceptor);
     }
 
     public static class Initializer {

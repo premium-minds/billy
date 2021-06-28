@@ -21,11 +21,11 @@ package com.premiumminds.billy.portugal.services.export.qrcode;
 import java.math.BigDecimal;
 
 public class TupleTaxAmountAndAmountWithoutTaxes {
-	public final BigDecimal taxAmount;
-	public final BigDecimal amountWithoutTaxes;
+    public final BigDecimal taxAmount;
+    public final BigDecimal amountWithoutTaxes;
 
-	TupleTaxAmountAndAmountWithoutTaxes(final BigDecimal taxAmount, final BigDecimal amountWithoutTaxes) {
-		this.taxAmount = taxAmount;
-		this.amountWithoutTaxes = amountWithoutTaxes;
-	}
+    TupleTaxAmountAndAmountWithoutTaxes(final BigDecimal taxAmount, final BigDecimal amountWithoutTaxes) {
+        this.taxAmount = taxAmount;
+        this.amountWithoutTaxes = amountWithoutTaxes;
+    }
 }
