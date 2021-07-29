@@ -7,6 +7,7 @@
 
  - [Bump hibernate.version from 5.4.24.Final to 5.4.27.Final](https://github.com/premium-minds/billy/pull/142)
  - [Bump hibernate.version from 5.4.27.Final to 5.5.3.Final](https://github.com/premium-minds/billy/pull/178)
+ - [Bump hibernate.version from 5.5.3.Final to 5.5.5.Final](https://github.com/premium-minds/billy/pull/185)
  - [Bump bcpkix-jdk15on from 1.67 to 1.68](https://github.com/premium-minds/billy/pull/143)
  - [Bump bcpkix-jdk15on from 1.68 to 1.69](https://github.com/premium-minds/billy/pull/173)
  - [Bump snakeyaml from 1.27 to 1.28](https://github.com/premium-minds/billy/pull/148)
