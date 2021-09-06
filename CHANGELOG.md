@@ -36,6 +36,7 @@
  - [Bump license-maven-plugin from 3.0 to 4.0](https://github.com/premium-minds/billy/pull/155)
  - [Bump license-maven-plugin from 4.0 to 4.1](https://github.com/premium-minds/billy/pull/160)
  - [Bump maven-scm-provider-gitexe from 1.11.2 to 1.11.3](https://github.com/premium-minds/billy/pull/187)
+ - [Bump maven-scm-api from 1.11.2 to 1.11.3](https://github.com/premium-minds/billy/pull/188)
 
 ## [5.3.0] - 2020-12-17
 
