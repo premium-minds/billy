@@ -33,7 +33,7 @@
  - [Bump maven-javadoc-plugin from 3.2.0 to 3.3.0](https://github.com/premium-minds/billy/pull/169)
  - [Bump license-maven-plugin from 3.0 to 4.0](https://github.com/premium-minds/billy/pull/155)
  - [Bump license-maven-plugin from 4.0 to 4.1](https://github.com/premium-minds/billy/pull/160)
-
+ - [Bump maven-scm-provider-gitexe from 1.11.2 to 1.11.3](https://github.com/premium-minds/billy/pull/187)
 
 ## [5.3.0] - 2020-12-17
 
