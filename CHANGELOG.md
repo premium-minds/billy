@@ -28,6 +28,7 @@
  - [Bump junit-jupiter-engine from 5.7.0 to 5.7.1](https://github.com/premium-minds/billy/pull/146)
  - [Bump junit-jupiter-engine from 5.7.1 to 5.7.2](https://github.com/premium-minds/billy/pull/167)
  - [Bump junit-jupiter-engine from 5.7.2 to 5.8.0](https://github.com/premium-minds/billy/pull/196)
+ - [Bump junit-jupiter-engine from 5.8.0 to 5.8.1](https://github.com/premium-minds/billy/pull/199)
  - [Bump tiles-maven-plugin from 2.19 to 2.20](https://github.com/premium-minds/billy/pull/154)
  - [Bump tiles-maven-plugin from 2.20 to 2.21](https://github.com/premium-minds/billy/pull/163)
  - [Bump tiles-maven-plugin from 2.21 to 2.22](https://github.com/premium-minds/billy/pull/168)
