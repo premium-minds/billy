@@ -24,9 +24,8 @@ Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search
 
 
 ## Continuous Integration
-[![Build Status](https://travis-ci.com/premium-minds/billy.png?branch=master)](https://travis-ci.com/github/premium-minds/billy)
 
-CI is hosted by [travis-ci.com](https://travis-ci.com/)
+[![Java CI with Maven](https://github.com/premium-minds/billy/actions/workflows/maven.yml/badge.svg)](https://github.com/premium-minds/billy/actions/workflows/maven.yml)
 
 ## Javadoc
 
