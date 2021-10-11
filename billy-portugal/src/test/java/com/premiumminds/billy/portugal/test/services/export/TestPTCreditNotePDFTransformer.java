@@ -32,7 +32,7 @@ import java.io.OutputStream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -91,7 +91,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         PTInvoiceEntity invoice = this.getNewIssuedInvoice();
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(creditNote);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(creditNote);
         DAOPTInvoice daoPTInvoice = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(daoPTInvoice.get(invoice.getUID())).thenReturn(invoice);
 
@@ -114,7 +114,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         PTInvoiceEntity invoice = this.getNewIssuedInvoice();
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(creditNote);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(creditNote);
         DAOPTInvoice daoPTInvoice = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(daoPTInvoice.get(invoice.getUID())).thenReturn(invoice);
 

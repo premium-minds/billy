@@ -25,6 +25,7 @@
  - [Bump mockito-core from 3.11.0 to 3.11.1](https://github.com/premium-minds/billy/pull/174)
  - [Bump mockito-core from 3.11.1 to 3.11.2](https://github.com/premium-minds/billy/pull/177)
  - [Bump mockito-core from 3.11.2 to 3.12.4](https://github.com/premium-minds/billy/pull/193)
+ - [Bump mockito-core from 3.12.4 to 4.0.0](https://github.com/premium-minds/billy/pull/200)
  - [Bump junit-jupiter-engine from 5.7.0 to 5.7.1](https://github.com/premium-minds/billy/pull/146)
  - [Bump junit-jupiter-engine from 5.7.1 to 5.7.2](https://github.com/premium-minds/billy/pull/167)
  - [Bump junit-jupiter-engine from 5.7.2 to 5.8.0](https://github.com/premium-minds/billy/pull/196)

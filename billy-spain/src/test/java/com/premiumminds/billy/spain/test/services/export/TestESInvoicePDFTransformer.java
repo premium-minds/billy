@@ -31,14 +31,13 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
@@ -82,7 +81,7 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 
         ESInvoiceEntity entity = this.generateESInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
 
@@ -104,7 +103,7 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 
         ESInvoiceEntity entity = this.generateOtherRegionsInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultDiferentRegions", ".pdf"));
 
@@ -118,7 +117,7 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 
         ESInvoiceEntity entity = this.generateManyEntriesInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntries", ".pdf"));
 
@@ -132,7 +131,7 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 
         ESInvoiceEntity entity = this.generateManyEntriesWithDiferentRegionsInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf"));
 
@@ -144,7 +143,7 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
         ESInvoiceEntity entity = this.generateESInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
 

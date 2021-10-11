@@ -34,7 +34,7 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -87,7 +87,7 @@ public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTes
         UID uidEntity = UID.fromString("12345");
         PTReceiptInvoiceEntity invoice = this.generatePTReceiptInvoice(PaymentMechanism.CASH);
         DAOPTReceiptInvoice dao = this.mockedInjector.getInstance(DAOPTReceiptInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
@@ -108,7 +108,7 @@ public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTes
         UID uidEntity = UID.fromString("12345");
         PTReceiptInvoiceEntity invoice = this.generatePTReceiptInvoice(PaymentMechanism.CASH);
         DAOPTReceiptInvoice dao = this.mockedInjector.getInstance(DAOPTReceiptInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
