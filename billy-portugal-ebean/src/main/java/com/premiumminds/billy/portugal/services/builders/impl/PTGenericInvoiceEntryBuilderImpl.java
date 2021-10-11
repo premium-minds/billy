@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import com.premiumminds.billy.core.services.entities.Tax;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -86,6 +87,20 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
             BillyValidator.mandatory(i.getTaxExemptionCode(),
                     PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
         }
+		if(i.getTaxAmount().equals(BigDecimal.ZERO)
+			|| (i.getTaxes().stream().map(Tax::getPercentageRateValue).reduce(BigDecimal.ZERO, BigDecimal::add).equals(BigDecimal.ZERO))) {
+
+			BillyValidator.mandatory(
+				i.getTaxExemptionCode(),
+				PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
+
+		}
+		if(i.getTaxExemptionCode() != null) {
+			BillyValidator.matchesPattern(
+				i.getTaxExemptionCode(),
+				"(M[0-9]{2})+",
+				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
+		}
     }
 
 }

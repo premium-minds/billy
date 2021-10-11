@@ -108,7 +108,7 @@ public abstract class FOPPDFTransformer {
     protected void transformToStream(InputStream templateStream, ParamsTree<String, String> documentParams,
             OutputStream outStream) throws ExportServiceException {
 
-        // creation of transform source§
+        // creation of transform source
         StreamSource transformSource = new StreamSource(templateStream);
 
         // create an instance of fop factory

@@ -107,13 +107,13 @@ public class TestPTInvoiceEntryBuilder extends PTAbstractTest {
 		MockPTInvoiceEntity mockInvoice =
 			this.createMockEntity(MockPTInvoiceEntity.class, TestPTInvoiceEntryBuilder.PT_INVOICE_YML);
 
-		Mockito.when(this.getInstance(DAOPTInvoice.class).get(Matchers.any(UID.class))).thenReturn(mockInvoice);
+		Mockito.when(this.getInstance(DAOPTInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
 
-		Mockito.when(this.getInstance(DAOPTProduct.class).get(Matchers.any(UID.class)))
+		Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
 			   .thenReturn((PTProductEntity) mock.getProduct());
 
-		Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Matchers.any(Context.class),
-																				   Matchers.any(Context.class))).thenReturn(true);
+		Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),
+																				   Mockito.any(Context.class))).thenReturn(true);
 
 		mock.getDocumentReferences().add(mockInvoice);
 
@@ -126,7 +126,6 @@ public class TestPTInvoiceEntryBuilder extends PTAbstractTest {
 			.setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
 			.setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
 			.setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"))
-			.setTaxExemptionReason(mock.getTaxExemptionReason())
 			.setTaxExemptionCode("M 9 9");
 
 		try {
