@@ -33,7 +33,7 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -87,7 +87,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         UID uidEntity = UID.fromString("12345");
         PTInvoiceEntity invoice = this.generatePTInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
 
@@ -109,7 +109,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         UID uidEntity = UID.fromString("12345");
         PTInvoiceEntity invoice = this.generateOtherregionsInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultDiferentRegions", ".pdf"));
 
@@ -124,7 +124,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         UID uidEntity = UID.fromString("12345");
         PTInvoiceEntity invoice = this.generateManyEntriesInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntries", ".pdf"));
 
@@ -139,7 +139,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         UID uidEntity = UID.fromString("12345");
         PTInvoiceEntity invoice = this.generateManyEntriesWithDiferentRegionsInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf"));
 
@@ -152,7 +152,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         UID uidEntity = UID.fromString("12345");
         PTInvoiceEntity invoice = this.generatePTInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(invoice);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
 

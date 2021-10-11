@@ -31,7 +31,7 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -89,9 +89,9 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         ESReceiptEntity receipt = this.getNewIssuedReceipt((new UID()).toString());
         ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
         DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
-        Mockito.when(daoReceipt.get(Matchers.eq(receipt.getUID()))).thenReturn(receipt);
+        Mockito.when(daoReceipt.get(ArgumentMatchers.eq(receipt.getUID()))).thenReturn(receipt);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
@@ -115,9 +115,9 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         ESReceiptEntity receipt = this.getNewIssuedReceipt((new UID()).toString());
         ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
         DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
-        Mockito.when(daoReceipt.get(Matchers.eq(receipt.getUID()))).thenReturn(receipt);
+        Mockito.when(daoReceipt.get(ArgumentMatchers.eq(receipt.getUID()))).thenReturn(receipt);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
