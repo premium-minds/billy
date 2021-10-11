@@ -31,7 +31,7 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -89,9 +89,9 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         FRInvoiceEntity invoice = this.getNewIssuedInvoice();
         FRCreditNoteEntity entity = this.generateFRCreditNote(PaymentMechanism.CASH, invoice);
         DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
-        Mockito.when(daoInvoice.get(Matchers.eq(invoice.getUID()))).thenReturn(invoice);
+        Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
@@ -114,7 +114,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         FRInvoiceEntity invoice = this.getNewIssuedInvoice();
         FRCreditNoteEntity entity = this.generateFRCreditNote(PaymentMechanism.CASH, invoice);
         DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
 
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
@@ -127,9 +127,9 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         FRInvoiceEntity invoice = this.getNewIssuedInvoice();
         FRCreditNoteEntity entity = this.generateFRCreditNote(PaymentMechanism.CASH, invoice);
         DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
-        Mockito.when(dao.get(Matchers.eq(uidEntity))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
-        Mockito.when(daoInvoice.get(Matchers.eq(invoice.getUID()))).thenReturn(invoice);
+        Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 

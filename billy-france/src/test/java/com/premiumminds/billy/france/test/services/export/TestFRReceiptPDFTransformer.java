@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -79,7 +79,7 @@ public class TestFRReceiptPDFTransformer extends FRPersistencyAbstractTest {
     public void testPDFCreation() throws ExportServiceException, IOException {
         FRReceiptEntity entity = this.receipts.getReceiptEntity();
         DAOFRReceipt dao = this.mockedInjector.getInstance(DAOFRReceipt.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
 
@@ -100,7 +100,7 @@ public class TestFRReceiptPDFTransformer extends FRPersistencyAbstractTest {
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
         FRReceiptEntity entity = this.receipts.getReceiptEntity();
         DAOFRReceipt dao = this.mockedInjector.getInstance(DAOFRReceipt.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
 

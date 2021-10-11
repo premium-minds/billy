@@ -24,7 +24,6 @@ import java.util.Currency;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.services.UID;

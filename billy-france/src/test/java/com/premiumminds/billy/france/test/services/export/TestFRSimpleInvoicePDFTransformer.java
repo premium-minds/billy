@@ -31,7 +31,7 @@ import java.security.NoSuchAlgorithmException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 import com.google.inject.Guice;
@@ -81,7 +81,7 @@ public class TestFRSimpleInvoicePDFTransformer extends FRPersistencyAbstractTest
 
         FRSimpleInvoiceEntity entity = this.generateFRSimpleInvoice(PaymentMechanism.CASH);
         DAOFRSimpleInvoice dao = this.mockedInjector.getInstance(DAOFRSimpleInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
@@ -101,7 +101,7 @@ public class TestFRSimpleInvoicePDFTransformer extends FRPersistencyAbstractTest
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
         FRSimpleInvoiceEntity entity = this.generateFRSimpleInvoice(PaymentMechanism.CASH);
         DAOFRSimpleInvoice dao = this.mockedInjector.getInstance(DAOFRSimpleInvoice.class);
-        Mockito.when(dao.get(Matchers.eq(entity.getUID()))).thenReturn(entity);
+        Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
         OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
 
