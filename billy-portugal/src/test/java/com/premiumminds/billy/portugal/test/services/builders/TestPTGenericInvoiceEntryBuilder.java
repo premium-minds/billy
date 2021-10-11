@@ -170,15 +170,14 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 			.setShippingCostsAmount(mock.getShippingCostsAmount())
 			.setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
 			.setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
-			.setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"))
-			.setTaxExemptionCode("M 9 9");
+			.setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"));
 
 		try {
 			builder.build();
 			Assertions.fail();
 
-		} catch (IllegalArgumentException ex) {
-			Assertions.assertEquals("Tax Exemption Code", ex.getMessage());
+		} catch (NullPointerException ex) {
+			Assertions.assertEquals("The field Tax Exemption Code is mandatory", ex.getMessage());
 		}
 	}
 }

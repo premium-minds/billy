@@ -51,8 +51,8 @@ product : !!com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity
         validFrom: 2013-01-01
         validTo: 2013-12-12
         taxRateType : PERCENTAGE
-        percentageRateValue : 23
-        flatRateAmount : 13
+        percentageRateValue : 0
+        flatRateAmount : 0
         context : !!com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity
           uid : context_uid
           name : name
@@ -121,9 +121,9 @@ taxPointDate : 2013-10-20
 unitAmountWithoutTax : !!java.math.BigDecimal
   10
 unitAmountWithTax : !!java.math.BigDecimal
-  12.3
+  10
 unitTaxAmount : !!java.math.BigDecimal
-  2.3
+  0
 unitDiscountAmount : !!java.math.BigDecimal
   0
 unitOfMeasure : kg
