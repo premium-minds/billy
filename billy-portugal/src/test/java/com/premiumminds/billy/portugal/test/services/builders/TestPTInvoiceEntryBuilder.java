@@ -93,4 +93,48 @@ public class TestPTInvoiceEntryBuilder extends PTAbstractTest {
         Assertions.assertTrue(mock.getDiscountAmount().compareTo(entry.getDiscountAmount()) == 0);
 
     }
+
+	@Test
+	public void doTestFailWithInvalidTaxExemptionCode() {
+		MockPTInvoiceEntryEntity mock =
+			this.createMockEntity(MockPTInvoiceEntryEntity.class, TestPTInvoiceEntryBuilder.PT_INVOICE_ENTRY_YML);
+
+		mock.currency = Currency.getInstance("EUR");
+
+		Mockito.when(this.getInstance(DAOPTInvoiceEntry.class).getEntityInstance())
+			   .thenReturn(new MockPTInvoiceEntryEntity());
+
+		MockPTInvoiceEntity mockInvoice =
+			this.createMockEntity(MockPTInvoiceEntity.class, TestPTInvoiceEntryBuilder.PT_INVOICE_YML);
+
+		Mockito.when(this.getInstance(DAOPTInvoice.class).get(Matchers.any(UID.class))).thenReturn(mockInvoice);
+
+		Mockito.when(this.getInstance(DAOPTProduct.class).get(Matchers.any(UID.class)))
+			   .thenReturn((PTProductEntity) mock.getProduct());
+
+		Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Matchers.any(Context.class),
+																				   Matchers.any(Context.class))).thenReturn(true);
+
+		mock.getDocumentReferences().add(mockInvoice);
+
+		PTInvoiceEntry.Builder builder = this.getInstance(PTInvoiceEntry.Builder.class);
+
+		builder
+			.setDescription(mock.getDescription())
+			.addDocumentReferenceUID(mock.getDocumentReferences().get(0).getUID()).setQuantity(mock.getQuantity())
+			.setShippingCostsAmount(mock.getShippingCostsAmount())
+			.setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
+			.setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
+			.setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"))
+			.setTaxExemptionReason(mock.getTaxExemptionReason())
+			.setTaxExemptionCode("M 9 9");
+
+		try {
+			builder.build();
+			Assertions.fail();
+
+		} catch (IllegalArgumentException ex) {
+			Assertions.assertEquals("Tax Exemption Code", ex.getMessage());
+		}
+	}
 }

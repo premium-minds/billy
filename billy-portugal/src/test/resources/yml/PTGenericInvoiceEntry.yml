@@ -116,6 +116,7 @@ taxes:
         name : parent_name
         description : parent_description
 taxExemptionReason : exemption_reason
+taxExemptionCode : M99
 taxPointDate : 2013-10-20
 unitAmountWithoutTax : !!java.math.BigDecimal
   10
