@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import com.premiumminds.billy.core.services.entities.Tax;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -72,10 +73,24 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
         BillyValidator.mandatory(i.getTaxAmount(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxPointDate(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
-        if (i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0) {
-            BillyValidator.mandatory(i.getTaxExemptionReason(),
-                    PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
-        }
+		if(i.getTaxAmount().equals(BigDecimal.ZERO)
+			|| (i.getTaxes().stream().map(Tax::getPercentageRateValue).reduce(BigDecimal.ZERO, BigDecimal::add).equals(BigDecimal.ZERO))) {
+
+			BillyValidator.mandatory(
+				i.getTaxExemptionCode(),
+				PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
+			BillyValidator.mandatory(
+				i.getTaxExemptionReason(),
+				PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+
+		}
+		if(i.getTaxExemptionCode() != null) {
+			BillyValidator.matchesPattern(
+				i.getTaxExemptionCode(),
+				"(M[0-9]{2})+",
+				GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
+		}
+
     }
 
 }
