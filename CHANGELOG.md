@@ -45,6 +45,10 @@
  - [Bump maven-scm-api from 1.11.2 to 1.11.3](https://github.com/premium-minds/billy/pull/188)
  - [Bump maven-scm-api from 1.11.3 to 1.12.0](https://github.com/premium-minds/billy/pull/197)
 
+### Fixed
+
+ - [Tax Exemption Code in Portugal Validation](https://github.com/premium-minds/billy/issues/201)
+
 ## [5.3.0] - 2020-12-17
 
 ### Added
