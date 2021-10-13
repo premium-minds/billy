@@ -23,6 +23,7 @@ import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.ebean.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
@@ -58,6 +59,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
             final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException {
 
         String series = parametersPT.getInvoiceSeries();
+
+		validateSeriesHasNoWhiteSpaces(series);
 
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
@@ -97,6 +100,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
         String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
+		validatePTInvoiceNumber(formattedNumber);
+
         String newHash = GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
                 invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
 
@@ -131,6 +136,22 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         return document;
 
     }
+
+	private void validatePTInvoiceNumber(final String formattedNumber) throws DocumentIssuingException {
+		try {
+			BillyValidator.matchesPattern(formattedNumber, "([a-zA-Z0-9./_-])+ ([a-zA-Z0-9]*/[0-9]+)", "field.documentNumber");
+		} catch (IllegalArgumentException e) {
+			throw new DocumentIssuingException(e);
+		}
+	}
+
+	private void validateSeriesHasNoWhiteSpaces(final String series) throws DocumentIssuingException {
+		try {
+			BillyValidator.matchesPattern(series, "[a-zA-Z0-9]*", "field.documentSeries");
+		} catch (IllegalArgumentException e) {
+			throw new DocumentIssuingException(e);
+		}
+	}
 
     private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
         InvoiceSeriesEntity invoiceSeriesEntity =
