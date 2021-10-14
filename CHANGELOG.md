@@ -49,6 +49,7 @@
 ### Fixed
 
  - [Tax Exemption Code in Portugal Validation](https://github.com/premium-minds/billy/issues/201)
+ - [Add validation to invoice number and series](https://github.com/premium-minds/billy/pull/204)
 
 ## [5.3.0] - 2020-12-17
 
