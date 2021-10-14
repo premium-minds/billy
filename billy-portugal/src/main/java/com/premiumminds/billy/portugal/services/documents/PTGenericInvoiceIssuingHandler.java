@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import com.premiumminds.billy.core.util.BillyValidator;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -61,6 +62,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
         String series = parametersPT.getInvoiceSeries();
 
+		validateSeriesHasNoWhiteSpaces(series);
+
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
 
@@ -99,6 +102,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
         String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
+		validatePTInvoiceNumber(formattedNumber);
+
         String newHash = GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
                 invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
 
@@ -134,7 +139,23 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
     }
 
-    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
+	private void validatePTInvoiceNumber(final String formattedNumber) throws DocumentIssuingException {
+		try {
+			BillyValidator.matchesPattern(formattedNumber, "([a-zA-Z0-9./_-])+ ([a-zA-Z0-9]*/[0-9]+)", "field.documentNumber");
+		} catch (IllegalArgumentException e) {
+			throw new DocumentIssuingException(e);
+		}
+	}
+
+	private void validateSeriesHasNoWhiteSpaces(final String series) throws DocumentIssuingException {
+		try {
+			BillyValidator.matchesPattern(series, "[a-zA-Z0-9]*", "field.documentSeries");
+		} catch (IllegalArgumentException e) {
+			throw new DocumentIssuingException(e);
+		}
+	}
+
+	private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 

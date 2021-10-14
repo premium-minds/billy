@@ -97,7 +97,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
     @Test
     public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException {
         Integer nextNumber = 1;
-        String newSeries = "NEW_SERIES";
+        String newSeries = "NEWSERIES";
 
         PTGenericInvoiceEntity newInvoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
@@ -121,7 +121,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
      */
     @Test
     public void testIssuedInvoiceFailure() throws DocumentIssuingException {
-        String series = "NEW_SERIES";
+        String series = "NEWSERIES";
 
         PTGenericInvoiceEntity invoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
@@ -136,6 +136,16 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         Assertions.assertThrows(InvalidInvoiceTypeException.class, () -> this.issueNewInvoice(newHandler, diffentTypeInvoice, series));
     }
+
+	@Test
+	public void testIssuedInvoiceFailureWithInvalidSeriesAndInvoiceNumber() throws DocumentIssuingException {
+		String series = "NEW_SERIES";
+
+		PTGenericInvoiceEntity invoice =
+			this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+		Assertions.assertThrows(DocumentIssuingException.class, () -> this.issueNewInvoice(this.handler, invoice, series));
+	}
 
     @Test
     public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException {
