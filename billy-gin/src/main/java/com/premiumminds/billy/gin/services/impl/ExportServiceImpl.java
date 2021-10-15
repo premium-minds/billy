@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.ExportService;
-import com.premiumminds.billy.gin.services.ExportServiceHandler;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
@@ -136,11 +135,6 @@ public class ExportServiceImpl implements ExportService {
 
         T document = clazz.cast(this.dataExtractors.get(clazz).extract(uidDoc));
         dataTransformer.transform(document, output);
-    }
-
-    @Override
-    public void addHandler(Class<? extends ExportServiceRequest> requestClass, ExportServiceHandler handler) {
-        ExportServiceImpl.log.warn("This method is deprecated and no longer has side effects on service execution");
     }
 
     @Override

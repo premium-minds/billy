@@ -34,9 +34,6 @@ public interface ExportService {
 
     public <T extends ExportServiceRequest> File exportToFile(T request) throws ExportServiceException;
 
-    @Deprecated
-    public void addHandler(Class<? extends ExportServiceRequest> requestClass, ExportServiceHandler handler);
-
     public <T extends GenericInvoiceData> void addDataExtractor(Class<T> dataClass,
             BillyDataExtractor<T> dataExtractor);
 
