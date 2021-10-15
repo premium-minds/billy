@@ -1,6 +1,8 @@
 <!-- https://keepachangelog.com/en/1.0.0/ -->
 # Changelog
 
+## [Unreleased v6]
+
 ## [Unreleased v5]
 
 ## [5.4.0] - 2021-10-15
