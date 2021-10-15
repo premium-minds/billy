@@ -7,6 +7,7 @@
 
  - [Fix indentation, replacing tabs with spaces](https://github.com/premium-minds/billy/pull/141)
  - [Moves from old groupId javax.* to new jakarta.*](https://github.com/premium-minds/billy/pull/147)
+ - [Bump querydsl.version from 4.4.0 to 5.0.0](https://github.com/premium-minds/billy/pull/182)
 
 ### Removed
 
