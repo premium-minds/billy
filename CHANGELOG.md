@@ -6,6 +6,11 @@
 ### Changed
 
  - [Fix indentation, replacing tabs with spaces](https://github.com/premium-minds/billy/pull/141)
+ - [Moves from old groupId javax.* to new jakarta.*](https://github.com/premium-minds/billy/pull/147)
+
+### Removed
+
+ - Removed org.hibernate:hibernate-validator as dependency. You must provide your jakarta.validation:jakarta.validation-api favorite implementation
 
 ## [Unreleased v5]
 
