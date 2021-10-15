@@ -3,6 +3,10 @@
 
 ## [Unreleased v6]
 
+### Changed
+
+ - [Fix indentation, replacing tabs with spaces](https://github.com/premium-minds/billy/pull/141)
+
 ## [Unreleased v5]
 
 ## [5.4.0] - 2021-10-15
