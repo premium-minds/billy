@@ -177,17 +177,17 @@ public class PTSAFTFileGenerator {
     private final DAOPTReceiptInvoice	daoPTReceiptInvoice;
     private final DAOPTCreditNote		daoPTCreditNote;
 
-	@Inject
+    @Inject
     public PTSAFTFileGenerator(
-		DAOPTCustomer daoCustomer,
-		DAOPTSupplier daoSupplier,
-		DAOPTProduct daoProduct,
-		DAOPTTax daoPTTax,
-		DAOPTRegionContext daoPTRegionContext,
-		DAOPTInvoice daoPTInvoice,
-		DAOPTSimpleInvoice daoPTSimpleInvoice,
-		DAOPTReceiptInvoice daoPTReceiptInvoice,
-		DAOPTCreditNote daoPTCreditNote) {
+        DAOPTCustomer daoCustomer,
+        DAOPTSupplier daoSupplier,
+        DAOPTProduct daoProduct,
+        DAOPTTax daoPTTax,
+        DAOPTRegionContext daoPTRegionContext,
+        DAOPTInvoice daoPTInvoice,
+        DAOPTSimpleInvoice daoPTSimpleInvoice,
+        DAOPTReceiptInvoice daoPTReceiptInvoice,
+        DAOPTCreditNote daoPTCreditNote) {
 
         this.daoCustomer = daoCustomer;
         this.daoSupplier = daoSupplier;
@@ -199,7 +199,7 @@ public class PTSAFTFileGenerator {
         this.daoPTReceiptInvoice = daoPTReceiptInvoice;
         this.daoPTCreditNote = daoPTCreditNote;
 
-		this.config = new Config();
+        this.config = new Config();
 
         try {
             this.jaxbContext = JAXBContext

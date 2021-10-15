@@ -55,7 +55,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
     private final PTTemplateBundle externalBundle;
 
     public PTAbstractFOPPDFTransformer(Class<T> transformableClass, MathContext mc, String logoImagePath,
-									   InputStream xsltFileStream, String softwareCertificationId, Config config) {
+                                       InputStream xsltFileStream, String softwareCertificationId, Config config) {
 
         super(transformableClass, mc, logoImagePath, xsltFileStream);
 
@@ -65,7 +65,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
     }
 
     public PTAbstractFOPPDFTransformer(Class<T> transformableClass, MathContext mc, PTTemplateBundle bundle,
-									   Config config) {
+                                       Config config) {
 
         super(transformableClass, mc, bundle.getLogoImagePath(), bundle.getXSLTFileStream());
         this.config = config;

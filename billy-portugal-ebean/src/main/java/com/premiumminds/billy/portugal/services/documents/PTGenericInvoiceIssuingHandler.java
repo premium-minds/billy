@@ -95,8 +95,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
                 throw new InvalidInvoiceDateException();
             }
         } else {
-			seriesNumber = 1;
-		}
+            seriesNumber = 1;
+        }
 
         String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 

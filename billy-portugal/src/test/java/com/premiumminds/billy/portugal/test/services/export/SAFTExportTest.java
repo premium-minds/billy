@@ -200,7 +200,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
     }
 
     private void exportSAFT(PTApplicationEntity applicationEntity,
-							PTBusinessEntity businessEntity) throws FileNotFoundException, SAFTPTExportException {
+                            PTBusinessEntity businessEntity) throws FileNotFoundException, SAFTPTExportException {
 
         PTSAFTFileGenerator generator = this.getInstance(PTSAFTFileGenerator.class);
 

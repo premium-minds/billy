@@ -108,8 +108,8 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
         BillyValidator.mandatory(application.getDeveloperCompanyTaxIdentifier(),
                 ApplicationBuilderImpl.LOCALIZER.getString("field.developer_tax_id"));
         /*BillyValidator.notEmpty(application.getContacts(),
-        		ApplicationBuilderImpl.LOCALIZER
-        				.getString("field.application_contact"));*/
+                ApplicationBuilderImpl.LOCALIZER
+                        .getString("field.application_contact"));*/
     }
 
     @SuppressWarnings("unchecked")

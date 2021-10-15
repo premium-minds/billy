@@ -58,7 +58,7 @@ public class Taxes {
          * @return Reduced VAT value for Continent.
          */
         public FRTax reduced() {
-        	DAOFRTax dao = Taxes.this.getInstance(DAOFRTax.class);
+            DAOFRTax dao = Taxes.this.getInstance(DAOFRTax.class);
             return (FRTax) dao
                     .get(Taxes.this.configuration.getUID(Config.Key.Context.France.Continental.VAT.REDUCED_UUID));
         }
@@ -67,7 +67,7 @@ public class Taxes {
          * @return Super Reduced VAT value for Continent.
          */
         public FRTax superreduced() {
-        	DAOFRTax dao = Taxes.this.getInstance(DAOFRTax.class);
+            DAOFRTax dao = Taxes.this.getInstance(DAOFRTax.class);
             return (FRTax) dao
                     .get(Taxes.this.configuration.getUID(Config.Key.Context.France.Continental.VAT.SUPER_REDUCED_UUID));
         }

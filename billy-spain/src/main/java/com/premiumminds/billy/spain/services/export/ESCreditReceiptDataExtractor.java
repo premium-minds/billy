@@ -76,9 +76,9 @@ public class ESCreditReceiptDataExtractor extends AbstractBillyDataExtractor
             ESReceiptData reference = this.receiptExtractor.extract(entry.getReference().getUID());
 
             entries.add(new ESCreditReceiptEntryData(
-				product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), entry.getUnitAmountWithTax(),
-				entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
-				TaxExemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
+                product, entry.getDescription(), entry.getQuantity(), entry.getTaxAmount(), entry.getUnitAmountWithTax(),
+                entry.getAmountWithTax(), entry.getAmountWithoutTax(), taxes, reference, entry.getUnitOfMeasure(),
+                TaxExemption.setExemption(entry.getTaxExemptionCode(), entry.getTaxExemptionReason())));
         }
 
         return entries;

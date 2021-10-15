@@ -40,78 +40,78 @@ import org.mockito.Mockito;
 
 public class TestQRCodeBuilderOnlyMadeira extends TestQRCodeBuilderBase{
 
-	@Test
-	public void test(){
-		final Integer seriesNumber = 2549;
-		final String businessFinancialID = "511234566";
-		final TYPE documentType = TYPE.FT;
-		final boolean isCanceled = false;
-		final boolean isBilled = true;
-		final boolean isSelfBilled = false;
-		final Date documentDate = Date.from(Instant.ofEpochSecond(1604402305));
-		final String documentNumber = "FT A/"+seriesNumber;
-		final BigDecimal taxAmount = BigDecimal.valueOf(39);
-		final BigDecimal amountWithTax = BigDecimal.valueOf(139);
-		final BigDecimal itemAmount = BigDecimal.valueOf(100);
-		final String hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUWXYZ";
-		final String atcud = "0";
+    @Test
+    public void test(){
+        final Integer seriesNumber = 2549;
+        final String businessFinancialID = "511234566";
+        final TYPE documentType = TYPE.FT;
+        final boolean isCanceled = false;
+        final boolean isBilled = true;
+        final boolean isSelfBilled = false;
+        final Date documentDate = Date.from(Instant.ofEpochSecond(1604402305));
+        final String documentNumber = "FT A/"+seriesNumber;
+        final BigDecimal taxAmount = BigDecimal.valueOf(39);
+        final BigDecimal amountWithTax = BigDecimal.valueOf(139);
+        final BigDecimal itemAmount = BigDecimal.valueOf(100);
+        final String hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUWXYZ";
+        final String atcud = "0";
 
-		final UID portugalUID = Mockito.mock(UID.class);
-		final UID continenteUID = Mockito.mock(UID.class);
-		final UID azoresUID = Mockito.mock(UID.class);
-		final UID madeiraUID = Mockito.mock(UID.class);
-		final PTContexts ptContexts = new PTContexts(portugalUID, continenteUID, azoresUID, madeiraUID);
+        final UID portugalUID = Mockito.mock(UID.class);
+        final UID continenteUID = Mockito.mock(UID.class);
+        final UID azoresUID = Mockito.mock(UID.class);
+        final UID madeiraUID = Mockito.mock(UID.class);
+        final PTContexts ptContexts = new PTContexts(portugalUID, continenteUID, azoresUID, madeiraUID);
 
-		final UID genericCustomerUID = Mockito.mock(UID.class);
+        final UID genericCustomerUID = Mockito.mock(UID.class);
 
-		String result = null;
-		try {
-			QRCodeData qrCodeData = new QRCodeDataBuilder()
-				.withSeriesNumber(seriesNumber)
-				.withBusinessFinancialID(businessFinancialID)
-				.withDocumentType(documentType)
-				.withIsCancelled(isCanceled)
-				.withIsBilled(isBilled)
-				.withIsSelfBilled(isSelfBilled)
-				.withDocumentDate(documentDate)
-				.withDocumentNumber(documentNumber)
-				.withEntries(generateEntries(itemAmount, ptContexts))
-				.withTaxAmount(taxAmount)
-				.withAmountWithTax(amountWithTax)
-				.withHash(hash)
-				.withApplication(generateOneApplication())
-				.withPTContexts(ptContexts)
-				.withGenericCustomerUID(genericCustomerUID)
-				.withCustomer(generateCustomer(genericCustomerUID))
-				.withATCUD(atcud)
-				.build();
+        String result = null;
+        try {
+            QRCodeData qrCodeData = new QRCodeDataBuilder()
+                .withSeriesNumber(seriesNumber)
+                .withBusinessFinancialID(businessFinancialID)
+                .withDocumentType(documentType)
+                .withIsCancelled(isCanceled)
+                .withIsBilled(isBilled)
+                .withIsSelfBilled(isSelfBilled)
+                .withDocumentDate(documentDate)
+                .withDocumentNumber(documentNumber)
+                .withEntries(generateEntries(itemAmount, ptContexts))
+                .withTaxAmount(taxAmount)
+                .withAmountWithTax(amountWithTax)
+                .withHash(hash)
+                .withApplication(generateOneApplication())
+                .withPTContexts(ptContexts)
+                .withGenericCustomerUID(genericCustomerUID)
+                .withCustomer(generateCustomer(genericCustomerUID))
+                .withATCUD(atcud)
+                .build();
 
-			result = QRCodeBuilder.generateQRCodeString(qrCodeData);
-		} catch (RequiredFieldNotFoundException e) {
-			Assertions.fail();
-		}
+            result = QRCodeBuilder.generateQRCodeString(qrCodeData);
+        } catch (RequiredFieldNotFoundException e) {
+            Assertions.fail();
+        }
 
-		Assertions.assertNotNull(result);
-		Assertions.assertEquals(
-			"A:511234566*B:999999990*C:PT*D:FT*E:F*F:20201103*G:FT A/2549*H:0*"
-				+ "I1:PT-MA*I3:100.00*I4:5.00*I5:100.00*I6:12.00*I7:100.00*I8:22.00*"
-				+ "N:39.00*O:139.00*Q:akuE*R:452",
-			result);
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(
+            "A:511234566*B:999999990*C:PT*D:FT*E:F*F:20201103*G:FT A/2549*H:0*"
+                + "I1:PT-MA*I3:100.00*I4:5.00*I5:100.00*I6:12.00*I7:100.00*I8:22.00*"
+                + "N:39.00*O:139.00*Q:akuE*R:452",
+            result);
 
-	}
+    }
 
-	private List<GenericInvoiceEntry> generateEntries(final BigDecimal amountWithoutTax, final PTContexts ptContexts) {
-		List<GenericInvoiceEntry> result = new ArrayList<>();
+    private List<GenericInvoiceEntry> generateEntries(final BigDecimal amountWithoutTax, final PTContexts ptContexts) {
+        List<GenericInvoiceEntry> result = new ArrayList<>();
 
-		final PTRegionContext madeira = Mockito.mock(PTRegionContext.class);
-		Mockito.when(madeira.getUID()).thenReturn(ptContexts.getMadeiraUID());
-		Mockito.when(madeira.getRegionCode()).thenReturn("PT-30");
+        final PTRegionContext madeira = Mockito.mock(PTRegionContext.class);
+        Mockito.when(madeira.getUID()).thenReturn(ptContexts.getMadeiraUID());
+        Mockito.when(madeira.getRegionCode()).thenReturn("PT-30");
 
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "NOR", 22, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "INT", 12, TaxRateType.PERCENTAGE));
-		result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "RED", 5, TaxRateType.PERCENTAGE));
+        result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "NOR", 22, TaxRateType.PERCENTAGE));
+        result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "INT", 12, TaxRateType.PERCENTAGE));
+        result.addAll(generateOneEntryWithOneTax(amountWithoutTax, madeira,  "RED", 5, TaxRateType.PERCENTAGE));
 
-		return result;
-	}
+        return result;
+    }
 
 }

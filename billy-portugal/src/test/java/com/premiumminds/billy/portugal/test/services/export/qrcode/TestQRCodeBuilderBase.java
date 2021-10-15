@@ -35,51 +35,51 @@ import org.mockito.Mockito;
 
 public class TestQRCodeBuilderBase {
 
-	protected Customer generateCustomer(final UID customerUID) {
-		Customer customer = Mockito.mock(Customer.class);
-		Mockito.when(customer.getUID()).thenReturn(customerUID);
+    protected Customer generateCustomer(final UID customerUID) {
+        Customer customer = Mockito.mock(Customer.class);
+        Mockito.when(customer.getUID()).thenReturn(customerUID);
 
-		final Address address = Mockito.mock(Address.class);
-		Mockito.when(address.getISOCountry()).thenReturn("PT");
-		Mockito.when(customer.getBillingAddress()).thenReturn(address);
-		Mockito.when(customer.getTaxRegistrationNumber()).thenReturn("246456987");
-		return customer;
-	}
+        final Address address = Mockito.mock(Address.class);
+        Mockito.when(address.getISOCountry()).thenReturn("PT");
+        Mockito.when(customer.getBillingAddress()).thenReturn(address);
+        Mockito.when(customer.getTaxRegistrationNumber()).thenReturn("246456987");
+        return customer;
+    }
 
-	protected Collection<Application> generateOneApplication() {
-		final Collection<Application> applications = new ArrayList<>();
-		final PTApplicationEntity application = Mockito.mock(PTApplicationEntity.class);
+    protected Collection<Application> generateOneApplication() {
+        final Collection<Application> applications = new ArrayList<>();
+        final PTApplicationEntity application = Mockito.mock(PTApplicationEntity.class);
 
-		Mockito.when(application.getSoftwareCertificationNumber()).thenReturn(452);
-		applications.add(application);
-		return applications;
-	}
+        Mockito.when(application.getSoftwareCertificationNumber()).thenReturn(452);
+        applications.add(application);
+        return applications;
+    }
 
-	protected List<GenericInvoiceEntry> generateOneEntryWithOneTax(
-		final BigDecimal amountWithoutTax,
-		final PTRegionContext context,
-		final String taxCode,
-		final long taxRateValue,
-		final TaxRateType taxRateType)
-	{
-		final List<GenericInvoiceEntry> entries = new ArrayList<>();
+    protected List<GenericInvoiceEntry> generateOneEntryWithOneTax(
+        final BigDecimal amountWithoutTax,
+        final PTRegionContext context,
+        final String taxCode,
+        final long taxRateValue,
+        final TaxRateType taxRateType)
+    {
+        final List<GenericInvoiceEntry> entries = new ArrayList<>();
 
-		final GenericInvoiceEntry entry = Mockito.mock(GenericInvoiceEntry.class);
-		final Collection<Tax> taxes = new ArrayList<>();
-		final Tax tax = Mockito.mock(Tax.class);
+        final GenericInvoiceEntry entry = Mockito.mock(GenericInvoiceEntry.class);
+        final Collection<Tax> taxes = new ArrayList<>();
+        final Tax tax = Mockito.mock(Tax.class);
 
-		Mockito.when(tax.getContext()).thenReturn(context);
-		Mockito.when(tax.getCode()).thenReturn(taxCode);
-		Mockito.when(tax.getValue()).thenReturn(BigDecimal.valueOf(taxRateValue));
-		Mockito.when(tax.getTaxRateType()).thenReturn(taxRateType);
+        Mockito.when(tax.getContext()).thenReturn(context);
+        Mockito.when(tax.getCode()).thenReturn(taxCode);
+        Mockito.when(tax.getValue()).thenReturn(BigDecimal.valueOf(taxRateValue));
+        Mockito.when(tax.getTaxRateType()).thenReturn(taxRateType);
 
-		taxes.add(tax);
+        taxes.add(tax);
 
-		Mockito.when(entry.getAmountWithoutTax()).thenReturn(amountWithoutTax);
-		Mockito.when(entry.getTaxes()).thenReturn(taxes);
+        Mockito.when(entry.getAmountWithoutTax()).thenReturn(amountWithoutTax);
+        Mockito.when(entry.getTaxes()).thenReturn(taxes);
 
-		entries.add(entry);
-		return entries;
-	}
+        entries.add(entry);
+        return entries;
+    }
 
 }
