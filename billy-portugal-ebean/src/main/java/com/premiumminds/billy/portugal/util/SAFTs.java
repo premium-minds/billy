@@ -76,18 +76,6 @@ public class SAFTs {
         return new FileInputStream(outputFile);
     }
 
-    @Deprecated
-    public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to,
-                              SAFTVersion version) throws SAFTPTExportException, IOException {
-        return this.export(uidApplication, uidBusiness, from, to, version, false);
-    }
-
-    @Deprecated
-    public InputStream export(UID uidApplication, UID uidBusiness, String certificateNumber, Date from, Date to,
-                              String resultPath, SAFTVersion version) throws SAFTPTExportException, IOException {
-        return this.export(uidApplication, uidBusiness, from, to, resultPath, version, false);
-    }
-
     private <T> T getInstance(Class<T> clazz) {
         return this.injector.getInstance(clazz);
     }

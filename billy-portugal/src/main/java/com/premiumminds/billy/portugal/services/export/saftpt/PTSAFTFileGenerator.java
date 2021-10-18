@@ -45,33 +45,6 @@ public class PTSAFTFileGenerator {
     /**
      * Constructs a new SAFT a.k.a. AuditFile
      *
-     * @deprecated Use the overloaded method instead
-     *
-     * @param targetStream the target stream
-     * @param businessEntity the company
-     * @param application the application
-     * @param certificateNumber the certificate number
-     * @param fromDate the date from when the saft will be generated
-     * @param toDate the date until when the saft will be generated
-     * @param version the SAFT version
-     *
-     * @throws SAFTPTExportException when export exception occurs
-     */
-    @Deprecated
-    public void generateSAFTFile(final OutputStream targetStream,
-                                 final PTBusinessEntity businessEntity,
-                                 final PTApplicationEntity application,
-                                 final String certificateNumber,
-                                 final Date fromDate,
-                                 final Date toDate,
-                                 final SAFTVersion version) throws SAFTPTExportException {
-
-        this.generateSAFTFile(targetStream, businessEntity, application, fromDate,toDate, version);
-    }
-
-    /**
-     * Constructs a new SAFT a.k.a. AuditFile
-     *
      * @param targetStream the target stream
      * @param businessEntity the company
      * @param application the application
