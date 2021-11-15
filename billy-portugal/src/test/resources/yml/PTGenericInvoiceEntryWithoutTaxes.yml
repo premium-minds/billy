@@ -50,7 +50,7 @@ product : !!com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity
         value : 0
         validFrom: 2013-01-01
         validTo: 2013-12-12
-        taxRateType : PERCENTAGE
+        taxRateType : NONE
         percentageRateValue : 0
         flatRateAmount : 0
         context : !!com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity
@@ -104,7 +104,7 @@ taxes:
     value : 202
     validFrom: 2013-01-02
     validTo: 2013-12-12
-    taxRateType : FLAT
+    taxRateType : NONE
     percentageRateValue : 0
     flatRateAmount : 0
     context : !!com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity
