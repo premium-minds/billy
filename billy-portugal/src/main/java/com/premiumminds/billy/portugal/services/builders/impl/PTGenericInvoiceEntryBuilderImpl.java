@@ -73,8 +73,7 @@ public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceE
         BillyValidator.mandatory(i.getTaxAmount(), PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxPointDate(),
                 PTGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
-		if(i.getTaxAmount().equals(BigDecimal.ZERO)
-			|| (i.getTaxes().stream().map(Tax::getPercentageRateValue).reduce(BigDecimal.ZERO, BigDecimal::add).equals(BigDecimal.ZERO))) {
+		if(i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0) {
 
 			BillyValidator.mandatory(
 				i.getTaxExemptionCode(),
