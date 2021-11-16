@@ -18,6 +18,8 @@
 
 ## [Unreleased v5]
 
+ - [Remove erroneous tax validation](https://github.com/premium-minds/billy/pull/222)
+
 ## [5.4.0] - 2021-10-15
 
 ### Changed
