@@ -60,22 +60,6 @@
 			<artifactId>hibernate-envers</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.el</groupId>
-			<artifactId>jakarta.el-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.el</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- Query DSL -->
 		<dependency>
 			<groupId>com.querydsl</groupId>
