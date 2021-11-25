@@ -21,8 +21,6 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.validation.ValidationException;
-
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -65,7 +63,7 @@ public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBui
     }
 
     @Override
-    protected void validateValues() throws ValidationException {
+    protected void validateValues() {
         GenericInvoiceEntryEntity e = this.getTypeInstance();
 
         for (Tax t : e.getProduct().getTaxes()) {

@@ -24,11 +24,11 @@ import java.util.Currency;
 import java.util.Date;
 
 import javax.inject.Inject;
-import javax.validation.ValidationException;
 
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.time.DateUtils;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -233,7 +233,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     }
 
     @Override
-    protected void validateInstance() throws ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         this.validateValues();
 
         GenericInvoiceEntry i = this.getTypeInstance();
@@ -252,7 +252,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
         }
     }
 
-    protected void validateValues() throws ValidationException {
+    protected void validateValues() {
         MathContext mc = BillyMathContext.get();
 
         GenericInvoiceEntryEntity e = this.getTypeInstance();
@@ -266,7 +266,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
             }
         }
         if (e.getTaxes().isEmpty()) {
-            throw new ValidationException(
+            throw new BillyValidationException(
                     GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("exception.invalid_taxes"));
         }
 

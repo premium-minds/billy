@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.inject.Inject;
-import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.PaymentBuilderImpl;
@@ -70,7 +69,7 @@ public class FRPaymentBuilderImpl<TBuilder extends FRPaymentBuilderImpl<TBuilder
     }
 
     @Override
-    protected void validateInstance() throws BillyValidationException, ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
         FRPaymentEntity p = this.getTypeInstance();
         BillyValidator.mandatory(p.getPaymentAmount(),

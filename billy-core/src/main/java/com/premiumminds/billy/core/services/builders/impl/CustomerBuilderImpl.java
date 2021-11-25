@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -133,7 +134,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         CustomerEntity c = this.getTypeInstance();
         BillyValidator.mandatory(c.getName(), CustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
         BillyValidator.mandatory(c.getTaxRegistrationNumber(),

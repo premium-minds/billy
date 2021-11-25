@@ -19,13 +19,6 @@
 package com.premiumminds.billy.core.util;
 
 import java.util.Collection;
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.ValidationException;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 
 import org.apache.commons.lang3.Validate;
 
@@ -33,38 +26,10 @@ public class BillyValidator extends Validate {
 
     private static BillyValidator instance = new BillyValidator();
 
-    private Localizer localizer;
-    private ValidatorFactory factory;
-    private Validator validator;
+    private final Localizer localizer;
 
     private BillyValidator() {
         this.localizer = new Localizer("com/premiumminds/billy/core/i18n/Validation");
-        this.factory = Validation.buildDefaultValidatorFactory();
-        this.validator = this.factory.getValidator();
-    }
-
-    public static void validateBeans(Object... objects) throws ValidationException {
-        StringBuilder builder = new StringBuilder();
-        boolean valid = true;
-
-        for (Object o : objects) {
-            Set<ConstraintViolation<Object>> violations = BillyValidator.instance.validator.validate(o);
-            if (!violations.isEmpty()) {
-                valid = false;
-                builder.append("There was an exception while validating instance of ");
-                builder.append(o.getClass().getCanonicalName());
-                builder.append('\n');
-
-                for (ConstraintViolation<Object> v : violations) {
-                    builder.append('\n');
-                    builder.append(v.getPropertyPath() + " - " + v.getMessage());
-                }
-            }
-        }
-
-        if (!valid) {
-            throw new ValidationException(builder.toString());
-        }
     }
 
     public static <T> T mandatory(T o, String fieldName) {
