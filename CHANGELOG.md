@@ -17,6 +17,7 @@
 
  - Removed org.hibernate:hibernate-validator as dependency. You must provide your jakarta.validation:jakarta.validation-api favorite implementation
  - [Removes @Deprecated methods in SAFT and export service](https://github.com/premium-minds/billy/pull/206)
+ - [Removes unused and unpublished Ebean modules](https://github.com/premium-minds/billy/pull/228)
 
 ## [Unreleased v5]
 
