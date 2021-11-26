@@ -31,10 +31,8 @@
 	<modules>
 		<module>billy-core</module>
 		<module>billy-core-jpa</module>
-		<module>billy-core-ebean</module>
 		<module>billy-gin</module>
 		<module>billy-portugal</module>
-		<module>billy-portugal-ebean</module>
 		<module>billy-spain</module>
 		<module>billy-france</module>
 	</modules>
@@ -99,18 +97,6 @@
 				<groupId>org.glassfish</groupId>
 				<artifactId>jakarta.el</artifactId>
 				<version>3.0.3</version>
-			</dependency>
-
-			<!-- PERSISTENCE -->
-			<dependency>
-				<groupId>io.ebean</groupId>
-				<artifactId>ebean</artifactId>
-				<version>10.4.7</version>
-			</dependency>
-			<dependency>
-				<groupId>io.ebean</groupId>
-				<artifactId>ebean-querybean</artifactId>
-				<version>10.3.1</version>
 			</dependency>
 
 			<!-- GUICE -->
@@ -302,18 +288,6 @@
 					<configuration>
 						<source>${java.version}</source>
 						<target>${java.version}</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>io.repaint.maven</groupId>
-					<artifactId>tiles-maven-plugin</artifactId>
-					<version>2.25</version>
-					<extensions>true</extensions>
-					<configuration>
-						<tiles>
-							<tile>org.avaje.tile:java-compile:1.1</tile>
-							<tile>io.ebean.tile:enhancement:2.8</tile>
-						</tiles>
 					</configuration>
 				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings

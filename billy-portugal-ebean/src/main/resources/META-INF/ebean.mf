@@ -1,4 +1,0 @@
-packages: com.premiumminds.billy.portugal
-entity-packages: com.premiumminds.billy.portugal
-transactional-packages: com.premiumminds.billy.portugal
-querybean-packages: com.premiumminds.billy.portugal
