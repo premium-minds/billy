@@ -13,6 +13,7 @@
  - [Bump bcpkix-jdk15on from 1.69 to 1.70](https://github.com/premium-minds/billy/pull/232)
  - [Bump mockito-core from 4.0.0 to 4.1.0](https://github.com/premium-minds/billy/pull/223)
  - [Bump tiles-maven-plugin from 2.24 to 2.25](https://github.com/premium-minds/billy/pull/224)
+ - [Bump junit-jupiter-engine from 5.8.1 to 5.8.2](https://github.com/premium-minds/billy/pull/231)
 
 ### Removed
 
