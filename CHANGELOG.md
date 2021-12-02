@@ -10,6 +10,7 @@
  - [Bump querydsl.version from 4.4.0 to 5.0.0](https://github.com/premium-minds/billy/pull/182)
  - [Bump guice.version from 4.2.3 to 5.0.1](https://github.com/premium-minds/billy/pull/210)
  - [Bump hibernate.version from 5.6.0.Final to 5.6.1.Final](https://github.com/premium-minds/billy/pull/218)
+ - [Bump bcpkix-jdk15on from 1.69 to 1.70](https://github.com/premium-minds/billy/pull/232)
  - [Bump mockito-core from 4.0.0 to 4.1.0](https://github.com/premium-minds/billy/pull/223)
  - [Bump tiles-maven-plugin from 2.24 to 2.25](https://github.com/premium-minds/billy/pull/224)
 
