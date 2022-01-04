@@ -15,6 +15,7 @@
  - [Bump mockito-core from 4.0.0 to 4.1.0](https://github.com/premium-minds/billy/pull/223)
  - [Bump mockito-core from 4.1.0 to 4.2.0](https://github.com/premium-minds/billy/pull/237)
  - [Bump snakeyaml from 1.29 to 1.30](https://github.com/premium-minds/billy/pull/236)
+ - [Bump h2 from 1.3.173 to 1.4.200](https://github.com/premium-minds/billy/pull/241)
  - [Bump tiles-maven-plugin from 2.24 to 2.25](https://github.com/premium-minds/billy/pull/224)
  - [Bump junit-jupiter-engine from 5.8.1 to 5.8.2](https://github.com/premium-minds/billy/pull/231)
  - [Bump maven-scm-api from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/240)
