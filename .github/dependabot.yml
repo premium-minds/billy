@@ -6,27 +6,6 @@ updates:
     interval: daily
   open-pull-requests-limit: 10
   ignore:
-  - dependency-name: com.h2database:h2
-    versions:
-    - "> 1.3.173"
-  - dependency-name: io.ebean:ebean
-    versions:
-    - ">= 11.a, < 12"
-  - dependency-name: io.ebean:ebean
-    versions:
-    - ">= 12.a, < 13"
-  - dependency-name: io.ebean:ebean-querybean
-    versions:
-    - ">= 11.a, < 12"
-  - dependency-name: io.ebean:ebean-querybean
-    versions:
-    - ">= 12.a, < 13"
-  - dependency-name: io.ebean:querybean-generator
-    versions:
-    - ">= 11.a, < 12"
-  - dependency-name: io.ebean:querybean-generator
-    versions:
-    - ">= 12.a, < 13"
   - dependency-name: org.apache.xmlgraphics:fop
     versions:
     - ">= 1.1.a, < 1.2"
