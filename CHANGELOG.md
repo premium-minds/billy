@@ -22,6 +22,7 @@
  - [Bump maven-scm-api from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/240)
  - [Bump maven-scm-provider-gitexe from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/239)
  - [Bump maven-jar-plugin from 3.2.0 to 3.2.1](https://github.com/premium-minds/billy/pull/246)
+ - [Bump build-helper-maven-plugin from 3.2.0 to 3.3.0](https://github.com/premium-minds/billy/pull/244)
 
 ### Removed
 
