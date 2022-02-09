@@ -18,6 +18,7 @@
  - [Bump bcpkix-jdk15on from 1.69 to 1.70](https://github.com/premium-minds/billy/pull/232)
  - [Bump slf4j-api from 1.7.32 to 1.7.33](https://github.com/premium-minds/billy/pull/250)
  - [Bump slf4j-api from 1.7.33 to 1.7.35](https://github.com/premium-minds/billy/pull/256)
+ - [Bump slf4j-api from 1.7.35 to 1.7.36](https://github.com/premium-minds/billy/pull/259)
  - [Bump mockito-core from 4.0.0 to 4.1.0](https://github.com/premium-minds/billy/pull/223)
  - [Bump mockito-core from 4.1.0 to 4.2.0](https://github.com/premium-minds/billy/pull/237)
  - [Bump mockito-core from 4.2.0 to 4.3.1](https://github.com/premium-minds/billy/pull/255)
