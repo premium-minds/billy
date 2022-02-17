@@ -35,6 +35,7 @@
  - [Bump maven-compiler-plugin from 3.8.1 to 3.9.0](https://github.com/premium-minds/billy/pull/249)
  - [Bump maven-compiler-plugin from 3.9.0 to 3.10.0](https://github.com/premium-minds/billy/pull/262)
  - [Bump maven-javadoc-plugin from 3.3.1 to 3.3.2](https://github.com/premium-minds/billy/pull/260)
+ - [Bump nexus-staging-maven-plugin from 1.6.8 to 1.6.11](https://github.com/premium-minds/billy/pull/263)
 
 ### Removed
 
