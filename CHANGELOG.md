@@ -5,9 +5,7 @@
 
 ### Changed
 
- - [Removes saxon usage](https://github.com/premium-minds/billy/pull/265)
- - [Remove javax.validation](https://github.com/premium-minds/billy/pull/227)
-   - Billy no longer throws `javax.validation.ValidationException`. All exceptions were consolidated into `BillyValidationException` 
+ - [Compiles with Java 17](https://github.com/premium-minds/billy/pull/230)
  - [Fix indentation, replacing tabs with spaces](https://github.com/premium-minds/billy/pull/141)
  - [Moves from old groupId javax.* to new jakarta.*](https://github.com/premium-minds/billy/pull/147)
  - [Bump querydsl.version from 4.4.0 to 5.0.0](https://github.com/premium-minds/billy/pull/182)
@@ -45,9 +43,11 @@
 
 ### Removed
 
- - Removed org.hibernate:hibernate-validator as dependency. You must provide your jakarta.validation:jakarta.validation-api favorite implementation
  - [Removes @Deprecated methods in SAFT and export service](https://github.com/premium-minds/billy/pull/206)
  - [Removes unused and unpublished Ebean modules](https://github.com/premium-minds/billy/pull/228)
+ - [Removes saxon usage](https://github.com/premium-minds/billy/pull/265)
+ - [Remove javax.validation](https://github.com/premium-minds/billy/pull/227)
+   - Billy no longer throws `javax.validation.ValidationException`. All exceptions were consolidated into `BillyValidationException` 
 
 ## [Unreleased v5]
 
