@@ -13,6 +13,7 @@
  - [Fix indentation, replacing tabs with spaces](https://github.com/premium-minds/billy/pull/141)
  - [Moves from old groupId javax.* to new jakarta.*](https://github.com/premium-minds/billy/pull/147)
  - [Replaces deprecated hibernate-entitymanager with hibernate-core](https://github.com/premium-minds/billy/pull/217)
+ - [Run unit tests in parallel and in random order](https://github.com/premium-minds/billy/pull/208)
  - [Bump querydsl.version from 4.4.0 to 5.0.0](https://github.com/premium-minds/billy/pull/182)
  - [Bump guice.version from 4.2.3 to 5.0.1](https://github.com/premium-minds/billy/pull/210)
  - [Bump guice.version from 5.0.1 to 5.1.0](https://github.com/premium-minds/billy/pull/257)
