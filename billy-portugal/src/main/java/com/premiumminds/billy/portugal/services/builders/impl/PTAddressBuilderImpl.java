@@ -18,12 +18,15 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.util.Arrays;
+import java.util.Locale;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.AddressBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.services.builders.PTAddressBuilder;
@@ -50,5 +53,10 @@ public class PTAddressBuilderImpl<TBuilder extends PTAddressBuilderImpl<TBuilder
         PTAddressEntity address = this.getTypeInstance();
         BillyValidator.mandatory(address.getDetails(), PTAddressBuilderImpl.LOCALIZER.getString("field.details"));
         BillyValidator.mandatory(address.getISOCountry(), PTAddressBuilderImpl.LOCALIZER.getString("field.country"));
+        BillyValidator.isTrue(
+                Arrays.stream(Locale.getISOCountries()).anyMatch(x -> x.equals(address.getISOCountry()))
+                        || address.getISOCountry().equals(PortugalBootstrap.ISO_CONTRY_UNKNOW),
+                PTAddressBuilderImpl.LOCALIZER.getString("field.country_iso_code", address.getISOCountry())
+        );
     }
 }
