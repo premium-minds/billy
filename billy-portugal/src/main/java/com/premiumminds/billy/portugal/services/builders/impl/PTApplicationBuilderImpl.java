@@ -21,8 +21,8 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import java.net.URL;
 
 import javax.inject.Inject;
-import javax.validation.ValidationException;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -61,7 +61,7 @@ public class PTApplicationBuilderImpl<TBuilder extends PTApplicationBuilderImpl<
     }
 
     @Override
-    protected void validateInstance() throws ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
         PTApplicationEntity c = this.getTypeInstance();
         BillyValidator.mandatory(c.getSoftwareCertificationNumber(),

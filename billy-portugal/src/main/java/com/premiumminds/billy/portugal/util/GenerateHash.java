@@ -24,17 +24,15 @@ import java.security.PublicKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.portugal.services.certification.CertificationManager;
 
 public class GenerateHash {
 
-    public static String generateHash(@NotNull PrivateKey privateKey, @NotNull PublicKey publicKey,
-            @NotNull Date invoiceDate, @NotNull Date systemEntryDate, @NotNull String invoiceNumber,
-            @NotNull BigDecimal grossTotal, String previousInvoiceHash) throws DocumentIssuingException {
+    public static String generateHash(PrivateKey privateKey, PublicKey publicKey,
+            Date invoiceDate, Date systemEntryDate, String invoiceNumber,
+            BigDecimal grossTotal, String previousInvoiceHash) throws DocumentIssuingException {
 
         try {
             String sourceString = GenerateHash.generateSourceHash(invoiceDate, systemEntryDate, invoiceNumber,

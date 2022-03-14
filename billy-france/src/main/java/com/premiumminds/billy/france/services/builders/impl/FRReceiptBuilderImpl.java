@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
-import javax.validation.ValidationException;
-
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.france.persistence.dao.AbstractDAOFRGenericInvoice;
@@ -47,7 +45,7 @@ public class FRReceiptBuilderImpl<TBuilder extends FRReceiptBuilderImpl<TBuilder
     }
 
     @Override
-    protected void validateValues() throws ValidationException {
+    protected void validateValues() {
         FRReceiptEntity i = this.getTypeInstance();
         i.setCreditOrDebit(CreditOrDebit.CREDIT);
         super.validateValues();

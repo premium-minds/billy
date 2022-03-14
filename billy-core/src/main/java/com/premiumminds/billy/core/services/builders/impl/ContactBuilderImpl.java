@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.builders.ContactBuilder;
@@ -83,7 +84,7 @@ public class ContactBuilderImpl<TBuilder extends ContactBuilderImpl<TBuilder, TC
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         Contact c = this.getTypeInstance();
         BillyValidator.mandatory(c.getTelephone(), "field.contact_telephone");
         BillyValidator.mandatory(c.getName(), "field.contact_name");

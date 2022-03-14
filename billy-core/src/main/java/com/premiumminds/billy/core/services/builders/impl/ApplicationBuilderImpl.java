@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
@@ -98,7 +99,7 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         ApplicationEntity application = this.getTypeInstance();
         BillyValidator.mandatory(application.getName(),
                 ApplicationBuilderImpl.LOCALIZER.getString("field.application_name"));

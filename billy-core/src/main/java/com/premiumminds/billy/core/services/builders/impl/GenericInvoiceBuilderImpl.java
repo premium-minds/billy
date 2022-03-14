@@ -23,10 +23,9 @@ import java.math.MathContext;
 import java.util.Currency;
 import java.util.Date;
 
-import javax.validation.ValidationException;
-
 import org.apache.commons.lang3.Validate;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
@@ -269,7 +268,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
     @NotOnUpdate
     @Override
-    protected void validateInstance() throws ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         GenericInvoiceEntity i = this.getTypeInstance();
         if (i.isSelfBilled() != null) {
             i.setSelfBilled(false);
@@ -289,7 +288,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
         }
     }
 
-    protected void validateValues() throws ValidationException {
+    protected void validateValues() {
 
         GenericInvoiceEntity i = this.getTypeInstance();
         i.setCurrency(Currency.getInstance("EUR")); // FIXME: Hardcoded currency.

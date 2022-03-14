@@ -21,6 +21,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.UID;
@@ -72,7 +73,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         ContextEntity c = this.getTypeInstance();
         BillyValidator.mandatory(c.getName(), ContextBuilderImpl.LOCALIZER.getString("field.context_name"));
         BillyValidator.mandatory(c.getDescription(), ContextBuilderImpl.LOCALIZER.getString("field.description"));

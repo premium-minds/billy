@@ -19,8 +19,8 @@
 package com.premiumminds.billy.france.services.builders.impl;
 
 import javax.inject.Inject;
-import javax.validation.ValidationException;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.france.persistence.dao.DAOFRApplication;
@@ -44,7 +44,7 @@ public class FRApplicationBuilderImpl<TBuilder extends FRApplicationBuilderImpl<
     }
 
     @Override
-    protected void validateInstance() throws ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
     }
 

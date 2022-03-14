@@ -19,8 +19,8 @@
 package com.premiumminds.billy.spain.services.builders.impl;
 
 import javax.inject.Inject;
-import javax.validation.ValidationException;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESApplication;
@@ -44,7 +44,7 @@ public class ESApplicationBuilderImpl<TBuilder extends ESApplicationBuilderImpl<
     }
 
     @Override
-    protected void validateInstance() throws ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         super.validateInstance();
     }
 

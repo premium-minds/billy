@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
@@ -107,7 +108,7 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         Product p = this.getTypeInstance();
         BillyValidator.mandatory(p.getProductCode(), ProductBuilderImpl.LOCALIZER.getString("field.product_code"));
         BillyValidator.mandatory(p.getDescription(), ProductBuilderImpl.LOCALIZER.getString("field.description"));

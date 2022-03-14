@@ -21,7 +21,6 @@ package com.premiumminds.billy.core.services.builders.impl;
 import java.util.Date;
 
 import javax.inject.Inject;
-import javax.validation.ValidationException;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOPayment;
@@ -59,7 +58,7 @@ public class PaymentBuilderImpl<TBuilder extends PaymentBuilderImpl<TBuilder, TP
     }
 
     @Override
-    protected void validateInstance() throws BillyValidationException, ValidationException {
+    protected void validateInstance() throws BillyValidationException {
     }
 
 }

@@ -21,8 +21,6 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 import java.math.BigDecimal;
 import java.util.Currency;
 
-import javax.validation.ValidationException;
-
 import org.apache.commons.lang3.Validate;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -89,7 +87,7 @@ public abstract class PTManualBuilderImpl<TBuilder extends PTManualBuilderImpl<T
     }
 
     @Override
-    protected void validateValues() throws ValidationException {
+    protected void validateValues() {
         GenericInvoiceEntity i = this.getTypeInstance();
         i.setCurrency(Currency.getInstance("EUR"));
 

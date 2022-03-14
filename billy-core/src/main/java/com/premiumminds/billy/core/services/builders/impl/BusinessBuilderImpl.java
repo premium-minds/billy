@@ -21,6 +21,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
@@ -154,7 +155,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         BusinessEntity b = this.getTypeInstance();
         BillyValidator.mandatory(b.getFinancialID(), BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
         BillyValidator.mandatory(b.getName(), BusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
