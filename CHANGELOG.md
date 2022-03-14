@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [does not compile with java 11](https://github.com/premium-minds/billy/issues/203)
  - [Compiles with Java 17](https://github.com/premium-minds/billy/pull/230)
  - [Fix indentation, replacing tabs with spaces](https://github.com/premium-minds/billy/pull/141)
  - [Moves from old groupId javax.* to new jakarta.*](https://github.com/premium-minds/billy/pull/147)
