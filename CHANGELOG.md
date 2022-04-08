@@ -59,7 +59,13 @@
 
 ## [Unreleased v5]
 
+### Fixed
+
+ - [Updated PDF Credit Note/Receipt Description Field](https://github.com/premium-minds/billy/pull/278)
+
 ## [5.4.1] - 2021-11-16
+
+### Fixed
 
  - [Remove erroneous tax validation](https://github.com/premium-minds/billy/pull/222)
 
