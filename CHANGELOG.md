@@ -57,6 +57,10 @@
  - [Remove javax.validation](https://github.com/premium-minds/billy/pull/227)
    - Billy no longer throws `javax.validation.ValidationException`. All exceptions were consolidated into `BillyValidationException` 
 
+### Fixed
+
+ - [Updated PDF Credit Note/Receipt Description Field](https://github.com/premium-minds/billy/pull/278)
+
 ## [Unreleased v5]
 
 ### Fixed
