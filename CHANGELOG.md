@@ -33,6 +33,7 @@
  - [Bump mockito-core from 4.1.0 to 4.2.0](https://github.com/premium-minds/billy/pull/237)
  - [Bump mockito-core from 4.2.0 to 4.3.1](https://github.com/premium-minds/billy/pull/255)
  - [Bump mockito-core from 4.3.1 to 4.4.0](https://github.com/premium-minds/billy/pull/268)
+ - [Bump mockito-core from 4.4.0 to 4.5.1](https://github.com/premium-minds/billy/pull/283)
  - [Bump snakeyaml from 1.29 to 1.30](https://github.com/premium-minds/billy/pull/236)
  - [Bump h2 from 1.3.173 to 1.4.200](https://github.com/premium-minds/billy/pull/241)
  - [Bump h2 from 1.4.200 to 2.1.210](https://github.com/premium-minds/billy/pull/251)
@@ -48,8 +49,11 @@
  - [Bump maven-compiler-plugin from 3.9.0 to 3.10.0](https://github.com/premium-minds/billy/pull/262)
  - [Bump maven-compiler-plugin from 3.10.0 to 3.10.1](https://github.com/premium-minds/billy/pull/270)
  - [Bump maven-javadoc-plugin from 3.3.1 to 3.3.2](https://github.com/premium-minds/billy/pull/260)
+ - [Bump maven-javadoc-plugin from 3.3.2 to 3.4.0](https://github.com/premium-minds/billy/pull/282)
  - [Bump nexus-staging-maven-plugin from 1.6.8 to 1.6.11](https://github.com/premium-minds/billy/pull/263)
  - [Bump nexus-staging-maven-plugin from 1.6.11 to 1.6.12](https://github.com/premium-minds/billy/pull/266)
+ - [Bump nexus-staging-maven-plugin from 1.6.12 to 1.6.13](https://github.com/premium-minds/billy/pull/284)
+ - [Bump maven-jaxb2-plugin from 0.14.0 to 0.15.1](https://github.com/premium-minds/billy/pull/285)
 
 ### Removed
 
