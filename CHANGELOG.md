@@ -70,6 +70,8 @@
 
 ## [Unreleased v5]
 
+## [5.4.2] - 2022-05-05
+
 ### Fixed
 
  - [Updated PDF Credit Note/Receipt Description Field](https://github.com/premium-minds/billy/pull/278)
@@ -320,9 +322,10 @@
 
 
 [unreleased v6]: https://github.com/premium-minds/billy/compare/release-5.x...HEAD
-[unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.1...release-5.x
+[unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.2...release-5.x
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[5.4.2]: https://github.com/premium-minds/billy/compare/v5.4.1...v5.4.2
 [5.4.1]: https://github.com/premium-minds/billy/compare/v5.4.0...v5.4.1
 [5.4.0]: https://github.com/premium-minds/billy/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/premium-minds/billy/compare/v5.2.0...v5.3.0
