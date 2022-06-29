@@ -122,4 +122,12 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
         this.getInstance(DAOFRInvoice.class).get(newInvoiceUID);
     }
 
+	@Test
+	public void testSeriesDoesNotExist() {
+		FRInvoiceEntity invoiceEntity = this.newInvoice(INVOICE_TYPE.FT);
+
+		Assertions.assertThrows(DocumentSeriesDoesNotExistException.class,
+								() -> this.issueNewInvoice(this.handler, invoiceEntity, "A RANDOM SERIES"));
+	}
+
 }

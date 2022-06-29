@@ -173,4 +173,14 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         Assertions.assertEquals(TestPTInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
     }
 
+	@Test
+	public void testSeriesDoesNotExist() {
+		final PTInvoiceEntity invoiceEntity = this.newInvoice(
+			TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
+			TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+		Assertions.assertThrows(DocumentSeriesDoesNotExistException.class,
+								() -> this.issueNewInvoice(this.handler, invoiceEntity, "ARANDOMSERIES"));
+	}
+
 }
