@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.test.services.documents;
 
+import com.premiumminds.billy.spain.services.entities.ESInvoice.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,9 @@ public class TestDocumentIssuingService extends ESDocumentAbstractTest {
     @Test
     public void testIssuingService() throws DocumentIssuingException {
 
-        this.service.issue(new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(
-                new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity()), this.parameters);
+		final Builder invoiceBuilder =
+			new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity());
+		this.createSeries(invoiceBuilder.build(), "A");
+		this.service.issue(invoiceBuilder, this.parameters);
     }
 }

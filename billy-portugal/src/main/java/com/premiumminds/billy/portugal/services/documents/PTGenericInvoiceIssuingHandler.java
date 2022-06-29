@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import java.util.Date;
 
@@ -58,7 +59,9 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
     }
 
     protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(final T document, final PTIssuingParams parametersPT,
-            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException {
+            final D daoInvoice, final TYPE invoiceType)
+		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+	{
 
         String series = parametersPT.getInvoiceSeries();
 
@@ -155,16 +158,14 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 		}
 	}
 
-	private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
+	private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode)
+		throws DocumentSeriesDoesNotExistException
+	{
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 
         if (null == invoiceSeriesEntity) {
-            InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-            entity.setBusiness(document.getBusiness());
-            entity.setSeries(series);
-
-            invoiceSeriesEntity = this.daoInvoiceSeries.create(entity);
+            throw new DocumentSeriesDoesNotExistException(series);
         }
         return invoiceSeriesEntity;
     }
