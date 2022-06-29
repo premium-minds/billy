@@ -50,6 +50,8 @@ public class TestFRSimpleInvoiceIssuingHandler extends FRDocumentAbstractTest {
         try {
             FRSimpleInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FS, SOURCE_BILLING.APPLICATION);
 
+			this.createSeries(invoice, this.DEFAULT_SERIES);
+
             this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
         } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException e) {

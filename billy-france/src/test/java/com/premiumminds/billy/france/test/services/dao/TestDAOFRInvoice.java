@@ -41,6 +41,7 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
     @Test
     public void testLastInvoiceNumber() {
         String B1 = "B1";
+		this.createSeries(B1);
         this.getNewIssuedInvoice(B1);
         this.getNewIssuedInvoice(B1);
         FRInvoiceEntity resultInvoice2 = this.getNewIssuedInvoice(B1);
@@ -51,6 +52,8 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
     public void testLastInvoiceNumberWithDifferentBusiness() {
         String B1 = "B1";
         String B2 = "B2";
+		this.createSeries(B1);
+		this.createSeries(B2);
         FRInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         FRInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
@@ -76,6 +79,7 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
 
     @Test
     public void testInvoiceFromBusiness() {
+		this.createSeries("B1");
         FRInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
 
         FRGenericInvoiceEntity res =
@@ -88,6 +92,7 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
 
     @Test
     public void testFindCreditNote() {
+		this.createSeries("B1");
         FRInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
         FRCreditNote cc1 = this.getNewIssuedCreditnote(inv1);
 
@@ -103,6 +108,7 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
 
     @Test
     public void testFindReceipt() {
+		this.createSeries("B1");
         FRInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
         FRReceiptEntity rec1 = this.getNewIssuedReceipt("B1");
 

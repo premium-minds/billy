@@ -46,6 +46,8 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
         try {
             FRInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
 
+			this.createSeries(invoice, this.DEFAULT_SERIES);
+
             this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
         } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException e) {
@@ -94,6 +96,7 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
         FRInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
         UID newInvoiceUID = newInvoice.getUID();
+		this.createSeries(newInvoice, newSeries);
 
         this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
@@ -112,6 +115,7 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
         FRInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
         UID newInvoiceUID = newInvoice.getUID();
+		this.createSeries(newInvoice, this.DEFAULT_SERIES);
 
         this.issueNewInvoice(this.handler, newInvoice, this.DEFAULT_SERIES);
 
