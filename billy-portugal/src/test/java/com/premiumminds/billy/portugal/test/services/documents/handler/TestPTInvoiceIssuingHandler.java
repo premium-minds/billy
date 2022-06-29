@@ -52,6 +52,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         try {
             PTInvoiceEntity invoice = this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
                     TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+			this.createSeries(invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
@@ -107,6 +108,8 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         UID newInvoiceUID = newInvoice.getUID();
 
+		this.createSeries(newInvoice, newSeries);
+
         this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
         PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
@@ -128,6 +131,8 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         PTGenericInvoiceEntity invoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+		this.createSeries(invoice, series);
 
         this.issueNewInvoice(this.handler, invoice, series);
 
@@ -158,6 +163,8 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
         UID newInvoiceUID = newInvoice.getUID();
+
+		this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
         this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 

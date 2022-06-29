@@ -53,6 +53,7 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
         try {
             PTSimpleInvoiceEntity invoice = this.newInvoice(TestPTSimpleInvoiceIssuingHandler.DEFAULT_TYPE,
                     TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING);
+			this.createSeries(invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();

@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.portugal.test;
 
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -80,6 +84,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 
     public PTCreditNoteEntity getNewIssuedCreditnote(PTInvoice reference) {
         Services service = new Services(PTAbstractTest.injector);
+		this.createSeries(reference, "NC");
         PTIssuingParams parameters = this.getParameters("NC", "30000", "1");
 
         try {
@@ -103,4 +108,25 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
         parameters.setInvoiceSeries(series);
         return parameters;
     }
+	protected void createSeries(String businessUID) {
+		this.createSeries(
+			new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
+				new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
+			PTPersistencyAbstractTest.DEFAULT_SERIES);
+	}
+
+	protected void createSeries(String businessUID, String series) {
+		this.createSeries(
+			new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
+				new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
+			series);
+	}
+
+	protected <T extends GenericInvoice> void createSeries(T document, String series) {
+		final DAOInvoiceSeries daoInvoiceSeries = PTAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
+		final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
+		seriesEntity.setSeries(series);
+		seriesEntity.setBusiness(document.getBusiness());
+		daoInvoiceSeries.create(seriesEntity);
+	}
 }

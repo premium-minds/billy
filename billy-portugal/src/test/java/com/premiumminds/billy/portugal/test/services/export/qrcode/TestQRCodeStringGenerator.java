@@ -118,13 +118,13 @@ public class TestQRCodeStringGenerator extends PTDocumentAbstractTest {
 		try {
 			PTInvoiceEntity invoice = this.newInvoice(DEFAULT_TYPE,
 													  SOURCE_BILLING);
+			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
+			entity.setBusiness(invoice.getBusiness());
+			entity.setSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
 			if(withATCUD) {
-				InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-				entity.setBusiness(invoice.getBusiness());
-				entity.setSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
 				entity.setSeriesUniqueCode("ATCUD12345");
-				daoInvoiceSeries.create(entity);
 			}
+			daoInvoiceSeries.create(entity);
 			this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 			this.issuedInvoiceUID = invoice.getUID();
 		} catch (DocumentIssuingException | DocumentSeriesDoesNotExistException e) {
