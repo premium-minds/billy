@@ -19,6 +19,7 @@
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -123,4 +124,11 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
         this.getInstance(DAOESInvoice.class).get(newInvoiceUID);
     }
 
+	@Test
+	public void testSeriesDoesNotExist() {
+		ESInvoiceEntity invoiceEntity = this.newInvoice(INVOICE_TYPE.FT);
+
+		Assertions.assertThrows(DocumentSeriesDoesNotExistException.class,
+								() -> this.issueNewInvoice(this.handler, invoiceEntity, "A RANDOM SERIES"));
+	}
 }
