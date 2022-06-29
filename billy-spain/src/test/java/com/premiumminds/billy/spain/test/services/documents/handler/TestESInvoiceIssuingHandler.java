@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,16 +46,18 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
         try {
             ESInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
 
+			this.createSeries(invoice, DEFAULT_SERIES);
+
             this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
 
-    }
+	}
 
     @Test
-    public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+    public void testIssuedInvoiceSimple() {
         ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
 
         Assertions.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
@@ -64,7 +67,7 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
+    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException, DocumentSeriesDoesNotExistException {
         ESInvoice issuedInvoice = this.getInstance(DAOESInvoice.class).get(this.issuedInvoiceUID);
         Integer nextNumber = 2;
 
@@ -84,13 +87,16 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException {
+    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException,
+														  DocumentSeriesDoesNotExistException
+	{
         Integer nextNumber = 1;
         String newSeries = "FT NEW_SERIES";
 
         ESInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
         UID newInvoiceUID = newInvoice.getUID();
+		this.createSeries(newInvoice, newSeries);
 
         this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
@@ -103,10 +109,14 @@ public class TestESInvoiceIssuingHandler extends ESDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException {
+    public void testIssuedInvoiceSameSourceBilling()
+		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+	{
         ESInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
         UID newInvoiceUID = newInvoice.getUID();
+
+		this.createSeries(newInvoice, this.DEFAULT_SERIES);
 
         this.issueNewInvoice(this.handler, newInvoice, this.DEFAULT_SERIES);
 
