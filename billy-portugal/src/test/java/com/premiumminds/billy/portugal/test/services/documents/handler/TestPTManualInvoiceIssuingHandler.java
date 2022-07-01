@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,10 +49,11 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
         try {
             PTInvoiceEntity invoice = this.newInvoice(TestPTManualInvoiceIssuingHandler.DEFAULT_TYPE,
                     TestPTManualInvoiceIssuingHandler.SOURCE_BILLING);
+			this.createSeries(invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
         }
     }

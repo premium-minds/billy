@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.services.documents;
 
 import com.premiumminds.billy.core.util.BillyValidator;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -58,7 +59,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
     }
 
     protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(final T document, final PTIssuingParams parametersPT,
-            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException {
+            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException, SeriesUniqueCodeNotFilled
+	{
 
         String series = parametersPT.getInvoiceSeries();
 
@@ -115,8 +117,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
             .map(s -> new StringBuilder()
                 .append(s)
                 .append("-")
-                .append(seriesNumber.toString()))
-            .orElse(new StringBuilder().append("0"))
+                .append(seriesNumber))
+            .orElseThrow(() -> new SeriesUniqueCodeNotFilled(invoiceSeriesEntity.getSeries()))
             .toString();
 
         document.setDate(invoiceDate);

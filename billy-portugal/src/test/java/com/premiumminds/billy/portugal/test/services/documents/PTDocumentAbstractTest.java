@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -73,21 +74,23 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
     }
 
     protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(T handler,
-            I invoice, String series) throws DocumentIssuingException {
+            I invoice, String series) throws DocumentIssuingException, SeriesUniqueCodeNotFilled
+	{
         DAOPTInvoice dao = this.getInstance(DAOPTInvoice.class);
         dao.beginTransaction();
         try {
             invoice.initializeEntityDates();
             this.issueNewInvoice(handler, invoice, series, new Date(invoice.getCreateTimestamp().getTime() + 100));
             dao.commit();
-        } catch (DocumentIssuingException up) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled up) {
             dao.rollback();
             throw up;
         }
     }
 
     protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(T handler,
-            I invoice, String series, Date date) throws DocumentIssuingException {
+            I invoice, String series, Date date) throws DocumentIssuingException, SeriesUniqueCodeNotFilled
+	{
         this.parameters.setInvoiceSeries(series);
         invoice.setDate(date);
         handler.issue(invoice, this.parameters);

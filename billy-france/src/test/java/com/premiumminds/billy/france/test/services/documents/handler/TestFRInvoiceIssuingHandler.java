@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +48,7 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
 
             this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
         }
 
@@ -64,7 +65,7 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException {
+    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
         FRInvoice issuedInvoice = this.getInstance(DAOFRInvoice.class).get(this.issuedInvoiceUID);
         Integer nextNumber = 2;
 
@@ -84,7 +85,7 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException {
+    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
         Integer nextNumber = 1;
         String newSeries = "FT NEW_SERIES";
 
@@ -103,7 +104,7 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException {
+    public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
         FRInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
         UID newInvoiceUID = newInvoice.getUID();
