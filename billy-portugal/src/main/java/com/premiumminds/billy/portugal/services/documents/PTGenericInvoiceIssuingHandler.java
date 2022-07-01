@@ -112,6 +112,10 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber,
                 document.getAmountWithTax(), previousHash);
 
+		if (invoiceSeriesEntity.getSeriesUniqueCode().isPresent()) {
+			validateSeriesUniqueCode(invoiceSeriesEntity.getSeriesUniqueCode().get());
+		}
+
         final String atcud = invoiceSeriesEntity
             .getSeriesUniqueCode()
             .map(s -> new StringBuilder()
@@ -153,6 +157,15 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 		try {
 			BillyValidator.matchesPattern(series, "[a-zA-Z0-9]*", "field.documentSeries");
 		} catch (IllegalArgumentException e) {
+			throw new DocumentIssuingException(e);
+		}
+	}
+
+	private void validateSeriesUniqueCode(final String seriesUniqueCode) throws DocumentIssuingException {
+		try {
+			BillyValidator.matchesPattern(seriesUniqueCode, "[A-Za-z0-9]{8,}", "field.seriesUniqueCode");
+		}
+		catch (IllegalArgumentException e) {
 			throw new DocumentIssuingException(e);
 		}
 	}

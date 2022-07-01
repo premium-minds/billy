@@ -178,4 +178,16 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 								() -> this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES));
 	}
 
+
+	@Test
+	public void testIssuedInvoiceFailWhenSeriesUniqueCodeIsInvalid() {
+		PTGenericInvoiceEntity newInvoice =
+			this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+		this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.of("12345"));
+
+		Assertions.assertThrows(DocumentIssuingException.class,
+								() -> this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES));
+	}
+
 }
