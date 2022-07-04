@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.services.documents;
 
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -59,12 +60,11 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
     }
 
     protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(final T document, final PTIssuingParams parametersPT,
-            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException, SeriesUniqueCodeNotFilled
-	{
+            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
 
         String series = parametersPT.getInvoiceSeries();
 
-		validateSeriesHasNoWhiteSpaces(series);
+        validateSeriesHasNoWhiteSpaces(series);
 
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
@@ -104,17 +104,19 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
         String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
-		validatePTInvoiceNumber(formattedNumber);
+        validatePTInvoiceNumber(formattedNumber);
 
-        String newHash = GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
-                invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
+        String newHash =
+                GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(), invoiceDate,
+                        systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
 
-        String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber,
-                document.getAmountWithTax(), previousHash);
+        String sourceHash =
+                GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(),
+                        previousHash);
 
-		if (invoiceSeriesEntity.getSeriesUniqueCode().isPresent()) {
-			validateSeriesUniqueCode(invoiceSeriesEntity.getSeriesUniqueCode().get());
-		}
+        if (invoiceSeriesEntity.getSeriesUniqueCode().isPresent()) {
+            validateSeriesUniqueCode(invoiceSeriesEntity.getSeriesUniqueCode().get());
+        }
 
         final String atcud = invoiceSeriesEntity
             .getSeriesUniqueCode()
@@ -122,7 +124,8 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
                 .append(s)
                 .append("-")
                 .append(seriesNumber))
-            .orElseThrow(() -> new SeriesUniqueCodeNotFilled(invoiceSeriesEntity.getSeries()))
+            .orElseThrow(() -> new SeriesUniqueCodeNotFilled("The series " + invoiceSeriesEntity.getSeries()
+                                                                + " does not have a series unique code specified"))
             .toString();
 
         document.setDate(invoiceDate);
@@ -145,32 +148,32 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
     }
 
-	private void validatePTInvoiceNumber(final String formattedNumber) throws DocumentIssuingException {
-		try {
-			BillyValidator.matchesPattern(formattedNumber, "([a-zA-Z0-9./_-])+ ([a-zA-Z0-9]*/[0-9]+)", "field.documentNumber");
-		} catch (IllegalArgumentException e) {
-			throw new DocumentIssuingException(e);
-		}
-	}
+    private void validatePTInvoiceNumber(final String formattedNumber) throws DocumentIssuingException {
+        try {
+            BillyValidator.matchesPattern(formattedNumber, "([a-zA-Z0-9./_-])+ ([a-zA-Z0-9]*/[0-9]+)",
+                    "field.documentNumber");
+        } catch (IllegalArgumentException e) {
+            throw new DocumentIssuingException(e);
+        }
+    }
 
-	private void validateSeriesHasNoWhiteSpaces(final String series) throws DocumentIssuingException {
-		try {
-			BillyValidator.matchesPattern(series, "[a-zA-Z0-9]*", "field.documentSeries");
-		} catch (IllegalArgumentException e) {
-			throw new DocumentIssuingException(e);
-		}
-	}
+    private void validateSeriesHasNoWhiteSpaces(final String series) throws DocumentIssuingException {
+        try {
+            BillyValidator.matchesPattern(series, "[a-zA-Z0-9]*", "field.documentSeries");
+        } catch (IllegalArgumentException e) {
+            throw new DocumentIssuingException(e);
+        }
+    }
 
-	private void validateSeriesUniqueCode(final String seriesUniqueCode) throws DocumentIssuingException {
-		try {
-			BillyValidator.matchesPattern(seriesUniqueCode, "[A-Za-z0-9]{8,}", "field.seriesUniqueCode");
-		}
-		catch (IllegalArgumentException e) {
-			throw new DocumentIssuingException(e);
-		}
-	}
+    private void validateSeriesUniqueCode(final String seriesUniqueCode) throws DocumentIssuingException {
+        try {
+            BillyValidator.matchesPattern(seriesUniqueCode, "[A-Za-z0-9]{8,}", "field.seriesUniqueCode");
+        } catch (IllegalArgumentException e) {
+            throw new DocumentIssuingException(e);
+        }
+    }
 
-	private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
+    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 

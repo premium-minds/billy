@@ -42,8 +42,7 @@ public class PTReceiptInvoiceIssuingHandler
 
     @Override
     public PTReceiptInvoiceEntity issue(PTReceiptInvoiceEntity document, PTIssuingParams parameters)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled
-	{
+            throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
         return this.issue(document, parameters, this.daoReceiptInvoice, PTReceiptInvoiceIssuingHandler.INVOICE_TYPE);
     }
 

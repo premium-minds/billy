@@ -115,8 +115,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
     }
 
     private <T extends GenericInvoice> T issueDocument(Builder<T> documentBuilder, final IssuingParams parameters)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled
-	{
+            throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
 
         final T document = documentBuilder.build();
         final Type[] types = document.getClass().getGenericInterfaces();

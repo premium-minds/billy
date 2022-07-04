@@ -41,8 +41,7 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler<P
 
     @Override
     public PTCreditNoteEntity issue(PTCreditNoteEntity document, PTIssuingParams parameters)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled
-	{
+            throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
 
         return this.issue(document, parameters, this.daoCreditNote, PTCreditNoteIssuingHandler.INVOICE_TYPE);
     }

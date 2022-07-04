@@ -87,7 +87,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
         Services service = new Services(PTAbstractTest.injector);
         PTIssuingParams parameters = this.getParameters("NC", "30000", "1");
 
-		this.createSeries(reference, "NC", Optional.of("ATCUD12345"));
+        this.createSeries(reference, "NC", Optional.of("ATCUD12345"));
 
         try {
             return (PTCreditNoteEntity) service.issueDocument(
@@ -111,32 +111,28 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
         return parameters;
     }
 
-	protected void createSeries(String businessUID) {
-		this.createSeries(
-			new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
-				new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
-			PTPersistencyAbstractTest.DEFAULT_SERIES,
-			Optional.of("ATCUD12345"));
-	}
+    protected void createSeries(String businessUID) {
+        this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
+                        new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P)
+                .build(), PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.of("ATCUD12345"));
+    }
 
-	protected void createSeries(String businessUID, String series) {
-		this.createSeries(
-			new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
-				new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
-			series,
-			Optional.of("ATCUD12345"));
-	}
+    protected void createSeries(String businessUID, String series) {
+        this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
+                        new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P)
+                .build(), series, Optional.of("ATCUD12345"));
+    }
 
-	protected <T extends GenericInvoice> void createSeries(T document, String series) {
-		this.createSeries(document, series, Optional.of("ATCUD12345"));
-	}
+    protected <T extends GenericInvoice> void createSeries(T document, String series) {
+        this.createSeries(document, series, Optional.of("ATCUD12345"));
+    }
 
-	protected <T extends GenericInvoice> void createSeries(T document, String series, Optional<String> code) {
-		final DAOInvoiceSeries daoInvoiceSeries = PTAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
-		final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
-		seriesEntity.setSeries(series);
-		seriesEntity.setBusiness(document.getBusiness());
-		code.ifPresent(seriesEntity::setSeriesUniqueCode);
-		daoInvoiceSeries.create(seriesEntity);
-	}
+    protected <T extends GenericInvoice> void createSeries(T document, String series, Optional<String> code) {
+        final DAOInvoiceSeries daoInvoiceSeries = PTAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
+        final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
+        seriesEntity.setSeries(series);
+        seriesEntity.setBusiness(document.getBusiness());
+        code.ifPresent(seriesEntity::setSeriesUniqueCode);
+        daoInvoiceSeries.create(seriesEntity);
+    }
 }

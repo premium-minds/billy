@@ -88,9 +88,9 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     public void testPDFcreation() throws ExportServiceException, DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-		final String uid = new UID().toString();
-		this.createSeries(uid);
-		PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
+        final String uid = new UID().toString();
+        this.createSeries(uid);
+        PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(creditNote);
@@ -113,9 +113,9 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
         UID uidEntity = UID.fromString("12345");
-		final String uid = new UID().toString();
-		this.createSeries(uid);
-		PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
+        final String uid = new UID().toString();
+        this.createSeries(uid);
+        PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(creditNote);
@@ -140,7 +140,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
         PTIssuingParams params = this.getParameters("AC", "3000", "1");
 
-		this.createSeries(reference, "AC");
+        this.createSeries(reference, "AC");
 
         PTCreditNoteEntity creditNote = null;
         creditNote = (PTCreditNoteEntity) services.issueDocument(

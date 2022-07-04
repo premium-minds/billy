@@ -19,6 +19,7 @@
 package com.premiumminds.billy.france.test.services.documents;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -44,7 +45,7 @@ public class FRDocumentAbstractTest extends FRPersistencyAbstractTest {
         FT, // Invoice
         RC, // Receipt
         FS, // Simple Invoice
-        NC	// Credit Note
+        NC  // Credit Note
     }
 
     public enum SOURCE_BILLING {
@@ -78,10 +79,8 @@ public class FRDocumentAbstractTest extends FRPersistencyAbstractTest {
         }
     }
 
-    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void
-            issueNewInvoice(T handler, I invoice, String series)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled
-	{
+    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void issueNewInvoice(
+            T handler, I invoice, String series) throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
         DAOFRInvoice dao = this.getInstance(DAOFRInvoice.class);
         try {
             dao.beginTransaction();
@@ -94,10 +93,8 @@ public class FRDocumentAbstractTest extends FRPersistencyAbstractTest {
         }
     }
 
-    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void
-            issueNewInvoice(T handler, I invoice, String series, Date date)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled
-	{
+    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void issueNewInvoice(
+            T handler, I invoice, String series, Date date) throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
         this.parameters.setInvoiceSeries(series);
         invoice.setDate(date);
         handler.issue(invoice, this.parameters);

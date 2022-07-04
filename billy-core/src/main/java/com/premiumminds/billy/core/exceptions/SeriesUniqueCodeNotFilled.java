@@ -20,17 +20,9 @@ package com.premiumminds.billy.core.exceptions;
 
 public class SeriesUniqueCodeNotFilled extends Exception {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public SeriesUniqueCodeNotFilled(String message) {
-		super(message);
-	}
-
-	public SeriesUniqueCodeNotFilled(Throwable cause) {
-		super(cause);
-	}
-
-	public SeriesUniqueCodeNotFilled(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public SeriesUniqueCodeNotFilled(String message) {
+        super(message);
+    }
 }

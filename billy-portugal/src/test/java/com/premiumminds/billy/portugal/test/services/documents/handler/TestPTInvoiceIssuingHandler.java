@@ -19,7 +19,9 @@
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+
 import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,7 +55,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         try {
             PTInvoiceEntity invoice = this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
                     TestPTInvoiceIssuingHandler.SOURCE_BILLING);
-			this.createSeries(invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
+            this.createSeries(invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
@@ -92,8 +94,9 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         Assertions.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, lastInvoice.getSeries());
         Assertions.assertEquals(nextNumber, lastInvoice.getSeriesNumber());
-        String formatedNumber = TestPTInvoiceIssuingHandler.DEFAULT_TYPE + " " +
-                PTPersistencyAbstractTest.DEFAULT_SERIES + "/" + nextNumber;
+        String formatedNumber =
+                TestPTInvoiceIssuingHandler.DEFAULT_TYPE + " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/" +
+                        nextNumber;
         Assertions.assertEquals(formatedNumber, lastInvoice.getNumber());
     }
 
@@ -106,7 +109,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
         UID newInvoiceUID = newInvoice.getUID();
-		this.createSeries(newInvoice, newSeries);
+        this.createSeries(newInvoice, newSeries);
 
         this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
@@ -130,8 +133,8 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         PTGenericInvoiceEntity invoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-		this.createSeries(invoice, series);
-		this.issueNewInvoice(this.handler, invoice, series);
+        this.createSeries(invoice, series);
+        this.issueNewInvoice(this.handler, invoice, series);
 
         PTSimpleInvoiceIssuingHandler newHandler = this.getInstance(PTSimpleInvoiceIssuingHandler.class);
 
@@ -139,18 +142,20 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
                 this.newInvoice(TYPE.FS, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
         diffentTypeInvoice.setBusiness(invoice.getBusiness());
 
-        Assertions.assertThrows(InvalidInvoiceTypeException.class, () -> this.issueNewInvoice(newHandler, diffentTypeInvoice, series));
+        Assertions.assertThrows(InvalidInvoiceTypeException.class,
+                () -> this.issueNewInvoice(newHandler, diffentTypeInvoice, series));
     }
 
-	@Test
-	public void testIssuedInvoiceFailureWithInvalidSeriesAndInvoiceNumber() throws DocumentIssuingException {
-		String series = "NEW_SERIES";
+    @Test
+    public void testIssuedInvoiceFailureWithInvalidSeriesAndInvoiceNumber() throws DocumentIssuingException {
+        String series = "NEW_SERIES";
 
-		PTGenericInvoiceEntity invoice =
-			this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+        PTGenericInvoiceEntity invoice =
+                this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-		Assertions.assertThrows(DocumentIssuingException.class, () -> this.issueNewInvoice(this.handler, invoice, series));
-	}
+        Assertions.assertThrows(DocumentIssuingException.class,
+                () -> this.issueNewInvoice(this.handler, invoice, series));
+    }
 
     @Test
     public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
@@ -158,7 +163,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
         UID newInvoiceUID = newInvoice.getUID();
-		this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
+        this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
         this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
@@ -167,27 +172,26 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         Assertions.assertEquals(TestPTInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
     }
 
-	@Test
-	public void testIssuedInvoiceFailWhenSeriesHasNoUniqueCode() {
-		PTGenericInvoiceEntity newInvoice =
-			this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+    @Test
+    public void testIssuedInvoiceFailWhenSeriesHasNoUniqueCode() {
+        PTGenericInvoiceEntity newInvoice =
+                this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-		this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.empty());
+        this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.empty());
 
-		Assertions.assertThrows(SeriesUniqueCodeNotFilled.class,
-								() -> this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES));
-	}
+        Assertions.assertThrows(SeriesUniqueCodeNotFilled.class,
+                () -> this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES));
+    }
 
+    @Test
+    public void testIssuedInvoiceFailWhenSeriesUniqueCodeIsInvalid() {
+        PTGenericInvoiceEntity newInvoice =
+                this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-	@Test
-	public void testIssuedInvoiceFailWhenSeriesUniqueCodeIsInvalid() {
-		PTGenericInvoiceEntity newInvoice =
-			this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+        this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.of("12345"));
 
-		this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.of("12345"));
-
-		Assertions.assertThrows(DocumentIssuingException.class,
-								() -> this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES));
-	}
+        Assertions.assertThrows(DocumentIssuingException.class,
+                () -> this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES));
+    }
 
 }
