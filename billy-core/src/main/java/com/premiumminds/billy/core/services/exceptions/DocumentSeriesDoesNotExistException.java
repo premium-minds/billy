@@ -22,19 +22,7 @@ public class DocumentSeriesDoesNotExistException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	public DocumentSeriesDoesNotExistException() {
-		super();
-	}
-
 	public DocumentSeriesDoesNotExistException(String message) {
 		super(message);
-	}
-
-	public DocumentSeriesDoesNotExistException(Throwable t) {
-		super(t);
-	}
-
-	public DocumentSeriesDoesNotExistException(String message, Throwable t) {
-		super(message, t);
 	}
 }

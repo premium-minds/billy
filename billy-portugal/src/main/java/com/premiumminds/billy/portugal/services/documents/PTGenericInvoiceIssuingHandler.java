@@ -159,14 +159,13 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 	}
 
 	private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode)
-		throws DocumentSeriesDoesNotExistException
-	{
-        InvoiceSeriesEntity invoiceSeriesEntity =
-                this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
+		throws DocumentSeriesDoesNotExistException {
+		InvoiceSeriesEntity invoiceSeriesEntity =
+			this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 
-        if (null == invoiceSeriesEntity) {
-            throw new DocumentSeriesDoesNotExistException(series);
-        }
-        return invoiceSeriesEntity;
+		if (null == invoiceSeriesEntity) {
+			throw new DocumentSeriesDoesNotExistException("Requested to issue an invoice with series " + series + " but series does not exist");
+		}
+		return invoiceSeriesEntity;
     }
 }
