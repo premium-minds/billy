@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 import com.premiumminds.billy.core.services.builders.BankAccountBuilder;
@@ -69,7 +70,7 @@ public class BankAccountBuilderImpl<TBuilder extends BankAccountBuilderImpl<TBui
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         BankAccountEntity b = this.getTypeInstance();
         BillyValidator.mandatory(b.getIBANNumber(), "field.iban");
         BillyValidator.mandatory(b.getBankAccountNumber(), "field.bank_account_number");

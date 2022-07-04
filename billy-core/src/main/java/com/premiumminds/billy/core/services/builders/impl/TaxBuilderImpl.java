@@ -26,6 +26,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.lang3.Validate;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
@@ -133,7 +134,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
         Tax t = this.getTypeInstance();
         /*BillyValidator.mandatory(t.getDescription(),
                 TaxBuilderImpl.LOCALIZER.getString("field.tax_description"));

@@ -47,9 +47,9 @@ import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
-import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
@@ -65,14 +65,14 @@ public abstract class FOPPDFTransformer {
     private static final String QR_CODE_PATH = "qrCodePath";
     private static final String QR_CODE = "qrCode";
 
-    private final TransformerFactoryImpl transformerFactory;
+    private final TransformerFactory transformerFactory;
 
-    public FOPPDFTransformer(TransformerFactoryImpl transformerFactory) {
+    public FOPPDFTransformer(TransformerFactory transformerFactory) {
         this.transformerFactory = transformerFactory;
     }
 
     public FOPPDFTransformer() {
-        this(new TransformerFactoryImpl());
+        this(TransformerFactory.newInstance());
     }
 
     private Source mapParamsToSource(ParamsTree<String, String> documentParams) {

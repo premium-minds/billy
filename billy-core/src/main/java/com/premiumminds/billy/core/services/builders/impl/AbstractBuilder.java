@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import javax.validation.ValidationException;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.entities.BaseEntity;
 import com.premiumminds.billy.core.services.UID;
@@ -40,7 +38,7 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
         return (TBuilder) this;
     }
 
-    protected abstract void validateInstance() throws BillyValidationException, ValidationException;
+    protected abstract void validateInstance() throws BillyValidationException;
 
     protected <T extends TType> void setTypeInstance(T instance) {
         this.typeInstance = instance;
@@ -60,7 +58,7 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
         return this.getBuilder();
     }
 
-    public TType build() throws BillyValidationException, ValidationException {
+    public TType build() throws BillyValidationException {
         this.validateInstance();
         return this.getTypeInstance();
     }

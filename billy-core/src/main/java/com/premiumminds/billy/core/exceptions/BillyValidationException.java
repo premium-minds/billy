@@ -24,4 +24,8 @@ public class BillyValidationException extends BillyRuntimeException {
 
     public BillyValidationException() {
     }
+
+    public BillyValidationException(String message) {
+        super(message);
+    }
 }

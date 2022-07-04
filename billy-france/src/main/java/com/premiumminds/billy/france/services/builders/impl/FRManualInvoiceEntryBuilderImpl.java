@@ -20,8 +20,6 @@ package com.premiumminds.billy.france.services.builders.impl;
 
 import java.util.Date;
 
-import javax.validation.ValidationException;
-
 import org.apache.commons.lang3.time.DateUtils;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -60,7 +58,7 @@ public class FRManualInvoiceEntryBuilderImpl<TBuilder extends FRManualInvoiceEnt
     }
 
     @Override
-    protected void validateValues() throws BillyValidationException {
+    protected void validateValues() {
         GenericInvoiceEntryEntity e = this.getTypeInstance();
         for (Tax t : e.getProduct().getTaxes()) {
             if (this.daoContext.isSameOrSubContext(this.context, t.getContext())) {
@@ -71,7 +69,7 @@ public class FRManualInvoiceEntryBuilderImpl<TBuilder extends FRManualInvoiceEnt
             }
         }
         if (e.getTaxes().isEmpty()) {
-            throw new ValidationException(
+            throw new BillyValidationException(
                     GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("exception.invalid_taxes"));
         }
     }

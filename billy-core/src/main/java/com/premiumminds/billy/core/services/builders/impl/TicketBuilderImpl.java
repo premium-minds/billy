@@ -22,6 +22,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.services.UID;
@@ -51,7 +52,7 @@ public class TicketBuilderImpl<TBuilder extends TicketBuilderImpl<TBuilder, TTic
     }
 
     @Override
-    protected void validateInstance() throws javax.validation.ValidationException {
+    protected void validateInstance() throws BillyValidationException {
 
     }
 

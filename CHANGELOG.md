@@ -3,39 +3,88 @@
 
 ## [Unreleased v6]
 
+### Added
+
+ - [Adds validation to PT Customer Country](https://github.com/premium-minds/billy/pull/229) fixes for [Portuguese Customer Details Country must be a valid Country Code](https://github.com/premium-minds/billy/issues/216)
+
 ### Changed
 
+ - [Compiles with Java 17](https://github.com/premium-minds/billy/pull/230) fixes for [does not compile with java 11](https://github.com/premium-minds/billy/issues/203)
  - [Fix indentation, replacing tabs with spaces](https://github.com/premium-minds/billy/pull/141)
  - [Moves from old groupId javax.* to new jakarta.*](https://github.com/premium-minds/billy/pull/147)
+ - [Replaces deprecated hibernate-entitymanager with hibernate-core](https://github.com/premium-minds/billy/pull/217)
+ - [Run unit tests in parallel and in random order](https://github.com/premium-minds/billy/pull/208)
  - [Bump querydsl.version from 4.4.0 to 5.0.0](https://github.com/premium-minds/billy/pull/182)
  - [Bump guice.version from 4.2.3 to 5.0.1](https://github.com/premium-minds/billy/pull/210)
+ - [Bump guice.version from 5.0.1 to 5.1.0](https://github.com/premium-minds/billy/pull/257)
  - [Bump hibernate.version from 5.6.0.Final to 5.6.1.Final](https://github.com/premium-minds/billy/pull/218)
  - [Bump hibernate.version from 5.6.1.Final to 5.6.2.Final](https://github.com/premium-minds/billy/pull/234)
  - [Bump hibernate.version from 5.6.2.Final to 5.6.3.Final](https://github.com/premium-minds/billy/pull/245)
+ - [Bump hibernate.version from 5.6.3.Final to 5.6.4.Final](https://github.com/premium-minds/billy/pull/252)
+ - [Bump hibernate.version from 5.6.4.Final to 5.6.5.Final](https://github.com/premium-minds/billy/pull/258)
+ - [Bump hibernate.version from 5.6.5.Final to 5.6.6.Final](https://github.com/premium-minds/billy/pull/273)
+ - [Bump hibernate.version from 5.6.6.Final to 5.6.7.Final](https://github.com/premium-minds/billy/pull/274)
+ - [Bump hibernate.version from 5.6.7.Final to 5.6.8.Final](https://github.com/premium-minds/billy/pull/280)
+ - [Bump hibernate.version from 5.6.8.Final to 5.6.9.Final](https://github.com/premium-minds/billy/pull/290)
  - [Bump bcpkix-jdk15on from 1.69 to 1.70](https://github.com/premium-minds/billy/pull/232)
  - [Bump slf4j-api from 1.7.32 to 1.7.33](https://github.com/premium-minds/billy/pull/250)
+ - [Bump slf4j-api from 1.7.33 to 1.7.35](https://github.com/premium-minds/billy/pull/256)
+ - [Bump slf4j-api from 1.7.35 to 1.7.36](https://github.com/premium-minds/billy/pull/259)
+ - [Bump core from 3.4.1 to 3.5.0](https://github.com/premium-minds/billy/pull/288)
  - [Bump mockito-core from 4.0.0 to 4.1.0](https://github.com/premium-minds/billy/pull/223)
  - [Bump mockito-core from 4.1.0 to 4.2.0](https://github.com/premium-minds/billy/pull/237)
+ - [Bump mockito-core from 4.2.0 to 4.3.1](https://github.com/premium-minds/billy/pull/255)
+ - [Bump mockito-core from 4.3.1 to 4.4.0](https://github.com/premium-minds/billy/pull/268)
+ - [Bump mockito-core from 4.4.0 to 4.5.1](https://github.com/premium-minds/billy/pull/283)
+ - [Bump mockito-core from 4.5.1 to 4.6.0](https://github.com/premium-minds/billy/pull/291)
+ - [Bump mockito-core from 4.6.0 to 4.6.1](https://github.com/premium-minds/billy/pull/294)
  - [Bump snakeyaml from 1.29 to 1.30](https://github.com/premium-minds/billy/pull/236)
  - [Bump h2 from 1.3.173 to 1.4.200](https://github.com/premium-minds/billy/pull/241)
+ - [Bump h2 from 1.4.200 to 2.1.210](https://github.com/premium-minds/billy/pull/251)
+ - [Bump h2 from 2.1.210 to 2.1.212](https://github.com/premium-minds/billy/pull/279)
+ - [Bump h2 from 2.1.212 to 2.1.214](https://github.com/premium-minds/billy/pull/296)
  - [Bump tiles-maven-plugin from 2.24 to 2.25](https://github.com/premium-minds/billy/pull/224)
  - [Bump junit-jupiter-engine from 5.8.1 to 5.8.2](https://github.com/premium-minds/billy/pull/231)
  - [Bump maven-scm-api from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/240)
+ - [Bump maven-scm-api from 1.12.2 to 1.13.0](https://github.com/premium-minds/billy/pull/293)
  - [Bump maven-scm-provider-gitexe from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/239)
+ - [Bump maven-scm-provider-gitexe from 1.12.2 to 1.13.0](https://github.com/premium-minds/billy/pull/292)
  - [Bump maven-jar-plugin from 3.2.0 to 3.2.1](https://github.com/premium-minds/billy/pull/246)
  - [Bump maven-jar-plugin from 3.2.1 to 3.2.2](https://github.com/premium-minds/billy)
  - [Bump build-helper-maven-plugin from 3.2.0 to 3.3.0](https://github.com/premium-minds/billy/pull/244)
  - [Bump maven-compiler-plugin from 3.8.1 to 3.9.0](https://github.com/premium-minds/billy/pull/249)
+ - [Bump maven-compiler-plugin from 3.9.0 to 3.10.0](https://github.com/premium-minds/billy/pull/262)
+ - [Bump maven-compiler-plugin from 3.10.0 to 3.10.1](https://github.com/premium-minds/billy/pull/270)
+ - [Bump maven-javadoc-plugin from 3.3.1 to 3.3.2](https://github.com/premium-minds/billy/pull/260)
+ - [Bump maven-javadoc-plugin from 3.3.2 to 3.4.0](https://github.com/premium-minds/billy/pull/282)
+ - [Bump nexus-staging-maven-plugin from 1.6.8 to 1.6.11](https://github.com/premium-minds/billy/pull/263)
+ - [Bump nexus-staging-maven-plugin from 1.6.11 to 1.6.12](https://github.com/premium-minds/billy/pull/266)
+ - [Bump nexus-staging-maven-plugin from 1.6.12 to 1.6.13](https://github.com/premium-minds/billy/pull/284)
+ - [Bump maven-jaxb2-plugin from 0.14.0 to 0.15.1](https://github.com/premium-minds/billy/pull/285)
 
 ### Removed
 
- - Removed org.hibernate:hibernate-validator as dependency. You must provide your jakarta.validation:jakarta.validation-api favorite implementation
  - [Removes @Deprecated methods in SAFT and export service](https://github.com/premium-minds/billy/pull/206)
  - [Removes unused and unpublished Ebean modules](https://github.com/premium-minds/billy/pull/228)
+ - [Removes saxon usage](https://github.com/premium-minds/billy/pull/265)
+ - [Remove javax.validation](https://github.com/premium-minds/billy/pull/227)
+   - Billy no longer throws `javax.validation.ValidationException`. All exceptions were consolidated into `BillyValidationException` 
+
+### Fixed
+
+ - [Updated PDF Credit Note/Receipt Description Field](https://github.com/premium-minds/billy/pull/278)
 
 ## [Unreleased v5]
 
+## [5.4.2] - 2022-05-05
+
+### Fixed
+
+ - [Updated PDF Credit Note/Receipt Description Field](https://github.com/premium-minds/billy/pull/278)
+
 ## [5.4.1] - 2021-11-16
+
+### Fixed
 
  - [Remove erroneous tax validation](https://github.com/premium-minds/billy/pull/222)
 
@@ -279,9 +328,10 @@
 
 
 [unreleased v6]: https://github.com/premium-minds/billy/compare/release-5.x...HEAD
-[unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.1...release-5.x
+[unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.2...release-5.x
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[5.4.2]: https://github.com/premium-minds/billy/compare/v5.4.1...v5.4.2
 [5.4.1]: https://github.com/premium-minds/billy/compare/v5.4.0...v5.4.1
 [5.4.0]: https://github.com/premium-minds/billy/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/premium-minds/billy/compare/v5.2.0...v5.3.0

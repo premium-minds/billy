@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import javax.validation.ValidationException;
-
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
@@ -47,7 +45,7 @@ public class ESReceiptBuilderImpl<TBuilder extends ESReceiptBuilderImpl<TBuilder
     }
 
     @Override
-    protected void validateValues() throws ValidationException {
+    protected void validateValues() {
         ESReceiptEntity i = this.getTypeInstance();
         i.setCreditOrDebit(CreditOrDebit.CREDIT);
         super.validateValues();

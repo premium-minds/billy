@@ -53,28 +53,12 @@
 		<!-- PERSISTENCE -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
+			<artifactId>hibernate-core</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-envers</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate.validator</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jakarta.el</groupId>
-			<artifactId>jakarta.el-api</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>jakarta.el</artifactId>
-			<scope>test</scope>
 		</dependency>
 
 		<!-- Query DSL -->
@@ -199,6 +183,13 @@
 				<!-- When adding support for additional saft version via .xsd, create a separate execution element, as done below -->
 				<groupId>org.jvnet.jaxb2.maven2</groupId>
 				<artifactId>maven-jaxb2-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.glassfish.jaxb</groupId>
+						<artifactId>jaxb-runtime</artifactId>
+						<version>2.3.5</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<schemaDirectory>src/main/resources/documents</schemaDirectory>
 					<bindingDirectory>src/main/resources/documents</bindingDirectory>

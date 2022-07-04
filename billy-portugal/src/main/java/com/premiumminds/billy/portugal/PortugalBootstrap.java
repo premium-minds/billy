@@ -78,6 +78,8 @@ public class PortugalBootstrap {
     protected static final String CODE_PT_AZORES = "PT-20";
     protected static final String CODE_PT_MADEIRA = "PT-30";
 
+    public static final String ISO_CONTRY_UNKNOW = "Desconhecido";
+
     public static void main(String[] args) {
         if (args.length > 0 && !args[0].isEmpty()) {
             PortugalBootstrap.execute(args[0]);
@@ -123,7 +125,7 @@ public class PortugalBootstrap {
 
                     // Generic Address
                     final PTAddressEntity GENERIC_ADDRESS = this.buildAddressEntity(daoPTAddress, addressBuilder, null,
-                            null, null, "Desconhecido", null, "Desconhecido", "Desconhecido", "Desconhecido",
+                            null, null, "Desconhecido", null, ISO_CONTRY_UNKNOW, "Desconhecido", "Desconhecido",
                             Config.Key.Address.Generic.UUID);
 
                     // Generic contact
