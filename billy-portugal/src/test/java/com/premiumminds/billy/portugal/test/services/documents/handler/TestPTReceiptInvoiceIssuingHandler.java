@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -49,16 +50,18 @@ public class TestPTReceiptInvoiceIssuingHandler extends PTDocumentAbstractTest {
             PTReceiptInvoiceEntity invoice = this.newInvoice(TestPTReceiptInvoiceIssuingHandler.DEFAULT_TYPE,
                     TestPTReceiptInvoiceIssuingHandler.SOURCE_BILLING);
 
+			this.createSeries(invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
+
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
 
     }
 
     @Test
-    public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+    public void testIssuedInvoiceSimple() {
         PTReceiptInvoice issuedInvoice = this.getInstance(DAOPTReceiptInvoice.class).get(this.issuedInvoiceUID);
 
         Assertions.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
