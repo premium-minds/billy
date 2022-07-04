@@ -43,7 +43,7 @@ public class PTReceiptInvoiceData extends PTGenericInvoiceData {
         final String settlementDescription,
         final String hash,
         final String qrCodeString,
-		final String atcud) {
+        final String atcud) {
 
         super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
                 amountWithoutTax, settlementDescription, hash, qrCodeString, atcud);

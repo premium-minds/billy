@@ -42,11 +42,11 @@ public class PTSimpleInvoiceData extends PTGenericInvoiceData {
         final BigDecimal amountWithoutTax,
         final String settlementDescription,
         final String hash,
-		final String qrCodeString,
-		final String atcud) {
+        final String qrCodeString,
+        final String atcud) {
 
-		super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
-			  amountWithoutTax, settlementDescription, hash, qrCodeString, atcud);
+        super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
+              amountWithoutTax, settlementDescription, hash, qrCodeString, atcud);
     }
 
 }

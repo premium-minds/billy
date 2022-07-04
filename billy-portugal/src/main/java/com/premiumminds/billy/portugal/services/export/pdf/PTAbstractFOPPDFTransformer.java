@@ -34,7 +34,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
         public static final String ROOT = "invoice";
         public static final String INVOICE_HASH = "hash";
         public static final String QRCODE = "qrCode";
-		public static final String ATCUD = "atcud";
+        public static final String ATCUD = "atcud";
         public static final String SOFTWARE_CERTIFICATE_NUMBER = "certificateNumber";
         public static final String INVOICE_PAYSETTLEMENT = "paymentSettlement";
     }

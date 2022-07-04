@@ -170,7 +170,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
-		invoice.setATCUD("12345");
+        invoice.setATCUD("12345");
         return invoice;
     }
 
@@ -179,7 +179,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
-		invoice.setATCUD("12345");
+        invoice.setATCUD("12345");
         return invoice;
     }
 
@@ -188,7 +188,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
-		invoice.setATCUD("12345");
+        invoice.setATCUD("12345");
         return invoice;
     }
 
@@ -197,7 +197,7 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         invoice.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
-		invoice.setATCUD("12345");
+        invoice.setATCUD("12345");
         return invoice;
     }
 
