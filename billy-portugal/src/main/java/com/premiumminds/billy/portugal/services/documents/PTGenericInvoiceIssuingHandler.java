@@ -18,7 +18,10 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.BillyValidator;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -26,7 +29,6 @@ import javax.persistence.LockModeType;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
@@ -58,11 +60,11 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
     }
 
     protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(final T document, final PTIssuingParams parametersPT,
-            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException {
+            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
 
         String series = parametersPT.getInvoiceSeries();
 
-		validateSeriesHasNoWhiteSpaces(series);
+        validateSeriesHasNoWhiteSpaces(series);
 
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
@@ -102,21 +104,28 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
         String formattedNumber = invoiceType.toString() + " " + parametersPT.getInvoiceSeries() + "/" + seriesNumber;
 
-		validatePTInvoiceNumber(formattedNumber);
+        validatePTInvoiceNumber(formattedNumber);
 
-        String newHash = GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(),
-                invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
+        String newHash =
+                GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(), invoiceDate,
+                        systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
 
-        String sourceHash = GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber,
-                document.getAmountWithTax(), previousHash);
+        String sourceHash =
+                GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(),
+                        previousHash);
+
+        if (invoiceSeriesEntity.getSeriesUniqueCode().isPresent()) {
+            validateSeriesUniqueCode(invoiceSeriesEntity.getSeriesUniqueCode().get());
+        }
 
         final String atcud = invoiceSeriesEntity
             .getSeriesUniqueCode()
             .map(s -> new StringBuilder()
                 .append(s)
                 .append("-")
-                .append(seriesNumber.toString()))
-            .orElse(new StringBuilder().append("0"))
+                .append(seriesNumber))
+            .orElseThrow(() -> new SeriesUniqueCodeNotFilled("The series " + invoiceSeriesEntity.getSeries()
+                                                                + " does not have a series unique code specified"))
             .toString();
 
         document.setDate(invoiceDate);
@@ -139,32 +148,39 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
     }
 
-	private void validatePTInvoiceNumber(final String formattedNumber) throws DocumentIssuingException {
-		try {
-			BillyValidator.matchesPattern(formattedNumber, "([a-zA-Z0-9./_-])+ ([a-zA-Z0-9]*/[0-9]+)", "field.documentNumber");
-		} catch (IllegalArgumentException e) {
-			throw new DocumentIssuingException(e);
-		}
-	}
+    private void validatePTInvoiceNumber(final String formattedNumber) throws DocumentIssuingException {
+        try {
+            BillyValidator.matchesPattern(formattedNumber, "([a-zA-Z0-9./_-])+ ([a-zA-Z0-9]*/[0-9]+)",
+                    "field.documentNumber");
+        } catch (IllegalArgumentException e) {
+            throw new DocumentIssuingException(e);
+        }
+    }
 
-	private void validateSeriesHasNoWhiteSpaces(final String series) throws DocumentIssuingException {
-		try {
-			BillyValidator.matchesPattern(series, "[a-zA-Z0-9]*", "field.documentSeries");
-		} catch (IllegalArgumentException e) {
-			throw new DocumentIssuingException(e);
-		}
-	}
+    private void validateSeriesHasNoWhiteSpaces(final String series) throws DocumentIssuingException {
+        try {
+            BillyValidator.matchesPattern(series, "[a-zA-Z0-9]*", "field.documentSeries");
+        } catch (IllegalArgumentException e) {
+            throw new DocumentIssuingException(e);
+        }
+    }
 
-	private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
+    private void validateSeriesUniqueCode(final String seriesUniqueCode) throws DocumentIssuingException {
+        try {
+            BillyValidator.matchesPattern(seriesUniqueCode, "[^AEIOUa-z01]{8,}", "field.seriesUniqueCode");
+        } catch (IllegalArgumentException e) {
+            throw new DocumentIssuingException(e);
+        }
+    }
+
+    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode)
+            throws DocumentSeriesDoesNotExistException {
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 
         if (null == invoiceSeriesEntity) {
-            InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-            entity.setBusiness(document.getBusiness());
-            entity.setSeries(series);
-
-            invoiceSeriesEntity = this.daoInvoiceSeries.create(entity);
+            throw new DocumentSeriesDoesNotExistException(
+                    "Requested to issue an invoice with series " + series + " but series does not exist");
         }
         return invoiceSeriesEntity;
     }

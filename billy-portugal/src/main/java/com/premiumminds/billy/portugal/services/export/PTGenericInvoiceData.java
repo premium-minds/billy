@@ -34,6 +34,8 @@ public class PTGenericInvoiceData extends GenericInvoiceData {
     private final String hash;
     private final String qrCodeString;
 
+    private final String atcud;
+
     public PTGenericInvoiceData(
         final String number,
         final Date date,
@@ -47,13 +49,15 @@ public class PTGenericInvoiceData extends GenericInvoiceData {
         final BigDecimal amountWithoutTax,
         final String settlementDescription,
         final String hash,
-        final String qrCodeString) {
+        final String qrCodeString,
+        final String atcud) {
 
         super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
                 amountWithoutTax, settlementDescription);
 
         this.hash = hash;
         this.qrCodeString = qrCodeString;
+        this.atcud = atcud;
     }
 
     public String getHash() {
@@ -62,5 +66,9 @@ public class PTGenericInvoiceData extends GenericInvoiceData {
 
     public Optional<String> getQrCodeString() {
         return Optional.ofNullable(qrCodeString);
+    }
+
+    public String getAtcud() {
+        return atcud;
     }
 }

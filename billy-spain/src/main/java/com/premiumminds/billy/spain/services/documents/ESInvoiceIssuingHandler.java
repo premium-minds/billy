@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.documents;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
@@ -37,7 +38,9 @@ public class ESInvoiceIssuingHandler extends ESGenericInvoiceIssuingHandler<ESIn
     }
 
     @Override
-    public ESInvoiceEntity issue(ESInvoiceEntity document, ESIssuingParams parameters) throws DocumentIssuingException {
+    public ESInvoiceEntity issue(ESInvoiceEntity document, ESIssuingParams parameters)
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
         return this.issue(document, parameters, this.daoInvoice);
     }
 

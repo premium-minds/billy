@@ -86,8 +86,14 @@ public class TestConcurrentIssuing extends FRDocumentAbstractTest {
     public void testConcurrentIssuing() throws InterruptedException, ExecutionException {
         ConcurrentTestUtil test = new ConcurrentTestUtil(10);
         String B1 = "Business 1";
+        this.createSeries(B1, "A");
+        this.createSeries(B1, "B");
+        this.createSeries(B1, "C");
         FRBusinessEntity businessEntity1 = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(B1);
         String B2 = "Business 2";
+        this.createSeries(B2, "A");
+        this.createSeries(B2, "B");
+        this.createSeries(B2, "C");
         FRBusinessEntity businessEntity2 = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(B2);
 
         List<Future<?>> results1 = test.runThreads(new TestRunner(FRAbstractTest.injector, "A", businessEntity1));
@@ -119,6 +125,9 @@ public class TestConcurrentIssuing extends FRDocumentAbstractTest {
     @Test
     public void testConcurrentIssuing2() throws InterruptedException, ExecutionException {
         String B1 = "Business 1";
+        this.createSeries(B1, "A");
+        this.createSeries(B1, "B");
+        this.createSeries(B1, "C");
         FRBusinessEntity businessEntity1 = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(B1);
         ConcurrentTestUtil test = new ConcurrentTestUtil(10);
         List<Future<?>> results1 = test.runThreads(new TestRunner(FRAbstractTest.injector, "A", businessEntity1));
@@ -141,8 +150,14 @@ public class TestConcurrentIssuing extends FRDocumentAbstractTest {
     public void testDifferenteBusinessAndSeries() throws InterruptedException, ExecutionException {
         ConcurrentTestUtil test = new ConcurrentTestUtil(20);
         String B1 = "Business 1";
+        this.createSeries(B1, "A");
+        this.createSeries(B1, "B");
+        this.createSeries(B1, "C");
         FRBusinessEntity businessEntity1 = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(B1);
         String B2 = "Business 2";
+        this.createSeries(B2, "A");
+        this.createSeries(B2, "B");
+        this.createSeries(B2, "C");
         FRBusinessEntity businessEntity2 = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(B2);
 
         List<Future<?>> results1 = test.runThreads(new TestRunner(FRAbstractTest.injector, "A", businessEntity1));
@@ -168,6 +183,9 @@ public class TestConcurrentIssuing extends FRDocumentAbstractTest {
     @Test
     public void testMultipleSeriesIssuing() throws InterruptedException, ExecutionException {
         String B1 = "Business 1";
+        this.createSeries(B1, "A");
+        this.createSeries(B1, "B");
+        this.createSeries(B1, "C");
         FRBusinessEntity businessEntity1 = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(B1);
         Integer totalThreads = 10;
         ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);

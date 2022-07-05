@@ -86,7 +86,9 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-        ESInvoiceEntity invoice = this.getNewIssuedInvoice();
+        final String businessUID = new UID().toString();
+        this.createSeries(businessUID);
+        ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
         DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -112,7 +114,9 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
             DocumentIssuingException {
 
         UID uidEntity = UID.fromString("12345");
-        ESInvoiceEntity invoice = this.getNewIssuedInvoice();
+        final String businessUID = new UID().toString();
+        this.createSeries(businessUID);
+        ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
         DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -125,7 +129,9 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-        ESInvoiceEntity invoice = this.getNewIssuedInvoice();
+        final String businessUID = new UID().toString();
+        this.createSeries(businessUID);
+        ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
         DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -149,6 +155,8 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
         Services services = new Services(ESAbstractTest.injector);
 
         ESIssuingParams params = this.getParameters("AC", "3000");
+
+        this.createSeries(reference, "AC");
 
         ESCreditNoteEntity creditNote = null;
         creditNote = (ESCreditNoteEntity) services.issueDocument(

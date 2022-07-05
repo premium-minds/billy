@@ -88,7 +88,9 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     public void testPDFcreation() throws ExportServiceException, DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-        PTInvoiceEntity invoice = this.getNewIssuedInvoice();
+        final String uid = new UID().toString();
+        this.createSeries(uid);
+        PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(creditNote);
@@ -111,7 +113,9 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     @Test
     public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
         UID uidEntity = UID.fromString("12345");
-        PTInvoiceEntity invoice = this.getNewIssuedInvoice();
+        final String uid = new UID().toString();
+        this.createSeries(uid);
+        PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
         DAOPTCreditNote dao = this.mockedInjector.getInstance(DAOPTCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(creditNote);
@@ -136,6 +140,8 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
         PTIssuingParams params = this.getParameters("AC", "3000", "1");
 
+        this.createSeries(reference, "AC");
+
         PTCreditNoteEntity creditNote = null;
         creditNote = (PTCreditNoteEntity) services.issueDocument(
                 new PTCreditNoteTestUtil(PTAbstractTest.injector).getCreditNoteBuilder(reference), params);
@@ -146,6 +152,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         creditNote.setHash(
                 "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(creditNote);
+        creditNote.setATCUD("12345");
         return creditNote;
     }
 

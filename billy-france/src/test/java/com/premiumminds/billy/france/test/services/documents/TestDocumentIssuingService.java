@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.test.services.documents;
 
+import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,9 @@ public class TestDocumentIssuingService extends FRDocumentAbstractTest {
     @Test
     public void testIssuingService() throws DocumentIssuingException {
 
-        this.service.issue(new FRInvoiceTestUtil(FRAbstractTest.injector).getInvoiceBuilder(
-                new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity()), this.parameters);
+        final FRBusinessEntity businessEntity = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity();
+        this.createSeries(businessEntity.getUID().toString(), "A");
+        this.service.issue(new FRInvoiceTestUtil(FRAbstractTest.injector).getInvoiceBuilder(businessEntity),
+                           this.parameters);
     }
 }

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.services.documents;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
@@ -37,7 +38,9 @@ public class FRInvoiceIssuingHandler extends FRGenericInvoiceIssuingHandler<FRIn
     }
 
     @Override
-    public FRInvoiceEntity issue(FRInvoiceEntity document, FRIssuingParams parameters) throws DocumentIssuingException {
+    public FRInvoiceEntity issue(FRInvoiceEntity document, FRIssuingParams parameters)
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
         return this.issue(document, parameters, this.daoInvoice);
     }
 

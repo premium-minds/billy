@@ -35,7 +35,9 @@ public class TestInvoiceUpdate extends ESPersistenceServiceAbstractTest {
 
     @BeforeEach
     public void setUp() throws DocumentIssuingException {
-        this.issuedInvoice = this.getNewIssuedInvoice();
+        final String businessUID = new UID().toString();
+        this.createSeries(businessUID);
+        this.issuedInvoice = this.getNewIssuedInvoice(businessUID);
     }
 
     @Test

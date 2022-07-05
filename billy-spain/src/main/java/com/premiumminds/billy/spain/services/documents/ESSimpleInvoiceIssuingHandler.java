@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.documents;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
@@ -39,7 +40,8 @@ public class ESSimpleInvoiceIssuingHandler
 
     @Override
     public ESSimpleInvoiceEntity issue(ESSimpleInvoiceEntity document, ESIssuingParams parameters)
-            throws DocumentIssuingException {
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
 
         return this.issue(document, parameters, this.daoSimpleInvoice);
     }

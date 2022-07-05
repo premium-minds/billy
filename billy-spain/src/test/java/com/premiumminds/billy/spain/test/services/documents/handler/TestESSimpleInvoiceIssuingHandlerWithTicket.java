@@ -69,6 +69,8 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends ESDocumentAbstr
             String ticketValue = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
             this.ticketUID = new UID(ticketValue);
 
+            this.createSeries(simpleInvoiceBuilder.build(), this.DEFAULT_SERIES);
+
             Services services = new Services(ESAbstractTest.injector);
             services.issueDocument(simpleInvoiceBuilder, this.parameters, ticketValue);
 

@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.documents;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -78,21 +80,23 @@ public class ESDocumentAbstractTest extends ESPersistencyAbstractTest {
     }
 
     protected <T extends DocumentIssuingHandler<I, ESIssuingParams>, I extends ESGenericInvoiceEntity> void
-            issueNewInvoice(T handler, I invoice, String series) throws DocumentIssuingException {
+            issueNewInvoice(T handler, I invoice, String series)
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         DAOESInvoice dao = this.getInstance(DAOESInvoice.class);
         try {
             dao.beginTransaction();
             invoice.initializeEntityDates();
             this.issueNewInvoice(handler, invoice, series, new Date(invoice.getCreateTimestamp().getTime() + 100));
             dao.commit();
-        } catch (DocumentIssuingException up) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled up) {
             dao.rollback();
             throw up;
         }
     }
 
     protected <T extends DocumentIssuingHandler<I, ESIssuingParams>, I extends ESGenericInvoiceEntity> void
-            issueNewInvoice(T handler, I invoice, String series, Date date) throws DocumentIssuingException {
+            issueNewInvoice(T handler, I invoice, String series, Date date)
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         this.parameters.setInvoiceSeries(series);
         invoice.setDate(date);
         handler.issue(invoice, this.parameters);

@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.documents;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -43,7 +45,7 @@ public class FRDocumentAbstractTest extends FRPersistencyAbstractTest {
         FT, // Invoice
         RC, // Receipt
         FS, // Simple Invoice
-        NC	// Credit Note
+        NC  // Credit Note
     }
 
     public enum SOURCE_BILLING {
@@ -77,22 +79,22 @@ public class FRDocumentAbstractTest extends FRPersistencyAbstractTest {
         }
     }
 
-    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void
-            issueNewInvoice(T handler, I invoice, String series) throws DocumentIssuingException {
+    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void issueNewInvoice(
+            T handler, I invoice, String series) throws DocumentIssuingException, DocumentSeriesDoesNotExistException , SeriesUniqueCodeNotFilled {
         DAOFRInvoice dao = this.getInstance(DAOFRInvoice.class);
         try {
             dao.beginTransaction();
             invoice.initializeEntityDates();
             this.issueNewInvoice(handler, invoice, series, new Date(invoice.getCreateTimestamp().getTime() + 100));
             dao.commit();
-        } catch (DocumentIssuingException up) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled up) {
             dao.rollback();
             throw up;
         }
     }
 
-    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void
-            issueNewInvoice(T handler, I invoice, String series, Date date) throws DocumentIssuingException {
+    protected <T extends DocumentIssuingHandler<I, FRIssuingParams>, I extends FRGenericInvoiceEntity> void issueNewInvoice(
+            T handler, I invoice, String series, Date date) throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         this.parameters.setInvoiceSeries(series);
         invoice.setDate(date);
         handler.issue(invoice, this.parameters);

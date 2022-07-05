@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.test.services.persistence;
 
+import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,9 @@ public class TestInvoiceUpdate extends FRPersistenceServiceAbstractTest {
 
     @BeforeEach
     public void setUp() throws DocumentIssuingException {
-        this.issuedInvoice = this.getNewIssuedInvoice();
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        this.issuedInvoice = this.getNewIssuedInvoice(businessUID);
     }
 
     @Test

@@ -16,15 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with billy core. If not, see <http://www.gnu.org/licenses/>.
  */
-package com.premiumminds.billy.core.services.documents;
+package com.premiumminds.billy.core.services.exceptions;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+public class DocumentSeriesDoesNotExistException extends Exception {
 
-public interface DocumentIssuingHandler<T extends GenericInvoice, P extends IssuingParams> {
+    private static final long serialVersionUID = 1L;
 
-    public T issue(T document, P parameters)
-            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled;
+    public DocumentSeriesDoesNotExistException(String message) {
+        super(message);
+    }
 }

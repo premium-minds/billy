@@ -76,7 +76,7 @@ public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
         return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
                                     costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
                                     entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash(),
-                                    qrCodeString);
+                                    qrCodeString, entity.getATCUD());
     }
 
     private List<PTCreditNoteEntryData> extractCreditEntries(List<PTCreditNoteEntry> entryEntities)

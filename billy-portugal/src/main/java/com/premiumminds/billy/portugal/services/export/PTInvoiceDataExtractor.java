@@ -68,7 +68,7 @@ public class PTInvoiceDataExtractor extends AbstractBillyDataExtractor implement
         }
         return new PTInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments, costumer,
                                  business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
-                                 entity.getSettlementDescription(), entity.getHash(), qrCodeString);
+                                 entity.getSettlementDescription(), entity.getHash(), qrCodeString, entity.getATCUD());
     }
 
 }
