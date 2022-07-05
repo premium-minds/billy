@@ -9,6 +9,7 @@
 
 ### Changed
 
+ - [Fail if series unique code not filled](https://github.com/premium-minds/billy/pull/301)
  - [Fail when series does not exist](https://github.com/premium-minds/billy/pull/299)
  - [Exposes atcud value to the various pt document exporters](https://github.com/premium-minds/billy/pull/298)
  - [Compiles with Java 17](https://github.com/premium-minds/billy/pull/230) fixes for [does not compile with java 11](https://github.com/premium-minds/billy/issues/203)
