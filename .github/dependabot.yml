@@ -6,42 +6,9 @@ updates:
     interval: daily
   open-pull-requests-limit: 10
   ignore:
-  - dependency-name: org.apache.xmlgraphics:fop
-    versions:
-    - ">= 1.1.a, < 1.2"
-  - dependency-name: org.hibernate:hibernate-entitymanager
-    versions:
-    - ">= 4.3.a, < 4.4"
-  - dependency-name: org.hibernate:hibernate-envers
-    versions:
-    - ">= 4.3.a, < 4.4"
-  - dependency-name: org.hibernate:hibernate-validator
-    versions:
-    - ">= 6.a, < 7"
   - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics
     versions:
     - ">= 1.11.a, < 1.12"
   - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics-runtime
     versions:
     - ">= 1.11.a, < 1.12"
-  - dependency-name: org.hibernate:hibernate-validator
-    versions:
-    - 7.0.1.Final
-  - dependency-name: org.hibernate:hibernate-envers
-    versions:
-    - 5.4.29.Final
-  - dependency-name: org.hibernate:hibernate-entitymanager
-    versions:
-    - 5.4.29.Final
-  - dependency-name: com.google.inject.extensions:guice-persist
-    versions:
-    - 5.0.0
-  - dependency-name: com.google.inject:guice
-    versions:
-    - 5.0.0
-  - dependency-name: org.mockito:mockito-core
-    versions:
-    - 3.8.0
-  - dependency-name: org.apache.xmlgraphics:fop
-    versions:
-    - "2.5"
