@@ -167,7 +167,7 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
     private void validateSeriesUniqueCode(final String seriesUniqueCode) throws DocumentIssuingException {
         try {
-            BillyValidator.matchesPattern(seriesUniqueCode, "[A-Za-z0-9]{8,}", "field.seriesUniqueCode");
+            BillyValidator.matchesPattern(seriesUniqueCode, "[^AEIOUa-z01]{8,}", "field.seriesUniqueCode");
         } catch (IllegalArgumentException e) {
             throw new DocumentIssuingException(e);
         }

@@ -79,7 +79,7 @@ public class TestQRCodeStringGenerator extends PTDocumentAbstractTest {
         Assertions.assertEquals(
             "A:123456789*B:123456789*C:PT*D:FT*E:N*F:"
                 + now.format(formatter)
-                + "*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
+                + "*G:FT DEFAULT/1*H:CCCC2345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:"
                 + hash
                 + "*R:1",
             result
@@ -94,7 +94,7 @@ public class TestQRCodeStringGenerator extends PTDocumentAbstractTest {
             InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
             entity.setBusiness(invoice.getBusiness());
             entity.setSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
-            entity.setSeriesUniqueCode("ATCUD12345");
+            entity.setSeriesUniqueCode("CCCC2345");
             daoInvoiceSeries.create(entity);
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
