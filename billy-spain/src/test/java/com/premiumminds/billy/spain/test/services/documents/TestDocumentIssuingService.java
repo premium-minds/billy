@@ -48,9 +48,9 @@ public class TestDocumentIssuingService extends ESDocumentAbstractTest {
     @Test
     public void testIssuingService() throws DocumentIssuingException {
 
-		final Builder invoiceBuilder =
-			new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity());
-		this.createSeries(invoiceBuilder.build(), "A");
-		this.service.issue(invoiceBuilder, this.parameters);
+        final Builder invoiceBuilder =
+            new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity());
+        this.createSeries(invoiceBuilder.build(), "A");
+        this.service.issue(invoiceBuilder, this.parameters);
     }
 }

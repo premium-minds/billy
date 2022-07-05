@@ -40,8 +40,8 @@ public class ESCreditReceiptIssuingHandler
 
     @Override
     public ESCreditReceiptEntity issue(ESCreditReceiptEntity document, ESIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
 
         return this.issue(document, parameters, this.daoCreditReceipt);
     }

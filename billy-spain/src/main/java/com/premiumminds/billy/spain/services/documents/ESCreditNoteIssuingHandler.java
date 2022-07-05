@@ -40,8 +40,8 @@ public class ESCreditNoteIssuingHandler extends ESGenericInvoiceIssuingHandler<E
 
     @Override
     public ESCreditNoteEntity issue(ESCreditNoteEntity document, ESIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
 
         return this.issue(document, parameters, this.daoCreditNote);
     }

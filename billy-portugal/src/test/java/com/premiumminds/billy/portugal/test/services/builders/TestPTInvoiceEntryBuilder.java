@@ -93,46 +93,46 @@ public class TestPTInvoiceEntryBuilder extends PTAbstractTest {
 
     }
 
-	@Test
-	public void doTestFailWithInvalidTaxExemptionCode() {
-		MockPTInvoiceEntryEntity mock =
-			this.createMockEntity(MockPTInvoiceEntryEntity.class, TestPTInvoiceEntryBuilder.PT_INVOICE_ENTRY_YML);
+    @Test
+    public void doTestFailWithInvalidTaxExemptionCode() {
+        MockPTInvoiceEntryEntity mock =
+            this.createMockEntity(MockPTInvoiceEntryEntity.class, TestPTInvoiceEntryBuilder.PT_INVOICE_ENTRY_YML);
 
-		mock.currency = Currency.getInstance("EUR");
+        mock.currency = Currency.getInstance("EUR");
 
-		Mockito.when(this.getInstance(DAOPTInvoiceEntry.class).getEntityInstance())
-			   .thenReturn(new MockPTInvoiceEntryEntity());
+        Mockito.when(this.getInstance(DAOPTInvoiceEntry.class).getEntityInstance())
+               .thenReturn(new MockPTInvoiceEntryEntity());
 
-		MockPTInvoiceEntity mockInvoice =
-			this.createMockEntity(MockPTInvoiceEntity.class, TestPTInvoiceEntryBuilder.PT_INVOICE_YML);
+        MockPTInvoiceEntity mockInvoice =
+            this.createMockEntity(MockPTInvoiceEntity.class, TestPTInvoiceEntryBuilder.PT_INVOICE_YML);
 
-		Mockito.when(this.getInstance(DAOPTInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOPTInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
 
-		Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
-			   .thenReturn((PTProductEntity) mock.getProduct());
+        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
+               .thenReturn((PTProductEntity) mock.getProduct());
 
-		Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),
-																				   Mockito.any(Context.class))).thenReturn(true);
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),
+                                                                                   Mockito.any(Context.class))).thenReturn(true);
 
-		mock.getDocumentReferences().add(mockInvoice);
+        mock.getDocumentReferences().add(mockInvoice);
 
-		PTInvoiceEntry.Builder builder = this.getInstance(PTInvoiceEntry.Builder.class);
+        PTInvoiceEntry.Builder builder = this.getInstance(PTInvoiceEntry.Builder.class);
 
-		builder
-			.setDescription(mock.getDescription())
-			.addDocumentReferenceUID(mock.getDocumentReferences().get(0).getUID()).setQuantity(mock.getQuantity())
-			.setShippingCostsAmount(mock.getShippingCostsAmount())
-			.setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
-			.setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
-			.setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"))
-			.setTaxExemptionCode("M 9 9");
+        builder
+            .setDescription(mock.getDescription())
+            .addDocumentReferenceUID(mock.getDocumentReferences().get(0).getUID()).setQuantity(mock.getQuantity())
+            .setShippingCostsAmount(mock.getShippingCostsAmount())
+            .setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
+            .setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
+            .setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"))
+            .setTaxExemptionCode("M 9 9");
 
-		try {
-			builder.build();
-			Assertions.fail();
+        try {
+            builder.build();
+            Assertions.fail();
 
-		} catch (IllegalArgumentException ex) {
-			Assertions.assertEquals("Tax Exemption Code", ex.getMessage());
-		}
-	}
+        } catch (IllegalArgumentException ex) {
+            Assertions.assertEquals("Tax Exemption Code", ex.getMessage());
+        }
+    }
 }

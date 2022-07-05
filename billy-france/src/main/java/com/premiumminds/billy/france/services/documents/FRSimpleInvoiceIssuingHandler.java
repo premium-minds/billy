@@ -40,8 +40,8 @@ public class FRSimpleInvoiceIssuingHandler
 
     @Override
     public FRSimpleInvoiceEntity issue(FRSimpleInvoiceEntity document, FRIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
 
         return this.issue(document, parameters, this.daoSimpleInvoice);
     }

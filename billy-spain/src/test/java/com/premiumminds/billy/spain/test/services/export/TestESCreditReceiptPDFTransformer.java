@@ -86,9 +86,9 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		ESReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        ESReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
         ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
         DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -114,9 +114,9 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		ESReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        ESReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
         ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
         DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -141,7 +141,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
 
         ESIssuingParams params = this.getParameters("AC", "3000");
 
-		this.createSeries(reference, "AC");
+        this.createSeries(reference, "AC");
 
         ESCreditReceiptEntity creditReceipt = (ESCreditReceiptEntity) services.issueDocument(
                 new ESCreditReceiptTestUtil(ESAbstractTest.injector).getCreditReceiptBuilder(reference), params);

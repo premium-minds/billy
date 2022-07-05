@@ -48,9 +48,9 @@ public class TestDocumentIssuingService extends FRDocumentAbstractTest {
     @Test
     public void testIssuingService() throws DocumentIssuingException {
 
-		final FRBusinessEntity businessEntity = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity();
-		this.createSeries(businessEntity.getUID().toString(), "A");
-		this.service.issue(new FRInvoiceTestUtil(FRAbstractTest.injector).getInvoiceBuilder(businessEntity),
-						   this.parameters);
+        final FRBusinessEntity businessEntity = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity();
+        this.createSeries(businessEntity.getUID().toString(), "A");
+        this.service.issue(new FRInvoiceTestUtil(FRAbstractTest.injector).getInvoiceBuilder(businessEntity),
+                           this.parameters);
     }
 }

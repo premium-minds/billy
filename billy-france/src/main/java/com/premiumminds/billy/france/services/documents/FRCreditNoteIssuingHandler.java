@@ -40,8 +40,8 @@ public class FRCreditNoteIssuingHandler extends FRGenericInvoiceIssuingHandler<F
 
     @Override
     public FRCreditNoteEntity issue(FRCreditNoteEntity document, FRIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
 
         return this.issue(document, parameters, this.daoCreditNote);
     }

@@ -40,8 +40,8 @@ public class FRCreditReceiptIssuingHandler
 
     @Override
     public FRCreditReceiptEntity issue(FRCreditReceiptEntity document, FRIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
 
         return this.issue(document, parameters, this.daoCreditReceipt);
     }

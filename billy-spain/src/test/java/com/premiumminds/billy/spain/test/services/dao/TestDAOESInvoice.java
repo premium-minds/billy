@@ -43,7 +43,7 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
     @Test
     public void testLastInvoiceNumber() {
         String B1 = "B1";
-		this.createSeries(B1);
+        this.createSeries(B1);
         this.getNewIssuedInvoice(B1);
         this.getNewIssuedInvoice(B1);
         ESInvoiceEntity resultInvoice2 = this.getNewIssuedInvoice(B1);
@@ -55,8 +55,8 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         String B1 = "B1";
         String B2 = "B2";
 
-		this.createSeries(B1);
-		this.createSeries(B2);
+        this.createSeries(B1);
+        this.createSeries(B2);
         ESInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         ESInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
@@ -83,7 +83,7 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
 
     @Test
     public void testInvoiceFromBusiness() {
-		this.createSeries("B1");
+        this.createSeries("B1");
         ESInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
 
         ESGenericInvoiceEntity res =
@@ -96,7 +96,7 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
 
     @Test
     public void testFindCreditNote() {
-		this.createSeries("B1");
+        this.createSeries("B1");
         ESInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
         ESCreditNote cc1 = this.getNewIssuedCreditnote(inv1);
 
@@ -112,7 +112,7 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
 
     @Test
     public void testFindReceipt() {
-		this.createSeries("B1");
+        this.createSeries("B1");
         ESInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
         ESReceiptEntity rec1 = this.getNewIssuedReceipt("B1");
 

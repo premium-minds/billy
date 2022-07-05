@@ -106,7 +106,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
 
         parameters = this.getParameters("NC", "30000");
 
-		this.createSeries(reference, "NC");
+        this.createSeries(reference, "NC");
 
         try {
             return (ESCreditNoteEntity) service.issueDocument(
@@ -126,25 +126,25 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
         return parameters;
     }
 
-	protected void createSeries(String businessUID) {
-		this.createSeries(
-			new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
-				new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
-			ESPersistencyAbstractTest.DEFAULT_SERIES);
-	}
+    protected void createSeries(String businessUID) {
+        this.createSeries(
+            new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
+                new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+            ESPersistencyAbstractTest.DEFAULT_SERIES);
+    }
 
-	protected void createSeries(String businessUID, String series) {
-		this.createSeries(
-			new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
-				new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
-			series);
-	}
+    protected void createSeries(String businessUID, String series) {
+        this.createSeries(
+            new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
+                new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+            series);
+    }
 
-	protected <T extends GenericInvoice> void createSeries(T document, String series) {
-		final DAOInvoiceSeries daoInvoiceSeries = ESAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
-		final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
-		seriesEntity.setSeries(series);
-		seriesEntity.setBusiness(document.getBusiness());
-		daoInvoiceSeries.create(seriesEntity);
-	}
+    protected <T extends GenericInvoice> void createSeries(T document, String series) {
+        final DAOInvoiceSeries daoInvoiceSeries = ESAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
+        final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
+        seriesEntity.setSeries(series);
+        seriesEntity.setBusiness(document.getBusiness());
+        daoInvoiceSeries.create(seriesEntity);
+    }
 }

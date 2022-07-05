@@ -34,9 +34,9 @@ public class TestInvoiceUpdate extends FRPersistenceServiceAbstractTest {
 
     @BeforeEach
     public void setUp() throws DocumentIssuingException {
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		this.issuedInvoice = this.getNewIssuedInvoice(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        this.issuedInvoice = this.getNewIssuedInvoice(businessUID);
     }
 
     @Test

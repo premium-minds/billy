@@ -40,8 +40,8 @@ public class ESSimpleInvoiceIssuingHandler
 
     @Override
     public ESSimpleInvoiceEntity issue(ESSimpleInvoiceEntity document, ESIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
 
         return this.issue(document, parameters, this.daoSimpleInvoice);
     }

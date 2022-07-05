@@ -46,7 +46,7 @@ public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceE
 
     protected <D extends AbstractDAOGenericInvoice<T>> T issue(final T document, final ESIssuingParams parametersES,
             final D daoInvoice) throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+    {
 
         String series = parametersES.getInvoiceSeries();
 
@@ -89,8 +89,8 @@ public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceE
     }
 
     private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode)
-		throws DocumentSeriesDoesNotExistException
-	{
+        throws DocumentSeriesDoesNotExistException
+    {
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 

@@ -105,7 +105,7 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
         FRIssuingParams parameters = new FRIssuingParamsImpl();
 
         parameters = this.getParameters("NC", "30000");
-		this.createSeries(reference, "NC");
+        this.createSeries(reference, "NC");
 
         try {
             return (FRCreditNoteEntity) service.issueDocument(
@@ -125,25 +125,25 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
         return parameters;
     }
 
-	protected void createSeries(String businessUID) {
-		this.createSeries(
-			new FRReceiptTestUtil(FRAbstractTest.injector).getReceiptBuilder(
-				new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)).build(),
-			FRPersistencyAbstractTest.DEFAULT_SERIES);
-	}
+    protected void createSeries(String businessUID) {
+        this.createSeries(
+            new FRReceiptTestUtil(FRAbstractTest.injector).getReceiptBuilder(
+                new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+            FRPersistencyAbstractTest.DEFAULT_SERIES);
+    }
 
-	protected void createSeries(String businessUID, String series) {
-		this.createSeries(
-			new FRReceiptTestUtil(FRAbstractTest.injector).getReceiptBuilder(
-				new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)).build(),
-			series);
-	}
+    protected void createSeries(String businessUID, String series) {
+        this.createSeries(
+            new FRReceiptTestUtil(FRAbstractTest.injector).getReceiptBuilder(
+                new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+            series);
+    }
 
-	protected <T extends GenericInvoice> void createSeries(T document, String series) {
-		final DAOInvoiceSeries daoInvoiceSeries = FRAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
-		final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
-		seriesEntity.setSeries(series);
-		seriesEntity.setBusiness(document.getBusiness());
-		daoInvoiceSeries.create(seriesEntity);
-	}
+    protected <T extends GenericInvoice> void createSeries(T document, String series) {
+        final DAOInvoiceSeries daoInvoiceSeries = FRAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
+        final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
+        seriesEntity.setSeries(series);
+        seriesEntity.setBusiness(document.getBusiness());
+        daoInvoiceSeries.create(seriesEntity);
+    }
 }

@@ -60,9 +60,9 @@ public class TestFRSimpleInvoiceIssuingHandlerWithTicket extends FRDocumentAbstr
             this.setUpParamenters();
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-			final String uid = "business";
-			this.createSeries(uid, this.DEFAULT_SERIES);
-			FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(uid);
+            final String uid = "business";
+            this.createSeries(uid, this.DEFAULT_SERIES);
+            FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(uid);
             FRSimpleInvoice.Builder simpleInvoiceBuilder = new FRSimpleInvoiceTestUtil(FRAbstractTest.injector)
                     .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 

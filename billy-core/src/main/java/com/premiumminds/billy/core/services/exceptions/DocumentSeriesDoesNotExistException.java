@@ -20,9 +20,9 @@ package com.premiumminds.billy.core.services.exceptions;
 
 public class DocumentSeriesDoesNotExistException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public DocumentSeriesDoesNotExistException(String message) {
-		super(message);
-	}
+    public DocumentSeriesDoesNotExistException(String message) {
+        super(message);
+    }
 }

@@ -86,11 +86,11 @@ public class TestConcurrentIssuing extends ESDocumentAbstractTest {
     public void testConcurrentIssuing() throws InterruptedException, ExecutionException {
         ConcurrentTestUtil test = new ConcurrentTestUtil(10);
         String B1 = "Business 1";
-		this.createSeries(B1, "A");
+        this.createSeries(B1, "A");
         ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B1);
         String B2 = "Business 2";
-		this.createSeries(B2, "A");
-		ESBusinessEntity businessEntity2 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B2);
+        this.createSeries(B2, "A");
+        ESBusinessEntity businessEntity2 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B2);
 
         List<Future<?>> results1 = test.runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
 
@@ -121,7 +121,7 @@ public class TestConcurrentIssuing extends ESDocumentAbstractTest {
     @Test
     public void testConcurrentIssuing2() throws InterruptedException, ExecutionException {
         String B1 = "Business 1";
-		this.createSeries(B1, "A");
+        this.createSeries(B1, "A");
         ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B1);
         ConcurrentTestUtil test = new ConcurrentTestUtil(10);
         List<Future<?>> results1 = test.runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
@@ -144,14 +144,14 @@ public class TestConcurrentIssuing extends ESDocumentAbstractTest {
     public void testDifferenteBusinessAndSeries() throws InterruptedException, ExecutionException {
         ConcurrentTestUtil test = new ConcurrentTestUtil(20);
         String B1 = "Business 1";
-		this.createSeries(B1, "A");
-		this.createSeries(B1, "B");
-		this.createSeries(B1, "C");
+        this.createSeries(B1, "A");
+        this.createSeries(B1, "B");
+        this.createSeries(B1, "C");
         ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B1);
         String B2 = "Business 2";
-		this.createSeries(B2, "A");
-		this.createSeries(B2, "B");
-		this.createSeries(B2, "C");
+        this.createSeries(B2, "A");
+        this.createSeries(B2, "B");
+        this.createSeries(B2, "C");
         ESBusinessEntity businessEntity2 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B2);
 
         List<Future<?>> results1 = test.runThreads(new TestRunner(ESAbstractTest.injector, "A", businessEntity1));
@@ -177,9 +177,9 @@ public class TestConcurrentIssuing extends ESDocumentAbstractTest {
     @Test
     public void testMultipleSeriesIssuing() throws InterruptedException, ExecutionException {
         String B1 = "Business 1";
-		this.createSeries(B1, "A");
-		this.createSeries(B1, "B");
-		this.createSeries(B1, "C");
+        this.createSeries(B1, "A");
+        this.createSeries(B1, "B");
+        this.createSeries(B1, "C");
         ESBusinessEntity businessEntity1 = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(B1);
         Integer totalThreads = 10;
         ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);

@@ -39,8 +39,8 @@ public class ESInvoiceIssuingHandler extends ESGenericInvoiceIssuingHandler<ESIn
 
     @Override
     public ESInvoiceEntity issue(ESInvoiceEntity document, ESIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
         return this.issue(document, parameters, this.daoInvoice);
     }
 

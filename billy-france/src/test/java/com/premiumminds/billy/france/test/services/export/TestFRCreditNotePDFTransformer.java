@@ -86,8 +86,8 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
         FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         FRCreditNoteEntity entity = this.generateFRCreditNote(PaymentMechanism.CASH, invoice);
         DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
@@ -113,9 +113,9 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
     public void testNonExistentInvoice() throws DocumentIssuingException {
 
         UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         FRCreditNoteEntity entity = this.generateFRCreditNote(PaymentMechanism.CASH, invoice);
         DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -128,9 +128,9 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         FRCreditNoteEntity entity = this.generateFRCreditNote(PaymentMechanism.CASH, invoice);
         DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -154,7 +154,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         Services services = new Services(FRAbstractTest.injector);
 
         FRIssuingParams params = this.getParameters("AC", "3000");
-		this.createSeries(reference.getBusiness().getUID().toString(), "AC");
+        this.createSeries(reference.getBusiness().getUID().toString(), "AC");
 
         FRCreditNoteEntity creditNote = null;
         creditNote = (FRCreditNoteEntity) services.issueDocument(

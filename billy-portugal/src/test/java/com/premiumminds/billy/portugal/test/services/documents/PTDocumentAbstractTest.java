@@ -76,7 +76,7 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
 
     protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(T handler,
             I invoice, String series) throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled
-	{
+    {
         DAOPTInvoice dao = this.getInstance(DAOPTInvoice.class);
         dao.beginTransaction();
         try {
@@ -87,7 +87,7 @@ public class PTDocumentAbstractTest extends PTPersistencyAbstractTest {
             dao.rollback();
             throw up;
         }
-	}
+    }
 
     protected <T extends DocumentIssuingHandler, I extends PTGenericInvoiceEntity> void issueNewInvoice(T handler,
             I invoice, String series, Date date) throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled

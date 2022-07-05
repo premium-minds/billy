@@ -39,8 +39,8 @@ public class FRInvoiceIssuingHandler extends FRGenericInvoiceIssuingHandler<FRIn
 
     @Override
     public FRInvoiceEntity issue(FRInvoiceEntity document, FRIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, DocumentSeriesDoesNotExistException
+    {
         return this.issue(document, parameters, this.daoInvoice);
     }
 

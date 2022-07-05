@@ -86,9 +86,9 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
         FRCreditReceiptEntity entity = this.generateFRCreditReceipt(PaymentMechanism.CASH, receipt);
         DAOFRCreditReceipt dao = this.mockedInjector.getInstance(DAOFRCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -114,9 +114,9 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
         FRCreditReceiptEntity entity = this.generateFRCreditReceipt(PaymentMechanism.CASH, receipt);
         DAOFRCreditReceipt dao = this.mockedInjector.getInstance(DAOFRCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
@@ -140,7 +140,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         Services services = new Services(FRAbstractTest.injector);
 
         FRIssuingParams params = this.getParameters("AC", "3000");
-		this.createSeries(reference.getBusiness().getUID().toString(), "AC");
+        this.createSeries(reference.getBusiness().getUID().toString(), "AC");
 
         FRCreditReceiptEntity creditReceipt = (FRCreditReceiptEntity) services.issueDocument(
                 new FRCreditReceiptTestUtil(FRAbstractTest.injector).getCreditReceiptBuilder(reference), params);

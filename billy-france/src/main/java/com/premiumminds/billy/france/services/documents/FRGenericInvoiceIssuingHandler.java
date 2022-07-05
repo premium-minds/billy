@@ -46,7 +46,7 @@ public abstract class FRGenericInvoiceIssuingHandler<T extends FRGenericInvoiceE
 
     protected <D extends AbstractDAOGenericInvoice<T>> T issue(final T document, final FRIssuingParams parametersFR,
             final D daoInvoice) throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+    {
 
         String series = parametersFR.getInvoiceSeries();
 
@@ -89,8 +89,8 @@ public abstract class FRGenericInvoiceIssuingHandler<T extends FRGenericInvoiceE
     }
 
     private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode)
-		throws DocumentSeriesDoesNotExistException
-	{
+        throws DocumentSeriesDoesNotExistException
+    {
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 
