@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.services.documents.impl;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -115,7 +116,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
     }
 
     private <T extends GenericInvoice> T issueDocument(Builder<T> documentBuilder, final IssuingParams parameters)
-            throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
 
         final T document = documentBuilder.build();
         final Type[] types = document.getClass().getGenericInterfaces();

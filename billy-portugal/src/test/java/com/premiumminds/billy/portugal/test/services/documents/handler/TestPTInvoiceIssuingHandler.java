@@ -22,6 +22,7 @@ import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 
 import java.util.Optional;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -59,7 +60,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled e) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
         }
 
@@ -78,7 +79,8 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
+    public void testIssuedInvoiceSameSeries()
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
         Integer nextNumber = 2;
 
@@ -101,7 +103,8 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
+    public void testIssuedInvoiceDifferentSeries()
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         Integer nextNumber = 1;
         String newSeries = "NEWSERIES";
 
@@ -110,6 +113,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
         UID newInvoiceUID = newInvoice.getUID();
         this.createSeries(newInvoice, newSeries);
+
 
         this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
@@ -127,13 +131,14 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
      * @throws DocumentIssuingException
      */
     @Test
-    public void testIssuedInvoiceFailure() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
+    public void testIssuedInvoiceFailure() throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         String series = "NEWSERIES";
 
         PTGenericInvoiceEntity invoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
         this.createSeries(invoice, series);
+
         this.issueNewInvoice(this.handler, invoice, series);
 
         PTSimpleInvoiceIssuingHandler newHandler = this.getInstance(PTSimpleInvoiceIssuingHandler.class);
@@ -158,7 +163,9 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSameSourceBilling() throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
+    public void testIssuedInvoiceSameSourceBilling()
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
+
         PTGenericInvoiceEntity newInvoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
@@ -170,6 +177,16 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         PTInvoice issuedInvoice = this.getInstance(DAOPTInvoice.class).get(newInvoiceUID);
 
         Assertions.assertEquals(TestPTInvoiceIssuingHandler.SOURCE_BILLING, issuedInvoice.getSourceBilling());
+    }
+
+    @Test
+    public void testSeriesDoesNotExist() {
+        final PTInvoiceEntity invoiceEntity = this.newInvoice(
+                TestPTInvoiceIssuingHandler.DEFAULT_TYPE,
+                TestPTInvoiceIssuingHandler.SOURCE_BILLING);
+
+        Assertions.assertThrows(DocumentSeriesDoesNotExistException.class,
+                () -> this.issueNewInvoice(this.handler, invoiceEntity, "ARANDOMSERIES"));
     }
 
     @Test

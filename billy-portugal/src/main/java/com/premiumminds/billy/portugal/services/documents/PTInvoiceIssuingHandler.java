@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.services.documents;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
@@ -42,7 +43,7 @@ public class PTInvoiceIssuingHandler extends PTGenericInvoiceIssuingHandler<PTIn
 
     @Override
     public PTInvoiceEntity issue(PTInvoiceEntity document, PTIssuingParams parameters)
-            throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         return this.issue(document, parameters, this.daoInvoice, PTInvoiceIssuingHandler.INVOICE_TYPE);
     }
 

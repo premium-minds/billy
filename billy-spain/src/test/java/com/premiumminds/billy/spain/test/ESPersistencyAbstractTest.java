@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.spain.test;
 
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -103,6 +106,8 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
 
         parameters = this.getParameters("NC", "30000");
 
+		this.createSeries(reference, "NC");
+
         try {
             return (ESCreditNoteEntity) service.issueDocument(
                     new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder((ESInvoiceEntity) reference),
@@ -120,4 +125,26 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
         parameters.setInvoiceSeries(series);
         return parameters;
     }
+
+	protected void createSeries(String businessUID) {
+		this.createSeries(
+			new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
+				new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+			ESPersistencyAbstractTest.DEFAULT_SERIES);
+	}
+
+	protected void createSeries(String businessUID, String series) {
+		this.createSeries(
+			new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
+				new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+			series);
+	}
+
+	protected <T extends GenericInvoice> void createSeries(T document, String series) {
+		final DAOInvoiceSeries daoInvoiceSeries = ESAbstractTest.injector.getInstance(DAOInvoiceSeries.class);
+		final JPAInvoiceSeriesEntity seriesEntity = new JPAInvoiceSeriesEntity();
+		seriesEntity.setSeries(series);
+		seriesEntity.setBusiness(document.getBusiness());
+		daoInvoiceSeries.create(seriesEntity);
+	}
 }

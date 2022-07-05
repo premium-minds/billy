@@ -24,6 +24,7 @@ import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
@@ -90,14 +91,14 @@ public class TestQRCodeStringGenerator extends PTDocumentAbstractTest {
         try {
             PTInvoiceEntity invoice = this.newInvoice(DEFAULT_TYPE,
                                                       SOURCE_BILLING);
-			InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-			entity.setBusiness(invoice.getBusiness());
-			entity.setSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
-			entity.setSeriesUniqueCode("ATCUD12345");
-			daoInvoiceSeries.create(entity);
-			this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
+            InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
+            entity.setBusiness(invoice.getBusiness());
+            entity.setSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
+            entity.setSeriesUniqueCode("ATCUD12345");
+            daoInvoiceSeries.create(entity);
+            this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException e) {
             Assertions.fail(e.getMessage());
         }
     }

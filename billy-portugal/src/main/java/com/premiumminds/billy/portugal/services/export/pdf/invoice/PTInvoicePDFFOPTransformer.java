@@ -56,6 +56,7 @@ public class PTInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTIn
         params.getRoot().addChild(PTParamKeys.INVOICE_HASH,
                 this.getVerificationHashString(entity.getHash()));
         entity.getQrCodeString().ifPresent(s -> params.getRoot().addChild(PTParamKeys.QRCODE, s));
+        params.getRoot().addChild(PTParamKeys.ATCUD, entity.getAtcud());
         params.getRoot().addChild(PTParamKeys.SOFTWARE_CERTIFICATE_NUMBER, this.getSoftwareCertificationId());
 
         return params;

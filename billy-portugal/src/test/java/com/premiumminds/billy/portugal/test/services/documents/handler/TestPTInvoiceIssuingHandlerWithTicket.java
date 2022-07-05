@@ -156,7 +156,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
         } catch (InvalidTicketException e) {
 
         } catch (DocumentIssuingException e) {
-            e.printStackTrace();
+           Assertions.fail();
         }
         Assertions.assertTrue(entity == null);
     }

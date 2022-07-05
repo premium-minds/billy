@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 
@@ -28,7 +29,6 @@ import javax.persistence.LockModeType;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
@@ -60,7 +60,7 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
     }
 
     protected <D extends AbstractDAOPTGenericInvoice<T>> T issue(final T document, final PTIssuingParams parametersPT,
-            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException, SeriesUniqueCodeNotFilled {
+            final D daoInvoice, final TYPE invoiceType) throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
 
         String series = parametersPT.getInvoiceSeries();
 
@@ -173,16 +173,14 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         }
     }
 
-    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode) {
+    private InvoiceSeriesEntity getInvoiceSeries(final T document, String series, LockModeType lockMode)
+            throws DocumentSeriesDoesNotExistException {
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.daoInvoiceSeries.getSeries(series, document.getBusiness().getUID().toString(), lockMode);
 
         if (null == invoiceSeriesEntity) {
-            InvoiceSeriesEntity entity = new JPAInvoiceSeriesEntity();
-            entity.setBusiness(document.getBusiness());
-            entity.setSeries(series);
-
-            invoiceSeriesEntity = this.daoInvoiceSeries.create(entity);
+            throw new DocumentSeriesDoesNotExistException(
+                    "Requested to issue an invoice with series " + series + " but series does not exist");
         }
         return invoiceSeriesEntity;
     }

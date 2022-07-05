@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,13 +54,13 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
             this.issueNewInvoice(this.handler, invoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled e) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testIssuedManualInvoiceSimple() throws DocumentIssuingException {
+    public void testIssuedManualInvoiceSimple() {
         PTInvoiceEntity issuedInvoice = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
         Assertions.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
@@ -73,10 +74,9 @@ public class TestPTManualInvoiceIssuingHandler extends PTDocumentAbstractTest {
     /**
      * Test the issue of a normal invoice in a manual series.
      *
-     * @throws DocumentIssuingException
      */
     @Test
-    public void testDifferentBilling() throws DocumentIssuingException {
+    public void testDifferentBilling() {
         PTInvoiceEntity issuedInvoice = this.getInstance(DAOPTInvoice.class).get(this.issuedInvoiceUID);
 
         PTInvoiceEntity normalInvoice =

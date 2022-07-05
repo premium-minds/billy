@@ -19,6 +19,7 @@
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,9 +46,12 @@ public class TestESReceiptIssuingHandler extends ESDocumentAbstractTest {
 
         ESReceiptEntity receipt = this.newInvoice(INVOICE_TYPE.RC);
         try {
+            this.createSeries(receipt, this.DEFAULT_SERIES);
+
             this.issueNewInvoice(this.handler, receipt, this.DEFAULT_SERIES);
+
             this.issuedReceiptUID = receipt.getUID();
-        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled e) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
         }
     }

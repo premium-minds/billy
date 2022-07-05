@@ -19,6 +19,7 @@
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,15 +51,17 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
         try {
             ESSimpleInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FS, SOURCE_BILLING.APPLICATION);
 
+            this.createSeries(invoice, this.DEFAULT_SERIES);
+
             this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled e) {
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
         }
     }
 
     @Test
-    public void testIssuedInvoiceSimple() throws DocumentIssuingException {
+    public void testIssuedInvoiceSimple() {
         ESSimpleInvoice issuedInvoice = this.getInstance(DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
 
         Assertions.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
