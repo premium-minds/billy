@@ -37,7 +37,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
     @Test
     public void testLastInvoiceNumber() {
         String B1 = "B1";
-		this.createSeries(B1);
+        this.createSeries(B1);
         this.getNewIssuedInvoice(B1);
         this.getNewIssuedInvoice(B1);
         PTInvoiceEntity resultInvoice2 = this.getNewIssuedInvoice(B1);
@@ -48,8 +48,8 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
     public void testLastInvoiceNumberWithDifferentBusiness() {
         String B1 = "B1";
         String B2 = "B2";
-		this.createSeries(B1);
-		this.createSeries(B2);
+        this.createSeries(B1);
+        this.createSeries(B2);
         PTInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         PTInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
@@ -75,7 +75,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
     @Test
     public void testInvoiceFromBusiness() {
-		this.createSeries("B1");
+        this.createSeries("B1");
         PTInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
 
         PTGenericInvoiceEntity res =
@@ -88,7 +88,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
     @Test
     public void testFindCreditNote() {
-		this.createSeries("B1");
+        this.createSeries("B1");
         PTInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
         PTCreditNote cc1 = this.getNewIssuedCreditnote(inv1);
 

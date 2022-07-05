@@ -48,11 +48,9 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 
     @Test
     public void testIssuingService() throws DocumentIssuingException {
-
-		PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
-		this.createSeries(businessEntity.getUID().toString(), "A");
-
-		this.service.issue(
+        final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
+        this.createSeries(businessEntity.getUID().toString(), "A");
+        this.service.issue(
                 new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
                 this.parameters);
     }

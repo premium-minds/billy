@@ -34,9 +34,9 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 
     @BeforeEach
     public void setUp() throws DocumentIssuingException {
-		final String uid = new UID().toString();
-		this.createSeries(uid);
-		this.issuedInvoice = this.getNewIssuedInvoice(uid);
+        final String uid = new UID().toString();
+        this.createSeries(uid);
+        this.issuedInvoice = this.getNewIssuedInvoice(uid);
     }
 
     @Test

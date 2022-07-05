@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,11 +47,12 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
         try {
             FRInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FT);
 
-			this.createSeries(invoice, this.DEFAULT_SERIES);
+            this.createSeries(invoice, this.DEFAULT_SERIES);
 
             this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
-        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException e) {
+
+        } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
         }
 
@@ -67,7 +69,8 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSameSeries() throws DocumentIssuingException, DocumentSeriesDoesNotExistException {
+    public void testIssuedInvoiceSameSeries()
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         FRInvoice issuedInvoice = this.getInstance(DAOFRInvoice.class).get(this.issuedInvoiceUID);
         Integer nextNumber = 2;
 
@@ -87,16 +90,15 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceDifferentSeries() throws DocumentIssuingException,
-														  DocumentSeriesDoesNotExistException
-	{
+    public void testIssuedInvoiceDifferentSeries()
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         Integer nextNumber = 1;
         String newSeries = "FT NEW_SERIES";
 
         FRInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
         UID newInvoiceUID = newInvoice.getUID();
-		this.createSeries(newInvoice, newSeries);
+        this.createSeries(newInvoice, newSeries);
 
         this.issueNewInvoice(this.handler, newInvoice, newSeries);
 
@@ -110,24 +112,23 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
 
     @Test
     public void testIssuedInvoiceSameSourceBilling()
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
         FRInvoiceEntity newInvoice = this.newInvoice(INVOICE_TYPE.FT);
 
         UID newInvoiceUID = newInvoice.getUID();
-		this.createSeries(newInvoice, this.DEFAULT_SERIES);
+        this.createSeries(newInvoice, this.DEFAULT_SERIES);
 
         this.issueNewInvoice(this.handler, newInvoice, this.DEFAULT_SERIES);
 
         this.getInstance(DAOFRInvoice.class).get(newInvoiceUID);
     }
 
-	@Test
-	public void testSeriesDoesNotExist() {
-		FRInvoiceEntity invoiceEntity = this.newInvoice(INVOICE_TYPE.FT);
+    @Test
+    public void testSeriesDoesNotExist() {
+        FRInvoiceEntity invoiceEntity = this.newInvoice(INVOICE_TYPE.FT);
 
-		Assertions.assertThrows(DocumentSeriesDoesNotExistException.class,
-								() -> this.issueNewInvoice(this.handler, invoiceEntity, "A RANDOM SERIES"));
-	}
+        Assertions.assertThrows(DocumentSeriesDoesNotExistException.class,
+                () -> this.issueNewInvoice(this.handler, invoiceEntity, "A RANDOM SERIES"));
+    }
 
 }

@@ -62,9 +62,9 @@ public class TestPTReceiptInvoiceIssuingHandlerWithTicket extends PTDocumentAbst
             this.setUpParamenters();
             this.parameters.setInvoiceSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
 
-			final String uid = "business";
-			this.createSeries(uid);
-			PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(uid);
+            final String uid = "business";
+            this.createSeries(uid);
+            PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(uid);
             PTReceiptInvoice.Builder receiptInvoiceBuilder = new PTReceiptInvoiceTestUtil(PTAbstractTest.injector)
                     .getReceiptInvoiceBuilder(business, TestPTReceiptInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
 

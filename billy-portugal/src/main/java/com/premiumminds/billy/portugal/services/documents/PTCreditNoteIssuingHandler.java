@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import javax.inject.Inject;
 
@@ -41,8 +42,7 @@ public class PTCreditNoteIssuingHandler extends PTGenericInvoiceIssuingHandler<P
 
     @Override
     public PTCreditNoteEntity issue(PTCreditNoteEntity document, PTIssuingParams parameters)
-		throws DocumentIssuingException, DocumentSeriesDoesNotExistException
-	{
+            throws DocumentIssuingException, DocumentSeriesDoesNotExistException, SeriesUniqueCodeNotFilled {
 
         return this.issue(document, parameters, this.daoCreditNote, PTCreditNoteIssuingHandler.INVOICE_TYPE);
     }
