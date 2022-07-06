@@ -72,7 +72,8 @@
  - [Removes unused and unpublished Ebean modules](https://github.com/premium-minds/billy/pull/228)
  - [Removes saxon usage](https://github.com/premium-minds/billy/pull/265)
  - [Remove javax.validation](https://github.com/premium-minds/billy/pull/227)
-   - Billy no longer throws `javax.validation.ValidationException`. All exceptions were consolidated into `BillyValidationException` 
+   - Billy no longer throws `javax.validation.ValidationException`. All exceptions were consolidated into `BillyValidationException`
+ - [Removes unused class com.premiumminds.billy.core.util.Util](https://github.com/premium-minds/billy/pull/302)
 
 ### Fixed
 
