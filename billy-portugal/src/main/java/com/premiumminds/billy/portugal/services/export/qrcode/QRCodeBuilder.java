@@ -102,7 +102,7 @@ public class QRCodeBuilder {
 
         result.append(buildContextSpecificParameters(amountAndContextAndType, qrCodeData.getPtContexts()));
 
-        if(!exemptAmount.equals(BigDecimal.ZERO)) {
+        if(exemptAmount.compareTo(BigDecimal.ZERO) != 0) {
             result.append(FIELD_SEPARATOR)
                   .append(QRCodeConstants.NSOrNTAmount.getName()).append(DATA_SEPARATOR)
                   .append(validateBigDecimal(exemptAmount));

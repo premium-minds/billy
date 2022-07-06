@@ -835,15 +835,15 @@ public class PTSAFTFileGenerator {
                 }
                 line.setTax(tax);
 
-                if ((tax.getTaxPercentage() != null && tax.getTaxPercentage().equals(BigDecimal.ZERO)) ||
-                        (tax.getTaxAmount() != null && tax.getTaxAmount().equals(BigDecimal.ZERO))) {
+                if ((tax.getTaxPercentage() != null && tax.getTaxPercentage().compareTo(BigDecimal.ZERO) == 0) ||
+                        (tax.getTaxAmount() != null && tax.getTaxAmount().compareTo(BigDecimal.ZERO) == 0)) {
                     line.setTaxExemptionReason(this.validateString("TaxExemptionReason", entry.getTaxExemptionReason(),
                             this.MAX_LENGTH_60, true));
                 }
             }
 
             /* NOT REQUIRED */
-            if (entry.getDiscountAmount() != null && !entry.getDiscountAmount().equals(BigDecimal.ZERO)) {
+            if (entry.getDiscountAmount() != null && entry.getDiscountAmount().compareTo(BigDecimal.ZERO) != 0) {
                 line.setSettlementAmount(entry.getDiscountAmount());
             }
 
@@ -997,7 +997,7 @@ public class PTSAFTFileGenerator {
             }
 
             if (settlement.getSettlementAmount() != null &&
-                    !settlement.getSettlementAmount().equals(this.validateBigDecimal(BigDecimal.ZERO))) {
+                    settlement.getSettlementAmount().compareTo(this.validateBigDecimal(BigDecimal.ZERO)) != 0) {
                 return settlement;
             } else {
                 return null;
@@ -1019,7 +1019,7 @@ public class PTSAFTFileGenerator {
             throws RequiredFieldNotFoundException, DatatypeConfigurationException, InvalidPaymentMechanismException {
         DocumentTotals dt = null;
 
-        if (!this.validateBigDecimal(document.getAmountWithoutTax()).equals(this.validateBigDecimal(BigDecimal.ZERO))) {
+        if (this.validateBigDecimal(document.getAmountWithoutTax()).compareTo(this.validateBigDecimal(BigDecimal.ZERO)) != 0) {
             dt = new DocumentTotals(); // 4.1.4.19
             /* REQUIRED */
             // 4.1.4.19.1
