@@ -84,6 +84,7 @@ public class ESCreditNotePersistenceService implements PersistenceService<ESCred
         }
     }
 
+    @Deprecated
     public ESCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {

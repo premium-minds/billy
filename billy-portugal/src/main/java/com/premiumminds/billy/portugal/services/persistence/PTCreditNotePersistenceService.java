@@ -84,6 +84,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
         }
     }
 
+    @Deprecated
     public PTCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {

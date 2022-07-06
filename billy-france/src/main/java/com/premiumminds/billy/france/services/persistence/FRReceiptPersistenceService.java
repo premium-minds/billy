@@ -70,6 +70,7 @@ public class FRReceiptPersistenceService {
         }
     }
 
+    @Deprecated
     public FRReceipt getWithTicket(final UID ticketUID) throws NoResultException {
         try {
             return new TransactionWrapper<FRReceipt>(this.daoReceipt) {

@@ -29,6 +29,7 @@ import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 
+@Deprecated
 public class TicketManager implements Serializable {
 
     private static final long serialVersionUID = Config.SERIAL_VERSION;

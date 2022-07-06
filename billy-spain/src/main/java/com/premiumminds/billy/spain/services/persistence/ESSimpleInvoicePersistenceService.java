@@ -72,6 +72,7 @@ public class ESSimpleInvoicePersistenceService {
         }
     }
 
+    @Deprecated
     public ESSimpleInvoice getWithTicket(final UID ticketUID) {
 
         try {

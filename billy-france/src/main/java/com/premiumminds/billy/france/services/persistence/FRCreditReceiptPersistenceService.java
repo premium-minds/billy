@@ -84,6 +84,7 @@ public class FRCreditReceiptPersistenceService implements PersistenceService<FRC
         }
     }
 
+    @Deprecated
     public FRCreditReceipt getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {

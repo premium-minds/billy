@@ -72,6 +72,7 @@ public class FRInvoicePersistenceService {
         }
     }
 
+    @Deprecated
     public FRInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {

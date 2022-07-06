@@ -72,6 +72,7 @@ public class ESInvoicePersistenceService {
         }
     }
 
+    @Deprecated
     public ESInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {

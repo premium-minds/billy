@@ -21,6 +21,7 @@ package com.premiumminds.billy.core.persistence.dao;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.services.UID;
 
+@Deprecated
 public interface DAOTicket extends DAO<TicketEntity> {
 
     public UID getObjectEntityUID(String ticketUID);

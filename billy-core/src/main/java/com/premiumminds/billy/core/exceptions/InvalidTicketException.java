@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.exceptions;
 
+@Deprecated
 public class InvalidTicketException extends BillyValidationException {
 
     private static final long serialVersionUID = 1L;

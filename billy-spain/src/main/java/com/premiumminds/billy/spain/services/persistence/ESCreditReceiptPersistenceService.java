@@ -84,6 +84,7 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
         }
     }
 
+    @Deprecated
     public ESCreditReceipt getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {

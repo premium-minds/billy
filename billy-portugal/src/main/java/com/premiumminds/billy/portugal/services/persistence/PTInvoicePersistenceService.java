@@ -72,6 +72,7 @@ public class PTInvoicePersistenceService {
         }
     }
 
+    @Deprecated
     public PTInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {

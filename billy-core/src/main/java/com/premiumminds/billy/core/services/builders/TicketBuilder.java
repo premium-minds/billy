@@ -24,6 +24,7 @@ import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Ticket;
 
+@Deprecated
 public interface TicketBuilder<TBuilder extends TicketBuilder<TBuilder, TTicket>, TTicket extends Ticket>
         extends Builder<TTicket> {
 

@@ -83,6 +83,7 @@ public class PTReceiptInvoicePersistenceService implements PersistenceService<PT
         }
     }
 
+    @Deprecated
     public PTReceiptInvoice getWithTicket(final UID ticketUID) {
 
         try {

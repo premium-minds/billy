@@ -33,6 +33,7 @@ import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.services.UID;
 
+@Deprecated
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TICKET")
