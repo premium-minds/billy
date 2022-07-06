@@ -125,7 +125,7 @@ public abstract class PTAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
 
     @Override
     protected String getCustomerFinancialId(T entity) {
-        return (entity.getCustomer().getUID().equals(this.config.getUUID(Config.Key.Customer.Generic.UUID))
+        return (entity.getCustomer().getUID().equals(this.config.getUID(Config.Key.Customer.Generic.UUID))
                 ? this.getGenericCustomer() : entity.getCustomer().getTaxRegistrationNumber());
     }
 

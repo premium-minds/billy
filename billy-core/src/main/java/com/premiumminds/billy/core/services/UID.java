@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.services;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.UUID;
 
 import com.premiumminds.billy.core.Config;
@@ -51,8 +52,20 @@ public class UID implements Serializable, Comparable<UID> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return obj.toString().equals(this.toString());
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof UID)) {
+            return false;
+        }
+        UID uid = (UID) o;
+        return Objects.equals(value, uid.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value);
     }
 
     @Override
