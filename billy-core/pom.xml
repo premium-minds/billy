@@ -55,6 +55,11 @@
 			<version>3.12.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
 		<!-- JUNIT -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -67,15 +72,11 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-
 		<!-- SnakeYaml -->
 		<dependency>
 			<groupId>org.yaml</groupId>
 			<artifactId>snakeyaml</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

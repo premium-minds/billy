@@ -25,20 +25,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
@@ -51,6 +44,14 @@ import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestESReceiptPDFTransformer extends ESPersistencyAbstractTest {
 
@@ -77,15 +78,20 @@ public class TestESReceiptPDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFCreation() throws ExportServiceException, IOException {
+    public void testPdfCreation() throws ExportServiceException, IOException {
         ESReceiptEntity entity = this.receipts.getReceiptEntity();
         DAOESReceipt dao = this.mockedInjector.getInstance(DAOESReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
+        final File result = File.createTempFile("ReceiptCreation", ".pdf");
+        OutputStream os = new FileOutputStream(result);
 
         ESReceiptData entityData = this.extractor.extract(entity.getUID());
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
@@ -97,18 +103,23 @@ public class TestESReceiptPDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
         ESReceiptEntity entity = this.receipts.getReceiptEntity();
         DAOESReceipt dao = this.mockedInjector.getInstance(DAOESReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ReceiptCreation", ".pdf"));
+        final File result = File.createTempFile("ReceiptCreation", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = new FileInputStream(TestESReceiptPDFTransformer.XSL_PATH);
+        InputStream xsl = Files.newInputStream(Paths.get(TestESReceiptPDFTransformer.XSL_PATH));
         ESReceiptTemplateBundle bundle = new ESReceiptTemplateBundle(TestESReceiptPDFTransformer.LOGO_PATH, xsl);
         ESReceiptPDFFOPTransformer transformerBundle = new ESReceiptPDFFOPTransformer(bundle);
 
         ESReceiptData entityData = this.extractor.extract(entity.getUID());
         transformerBundle.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 }
