@@ -41,18 +41,13 @@ public class PTFinancialValidator extends FinancialValidator {
         List<Character> firstDigits = Lists.charactersOf("123568");
         boolean validFirstDigit = firstDigits
                 .stream()
-                .map(c -> financialID.charAt(0) == c).filter(b -> b)
-                .findAny()
-                .orElse(false);
+                .anyMatch(c -> financialID.charAt(0) == c);
 
         List<String> firstDoubleDigits =
                 Lists.newArrayList("45", "70", "71", "72", "74", "75", "77", "79", "90", "91", "98", "99");
         boolean validDoubleDigits = firstDoubleDigits
                 .stream()
-                .map(c -> financialID.substring(0,  2).equals(c))
-                .filter(b -> b)
-                .findAny()
-                .orElse(false);
+                .anyMatch(c -> financialID.substring(0,  2).equals(c));
 
         if(!validFirstDigit && !validDoubleDigits){
             return false;
