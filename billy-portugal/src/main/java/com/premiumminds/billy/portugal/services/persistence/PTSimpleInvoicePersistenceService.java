@@ -72,6 +72,7 @@ public class PTSimpleInvoicePersistenceService {
         }
     }
 
+    @Deprecated
     public PTSimpleInvoice getWithTicket(final UID ticketUID) {
 
         try {

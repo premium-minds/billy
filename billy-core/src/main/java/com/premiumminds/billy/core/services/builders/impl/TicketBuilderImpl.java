@@ -31,6 +31,7 @@ import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
+@Deprecated
 public class TicketBuilderImpl<TBuilder extends TicketBuilderImpl<TBuilder, TTicket>, TTicket extends Ticket>
         extends AbstractBuilder<TBuilder, TTicket> implements TicketBuilder<TBuilder, TTicket> {
 

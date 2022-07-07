@@ -23,6 +23,7 @@ import java.util.Date;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Ticket;
 
+@Deprecated
 public interface TicketEntity extends BaseEntity, Ticket {
 
     public void setObjectUID(UID objectUID);

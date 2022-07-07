@@ -30,6 +30,7 @@ import com.premiumminds.billy.core.persistence.entities.jpa.JPATicketEntity;
 import com.premiumminds.billy.core.persistence.entities.jpa.QJPATicketEntity;
 import com.premiumminds.billy.core.services.UID;
 
+@Deprecated
 public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity> implements DAOTicket {
 
     @Inject

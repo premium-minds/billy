@@ -26,6 +26,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.TicketBuilderImpl;
 
+@Deprecated
 public interface Ticket extends Entity {
 
     public static class Builder extends TicketBuilderImpl<Builder, Ticket> {

@@ -83,6 +83,7 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
         }
     }
 
+    @Deprecated
     @Override
     public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
             final IssuingParams parameters, final String ticketUID) throws DocumentIssuingException {

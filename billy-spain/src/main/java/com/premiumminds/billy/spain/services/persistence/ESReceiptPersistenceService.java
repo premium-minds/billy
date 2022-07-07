@@ -70,6 +70,7 @@ public class ESReceiptPersistenceService {
         }
     }
 
+    @Deprecated
     public ESReceipt getWithTicket(final UID ticketUID) throws NoResultException {
         try {
             return new TransactionWrapper<ESReceipt>(this.daoReceipt) {

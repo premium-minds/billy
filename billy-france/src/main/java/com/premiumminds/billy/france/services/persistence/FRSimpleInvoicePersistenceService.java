@@ -72,6 +72,7 @@ public class FRSimpleInvoicePersistenceService {
         }
     }
 
+    @Deprecated
     public FRSimpleInvoice getWithTicket(final UID ticketUID) {
 
         try {
