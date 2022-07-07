@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
+import com.premiumminds.billy.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 

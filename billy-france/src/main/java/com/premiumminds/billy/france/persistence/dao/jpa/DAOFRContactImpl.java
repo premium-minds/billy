@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOContactImpl;
+import com.premiumminds.billy.persistence.dao.jpa.DAOContactImpl;
 import com.premiumminds.billy.france.persistence.dao.DAOFRContact;
 import com.premiumminds.billy.france.persistence.entities.FRContactEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRContactEntity;

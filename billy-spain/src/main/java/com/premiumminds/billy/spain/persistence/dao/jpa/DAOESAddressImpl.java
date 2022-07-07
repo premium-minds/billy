@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOAddressImpl;
+import com.premiumminds.billy.persistence.dao.jpa.DAOAddressImpl;
 import com.premiumminds.billy.spain.persistence.dao.DAOESAddress;
 import com.premiumminds.billy.spain.persistence.entities.ESAddressEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESAddressEntity;

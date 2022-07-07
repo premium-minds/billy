@@ -23,7 +23,7 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOBusinessImpl;
+import com.premiumminds.billy.persistence.dao.jpa.DAOBusinessImpl;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;

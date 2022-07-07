@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOPaymentImpl;
+import com.premiumminds.billy.persistence.dao.jpa.DAOPaymentImpl;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTPayment;
 import com.premiumminds.billy.portugal.persistence.entities.PTPaymentEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTPaymentEntity;

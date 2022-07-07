@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOContextImpl;
+import com.premiumminds.billy.persistence.dao.jpa.DAOContextImpl;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESRegionContextEntity;

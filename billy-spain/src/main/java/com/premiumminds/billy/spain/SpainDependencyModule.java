@@ -21,7 +21,7 @@ package com.premiumminds.billy.spain;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.premiumminds.billy.core.CoreDependencyModule;
-import com.premiumminds.billy.core.CoreJPADependencyModule;
+import com.premiumminds.billy.persistence.CoreJPADependencyModule;
 import com.premiumminds.billy.gin.GINDependencyModule;
 import com.premiumminds.billy.spain.persistence.dao.DAOESAddress;
 import com.premiumminds.billy.spain.persistence.dao.DAOESApplication;
