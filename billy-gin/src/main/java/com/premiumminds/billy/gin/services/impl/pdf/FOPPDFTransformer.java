@@ -18,6 +18,32 @@
  */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.EnumMap;
+import java.util.Optional;
+import java.util.UUID;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
@@ -28,29 +54,6 @@ import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.StringReader;
-import java.net.URI;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.EnumMap;
-import java.util.Optional;
-import java.util.UUID;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.stream.StreamSource;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
@@ -58,6 +61,8 @@ import org.apache.fop.apps.FopFactory;
 import org.apache.xmlgraphics.util.MimeConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public abstract class FOPPDFTransformer {
 
@@ -75,33 +80,25 @@ public abstract class FOPPDFTransformer {
         this(TransformerFactory.newInstance());
     }
 
-    private Source mapParamsToSource(ParamsTree<String, String> documentParams) {
-        return new StreamSource(new StringReader(this.generateXML(documentParams)));
+    private Source mapParamsToSource(ParamsTree<String, String> documentParams) throws ParserConfigurationException {
+        DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+
+        Document doc = docBuilder.newDocument();
+
+        writeXML(doc, doc, documentParams.getRoot());
+
+        return new DOMSource(doc);
     }
+    private void writeXML(Document doc, org.w3c.dom.Node parentNode, ParamsTree.Node<String, String> node) {
+        Element element = doc.createElement(node.getKey());
+        parentNode.appendChild(element);
+        if (null != node.getValue()) {
+            element.setTextContent(node.getValue());
+        }
 
-    private String generateXML(ParamsTree<String, String> tree) {
-        StringBuilder strBuilder = new StringBuilder();
-        strBuilder.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
-
-        this.writeXML(strBuilder, tree.getRoot());
-
-        return strBuilder.toString();
-    }
-
-    private void writeXML(StringBuilder strBuilder, Node<String, String> node) {
-        strBuilder.append("<").append(node.getKey());
-        if (null == node.getValue() && !node.hasChildren()) {
-            strBuilder.append("/>");
-        } else {
-            strBuilder.append("> ");
-            if (null != node.getValue()) {
-                strBuilder.append(StringEscapeUtils.escapeXml(node.getValue()));
-            }
-
-            for (Node<String, String> child : node.getChildren()) {
-                this.writeXML(strBuilder, child);
-            }
-            strBuilder.append("</").append(node.getKey()).append(">");
+        for (ParamsTree.Node<String, String> child : node.getChildren()) {
+            this.writeXML(doc, element, child);
         }
     }
 
@@ -147,7 +144,7 @@ public abstract class FOPPDFTransformer {
             xslfoTransformer.transform(source, res);
         } catch (FOPException e) {
             throw new ExportServiceException("Error using FOP to open the template", e);
-        } catch (TransformerException e) {
+        } catch (TransformerException|ParserConfigurationException e) {
             throw new ExportServiceException("Error generating pdf from template and data source", e);
         } catch (IOException | WriterException e) {
             throw new ExportServiceException("Error generating qrCode", e);
