@@ -944,7 +944,7 @@ public class PTSAFTFileGenerator {
 
             /* NOT REQUIRED */
             if (entry.getDiscountAmount() != null
-                    && !entry.getDiscountAmount().equals(BigDecimal.ZERO)) {
+                    && entry.getDiscountAmount().compareTo(BigDecimal.ZERO) != 0) {
                 line.setSettlementAmount(entry.getDiscountAmount());
             }
 
@@ -1110,8 +1110,8 @@ public class PTSAFTFileGenerator {
             }
 
             if (settlement.getSettlementAmount() != null
-                    && !settlement.getSettlementAmount().equals(
-                            this.validateBigDecimal(BigDecimal.ZERO))) {
+                    && settlement.getSettlementAmount().compareTo(
+                            this.validateBigDecimal(BigDecimal.ZERO)) != 0) {
                 return settlement;
             } else {
                 return null;
@@ -1133,8 +1133,8 @@ public class PTSAFTFileGenerator {
         DatatypeConfigurationException, InvalidPaymentMechanismException {
         DocumentTotals dt = null;
 
-        if (!this.validateBigDecimal(document.getAmountWithoutTax()).equals(
-                this.validateBigDecimal(BigDecimal.ZERO))) {
+        if (this.validateBigDecimal(document.getAmountWithoutTax()).compareTo(
+                this.validateBigDecimal(BigDecimal.ZERO)) != 0) {
             dt = new DocumentTotals(); // 4.1.4.19
             /* REQUIRED */
             // 4.1.4.19.1
