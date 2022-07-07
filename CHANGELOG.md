@@ -80,6 +80,7 @@
 ### Fixed
 
  - [Updated PDF Credit Note/Receipt Description Field](https://github.com/premium-minds/billy/pull/278)
+ - [Adds missing hashCode and fixes equals for UID](https://github.com/premium-minds/billy/pull/305)
 
 ## [Unreleased v5]
 
