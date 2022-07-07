@@ -9,6 +9,7 @@
 
 ### Changed
 
+ - [Deprecate Ticket concept](https://github.com/premium-minds/billy/pull/307)
  - [Fail if series unique code not filled](https://github.com/premium-minds/billy/pull/301)
  - [Fail when series does not exist](https://github.com/premium-minds/billy/pull/299)
  - [Exposes atcud value to the various pt document exporters](https://github.com/premium-minds/billy/pull/298)
