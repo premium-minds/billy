@@ -6,6 +6,7 @@
 ### Added
 
  - [Adds validation to PT Customer Country](https://github.com/premium-minds/billy/pull/229) fixes for [Portuguese Customer Details Country must be a valid Country Code](https://github.com/premium-minds/billy/issues/216)
+ - [Adds integration test for PT](https://github.com/premium-minds/billy/pull/303)
 
 ### Changed
 
