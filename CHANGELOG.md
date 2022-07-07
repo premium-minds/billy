@@ -10,6 +10,7 @@
 
 ### Changed
 
+ - [Replace custom code for XML construction with standard javax.xml way](https://github.com/premium-minds/billy/pull/310)
  - [Improve stream usage in PTFinancialValidator](https://github.com/premium-minds/billy/pull/306)
  - [Deprecate Ticket concept](https://github.com/premium-minds/billy/pull/307)
  - [Fail if series unique code not filled](https://github.com/premium-minds/billy/pull/301)
