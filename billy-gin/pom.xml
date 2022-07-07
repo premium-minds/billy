@@ -64,12 +64,6 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.jvnet.jaxb2_commons</groupId>
-			<artifactId>jaxb2-basics-runtime</artifactId>
-			<version>0.13.1</version>
-		</dependency>
-
 		<!-- FOP -->
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
