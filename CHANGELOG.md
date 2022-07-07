@@ -55,6 +55,7 @@
  - [Bump h2 from 2.1.210 to 2.1.212](https://github.com/premium-minds/billy/pull/279)
  - [Bump h2 from 2.1.212 to 2.1.214](https://github.com/premium-minds/billy/pull/296)
  - [Bump pdfbox from 2.0.22 to 2.0.24](https://github.com/premium-minds/billy/pull/312)
+ - [Bump pdfbox from 2.0.24 to 2.0.26](https://github.com/premium-minds/billy/pull/314)
  - [Bump tiles-maven-plugin from 2.24 to 2.25](https://github.com/premium-minds/billy/pull/224)
  - [Bump junit-jupiter-engine from 5.8.1 to 5.8.2](https://github.com/premium-minds/billy/pull/231)
  - [Bump maven-scm-api from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/240)
