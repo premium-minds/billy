@@ -123,7 +123,7 @@ public class PTInvoiceTestUtil {
                 .setTaxAmount(tax).addPayment(this.payment.getPaymentBuilder());
     }
 
-    public PTInvoiceEntity getDiferentRegionsInvoice() {
+    public PTInvoiceEntity getDifferentRegionsInvoice() {
         BigDecimal price = new BigDecimal("0.2999");
 
         PTInvoice.Builder invoiceBuilder = this.injector.getInstance(PTInvoice.Builder.class);
@@ -178,7 +178,7 @@ public class PTInvoiceTestUtil {
         return (PTInvoiceEntity) invoiceBuilder.build();
     }
 
-    public PTInvoiceEntity getManyEntriesWithDiferentRegionsInvoice() {
+    public PTInvoiceEntity getManyEntriesWithDifferentRegionsInvoice() {
         BigDecimal entriesPrice = new BigDecimal("0.355555");
         PTInvoice.Builder invoiceBuilder = this.injector.getInstance(PTInvoice.Builder.class);
 

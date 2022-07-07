@@ -21,19 +21,11 @@ package com.premiumminds.billy.france.test.services.export;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -46,15 +38,22 @@ import com.premiumminds.billy.france.services.export.FRInvoiceData;
 import com.premiumminds.billy.france.services.export.FRInvoiceDataExtractor;
 import com.premiumminds.billy.france.services.export.pdf.invoice.FRInvoicePDFFOPTransformer;
 import com.premiumminds.billy.france.services.export.pdf.invoice.FRInvoiceTemplateBundle;
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.FRMockDependencyModule;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 import com.premiumminds.billy.france.test.util.FRInvoiceTestUtil;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
     public static final String XSL_PATH = "src/main/resources/templates/fr_invoice.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
@@ -76,19 +75,23 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
         this.test = new FRInvoiceTestUtil(FRAbstractTest.injector);
     }
 
-    @Disabled
     @Test
-    public void testPDFcreation()
-            throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+    public void testPdfCreation()
+            throws ExportServiceException, IOException {
 
         FRInvoiceEntity entity = this.generateFRInvoice();
         DAOFRInvoice dao = this.mockedInjector.getInstance(DAOFRInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+        final File result = File.createTempFile("ResultCreation", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         FRInvoiceData entityData = this.extractor.extract(entity.getUID());
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
@@ -100,62 +103,80 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
     }
 
     @Test
-    public void testDiferentRegion()
-            throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+    public void testDifferentRegion()
+            throws ExportServiceException, IOException {
 
         FRInvoiceEntity entity = this.generateOtherRegionsInvoice();
         DAOFRInvoice dao = this.mockedInjector.getInstance(DAOFRInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ResultDiferentRegions", ".pdf"));
+        final File result = File.createTempFile("ResultDifferentRegions", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         FRInvoiceData entityData = this.extractor.extract(entity.getUID());
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
     public void testManyEntries()
-            throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+            throws ExportServiceException, IOException {
 
         FRInvoiceEntity entity = this.generateManyEntriesInvoice();
         DAOFRInvoice dao = this.mockedInjector.getInstance(DAOFRInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntries", ".pdf"));
+        final File result = File.createTempFile("ResultManyEntries", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         FRInvoiceData entityData = this.extractor.extract(entity.getUID());
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
-    public void testManyEntriesWithDifrentRegions()
-            throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException, IOException {
+    public void testManyEntriesWithDifferentRegions()
+            throws ExportServiceException, IOException {
 
-        FRInvoiceEntity entity = this.generateManyEntriesWithDiferentRegionsInvoice();
+        FRInvoiceEntity entity = this.generateManyEntriesWithDifferentRegionsInvoice();
         DAOFRInvoice dao = this.mockedInjector.getInstance(DAOFRInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ResultManyEntriesWithDiferentRegions", ".pdf"));
+        final File result = File.createTempFile("ResultManyEntriesWithDifferentRegions", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         FRInvoiceData entityData = this.extractor.extract(entity.getUID());
         this.transformer.transform(entityData, os);
-    }
 
-    @Disabled
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
+    }
     @Test
-    public void testPDFCreationFromBundle() throws ExportServiceException, IOException {
+    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
         FRInvoiceEntity entity = this.generateFRInvoice();
         DAOFRInvoice dao = this.mockedInjector.getInstance(DAOFRInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("ResultCreation", ".pdf"));
+        final File result = File.createTempFile("ResultCreation", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = new FileInputStream(TestFRInvoicePDFTransformer.XSL_PATH);
+        InputStream xsl = Files.newInputStream(Paths.get(TestFRInvoicePDFTransformer.XSL_PATH));
         FRInvoiceTemplateBundle bundle = new FRInvoiceTemplateBundle(TestFRInvoicePDFTransformer.LOGO_PATH, xsl);
         FRInvoicePDFFOPTransformer transformerBundle = new FRInvoicePDFFOPTransformer(bundle);
 
         FRInvoiceData entityData = this.extractor.extract(entity.getUID());
         transformerBundle.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     private FRInvoiceEntity generateFRInvoice() {
@@ -169,12 +190,12 @@ public class TestFRInvoicePDFTransformer extends FRPersistencyAbstractTest {
     }
 
     private FRInvoiceEntity generateOtherRegionsInvoice() {
-        FRInvoiceEntity invoice = this.test.getDiferentRegionsInvoice();
+        FRInvoiceEntity invoice = this.test.getDifferentRegionsInvoice();
         return invoice;
     }
 
-    private FRInvoiceEntity generateManyEntriesWithDiferentRegionsInvoice() {
-        FRInvoiceEntity invoice = this.test.getManyEntriesWithDiferentRegionsInvoice();
+    private FRInvoiceEntity generateManyEntriesWithDifferentRegionsInvoice() {
+        FRInvoiceEntity invoice = this.test.getManyEntriesWithDifferentRegionsInvoice();
         return invoice;
     }
 }

@@ -18,22 +18,14 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -47,22 +39,32 @@ import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.export.PTCreditNoteData;
 import com.premiumminds.billy.portugal.services.export.PTCreditNoteDataExtractor;
+import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFFOPTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNoteTemplateBundle;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.util.Services;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
     public static final String XSL_PATH = "src/main/resources/templates/pt_creditnote.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
@@ -85,7 +87,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFcreation() throws ExportServiceException, DocumentIssuingException, IOException {
+    public void testPdfCreation() throws ExportServiceException, DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
         final String uid = new UID().toString();
@@ -97,10 +99,15 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         DAOPTInvoice daoPTInvoice = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(daoPTInvoice.get(invoice.getUID())).thenReturn(invoice);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         PTCreditNoteData entityData = this.extractor.extract(uidEntity);
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
@@ -111,7 +118,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
+    public void testPdfCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
         UID uidEntity = UID.fromString("12345");
         final String uid = new UID().toString();
         this.createSeries(uid);
@@ -122,15 +129,20 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         DAOPTInvoice daoPTInvoice = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(daoPTInvoice.get(invoice.getUID())).thenReturn(invoice);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = new FileInputStream(TestPTCreditNotePDFTransformer.XSL_PATH);
+        InputStream xsl = Files.newInputStream(Paths.get(TestPTCreditNotePDFTransformer.XSL_PATH));
         PTCreditNoteTemplateBundle bundle = new PTCreditNoteTemplateBundle(TestPTCreditNotePDFTransformer.LOGO_PATH,
                 xsl, TestPTCreditNotePDFTransformer.SOFTWARE_CERTIFICATE_NUMBER);
         PTCreditNotePDFFOPTransformer transformerBundle = new PTCreditNotePDFFOPTransformer(bundle);
 
         PTCreditNoteData entityData = this.extractor.extract(uidEntity);
         transformerBundle.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     private PTCreditNoteEntity generatePTCreditNote(PaymentMechanism paymentMechanism, PTInvoiceEntity reference)

@@ -21,18 +21,11 @@ package com.premiumminds.billy.france.test.services.export;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -52,16 +45,23 @@ import com.premiumminds.billy.france.services.export.FRCreditReceiptData;
 import com.premiumminds.billy.france.services.export.FRCreditReceiptDataExtractor;
 import com.premiumminds.billy.france.services.export.pdf.creditreceipt.FRCreditReceiptPDFFOPTransformer;
 import com.premiumminds.billy.france.services.export.pdf.creditreceipt.FRCreditReceiptTemplateBundle;
-import com.premiumminds.billy.france.util.Services;
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.FRMockDependencyModule;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 import com.premiumminds.billy.france.test.util.FRCreditReceiptTestUtil;
+import com.premiumminds.billy.france.util.Services;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
     public static final String XSL_PATH = "src/main/resources/templates/fr_creditreceipt.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
@@ -82,7 +82,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
     }
 
     @Test
-    public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreation() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -95,10 +95,15 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         DAOFRReceipt daoReceipt = this.mockedInjector.getInstance(DAOFRReceipt.class);
         Mockito.when(daoReceipt.get(ArgumentMatchers.eq(receipt.getUID()))).thenReturn(receipt);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         FRCreditReceiptData entityData = this.extractor.extract(uidEntity);
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
@@ -110,7 +115,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
     }
 
     @Test
-    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreationFromBundle() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -123,15 +128,20 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         DAOFRReceipt daoReceipt = this.mockedInjector.getInstance(DAOFRReceipt.class);
         Mockito.when(daoReceipt.get(ArgumentMatchers.eq(receipt.getUID()))).thenReturn(receipt);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = new FileInputStream(TestFRCreditReceiptPDFTransformer.XSL_PATH);
+        InputStream xsl = Files.newInputStream(Paths.get(TestFRCreditReceiptPDFTransformer.XSL_PATH));
         FRCreditReceiptTemplateBundle bundle =
                 new FRCreditReceiptTemplateBundle(TestFRCreditReceiptPDFTransformer.LOGO_PATH, xsl);
         FRCreditReceiptPDFFOPTransformer transformerBundle = new FRCreditReceiptPDFFOPTransformer(bundle);
 
         FRCreditReceiptData entityData = this.extractor.extract(uidEntity);
         transformerBundle.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     private FRCreditReceiptEntity generateFRCreditReceipt(PaymentMechanism paymentMechanism, FRReceiptEntity reference)

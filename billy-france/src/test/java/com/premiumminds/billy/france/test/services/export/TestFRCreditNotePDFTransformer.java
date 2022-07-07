@@ -26,13 +26,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -53,16 +49,23 @@ import com.premiumminds.billy.france.services.export.FRCreditNoteData;
 import com.premiumminds.billy.france.services.export.FRCreditNoteDataExtractor;
 import com.premiumminds.billy.france.services.export.pdf.creditnote.FRCreditNotePDFFOPTransformer;
 import com.premiumminds.billy.france.services.export.pdf.creditnote.FRCreditNoteTemplateBundle;
-import com.premiumminds.billy.france.util.Services;
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.FRMockDependencyModule;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 import com.premiumminds.billy.france.test.util.FRCreditNoteTestUtil;
+import com.premiumminds.billy.france.util.Services;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
     public static final String XSL_PATH = "src/main/resources/templates/fr_creditnote.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
     private Injector mockedInjector;
@@ -82,7 +85,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreation() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -95,10 +98,15 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
         Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         FRCreditNoteData entityData = this.extractor.extract(uidEntity);
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
@@ -124,7 +132,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreationFromBundle() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -137,15 +145,20 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
         Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = new FileInputStream(TestFRCreditNotePDFTransformer.XSL_PATH);
+        InputStream xsl = Files.newInputStream(Paths.get(TestFRCreditNotePDFTransformer.XSL_PATH));
         FRCreditNoteTemplateBundle bundle =
                 new FRCreditNoteTemplateBundle(TestFRCreditNotePDFTransformer.LOGO_PATH, xsl);
         FRCreditNotePDFFOPTransformer transformerBundle = new FRCreditNotePDFFOPTransformer(bundle);
 
         FRCreditNoteData entityData = this.extractor.extract(uidEntity);
         transformerBundle.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     private FRCreditNoteEntity generateFRCreditNote(PaymentMechanism paymentMechanism, FRInvoiceEntity reference)

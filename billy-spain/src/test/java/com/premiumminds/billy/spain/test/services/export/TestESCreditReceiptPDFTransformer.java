@@ -21,18 +21,11 @@ package com.premiumminds.billy.spain.test.services.export;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -58,10 +51,17 @@ import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESCreditReceiptTestUtil;
 import com.premiumminds.billy.spain.util.Services;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
     public static final String XSL_PATH = "src/main/resources/templates/es_creditreceipt.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
@@ -82,7 +82,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
     }
 
     @Test
-    public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreation() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -95,10 +95,15 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
         Mockito.when(daoReceipt.get(ArgumentMatchers.eq(receipt.getUID()))).thenReturn(receipt);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         ESCreditReceiptData entityData = this.extractor.extract(uidEntity);
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
@@ -110,7 +115,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
     }
 
     @Test
-    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreationFromBundle() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -123,15 +128,20 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
         Mockito.when(daoReceipt.get(ArgumentMatchers.eq(receipt.getUID()))).thenReturn(receipt);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = new FileInputStream(TestESCreditReceiptPDFTransformer.XSL_PATH);
+        InputStream xsl = Files.newInputStream(Paths.get(TestESCreditReceiptPDFTransformer.XSL_PATH));
         ESCreditReceiptTemplateBundle bundle =
                 new ESCreditReceiptTemplateBundle(TestESCreditReceiptPDFTransformer.LOGO_PATH, xsl);
         ESCreditReceiptPDFFOPTransformer transformerBundle = new ESCreditReceiptPDFFOPTransformer(bundle);
 
         ESCreditReceiptData entityData = this.extractor.extract(uidEntity);
         transformerBundle.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     private ESCreditReceiptEntity generateESCreditReceipt(PaymentMechanism paymentMechanism, ESReceiptEntity reference)

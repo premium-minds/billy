@@ -118,7 +118,7 @@ public class FRInvoiceTestUtil {
                 .addPayment(this.payment.getPaymentBuilder()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
     }
 
-    public FRInvoiceEntity getDiferentRegionsInvoice() {
+    public FRInvoiceEntity getDifferentRegionsInvoice() {
         BigDecimal entriesPrice = new BigDecimal("16.0145");
         FRInvoice.Builder invoiceBuilder = this.injector.getInstance(FRInvoice.Builder.class);
 
@@ -164,7 +164,7 @@ public class FRInvoiceTestUtil {
         return (FRInvoiceEntity) invoiceBuilder.build();
     }
 
-    public FRInvoiceEntity getManyEntriesWithDiferentRegionsInvoice() {
+    public FRInvoiceEntity getManyEntriesWithDifferentRegionsInvoice() {
         BigDecimal entriesPrice = new BigDecimal("0.355555");
         FRInvoice.Builder invoiceBuilder = this.injector.getInstance(FRInvoice.Builder.class);
 

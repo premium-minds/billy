@@ -118,7 +118,7 @@ public class ESInvoiceTestUtil {
                 .addPayment(this.payment.getPaymentBuilder());
     }
 
-    public ESInvoiceEntity getDiferentRegionsInvoice() {
+    public ESInvoiceEntity getDifferentRegionsInvoice() {
         BigDecimal entriesPrice = new BigDecimal("16.0145");
         ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
 
@@ -164,7 +164,7 @@ public class ESInvoiceTestUtil {
         return (ESInvoiceEntity) invoiceBuilder.build();
     }
 
-    public ESInvoiceEntity getManyEntriesWithDiferentRegionsInvoice() {
+    public ESInvoiceEntity getManyEntriesWithDifferentRegionsInvoice() {
         BigDecimal entriesPrice = new BigDecimal("0.355555");
         ESInvoice.Builder invoiceBuilder = this.injector.getInstance(ESInvoice.Builder.class);
 

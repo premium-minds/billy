@@ -21,18 +21,11 @@ package com.premiumminds.billy.spain.test.services.export;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URISyntaxException;
-import java.security.NoSuchAlgorithmException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -59,10 +52,17 @@ import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
 import com.premiumminds.billy.spain.util.Services;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
-    public static final int NUM_ENTRIES = 10;
     public static final String XSL_PATH = "src/main/resources/templates/es_creditnote.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
     private Injector mockedInjector;
@@ -82,7 +82,7 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFcreation() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreation() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -95,10 +95,15 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
         DAOESInvoice daoInvoice = this.mockedInjector.getInstance(DAOESInvoice.class);
         Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
         ESCreditNoteData entityData = this.extractor.extract(uidEntity);
         this.transformer.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     @Test
@@ -125,7 +130,7 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testPDFCreationFromBundle() throws NoSuchAlgorithmException, ExportServiceException, URISyntaxException,
+    public void testPdfCreationFromBundle() throws ExportServiceException,
             DocumentIssuingException, IOException {
 
         UID uidEntity = UID.fromString("12345");
@@ -138,15 +143,20 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
         DAOESInvoice daoInvoice = this.mockedInjector.getInstance(DAOESInvoice.class);
         Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-        OutputStream os = new FileOutputStream(File.createTempFile("Result", ".pdf"));
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = new FileInputStream(TestESCreditNotePDFTransformer.XSL_PATH);
+        InputStream xsl = Files.newInputStream(Paths.get(TestESCreditNotePDFTransformer.XSL_PATH));
         ESCreditNoteTemplateBundle bundle =
                 new ESCreditNoteTemplateBundle(TestESCreditNotePDFTransformer.LOGO_PATH, xsl);
         ESCreditNotePDFFOPTransformer transformerBundle = new ESCreditNotePDFFOPTransformer(bundle);
 
         ESCreditNoteData entityData = this.extractor.extract(uidEntity);
         transformerBundle.transform(entityData, os);
+
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
     }
 
     private ESCreditNoteEntity generateESCreditNote(PaymentMechanism paymentMechanism, ESInvoiceEntity reference)
