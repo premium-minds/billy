@@ -34,6 +34,7 @@
  - [Bump hibernate.version from 5.6.6.Final to 5.6.7.Final](https://github.com/premium-minds/billy/pull/274)
  - [Bump hibernate.version from 5.6.7.Final to 5.6.8.Final](https://github.com/premium-minds/billy/pull/280)
  - [Bump hibernate.version from 5.6.8.Final to 5.6.9.Final](https://github.com/premium-minds/billy/pull/290)
+ - [Bump hibernate.version from 5.6.9.Final to 5.6.10.Final](https://github.com/premium-minds/billy/pull/313)
  - [Bump fop from 1.0 to 2.7](https://github.com/premium-minds/billy/pull/253)
  - [Bump bcpkix-jdk15on from 1.69 to 1.70](https://github.com/premium-minds/billy/pull/232)
  - [Bump slf4j-api from 1.7.32 to 1.7.33](https://github.com/premium-minds/billy/pull/250)
