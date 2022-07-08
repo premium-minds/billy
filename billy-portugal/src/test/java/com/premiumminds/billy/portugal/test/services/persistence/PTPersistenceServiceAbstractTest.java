@@ -33,7 +33,7 @@ public class PTPersistenceServiceAbstractTest extends PTPersistencyAbstractTest 
 
     @BeforeEach
     public void setUpParamenters() {
-        KeyGenerator generator = new KeyGenerator(PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
+        KeyGenerator generator = new KeyGenerator(getClass().getResource(PRIVATE_KEY_DIR));
 
         this.parameters = new PTIssuingParamsImpl();
         this.parameters.setPrivateKey(generator.getPrivateKey());
