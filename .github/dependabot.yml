@@ -5,10 +5,3 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics
-    versions:
-    - ">= 1.11.a, < 1.12"
-  - dependency-name: org.jvnet.jaxb2_commons:jaxb2-basics-runtime
-    versions:
-    - ">= 1.11.a, < 1.12"
