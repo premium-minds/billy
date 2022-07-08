@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Billy</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-sacle=1.0">
+        <link href="stylesheets/bootstrap.css" rel="stylesheet">
+        <link href="stylesheets/bootstrap-responsive.css" rel="stylesheet">
+        <link href="stylesheets/docs.css" rel="stylesheet">
+        <style type="text/css">
+			body {
+				padding-top: 60px;
+				padding-bottom: 40px;
+			}
+        </style>
+
+    </head>
+    <body>
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <div class="nav-collapse collapse">
+              <ul class="nav">
+                <li><a class="brand" href="index.html">Billy</a></li>
+                <li><a href="developmentContribution.html">Contribution</a></li>
+                <li><a href="documents.html">Documentation</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="lawsAndRules.html">Laws and Financial Rules</a></li>
+                <li><a href="license.html">License</a></li>
+                <li class="active"><a href="contacts.html">Contacts</a></li>
+              </ul>
+            </div><!--/.nav-collapse -->
+          </div>
+        </div>
+      </div>
+
+        <div class="container">
+            <div class="page-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+
+            <div class="accordion">
+                  <div class="accordion-group">
+
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question1" style="color: #333333 !important;"><h4>What is Billy?</h4></a>
+                    </div>
+                    <div id="question1" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         Billy is an open source Java library which aims to provide applications with the ability to create and manage invoices.
+                         One of the main goals, is the ability to export the invoices in different formats, such as SAF-T and pdf.
+                         It's buid in a modular way in order to support additional country legislation, new billing artifacts as well as new export mechanisms.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question2" style="color: #333333 !important;"><h4>Which documents does Billy support?</h4></a>
+                    </div>
+                    <div id="question2" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         Billy supports invoices, simplified invoices, credit notes and SAF-T (PT).
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question3" style="color: #333333 !important;"><h4>What is the difference between an invoice and a simplified invoice?</h4></a>
+                    </div>
+                    <div id="question3" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          Simplified invoices are a type of invoice that only contain the Tax Registration Number of the customer. In this type of invoice the customers' address isn't mandatory and
+                          therefore suppliers only need to include its company name and Tax Registration Number.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question4" style="color: #333333 !important;"><h4>Does Billy support accounting properties?</h4></a>
+                    </div>
+                    <div id="question4" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          At the moment it does not support accounting properties. However, it's prepared to be further developed in that area.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question5" style="color: #333333 !important;"><h4>How is data persisted?</h4></a>
+                    </div>
+                    <div id="question5" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         At the moment billy uses JPA (Java Persistence API) implemented in billy-core-jpa. However, it's prepared to be extended with new APIs.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question6" style="color: #333333 !important;"><h4>Does Billy keep backup copies?</h4></a>
+                    </div>
+                    <div id="question6" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         Billy doesn't keep backup copies.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question7" style="color: #333333 !important;"><h4>Does Billy lets you integrate invoices from other applications?</h4></a>
+                    </div>
+                    <div id="question7" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                        Billy doesn't allow invoices from other applications to be integrated in Billy's database.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question8" style="color: #333333 !important;"><h4>Does Billy allows an application to change the existing data?</h4></a>
+                    </div>
+                    <div id="question8" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         Billy doesn't allow an application to change the existing data directly. Billy lets you create amending documents that change the state of other documents.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question9" style="color: #333333 !important;"><h4>Who can issue invoices?</h4></a>
+                    </div>
+                    <div id="question9" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         Invoices can be issued by:
+                        <ul>
+                            <li>the supplier</li>
+                            <li>the purchaser</li>
+                            <li>the customer (self-billing)</li>
+                            <li>a contractor</li>
+                        </ul>
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question10" style="color: #333333 !important;"><h4>When must an invoice be issued?</h4></a>
+                    </div>
+                    <div id="question10" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          An invoice must be issued in a business to business (BtoB) supply situations and in certain business to customer (BtoC) supply situations.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question11" style="color: #333333 !important;"><h4>What is a SAF-T file?</h4></a>
+                    </div>
+                    <div id="question11" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         The Standard Audit File for Tax (SAF-T) is an international normalized file in XML format, for exchanging reliable
+                        accounting data from organizations to the national tax authority or external auditors. The Standard is defined by the
+                        <a href="http://www.oecd.org/">Organization for Economic Cooperation and Development (OECD)</a> and it enables
+                        auditors to access accounting data in an easy readable format.
+                        The SAF-T file incorporates exported accounting data from an accounting system
+                        for a given time period and by due to its uniform layout and
+                        format it's easily readable and extensible.
+                        It has been widely adopted in Europe, being extended as needed by each country in order to comply with its
+                        policies and legislation.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question12" style="color: #333333 !important;"><h4>What SAF-T formats are currently supported by Billy?</h4></a>
+                    </div>
+                    <div id="question12" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          In addition to the <a href="http://www.oecd.org/ctp/administration/guidancenote-guidancefordevelopersofbusinessandaccountingsoftwareconcerningtaxauditrequirements.htm">OECD</a>
+                          standard, <a href="http://premium-minds.github.io/billy">Billy</a> currently supports the Portuguese format SAF-T (PT).
+                          <br/>
+                          You can read more about it <a href="http://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/NEWS_SAF-T_PT.htm">here.</a>
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question13" style="color: #333333 !important;"><h4>How can i add a new SAF-T format?</h4></a>
+                    </div>
+                    <div id="question13" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          To add a new SAF-T you must extend the
+                          <a href="http://www.oecd.org/ctp/administration/guidancenote-guidancefordevelopersofbusinessandaccountingsoftwareconcerningtaxauditrequirements.htm">OECD</a>
+                          SAF-T to comply with the country's legislation and policies. This achieved by creating a new module that extends the billy-core module which implements the OECD standard.
+                          An example of this is the Portuguese module billy-platypus.
+                          </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question14" style="color: #333333 !important;"><h4>Billy a certified library?</h4></a>
+                    </div>
+                    <div id="question14" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                        No, <a href="http://premium-minds.github.io/billy">Billy</a> isn't certified in any way. Applications using <a href="http://premium-minds.github.io/billy">Billy</a> should seek the certification authority in their country to legally certify their product.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question15" style="color: #333333 !important;"><h4>Billy uses continuous integration?</h4></a>
+                    </div>
+                    <div id="question15" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                        Yes, <a href="http://premium-minds.github.io/billy">Billy</a> uses <a href="https://travis-ci.org/">Travis CI</a>. It's a free continuous integration platform
+                        for the open source community.
+                        Each time a push is made to <a href="http://premium-minds.github.io/billy">Billy's</a> repository at <a href="https://github.com/premium-minds/Billy">GitHub</a>, <a href="https://travis-ci.org/">Travis CI</a> clones the repository and runs all tests automatically.
+                        The results are displayed in the end.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question16" style="color: #333333 !important;"><h4>I've found a bug, what should i do?</h4></a>
+                    </div>
+                    <div id="question16" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         Check out the <a href="developmentContribution.html">contribution section</a> and our <a href="https://github.com/premium-minds/billy/issues">Issue Tracker</a> for more information. Contributions are always welcome!
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question17" style="color: #333333 !important;"><h4>I've exported a SAF-T (PT) file, how can i check if it's correct?</h4></a>
+                    </div>
+                    <div id="question17" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          You can check if all fields of the SAF-T (PT) are in accordance with the latest schema using
+                          <a href="http://info.portaldasfinancas.gov.pt/pt/apoio_contribuinte/SAFT_PT/Paginas/news-saf-t-pt.aspx">offline validator</a> made available by the Portuguese Ministry of Finance. There are other online validators provided by third parties.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question18" style="color: #333333 !important;"><h4>Which documents must be signed by Billy?</h4></a>
+                    </div>
+                    <div id="question18" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         Billy must sign all the documents that it exports to avoid the direct change of those documents, so the following documents are signed by Billy:
+                          <ul>
+                            <li>Invoices</li>
+                            <li>Simplified invoices</li>
+                            <li>Credit notes</li>
+                            <li>SAF-T (PT)</li>
+                          </ul>
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question19" style="color: #333333 !important;"><h4>How do I process an handwritten invoice?</h4></a>
+                    </div>
+                    <div id="question19" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                         To process handwritten invoices or other amending documents, you must individually insert the document to billy, which will associate the document to a special series, with anual periodicity or more.
+                         </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question20"style="color: #333333 !important;"><h4>How to change an invoice after been issued?</h4></a>
+                    </div>
+                    <div id="question20" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          Only some fields of the invoice can be changed, address, banck account number, customer name, and product description, if you want to change any of the other fields you need to create a credit note to cancel the invoice and create a new changed invoice.
+                        </p>
+                      </div>
+                    </div>
+
+                     <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question21" style="color: #333333 !important;"><h4>What is Billy's rounding mode?</h4></a>
+                    </div>
+                    <div id="question21" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                            Billy application do it's calculations according to the <a href="http://download.java.net/jdk8/docs/api/java/math/MathContext.html">MathContext.Decimal128</a>, and  <a href ="http://icu-project.org/apiref/icu4j/com/ibm/icu/math/MathContext.html#ROUND_HALF_EVEN">Half_Even</a> rounding mode, which round to nearest neighbor, where an equidistant value is rounded to the nearest even neighbor.
+                            For the math calculations billy uses 34 digits to assure a big precision in calculations, in the validations only 7 decimal figures are important, and for presentation only uses 2 decimal figures to represent the cents.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle" data-toggle="collapse" href="#question22" style="color: #333333 !important;"><h4>How do I change the invoice PDF template?</h4></a>
+                    </div>
+                    <div id="question22" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <p>
+                          The structure of the invoice PDF template must be defined in <a href="http://www.w3.org/Style/XSL/">XSL</a>,and the location of that template file must be passed to the billy pdf generation, when you want to export an invoice.
+                          <b>Note:</b> The names in the XSL entries in the template must be the same that billy generator expects, otherwise the PDF wont't be generated. If you want to add new entries you must extends the generator to fill the new fields.
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+            <hr>
+            <footer>
+                <p>
+                    Developed by <a href="https://www.premium-minds.com">Premium Minds</a>
+                </p>
+            </footer>
+        </div>
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="javascripts/bootstrap.js"></script>
+    </body>
+</html>

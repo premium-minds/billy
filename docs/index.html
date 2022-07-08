@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Billy</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-sacle=1.0">
+        <link href="stylesheets/bootstrap.css" rel="stylesheet">
+        <link href="stylesheets/bootstrap-responsive.css" rel="stylesheet">
+        <link href="stylesheets/docs.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="javascripts/bootstrap.js"></script>
+        <link rel="stylesheet" href="javascripts/highlight.js/styles/github.css">
+        <script src="javascripts/highlight.js/highlight.pack.js"></script>
+        <script>
+            hljs.initHighlightingOnLoad();
+        </script>
+        <style type="text/css">
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+              <div class="container">
+                <div class="nav-collapse collapse">
+                  <ul class="nav">
+                    <li><a class="brand" href="index.html">Billy</a></li>
+                    <li><a href="developmentContribution.html">Contribution</a></li>
+                    <li><a href="documents.html">Documentation</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="lawsAndRules.html">Laws and Financial Rules</a></li>
+                    <li><a href="license.html">License</a></li>
+                    <li class="active"><a href="contacts.html">Contacts</a></li>
+                  </ul>
+                </div><!--/.nav-collapse -->
+              </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+           <div class="page-header">
+                <h1>Billy</h1>
+            </div>
+
+            <div class="row-fluid" id="introduction">
+                <p>
+                    Billy is an open source Java library developed by <a href="https://www.premium-minds.com">Premium Minds</a>.
+                    Billy's aim is to be a billing library for applications providing them with ability to create,
+                    manage, store and export billing related artifacts such as invoices and credit notes.
+                    Billy supports the creation and exportation of SAF-T files (Standard Audit File for Tax).
+                    <br>
+                    Billy is currently at version 5.0.0, and is now available to the open source community.
+                </p>
+                </div>
+
+            <div class="row-fluid" id="get-billy">
+                <h2>Get Billy</h2>
+
+                <p>
+                You can obtain Billy by downloading the latest <a href="https://github.com/premium-minds/billy/releases">release</a> or by cloning the latest sources from
+                <a href="https://github.com/premium-minds/billy">GitHub</a>
+                </p>
+
+                <h3>Maven projects</h3>
+
+                <p>
+                Add the following maven dependency to your project <code>pom.xml</code>:
+<pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.premiumminds&lt;/groupId&gt;
+    &lt;artifactId&gt;billy-portugal&lt;/artifactId&gt;
+    &lt;version&gt;5.4.2&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+                Check out <a href="https://oss.sonatype.org/index.html#nexus-search;quick~billy">sonatype repository</a> for latest snapshots and releases.
+                </p>
+
+                <p>Some dependencies are in provided scope, so you have to add them to your project</p>
+                <pre><code class="xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+    &lt;artifactId&gt;hibernate-entitymanager&lt;/artifactId&gt;
+    &lt;version&gt;5.4.23.Final&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+    &lt;artifactId&gt;hibernate-envers&lt;/artifactId&gt;
+    &lt;version&gt;5.4.23.Final&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;
+    &lt;version&gt;5.4.3.Final&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;org.glassfish&lt;/groupId&gt;
+    &lt;artifactId&gt;javax.el&lt;/artifactId&gt;
+    &lt;version&gt;3.0.1-b11&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.querydsl&lt;/groupId&gt;
+    &lt;artifactId&gt;querydsl-jpa&lt;/artifactId&gt;
+    &lt;version&gt;4.4.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+
+
+                <h3>Bootstrap Billy</h3>
+                <p>
+                Bootstrap incorporates entities that are essential for any application using Billy, for instance, the billy-portugal bootstrap provides you with all the contexts and taxes available for Portuguese legislation, providing an easy and quick start for new applications using Billy.
+
+                Just run<code>main()</code> from <code>PortugalBootstrap</code> to bootstrap Billy.
+                </p>
+
+                <h3>Demomonstration Application</h3>
+                <p>There is a demomonstration project in how to use billy at <a href="https://github.com/premium-minds/billy-demo-app">github.com/premium-minds/billy-demo-app</a>.</p>
+
+                <hr />
+            </div>
+            <div class="row-fluid">
+
+                <h1>Get Started Guide</h1>
+                <p>
+                This guide combines an overview of Billy with a quick tutorial that helps you to get started.
+                We'll follow the process of creating and issuing an invoice and then export it to PDF and to SAF-T(PT) xml format.
+                </p>
+
+                <h2>Initiating Billy</h2>
+                <p>
+                Start by creating a new instance of Billy:
+                <pre><code class="java">BillyPortugal billyPortugal = new BillyPortugal();</code></pre>
+                This provides access to builders, issuing services, persistence services and export services for each available entity in Billy.
+                </p>
+
+                <h2>Creating the new application</h2>
+
+                <p>
+                First obtain the application builder:
+                <pre><code class="java">PTApplication.Builder applicationBuilder = billyPortugal.applications().builder();</code></pre>
+                Populate it with the application's information:
+<pre><code class="java">applicationBuilder.setDeveloperCompanyName("Premium Minds")
+    .setDeveloperCompanyTaxIdentifier("12345789")
+    .setSoftwareCertificationNumber(123)
+    .setName("Billy")
+    .setVersion("1.0")
+    .setApplicationKeysPath(new URL("http://www.keys.path"));</code></pre>
+
+                Each application will need to have at least one contact, so we'll start by creating it.
+                </p>
+
+                <h3>Create a new contact</h3>
+
+                <p>
+                Obtain the builder and fill it with the required values:
+                <pre><code class="java">PTContact.Builder contactBuilder = billyPortugal.contacts().builder();
+contactBuilder.setName("Bob Conner")
+              .setTelephone("219211231");</code></pre>
+                Now you can add the customer to the new application:
+
+              <pre><code class="java">applicationBuilder.addContact(contactBuilder)
+                  .setMainContact(contactBuilder);</code></pre>
+                </p>
+
+                <p>And finally persist the application builder to Billy's database</p>
+                <pre><code class="java">PTApplication application = billyPortugal.applications().persistence().create(applicationBuilder);</code></pre>
+
+                <h2>Creating a new invoice</h2>
+
+                <p>
+                Billy's main focus is to manage invoices, so to create a new invoice, we'll start by getting the appropriate builder:
+                <pre><code class="java">PTInvoice.Builder invoiceBuilder = billyPortugal.invoices().builder();</code></pre>
+                Lets define the simple parameters of the invoice:
+                <pre><code class="java">invoiceBuilder.setSelfBilled(false)
+              .setCancelled(false)
+              .setBilled(false)
+              .setDate(new Date())
+              .setSourceId("Source ID")
+              .setSourceBilling(SourceBilling.P);</code></pre>
+
+              Naturally, an invoice requires a business and a customer. These entities need to be first persisted and then their UID is set in the invoice.
+              </p>
+
+                <h3>Creating a new Business</h3>
+
+                <p>
+                As always we first obtain the builder and populated with the required values:
+                <pre><code class="java">PTBusiness.Builder businessBuilder = billyPortugal.businesses().builder();
+
+businessBuilder.addApplication(applicationBuilder)
+               .addContact(contactBuilder, true)
+               .setMainContactUID(contactBuilder.build().getUID())
+               .setName("Business")
+               .setCommercialName("Business, INC")
+               .setFinancialID("500003564", "PT");</code></pre>
+                </p>
+
+                <h4>Creating a new address</h4>
+
+                <p>
+                You'll notice that the new business requires an address builder!
+                <pre><code class="java">PTAddress.Builder addressBuilder = billyPortugal.addresses().builder();
+
+addressBuilder.setStreetName("Av. 5 de Outubro")
+              .setNumber("2")
+              .setPostalCode("1000-100")
+              .setCity("Lisbon")
+              .setISOCountry("Portugal")
+              .setDetails("Av. 5 de Outubro Nº 2 1000-100 Lisboa");</code></pre>
+                </p>
+
+                <p>
+                Add the new address to the business
+                <pre><code class="java">businessBuilder.setAddress(addressBuilder)
+               .setBillingAddress(addressBuilder);</code></pre>
+                After populating the businessBuilder we can persist it in Billy's database:
+                <pre><code class="java">PTBusiness business = billyPortugal.businesses().persistence().create(businessBuilder);</code></pre>
+                </p>
+
+                <h3>Create a new Customer</h3>
+
+                <p>
+                The process of creating a new customer is similar to creating a business:
+                <pre><code class="java">PTCustomer.Builder customerBuilder = billyPortugal.customers().builder();</code></pre>
+                For the sake of simplicity, we'll reuse the previously defined addressBuilder and contactBuilder used in the business creation:
+
+                <pre><code class="java">customerBuilder.setName("John Conner")
+               .setTaxRegistrationNumber("123456789", "PT")
+               .addAddress(addressBuilder, true)
+               .setBillingAddress(addressBuilder)
+               .setShippingAddress(addressBuilder)
+               .setHasSelfBillingAgreement(false)
+               .addContact(contactBuilder);</code></pre>
+
+                Now we can persist it in Billy's database:
+                <pre><code class="java">PTCustomer customer = billyPortugal.customers().persistence().create(customerBuilder);</code></pre>
+
+                After creating and persisting the customer and the business in the database, we must add them to the invoice:
+             <pre><code class="java">invoiceBuilder.setBusinessUID(business.getUID())
+              .setCustomerUID(customer.getUID());</code></pre>
+                </p>
+
+                <h3>Creating new Invoice Entries</h3>
+
+                <p>
+                An invoice has one or more entries. Each entry has all information about the good/product such as price, currency, description, etc.
+
+                To create a new entry we first first obtain the builder:
+                <pre><code class="java">PTInvoiceEntry.Builder entryBuilder = billyPortugal.invoices().entryBuilder();</code></pre>
+                Set the required fields:
+                <pre><code class="java">entryBuilder.setAmountType(AmountType.WITH_TAX)
+                    .setCurrency(Currency.getInstance("EUR"))
+                    .setContextUID(billyPortugal.contexts().portugal().allRegions().getUID())
+                    .setQuantity(new BigDecimal("10"))
+                    .setTaxPointDate(new Date())
+                    .setUnitAmount(AmountType.WITH_TAX, new BigDecimal("100"));</code></pre>
+                </p>
+
+                <h4>Creating a new Product</h4>
+
+                <p>
+                Again create and populate the product builder:
+                <pre><code class="java">PTProduct.Builder productBuilder = billyPortugal.products().builder();
+
+productBuilder.setDescription("description 1")
+              .setNumberCode("1")
+              .setProductCode("1")
+              .setType(ProductType.GOODS)
+              .setUnitOfMeasure("kg")
+              .addTaxUID(billyPortugal.taxes().continent().normal().getUID());</code></pre>
+
+                Persiste the product:
+                <pre><code class="java">PTProduct product = billyPortugal.products().persistence().create(productBuilder);</code></pre>
+
+                Now add the product to the invoice entry:
+                <pre><code class="java">entryBuilder.setProductUID(product.getUID())
+            .setDescription(product.getDescription())
+            .setUnitOfMeasure(product.getUnitOfMeasure());</code></pre>
+
+                We can then add this entry to the invoice:
+                <pre><code class="java">invoiceBuilder.addEntry(entryBuilder);</code></pre>
+                </p>
+
+                <h2>Issuing Service</h2>
+
+                <p>
+                To issue the new invoice you'll need to provide the issuing parameters.
+                </p>
+
+                <h3>Invoice parameters</h3>
+
+                <p>
+                This encapsulates the needed parameters to issue your invoice, such as PrivateKey, PublicKey, Series, etc.
+                <pre><code class="java">PTIssuingParams invoiceParameters = PTIssuingParams.Util.newInstance();</code></pre>
+
+                You can use the provided KeyGenerator to generate your keys.
+                <pre><code class="java">KeyGenerator gen = new KeyGenerator("private/key/dir/pkey.pem");
+
+invoiceParameters.setPrivateKey(gen.getPrivateKey());
+invoiceParameters.setPublicKey(gen.getPublicKey());
+invoiceParameters.setInvoiceSeries("New Series");</code></pre>
+                </p>
+
+                <h3>Issuing the document</h3>
+
+                <p>
+                After defining the all the parameters you simply issue the document:
+                <pre><code class="java">PTInvoice invoice = billyPortugal.invoices().issue(invoiceBuilder, invoiceParameters);</code></pre>
+                </p>
+
+                <h2>SAFT-T export service</h2>
+
+                <p>
+                You can export the SAF-T(PT) xml file containing all the billing information for an application and a business during a given period. You'll need to specify the application's and the business's UID, the certificate number for the SAF-T(PT) file and the period of time that you wish to export.
+
+                <pre><code class="java">// one month period
+SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+Date startDate = dateFormat.parse("01-01-2013");
+Date endDate = dateFormat.parse("01-02-2013");
+
+billyPortugal.saft().export(application.getUID(), business.getUID(),
+        "Certification Number", startDate, endDate, PTSAFTFileGenerator.SAFTVersion.CURRENT);</code></pre>
+                </p>
+
+                <h2>Export invoice to PDF</h2>
+
+                <p>
+                You can export a previously issued invoice to pdf format. First you'll need to create a new instance of a TemplateBundle for an invoice. The TemplateBundle encapsulates the configuration details for your pdf:
+                </p>
+
+                <p>
+                <pre><code class="java">InputStream xslInputStream = new FileInputStream("xsl/path/file.xsl");
+PTInvoiceTemplateBundle templateBundle = new PTInvoiceTemplateBundle("logo/path/logo.png", xslInputStream,
+"Software Certification ID");</code></pre>
+
+                Then you need to create a new PDFExportRequest with the issued invoice UID, the TemplateBundle and where you want to export the new pdf to:
+
+                <pre><code class="java">billyPortugal.invoices().pdfExport(
+     new PTInvoicePDFExportRequest(invoice.getUID(), templateBundle, "path/to/export.pdf" ));</code></pre>
+                </p>
+            </div>
+
+            <footer>
+            <hr>
+            <p>
+            Developed by <a href="https://www.premium-minds.com">Premium Minds</a>
+            </p>
+            </footer>
+        </div>
+
+    </body>
+</html>
