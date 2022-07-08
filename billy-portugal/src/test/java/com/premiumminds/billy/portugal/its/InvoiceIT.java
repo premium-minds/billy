@@ -349,7 +349,7 @@ public class InvoiceIT {
     private PTIssuingParams getPtInvoiceIssuingParams() {
         PTIssuingParams invoiceParameters = PTIssuingParams.Util.newInstance();
 
-        KeyGenerator gen = new KeyGenerator(PRIVATE_KEY_DIR);
+        KeyGenerator gen = new KeyGenerator(getClass().getResource(PRIVATE_KEY_DIR));
 
         invoiceParameters.setPrivateKey(gen.getPrivateKey());
         invoiceParameters.setPublicKey(gen.getPublicKey());
@@ -361,7 +361,7 @@ public class InvoiceIT {
     private PTIssuingParams getPtCreditNoteIssuingParams() {
         PTIssuingParams invoiceParameters = PTIssuingParams.Util.newInstance();
 
-        KeyGenerator gen = new KeyGenerator(PRIVATE_KEY_DIR);
+        KeyGenerator gen = new KeyGenerator(getClass().getResource(PRIVATE_KEY_DIR));
 
         invoiceParameters.setPrivateKey(gen.getPrivateKey());
         invoiceParameters.setPublicKey(gen.getPublicKey());

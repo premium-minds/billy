@@ -102,7 +102,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 
     protected PTIssuingParams getParameters(String series, String EACCode, String privateKeyVersion) {
         PTIssuingParams parameters = new PTIssuingParamsImpl();
-        KeyGenerator generator = new KeyGenerator(PTPersistencyAbstractTest.PRIVATE_KEY_DIR);
+        KeyGenerator generator = new KeyGenerator(getClass().getResource(PRIVATE_KEY_DIR));
         parameters.setPrivateKey(generator.getPrivateKey());
         parameters.setPublicKey(generator.getPublicKey());
         parameters.setPrivateKeyVersion(privateKeyVersion);

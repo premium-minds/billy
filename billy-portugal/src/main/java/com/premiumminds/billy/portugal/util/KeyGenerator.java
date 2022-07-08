@@ -21,6 +21,7 @@ package com.premiumminds.billy.portugal.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URL;
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -41,19 +42,19 @@ public class KeyGenerator {
 
     private static final Logger log = LoggerFactory.getLogger(KeyGenerator.class);
 
-    private String privateKeyPath;
+    private final URL privateKey;
 
     /**
      * Generates the {@link PrivateKey} and {@link PublicKey} based on the
      * {@link PrivateKey} location.
      *
-     * @param privateKeyPath path to private key
+     * @param privateKey path to private key
      */
-    public KeyGenerator(String privateKeyPath) {
+    public KeyGenerator(URL privateKey) {
         if (Security.getProvider("BC") == null) {
             Security.addProvider(new BouncyCastleProvider());
         }
-        this.privateKeyPath = privateKeyPath;
+        this.privateKey = privateKey;
     }
 
     private String getKeyFromFile() {
@@ -61,7 +62,7 @@ public class KeyGenerator {
         String key = "";
 
         try {
-            inputStream = this.getClass().getResourceAsStream(this.privateKeyPath);
+            inputStream = this.privateKey.openStream();
             key = IOUtils.toString(inputStream);
         } catch (IOException e) {
             KeyGenerator.log.error(e.getMessage(), e);
