@@ -10,6 +10,7 @@
 
 ### Changed
 
+ - [Unsplit packages in billy-core and billy-core-jpa](https://github.com/premium-minds/billy/pull/316)
  - [Refactor KeyGenerator to use URL for private key](https://github.com/premium-minds/billy/pull/315)
  - [Replace custom code for XML construction with standard javax.xml way](https://github.com/premium-minds/billy/pull/310)
  - [Improve stream usage in PTFinancialValidator](https://github.com/premium-minds/billy/pull/306)
