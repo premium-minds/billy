@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAContextEntity;
+import com.premiumminds.billy.persistence.entities.jpa.JPAContextEntity;
 import com.premiumminds.billy.spain.Config;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;

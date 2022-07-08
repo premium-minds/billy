@@ -25,7 +25,7 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAApplicationEntity;
+import com.premiumminds.billy.persistence.entities.jpa.JPAApplicationEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.france.Config;
 import com.premiumminds.billy.france.persistence.entities.FRApplicationEntity;

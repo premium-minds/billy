@@ -21,7 +21,7 @@ package com.premiumminds.billy.france;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.premiumminds.billy.core.CoreDependencyModule;
-import com.premiumminds.billy.core.CoreJPADependencyModule;
+import com.premiumminds.billy.persistence.CoreJPADependencyModule;
 import com.premiumminds.billy.france.persistence.dao.DAOFRAddress;
 import com.premiumminds.billy.france.persistence.dao.DAOFRApplication;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;

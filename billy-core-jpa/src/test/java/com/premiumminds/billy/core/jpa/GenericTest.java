@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.CoreJPADependencyModule;
+import com.premiumminds.billy.persistence.CoreJPADependencyModule;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;

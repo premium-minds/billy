@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOSupplierImpl;
+import com.premiumminds.billy.persistence.dao.jpa.DAOSupplierImpl;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSupplier;
 import com.premiumminds.billy.spain.persistence.entities.ESSupplierEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESSupplierEntity;

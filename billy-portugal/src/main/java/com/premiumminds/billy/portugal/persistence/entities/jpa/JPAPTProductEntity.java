@@ -23,7 +23,7 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAProductEntity;
+import com.premiumminds.billy.persistence.entities.jpa.JPAProductEntity;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 

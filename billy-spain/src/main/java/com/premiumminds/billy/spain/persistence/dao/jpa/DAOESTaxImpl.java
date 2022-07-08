@@ -28,7 +28,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.jpa.DAOTaxImpl;
+import com.premiumminds.billy.persistence.dao.jpa.DAOTaxImpl;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
 import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESTaxEntity;

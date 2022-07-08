@@ -19,7 +19,7 @@
 package com.premiumminds.billy.portugal.test;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 import java.util.Optional;
