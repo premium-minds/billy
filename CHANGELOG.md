@@ -60,6 +60,7 @@
  - [Bump pdfbox from 2.0.24 to 2.0.26](https://github.com/premium-minds/billy/pull/314)
  - [Bump tiles-maven-plugin from 2.24 to 2.25](https://github.com/premium-minds/billy/pull/224)
  - [Bump junit-jupiter-engine from 5.8.1 to 5.8.2](https://github.com/premium-minds/billy/pull/231)
+ - [Bump junit-jupiter-engine from 5.8.2 to 5.9.0](https://github.com/premium-minds/billy/pull/320)
  - [Bump maven-scm-api from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/240)
  - [Bump maven-scm-api from 1.12.2 to 1.13.0](https://github.com/premium-minds/billy/pull/293)
  - [Bump maven-scm-provider-gitexe from 1.12.0 to 1.12.2](https://github.com/premium-minds/billy/pull/239)
