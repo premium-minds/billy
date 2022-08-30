@@ -341,6 +341,12 @@ public class Contexts {
                     .get(Contexts.this.configuration.getUID(Config.Key.Context.Spain.Continental.Zaragoza.UUID));
         }
 
+		public ESRegionContext ceuta() {
+			DAOESRegionContext dao = Contexts.this.getInstance(DAOESRegionContext.class);
+			return (ESRegionContext) dao
+				.get(Contexts.this.configuration.getUID(Config.Key.Context.Spain.Continental.Ceuta.UUID));
+		}
+
     }
 
     public class CanaryIslands {
