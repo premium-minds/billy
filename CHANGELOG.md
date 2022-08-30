@@ -42,6 +42,7 @@
  - [Bump slf4j-api from 1.7.32 to 1.7.33](https://github.com/premium-minds/billy/pull/250)
  - [Bump slf4j-api from 1.7.33 to 1.7.35](https://github.com/premium-minds/billy/pull/256)
  - [Bump slf4j-api from 1.7.35 to 1.7.36](https://github.com/premium-minds/billy/pull/259)
+ - [Bump slf4j-api from 1.7.36 to 2.0.0](https://github.com/premium-minds/billy/pull/323)
  - [Bump jaxb2-basics-runtime from 0.12.0 to 0.13.1](https://github.com/premium-minds/billy/pull/287)
  - [Bump core from 3.4.1 to 3.5.0](https://github.com/premium-minds/billy/pull/288)
  - [Bump mockito-core from 4.0.0 to 4.1.0](https://github.com/premium-minds/billy/pull/223)
