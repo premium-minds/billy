@@ -345,6 +345,11 @@ public class Config {
                         public static final String UUID = "context.spain.zaragoza.uuid";
                     }
 
+                    public static class Ceuta {
+
+                        public static final String UUID = "context.spain.ceuta.uuid";
+                    }
+
                 }
 
                 public static class CanaryIslands {

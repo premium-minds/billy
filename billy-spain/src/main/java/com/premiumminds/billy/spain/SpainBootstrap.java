@@ -298,6 +298,10 @@ public class SpainBootstrap {
                             contextBuilder, "Zaragoza", "The Context for the Spanish Saragossa region",
                             CONTEXT_CONTINENTAL_SPAIN.getUID(), Config.Key.Context.Spain.Continental.Zaragoza.UUID);
 
+                    final ESRegionContextEntity CONTEXT_CEUTA_SPAIN = this.buildContextEntity(daoESRegionContext,
+                            contextBuilder, "Ceuta", "The Context for the Spanish Ceuta region",
+                            CONTEXT_CONTINENTAL_SPAIN.getUID(), Config.Key.Context.Spain.Continental.Ceuta.UUID);
+
                     final ESRegionContextEntity CONTEXT_CANARYISLANDS_SPAIN = this.buildContextEntity(
                             daoESRegionContext, contextBuilder, "Islas Canarias", "The Context for the Canary Islands",
                             CONTEXT_SPAIN.getUID(), Config.Key.Context.Spain.CanaryIslands.UUID);
