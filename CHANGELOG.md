@@ -53,6 +53,7 @@
  - [Bump mockito-core from 4.6.0 to 4.6.1](https://github.com/premium-minds/billy/pull/294)
  - [Bump mockito-core from 4.6.1 to 4.7.0](https://github.com/premium-minds/billy/pull/321)
  - [Bump snakeyaml from 1.29 to 1.30](https://github.com/premium-minds/billy/pull/236)
+ - [Bump snakeyaml from 1.30 to 1.31](https://github.com/premium-minds/billy/pull/324)
  - [Bump h2 from 1.3.173 to 1.4.200](https://github.com/premium-minds/billy/pull/241)
  - [Bump h2 from 1.4.200 to 2.1.210](https://github.com/premium-minds/billy/pull/251)
  - [Bump h2 from 2.1.210 to 2.1.212](https://github.com/premium-minds/billy/pull/279)
