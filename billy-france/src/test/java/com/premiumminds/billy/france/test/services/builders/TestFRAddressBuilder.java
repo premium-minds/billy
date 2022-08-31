@@ -49,7 +49,7 @@ public class TestFRAddressBuilder extends FRAbstractTest {
 
         FRAddress address = builder.build();
 
-        assert (address != null);
+        Assertions.assertNotNull(address);
         Assertions.assertEquals(mockAddress.getCity(), address.getCity());
         Assertions.assertEquals(mockAddress.getDetails(), address.getDetails());
         Assertions.assertEquals(mockAddress.getISOCountry(), address.getISOCountry());

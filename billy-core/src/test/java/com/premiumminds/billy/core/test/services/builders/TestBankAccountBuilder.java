@@ -47,7 +47,7 @@ public class TestBankAccountBuilder extends AbstractTest {
 
         BankAccount bankAccount = builder.build();
 
-        assert (bankAccount != null);
+        Assertions.assertNotNull(bankAccount);
         Assertions.assertEquals(mockBankAccount.getIBANNumber(), bankAccount.getIBANNumber());
         Assertions.assertEquals(mockBankAccount.getBankIdentifier(), bankAccount.getBankIdentifier());
         Assertions.assertEquals(mockBankAccount.getBankAccountNumber(), bankAccount.getBankAccountNumber());

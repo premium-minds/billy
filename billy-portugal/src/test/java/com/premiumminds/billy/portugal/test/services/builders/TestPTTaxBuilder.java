@@ -57,7 +57,7 @@ public class TestPTTaxBuilder extends PTAbstractTest {
 
         PTTax tax = builder.build();
 
-        assert (tax != null);
+        Assertions.assertNotNull(tax);
         Assertions.assertEquals(mockTax.getCode(), tax.getCode());
         Assertions.assertEquals(mockTax.getContext(), tax.getContext());
         Assertions.assertEquals(mockTax.getCurrency(), tax.getCurrency());
