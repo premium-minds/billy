@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
+import java.util.List;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -26,8 +27,8 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
-import com.premiumminds.billy.france.persistence.entities.FRRegionContextEntity;
 import com.premiumminds.billy.france.persistence.entities.FRTaxEntity;
+import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRTaxEntity;
 import com.premiumminds.billy.france.services.builders.FRTaxBuilder;
 import com.premiumminds.billy.france.services.entities.FRTax;
 
@@ -55,11 +56,10 @@ public class FRTaxBuilderImpl<TBuilder extends FRTaxBuilderImpl<TBuilder, TTax>,
         BillyValidator.mandatory(e.getCode(), FRTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
         BillyValidator.mandatory(e.getDescription(), FRTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
 
-        if (!((DAOFRTax) this.daoTax).getTaxes((FRRegionContextEntity) e.getContext(), e.getValidFrom(), e.getValidTo())
-                .isEmpty()) {
+        final List<JPAFRTaxEntity> taxes = ((DAOFRTax) this.daoTax).getTaxes(e.getContext(), e.getCode(), e.getValidFrom(), e.getValidTo());
+        if (!taxes.isEmpty()) {
             throw new BillyValidationException();
         }
         super.validateInstance();
     }
-
 }

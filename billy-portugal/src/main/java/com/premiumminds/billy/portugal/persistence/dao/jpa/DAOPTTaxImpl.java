@@ -114,18 +114,15 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
         query.from(tax);
         List<BooleanExpression> predicates = new ArrayList<>();
-        BooleanExpression validFromPredicate = tax.validFrom.eq(validFrom);
-        predicates.add(validFromPredicate);
-        if (validTo != null) {
-            BooleanExpression validToPredicate = tax.validTo.eq(validTo);
-            predicates.add(validToPredicate);
+
+        predicates.add(tax.context.eq(context));
+        predicates.add(tax.active.eq(true));
+        if (validFrom != null) {
+            predicates.add(tax.validTo.after(validFrom).or(tax.validTo.isNull()));
         }
-        BooleanExpression lessOrEqual = tax.validTo.loe(validFrom);
-        predicates.add(lessOrEqual);
-        BooleanExpression active = tax.active.eq(true);
-        predicates.add(active);
-        BooleanExpression contextPredicate = tax.context.eq(context);
-        predicates.add(contextPredicate);
+        if (validTo != null) {
+            predicates.add(tax.validFrom.before(validTo).or(tax.validFrom.isNull()));
+        }
 
         for (BooleanExpression e : predicates) {
             query.where(e);
@@ -133,7 +130,36 @@ public class DAOPTTaxImpl extends DAOTaxImpl implements DAOPTTax {
 
         List<JPAPTTaxEntity> list = query.select(tax).fetch();
         if (context.getParentContext() != null) {
-            list.addAll(this.getTaxes((PTRegionContextEntity) context.getParentContext(), validFrom, validTo));
+            list.addAll(this.getTaxes(context.getParentContext(), validFrom, validTo));
+        }
+        return list;
+    }
+
+    @Override
+    public List<JPAPTTaxEntity> getTaxes(PTRegionContextEntity context, String code, Date validFrom, Date validTo) {
+        QJPAPTTaxEntity tax = QJPAPTTaxEntity.jPAPTTaxEntity;
+        JPAQuery<JPAPTTaxEntity> query = new JPAQuery<>(this.getEntityManager());
+
+        query.from(tax);
+        List<BooleanExpression> predicates = new ArrayList<>();
+
+        predicates.add(tax.context.eq(context));
+        predicates.add(tax.active.eq(true));
+        predicates.add(tax.code.eq(code));
+        if (validFrom != null) {
+            predicates.add(tax.validTo.after(validFrom).or(tax.validTo.isNull()));
+        }
+        if (validTo != null) {
+            predicates.add(tax.validFrom.before(validTo).or(tax.validFrom.isNull()));
+        }
+
+        for (BooleanExpression e : predicates) {
+            query.where(e);
+        }
+
+        List<JPAPTTaxEntity> list = query.select(tax).fetch();
+        if (context.getParentContext() != null) {
+            list.addAll(this.getTaxes(context.getParentContext(), code, validFrom, validTo));
         }
         return list;
     }

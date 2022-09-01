@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
+import java.util.List;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -26,8 +27,8 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
-import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESTaxEntity;
+import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESTaxEntity;
 import com.premiumminds.billy.spain.services.builders.ESTaxBuilder;
 import com.premiumminds.billy.spain.services.entities.ESTax;
 
@@ -55,11 +56,10 @@ public class ESTaxBuilderImpl<TBuilder extends ESTaxBuilderImpl<TBuilder, TTax>,
         BillyValidator.mandatory(e.getCode(), ESTaxBuilderImpl.LOCALIZER.getString("field.tax_code"));
         BillyValidator.mandatory(e.getDescription(), ESTaxBuilderImpl.LOCALIZER.getString("field.tax_description"));
 
-        if (!((DAOESTax) this.daoTax).getTaxes((ESRegionContextEntity) e.getContext(), e.getValidFrom(), e.getValidTo())
-                .isEmpty()) {
+        final List<JPAESTaxEntity> taxes = ((DAOESTax) this.daoTax).getTaxes(e.getContext(), e.getCode(), e.getValidFrom(), e.getValidTo());
+        if (!taxes.isEmpty()) {
             throw new BillyValidationException();
         }
         super.validateInstance();
     }
-
 }
