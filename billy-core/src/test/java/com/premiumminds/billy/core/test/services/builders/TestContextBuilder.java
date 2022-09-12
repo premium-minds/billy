@@ -49,7 +49,7 @@ public class TestContextBuilder extends AbstractTest {
 
         Context context = builder.build();
 
-        assert (context != null);
+        Assertions.assertNotNull(context);
         Assertions.assertEquals(mockContext.getName(), context.getName());
         Assertions.assertEquals(mockContext.getDescription(), context.getDescription());
         Assertions.assertEquals(mockContext.getParentContext().getUID(), context.getParentContext().getUID());

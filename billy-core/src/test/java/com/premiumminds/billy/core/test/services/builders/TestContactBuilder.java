@@ -46,7 +46,7 @@ public class TestContactBuilder extends AbstractTest {
 
         Contact contact = builder.build();
 
-        assert (contact != null);
+        Assertions.assertNotNull(contact);
         Assertions.assertEquals(mockContact.getName(), contact.getName());
         Assertions.assertEquals(mockContact.getTelephone(), contact.getTelephone());
         Assertions.assertEquals(mockContact.getMobile(), contact.getMobile());

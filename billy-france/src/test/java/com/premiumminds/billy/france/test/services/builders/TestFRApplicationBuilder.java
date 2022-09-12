@@ -61,15 +61,15 @@ public class TestFRApplicationBuilder extends FRAbstractTest {
 
         FRApplication application = builder.build();
 
-        assert (application != null);
+        Assertions.assertNotNull(application);
         Assertions.assertEquals(mockApplication.getName(), application.getName());
         Assertions.assertEquals(mockApplication.getVersion(), application.getVersion());
         Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
         Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
                 application.getDeveloperCompanyTaxIdentifier());
         Assertions.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
-        assert (application.getContacts() != null);
-        assert (application.getMainContact() != null);
+        Assertions.assertNotNull(application.getContacts());
+        Assertions.assertNotNull(application.getMainContact());
 
     }
 }

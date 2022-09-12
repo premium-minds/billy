@@ -47,7 +47,7 @@ public class TestFRContactBuilder extends FRAbstractTest {
 
         FRContact contact = builder.build();
 
-        assert (contact != null);
+        Assertions.assertNotNull(contact);
         Assertions.assertEquals(mockContact.getEmail(), contact.getEmail());
         Assertions.assertEquals(mockContact.getFax(), contact.getFax());
         Assertions.assertEquals(mockContact.getMobile(), contact.getMobile());

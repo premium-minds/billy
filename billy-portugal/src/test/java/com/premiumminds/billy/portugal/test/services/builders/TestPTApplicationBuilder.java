@@ -63,7 +63,7 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 
         PTApplication application = builder.build();
 
-        assert (application != null);
+        Assertions.assertNotNull(application);
         Assertions.assertEquals(mockApplication.getName(), application.getName());
         Assertions.assertEquals(mockApplication.getVersion(), application.getVersion());
         Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
@@ -73,8 +73,8 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
         Assertions.assertEquals(mockApplication.getSoftwareCertificationNumber(),
                 application.getSoftwareCertificationNumber());
         Assertions.assertEquals(mockApplication.getApplicationKeysPath(), application.getApplicationKeysPath());
-        assert (application.getContacts() != null);
-        assert (application.getMainContact() != null);
+        Assertions.assertNotNull(application.getContacts());
+        Assertions.assertNotNull(application.getMainContact());
 
     }
 }
