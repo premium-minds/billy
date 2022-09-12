@@ -31,5 +31,8 @@ public interface DAOESTax extends DAOTax {
     @Override
     public ESTaxEntity getEntityInstance();
 
+    @Deprecated
     public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context, Date validFrom, Date validTo);
+
+    public List<JPAESTaxEntity> getTaxes(ESRegionContextEntity context, String code, Date validFrom, Date validTo);
 }

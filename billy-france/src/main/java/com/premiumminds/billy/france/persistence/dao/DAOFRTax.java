@@ -31,5 +31,8 @@ public interface DAOFRTax extends DAOTax {
     @Override
     public FRTaxEntity getEntityInstance();
 
+    @Deprecated
     public List<JPAFRTaxEntity> getTaxes(FRRegionContextEntity context, Date validFrom, Date validTo);
+
+    public List<JPAFRTaxEntity> getTaxes(FRRegionContextEntity context, String code, Date validFrom, Date validTo);
 }
