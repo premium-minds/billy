@@ -62,10 +62,6 @@ public abstract class JPABaseEntity implements BaseEntity {
     protected String uid;
 
     @Basic(optional = false)
-    @Column(name = "UID_ROW", nullable = false, insertable = true, updatable = false, unique = true)
-    protected String uidRow;
-
-    @Basic(optional = false)
     @Column(name = "ENTITY_VERSION", nullable = false, insertable = true, updatable = false, unique = false)
     protected int entityVersion;
 
@@ -95,7 +91,6 @@ public abstract class JPABaseEntity implements BaseEntity {
     @PrePersist
     protected void onPersist() {
         if (this.isNew()) {
-            this.uidRow = this.generateUUID().toString();
             this.entityVersion = 1;
             this.active = true;
             if (this.createTimestamp == null) {
