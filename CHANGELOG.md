@@ -59,6 +59,7 @@
  - [Bump mockito-core from 4.7.0 to 4.8.0](https://github.com/premium-minds/billy/pull/333)
  - [Bump snakeyaml from 1.29 to 1.30](https://github.com/premium-minds/billy/pull/236)
  - [Bump snakeyaml from 1.30 to 1.31](https://github.com/premium-minds/billy/pull/324)
+ - [Bump snakeyaml from 1.31 to 1.32](https://github.com/premium-minds/billy/pull/335)
  - [Bump h2 from 1.3.173 to 1.4.200](https://github.com/premium-minds/billy/pull/241)
  - [Bump h2 from 1.4.200 to 2.1.210](https://github.com/premium-minds/billy/pull/251)
  - [Bump h2 from 2.1.210 to 2.1.212](https://github.com/premium-minds/billy/pull/279)
@@ -94,6 +95,7 @@
  - [Remove javax.validation](https://github.com/premium-minds/billy/pull/227)
    - Billy no longer throws `javax.validation.ValidationException`. All exceptions were consolidated into `BillyValidationException`
  - [Removes unused class com.premiumminds.billy.core.util.Util](https://github.com/premium-minds/billy/pull/302)
+ - [Remove uidRow from JPABaseEntity](https://github.com/premium-minds/billy/pull/334)
 
 ### Fixed
 
