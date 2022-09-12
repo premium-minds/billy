@@ -36,7 +36,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
@@ -46,6 +45,8 @@ import com.premiumminds.billy.portugal.BillyPortugal;
 import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
 import com.premiumminds.billy.portugal.PortugalPersistenceDependencyModule;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
 import com.premiumminds.billy.portugal.services.entities.PTApplication;
@@ -65,6 +66,7 @@ import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InvoiceIT {
 
@@ -111,6 +113,11 @@ public class InvoiceIT {
                 product,
                 invoice);
 
+        final DAOPTInvoice daoInvoice = injector.getInstance(DAOPTInvoice.class);
+        final DAOPTCreditNote daoCreditNote = injector.getInstance(DAOPTCreditNote.class);
+        assertTrue(daoInvoice.exists(invoice.getUID()));
+        assertTrue(daoCreditNote.exists(creditNote.getUID()));
+
         Date startDate = dateFormat.parse("01-01-2013");
         Date endDate = dateFormat.parse("01-01-2014");
 
@@ -146,7 +153,7 @@ public class InvoiceIT {
     private PTTax createFlatTax(BillyPortugal billyPortugal) {
         final PTTax.Builder taxBuilder = this.injector.getInstance(PTTax.Builder.class);
         taxBuilder.setTaxRate(Tax.TaxRateType.FLAT, new BigDecimal("3.14"))
-                .setContextUID(UID.fromString("cff9a2f4-cd1d-4786-95c4-78b167a00d2b"))
+                .setContextUID(billyPortugal.contexts().continent().allContinentRegions().getUID())
                 .setCode("code1")
                 .setDescription("description 1")
                 .setValidFrom(new Date(0))
@@ -291,7 +298,6 @@ public class InvoiceIT {
         PTCreditNoteEntry.Builder entryBuilder = billyPortugal.creditNotes().entryBuilder();
         entryBuilder.setAmountType(GenericInvoiceEntryBuilder.AmountType.WITH_TAX)
                 .setCurrency(Currency.getInstance("EUR"))
-                .setContextUID(billyPortugal.contexts().portugal().allRegions().getUID())
                 .setQuantity(new BigDecimal("10"))
                 .setTaxPointDate(dateFormat.parse("01-02-2013"))
                 .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, new BigDecimal("100"))
