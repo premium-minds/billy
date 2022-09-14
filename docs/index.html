@@ -73,7 +73,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.premiumminds&lt;/groupId&gt;
     &lt;artifactId&gt;billy-portugal&lt;/artifactId&gt;
-    &lt;version&gt;5.4.2&lt;/version&gt;
+    &lt;version&gt;6.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
                 Check out <a href="https://oss.sonatype.org/index.html#nexus-search;quick~billy">sonatype repository</a> for latest snapshots and releases.
                 </p>
@@ -81,28 +81,18 @@
                 <p>Some dependencies are in provided scope, so you have to add them to your project</p>
                 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
-    &lt;artifactId&gt;hibernate-entitymanager&lt;/artifactId&gt;
-    &lt;version&gt;5.4.23.Final&lt;/version&gt;
+    &lt;artifactId&gt;hibernate-core&lt;/artifactId&gt;
+    &lt;version&gt;5.6.11.Final&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
     &lt;artifactId&gt;hibernate-envers&lt;/artifactId&gt;
-    &lt;version&gt;5.4.23.Final&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
-    &lt;artifactId&gt;hibernate-validator&lt;/artifactId&gt;
-    &lt;version&gt;5.4.3.Final&lt;/version&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.glassfish&lt;/groupId&gt;
-    &lt;artifactId&gt;javax.el&lt;/artifactId&gt;
-    &lt;version&gt;3.0.1-b11&lt;/version&gt;
+    &lt;version&gt;5.6.11.Final&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
     &lt;groupId&gt;com.querydsl&lt;/groupId&gt;
     &lt;artifactId&gt;querydsl-jpa&lt;/artifactId&gt;
-    &lt;version&gt;4.4.0&lt;/version&gt;
+    &lt;version&gt;5.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 
 
@@ -294,7 +284,8 @@ productBuilder.setDescription("description 1")
                 <pre><code class="java">PTIssuingParams invoiceParameters = PTIssuingParams.Util.newInstance();</code></pre>
 
                 You can use the provided KeyGenerator to generate your keys.
-                <pre><code class="java">KeyGenerator gen = new KeyGenerator("private/key/dir/pkey.pem");
+                <pre><code class="java">URL privateKey = getClass().getResource("private/key/dir/pkey.pem");
+KeyGenerator gen = new KeyGenerator(privateKey);
 
 invoiceParameters.setPrivateKey(gen.getPrivateKey());
 invoiceParameters.setPublicKey(gen.getPublicKey());
