@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.documents;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +48,9 @@ public class TestDocumentIssuingService extends FRDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuingService() throws DocumentIssuingException {
+    public void testIssuingService()
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
 
         final FRBusinessEntity businessEntity = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity();
         this.createSeries(businessEntity.getUID().toString(), "A");

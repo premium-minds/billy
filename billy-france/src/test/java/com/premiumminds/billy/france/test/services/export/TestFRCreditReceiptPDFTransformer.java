@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.export;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,7 +36,6 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.france.FranceDependencyModule;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
@@ -82,14 +83,19 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
     }
 
     @Test
-    public void testPdfCreation() throws ExportServiceException,
-            DocumentIssuingException, IOException {
+    public void testPdfCreation() throws
+								  ExportServiceException,
+								  DocumentIssuingException,
+								  IOException,
+								  SeriesUniqueCodeNotFilled,
+								  DocumentSeriesDoesNotExistException
+	{
 
         UID uidEntity = UID.fromString("12345");
         final String businessUID = (new UID()).toString();
         this.createSeries(businessUID);
         FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(PaymentMechanism.CASH, receipt);
+        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(receipt);
         DAOFRCreditReceipt dao = this.mockedInjector.getInstance(DAOFRCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOFRReceipt daoReceipt = this.mockedInjector.getInstance(DAOFRReceipt.class);
@@ -115,14 +121,19 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
     }
 
     @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException,
-            DocumentIssuingException, IOException {
+    public void testPdfCreationFromBundle() throws
+											ExportServiceException,
+											DocumentIssuingException,
+											IOException,
+											SeriesUniqueCodeNotFilled,
+											DocumentSeriesDoesNotExistException
+	{
 
         UID uidEntity = UID.fromString("12345");
         final String businessUID = (new UID()).toString();
         this.createSeries(businessUID);
         FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(PaymentMechanism.CASH, receipt);
+        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(receipt);
         DAOFRCreditReceipt dao = this.mockedInjector.getInstance(DAOFRCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOFRReceipt daoReceipt = this.mockedInjector.getInstance(DAOFRReceipt.class);
@@ -144,8 +155,9 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         }
     }
 
-    private FRCreditReceiptEntity generateFRCreditReceipt(PaymentMechanism paymentMechanism, FRReceiptEntity reference)
-            throws DocumentIssuingException {
+    private FRCreditReceiptEntity generateFRCreditReceipt(FRReceiptEntity reference)
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
 
         Services services = new Services(FRAbstractTest.injector);
 
