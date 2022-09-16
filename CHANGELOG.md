@@ -3,6 +3,10 @@
 
 ## [Unreleased v6]
 
+### Changed
+
+ - [Bump slf4j-api from 2.0.0 to 2.0.1](https://github.com/premium-minds/billy/pull/337)
+
 ## [6.0.0] 2022-09-14
 
 ### Added
