@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.util;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.InputStream;
 
 import com.google.inject.Injector;
@@ -81,7 +83,9 @@ public class Receipts {
         return this.persistenceService;
     }
 
-    public FRReceipt issue(FRReceipt.Builder builder, FRIssuingParams params) throws DocumentIssuingException {
+    public FRReceipt issue(FRReceipt.Builder builder, FRIssuingParams params)
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         return this.issuingService.issue(builder, params);
     }
 

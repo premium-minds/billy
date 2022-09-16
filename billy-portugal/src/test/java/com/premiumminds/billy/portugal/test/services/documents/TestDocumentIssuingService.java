@@ -18,7 +18,11 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
+import java.util.Optional;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,11 +51,34 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuingService() throws DocumentIssuingException {
+    public void testIssuingService()
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
         this.createSeries(businessEntity.getUID().toString(), "A");
         this.service.issue(
                 new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
                 this.parameters);
     }
+
+	@Test
+	public void testIssuingServiceWithoutSeriesUniqueCode() {
+		final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
+		this.createSeries(businessEntity.getUID().toString(), "A", Optional.empty());
+		Assertions.assertThrows(SeriesUniqueCodeNotFilled.class, () -> this.service
+			.issue(
+				new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
+				this.parameters));
+
+	}
+
+	@Test
+	public void testIssuingServiceWithoutSeries() {
+		final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
+		Assertions.assertThrows(DocumentSeriesDoesNotExistException.class, () -> this.service
+			.issue(
+				new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
+				this.parameters));
+
+	}
 }

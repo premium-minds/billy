@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -87,7 +89,13 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     }
 
     @Test
-    public void testPdfCreation() throws ExportServiceException, DocumentIssuingException, IOException {
+    public void testPdfCreation() throws
+								  ExportServiceException,
+								  DocumentIssuingException,
+								  IOException,
+								  SeriesUniqueCodeNotFilled,
+								  DocumentSeriesDoesNotExistException
+	{
 
         UID uidEntity = UID.fromString("12345");
         final String uid = new UID().toString();
@@ -118,7 +126,13 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     }
 
     @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException, IOException, DocumentIssuingException {
+    public void testPdfCreationFromBundle() throws
+											ExportServiceException,
+											IOException,
+											DocumentIssuingException,
+											SeriesUniqueCodeNotFilled,
+											DocumentSeriesDoesNotExistException
+	{
         UID uidEntity = UID.fromString("12345");
         final String uid = new UID().toString();
         this.createSeries(uid);
@@ -146,7 +160,8 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
     }
 
     private PTCreditNoteEntity generatePTCreditNote(PaymentMechanism paymentMechanism, PTInvoiceEntity reference)
-            throws DocumentIssuingException {
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
 
         Services services = new Services(PTAbstractTest.injector);
 

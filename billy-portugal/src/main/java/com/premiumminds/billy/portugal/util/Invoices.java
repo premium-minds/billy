@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.util;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.InputStream;
 
 import com.google.inject.Injector;
@@ -82,7 +84,9 @@ public class Invoices {
         return this.persistenceService;
     }
 
-    public PTInvoice issue(PTInvoice.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
+    public PTInvoice issue(PTInvoice.Builder builder, PTIssuingParams params)
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         return this.issuingService.issue(builder, params);
     }
 
@@ -120,7 +124,9 @@ public class Invoices {
         return builder;
     }
 
-    public PTInvoice issue(PTInvoice.ManualBuilder builder, PTIssuingParams params) throws DocumentIssuingException {
+    public PTInvoice issue(PTInvoice.ManualBuilder builder, PTIssuingParams params)
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         return this.issuingService.issue(builder, params);
     }
 

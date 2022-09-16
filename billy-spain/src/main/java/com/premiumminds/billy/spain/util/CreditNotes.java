@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.util;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.InputStream;
 
 import com.google.inject.Injector;
@@ -83,7 +85,9 @@ public class CreditNotes {
         return this.persistenceService;
     }
 
-    public ESCreditNote issue(ESCreditNote.Builder builder, ESIssuingParams params) throws DocumentIssuingException {
+    public ESCreditNote issue(ESCreditNote.Builder builder, ESIssuingParams params)
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         return this.issuingService.issue(builder, params);
     }
 
@@ -122,7 +126,8 @@ public class CreditNotes {
     }
 
     public ESCreditNote issue(ESCreditNote.ManualBuilder builder, ESIssuingParams params)
-            throws DocumentIssuingException {
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         return this.issuingService.issue(builder, params);
     }
 }

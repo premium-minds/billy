@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.util;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.InputStream;
 
 import com.google.inject.Injector;
@@ -74,7 +76,8 @@ public class SimpleInvoices {
     }
 
     public PTSimpleInvoice issue(PTSimpleInvoice.Builder builder, PTIssuingParams params)
-            throws DocumentIssuingException {
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         return this.issuingService.issue(builder, params);
     }
 
