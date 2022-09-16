@@ -65,131 +65,116 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/es_creditnote.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-    private Injector mockedInjector;
-    private ESCreditNotePDFFOPTransformer transformer;
-    private ESCreditNoteDataExtractor extractor;
+	public static final String XSL_PATH = "src/main/resources/templates/es_creditnote.xsl";
+	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+	private Injector mockedInjector;
+	private ESCreditNotePDFFOPTransformer transformer;
+	private ESCreditNoteDataExtractor extractor;
 
-    @BeforeEach
-    public void setUp() throws FileNotFoundException {
+	@BeforeEach public void setUp() throws FileNotFoundException {
 
-        this.mockedInjector =
-                Guice.createInjector(Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
+		this.mockedInjector = Guice.createInjector(
+			Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
 
-        InputStream xsl = new FileInputStream(TestESCreditNotePDFTransformer.XSL_PATH);
+		InputStream xsl = new FileInputStream(TestESCreditNotePDFTransformer.XSL_PATH);
 
-        this.transformer = new ESCreditNotePDFFOPTransformer(TestESCreditNotePDFTransformer.LOGO_PATH, xsl);
-        this.extractor = this.mockedInjector.getInstance(ESCreditNoteDataExtractor.class);
-    }
+		this.transformer = new ESCreditNotePDFFOPTransformer(TestESCreditNotePDFTransformer.LOGO_PATH, xsl);
+		this.extractor = this.mockedInjector.getInstance(ESCreditNoteDataExtractor.class);
+	}
 
-    @Test
-    public void testPdfCreation() throws
-								  ExportServiceException,
-								  DocumentIssuingException,
-								  IOException,
-								  SeriesUniqueCodeNotFilled,
-								  DocumentSeriesDoesNotExistException
-	{
+	@Test public void testPdfCreation()
+		throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+		DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = new UID().toString();
-        this.createSeries(businessUID);
-        ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-        ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
-        DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
-        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
-        DAOESInvoice daoInvoice = this.mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
+		UID uidEntity = UID.fromString("12345");
+		final String businessUID = new UID().toString();
+		this.createSeries(businessUID);
+		ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+		ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
+		DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
+		Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
+		DAOESInvoice daoInvoice = this.mockedInjector.getInstance(DAOESInvoice.class);
+		Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-        final File result = File.createTempFile("Result", ".pdf");
-        OutputStream os = Files.newOutputStream(result.toPath());
+		final File result = File.createTempFile("Result", ".pdf");
+		OutputStream os = Files.newOutputStream(result.toPath());
 
-        ESCreditNoteData entityData = this.extractor.extract(uidEntity);
-        this.transformer.transform(entityData, os);
+		ESCreditNoteData entityData = this.extractor.extract(uidEntity);
+		this.transformer.transform(entityData, os);
 
-        try (PDDocument doc = PDDocument.load(result)) {
-            assertEquals(1, doc.getNumberOfPages());
-        }
-    }
+		try (PDDocument doc = PDDocument.load(result)) {
+			assertEquals(1, doc.getNumberOfPages());
+		}
+	}
 
-    @Test
-    public void testNonExistentEntity() {
+	@Test public void testNonExistentEntity() {
 
-        UID uidEntity = UID.fromString("12345");
+		UID uidEntity = UID.fromString("12345");
 
-        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
-    }
+		Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
+	}
 
-    @Test
-    public void testNonExistentInvoice()
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+	@Test public void testNonExistentInvoice()
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = new UID().toString();
-        this.createSeries(businessUID);
-        ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-        ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
-        DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
-        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
+		UID uidEntity = UID.fromString("12345");
+		final String businessUID = new UID().toString();
+		this.createSeries(businessUID);
+		ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+		ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
+		DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
+		Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
 
-        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
-    }
+		Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
+	}
 
-    @Test
-    public void testPdfCreationFromBundle() throws
-											ExportServiceException,
-											DocumentIssuingException,
-											IOException,
-											SeriesUniqueCodeNotFilled,
-											DocumentSeriesDoesNotExistException
-	{
+	@Test public void testPdfCreationFromBundle()
+		throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+		DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = new UID().toString();
-        this.createSeries(businessUID);
-        ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-        ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
-        DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
-        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
-        DAOESInvoice daoInvoice = this.mockedInjector.getInstance(DAOESInvoice.class);
-        Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
+		UID uidEntity = UID.fromString("12345");
+		final String businessUID = new UID().toString();
+		this.createSeries(businessUID);
+		ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+		ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
+		DAOESCreditNote dao = this.mockedInjector.getInstance(DAOESCreditNote.class);
+		Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
+		DAOESInvoice daoInvoice = this.mockedInjector.getInstance(DAOESInvoice.class);
+		Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-        final File result = File.createTempFile("Result", ".pdf");
-        OutputStream os = Files.newOutputStream(result.toPath());
+		final File result = File.createTempFile("Result", ".pdf");
+		OutputStream os = Files.newOutputStream(result.toPath());
 
-        InputStream xsl = Files.newInputStream(Paths.get(TestESCreditNotePDFTransformer.XSL_PATH));
-        ESCreditNoteTemplateBundle bundle =
-                new ESCreditNoteTemplateBundle(TestESCreditNotePDFTransformer.LOGO_PATH, xsl);
-        ESCreditNotePDFFOPTransformer transformerBundle = new ESCreditNotePDFFOPTransformer(bundle);
+		InputStream xsl = Files.newInputStream(Paths.get(TestESCreditNotePDFTransformer.XSL_PATH));
+		ESCreditNoteTemplateBundle bundle = new ESCreditNoteTemplateBundle(TestESCreditNotePDFTransformer.LOGO_PATH,
+			xsl);
+		ESCreditNotePDFFOPTransformer transformerBundle = new ESCreditNotePDFFOPTransformer(bundle);
 
-        ESCreditNoteData entityData = this.extractor.extract(uidEntity);
-        transformerBundle.transform(entityData, os);
+		ESCreditNoteData entityData = this.extractor.extract(uidEntity);
+		transformerBundle.transform(entityData, os);
 
-        try (PDDocument doc = PDDocument.load(result)) {
-            assertEquals(1, doc.getNumberOfPages());
-        }
-    }
+		try (PDDocument doc = PDDocument.load(result)) {
+			assertEquals(1, doc.getNumberOfPages());
+		}
+	}
 
-    private ESCreditNoteEntity generateESCreditNote(PaymentMechanism paymentMechanism, ESInvoiceEntity reference)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+	private ESCreditNoteEntity generateESCreditNote(PaymentMechanism paymentMechanism, ESInvoiceEntity reference)
+		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
-        Services services = new Services(ESAbstractTest.injector);
+		Services services = new Services(ESAbstractTest.injector);
 
-        ESIssuingParams params = this.getParameters("AC", "3000");
+		ESIssuingParams params = this.getParameters("AC", "3000");
 
-        this.createSeries(reference, "AC");
+		this.createSeries(reference, "AC");
 
-        ESCreditNoteEntity creditNote = null;
-        creditNote = (ESCreditNoteEntity) services.issueDocument(
-                new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder(reference), params);
+		ESCreditNoteEntity creditNote = null;
+		creditNote = (ESCreditNoteEntity) services.issueDocument(
+			new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
-        creditNote.setCustomer((CustomerEntity) reference.getCustomer());
-        creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-        creditNote.setCreditOrDebit(CreditOrDebit.DEBIT);
+		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
+		creditNote.setCreditOrDebit(CreditOrDebit.DEBIT);
 
-        return creditNote;
-    }
+		return creditNote;
+	}
 }
