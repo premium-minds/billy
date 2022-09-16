@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.its;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -179,7 +181,9 @@ public class InvoiceIT {
                                       ESCustomer customer,
                                       ESProduct product,
                                       ESProduct productExempt,
-                                      ESProduct productTax) throws ParseException, DocumentIssuingException {
+                                      ESProduct productTax)
+		throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         Date invoiceDate = dateFormat.parse("01-03-2013");
 
         final ESPayment.Builder paymentBuilder = billySpain
@@ -252,7 +256,9 @@ public class InvoiceIT {
                                             ESIssuingParams invoiceParameters,
                                             ESCustomer customer,
                                             ESProduct product,
-                                            ESInvoice invoice) throws ParseException, DocumentIssuingException {
+                                            ESInvoice invoice)
+		throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+	{
         Date creditNoteDate = dateFormat.parse("01-03-2013");
 
         final ESPayment.Builder paymentBuilder = billySpain
