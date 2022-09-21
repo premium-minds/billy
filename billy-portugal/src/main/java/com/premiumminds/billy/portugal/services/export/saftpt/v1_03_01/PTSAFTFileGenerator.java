@@ -443,54 +443,63 @@ public class PTSAFTFileGenerator {
             throws RequiredFieldNotFoundException, InvalidContactTypeException {
         this.context = "Customer.";
         Customer customer = new Customer();
-        final String customerId;
-        final String addressDetailOverride;
-        final String addressCityOverride;
-        final String addressPostalCodeOverride;
-        final String addressCountryOverride;
 
         if (this.config.getUID(Key.Customer.Generic.UUID).equals(customerEntity.getUID())) {
-            customerEntity.setTaxRegistrationNumber("999999990");
-            addressDetailOverride = "Desconhecido";
-            addressCityOverride = "Desconhecido";
-            addressPostalCodeOverride = "Desconhecido";
-            addressCountryOverride = "Desconhecido";
-            customerId = "Consumidor final";
+            customer.setCustomerTaxID("999999990");
+            customer.setCompanyName("Consumidor final");
+            customer.setCustomerID("Consumidor final");
+
+            final AddressStructure customerAddress = new AddressStructure();
+            customerAddress.setAddressDetail("Desconhecido");
+            customerAddress.setCity("Desconhecido");
+            customerAddress.setPostalCode("Desconhecido");
+            customerAddress.setCountry("Desconhecido");
+
+            customer.setBillingAddress(customerAddress);
         } else {
-            if ((this.optionalParam =
-                    this.validateString("Contact", customerEntity.getReferralName(), this.MAX_LENGTH_50, false))
-                            .length() > 0) {
+            this.optionalParam = this.validateString(
+                "Contact",
+                customerEntity.getReferralName(),
+                this.MAX_LENGTH_50,
+                false);
+            if (this.optionalParam.length() > 0) {
                 customer.setContact(this.optionalParam);
             }
 
             if (customerEntity.getShippingAddress() != null) {
-                customer.getShipToAddress()
-                        .add(this.generateAddressStructure((PTAddressEntity) customerEntity.getShippingAddress()));
+                customer
+                    .getShipToAddress()
+                    .add(this.generateAddressStructure((PTAddressEntity) customerEntity.getShippingAddress()));
             }
+
             List<PTContactEntity> contacts = customerEntity.getContacts();
             this.setContacts(customer, contacts);
 
-            final Address customerBillingAddress = customerEntity.getBillingAddress();
-            addressDetailOverride = customerBillingAddress.getDetails();
-            addressCityOverride = customerBillingAddress.getCity();
-            addressPostalCodeOverride = customerBillingAddress.getPostalCode();
-            addressCountryOverride = customerBillingAddress.getISOCountry();
-            customerId = customerEntity.getID().toString();
+            customer.setCustomerTaxID(this.validateString(
+                "CustomerTaxID",
+                customerEntity.getTaxRegistrationNumber(),
+                this.MAX_LENGTH_20,
+                true));
+
+            customer.setCompanyName(this.validateString(
+                "CompanyName",
+                customerEntity.getName(),
+                this.MAX_LENGTH_100, true));
+
+            customer.setCustomerID(this.validateString(
+                "CustomerId",
+                customerEntity.getID().toString(),
+                this.MAX_LENGTH_30, true));
+
+            customer.setBillingAddress(this.generateAddressStructure(customerEntity.getBillingAddress()));
         }
-        this.updateCustomerGeneralInfo(
-            customer,
-            customerId,
-            customerEntity.getTaxRegistrationNumber(),
-            customerEntity.getName(),
-            (PTAddressEntity) customerEntity.getBillingAddress(),
-            addressDetailOverride,
-            addressCityOverride,
-            addressPostalCodeOverride,
-            addressCountryOverride);
 
         customer.setAccountID(this.validateString("AccountID", this.ACCOUNT_ID, this.MAX_LENGTH_30, true));
-        customer.setSelfBillingIndicator(
-                this.validateInteger("SelfBillingIndicator", this.SELF_BILLING_INDICATOR, this.MAX_LENGTH_1, true));
+        customer.setSelfBillingIndicator(this.validateInteger(
+            "SelfBillingIndicator",
+            this.SELF_BILLING_INDICATOR,
+            this.MAX_LENGTH_1,
+            true));
 
         return customer;
     }
@@ -1099,45 +1108,6 @@ public class PTSAFTFileGenerator {
                 throw new InvalidInvoiceTypeException(document.getType().toString(), document.getSeries());
 
         }
-    }
-
-    /*************
-     * CUSTOMERS *
-     *************/
-    /**
-     * Sets the main information about the Customer
-     *
-     * @param customer
-     * @param customerID
-     * @param customerFinancialID
-     *        - NIF
-     * @param companyName
-     *        - the company where the customer works
-     * @param address
-     * @throws RequiredFieldNotFoundException
-     */
-    private void updateCustomerGeneralInfo(
-        Customer customer,
-        String customerID,
-        String customerFinancialID,
-        String companyName,
-        PTAddressEntity address,
-        String addressDetailOverride,
-        String addressCityOverride,
-        String addressPostalCodeOverride,
-        String addressCountryOverride) throws RequiredFieldNotFoundException
-    {
-        customer.setCustomerTaxID(this.validateString("CustomerTaxID", customerFinancialID, this.MAX_LENGTH_20, true));
-        customer.setCompanyName(this.validateString("CompanyName", companyName, this.MAX_LENGTH_100, true));
-        customer.setCustomerID(this.validateString("CustomerId", customerID, this.MAX_LENGTH_30, true));
-
-        final AddressStructure customerAddress = this.generateAddressStructure(address);
-        customerAddress.setAddressDetail(addressDetailOverride);
-        customerAddress.setCity(addressCityOverride);
-        customerAddress.setPostalCode(addressPostalCodeOverride);
-        customerAddress.setCountry(addressCountryOverride);
-
-        customer.setBillingAddress(customerAddress);
     }
 
     /*************
