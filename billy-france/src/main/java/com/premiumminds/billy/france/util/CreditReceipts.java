@@ -87,8 +87,8 @@ public class CreditReceipts {
     }
 
     public FRCreditReceipt issue(FRCreditReceipt.Builder builder, FRIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 
@@ -127,8 +127,8 @@ public class CreditReceipts {
     }
 
     public FRCreditReceipt issue(FRCreditReceipt.ManualBuilder builder, FRIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 }

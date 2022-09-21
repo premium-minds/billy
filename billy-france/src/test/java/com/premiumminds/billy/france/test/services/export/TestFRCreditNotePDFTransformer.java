@@ -64,115 +64,115 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
 
-	public static final String XSL_PATH = "src/main/resources/templates/fr_creditnote.xsl";
-	public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-	private Injector mockedInjector;
-	private FRCreditNotePDFFOPTransformer transformer;
-	private FRCreditNoteDataExtractor extractor;
+    public static final String XSL_PATH = "src/main/resources/templates/fr_creditnote.xsl";
+    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private Injector mockedInjector;
+    private FRCreditNotePDFFOPTransformer transformer;
+    private FRCreditNoteDataExtractor extractor;
 
-	@BeforeEach public void setUp() throws FileNotFoundException {
+    @BeforeEach public void setUp() throws FileNotFoundException {
 
-		this.mockedInjector = Guice.createInjector(
-			Modules.override(new FranceDependencyModule()).with(new FRMockDependencyModule()));
+        this.mockedInjector = Guice.createInjector(
+            Modules.override(new FranceDependencyModule()).with(new FRMockDependencyModule()));
 
-		InputStream xsl = new FileInputStream(TestFRCreditNotePDFTransformer.XSL_PATH);
+        InputStream xsl = new FileInputStream(TestFRCreditNotePDFTransformer.XSL_PATH);
 
-		this.transformer = new FRCreditNotePDFFOPTransformer(TestFRCreditNotePDFTransformer.LOGO_PATH, xsl);
-		this.extractor = this.mockedInjector.getInstance(FRCreditNoteDataExtractor.class);
-	}
+        this.transformer = new FRCreditNotePDFFOPTransformer(TestFRCreditNotePDFTransformer.LOGO_PATH, xsl);
+        this.extractor = this.mockedInjector.getInstance(FRCreditNoteDataExtractor.class);
+    }
 
-	@Test public void testPdfCreation()
-		throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
-		DocumentSeriesDoesNotExistException {
+    @Test public void testPdfCreation()
+        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+        DocumentSeriesDoesNotExistException {
 
-		UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-		FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
-		DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
-		Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
-		DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
-		Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
+        UID uidEntity = UID.fromString("12345");
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+        FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
+        DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
+        DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
+        Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-		final File result = File.createTempFile("Result", ".pdf");
-		OutputStream os = Files.newOutputStream(result.toPath());
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-		FRCreditNoteData entityData = this.extractor.extract(uidEntity);
-		this.transformer.transform(entityData, os);
+        FRCreditNoteData entityData = this.extractor.extract(uidEntity);
+        this.transformer.transform(entityData, os);
 
-		try (PDDocument doc = PDDocument.load(result)) {
-			assertEquals(1, doc.getNumberOfPages());
-		}
-	}
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
+    }
 
-	@Test public void testNonExistentEntity() {
+    @Test public void testNonExistentEntity() {
 
-		UID uidEntity = UID.fromString("12345");
+        UID uidEntity = UID.fromString("12345");
 
-		Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
-	}
+        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
+    }
 
-	@Test public void testNonExistentInvoice()
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
+    @Test public void testNonExistentInvoice()
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
-		UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-		FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
-		DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
-		Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
+        UID uidEntity = UID.fromString("12345");
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+        FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
+        DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
 
-		Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
-	}
+        Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
+    }
 
-	@Test public void testPdfCreationFromBundle()
-		throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
-		DocumentSeriesDoesNotExistException {
+    @Test public void testPdfCreationFromBundle()
+        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+        DocumentSeriesDoesNotExistException {
 
-		UID uidEntity = UID.fromString("12345");
-		final String businessUID = (new UID()).toString();
-		this.createSeries(businessUID);
-		FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-		FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
-		DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
-		Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
-		DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
-		Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
+        UID uidEntity = UID.fromString("12345");
+        final String businessUID = (new UID()).toString();
+        this.createSeries(businessUID);
+        FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
+        FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
+        DAOFRCreditNote dao = this.mockedInjector.getInstance(DAOFRCreditNote.class);
+        Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
+        DAOFRInvoice daoInvoice = this.mockedInjector.getInstance(DAOFRInvoice.class);
+        Mockito.when(daoInvoice.get(ArgumentMatchers.eq(invoice.getUID()))).thenReturn(invoice);
 
-		final File result = File.createTempFile("Result", ".pdf");
-		OutputStream os = Files.newOutputStream(result.toPath());
+        final File result = File.createTempFile("Result", ".pdf");
+        OutputStream os = Files.newOutputStream(result.toPath());
 
-		InputStream xsl = Files.newInputStream(Paths.get(TestFRCreditNotePDFTransformer.XSL_PATH));
-		FRCreditNoteTemplateBundle bundle = new FRCreditNoteTemplateBundle(TestFRCreditNotePDFTransformer.LOGO_PATH,
-			xsl);
-		FRCreditNotePDFFOPTransformer transformerBundle = new FRCreditNotePDFFOPTransformer(bundle);
+        InputStream xsl = Files.newInputStream(Paths.get(TestFRCreditNotePDFTransformer.XSL_PATH));
+        FRCreditNoteTemplateBundle bundle = new FRCreditNoteTemplateBundle(TestFRCreditNotePDFTransformer.LOGO_PATH,
+            xsl);
+        FRCreditNotePDFFOPTransformer transformerBundle = new FRCreditNotePDFFOPTransformer(bundle);
 
-		FRCreditNoteData entityData = this.extractor.extract(uidEntity);
-		transformerBundle.transform(entityData, os);
+        FRCreditNoteData entityData = this.extractor.extract(uidEntity);
+        transformerBundle.transform(entityData, os);
 
-		try (PDDocument doc = PDDocument.load(result)) {
-			assertEquals(1, doc.getNumberOfPages());
-		}
-	}
+        try (PDDocument doc = PDDocument.load(result)) {
+            assertEquals(1, doc.getNumberOfPages());
+        }
+    }
 
-	private FRCreditNoteEntity generateFRCreditNote(FRInvoiceEntity reference)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
+    private FRCreditNoteEntity generateFRCreditNote(FRInvoiceEntity reference)
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
-		Services services = new Services(FRAbstractTest.injector);
+        Services services = new Services(FRAbstractTest.injector);
 
-		FRIssuingParams params = this.getParameters("AC", "3000");
-		this.createSeries(reference.getBusiness().getUID().toString(), "AC");
+        FRIssuingParams params = this.getParameters("AC", "3000");
+        this.createSeries(reference.getBusiness().getUID().toString(), "AC");
 
-		FRCreditNoteEntity creditNote = null;
-		creditNote = (FRCreditNoteEntity) services.issueDocument(
-			new FRCreditNoteTestUtil(FRAbstractTest.injector).getCreditNoteBuilder(reference), params);
+        FRCreditNoteEntity creditNote = null;
+        creditNote = (FRCreditNoteEntity) services.issueDocument(
+            new FRCreditNoteTestUtil(FRAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
-		creditNote.setCustomer((CustomerEntity) reference.getCustomer());
-		creditNote.setBusiness((BusinessEntity) reference.getBusiness());
-		creditNote.setCreditOrDebit(CreditOrDebit.DEBIT);
+        creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+        creditNote.setBusiness((BusinessEntity) reference.getBusiness());
+        creditNote.setCreditOrDebit(CreditOrDebit.DEBIT);
 
-		return creditNote;
-	}
+        return creditNote;
+    }
 }

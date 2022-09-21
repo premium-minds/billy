@@ -86,8 +86,8 @@ public class CreditNotes {
     }
 
     public PTCreditNote issue(PTCreditNote.Builder builder, PTIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 
@@ -126,8 +126,8 @@ public class CreditNotes {
     }
 
     public PTCreditNote issue(PTCreditNote.ManualBuilder builder, PTIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 }

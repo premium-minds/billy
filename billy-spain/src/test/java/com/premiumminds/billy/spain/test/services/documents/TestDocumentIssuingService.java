@@ -49,8 +49,8 @@ public class TestDocumentIssuingService extends ESDocumentAbstractTest {
 
     @Test
     public void testIssuingService()
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
 
         final Builder invoiceBuilder =
             new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity());

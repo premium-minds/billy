@@ -52,8 +52,8 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
 
     @Test
     public void testIssuingService()
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
         this.createSeries(businessEntity.getUID().toString(), "A");
         this.service.issue(
@@ -61,24 +61,24 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
                 this.parameters);
     }
 
-	@Test
-	public void testIssuingServiceWithoutSeriesUniqueCode() {
-		final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
-		this.createSeries(businessEntity.getUID().toString(), "A", Optional.empty());
-		Assertions.assertThrows(SeriesUniqueCodeNotFilled.class, () -> this.service
-			.issue(
-				new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
-				this.parameters));
+    @Test
+    public void testIssuingServiceWithoutSeriesUniqueCode() {
+        final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
+        this.createSeries(businessEntity.getUID().toString(), "A", Optional.empty());
+        Assertions.assertThrows(SeriesUniqueCodeNotFilled.class, () -> this.service
+            .issue(
+                new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
+                this.parameters));
 
-	}
+    }
 
-	@Test
-	public void testIssuingServiceWithoutSeries() {
-		final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
-		Assertions.assertThrows(DocumentSeriesDoesNotExistException.class, () -> this.service
-			.issue(
-				new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
-				this.parameters));
+    @Test
+    public void testIssuingServiceWithoutSeries() {
+        final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
+        Assertions.assertThrows(DocumentSeriesDoesNotExistException.class, () -> this.service
+            .issue(
+                new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
+                this.parameters));
 
-	}
+    }
 }

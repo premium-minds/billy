@@ -49,8 +49,8 @@ public class TestDocumentIssuingService extends FRDocumentAbstractTest {
 
     @Test
     public void testIssuingService()
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
 
         final FRBusinessEntity businessEntity = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity();
         this.createSeries(businessEntity.getUID().toString(), "A");

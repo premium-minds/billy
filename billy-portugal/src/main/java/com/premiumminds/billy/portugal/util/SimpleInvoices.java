@@ -76,8 +76,8 @@ public class SimpleInvoices {
     }
 
     public PTSimpleInvoice issue(PTSimpleInvoice.Builder builder, PTIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 

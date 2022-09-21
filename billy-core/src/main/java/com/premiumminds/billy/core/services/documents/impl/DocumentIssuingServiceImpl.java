@@ -68,8 +68,8 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
     @Override
     public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
             final IssuingParams parameters)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
 
         try {
             return new TransactionWrapper<T>(this.daoInvoice) {
@@ -80,9 +80,9 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
                 }
             }.execute();
         } catch (SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-			DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
-			throw e;
-		} catch (Exception e) {
+            DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
+            throw e;
+        } catch (Exception e) {
             DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
             throw new DocumentIssuingException(e);
         }
@@ -92,8 +92,8 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
     @Override
     public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
             final IssuingParams parameters, final String ticketUID)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
 
         try {
             return new TransactionWrapper<T>(this.daoInvoice) {
@@ -114,9 +114,9 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
                 }
             }.execute();
         } catch (SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-			DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
-			throw e;
-		} catch (InvalidTicketException e) {
+            DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
+            throw e;
+        } catch (InvalidTicketException e) {
             throw e;
         } catch (RuntimeException e) {
             throw new DocumentIssuingException(e);

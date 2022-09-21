@@ -81,15 +81,15 @@ public class Services {
      * @throws DocumentIssuingException when an exception occurs during the issue
      */
     public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder, ESIssuingParams issuingParameters)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, issuingParameters);
     }
 
     public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder, ESIssuingParams issuingParameters,
             String ticketUID)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, issuingParameters, ticketUID);
     }
 

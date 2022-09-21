@@ -87,8 +87,8 @@ public class CreditReceipts {
     }
 
     public ESCreditReceipt issue(ESCreditReceipt.Builder builder, ESIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 
@@ -127,8 +127,8 @@ public class CreditReceipts {
     }
 
     public ESCreditReceipt issue(ESCreditReceipt.ManualBuilder builder, ESIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 }

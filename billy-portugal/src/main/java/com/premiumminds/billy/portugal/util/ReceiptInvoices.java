@@ -85,8 +85,8 @@ public class ReceiptInvoices {
     }
 
     public PTReceiptInvoice issue(PTReceiptInvoice.Builder builder, PTIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 

@@ -77,15 +77,15 @@ public class Services {
      * @throws DocumentIssuingException exception when document is not issued
      */
     public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder, PTIssuingParams issuingParameters)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, issuingParameters);
     }
 
     public <T extends PTGenericInvoice> T issueDocument(Builder<T> builder, PTIssuingParams issuingParameters,
             String ticketUID)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, issuingParameters, ticketUID);
     }
 

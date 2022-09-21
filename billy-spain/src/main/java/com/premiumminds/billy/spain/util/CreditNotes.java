@@ -86,8 +86,8 @@ public class CreditNotes {
     }
 
     public ESCreditNote issue(ESCreditNote.Builder builder, ESIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 
@@ -126,8 +126,8 @@ public class CreditNotes {
     }
 
     public ESCreditNote issue(ESCreditNote.ManualBuilder builder, ESIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 }

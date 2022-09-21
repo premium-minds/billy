@@ -76,8 +76,8 @@ public class SimpleInvoices {
     }
 
     public FRSimpleInvoice issue(FRSimpleInvoice.Builder builder, FRIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 

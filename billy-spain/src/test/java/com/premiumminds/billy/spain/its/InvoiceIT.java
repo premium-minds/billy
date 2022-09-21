@@ -182,8 +182,8 @@ public class InvoiceIT {
                                       ESProduct product,
                                       ESProduct productExempt,
                                       ESProduct productTax)
-		throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         Date invoiceDate = dateFormat.parse("01-03-2013");
 
         final ESPayment.Builder paymentBuilder = billySpain
@@ -257,8 +257,8 @@ public class InvoiceIT {
                                             ESCustomer customer,
                                             ESProduct product,
                                             ESInvoice invoice)
-		throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         Date creditNoteDate = dateFormat.parse("01-03-2013");
 
         final ESPayment.Builder paymentBuilder = billySpain

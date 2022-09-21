@@ -76,8 +76,8 @@ public class SimpleInvoices {
     }
 
     public ESSimpleInvoice issue(ESSimpleInvoice.Builder builder, ESIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 

@@ -220,8 +220,8 @@ public class InvoiceIT {
                                       PTProduct product,
                                       PTProduct productExempt,
                                       PTProduct productTax)
-		throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         PTInvoice.Builder invoiceBuilder = billyPortugal.invoices().builder();
 
         Date invoiceDate = dateFormat.parse("01-03-2013");
@@ -287,8 +287,8 @@ public class InvoiceIT {
                                             PTCustomer customer,
                                             PTProduct product,
                                             PTInvoice invoice)
-		throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         PTCreditNote.Builder creditNoteBuilder = billyPortugal.creditNotes().builder();
 
         Date creditNoteDate = dateFormat.parse("01-03-2013");

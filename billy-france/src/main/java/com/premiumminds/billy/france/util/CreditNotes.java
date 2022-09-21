@@ -86,8 +86,8 @@ public class CreditNotes {
     }
 
     public FRCreditNote issue(FRCreditNote.Builder builder, FRIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 
@@ -126,8 +126,8 @@ public class CreditNotes {
     }
 
     public FRCreditNote issue(FRCreditNote.ManualBuilder builder, FRIssuingParams params)
-		throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-	{
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 }
