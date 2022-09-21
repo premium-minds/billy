@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [Started throwing DocumentIssuingException and SeriesUniqueCodeNotFilled to outside when issuing a document](https://github.com/premium-minds/billy/pull/338)
  - [Bump slf4j-api from 2.0.0 to 2.0.1](https://github.com/premium-minds/billy/pull/337)
  - [Bump slf4j-api from 2.0.1 to 2.0.2](https://github.com/premium-minds/billy/pull/342)
  - [Bump junit-jupiter-engine from 5.9.0 to 5.9.1](https://github.com/premium-minds/billy/pull/341)
