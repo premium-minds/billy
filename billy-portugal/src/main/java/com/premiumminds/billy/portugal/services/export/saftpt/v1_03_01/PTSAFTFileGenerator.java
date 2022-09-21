@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01;
 
+import com.premiumminds.billy.core.services.entities.Address;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
@@ -473,10 +474,11 @@ public class PTSAFTFileGenerator {
             List<PTContactEntity> contacts = customerEntity.getContacts();
             this.setContacts(customer, contacts);
 
-			addressDetailOverride = customerEntity.getBillingAddress().getDetails();
-			addressCityOverride = customerEntity.getBillingAddress().getCity();
-			addressPostalCodeOverride = customerEntity.getBillingAddress().getPostalCode();
-			addressCountryOverride = customerEntity.getBillingAddress().getISOCountry();
+			final Address customerBillingAddress = customerEntity.getBillingAddress();
+			addressDetailOverride = customerBillingAddress.getDetails();
+			addressCityOverride = customerBillingAddress.getCity();
+			addressPostalCodeOverride = customerBillingAddress.getPostalCode();
+			addressCountryOverride = customerBillingAddress.getISOCountry();
             customerId = customerEntity.getID().toString();
         }
         this.updateCustomerGeneralInfo(

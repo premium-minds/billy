@@ -23,6 +23,7 @@ import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -500,10 +501,11 @@ public class PTSAFTFileGenerator {
             List<PTContactEntity> contacts = customerEntity.getContacts();
             this.setContacts(customer, contacts);
 
-			addressDetailOverride = customerEntity.getBillingAddress().getDetails();
-			addressCityOverride = customerEntity.getBillingAddress().getCity();
-			addressPostalCodeOverride = customerEntity.getBillingAddress().getPostalCode();
-			addressCountryOverride = customerEntity.getBillingAddress().getISOCountry();
+			final Address customerBillingAddress = customerEntity.getBillingAddress();
+			addressDetailOverride = customerBillingAddress.getDetails();
+			addressCityOverride = customerBillingAddress.getCity();
+			addressPostalCodeOverride = customerBillingAddress.getPostalCode();
+			addressCountryOverride = customerBillingAddress.getISOCountry();
             customerId = customerEntity.getID().toString();
         }
         this.updateCustomerGeneralInfo(
