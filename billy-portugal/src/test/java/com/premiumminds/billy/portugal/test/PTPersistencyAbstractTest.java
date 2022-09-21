@@ -18,7 +18,9 @@
  */
 package com.premiumminds.billy.portugal.test;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
@@ -48,17 +50,15 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
     protected static final String PRIVATE_KEY_DIR = "/keys/private.pem";
     protected static final String DEFAULT_SERIES = "DEFAULT";
 
-    @BeforeEach
-    public void setUpModules() {
-        PTAbstractTest.injector =
-                Guice.createInjector(new PortugalDependencyModule(), new PortugalTestPersistenceDependencyModule());
+    @BeforeEach public void setUpModules() {
+        PTAbstractTest.injector = Guice.createInjector(new PortugalDependencyModule(),
+            new PortugalTestPersistenceDependencyModule());
         PTAbstractTest.injector.getInstance(PortugalDependencyModule.Initializer.class);
         PTAbstractTest.injector.getInstance(PortugalTestPersistenceDependencyModule.Initializer.class);
         PortugalBootstrap.execute(PTAbstractTest.injector);
     }
 
-    @AfterEach
-    public void tearDown() {
+    @AfterEach public void tearDown() {
         PTAbstractTest.injector.getInstance(PortugalTestPersistenceDependencyModule.Finalizer.class);
     }
 
@@ -72,11 +72,11 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
         PTIssuingParams parameters = this.getParameters(PTPersistencyAbstractTest.DEFAULT_SERIES, "30000", "1");
 
         try {
-            return (PTInvoiceEntity) service.issueDocument(new PTInvoiceTestUtil(PTAbstractTest.injector)
-                    .getInvoiceBuilder(new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID),
-                            SourceBilling.P),
-                    parameters);
-        } catch (DocumentIssuingException e) {
+            return (PTInvoiceEntity) service.issueDocument(
+                new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(
+                    new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P),
+                parameters);
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
 
@@ -91,9 +91,9 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 
         try {
             return (PTCreditNoteEntity) service.issueDocument(
-                    new PTCreditNoteTestUtil(PTAbstractTest.injector).getCreditNoteBuilder((PTInvoiceEntity) reference),
-                    parameters);
-        } catch (DocumentIssuingException e) {
+                new PTCreditNoteTestUtil(PTAbstractTest.injector).getCreditNoteBuilder((PTInvoiceEntity) reference),
+                parameters);
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
 
@@ -113,14 +113,20 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
 
     protected void createSeries(String businessUID) {
         this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
-                        new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P)
-                .build(), PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.of("CCCC2345"));
+                new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
+            PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.of("CCCC2345"));
     }
 
     protected void createSeries(String businessUID, String series) {
         this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
-                        new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P)
-                .build(), series, Optional.of("CCCC2345"));
+                new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
+            series, Optional.of("CCCC2345"));
+    }
+
+    protected void createSeries(String businessUID, String series, Optional<String> code) {
+        this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
+                new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
+            series, code);
     }
 
     protected <T extends GenericInvoice> void createSeries(T document, String series) {

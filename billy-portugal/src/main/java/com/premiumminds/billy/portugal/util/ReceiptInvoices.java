@@ -19,10 +19,12 @@
 package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
@@ -82,7 +84,9 @@ public class ReceiptInvoices {
         return this.persistenceService;
     }
 
-    public PTReceiptInvoice issue(PTReceiptInvoice.Builder builder, PTIssuingParams params) throws DocumentIssuingException {
+    public PTReceiptInvoice issue(PTReceiptInvoice.Builder builder, PTIssuingParams params)
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, params);
     }
 

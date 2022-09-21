@@ -18,7 +18,9 @@
  */
 package com.premiumminds.billy.spain.test;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import org.junit.jupiter.api.AfterEach;
@@ -76,7 +78,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
                     new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(
                             new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
 
@@ -94,7 +96,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
                     new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
                             new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
         return null;
@@ -112,7 +114,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
             return (ESCreditNoteEntity) service.issueDocument(
                     new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder((ESInvoiceEntity) reference),
                     parameters);
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
 

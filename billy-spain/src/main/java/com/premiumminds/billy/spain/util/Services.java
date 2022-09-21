@@ -19,11 +19,13 @@
 package com.premiumminds.billy.spain.util;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
@@ -79,12 +81,15 @@ public class Services {
      * @throws DocumentIssuingException when an exception occurs during the issue
      */
     public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder, ESIssuingParams issuingParameters)
-            throws DocumentIssuingException {
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, issuingParameters);
     }
 
     public <T extends ESGenericInvoice> T issueDocument(Builder<T> builder, ESIssuingParams issuingParameters,
-            String ticketUID) throws DocumentIssuingException {
+            String ticketUID)
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         return this.issuingService.issue(builder, issuingParameters, ticketUID);
     }
 

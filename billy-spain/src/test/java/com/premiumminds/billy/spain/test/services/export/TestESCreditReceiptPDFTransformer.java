@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.export;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -69,11 +71,10 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
     private ESCreditReceiptPDFFOPTransformer transformer;
     private ESCreditReceiptDataExtractor extractor;
 
-    @BeforeEach
-    public void setUp() throws FileNotFoundException {
+    @BeforeEach public void setUp() throws FileNotFoundException {
 
-        this.mockedInjector =
-                Guice.createInjector(Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
+        this.mockedInjector = Guice.createInjector(
+            Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
 
         InputStream xsl = new FileInputStream(TestESCreditReceiptPDFTransformer.XSL_PATH);
 
@@ -81,9 +82,9 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         this.extractor = this.mockedInjector.getInstance(ESCreditReceiptDataExtractor.class);
     }
 
-    @Test
-    public void testPdfCreation() throws ExportServiceException,
-            DocumentIssuingException, IOException {
+    @Test public void testPdfCreation()
+        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+        DocumentSeriesDoesNotExistException {
 
         UID uidEntity = UID.fromString("12345");
         final String businessUID = (new UID()).toString();
@@ -106,17 +107,16 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         }
     }
 
-    @Test
-    public void testNonExistentEntity() {
+    @Test public void testNonExistentEntity() {
 
         UID uidEntity = UID.fromString("12345");
 
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException,
-            DocumentIssuingException, IOException {
+    @Test public void testPdfCreationFromBundle()
+        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+        DocumentSeriesDoesNotExistException {
 
         UID uidEntity = UID.fromString("12345");
         final String businessUID = (new UID()).toString();
@@ -132,8 +132,8 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         OutputStream os = Files.newOutputStream(result.toPath());
 
         InputStream xsl = Files.newInputStream(Paths.get(TestESCreditReceiptPDFTransformer.XSL_PATH));
-        ESCreditReceiptTemplateBundle bundle =
-                new ESCreditReceiptTemplateBundle(TestESCreditReceiptPDFTransformer.LOGO_PATH, xsl);
+        ESCreditReceiptTemplateBundle bundle = new ESCreditReceiptTemplateBundle(
+            TestESCreditReceiptPDFTransformer.LOGO_PATH, xsl);
         ESCreditReceiptPDFFOPTransformer transformerBundle = new ESCreditReceiptPDFFOPTransformer(bundle);
 
         ESCreditReceiptData entityData = this.extractor.extract(uidEntity);
@@ -145,7 +145,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
     }
 
     private ESCreditReceiptEntity generateESCreditReceipt(PaymentMechanism paymentMechanism, ESReceiptEntity reference)
-            throws DocumentIssuingException {
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         Services services = new Services(ESAbstractTest.injector);
 
@@ -154,7 +154,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         this.createSeries(reference, "AC");
 
         ESCreditReceiptEntity creditReceipt = (ESCreditReceiptEntity) services.issueDocument(
-                new ESCreditReceiptTestUtil(ESAbstractTest.injector).getCreditReceiptBuilder(reference), params);
+            new ESCreditReceiptTestUtil(ESAbstractTest.injector).getCreditReceiptBuilder(reference), params);
 
         creditReceipt.setBusiness((BusinessEntity) reference.getBusiness());
         creditReceipt.setCreditOrDebit(CreditOrDebit.DEBIT);

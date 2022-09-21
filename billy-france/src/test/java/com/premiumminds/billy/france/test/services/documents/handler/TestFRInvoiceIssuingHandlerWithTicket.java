@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -78,7 +80,7 @@ public class TestFRInvoiceIssuingHandlerWithTicket extends FRDocumentAbstractTes
 
         } catch (InvalidTicketException e) {
             e.printStackTrace();
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
     }
@@ -148,7 +150,7 @@ public class TestFRInvoiceIssuingHandlerWithTicket extends FRDocumentAbstractTes
                     this.issuedInvoiceUID.getValue());
         } catch (InvalidTicketException e) {
 
-        } catch (DocumentIssuingException e) {
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
         Assertions.assertTrue(entity == null);

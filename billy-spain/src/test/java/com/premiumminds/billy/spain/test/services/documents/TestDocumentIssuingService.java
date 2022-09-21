@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.documents;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.spain.services.entities.ESInvoice.Builder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,7 +48,9 @@ public class TestDocumentIssuingService extends ESDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuingService() throws DocumentIssuingException {
+    public void testIssuingService()
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
 
         final Builder invoiceBuilder =
             new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity());

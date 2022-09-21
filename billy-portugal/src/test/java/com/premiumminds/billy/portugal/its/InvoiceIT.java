@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.its;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -217,7 +219,9 @@ public class InvoiceIT {
                                       PTCustomer customer,
                                       PTProduct product,
                                       PTProduct productExempt,
-                                      PTProduct productTax) throws ParseException, DocumentIssuingException {
+                                      PTProduct productTax)
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         PTInvoice.Builder invoiceBuilder = billyPortugal.invoices().builder();
 
         Date invoiceDate = dateFormat.parse("01-03-2013");
@@ -282,7 +286,9 @@ public class InvoiceIT {
                                             PTIssuingParams invoiceParameters,
                                             PTCustomer customer,
                                             PTProduct product,
-                                            PTInvoice invoice) throws ParseException, DocumentIssuingException {
+                                            PTInvoice invoice)
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
         PTCreditNote.Builder creditNoteBuilder = billyPortugal.creditNotes().builder();
 
         Date creditNoteDate = dateFormat.parse("01-03-2013");

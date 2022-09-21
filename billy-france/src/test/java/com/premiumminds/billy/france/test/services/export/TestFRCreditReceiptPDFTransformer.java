@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.export;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,7 +36,6 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.france.FranceDependencyModule;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
@@ -69,11 +70,10 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
     private FRCreditReceiptPDFFOPTransformer transformer;
     private FRCreditReceiptDataExtractor extractor;
 
-    @BeforeEach
-    public void setUp() throws FileNotFoundException {
+    @BeforeEach public void setUp() throws FileNotFoundException {
 
-        this.mockedInjector =
-                Guice.createInjector(Modules.override(new FranceDependencyModule()).with(new FRMockDependencyModule()));
+        this.mockedInjector = Guice.createInjector(
+            Modules.override(new FranceDependencyModule()).with(new FRMockDependencyModule()));
 
         InputStream xsl = new FileInputStream(TestFRCreditReceiptPDFTransformer.XSL_PATH);
 
@@ -81,15 +81,15 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         this.extractor = this.mockedInjector.getInstance(FRCreditReceiptDataExtractor.class);
     }
 
-    @Test
-    public void testPdfCreation() throws ExportServiceException,
-            DocumentIssuingException, IOException {
+    @Test public void testPdfCreation()
+        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+        DocumentSeriesDoesNotExistException {
 
         UID uidEntity = UID.fromString("12345");
         final String businessUID = (new UID()).toString();
         this.createSeries(businessUID);
         FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(PaymentMechanism.CASH, receipt);
+        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(receipt);
         DAOFRCreditReceipt dao = this.mockedInjector.getInstance(DAOFRCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOFRReceipt daoReceipt = this.mockedInjector.getInstance(DAOFRReceipt.class);
@@ -106,23 +106,22 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         }
     }
 
-    @Test
-    public void testNonExistentEntity() {
+    @Test public void testNonExistentEntity() {
 
         UID uidEntity = UID.fromString("12345");
 
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException,
-            DocumentIssuingException, IOException {
+    @Test public void testPdfCreationFromBundle()
+        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+        DocumentSeriesDoesNotExistException {
 
         UID uidEntity = UID.fromString("12345");
         final String businessUID = (new UID()).toString();
         this.createSeries(businessUID);
         FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(PaymentMechanism.CASH, receipt);
+        FRCreditReceiptEntity entity = this.generateFRCreditReceipt(receipt);
         DAOFRCreditReceipt dao = this.mockedInjector.getInstance(DAOFRCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOFRReceipt daoReceipt = this.mockedInjector.getInstance(DAOFRReceipt.class);
@@ -132,8 +131,8 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         OutputStream os = Files.newOutputStream(result.toPath());
 
         InputStream xsl = Files.newInputStream(Paths.get(TestFRCreditReceiptPDFTransformer.XSL_PATH));
-        FRCreditReceiptTemplateBundle bundle =
-                new FRCreditReceiptTemplateBundle(TestFRCreditReceiptPDFTransformer.LOGO_PATH, xsl);
+        FRCreditReceiptTemplateBundle bundle = new FRCreditReceiptTemplateBundle(
+            TestFRCreditReceiptPDFTransformer.LOGO_PATH, xsl);
         FRCreditReceiptPDFFOPTransformer transformerBundle = new FRCreditReceiptPDFFOPTransformer(bundle);
 
         FRCreditReceiptData entityData = this.extractor.extract(uidEntity);
@@ -144,8 +143,8 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         }
     }
 
-    private FRCreditReceiptEntity generateFRCreditReceipt(PaymentMechanism paymentMechanism, FRReceiptEntity reference)
-            throws DocumentIssuingException {
+    private FRCreditReceiptEntity generateFRCreditReceipt(FRReceiptEntity reference)
+        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         Services services = new Services(FRAbstractTest.injector);
 
@@ -153,7 +152,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         this.createSeries(reference.getBusiness().getUID().toString(), "AC");
 
         FRCreditReceiptEntity creditReceipt = (FRCreditReceiptEntity) services.issueDocument(
-                new FRCreditReceiptTestUtil(FRAbstractTest.injector).getCreditReceiptBuilder(reference), params);
+            new FRCreditReceiptTestUtil(FRAbstractTest.injector).getCreditReceiptBuilder(reference), params);
 
         creditReceipt.setBusiness((BusinessEntity) reference.getBusiness());
         creditReceipt.setCreditOrDebit(CreditOrDebit.DEBIT);
