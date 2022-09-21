@@ -108,6 +108,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -468,11 +469,20 @@ public class PTSAFTFileGenerator {
         this.context = "Customer.";
         Customer customer = new Customer();
         final String customerId;
+		final String addressDetailOverride;
+		final String addressCityOverride;
+		final String addressPostalCodeOverride;
+		final String addressCountryOverride;
 
         if (this.config.getUID(Key.Customer.Generic.UUID).equals(
                 customerEntity.getUID())) {
             customerEntity.setTaxRegistrationNumber("999999990");
-            customerId = "Consumidor final";
+
+			addressDetailOverride = "Desconhecido";
+			addressCityOverride = "Desconhecido";
+			addressPostalCodeOverride = "Desconhecido";
+			addressCountryOverride = "Desconhecido";
+			customerId = "Consumidor final";
         } else {
             if ((this.optionalParam = this
                     .validateString("Contact",
@@ -489,11 +499,23 @@ public class PTSAFTFileGenerator {
             }
             List<PTContactEntity> contacts = customerEntity.getContacts();
             this.setContacts(customer, contacts);
+
+			addressDetailOverride = customerEntity.getBillingAddress().getDetails();
+			addressCityOverride = customerEntity.getBillingAddress().getCity();
+			addressPostalCodeOverride = customerEntity.getBillingAddress().getPostalCode();
+			addressCountryOverride = customerEntity.getBillingAddress().getISOCountry();
             customerId = customerEntity.getID().toString();
         }
-        this.updateCustomerGeneralInfo(customer, customerId, customerEntity.getTaxRegistrationNumber(),
-                customerEntity.getName(), (PTAddressEntity) customerEntity
-                        .getBillingAddress());
+        this.updateCustomerGeneralInfo(
+			customer,
+			customerId,
+			customerEntity.getTaxRegistrationNumber(),
+			customerEntity.getName(),
+			(PTAddressEntity) customerEntity.getBillingAddress(),
+			addressDetailOverride,
+			addressCityOverride,
+			addressPostalCodeOverride,
+			addressCountryOverride);
 
         customer.setAccountID(this.validateString("AccountID", this.ACCOUNT_ID,
                 this.MAX_LENGTH_30, true));
@@ -1215,10 +1237,18 @@ public class PTSAFTFileGenerator {
      * @param address
      * @throws RequiredFieldNotFoundException
      */
-    private void updateCustomerGeneralInfo(Customer customer,
-            String customerID, String customerFinancialID, String companyName,
-            PTAddressEntity address) throws RequiredFieldNotFoundException {
-        customer.setCustomerTaxID(this.validateString("CustomerTaxID",
+    private void updateCustomerGeneralInfo(
+		Customer customer,
+		String customerID,
+		String customerFinancialID,
+		String companyName,
+		PTAddressEntity address,
+		String addressDetailOverride,
+		String addressCityOverride,
+		String addressPostalCodeOverride,
+		String addressCountryOverride) throws RequiredFieldNotFoundException
+	{
+		customer.setCustomerTaxID(this.validateString("CustomerTaxID",
                 customerFinancialID, this.MAX_LENGTH_20, true));
 
         customer.setCompanyName(this.validateString("CompanyName", companyName,
@@ -1227,7 +1257,13 @@ public class PTSAFTFileGenerator {
         customer.setCustomerID(this.validateString("CustomerId", customerID,
                 this.MAX_LENGTH_30, true));
 
-        customer.setBillingAddress(this.generateAddressStructure(address));
+		final AddressStructure customerAddress = this.generateAddressStructure(address);
+		customerAddress.setAddressDetail(addressDetailOverride);
+		customerAddress.setCity(addressCityOverride);
+		customerAddress.setPostalCode(addressPostalCodeOverride);
+		customerAddress.setCountry(addressCountryOverride);
+
+		customer.setBillingAddress(customerAddress);
     }
 
     /*************
