@@ -3,6 +3,8 @@
 
 ## [Unreleased v6]
 
+## [6.0.1] 2022-09-22
+
 ### Changed
 
  - [Override saft final customer address country](https://github.com/premium-minds/billy/pull/343)
@@ -368,10 +370,11 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v6]: https://github.com/premium-minds/billy/compare/v6.0.0...HEAD
+[unreleased v6]: https://github.com/premium-minds/billy/compare/v6.0.1...HEAD
 [unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.2...release-5.x
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[6.0.1]: https://github.com/premium-minds/billy/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/premium-minds/billy/compare/release-5.x...v6.0.0
 [5.4.2]: https://github.com/premium-minds/billy/compare/v5.4.1...v5.4.2
 [5.4.1]: https://github.com/premium-minds/billy/compare/v5.4.0...v5.4.1
