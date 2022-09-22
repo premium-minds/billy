@@ -18,45 +18,15 @@
  */
 package com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.MathContext;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.xml.XMLConstants;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.google.common.io.ByteStreams;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.Config;
@@ -125,6 +95,34 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.Su
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.Tax;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.TaxTable;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_03_01.schema.TaxTableEntry;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.math.MathContext;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.inject.Inject;
+import javax.xml.XMLConstants;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeConstants;
+import javax.xml.datatype.DatatypeFactory;
+import javax.xml.datatype.XMLGregorianCalendar;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PTSAFTFileGenerator {
 
@@ -445,32 +443,63 @@ public class PTSAFTFileGenerator {
             throws RequiredFieldNotFoundException, InvalidContactTypeException {
         this.context = "Customer.";
         Customer customer = new Customer();
-        final String customerId;
 
         if (this.config.getUID(Key.Customer.Generic.UUID).equals(customerEntity.getUID())) {
-            customerEntity.setTaxRegistrationNumber("999999990");
-            customerId = "Consumidor final";
+            customer.setCustomerTaxID("999999990");
+            customer.setCompanyName("Consumidor final");
+            customer.setCustomerID("Consumidor final");
+
+            final AddressStructure customerAddress = new AddressStructure();
+            customerAddress.setAddressDetail("Desconhecido");
+            customerAddress.setCity("Desconhecido");
+            customerAddress.setPostalCode("Desconhecido");
+            customerAddress.setCountry("Desconhecido");
+
+            customer.setBillingAddress(customerAddress);
         } else {
-            if ((this.optionalParam =
-                    this.validateString("Contact", customerEntity.getReferralName(), this.MAX_LENGTH_50, false))
-                            .length() > 0) {
+            this.optionalParam = this.validateString(
+                "Contact",
+                customerEntity.getReferralName(),
+                this.MAX_LENGTH_50,
+                false);
+            if (this.optionalParam.length() > 0) {
                 customer.setContact(this.optionalParam);
             }
 
             if (customerEntity.getShippingAddress() != null) {
-                customer.getShipToAddress()
-                        .add(this.generateAddressStructure((PTAddressEntity) customerEntity.getShippingAddress()));
+                customer
+                    .getShipToAddress()
+                    .add(this.generateAddressStructure((PTAddressEntity) customerEntity.getShippingAddress()));
             }
+
             List<PTContactEntity> contacts = customerEntity.getContacts();
             this.setContacts(customer, contacts);
-            customerId = customerEntity.getID().toString();
+
+            customer.setCustomerTaxID(this.validateString(
+                "CustomerTaxID",
+                customerEntity.getTaxRegistrationNumber(),
+                this.MAX_LENGTH_20,
+                true));
+
+            customer.setCompanyName(this.validateString(
+                "CompanyName",
+                customerEntity.getName(),
+                this.MAX_LENGTH_100, true));
+
+            customer.setCustomerID(this.validateString(
+                "CustomerId",
+                customerEntity.getID().toString(),
+                this.MAX_LENGTH_30, true));
+
+            customer.setBillingAddress(this.generateAddressStructure(customerEntity.getBillingAddress()));
         }
-        this.updateCustomerGeneralInfo(customer, customerId, customerEntity.getTaxRegistrationNumber(),
-                customerEntity.getName(), (PTAddressEntity) customerEntity.getBillingAddress());
 
         customer.setAccountID(this.validateString("AccountID", this.ACCOUNT_ID, this.MAX_LENGTH_30, true));
-        customer.setSelfBillingIndicator(
-                this.validateInteger("SelfBillingIndicator", this.SELF_BILLING_INDICATOR, this.MAX_LENGTH_1, true));
+        customer.setSelfBillingIndicator(this.validateInteger(
+            "SelfBillingIndicator",
+            this.SELF_BILLING_INDICATOR,
+            this.MAX_LENGTH_1,
+            true));
 
         return customer;
     }
@@ -1079,32 +1108,6 @@ public class PTSAFTFileGenerator {
                 throw new InvalidInvoiceTypeException(document.getType().toString(), document.getSeries());
 
         }
-    }
-
-    /*************
-     * CUSTOMERS *
-     *************/
-    /**
-     * Sets the main information about the Customer
-     *
-     * @param customer
-     * @param customerID
-     * @param customerFinancialID
-     *        - NIF
-     * @param companyName
-     *        - the company where the customer works
-     * @param address
-     * @throws RequiredFieldNotFoundException
-     */
-    private void updateCustomerGeneralInfo(Customer customer, String customerID, String customerFinancialID,
-            String companyName, PTAddressEntity address) throws RequiredFieldNotFoundException {
-        customer.setCustomerTaxID(this.validateString("CustomerTaxID", customerFinancialID, this.MAX_LENGTH_20, true));
-
-        customer.setCompanyName(this.validateString("CompanyName", companyName, this.MAX_LENGTH_100, true));
-
-        customer.setCustomerID(this.validateString("CustomerId", customerID, this.MAX_LENGTH_30, true));
-
-        customer.setBillingAddress(this.generateAddressStructure(address));
     }
 
     /*************
