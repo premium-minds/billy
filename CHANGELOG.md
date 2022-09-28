@@ -6,6 +6,7 @@
 ### Changed
 
  - [Bump snakeyaml from 1.32 to 1.33](https://github.com/premium-minds/billy/pull/344)
+ - [Bump hibernate.version from 5.6.11.Final to 5.6.12.Final](https://github.com/premium-minds/billy/pull/345)
 
 ## [6.0.1] 2022-09-22
 
