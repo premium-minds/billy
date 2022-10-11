@@ -10,6 +10,7 @@
  - [Bump snakeyaml from 1.32 to 1.33](https://github.com/premium-minds/billy/pull/344)
  - [Bump hibernate.version from 5.6.11.Final to 5.6.12.Final](https://github.com/premium-minds/billy/pull/345)
  - [Bump spotless-maven-plugin from 2.27.0 to 2.27.1](https://github.com/premium-minds/billy/pull/347)
+ - [Bump spotless-maven-plugin from 2.27.1 to 2.27.2](https://github.com/premium-minds/billy/pull/349)
 
 ## [6.0.1] 2022-09-22
 
