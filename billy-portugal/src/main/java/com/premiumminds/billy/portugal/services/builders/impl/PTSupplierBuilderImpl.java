@@ -63,6 +63,7 @@ public class PTSupplierBuilderImpl<TBuilder extends PTSupplierBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setTaxRegistrationNumber(number);
+		this.getTypeInstance().setTaxRegistrationNumberCountry(countryCode);
         return this.getBuilder();
     }
 

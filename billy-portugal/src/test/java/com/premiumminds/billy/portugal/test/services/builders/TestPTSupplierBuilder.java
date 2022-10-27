@@ -69,7 +69,7 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
                 .setBillingAddress(mockBillingAddressBuilder).setMainAddress(mockMainAddressBuilder)
                 .setMainContact(mockMainContactBuilder).setName(mockSupplier.getName())
                 .setSelfBillingAgreement(mockSupplier.hasSelfBillingAgreement())
-                .setTaxRegistrationNumber(mockSupplier.getTaxRegistrationNumber(), PTAbstractTest.PT_COUNTRY_CODE)
+                .setTaxRegistrationNumber(mockSupplier.getTaxRegistrationNumber(), mockSupplier.getTaxRegistrationNumberCountry())
                 .setShippingAddress(mockShippingAddressBuilder);
 
         PTSupplier supplier = builder.build();
@@ -77,6 +77,7 @@ public class TestPTSupplierBuilder extends PTAbstractTest {
         Assertions.assertTrue(supplier != null);
         Assertions.assertEquals(mockSupplier.getName(), supplier.getName());
         Assertions.assertEquals(mockSupplier.getTaxRegistrationNumber(), supplier.getTaxRegistrationNumber());
+		Assertions.assertEquals(mockSupplier.getTaxRegistrationNumberCountry(), supplier.getTaxRegistrationNumberCountry());
         Assertions.assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
         Assertions.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier.getBankAccounts().size());
     }

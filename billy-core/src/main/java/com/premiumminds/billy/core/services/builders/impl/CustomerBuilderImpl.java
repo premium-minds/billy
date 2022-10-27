@@ -65,10 +65,11 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 
         BillyValidator.mandatory(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
         this.getTypeInstance().setTaxRegistrationNumber(number);
+		this.getTypeInstance().setTaxRegistrationNumberCountry(countryCode);
         return this.getBuilder();
     }
 
-    @Override
+	@Override
     public <T extends Address> TBuilder addAddress(Builder<T> addressBuilder, boolean mainAddress) {
         BillyValidator.notNull(addressBuilder, CustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
 

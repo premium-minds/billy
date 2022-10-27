@@ -23,6 +23,7 @@ operationalContext : !!com.premiumminds.billy.france.test.fixtures.MockFRRegionC
   description : opContext_description
   regionCode : region_code
 taxId : 829128768
+taxIdCountry: FR
 name : name
 commercialName : commercial_name
 address : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity

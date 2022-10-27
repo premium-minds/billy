@@ -31,6 +31,8 @@ public interface SupplierEntity extends Supplier, BaseEntity {
 
     public void setTaxRegistrationNumber(String number);
 
+	public void setTaxRegistrationNumberCountry(String isoCountryCode);
+
     @Override
     public <T extends Address> List<T> getAddresses();
 

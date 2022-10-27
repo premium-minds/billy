@@ -20,6 +20,7 @@
 uid : supplier_uid
 name : name
 taxRegistrationNumber : 11111111H
+taxRegistrationNumberCountry : ES
 mainAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
   streetName : street_name
   number : number

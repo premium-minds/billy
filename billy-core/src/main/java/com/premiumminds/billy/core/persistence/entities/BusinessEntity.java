@@ -36,6 +36,8 @@ public interface BusinessEntity extends Business, BaseEntity {
 
     public void setFinancialID(String id);
 
+	public void setFinancialIDCountry(String isoCountryCode);
+
     public void setName(String name);
 
     public void setCommercialName(String name);

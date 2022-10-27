@@ -57,6 +57,7 @@ public class ESBusinessBuilderImpl<TBuilder extends ESBusinessBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setFinancialID(id);
+		this.getTypeInstance().setFinancialIDCountry(countryCode);
         return this.getBuilder();
     }
 

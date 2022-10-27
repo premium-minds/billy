@@ -71,7 +71,7 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
         PTAddress.Builder mockBillingAddressBuilder = this.getMock(PTAddress.Builder.class);
         Mockito.when(mockBillingAddressBuilder.build()).thenReturn((PTAddressEntity) mockBusiness.getBillingAddress());
 
-        builder.setFinancialID(mockBusiness.getFinancialID(), PTAbstractTest.PT_COUNTRY_CODE)
+        builder.setFinancialID(mockBusiness.getFinancialID(), mockBusiness.getFinancialIDCountry())
                 .setName(mockBusiness.getName()).setAddress(mockAddressBuilder)
                 .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
                 .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
@@ -84,6 +84,7 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
         Assertions.assertTrue(business != null);
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+		Assertions.assertEquals(mockBusiness.getFinancialIDCountry(), mockBusiness.getFinancialIDCountry());
         Assertions.assertEquals(mockBusiness.getName(), business.getName());
         Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
         Assertions.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());

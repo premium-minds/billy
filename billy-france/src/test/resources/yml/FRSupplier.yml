@@ -20,6 +20,7 @@
 uid : supplier_uid
 name : name
 taxRegistrationNumber : 829128768
+taxRegistrationNumberCountry : FR
 mainAddress : !!com.premiumminds.billy.france.test.fixtures.MockFRAddressEntity
   streetName : street_name
   number : number

@@ -23,6 +23,7 @@ operationalContext : !!com.premiumminds.billy.spain.test.fixtures.MockESRegionCo
   description : opContext_description
   regionCode : region_code
 taxId : 11111111H
+taxIdCountry: ES
 name : name
 commercialName : commercial_name
 address : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity

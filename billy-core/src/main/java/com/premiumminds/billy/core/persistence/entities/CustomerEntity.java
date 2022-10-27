@@ -31,6 +31,8 @@ public interface CustomerEntity extends Customer, BaseEntity {
 
     public void setTaxRegistrationNumber(String number);
 
+	public void setTaxRegistrationNumberCountry(String country);
+
     @Override
     public <T extends Address> List<T> getAddresses();
 

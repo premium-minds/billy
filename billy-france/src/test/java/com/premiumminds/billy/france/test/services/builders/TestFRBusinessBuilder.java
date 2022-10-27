@@ -84,6 +84,7 @@ public class TestFRBusinessBuilder extends FRAbstractTest {
         Assertions.assertTrue(business != null);
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+		Assertions.assertEquals(mockBusiness.getFinancialIDCountry(), FRAbstractTest.FR_COUNTRY_CODE);
         Assertions.assertEquals(mockBusiness.getName(), business.getName());
         Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
         Assertions.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());

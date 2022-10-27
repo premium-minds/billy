@@ -58,6 +58,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setTaxRegistrationNumber(number);
+		this.getTypeInstance().setTaxRegistrationNumberCountry(countryCode);
         return this.getBuilder();
     }
 

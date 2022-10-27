@@ -20,6 +20,7 @@
 uid : supplier_uid
 name : name
 taxRegistrationNumber : 500018057
+taxRegistrationNumberCountry : PT
 mainAddress : !!com.premiumminds.billy.portugal.test.fixtures.MockPTAddressEntity
   streetName : street_name
   number : number
