@@ -53,8 +53,8 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
     @Column(name = "TAX_ID")
     protected String taxId;
 
-	@Column(name = "TAX_ID_COUNTRY")
-	protected String taxIdCountry;
+    @Column(name = "TAX_ID_COUNTRY")
+    protected String taxIdCountry;
 
     @OneToMany(targetEntity = JPAAddressEntity.class, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(name = Config.TABLE_PREFIX + "CUSTOMER_ADDRESS",
@@ -110,12 +110,12 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
         return this.taxId;
     }
 
-	@Override
-	public String getTaxRegistrationNumberCountry() {
-		return null;
-	}
+    @Override
+    public String getTaxRegistrationNumberCountry() {
+        return this.taxIdCountry;
+    }
 
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     @Override
     public Address getMainAddress() {
         return this.mainAddress;
@@ -154,12 +154,12 @@ public class JPACustomerEntity extends JPABaseEntity implements CustomerEntity {
         this.taxId = number;
     }
 
-	@Override
-	public void setTaxRegistrationNumberCountry(final String country) {
-		this.taxIdCountry = country;
-	}
+    @Override
+    public void setTaxRegistrationNumberCountry(final String country) {
+        this.taxIdCountry = country;
+    }
 
-	@Override
+    @Override
     public List<Address> getAddresses() {
         return this.addresses;
     }

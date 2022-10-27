@@ -57,7 +57,7 @@ public class PTBusinessBuilderImpl<TBuilder extends PTBusinessBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setFinancialID(id);
-		this.getTypeInstance().setFinancialIDCountry(countryCode);
+        this.getTypeInstance().setFinancialIDCountry(countryCode);
         return this.getBuilder();
     }
 

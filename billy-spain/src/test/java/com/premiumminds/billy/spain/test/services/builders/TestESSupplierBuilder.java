@@ -77,7 +77,7 @@ public class TestESSupplierBuilder extends ESAbstractTest {
         Assertions.assertTrue(supplier != null);
         Assertions.assertEquals(mockSupplier.getName(), supplier.getName());
         Assertions.assertEquals(mockSupplier.getTaxRegistrationNumber(), supplier.getTaxRegistrationNumber());
-		Assertions.assertEquals(mockSupplier.getTaxRegistrationNumberCountry(), supplier.getTaxRegistrationNumberCountry());
+        Assertions.assertEquals(mockSupplier.getTaxRegistrationNumberCountry(), supplier.getTaxRegistrationNumberCountry());
         Assertions.assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
         Assertions.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier.getBankAccounts().size());
     }

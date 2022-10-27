@@ -77,7 +77,7 @@ public class TestBusinessBuilder extends AbstractTest {
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
 
-		Assertions.assertEquals(mockBusiness.getFinancialIDCountry(), business.getFinancialIDCountry());
+        Assertions.assertEquals(mockBusiness.getFinancialIDCountry(), business.getFinancialIDCountry());
         Assertions.assertEquals(mockBusiness.getName(), business.getName());
         Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
         Assertions.assertEquals(mockBusiness.getCommercialName(), business.getCommercialName());

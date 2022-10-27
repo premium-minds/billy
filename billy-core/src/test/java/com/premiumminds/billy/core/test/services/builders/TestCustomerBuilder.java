@@ -92,7 +92,7 @@ public class TestCustomerBuilder extends AbstractTest {
 
         Assertions.assertEquals(mockCustomer.getName(), customer.getName());
         Assertions.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
-		Assertions.assertEquals(mockCustomer.getTaxRegistrationNumberCountry(), customer.getTaxRegistrationNumberCountry());
+        Assertions.assertEquals(mockCustomer.getTaxRegistrationNumberCountry(), customer.getTaxRegistrationNumberCountry());
         Assertions.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
         Assertions.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
         Assertions.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());

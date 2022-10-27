@@ -84,7 +84,7 @@ public class TestESCustomerBuilder extends ESAbstractTest {
 
         Assertions.assertEquals(mockCustomer.getName(), customer.getName());
         Assertions.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
-		Assertions.assertEquals(mockCustomer.getTaxRegistrationNumberCountry(), mockCustomer.getTaxRegistrationNumberCountry());
+        Assertions.assertEquals(mockCustomer.getTaxRegistrationNumberCountry(), mockCustomer.getTaxRegistrationNumberCountry());
         Assertions.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
         Assertions.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
         Assertions.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());

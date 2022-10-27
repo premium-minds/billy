@@ -68,7 +68,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
     public TBuilder setFinancialID(String id, String countryCode) throws BillyUpdateException {
         BillyValidator.notBlank(id, BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
         this.getTypeInstance().setFinancialID(id);
-		this.getTypeInstance().setFinancialIDCountry(countryCode);
+        this.getTypeInstance().setFinancialIDCountry(countryCode);
         return this.getBuilder();
     }
 

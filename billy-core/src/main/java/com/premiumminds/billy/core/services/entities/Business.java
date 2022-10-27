@@ -50,7 +50,7 @@ public interface Business extends Entity {
 
     public String getFinancialID();
 
-	public String getFinancialIDCountry();
+    public String getFinancialIDCountry();
 
     public String getName();
 
