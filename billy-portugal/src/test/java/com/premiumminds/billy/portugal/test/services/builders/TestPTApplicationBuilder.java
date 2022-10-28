@@ -70,6 +70,8 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
         Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
         Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
                 application.getDeveloperCompanyTaxIdentifier());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode(),
+                application.getDeveloperCompanyTaxIdentifierISOCountryCode());
         Assertions.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
         Assertions.assertEquals(mockApplication.getSoftwareCertificationNumber(),
                 application.getSoftwareCertificationNumber());

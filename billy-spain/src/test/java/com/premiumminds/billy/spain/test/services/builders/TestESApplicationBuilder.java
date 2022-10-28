@@ -68,6 +68,8 @@ public class TestESApplicationBuilder extends ESAbstractTest {
         Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
         Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
                 application.getDeveloperCompanyTaxIdentifier());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode(),
+                application.getDeveloperCompanyTaxIdentifierISOCountryCode());
         Assertions.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
         Assertions.assertNotNull(application.getContacts());
         Assertions.assertNotNull(application.getMainContact());
