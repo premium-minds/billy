@@ -75,7 +75,7 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
                 .setBillingAddress(mockBillingAddressBuilder)
                 .setHasSelfBillingAgreement(mockCustomer.hasSelfBillingAgreement()).setName(mockCustomer.getName())
                 .setShippingAddress(mockShippingAddressBuilder)
-                .setTaxRegistrationNumber(mockCustomer.getTaxRegistrationNumber(), mockCustomer.getTaxRegistrationNumberCountry())
+                .setTaxRegistrationNumber(mockCustomer.getTaxRegistrationNumber(), mockCustomer.getTaxRegistrationNumberISOCountryCode())
                 .setMainContactUID(mockCustomer.getMainContact().getUID());
 
         Customer customer = builder.build();
@@ -84,7 +84,7 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 
         Assertions.assertEquals(mockCustomer.getName(), customer.getName());
         Assertions.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
-        Assertions.assertEquals(mockCustomer.getTaxRegistrationNumberCountry(), customer.getTaxRegistrationNumberCountry());
+        Assertions.assertEquals(mockCustomer.getTaxRegistrationNumberISOCountryCode(), customer.getTaxRegistrationNumberISOCountryCode());
         Assertions.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
         Assertions.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
         Assertions.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());

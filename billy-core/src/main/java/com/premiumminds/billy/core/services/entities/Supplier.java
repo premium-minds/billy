@@ -39,7 +39,7 @@ public interface Supplier extends Entity {
 
     public String getTaxRegistrationNumber();
 
-    public String getTaxRegistrationNumberCountry();
+    public String getTaxRegistrationNumberISOCountryCode();
 
     public <T extends Address> Collection<T> getAddresses();
 

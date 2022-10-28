@@ -59,7 +59,7 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
     protected String taxId;
 
     @Column(name = "TAX_ID_COUNTRY")
-    protected String taxIdCountry;
+    protected String taxIdISOCountryCode;
 
     @Column(name = "NAME")
     protected String name;
@@ -119,8 +119,8 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
     }
 
     @Override
-    public String getFinancialIDCountry() {
-        return this.taxIdCountry;
+    public String getFinancialIdISOCountryCode() {
+        return this.taxIdISOCountryCode;
     }
 
     @Override
@@ -173,8 +173,8 @@ public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
     }
 
     @Override
-    public void setFinancialIDCountry(final String isoCountryCode) {
-        this.taxIdCountry = isoCountryCode;
+    public void setFinancialIdISOCountryCode(final String isoCountryCode) {
+        this.taxIdISOCountryCode = isoCountryCode;
     }
 
     @Override

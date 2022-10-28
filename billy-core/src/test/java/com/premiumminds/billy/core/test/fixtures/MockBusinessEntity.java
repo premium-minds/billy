@@ -63,7 +63,7 @@ public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity
     }
 
     @Override
-    public String getFinancialIDCountry() {
+    public String getFinancialIdISOCountryCode() {
         return this.taxIdCountry;
     }
 
@@ -117,7 +117,7 @@ public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity
     }
 
     @Override
-    public void setFinancialIDCountry(final String isoCountryCode) {
+    public void setFinancialIdISOCountryCode(final String isoCountryCode) {
         this.taxIdCountry = isoCountryCode;
     }
 

@@ -65,7 +65,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
 
         BillyValidator.mandatory(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
         this.getTypeInstance().setTaxRegistrationNumber(number);
-        this.getTypeInstance().setTaxRegistrationNumberCountry(countryCode);
+        this.getTypeInstance().setTaxRegistrationNumberISOCountryCode(countryCode);
         return this.getBuilder();
     }
 

@@ -69,7 +69,7 @@ public class TestFRSupplierBuilder extends FRAbstractTest {
                 .setBillingAddress(mockBillingAddressBuilder).setMainAddress(mockMainAddressBuilder)
                 .setMainContact(mockMainContactBuilder).setName(mockSupplier.getName())
                 .setSelfBillingAgreement(mockSupplier.hasSelfBillingAgreement())
-                .setTaxRegistrationNumber(mockSupplier.getTaxRegistrationNumber(), mockSupplier.getTaxRegistrationNumberCountry())
+                .setTaxRegistrationNumber(mockSupplier.getTaxRegistrationNumber(), mockSupplier.getTaxRegistrationNumberISOCountryCode())
                 .setShippingAddress(mockShippingAddressBuilder);
 
         FRSupplier supplier = builder.build();
@@ -77,7 +77,7 @@ public class TestFRSupplierBuilder extends FRAbstractTest {
         Assertions.assertTrue(supplier != null);
         Assertions.assertEquals(mockSupplier.getName(), supplier.getName());
         Assertions.assertEquals(mockSupplier.getTaxRegistrationNumber(), supplier.getTaxRegistrationNumber());
-        Assertions.assertEquals(mockSupplier.getTaxRegistrationNumberCountry(), supplier.getTaxRegistrationNumberCountry());
+        Assertions.assertEquals(mockSupplier.getTaxRegistrationNumberISOCountryCode(), supplier.getTaxRegistrationNumberISOCountryCode());
         Assertions.assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
         Assertions.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier.getBankAccounts().size());
     }

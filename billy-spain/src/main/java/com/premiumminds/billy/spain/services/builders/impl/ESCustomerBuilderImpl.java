@@ -58,7 +58,7 @@ public class ESCustomerBuilderImpl<TBuilder extends ESCustomerBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setTaxRegistrationNumber(number);
-        this.getTypeInstance().setTaxRegistrationNumberCountry(countryCode);
+        this.getTypeInstance().setTaxRegistrationNumberISOCountryCode(countryCode);
         return this.getBuilder();
     }
 

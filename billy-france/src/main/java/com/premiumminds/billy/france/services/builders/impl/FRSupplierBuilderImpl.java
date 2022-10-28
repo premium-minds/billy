@@ -63,7 +63,7 @@ public class FRSupplierBuilderImpl<TBuilder extends FRSupplierBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setTaxRegistrationNumber(number);
-        this.getTypeInstance().setTaxRegistrationNumberCountry(countryCode);
+        this.getTypeInstance().setTaxRegistrationNumberISOCountryCode(countryCode);
         return this.getBuilder();
     }
 
