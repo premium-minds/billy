@@ -94,7 +94,7 @@ public class GenericTest {
                         .setISOCountry("PT").setNumber("number").setPostalCode("2345").setRegion("region")
                         .setStreetName("street"))
                 .addApplication(applicationBuilder.setDeveloperCompanyName("name").setName("application name")
-                        .setDeveloperCompanyTaxIdentifier("taxid").setDeveloperCompanyTaxIdentifierISOCountryCode("country")
+                        .setDeveloperCompanyTaxIdentifier("taxid","country")
                         .setVersion("1.0").addContact(contactBuilder2.setName("name").setEmail("email").setFax("fax")
                                 .setMobile("mobile").setTelephone("phone").setWebsite("website")))
                 .setFinancialID("financial id", null);

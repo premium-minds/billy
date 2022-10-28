@@ -136,8 +136,7 @@ public class InvoiceIT {
 
         ESApplication.Builder applicationBuilder = billySpain.applications().builder();
         applicationBuilder.setDeveloperCompanyName("Developer Company Name")
-                .setDeveloperCompanyTaxIdentifier("1000000001")
-                .setDeveloperCompanyTaxIdentifierISOCountryCode("ES")
+                .setDeveloperCompanyTaxIdentifier("1000000001", "ES")
                 .setName("Billy")
                 .setVersion("1.0")
                 .addContact(contactBuilder)

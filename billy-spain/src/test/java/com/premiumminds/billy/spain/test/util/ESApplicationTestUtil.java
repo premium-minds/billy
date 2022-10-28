@@ -51,8 +51,7 @@ public class ESApplicationTestUtil {
         applicationBuilder
             .addContact(contactBuilder)
             .setDeveloperCompanyName(companyName)
-            .setDeveloperCompanyTaxIdentifier(companyTaxId)
-            .setDeveloperCompanyTaxIdentifierISOCountryCode(companyTaxIdIsoCountryCode)
+            .setDeveloperCompanyTaxIdentifier(companyTaxId, companyTaxIdIsoCountryCode)
             .setName(appName)
             .setVersion(version)
             .setWebsiteAddress(website);
