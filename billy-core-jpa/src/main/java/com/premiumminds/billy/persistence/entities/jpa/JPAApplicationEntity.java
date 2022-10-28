@@ -57,6 +57,9 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
     @Column(name = "DEVELOPER_TAX_ID")
     protected String developerTaxId;
 
+	@Column(name = "DEVELOPER_TAX_ID_COUNTRY")
+	protected String developerTaxIdISOCountryCode;
+
     @Column(name = "WEBSITE")
     protected String website;
 
@@ -96,7 +99,12 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
         return this.developerTaxId;
     }
 
-    @Override
+	@Override
+	public String getDeveloperCompanyTaxIdentifierISOCountryCode() {
+		return this.developerTaxIdISOCountryCode;
+	}
+
+	@Override
     public String getWebsiteAddress() {
         return this.website;
     }
@@ -131,7 +139,12 @@ public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEn
         this.developerTaxId = id;
     }
 
-    @Override
+	@Override
+	public void setDeveloperCompanyTaxIdentifierISOCountryCode(final String isoCountryCode) {
+		this.developerTaxIdISOCountryCode = isoCountryCode;
+	}
+
+	@Override
     public <T extends ContactEntity> void setMainContact(T contact) {
         this.mainContact = contact;
     }

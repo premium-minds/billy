@@ -143,7 +143,7 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
         /* APPLICATION */
         PTApplication.Builder applicationBuilder = application.getApplicationBuilder("APP", "1.0", "My Business",
-                "500001758", "hhtp://www.app.mybusiness.web", 1, "http://here", contactBuilder);
+                "500001758", "PT", "hhtp://www.app.mybusiness.web", 1, "http://here", contactBuilder);
         PTApplicationEntity applicationEntity = (PTApplicationEntity) applicationBuilder.build();
 
         /* BUSINESS */

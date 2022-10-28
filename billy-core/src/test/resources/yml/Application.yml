@@ -21,6 +21,7 @@ name : name
 version : version
 developerCompanyName : company_name
 developerCompanyTaxIdentifier : company_tax_id
+developerCompanyTaxIdentifierISOCountryCode : company_tax_id_country
 websiteAddress : website
 mainContact : !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
   name : contact_main
@@ -44,4 +45,3 @@ contacts :
     fax : fax_2
     email : email_2
     website : website_2
-  
