@@ -40,7 +40,7 @@ public interface ApplicationEntity extends Application, BaseEntity {
 
     public void setDeveloperCompanyTaxIdentifier(String id);
 
-	public void setDeveloperCompanyTaxIdentifierISOCountryCode(String isoCountryCode);
+    public void setDeveloperCompanyTaxIdentifierISOCountryCode(String isoCountryCode);
 
     @Override
     public <T extends Contact> List<T> getContacts();

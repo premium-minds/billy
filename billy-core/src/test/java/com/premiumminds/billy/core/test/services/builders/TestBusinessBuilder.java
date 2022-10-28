@@ -65,11 +65,11 @@ public class TestBusinessBuilder extends AbstractTest {
         Mockito.when(mockBillingAddressBuilder.build()).thenReturn(mockBusiness.getBillingAddress());
 
         builder.setFinancialID(mockBusiness.getFinancialID(), mockBusiness.getFinancialIdISOCountryCode()).setName(mockBusiness.getName())
-			   .setCommercialName(mockBusiness.getCommercialName()).setAddress(mockAddressBuilder)
-			   .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
-			   .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
-			   .setWebsite(mockBusiness.getWebsiteAddress())
-			   .setOperationalContextUID(mockBusiness.getOperationalContext().getUID());
+               .setCommercialName(mockBusiness.getCommercialName()).setAddress(mockAddressBuilder)
+               .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
+               .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
+               .setWebsite(mockBusiness.getWebsiteAddress())
+               .setOperationalContextUID(mockBusiness.getOperationalContext().getUID());
 
         Business business = builder.build();
 

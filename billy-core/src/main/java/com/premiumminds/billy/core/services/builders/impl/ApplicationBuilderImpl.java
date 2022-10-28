@@ -72,14 +72,14 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
         return this.getBuilder();
     }
 
-	@Override
-	public TBuilder setDeveloperCompanyTaxIdentifierISOCountryCode(final String isoCountryCode) {
-		BillyValidator.notBlank(isoCountryCode, ApplicationBuilderImpl.LOCALIZER.getString("field.developer_tax_id_iso_country_code"));
-		this.getTypeInstance().setDeveloperCompanyTaxIdentifierISOCountryCode(isoCountryCode);
-		return this.getBuilder();
-	}
+    @Override
+    public TBuilder setDeveloperCompanyTaxIdentifierISOCountryCode(final String isoCountryCode) {
+        BillyValidator.notBlank(isoCountryCode, ApplicationBuilderImpl.LOCALIZER.getString("field.developer_tax_id_iso_country_code"));
+        this.getTypeInstance().setDeveloperCompanyTaxIdentifierISOCountryCode(isoCountryCode);
+        return this.getBuilder();
+    }
 
-	@Override
+    @Override
     public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder) {
         BillyValidator.notNull(contactBuilder, ApplicationBuilderImpl.LOCALIZER.getString("field.application_contact"));
         ContactEntity contact = (ContactEntity) contactBuilder.build();

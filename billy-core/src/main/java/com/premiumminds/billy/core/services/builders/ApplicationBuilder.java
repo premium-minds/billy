@@ -33,7 +33,7 @@ public interface ApplicationBuilder<TBuilder extends ApplicationBuilder<TBuilder
 
     public TBuilder setDeveloperCompanyTaxIdentifier(String id);
 
-	public TBuilder setDeveloperCompanyTaxIdentifierISOCountryCode(String isoCountryCode);
+    public TBuilder setDeveloperCompanyTaxIdentifierISOCountryCode(String isoCountryCode);
 
     public TBuilder setWebsiteAddress(String website);
 

@@ -34,7 +34,7 @@ public class MockApplicationEntity extends MockBaseEntity implements Application
     public String developerCompanyName;
     public String developerCompanyTaxIdentifier;
 
-	public String developerCompanyTaxIdentifierISOCountryCode;
+    public String developerCompanyTaxIdentifierISOCountryCode;
     public String websiteAddress;
     public ContactEntity mainContact;
     public List<ContactEntity> contacts;
@@ -63,12 +63,12 @@ public class MockApplicationEntity extends MockBaseEntity implements Application
         return this.developerCompanyTaxIdentifier;
     }
 
-	@Override
-	public String getDeveloperCompanyTaxIdentifierISOCountryCode() {
-		return this.developerCompanyTaxIdentifierISOCountryCode;
-	}
+    @Override
+    public String getDeveloperCompanyTaxIdentifierISOCountryCode() {
+        return this.developerCompanyTaxIdentifierISOCountryCode;
+    }
 
-	@Override
+    @Override
     public String getWebsiteAddress() {
         return this.websiteAddress;
     }
@@ -99,12 +99,12 @@ public class MockApplicationEntity extends MockBaseEntity implements Application
         this.developerCompanyTaxIdentifier = id;
     }
 
-	@Override
-	public void setDeveloperCompanyTaxIdentifierISOCountryCode(final String isoCountryCode) {
-		this.developerCompanyTaxIdentifierISOCountryCode = isoCountryCode;
-	}
+    @Override
+    public void setDeveloperCompanyTaxIdentifierISOCountryCode(final String isoCountryCode) {
+        this.developerCompanyTaxIdentifierISOCountryCode = isoCountryCode;
+    }
 
-	@Override
+    @Override
     public List<ContactEntity> getContacts() {
         return this.contacts;
     }

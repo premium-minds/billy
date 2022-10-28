@@ -72,12 +72,12 @@ public interface Application extends Entity {
      */
     public String getDeveloperCompanyTaxIdentifier();
 
-	/**
-	 * Gets the tax identifier iso country code for the application developer company.
-	 *
-	 * @return The company tax identifier iso country code.
-	 */
-	public String getDeveloperCompanyTaxIdentifierISOCountryCode();
+    /**
+     * Gets the tax identifier iso country code for the application developer company.
+     *
+     * @return The company tax identifier iso country code.
+     */
+    public String getDeveloperCompanyTaxIdentifierISOCountryCode();
 
     /**
      * Gets the application developer company website address.

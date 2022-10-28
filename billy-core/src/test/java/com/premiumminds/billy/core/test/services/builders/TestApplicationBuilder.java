@@ -60,7 +60,7 @@ public class TestApplicationBuilder extends AbstractTest {
         builder.addContact(mockContactBuilder1).addContact(mockContactBuilder2).addContact(mockMainContactBuilder)
                 .setDeveloperCompanyName(mockApplication.getDeveloperCompanyName())
                 .setDeveloperCompanyTaxIdentifier(mockApplication.getDeveloperCompanyTaxIdentifier())
-				.setDeveloperCompanyTaxIdentifierISOCountryCode(mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode())
+                .setDeveloperCompanyTaxIdentifierISOCountryCode(mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode())
                 .setMainContact(mockMainContactBuilder).setName(mockApplication.getName())
                 .setVersion(mockApplication.getVersion()).setWebsiteAddress(mockApplication.getWebsiteAddress());
 

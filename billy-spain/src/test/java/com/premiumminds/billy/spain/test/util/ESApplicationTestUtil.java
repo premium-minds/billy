@@ -29,7 +29,7 @@ public class ESApplicationTestUtil {
     private static final String KEYS_PATH = "http://url";
     private static final String COMPANY_NAME = "company_name";
     private static final String COMPANY_TAX_ID = "12432353426435";
-	private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "ES";
+    private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "ES";
     private static final String APP_NAME = "APP";
     private static final String VERSION = "1";
     private static final String WEBSITE = "http://app.ex";
@@ -44,18 +44,18 @@ public class ESApplicationTestUtil {
 
     public ESApplication.Builder getApplicationBuilder(String appName, String version, String companyName,
             String companyTaxId, String companyTaxIdIsoCountryCode, String website, ESContact.Builder contactBuilder)
-		throws MalformedURLException {
+        throws MalformedURLException {
 
         ESApplication.Builder applicationBuilder = this.injector.getInstance(ESApplication.Builder.class);
 
         applicationBuilder
-			.addContact(contactBuilder)
-			.setDeveloperCompanyName(companyName)
-			.setDeveloperCompanyTaxIdentifier(companyTaxId)
-			.setDeveloperCompanyTaxIdentifierISOCountryCode(companyTaxIdIsoCountryCode)
-			.setName(appName)
-			.setVersion(version)
-			.setWebsiteAddress(website);
+            .addContact(contactBuilder)
+            .setDeveloperCompanyName(companyName)
+            .setDeveloperCompanyTaxIdentifier(companyTaxId)
+            .setDeveloperCompanyTaxIdentifierISOCountryCode(companyTaxIdIsoCountryCode)
+            .setName(appName)
+            .setVersion(version)
+            .setWebsiteAddress(website);
 
         return applicationBuilder;
     }
@@ -65,6 +65,6 @@ public class ESApplicationTestUtil {
 
         return this.getApplicationBuilder(ESApplicationTestUtil.APP_NAME, ESApplicationTestUtil.VERSION,
                 ESApplicationTestUtil.COMPANY_NAME, ESApplicationTestUtil.COMPANY_TAX_ID,
-				ESApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, ESApplicationTestUtil.WEBSITE, contactBuilder);
+                ESApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, ESApplicationTestUtil.WEBSITE, contactBuilder);
     }
 }

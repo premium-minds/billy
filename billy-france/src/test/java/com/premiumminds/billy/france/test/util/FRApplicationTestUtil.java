@@ -29,7 +29,7 @@ public class FRApplicationTestUtil {
     private static final String COMPANY_NAME = "company_name";
     private static final String COMPANY_TAX_ID = "12432353426435";
 
-	private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "NO";
+    private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "NO";
     private static final String APP_NAME = "APP";
     private static final String VERSION = "1";
     private static final String WEBSITE = "http://app.ex";
@@ -48,13 +48,13 @@ public class FRApplicationTestUtil {
         FRApplication.Builder applicationBuilder = this.injector.getInstance(FRApplication.Builder.class);
 
         applicationBuilder
-			.addContact(contactBuilder)
-			.setDeveloperCompanyName(companyName)
-			.setDeveloperCompanyTaxIdentifier(companyTaxId)
-			.setDeveloperCompanyTaxIdentifierISOCountryCode(companyTaxIdIsoCountryCode)
-			.setName(appName)
-			.setVersion(version)
-			.setWebsiteAddress(website);
+            .addContact(contactBuilder)
+            .setDeveloperCompanyName(companyName)
+            .setDeveloperCompanyTaxIdentifier(companyTaxId)
+            .setDeveloperCompanyTaxIdentifierISOCountryCode(companyTaxIdIsoCountryCode)
+            .setName(appName)
+            .setVersion(version)
+            .setWebsiteAddress(website);
 
         return applicationBuilder;
     }
@@ -64,6 +64,6 @@ public class FRApplicationTestUtil {
 
         return this.getApplicationBuilder(FRApplicationTestUtil.APP_NAME, FRApplicationTestUtil.VERSION,
                 FRApplicationTestUtil.COMPANY_NAME, FRApplicationTestUtil.COMPANY_TAX_ID,
-				FRApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, FRApplicationTestUtil.WEBSITE, contactBuilder);
+                FRApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, FRApplicationTestUtil.WEBSITE, contactBuilder);
     }
 }

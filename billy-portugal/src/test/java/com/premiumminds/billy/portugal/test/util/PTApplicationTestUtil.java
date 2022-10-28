@@ -31,7 +31,7 @@ public class PTApplicationTestUtil {
     private static final String COMPANY_NAME = "company_name";
     private static final String COMPANY_TAX_ID = "12432353426435";
 
-	private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "PT";
+    private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "PT";
     private static final String APP_NAME = "APP";
     private static final Integer SW_CERTIFICATE_NUMBER = 1;
     private static final String VERSION = "1";
@@ -47,20 +47,20 @@ public class PTApplicationTestUtil {
 
     public PTApplication.Builder getApplicationBuilder(String appName, String version, String companyName,
             String companyTaxId, String companyTaxIdIsoCountryCode, String website, Integer swCertificateNumber,
-			String keysPath, PTContact.Builder contactBuilder) throws MalformedURLException {
+            String keysPath, PTContact.Builder contactBuilder) throws MalformedURLException {
 
         PTApplication.Builder applicationBuilder = this.injector.getInstance(PTApplication.Builder.class);
 
         applicationBuilder
-			.addContact(contactBuilder)
-			.setApplicationKeysPath(new URL(keysPath))
-			.setDeveloperCompanyName(companyName)
-			.setDeveloperCompanyTaxIdentifier(companyTaxId)
-			.setDeveloperCompanyTaxIdentifierISOCountryCode(companyTaxIdIsoCountryCode)
-			.setName(appName)
-			.setSoftwareCertificationNumber(swCertificateNumber)
-			.setVersion(version)
-			.setWebsiteAddress(website);
+            .addContact(contactBuilder)
+            .setApplicationKeysPath(new URL(keysPath))
+            .setDeveloperCompanyName(companyName)
+            .setDeveloperCompanyTaxIdentifier(companyTaxId)
+            .setDeveloperCompanyTaxIdentifierISOCountryCode(companyTaxIdIsoCountryCode)
+            .setName(appName)
+            .setSoftwareCertificationNumber(swCertificateNumber)
+            .setVersion(version)
+            .setWebsiteAddress(website);
 
         return applicationBuilder;
     }
@@ -70,7 +70,7 @@ public class PTApplicationTestUtil {
 
         return this.getApplicationBuilder(PTApplicationTestUtil.APP_NAME, PTApplicationTestUtil.VERSION,
                 PTApplicationTestUtil.COMPANY_NAME, PTApplicationTestUtil.COMPANY_TAX_ID,
-				PTApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, PTApplicationTestUtil.WEBSITE,
+                PTApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, PTApplicationTestUtil.WEBSITE,
                 PTApplicationTestUtil.SW_CERTIFICATE_NUMBER, PTApplicationTestUtil.KEYS_PATH, contactBuilder);
     }
 }
