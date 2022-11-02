@@ -56,8 +56,8 @@ public class TestESApplicationBuilder extends ESAbstractTest {
         builder.addContact(mockContactBuilder).addContact(mockMainContactBuilder)
                 .setDeveloperCompanyName(mockApplication.getDeveloperCompanyName())
                 .setDeveloperCompanyTaxIdentifier(
-					mockApplication.getDeveloperCompanyTaxIdentifier(),
-					mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode())
+                    mockApplication.getDeveloperCompanyTaxIdentifier(),
+                    mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode())
                 .setMainContact(mockMainContactBuilder).setName(mockApplication.getName())
                 .setVersion(mockApplication.getVersion()).setWebsiteAddress(mockApplication.getWebsiteAddress());
 

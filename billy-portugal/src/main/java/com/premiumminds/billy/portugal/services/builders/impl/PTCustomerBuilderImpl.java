@@ -51,6 +51,7 @@ public class PTCustomerBuilderImpl<TBuilder extends PTCustomerBuilderImpl<TBuild
     public TBuilder setTaxRegistrationNumber(String number, String countryCode)
             throws InvalidTaxIdentificationNumberException {
         BillyValidator.notBlank(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+        BillyValidator.notBlank(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number_iso_country_code"));
 
         PTFinancialValidator validator = new PTFinancialValidator(number);
 
