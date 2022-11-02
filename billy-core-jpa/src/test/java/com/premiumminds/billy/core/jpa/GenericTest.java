@@ -97,7 +97,7 @@ public class GenericTest {
                         .setDeveloperCompanyTaxIdentifier("taxid","country")
                         .setVersion("1.0").addContact(contactBuilder2.setName("name").setEmail("email").setFax("fax")
                                 .setMobile("mobile").setTelephone("phone").setWebsite("website")))
-                .setFinancialID("financial id", null);
+                .setFinancialID("financial id", "country");
 
         GenericTest.injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
 
