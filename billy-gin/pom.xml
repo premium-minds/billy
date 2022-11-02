@@ -35,7 +35,7 @@
 
 		<env>DEV</env>
 
-		<zxing.version>3.5.0</zxing.version>
+		<zxing.version>3.5.1</zxing.version>
 	</properties>
 
 	<dependencies>
