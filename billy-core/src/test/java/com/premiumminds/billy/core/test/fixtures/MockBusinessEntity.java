@@ -36,6 +36,7 @@ public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity
 
     public ContextEntity operationalContext;
     public String taxId;
+    public String taxIdCountry;
     public String name;
     public String commercialName;
     public AddressEntity address;
@@ -59,6 +60,11 @@ public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity
     @Override
     public String getFinancialID() {
         return this.taxId;
+    }
+
+    @Override
+    public String getFinancialIdISOCountryCode() {
+        return this.taxIdCountry;
     }
 
     @Override
@@ -108,6 +114,11 @@ public class MockBusinessEntity extends MockBaseEntity implements BusinessEntity
     @Override
     public void setFinancialID(String id) {
         this.taxId = id;
+    }
+
+    @Override
+    public void setFinancialIdISOCountryCode(final String isoCountryCode) {
+        this.taxIdCountry = isoCountryCode;
     }
 
     @Override

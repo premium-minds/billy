@@ -31,7 +31,7 @@ public interface ApplicationBuilder<TBuilder extends ApplicationBuilder<TBuilder
 
     public TBuilder setDeveloperCompanyName(String name);
 
-    public TBuilder setDeveloperCompanyTaxIdentifier(String id);
+    public TBuilder setDeveloperCompanyTaxIdentifier(String id, String isoCountryCode);
 
     public TBuilder setWebsiteAddress(String website);
 

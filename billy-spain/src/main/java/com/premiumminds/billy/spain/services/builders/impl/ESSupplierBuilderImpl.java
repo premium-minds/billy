@@ -56,6 +56,7 @@ public class ESSupplierBuilderImpl<TBuilder extends ESSupplierBuilderImpl<TBuild
     public TBuilder setTaxRegistrationNumber(String number, String countryCode)
             throws InvalidTaxIdentificationNumberException {
         BillyValidator.mandatory(number, ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
+        BillyValidator.mandatory(number, ESSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number_iso_country_code"));
 
         ESFinancialValidator validator = new ESFinancialValidator(number);
 
@@ -63,6 +64,7 @@ public class ESSupplierBuilderImpl<TBuilder extends ESSupplierBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setTaxRegistrationNumber(number);
+        this.getTypeInstance().setTaxRegistrationNumberISOCountryCode(countryCode);
         return this.getBuilder();
     }
 

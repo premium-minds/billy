@@ -64,18 +64,20 @@ public class TestBusinessBuilder extends AbstractTest {
         Address.Builder mockBillingAddressBuilder = this.getMock(Address.Builder.class);
         Mockito.when(mockBillingAddressBuilder.build()).thenReturn(mockBusiness.getBillingAddress());
 
-        builder.setFinancialID(mockBusiness.getFinancialID(), null).setName(mockBusiness.getName())
-                .setCommercialName(mockBusiness.getCommercialName()).setAddress(mockAddressBuilder)
-                .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
-                .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
-                .setWebsite(mockBusiness.getWebsiteAddress())
-                .setOperationalContextUID(mockBusiness.getOperationalContext().getUID());
+        builder.setFinancialID(mockBusiness.getFinancialID(), mockBusiness.getFinancialIdISOCountryCode()).setName(mockBusiness.getName())
+               .setCommercialName(mockBusiness.getCommercialName()).setAddress(mockAddressBuilder)
+               .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
+               .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
+               .setWebsite(mockBusiness.getWebsiteAddress())
+               .setOperationalContextUID(mockBusiness.getOperationalContext().getUID());
 
         Business business = builder.build();
 
         Assertions.assertTrue(business != null);
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+
+        Assertions.assertEquals(mockBusiness.getFinancialIdISOCountryCode(), business.getFinancialIdISOCountryCode());
         Assertions.assertEquals(mockBusiness.getName(), business.getName());
         Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
         Assertions.assertEquals(mockBusiness.getCommercialName(), business.getCommercialName());

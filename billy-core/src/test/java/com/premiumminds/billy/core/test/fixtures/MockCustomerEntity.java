@@ -34,6 +34,7 @@ public class MockCustomerEntity extends MockBaseEntity implements CustomerEntity
 
     public String name;
     public String taxRegistrationNumber;
+    public String taxRegistrationNumberCountry;
     public List<Address> addresses;
     public AddressEntity mainAddress;
     public AddressEntity billingAddress;
@@ -57,6 +58,11 @@ public class MockCustomerEntity extends MockBaseEntity implements CustomerEntity
     @Override
     public String getTaxRegistrationNumber() {
         return this.taxRegistrationNumber;
+    }
+
+    @Override
+    public String getTaxRegistrationNumberISOCountryCode() {
+        return this.taxRegistrationNumberCountry;
     }
 
     @Override
@@ -92,6 +98,11 @@ public class MockCustomerEntity extends MockBaseEntity implements CustomerEntity
     @Override
     public void setTaxRegistrationNumber(String number) {
         this.taxRegistrationNumber = number;
+    }
+
+    @Override
+    public void setTaxRegistrationNumberISOCountryCode(final String country) {
+        this.taxRegistrationNumberCountry = country;
     }
 
     @Override

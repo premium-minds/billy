@@ -55,7 +55,9 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
 
         builder.addContact(mockContactBuilder).addContact(mockMainContactBuilder)
                 .setDeveloperCompanyName(mockApplication.getDeveloperCompanyName())
-                .setDeveloperCompanyTaxIdentifier(mockApplication.getDeveloperCompanyTaxIdentifier())
+                .setDeveloperCompanyTaxIdentifier(
+                    mockApplication.getDeveloperCompanyTaxIdentifier(),
+                    mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode())
                 .setMainContact(mockMainContactBuilder).setName(mockApplication.getName())
                 .setVersion(mockApplication.getVersion()).setWebsiteAddress(mockApplication.getWebsiteAddress())
                 .setSoftwareCertificationNumber(mockApplication.getSoftwareCertificationNumber())
@@ -69,6 +71,8 @@ public class TestPTApplicationBuilder extends PTAbstractTest {
         Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
         Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
                 application.getDeveloperCompanyTaxIdentifier());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode(),
+                application.getDeveloperCompanyTaxIdentifierISOCountryCode());
         Assertions.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
         Assertions.assertEquals(mockApplication.getSoftwareCertificationNumber(),
                 application.getSoftwareCertificationNumber());

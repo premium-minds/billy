@@ -21,4 +21,5 @@ name : name
 version : 0
 developerCompanyName : company_name
 developerCompanyTaxIdentifier : company_tax_id
+developerCompanyTaxIdentifierISOCountryCode : company_tax_id_country
 websiteAddress : website.web

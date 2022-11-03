@@ -93,11 +93,11 @@ public class GenericTest {
                 .setBillingAddress(addressBuilder2.setBuilding("building").setCity("city").setDetails("details")
                         .setISOCountry("PT").setNumber("number").setPostalCode("2345").setRegion("region")
                         .setStreetName("street"))
-                .addApplication(applicationBuilder.setDeveloperCompanyName("name")
-                        .setDeveloperCompanyTaxIdentifier("taxid").setName("application name")
+                .addApplication(applicationBuilder.setDeveloperCompanyName("name").setName("application name")
+                        .setDeveloperCompanyTaxIdentifier("taxid","country")
                         .setVersion("1.0").addContact(contactBuilder2.setName("name").setEmail("email").setFax("fax")
                                 .setMobile("mobile").setTelephone("phone").setWebsite("website")))
-                .setFinancialID("financial id", null);
+                .setFinancialID("financial id", "country");
 
         GenericTest.injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
 

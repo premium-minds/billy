@@ -172,7 +172,7 @@ public class InvoiceIT {
 
         PTApplication.Builder applicationBuilder = billyPortugal.applications().builder();
         applicationBuilder.setDeveloperCompanyName("Developer Company Name")
-                .setDeveloperCompanyTaxIdentifier("1000000001")
+                .setDeveloperCompanyTaxIdentifier("1000000001", "PT")
                 .setSoftwareCertificationNumber(SOFTWARE_CERTIFICATION)
                 .setName("Billy")
                 .setVersion("1.0")

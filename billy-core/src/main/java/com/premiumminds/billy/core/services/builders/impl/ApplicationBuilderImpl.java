@@ -66,9 +66,11 @@ public class ApplicationBuilderImpl<TBuilder extends ApplicationBuilderImpl<TBui
     }
 
     @Override
-    public TBuilder setDeveloperCompanyTaxIdentifier(String id) {
+    public TBuilder setDeveloperCompanyTaxIdentifier(String id, String isoCountryCode) {
         BillyValidator.notBlank(id, ApplicationBuilderImpl.LOCALIZER.getString("field.developer_tax_id"));
         this.getTypeInstance().setDeveloperCompanyTaxIdentifier(id);
+        BillyValidator.notBlank(isoCountryCode, ApplicationBuilderImpl.LOCALIZER.getString("field.developer_tax_id_iso_country_code"));
+        this.getTypeInstance().setDeveloperCompanyTaxIdentifierISOCountryCode(isoCountryCode);
         return this.getBuilder();
     }
 

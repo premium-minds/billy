@@ -71,7 +71,7 @@ public class TestESBusinessBuilder extends ESAbstractTest {
         ESAddress.Builder mockBillingAddressBuilder = this.getMock(ESAddress.Builder.class);
         Mockito.when(mockBillingAddressBuilder.build()).thenReturn((ESAddressEntity) mockBusiness.getBillingAddress());
 
-        builder.setFinancialID(mockBusiness.getFinancialID(), ESAbstractTest.ES_COUNTRY_CODE)
+        builder.setFinancialID(mockBusiness.getFinancialID(), mockBusiness.getFinancialIdISOCountryCode())
                 .setName(mockBusiness.getName()).setAddress(mockAddressBuilder)
                 .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
                 .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
@@ -84,6 +84,7 @@ public class TestESBusinessBuilder extends ESAbstractTest {
         Assertions.assertTrue(business != null);
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
+        Assertions.assertEquals(mockBusiness.getFinancialIdISOCountryCode(), mockBusiness.getFinancialIdISOCountryCode());
         Assertions.assertEquals(mockBusiness.getName(), business.getName());
         Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
         Assertions.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());

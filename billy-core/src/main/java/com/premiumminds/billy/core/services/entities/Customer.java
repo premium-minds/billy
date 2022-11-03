@@ -47,6 +47,8 @@ public interface Customer extends Entity {
 
     public String getTaxRegistrationNumber();
 
+    public String getTaxRegistrationNumberISOCountryCode();
+
     public <T extends Address> Collection<T> getAddresses();
 
     public <T extends Address> T getMainAddress();

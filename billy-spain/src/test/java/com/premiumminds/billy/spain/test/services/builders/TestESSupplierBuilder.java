@@ -69,7 +69,7 @@ public class TestESSupplierBuilder extends ESAbstractTest {
                 .setBillingAddress(mockBillingAddressBuilder).setMainAddress(mockMainAddressBuilder)
                 .setMainContact(mockMainContactBuilder).setName(mockSupplier.getName())
                 .setSelfBillingAgreement(mockSupplier.hasSelfBillingAgreement())
-                .setTaxRegistrationNumber(mockSupplier.getTaxRegistrationNumber(), ESAbstractTest.ES_COUNTRY_CODE)
+                .setTaxRegistrationNumber(mockSupplier.getTaxRegistrationNumber(), mockSupplier.getTaxRegistrationNumberISOCountryCode())
                 .setShippingAddress(mockShippingAddressBuilder);
 
         ESSupplier supplier = builder.build();
@@ -77,6 +77,7 @@ public class TestESSupplierBuilder extends ESAbstractTest {
         Assertions.assertTrue(supplier != null);
         Assertions.assertEquals(mockSupplier.getName(), supplier.getName());
         Assertions.assertEquals(mockSupplier.getTaxRegistrationNumber(), supplier.getTaxRegistrationNumber());
+        Assertions.assertEquals(mockSupplier.getTaxRegistrationNumberISOCountryCode(), supplier.getTaxRegistrationNumberISOCountryCode());
         Assertions.assertEquals(mockSupplier.getMainAddress(), supplier.getMainAddress());
         Assertions.assertEquals(mockSupplier.getBankAccounts().size(), mockSupplier.getBankAccounts().size());
     }

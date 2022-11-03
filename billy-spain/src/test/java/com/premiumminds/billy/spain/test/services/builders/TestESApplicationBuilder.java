@@ -55,7 +55,9 @@ public class TestESApplicationBuilder extends ESAbstractTest {
 
         builder.addContact(mockContactBuilder).addContact(mockMainContactBuilder)
                 .setDeveloperCompanyName(mockApplication.getDeveloperCompanyName())
-                .setDeveloperCompanyTaxIdentifier(mockApplication.getDeveloperCompanyTaxIdentifier())
+                .setDeveloperCompanyTaxIdentifier(
+                    mockApplication.getDeveloperCompanyTaxIdentifier(),
+                    mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode())
                 .setMainContact(mockMainContactBuilder).setName(mockApplication.getName())
                 .setVersion(mockApplication.getVersion()).setWebsiteAddress(mockApplication.getWebsiteAddress());
 
@@ -67,6 +69,8 @@ public class TestESApplicationBuilder extends ESAbstractTest {
         Assertions.assertEquals(mockApplication.getDeveloperCompanyName(), application.getDeveloperCompanyName());
         Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifier(),
                 application.getDeveloperCompanyTaxIdentifier());
+        Assertions.assertEquals(mockApplication.getDeveloperCompanyTaxIdentifierISOCountryCode(),
+                application.getDeveloperCompanyTaxIdentifierISOCountryCode());
         Assertions.assertEquals(mockApplication.getWebsiteAddress(), application.getWebsiteAddress());
         Assertions.assertNotNull(application.getContacts());
         Assertions.assertNotNull(application.getMainContact());

@@ -20,6 +20,7 @@
 uid : uid
 name : name
 taxRegistrationNumber : taxRegistrationNumber
+taxRegistrationNumberCountry : taxRegistrationNumberCountry
 mainAddress : !!com.premiumminds.billy.core.test.fixtures.MockAddressEntity
   streetName : street_name
   number : number
@@ -55,7 +56,7 @@ mainContact : !!com.premiumminds.billy.core.test.fixtures.MockContactEntity
   email : email_main
   website : website_main
 selfBillingAgreement : false
-bankAccounts : 
+bankAccounts :
   - !!com.premiumminds.billy.core.test.fixtures.MockBankAccountEntity
     iban : iban_1
     bankId : bank_id_1

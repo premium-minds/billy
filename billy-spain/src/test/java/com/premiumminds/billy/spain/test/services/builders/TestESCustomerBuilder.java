@@ -75,7 +75,7 @@ public class TestESCustomerBuilder extends ESAbstractTest {
                 .setBillingAddress(mockBillingAddressBuilder)
                 .setHasSelfBillingAgreement(mockCustomer.hasSelfBillingAgreement()).setName(mockCustomer.getName())
                 .setShippingAddress(mockShippingAddressBuilder)
-                .setTaxRegistrationNumber(mockCustomer.getTaxRegistrationNumber(), ESAbstractTest.ES_COUNTRY_CODE)
+                .setTaxRegistrationNumber(mockCustomer.getTaxRegistrationNumber(), mockCustomer.getTaxRegistrationNumberISOCountryCode())
                 .setMainContactUID(mockCustomer.getMainContact().getUID());
 
         Customer customer = builder.build();
@@ -84,6 +84,7 @@ public class TestESCustomerBuilder extends ESAbstractTest {
 
         Assertions.assertEquals(mockCustomer.getName(), customer.getName());
         Assertions.assertEquals(mockCustomer.getTaxRegistrationNumber(), customer.getTaxRegistrationNumber());
+        Assertions.assertEquals(mockCustomer.getTaxRegistrationNumberISOCountryCode(), mockCustomer.getTaxRegistrationNumberISOCountryCode());
         Assertions.assertEquals(mockCustomer.getMainAddress(), customer.getMainAddress());
         Assertions.assertEquals(mockCustomer.getShippingAddress(), customer.getShippingAddress());
         Assertions.assertEquals(mockCustomer.hasSelfBillingAgreement(), customer.hasSelfBillingAgreement());

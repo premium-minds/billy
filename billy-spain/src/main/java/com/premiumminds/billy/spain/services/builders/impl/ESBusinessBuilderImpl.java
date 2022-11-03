@@ -49,14 +49,17 @@ public class ESBusinessBuilderImpl<TBuilder extends ESBusinessBuilderImpl<TBuild
 
     @Override
     @NotOnUpdate
-    public TBuilder setFinancialID(String id, String countryCode) throws InvalidTaxIdentificationNumberException {
+    public TBuilder setFinancialID(String id, String isoCountryCode) throws InvalidTaxIdentificationNumberException {
         BillyValidator.notBlank(id, BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
         ESFinancialValidator validator = new ESFinancialValidator(id);
 
-        if (ESFinancialValidator.ES_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
+        BillyValidator.notBlank(isoCountryCode, BusinessBuilderImpl.LOCALIZER.getString("field.financial_id_iso_country_code"));
+
+        if (ESFinancialValidator.ES_COUNTRY_CODE.equals(isoCountryCode) && !validator.isValid()) {
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setFinancialID(id);
+        this.getTypeInstance().setFinancialIdISOCountryCode(isoCountryCode);
         return this.getBuilder();
     }
 

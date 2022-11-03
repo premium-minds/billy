@@ -87,6 +87,9 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     @Column(name = "TAX_ID")
     protected String taxRegistrationNumber;
 
+    @Column(name = "TAX_ID_COUNTRY")
+    protected String taxRegistrationNumberISOCountryCode;
+
     @Column(name = "SELF_BILLING_AGREEMENT")
     protected Boolean selfBillingAgreement;
 
@@ -104,6 +107,11 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     @Override
     public String getTaxRegistrationNumber() {
         return this.taxRegistrationNumber;
+    }
+
+    @Override
+    public String getTaxRegistrationNumberISOCountryCode() {
+        return this.taxRegistrationNumberISOCountryCode;
     }
 
     @Override
@@ -144,6 +152,11 @@ public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
     @Override
     public void setTaxRegistrationNumber(String number) {
         this.taxRegistrationNumber = number;
+    }
+
+    @Override
+    public void setTaxRegistrationNumberISOCountryCode(final String isoCountryCode) {
+        this.taxRegistrationNumberISOCountryCode = isoCountryCode;
     }
 
     @Override

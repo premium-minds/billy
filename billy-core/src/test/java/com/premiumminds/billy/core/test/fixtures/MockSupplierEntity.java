@@ -34,6 +34,7 @@ public class MockSupplierEntity extends MockBaseEntity implements SupplierEntity
 
     public String name;
     public String taxRegistrationNumber;
+    public String taxRegistrationNumberCountry;
     public Address mainAddress;
     public Address billingAddress;
     public Address shippingAddress;
@@ -57,6 +58,11 @@ public class MockSupplierEntity extends MockBaseEntity implements SupplierEntity
     @Override
     public String getTaxRegistrationNumber() {
         return this.taxRegistrationNumber;
+    }
+
+    @Override
+    public String getTaxRegistrationNumberISOCountryCode() {
+        return this.taxRegistrationNumberCountry;
     }
 
     @Override
@@ -92,6 +98,11 @@ public class MockSupplierEntity extends MockBaseEntity implements SupplierEntity
     @Override
     public void setTaxRegistrationNumber(String number) {
         this.taxRegistrationNumber = number;
+    }
+
+    @Override
+    public void setTaxRegistrationNumberISOCountryCode(final String isoCountryCode) {
+        this.taxRegistrationNumberCountry = isoCountryCode;
     }
 
     @Override

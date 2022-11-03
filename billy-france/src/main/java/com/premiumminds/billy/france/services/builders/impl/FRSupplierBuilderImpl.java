@@ -56,6 +56,7 @@ public class FRSupplierBuilderImpl<TBuilder extends FRSupplierBuilderImpl<TBuild
     public TBuilder setTaxRegistrationNumber(String number, String countryCode)
             throws InvalidTaxIdentificationNumberException {
         BillyValidator.mandatory(number, FRSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
+        BillyValidator.mandatory(number, FRSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number_iso_country_code"));
 
         FRFinancialValidator validator = new FRFinancialValidator(number);
 
@@ -63,6 +64,7 @@ public class FRSupplierBuilderImpl<TBuilder extends FRSupplierBuilderImpl<TBuild
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setTaxRegistrationNumber(number);
+        this.getTypeInstance().setTaxRegistrationNumberISOCountryCode(countryCode);
         return this.getBuilder();
     }
 

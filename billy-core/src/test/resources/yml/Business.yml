@@ -22,6 +22,7 @@ operationalContext : !!com.premiumminds.billy.core.test.fixtures.MockContextEnti
   name : opContext_name
   description : opContext_description
 taxId : tax_id
+taxIdCountry: tax_id_country
 name : name
 commercialName : commercial_name
 address : !!com.premiumminds.billy.core.test.fixtures.MockAddressEntity
