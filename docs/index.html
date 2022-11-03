@@ -73,7 +73,7 @@
 <pre><code class="xml">&lt;dependency&gt;
     &lt;groupId&gt;com.premiumminds&lt;/groupId&gt;
     &lt;artifactId&gt;billy-portugal&lt;/artifactId&gt;
-    &lt;version&gt;6.0.1&lt;/version&gt;
+    &lt;version&gt;7.0.0&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
                 Check out <a href="https://oss.sonatype.org/index.html#nexus-search;quick~billy">sonatype repository</a> for latest snapshots and releases.
                 </p>
@@ -130,7 +130,7 @@
                 <pre><code class="java">PTApplication.Builder applicationBuilder = billyPortugal.applications().builder();</code></pre>
                 Populate it with the application's information:
 <pre><code class="java">applicationBuilder.setDeveloperCompanyName("Premium Minds")
-    .setDeveloperCompanyTaxIdentifier("12345789")
+    .setDeveloperCompanyTaxIdentifier("12345789","PT")
     .setSoftwareCertificationNumber(123)
     .setName("Billy")
     .setVersion("1.0")
