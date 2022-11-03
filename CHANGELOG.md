@@ -6,6 +6,7 @@
 ### Changed
 
  - [Bump pdfbox from 2.0.26 to 2.0.27](https://github.com/premium-minds/billy/pull/348)
+ - [Bump zxing.version from 3.5.0 to 3.5.1](https://github.com/premium-minds/billy/pull/352)
  - [Bump slf4j-api from 2.0.2 to 2.0.3](https://github.com/premium-minds/billy/pull/346)
  - [Bump hibernate.version from 5.6.11.Final to 5.6.12.Final](https://github.com/premium-minds/billy/pull/345)
  - [Bump snakeyaml from 1.32 to 1.33](https://github.com/premium-minds/billy/pull/344)
