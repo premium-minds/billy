@@ -3,6 +3,10 @@
 
 ## [Unreleased v6]
 
+### Added
+
+ - [Add fiscal country column to tables with tax_ids](https://github.com/premium-minds/billy/pull/351)
+
 ### Changed
 
  - [Bump pdfbox from 2.0.26 to 2.0.27](https://github.com/premium-minds/billy/pull/348)
@@ -13,7 +17,7 @@
  - [Bump mockito-core from 4.8.0 to 4.8.1](https://github.com/premium-minds/billy/pull/350)
  - [Bump spotless-maven-plugin from 2.27.0 to 2.27.1](https://github.com/premium-minds/billy/pull/347)
  - [Bump spotless-maven-plugin from 2.27.1 to 2.27.2](https://github.com/premium-minds/billy/pull/349)
-
+ 
 ## [6.0.1] 2022-09-22
 
 ### Changed
