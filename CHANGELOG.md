@@ -1,7 +1,9 @@
 <!-- https://keepachangelog.com/en/1.0.0/ -->
 # Changelog
 
-## [Unreleased v6]
+## [Unreleased v7]
+
+## [7.0.0] 2022-11-03
 
 ### Added
 
@@ -18,6 +20,8 @@
  - [Bump spotless-maven-plugin from 2.27.0 to 2.27.1](https://github.com/premium-minds/billy/pull/347)
  - [Bump spotless-maven-plugin from 2.27.1 to 2.27.2](https://github.com/premium-minds/billy/pull/349)
  
+## [Unreleased v6] 
+
 ## [6.0.1] 2022-09-22
 
 ### Changed
@@ -385,10 +389,12 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v6]: https://github.com/premium-minds/billy/compare/v6.0.1...HEAD
+[unreleased v7]: https://github.com/premium-minds/billy/compare/v7.0.0...HEAD
+[unreleased v6]: https://github.com/premium-minds/billy/compare/v6.0.1...release-6.x
 [unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.2...release-5.x
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[7.0.0]: https://github.com/premium-minds/billy/compare/release-6.x...v7.0.0
 [6.0.1]: https://github.com/premium-minds/billy/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/premium-minds/billy/compare/release-5.x...v6.0.0
 [5.4.2]: https://github.com/premium-minds/billy/compare/v5.4.1...v5.4.2
