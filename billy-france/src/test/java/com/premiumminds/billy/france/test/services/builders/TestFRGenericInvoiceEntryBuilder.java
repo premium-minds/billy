@@ -18,13 +18,6 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRGenericInvoice;
@@ -37,6 +30,10 @@ import com.premiumminds.billy.france.services.entities.FRRegionContext;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.fixtures.MockFRGenericInvoiceEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRGenericInvoiceEntryEntity;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestFRGenericInvoiceEntryBuilder extends FRAbstractTest {
 
@@ -57,9 +54,9 @@ public class TestFRGenericInvoiceEntryBuilder extends FRAbstractTest {
         MockFRGenericInvoiceEntity mockInvoice = this.createMockEntity(MockFRGenericInvoiceEntity.class,
                 TestFRGenericInvoiceEntryBuilder.FR_GENERIC_INVOICE_YML);
 
-        Mockito.when(this.getInstance(DAOFRGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOFRGenericInvoice.class).get(Mockito.any())).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOFRProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRProduct.class).get(Mockito.any()))
                 .thenReturn((FRProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOFRRegionContext.class).isSameOrSubContext(Mockito.any(),

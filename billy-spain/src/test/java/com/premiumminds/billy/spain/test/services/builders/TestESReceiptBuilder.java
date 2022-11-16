@@ -18,14 +18,6 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import java.util.Currency;
-import java.util.List;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESPayment;
@@ -39,6 +31,11 @@ import com.premiumminds.billy.spain.test.fixtures.MockESCustomerEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESPaymentEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESReceiptEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESReceiptEntryEntity;
+import java.util.Currency;
+import java.util.List;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESReceiptBuilder extends ESAbstractTest {
 
@@ -56,14 +53,14 @@ public class TestESReceiptBuilder extends ESAbstractTest {
         MockESCustomerEntity mockCustomer =
                 this.createMockEntity(MockESCustomerEntity.class, TestESReceiptBuilder.ES_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomer);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any())).thenReturn(mockCustomer);
 
         Mockito.when(this.getInstance(DAOESReceipt.class).getEntityInstance()).thenReturn(new MockESReceiptEntity());
 
         MockESReceiptEntryEntity mockEntry =
                 this.createMockEntity(MockESReceiptEntryEntity.class, TestESReceiptBuilder.ES_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESReceiptEntry.class).get(Mockito.any(UID.class))).thenReturn(mockEntry);
+        Mockito.when(this.getInstance(DAOESReceiptEntry.class).get(Mockito.any())).thenReturn(mockEntry);
 
         @SuppressWarnings("unchecked")
         List<ESReceiptEntry> entries = (List<ESReceiptEntry>) (List<?>) mock.getEntries();

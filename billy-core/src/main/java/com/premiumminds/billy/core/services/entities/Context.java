@@ -35,7 +35,7 @@ import com.premiumminds.billy.core.services.builders.impl.ContextBuilderImpl;
  *         defined context over which it is valid. An example would be a tax for
  *         Portugal which is only applied in a Portuguese context.
  */
-public interface Context extends Entity {
+public interface Context extends Entity<Context> {
 
     public static class Builder extends ContextBuilderImpl<Builder, Context> {
 

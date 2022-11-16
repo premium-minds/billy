@@ -18,14 +18,15 @@
  */
 package com.premiumminds.billy.france.persistence.dao;
 
-import java.util.List;
-
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRCreditReceiptEntity;
 import com.premiumminds.billy.france.services.entities.FRCreditReceipt;
+import java.util.List;
 
 public interface DAOFRCreditReceipt extends AbstractDAOFRGenericInvoice<FRCreditReceiptEntity> {
 
-    public List<FRCreditReceipt> findByReferencedDocument(UID uidCompany, UID uidInvoice);
+    List<FRCreditReceipt> findByReferencedDocument(StringID<Business> uidCompany, StringID<GenericInvoice> uidInvoice);
 
 }

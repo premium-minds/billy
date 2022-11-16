@@ -18,9 +18,11 @@
  */
 package com.premiumminds.billy.spain.services.builders;
 
+import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 
-public interface ESInvoiceEntryBuilder<TBuilder extends ESInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends ESInvoiceEntry>
-        extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface ESInvoiceEntryBuilder<TBuilder extends ESInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends ESInvoiceEntry, TInvoice extends ESInvoiceEntity>
+    extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
 }

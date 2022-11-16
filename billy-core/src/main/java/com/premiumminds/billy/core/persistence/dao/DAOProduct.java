@@ -18,11 +18,12 @@
  */
 package com.premiumminds.billy.core.persistence.dao;
 
+import com.premiumminds.billy.core.services.entities.Product;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 
-public interface DAOProduct extends DAO<ProductEntity> {
+public interface DAOProduct extends DAO<Product, ProductEntity> {
 
     List<ProductEntity> getAllActiveProducts();
 

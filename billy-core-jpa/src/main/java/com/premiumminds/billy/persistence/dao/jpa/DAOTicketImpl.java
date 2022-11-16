@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.querydsl.jpa.impl.JPAQuery;
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -28,10 +31,9 @@ import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.persistence.entities.jpa.JPATicketEntity;
 import com.premiumminds.billy.persistence.entities.jpa.QJPATicketEntity;
-import com.premiumminds.billy.core.services.UID;
 
 @Deprecated
-public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity> implements DAOTicket {
+public class DAOTicketImpl extends AbstractDAO<Ticket, TicketEntity, JPATicketEntity> implements DAOTicket {
 
     @Inject
     public DAOTicketImpl(Provider<EntityManager> emProvider) {
@@ -49,12 +51,12 @@ public class DAOTicketImpl extends AbstractDAO<TicketEntity, JPATicketEntity> im
     }
 
     @Override
-    public UID getObjectEntityUID(String ticketUID) throws NoResultException {
+    public StringID<GenericInvoice> getObjectEntityUID(StringID<Ticket> ticketUID) throws NoResultException {
         QJPATicketEntity ticket = QJPATicketEntity.jPATicketEntity;
 
         TicketEntity ticketEntity = new JPAQuery<>(this.getEntityManager())
             .from(ticket)
-            .where(ticket.uid.eq(ticketUID))
+            .where(ticket.uid.eq(ticketUID.getIdentifier()))
             .select(ticket)
             .fetchOne();
 

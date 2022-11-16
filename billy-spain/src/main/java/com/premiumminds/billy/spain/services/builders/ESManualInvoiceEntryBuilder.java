@@ -18,12 +18,14 @@
  */
 package com.premiumminds.billy.spain.services.builders;
 
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import java.math.BigDecimal;
 
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
-public interface ESManualInvoiceEntryBuilder<TBuilder extends ESManualInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-        extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface ESManualInvoiceEntryBuilder<TBuilder extends ESManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends ESGenericInvoiceEntry, TInvoice extends ESGenericInvoiceEntity>
+    extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     public TBuilder setUnitTaxAmount(BigDecimal taxAmount);
 

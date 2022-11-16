@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.spain.persistence.entities;
 
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
-import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
 public interface ESCreditNoteEntryEntity extends ESGenericInvoiceEntryEntity, ESCreditNoteEntry {
 
-    public void setReference(ESInvoice reference);
+    public void setReference(GenericInvoiceEntity reference);
 
     public void setReason(String reason);
 }

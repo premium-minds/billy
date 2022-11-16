@@ -18,26 +18,25 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.persistence.entities.TicketEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Date;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.envers.Audited;
-
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.TicketEntity;
-import com.premiumminds.billy.core.services.UID;
 
 @Deprecated
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TICKET")
-public class JPATicketEntity extends JPABaseEntity implements TicketEntity {
+public class JPATicketEntity extends JPABaseEntity<Ticket> implements TicketEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,8 +55,8 @@ public class JPATicketEntity extends JPABaseEntity implements TicketEntity {
     protected Date processDate;
 
     @Override
-    public UID getObjectUID() {
-        return new UID(this.objectUID);
+    public StringID<GenericInvoice> getObjectUID() {
+        return StringID.fromValue(this.objectUID);
     }
 
     @Override
@@ -71,8 +70,8 @@ public class JPATicketEntity extends JPABaseEntity implements TicketEntity {
     }
 
     @Override
-    public void setObjectUID(UID objectUID) {
-        this.objectUID = objectUID.getValue();
+    public void setObjectUID(StringID<GenericInvoice> objectUID) {
+        this.objectUID = objectUID.getIdentifier();
     }
 
     @Override

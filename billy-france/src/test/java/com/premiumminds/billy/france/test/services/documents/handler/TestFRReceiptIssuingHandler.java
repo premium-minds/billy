@@ -19,24 +19,24 @@
 package com.premiumminds.billy.france.test.services.documents.handler;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.documents.FRReceiptIssuingHandler;
 import com.premiumminds.billy.france.services.entities.FRReceipt;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 import com.premiumminds.billy.france.test.services.documents.FRDocumentAbstractTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestFRReceiptIssuingHandler extends FRDocumentAbstractTest {
 
     private FRReceiptIssuingHandler handler;
-    private UID issuedReceiptUID;
+    private StringID<GenericInvoice> issuedReceiptUID;
 
     private String DEFAULT_SERIES = INVOICE_TYPE.RC + " " + FRPersistencyAbstractTest.DEFAULT_SERIES;
 

@@ -18,20 +18,17 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
 import com.premiumminds.billy.spain.services.entities.ESProduct;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.fixtures.MockESProductEntity;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESProductBuilder extends ESAbstractTest {
 
@@ -47,7 +44,7 @@ public class TestESProductBuilder extends ESAbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOESTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOESTax.class).get(Mockito.any())).thenReturn(tax);
         }
 
         ESProduct.Builder builder = this.getInstance(ESProduct.Builder.class);

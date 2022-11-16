@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.france;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.france.services.entities.FRRegionContext.Builder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -29,9 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.france.persistence.dao.DAOFRAddress;
 import com.premiumminds.billy.france.persistence.dao.DAOFRContact;
@@ -73,7 +74,7 @@ public class FranceBootstrap {
     }
 
     public static void execute(final Injector dependencyInjector) {
-        DAO<?> dao = dependencyInjector.getInstance(DAOFRInvoice.class);
+        DAOFRInvoice dao = dependencyInjector.getInstance(DAOFRInvoice.class);
         final Config configuration = new Config();
 
         try {
@@ -215,7 +216,7 @@ public class FranceBootstrap {
                                     Currency.getInstance("EUR"), "IVA Superreducido", "IVA", Tax.TaxRateType.PERCENTAGE,
                                     from, to, Config.Key.Context.France.Continental.VAT.REDUCED_PERCENT,
                                     Config.Key.Context.France.Continental.VAT.REDUCED_UUID);
-                    
+
                     final FRTaxEntity VAT_SUPER_REDUCED_CONTINENTAL_FRANCE =
                             this.buildTaxEntity(daoFRTax, taxBuilder, FRVATCode.SUPER_REDUCED, CONTEXT_CONTINENTAL_FRANCE,
                                     Currency.getInstance("EUR"), "IVA Superreducido", "IVA", Tax.TaxRateType.PERCENTAGE,
@@ -251,8 +252,8 @@ public class FranceBootstrap {
                 }
 
                 private FRRegionContextEntity buildContextEntity(DAOFRRegionContext daoFRRegionContext,
-                        FRRegionContext.Builder contextBuilder, String name, String description, UID parentUID,
-                        String key) {
+                                                                 Builder contextBuilder, String name, String description, StringID<Context> parentUID,
+                                                                 String key) {
 
                     contextBuilder.clear();
 

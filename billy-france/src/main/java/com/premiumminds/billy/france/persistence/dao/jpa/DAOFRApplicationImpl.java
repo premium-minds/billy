@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.persistence.dao.jpa.DAOApplicationImpl;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.france.persistence.dao.DAOFRApplication;
 import com.premiumminds.billy.france.persistence.entities.FRApplicationEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRApplicationEntity;
@@ -47,7 +48,7 @@ public class DAOFRApplicationImpl extends DAOApplicationImpl implements DAOFRApp
     }
 
     @Override
-    public FRApplicationEntity get(UID uid) throws NoResultException {
+    public FRApplicationEntity get(StringID<Application> uid) throws NoResultException {
         return (FRApplicationEntity) super.get(uid);
     }
 

@@ -33,7 +33,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
  *         The Billy services entity for a customer. A customer is someone for
  *         which a {@link GenericInvoice} is issued.
  */
-public interface Customer extends Entity {
+public interface Customer extends Entity<Customer> {
 
     public static class Builder extends CustomerBuilderImpl<Builder, Customer> {
 

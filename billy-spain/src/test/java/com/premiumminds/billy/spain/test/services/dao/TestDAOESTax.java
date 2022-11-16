@@ -18,34 +18,33 @@
  */
 package com.premiumminds.billy.spain.test.services.dao;
 
-import java.util.Date;
-
-import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.BillySpain;
-import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
-import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
-import com.premiumminds.billy.spain.services.entities.ESTax;
-import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.premiumminds.billy.core.persistence.entities.TaxEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.spain.BillySpain;
+import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
+import com.premiumminds.billy.spain.persistence.entities.ESRegionContextEntity;
+import com.premiumminds.billy.spain.services.entities.ESTax;
+import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
+import java.util.Date;
+import org.junit.jupiter.api.Test;
+
 public class TestDAOESTax extends ESPersistencyAbstractTest {
 
     @Test
     public void testGetTaxes() {
-
         final BillySpain billy = this.getInstance(BillySpain.class);
         final ESRegionContextEntity context = (ESRegionContextEntity)billy.contexts().continent().barcelona();
 
         final DAOESTax daoTax = this.getInstance(DAOESTax.class);
 
-        final UID taxUID = billy.taxes().continent().normal().getUID();
+        final StringID<Tax> taxUID = billy.taxes().continent().normal().getUID();
 
         final TaxEntity tax = assertDoesNotThrow(() -> daoTax.get(taxUID));
         assertNotNull(tax);

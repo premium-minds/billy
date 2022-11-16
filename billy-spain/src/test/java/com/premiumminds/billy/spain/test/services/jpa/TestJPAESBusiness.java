@@ -18,20 +18,18 @@
  */
 package com.premiumminds.billy.spain.test.services.jpa;
 
-import java.util.concurrent.Callable;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.util.ConcurrentTestUtil;
 import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
+import java.util.concurrent.Callable;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestJPAESBusiness extends ESJPAAbstractTest {
 
@@ -78,6 +76,6 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
         test.runThreads(new TestRunner(ESAbstractTest.injector));
 
         DAOESBusiness biz = ESAbstractTest.injector.getInstance(DAOESBusiness.class);
-        Assertions.assertTrue(biz.exists(new UID(TestJPAESBusiness.BUSINESS_UID)));
+        Assertions.assertTrue(biz.exists(StringID.fromValue(TestJPAESBusiness.BUSINESS_UID)));
     }
 }

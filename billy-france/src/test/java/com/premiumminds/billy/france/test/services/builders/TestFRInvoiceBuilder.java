@@ -18,14 +18,6 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
-import java.util.ArrayList;
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
@@ -39,6 +31,11 @@ import com.premiumminds.billy.france.test.fixtures.MockFRCustomerEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRInvoiceEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRInvoiceEntryEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRPaymentEntity;
+import java.util.ArrayList;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestFRInvoiceBuilder extends FRAbstractTest {
 
@@ -57,14 +54,14 @@ public class TestFRInvoiceBuilder extends FRAbstractTest {
         MockFRCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockFRCustomerEntity.class, TestFRInvoiceBuilder.FRCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOFRInvoice.class).getEntityInstance()).thenReturn(new MockFRInvoiceEntity());
 
         MockFRInvoiceEntryEntity entryMock =
                 this.createMockEntity(MockFRInvoiceEntryEntity.class, TestFRInvoiceBuilder.FR_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOFRInvoiceEntry.class).get(Mockito.any())).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

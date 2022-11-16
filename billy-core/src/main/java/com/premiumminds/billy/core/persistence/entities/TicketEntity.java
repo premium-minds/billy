@@ -18,17 +18,18 @@
  */
 package com.premiumminds.billy.core.persistence.entities;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Date;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Ticket;
 
 @Deprecated
-public interface TicketEntity extends BaseEntity, Ticket {
+public interface TicketEntity extends Ticket {
 
-    public void setObjectUID(UID objectUID);
+    void setObjectUID(StringID<GenericInvoice> objectUID);
 
-    public void setCreationDate(Date creationDate);
+    void setCreationDate(Date creationDate);
 
-    public void setProcessDate(Date processDate);
+    void setProcessDate(Date processDate);
 }

@@ -18,15 +18,15 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
+import com.premiumminds.billy.core.persistence.dao.DAOPayment;
+import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
+import com.premiumminds.billy.core.services.entities.Payment;
+import com.premiumminds.billy.persistence.entities.jpa.JPAPaymentEntity;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.dao.DAOPayment;
-import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
-import com.premiumminds.billy.persistence.entities.jpa.JPAPaymentEntity;
-
-public class DAOPaymentImpl extends AbstractDAO<PaymentEntity, JPAPaymentEntity> implements DAOPayment {
+public class DAOPaymentImpl extends AbstractDAO<Payment, PaymentEntity, JPAPaymentEntity> implements DAOPayment {
 
     @Inject
     public DAOPaymentImpl(Provider<EntityManager> emProvider) {

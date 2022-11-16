@@ -18,19 +18,13 @@
  */
 package com.premiumminds.billy.portugal.test;
 
+import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
-import java.util.Optional;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
-import com.google.inject.Guice;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
@@ -42,8 +36,13 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 import com.premiumminds.billy.portugal.util.Services;
+import java.util.Optional;
+import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public class PTPersistencyAbstractTest extends PTAbstractTest {
 
@@ -63,7 +62,7 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
     }
 
     public PTInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice((new UID()).toString());
+        return this.getNewIssuedInvoice(UUID.randomUUID().toString());
 
     }
 

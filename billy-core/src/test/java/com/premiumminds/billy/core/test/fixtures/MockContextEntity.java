@@ -21,7 +21,7 @@ package com.premiumminds.billy.core.test.fixtures;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 
-public class MockContextEntity extends MockBaseEntity implements ContextEntity {
+public class MockContextEntity extends MockBaseEntity<Context> implements ContextEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -19,15 +19,16 @@
 package com.premiumminds.billy.spain.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
 
 public interface DAOESApplication extends DAOApplication {
 
     @Override
-    public ESApplicationEntity getEntityInstance();
+    ESApplicationEntity getEntityInstance();
 
     @Override
-    public ESApplicationEntity get(UID uid);
+    ESApplicationEntity get(StringID<Application> uid);
 
 }

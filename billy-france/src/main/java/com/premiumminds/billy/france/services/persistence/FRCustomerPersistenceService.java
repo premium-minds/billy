@@ -18,18 +18,18 @@
  */
 package com.premiumminds.billy.france.services.persistence;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
 import com.premiumminds.billy.france.persistence.entities.FRCustomerEntity;
 import com.premiumminds.billy.france.services.entities.FRCustomer;
+import com.premiumminds.billy.persistence.services.PersistenceService;
+import javax.inject.Inject;
 
-public class FRCustomerPersistenceService implements PersistenceService<FRCustomer> {
+public class FRCustomerPersistenceService implements PersistenceService<Customer, FRCustomer> {
 
     protected final DAOFRCustomer daoCustomer;
 
@@ -73,7 +73,7 @@ public class FRCustomerPersistenceService implements PersistenceService<FRCustom
     }
 
     @Override
-    public FRCustomer get(final UID uid) {
+    public FRCustomer get(final StringID<Customer> uid) {
         try {
             return new TransactionWrapper<FRCustomer>(this.daoCustomer) {
 

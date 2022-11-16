@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.france.services.persistence;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
@@ -25,7 +29,6 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.services.entities.FRInvoice;
@@ -57,7 +60,7 @@ public class FRInvoicePersistenceService {
         }
     }
 
-    public FRInvoice get(final UID uid) {
+    public FRInvoice get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<FRInvoice>(this.daoInvoice) {
 
@@ -73,14 +76,15 @@ public class FRInvoicePersistenceService {
     }
 
     @Deprecated
-    public FRInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
+    public FRInvoice getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {
             return new TransactionWrapper<FRInvoice>(this.daoInvoice) {
 
                 @Override
                 public FRInvoice runTransaction() throws Exception {
-                    UID objectUID = FRInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    StringID<GenericInvoice>
+                        objectUID = FRInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return FRInvoicePersistenceService.this.daoInvoice.get(objectUID);
                 }
 
@@ -92,7 +96,7 @@ public class FRInvoicePersistenceService {
         }
     }
 
-    public FRInvoice findByNumber(final UID uidBusiness, final String number) {
+    public FRInvoice findByNumber(final StringID<Business> uidBusiness, final String number) {
         try {
             return new TransactionWrapper<FRInvoice>(this.daoInvoice) {
 

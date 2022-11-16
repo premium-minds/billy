@@ -19,16 +19,17 @@
 package com.premiumminds.billy.core.services.builders;
 
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.core.services.entities.Context;
 
 public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBusiness>, TBusiness extends Business>
         extends Builder<TBusiness> {
 
-    public TBuilder setOperationalContextUID(UID contextUID);
+    public TBuilder setOperationalContextUID(StringID<Context> contextUID);
 
     public TBuilder setFinancialID(String id, String countyCode);
 
@@ -46,7 +47,7 @@ public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBus
 
     public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder, boolean isMainContact);
 
-    public TBuilder setMainContactUID(UID contactUID);
+    public TBuilder setMainContactUID(StringID<Contact> contactUID);
 
     public <T extends Application> TBuilder addApplication(Builder<T> applicationBuilder);
 

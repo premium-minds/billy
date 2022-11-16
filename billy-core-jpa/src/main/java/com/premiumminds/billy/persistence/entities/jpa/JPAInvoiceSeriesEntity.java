@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ import com.premiumminds.billy.core.services.entities.Business;
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE_SERIES",
         uniqueConstraints = @UniqueConstraint(columnNames = { "SERIES", "ID_BUSINESS" }))
-public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeriesEntity {
+public class JPAInvoiceSeriesEntity extends JPABaseEntity<InvoiceSeries> implements InvoiceSeriesEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,9 +18,16 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
+import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.BankAccount;
+import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.core.services.entities.Supplier;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,21 +36,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
 import org.hibernate.envers.Audited;
-
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.ContactEntity;
-import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
-import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.BankAccount;
-import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
-public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
+public class JPASupplierEntity extends JPABaseEntity<Supplier> implements SupplierEntity {
 
     private static final long serialVersionUID = 1L;
 

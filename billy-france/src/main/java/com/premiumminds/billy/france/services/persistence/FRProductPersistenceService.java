@@ -18,18 +18,19 @@
  */
 package com.premiumminds.billy.france.services.persistence;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Product;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.france.persistence.dao.DAOFRProduct;
 import com.premiumminds.billy.france.persistence.entities.FRProductEntity;
 import com.premiumminds.billy.france.services.entities.FRProduct;
 
-public class FRProductPersistenceService implements PersistenceService<FRProduct> {
+public class FRProductPersistenceService implements PersistenceService<Product, FRProduct> {
 
     protected final DAOFRProduct daoProduct;
 
@@ -73,7 +74,7 @@ public class FRProductPersistenceService implements PersistenceService<FRProduct
     }
 
     @Override
-    public FRProduct get(final UID uid) {
+    public FRProduct get(final StringID<Product> uid) {
         try {
             return new TransactionWrapper<FRProduct>(this.daoProduct) {
 
@@ -88,7 +89,7 @@ public class FRProductPersistenceService implements PersistenceService<FRProduct
         }
     }
 
-    public boolean exists(final UID uid) {
+    public boolean exists(final StringID<Product> uid) {
         return this.daoProduct.exists(uid);
     }
 

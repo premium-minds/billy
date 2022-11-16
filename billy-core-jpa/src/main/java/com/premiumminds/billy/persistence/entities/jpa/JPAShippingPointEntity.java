@@ -18,8 +18,12 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
+import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,18 +32,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.hibernate.envers.Audited;
-
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
-import com.premiumminds.billy.core.services.entities.Address;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
-public class JPAShippingPointEntity extends JPABaseEntity implements ShippingPointEntity {
+public class JPAShippingPointEntity extends JPABaseEntity<ShippingPoint> implements ShippingPointEntity {
 
     private static final long serialVersionUID = 1L;
 

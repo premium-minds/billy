@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.entities.Product;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,7 @@ import com.premiumminds.billy.core.services.entities.Tax;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
-public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
+public class JPAProductEntity extends JPABaseEntity<Product> implements ProductEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -19,7 +19,8 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
+import com.premiumminds.billy.core.services.entities.Tax;
 
-public interface DAOTax extends DAO<TaxEntity> {
+public interface DAOTax extends DAO<Tax, TaxEntity> {
 
 }

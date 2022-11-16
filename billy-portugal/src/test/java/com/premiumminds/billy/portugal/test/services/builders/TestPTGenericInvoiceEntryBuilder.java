@@ -18,13 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTGenericInvoice;
@@ -37,6 +30,10 @@ import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTGenericInvoiceEntryEntity;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
 
@@ -60,9 +57,9 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
         MockPTGenericInvoiceEntity mockInvoice = this.createMockEntity(MockPTGenericInvoiceEntity.class,
                 TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_YML);
 
-        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any())).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any()))
                 .thenReturn((PTProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),
@@ -109,9 +106,9 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
         MockPTGenericInvoiceEntity mockInvoice = this.createMockEntity(MockPTGenericInvoiceEntity.class,
         TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_WITHOUT_TAXES_YML);
 
-        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any())).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any()))
                 .thenReturn((PTProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),
@@ -160,9 +157,9 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
         MockPTGenericInvoiceEntity mockInvoice = this.createMockEntity(MockPTGenericInvoiceEntity.class,
                                                                        TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_YML);
 
-        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any())).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any()))
                .thenReturn((PTProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),
@@ -203,9 +200,9 @@ public class TestPTGenericInvoiceEntryBuilder extends PTAbstractTest {
         MockPTGenericInvoiceEntity mockInvoice = this.createMockEntity(MockPTGenericInvoiceEntity.class,
                                                                        TestPTGenericInvoiceEntryBuilder.PT_GENERIC_INVOICE_WITHOUT_TAXES_YML);
 
-        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOPTGenericInvoice.class).get(Mockito.any())).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any()))
                .thenReturn((PTProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),

@@ -21,7 +21,7 @@ package com.premiumminds.billy.core.persistence.entities;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 
-public interface InvoiceSeriesEntity extends BaseEntity, InvoiceSeries {
+public interface InvoiceSeriesEntity extends InvoiceSeries {
 
     void setSeries(String series);
 

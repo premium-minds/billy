@@ -18,17 +18,16 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.ContextBuilder;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import javax.inject.Inject;
 
 public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TContext>, TContext extends Context>
         extends AbstractBuilder<TBuilder, TContext> implements ContextBuilder<TBuilder, TContext> {
@@ -58,7 +57,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
     }
 
     @Override
-    public TBuilder setParentContextUID(UID parentUID) {
+    public TBuilder setParentContextUID(StringID<Context> parentUID) {
         if (parentUID == null) {
             this.getTypeInstance().setParentContext(null);
         } else {

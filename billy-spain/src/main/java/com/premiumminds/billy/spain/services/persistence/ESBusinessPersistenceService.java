@@ -18,18 +18,18 @@
  */
 package com.premiumminds.billy.spain.services.persistence;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.services.entities.ESBusiness;
+import javax.inject.Inject;
 
-public class ESBusinessPersistenceService implements PersistenceService<ESBusiness> {
+public class ESBusinessPersistenceService implements PersistenceService<Business, ESBusiness> {
 
     protected final DAOESBusiness daoBusiness;
 
@@ -73,7 +73,7 @@ public class ESBusinessPersistenceService implements PersistenceService<ESBusine
     }
 
     @Override
-    public ESBusiness get(final UID uid) {
+    public ESBusiness get(final StringID<Business> uid) {
         try {
             return new TransactionWrapper<ESBusiness>(this.daoBusiness) {
 

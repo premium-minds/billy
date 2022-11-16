@@ -18,17 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.services.dao;
 
-import java.util.List;
-
-import javax.persistence.NoResultException;
-
-import com.premiumminds.billy.spain.exceptions.BillySimpleInvoiceException;
-import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
@@ -37,6 +28,11 @@ import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
+import java.util.List;
+import java.util.UUID;
+import javax.persistence.NoResultException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class TestDAOESInvoice extends ESPersistencyAbstractTest {
 
@@ -78,7 +74,8 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
     public void testWithNoInvoice() {
         DAOESInvoice instance = this.getInstance(DAOESInvoice.class);
 
-        Assertions.assertThrows(BillyRuntimeException.class, () -> instance.getLatestInvoiceFromSeries("NON EXISTING SERIES", (new UID().toString())));
+        Assertions.assertThrows(BillyRuntimeException.class, () -> instance.getLatestInvoiceFromSeries("NON EXISTING SERIES", (UUID
+                .randomUUID().toString())));
     }
 
     @Test
@@ -90,8 +87,9 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
                 this.getInstance(DAOESInvoice.class).findByNumber(inv1.getBusiness().getUID(), inv1.getNumber());
 
         Assertions.assertEquals(inv1.getUID(), res.getUID());
-        Assertions.assertNull(this.getInstance(DAOESInvoice.class).findByNumber(UID.fromString("INEXISTENT_BUSINESS"),
-                inv1.getNumber()));
+        Assertions.assertNull(this.getInstance(DAOESInvoice.class).findByNumber(
+            StringID.fromValue("INEXISTENT_BUSINESS"),
+            inv1.getNumber()));
     }
 
     @Test
@@ -103,8 +101,8 @@ public class TestDAOESInvoice extends ESPersistencyAbstractTest {
         List<ESCreditNote> cn1 = this.getInstance(DAOESCreditNote.class)
                 .findByReferencedDocument(cc1.getBusiness().getUID(), inv1.getUID());
 
-        List<ESCreditNote> cn0 = this.getInstance(DAOESCreditNote.class).findByReferencedDocument(UID.fromString("B1"),
-                UID.fromString("INEXISTENT_CN"));
+        List<ESCreditNote> cn0 = this.getInstance(DAOESCreditNote.class).findByReferencedDocument(StringID.fromValue("B1"),
+                StringID.fromValue("INEXISTENT_CN"));
 
         Assertions.assertEquals(0, cn0.size());
         Assertions.assertEquals(1, cn1.size());

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.services.entities;
 
+import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
@@ -30,7 +31,7 @@ import com.premiumminds.billy.france.services.builders.impl.FRManualInvoiceEntry
 
 public interface FRInvoiceEntry extends FRGenericInvoiceEntry {
 
-    public static class Builder extends FRInvoiceEntryBuilderImpl<Builder, FRInvoiceEntry> {
+    class Builder extends FRInvoiceEntryBuilderImpl<Builder, FRInvoiceEntry, FRInvoiceEntity> {
 
         @Inject
         public Builder(DAOFRInvoiceEntry daoFREntry, DAOFRInvoice daoFRInvoice, DAOFRTax daoFRTax,
@@ -39,7 +40,7 @@ public interface FRInvoiceEntry extends FRGenericInvoiceEntry {
         }
     }
 
-    public static class ManualBuilder extends FRManualInvoiceEntryBuilderImpl<ManualBuilder, FRInvoiceEntry> {
+    class ManualBuilder extends FRManualInvoiceEntryBuilderImpl<ManualBuilder, FRInvoiceEntry> {
 
         @Inject
         public ManualBuilder(DAOFRInvoiceEntry daoFREntry, DAOFRInvoice daoFRInvoice, DAOFRTax daoFRTax,

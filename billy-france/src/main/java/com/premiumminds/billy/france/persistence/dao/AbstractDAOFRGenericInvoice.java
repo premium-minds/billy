@@ -19,11 +19,12 @@
 package com.premiumminds.billy.france.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.entities.FRGenericInvoiceEntity;
 
 public interface AbstractDAOFRGenericInvoice<T extends FRGenericInvoiceEntity> extends AbstractDAOGenericInvoice<T> {
 
-    public T findByNumber(UID uidBusiness, String number);
+    T findByNumber(StringID<Business> uidBusiness, String number);
 
 }

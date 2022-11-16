@@ -18,16 +18,9 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
-import com.querydsl.jpa.JPAExpressions;
-import com.querydsl.jpa.JPQLQuery;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditReceiptEntity;
@@ -36,6 +29,13 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditReceipt
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditReceiptEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceipt;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
 public class DAOESCreditReceiptImpl extends
         AbstractDAOESGenericInvoiceImpl<ESCreditReceiptEntity, JPAESCreditReceiptEntity> implements DAOESCreditReceipt {
@@ -55,8 +55,8 @@ public class DAOESCreditReceiptImpl extends
         return JPAESCreditReceiptEntity.class;
     }
 
-    @Override
-    public List<ESCreditReceipt> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
+    @Override public List<ESCreditReceipt> findByReferencedDocument(StringID<Business> uidCompany,
+            StringID<GenericInvoice> uidInvoice) {
         QJPAESCreditReceiptEntity creditReceipt = QJPAESCreditReceiptEntity.jPAESCreditReceiptEntity;
         QJPAESCreditReceiptEntryEntity entry = QJPAESCreditReceiptEntryEntity.jPAESCreditReceiptEntryEntity;
         QJPAESGenericInvoiceEntity receipt = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
@@ -64,7 +64,7 @@ public class DAOESCreditReceiptImpl extends
         final JPQLQuery<String> invQ = JPAExpressions
             .select(receipt.uid)
             .from(receipt)
-            .where(receipt.uid.eq(uidInvoice.toString()));
+            .where(receipt.uid.eq(uidInvoice.getIdentifier()));
 
         final JPQLQuery<String> entQ = JPAExpressions
             .select(entry.uid)

@@ -25,7 +25,7 @@ import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 
-public interface CustomerEntity extends Customer, BaseEntity {
+public interface CustomerEntity extends Customer {
 
     public void setName(String name);
 

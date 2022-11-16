@@ -22,9 +22,9 @@ import java.util.Date;
 
 import com.premiumminds.billy.core.services.entities.Payment;
 
-public interface PaymentEntity extends BaseEntity, Payment {
+public interface PaymentEntity extends Payment {
 
-    public void setPaymentMethod(Enum<?> method);
+    void setPaymentMethod(Enum<?> method);
 
-    public void setPaymentDate(Date paymentDate);
+    void setPaymentDate(Date paymentDate);
 }

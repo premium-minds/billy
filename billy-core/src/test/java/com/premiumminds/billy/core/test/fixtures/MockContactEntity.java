@@ -19,8 +19,9 @@
 package com.premiumminds.billy.core.test.fixtures;
 
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.services.entities.Contact;
 
-public class MockContactEntity extends MockBaseEntity implements ContactEntity {
+public class MockContactEntity extends MockBaseEntity<Contact> implements ContactEntity {
 
     private static final long serialVersionUID = 1L;
 

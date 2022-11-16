@@ -20,7 +20,8 @@ package com.premiumminds.billy.france.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -34,9 +35,10 @@ import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.services.builders.FRManualCreditNoteEntryBuilder;
 import com.premiumminds.billy.france.services.entities.FRCreditNoteEntry;
 
-public class FRManualCreditNoteEntryBuilderImpl<TBuilder extends FRManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends FRCreditNoteEntry>
-        extends FRManualEntryBuilderImpl<TBuilder, TEntry, DAOFRCreditNoteEntry, DAOFRInvoice>
-        implements FRManualCreditNoteEntryBuilder<TBuilder, TEntry> {
+public class FRManualCreditNoteEntryBuilderImpl<TBuilder extends FRManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>
+    , TEntry extends FRCreditNoteEntry>
+    extends FRManualEntryBuilderImpl<TBuilder, TEntry, FRInvoiceEntity, DAOFRCreditNoteEntry, DAOFRInvoice>
+    implements FRManualCreditNoteEntryBuilder<TBuilder, TEntry, FRInvoiceEntity> {
 
     public FRManualCreditNoteEntryBuilderImpl(DAOFRCreditNoteEntry daoFRCreditNoteEntry, DAOFRInvoice daoFRInvoice,
             DAOFRTax daoFRTax, DAOFRProduct daoFRProduct, DAOFRRegionContext daoFRRegionContext) {
@@ -45,7 +47,7 @@ public class FRManualCreditNoteEntryBuilderImpl<TBuilder extends FRManualCreditN
 
     @Override
     @NotOnUpdate
-    public TBuilder setReferenceUID(UID referenceUID) {
+    public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
                 FRCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         FRInvoiceEntity i = this.daoInvoice.get(referenceUID);

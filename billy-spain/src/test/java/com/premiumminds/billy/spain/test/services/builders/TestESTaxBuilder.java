@@ -18,14 +18,7 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
@@ -34,6 +27,11 @@ import com.premiumminds.billy.spain.services.entities.ESTax;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESTaxEntity;
+import java.math.BigDecimal;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESTaxBuilder extends ESAbstractTest {
 
@@ -78,13 +76,13 @@ public class TestESTaxBuilder extends ESAbstractTest {
     public MockESTaxEntity loadFixture(Class<MockESTaxEntity> clazz, String path) {
         MockESTaxEntity result = this.createMockEntity(MockESTaxEntity.class, path);
 
-        result.uid = new UID("uid_tax");
+        result.uid = StringID.fromValue("uid_tax");
 
         MockESRegionContextEntity mockContext =
                 this.createMockEntity(MockESRegionContextEntity.class, TestESTaxBuilder.REGIONCONTEXT_YML);
 
-        mockContext.uid = new UID("uid_region_context");
-        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any(UID.class))).thenReturn(mockContext);
+        mockContext.uid = StringID.fromValue("uid_region_context");
+        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any())).thenReturn(mockContext);
         result.context = mockContext;
 
         result.currency = Currency.getInstance("EUR");

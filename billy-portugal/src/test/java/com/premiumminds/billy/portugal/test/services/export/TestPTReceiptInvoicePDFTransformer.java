@@ -18,19 +18,13 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
@@ -47,14 +41,20 @@ import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
@@ -83,7 +83,7 @@ public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTes
     public void testPdfCreation()
             throws ExportServiceException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTReceiptInvoiceEntity invoice = this.generatePTReceiptInvoice(PaymentMechanism.CASH);
         DAOPTReceiptInvoice dao = this.mockedInjector.getInstance(DAOPTReceiptInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
@@ -102,13 +102,13 @@ public class TestPTReceiptInvoicePDFTransformer extends PTPersistencyAbstractTes
     @Test
     public void testNonExistentEntity() {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test
     public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTReceiptInvoiceEntity invoice = this.generatePTReceiptInvoice(PaymentMechanism.CASH);
         DAOPTReceiptInvoice dao = this.mockedInjector.getInstance(DAOPTReceiptInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);

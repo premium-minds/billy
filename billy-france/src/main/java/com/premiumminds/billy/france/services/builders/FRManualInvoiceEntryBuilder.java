@@ -18,16 +18,18 @@
  */
 package com.premiumminds.billy.france.services.builders;
 
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import java.math.BigDecimal;
 
 import com.premiumminds.billy.france.services.entities.FRGenericInvoiceEntry;
 
-public interface FRManualInvoiceEntryBuilder<TBuilder extends FRManualInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends FRGenericInvoiceEntry>
-        extends FRGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface FRManualInvoiceEntryBuilder<TBuilder extends FRManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>
+    , TEntry extends FRGenericInvoiceEntry, TInvoice extends FRGenericInvoice>
+    extends FRGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
-    public TBuilder setUnitTaxAmount(BigDecimal taxAmount);
+    TBuilder setUnitTaxAmount(BigDecimal taxAmount);
 
-    public TBuilder setAmount(AmountType type, BigDecimal amount);
+    TBuilder setAmount(AmountType type, BigDecimal amount);
 
-    public TBuilder setTaxAmount(BigDecimal taxAmount);
+    TBuilder setTaxAmount(BigDecimal taxAmount);
 }

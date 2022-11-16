@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
@@ -28,13 +26,16 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
+import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntryEntity;
 import com.premiumminds.billy.spain.services.builders.ESInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
+import javax.inject.Inject;
 
-public class ESInvoiceEntryBuilderImpl<TBuilder extends ESInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESInvoiceEntry>
-        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESInvoiceEntry, DAOESInvoice>
-        implements ESInvoiceEntryBuilder<TBuilder, TEntry> {
+public class ESInvoiceEntryBuilderImpl<TBuilder extends ESInvoiceEntryBuilderImpl<TBuilder, TEntry>,
+    TEntry extends ESInvoiceEntry>
+    extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, ESInvoiceEntity, DAOESInvoiceEntry, DAOESInvoice>
+    implements ESInvoiceEntryBuilder<TBuilder, TEntry, ESInvoiceEntity> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 

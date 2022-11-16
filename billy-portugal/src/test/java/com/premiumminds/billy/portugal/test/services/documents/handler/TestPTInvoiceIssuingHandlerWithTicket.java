@@ -18,21 +18,15 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.TicketManager;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
@@ -47,14 +41,19 @@ import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstrac
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.Services;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTest {
 
     private static final TYPE DEFAULT_TYPE = TYPE.FT;
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
-    private UID issuedInvoiceUID;
-    private UID ticketUID;
+    private StringID<GenericInvoice> issuedInvoiceUID;
+    private StringID<Ticket> ticketUID;
     private TicketManager ticketManager;
 
     @BeforeEach
@@ -72,8 +71,8 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
 
             this.ticketManager = this.getInstance(TicketManager.class);
 
-            String ticketValue = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
-            this.ticketUID = new UID(ticketValue);
+            StringID<Ticket> ticketValue = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
+            this.ticketUID = ticketValue;
 
             Services services = new Services(PTAbstractTest.injector);
             services.issueDocument(invoiceBuilder, this.parameters, ticketValue);
@@ -104,9 +103,9 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
         Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
         Assertions.assertEquals(TestPTInvoiceIssuingHandlerWithTicket.SOURCE_BILLING, issuedInvoice.getSourceBilling());
 
-        Assertions.assertTrue(this.ticketManager.ticketExists(this.ticketUID.getValue()) == true);
+        Assertions.assertTrue(this.ticketManager.ticketExists(this.ticketUID) == true);
         Assertions.assertTrue(ticketEntity != null);
-        Assertions.assertTrue(ticketEntity.getUID().getValue().equals(issuedInvoice.getUID().getValue()));
+        Assertions.assertTrue(ticketEntity.getUID().getIdentifier().equals(issuedInvoice.getUID().getIdentifier()));
         Assertions.assertTrue(ticketEntity.getHash().equals(issuedInvoice.getHash()));
         Assertions.assertTrue(ticketEntity.getNumber().equals(issuedInvoice.getNumber()));
         Assertions.assertTrue(ticketEntity.getSeries().equals(issuedInvoice.getSeries()));
@@ -118,8 +117,8 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
 
         PTInvoicePersistenceService service = PTAbstractTest.injector.getInstance(PTInvoicePersistenceService.class);
         PTInvoiceEntity ticketEntity = null;
-        UID noResultUID = new UID("noresult");
-        String notIssuedUID = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
+        StringID<Ticket> noResultUID = StringID.fromValue("noresult");
+        StringID<Ticket> notIssuedUID = this.ticketManager.generateTicket(this.getInstance(Ticket.Builder.class));
 
         try {
             ticketEntity = (PTInvoiceEntity) service.getWithTicket(noResultUID);
@@ -127,15 +126,15 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
 
         }
 
-        Assertions.assertTrue(this.ticketManager.ticketExists(noResultUID.getValue()) == false);
+        Assertions.assertTrue(this.ticketManager.ticketExists(noResultUID) == false);
         Assertions.assertTrue(ticketEntity == null);
 
         try {
-            ticketEntity = (PTInvoiceEntity) service.getWithTicket(new UID(notIssuedUID));
+            ticketEntity = (PTInvoiceEntity) service.getWithTicket(notIssuedUID);
         } catch (NoResultException e) {
         }
 
-        Assertions.assertTrue(this.ticketManager.ticketExists(new UID(notIssuedUID).getValue()) == true);
+        Assertions.assertTrue(this.ticketManager.ticketExists(notIssuedUID) == true);
         Assertions.assertFalse(this.ticketManager.ticketIssued(notIssuedUID) == false);
         Assertions.assertTrue(ticketEntity == null);
 
@@ -154,7 +153,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
         try {
 
             entity = (PTInvoiceEntity) services.issueDocument(builder, this.parameters,
-                    this.issuedInvoiceUID.getValue());
+                    StringID.fromValue(this.issuedInvoiceUID.getIdentifier()));
         } catch (InvalidTicketException e) {
 
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
@@ -166,7 +165,6 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
     @Test
     public void testOpenCloseConnections() {
 
-        Services services = new Services(PTAbstractTest.injector);
         PTInvoicePersistenceService persistenceService =
                 PTAbstractTest.injector.getInstance(PTInvoicePersistenceService.class);
         PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity("business");
@@ -177,13 +175,12 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
         em.getTransaction().begin();
 
         TicketManager newTicketManager = PTAbstractTest.injector.getInstance(TicketManager.class);
-        String testValue = newTicketManager.generateTicket(this.getInstance(Ticket.Builder.class));
-        UID testUID = new UID(testValue);
+        StringID<Ticket> testValue = newTicketManager.generateTicket(this.getInstance(Ticket.Builder.class));
         em.getTransaction().commit();
 
         em.clear();
 
-        services = new Services(Guice.createInjector(new PTMockDependencyModule()));
+        Services services = new Services(Guice.createInjector(new PTMockDependencyModule()));
 
         try {
             services.issueDocument(testinvoice, this.parameters, testValue);
@@ -192,7 +189,7 @@ public class TestPTInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTes
 
         PTInvoiceEntity ticketEntity = null;
         try {
-            ticketEntity = (PTInvoiceEntity) persistenceService.getWithTicket(testUID);
+            ticketEntity = (PTInvoiceEntity) persistenceService.getWithTicket(testValue);
         } catch (Exception e) {
         }
         Assertions.assertTrue(ticketEntity == null);

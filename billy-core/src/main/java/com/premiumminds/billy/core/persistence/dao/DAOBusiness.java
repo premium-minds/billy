@@ -19,7 +19,8 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
+import com.premiumminds.billy.core.services.entities.Business;
 
-public interface DAOBusiness extends DAO<BusinessEntity> {
+public interface DAOBusiness extends DAO<Business, BusinessEntity> {
 
 }

@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
@@ -29,15 +27,17 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.BusinessBuilder;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
+import javax.inject.Inject;
 
 public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends Business>
         extends AbstractBuilder<TBuilder, TBusiness> implements BusinessBuilder<TBuilder, TBusiness> {
@@ -55,7 +55,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
     }
 
     @Override
-    public TBuilder setOperationalContextUID(UID contextUID) {
+    public TBuilder setOperationalContextUID(StringID<Context> contextUID) {
         BillyValidator.notNull(contextUID, BusinessBuilderImpl.LOCALIZER.getString("field.business_context"));
         ContextEntity c = BillyValidator.found(this.daoContext.get(contextUID),
                 BusinessBuilderImpl.LOCALIZER.getString("field.business_context"));
@@ -132,7 +132,7 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
     }
 
     @Override
-    public TBuilder setMainContactUID(UID contactUID) {
+    public TBuilder setMainContactUID(StringID<Contact> contactUID) {
         BillyValidator.notNull(contactUID, BusinessBuilderImpl.LOCALIZER.getString("field.business_main_contact"));
 
         boolean found = false;

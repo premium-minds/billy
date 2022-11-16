@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.export.qrcode;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -46,7 +46,7 @@ public class QRCodeData {
     private final String hash;
     private final Collection<Application> application;
     private final PTContexts ptContexts;
-    private final UID genericCustomerUID;
+    private final StringID<Customer> genericCustomerUID;
     private final Customer customer;
     private final String atcud;
 
@@ -126,7 +126,7 @@ public class QRCodeData {
         return ptContexts;
     }
 
-    public UID getGenericCustomerUID() {
+    public StringID<Customer> getGenericCustomerUID() {
         return genericCustomerUID;
     }
 
@@ -154,7 +154,7 @@ public class QRCodeData {
         String hash;
         Collection<Application> application;
         PTContexts ptContexts;
-        UID genericCustomerUID;
+        StringID<Customer> genericCustomerUID;
         Customer customer;
         String atcud;
 
@@ -228,7 +228,7 @@ public class QRCodeData {
             return this;
         }
 
-        public QRCodeDataBuilder withGenericCustomerUID(final UID genericCustomerUID) {
+        public QRCodeDataBuilder withGenericCustomerUID(final StringID<Customer> genericCustomerUID) {
             this.genericCustomerUID = genericCustomerUID;
             return this;
         }

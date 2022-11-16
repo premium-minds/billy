@@ -19,61 +19,47 @@
 package com.premiumminds.billy.core.services;
 
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
 
-import com.premiumminds.billy.core.Config;
+public final class StringID<I> implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private final String value;
 
-public class UID implements Serializable, Comparable<UID> {
-
-    private static final long serialVersionUID = Config.SERIAL_VERSION;
-
-    private String value;
-
-    public UID() {
-        this.setValue(UUID.randomUUID().toString());
-    }
-
-    public UID(String value) {
-        this.setValue(value);
-    }
-
-    private void setValue(String value) {
+    private StringID(String value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public String getIdentifier() {
         return this.value;
     }
 
-    @Override
-    public int compareTo(UID other) {
-        return this.getValue().compareTo(other.getValue());
+    public static <I> StringID<I> fromValue(String value) {
+        return new StringID<>(value);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
-        }
-        if (!(o instanceof UID)) {
+        } else if (obj == null) {
             return false;
+        } else if (!(obj instanceof StringID)) {
+            return false;
+        } else {
+            StringID<?> other = (StringID)obj;
+            if (this.value == null) {
+                return other.value == null;
+            } else {
+                return this.value.equals(other.value);
+            }
         }
-        UID uid = (UID) o;
-        return Objects.equals(value, uid.value);
     }
 
-    @Override
     public int hashCode() {
-        return Objects.hash(value);
+        int result = 1;
+        result = 31 * result + (this.value == null ? 0 : this.value.hashCode());
+        return result;
     }
 
-    @Override
     public String toString() {
         return this.value;
-    }
-
-    public static UID fromString(String uid) {
-        return new UID(uid);
     }
 }

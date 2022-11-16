@@ -18,12 +18,10 @@
  */
 package com.premiumminds.billy.france.test.util;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
@@ -32,6 +30,8 @@ import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.services.entities.FRInvoice;
 import com.premiumminds.billy.france.services.entities.FRInvoiceEntry;
 import com.premiumminds.billy.france.test.services.documents.FRDocumentAbstractTest.SOURCE_BILLING;
+import java.math.BigDecimal;
+import java.util.Date;
 
 public class FRInvoiceTestUtil {
 
@@ -83,7 +83,7 @@ public class FRInvoiceTestUtil {
         DAOFRCustomer daoFRCustomer = this.injector.getInstance(DAOFRCustomer.class);
 
         FRCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoFRCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoFRCustomer.create(customerEntity).getUID();
 
         FRInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
         invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
@@ -103,7 +103,7 @@ public class FRInvoiceTestUtil {
         DAOFRCustomer daoFRCustomer = this.injector.getInstance(DAOFRCustomer.class);
 
         FRCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoFRCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoFRCustomer.create(customerEntity).getUID();
 
         FRInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry.getManualInvoiceEntryBuilder()
                 .setUnitAmount(AmountType.WITH_TAX, price).setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
@@ -125,7 +125,7 @@ public class FRInvoiceTestUtil {
         DAOFRCustomer daoFRCustomer = this.injector.getInstance(DAOFRCustomer.class);
 
         FRCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoFRCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoFRCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             FRInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
@@ -148,7 +148,7 @@ public class FRInvoiceTestUtil {
         DAOFRCustomer daoFRCustomer = this.injector.getInstance(DAOFRCustomer.class);
 
         FRCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoFRCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoFRCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             FRInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
@@ -171,7 +171,7 @@ public class FRInvoiceTestUtil {
         DAOFRCustomer daoFRCustomer = this.injector.getInstance(DAOFRCustomer.class);
 
         FRCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoFRCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoFRCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             FRInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();

@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
@@ -25,7 +29,6 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
@@ -57,7 +60,7 @@ public class PTInvoicePersistenceService {
         }
     }
 
-    public PTInvoice get(final UID uid) {
+    public PTInvoice get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<PTInvoice>(this.daoInvoice) {
 
@@ -73,14 +76,15 @@ public class PTInvoicePersistenceService {
     }
 
     @Deprecated
-    public PTInvoice getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
+    public PTInvoice getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {
             return new TransactionWrapper<PTInvoice>(this.daoInvoice) {
 
                 @Override
                 public PTInvoice runTransaction() throws Exception {
-                    UID objectUID = PTInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    StringID<GenericInvoice>
+                        objectUID = PTInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return PTInvoicePersistenceService.this.daoInvoice.get(objectUID);
                 }
 
@@ -92,7 +96,7 @@ public class PTInvoicePersistenceService {
         }
     }
 
-    public PTInvoice findByNumber(final UID uidBusiness, final String number) {
+    public PTInvoice findByNumber(final StringID<Business> uidBusiness, final String number) {
         try {
             return new TransactionWrapper<PTInvoice>(this.daoInvoice) {
 

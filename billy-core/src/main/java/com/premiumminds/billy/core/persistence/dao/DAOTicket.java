@@ -19,10 +19,12 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 
 @Deprecated
-public interface DAOTicket extends DAO<TicketEntity> {
+public interface DAOTicket extends DAO<Ticket, TicketEntity> {
 
-    public UID getObjectEntityUID(String ticketUID);
+    StringID<GenericInvoice> getObjectEntityUID(StringID<Ticket> ticketUID);
 }

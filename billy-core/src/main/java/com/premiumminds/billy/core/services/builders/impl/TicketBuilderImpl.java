@@ -18,18 +18,17 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import java.util.Date;
-
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.TicketBuilder;
 import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import java.util.Date;
+import javax.inject.Inject;
 
 @Deprecated
 public class TicketBuilderImpl<TBuilder extends TicketBuilderImpl<TBuilder, TTicket>, TTicket extends Ticket>
@@ -46,7 +45,7 @@ public class TicketBuilderImpl<TBuilder extends TicketBuilderImpl<TBuilder, TTic
     }
 
     @Override
-    public TBuilder setObjectUID(UID objectUID) {
+    public TBuilder setObjectUID(StringID<GenericInvoice> objectUID) {
         BillyValidator.mandatory(objectUID, ContactBuilderImpl.LOCALIZER.getString("field.uid"));
         this.getTypeInstance().setObjectUID(objectUID);
         return this.getBuilder();

@@ -18,49 +18,46 @@
  */
 package com.premiumminds.billy.core.persistence.dao;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Entity;
+import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 import javax.persistence.LockModeType;
 
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.util.EntityFactory;
-
 /**
+ * @param <T> The entity type being managed by the DAO implementation
  * @author Francisco Vargas
- *
- * @param <T>
- *        The entity type being managed by the DAO implementation
  */
-public interface DAO<T extends BaseEntity> extends EntityFactory<T> {
+public interface DAO<TID extends Entity<TID>, T extends TID> extends EntityFactory<T> {
 
     /**
      * Initialized a transaction context
      */
-    public void beginTransaction();
+    void beginTransaction();
 
     /**
      * Rolls back the active transaction context, discarding all transaction
      * changes.
      */
-    public void rollback();
+    void rollback();
 
     /**
      * Sets the active transaction for rollback. Meaning that the transaction
      * will remain active but all changes will be discarded.
      */
-    public void setForRollback();
+    void setForRollback();
 
     /**
      * Tells whether a transaction is set for rollback or not
      *
      * @return true if the active transaction if set to rollback. Returns false
-     *         otherwise.
+     * otherwise.
      */
-    public boolean isSetForRollback();
+    boolean isSetForRollback();
 
     /**
      * Commits the active transaction
      */
-    public void commit();
+    void commit();
 
     /**
      * Lock the entity type being managed by the DAO.
@@ -68,50 +65,46 @@ public interface DAO<T extends BaseEntity> extends EntityFactory<T> {
      * @param entity entity to lock
      * @param type lock type
      */
-    public void lock(T entity, LockModeType type);
+    void lock(T entity, LockModeType type);
 
     /**
      * Tells whether a transaction is currently active or not
      *
      * @return true if a transaction is currently active. Returns false
-     *         otherwise.
+     * otherwise.
      */
-    public boolean isTransactionActive();
+    boolean isTransactionActive();
 
     /**
      * Gets a persisted instance of type T
      *
-     * @param uid
-     *        The {@link UID} identifying the wanted instance
+     * @param uid The {@link StringID<T>} identifying the wanted instance
      * @return The requested instance of type T
      */
-    public T get(UID uid);
+    T get(StringID<TID> uid);
 
     /**
      * Persists a new instance of type T
      *
-     * @param entity
-     *        The entity to be persisted
+     * @param entity The entity to be persisted
      * @return The entity instance after it's been persisted
      */
-    public T create(T entity);
+    T create(T entity);
 
     /**
      * Persists an updated version of type T
      *
-     * @param entity
-     *        The updated entity instance
+     * @param entity The updated entity instance
      * @return The entity instance after it's been updated
      */
-    public T update(T entity);
+    T update(T entity);
 
     /**
      * Tells whether an instance of type T is persisted.
      *
-     * @param uid
-     *        The unique identifier of the requested instance.
+     * @param uid The unique identifier of the requested instance.
      * @return true if the instance is persisted. Returns false otherwise.
      */
-    public boolean exists(UID uid);
+    boolean exists(StringID<TID> uid);
 
 }

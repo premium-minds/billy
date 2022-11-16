@@ -18,10 +18,9 @@
  */
 package com.premiumminds.billy.france.test.util;
 
-import java.util.Date;
-
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
@@ -30,6 +29,7 @@ import com.premiumminds.billy.france.persistence.entities.FRSimpleInvoiceEntity;
 import com.premiumminds.billy.france.services.entities.FRInvoiceEntry;
 import com.premiumminds.billy.france.services.entities.FRSimpleInvoice;
 import com.premiumminds.billy.france.services.entities.FRSimpleInvoice.CLIENTTYPE;
+import java.util.Date;
 
 public class FRSimpleInvoiceTestUtil {
 
@@ -72,7 +72,7 @@ public class FRSimpleInvoiceTestUtil {
         DAOFRCustomer daoFRCustomer = this.injector.getInstance(DAOFRCustomer.class);
 
         FRCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoFRCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoFRCustomer.create(customerEntity).getUID();
         for (int i = 0; i < FRSimpleInvoiceTestUtil.MAX_PRODUCTS; ++i) {
             FRInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
             invoiceBuilder.addEntry(invoiceEntryBuilder);

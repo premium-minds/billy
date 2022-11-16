@@ -18,22 +18,22 @@
  */
 package com.premiumminds.billy.france.test.services.dao;
 
-import java.util.Date;
-
-import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.france.BillyFrance;
-import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
-import com.premiumminds.billy.france.persistence.entities.FRRegionContextEntity;
-import com.premiumminds.billy.france.services.entities.FRTax;
-import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import com.premiumminds.billy.core.persistence.entities.TaxEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.france.BillyFrance;
+import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
+import com.premiumminds.billy.france.persistence.entities.FRRegionContextEntity;
+import com.premiumminds.billy.france.services.entities.FRTax;
+import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
+import java.util.Date;
+import org.junit.jupiter.api.Test;
 
 public class TestDAOFRTax extends FRPersistencyAbstractTest {
 
@@ -45,7 +45,7 @@ public class TestDAOFRTax extends FRPersistencyAbstractTest {
 
         final DAOFRTax daoTax = this.getInstance(DAOFRTax.class);
 
-        final UID taxUID = billy.taxes().continent().normal().getUID();
+        final StringID<Tax> taxUID = billy.taxes().continent().normal().getUID();
 
         final TaxEntity tax = assertDoesNotThrow(() -> daoTax.get(taxUID));
         assertNotNull(tax);

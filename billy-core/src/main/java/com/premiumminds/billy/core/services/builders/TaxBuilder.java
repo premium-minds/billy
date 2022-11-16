@@ -18,18 +18,18 @@
  */
 package com.premiumminds.billy.core.services.builders;
 
+import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.Tax;
-import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
-
 public interface TaxBuilder<TBuilder extends TaxBuilder<TBuilder, TTax>, TTax extends Tax> extends Builder<TTax> {
 
-    public TBuilder setContextUID(UID uid);
+    public TBuilder setContextUID(StringID<Context> uid);
 
     public TBuilder setDesignation(String designation);
 

@@ -18,11 +18,12 @@
  */
 package com.premiumminds.billy.gin.services.export;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 
 public interface BillyDataExtractor<T extends GenericInvoiceData> {
 
-    public T extract(UID uidDoc) throws ExportServiceException;
+    T extract(StringID<GenericInvoice> uidDoc) throws ExportServiceException;
 
 }

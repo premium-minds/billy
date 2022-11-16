@@ -19,7 +19,8 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
-public interface AbstractDAOGenericInvoiceEntry<T extends GenericInvoiceEntryEntity> extends DAO<T> {
+public interface AbstractDAOGenericInvoiceEntry<T extends GenericInvoiceEntryEntity> extends DAO<GenericInvoiceEntry, T> {
 
 }

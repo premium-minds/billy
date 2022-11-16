@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.spain.persistence.dao;
 
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntryEntity;
-import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
 public interface DAOESCreditReceiptEntry extends AbstractDAOESGenericInvoiceEntry<ESCreditReceiptEntryEntity> {
 
-    public ESCreditReceiptEntity checkCreditReceipt(ESReceipt invoice);
+    public ESCreditReceiptEntity checkCreditReceipt(GenericInvoiceEntity invoice);
 
 }

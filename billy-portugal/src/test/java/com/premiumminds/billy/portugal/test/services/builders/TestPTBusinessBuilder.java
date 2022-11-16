@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -37,6 +32,9 @@ import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTBusinessEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestPTBusinessBuilder extends PTAbstractTest {
 
@@ -49,7 +47,7 @@ public class TestPTBusinessBuilder extends PTAbstractTest {
 
         Mockito.when(this.getInstance(DAOPTBusiness.class).getEntityInstance()).thenReturn(new MockPTBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any()))
                 .thenReturn((PTRegionContextEntity) mockBusiness.getOperationalContext());
 
         PTBusiness.Builder builder = this.getInstance(PTBusiness.Builder.class);

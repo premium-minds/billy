@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.entities.Business;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
-public class JPABusinessEntity extends JPABaseEntity implements BusinessEntity {
+public class JPABusinessEntity extends JPABaseEntity<Business> implements BusinessEntity {
 
     private static final long serialVersionUID = 1L;
 

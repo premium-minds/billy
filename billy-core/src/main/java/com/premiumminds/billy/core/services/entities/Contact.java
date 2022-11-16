@@ -28,7 +28,7 @@ import com.premiumminds.billy.core.services.builders.impl.ContactBuilderImpl;
  *
  *         The Billy services entity for a contact.
  */
-public interface Contact extends Entity {
+public interface Contact extends Entity<Contact> {
 
     public static class Builder extends ContactBuilderImpl<Builder, Contact> {
 

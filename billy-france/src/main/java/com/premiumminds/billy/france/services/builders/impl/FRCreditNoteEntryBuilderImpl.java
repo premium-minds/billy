@@ -20,7 +20,8 @@ package com.premiumminds.billy.france.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -35,9 +36,10 @@ import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.services.builders.FRCreditNoteEntryBuilder;
 import com.premiumminds.billy.france.services.entities.FRCreditNoteEntry;
 
-public class FRCreditNoteEntryBuilderImpl<TBuilder extends FRCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends FRCreditNoteEntry>
-        extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOFRCreditNoteEntry, DAOFRInvoice>
-        implements FRCreditNoteEntryBuilder<TBuilder, TEntry> {
+public class FRCreditNoteEntryBuilderImpl<TBuilder extends FRCreditNoteEntryBuilderImpl<TBuilder, TEntry>,
+    TEntry extends FRCreditNoteEntry>
+    extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, FRInvoiceEntity, DAOFRCreditNoteEntry, DAOFRInvoice>
+    implements FRCreditNoteEntryBuilder<TBuilder, TEntry, FRInvoiceEntity> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
@@ -48,7 +50,7 @@ public class FRCreditNoteEntryBuilderImpl<TBuilder extends FRCreditNoteEntryBuil
 
     @Override
     @NotOnUpdate
-    public TBuilder setReferenceUID(UID referenceUID) {
+    public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
                 FRCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         FRInvoiceEntity i = this.daoInvoice.get(referenceUID);

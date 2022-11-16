@@ -19,8 +19,8 @@
 package com.premiumminds.billy.core.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Entity;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
 
 public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder, TType>, TType> {
@@ -53,8 +53,8 @@ public abstract class AbstractBuilder<TBuilder extends AbstractBuilder<TBuilder,
         return (T) this.typeInstance;
     }
 
-    public TBuilder setUID(UID uid) {
-        ((BaseEntity) this.typeInstance).setUID(uid);
+    public TBuilder setUID(StringID<TType> uid) {
+        ((Entity) this.typeInstance).setUID(uid);
         return this.getBuilder();
     }
 

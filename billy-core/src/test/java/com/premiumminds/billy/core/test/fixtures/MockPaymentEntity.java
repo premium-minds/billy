@@ -18,11 +18,12 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import com.premiumminds.billy.core.services.entities.Payment;
 import java.util.Date;
 
 import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
 
-public class MockPaymentEntity extends MockBaseEntity implements PaymentEntity {
+public class MockPaymentEntity extends MockBaseEntity<Payment> implements PaymentEntity {
 
     /**
      *

@@ -21,6 +21,7 @@ package com.premiumminds.billy.persistence.dao.jpa;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.persistence.entities.jpa.JPABusinessEntity;
 import com.premiumminds.billy.persistence.entities.jpa.JPAGenericInvoiceEntity;
 import com.premiumminds.billy.persistence.entities.jpa.QJPABusinessEntity;
@@ -32,7 +33,7 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity>
-        extends AbstractDAO<TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
+        extends AbstractDAO<GenericInvoice, TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
 
     @Inject
     public AbstractDAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {

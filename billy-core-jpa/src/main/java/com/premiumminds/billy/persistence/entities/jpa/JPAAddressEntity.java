@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.entities.Address;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,7 +31,7 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
-public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
+public class JPAAddressEntity extends JPABaseEntity<Address> implements AddressEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,25 +18,19 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
@@ -56,14 +50,21 @@ import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.util.Services;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
@@ -91,8 +92,8 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String uid = new UID().toString();
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
+        final String uid = UUID.randomUUID().toString();
         this.createSeries(uid);
         PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
@@ -114,15 +115,15 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
     @Test public void testNonExistentEntity() {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test public void testPdfCreationFromBundle()
         throws ExportServiceException, IOException, DocumentIssuingException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
-        UID uidEntity = UID.fromString("12345");
-        final String uid = new UID().toString();
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
+        final String uid = UUID.randomUUID().toString();
         this.createSeries(uid);
         PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);

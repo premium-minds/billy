@@ -18,17 +18,13 @@
  */
 package com.premiumminds.billy.spain.test;
 
+import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
-import com.google.inject.Guice;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.SpainBootstrap;
 import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
@@ -42,6 +38,9 @@ import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
 import com.premiumminds.billy.spain.util.Services;
+import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public class ESPersistencyAbstractTest extends ESAbstractTest {
 
@@ -63,7 +62,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
     }
 
     public ESInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice((new UID()).toString());
+        return this.getNewIssuedInvoice(UUID.randomUUID().toString());
 
     }
 

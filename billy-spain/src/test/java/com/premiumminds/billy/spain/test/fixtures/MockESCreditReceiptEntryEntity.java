@@ -18,15 +18,15 @@
  */
 package com.premiumminds.billy.spain.test.fixtures;
 
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntryEntity;
-import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
 public class MockESCreditReceiptEntryEntity extends MockGenericInvoiceEntryEntity
         implements ESCreditReceiptEntryEntity {
 
     private static final long serialVersionUID = 1L;
-    private ESReceipt reference;
+    private GenericInvoiceEntity reference;
     private String reason;
 
     public MockESCreditReceiptEntryEntity() {
@@ -34,7 +34,7 @@ public class MockESCreditReceiptEntryEntity extends MockGenericInvoiceEntryEntit
     }
 
     @Override
-    public ESReceipt getReference() {
+    public GenericInvoiceEntity getReference() {
         return this.reference;
     }
 
@@ -44,7 +44,7 @@ public class MockESCreditReceiptEntryEntity extends MockGenericInvoiceEntryEntit
     }
 
     @Override
-    public void setReference(ESReceipt reference) {
+    public void setReference(GenericInvoiceEntity reference) {
         this.reference = reference;
     }
 

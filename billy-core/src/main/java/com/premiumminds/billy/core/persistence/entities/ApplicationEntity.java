@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.services.entities.Contact;
  *         application is the piece of software that uses Billy. This is needed
  *         to identity the origin of the billing data.
  */
-public interface ApplicationEntity extends Application, BaseEntity {
+public interface ApplicationEntity extends Application {
 
     public void setName(String name);
 

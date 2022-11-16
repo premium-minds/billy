@@ -18,25 +18,23 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
-
-import javax.inject.Inject;
-
-import org.apache.commons.lang3.Validate;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.TaxBuilder;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Date;
+import javax.inject.Inject;
+import org.apache.commons.lang3.Validate;
 
 public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTax extends Tax>
         extends AbstractBuilder<TBuilder, TTax> implements TaxBuilder<TBuilder, TTax> {
@@ -54,7 +52,7 @@ public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTa
     }
 
     @Override
-    public TBuilder setContextUID(UID contextUID) {
+    public TBuilder setContextUID(StringID<Context> contextUID) {
         BillyValidator.notNull(contextUID, TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));
         ContextEntity c = BillyValidator.found(this.daoContext.get(contextUID),
                 TaxBuilderImpl.LOCALIZER.getString("field.tax_context"));

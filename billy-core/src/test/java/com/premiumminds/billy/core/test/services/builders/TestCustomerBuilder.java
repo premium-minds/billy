@@ -18,20 +18,18 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestCustomerBuilder extends AbstractTest {
 
@@ -48,7 +46,7 @@ public class TestCustomerBuilder extends AbstractTest {
         // this.getInstance(DAOCustomer.class).getEntityInstance().isNew())
         // .thenReturn(true);
 
-        Mockito.when(this.getInstance(DAOContact.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContact.class).get(Mockito.any()))
                 .thenReturn((ContactEntity) mockCustomer.getMainContact());
 
         Customer.Builder builder = this.getInstance(Customer.Builder.class);

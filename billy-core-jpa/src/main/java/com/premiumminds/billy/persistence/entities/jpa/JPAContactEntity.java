@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.entities.Contact;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,7 +31,7 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
-public class JPAContactEntity extends JPABaseEntity implements ContactEntity {
+public class JPAContactEntity extends JPABaseEntity<Contact> implements ContactEntity {
 
     private static final long serialVersionUID = 1L;
 

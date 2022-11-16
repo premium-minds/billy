@@ -18,16 +18,16 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.persistence.dao.jpa.DAOApplicationImpl;
+import com.premiumminds.billy.spain.persistence.dao.DAOESApplication;
+import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
+import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESApplicationEntity;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-
-import com.premiumminds.billy.persistence.dao.jpa.DAOApplicationImpl;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.spain.persistence.dao.DAOESApplication;
-import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
-import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESApplicationEntity;
 
 public class DAOESApplicationImpl extends DAOApplicationImpl implements DAOESApplication {
 
@@ -47,7 +47,7 @@ public class DAOESApplicationImpl extends DAOApplicationImpl implements DAOESApp
     }
 
     @Override
-    public ESApplicationEntity get(UID uid) throws NoResultException {
+    public ESApplicationEntity get(StringID<Application> uid) throws NoResultException {
         return (ESApplicationEntity) super.get(uid);
     }
 

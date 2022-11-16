@@ -18,55 +18,56 @@
  */
 package com.premiumminds.billy.core.services.builders;
 
+import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.Product;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import com.premiumminds.billy.core.util.DiscountType;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import com.premiumminds.billy.core.util.DiscountType;
-
-public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends GenericInvoiceEntry>
+public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>,
+        TEntry extends GenericInvoiceEntry, TInvoice extends GenericInvoice>
         extends Builder<TEntry> {
 
-    public static enum AmountType {
+    enum AmountType {
         WITH_TAX, WITHOUT_TAX
     }
 
-    public <T extends ShippingPoint> TBuilder setShippingOrigin(Builder<T> originBuilder);
+    <T extends ShippingPoint> TBuilder setShippingOrigin(Builder<T> originBuilder);
 
-    public <T extends ShippingPoint> TBuilder setShippingDestination(Builder<T> destinationBuilder);
+    <T extends ShippingPoint> TBuilder setShippingDestination(Builder<T> destinationBuilder);
 
-    public TBuilder setProductUID(UID productUID);
+    TBuilder setProductUID(StringID<Product> productUID);
 
-    public TBuilder setQuantity(BigDecimal quantity);
+    TBuilder setQuantity(BigDecimal quantity);
 
-    public TBuilder setUnitAmount(AmountType type, BigDecimal amount);
+    TBuilder setUnitAmount(AmountType type, BigDecimal amount);
 
-    public TBuilder setUnitOfMeasure(String unit);
+    TBuilder setUnitOfMeasure(String unit);
 
-    public TBuilder setTaxPointDate(Date date);
+    TBuilder setTaxPointDate(Date date);
 
-    public TBuilder addDocumentReferenceUID(UID referenceUID);
+    TBuilder addDocumentReferenceUID(StringID<GenericInvoice> referenceUID);
 
-    public TBuilder setDescription(String description);
+    TBuilder setDescription(String description);
 
-    // public TBuilder setCreditOrDebit(CreditOrDebit creditOrDebit);
+    TBuilder setShippingCostsAmount(BigDecimal amount);
 
-    public TBuilder setShippingCostsAmount(BigDecimal amount);
+    TBuilder setContextUID(StringID<Context> uidContext);
 
-    public TBuilder setContextUID(UID uidContext);
+    TBuilder setTaxExemptionReason(String exemptionReason);
 
-    public TBuilder setTaxExemptionReason(String exemptionReason);
+    TBuilder setTaxExemptionCode(String exemptionCode);
 
-    public TBuilder setTaxExemptionCode(String exemptionCode);
+    TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 
-    public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
+    TBuilder setAmountType(AmountType type);
 
-    public TBuilder setAmountType(AmountType type);
-
-    public TBuilder setCurrency(Currency currency);
+    TBuilder setCurrency(Currency currency);
 
 }

@@ -18,20 +18,17 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRProduct;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.services.entities.FRProduct;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.fixtures.MockFRProductEntity;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestFRProductBuilder extends FRAbstractTest {
 
@@ -47,7 +44,7 @@ public class TestFRProductBuilder extends FRAbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOFRTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOFRTax.class).get(Mockito.any())).thenReturn(tax);
         }
 
         FRProduct.Builder builder = this.getInstance(FRProduct.Builder.class);

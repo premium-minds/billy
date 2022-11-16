@@ -18,18 +18,18 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
+import javax.inject.Inject;
 
-public class PTSupplierPersistenceService implements PersistenceService<PTSupplier> {
+public class PTSupplierPersistenceService implements PersistenceService<Supplier, PTSupplier> {
 
     protected final DAOPTSupplier daoSupplier;
 
@@ -73,7 +73,7 @@ public class PTSupplierPersistenceService implements PersistenceService<PTSuppli
     }
 
     @Override
-    public PTSupplier get(final UID uid) {
+    public PTSupplier get(final StringID<Supplier> uid) {
         try {
             return new TransactionWrapper<PTSupplier>(this.daoSupplier) {
 

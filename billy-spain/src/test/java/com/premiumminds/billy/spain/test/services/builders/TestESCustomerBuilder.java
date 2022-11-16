@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESContact;
@@ -34,6 +29,9 @@ import com.premiumminds.billy.spain.services.entities.ESContact;
 import com.premiumminds.billy.spain.services.entities.ESCustomer;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.fixtures.MockESCustomerEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESCustomerBuilder extends ESAbstractTest {
 
@@ -46,7 +44,7 @@ public class TestESCustomerBuilder extends ESAbstractTest {
 
         Mockito.when(this.getInstance(DAOESCustomer.class).getEntityInstance()).thenReturn(new MockESCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOESContact.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESContact.class).get(Mockito.any()))
                 .thenReturn((ESContactEntity) mockCustomer.getMainContact());
 
         ESCustomer.Builder builder = this.getInstance(ESCustomer.Builder.class);

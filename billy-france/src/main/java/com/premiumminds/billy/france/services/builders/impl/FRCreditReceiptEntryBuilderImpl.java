@@ -20,7 +20,8 @@ package com.premiumminds.billy.france.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -35,9 +36,10 @@ import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.builders.FRCreditReceiptEntryBuilder;
 import com.premiumminds.billy.france.services.entities.FRCreditReceiptEntry;
 
-public class FRCreditReceiptEntryBuilderImpl<TBuilder extends FRCreditReceiptEntryBuilderImpl<TBuilder, TEntry>, TEntry extends FRCreditReceiptEntry>
-        extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOFRCreditReceiptEntry, DAOFRReceipt>
-        implements FRCreditReceiptEntryBuilder<TBuilder, TEntry> {
+public class FRCreditReceiptEntryBuilderImpl<TBuilder extends FRCreditReceiptEntryBuilderImpl<TBuilder, TEntry>,
+    TEntry extends FRCreditReceiptEntry>
+    extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, FRReceiptEntity, DAOFRCreditReceiptEntry, DAOFRReceipt>
+    implements FRCreditReceiptEntryBuilder<TBuilder, TEntry, FRReceiptEntity> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
@@ -48,7 +50,7 @@ public class FRCreditReceiptEntryBuilderImpl<TBuilder extends FRCreditReceiptEnt
 
     @Override
     @NotOnUpdate
-    public TBuilder setReferenceUID(UID referenceUID) {
+    public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
                 FRCreditReceiptEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         FRReceiptEntity i = this.daoInvoice.get(referenceUID);

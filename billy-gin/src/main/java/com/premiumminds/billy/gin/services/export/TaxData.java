@@ -18,20 +18,21 @@
  */
 package com.premiumminds.billy.gin.services.export;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Tax;
 import java.math.BigDecimal;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 
 public class TaxData {
 
-    private final UID uid;
+    private final StringID<Tax> uid;
     private final BigDecimal value;
     private final TaxRateType taxRateType;
     private final String description;
     private final String designation;
 
-    public TaxData(UID uid, BigDecimal value, TaxRateType taxRateType, String description, String designation) {
+    public TaxData(StringID<Tax> uid, BigDecimal value, TaxRateType taxRateType, String description, String designation) {
         this.uid = uid;
         this.value = value;
         this.taxRateType = taxRateType;
@@ -39,7 +40,7 @@ public class TaxData {
         this.designation = designation;
     }
 
-    public UID getUID() {
+    public StringID<Tax> getUID() {
         return this.uid;
     }
 

@@ -31,7 +31,7 @@ import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl
  *         The Billy services entity for an application which is a client of
  *         Billy.
  */
-public interface Application extends Entity {
+public interface Application extends Entity<Application> {
 
     /**
      * The builder for the {@link Application} entity.

@@ -18,16 +18,17 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import com.premiumminds.billy.core.persistence.entities.TicketEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Date;
 
-import com.premiumminds.billy.core.persistence.entities.TicketEntity;
-import com.premiumminds.billy.core.services.UID;
-
-public class MockTicketEntity extends MockBaseEntity implements TicketEntity {
+public class MockTicketEntity extends MockBaseEntity<Ticket> implements TicketEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private UID objectUID;
+    private StringID<GenericInvoice> objectUID;
     private Date creationDate;
     private Date processDate;
 
@@ -36,7 +37,7 @@ public class MockTicketEntity extends MockBaseEntity implements TicketEntity {
     }
 
     @Override
-    public UID getObjectUID() {
+    public StringID<GenericInvoice> getObjectUID() {
         return this.objectUID;
     }
 
@@ -51,7 +52,7 @@ public class MockTicketEntity extends MockBaseEntity implements TicketEntity {
     }
 
     @Override
-    public void setObjectUID(UID objectUID) {
+    public void setObjectUID(StringID<GenericInvoice> objectUID) {
         this.objectUID = objectUID;
     }
 

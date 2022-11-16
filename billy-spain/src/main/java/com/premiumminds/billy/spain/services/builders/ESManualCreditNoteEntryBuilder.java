@@ -18,9 +18,11 @@
  */
 package com.premiumminds.billy.spain.services.builders;
 
+import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
 
-public interface ESManualCreditNoteEntryBuilder<TBuilder extends ESManualCreditNoteEntryBuilder<TBuilder, TEntry>, TEntry extends ESCreditNoteEntry>
-        extends ESManualInvoiceEntryBuilder<TBuilder, TEntry>, ESCreditNoteEntryBuilder<TBuilder, TEntry> {
+public interface ESManualCreditNoteEntryBuilder<TBuilder extends ESManualCreditNoteEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends ESCreditNoteEntry, TInvoice extends ESInvoiceEntity>
+    extends ESManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>, ESCreditNoteEntryBuilder<TBuilder, TEntry, TInvoice> {
 
 }

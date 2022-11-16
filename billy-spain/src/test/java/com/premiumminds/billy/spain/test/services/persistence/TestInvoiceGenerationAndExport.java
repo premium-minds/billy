@@ -18,22 +18,18 @@
  */
 package com.premiumminds.billy.spain.test.services.persistence;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestInvoiceGenerationAndExport extends ESPersistenceServiceAbstractTest {
 
     private ESInvoice invoice;
     private ESCreditNote creditNote;
-    private UID appUID;
 
     @BeforeEach
     public void setUp() throws DocumentIssuingException, MalformedURLException {

@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.spain.util;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import java.io.InputStream;
-
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
@@ -40,6 +39,7 @@ import com.premiumminds.billy.spain.services.export.ESCreditNoteDataExtractor;
 import com.premiumminds.billy.spain.services.export.pdf.creditnote.ESCreditNotePDFExportRequest;
 import com.premiumminds.billy.spain.services.export.pdf.creditnote.ESCreditNotePDFFOPTransformer;
 import com.premiumminds.billy.spain.services.persistence.ESCreditNotePersistenceService;
+import java.io.InputStream;
 
 public class CreditNotes {
 
@@ -95,7 +95,7 @@ public class CreditNotes {
         return this.exportService.exportToStream(request);
     }
 
-    public <O> void pdfExport(UID uidDoc, BillyExportTransformer<ESCreditNoteData, O> dataTransformer, O output)
+    public <O> void pdfExport(StringID<GenericInvoice> uidDoc, BillyExportTransformer<ESCreditNoteData, O> dataTransformer, O output)
             throws ExportServiceException {
 
         this.exportService.export(uidDoc, dataTransformer, output);

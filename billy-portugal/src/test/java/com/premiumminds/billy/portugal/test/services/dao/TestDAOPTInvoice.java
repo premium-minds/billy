@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.dao;
 
+import com.premiumminds.billy.core.services.StringID;
 import java.rmi.server.UID;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
         Assertions.assertEquals(inv1.getUID(), res.getUID());
         Assertions.assertNull(this.getInstance(DAOPTInvoice.class).findByNumber(
-                com.premiumminds.billy.core.services.UID.fromString("INEXISTENT_BUSINESS"), inv1.getNumber()));
+            StringID.fromValue("INEXISTENT_BUSINESS"), inv1.getNumber()));
     }
 
     @Test
@@ -96,8 +97,8 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
                 .findByReferencedDocument(cc1.getBusiness().getUID(), inv1.getUID());
 
         List<PTCreditNote> cn0 = this.getInstance(DAOPTCreditNote.class).findByReferencedDocument(
-                com.premiumminds.billy.core.services.UID.fromString("B1"),
-                com.premiumminds.billy.core.services.UID.fromString("leRandomNumbér"));
+                StringID.fromValue("B1"),
+                StringID.fromValue("leRandomNumbér"));
 
         Assertions.assertEquals(0, cn0.size());
         Assertions.assertEquals(1, cn1.size());

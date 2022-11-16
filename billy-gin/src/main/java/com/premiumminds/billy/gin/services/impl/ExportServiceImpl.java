@@ -18,6 +18,15 @@
  */
 package com.premiumminds.billy.gin.services.impl;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.gin.services.ExportService;
+import com.premiumminds.billy.gin.services.ExportServiceRequest;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
+import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
+import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
+import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,35 +38,26 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.gin.services.ExportService;
-import com.premiumminds.billy.gin.services.ExportServiceRequest;
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
-import com.premiumminds.billy.gin.services.export.BillyExportTransformer;
-import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
-import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class ExportServiceImpl implements ExportService {
 
     private static final Logger log = LoggerFactory.getLogger(ExportServiceImpl.class);
 
-    private final Map<Class<? extends GenericInvoiceData>, BillyDataExtractor<? extends GenericInvoiceData>> dataExtractors;
-    private final Map<Class<? extends ExportServiceRequest>, Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>>> requestMapper;
+    private final Map<Class<? extends GenericInvoiceData>, BillyDataExtractor<? extends GenericInvoiceData>>
+            dataExtractors;
+    private final Map<Class<? extends ExportServiceRequest>, Class<? extends BillyExportTransformer<?
+            extends GenericInvoiceData, OutputStream>>>
+            requestMapper;
 
     public ExportServiceImpl() {
-        this.dataExtractors =
-                new HashMap<>();
-        this.requestMapper =
-                new HashMap<>();
+        this.dataExtractors = new HashMap<>();
+        this.requestMapper = new HashMap<>();
     }
 
-    @Override
-    public <T extends ExportServiceRequest> InputStream exportToStream(T request) throws ExportServiceException {
+    @Override public <T extends ExportServiceRequest> InputStream exportToStream(T request)
+            throws ExportServiceException {
         try {
             return new FileInputStream(this.exportToFile(request));
         } catch (FileNotFoundException e) {
@@ -66,8 +66,7 @@ public class ExportServiceImpl implements ExportService {
         }
     }
 
-    @Override
-    public <T extends ExportServiceRequest> File exportToFile(T request) throws ExportServiceException {
+    @Override public <T extends ExportServiceRequest> File exportToFile(T request) throws ExportServiceException {
         if (!this.requestMapper.containsKey(request.getClass())) {
             RuntimeException e = new RuntimeException(
                     "Could not find a handler for export request : " + request.getClass().getCanonicalName());
@@ -101,7 +100,7 @@ public class ExportServiceImpl implements ExportService {
             throw e;
         }
         AbstractExportRequest exportRequest = (AbstractExportRequest) request;
-        UID uidDoc = exportRequest.getDocumentUID();
+        StringID<GenericInvoice> uidDoc = exportRequest.getDocumentUID();
 
         try {
             Constructor<? extends BillyExportTransformer<?, OutputStream>> transformerConstructor =
@@ -112,19 +111,18 @@ public class ExportServiceImpl implements ExportService {
             this.doExport(uidDoc, dataTransformer, outputStream);
 
         } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException |
-                IllegalArgumentException | InvocationTargetException e) {
+                 IllegalArgumentException | InvocationTargetException e) {
             ExportServiceImpl.log.error(e.getMessage(), e);
         }
     }
 
-    @Override
-    public <T extends GenericInvoiceData, O> void export(UID uidDoc, BillyExportTransformer<T, O> dataTransformer,
-            O output) throws ExportServiceException {
+    @Override public <T extends GenericInvoiceData, O> void export(StringID<GenericInvoice> uidDoc,
+            BillyExportTransformer<T, O> dataTransformer, O output) throws ExportServiceException {
         this.doExport(uidDoc, dataTransformer, output);
     }
 
-    private <T extends GenericInvoiceData, O> void doExport(UID uidDoc, BillyExportTransformer<T, O> dataTransformer,
-            O output) throws ExportServiceException {
+    private <T extends GenericInvoiceData, O> void doExport(StringID<GenericInvoice> uidDoc,
+            BillyExportTransformer<T, O> dataTransformer, O output) throws ExportServiceException {
         Class<T> clazz = dataTransformer.getTransformableClass();
         if (!this.dataExtractors.containsKey(clazz)) {
             RuntimeException e =
@@ -137,14 +135,12 @@ public class ExportServiceImpl implements ExportService {
         dataTransformer.transform(document, output);
     }
 
-    @Override
-    public <T extends GenericInvoiceData> void addDataExtractor(Class<T> dataClass,
+    @Override public <T extends GenericInvoiceData> void addDataExtractor(Class<T> dataClass,
             BillyDataExtractor<T> dataExtractor) {
         this.dataExtractors.put(dataClass, dataExtractor);
     }
 
-    @Override
-    public void addTransformerMapper(Class<? extends ExportServiceRequest> requestClazz,
+    @Override public void addTransformerMapper(Class<? extends ExportServiceRequest> requestClazz,
             Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>> transformerClazz) {
 
         this.requestMapper.put(requestClazz, transformerClazz);

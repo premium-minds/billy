@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.export.qrcode;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Customer;
@@ -35,7 +35,7 @@ import org.mockito.Mockito;
 
 public class TestQRCodeBuilderBase {
 
-    protected Customer generateCustomer(final UID customerUID) {
+    protected Customer generateCustomer(final StringID<Customer> customerUID) {
         Customer customer = Mockito.mock(Customer.class);
         Mockito.when(customer.getUID()).thenReturn(customerUID);
 

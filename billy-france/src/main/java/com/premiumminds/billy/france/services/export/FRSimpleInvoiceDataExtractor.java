@@ -18,11 +18,12 @@
  */
 package com.premiumminds.billy.france.services.export;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
@@ -44,7 +45,7 @@ public class FRSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
     }
 
     @Override
-    public FRSimpleInvoiceData extract(UID uid) throws ExportServiceException {
+    public FRSimpleInvoiceData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
         FRSimpleInvoiceEntity entity = this.daoFRSimpleInvoice.get(uid); // FIXME: Fix the DAOs to
                                                                          // remove this cast
         if (entity == null) {

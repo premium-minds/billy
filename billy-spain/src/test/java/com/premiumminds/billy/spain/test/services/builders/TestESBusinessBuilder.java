@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
@@ -37,6 +32,9 @@ import com.premiumminds.billy.spain.services.entities.ESBusiness;
 import com.premiumminds.billy.spain.services.entities.ESContact;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.fixtures.MockESBusinessEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESBusinessBuilder extends ESAbstractTest {
 
@@ -49,7 +47,7 @@ public class TestESBusinessBuilder extends ESAbstractTest {
 
         Mockito.when(this.getInstance(DAOESBusiness.class).getEntityInstance()).thenReturn(new MockESBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any()))
                 .thenReturn((ESRegionContextEntity) mockBusiness.getOperationalContext());
 
         ESBusiness.Builder builder = this.getInstance(ESBusiness.Builder.class);

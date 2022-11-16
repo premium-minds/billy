@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTManualInvoiceEnt
 
 public interface PTInvoiceEntry extends PTGenericInvoiceEntry {
 
-    public static class Builder extends PTInvoiceEntryBuilderImpl<Builder, PTInvoiceEntry> {
+    class Builder extends PTInvoiceEntryBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
 
         @Inject
         public Builder(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
@@ -39,7 +39,7 @@ public interface PTInvoiceEntry extends PTGenericInvoiceEntry {
         }
     }
 
-    public static class ManualBuilder extends PTManualInvoiceEntryBuilderImpl<ManualBuilder, PTInvoiceEntry> {
+    class ManualBuilder extends PTManualInvoiceEntryBuilderImpl<ManualBuilder, PTInvoiceEntry, PTInvoice> {
 
         @Inject
         public ManualBuilder(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,

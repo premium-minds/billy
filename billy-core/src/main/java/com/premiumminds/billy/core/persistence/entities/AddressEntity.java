@@ -25,7 +25,7 @@ import com.premiumminds.billy.core.services.entities.Address;
  *
  *         The definition of a Billy persistence Address entity
  */
-public interface AddressEntity extends Address, BaseEntity {
+public interface AddressEntity extends Address {
 
     public void setStreetName(String streetName);
 

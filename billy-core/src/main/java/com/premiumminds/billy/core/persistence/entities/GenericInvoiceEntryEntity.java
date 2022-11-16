@@ -31,7 +31,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
-public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry, BaseEntity {
+public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry {
 
     public void setEntryNumber(Integer number);
 

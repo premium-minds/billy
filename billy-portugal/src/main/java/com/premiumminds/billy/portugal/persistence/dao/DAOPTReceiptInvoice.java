@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import java.util.Date;
 import java.util.List;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 
 public interface DAOPTReceiptInvoice extends AbstractDAOPTGenericInvoice<PTReceiptInvoiceEntity> {
 
-    public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(UID uid, Date from, Date to);
+    public List<PTReceiptInvoiceEntity> getBusinessReceiptInvoicesForSAFTPT(StringID<Business> uid, Date from, Date to);
 }

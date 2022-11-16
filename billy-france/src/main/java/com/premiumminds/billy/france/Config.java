@@ -18,15 +18,12 @@
  */
 package com.premiumminds.billy.france;
 
+import com.premiumminds.billy.core.services.StringID;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.UUID;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.premiumminds.billy.core.services.UID;
 
 public class Config {
 
@@ -65,12 +62,8 @@ public class Config {
         return this.properties.getProperty(key);
     }
 
-    public UID getUID(String key) {
-        return new UID(this.getUUID(key).toString());
-    }
-
-    public UUID getUUID(String key) {
-        return UUID.fromString(this.get(key));
+    public <T> StringID<T> getUID(String key) {
+        return StringID.fromValue(this.get(key));
     }
 
     // CONFIG
@@ -109,7 +102,7 @@ public class Config {
                         public static final String SUPER_REDUCED_PERCENT =
                                 "context.france.continental.tax.vat.super_reduced.percent";
                     }
-                    
+
                     public static class Alsace {
 
                         public static final String UUID = "context.france.alsace.uuid";
@@ -219,7 +212,7 @@ public class Config {
 
                         public static final String UUID = "context.france.rhonealpes.uuid";
                     }
-                    
+
                 }
 
             }

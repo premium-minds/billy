@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -35,7 +36,7 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
-public class MockGenericInvoiceEntity extends MockBaseEntity implements GenericInvoiceEntity {
+public class MockGenericInvoiceEntity extends MockBaseEntity<GenericInvoice> implements GenericInvoiceEntity {
 
     private static final long serialVersionUID = 1L;
 

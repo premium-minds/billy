@@ -20,6 +20,8 @@ package com.premiumminds.billy.portugal.test.services.documents.handler;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Optional;
 
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
@@ -27,7 +29,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
@@ -47,7 +48,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
     private PTInvoiceIssuingHandler handler;
-    private UID issuedInvoiceUID;
+    private StringID<GenericInvoice> issuedInvoiceUID;
 
     @BeforeEach
     public void setUpNewInvoice() {
@@ -87,7 +88,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         PTGenericInvoiceEntity newInvoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-        UID newInvoiceUID = newInvoice.getUID();
+        StringID<GenericInvoice> newInvoiceUID = newInvoice.getUID();
         newInvoice.setBusiness(issuedInvoice.getBusiness());
 
         this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
@@ -111,7 +112,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         PTGenericInvoiceEntity newInvoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-        UID newInvoiceUID = newInvoice.getUID();
+        StringID<GenericInvoice> newInvoiceUID = newInvoice.getUID();
         this.createSeries(newInvoice, newSeries);
 
 
@@ -169,7 +170,7 @@ public class TestPTInvoiceIssuingHandler extends PTDocumentAbstractTest {
         PTGenericInvoiceEntity newInvoice =
                 this.newInvoice(TestPTInvoiceIssuingHandler.DEFAULT_TYPE, TestPTInvoiceIssuingHandler.SOURCE_BILLING);
 
-        UID newInvoiceUID = newInvoice.getUID();
+        StringID<GenericInvoice> newInvoiceUID = newInvoice.getUID();
         this.createSeries(newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);
 
         this.issueNewInvoice(this.handler, newInvoice, PTPersistencyAbstractTest.DEFAULT_SERIES);

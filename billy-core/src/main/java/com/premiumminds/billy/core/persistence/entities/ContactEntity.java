@@ -20,7 +20,7 @@ package com.premiumminds.billy.core.persistence.entities;
 
 import com.premiumminds.billy.core.services.entities.Contact;
 
-public interface ContactEntity extends Contact, BaseEntity {
+public interface ContactEntity extends Contact {
 
     public void setName(String name);
 

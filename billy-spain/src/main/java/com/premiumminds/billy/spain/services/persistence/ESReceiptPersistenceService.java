@@ -18,17 +18,19 @@
  */
 package com.premiumminds.billy.spain.services.persistence;
 
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.entities.ESReceipt;
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 public class ESReceiptPersistenceService {
 
@@ -56,7 +58,7 @@ public class ESReceiptPersistenceService {
         }
     }
 
-    public ESReceipt get(final UID uid) {
+    public ESReceipt get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<ESReceipt>(this.daoReceipt) {
 
@@ -71,14 +73,14 @@ public class ESReceiptPersistenceService {
     }
 
     @Deprecated
-    public ESReceipt getWithTicket(final UID ticketUID) throws NoResultException {
+    public ESReceipt getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException {
         try {
             return new TransactionWrapper<ESReceipt>(this.daoReceipt) {
 
                 @Override
                 public ESReceipt runTransaction() throws Exception {
-                    UID receiptUID =
-                            ESReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    StringID<GenericInvoice> receiptUID =
+                            ESReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return ESReceiptPersistenceService.this.daoReceipt.get(receiptUID);
                 }
             }.execute();
@@ -89,7 +91,7 @@ public class ESReceiptPersistenceService {
         }
     }
 
-    public ESReceipt findByNumber(final UID uidBusiness, final String number) {
+    public ESReceipt findByNumber(final StringID<Business> uidBusiness, final String number) {
         try {
             return new TransactionWrapper<ESReceipt>(this.daoReceipt) {
 

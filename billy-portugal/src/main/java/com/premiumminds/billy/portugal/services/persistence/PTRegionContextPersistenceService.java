@@ -18,19 +18,18 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
+import javax.inject.Inject;
 
-public class PTRegionContextPersistenceService implements PersistenceService<PTRegionContext> {
+public class PTRegionContextPersistenceService implements PersistenceService<Context, PTRegionContext> {
 
     protected final DAOPTRegionContext daoRegionContext;
 
@@ -74,7 +73,7 @@ public class PTRegionContextPersistenceService implements PersistenceService<PTR
     }
 
     @Override
-    public PTRegionContext get(final UID uid) {
+    public PTRegionContext get(final StringID<Context> uid) {
         try {
             return new TransactionWrapper<PTRegionContext>(this.daoRegionContext) {
 

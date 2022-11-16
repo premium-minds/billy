@@ -28,7 +28,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.builders.impl.TaxBuilderImpl;
 
-public interface Tax extends Entity {
+public interface Tax extends Entity<Tax> {
 
     public static class Builder extends TaxBuilderImpl<Builder, Tax> {
 

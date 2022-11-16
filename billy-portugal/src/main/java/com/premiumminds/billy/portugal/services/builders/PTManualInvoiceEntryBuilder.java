@@ -18,12 +18,14 @@
  */
 package com.premiumminds.billy.portugal.services.builders;
 
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.math.BigDecimal;
 
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
-public interface PTManualInvoiceEntryBuilder<TBuilder extends PTManualInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-        extends PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface PTManualInvoiceEntryBuilder<TBuilder extends PTManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends PTGenericInvoiceEntry, TInvoice extends GenericInvoice>
+    extends PTGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     public TBuilder setUnitTaxAmount(BigDecimal taxAmount);
 

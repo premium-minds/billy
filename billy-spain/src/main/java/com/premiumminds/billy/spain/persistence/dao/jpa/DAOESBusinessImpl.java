@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.persistence.dao.jpa.DAOBusinessImpl;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESBusinessEntity;
@@ -47,7 +48,7 @@ public class DAOESBusinessImpl extends DAOBusinessImpl implements DAOESBusiness 
     }
 
     @Override
-    public ESBusinessEntity get(UID uid) throws NoResultException {
+    public ESBusinessEntity get(StringID<Business> uid) throws NoResultException {
         return (ESBusinessEntity) super.get(uid);
     }
 

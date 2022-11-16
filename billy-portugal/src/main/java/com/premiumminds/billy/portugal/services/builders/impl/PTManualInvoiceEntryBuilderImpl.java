@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -36,9 +37,10 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity
 import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
-public class PTManualInvoiceEntryBuilderImpl<TBuilder extends PTManualInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-        extends PTManualEntryBuilderImpl<TBuilder, TEntry, DAOPTInvoiceEntry, DAOPTInvoice>
-        implements PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
+public class PTManualInvoiceEntryBuilderImpl<TBuilder extends PTManualInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice>,
+    TEntry extends PTGenericInvoiceEntry, TInvoice extends PTGenericInvoice>
+    extends PTManualEntryBuilderImpl<TBuilder, TEntry, TInvoice, DAOPTInvoiceEntry, DAOPTInvoice>
+    implements PTManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     public PTManualInvoiceEntryBuilderImpl(DAOPTInvoiceEntry daoPTEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
             DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {

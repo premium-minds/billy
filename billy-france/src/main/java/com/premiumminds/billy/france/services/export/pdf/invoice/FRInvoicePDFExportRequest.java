@@ -18,16 +18,17 @@
  */
 package com.premiumminds.billy.france.services.export.pdf.invoice;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class FRInvoicePDFExportRequest extends AbstractExportRequest {
 
-    public FRInvoicePDFExportRequest(UID uid, FRInvoiceTemplateBundle bundle) {
+    public FRInvoicePDFExportRequest(StringID<GenericInvoice> uid, FRInvoiceTemplateBundle bundle) {
         super(uid, bundle);
     }
 
-    public FRInvoicePDFExportRequest(UID uid, FRInvoiceTemplateBundle bundle, String resultPath) {
+    public FRInvoicePDFExportRequest(StringID<GenericInvoice> uid, FRInvoiceTemplateBundle bundle, String resultPath) {
         super(uid, bundle, resultPath);
     }
 

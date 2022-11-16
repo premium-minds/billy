@@ -18,18 +18,17 @@
  */
 package com.premiumminds.billy.core.services.entities;
 
+import com.premiumminds.billy.core.persistence.dao.DAOTicket;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.builders.impl.TicketBuilderImpl;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Date;
-
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.builders.impl.TicketBuilderImpl;
-
 @Deprecated
-public interface Ticket extends Entity {
+public interface Ticket extends Entity<Ticket> {
 
-    public static class Builder extends TicketBuilderImpl<Builder, Ticket> {
+    class Builder extends TicketBuilderImpl<Builder, Ticket> {
 
         @Inject
         public Builder(DAOTicket daoTicket) {
@@ -37,9 +36,9 @@ public interface Ticket extends Entity {
         }
     }
 
-    public UID getObjectUID();
+    StringID<GenericInvoice> getObjectUID();
 
-    public Date getCreationDate();
+    Date getCreationDate();
 
-    public Date getProcessDate();
+    Date getProcessDate();
 }

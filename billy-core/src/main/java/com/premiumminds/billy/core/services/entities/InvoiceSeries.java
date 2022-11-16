@@ -20,7 +20,7 @@ package com.premiumminds.billy.core.services.entities;
 
 import java.util.Optional;
 
-public interface InvoiceSeries extends Entity {
+public interface InvoiceSeries extends Entity<InvoiceSeries> {
 
     String getSeries();
 

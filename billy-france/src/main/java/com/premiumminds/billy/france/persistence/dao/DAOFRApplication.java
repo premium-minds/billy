@@ -19,15 +19,16 @@
 package com.premiumminds.billy.france.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.france.persistence.entities.FRApplicationEntity;
 
 public interface DAOFRApplication extends DAOApplication {
 
     @Override
-    public FRApplicationEntity getEntityInstance();
+    FRApplicationEntity getEntityInstance();
 
     @Override
-    public FRApplicationEntity get(UID uid);
+    FRApplicationEntity get(StringID<Application> uid);
 
 }

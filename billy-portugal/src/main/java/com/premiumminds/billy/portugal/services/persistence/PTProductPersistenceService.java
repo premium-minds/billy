@@ -18,18 +18,18 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Product;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
+import javax.inject.Inject;
 
-public class PTProductPersistenceService implements PersistenceService<PTProduct> {
+public class PTProductPersistenceService implements PersistenceService<Product, PTProduct> {
 
     protected final DAOPTProduct daoProduct;
 
@@ -73,12 +73,12 @@ public class PTProductPersistenceService implements PersistenceService<PTProduct
     }
 
     @Override
-    public PTProduct get(final UID uid) {
+    public PTProduct get(final StringID<Product> uid) {
         try {
             return new TransactionWrapper<PTProduct>(this.daoProduct) {
 
                 @Override
-                public PTProduct runTransaction() throws Exception {
+                public PTProduct runTransaction() {
                     return (PTProduct) PTProductPersistenceService.this.daoProduct.get(uid);
                 }
 
@@ -88,7 +88,7 @@ public class PTProductPersistenceService implements PersistenceService<PTProduct
         }
     }
 
-    public boolean exists(final UID uid) {
+    public boolean exists(final StringID<Product> uid) {
         return this.daoProduct.exists(uid);
     }
 

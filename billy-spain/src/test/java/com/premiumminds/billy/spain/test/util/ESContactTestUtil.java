@@ -19,7 +19,7 @@
 package com.premiumminds.billy.spain.test.util;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.spain.persistence.entities.ESContactEntity;
 import com.premiumminds.billy.spain.services.entities.ESContact;
 
@@ -51,7 +51,7 @@ public class ESContactTestUtil {
 
     public ESContactEntity getContactEntity(String uid) {
         ESContactEntity entity = (ESContactEntity) this.getContactBuilder().build();
-        entity.setUID(new UID(uid));
+        entity.setUID(StringID.fromValue(uid));
         return entity;
     }
 

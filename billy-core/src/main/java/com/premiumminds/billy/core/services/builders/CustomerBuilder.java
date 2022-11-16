@@ -19,7 +19,7 @@
 package com.premiumminds.billy.core.services.builders;
 
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
@@ -40,7 +40,7 @@ public interface CustomerBuilder<TBuilder extends CustomerBuilder<TBuilder, TCus
 
     public <T extends Contact> TBuilder addContact(Builder<T> contactBuilder);
 
-    public TBuilder setMainContactUID(UID contactUID);
+    public TBuilder setMainContactUID(StringID<Contact> contactUID);
 
     public <T extends BankAccount> TBuilder addBankAccount(Builder<T> accountBuilder);
 

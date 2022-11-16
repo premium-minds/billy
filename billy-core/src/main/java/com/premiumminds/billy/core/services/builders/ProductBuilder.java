@@ -19,9 +19,10 @@
 package com.premiumminds.billy.core.services.builders;
 
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
+import com.premiumminds.billy.core.services.entities.Tax;
 
 public interface ProductBuilder<TBuilder extends ProductBuilder<TBuilder, TProduct>, TProduct extends Product>
         extends Builder<TProduct> {
@@ -42,6 +43,6 @@ public interface ProductBuilder<TBuilder extends ProductBuilder<TBuilder, TProdu
 
     public TBuilder setUnitOfMeasure(String unit);
 
-    public TBuilder addTaxUID(UID tax);
+    public TBuilder addTaxUID(StringID<Tax> tax);
 
 }

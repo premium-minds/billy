@@ -18,9 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.builders;
 
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 
-public interface PTInvoiceEntryBuilder<TBuilder extends PTInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends PTInvoiceEntry>
-        extends PTGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface PTInvoiceEntryBuilder<TBuilder extends PTInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends PTInvoiceEntry, TInvoice extends PTInvoice>
+    extends PTGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
 }

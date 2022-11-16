@@ -18,9 +18,10 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Entity;
 import java.util.Date;
 import java.util.UUID;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -33,12 +34,8 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.apache.commons.lang3.Validate;
 import org.hibernate.envers.Audited;
-
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
-import com.premiumminds.billy.core.services.UID;
 
 /**
  * @author Francisco Vargas
@@ -48,7 +45,7 @@ import com.premiumminds.billy.core.services.UID;
 @MappedSuperclass
 @Audited
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class JPABaseEntity implements BaseEntity {
+public abstract class JPABaseEntity<E> implements Entity<E> {
 
     private static final long serialVersionUID = 1L;
 
@@ -110,14 +107,14 @@ public abstract class JPABaseEntity implements BaseEntity {
     }
 
     @Override
-    public UID getUID() {
-        return new UID(this.uid);
+    public StringID<E> getUID() {
+        return StringID.fromValue(this.uid);
     }
 
     @Override
-    public void setUID(UID uid) {
-        Validate.notNull(uid);
-        this.uid = uid.toString();
+    public void setUID(StringID<E> stringID) {
+        Validate.notNull(stringID);
+        this.uid = stringID.toString();
     }
 
     @Override

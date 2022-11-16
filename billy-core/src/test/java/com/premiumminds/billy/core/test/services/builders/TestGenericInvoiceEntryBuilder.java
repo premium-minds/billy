@@ -18,24 +18,21 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestGenericInvoiceEntryBuilder extends AbstractTest {
 
@@ -55,9 +52,9 @@ public class TestGenericInvoiceEntryBuilder extends AbstractTest {
         Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).getEntityInstance())
                 .thenReturn(new MockGenericInvoiceEntryEntity());
 
-        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoice);
+        Mockito.when(this.getInstance(DAOGenericInvoice.class).get(Mockito.any())).thenReturn(mockInvoice);
 
-        Mockito.when(this.getInstance(DAOProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOProduct.class).get(Mockito.any()))
                 .thenReturn((ProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOContext.class).isSameOrSubContext(Mockito.any(),

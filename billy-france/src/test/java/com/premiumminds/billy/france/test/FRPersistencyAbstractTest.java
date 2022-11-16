@@ -18,17 +18,12 @@
  */
 package com.premiumminds.billy.france.test;
 
+import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-
-import com.google.inject.Guice;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.france.FranceBootstrap;
 import com.premiumminds.billy.france.FranceDependencyModule;
 import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
@@ -37,11 +32,15 @@ import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.documents.util.FRIssuingParams;
 import com.premiumminds.billy.france.services.documents.util.FRIssuingParamsImpl;
 import com.premiumminds.billy.france.services.entities.FRInvoice;
-import com.premiumminds.billy.france.util.Services;
 import com.premiumminds.billy.france.test.util.FRBusinessTestUtil;
 import com.premiumminds.billy.france.test.util.FRCreditNoteTestUtil;
 import com.premiumminds.billy.france.test.util.FRInvoiceTestUtil;
 import com.premiumminds.billy.france.test.util.FRReceiptTestUtil;
+import com.premiumminds.billy.france.util.Services;
+import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 public class FRPersistencyAbstractTest extends FRAbstractTest {
 
@@ -63,7 +62,7 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
     }
 
     public FRInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice((new UID()).toString());
+        return this.getNewIssuedInvoice(UUID.randomUUID().toString());
 
     }
 

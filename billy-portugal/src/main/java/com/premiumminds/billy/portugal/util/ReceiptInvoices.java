@@ -20,9 +20,10 @@ package com.premiumminds.billy.portugal.util;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.impl.BuilderManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.gin.services.ExportService;
@@ -94,7 +95,7 @@ public class ReceiptInvoices {
         return this.exportService.exportToStream(request);
     }
 
-    public <O> void pdfExport(UID uidDoc, BillyExportTransformer<PTInvoiceData, O> dataTransformer, O output)
+    public <O> void pdfExport(StringID<GenericInvoice> uidDoc, BillyExportTransformer<PTInvoiceData, O> dataTransformer, O output)
             throws ExportServiceException {
 
         this.exportService.export(uidDoc, dataTransformer, output);

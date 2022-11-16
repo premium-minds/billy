@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.services.builders.impl.ProductBuilderImpl;
 
-public interface Product extends Entity {
+public interface Product extends Entity<Product> {
 
     public static class Builder extends ProductBuilderImpl<Builder, Product> {
 

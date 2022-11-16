@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.entities;
 
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNoteEntry;
@@ -30,7 +31,7 @@ import com.premiumminds.billy.spain.services.builders.impl.ESManualCreditNoteEnt
 
 public interface ESCreditNoteEntry extends ESGenericInvoiceEntry {
 
-    public static class Builder extends ESCreditNoteEntryBuilderImpl<Builder, ESCreditNoteEntry> {
+    class Builder extends ESCreditNoteEntryBuilderImpl<Builder, ESCreditNoteEntry> {
 
         @Inject
         public Builder(DAOESCreditNoteEntry daoESCreditNoteEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
@@ -39,7 +40,7 @@ public interface ESCreditNoteEntry extends ESGenericInvoiceEntry {
         }
     }
 
-    public static class ManualBuilder extends ESManualCreditNoteEntryBuilderImpl<ManualBuilder, ESCreditNoteEntry> {
+    class ManualBuilder extends ESManualCreditNoteEntryBuilderImpl<ManualBuilder, ESCreditNoteEntry> {
 
         @Inject
         public ManualBuilder(DAOESCreditNoteEntry daoESCreditNoteEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
@@ -48,7 +49,7 @@ public interface ESCreditNoteEntry extends ESGenericInvoiceEntry {
         }
     }
 
-    public ESInvoice getReference();
+    GenericInvoiceEntity getReference();
 
-    public String getReason();
+    String getReason();
 }

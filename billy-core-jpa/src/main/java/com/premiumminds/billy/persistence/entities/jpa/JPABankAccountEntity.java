@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.entities.BankAccount;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,7 +31,7 @@ import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BANK_ACCOUNT")
-public class JPABankAccountEntity extends JPABaseEntity implements BankAccountEntity {
+public class JPABankAccountEntity extends JPABaseEntity<BankAccount> implements BankAccountEntity {
 
     private static final long serialVersionUID = 1L;
 

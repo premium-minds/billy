@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-import org.apache.commons.lang3.time.DateUtils;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
@@ -35,11 +30,17 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.services.builders.PTManualInvoiceEntryBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
+import java.math.BigDecimal;
+import java.util.Date;
+import org.apache.commons.lang3.time.DateUtils;
 
-public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends PTGenericInvoiceEntry, TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOGenericInvoice<?>>
-        extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
-        implements PTManualInvoiceEntryBuilder<TBuilder, TEntry> {
+public abstract class PTManualEntryBuilderImpl<TBuilder extends PTManualEntryBuilderImpl<TBuilder, TEntry, TInvoice, TDAOEntry,
+    TDAOInvoice>, TEntry extends PTGenericInvoiceEntry, TInvoice extends PTGenericInvoice, TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>,
+    TDAOInvoice extends AbstractDAOGenericInvoice<?>>
+    extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice, TDAOEntry, TDAOInvoice>
+    implements PTManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     public PTManualEntryBuilderImpl(TDAOEntry daoPTEntry, TDAOInvoice daoPTInvoice, DAOPTTax daoPTTax,
             DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {

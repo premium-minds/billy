@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import com.premiumminds.billy.core.services.entities.Supplier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 
-public class MockSupplierEntity extends MockBaseEntity implements SupplierEntity {
+public class MockSupplierEntity extends MockBaseEntity<Supplier> implements SupplierEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -21,8 +21,9 @@ package com.premiumminds.billy.portugal.test.services.export.qrcode;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
@@ -48,7 +49,7 @@ public class TestQRCodeStringGenerator extends PTDocumentAbstractTest {
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
     private PTInvoiceIssuingHandler handler;
-    private UID issuedInvoiceUID;
+    private StringID<GenericInvoice> issuedInvoiceUID;
     private QRCodeStringGenerator underTest;
     private DAOInvoiceSeries daoInvoiceSeries;
 

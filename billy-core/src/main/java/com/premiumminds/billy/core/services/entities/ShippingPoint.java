@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.services.builders.impl.ShippingPointBuilderImpl;
 
-public interface ShippingPoint extends Entity {
+public interface ShippingPoint extends Entity<ShippingPoint> {
 
     public static class Builder extends ShippingPointBuilderImpl<Builder, ShippingPoint> {
 

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
 
@@ -32,7 +33,6 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditReceiptE
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditReceiptEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditReceiptEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
-import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
 public class DAOESCreditReceiptEntryImpl
         extends AbstractDAOESGenericInvoiceEntryImpl<ESCreditReceiptEntryEntity, JPAESCreditReceiptEntryEntity>
@@ -54,7 +54,7 @@ public class DAOESCreditReceiptEntryImpl
     }
 
     @Override
-    public ESCreditReceiptEntity checkCreditReceipt(ESReceipt receipt) {
+    public ESCreditReceiptEntity checkCreditReceipt(GenericInvoiceEntity receipt) {
         QJPAESCreditReceiptEntity creditReceiptEntity = QJPAESCreditReceiptEntity.jPAESCreditReceiptEntity;
 
         List<JPAESCreditReceiptEntity> allCns = new JPAQuery<>(this.getEntityManager())

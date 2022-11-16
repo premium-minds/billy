@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import java.util.Date;
 
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 
-public class MockShippingPointEntity extends MockBaseEntity implements ShippingPointEntity {
+public class MockShippingPointEntity extends MockBaseEntity<ShippingPoint> implements ShippingPointEntity {
 
     private static final long serialVersionUID = 1L;
 

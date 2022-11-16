@@ -18,20 +18,17 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTProductEntity;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestPTProductBuilder extends PTAbstractTest {
 
@@ -47,7 +44,7 @@ public class TestPTProductBuilder extends PTAbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOPTTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOPTTax.class).get(Mockito.any())).thenReturn(tax);
         }
 
         PTProduct.Builder builder = this.getInstance(PTProduct.Builder.class);

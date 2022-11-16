@@ -18,14 +18,12 @@
  */
 package com.premiumminds.billy.core.util;
 
+import com.premiumminds.billy.core.exceptions.BillyUpdateException;
+import com.premiumminds.billy.core.services.builders.impl.AbstractBuilder;
+import com.premiumminds.billy.core.services.entities.Entity;
 import java.lang.reflect.Method;
-
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-
-import com.premiumminds.billy.core.exceptions.BillyUpdateException;
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
-import com.premiumminds.billy.core.services.builders.impl.AbstractBuilder;
 
 /**
  * Intercepts methods calls to annotated with {@link NotOnUpdate}.
@@ -46,7 +44,7 @@ public class NotOnUpdateInterceptor implements MethodInterceptor {
         String exceptionMessage = invocation.getMethod().getAnnotation(NotOnUpdate.class).message();
 
         Method method = this.getMethod(invocation.getThis().getClass());
-        BaseEntity entity = (BaseEntity) method.invoke(invocation.getThis(), new Object[] {});
+        Entity entity = (Entity) method.invoke(invocation.getThis(), new Object[] {});
 
         if (entity.isNew()) {
             return invocation.proceed();

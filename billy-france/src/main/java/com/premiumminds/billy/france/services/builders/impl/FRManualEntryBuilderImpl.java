@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -37,9 +38,11 @@ import com.premiumminds.billy.france.persistence.entities.FRGenericInvoiceEntryE
 import com.premiumminds.billy.france.services.builders.FRManualInvoiceEntryBuilder;
 import com.premiumminds.billy.france.services.entities.FRGenericInvoiceEntry;
 
-public class FRManualEntryBuilderImpl<TBuilder extends FRManualEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends FRGenericInvoiceEntry, TDAOEntry extends AbstractDAOFRGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOFRGenericInvoice<?>>
-        extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
-        implements FRManualInvoiceEntryBuilder<TBuilder, TEntry> {
+public class FRManualEntryBuilderImpl<TBuilder extends FRManualEntryBuilderImpl<TBuilder, TEntry, TInvoice,TDAOEntry,
+    TDAOInvoice>, TEntry extends FRGenericInvoiceEntry, TInvoice extends FRGenericInvoice, TDAOEntry extends AbstractDAOFRGenericInvoiceEntry<?>,
+    TDAOInvoice extends AbstractDAOFRGenericInvoice<?>>
+    extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice, TDAOEntry, TDAOInvoice>
+    implements FRManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     public FRManualEntryBuilderImpl(TDAOEntry daoFREntry, TDAOInvoice daoFRInvoice, DAOFRTax daoFRTax,
             DAOFRProduct daoFRProduct, DAOFRRegionContext daoFRRegionContext) {

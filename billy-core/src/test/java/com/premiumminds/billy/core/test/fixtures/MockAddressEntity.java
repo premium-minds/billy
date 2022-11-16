@@ -19,8 +19,9 @@
 package com.premiumminds.billy.core.test.fixtures;
 
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.services.entities.Address;
 
-public class MockAddressEntity extends MockBaseEntity implements AddressEntity {
+public class MockAddressEntity extends MockBaseEntity<Address> implements AddressEntity {
 
     private static final long serialVersionUID = 1L;
 

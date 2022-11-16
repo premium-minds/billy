@@ -18,15 +18,7 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
-import java.util.ArrayList;
-import java.util.Currency;
-
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
 import com.premiumminds.billy.france.persistence.dao.DAOFRGenericInvoice;
@@ -40,6 +32,11 @@ import com.premiumminds.billy.france.test.fixtures.MockFRCustomerEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRGenericInvoiceEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRGenericInvoiceEntryEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRPaymentEntity;
+import java.util.ArrayList;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestFRGenericInvoiceBuilder extends FRAbstractTest {
 
@@ -63,12 +60,12 @@ public class TestFRGenericInvoiceBuilder extends FRAbstractTest {
         Mockito.when(this.getInstance(DAOFRGenericInvoice.class).getEntityInstance())
                 .thenReturn(new MockFRGenericInvoiceEntity());
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
 
         MockFRGenericInvoiceEntryEntity entryMock = this.createMockEntity(MockFRGenericInvoiceEntryEntity.class,
                 TestFRGenericInvoiceBuilder.FR_GENERIC_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRGenericInvoiceEntry.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRGenericInvoiceEntry.class).get(Mockito.any()))
                 .thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);

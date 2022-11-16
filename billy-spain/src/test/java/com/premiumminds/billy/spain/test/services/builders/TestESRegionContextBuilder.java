@@ -18,17 +18,15 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 import com.premiumminds.billy.spain.test.ESAbstractTest;
 import com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESRegionContextBuilder extends ESAbstractTest {
 
@@ -42,7 +40,7 @@ public class TestESRegionContextBuilder extends ESAbstractTest {
         Mockito.when(this.getInstance(DAOESRegionContext.class).getEntityInstance())
                 .thenReturn(new MockESRegionContextEntity());
 
-        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESRegionContext.class).get(Mockito.any()))
                 .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
         ESRegionContext.Builder builder = this.getInstance(ESRegionContext.Builder.class);

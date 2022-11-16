@@ -18,20 +18,18 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestBusinessBuilder extends AbstractTest {
 
@@ -44,7 +42,7 @@ public class TestBusinessBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOBusiness.class).getEntityInstance()).thenReturn(new MockBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any()))
                 .thenReturn((ContextEntity) mockBusiness.getOperationalContext());
 
         Business.Builder builder = this.getInstance(Business.Builder.class);

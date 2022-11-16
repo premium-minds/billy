@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Currency;
@@ -52,7 +53,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.Cr
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
-public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements GenericInvoiceEntryEntity {
+public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEntry> implements GenericInvoiceEntryEntity {
 
     private static final long serialVersionUID = 1L;
 

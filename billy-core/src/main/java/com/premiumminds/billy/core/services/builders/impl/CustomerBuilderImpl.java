@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import com.premiumminds.billy.core.services.StringID;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -27,7 +28,6 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.CustomerBuilder;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
@@ -107,7 +107,7 @@ public class CustomerBuilderImpl<TBuilder extends CustomerBuilderImpl<TBuilder, 
     }
 
     @Override
-    public TBuilder setMainContactUID(UID contactUID) {
+    public TBuilder setMainContactUID(StringID<Contact> contactUID) {
         BillyValidator.notNull(contactUID, CustomerBuilderImpl.LOCALIZER.getString("field.customer_main_contact"));
 
         Contact c = null;

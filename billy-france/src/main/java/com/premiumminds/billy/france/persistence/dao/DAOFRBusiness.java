@@ -19,15 +19,16 @@
 package com.premiumminds.billy.france.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 
 public interface DAOFRBusiness extends DAOBusiness {
 
     @Override
-    public FRBusinessEntity getEntityInstance();
+    FRBusinessEntity getEntityInstance();
 
     @Override
-    public FRBusinessEntity get(UID uid);
+    FRBusinessEntity get(StringID<Business> uid);
 
 }

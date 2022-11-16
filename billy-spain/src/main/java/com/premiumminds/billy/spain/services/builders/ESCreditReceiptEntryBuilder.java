@@ -18,14 +18,17 @@
  */
 package com.premiumminds.billy.spain.services.builders;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
-public interface ESCreditReceiptEntryBuilder<TBuilder extends ESCreditReceiptEntryBuilder<TBuilder, TEntry>, TEntry extends ESCreditReceiptEntry>
-        extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface ESCreditReceiptEntryBuilder<TBuilder extends ESCreditReceiptEntryBuilder<TBuilder, TEntry,TInvoice>,
+    TEntry extends ESCreditReceiptEntry, TInvoice extends ESGenericInvoiceEntity>
+    extends ESGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
-    public TBuilder setReferenceUID(UID reference);
+    TBuilder setReferenceUID(StringID<GenericInvoice> reference);
 
-    public TBuilder setReason(String reason);
+    TBuilder setReason(String reason);
 
 }

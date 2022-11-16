@@ -19,15 +19,16 @@
 package com.premiumminds.billy.portugal.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 
 public interface DAOPTBusiness extends DAOBusiness {
 
     @Override
-    public PTBusinessEntity getEntityInstance();
+    PTBusinessEntity getEntityInstance();
 
     @Override
-    public PTBusinessEntity get(UID uid);
+    PTBusinessEntity get(StringID<Business> uid);
 
 }

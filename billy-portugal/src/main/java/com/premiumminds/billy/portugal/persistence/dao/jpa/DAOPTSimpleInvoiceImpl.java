@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.querydsl.jpa.impl.JPAQuery;
 import java.util.Date;
 import java.util.List;
@@ -26,7 +28,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
@@ -52,7 +53,7 @@ public class DAOPTSimpleInvoiceImpl extends
     }
 
     @Override
-    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(UID uid, Date from, Date to) {
+    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(StringID<Business> uid, Date from, Date to) {
         QJPAPTSimpleInvoiceEntity invoice = QJPAPTSimpleInvoiceEntity.jPAPTSimpleInvoiceEntity;
 
         JPAQuery<PTSimpleInvoiceEntity> query = this.createQuery();
