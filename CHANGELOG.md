@@ -7,6 +7,7 @@
 
  - [Bump hibernate.version from 5.6.12.Final to 5.6.14.Final](https://github.com/premium-minds/billy/pull/353)
  - [Bump fop from 2.7 to 2.8](https://github.com/premium-minds/billy/pull/354)
+ - [Bump slf4j-api from 2.0.3 to 2.0.4](https://github.com/premium-minds/billy/pull/356)
  - [Bump mockito-core from 4.8.1 to 4.9.0](https://github.com/premium-minds/billy/pull/355)
 
 ## [7.0.0] 2022-11-03
