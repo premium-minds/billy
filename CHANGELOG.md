@@ -12,6 +12,7 @@
  - [Bump slf4j-api from 2.0.5 to 2.0.6](https://github.com/premium-minds/billy/pull/360)
  - [Bump mockito-core from 4.8.1 to 4.9.0](https://github.com/premium-minds/billy/pull/355)
  - [Bump mockito-core from 4.9.0 to 4.10.0](https://github.com/premium-minds/billy/pull/361)
+ - [Bump mockito-core from 4.10.0 to 4.11.0](https://github.com/premium-minds/billy/pull/362)
  - [Bump spotless-maven-plugin from 2.27.2 to 2.28.0](https://github.com/premium-minds/billy/pull/357)
 
 ## [7.0.0] 2022-11-03
