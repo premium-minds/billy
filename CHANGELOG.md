@@ -13,6 +13,7 @@
  - [Bump mockito-core from 4.8.1 to 4.9.0](https://github.com/premium-minds/billy/pull/355)
  - [Bump mockito-core from 4.9.0 to 4.10.0](https://github.com/premium-minds/billy/pull/361)
  - [Bump mockito-core from 4.10.0 to 4.11.0](https://github.com/premium-minds/billy/pull/362)
+ - [Bump junit-jupiter-engine from 5.9.1 to 5.9.2](https://github.com/premium-minds/billy/pull/365)
  - [Bump maven-jaxb2-plugin from 0.15.1 to 0.15.2](https://github.com/premium-minds/billy/pull/363)
  - [Bump spotless-maven-plugin from 2.27.2 to 2.28.0](https://github.com/premium-minds/billy/pull/357)
  - [Bump spotless-maven-plugin from 2.28.0 to 2.29.0](https://github.com/premium-minds/billy/pull/364)
