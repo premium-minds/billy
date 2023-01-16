@@ -17,6 +17,7 @@
  - [Bump maven-jaxb2-plugin from 0.15.1 to 0.15.2](https://github.com/premium-minds/billy/pull/363)
  - [Bump spotless-maven-plugin from 2.27.2 to 2.28.0](https://github.com/premium-minds/billy/pull/357)
  - [Bump spotless-maven-plugin from 2.28.0 to 2.29.0](https://github.com/premium-minds/billy/pull/364)
+ - [Bump spotless-maven-plugin from 2.29.0 to 2.30.0](https://github.com/premium-minds/billy/pull/367)
 
 ## [7.0.0] 2022-11-03
 
