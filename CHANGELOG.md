@@ -6,6 +6,7 @@
 ### Changed 
 
  - [Bump hibernate.version from 5.6.12.Final to 5.6.14.Final](https://github.com/premium-minds/billy/pull/353)
+ - [Bump hibernate.version from 5.6.14.Final to 5.6.15.Final](https://github.com/premium-minds/billy/pull/373)
  - [Bump fop from 2.7 to 2.8](https://github.com/premium-minds/billy/pull/354)
  - [Bump slf4j-api from 2.0.3 to 2.0.4](https://github.com/premium-minds/billy/pull/356)
  - [Bump slf4j-api from 2.0.4 to 2.0.5](https://github.com/premium-minds/billy/pull/358)
