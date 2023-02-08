@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.util;
 
+import java.io.InputStream;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
@@ -38,7 +40,6 @@ import com.premiumminds.billy.portugal.services.export.PTSimpleInvoiceDataExtrac
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFExportRequest;
 import com.premiumminds.billy.portugal.services.export.pdf.simpleinvoice.PTSimpleInvoicePDFFOPTransformer;
 import com.premiumminds.billy.portugal.services.persistence.PTSimpleInvoicePersistenceService;
-import java.io.InputStream;
 
 public class SimpleInvoices {
 

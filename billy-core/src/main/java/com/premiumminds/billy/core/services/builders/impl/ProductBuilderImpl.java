@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
@@ -30,7 +32,6 @@ import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
-import javax.inject.Inject;
 
 public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TProduct>, TProduct extends Product>
         extends AbstractBuilder<TBuilder, TProduct> implements ProductBuilder<TBuilder, TProduct> {

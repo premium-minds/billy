@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.TicketEntity;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -30,7 +25,14 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.envers.Audited;
+
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.persistence.entities.TicketEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 
 @Deprecated
 @Entity

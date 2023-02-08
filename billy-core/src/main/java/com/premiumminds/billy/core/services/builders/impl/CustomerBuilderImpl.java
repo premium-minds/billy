@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import com.premiumminds.billy.core.services.StringID;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -28,6 +27,7 @@ import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.CustomerBuilder;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;

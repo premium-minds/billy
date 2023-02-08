@@ -18,21 +18,20 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;

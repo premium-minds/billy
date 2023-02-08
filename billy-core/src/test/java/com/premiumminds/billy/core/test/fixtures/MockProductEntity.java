@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
-import com.premiumminds.billy.core.services.entities.Product;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
+import com.premiumminds.billy.core.services.entities.Product;
 
 public class MockProductEntity extends MockBaseEntity<Product> implements ProductEntity {
 

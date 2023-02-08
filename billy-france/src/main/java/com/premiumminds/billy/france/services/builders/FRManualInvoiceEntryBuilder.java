@@ -18,9 +18,9 @@
  */
 package com.premiumminds.billy.france.services.builders;
 
-import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import java.math.BigDecimal;
 
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRGenericInvoiceEntry;
 
 public interface FRManualInvoiceEntryBuilder<TBuilder extends FRManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>

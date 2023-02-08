@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -28,9 +32,6 @@ import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.services.documents.FRInvoiceIssuingHandler;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 import com.premiumminds.billy.france.test.services.documents.FRDocumentAbstractTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestFRManualInvoiceIssuingHandler extends FRDocumentAbstractTest {
 

@@ -18,13 +18,15 @@
  */
 package com.premiumminds.billy.france.test.services.persistence;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.france.services.entities.FRCreditNote;
 import com.premiumminds.billy.france.services.entities.FRInvoice;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestInvoiceGenerationAndExport extends FRPersistenceServiceAbstractTest {
 

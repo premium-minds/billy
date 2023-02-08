@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
+import java.util.List;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -31,8 +34,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
 import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
-import java.util.List;
-import javax.inject.Inject;
 
 public class PTSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<PTSimpleInvoiceData> {

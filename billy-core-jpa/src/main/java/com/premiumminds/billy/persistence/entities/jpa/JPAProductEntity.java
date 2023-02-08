@@ -18,10 +18,8 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.services.entities.Product;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -35,6 +33,7 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
+import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
 
 @Entity

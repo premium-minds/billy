@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.querydsl.jpa.impl.JPAQuery;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -33,6 +31,7 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteE
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.querydsl.jpa.impl.JPAQuery;
 
 public class DAOPTCreditNoteEntryImpl
         extends AbstractDAOPTGenericInvoiceEntryImpl<PTCreditNoteEntryEntity, JPAPTCreditNoteEntryEntity>

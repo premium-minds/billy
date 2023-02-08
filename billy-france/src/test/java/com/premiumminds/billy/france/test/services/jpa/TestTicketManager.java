@@ -18,13 +18,15 @@
  */
 package com.premiumminds.billy.france.test.services.jpa;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.TicketManager;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import java.util.Date;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.TicketManager;
+import com.premiumminds.billy.core.services.entities.Ticket;
 
 public class TestTicketManager extends FRJPAAbstractTest {
 

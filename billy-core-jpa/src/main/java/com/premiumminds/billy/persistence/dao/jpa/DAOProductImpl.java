@@ -18,15 +18,14 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.services.entities.Product;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
+import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.persistence.entities.jpa.JPAProductEntity;
 
 public class DAOProductImpl extends AbstractDAO<Product, ProductEntity, JPAProductEntity> implements DAOProduct {

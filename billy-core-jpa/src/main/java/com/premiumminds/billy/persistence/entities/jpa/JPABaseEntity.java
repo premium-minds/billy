@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Entity;
 import java.util.Date;
 import java.util.UUID;
 import javax.persistence.Basic;
@@ -34,8 +32,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.apache.commons.lang3.Validate;
 import org.hibernate.envers.Audited;
+
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Entity;
 
 /**
  * @author Francisco Vargas

@@ -18,14 +18,16 @@
  */
 package com.premiumminds.billy.france.test.services.persistence;
 
+import java.util.UUID;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.france.services.entities.FRInvoice;
-import java.util.UUID;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestInvoiceUpdate extends FRPersistenceServiceAbstractTest {
 

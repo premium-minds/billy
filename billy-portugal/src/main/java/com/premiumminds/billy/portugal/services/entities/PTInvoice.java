@@ -19,7 +19,6 @@
 package com.premiumminds.billy.portugal.services.entities;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;
@@ -33,7 +32,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTManualInvoiceBui
 
 public interface PTInvoice extends PTGenericInvoice {
 
-    public static class Builder extends PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
+    class Builder extends PTInvoiceBuilderImpl<Builder, PTInvoiceEntry, PTInvoice> {
 
         @Inject
         public Builder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
@@ -42,7 +41,7 @@ public interface PTInvoice extends PTGenericInvoice {
         }
     }
 
-    public static class ManualBuilder extends PTManualInvoiceBuilderImpl<ManualBuilder, PTInvoiceEntry, PTInvoice> {
+    class ManualBuilder extends PTManualInvoiceBuilderImpl<ManualBuilder, PTInvoiceEntry, PTInvoice> {
 
         @Inject
         public ManualBuilder(DAOPTInvoice daoPTInvoice, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
@@ -52,9 +51,9 @@ public interface PTInvoice extends PTGenericInvoice {
     }
 
     @Override
-    public <T extends GenericInvoiceEntry> List<T> getEntries();
+    <T extends GenericInvoiceEntry> List<T> getEntries();
 
     @Override
-    public <T extends Payment> List<T> getPayments();
+    <T extends Payment> List<T> getPayments();
 
 }

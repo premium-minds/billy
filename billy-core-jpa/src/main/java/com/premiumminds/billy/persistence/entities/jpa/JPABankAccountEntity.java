@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.services.entities.BankAccount;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -27,6 +26,7 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
+import com.premiumminds.billy.core.services.entities.BankAccount;
 
 @Entity
 @Audited

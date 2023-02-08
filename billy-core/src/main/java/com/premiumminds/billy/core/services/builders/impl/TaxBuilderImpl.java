@@ -18,6 +18,13 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Date;
+import javax.inject.Inject;
+
+import org.apache.commons.lang3.Validate;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
@@ -30,11 +37,6 @@ import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
-import javax.inject.Inject;
-import org.apache.commons.lang3.Validate;
 
 public class TaxBuilderImpl<TBuilder extends TaxBuilderImpl<TBuilder, TTax>, TTax extends Tax>
         extends AbstractBuilder<TBuilder, TTax> implements TaxBuilder<TBuilder, TTax> {

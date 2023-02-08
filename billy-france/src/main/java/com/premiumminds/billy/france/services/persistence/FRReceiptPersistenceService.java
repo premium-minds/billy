@@ -18,10 +18,6 @@
  */
 package com.premiumminds.billy.france.services.persistence;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
@@ -29,6 +25,10 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.entities.FRReceipt;

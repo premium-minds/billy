@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
@@ -32,8 +35,6 @@ import com.premiumminds.billy.france.persistence.entities.FRGenericInvoiceEntryE
 import com.premiumminds.billy.france.services.builders.FRGenericInvoiceEntryBuilder;
 import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRGenericInvoiceEntry;
-import java.math.BigDecimal;
-import java.util.Date;
 
 public class FRGenericInvoiceEntryBuilderImpl<TBuilder extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice,
     TDAOEntry, TDAOInvoice>, TEntry extends FRGenericInvoiceEntry, TInvoice extends FRGenericInvoice,

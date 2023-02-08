@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Date;
 import java.util.List;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 

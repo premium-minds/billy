@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.persistence.dao.jpa.AbstractDAOGenericInvoiceImpl;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;

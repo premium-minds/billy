@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Date;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
@@ -25,7 +27,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.util.Taxes;
-import java.util.Date;
 
 public class PTProductTestUtil {
 

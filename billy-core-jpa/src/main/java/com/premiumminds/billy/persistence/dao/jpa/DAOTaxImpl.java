@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.persistence.entities.jpa.JPATaxEntity;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 
 public class DAOTaxImpl extends AbstractDAO<Tax, TaxEntity, JPATaxEntity> implements DAOTax {
 

@@ -18,15 +18,6 @@
  */
 package com.premiumminds.billy.portugal.util;
 
-import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Application;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
-import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
-import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
-import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator.SAFTVersion;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -36,6 +27,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Date;
+
+import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
+import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
+import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
+import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
+import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator.SAFTVersion;
 
 public class SAFTs {
 

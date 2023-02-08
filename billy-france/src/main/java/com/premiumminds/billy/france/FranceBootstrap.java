@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.france;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Context;
-import com.premiumminds.billy.france.services.entities.FRRegionContext.Builder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -33,6 +30,8 @@ import org.slf4j.LoggerFactory;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.france.persistence.dao.DAOFRAddress;
 import com.premiumminds.billy.france.persistence.dao.DAOFRContact;
@@ -46,6 +45,7 @@ import com.premiumminds.billy.france.services.entities.FRAddress;
 import com.premiumminds.billy.france.services.entities.FRContact;
 import com.premiumminds.billy.france.services.entities.FRCustomer;
 import com.premiumminds.billy.france.services.entities.FRRegionContext;
+import com.premiumminds.billy.france.services.entities.FRRegionContext.Builder;
 import com.premiumminds.billy.france.services.entities.FRTax;
 import com.premiumminds.billy.france.services.entities.FRTax.FRVATCode;
 

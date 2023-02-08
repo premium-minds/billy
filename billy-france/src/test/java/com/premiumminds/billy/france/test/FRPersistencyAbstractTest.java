@@ -18,6 +18,11 @@
  */
 package com.premiumminds.billy.france.test;
 
+import java.util.UUID;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
@@ -38,9 +43,6 @@ import com.premiumminds.billy.france.test.util.FRInvoiceTestUtil;
 import com.premiumminds.billy.france.test.util.FRReceiptTestUtil;
 import com.premiumminds.billy.france.util.Services;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import java.util.UUID;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 
 public class FRPersistencyAbstractTest extends FRAbstractTest {
 

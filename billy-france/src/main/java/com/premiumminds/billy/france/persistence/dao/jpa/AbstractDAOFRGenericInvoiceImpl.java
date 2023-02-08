@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.AbstractDAOFRGenericInvoice;
@@ -26,9 +30,6 @@ import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRGenericInvoic
 import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRBusinessEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRGenericInvoiceEntity;
 import com.premiumminds.billy.persistence.dao.jpa.AbstractDAOGenericInvoiceImpl;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 
 public abstract class AbstractDAOFRGenericInvoiceImpl<TInterface extends FRGenericInvoiceEntity, TEntity extends JPAFRGenericInvoiceEntity>
         extends AbstractDAOGenericInvoiceImpl<TInterface, TEntity> implements AbstractDAOFRGenericInvoice<TInterface> {

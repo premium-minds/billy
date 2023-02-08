@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
-import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -31,6 +30,7 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntryEntity;
 import com.premiumminds.billy.france.services.builders.FRInvoiceEntryBuilder;
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRInvoiceEntry;
 
 public class FRInvoiceEntryBuilderImpl<TBuilder extends FRInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice>,

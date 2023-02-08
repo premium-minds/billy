@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
-import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import java.util.Date;
 
 import org.apache.commons.lang3.time.DateUtils;
@@ -33,6 +32,7 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRInvoiceEntry;
 import com.premiumminds.billy.france.persistence.dao.DAOFRProduct;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
+import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntryEntity;
 import com.premiumminds.billy.france.services.builders.FRManualInvoiceEntryBuilder;
 import com.premiumminds.billy.france.services.entities.FRGenericInvoiceEntry;

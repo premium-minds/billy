@@ -19,7 +19,6 @@
 package com.premiumminds.billy.france.services.entities;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;

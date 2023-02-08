@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
-import com.premiumminds.billy.core.services.entities.Business;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,7 @@ import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 

@@ -18,9 +18,10 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import java.util.Date;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Entity;
-import java.util.Date;
 
 public class MockBaseEntity<T> implements Entity<T> {
 

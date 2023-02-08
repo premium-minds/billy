@@ -18,6 +18,12 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
+import java.util.Currency;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRGenericInvoice;
@@ -30,10 +36,6 @@ import com.premiumminds.billy.france.services.entities.FRRegionContext;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.fixtures.MockFRGenericInvoiceEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRGenericInvoiceEntryEntity;
-import java.util.Currency;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class TestFRGenericInvoiceEntryBuilder extends FRAbstractTest {
 

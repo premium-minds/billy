@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
@@ -27,9 +31,6 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class TestCustomerBuilder extends AbstractTest {
 

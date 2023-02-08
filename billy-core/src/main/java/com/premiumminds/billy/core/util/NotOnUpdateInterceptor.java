@@ -18,12 +18,14 @@
  */
 package com.premiumminds.billy.core.util;
 
+import java.lang.reflect.Method;
+
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
+
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.services.builders.impl.AbstractBuilder;
 import com.premiumminds.billy.core.services.entities.Entity;
-import java.lang.reflect.Method;
-import org.aopalliance.intercept.MethodInterceptor;
-import org.aopalliance.intercept.MethodInvocation;
 
 /**
  * Intercepts methods calls to annotated with {@link NotOnUpdate}.

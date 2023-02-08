@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.Localizer;
@@ -30,7 +32,6 @@ import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntryEntity
 import com.premiumminds.billy.portugal.services.builders.PTInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import javax.inject.Inject;
 
 public class PTInvoiceEntryBuilderImpl<TBuilder extends PTInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice>,
     TEntry extends PTInvoiceEntry, TInvoice extends PTInvoice>

@@ -18,12 +18,10 @@
  */
 package com.premiumminds.billy.core.services.entities.documents;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -31,6 +29,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Entity;
@@ -45,7 +44,8 @@ public interface GenericInvoiceEntry extends Entity<GenericInvoiceEntry> {
             GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoiceEntity, DAOGenericInvoiceEntry
                     , DAOGenericInvoice> {
 
-        @Inject public Builder(DAOGenericInvoiceEntry daoEntry, DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
+        @Inject
+        public Builder(DAOGenericInvoiceEntry daoEntry, DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
                 DAOProduct daoProduct, DAOContext daoContext) {
             super(daoEntry, daoGenericInvoice, daoTax, daoProduct, daoContext);
         }

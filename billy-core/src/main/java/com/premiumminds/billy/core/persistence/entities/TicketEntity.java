@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.core.persistence.entities;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.Date;
 
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 
 @Deprecated
 public interface TicketEntity extends Ticket {

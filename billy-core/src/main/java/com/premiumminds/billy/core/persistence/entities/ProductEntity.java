@@ -41,6 +41,7 @@ public interface ProductEntity extends Product {
 
     void setUnitOfMeasure(String unit);
 
-    @Override <T extends Tax> List<T> getTaxes();
+    @Override
+    <T extends Tax> List<T> getTaxes();
 
 }

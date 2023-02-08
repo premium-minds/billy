@@ -18,6 +18,15 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Currency;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
@@ -30,13 +39,6 @@ import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.util.BillyMathContext;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.util.Currency;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class TestGenericInvoiceEntryOperations extends AbstractTest {
 

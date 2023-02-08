@@ -18,10 +18,6 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.querydsl.jpa.impl.JPAQuery;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -29,8 +25,12 @@ import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.persistence.entities.jpa.JPATicketEntity;
 import com.premiumminds.billy.persistence.entities.jpa.QJPATicketEntity;
+import com.querydsl.jpa.impl.JPAQuery;
 
 @Deprecated
 public class DAOTicketImpl extends AbstractDAO<Ticket, TicketEntity, JPATicketEntity> implements DAOTicket {

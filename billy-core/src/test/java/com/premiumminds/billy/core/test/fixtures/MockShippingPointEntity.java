@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import java.util.Date;
 
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
 
 public class MockShippingPointEntity extends MockBaseEntity<ShippingPoint> implements ShippingPointEntity {
 

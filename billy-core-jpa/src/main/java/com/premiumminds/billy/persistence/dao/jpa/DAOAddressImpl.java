@@ -18,13 +18,13 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.services.entities.Address;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.DAOAddress;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.persistence.entities.jpa.JPAAddressEntity;
 
 public class DAOAddressImpl extends AbstractDAO<Address, AddressEntity, JPAAddressEntity> implements DAOAddress {

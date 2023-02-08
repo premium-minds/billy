@@ -18,6 +18,12 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
+import java.util.ArrayList;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
@@ -33,10 +39,6 @@ import com.premiumminds.billy.france.test.fixtures.MockFRCustomerEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRInvoiceEntryEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRPaymentEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRSimpleInvoiceEntity;
-import java.util.ArrayList;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class TestFRSimpleInvoiceBuilder extends FRAbstractTest {
 

@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.services.persistence;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
@@ -27,7 +29,6 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.persistence.entities.FRTaxEntity;
 import com.premiumminds.billy.france.services.entities.FRTax;
 import com.premiumminds.billy.persistence.services.PersistenceService;
-import javax.inject.Inject;
 
 public class FRTaxPersistenceService implements PersistenceService<Tax, FRTax> {
 

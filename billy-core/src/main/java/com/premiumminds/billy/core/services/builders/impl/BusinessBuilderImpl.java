@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
@@ -37,7 +39,6 @@ import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import javax.inject.Inject;
 
 public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends Business>
         extends AbstractBuilder<TBuilder, TBusiness> implements BusinessBuilder<TBuilder, TBusiness> {

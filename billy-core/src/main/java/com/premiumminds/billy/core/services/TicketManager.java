@@ -18,25 +18,26 @@
  */
 package com.premiumminds.billy.core.services;
 
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 
-@Deprecated public class TicketManager implements Serializable {
+@Deprecated
+public class TicketManager implements Serializable {
 
     private static final long serialVersionUID = Config.SERIAL_VERSION;
     private DAOTicket daoTicket = null;
 
-    @Inject public TicketManager(DAOTicket daoTicket) {
+    @Inject
+    public TicketManager(DAOTicket daoTicket) {
         this.daoTicket = daoTicket;
     }
 
@@ -69,8 +70,10 @@ import com.premiumminds.billy.core.persistence.entities.TicketEntity;
         return ticket.getObjectUID() != null;
     }
 
-    public void updateTicket(StringID<Ticket> ticketUID, StringID<GenericInvoice> objectUID, Date creationDate,
-            Date processDate) throws InvalidTicketException {
+    public void updateTicket(
+            StringID<Ticket> ticketUID, StringID<GenericInvoice> objectUID, Date creationDate, Date processDate)
+            throws InvalidTicketException {
+
         if (!this.ticketExists(ticketUID)) {
             throw new InvalidTicketException();
         }

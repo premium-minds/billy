@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.spain.services.persistence;
 
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
@@ -28,8 +31,6 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 public class ESSimpleInvoicePersistenceService {
 

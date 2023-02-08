@@ -18,21 +18,20 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.querydsl.jpa.impl.JPAQuery;
 import java.util.Date;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTSimpleInvoiceEntity;
+import com.querydsl.jpa.impl.JPAQuery;
 
 public class DAOPTSimpleInvoiceImpl extends
         AbstractDAOPTGenericInvoiceImpl<PTSimpleInvoiceEntity, JPAPTSimpleInvoiceEntity> implements DAOPTSimpleInvoice {

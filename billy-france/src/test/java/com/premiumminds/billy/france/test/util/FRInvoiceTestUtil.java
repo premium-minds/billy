@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.france.test.util;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
@@ -30,8 +33,6 @@ import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.services.entities.FRInvoice;
 import com.premiumminds.billy.france.services.entities.FRInvoiceEntry;
 import com.premiumminds.billy.france.test.services.documents.FRDocumentAbstractTest.SOURCE_BILLING;
-import java.math.BigDecimal;
-import java.util.Date;
 
 public class FRInvoiceTestUtil {
 

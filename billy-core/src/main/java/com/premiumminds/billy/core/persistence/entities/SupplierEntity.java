@@ -33,7 +33,8 @@ public interface SupplierEntity extends Supplier {
 
     void setTaxRegistrationNumberISOCountryCode(String isoCountryCode);
 
-    @Override <T extends Address> List<T> getAddresses();
+    @Override
+    <T extends Address> List<T> getAddresses();
 
     <T extends AddressEntity> void setMainAddress(T address);
 
@@ -41,11 +42,13 @@ public interface SupplierEntity extends Supplier {
 
     <T extends AddressEntity> void setShippingAddress(T address);
 
-    @Override <T extends Contact> List<T> getContacts();
+    @Override
+    <T extends Contact> List<T> getContacts();
 
     <T extends ContactEntity> void setMainContact(T contact);
 
-    @Override <T extends BankAccount> List<T> getBankAccounts();
+    @Override
+    <T extends BankAccount> List<T> getBankAccounts();
 
     void setSelfBillingAgreement(boolean selfBilling);
 

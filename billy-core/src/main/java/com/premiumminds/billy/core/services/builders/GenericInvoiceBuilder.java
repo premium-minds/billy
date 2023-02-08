@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.core.services.builders;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Date;
+
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
@@ -28,9 +32,6 @@ import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.DiscountType;
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
 
 public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
         extends Builder<TDocument> {

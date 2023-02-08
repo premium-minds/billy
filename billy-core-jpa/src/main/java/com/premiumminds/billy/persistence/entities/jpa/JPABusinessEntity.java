@@ -18,10 +18,8 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.services.entities.Business;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,6 +40,7 @@ import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 

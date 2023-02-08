@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.util;
 
+import java.util.Date;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
@@ -25,7 +27,6 @@ import com.premiumminds.billy.france.persistence.entities.FRProductEntity;
 import com.premiumminds.billy.france.persistence.entities.FRTaxEntity;
 import com.premiumminds.billy.france.services.entities.FRProduct;
 import com.premiumminds.billy.france.util.Taxes;
-import java.util.Date;
 
 public class FRProductTestUtil {
 

@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
@@ -32,8 +35,6 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.services.builders.PTGenericInvoiceEntryBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
-import java.math.BigDecimal;
-import java.util.Date;
 
 public class PTGenericInvoiceEntryBuilderImpl<TBuilder extends PTGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice,
     TDAOEntry, TDAOInvoice>, TEntry extends PTGenericInvoiceEntry, TInvoice extends GenericInvoice, TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>

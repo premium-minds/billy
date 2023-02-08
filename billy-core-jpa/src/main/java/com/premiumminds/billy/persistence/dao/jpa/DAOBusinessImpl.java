@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.persistence.entities.jpa.JPABusinessEntity;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 
 public class DAOBusinessImpl extends AbstractDAO<Business, BusinessEntity, JPABusinessEntity> implements DAOBusiness {
 

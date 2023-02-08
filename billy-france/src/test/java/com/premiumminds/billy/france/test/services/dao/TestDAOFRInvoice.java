@@ -18,6 +18,13 @@
  */
 package com.premiumminds.billy.france.test.services.dao;
 
+import java.util.List;
+import java.util.UUID;
+import javax.persistence.NoResultException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
@@ -28,11 +35,6 @@ import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.entities.FRCreditNote;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
-import java.util.List;
-import java.util.UUID;
-import javax.persistence.NoResultException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
 

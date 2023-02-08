@@ -20,6 +20,23 @@ package com.premiumminds.billy.france.test.services.export;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
@@ -46,21 +63,6 @@ import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 import com.premiumminds.billy.france.test.util.FRCreditReceiptTestUtil;
 import com.premiumminds.billy.france.util.Services;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.UUID;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
 public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest {
 

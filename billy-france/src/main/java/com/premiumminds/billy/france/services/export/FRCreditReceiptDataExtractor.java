@@ -18,24 +18,23 @@
  */
 package com.premiumminds.billy.france.services.export;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.gin.services.export.TaxExemption;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
+import com.premiumminds.billy.france.persistence.entities.FRCreditReceiptEntity;
+import com.premiumminds.billy.france.services.entities.FRCreditReceiptEntry;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.ProductData;
 import com.premiumminds.billy.gin.services.export.TaxData;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
-import com.premiumminds.billy.france.persistence.entities.FRCreditReceiptEntity;
-import com.premiumminds.billy.france.services.entities.FRCreditReceiptEntry;
 
 public class FRCreditReceiptDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<FRCreditReceiptData> {

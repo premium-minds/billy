@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Date;
+
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.Tax;
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
 
 public class MockTaxEntity extends MockBaseEntity<Tax> implements TaxEntity {
 

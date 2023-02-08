@@ -18,20 +18,21 @@
  */
 package com.premiumminds.billy.core.services.builders;
 
+import java.util.Date;
+
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import java.util.Date;
 
 @Deprecated
 public interface TicketBuilder<TBuilder extends TicketBuilder<TBuilder, TTicket>, TTicket extends Ticket>
         extends Builder<TTicket> {
 
-    public TBuilder setObjectUID(StringID<GenericInvoice> objectUID);
+    TBuilder setObjectUID(StringID<GenericInvoice> objectUID);
 
-    public TBuilder setCreationDate(Date creationDate);
+    TBuilder setCreationDate(Date creationDate);
 
-    public TBuilder setProcessDate(Date processDate);
+    TBuilder setProcessDate(Date processDate);
 
 }

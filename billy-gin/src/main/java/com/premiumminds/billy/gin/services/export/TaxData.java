@@ -18,10 +18,10 @@
  */
 package com.premiumminds.billy.gin.services.export;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Tax;
 import java.math.BigDecimal;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 
 public class TaxData {

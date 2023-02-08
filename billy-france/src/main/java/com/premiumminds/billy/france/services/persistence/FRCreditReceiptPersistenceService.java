@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.france.services.persistence;
 
+import java.util.List;
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
@@ -31,9 +35,6 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
 import com.premiumminds.billy.france.persistence.entities.FRCreditReceiptEntity;
 import com.premiumminds.billy.france.services.entities.FRCreditReceipt;
 import com.premiumminds.billy.persistence.services.PersistenceService;
-import java.util.List;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 public class FRCreditReceiptPersistenceService implements PersistenceService<GenericInvoice, FRCreditReceipt> {
 

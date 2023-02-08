@@ -18,11 +18,12 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import java.util.Date;
+
 import com.premiumminds.billy.core.persistence.entities.TicketEntity;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import java.util.Date;
 
 public class MockTicketEntity extends MockBaseEntity<Ticket> implements TicketEntity {
 

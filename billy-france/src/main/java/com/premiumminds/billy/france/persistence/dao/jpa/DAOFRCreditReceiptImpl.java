@@ -18,6 +18,12 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -31,11 +37,6 @@ import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRGenericInvoi
 import com.premiumminds.billy.france.services.entities.FRCreditReceipt;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
-import java.util.ArrayList;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 
 public class DAOFRCreditReceiptImpl extends
         AbstractDAOFRGenericInvoiceImpl<FRCreditReceiptEntity, JPAFRCreditReceiptEntity> implements DAOFRCreditReceipt {

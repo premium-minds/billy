@@ -18,12 +18,13 @@
  */
 package com.premiumminds.billy.spain.persistence.dao;
 
+import java.util.List;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceipt;
-import java.util.List;
 
 public interface DAOESCreditReceipt extends AbstractDAOESGenericInvoice<ESCreditReceiptEntity> {
 

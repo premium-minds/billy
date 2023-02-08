@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.france.persistence.dao;
 
+import java.util.List;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import java.util.List;
-
 import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
 import com.premiumminds.billy.france.services.entities.FRCreditNote;
 

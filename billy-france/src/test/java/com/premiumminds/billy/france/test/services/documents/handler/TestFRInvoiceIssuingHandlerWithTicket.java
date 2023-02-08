@@ -18,6 +18,13 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
@@ -39,11 +46,6 @@ import com.premiumminds.billy.france.test.services.documents.FRDocumentAbstractT
 import com.premiumminds.billy.france.test.util.FRBusinessTestUtil;
 import com.premiumminds.billy.france.test.util.FRInvoiceTestUtil;
 import com.premiumminds.billy.france.util.Services;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestFRInvoiceIssuingHandlerWithTicket extends FRDocumentAbstractTest {
 

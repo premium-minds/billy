@@ -18,10 +18,11 @@
  */
 package com.premiumminds.billy.core.persistence.dao;
 
+import javax.persistence.LockModeType;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Entity;
 import com.premiumminds.billy.core.services.entities.util.EntityFactory;
-import javax.persistence.LockModeType;
 
 /**
  * @param <T> The entity type being managed by the DAO implementation

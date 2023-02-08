@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.france.services.entities;
 
-import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
@@ -26,6 +25,7 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRInvoiceEntry;
 import com.premiumminds.billy.france.persistence.dao.DAOFRProduct;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
+import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntity;
 import com.premiumminds.billy.france.services.builders.impl.FRInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.france.services.builders.impl.FRManualInvoiceEntryBuilderImpl;
 

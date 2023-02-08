@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import java.util.Date;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Customer;
@@ -30,7 +32,6 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
-import java.util.Date;
 
 public class PTSimpleInvoiceTestUtil {
 

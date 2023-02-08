@@ -18,6 +18,15 @@
  */
 package com.premiumminds.billy.spain;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Currency;
+import java.util.Date;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
@@ -39,13 +48,6 @@ import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext.Builder;
 import com.premiumminds.billy.spain.services.entities.ESTax;
 import com.premiumminds.billy.spain.services.entities.ESTax.ESVATCode;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Currency;
-import java.util.Date;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SpainBootstrap {
 

@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
@@ -27,7 +29,6 @@ import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
-import javax.inject.Inject;
 
 public class PTRegionContextPersistenceService implements PersistenceService<Context, PTRegionContext> {
 

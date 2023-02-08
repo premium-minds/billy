@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 import java.util.Optional;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +31,7 @@ import org.hibernate.envers.Audited;
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 
 @Entity
 @Audited

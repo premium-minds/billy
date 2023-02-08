@@ -18,6 +18,13 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Currency;
+import java.util.Date;
+
+import org.apache.commons.lang3.Validate;
+
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
@@ -44,11 +51,6 @@ import com.premiumminds.billy.core.util.DiscountType;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.util.Currency;
-import java.util.Date;
-import org.apache.commons.lang3.Validate;
 
 public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
         extends AbstractBuilder<TBuilder, TDocument> implements GenericInvoiceBuilder<TBuilder, TEntry, TDocument> {

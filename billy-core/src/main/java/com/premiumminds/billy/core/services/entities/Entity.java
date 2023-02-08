@@ -18,9 +18,10 @@
  */
 package com.premiumminds.billy.core.services.entities;
 
-import com.premiumminds.billy.core.services.StringID;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.premiumminds.billy.core.services.StringID;
 
 /**
  * @author Francisco Vargas

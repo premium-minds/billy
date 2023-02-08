@@ -18,6 +18,10 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;
@@ -32,9 +36,6 @@ import com.premiumminds.billy.france.services.entities.FRBusiness;
 import com.premiumminds.billy.france.services.entities.FRContact;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.fixtures.MockFRBusinessEntity;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class TestFRBusinessBuilder extends FRAbstractTest {
 

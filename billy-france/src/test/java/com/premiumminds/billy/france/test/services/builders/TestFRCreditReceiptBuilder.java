@@ -18,6 +18,13 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
+import java.util.ArrayList;
+import java.util.Currency;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceiptEntry;
@@ -33,11 +40,6 @@ import com.premiumminds.billy.france.test.fixtures.MockFRCreditReceiptEntryEntit
 import com.premiumminds.billy.france.test.fixtures.MockFRCustomerEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRPaymentEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRReceiptEntity;
-import java.util.ArrayList;
-import java.util.Currency;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class TestFRCreditReceiptBuilder extends FRAbstractTest {
 

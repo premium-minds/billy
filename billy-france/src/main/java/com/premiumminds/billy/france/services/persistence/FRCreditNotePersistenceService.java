@@ -18,24 +18,23 @@
  */
 package com.premiumminds.billy.france.services.persistence;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
 import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
 import com.premiumminds.billy.france.services.entities.FRCreditNote;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 
 public class FRCreditNotePersistenceService implements PersistenceService<GenericInvoice, FRCreditNote> {
 

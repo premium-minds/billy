@@ -18,14 +18,6 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.AddressEntity;
-import com.premiumminds.billy.core.persistence.entities.ContactEntity;
-import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
-import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.BankAccount;
-import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.services.entities.Customer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -36,7 +28,17 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import org.hibernate.envers.Audited;
+
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
+import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.BankAccount;
+import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.core.services.entities.Customer;
 
 @Entity
 @Audited

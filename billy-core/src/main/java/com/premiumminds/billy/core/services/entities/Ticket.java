@@ -18,12 +18,13 @@
  */
 package com.premiumminds.billy.core.services.entities;
 
+import java.util.Date;
+import javax.inject.Inject;
+
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.impl.TicketBuilderImpl;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import java.util.Date;
-import javax.inject.Inject;
 
 @Deprecated
 public interface Ticket extends Entity<Ticket> {

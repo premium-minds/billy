@@ -18,13 +18,14 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
+
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.persistence.entities.jpa.JPAShippingPointEntity;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
 
 public class DAOShippingPointImpl extends AbstractDAO<ShippingPoint, ShippingPointEntity, JPAShippingPointEntity>
         implements DAOShippingPoint {

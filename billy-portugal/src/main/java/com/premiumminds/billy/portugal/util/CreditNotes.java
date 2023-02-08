@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.util;
 
+import java.io.InputStream;
+
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
@@ -39,7 +41,6 @@ import com.premiumminds.billy.portugal.services.export.PTCreditNoteDataExtractor
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFExportRequest;
 import com.premiumminds.billy.portugal.services.export.pdf.creditnote.PTCreditNotePDFFOPTransformer;
 import com.premiumminds.billy.portugal.services.persistence.PTCreditNotePersistenceService;
-import java.io.InputStream;
 
 public class CreditNotes {
 

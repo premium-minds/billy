@@ -18,6 +18,13 @@
  */
 package com.premiumminds.billy.france.test.services.builders;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -27,11 +34,6 @@ import com.premiumminds.billy.france.services.entities.FRTax;
 import com.premiumminds.billy.france.test.FRAbstractTest;
 import com.premiumminds.billy.france.test.fixtures.MockFRRegionContextEntity;
 import com.premiumminds.billy.france.test.fixtures.MockFRTaxEntity;
-import java.math.BigDecimal;
-import java.util.Currency;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 public class TestFRTaxBuilder extends FRAbstractTest {
 

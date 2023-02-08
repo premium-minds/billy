@@ -24,6 +24,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Date;
+
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Tax;
@@ -32,8 +36,6 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.persistence.entities.FRRegionContextEntity;
 import com.premiumminds.billy.france.services.entities.FRTax;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
-import java.util.Date;
-import org.junit.jupiter.api.Test;
 
 public class TestDAOFRTax extends FRPersistencyAbstractTest {
 

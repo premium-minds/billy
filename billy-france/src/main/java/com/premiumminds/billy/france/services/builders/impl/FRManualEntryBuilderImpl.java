@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
-import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -36,6 +35,7 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.persistence.entities.FRGenericInvoiceEntryEntity;
 import com.premiumminds.billy.france.services.builders.FRManualInvoiceEntryBuilder;
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRGenericInvoiceEntry;
 
 public class FRManualEntryBuilderImpl<TBuilder extends FRManualEntryBuilderImpl<TBuilder, TEntry, TInvoice,TDAOEntry,

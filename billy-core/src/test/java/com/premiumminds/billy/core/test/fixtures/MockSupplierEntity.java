@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
-import com.premiumminds.billy.core.services.entities.Supplier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +27,7 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.core.services.entities.Supplier;
 
 public class MockSupplierEntity extends MockBaseEntity<Supplier> implements SupplierEntity {
 
