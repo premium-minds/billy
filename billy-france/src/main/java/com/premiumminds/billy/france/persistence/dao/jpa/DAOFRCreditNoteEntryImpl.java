@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
-import com.querydsl.jpa.impl.JPAQuery;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -31,8 +28,10 @@ import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntryEntit
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditNoteEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditNoteEntryEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRCreditNoteEntity;
-import com.premiumminds.billy.france.services.entities.FRCreditNoteEntry;
+import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRCreditNoteEntryEntity;
 import com.premiumminds.billy.france.services.entities.FRInvoice;
+import com.querydsl.core.types.dsl.PathInits;
+import com.querydsl.jpa.impl.JPAQuery;
 
 public class DAOFRCreditNoteEntryImpl
         extends AbstractDAOFRGenericInvoiceEntryImpl<FRCreditNoteEntryEntity, JPAFRCreditNoteEntryEntity>
@@ -57,19 +56,11 @@ public class DAOFRCreditNoteEntryImpl
     public FRCreditNoteEntity checkCreditNote(FRInvoice invoice) {
         QJPAFRCreditNoteEntity creditNoteEntity = QJPAFRCreditNoteEntity.jPAFRCreditNoteEntity;
 
-        List<JPAFRCreditNoteEntity> allCns = new JPAQuery<>(this.getEntityManager())
-            .from(creditNoteEntity)
-            .select(creditNoteEntity)
-            .fetch();
-
-        // TODO make a query to do this
-        for (JPAFRCreditNoteEntity cne : allCns) {
-            for (FRCreditNoteEntry cnee : cne.getEntries()) {
-                if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
-                    return cne;
-                }
-            }
-        }
-        return null;
+        return new JPAQuery<JPAFRCreditNoteEntity>(this.getEntityManager())
+                .from(creditNoteEntity)
+                .where(new QJPAFRCreditNoteEntryEntity(JPAFRCreditNoteEntryEntity.class, creditNoteEntity.entries.any().getMetadata(), PathInits.DIRECT2)
+                        .reference.id.eq(invoice.getID()))
+                .select(creditNoteEntity)
+                .fetchFirst();
     }
 }
