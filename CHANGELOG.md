@@ -20,6 +20,10 @@
  - [Bump spotless-maven-plugin from 2.28.0 to 2.29.0](https://github.com/premium-minds/billy/pull/364)
  - [Bump spotless-maven-plugin from 2.29.0 to 2.30.0](https://github.com/premium-minds/billy/pull/367)
 
+### Fixed
+
+- [Changes DAO\*CreditNoteEntryImpl to use single query](https://github.com/premium-minds/billy/pull/378) fixes [checkCreditNote has bad performance](https://github.com/premium-minds/billy/issues/377)
+
 ## [7.0.0] 2022-11-03
 
 ### Added
