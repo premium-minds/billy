@@ -19,6 +19,14 @@
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
 import com.google.inject.Guice;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
@@ -40,11 +48,6 @@ import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTe
 import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 import com.premiumminds.billy.spain.test.util.ESSimpleInvoiceTestUtil;
 import com.premiumminds.billy.spain.util.Services;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestESSimpleInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTest {
 
@@ -61,7 +64,7 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends ESDocumentAbstr
             this.setUpParamenters();
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-            ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+            ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
             ESSimpleInvoice.Builder simpleInvoiceBuilder = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
                     .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
@@ -142,7 +145,7 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends ESDocumentAbstr
         ESSimpleInvoiceEntity entity = null;
         this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ESSimpleInvoice.Builder builder = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
@@ -164,7 +167,7 @@ public class TestESSimpleInvoiceIssuingHandlerWithTicket extends ESDocumentAbstr
         Services services = new Services(ESAbstractTest.injector);
         ESSimpleInvoicePersistenceService persistenceService =
                 ESAbstractTest.injector.getInstance(ESSimpleInvoicePersistenceService.class);
-        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ESSimpleInvoice.Builder testinvoice = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 

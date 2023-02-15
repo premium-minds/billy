@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.documents;
 
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -29,6 +28,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
@@ -60,7 +60,7 @@ public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceE
         Integer seriesNumber = 1;
 
         T latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
-                document.getBusiness().getUID().toString());
+                document.getBusiness().getUID());
 
         if (null != latestInvoice) {
             seriesNumber = latestInvoice.getSeriesNumber() + 1;

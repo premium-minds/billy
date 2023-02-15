@@ -19,10 +19,19 @@
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
 import com.google.inject.Guice;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.TicketManager;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -41,11 +50,6 @@ import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstrac
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.Services;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestPTReceiptInvoiceIssuingHandlerWithTicket extends PTDocumentAbstractTest {
 
@@ -63,7 +67,7 @@ public class TestPTReceiptInvoiceIssuingHandlerWithTicket extends PTDocumentAbst
             this.setUpParamenters();
             this.parameters.setInvoiceSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
 
-            final String uid = "business";
+            final StringID<Business> uid = StringID.fromValue("business");
             this.createSeries(uid);
             PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(uid);
             PTReceiptInvoice.Builder receiptInvoiceBuilder = new PTReceiptInvoiceTestUtil(PTAbstractTest.injector)
@@ -148,7 +152,7 @@ public class TestPTReceiptInvoiceIssuingHandlerWithTicket extends PTDocumentAbst
         PTReceiptInvoiceEntity entity = null;
         this.parameters.setInvoiceSeries(PTPersistencyAbstractTest.DEFAULT_SERIES);
 
-        PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity("business");
+        PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         PTReceiptInvoice.Builder builder = new PTReceiptInvoiceTestUtil(PTAbstractTest.injector)
                 .getReceiptInvoiceBuilder(business, TestPTReceiptInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
 
@@ -168,7 +172,7 @@ public class TestPTReceiptInvoiceIssuingHandlerWithTicket extends PTDocumentAbst
     public void testOpenCloseConnections() {
         PTReceiptInvoicePersistenceService persistenceService =
                 PTAbstractTest.injector.getInstance(PTReceiptInvoicePersistenceService.class);
-        PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity("business");
+        PTBusinessEntity business = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         PTReceiptInvoice.Builder testinvoice = new PTReceiptInvoiceTestUtil(PTAbstractTest.injector)
                 .getReceiptInvoiceBuilder(business, TestPTReceiptInvoiceIssuingHandlerWithTicket.SOURCE_BILLING);
 

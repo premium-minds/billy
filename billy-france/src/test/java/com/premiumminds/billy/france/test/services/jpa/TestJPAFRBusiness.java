@@ -18,15 +18,16 @@
  */
 package com.premiumminds.billy.france.test.services.jpa;
 
+import com.google.inject.Injector;
 import java.util.concurrent.Callable;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
 import com.premiumminds.billy.france.test.FRAbstractTest;
@@ -36,7 +37,7 @@ import com.premiumminds.billy.france.test.util.FRBusinessTestUtil;
 public class TestJPAFRBusiness extends FRJPAAbstractTest {
 
     private TransactionWrapper<Void> transaction;
-    private static final String BUSINESS_UID = "Biz";
+    private static final StringID<Business> BUSINESS_UID = StringID.fromValue("Biz");
 
     class TestRunner implements Callable<Void> {
 
@@ -78,6 +79,6 @@ public class TestJPAFRBusiness extends FRJPAAbstractTest {
         test.runThreads(new TestRunner(FRAbstractTest.injector));
 
         DAOFRBusiness biz = FRAbstractTest.injector.getInstance(DAOFRBusiness.class);
-        Assertions.assertTrue(biz.exists(StringID.fromValue(TestJPAFRBusiness.BUSINESS_UID)));
+        Assertions.assertTrue(biz.exists(TestJPAFRBusiness.BUSINESS_UID));
     }
 }

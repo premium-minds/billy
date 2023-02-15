@@ -173,32 +173,32 @@ public class SAFTExportTest extends PTPersistencyAbstractTest {
 
         // INVOICE
         this.parameters.setInvoiceSeries("F");
-        this.createSeries(businessEntity.getUID().toString(), "F");
+        this.createSeries(businessEntity.getUID(), "F");
         PTInvoiceEntity invoiceEntity = (PTInvoiceEntity) this.service
                 .issue(invoice.getInvoiceBuilder(businessEntity, SourceBilling.P), this.parameters);
 
         // SIMPLE INVOICE
         DAOPTSimpleInvoice daoPTSimpleInvoice = PTAbstractTest.injector.getInstance(DAOPTSimpleInvoice.class);
         this.parameters.setInvoiceSeries("S");
-        this.createSeries(businessEntity.getUID().toString(), "S");
+        this.createSeries(businessEntity.getUID(), "S");
         this.service.issue(simpleInvoice.getSimpleInvoiceBuilder(businessEntity, SourceBilling.P, CLIENTTYPE.CUSTOMER),
                 this.parameters);
 
         // MANUAL INVOICE
         this.parameters.setInvoiceSeries("M");
-        this.createSeries(businessEntity.getUID().toString(), "M");
+        this.createSeries(businessEntity.getUID(), "M");
         this.service.issue(invoice.getManualInvoiceBuilder(businessEntity, SourceBilling.M), this.parameters);
 
         // RECEIPT INVOICE
         DAOPTReceiptInvoice daoPTReceiptInvoice = PTAbstractTest.injector.getInstance(DAOPTReceiptInvoice.class);
         this.parameters.setInvoiceSeries("R");
-        this.createSeries(businessEntity.getUID().toString(), "R");
+        this.createSeries(businessEntity.getUID(), "R");
         this.service.issue(receiptInvoice.getReceiptInvoiceBuilder(businessEntity, SourceBilling.P), this.parameters);
 
         // CREDIT NOTE
         DAOPTCreditNote daoPTCreditNote = PTAbstractTest.injector.getInstance(DAOPTCreditNote.class);
         this.parameters.setInvoiceSeries("C");
-        this.createSeries(businessEntity.getUID().toString(), "C");
+        this.createSeries(businessEntity.getUID(), "C");
         this.service.issue(creditNote.getCreditNoteBuilder(invoiceEntity), this.parameters);
 
         this.exportSAFT(applicationEntity, businessEntity);

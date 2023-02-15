@@ -19,22 +19,25 @@
 package com.premiumminds.billy.portugal.test.services.jpa;
 
 import com.google.inject.Injector;
+import java.util.concurrent.Callable;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.util.ConcurrentTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
-import java.util.concurrent.Callable;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestJPAPTBusiness extends PTJPAAbstractTest {
 
     private TransactionWrapper<Void> transaction;
-    private static final String BUSINESS_UID = "Biz";
+    private static final StringID<Business> BUSINESS_UID = StringID.fromValue("Biz");
 
     class TestRunner implements Callable<Void> {
 
@@ -76,6 +79,6 @@ public class TestJPAPTBusiness extends PTJPAAbstractTest {
         test.runThreads(new TestRunner(PTAbstractTest.injector));
 
         DAOPTBusiness biz = PTAbstractTest.injector.getInstance(DAOPTBusiness.class);
-        Assertions.assertTrue(biz.exists(StringID.fromValue(TestJPAPTBusiness.BUSINESS_UID)));
+        Assertions.assertTrue(biz.exists(TestJPAPTBusiness.BUSINESS_UID));
     }
 }

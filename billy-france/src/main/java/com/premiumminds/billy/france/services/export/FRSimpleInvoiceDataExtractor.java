@@ -45,8 +45,7 @@ public class FRSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
 
     @Override
     public FRSimpleInvoiceData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
-        FRSimpleInvoiceEntity entity = this.daoFRSimpleInvoice.get(uid); // FIXME: Fix the DAOs to
-                                                                         // remove this cast
+        FRSimpleInvoiceEntity entity = this.daoFRSimpleInvoice.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }

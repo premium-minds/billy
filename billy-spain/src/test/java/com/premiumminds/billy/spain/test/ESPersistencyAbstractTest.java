@@ -19,8 +19,15 @@
 package com.premiumminds.billy.spain.test;
 
 import com.google.inject.Guice;
+import java.util.UUID;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
@@ -38,9 +45,6 @@ import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
 import com.premiumminds.billy.spain.util.Services;
-import java.util.UUID;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 
 public class ESPersistencyAbstractTest extends ESAbstractTest {
 
@@ -62,11 +66,11 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
     }
 
     public ESInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice(UUID.randomUUID().toString());
+        return this.getNewIssuedInvoice(StringID.fromValue(UUID.randomUUID().toString()));
 
     }
 
-    public ESInvoiceEntity getNewIssuedInvoice(String businessUID) {
+    public ESInvoiceEntity getNewIssuedInvoice(StringID<Business> businessUID) {
         Services service = new Services(ESAbstractTest.injector);
         ESIssuingParams parameters = new ESIssuingParamsImpl();
 
@@ -84,7 +88,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
         return null;
     }
 
-    public ESReceiptEntity getNewIssuedReceipt(String businessUID) {
+    public ESReceiptEntity getNewIssuedReceipt(StringID<Business> businessUID) {
         Services service = new Services(ESAbstractTest.injector);
         ESIssuingParams parameters = new ESIssuingParamsImpl();
 
@@ -127,14 +131,14 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
         return parameters;
     }
 
-    protected void createSeries(String businessUID) {
+    protected void createSeries(StringID<Business> businessUID) {
         this.createSeries(
             new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
                 new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
             ESPersistencyAbstractTest.DEFAULT_SERIES);
     }
 
-    protected void createSeries(String businessUID, String series) {
+    protected void createSeries(StringID<Business> businessUID, String series) {
         this.createSeries(
             new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
                 new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),

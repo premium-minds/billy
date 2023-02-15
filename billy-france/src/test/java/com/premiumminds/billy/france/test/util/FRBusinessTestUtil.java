@@ -18,12 +18,14 @@
  */
 package com.premiumminds.billy.france.test.util;
 
+import com.google.inject.Injector;
 import java.net.MalformedURLException;
 import java.util.UUID;
+
 import javax.persistence.NoResultException;
 
-import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 import com.premiumminds.billy.france.services.entities.FRAddress;
@@ -56,16 +58,16 @@ public class FRBusinessTestUtil {
     }
 
     public FRBusinessEntity getBusinessEntity() {
-        return this.getBusinessEntity(UUID.randomUUID().toString());
+        return this.getBusinessEntity(StringID.fromValue(UUID.randomUUID().toString()));
     }
 
-    public FRBusinessEntity getBusinessEntity(String uid) {
+    public FRBusinessEntity getBusinessEntity(StringID<Business> businessID) {
         FRBusinessEntity business = null;
         try {
-            business = this.injector.getInstance(DAOFRBusiness.class).get(StringID.fromValue(uid));
+            business = this.injector.getInstance(DAOFRBusiness.class).get(businessID);
         } catch (NoResultException e) {
             business = (FRBusinessEntity) this.getBusinessBuilder().build();
-            business.setUID(StringID.fromValue(uid));
+            business.setUID(businessID);
             this.injector.getInstance(DAOFRBusiness.class).create(business);
         }
 

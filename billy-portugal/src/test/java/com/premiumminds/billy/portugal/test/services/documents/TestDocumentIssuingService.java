@@ -18,17 +18,18 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import java.util.Optional;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTInvoiceIssuingHandler;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
@@ -55,7 +56,7 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
         throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
-        this.createSeries(businessEntity.getUID().toString(), "A");
+        this.createSeries(businessEntity.getUID(), "A");
         this.service.issue(
                 new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),
                 this.parameters);
@@ -64,7 +65,7 @@ public class TestDocumentIssuingService extends PTDocumentAbstractTest {
     @Test
     public void testIssuingServiceWithoutSeriesUniqueCode() {
         final PTBusinessEntity businessEntity = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity();
-        this.createSeries(businessEntity.getUID().toString(), "A", Optional.empty());
+        this.createSeries(businessEntity.getUID(), "A", Optional.empty());
         Assertions.assertThrows(SeriesUniqueCodeNotFilled.class, () -> this.service
             .issue(
                 new PTInvoiceTestUtil(PTAbstractTest.injector).getInvoiceBuilder(businessEntity, SourceBilling.P),

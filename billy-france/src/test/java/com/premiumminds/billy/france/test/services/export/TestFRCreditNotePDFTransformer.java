@@ -20,6 +20,9 @@ package com.premiumminds.billy.france.test.services.export;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.util.Modules;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -37,13 +40,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -89,7 +90,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         DocumentSeriesDoesNotExistException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
-        final String businessUID = UUID.randomUUID().toString();
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
@@ -120,7 +121,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
-        final String businessUID = UUID.randomUUID().toString();
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
@@ -135,7 +136,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         DocumentSeriesDoesNotExistException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
-        final String businessUID = UUID.randomUUID().toString();
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         FRInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         FRCreditNoteEntity entity = this.generateFRCreditNote(invoice);
@@ -166,7 +167,7 @@ public class TestFRCreditNotePDFTransformer extends FRPersistencyAbstractTest {
         Services services = new Services(FRAbstractTest.injector);
 
         FRIssuingParams params = this.getParameters("AC", "3000");
-        this.createSeries(reference.getBusiness().getUID().toString(), "AC");
+        this.createSeries(reference.getBusiness().getUID(), "AC");
 
         FRCreditNoteEntity creditNote = null;
         creditNote = (FRCreditNoteEntity) services.issueDocument(

@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
+import com.google.inject.Guice;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -25,11 +27,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.TicketManager;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -63,7 +65,7 @@ public class TestFRSimpleInvoiceIssuingHandlerWithTicket extends FRDocumentAbstr
             this.setUpParamenters();
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-            final String uid = "business";
+            final StringID<Business> uid = StringID.fromValue("business");
             this.createSeries(uid, this.DEFAULT_SERIES);
             FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(uid);
             FRSimpleInvoice.Builder simpleInvoiceBuilder = new FRSimpleInvoiceTestUtil(FRAbstractTest.injector)
@@ -144,7 +146,7 @@ public class TestFRSimpleInvoiceIssuingHandlerWithTicket extends FRDocumentAbstr
         FRSimpleInvoiceEntity entity = null;
         this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity("business");
+        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         FRSimpleInvoice.Builder builder = new FRSimpleInvoiceTestUtil(FRAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
@@ -164,7 +166,7 @@ public class TestFRSimpleInvoiceIssuingHandlerWithTicket extends FRDocumentAbstr
     public void testOpenCloseConnections() {
         FRSimpleInvoicePersistenceService persistenceService =
                 FRAbstractTest.injector.getInstance(FRSimpleInvoicePersistenceService.class);
-        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity("business");
+        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         FRSimpleInvoice.Builder testinvoice = new FRSimpleInvoiceTestUtil(FRAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 

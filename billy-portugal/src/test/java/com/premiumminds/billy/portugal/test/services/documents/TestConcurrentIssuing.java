@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents;
 
+import com.google.inject.Injector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -28,9 +29,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.google.inject.Injector;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
@@ -86,12 +88,12 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
     @Test
     public void testConcurrentIssuing() throws InterruptedException, ExecutionException {
         ConcurrentTestUtil test = new ConcurrentTestUtil(10);
-        String B1 = "Business 1";
+        StringID<Business> B1 = StringID.fromValue("Business 1");
         this.createSeries(B1, "A");
         this.createSeries(B1, "B");
         this.createSeries(B1, "C");
         PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B1);
-        String B2 = "Business 2";
+        StringID<Business> B2 = StringID.fromValue("Business 2");
         this.createSeries(B2, "A");
         this.createSeries(B2, "B");
         this.createSeries(B2, "C");
@@ -113,18 +115,18 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
         PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
         Assertions.assertNotNull(entity1);
         Assertions.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
-        Assertions.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+        Assertions.assertEquals(entity1.getBusiness().getUID(), B1);
 
         PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
         PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B2);
         Assertions.assertNotNull(entity2);
         Assertions.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
-        Assertions.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+        Assertions.assertEquals(entity2.getBusiness().getUID(), B2);
     }
 
     @Test
     public void testConcurrentIssuing2() throws InterruptedException, ExecutionException {
-        String B1 = "Business 1";
+        StringID<Business> B1 = StringID.fromValue("Business 1");
         this.createSeries(B1, "A");
         this.createSeries(B1, "B");
         this.createSeries(B1, "C");
@@ -149,12 +151,12 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
     @Test
     public void testDifferenteBusinessAndSeries() throws InterruptedException, ExecutionException {
         ConcurrentTestUtil test = new ConcurrentTestUtil(20);
-        String B1 = "Business 1";
+        StringID<Business> B1 = StringID.fromValue("Business 1");
         this.createSeries(B1, "A");
         this.createSeries(B1, "B");
         this.createSeries(B1, "C");
         PTBusinessEntity businessEntity1 = new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(B1);
-        String B2 = "Business 2";
+        StringID<Business> B2 = StringID.fromValue("Business 2");
         this.createSeries(B2, "A");
         this.createSeries(B2, "B");
         this.createSeries(B2, "C");
@@ -171,18 +173,18 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
         PTInvoiceEntity entity1 = this.getLatestInvoice(invoices1);
         PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
         Assertions.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
-        Assertions.assertEquals(entity1.getBusiness().getUID().toString(), B1);
+        Assertions.assertEquals(entity1.getBusiness().getUID(), B1);
 
         PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
         PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("B", B2);
         Assertions.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
-        Assertions.assertEquals(entity2.getBusiness().getUID().toString(), B2);
+        Assertions.assertEquals(entity2.getBusiness().getUID(), B2);
 
     }
 
     @Test
     public void testMultipleSeriesIssuing() throws InterruptedException, ExecutionException {
-        String B1 = "Business 1";
+        StringID<Business> B1 = StringID.fromValue("Business 1");
         this.createSeries(B1, "A");
         this.createSeries(B1, "B");
         this.createSeries(B1, "C");

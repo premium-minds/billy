@@ -19,6 +19,14 @@
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
 import com.google.inject.Guice;
+
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
@@ -39,11 +47,6 @@ import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTe
 import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 import com.premiumminds.billy.spain.util.Services;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTest {
 
@@ -60,7 +63,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
             this.setUpParamenters();
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-            ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+            ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
             ESInvoice.Builder invoiceBuilder =
                     new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(business);
 
@@ -138,7 +141,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
         ESInvoiceEntity entity = null;
         this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ESInvoice.Builder builder = new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(business);
 
         try {
@@ -157,7 +160,7 @@ public class TestESInvoiceIssuingHandlerWithTicket extends ESDocumentAbstractTes
     public void testOpenCloseConnections() {
         ESInvoicePersistenceService persistenceService =
                 ESAbstractTest.injector.getInstance(ESInvoicePersistenceService.class);
-        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity("business");
+        ESBusinessEntity business = new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ESInvoice.Builder testinvoice = new ESInvoiceTestUtil(ESAbstractTest.injector).getInvoiceBuilder(business);
 
         EntityManager em = ESAbstractTest.injector.getInstance(EntityManager.class);

@@ -69,12 +69,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     protected Context context;
 
     @Inject
-    public GenericInvoiceEntryBuilderImpl(
-            TDAOEntry daoEntry,
-            TDAOInvoice daoInvoice,
-            DAOTax daoTax,
-            DAOProduct daoProduct,
-            DAOContext daoContext) {
+    public GenericInvoiceEntryBuilderImpl(TDAOEntry daoEntry, TDAOInvoice daoInvoice, DAOTax daoTax,
+            DAOProduct daoProduct, DAOContext daoContext) {
         super(daoEntry);
         this.daoEntry = daoEntry;
         this.daoInvoice = daoInvoice;

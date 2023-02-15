@@ -19,7 +19,13 @@
 package com.premiumminds.billy.portugal.test.util;
 
 import com.google.inject.Injector;
+import java.net.MalformedURLException;
+import java.util.UUID;
+
+import javax.persistence.NoResultException;
+
 import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
 import com.premiumminds.billy.portugal.services.entities.PTAddress;
@@ -28,9 +34,6 @@ import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.util.Contexts;
-import java.net.MalformedURLException;
-import java.util.UUID;
-import javax.persistence.NoResultException;
 
 public class PTBusinessTestUtil {
 
@@ -55,16 +58,16 @@ public class PTBusinessTestUtil {
     }
 
     public PTBusinessEntity getBusinessEntity() {
-        return this.getBusinessEntity(UUID.randomUUID().toString());
+        return this.getBusinessEntity(StringID.fromValue(UUID.randomUUID().toString()));
     }
 
-    public PTBusinessEntity getBusinessEntity(String uid) {
+    public PTBusinessEntity getBusinessEntity(StringID<Business> businessID) {
         PTBusinessEntity business = null;
         try {
-            business = this.injector.getInstance(DAOPTBusiness.class).get(StringID.fromValue(uid));
+            business = this.injector.getInstance(DAOPTBusiness.class).get(businessID);
         } catch (NoResultException e) {
             business = (PTBusinessEntity) this.getBusinessBuilder().build();
-            business.setUID(StringID.fromValue(uid));
+            business.setUID(businessID);
             this.injector.getInstance(DAOPTBusiness.class).create(business);
         }
 

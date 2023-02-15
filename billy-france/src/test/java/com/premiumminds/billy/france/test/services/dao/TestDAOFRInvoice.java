@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
@@ -39,7 +40,7 @@ import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
 
     @Test public void testLastInvoiceNumber() {
-        String B1 = "B1";
+        StringID<Business> B1 = StringID.fromValue("B1");
         this.createSeries(B1);
         this.getNewIssuedInvoice(B1);
         this.getNewIssuedInvoice(B1);
@@ -48,17 +49,17 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
     }
 
     @Test public void testLastInvoiceNumberWithDifferentBusiness() {
-        String B1 = "B1";
-        String B2 = "B2";
+        StringID<Business> B1 = StringID.fromValue("B1");
+        StringID<Business> B2 = StringID.fromValue("B2");
         this.createSeries(B1);
         this.createSeries(B2);
         FRInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         FRInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
         FRInvoiceEntity resultInvoice1 = this.getInstance(DAOFRInvoice.class)
-                .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID().toString());
+                .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID());
         FRInvoiceEntity resultInvoice2 = this.getInstance(DAOFRInvoice.class)
-                .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID().toString());
+                .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID());
 
         FRInvoiceEntity inv3 = this.getNewIssuedInvoice(B1);
         FRInvoiceEntity inv4 = this.getNewIssuedInvoice(B2);
@@ -72,12 +73,12 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
     @Test public void testWithNoInvoice() {
         DAOFRInvoice instance = this.getInstance(DAOFRInvoice.class);
         Assertions.assertThrows(BillyRuntimeException.class,
-                () -> instance.getLatestInvoiceFromSeries("NON EXISTING SERIES", (UUID.randomUUID().toString())));
+                () -> instance.getLatestInvoiceFromSeries("NON EXISTING SERIES", StringID.fromValue(UUID.randomUUID().toString())));
     }
 
     @Test public void testInvoiceFromBusiness() {
-        this.createSeries("B1");
-        FRInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
+        this.createSeries(StringID.fromValue("B1"));
+        FRInvoiceEntity inv1 = this.getNewIssuedInvoice(StringID.fromValue("B1"));
 
         FRGenericInvoiceEntity res =
                 this.getInstance(DAOFRInvoice.class).findByNumber(inv1.getBusiness().getUID(), inv1.getNumber());
@@ -88,8 +89,8 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
     }
 
     @Test public void testFindCreditNote() {
-        this.createSeries("B1");
-        FRInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
+        this.createSeries(StringID.fromValue("B1"));
+        FRInvoiceEntity inv1 = this.getNewIssuedInvoice(StringID.fromValue("B1"));
         FRCreditNote cc1 = this.getNewIssuedCreditnote(inv1);
 
         List<FRCreditNote> cn1 = this.getInstance(DAOFRCreditNote.class)
@@ -103,9 +104,9 @@ public class TestDAOFRInvoice extends FRPersistencyAbstractTest {
     }
 
     @Test public void testFindReceipt() {
-        this.createSeries("B1");
-        FRInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
-        FRReceiptEntity rec1 = this.getNewIssuedReceipt("B1");
+        this.createSeries(StringID.fromValue("B1"));
+        FRInvoiceEntity inv1 = this.getNewIssuedInvoice(StringID.fromValue("B1"));
+        FRReceiptEntity rec1 = this.getNewIssuedReceipt(StringID.fromValue("B1"));
 
         DAOFRInvoice invoiceDao = this.getInstance(DAOFRInvoice.class);
         DAOFRReceipt receiptDao = this.getInstance(DAOFRReceipt.class);

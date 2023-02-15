@@ -23,10 +23,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
 import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -50,21 +68,6 @@ import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.util.Services;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.UUID;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
 public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
@@ -93,7 +96,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         DocumentSeriesDoesNotExistException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
-        final String uid = UUID.randomUUID().toString();
+        final StringID<Business> uid = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(uid);
         PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);
@@ -123,7 +126,7 @@ public class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
         throws ExportServiceException, IOException, DocumentIssuingException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
-        final String uid = UUID.randomUUID().toString();
+        final StringID<Business> uid = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(uid);
         PTInvoiceEntity invoice = this.getNewIssuedInvoice(uid);
         PTCreditNoteEntity creditNote = this.generatePTCreditNote(PaymentMechanism.CASH, invoice);

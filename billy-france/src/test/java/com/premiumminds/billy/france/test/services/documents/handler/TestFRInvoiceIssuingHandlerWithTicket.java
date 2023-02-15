@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
+import com.google.inject.Guice;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
@@ -25,11 +27,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.TicketManager;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
@@ -62,7 +64,7 @@ public class TestFRInvoiceIssuingHandlerWithTicket extends FRDocumentAbstractTes
             this.setUpParamenters();
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-            final String uid = "business";
+            final StringID<Business> uid = StringID.fromValue("business");
             this.createSeries(uid, this.DEFAULT_SERIES);
             FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(uid);
             FRInvoice.Builder invoiceBuilder =
@@ -141,7 +143,7 @@ public class TestFRInvoiceIssuingHandlerWithTicket extends FRDocumentAbstractTes
         FRInvoiceEntity entity = null;
         this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
-        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity("business");
+        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         FRInvoice.Builder builder = new FRInvoiceTestUtil(FRAbstractTest.injector).getInvoiceBuilder(business);
 
         try {
@@ -160,7 +162,7 @@ public class TestFRInvoiceIssuingHandlerWithTicket extends FRDocumentAbstractTes
     public void testOpenCloseConnections() {
         FRInvoicePersistenceService persistenceService =
                 FRAbstractTest.injector.getInstance(FRInvoicePersistenceService.class);
-        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity("business");
+        FRBusinessEntity business = new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         FRInvoice.Builder testinvoice = new FRInvoiceTestUtil(FRAbstractTest.injector).getInvoiceBuilder(business);
 
         EntityManager em = FRAbstractTest.injector.getInstance(EntityManager.class);

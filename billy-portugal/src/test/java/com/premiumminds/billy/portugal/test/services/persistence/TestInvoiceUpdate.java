@@ -18,15 +18,18 @@
  */
 package com.premiumminds.billy.portugal.test.services.persistence;
 
-import com.premiumminds.billy.core.exceptions.BillyUpdateException;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import java.util.UUID;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import com.premiumminds.billy.core.exceptions.BillyUpdateException;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
+import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 
 public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 
@@ -34,7 +37,7 @@ public class TestInvoiceUpdate extends PTPersistenceServiceAbstractTest {
 
     @BeforeEach
     public void setUp() throws DocumentIssuingException {
-        final String uid = StringID.fromValue(UUID.randomUUID().toString()).toString();
+        final StringID<Business> uid = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(uid);
         this.issuedInvoice = this.getNewIssuedInvoice(uid);
     }

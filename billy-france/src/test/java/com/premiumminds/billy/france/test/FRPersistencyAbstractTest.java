@@ -18,14 +18,16 @@
  */
 package com.premiumminds.billy.france.test;
 
+import com.google.inject.Guice;
 import java.util.UUID;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import com.google.inject.Guice;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
@@ -64,11 +66,11 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
     }
 
     public FRInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice(UUID.randomUUID().toString());
+        return this.getNewIssuedInvoice(StringID.fromValue(UUID.randomUUID().toString()));
 
     }
 
-    public FRInvoiceEntity getNewIssuedInvoice(String businessUID) {
+    public FRInvoiceEntity getNewIssuedInvoice(StringID<Business> businessUID) {
         Services service = new Services(FRAbstractTest.injector);
         FRIssuingParams parameters = new FRIssuingParamsImpl();
 
@@ -86,7 +88,7 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
         return null;
     }
 
-    public FRReceiptEntity getNewIssuedReceipt(String businessUID) {
+    public FRReceiptEntity getNewIssuedReceipt(StringID<Business> businessUID) {
         Services service = new Services(FRAbstractTest.injector);
         FRIssuingParams parameters = new FRIssuingParamsImpl();
 
@@ -128,14 +130,14 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
         return parameters;
     }
 
-    protected void createSeries(String businessUID) {
+    protected void createSeries(StringID<Business> businessUID) {
         this.createSeries(
             new FRReceiptTestUtil(FRAbstractTest.injector).getReceiptBuilder(
                 new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)).build(),
             FRPersistencyAbstractTest.DEFAULT_SERIES);
     }
 
-    protected void createSeries(String businessUID, String series) {
+    protected void createSeries(StringID<Business> businessUID, String series) {
         this.createSeries(
             new FRReceiptTestUtil(FRAbstractTest.injector).getReceiptBuilder(
                 new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)).build(),
