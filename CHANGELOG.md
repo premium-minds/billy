@@ -3,6 +3,8 @@
 
 ## [Unreleased v7]
 
+## [7.1.1] 2023-02-16
+
 ### Changed
 
  - [Bump maven-javadoc-plugin from 3.4.1 to 3.5.0](https://github.com/premium-minds/billy/pull/380)
@@ -421,11 +423,12 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v7]: https://github.com/premium-minds/billy/compare/v7.1.0...HEAD
+[unreleased v7]: https://github.com/premium-minds/billy/compare/v7.1.1...HEAD
 [unreleased v6]: https://github.com/premium-minds/billy/compare/v6.0.1...release-6.x
 [unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.2...release-5.x
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[7.1.1]: https://github.com/premium-minds/billy/compare/v7.1.0...v7.1.1
 [7.1.0]: https://github.com/premium-minds/billy/compare/v7.0.0...v7.1.0
 [7.0.0]: https://github.com/premium-minds/billy/compare/release-6.x...v7.0.0
 [6.0.1]: https://github.com/premium-minds/billy/compare/v6.0.0...v6.0.1
