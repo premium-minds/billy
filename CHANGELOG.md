@@ -6,6 +6,11 @@
 ### Changed
 
  - [Bump maven-javadoc-plugin from 3.4.1 to 3.5.0](https://github.com/premium-minds/billy/pull/380)
+
+### Fixed
+
+ - [Changes DAO\*CreditReceiptEntryImpl to use single query](https://github.com/premium-minds/billy/pull/382) fixes [
+checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/issues/381)
  
 ## [7.1.0] 2023-02-15
 
