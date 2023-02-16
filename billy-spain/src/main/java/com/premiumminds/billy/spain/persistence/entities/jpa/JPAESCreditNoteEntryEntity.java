@@ -45,7 +45,7 @@ public class JPAESCreditNoteEntryEntity extends JPAESGenericInvoiceEntryEntity i
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAESInvoiceEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_ESINVOICE", referencedColumnName = "ID")
-    protected ESInvoice reference;
+    protected ESInvoice invoiceReference;
 
     @Column(name = "REASON")
     protected String reason;
@@ -57,12 +57,12 @@ public class JPAESCreditNoteEntryEntity extends JPAESGenericInvoiceEntryEntity i
 
     @Override
     public ESInvoice getReference() {
-        return this.reference;
+        return this.invoiceReference;
     }
 
     @Override
     public void setReference(ESInvoice reference) {
-        this.reference = reference;
+        this.invoiceReference = reference;
     }
 
     @Override

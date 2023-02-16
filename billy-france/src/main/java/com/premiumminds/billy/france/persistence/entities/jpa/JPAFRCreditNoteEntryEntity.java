@@ -45,7 +45,7 @@ public class JPAFRCreditNoteEntryEntity extends JPAFRGenericInvoiceEntryEntity i
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAFRInvoiceEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_FRINVOICE", referencedColumnName = "ID")
-    protected FRInvoice reference;
+    protected FRInvoice invoiceReference;
 
     @Column(name = "REASON")
     protected String reason;
@@ -57,12 +57,12 @@ public class JPAFRCreditNoteEntryEntity extends JPAFRGenericInvoiceEntryEntity i
 
     @Override
     public FRInvoice getReference() {
-        return this.reference;
+        return this.invoiceReference;
     }
 
     @Override
     public void setReference(FRInvoice reference) {
-        this.reference = reference;
+        this.invoiceReference = reference;
     }
 
     @Override

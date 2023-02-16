@@ -59,7 +59,7 @@ public class DAOFRCreditNoteEntryImpl
         return new JPAQuery<JPAFRCreditNoteEntity>(this.getEntityManager())
                 .from(creditNoteEntity)
                 .where(new QJPAFRCreditNoteEntryEntity(JPAFRCreditNoteEntryEntity.class, creditNoteEntity.entries.any().getMetadata(), PathInits.DIRECT2)
-                        .reference.id.eq(invoice.getID()))
+                        .invoiceReference.id.eq(invoice.getID()))
                 .select(creditNoteEntity)
                 .fetchFirst();
     }
