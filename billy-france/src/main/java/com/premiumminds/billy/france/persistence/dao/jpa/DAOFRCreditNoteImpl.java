@@ -69,7 +69,7 @@ public class DAOFRCreditNoteImpl extends AbstractDAOFRGenericInvoiceImpl<FRCredi
         final JPQLQuery<String> entQ = JPAExpressions
             .select(entry.uid)
             .from(entry)
-            .where(this.toDSL(entry.reference, QJPAFRGenericInvoiceEntity.class).uid.in(invQ));
+            .where(this.toDSL(entry.invoiceReference, QJPAFRGenericInvoiceEntity.class).uid.in(invQ));
 
         return new ArrayList<>(this
             .createQuery()

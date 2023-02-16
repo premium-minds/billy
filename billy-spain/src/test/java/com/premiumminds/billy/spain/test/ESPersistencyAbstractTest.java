@@ -23,6 +23,9 @@ import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
+import com.premiumminds.billy.spain.services.entities.ESReceipt;
+import com.premiumminds.billy.spain.test.util.ESCreditReceiptTestUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -99,6 +102,25 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    public ESCreditReceiptEntity getNewIssuedCreditReceipt(ESReceipt receipt) {
+        Services service = new Services(ESAbstractTest.injector);
+        ESIssuingParams parameters = new ESIssuingParamsImpl();
+
+        parameters = this.getParameters("RC", "30000");
+
+        this.createSeries(receipt, "RC");
+
+        try {
+            return (ESCreditReceiptEntity) service.issueDocument(
+                    new ESCreditReceiptTestUtil(ESAbstractTest.injector).getCreditReceiptBuilder((ESReceiptEntity) receipt),
+                    parameters);
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

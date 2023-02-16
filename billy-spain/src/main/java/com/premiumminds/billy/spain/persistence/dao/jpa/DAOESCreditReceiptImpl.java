@@ -69,7 +69,7 @@ public class DAOESCreditReceiptImpl extends
         final JPQLQuery<String> entQ = JPAExpressions
             .select(entry.uid)
             .from(entry)
-            .where(this.toDSL(entry.reference, QJPAESGenericInvoiceEntity.class).uid.in(invQ));
+            .where(this.toDSL(entry.receiptReference, QJPAESGenericInvoiceEntity.class).uid.in(invQ));
 
         return new ArrayList<>(this
             .createQuery()

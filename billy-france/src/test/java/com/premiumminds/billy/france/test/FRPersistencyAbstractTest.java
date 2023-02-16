@@ -21,6 +21,9 @@ package com.premiumminds.billy.france.test;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.france.persistence.entities.FRCreditReceiptEntity;
+import com.premiumminds.billy.france.services.entities.FRReceipt;
+import com.premiumminds.billy.france.test.util.FRCreditReceiptTestUtil;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import org.junit.jupiter.api.AfterEach;
@@ -99,6 +102,25 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
         }
+      return null;
+    }
+
+    public FRCreditReceiptEntity getNewIssuedCreditReceipt(FRReceipt receipt) {
+        Services service = new Services(FRAbstractTest.injector);
+        FRIssuingParams parameters = new FRIssuingParamsImpl();
+
+        parameters = this.getParameters("RC", "30000");
+
+        this.createSeries(receipt, "RC");
+
+        try {
+            return (FRCreditReceiptEntity) service.issueDocument(
+                    new FRCreditReceiptTestUtil(FRAbstractTest.injector).getCreditReceiptBuilder((FRReceiptEntity) receipt),
+                    parameters);
+        } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 

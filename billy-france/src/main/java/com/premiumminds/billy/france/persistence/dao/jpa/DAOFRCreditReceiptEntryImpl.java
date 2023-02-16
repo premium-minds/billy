@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.france.persistence.dao.jpa;
 
-import com.querydsl.jpa.impl.JPAQuery;
-import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -31,8 +28,10 @@ import com.premiumminds.billy.france.persistence.entities.FRCreditReceiptEntryEn
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditReceiptEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRCreditReceiptEntryEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRCreditReceiptEntity;
-import com.premiumminds.billy.france.services.entities.FRCreditReceiptEntry;
+import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRCreditReceiptEntryEntity;
 import com.premiumminds.billy.france.services.entities.FRReceipt;
+import com.querydsl.core.types.dsl.PathInits;
+import com.querydsl.jpa.impl.JPAQuery;
 
 public class DAOFRCreditReceiptEntryImpl
         extends AbstractDAOFRGenericInvoiceEntryImpl<FRCreditReceiptEntryEntity, JPAFRCreditReceiptEntryEntity>
@@ -57,19 +56,11 @@ public class DAOFRCreditReceiptEntryImpl
     public FRCreditReceiptEntity checkCreditReceipt(FRReceipt receipt) {
         QJPAFRCreditReceiptEntity creditReceiptEntity = QJPAFRCreditReceiptEntity.jPAFRCreditReceiptEntity;
 
-        List<JPAFRCreditReceiptEntity> allCns = new JPAQuery<>(this.getEntityManager())
-            .select(creditReceiptEntity)
-            .from(creditReceiptEntity)
-            .fetch();
-
-        // TODO make a query to do this
-        for (JPAFRCreditReceiptEntity cne : allCns) {
-            for (FRCreditReceiptEntry cnee : cne.getEntries()) {
-                if (cnee.getReference().getNumber().compareTo(receipt.getNumber()) == 0) {
-                    return cne;
-                }
-            }
-        }
-        return null;
+        return new JPAQuery<JPAFRCreditReceiptEntity>(this.getEntityManager())
+                .from(creditReceiptEntity)
+                .where(new QJPAFRCreditReceiptEntryEntity(JPAFRCreditReceiptEntryEntity.class, creditReceiptEntity.entries.any().getMetadata(), PathInits.DIRECT2)
+                        .receiptReference.id.eq(receipt.getID()))
+                .select(creditReceiptEntity)
+                .fetchFirst();
     }
 }
