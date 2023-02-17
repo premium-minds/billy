@@ -79,7 +79,7 @@ public interface DAO<TID extends Entity<TID>, T extends TID> extends EntityFacto
     /**
      * Gets a persisted instance of type T
      *
-     * @param uid The {@link StringID<T>} identifying the wanted instance
+     * @param uid The {@link StringID} identifying the wanted instance
      * @return The requested instance of type T
      */
     T get(StringID<TID> uid);
