@@ -3,6 +3,19 @@
 
 ## [Unreleased v7]
 
+## [7.1.1] 2023-02-16
+
+### Changed
+
+ - [Bump maven-javadoc-plugin from 3.4.1 to 3.5.0](https://github.com/premium-minds/billy/pull/380)
+
+### Fixed
+
+ - [Changes DAO\*CreditReceiptEntryImpl to use single query](https://github.com/premium-minds/billy/pull/382) fixes [
+checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/issues/381)
+ 
+## [7.1.0] 2023-02-15
+
 ### Changed 
 
  - [Bump hibernate.version from 5.6.12.Final to 5.6.14.Final](https://github.com/premium-minds/billy/pull/353)
@@ -19,6 +32,10 @@
  - [Bump spotless-maven-plugin from 2.27.2 to 2.28.0](https://github.com/premium-minds/billy/pull/357)
  - [Bump spotless-maven-plugin from 2.28.0 to 2.29.0](https://github.com/premium-minds/billy/pull/364)
  - [Bump spotless-maven-plugin from 2.29.0 to 2.30.0](https://github.com/premium-minds/billy/pull/367)
+
+### Fixed
+
+- [Changes DAO\*CreditNoteEntryImpl to use single query](https://github.com/premium-minds/billy/pull/378) fixes [checkCreditNote has bad performance](https://github.com/premium-minds/billy/issues/377)
 
 ## [7.0.0] 2022-11-03
 
@@ -406,11 +423,13 @@
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v7]: https://github.com/premium-minds/billy/compare/v7.0.0...HEAD
+[unreleased v7]: https://github.com/premium-minds/billy/compare/v7.1.1...HEAD
 [unreleased v6]: https://github.com/premium-minds/billy/compare/v6.0.1...release-6.x
 [unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.2...release-5.x
 [unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
 [unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[7.1.1]: https://github.com/premium-minds/billy/compare/v7.1.0...v7.1.1
+[7.1.0]: https://github.com/premium-minds/billy/compare/v7.0.0...v7.1.0
 [7.0.0]: https://github.com/premium-minds/billy/compare/release-6.x...v7.0.0
 [6.0.1]: https://github.com/premium-minds/billy/compare/v6.0.0...v6.0.1
 [6.0.0]: https://github.com/premium-minds/billy/compare/release-5.x...v6.0.0

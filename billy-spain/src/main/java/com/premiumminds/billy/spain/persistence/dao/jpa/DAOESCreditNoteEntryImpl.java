@@ -18,19 +18,19 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
-import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNoteEntry;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditNoteEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditNoteEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditNoteEntity;
-import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
+import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditNoteEntryEntity;
+import com.premiumminds.billy.spain.services.entities.ESInvoice;
+import com.querydsl.core.types.dsl.PathInits;
 import com.querydsl.jpa.impl.JPAQuery;
 
 public class DAOESCreditNoteEntryImpl
@@ -53,22 +53,14 @@ public class DAOESCreditNoteEntryImpl
     }
 
     @Override
-    public ESCreditNoteEntity checkCreditNote(GenericInvoiceEntity invoice) {
+    public ESCreditNoteEntity checkCreditNote(ESInvoice invoice) {
         QJPAESCreditNoteEntity creditNoteEntity = QJPAESCreditNoteEntity.jPAESCreditNoteEntity;
 
-        List<JPAESCreditNoteEntity> allCns = new JPAQuery<>(this.getEntityManager())
-            .select(creditNoteEntity)
-            .from(creditNoteEntity)
-            .fetch();
-
-        // TODO make a query to do this
-        for (JPAESCreditNoteEntity cne : allCns) {
-            for (ESCreditNoteEntry cnee : cne.getEntries()) {
-                if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
-                    return cne;
-                }
-            }
-        }
-        return null;
+        return new JPAQuery<JPAESCreditNoteEntity>(this.getEntityManager())
+                .from(creditNoteEntity)
+                .where(new QJPAESCreditNoteEntryEntity(JPAESCreditNoteEntryEntity.class, creditNoteEntity.entries.any().getMetadata(), PathInits.DIRECT2)
+                        .invoiceReference.id.eq(invoice.getID()))
+                .select(creditNoteEntity)
+                .fetchFirst();
     }
 }

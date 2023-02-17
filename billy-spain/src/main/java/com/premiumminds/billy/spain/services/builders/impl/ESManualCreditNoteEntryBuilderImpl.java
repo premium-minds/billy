@@ -20,7 +20,6 @@ package com.premiumminds.billy.spain.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
@@ -35,6 +34,7 @@ import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntryEntity
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.builders.ESManualCreditNoteEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
+import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
 public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>
     , TEntry extends ESCreditNoteEntry>
@@ -51,7 +51,7 @@ public class ESManualCreditNoteEntryBuilderImpl<TBuilder extends ESManualCreditN
     public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
                 ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
-        GenericInvoiceEntity i = this.daoInvoice.get(referenceUID);
+        ESInvoice i = this.daoInvoice.get(referenceUID);
         BillyValidator.found(i, ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         this.getTypeInstance().setReference(i);
         return this.getBuilder();

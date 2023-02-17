@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.spain.persistence.entities.jpa;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +30,7 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.spain.Config;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntryEntity;
+import com.premiumminds.billy.spain.services.entities.ESReceipt;
 
 @Entity
 @Audited
@@ -46,7 +46,7 @@ public class JPAESCreditReceiptEntryEntity extends JPAESGenericInvoiceEntryEntit
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAESReceiptEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_ESRECEIPT", referencedColumnName = "ID")
-    protected GenericInvoiceEntity reference;
+    protected ESReceipt receiptReference;
 
     @Column(name = "REASON")
     protected String reason;
@@ -57,13 +57,13 @@ public class JPAESCreditReceiptEntryEntity extends JPAESGenericInvoiceEntryEntit
     }
 
     @Override
-    public GenericInvoiceEntity getReference() {
-        return this.reference;
+    public ESReceipt getReference() {
+        return this.receiptReference;
     }
 
     @Override
-    public void setReference(GenericInvoiceEntity reference) {
-        this.reference = reference;
+    public void setReference(ESReceipt reference) {
+        this.receiptReference = reference;
     }
 
     @Override

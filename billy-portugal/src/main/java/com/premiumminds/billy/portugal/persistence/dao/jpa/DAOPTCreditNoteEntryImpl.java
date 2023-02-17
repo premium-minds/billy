@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
@@ -29,8 +28,9 @@ import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEnt
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntity;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
+import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
+import com.querydsl.core.types.dsl.PathInits;
 import com.querydsl.jpa.impl.JPAQuery;
 
 public class DAOPTCreditNoteEntryImpl
@@ -57,20 +57,11 @@ public class DAOPTCreditNoteEntryImpl
 
         QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 
-        JPAQuery<PTCreditNoteEntity> query = new JPAQuery<>(this.getEntityManager());
-
-        query.from(creditNoteEntity);
-
-        List<JPAPTCreditNoteEntity> allCns = query.select(creditNoteEntity).fetch();
-
-        // TODO make a query to do this
-        for (JPAPTCreditNoteEntity cne : allCns) {
-            for (PTCreditNoteEntry cnee : cne.getEntries()) {
-                if (cnee.getReference().getNumber().compareTo(invoice.getNumber()) == 0) {
-                    return cne;
-                }
-            }
-        }
-        return null;
+        return new JPAQuery<JPAPTCreditNoteEntity>(this.getEntityManager())
+                .from(creditNoteEntity)
+                .where(new QJPAPTCreditNoteEntryEntity(JPAPTCreditNoteEntryEntity.class, creditNoteEntity.entries.any().getMetadata(), PathInits.DIRECT2)
+                        .reference.id.eq(invoice.getID()))
+                .select(creditNoteEntity)
+                .fetchFirst();
     }
 }

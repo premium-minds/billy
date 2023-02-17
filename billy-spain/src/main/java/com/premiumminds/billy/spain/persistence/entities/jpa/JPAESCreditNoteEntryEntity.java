@@ -28,9 +28,9 @@ import javax.persistence.Table;
 
 import org.hibernate.envers.Audited;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.spain.Config;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntryEntity;
+import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
 @Entity
 @Audited
@@ -45,7 +45,7 @@ public class JPAESCreditNoteEntryEntity extends JPAESGenericInvoiceEntryEntity i
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAESInvoiceEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_ESINVOICE", referencedColumnName = "ID")
-    protected GenericInvoiceEntity reference;
+    protected ESInvoice invoiceReference;
 
     @Column(name = "REASON")
     protected String reason;
@@ -56,13 +56,13 @@ public class JPAESCreditNoteEntryEntity extends JPAESGenericInvoiceEntryEntity i
     }
 
     @Override
-    public GenericInvoiceEntity getReference() {
-        return this.reference;
+    public ESInvoice getReference() {
+        return this.invoiceReference;
     }
 
     @Override
-    public void setReference(GenericInvoiceEntity reference) {
-        this.reference = reference;
+    public void setReference(ESInvoice reference) {
+        this.invoiceReference = reference;
     }
 
     @Override

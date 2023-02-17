@@ -46,7 +46,7 @@ public class JPAFRCreditReceiptEntryEntity extends JPAFRGenericInvoiceEntryEntit
     @OneToOne(fetch = FetchType.EAGER, targetEntity = JPAFRReceiptEntity.class,
             cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name = "ID_FRRECEIPT", referencedColumnName = "ID")
-    protected FRReceipt reference;
+    protected FRReceipt receiptReference;
 
     @Column(name = "REASON")
     protected String reason;
@@ -58,12 +58,12 @@ public class JPAFRCreditReceiptEntryEntity extends JPAFRGenericInvoiceEntryEntit
 
     @Override
     public FRReceipt getReference() {
-        return this.reference;
+        return this.receiptReference;
     }
 
     @Override
     public void setReference(FRReceipt reference) {
-        this.reference = reference;
+        this.receiptReference = reference;
     }
 
     @Override

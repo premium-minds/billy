@@ -18,7 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.entities;
 
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNoteEntry;
@@ -49,7 +48,7 @@ public interface ESCreditNoteEntry extends ESGenericInvoiceEntry {
         }
     }
 
-    GenericInvoiceEntity getReference();
+    ESInvoice getReference();
 
     String getReason();
 }
