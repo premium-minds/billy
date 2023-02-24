@@ -26,8 +26,7 @@ import com.premiumminds.billy.core.services.StringID;
 /**
  * @author Francisco Vargas
  *
- * The Billy services basic entity definition. All service entity
- * definitions should extend or implement BaseEntity.
+ * The Billy services basic entity definition
  */
 public interface Entity<T> extends Serializable {
 
