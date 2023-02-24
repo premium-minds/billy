@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
 import com.premiumminds.billy.france.persistence.dao.DAOFRPayment;
@@ -56,14 +55,14 @@ public class TestFRReceiptBuilder extends FRAbstractTest {
         MockFRCustomerEntity mockCustomer =
                 this.createMockEntity(MockFRCustomerEntity.class, TestFRReceiptBuilder.FR_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomer);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any())).thenReturn(mockCustomer);
 
         Mockito.when(this.getInstance(DAOFRReceipt.class).getEntityInstance()).thenReturn(new MockFRReceiptEntity());
 
         MockFRReceiptEntryEntity mockEntry =
                 this.createMockEntity(MockFRReceiptEntryEntity.class, TestFRReceiptBuilder.FR_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRReceiptEntry.class).get(Mockito.any(UID.class))).thenReturn(mockEntry);
+        Mockito.when(this.getInstance(DAOFRReceiptEntry.class).get(Mockito.any())).thenReturn(mockEntry);
 
         @SuppressWarnings("unchecked")
         List<FRReceiptEntry> entries = (List<FRReceiptEntry>) (List<?>) mock.getEntries();

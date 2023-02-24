@@ -19,9 +19,11 @@
 package com.premiumminds.billy.portugal.services.builders;
 
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoiceEntry;
 
-public interface PTGenericInvoiceEntryBuilder<TBuilder extends PTGenericInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends PTGenericInvoiceEntry>
-        extends GenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface PTGenericInvoiceEntryBuilder<TBuilder extends PTGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends PTGenericInvoiceEntry, TInvoice extends GenericInvoice>
+    extends GenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
 }

@@ -18,13 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
-import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import java.util.List;
-
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
@@ -34,6 +32,8 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
+import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
+import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 
 public class PTSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<PTSimpleInvoiceData> {
@@ -50,7 +50,7 @@ public class PTSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
     }
 
     @Override
-    public PTSimpleInvoiceData extract(UID uid) throws ExportServiceException {
+    public PTSimpleInvoiceData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
         PTSimpleInvoice entity = this.daoPTSimpleInvoice.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");

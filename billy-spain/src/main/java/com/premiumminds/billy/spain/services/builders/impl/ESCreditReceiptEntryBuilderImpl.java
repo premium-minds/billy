@@ -20,7 +20,8 @@ package com.premiumminds.billy.spain.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -35,9 +36,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.builders.ESCreditReceiptEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
-public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditReceiptEntry>
-        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOESCreditReceiptEntry, DAOESReceipt>
-        implements ESCreditReceiptEntryBuilder<TBuilder, TEntry> {
+public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEntryBuilderImpl<TBuilder, TEntry>,
+    TEntry extends ESCreditReceiptEntry>
+    extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, ESReceiptEntity, DAOESCreditReceiptEntry, DAOESReceipt>
+    implements ESCreditReceiptEntryBuilder<TBuilder, TEntry, ESReceiptEntity> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
@@ -48,7 +50,7 @@ public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEnt
 
     @Override
     @NotOnUpdate
-    public TBuilder setReferenceUID(UID referenceUID) {
+    public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
                 ESCreditReceiptEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         ESReceiptEntity i = this.daoInvoice.get(referenceUID);

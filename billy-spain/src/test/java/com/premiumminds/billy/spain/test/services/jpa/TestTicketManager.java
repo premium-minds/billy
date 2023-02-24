@@ -18,15 +18,13 @@
  */
 package com.premiumminds.billy.spain.test.services.jpa;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.TicketManager;
+import com.premiumminds.billy.core.services.entities.Ticket;
 import java.util.Date;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.premiumminds.billy.core.services.TicketManager;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.Ticket;
 
 public class TestTicketManager extends ESJPAAbstractTest {
 
@@ -34,7 +32,7 @@ public class TestTicketManager extends ESJPAAbstractTest {
     private static final Date CREATION_DATE = new Date();
     private static final Date PROCESS_DATE = new Date();
     private TicketManager manager = null;
-    String ticket = null;
+    StringID<Ticket> ticket = null;
 
     @BeforeEach
     public void setUp() {
@@ -57,8 +55,8 @@ public class TestTicketManager extends ESJPAAbstractTest {
     @Test
     public void updateTicketTest() {
         this.ticket = this.manager.generateTicket(this.getInstance(Ticket.Builder.class));
-        this.manager.updateTicket(new UID(this.ticket), new UID(TestTicketManager.OBJECT_UID),
-                TestTicketManager.CREATION_DATE, TestTicketManager.PROCESS_DATE);
+        this.manager.updateTicket(this.ticket, StringID.fromValue(TestTicketManager.OBJECT_UID),
+                                  TestTicketManager.CREATION_DATE, TestTicketManager.PROCESS_DATE);
         Assertions.assertTrue(this.manager.ticketExists(this.ticket));
     }
 

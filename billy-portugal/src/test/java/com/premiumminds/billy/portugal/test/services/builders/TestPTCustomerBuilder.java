@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
@@ -34,6 +29,9 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTCustomerEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestPTCustomerBuilder extends PTAbstractTest {
 
@@ -46,7 +44,7 @@ public class TestPTCustomerBuilder extends PTAbstractTest {
 
         Mockito.when(this.getInstance(DAOPTCustomer.class).getEntityInstance()).thenReturn(new MockPTCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOPTContact.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTContact.class).get(Mockito.any()))
                 .thenReturn((PTContactEntity) mockCustomer.getMainContact());
 
         PTCustomer.Builder builder = this.getInstance(PTCustomer.Builder.class);

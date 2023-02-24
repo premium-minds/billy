@@ -24,9 +24,11 @@ import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
+import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.persistence.entities.jpa.JPAApplicationEntity;
 
-public class DAOApplicationImpl extends AbstractDAO<ApplicationEntity, JPAApplicationEntity> implements DAOApplication {
+public class DAOApplicationImpl extends AbstractDAO<Application, ApplicationEntity, JPAApplicationEntity>
+        implements DAOApplication {
 
     @Inject
     public DAOApplicationImpl(Provider<EntityManager> emProvider) {

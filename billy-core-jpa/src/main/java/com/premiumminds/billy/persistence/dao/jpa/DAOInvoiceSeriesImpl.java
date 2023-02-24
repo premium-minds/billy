@@ -30,7 +30,7 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
 
-public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeriesEntity, JPAInvoiceSeriesEntity>
+public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeries, InvoiceSeriesEntity, JPAInvoiceSeriesEntity>
         implements DAOInvoiceSeries {
 
     @Inject

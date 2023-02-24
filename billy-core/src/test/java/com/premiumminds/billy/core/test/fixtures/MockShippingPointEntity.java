@@ -23,8 +23,9 @@ import java.util.Date;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
 
-public class MockShippingPointEntity extends MockBaseEntity implements ShippingPointEntity {
+public class MockShippingPointEntity extends MockBaseEntity<ShippingPoint> implements ShippingPointEntity {
 
     private static final long serialVersionUID = 1L;
 

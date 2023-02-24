@@ -18,13 +18,15 @@
  */
 package com.premiumminds.billy.portugal.test.services.dao;
 
-import java.rmi.server.UID;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
@@ -36,7 +38,7 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
     @Test
     public void testLastInvoiceNumber() {
-        String B1 = "B1";
+        StringID<Business> B1 = StringID.fromValue("B1");
         this.createSeries(B1);
         this.getNewIssuedInvoice(B1);
         this.getNewIssuedInvoice(B1);
@@ -46,17 +48,17 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
 
     @Test
     public void testLastInvoiceNumberWithDifferentBusiness() {
-        String B1 = "B1";
-        String B2 = "B2";
+        StringID<Business> B1 = StringID.fromValue("B1");
+        StringID<Business> B2 = StringID.fromValue("B2");
         this.createSeries(B1);
         this.createSeries(B2);
         PTInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         PTInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
         PTInvoiceEntity resultInvoice1 = this.getInstance(DAOPTInvoice.class)
-                .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID().toString());
+                .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID());
         PTInvoiceEntity resultInvoice2 = this.getInstance(DAOPTInvoice.class)
-                .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID().toString());
+                .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID());
 
         PTInvoiceEntity inv3 = this.getNewIssuedInvoice(B1);
         PTInvoiceEntity inv4 = this.getNewIssuedInvoice(B2);
@@ -70,34 +72,34 @@ public class TestDAOPTInvoice extends PTPersistencyAbstractTest {
     @Test
     public void testWithNoInvoice() {
         DAOPTInvoice instance = this.getInstance(DAOPTInvoice.class);
-        Assertions.assertThrows(BillyRuntimeException.class, () -> instance.getLatestInvoiceFromSeries("NON EXISTING SERIES", (new UID().toString())));
+        Assertions.assertThrows(BillyRuntimeException.class, () -> instance.getLatestInvoiceFromSeries("NON EXISTING SERIES", StringID.fromValue(UUID.randomUUID().toString())));
     }
 
     @Test
     public void testInvoiceFromBusiness() {
-        this.createSeries("B1");
-        PTInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
+        this.createSeries(StringID.fromValue("B1"));
+        PTInvoiceEntity inv1 = this.getNewIssuedInvoice(StringID.fromValue("B1"));
 
         PTGenericInvoiceEntity res =
                 this.getInstance(DAOPTInvoice.class).findByNumber(inv1.getBusiness().getUID(), inv1.getNumber());
 
         Assertions.assertEquals(inv1.getUID(), res.getUID());
         Assertions.assertNull(this.getInstance(DAOPTInvoice.class).findByNumber(
-                com.premiumminds.billy.core.services.UID.fromString("INEXISTENT_BUSINESS"), inv1.getNumber()));
+            StringID.fromValue("INEXISTENT_BUSINESS"), inv1.getNumber()));
     }
 
     @Test
     public void testFindCreditNote() {
-        this.createSeries("B1");
-        PTInvoiceEntity inv1 = this.getNewIssuedInvoice("B1");
+        this.createSeries(StringID.fromValue("B1"));
+        PTInvoiceEntity inv1 = this.getNewIssuedInvoice(StringID.fromValue("B1"));
         PTCreditNote cc1 = this.getNewIssuedCreditnote(inv1);
 
         List<PTCreditNote> cn1 = this.getInstance(DAOPTCreditNote.class)
                 .findByReferencedDocument(cc1.getBusiness().getUID(), inv1.getUID());
 
         List<PTCreditNote> cn0 = this.getInstance(DAOPTCreditNote.class).findByReferencedDocument(
-                com.premiumminds.billy.core.services.UID.fromString("B1"),
-                com.premiumminds.billy.core.services.UID.fromString("leRandomNumbér"));
+                StringID.fromValue("B1"),
+                StringID.fromValue("leRandomNumbér"));
 
         Assertions.assertEquals(0, cn0.size());
         Assertions.assertEquals(1, cn1.size());

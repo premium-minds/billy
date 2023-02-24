@@ -30,7 +30,7 @@ import com.premiumminds.billy.core.services.entities.Contact;
  *         The definition of a Billy persistence business entity. A business is
  *         an owner of financial documents.
  */
-public interface BusinessEntity extends Business, BaseEntity {
+public interface BusinessEntity extends Business {
 
     public <T extends ContextEntity> void setOperationalContext(T context);
 

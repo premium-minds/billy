@@ -26,7 +26,7 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 
 public class Config {
 
@@ -65,8 +65,8 @@ public class Config {
         return this.properties.getProperty(key);
     }
 
-    public UID getUID(String key) {
-        return new UID(this.getUUID(key).toString());
+    public <T> StringID<T> getUID(String key) {
+        return StringID.fromValue(this.getUUID(key).toString());
     }
 
     public UUID getUUID(String key) {

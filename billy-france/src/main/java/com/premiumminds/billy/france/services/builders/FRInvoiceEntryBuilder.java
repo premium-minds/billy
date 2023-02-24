@@ -18,9 +18,11 @@
  */
 package com.premiumminds.billy.france.services.builders;
 
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRInvoiceEntry;
 
-public interface FRInvoiceEntryBuilder<TBuilder extends FRInvoiceEntryBuilder<TBuilder, TEntry>, TEntry extends FRInvoiceEntry>
-        extends FRGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface FRInvoiceEntryBuilder<TBuilder extends FRInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends FRInvoiceEntry, TInvoice extends FRGenericInvoice>
+    extends FRGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
 }

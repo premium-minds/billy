@@ -24,9 +24,11 @@ import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
+import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.persistence.entities.jpa.JPABankAccountEntity;
 
-public class DAOBankAccountImpl extends AbstractDAO<BankAccountEntity, JPABankAccountEntity> implements DAOBankAccount {
+public class DAOBankAccountImpl extends AbstractDAO<BankAccount, BankAccountEntity, JPABankAccountEntity>
+        implements DAOBankAccount {
 
     @Inject
     public DAOBankAccountImpl(Provider<EntityManager> emProvider) {

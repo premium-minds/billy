@@ -27,8 +27,9 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.core.services.entities.Supplier;
 
-public class MockSupplierEntity extends MockBaseEntity implements SupplierEntity {
+public class MockSupplierEntity extends MockBaseEntity<Supplier> implements SupplierEntity {
 
     private static final long serialVersionUID = 1L;
 

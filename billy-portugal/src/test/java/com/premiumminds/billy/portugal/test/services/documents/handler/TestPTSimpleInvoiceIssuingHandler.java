@@ -19,13 +19,10 @@
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.portugal.exceptions.BillySimpleInvoiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
@@ -38,6 +35,9 @@ import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.services.documents.PTDocumentAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTSimpleInvoiceTestUtil;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
@@ -45,7 +45,7 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
 
     private PTSimpleInvoiceIssuingHandler handler;
-    private UID issuedInvoiceUID;
+    private StringID<GenericInvoice> issuedInvoiceUID;
 
     @BeforeEach
     public void setUpNewSimpleInvoice() {

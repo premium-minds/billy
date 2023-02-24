@@ -27,7 +27,7 @@ import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.persistence.entities.jpa.JPAContextEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 
-public class DAOContextImpl extends AbstractDAO<ContextEntity, JPAContextEntity> implements DAOContext {
+public class DAOContextImpl extends AbstractDAO<Context, ContextEntity, JPAContextEntity> implements DAOContext {
 
     @Inject
     public DAOContextImpl(Provider<EntityManager> emProvider) {

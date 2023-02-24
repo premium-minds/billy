@@ -30,11 +30,13 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.persistence.entities.FRInvoiceEntryEntity;
 import com.premiumminds.billy.france.services.builders.FRInvoiceEntryBuilder;
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRInvoiceEntry;
 
-public class FRInvoiceEntryBuilderImpl<TBuilder extends FRInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends FRInvoiceEntry>
-        extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOFRInvoiceEntry, DAOFRInvoice>
-        implements FRInvoiceEntryBuilder<TBuilder, TEntry> {
+public class FRInvoiceEntryBuilderImpl<TBuilder extends FRInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice>,
+    TEntry extends FRInvoiceEntry, TInvoice extends FRGenericInvoice>
+    extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice, DAOFRInvoiceEntry, DAOFRInvoice>
+    implements FRInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 

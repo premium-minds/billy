@@ -20,12 +20,14 @@ package com.premiumminds.billy.spain.persistence.dao;
 
 import java.util.List;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 
 public interface DAOESCreditNote extends AbstractDAOESGenericInvoice<ESCreditNoteEntity> {
 
-    public List<ESCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice);
+    List<ESCreditNote> findByReferencedDocument(StringID<Business> uidCompany, StringID<GenericInvoice> uidInvoice);
 
 }

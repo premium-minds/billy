@@ -18,22 +18,25 @@
  */
 package com.premiumminds.billy.france.test.services.dao;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import com.google.common.collect.MoreCollectors;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceiptEntry;
 import com.premiumminds.billy.france.persistence.entities.FRCreditReceiptEntity;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class TestDAOFRCreditReceipt extends FRPersistencyAbstractTest {
 
     @Test
     public void testNoCreditEntriesForInvoice() {
-        String B1 = "B1";
+        StringID<Business> B1 = StringID.fromValue("B1");
         this.createSeries(B1);
 
-        FRReceiptEntity rec1 = this.getNewIssuedReceipt("B1");
+        FRReceiptEntity rec1 = this.getNewIssuedReceipt(StringID.fromValue("B1"));
 
         final DAOFRCreditReceiptEntry underTest = this.getInstance(DAOFRCreditReceiptEntry.class);
 
@@ -42,7 +45,7 @@ public class TestDAOFRCreditReceipt extends FRPersistencyAbstractTest {
 
     @Test
     public void testCreditEntriesForInvoice() {
-        String B1 = "B1";
+        StringID<Business> B1 = StringID.fromValue("B1");
         this.createSeries(B1);
 
         FRReceiptEntity rec1 = this.getNewIssuedReceipt(B1);

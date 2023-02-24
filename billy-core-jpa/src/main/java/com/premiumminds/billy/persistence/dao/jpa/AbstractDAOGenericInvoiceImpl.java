@@ -18,21 +18,26 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.persistence.entities.jpa.JPABusinessEntity;
-import com.premiumminds.billy.persistence.entities.jpa.JPAGenericInvoiceEntity;
-import com.premiumminds.billy.persistence.entities.jpa.QJPABusinessEntity;
-import com.premiumminds.billy.persistence.entities.jpa.QJPAGenericInvoiceEntity;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQuery;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.persistence.entities.jpa.JPABusinessEntity;
+import com.premiumminds.billy.persistence.entities.jpa.JPAGenericInvoiceEntity;
+import com.premiumminds.billy.persistence.entities.jpa.QJPABusinessEntity;
+import com.premiumminds.billy.persistence.entities.jpa.QJPAGenericInvoiceEntity;
+
 public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericInvoiceEntity, TEntity extends JPAGenericInvoiceEntity>
-        extends AbstractDAO<TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
+        extends AbstractDAO<GenericInvoice, TInterface, TEntity> implements AbstractDAOGenericInvoice<TInterface> {
 
     @Inject
     public AbstractDAOGenericInvoiceImpl(Provider<EntityManager> emProvider) {
@@ -41,14 +46,14 @@ public abstract class AbstractDAOGenericInvoiceImpl<TInterface extends GenericIn
 
     @SuppressWarnings("unchecked")
     @Override
-    public TInterface getLatestInvoiceFromSeries(String series, String businessUID) {
+    public TInterface getLatestInvoiceFromSeries(String series, StringID<Business> businessUID) {
 
         QJPAGenericInvoiceEntity genericInvoice = QJPAGenericInvoiceEntity.jPAGenericInvoiceEntity;
         QJPABusinessEntity business = QJPABusinessEntity.jPABusinessEntity;
 
         JPABusinessEntity businessEntity = new JPAQuery<>(this.getEntityManager())
             .from(business)
-            .where(business.uid.eq(businessUID))
+            .where(business.uid.eq(businessUID.getIdentifier()))
             .select(business)
             .fetchOne();
 

@@ -29,7 +29,7 @@ package com.premiumminds.billy.core.persistence.dao;
  */
 public abstract class TransactionWrapper<T> {
 
-    private DAO<?> dao;
+    private DAO<?, ?> dao;
     private boolean wasActive;
 
     /**
@@ -38,7 +38,7 @@ public abstract class TransactionWrapper<T> {
      * @param dao
      *        The {@link DAO} managing the transaction.
      */
-    public TransactionWrapper(DAO<?> dao) {
+    public TransactionWrapper(DAO<?, ?> dao) {
         this.dao = dao;
     }
 

@@ -228,7 +228,7 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
                         tax.getValue().setScale(BillyMathContext.SCALE, this.mc.getRoundingMode()).toPlainString() +
                                 (shouldPrintPercent(tax.getTaxRateType()) ? "%" : "&#8364;"));
                 taxTotals.add(shouldPrintPercent(tax.getTaxRateType()), tax.getValue(),
-                              entry.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().getValue(),
+                              entry.getAmountWithoutTax(), entry.getTaxAmount(), tax.getUID().getIdentifier(),
                               tax.getDesignation(), tax.getDescription());
             }
         }

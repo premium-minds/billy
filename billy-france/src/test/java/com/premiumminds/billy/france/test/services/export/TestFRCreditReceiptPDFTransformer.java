@@ -18,8 +18,11 @@
  */
 package com.premiumminds.billy.france.test.services.export;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.util.Modules;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,14 +31,23 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.UUID;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.util.Modules;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.france.FranceDependencyModule;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
@@ -52,14 +64,6 @@ import com.premiumminds.billy.france.test.FRPersistencyAbstractTest;
 import com.premiumminds.billy.france.test.util.FRCreditReceiptTestUtil;
 import com.premiumminds.billy.france.util.Services;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest {
 
@@ -85,8 +89,8 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = (new UID()).toString();
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
         FRCreditReceiptEntity entity = this.generateFRCreditReceipt(receipt);
@@ -108,7 +112,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
 
     @Test public void testNonExistentEntity() {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
 
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
@@ -117,8 +121,8 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = (new UID()).toString();
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         FRReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
         FRCreditReceiptEntity entity = this.generateFRCreditReceipt(receipt);
@@ -149,7 +153,7 @@ public class TestFRCreditReceiptPDFTransformer extends FRPersistencyAbstractTest
         Services services = new Services(FRAbstractTest.injector);
 
         FRIssuingParams params = this.getParameters("AC", "3000");
-        this.createSeries(reference.getBusiness().getUID().toString(), "AC");
+        this.createSeries(reference.getBusiness().getUID(), "AC");
 
         FRCreditReceiptEntity creditReceipt = (FRCreditReceiptEntity) services.issueDocument(
             new FRCreditReceiptTestUtil(FRAbstractTest.injector).getCreditReceiptBuilder(reference), params);

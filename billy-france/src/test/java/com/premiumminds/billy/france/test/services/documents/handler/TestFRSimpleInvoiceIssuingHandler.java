@@ -18,14 +18,15 @@
  */
 package com.premiumminds.billy.france.test.services.documents.handler;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.france.exceptions.BillySimpleInvoiceException;
 import com.premiumminds.billy.france.persistence.dao.DAOFRSimpleInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRSimpleInvoiceEntity;
@@ -42,7 +43,7 @@ public class TestFRSimpleInvoiceIssuingHandler extends FRDocumentAbstractTest {
     private String DEFAULT_SERIES = INVOICE_TYPE.FS + " " + FRPersistencyAbstractTest.DEFAULT_SERIES;
 
     private FRSimpleInvoiceIssuingHandler handler;
-    private UID issuedInvoiceUID;
+    private StringID<GenericInvoice> issuedInvoiceUID;
 
     @BeforeEach
     public void setUpNewSimpleInvoice() {

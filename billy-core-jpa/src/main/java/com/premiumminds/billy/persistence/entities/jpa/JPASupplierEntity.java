@@ -20,7 +20,6 @@ package com.premiumminds.billy.persistence.entities.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,11 +38,12 @@ import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
+import com.premiumminds.billy.core.services.entities.Supplier;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SUPPLIER")
-public class JPASupplierEntity extends JPABaseEntity implements SupplierEntity {
+public class JPASupplierEntity extends JPABaseEntity<Supplier> implements SupplierEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -20,7 +20,6 @@ package com.premiumminds.billy.persistence.entities.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -34,12 +33,13 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
+import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PRODUCT")
-public class JPAProductEntity extends JPABaseEntity implements ProductEntity {
+public class JPAProductEntity extends JPABaseEntity<Product> implements ProductEntity {
 
     private static final long serialVersionUID = 1L;
 

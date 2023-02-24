@@ -18,13 +18,15 @@
  */
 package com.premiumminds.billy.france.services.export;
 
-import com.premiumminds.billy.gin.services.export.TaxExemption;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
+import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
+import com.premiumminds.billy.france.services.entities.FRCreditNoteEntry;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
@@ -32,10 +34,8 @@ import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.ProductData;
 import com.premiumminds.billy.gin.services.export.TaxData;
+import com.premiumminds.billy.gin.services.export.TaxExemption;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
-import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
-import com.premiumminds.billy.france.services.entities.FRCreditNoteEntry;
 
 public class FRCreditNoteDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<FRCreditNoteData> {
@@ -50,7 +50,7 @@ public class FRCreditNoteDataExtractor extends AbstractBillyDataExtractor
     }
 
     @Override
-    public FRCreditNoteData extract(UID uid) throws ExportServiceException {
+    public FRCreditNoteData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
         FRCreditNoteEntity entity = this.daoFRCreditNote.get(uid); // FIXME: Fix the DAOs to remove this
                                                                    // cast
         if (entity == null) {

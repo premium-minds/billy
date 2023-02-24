@@ -21,11 +21,12 @@ package com.premiumminds.billy.portugal.persistence.dao;
 import java.util.Date;
 import java.util.List;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 
 public interface DAOPTInvoice extends AbstractDAOPTGenericInvoice<PTInvoiceEntity> {
 
-    public List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(UID uid, Date from, Date to);
+    List<PTInvoiceEntity> getBusinessInvoicesForSAFTPT(StringID<Business> uid, Date from, Date to);
 
 }

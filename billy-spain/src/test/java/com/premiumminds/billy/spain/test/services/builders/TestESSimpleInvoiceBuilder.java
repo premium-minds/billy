@@ -18,14 +18,7 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import java.util.ArrayList;
-
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoiceEntry;
@@ -40,6 +33,10 @@ import com.premiumminds.billy.spain.test.fixtures.MockESCustomerEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESInvoiceEntryEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESPaymentEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESSimpleInvoiceEntity;
+import java.util.ArrayList;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESSimpleInvoiceBuilder extends ESAbstractTest {
 
@@ -63,12 +60,12 @@ public class TestESSimpleInvoiceBuilder extends ESAbstractTest {
         Mockito.when(this.getInstance(DAOESSimpleInvoice.class).getEntityInstance())
                 .thenReturn(new MockESSimpleInvoiceEntity());
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
 
         MockESInvoiceEntryEntity entryMock =
                 this.createMockEntity(MockESInvoiceEntryEntity.class, TestESSimpleInvoiceBuilder.ES_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOESInvoiceEntry.class).get(Mockito.any())).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

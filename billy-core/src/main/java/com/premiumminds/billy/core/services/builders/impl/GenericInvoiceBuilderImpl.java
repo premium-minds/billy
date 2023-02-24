@@ -37,9 +37,12 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntit
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceBuilder;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.Payment;
+import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyMathContext;
@@ -80,7 +83,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
     @Override
     @NotOnUpdate
-    public TBuilder setBusinessUID(UID businessUID) {
+    public TBuilder setBusinessUID(StringID<Business> businessUID) {
         BillyValidator.notNull(businessUID, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.business"));
         BusinessEntity b = this.daoBusiness.get(businessUID);
         BillyValidator.found(b, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.business"));
@@ -90,7 +93,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
     @Override
     @NotOnUpdate
-    public TBuilder setCustomerUID(UID customerUID) {
+    public TBuilder setCustomerUID(StringID<Customer> customerUID) {
         BillyValidator.notNull(customerUID, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
         CustomerEntity c = this.daoCustomer.get(customerUID);
         BillyValidator.found(c, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
@@ -100,7 +103,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
 
     @Override
     @NotOnUpdate
-    public TBuilder setSupplierUID(UID supplier) {
+    public TBuilder setSupplierUID(StringID<Supplier> supplier) {
         BillyValidator.notNull(supplier, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));
         SupplierEntity s = this.daoSupplier.get(supplier);
         BillyValidator.found(supplier, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));

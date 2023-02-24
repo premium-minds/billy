@@ -25,11 +25,12 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceiptEntry;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
+import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.builders.impl.FRReceiptEntryBuilderImpl;
 
 public interface FRReceiptEntry extends FRGenericInvoiceEntry {
 
-    public static class Builder extends FRReceiptEntryBuilderImpl<Builder, FRReceiptEntry> {
+    class Builder extends FRReceiptEntryBuilderImpl<Builder, FRReceiptEntry, FRReceiptEntity> {
 
         @Inject
         public Builder(DAOFRReceiptEntry daoFRReceiptEntry, DAOFRReceipt daoFRReceipt, DAOFRTax daoFRTax,

@@ -19,15 +19,15 @@
 package com.premiumminds.billy.persistence.services;
 
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Entity;
 
-public interface PersistenceService<T extends Entity> {
+public interface PersistenceService<TID extends Entity<TID>, T extends TID> {
 
-    public T create(Builder<T> builder);
+    T create(Builder<T> builder);
 
-    public T update(Builder<T> builder);
+    T update(Builder<T> builder);
 
-    public T get(UID uid);
+    T get(StringID<TID> uid);
 
 }

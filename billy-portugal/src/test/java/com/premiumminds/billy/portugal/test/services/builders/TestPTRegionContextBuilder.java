@@ -18,17 +18,15 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTRegionContextEntity;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestPTRegionContextBuilder extends PTAbstractTest {
 
@@ -42,7 +40,7 @@ public class TestPTRegionContextBuilder extends PTAbstractTest {
         Mockito.when(this.getInstance(DAOPTRegionContext.class).getEntityInstance())
                 .thenReturn(new MockPTRegionContextEntity());
 
-        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTRegionContext.class).get(Mockito.any()))
                 .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
         PTRegionContext.Builder builder = this.getInstance(PTRegionContext.Builder.class);

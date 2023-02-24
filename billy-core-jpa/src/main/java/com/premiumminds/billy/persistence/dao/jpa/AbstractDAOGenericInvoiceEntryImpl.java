@@ -23,10 +23,13 @@ import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.persistence.entities.jpa.JPAGenericInvoiceEntryEntity;
 
-public abstract class AbstractDAOGenericInvoiceEntryImpl<TInterface extends GenericInvoiceEntryEntity, TEntity extends JPAGenericInvoiceEntryEntity>
-        extends AbstractDAO<TInterface, TEntity> implements AbstractDAOGenericInvoiceEntry<TInterface> {
+public abstract class AbstractDAOGenericInvoiceEntryImpl<TInterface extends GenericInvoiceEntryEntity,
+        TEntity extends JPAGenericInvoiceEntryEntity>
+        extends AbstractDAO<GenericInvoiceEntry, TInterface, TEntity>
+        implements AbstractDAOGenericInvoiceEntry<TInterface> {
 
     public AbstractDAOGenericInvoiceEntryImpl(Provider<EntityManager> emProvider) {
         super(emProvider);

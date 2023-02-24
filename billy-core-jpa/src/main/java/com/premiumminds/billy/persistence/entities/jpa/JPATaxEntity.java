@@ -21,7 +21,6 @@ package com.premiumminds.billy.persistence.entities.jpa;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -38,11 +37,12 @@ import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.Tax;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TAX")
-public class JPATaxEntity extends JPABaseEntity implements TaxEntity {
+public class JPATaxEntity extends JPABaseEntity<Tax> implements TaxEntity {
 
     private static final long serialVersionUID = 1L;
 

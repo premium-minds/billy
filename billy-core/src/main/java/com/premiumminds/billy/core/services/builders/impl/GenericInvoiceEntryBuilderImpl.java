@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Currency;
 import java.util.Date;
-
 import javax.inject.Inject;
 
 import org.apache.commons.lang3.Validate;
@@ -39,11 +38,13 @@ import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.core.util.BillyValidator;
@@ -52,8 +53,10 @@ import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
-public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends GenericInvoiceEntry, TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOGenericInvoice<?>>
-        extends AbstractBuilder<TBuilder, TEntry> implements GenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry,
+        TInvoice, TDAOEntry, TDAOInvoice>, TEntry extends GenericInvoiceEntry, TInvoice extends GenericInvoice,
+        TDAOEntry extends AbstractDAOGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOGenericInvoice<?>>
+        extends AbstractBuilder<TBuilder, TEntry> implements GenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
@@ -80,7 +83,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @NotOnUpdate
     public <T extends ShippingPoint> TBuilder setShippingOrigin(Builder<T> originBuilder) {
         BillyValidator.notNull(originBuilder,
-                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_shipping_origin"));
+                               GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_shipping_origin"));
         this.getTypeInstance().setShippingOrigin(originBuilder.build());
         return this.getBuilder();
     }
@@ -89,14 +92,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @NotOnUpdate
     public <T extends ShippingPoint> TBuilder setShippingDestination(Builder<T> destinationBuilder) {
         BillyValidator.notNull(destinationBuilder,
-                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_shipping_destination"));
+                               GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_shipping_destination"));
         this.getTypeInstance().setShippingDestination(destinationBuilder.build());
         return this.getBuilder();
     }
 
     @Override
     @NotOnUpdate
-    public TBuilder setProductUID(UID productUID) {
+    public TBuilder setProductUID(StringID<Product> productUID) {
         BillyValidator.notNull(productUID, "field.product");
         ProductEntity p = this.daoProduct.get(productUID);
         BillyValidator.found(p, "field.product");
@@ -140,7 +143,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
     @Override
     @NotOnUpdate
-    public TBuilder addDocumentReferenceUID(UID referenceUID) {
+    public TBuilder addDocumentReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID, GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.reference"));
         GenericInvoiceEntity d = this.daoInvoice.get(referenceUID);
         BillyValidator.found(d, GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.reference"));
@@ -160,7 +163,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @NotOnUpdate
     public TBuilder setShippingCostsAmount(BigDecimal amount) {
         BillyValidator.notNull(amount,
-                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.shipping_costs_amount"));
+                               GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.shipping_costs_amount"));
         Validate.isTrue(amount.compareTo(BigDecimal.ZERO) >= 0);
         this.getTypeInstance().setShippingCostsAmount(amount);
         return this.getBuilder();
@@ -195,7 +198,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
     @Override
     @NotOnUpdate
-    public TBuilder setContextUID(UID uidContext) {
+    public TBuilder setContextUID(StringID<Context> uidContext) {
         BillyValidator.notNull(uidContext, GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_context"));
         ContextEntity c = this.daoContext.get(uidContext);
         BillyValidator.found(c, GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.entry_context"));
@@ -207,7 +210,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @NotOnUpdate
     public TBuilder setTaxExemptionReason(String exemptionReason) {
         BillyValidator.notBlank(exemptionReason,
-                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+                                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
         this.getTypeInstance().setTaxExemptionReason(exemptionReason);
         return this.getBuilder();
     }
@@ -216,7 +219,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @NotOnUpdate
     public TBuilder setTaxExemptionCode(String exemptionCode) {
         BillyValidator.notBlank(exemptionCode,
-                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
+                                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_code"));
         this.getTypeInstance().setTaxExemptionCode(exemptionCode);
         return this.getBuilder();
     }
@@ -238,17 +241,17 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
         GenericInvoiceEntry i = this.getTypeInstance();
         BillyValidator.mandatory(i.getDescription(),
-                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.description"));
+                                 GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.description"));
         BillyValidator.mandatory(i.getTaxPointDate(),
-                GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+                                 GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
         BillyValidator.mandatory(i.getCurrency(), GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.currency"));
 
         if (i.getAmountType().compareTo(AmountType.WITH_TAX) == 0) {
             BillyValidator.mandatory(i.getUnitAmountWithoutTax(),
-                    GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
+                                     GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
         } else {
             BillyValidator.mandatory(i.getUnitAmountWithoutTax(),
-                    GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
+                                     GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit_gross_amount"));
         }
     }
 
@@ -260,14 +263,15 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
         for (Tax t : e.getProduct().getTaxes()) {
             if (this.daoContext.isSameOrSubContext(this.context, t.getContext())) {
                 Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
-                if (t.getValidTo() == null || DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(taxDate)) {
+                if (t.getValidTo() == null || DateUtils.isSameDay(t.getValidTo(), taxDate) ||
+                        t.getValidTo().after(taxDate)) {
                     e.getTaxes().add(t);
                 }
             }
         }
         if (e.getTaxes().isEmpty()) {
-            throw new BillyValidationException(
-                    GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("exception.invalid_taxes"));
+            throw new BillyValidationException(GenericInvoiceEntryBuilderImpl.LOCALIZER.getString(
+                    "exception.invalid_taxes"));
         }
 
         e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
@@ -282,9 +286,9 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
                         unitTaxAmount = unitTaxAmount.add(t.getValue(), mc);
                         break;
                     case PERCENTAGE:
-                        unitAmountWithoutTax = e.getUnitAmountWithTax().divide(
-                                BigDecimal.ONE.add(t.getPercentageRateValue().divide(new BigDecimal("100"), mc), mc),
-                                mc);
+                        unitAmountWithoutTax = e.getUnitAmountWithTax()
+                                .divide(BigDecimal.ONE.add(t.getPercentageRateValue().divide(new BigDecimal("100"), mc),
+                                                           mc), mc);
                         unitTaxAmount =
                                 unitTaxAmount.add(e.getUnitAmountWithTax().subtract(unitAmountWithoutTax, mc), mc);
 
@@ -310,7 +314,8 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
                         break;
                     case PERCENTAGE:
                         unitTaxAmount = unitTaxAmount.add(e.getUnitAmountWithoutTax()
-                                .multiply(t.getPercentageRateValue(), mc).divide(new BigDecimal("100"), mc), mc);
+                                                                  .multiply(t.getPercentageRateValue(), mc)
+                                                                  .divide(new BigDecimal("100"), mc), mc);
                         unitAmountWithTax = unitAmountWithTax.add(unitTaxAmount, mc);
                         break;
                     default:

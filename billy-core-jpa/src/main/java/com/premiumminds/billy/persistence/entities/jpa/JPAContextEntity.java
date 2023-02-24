@@ -33,7 +33,7 @@ import com.premiumminds.billy.core.services.entities.Context;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTEXT")
-public class JPAContextEntity extends JPABaseEntity implements ContextEntity {
+public class JPAContextEntity extends JPABaseEntity<Context> implements ContextEntity {
 
     private static final long serialVersionUID = 1L;
 

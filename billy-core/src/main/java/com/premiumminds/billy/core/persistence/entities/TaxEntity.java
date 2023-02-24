@@ -24,28 +24,28 @@ import java.util.Date;
 
 import com.premiumminds.billy.core.services.entities.Tax;
 
-public interface TaxEntity extends Tax, BaseEntity {
+public interface TaxEntity extends Tax {
 
-    public <T extends ContextEntity> void setContext(T context);
+    <T extends ContextEntity> void setContext(T context);
 
-    public void setDesignation(String designation);
+    void setDesignation(String designation);
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public void setCode(String code);
+    void setCode(String code);
 
-    public void setValidFrom(Date from);
+    void setValidFrom(Date from);
 
-    public void setValidTo(Date to);
+    void setValidTo(Date to);
 
-    public void setTaxRateType(TaxRateType type);
+    void setTaxRateType(TaxRateType type);
 
-    public void setPercentageRateValue(BigDecimal value);
+    void setPercentageRateValue(BigDecimal value);
 
-    public void setFlatRateAmount(BigDecimal amount);
+    void setFlatRateAmount(BigDecimal amount);
 
-    public void setCurrency(Currency currency);
+    void setCurrency(Currency currency);
 
-    public void setValue(BigDecimal value);
+    void setValue(BigDecimal value);
 
 }

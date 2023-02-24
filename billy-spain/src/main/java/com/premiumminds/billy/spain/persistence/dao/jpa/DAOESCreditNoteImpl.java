@@ -18,16 +18,15 @@
  */
 package com.premiumminds.billy.spain.persistence.dao.jpa;
 
-import com.querydsl.jpa.JPAExpressions;
-import com.querydsl.jpa.JPQLQuery;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESCreditNoteEntity;
@@ -36,6 +35,8 @@ import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditNoteEnt
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESCreditNoteEntryEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.QJPAESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
 
 public class DAOESCreditNoteImpl extends AbstractDAOESGenericInvoiceImpl<ESCreditNoteEntity, JPAESCreditNoteEntity>
         implements DAOESCreditNote {
@@ -56,7 +57,7 @@ public class DAOESCreditNoteImpl extends AbstractDAOESGenericInvoiceImpl<ESCredi
     }
 
     @Override
-    public List<ESCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
+    public List<ESCreditNote> findByReferencedDocument(StringID<Business> uidCompany, StringID<GenericInvoice> uidInvoice) {
         QJPAESCreditNoteEntity creditNote = QJPAESCreditNoteEntity.jPAESCreditNoteEntity;
         QJPAESCreditNoteEntryEntity entry = QJPAESCreditNoteEntryEntity.jPAESCreditNoteEntryEntity;
         QJPAESGenericInvoiceEntity invoice = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;

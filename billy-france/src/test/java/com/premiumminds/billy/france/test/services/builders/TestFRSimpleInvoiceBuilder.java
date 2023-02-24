@@ -20,12 +20,11 @@ package com.premiumminds.billy.france.test.services.builders;
 
 import java.util.ArrayList;
 
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCustomer;
 import com.premiumminds.billy.france.persistence.dao.DAOFRInvoiceEntry;
@@ -63,12 +62,12 @@ public class TestFRSimpleInvoiceBuilder extends FRAbstractTest {
         Mockito.when(this.getInstance(DAOFRSimpleInvoice.class).getEntityInstance())
                 .thenReturn(new MockFRSimpleInvoiceEntity());
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
 
         MockFRInvoiceEntryEntity entryMock =
                 this.createMockEntity(MockFRInvoiceEntryEntity.class, TestFRSimpleInvoiceBuilder.FR_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOFRInvoiceEntry.class).get(Mockito.any())).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

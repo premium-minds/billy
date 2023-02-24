@@ -31,7 +31,7 @@ import com.premiumminds.billy.core.services.builders.impl.BusinessBuilderImpl;
  *         The Billy services entity for a Business. The business is the entity
  *         for which the financial data is being managed.
  */
-public interface Business extends Entity {
+public interface Business extends Entity<Business> {
 
     /**
      * @author Francisco Vargas

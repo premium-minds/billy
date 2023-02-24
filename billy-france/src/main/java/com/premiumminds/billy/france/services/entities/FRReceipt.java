@@ -19,7 +19,6 @@
 package com.premiumminds.billy.france.services.entities;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;
@@ -32,7 +31,7 @@ import com.premiumminds.billy.france.services.builders.impl.FRReceiptBuilderImpl
 
 public interface FRReceipt extends FRGenericInvoice {
 
-    public static class Builder extends FRReceiptBuilderImpl<Builder, FRReceiptEntry, FRReceipt> {
+    class Builder extends FRReceiptBuilderImpl<Builder, FRReceiptEntry, FRReceipt> {
 
         @Inject
         public Builder(DAOFRReceipt daoFRInvoice, DAOFRBusiness daoFRBusiness, DAOFRCustomer daoFRCustomer,
@@ -42,9 +41,9 @@ public interface FRReceipt extends FRGenericInvoice {
     }
 
     @Override
-    public <T extends GenericInvoiceEntry> List<T> getEntries();
+    <T extends GenericInvoiceEntry> List<T> getEntries();
 
     @Override
-    public <T extends Payment> List<T> getPayments();
+    <T extends Payment> List<T> getPayments();
 
 }

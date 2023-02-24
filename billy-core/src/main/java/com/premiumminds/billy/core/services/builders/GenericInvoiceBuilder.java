@@ -24,8 +24,11 @@ import java.util.Date;
 
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.Payment;
+import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.DiscountType;
@@ -33,50 +36,50 @@ import com.premiumminds.billy.core.util.DiscountType;
 public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TBuilder, TEntry, TDocument>, TEntry extends GenericInvoiceEntry, TDocument extends GenericInvoice>
         extends Builder<TDocument> {
 
-    public TBuilder setBusinessUID(UID businessUID);
+    TBuilder setBusinessUID(StringID<Business> businessUID);
 
-    public TBuilder setCustomerUID(UID customerUID);
+    TBuilder setCustomerUID(StringID<Customer> customerUID);
 
-    public TBuilder setSupplierUID(UID supplier);
+    TBuilder setSupplierUID(StringID<Supplier> supplier);
 
-    public TBuilder setOfficeNumber(String number);
+    TBuilder setOfficeNumber(String number);
 
-    public TBuilder setDate(Date date);
+    TBuilder setDate(Date date);
 
-    public <T extends ShippingPointEntity> TBuilder setShippingOrigin(Builder<T> originBuilder);
+    <T extends ShippingPointEntity> TBuilder setShippingOrigin(Builder<T> originBuilder);
 
-    public <T extends ShippingPointEntity> TBuilder setShippingDestination(Builder<T> destinationBuilder);
+    <T extends ShippingPointEntity> TBuilder setShippingDestination(Builder<T> destinationBuilder);
 
-    public TBuilder setPaymentTerms(String terms);
+    TBuilder setPaymentTerms(String terms);
 
-    public TBuilder setSelfBilled(boolean selfBilled);
+    TBuilder setSelfBilled(boolean selfBilled);
 
-    public TBuilder setSourceId(String source);
+    TBuilder setSourceId(String source);
 
-    public TBuilder setGeneralLedgerDate(Date date);
+    TBuilder setGeneralLedgerDate(Date date);
 
-    public TBuilder setBatchId(String id);
+    TBuilder setBatchId(String id);
 
-    public TBuilder setTransactionId(String id);
+    TBuilder setTransactionId(String id);
 
-    public TBuilder addReceiptNumber(String number);
+    TBuilder addReceiptNumber(String number);
 
-    public <T extends GenericInvoiceEntry> TBuilder addEntry(Builder<T> entryBuilder);
+    <T extends GenericInvoiceEntry> TBuilder addEntry(Builder<T> entryBuilder);
 
-    public TBuilder setSettlementDescription(String description);
+    TBuilder setSettlementDescription(String description);
 
-    public TBuilder setSettlementDiscount(BigDecimal discount);
+    TBuilder setSettlementDiscount(BigDecimal discount);
 
-    public TBuilder setSettlementDate(Date date);
+    TBuilder setSettlementDate(Date date);
 
-    public <T extends Payment> TBuilder addPayment(Builder<T> paymentBuilder);
+    <T extends Payment> TBuilder addPayment(Builder<T> paymentBuilder);
 
-    public TBuilder setCreditOrDebit(GenericInvoice.CreditOrDebit creditOrDebit);
+    TBuilder setCreditOrDebit(GenericInvoice.CreditOrDebit creditOrDebit);
 
-    public TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
+    TBuilder setDiscounts(DiscountType type, BigDecimal... discounts);
 
-    public TBuilder setCurrency(Currency currency);
+    TBuilder setCurrency(Currency currency);
 
-    public TBuilder setScale(int scale);
+    TBuilder setScale(int scale);
 
 }

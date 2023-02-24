@@ -28,7 +28,6 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -46,7 +45,7 @@ public class TestTaxBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOTax.class).getEntityInstance()).thenReturn(new MockTaxEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any()))
                 .thenReturn((ContextEntity) mockTax.getContext());
 
         Tax.Builder builder = this.getInstance(Tax.Builder.class);

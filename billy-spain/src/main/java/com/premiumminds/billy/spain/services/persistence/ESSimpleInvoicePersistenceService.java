@@ -25,7 +25,9 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
@@ -57,7 +59,7 @@ public class ESSimpleInvoicePersistenceService {
         }
     }
 
-    public ESSimpleInvoice get(final UID uid) {
+    public ESSimpleInvoice get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<ESSimpleInvoice>(this.daoInvoice) {
 
@@ -73,15 +75,15 @@ public class ESSimpleInvoicePersistenceService {
     }
 
     @Deprecated
-    public ESSimpleInvoice getWithTicket(final UID ticketUID) {
+    public ESSimpleInvoice getWithTicket(final StringID<Ticket> ticketUID) {
 
         try {
             return new TransactionWrapper<ESSimpleInvoice>(this.daoInvoice) {
 
                 @Override
                 public ESSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
-                    UID objectUID =
-                            ESSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    StringID<GenericInvoice> objectUID =
+                            ESSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return ESSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
                 }
 

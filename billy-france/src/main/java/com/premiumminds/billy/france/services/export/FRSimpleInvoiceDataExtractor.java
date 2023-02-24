@@ -19,10 +19,12 @@
 package com.premiumminds.billy.france.services.export;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.france.persistence.dao.DAOFRSimpleInvoice;
+import com.premiumminds.billy.france.persistence.entities.FRSimpleInvoiceEntity;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
@@ -30,8 +32,6 @@ import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.france.persistence.dao.DAOFRSimpleInvoice;
-import com.premiumminds.billy.france.persistence.entities.FRSimpleInvoiceEntity;
 
 public class FRSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<FRSimpleInvoiceData> {
@@ -44,9 +44,8 @@ public class FRSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
     }
 
     @Override
-    public FRSimpleInvoiceData extract(UID uid) throws ExportServiceException {
-        FRSimpleInvoiceEntity entity = this.daoFRSimpleInvoice.get(uid); // FIXME: Fix the DAOs to
-                                                                         // remove this cast
+    public FRSimpleInvoiceData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
+        FRSimpleInvoiceEntity entity = this.daoFRSimpleInvoice.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }

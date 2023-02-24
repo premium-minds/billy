@@ -18,7 +18,8 @@
  */
 package com.premiumminds.billy.portugal.services.export;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
@@ -56,7 +57,7 @@ public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
     }
 
     @Override
-    public PTCreditNoteData extract(UID uid) throws ExportServiceException {
+    public PTCreditNoteData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
         PTCreditNoteEntity entity = this.daoPTCreditNote.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");

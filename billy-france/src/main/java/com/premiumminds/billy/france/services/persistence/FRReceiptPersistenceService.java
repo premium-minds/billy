@@ -25,7 +25,10 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.services.entities.FRReceipt;
@@ -56,7 +59,7 @@ public class FRReceiptPersistenceService {
         }
     }
 
-    public FRReceipt get(final UID uid) {
+    public FRReceipt get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<FRReceipt>(this.daoReceipt) {
 
@@ -71,14 +74,14 @@ public class FRReceiptPersistenceService {
     }
 
     @Deprecated
-    public FRReceipt getWithTicket(final UID ticketUID) throws NoResultException {
+    public FRReceipt getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException {
         try {
             return new TransactionWrapper<FRReceipt>(this.daoReceipt) {
 
                 @Override
-                public FRReceipt runTransaction() throws Exception {
-                    UID receiptUID =
-                            FRReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                public FRReceipt runTransaction() {
+                    StringID<GenericInvoice> receiptUID =
+                            FRReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return FRReceiptPersistenceService.this.daoReceipt.get(receiptUID);
                 }
             }.execute();
@@ -89,12 +92,12 @@ public class FRReceiptPersistenceService {
         }
     }
 
-    public FRReceipt findByNumber(final UID uidBusiness, final String number) {
+    public FRReceipt findByNumber(final StringID<Business> uidBusiness, final String number) {
         try {
             return new TransactionWrapper<FRReceipt>(this.daoReceipt) {
 
                 @Override
-                public FRReceipt runTransaction() throws Exception {
+                public FRReceipt runTransaction() {
                     return FRReceiptPersistenceService.this.daoReceipt.findByNumber(uidBusiness, number);
                 }
             }.execute();

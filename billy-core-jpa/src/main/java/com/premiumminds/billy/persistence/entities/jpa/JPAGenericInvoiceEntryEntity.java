@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,11 +47,12 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
-public class JPAGenericInvoiceEntryEntity extends JPABaseEntity implements GenericInvoiceEntryEntity {
+public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEntry> implements GenericInvoiceEntryEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,9 +18,11 @@
  */
 package com.premiumminds.billy.portugal.services.builders;
 
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public interface PTManualCreditNoteEntryBuilder<TBuilder extends PTManualCreditNoteEntryBuilder<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-        extends PTManualInvoiceEntryBuilder<TBuilder, TEntry>, PTCreditNoteEntryBuilder<TBuilder, TEntry> {
+public interface PTManualCreditNoteEntryBuilder<TBuilder extends PTManualCreditNoteEntryBuilder<TBuilder, TEntry,
+    TInvoice>, TEntry extends PTCreditNoteEntry, TInvoice extends PTCreditNote>
+    extends PTManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>, PTCreditNoteEntryBuilder<TBuilder, TEntry, TInvoice> {
 
 }

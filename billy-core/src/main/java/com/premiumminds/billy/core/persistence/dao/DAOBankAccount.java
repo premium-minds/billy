@@ -19,7 +19,8 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
+import com.premiumminds.billy.core.services.entities.BankAccount;
 
-public interface DAOBankAccount extends DAO<BankAccountEntity> {
+public interface DAOBankAccount extends DAO<BankAccount, BankAccountEntity> {
 
 }

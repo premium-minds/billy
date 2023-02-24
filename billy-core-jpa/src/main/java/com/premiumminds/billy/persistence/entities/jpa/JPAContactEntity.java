@@ -26,11 +26,12 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
-public class JPAContactEntity extends JPABaseEntity implements ContactEntity {
+public class JPAContactEntity extends JPABaseEntity<Contact> implements ContactEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,14 +18,15 @@
  */
 package com.premiumminds.billy.spain.test.services.persistence;
 
-import com.premiumminds.billy.spain.exceptions.BillySimpleInvoiceException;
-import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
+import java.util.UUID;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 
@@ -35,7 +36,7 @@ public class TestInvoiceUpdate extends ESPersistenceServiceAbstractTest {
 
     @BeforeEach
     public void setUp() throws DocumentIssuingException {
-        final String businessUID = new UID().toString();
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         this.issuedInvoice = this.getNewIssuedInvoice(businessUID);
     }
@@ -70,13 +71,17 @@ public class TestInvoiceUpdate extends ESPersistenceServiceAbstractTest {
     public void testBusinessFailure() {
         ESInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
-        Assertions.assertThrows(BillyUpdateException.class, () -> builder.setBusinessUID(new UID()));
+        Assertions.assertThrows(
+            BillyUpdateException.class,
+            () -> builder.setBusinessUID(StringID.fromValue(UUID.randomUUID().toString())));
     }
 
     @Test
     public void testCustomerFailure() {
         ESInvoice.Builder builder = this.billy.invoices().builder(this.issuedInvoice);
 
-        Assertions.assertThrows(BillyUpdateException.class, () -> builder.setCustomerUID(new UID()));
+        Assertions.assertThrows(
+            BillyUpdateException.class,
+            () -> builder.setCustomerUID(StringID.fromValue(UUID.randomUUID().toString())));
     }
 }

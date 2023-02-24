@@ -22,14 +22,15 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.france.persistence.dao.DAOFRApplication;
 import com.premiumminds.billy.france.persistence.entities.FRApplicationEntity;
 import com.premiumminds.billy.france.services.entities.FRApplication;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 
-public class FRApplicationPersistenceService implements PersistenceService<FRApplication> {
+public class FRApplicationPersistenceService implements PersistenceService<Application, FRApplication> {
 
     protected final DAOFRApplication daoApplication;
 
@@ -73,7 +74,7 @@ public class FRApplicationPersistenceService implements PersistenceService<FRApp
     }
 
     @Override
-    public FRApplication get(final UID uid) {
+    public FRApplication get(final StringID<Application> uid) {
         try {
             return new TransactionWrapper<FRApplication>(this.daoApplication) {
 

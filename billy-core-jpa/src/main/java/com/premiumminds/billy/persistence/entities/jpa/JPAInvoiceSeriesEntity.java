@@ -31,12 +31,13 @@ import org.hibernate.envers.Audited;
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "INVOICE_SERIES",
         uniqueConstraints = @UniqueConstraint(columnNames = { "SERIES", "ID_BUSINESS" }))
-public class JPAInvoiceSeriesEntity extends JPABaseEntity implements InvoiceSeriesEntity {
+public class JPAInvoiceSeriesEntity extends JPABaseEntity<InvoiceSeries> implements InvoiceSeriesEntity {
 
     private static final long serialVersionUID = 1L;
 

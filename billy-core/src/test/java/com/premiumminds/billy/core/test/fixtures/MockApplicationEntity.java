@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import com.premiumminds.billy.core.services.entities.Application;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
 
-public class MockApplicationEntity extends MockBaseEntity implements ApplicationEntity {
+public class MockApplicationEntity extends MockBaseEntity<Application> implements ApplicationEntity {
 
     private static final long serialVersionUID = 1L;
 

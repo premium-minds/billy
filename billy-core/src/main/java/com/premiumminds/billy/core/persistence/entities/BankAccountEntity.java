@@ -20,7 +20,7 @@ package com.premiumminds.billy.core.persistence.entities;
 
 import com.premiumminds.billy.core.services.entities.BankAccount;
 
-public interface BankAccountEntity extends BankAccount, BaseEntity {
+public interface BankAccountEntity extends BankAccount {
 
     public void setIBANNumber(String iban);
 

@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;
@@ -49,7 +48,7 @@ public class TestFRBusinessBuilder extends FRAbstractTest {
 
         Mockito.when(this.getInstance(DAOFRBusiness.class).getEntityInstance()).thenReturn(new MockFRBusinessEntity());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any()))
                 .thenReturn((FRRegionContextEntity) mockBusiness.getOperationalContext());
 
         FRBusiness.Builder builder = this.getInstance(FRBusiness.Builder.class);

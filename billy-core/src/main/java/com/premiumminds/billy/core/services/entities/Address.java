@@ -28,7 +28,7 @@ import com.premiumminds.billy.core.services.builders.impl.AddressBuilderImpl;
  *
  *         The Billy services entity for an address
  */
-public interface Address extends Entity {
+public interface Address extends Entity<Address> {
 
     /**
      * @author Francisco Vargas

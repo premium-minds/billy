@@ -18,23 +18,24 @@
  */
 package com.premiumminds.billy.spain.services.persistence;
 
-import java.util.List;
-
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceipt;
+import java.util.List;
+import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
-public class ESCreditReceiptPersistenceService implements PersistenceService<ESCreditReceipt> {
+public class ESCreditReceiptPersistenceService implements PersistenceService<GenericInvoice, ESCreditReceipt> {
 
     protected final DAOESCreditReceipt daoCreditReceipt;
     protected final DAOTicket daoTicket;
@@ -69,7 +70,7 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
     }
 
     @Override
-    public ESCreditReceipt get(final UID uid) {
+    public ESCreditReceipt get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<ESCreditReceipt>(this.daoCreditReceipt) {
 
@@ -85,15 +86,15 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
     }
 
     @Deprecated
-    public ESCreditReceipt getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
+    public ESCreditReceipt getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {
             return new TransactionWrapper<ESCreditReceipt>(this.daoCreditReceipt) {
 
                 @Override
                 public ESCreditReceipt runTransaction() throws Exception {
-                    UID objectUID =
-                            ESCreditReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    StringID<GenericInvoice> objectUID =
+                            ESCreditReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return ESCreditReceiptPersistenceService.this.daoCreditReceipt.get(objectUID);
                 }
 
@@ -105,7 +106,7 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
         }
     }
 
-    public ESCreditReceipt findByNumber(final UID uidBusiness, final String number) {
+    public ESCreditReceipt findByNumber(final StringID<Business> uidBusiness, final String number) {
         try {
             return new TransactionWrapper<ESCreditReceipt>(this.daoCreditReceipt) {
 
@@ -120,7 +121,8 @@ public class ESCreditReceiptPersistenceService implements PersistenceService<ESC
         }
     }
 
-    public List<ESCreditReceipt> findByReferencedDocument(final UID uidCompany, final UID uidInvoice) {
+    public List<ESCreditReceipt> findByReferencedDocument(final StringID<Business> uidCompany,
+            final StringID<GenericInvoice> uidInvoice) {
         try {
             return new TransactionWrapper<List<ESCreditReceipt>>(this.daoCreditReceipt) {
 

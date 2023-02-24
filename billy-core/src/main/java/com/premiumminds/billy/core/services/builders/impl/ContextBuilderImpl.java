@@ -24,7 +24,7 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.ContextBuilder;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.util.BillyValidator;
@@ -58,7 +58,7 @@ public class ContextBuilderImpl<TBuilder extends ContextBuilderImpl<TBuilder, TC
     }
 
     @Override
-    public TBuilder setParentContextUID(UID parentUID) {
+    public TBuilder setParentContextUID(StringID<Context> parentUID) {
         if (parentUID == null) {
             this.getTypeInstance().setParentContext(null);
         } else {

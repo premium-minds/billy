@@ -18,9 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
@@ -31,13 +28,18 @@ import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoiceE
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEntity;
 import com.premiumminds.billy.spain.services.builders.ESGenericInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
+import java.math.BigDecimal;
+import java.util.Date;
 
-public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends ESGenericInvoiceEntry, TDAOEntry extends AbstractDAOESGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOESGenericInvoice<?>>
-        extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
-        implements ESGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public class ESGenericInvoiceEntryBuilderImpl<TBuilder extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry,
+    TInvoice, TDAOEntry, TDAOInvoice>, TEntry extends ESGenericInvoiceEntry, TInvoice extends ESGenericInvoiceEntity,
+    TDAOEntry extends AbstractDAOESGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOESGenericInvoice<TInvoice>>
+    extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice, TDAOEntry, TDAOInvoice>
+    implements ESGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 

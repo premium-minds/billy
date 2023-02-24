@@ -24,7 +24,6 @@ import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockContextEntity;
@@ -39,7 +38,7 @@ public class TestContextBuilder extends AbstractTest {
 
         Mockito.when(this.getInstance(DAOContext.class).getEntityInstance()).thenReturn(new MockContextEntity());
 
-        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContext.class).get(Mockito.any()))
                 .thenReturn((ContextEntity) mockContext.getParentContext());
 
         Context.Builder builder = this.getInstance(Context.Builder.class);

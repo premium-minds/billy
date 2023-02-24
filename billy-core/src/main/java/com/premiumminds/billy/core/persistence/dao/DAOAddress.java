@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.services.entities.Address;
 
-public interface DAOAddress extends DAO<AddressEntity> {
+public interface DAOAddress extends DAO<Address, AddressEntity> {
 }

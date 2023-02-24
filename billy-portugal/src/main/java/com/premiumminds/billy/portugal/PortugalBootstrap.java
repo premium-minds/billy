@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -31,7 +33,6 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTAddress;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTContact;
@@ -99,7 +100,7 @@ public class PortugalBootstrap {
     }
 
     public static void execute(final Injector dependencyInjector) {
-        DAO<?> dao = dependencyInjector.getInstance(DAOPTInvoice.class);
+        DAO<?, ?> dao = dependencyInjector.getInstance(DAOPTInvoice.class);
         final Config configuration = new Config();
 
         try {
@@ -373,8 +374,8 @@ public class PortugalBootstrap {
                 }
 
                 private PTRegionContextEntity buildContextEntity(DAOPTRegionContext daoPTRegionContext,
-                        PTRegionContext.Builder contextBuilder, String name, String description, UID parentUID,
-                        String regionCode, String key) {
+                                                                 PTRegionContext.Builder contextBuilder, String name, String description, StringID<Context> parentUID,
+                                                                 String regionCode, String key) {
 
                     contextBuilder.clear();
 

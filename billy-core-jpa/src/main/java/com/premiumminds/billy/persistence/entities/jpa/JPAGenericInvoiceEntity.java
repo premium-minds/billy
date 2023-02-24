@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -53,6 +52,7 @@ import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
 @Entity
@@ -60,7 +60,7 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEnt
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE",
         uniqueConstraints = { @UniqueConstraint(columnNames = { "NUMBER", "ID_BUSINESS" }),
                 @UniqueConstraint(columnNames = { "SERIES", "SERIES_NUMBER", "ID_BUSINESS" }) })
-public class JPAGenericInvoiceEntity extends JPABaseEntity implements GenericInvoiceEntity {
+public class JPAGenericInvoiceEntity extends JPABaseEntity<GenericInvoice> implements GenericInvoiceEntity {
 
     private static final long serialVersionUID = 1L;
 

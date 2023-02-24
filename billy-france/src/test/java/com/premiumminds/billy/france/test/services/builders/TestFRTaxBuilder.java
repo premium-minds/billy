@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
@@ -78,13 +78,13 @@ public class TestFRTaxBuilder extends FRAbstractTest {
     public MockFRTaxEntity loadFixture(Class<MockFRTaxEntity> clazz, String path) {
         MockFRTaxEntity result = this.createMockEntity(MockFRTaxEntity.class, path);
 
-        result.uid = new UID("uid_tax");
+        result.uid = StringID.fromValue("uid_tax");
 
         MockFRRegionContextEntity mockContext =
                 this.createMockEntity(MockFRRegionContextEntity.class, TestFRTaxBuilder.REGIONCONTEXT_YML);
 
-        mockContext.uid = new UID("uid_region_context");
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class))).thenReturn(mockContext);
+        mockContext.uid = StringID.fromValue("uid_region_context");
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any())).thenReturn(mockContext);
         result.context = mockContext;
 
         result.currency = Currency.getInstance("EUR");

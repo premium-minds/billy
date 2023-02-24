@@ -25,31 +25,31 @@ import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Supplier;
 
-public interface SupplierEntity extends Supplier, BaseEntity {
+public interface SupplierEntity extends Supplier {
 
-    public void setName(String name);
+    void setName(String name);
 
-    public void setTaxRegistrationNumber(String number);
+    void setTaxRegistrationNumber(String number);
 
-    public void setTaxRegistrationNumberISOCountryCode(String isoCountryCode);
-
-    @Override
-    public <T extends Address> List<T> getAddresses();
-
-    public <T extends AddressEntity> void setMainAddress(T address);
-
-    public <T extends AddressEntity> void setBillingAddress(T address);
-
-    public <T extends AddressEntity> void setShippingAddress(T address);
+    void setTaxRegistrationNumberISOCountryCode(String isoCountryCode);
 
     @Override
-    public <T extends Contact> List<T> getContacts();
+    <T extends Address> List<T> getAddresses();
 
-    public <T extends ContactEntity> void setMainContact(T contact);
+    <T extends AddressEntity> void setMainAddress(T address);
+
+    <T extends AddressEntity> void setBillingAddress(T address);
+
+    <T extends AddressEntity> void setShippingAddress(T address);
 
     @Override
-    public <T extends BankAccount> List<T> getBankAccounts();
+    <T extends Contact> List<T> getContacts();
 
-    public void setSelfBillingAgreement(boolean selfBilling);
+    <T extends ContactEntity> void setMainContact(T contact);
+
+    @Override
+    <T extends BankAccount> List<T> getBankAccounts();
+
+    void setSelfBillingAgreement(boolean selfBilling);
 
 }

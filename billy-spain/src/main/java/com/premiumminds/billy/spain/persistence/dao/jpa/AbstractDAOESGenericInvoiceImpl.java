@@ -22,8 +22,9 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.persistence.dao.jpa.AbstractDAOGenericInvoiceImpl;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.jpa.JPAESGenericInvoiceEntity;
@@ -40,7 +41,7 @@ public abstract class AbstractDAOESGenericInvoiceImpl<TInterface extends ESGener
 
     @SuppressWarnings("unchecked")
     @Override
-    public TInterface findByNumber(UID uidBusiness, String number) {
+    public TInterface findByNumber(StringID<Business> uidBusiness, String number) {
         QJPAESGenericInvoiceEntity invoice = QJPAESGenericInvoiceEntity.jPAESGenericInvoiceEntity;
 
         return (TInterface) this.checkEntity(

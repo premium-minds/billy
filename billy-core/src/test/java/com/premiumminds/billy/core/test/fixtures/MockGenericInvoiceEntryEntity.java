@@ -31,8 +31,9 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
-public class MockGenericInvoiceEntryEntity extends MockBaseEntity implements GenericInvoiceEntryEntity {
+public class MockGenericInvoiceEntryEntity extends MockBaseEntity<GenericInvoiceEntry> implements GenericInvoiceEntryEntity {
 
     private static final long serialVersionUID = 1L;
 

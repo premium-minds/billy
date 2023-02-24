@@ -25,10 +25,11 @@ import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.ProductBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
+import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 
@@ -99,7 +100,7 @@ public class ProductBuilderImpl<TBuilder extends ProductBuilderImpl<TBuilder, TP
     }
 
     @Override
-    public TBuilder addTaxUID(UID taxUID) {
+    public TBuilder addTaxUID(StringID<Tax> taxUID) {
         BillyValidator.notNull(taxUID, ProductBuilderImpl.LOCALIZER.getString("field.tax"));
         TaxEntity t = this.daoTax.get(taxUID);
         BillyValidator.found(t, ProductBuilderImpl.LOCALIZER.getString("field.tax"));

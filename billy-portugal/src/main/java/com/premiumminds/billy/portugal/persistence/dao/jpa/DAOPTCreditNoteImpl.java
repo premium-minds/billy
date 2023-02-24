@@ -18,18 +18,16 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import com.querydsl.jpa.JPAExpressions;
-import com.querydsl.jpa.JPQLQuery;
-import com.querydsl.jpa.impl.JPAQuery;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTCreditNoteEntity;
@@ -38,6 +36,9 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNote
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
+import com.querydsl.jpa.JPAExpressions;
+import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQuery;
 
 public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity>
         implements DAOPTCreditNote {
@@ -58,7 +59,7 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
     }
 
     @Override
-    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(UID uid, Date from, Date to) {
+    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(StringID<Business> uid, Date from, Date to) {
         QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 
         JPAQuery<PTCreditNoteEntity> query = this.createQuery();
@@ -71,7 +72,7 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
     }
 
     @Override
-    public List<PTCreditNote> findByReferencedDocument(UID uidCompany, UID uidInvoice) {
+    public List<PTCreditNote> findByReferencedDocument(StringID<Business> uidCompany, StringID<GenericInvoice> uidInvoice) {
         QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
         QJPAPTCreditNoteEntryEntity entry = QJPAPTCreditNoteEntryEntity.jPAPTCreditNoteEntryEntity;
         QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;

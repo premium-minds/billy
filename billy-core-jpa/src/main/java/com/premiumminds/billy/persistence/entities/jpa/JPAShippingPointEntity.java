@@ -19,7 +19,6 @@
 package com.premiumminds.billy.persistence.entities.jpa;
 
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,11 +34,12 @@ import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
 import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "SHIPPING_POINT")
-public class JPAShippingPointEntity extends JPABaseEntity implements ShippingPointEntity {
+public class JPAShippingPointEntity extends JPABaseEntity<ShippingPoint> implements ShippingPointEntity {
 
     private static final long serialVersionUID = 1L;
 

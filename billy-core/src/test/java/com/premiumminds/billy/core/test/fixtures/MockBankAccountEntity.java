@@ -19,8 +19,9 @@
 package com.premiumminds.billy.core.test.fixtures;
 
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
+import com.premiumminds.billy.core.services.entities.BankAccount;
 
-public class MockBankAccountEntity extends MockBaseEntity implements BankAccountEntity {
+public class MockBankAccountEntity extends MockBaseEntity<BankAccount> implements BankAccountEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -19,22 +19,24 @@
 package com.premiumminds.billy.portugal.services.persistence;
 
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 
-public class PTCreditNotePersistenceService implements PersistenceService<PTCreditNote> {
+public class PTCreditNotePersistenceService implements PersistenceService<GenericInvoice, PTCreditNote> {
 
     protected final DAOPTCreditNote daoCreditNote;
     protected final DAOTicket daoTicket;
@@ -69,7 +71,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
     }
 
     @Override
-    public PTCreditNote get(final UID uid) {
+    public PTCreditNote get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<PTCreditNote>(this.daoCreditNote) {
 
@@ -85,15 +87,15 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
     }
 
     @Deprecated
-    public PTCreditNote getWithTicket(final UID ticketUID) throws NoResultException, BillyRuntimeException {
+    public PTCreditNote getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
 
         try {
             return new TransactionWrapper<PTCreditNote>(this.daoCreditNote) {
 
                 @Override
                 public PTCreditNote runTransaction() throws Exception {
-                    UID objectUID =
-                            PTCreditNotePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    StringID<GenericInvoice> objectUID =
+                            PTCreditNotePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return PTCreditNotePersistenceService.this.daoCreditNote.get(objectUID);
                 }
 
@@ -105,7 +107,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
         }
     }
 
-    public PTCreditNote findByNumber(final UID uidBusiness, final String number) {
+    public PTCreditNote findByNumber(final StringID<Business> uidBusiness, final String number) {
         try {
             return new TransactionWrapper<PTCreditNote>(this.daoCreditNote) {
 
@@ -120,7 +122,7 @@ public class PTCreditNotePersistenceService implements PersistenceService<PTCred
         }
     }
 
-    public List<PTCreditNote> findByReferencedDocument(final UID uidCompany, final UID uidInvoice) {
+    public List<PTCreditNote> findByReferencedDocument(final StringID<Business> uidCompany, final StringID<GenericInvoice> uidInvoice) {
         try {
             return new TransactionWrapper<List<PTCreditNote>>(this.daoCreditNote) {
 

@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -56,9 +55,9 @@ public class TestFRCreditNoteEntryBuilder extends FRAbstractTest {
         MockFRInvoiceEntity mockInvoiceEntity =
                 this.createMockEntity(MockFRInvoiceEntity.class, TestFRCreditNoteEntryBuilder.FR_INVOICE_YML);
 
-        Mockito.when(this.getInstance(DAOFRInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoiceEntity);
+        Mockito.when(this.getInstance(DAOFRInvoice.class).get(Mockito.any())).thenReturn(mockInvoiceEntity);
 
-        Mockito.when(this.getInstance(DAOFRProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRProduct.class).get(Mockito.any()))
                 .thenReturn((FRProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOFRRegionContext.class).isSameOrSubContext(Mockito.any(),

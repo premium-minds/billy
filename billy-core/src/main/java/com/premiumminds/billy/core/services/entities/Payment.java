@@ -25,7 +25,7 @@ import javax.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOPayment;
 import com.premiumminds.billy.core.services.builders.impl.PaymentBuilderImpl;
 
-public interface Payment extends Entity {
+public interface Payment extends Entity<Payment> {
 
     public static class Builder extends PaymentBuilderImpl<Builder, Payment> {
 

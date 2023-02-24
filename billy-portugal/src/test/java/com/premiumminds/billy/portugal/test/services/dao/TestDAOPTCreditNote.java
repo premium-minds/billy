@@ -18,20 +18,23 @@
  */
 package com.premiumminds.billy.portugal.test.services.dao;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import com.google.common.collect.MoreCollectors;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class TestDAOPTCreditNote extends PTPersistencyAbstractTest {
 
     @Test
     public void testNoCreditEntriesForInvoice() {
-        String B1 = "B1";
+        StringID<Business> B1 = StringID.fromValue("B1");
         this.createSeries(B1);
 
         PTInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
@@ -43,7 +46,7 @@ public class TestDAOPTCreditNote extends PTPersistencyAbstractTest {
 
     @Test
     public void testCreditEntriesForInvoice() {
-        String B1 = "B1";
+        StringID<Business> B1 = StringID.fromValue("B1");
         this.createSeries(B1);
         PTInvoiceEntity inv1 = this.getNewIssuedInvoice(B1);
         PTCreditNote ignored = this.getNewIssuedCreditnote(inv1);

@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.services.builders.impl.PTManualCreditNote
 
 public interface PTCreditNoteEntry extends PTGenericInvoiceEntry {
 
-    public static class Builder extends PTCreditNoteEntryBuilderImpl<Builder, PTCreditNoteEntry> {
+    class Builder extends PTCreditNoteEntryBuilderImpl<Builder, PTCreditNoteEntry, PTCreditNote> {
 
         @Inject
         public Builder(DAOPTCreditNoteEntry daoPTCreditNoteEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
@@ -39,7 +39,7 @@ public interface PTCreditNoteEntry extends PTGenericInvoiceEntry {
         }
     }
 
-    public static class ManualBuilder extends PTManualCreditNoteEntryBuilderImpl<ManualBuilder, PTCreditNoteEntry> {
+    class ManualBuilder extends PTManualCreditNoteEntryBuilderImpl<ManualBuilder, PTCreditNoteEntry, PTCreditNote> {
 
         @Inject
         public ManualBuilder(DAOPTCreditNoteEntry daoPTCreditNoteEntry, DAOPTInvoice daoPTInvoice, DAOPTTax daoPTTax,
@@ -48,7 +48,7 @@ public interface PTCreditNoteEntry extends PTGenericInvoiceEntry {
         }
     }
 
-    public PTInvoice getReference();
+    PTInvoice getReference();
 
-    public String getReason();
+    String getReason();
 }

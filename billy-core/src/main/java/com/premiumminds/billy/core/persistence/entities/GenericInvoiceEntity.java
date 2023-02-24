@@ -28,67 +28,64 @@ import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 
-public interface GenericInvoiceEntity extends GenericInvoice, BaseEntity {
+public interface GenericInvoiceEntity extends GenericInvoice {
 
-    public void setSeriesNumber(Integer seriesNumber);
+    void setSeriesNumber(Integer seriesNumber);
 
-    public void setNumber(String number);
+    void setNumber(String number);
 
-    public void setSeries(String series);
+    void setSeries(String series);
 
-    public <T extends Business> void setBusiness(T business);
+    <T extends Business> void setBusiness(T business);
 
-    public <T extends CustomerEntity> void setCustomer(T customer);
+    <T extends CustomerEntity> void setCustomer(T customer);
 
-    public <T extends SupplierEntity> void setSupplier(T supplier);
+    <T extends SupplierEntity> void setSupplier(T supplier);
 
-    public void setOfficeNumber(String number);
+    void setOfficeNumber(String number);
 
-    public void setDate(Date date);
+    void setDate(Date date);
 
-    public void setAmountWithTax(BigDecimal amount);
+    void setAmountWithTax(BigDecimal amount);
 
-    public void setAmountWithoutTax(BigDecimal amount);
+    void setAmountWithoutTax(BigDecimal amount);
 
-    public void setTaxAmount(BigDecimal amount);
+    void setTaxAmount(BigDecimal amount);
 
-    public void setDiscountsAmount(BigDecimal amount);
+    void setDiscountsAmount(BigDecimal amount);
 
-    public <T extends ShippingPointEntity> void setShippingOrigin(T origin);
+    <T extends ShippingPointEntity> void setShippingOrigin(T origin);
 
-    public <T extends ShippingPointEntity> void setShippingDestination(T destination);
+    <T extends ShippingPointEntity> void setShippingDestination(T destination);
 
-    public void setPaymentTerms(String terms);
+    void setPaymentTerms(String terms);
 
-    public void setSelfBilled(Boolean selfBilled);
+    void setSelfBilled(Boolean selfBilled);
 
-    public void setSourceId(String source);
+    void setSourceId(String source);
 
-    public void setGeneralLedgerDate(Date date);
+    void setGeneralLedgerDate(Date date);
 
-    public void setBatchId(String id);
+    void setBatchId(String id);
 
-    public void setTransactionId(String id);
+    void setTransactionId(String id);
 
-    @Override
-    public List<String> getReceiptNumbers();
+    @Override List<String> getReceiptNumbers();
 
-    @Override
-    public <T extends GenericInvoiceEntry> List<T> getEntries();
+    @Override <T extends GenericInvoiceEntry> List<T> getEntries();
 
-    public void setCurrency(Currency currency);
+    void setCurrency(Currency currency);
 
-    public void setSettlementDescription(String description);
+    void setSettlementDescription(String description);
 
-    public void setSettlementDiscount(BigDecimal discount);
+    void setSettlementDiscount(BigDecimal discount);
 
-    public void setSettlementDate(Date date);
+    void setSettlementDate(Date date);
 
-    @Override
-    public <T extends Payment> List<T> getPayments();
+    @Override <T extends Payment> List<T> getPayments();
 
-    public void setCreditOrDebit(CreditOrDebit creditOrDebit);
+    void setCreditOrDebit(CreditOrDebit creditOrDebit);
 
-    public void setScale(Integer scale);
+    void setScale(Integer scale);
 
 }

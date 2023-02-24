@@ -19,16 +19,16 @@
 package com.premiumminds.billy.persistence.dao.jpa;
 
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.persistence.entities.jpa.JPACustomerEntity;
 
-public class DAOCustomerImpl extends AbstractDAO<CustomerEntity, JPACustomerEntity> implements DAOCustomer {
+public class DAOCustomerImpl extends AbstractDAO<Customer, CustomerEntity, JPACustomerEntity> implements DAOCustomer {
 
     @Inject
     public DAOCustomerImpl(Provider<EntityManager> emProvider) {

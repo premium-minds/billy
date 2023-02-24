@@ -19,7 +19,8 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
+import com.premiumminds.billy.core.services.entities.Application;
 
-public interface DAOApplication extends DAO<ApplicationEntity> {
+public interface DAOApplication extends DAO<Application, ApplicationEntity> {
 
 }

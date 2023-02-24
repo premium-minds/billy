@@ -21,7 +21,7 @@ package com.premiumminds.billy.portugal.test.util;
 import java.util.Date;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
@@ -50,7 +50,7 @@ public class PTProductTestUtil {
 
     public PTProductEntity getProductEntity(String uid) {
         PTProductEntity product = (PTProductEntity) this.getProductBuilder().build();
-        product.setUID(new UID(uid));
+        product.setUID(StringID.fromValue(uid));
 
         return product;
     }

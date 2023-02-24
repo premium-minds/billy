@@ -22,14 +22,15 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 
-public class PTTaxPersistenceService implements PersistenceService<PTTax> {
+public class PTTaxPersistenceService implements PersistenceService<Tax, PTTax> {
 
     protected final DAOPTTax daoTax;
 
@@ -73,7 +74,7 @@ public class PTTaxPersistenceService implements PersistenceService<PTTax> {
     }
 
     @Override
-    public PTTax get(final UID uid) {
+    public PTTax get(final StringID<Tax> uid) {
         try {
             return new TransactionWrapper<PTTax>(this.daoTax) {
 

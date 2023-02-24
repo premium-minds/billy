@@ -18,19 +18,21 @@
  */
 package com.premiumminds.billy.portugal.test;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
+import com.google.inject.Guice;
 import java.util.Optional;
+import java.util.UUID;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
-import com.google.inject.Guice;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.portugal.PortugalBootstrap;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntity;
@@ -42,6 +44,7 @@ import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.test.util.PTBusinessTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTCreditNoteTestUtil;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import com.premiumminds.billy.portugal.test.util.PTReceiptInvoiceTestUtil;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 import com.premiumminds.billy.portugal.util.Services;
 
@@ -63,11 +66,11 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
     }
 
     public PTInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice((new UID()).toString());
+        return this.getNewIssuedInvoice(StringID.fromValue(UUID.randomUUID().toString()));
 
     }
 
-    public PTInvoiceEntity getNewIssuedInvoice(String businessUID) {
+    public PTInvoiceEntity getNewIssuedInvoice(StringID<Business> businessUID) {
         Services service = new Services(PTAbstractTest.injector);
         PTIssuingParams parameters = this.getParameters(PTPersistencyAbstractTest.DEFAULT_SERIES, "30000", "1");
 
@@ -111,19 +114,19 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
         return parameters;
     }
 
-    protected void createSeries(String businessUID) {
+    protected void createSeries(StringID<Business> businessUID) {
         this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
                 new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
             PTPersistencyAbstractTest.DEFAULT_SERIES, Optional.of("CCCC2345"));
     }
 
-    protected void createSeries(String businessUID, String series) {
+    protected void createSeries(StringID<Business> businessUID, String series) {
         this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
                 new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
             series, Optional.of("CCCC2345"));
     }
 
-    protected void createSeries(String businessUID, String series, Optional<String> code) {
+    protected void createSeries(StringID<Business> businessUID, String series, Optional<String> code) {
         this.createSeries(new PTReceiptInvoiceTestUtil(PTAbstractTest.injector).getReceiptInvoiceBuilder(
                 new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P).build(),
             series, code);

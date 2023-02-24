@@ -39,7 +39,7 @@ import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 
-public interface GenericInvoice extends Entity {
+public interface GenericInvoice extends Entity<GenericInvoice> {
 
     public static enum CreditOrDebit {
         CREDIT, DEBIT

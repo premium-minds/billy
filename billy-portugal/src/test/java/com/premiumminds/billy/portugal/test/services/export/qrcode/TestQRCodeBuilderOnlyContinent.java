@@ -18,7 +18,9 @@
  */
 package com.premiumminds.billy.portugal.test.services.export.qrcode;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
@@ -33,7 +35,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -56,13 +58,13 @@ public class TestQRCodeBuilderOnlyContinent extends TestQRCodeBuilderBase{
         final String hash = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUWXYZ";
         final String atcud = "0";
 
-        final UID portugalUID = Mockito.mock(UID.class);
-        final UID continenteUID = Mockito.mock(UID.class);
-        final UID azoresUID = Mockito.mock(UID.class);
-        final UID madeiraUID = Mockito.mock(UID.class);
+        final StringID<Context> portugalUID = StringID.fromValue(UUID.randomUUID().toString());
+        final StringID<Context> continenteUID = StringID.fromValue(UUID.randomUUID().toString());
+        final StringID<Context> azoresUID = StringID.fromValue(UUID.randomUUID().toString());
+        final StringID<Context> madeiraUID = StringID.fromValue(UUID.randomUUID().toString());
         final PTContexts ptContexts = new PTContexts(portugalUID, continenteUID, azoresUID, madeiraUID);
 
-        final UID genericCustomerUID = Mockito.mock(UID.class);
+        final StringID<Customer> genericCustomerUID = StringID.fromValue(UUID.randomUUID().toString());
 
         String result = null;
         try {

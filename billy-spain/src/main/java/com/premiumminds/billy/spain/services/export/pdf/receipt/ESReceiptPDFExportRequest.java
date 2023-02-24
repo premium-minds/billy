@@ -18,17 +18,18 @@
  */
 package com.premiumminds.billy.spain.services.export.pdf.receipt;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 import com.premiumminds.billy.spain.services.export.pdf.invoice.ESInvoiceTemplateBundle;
 
 public class ESReceiptPDFExportRequest extends AbstractExportRequest {
 
-    public ESReceiptPDFExportRequest(UID uid, ESReceiptTemplateBundle bundle) {
+    public ESReceiptPDFExportRequest(StringID<GenericInvoice> uid, ESReceiptTemplateBundle bundle) {
         super(uid, bundle);
     }
 
-    public ESReceiptPDFExportRequest(UID uid, ESInvoiceTemplateBundle bundle, String resultPath) {
+    public ESReceiptPDFExportRequest(StringID<GenericInvoice> uid, ESInvoiceTemplateBundle bundle, String resultPath) {
         super(uid, bundle, resultPath);
     }
 

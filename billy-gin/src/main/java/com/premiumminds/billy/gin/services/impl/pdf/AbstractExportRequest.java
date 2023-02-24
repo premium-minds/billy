@@ -18,7 +18,8 @@
  */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.export.BillyTemplateBundle;
 
@@ -27,24 +28,24 @@ public class AbstractExportRequest implements ExportServiceRequest {
     private static final String DEFAULT_PATH_TEMPLATE =
             System.getProperty("java.io.tmpdir") + "/billy_export_request_%s_%d.pdf";
 
-    protected UID uid;
+    protected StringID<GenericInvoice> uid;
     protected BillyTemplateBundle bundle;
     protected String resultPath;
 
-    public AbstractExportRequest(UID uid, BillyTemplateBundle bundle) {
+    public AbstractExportRequest(StringID<GenericInvoice> uid, BillyTemplateBundle bundle) {
         this.uid = uid;
         this.bundle = bundle;
         this.resultPath =
                 String.format(AbstractExportRequest.DEFAULT_PATH_TEMPLATE, uid.toString(), System.currentTimeMillis());
     }
 
-    public AbstractExportRequest(UID uid, BillyTemplateBundle bundle, String resultPath) {
+    public AbstractExportRequest(StringID<GenericInvoice> uid, BillyTemplateBundle bundle, String resultPath) {
         this.uid = uid;
         this.bundle = bundle;
         this.resultPath = resultPath;
     }
 
-    public UID getDocumentUID() {
+    public StringID<GenericInvoice> getDocumentUID() {
         return this.uid;
     }
 

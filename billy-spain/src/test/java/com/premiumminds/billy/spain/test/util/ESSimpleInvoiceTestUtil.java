@@ -21,7 +21,8 @@ package com.premiumminds.billy.spain.test.util;
 import java.util.Date;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
@@ -72,7 +73,7 @@ public class ESSimpleInvoiceTestUtil {
         DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
 
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
         for (int i = 0; i < ESSimpleInvoiceTestUtil.MAX_PRODUCTS; ++i) {
             ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
             invoiceBuilder.addEntry(invoiceEntryBuilder);

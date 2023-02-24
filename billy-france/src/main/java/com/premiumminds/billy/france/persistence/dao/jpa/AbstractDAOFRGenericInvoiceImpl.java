@@ -22,13 +22,14 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
-import com.premiumminds.billy.persistence.dao.jpa.AbstractDAOGenericInvoiceImpl;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.AbstractDAOFRGenericInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRGenericInvoiceEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRGenericInvoiceEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRBusinessEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.QJPAFRGenericInvoiceEntity;
+import com.premiumminds.billy.persistence.dao.jpa.AbstractDAOGenericInvoiceImpl;
 
 public abstract class AbstractDAOFRGenericInvoiceImpl<TInterface extends FRGenericInvoiceEntity, TEntity extends JPAFRGenericInvoiceEntity>
         extends AbstractDAOGenericInvoiceImpl<TInterface, TEntity> implements AbstractDAOFRGenericInvoice<TInterface> {
@@ -40,7 +41,7 @@ public abstract class AbstractDAOFRGenericInvoiceImpl<TInterface extends FRGener
 
     @SuppressWarnings("unchecked")
     @Override
-    public TInterface findByNumber(UID uidBusiness, String number) {
+    public TInterface findByNumber(StringID<Business> uidBusiness, String number) {
         QJPAFRGenericInvoiceEntity invoice = QJPAFRGenericInvoiceEntity.jPAFRGenericInvoiceEntity;
 
         return (TInterface) this.checkEntity(

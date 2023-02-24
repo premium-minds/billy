@@ -18,14 +18,9 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
-import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.EntityPathBase;
-import com.querydsl.jpa.JPQLTemplates;
-import com.querydsl.jpa.impl.JPAQuery;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.FlushModeType;
@@ -38,12 +33,17 @@ import org.slf4j.LoggerFactory;
 
 import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Entity;
 import com.premiumminds.billy.persistence.entities.jpa.JPABaseEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.jpa.JPQLTemplates;
+import com.querydsl.jpa.impl.JPAQuery;
 
-public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends JPABaseEntity & BaseEntity>
-        implements DAO<TInterface> {
+public abstract class AbstractDAO<TID extends Entity<TID>, TInterface extends TID,
+        TEntity extends JPABaseEntity<TID> & Entity<TID>>
+        implements DAO<TID, TInterface> {
 
     private static final Logger log = LoggerFactory.getLogger(AbstractDAO.class);
 
@@ -96,7 +96,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
     }
 
     @SuppressWarnings("unchecked")
-    protected <T2 extends BaseEntity> T2 checkEntity(Object candidate, Class<T2> entityClass) {
+    protected <T2 extends Entity> T2 checkEntity(Object candidate, Class<T2> entityClass) {
         if (candidate == null) {
             return null;
         }
@@ -108,7 +108,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
     }
 
     @SuppressWarnings("unchecked")
-    protected <T2 extends BaseEntity> List<T2> checkEntityList(List<?> candidates, Class<T2> entityClass) {
+    protected <T2 extends Entity> List<T2> checkEntityList(List<?> candidates, Class<T2> entityClass) {
         if (candidates == null) {
             return null;
         }
@@ -125,21 +125,21 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
 
     @Override
     @SuppressWarnings("unchecked")
-    public TInterface get(UID uid) throws NoResultException {
+    public TInterface get(StringID<TID> uid) throws NoResultException {
         return (TInterface) this.getEntity(uid);
     }
 
-    protected TEntity getEntity(UID uid) throws NoResultException {
+    protected TEntity getEntity(StringID<TID> uid) throws NoResultException {
 
         TEntity result = null;
         Class<? extends TEntity> entityClass = this.getEntityClass();
         try {
             result = this.getEntityManager()
-                    .createQuery(
-                            "select e from " + entityClass.getCanonicalName() + " e " +
-                                    "where e.uid=:uid and e.active=true " + "order by e.entityVersion desc",
-                            entityClass)
-                    .setParameter("uid", uid.toString()).setMaxResults(1).getSingleResult();
+                    .createQuery("select e from " + entityClass.getCanonicalName() + " e " + "where e.uid=:uid and e" +
+                                         ".active=true " + "order by e.entityVersion desc", entityClass)
+                    .setParameter("uid", uid.toString())
+                    .setMaxResults(1)
+                    .getSingleResult();
         } catch (NoResultException e) {
             throw e;
         } catch (Exception e) {
@@ -208,14 +208,15 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
     }
 
     @Override
-    public boolean exists(UID uid) {
+    public boolean exists(StringID<TID> uid) {
         Class<? extends TEntity> entityClass = this.getEntityClass();
         TEntity entity = null;
         try {
             entity = this.getEntityManager()
                     .createQuery("select e from " + entityClass.getCanonicalName() + " e " + "where e.uid=:uid",
-                            entityClass)
-                    .setParameter("uid", uid.toString()).getSingleResult();
+                                 entityClass)
+                    .setParameter("uid", uid.toString())
+                    .getSingleResult();
         } catch (NoResultException e) {
             return false;
         }
@@ -226,7 +227,7 @@ public abstract class AbstractDAO<TInterface extends BaseEntity, TEntity extends
         return new JPAQuery<>(this.getEntityManager(), JPQLTemplates.DEFAULT);
     }
 
-    protected <D extends BaseEntity, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
+    protected <D extends Entity<?>, D2 extends EntityPathBase<D>> D2 toDSL(Path<?> path, Class<D2> dslEntityClass) {
         try {
             return dslEntityClass.getDeclaredConstructor(Path.class).newInstance(path);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException |

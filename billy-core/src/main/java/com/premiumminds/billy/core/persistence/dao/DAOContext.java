@@ -21,7 +21,7 @@ package com.premiumminds.billy.core.persistence.dao;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 
-public interface DAOContext extends DAO<ContextEntity> {
+public interface DAOContext extends DAO<Context, ContextEntity> {
 
     boolean isSameOrSubContext(Context sub, Context context);
 

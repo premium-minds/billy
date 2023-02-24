@@ -25,7 +25,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNoteEntry;
@@ -61,7 +60,7 @@ public class TestFRCreditNoteBuilder extends FRAbstractTest {
         MockFRCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockFRCustomerEntity.class, TestFRCreditNoteBuilder.FRCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOFRCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOFRSimpleInvoice.class).getEntityInstance())
                 .thenReturn(new MockFRSimpleInvoiceEntity());
@@ -72,7 +71,7 @@ public class TestFRCreditNoteBuilder extends FRAbstractTest {
         MockFRCreditNoteEntryEntity entryMock = this.createMockEntity(MockFRCreditNoteEntryEntity.class,
                 TestFRCreditNoteBuilder.FR_CREDIT_NOTE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOFRCreditNoteEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOFRCreditNoteEntry.class).get(Mockito.any())).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

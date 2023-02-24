@@ -18,14 +18,6 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import java.util.ArrayList;
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceiptEntry;
@@ -41,6 +33,11 @@ import com.premiumminds.billy.spain.test.fixtures.MockESCreditReceiptEntryEntity
 import com.premiumminds.billy.spain.test.fixtures.MockESCustomerEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESPaymentEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESReceiptEntity;
+import java.util.ArrayList;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESCreditReceiptBuilder extends ESAbstractTest {
 
@@ -61,7 +58,7 @@ public class TestESCreditReceiptBuilder extends ESAbstractTest {
         MockESCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockESCustomerEntity.class, TestESCreditReceiptBuilder.ES_CUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOESReceipt.class).getEntityInstance()).thenReturn(new MockESReceiptEntity());
 
@@ -71,7 +68,7 @@ public class TestESCreditReceiptBuilder extends ESAbstractTest {
         MockESCreditReceiptEntryEntity entryMock = this.createMockEntity(MockESCreditReceiptEntryEntity.class,
                 TestESCreditReceiptBuilder.ES_CREDIT_RECEIPT_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESCreditReceiptEntry.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOESCreditReceiptEntry.class).get(Mockito.any()))
                 .thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);

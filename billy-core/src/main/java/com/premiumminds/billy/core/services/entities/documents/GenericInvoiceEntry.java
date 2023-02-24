@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
-
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -30,6 +29,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.core.services.entities.Entity;
@@ -38,10 +38,11 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 
-public interface GenericInvoiceEntry extends Entity {
+public interface GenericInvoiceEntry extends Entity<GenericInvoiceEntry> {
 
-    public static class Builder extends
-            GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry, DAOGenericInvoiceEntry, DAOGenericInvoice> {
+    class Builder extends
+            GenericInvoiceEntryBuilderImpl<Builder, GenericInvoiceEntry, GenericInvoiceEntity, DAOGenericInvoiceEntry
+                    , DAOGenericInvoice> {
 
         @Inject
         public Builder(DAOGenericInvoiceEntry daoEntry, DAOGenericInvoice daoGenericInvoice, DAOTax daoTax,
@@ -50,54 +51,54 @@ public interface GenericInvoiceEntry extends Entity {
         }
     }
 
-    public Integer getEntryNumber();
+    Integer getEntryNumber();
 
-    public <T extends ShippingPoint> T getShippingOrigin();
+    <T extends ShippingPoint> T getShippingOrigin();
 
-    public <T extends ShippingPoint> T getShippingDestination();
+    <T extends ShippingPoint> T getShippingDestination();
 
-    public <T extends Product> T getProduct();
+    <T extends Product> T getProduct();
 
-    public BigDecimal getQuantity();
+    BigDecimal getQuantity();
 
-    public String getUnitOfMeasure();
+    String getUnitOfMeasure();
 
-    public BigDecimal getUnitAmountWithTax();
+    BigDecimal getUnitAmountWithTax();
 
-    public BigDecimal getUnitAmountWithoutTax();
+    BigDecimal getUnitAmountWithoutTax();
 
-    public BigDecimal getUnitTaxAmount();
+    BigDecimal getUnitTaxAmount();
 
-    public BigDecimal getUnitDiscountAmount();
+    BigDecimal getUnitDiscountAmount();
 
-    public BigDecimal getAmountWithTax();
+    BigDecimal getAmountWithTax();
 
-    public BigDecimal getAmountWithoutTax();
+    BigDecimal getAmountWithoutTax();
 
-    public BigDecimal getTaxAmount();
+    BigDecimal getTaxAmount();
 
-    public BigDecimal getDiscountAmount();
+    BigDecimal getDiscountAmount();
 
-    public Date getTaxPointDate();
+    Date getTaxPointDate();
 
-    public <T extends GenericInvoice> Collection<T> getDocumentReferences();
+    <T extends GenericInvoice> Collection<T> getDocumentReferences();
 
-    public String getDescription();
+    String getDescription();
 
-    public CreditOrDebit getCreditOrDebit();
+    CreditOrDebit getCreditOrDebit();
 
-    public BigDecimal getShippingCostsAmount();
+    BigDecimal getShippingCostsAmount();
 
-    public Currency getCurrency();
+    Currency getCurrency();
 
-    public BigDecimal getExchangeRateToDocumentCurrency();
+    BigDecimal getExchangeRateToDocumentCurrency();
 
-    public <T extends Tax> Collection<T> getTaxes();
+    <T extends Tax> Collection<T> getTaxes();
 
-    public String getTaxExemptionReason();
+    String getTaxExemptionReason();
 
-    public String getTaxExemptionCode();
+    String getTaxExemptionCode();
 
-    public AmountType getAmountType();
+    AmountType getAmountType();
 
 }

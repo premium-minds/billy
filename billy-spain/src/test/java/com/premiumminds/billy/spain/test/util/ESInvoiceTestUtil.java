@@ -18,12 +18,10 @@
  */
 package com.premiumminds.billy.spain.test.util;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
@@ -32,6 +30,8 @@ import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTest.SOURCE_BILLING;
+import java.math.BigDecimal;
+import java.util.Date;
 
 public class ESInvoiceTestUtil {
 
@@ -83,7 +83,7 @@ public class ESInvoiceTestUtil {
         DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
 
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
 
         ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
         invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
@@ -103,7 +103,7 @@ public class ESInvoiceTestUtil {
         DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
 
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
 
         ESInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry.getManualInvoiceEntryBuilder()
                 .setUnitAmount(AmountType.WITH_TAX, price).setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
@@ -125,7 +125,7 @@ public class ESInvoiceTestUtil {
         DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
 
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
@@ -148,7 +148,7 @@ public class ESInvoiceTestUtil {
         DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
 
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
@@ -171,7 +171,7 @@ public class ESInvoiceTestUtil {
         DAOESCustomer daoESCustomer = this.injector.getInstance(DAOESCustomer.class);
 
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        UID customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();

@@ -21,8 +21,9 @@ package com.premiumminds.billy.core.persistence.dao;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
+import com.premiumminds.billy.core.services.entities.Supplier;
 
-public interface DAOSupplier extends DAO<SupplierEntity> {
+public interface DAOSupplier extends DAO<Supplier, SupplierEntity> {
 
     List<SupplierEntity> getAllActiveSuppliers();
 }

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.entities;
 
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -30,8 +31,9 @@ import com.premiumminds.billy.spain.services.builders.impl.ESGenericInvoiceEntry
 
 public interface ESGenericInvoiceEntry extends GenericInvoiceEntry {
 
-    public static class Builder extends
-            ESGenericInvoiceEntryBuilderImpl<Builder, ESGenericInvoiceEntry, DAOESGenericInvoiceEntry, DAOESGenericInvoice> {
+    class Builder extends
+        ESGenericInvoiceEntryBuilderImpl<Builder, ESGenericInvoiceEntry, ESGenericInvoiceEntity,
+            DAOESGenericInvoiceEntry, DAOESGenericInvoice> {
 
         @Inject
         public Builder(DAOESGenericInvoiceEntry daoESGenericInvoiceEntry, DAOESGenericInvoice daoESGenericInvoice,

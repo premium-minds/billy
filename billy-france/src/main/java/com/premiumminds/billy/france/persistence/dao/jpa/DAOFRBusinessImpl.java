@@ -23,11 +23,12 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 
-import com.premiumminds.billy.persistence.dao.jpa.DAOBusinessImpl;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 import com.premiumminds.billy.france.persistence.entities.jpa.JPAFRBusinessEntity;
+import com.premiumminds.billy.persistence.dao.jpa.DAOBusinessImpl;
 
 public class DAOFRBusinessImpl extends DAOBusinessImpl implements DAOFRBusiness {
 
@@ -47,7 +48,7 @@ public class DAOFRBusinessImpl extends DAOBusinessImpl implements DAOFRBusiness 
     }
 
     @Override
-    public FRBusinessEntity get(UID uid) throws NoResultException {
+    public FRBusinessEntity get(StringID<Business> uid) throws NoResultException {
         return (FRBusinessEntity) super.get(uid);
     }
 

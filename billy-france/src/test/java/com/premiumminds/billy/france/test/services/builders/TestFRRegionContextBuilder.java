@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.services.entities.FRRegionContext;
@@ -42,7 +41,7 @@ public class TestFRRegionContextBuilder extends FRAbstractTest {
         Mockito.when(this.getInstance(DAOFRRegionContext.class).getEntityInstance())
                 .thenReturn(new MockFRRegionContextEntity());
 
-        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRRegionContext.class).get(Mockito.any()))
                 .thenReturn((ContextEntity) mockRegionContextEntity.getParentContext());
 
         FRRegionContext.Builder builder = this.getInstance(FRRegionContext.Builder.class);

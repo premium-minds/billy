@@ -19,8 +19,10 @@
 package com.premiumminds.billy.france.services.builders;
 
 import com.premiumminds.billy.france.services.entities.FRCreditNoteEntry;
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 
-public interface FRManualCreditNoteEntryBuilder<TBuilder extends FRManualCreditNoteEntryBuilder<TBuilder, TEntry>, TEntry extends FRCreditNoteEntry>
-        extends FRManualInvoiceEntryBuilder<TBuilder, TEntry>, FRCreditNoteEntryBuilder<TBuilder, TEntry> {
+public interface FRManualCreditNoteEntryBuilder<TBuilder extends FRManualCreditNoteEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends FRCreditNoteEntry, TInvoice extends FRGenericInvoice>
+    extends FRManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>, FRCreditNoteEntryBuilder<TBuilder, TEntry, TInvoice> {
 
 }

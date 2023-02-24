@@ -18,10 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import java.util.Date;
-
-import org.apache.commons.lang3.time.DateUtils;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.services.builders.impl.GenericInvoiceEntryBuilderImpl;
@@ -32,13 +28,17 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
+import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntryEntity;
 import com.premiumminds.billy.spain.services.builders.ESManualInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
+import java.util.Date;
+import org.apache.commons.lang3.time.DateUtils;
 
-public class ESManualInvoiceEntryBuilderImpl<TBuilder extends ESManualInvoiceEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESGenericInvoiceEntry>
-        extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESInvoiceEntry, DAOESInvoice>
-        implements ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
+public class ESManualInvoiceEntryBuilderImpl<TBuilder extends ESManualInvoiceEntryBuilderImpl<TBuilder, TEntry>,
+    TEntry extends ESGenericInvoiceEntry>
+    extends ESManualEntryBuilderImpl<TBuilder, TEntry, ESInvoiceEntity, DAOESInvoiceEntry, DAOESInvoice>
+    implements ESManualInvoiceEntryBuilder<TBuilder, TEntry, ESInvoiceEntity> {
 
     public ESManualInvoiceEntryBuilderImpl(DAOESInvoiceEntry daoESEntry, DAOESInvoice daoESInvoice, DAOESTax daoESTax,
             DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {

@@ -22,8 +22,9 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.persistence.dao.jpa.AbstractDAOGenericInvoiceImpl;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTGenericInvoiceEntity;
@@ -40,7 +41,7 @@ public abstract class AbstractDAOPTGenericInvoiceImpl<TInterface extends PTGener
 
     @SuppressWarnings("unchecked")
     @Override
-    public TInterface findByNumber(UID uidBusiness, String number) {
+    public TInterface findByNumber(StringID<Business> uidBusiness, String number) {
         QJPAPTGenericInvoiceEntity invoice = QJPAPTGenericInvoiceEntity.jPAPTGenericInvoiceEntity;
 
         return (TInterface) this.checkEntity(

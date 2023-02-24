@@ -22,7 +22,7 @@ import com.google.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOBankAccount;
 import com.premiumminds.billy.core.services.builders.impl.BankAccountBuilderImpl;
 
-public interface BankAccount {
+public interface BankAccount extends Entity<BankAccount> {
 
     public static class Builder extends BankAccountBuilderImpl<Builder, BankAccount> {
 

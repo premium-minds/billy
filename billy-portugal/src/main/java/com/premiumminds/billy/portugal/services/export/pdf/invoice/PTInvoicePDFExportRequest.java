@@ -18,16 +18,17 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf.invoice;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class PTInvoicePDFExportRequest extends AbstractExportRequest {
 
-    public PTInvoicePDFExportRequest(UID uid, PTInvoiceTemplateBundle bundle) {
+    public PTInvoicePDFExportRequest(StringID<GenericInvoice> uid, PTInvoiceTemplateBundle bundle) {
         super(uid, bundle);
     }
 
-    public PTInvoicePDFExportRequest(UID uid, PTInvoiceTemplateBundle bundle, String resultPath) {
+    public PTInvoicePDFExportRequest(StringID<GenericInvoice> uid, PTInvoiceTemplateBundle bundle, String resultPath) {
         super(uid, bundle, resultPath);
     }
 

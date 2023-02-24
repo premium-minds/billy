@@ -21,8 +21,9 @@ package com.premiumminds.billy.core.persistence.dao;
 import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
+import com.premiumminds.billy.core.services.entities.Customer;
 
-public interface DAOCustomer extends DAO<CustomerEntity> {
+public interface DAOCustomer extends DAO<Customer, CustomerEntity> {
 
     List<CustomerEntity> getAllActiveCustomers();
 

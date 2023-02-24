@@ -18,19 +18,18 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.core.util.BillyValidator;
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-
 import java.util.Date;
 
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTGenericInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceDateException;
@@ -81,7 +80,7 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         String previousHash = null;
 
         T latestInvoice = daoInvoice.getLatestInvoiceFromSeries(invoiceSeriesEntity.getSeries(),
-                document.getBusiness().getUID().toString());
+                document.getBusiness().getUID());
 
         if (null != latestInvoice) {
             seriesNumber = latestInvoice.getSeriesNumber() + 1;

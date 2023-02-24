@@ -26,11 +26,12 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.BankAccountEntity;
+import com.premiumminds.billy.core.services.entities.BankAccount;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BANK_ACCOUNT")
-public class JPABankAccountEntity extends JPABaseEntity implements BankAccountEntity {
+public class JPABankAccountEntity extends JPABaseEntity<BankAccount> implements BankAccountEntity {
 
     private static final long serialVersionUID = 1L;
 

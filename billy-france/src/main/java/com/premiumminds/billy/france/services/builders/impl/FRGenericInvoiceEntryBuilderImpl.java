@@ -33,11 +33,14 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
 import com.premiumminds.billy.france.persistence.entities.FRGenericInvoiceEntryEntity;
 import com.premiumminds.billy.france.services.builders.FRGenericInvoiceEntryBuilder;
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRGenericInvoiceEntry;
 
-public class FRGenericInvoiceEntryBuilderImpl<TBuilder extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends FRGenericInvoiceEntry, TDAOEntry extends AbstractDAOFRGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOFRGenericInvoice<?>>
-        extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
-        implements FRGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public class FRGenericInvoiceEntryBuilderImpl<TBuilder extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice,
+    TDAOEntry, TDAOInvoice>, TEntry extends FRGenericInvoiceEntry, TInvoice extends FRGenericInvoice,
+    TDAOEntry extends AbstractDAOFRGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOFRGenericInvoice<?>>
+    extends GenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice, TDAOEntry, TDAOInvoice>
+    implements FRGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 

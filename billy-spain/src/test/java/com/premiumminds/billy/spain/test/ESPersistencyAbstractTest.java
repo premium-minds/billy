@@ -18,30 +18,33 @@
  */
 package com.premiumminds.billy.spain.test;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
-import com.premiumminds.billy.spain.services.entities.ESReceipt;
-import com.premiumminds.billy.spain.test.util.ESCreditReceiptTestUtil;
+import java.util.UUID;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import com.google.inject.Guice;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.spain.SpainBootstrap;
 import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
+import com.premiumminds.billy.spain.persistence.entities.ESCreditReceiptEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParamsImpl;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
+import com.premiumminds.billy.spain.services.entities.ESReceipt;
 import com.premiumminds.billy.spain.test.util.ESBusinessTestUtil;
 import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
+import com.premiumminds.billy.spain.test.util.ESCreditReceiptTestUtil;
 import com.premiumminds.billy.spain.test.util.ESInvoiceTestUtil;
 import com.premiumminds.billy.spain.test.util.ESReceiptTestUtil;
 import com.premiumminds.billy.spain.util.Services;
@@ -66,11 +69,11 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
     }
 
     public ESInvoiceEntity getNewIssuedInvoice() {
-        return this.getNewIssuedInvoice((new UID()).toString());
+        return this.getNewIssuedInvoice(StringID.fromValue(UUID.randomUUID().toString()));
 
     }
 
-    public ESInvoiceEntity getNewIssuedInvoice(String businessUID) {
+    public ESInvoiceEntity getNewIssuedInvoice(StringID<Business> businessUID) {
         Services service = new Services(ESAbstractTest.injector);
         ESIssuingParams parameters = new ESIssuingParamsImpl();
 
@@ -88,7 +91,7 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
         return null;
     }
 
-    public ESReceiptEntity getNewIssuedReceipt(String businessUID) {
+    public ESReceiptEntity getNewIssuedReceipt(StringID<Business> businessUID) {
         Services service = new Services(ESAbstractTest.injector);
         ESIssuingParams parameters = new ESIssuingParamsImpl();
 
@@ -150,14 +153,14 @@ public class ESPersistencyAbstractTest extends ESAbstractTest {
         return parameters;
     }
 
-    protected void createSeries(String businessUID) {
+    protected void createSeries(StringID<Business> businessUID) {
         this.createSeries(
             new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
                 new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),
             ESPersistencyAbstractTest.DEFAULT_SERIES);
     }
 
-    protected void createSeries(String businessUID, String series) {
+    protected void createSeries(StringID<Business> businessUID, String series) {
         this.createSeries(
             new ESReceiptTestUtil(ESAbstractTest.injector).getReceiptBuilder(
                 new ESBusinessTestUtil(ESAbstractTest.injector).getBusinessEntity(businessUID)).build(),

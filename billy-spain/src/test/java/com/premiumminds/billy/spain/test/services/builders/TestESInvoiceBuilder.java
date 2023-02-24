@@ -18,14 +18,6 @@
  */
 package com.premiumminds.billy.spain.test.services.builders;
 
-import java.util.ArrayList;
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
@@ -39,6 +31,11 @@ import com.premiumminds.billy.spain.test.fixtures.MockESCustomerEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESInvoiceEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESInvoiceEntryEntity;
 import com.premiumminds.billy.spain.test.fixtures.MockESPaymentEntity;
+import java.util.ArrayList;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestESInvoiceBuilder extends ESAbstractTest {
 
@@ -57,14 +54,14 @@ public class TestESInvoiceBuilder extends ESAbstractTest {
         MockESCustomerEntity mockCustomerEntity =
                 this.createMockEntity(MockESCustomerEntity.class, TestESInvoiceBuilder.ESCUSTOMER_YML);
 
-        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOESCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
 
         Mockito.when(this.getInstance(DAOESInvoice.class).getEntityInstance()).thenReturn(new MockESInvoiceEntity());
 
         MockESInvoiceEntryEntity entryMock =
                 this.createMockEntity(MockESInvoiceEntryEntity.class, TestESInvoiceBuilder.ES_INVOICE_ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOESInvoiceEntry.class).get(Mockito.any(UID.class))).thenReturn(entryMock);
+        Mockito.when(this.getInstance(DAOESInvoiceEntry.class).get(Mockito.any())).thenReturn(entryMock);
 
         mock.getEntries().add(entryMock);
 

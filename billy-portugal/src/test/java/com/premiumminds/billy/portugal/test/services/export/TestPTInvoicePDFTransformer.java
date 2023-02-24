@@ -18,19 +18,13 @@
  */
 package com.premiumminds.billy.portugal.test.services.export;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
@@ -45,14 +39,20 @@ import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.PTMockDependencyModule;
 import com.premiumminds.billy.portugal.test.PTPersistencyAbstractTest;
 import com.premiumminds.billy.portugal.test.util.PTInvoiceTestUtil;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
@@ -65,11 +65,10 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
     PTInvoicePDFFOPTransformer transformer;
     PTInvoiceTestUtil test;
 
-    @BeforeEach
-    public void setUp() throws FileNotFoundException {
+    @BeforeEach public void setUp() throws FileNotFoundException {
 
-        this.mockedInjector = Guice
-                .createInjector(Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
+        this.mockedInjector = Guice.createInjector(
+                Modules.override(new PortugalDependencyModule()).with(new PTMockDependencyModule()));
 
         InputStream xsl = new FileInputStream(TestPTInvoicePDFTransformer.XSL_PATH);
 
@@ -79,11 +78,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         this.test = new PTInvoiceTestUtil(PTAbstractTest.injector);
     }
 
-    @Test
-    public void testPdfCreation()
-            throws ExportServiceException, IOException {
+    @Test public void testPdfCreation() throws ExportServiceException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generatePTInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
@@ -99,18 +96,15 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test
-    public void testNonExistentEntity() {
+    @Test public void testNonExistentEntity() {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test
-    public void testDifferentRegion()
-            throws ExportServiceException, IOException {
+    @Test public void testDifferentRegion() throws ExportServiceException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generateOtherRegionsInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
@@ -126,11 +120,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test
-    public void testManyEntries()
-            throws ExportServiceException, IOException {
+    @Test public void testManyEntries() throws ExportServiceException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generateManyEntriesInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
@@ -146,11 +138,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test
-    public void testManyEntriesWithDifrentRegions()
-            throws ExportServiceException, IOException {
+    @Test public void testManyEntriesWithDifrentRegions() throws ExportServiceException, IOException {
 
-        UID uidEntity = UID.fromString("12345");
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generateManyEntriesWithDifferentRegionsInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
@@ -166,9 +156,8 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
-        UID uidEntity = UID.fromString("12345");
+    @Test public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generatePTInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
@@ -192,7 +181,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
     private PTInvoiceEntity generatePTInvoice() {
         PTInvoiceEntity invoice = this.test.getInvoiceEntity();
         invoice.setHash(
-                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL" +
+                        "/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K" +
+                        "+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
         invoice.setATCUD("12345");
         return invoice;
@@ -201,7 +192,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
     private PTInvoiceEntity generateManyEntriesInvoice() {
         PTInvoiceEntity invoice = this.test.getManyEntriesInvoice();
         invoice.setHash(
-                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL" +
+                        "/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K" +
+                        "+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
         invoice.setATCUD("12345");
         return invoice;
@@ -210,7 +203,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
     private PTInvoiceEntity generateOtherRegionsInvoice() {
         PTInvoiceEntity invoice = this.test.getDifferentRegionsInvoice();
         invoice.setHash(
-                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL" +
+                        "/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K" +
+                        "+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
         invoice.setATCUD("12345");
         return invoice;
@@ -219,7 +214,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
     private PTInvoiceEntity generateManyEntriesWithDifferentRegionsInvoice() {
         PTInvoiceEntity invoice = this.test.getManyEntriesWithDifferentRegionsInvoice();
         invoice.setHash(
-                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
+                "mYJEv4iGwLcnQbRD7dPs2uD1mX08XjXIKcGg3GEHmwMhmmGYusffIJjTdSITLX+uujTwzqmL" +
+                        "/U5nvt6S9s8ijN3LwkJXsiEpt099e1MET/J8y3+Y1bN+K" +
+                        "+YPJQiVmlQS0fXETsOPo8SwUZdBALt0vTo1VhUZKejACcjEYJ9G6nI=");
         mockQRCodeDataGenerator(invoice);
         invoice.setATCUD("12345");
         return invoice;
@@ -228,8 +225,9 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
     private void mockQRCodeDataGenerator(final PTInvoiceEntity invoice) {
         QRCodeStringGenerator qrCodeStringGenerator = this.mockedInjector.getInstance(QRCodeStringGenerator.class);
         try {
-            Mockito.when(qrCodeStringGenerator.generateQRCodeData(invoice))
-                   .thenReturn("A:123456789*B:123456789*C:PT*D:FT*E:N*F:20201029*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0.37*I8:0.08*N:0.08*O:0.45*Q:nVyy*R:1");
+            Mockito.when(qrCodeStringGenerator.generateQRCodeData(invoice)).thenReturn(
+                    "A:123456789*B:123456789*C:PT*D:FT*E:N*F:20201029*G:FT DEFAULT/1*H:ATCUD12345-1*I1:PT*I7:0" +
+                            ".37*I8:0.08*N:0.08*O:0.45*Q:nVyy*R:1");
         } catch (RequiredFieldNotFoundException e) {
             Assertions.fail();
         }

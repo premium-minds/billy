@@ -23,8 +23,9 @@ import java.util.List;
 
 import com.premiumminds.billy.core.persistence.entities.ProductEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
+import com.premiumminds.billy.core.services.entities.Product;
 
-public class MockProductEntity extends MockBaseEntity implements ProductEntity {
+public class MockProductEntity extends MockBaseEntity<Product> implements ProductEntity {
 
     private static final long serialVersionUID = 1L;
 

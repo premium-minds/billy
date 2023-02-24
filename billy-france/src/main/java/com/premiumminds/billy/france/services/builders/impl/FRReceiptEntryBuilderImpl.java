@@ -25,13 +25,15 @@ import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceiptEntry;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.dao.DAOFRTax;
+import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntryEntity;
 import com.premiumminds.billy.france.services.builders.FRReceiptEntryBuilder;
 import com.premiumminds.billy.france.services.entities.FRReceiptEntry;
 
-public class FRReceiptEntryBuilderImpl<TBuilder extends FRReceiptEntryBuilderImpl<TBuilder, TEntry>, TEntry extends FRReceiptEntry>
-        extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, DAOFRReceiptEntry, DAOFRReceipt>
-        implements FRReceiptEntryBuilder<TBuilder, TEntry> {
+public class FRReceiptEntryBuilderImpl<TBuilder extends FRReceiptEntryBuilderImpl<TBuilder, TEntry, FRReceiptEntity>,
+    TEntry extends FRReceiptEntry, TInvoice extends FRReceiptEntity>
+    extends FRGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, FRReceiptEntity, DAOFRReceiptEntry, DAOFRReceipt>
+    implements FRReceiptEntryBuilder<TBuilder, TEntry, FRReceiptEntity> {
 
     public FRReceiptEntryBuilderImpl(DAOFRReceiptEntry daoFRReceiptEntry, DAOFRReceipt daoFRReceipt, DAOFRTax daoFRTax,
             DAOFRProduct daoFRProduct, DAOFRRegionContext daoFRRegionContext) {

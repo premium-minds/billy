@@ -22,15 +22,15 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;
 import com.premiumminds.billy.france.persistence.entities.FRRegionContextEntity;
 import com.premiumminds.billy.france.services.entities.FRRegionContext;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 
-public class FRRegionContextPersistenceService implements PersistenceService<FRRegionContext> {
+public class FRRegionContextPersistenceService implements PersistenceService<Context, FRRegionContext> {
 
     protected final DAOFRRegionContext daoRegionContext;
 
@@ -74,7 +74,7 @@ public class FRRegionContextPersistenceService implements PersistenceService<FRR
     }
 
     @Override
-    public FRRegionContext get(final UID uid) {
+    public FRRegionContext get(final StringID<Context> uid) {
         try {
             return new TransactionWrapper<FRRegionContext>(this.daoRegionContext) {
 

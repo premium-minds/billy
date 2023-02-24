@@ -20,15 +20,15 @@ package com.premiumminds.billy.core.test.fixtures;
 
 import java.util.Date;
 
-import com.premiumminds.billy.core.persistence.entities.BaseEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Entity;
 
-public class MockBaseEntity implements BaseEntity {
+public class MockBaseEntity<T> implements Entity<T> {
 
     private static final long serialVersionUID = 1L;
 
     public Long id;
-    public UID uid;
+    public StringID<T> uid;
     public Date createTimestamp;
     public Date updateTimestamp;
     public boolean isNew;
@@ -48,12 +48,12 @@ public class MockBaseEntity implements BaseEntity {
     }
 
     @Override
-    public UID getUID() {
+    public StringID<T> getUID() {
         return this.uid;
     }
 
     @Override
-    public void setUID(UID uid) {
+    public void setUID(StringID<T> uid) {
         this.uid = uid;
     }
 

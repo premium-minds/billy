@@ -22,14 +22,15 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;
 import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 import com.premiumminds.billy.france.services.entities.FRBusiness;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 
-public class FRBusinessPersistenceService implements PersistenceService<FRBusiness> {
+public class FRBusinessPersistenceService implements PersistenceService<Business, FRBusiness> {
 
     protected final DAOFRBusiness daoBusiness;
 
@@ -73,7 +74,7 @@ public class FRBusinessPersistenceService implements PersistenceService<FRBusine
     }
 
     @Override
-    public FRBusiness get(final UID uid) {
+    public FRBusiness get(final StringID<Business> uid) {
         try {
             return new TransactionWrapper<FRBusiness>(this.daoBusiness) {
 

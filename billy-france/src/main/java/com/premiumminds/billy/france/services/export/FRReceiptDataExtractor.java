@@ -19,18 +19,18 @@
 package com.premiumminds.billy.france.services.export;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
+import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;
 import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtractor;
-import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
-import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
 
 public class FRReceiptDataExtractor extends AbstractBillyDataExtractor implements BillyDataExtractor<FRReceiptData> {
 
@@ -42,8 +42,8 @@ public class FRReceiptDataExtractor extends AbstractBillyDataExtractor implement
     }
 
     @Override
-    public FRReceiptData extract(UID uid) throws ExportServiceException {
-        FRReceiptEntity entity = this.daoFRReceipt.get(uid); // FIXME: Fix the DAOs to remove this cast
+    public FRReceiptData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
+        FRReceiptEntity entity = this.daoFRReceipt.get(uid);
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");
         }

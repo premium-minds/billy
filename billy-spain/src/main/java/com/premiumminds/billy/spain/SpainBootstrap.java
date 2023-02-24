@@ -29,9 +29,9 @@ import org.slf4j.LoggerFactory;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAO;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.spain.persistence.dao.DAOESAddress;
 import com.premiumminds.billy.spain.persistence.dao.DAOESContact;
@@ -45,6 +45,7 @@ import com.premiumminds.billy.spain.services.entities.ESAddress;
 import com.premiumminds.billy.spain.services.entities.ESContact;
 import com.premiumminds.billy.spain.services.entities.ESCustomer;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
+import com.premiumminds.billy.spain.services.entities.ESRegionContext.Builder;
 import com.premiumminds.billy.spain.services.entities.ESTax;
 import com.premiumminds.billy.spain.services.entities.ESTax.ESVATCode;
 
@@ -73,7 +74,7 @@ public class SpainBootstrap {
     }
 
     public static void execute(final Injector dependencyInjector) {
-        DAO<?> dao = dependencyInjector.getInstance(DAOESInvoice.class);
+        DAOESInvoice dao = dependencyInjector.getInstance(DAOESInvoice.class);
         final Config configuration = new Config();
 
         try {
@@ -382,8 +383,8 @@ public class SpainBootstrap {
                 }
 
                 private ESRegionContextEntity buildContextEntity(DAOESRegionContext daoESRegionContext,
-                        ESRegionContext.Builder contextBuilder, String name, String description, UID parentUID,
-                        String key) {
+                                                                 Builder contextBuilder, String name, String description, StringID<Context> parentUID,
+                                                                 String key) {
 
                     contextBuilder.clear();
 

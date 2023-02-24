@@ -25,7 +25,6 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.persistence.dao.DAOContact;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Address;
 import com.premiumminds.billy.core.services.entities.BankAccount;
 import com.premiumminds.billy.core.services.entities.Contact;
@@ -48,7 +47,7 @@ public class TestCustomerBuilder extends AbstractTest {
         // this.getInstance(DAOCustomer.class).getEntityInstance().isNew())
         // .thenReturn(true);
 
-        Mockito.when(this.getInstance(DAOContact.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOContact.class).get(Mockito.any()))
                 .thenReturn((ContactEntity) mockCustomer.getMainContact());
 
         Customer.Builder builder = this.getInstance(Customer.Builder.class);

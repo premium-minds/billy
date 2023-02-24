@@ -29,7 +29,6 @@ import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -60,13 +59,13 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
         MockSupplierEntity mockSupplierEntity =
                 this.createMockEntity(MockSupplierEntity.class, TestGenericInvoiceBuilder.SUPPLIER_YML);
 
-        Mockito.when(this.getInstance(DAOCustomer.class).get(Mockito.any(UID.class))).thenReturn(mockCustomerEntity);
-        Mockito.when(this.getInstance(DAOSupplier.class).get(Mockito.any(UID.class))).thenReturn(mockSupplierEntity);
+        Mockito.when(this.getInstance(DAOCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
+        Mockito.when(this.getInstance(DAOSupplier.class).get(Mockito.any())).thenReturn(mockSupplierEntity);
 
         MockGenericInvoiceEntryEntity mockInvoice =
                 this.createMockEntity(MockGenericInvoiceEntryEntity.class, TestGenericInvoiceBuilder.ENTRY_YML);
 
-        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOGenericInvoiceEntry.class).get(Mockito.any()))
                 .thenReturn(mockInvoice);
 
         mock.getEntries().add(mockInvoice);

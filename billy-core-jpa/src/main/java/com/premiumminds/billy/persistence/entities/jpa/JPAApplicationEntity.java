@@ -20,7 +20,6 @@ package com.premiumminds.billy.persistence.entities.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,12 +35,13 @@ import org.hibernate.envers.Audited;
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Contact;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
-public class JPAApplicationEntity extends JPABaseEntity implements ApplicationEntity {
+public class JPAApplicationEntity extends JPABaseEntity<Application> implements ApplicationEntity {
 
     private static final long serialVersionUID = 1L;
 

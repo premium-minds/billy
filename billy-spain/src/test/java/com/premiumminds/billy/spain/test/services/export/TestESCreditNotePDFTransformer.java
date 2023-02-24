@@ -18,8 +18,11 @@
  */
 package com.premiumminds.billy.spain.test.services.export;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.util.Modules;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,15 +31,24 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.UUID;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.util.Modules;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
+
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.spain.SpainDependencyModule;
@@ -54,14 +66,6 @@ import com.premiumminds.billy.spain.test.ESMockDependencyModule;
 import com.premiumminds.billy.spain.test.ESPersistencyAbstractTest;
 import com.premiumminds.billy.spain.test.util.ESCreditNoteTestUtil;
 import com.premiumminds.billy.spain.util.Services;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
@@ -73,8 +77,8 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
     @BeforeEach public void setUp() throws FileNotFoundException {
 
-        this.mockedInjector = Guice.createInjector(
-            Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
+        this.mockedInjector =
+                Guice.createInjector(Modules.override(new SpainDependencyModule()).with(new ESMockDependencyModule()));
 
         InputStream xsl = new FileInputStream(TestESCreditNotePDFTransformer.XSL_PATH);
 
@@ -83,11 +87,11 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test public void testPdfCreation()
-        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
-        DocumentSeriesDoesNotExistException {
+            throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+            DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = new UID().toString();
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
@@ -108,17 +112,15 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test public void testNonExistentEntity() {
-
-        UID uidEntity = UID.fromString("12345");
-
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test public void testNonExistentInvoice()
-        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
+            throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = new UID().toString();
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
@@ -129,11 +131,11 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test public void testPdfCreationFromBundle()
-        throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
-        DocumentSeriesDoesNotExistException {
+            throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
+            DocumentSeriesDoesNotExistException {
 
-        UID uidEntity = UID.fromString("12345");
-        final String businessUID = new UID().toString();
+        StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
+        final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ESInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
         ESCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
@@ -146,8 +148,8 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
         OutputStream os = Files.newOutputStream(result.toPath());
 
         InputStream xsl = Files.newInputStream(Paths.get(TestESCreditNotePDFTransformer.XSL_PATH));
-        ESCreditNoteTemplateBundle bundle = new ESCreditNoteTemplateBundle(TestESCreditNotePDFTransformer.LOGO_PATH,
-            xsl);
+        ESCreditNoteTemplateBundle bundle =
+                new ESCreditNoteTemplateBundle(TestESCreditNotePDFTransformer.LOGO_PATH, xsl);
         ESCreditNotePDFFOPTransformer transformerBundle = new ESCreditNotePDFFOPTransformer(bundle);
 
         ESCreditNoteData entityData = this.extractor.extract(uidEntity);
@@ -159,7 +161,7 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     private ESCreditNoteEntity generateESCreditNote(PaymentMechanism paymentMechanism, ESInvoiceEntity reference)
-        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
+            throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         Services services = new Services(ESAbstractTest.injector);
 
@@ -169,7 +171,7 @@ public class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
         ESCreditNoteEntity creditNote = null;
         creditNote = (ESCreditNoteEntity) services.issueDocument(
-            new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder(reference), params);
+                new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
         creditNote.setCustomer((CustomerEntity) reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());

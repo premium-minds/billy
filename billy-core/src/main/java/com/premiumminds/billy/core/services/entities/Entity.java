@@ -21,53 +21,53 @@ package com.premiumminds.billy.core.services.entities;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
 
 /**
  * @author Francisco Vargas
  *
- *         The Billy services basic entity definition. All service entity
- *         definitions should extend or implement BaseEntity.
+ * The Billy services basic entity definition
  */
-public interface Entity extends Serializable {
+public interface Entity<T> extends Serializable {
 
-    public Long getID();
+    Long getID();
 
     /**
      * Gets the entity unique identifier.
      *
      * @return The unique identifier.
      */
-    public UID getUID();
+    StringID<T> getUID();
 
     /**
      * Sets the unique identifier for the entity. Should only be used in very
      * well controlled contexts.
      *
-     * @param uid
-     *        The unique identifier to be set.
+     * @param stringID The unique identifier to be set.
      */
-    public void setUID(UID uid);
+    void setUID(StringID<T> stringID);
 
     /**
      * Gets the entity creation date.
      *
      * @return The creation date.
      */
-    public Date getCreateTimestamp();
+    Date getCreateTimestamp();
 
     /**
      * Gets the date of the last update of the entity.
      *
      * @return The update date.
      */
-    public Date getUpdateTimestamp();
+    Date getUpdateTimestamp();
 
     /**
      * Tells whether or not the entity is a new one
      *
      * @return true if the entity is new
      */
-    public boolean isNew();
+    boolean isNew();
+
+    void initializeEntityDates();
 
 }

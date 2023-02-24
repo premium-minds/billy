@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Customer;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.france.persistence.dao.DAOFRContact;
@@ -46,7 +45,7 @@ public class TestFRCustomerBuilder extends FRAbstractTest {
 
         Mockito.when(this.getInstance(DAOFRCustomer.class).getEntityInstance()).thenReturn(new MockFRCustomerEntity());
 
-        Mockito.when(this.getInstance(DAOFRContact.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOFRContact.class).get(Mockito.any()))
                 .thenReturn((FRContactEntity) mockCustomer.getMainContact());
 
         FRCustomer.Builder builder = this.getInstance(FRCustomer.Builder.class);

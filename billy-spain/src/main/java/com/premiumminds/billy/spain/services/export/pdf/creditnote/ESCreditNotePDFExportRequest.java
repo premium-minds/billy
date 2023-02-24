@@ -18,16 +18,17 @@
  */
 package com.premiumminds.billy.spain.services.export.pdf.creditnote;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.impl.pdf.AbstractExportRequest;
 
 public class ESCreditNotePDFExportRequest extends AbstractExportRequest {
 
-    public ESCreditNotePDFExportRequest(UID uid, ESCreditNoteTemplateBundle bundle) {
+    public ESCreditNotePDFExportRequest(StringID<GenericInvoice> uid, ESCreditNoteTemplateBundle bundle) {
         super(uid, bundle);
     }
 
-    public ESCreditNotePDFExportRequest(UID uid, ESCreditNoteTemplateBundle bundle, String resultPath) {
+    public ESCreditNotePDFExportRequest(StringID<GenericInvoice> uid, ESCreditNoteTemplateBundle bundle, String resultPath) {
         super(uid, bundle, resultPath);
     }
 

@@ -19,15 +19,16 @@
 package com.premiumminds.billy.portugal.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 
 public interface DAOPTApplication extends DAOApplication {
 
     @Override
-    public PTApplicationEntity getEntityInstance();
+    PTApplicationEntity getEntityInstance();
 
     @Override
-    public PTApplicationEntity get(UID uid);
+    PTApplicationEntity get(StringID<Application> uid);
 
 }

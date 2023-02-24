@@ -20,7 +20,8 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -32,11 +33,13 @@ import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTManualCreditNoteEntryBuilder;
+import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 
-public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditNoteEntryBuilderImpl<TBuilder, TEntry>, TEntry extends PTCreditNoteEntry>
-        extends PTManualEntryBuilderImpl<TBuilder, TEntry, DAOPTCreditNoteEntry, DAOPTInvoice>
-        implements PTManualCreditNoteEntryBuilder<TBuilder, TEntry> {
+public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditNoteEntryBuilderImpl<TBuilder, TEntry, TInvoice>
+    , TEntry extends PTCreditNoteEntry, TInvoice extends PTCreditNote>
+    extends PTManualEntryBuilderImpl<TBuilder, TEntry, TInvoice, DAOPTCreditNoteEntry, DAOPTInvoice>
+    implements PTManualCreditNoteEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     public PTManualCreditNoteEntryBuilderImpl(DAOPTCreditNoteEntry daoPTCreditNoteEntry, DAOPTInvoice daoPTInvoice,
             DAOPTTax daoPTTax, DAOPTProduct daoPTProduct, DAOPTRegionContext daoPTRegionContext) {
@@ -45,7 +48,7 @@ public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditN
 
     @Override
     @NotOnUpdate
-    public TBuilder setReferenceUID(UID referenceUID) {
+    public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
                 PTCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         PTInvoiceEntity i = this.daoInvoice.get(referenceUID);

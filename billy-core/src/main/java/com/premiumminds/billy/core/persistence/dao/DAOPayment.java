@@ -19,8 +19,9 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
+import com.premiumminds.billy.core.services.entities.Payment;
 
-public interface DAOPayment extends DAO<PaymentEntity> {
+public interface DAOPayment extends DAO<Payment, PaymentEntity> {
 
     @Override
     public PaymentEntity getEntityInstance();

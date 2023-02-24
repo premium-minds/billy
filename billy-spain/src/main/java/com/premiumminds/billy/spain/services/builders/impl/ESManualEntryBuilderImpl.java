@@ -33,13 +33,16 @@ import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoiceE
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
+import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntryEntity;
 import com.premiumminds.billy.spain.services.builders.ESManualInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESGenericInvoiceEntry;
 
-public class ESManualEntryBuilderImpl<TBuilder extends ESManualEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>, TEntry extends ESGenericInvoiceEntry, TDAOEntry extends AbstractDAOESGenericInvoiceEntry<?>, TDAOInvoice extends AbstractDAOESGenericInvoice<?>>
-        extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TDAOEntry, TDAOInvoice>
-        implements ESManualInvoiceEntryBuilder<TBuilder, TEntry> {
+public class ESManualEntryBuilderImpl<TBuilder extends ESManualEntryBuilderImpl<TBuilder, TEntry, TInvoice, TDAOEntry,
+    TDAOInvoice>, TEntry extends ESGenericInvoiceEntry, TInvoice extends ESGenericInvoiceEntity, TDAOEntry extends AbstractDAOESGenericInvoiceEntry<?>,
+    TDAOInvoice extends AbstractDAOESGenericInvoice<TInvoice>>
+    extends ESGenericInvoiceEntryBuilderImpl<TBuilder, TEntry, TInvoice, TDAOEntry, TDAOInvoice>
+    implements ESManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
     public ESManualEntryBuilderImpl(TDAOEntry daoESEntry, TDAOInvoice daoESInvoice, DAOESTax daoESTax,
             DAOESProduct daoESProduct, DAOESRegionContext daoESRegionContext) {

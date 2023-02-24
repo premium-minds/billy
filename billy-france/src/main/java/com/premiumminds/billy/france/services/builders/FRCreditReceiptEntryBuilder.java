@@ -18,13 +18,16 @@
  */
 package com.premiumminds.billy.france.services.builders;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.services.entities.FRCreditReceiptEntry;
+import com.premiumminds.billy.france.services.entities.FRGenericInvoice;
 
-public interface FRCreditReceiptEntryBuilder<TBuilder extends FRCreditReceiptEntryBuilder<TBuilder, TEntry>, TEntry extends FRCreditReceiptEntry>
-        extends FRGenericInvoiceEntryBuilder<TBuilder, TEntry> {
+public interface FRCreditReceiptEntryBuilder<TBuilder extends FRCreditReceiptEntryBuilder<TBuilder, TEntry, TInvoice>,
+    TEntry extends FRCreditReceiptEntry, TInvoice extends FRGenericInvoice>
+    extends FRGenericInvoiceEntryBuilder<TBuilder, TEntry, TInvoice> {
 
-    public TBuilder setReferenceUID(UID reference);
+    public TBuilder setReferenceUID(StringID<GenericInvoice> reference);
 
     public TBuilder setReason(String reason);
 

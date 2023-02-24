@@ -27,7 +27,6 @@ import org.mockito.Mockito;
 import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockProductEntity;
@@ -44,7 +43,7 @@ public class TestProductBuilder extends AbstractTest {
 
         for (TaxEntity tax : mockProduct.getTaxes()) {
             tax.setCurrency(Currency.getInstance("EUR"));
-            Mockito.when(this.getInstance(DAOTax.class).get(Mockito.any(UID.class))).thenReturn(tax);
+            Mockito.when(this.getInstance(DAOTax.class).get(Mockito.any())).thenReturn(tax);
         }
 
         Product.Builder builder = this.getInstance(Product.Builder.class);

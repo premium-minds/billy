@@ -26,11 +26,12 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
+import com.premiumminds.billy.core.services.entities.Address;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
-public class JPAAddressEntity extends JPABaseEntity implements AddressEntity {
+public class JPAAddressEntity extends JPABaseEntity<Address> implements AddressEntity {
 
     private static final long serialVersionUID = 1L;
 

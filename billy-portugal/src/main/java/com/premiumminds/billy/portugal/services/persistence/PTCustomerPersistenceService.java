@@ -22,14 +22,15 @@ import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.entities.PTCustomerEntity;
 import com.premiumminds.billy.portugal.services.entities.PTCustomer;
 
-public class PTCustomerPersistenceService implements PersistenceService<PTCustomer> {
+public class PTCustomerPersistenceService implements PersistenceService<Customer, PTCustomer> {
 
     protected final DAOPTCustomer daoCustomer;
 
@@ -73,7 +74,7 @@ public class PTCustomerPersistenceService implements PersistenceService<PTCustom
     }
 
     @Override
-    public PTCustomer get(final UID uid) {
+    public PTCustomer get(final StringID<Customer> uid) {
         try {
             return new TransactionWrapper<PTCustomer>(this.daoCustomer) {
 

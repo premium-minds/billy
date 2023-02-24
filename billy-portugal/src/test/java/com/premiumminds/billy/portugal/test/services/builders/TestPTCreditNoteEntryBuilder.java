@@ -18,13 +18,6 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import com.premiumminds.billy.core.services.UID;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.test.AbstractTest;
@@ -37,6 +30,10 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
 import com.premiumminds.billy.portugal.test.PTAbstractTest;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTCreditNoteEntryEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
 
@@ -56,9 +53,9 @@ public class TestPTCreditNoteEntryBuilder extends PTAbstractTest {
         MockPTInvoiceEntity mockInvoiceEntity =
                 this.createMockEntity(MockPTInvoiceEntity.class, TestPTCreditNoteEntryBuilder.PT_INVOICE_YML);
 
-        Mockito.when(this.getInstance(DAOPTInvoice.class).get(Mockito.any(UID.class))).thenReturn(mockInvoiceEntity);
+        Mockito.when(this.getInstance(DAOPTInvoice.class).get(Mockito.any())).thenReturn(mockInvoiceEntity);
 
-        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any(UID.class)))
+        Mockito.when(this.getInstance(DAOPTProduct.class).get(Mockito.any()))
                 .thenReturn((PTProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOPTRegionContext.class).isSameOrSubContext(Mockito.any(),

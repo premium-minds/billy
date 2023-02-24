@@ -20,7 +20,8 @@ package com.premiumminds.billy.spain.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.NotOnUpdate;
@@ -34,9 +35,10 @@ import com.premiumminds.billy.spain.persistence.entities.ESReceiptEntity;
 import com.premiumminds.billy.spain.services.builders.ESManualCreditReceiptEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESCreditReceiptEntry;
 
-public class ESManualCreditReceiptEntryBuilderImpl<TBuilder extends ESManualCreditReceiptEntryBuilderImpl<TBuilder, TEntry>, TEntry extends ESCreditReceiptEntry>
-        extends ESManualEntryBuilderImpl<TBuilder, TEntry, DAOESCreditReceiptEntry, DAOESReceipt>
-        implements ESManualCreditReceiptEntryBuilder<TBuilder, TEntry> {
+public class ESManualCreditReceiptEntryBuilderImpl<TBuilder extends ESManualCreditReceiptEntryBuilderImpl<TBuilder,
+    TEntry>, TEntry extends ESCreditReceiptEntry>
+    extends ESManualEntryBuilderImpl<TBuilder, TEntry, ESReceiptEntity, DAOESCreditReceiptEntry, DAOESReceipt>
+    implements ESManualCreditReceiptEntryBuilder<TBuilder, TEntry, ESReceiptEntity> {
 
     public ESManualCreditReceiptEntryBuilderImpl(DAOESCreditReceiptEntry daoESCreditReceiptEntry,
             DAOESReceipt daoESReceipt, DAOESTax daoESTax, DAOESProduct daoESProduct,
@@ -46,7 +48,7 @@ public class ESManualCreditReceiptEntryBuilderImpl<TBuilder extends ESManualCred
 
     @Override
     @NotOnUpdate
-    public TBuilder setReferenceUID(UID referenceUID) {
+    public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
                 ESCreditReceiptEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         ESReceiptEntity i = this.daoInvoice.get(referenceUID);

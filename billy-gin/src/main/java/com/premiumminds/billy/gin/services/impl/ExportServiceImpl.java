@@ -33,7 +33,8 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.ExportService;
 import com.premiumminds.billy.gin.services.ExportServiceRequest;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -46,14 +47,15 @@ public class ExportServiceImpl implements ExportService {
 
     private static final Logger log = LoggerFactory.getLogger(ExportServiceImpl.class);
 
-    private final Map<Class<? extends GenericInvoiceData>, BillyDataExtractor<? extends GenericInvoiceData>> dataExtractors;
-    private final Map<Class<? extends ExportServiceRequest>, Class<? extends BillyExportTransformer<? extends GenericInvoiceData, OutputStream>>> requestMapper;
+    private final Map<Class<? extends GenericInvoiceData>, BillyDataExtractor<? extends GenericInvoiceData>>
+            dataExtractors;
+    private final Map<Class<? extends ExportServiceRequest>, Class<? extends BillyExportTransformer<?
+            extends GenericInvoiceData, OutputStream>>>
+            requestMapper;
 
     public ExportServiceImpl() {
-        this.dataExtractors =
-                new HashMap<>();
-        this.requestMapper =
-                new HashMap<>();
+        this.dataExtractors = new HashMap<>();
+        this.requestMapper = new HashMap<>();
     }
 
     @Override
@@ -101,7 +103,7 @@ public class ExportServiceImpl implements ExportService {
             throw e;
         }
         AbstractExportRequest exportRequest = (AbstractExportRequest) request;
-        UID uidDoc = exportRequest.getDocumentUID();
+        StringID<GenericInvoice> uidDoc = exportRequest.getDocumentUID();
 
         try {
             Constructor<? extends BillyExportTransformer<?, OutputStream>> transformerConstructor =
@@ -118,13 +120,13 @@ public class ExportServiceImpl implements ExportService {
     }
 
     @Override
-    public <T extends GenericInvoiceData, O> void export(UID uidDoc, BillyExportTransformer<T, O> dataTransformer,
-            O output) throws ExportServiceException {
+    public <T extends GenericInvoiceData, O> void export(StringID<GenericInvoice> uidDoc,
+            BillyExportTransformer<T, O> dataTransformer, O output) throws ExportServiceException {
         this.doExport(uidDoc, dataTransformer, output);
     }
 
-    private <T extends GenericInvoiceData, O> void doExport(UID uidDoc, BillyExportTransformer<T, O> dataTransformer,
-            O output) throws ExportServiceException {
+    private <T extends GenericInvoiceData, O> void doExport(StringID<GenericInvoice> uidDoc,
+            BillyExportTransformer<T, O> dataTransformer, O output) throws ExportServiceException {
         Class<T> clazz = dataTransformer.getTransformableClass();
         if (!this.dataExtractors.containsKey(clazz)) {
             RuntimeException e =

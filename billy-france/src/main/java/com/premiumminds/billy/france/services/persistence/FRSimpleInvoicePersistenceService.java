@@ -25,7 +25,9 @@ import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Ticket;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRSimpleInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRSimpleInvoiceEntity;
 import com.premiumminds.billy.france.services.entities.FRSimpleInvoice;
@@ -46,7 +48,7 @@ public class FRSimpleInvoicePersistenceService {
             return new TransactionWrapper<FRSimpleInvoice>(this.daoInvoice) {
 
                 @Override
-                public FRSimpleInvoice runTransaction() throws Exception {
+                public FRSimpleInvoice runTransaction() {
                     FRSimpleInvoiceEntity entity = (FRSimpleInvoiceEntity) builder.build();
                     return FRSimpleInvoicePersistenceService.this.daoInvoice.update(entity);
                 }
@@ -57,12 +59,12 @@ public class FRSimpleInvoicePersistenceService {
         }
     }
 
-    public FRSimpleInvoice get(final UID uid) {
+    public FRSimpleInvoice get(final StringID<GenericInvoice> uid) {
         try {
             return new TransactionWrapper<FRSimpleInvoice>(this.daoInvoice) {
 
                 @Override
-                public FRSimpleInvoice runTransaction() throws Exception {
+                public FRSimpleInvoice runTransaction() {
                     return FRSimpleInvoicePersistenceService.this.daoInvoice.get(uid);
                 }
 
@@ -73,15 +75,15 @@ public class FRSimpleInvoicePersistenceService {
     }
 
     @Deprecated
-    public FRSimpleInvoice getWithTicket(final UID ticketUID) {
+    public FRSimpleInvoice getWithTicket(final StringID<Ticket> ticketUID) {
 
         try {
             return new TransactionWrapper<FRSimpleInvoice>(this.daoInvoice) {
 
                 @Override
                 public FRSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
-                    UID objectUID =
-                            FRSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID.getValue());
+                    StringID<GenericInvoice> objectUID =
+                            FRSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
                     return FRSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
                 }
 

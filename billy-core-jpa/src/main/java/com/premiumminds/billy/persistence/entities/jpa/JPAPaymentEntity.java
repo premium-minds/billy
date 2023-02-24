@@ -19,7 +19,6 @@
 package com.premiumminds.billy.persistence.entities.jpa;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,11 +29,12 @@ import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.PaymentEntity;
+import com.premiumminds.billy.core.services.entities.Payment;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "PAYMENT")
-public class JPAPaymentEntity extends JPABaseEntity implements PaymentEntity {
+public class JPAPaymentEntity extends JPABaseEntity<Payment> implements PaymentEntity {
 
     /**
      *

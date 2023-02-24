@@ -23,25 +23,25 @@ import java.util.List;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
 
-public interface ProductEntity extends Product, BaseEntity {
+public interface ProductEntity extends Product {
 
-    public void setProductCode(String code);
+    void setProductCode(String code);
 
-    public void setProductGroup(String group);
+    void setProductGroup(String group);
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public void setType(ProductType type);
+    void setType(ProductType type);
 
-    public void setCommodityCode(String code);
+    void setCommodityCode(String code);
 
-    public void setNumberCode(String code);
+    void setNumberCode(String code);
 
-    public void setValuationMethod(String method);
+    void setValuationMethod(String method);
 
-    public void setUnitOfMeasure(String unit);
+    void setUnitOfMeasure(String unit);
 
     @Override
-    public <T extends Tax> List<T> getTaxes();
+    <T extends Tax> List<T> getTaxes();
 
 }

@@ -22,8 +22,7 @@ import com.google.common.io.ByteStreams;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
-import com.premiumminds.billy.core.services.UID;
-import com.premiumminds.billy.core.services.entities.Address;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Product.ProductType;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
@@ -799,7 +798,7 @@ public class PTSAFTFileGenerator {
                     MAX_LENGTH_5, false));
         }
         saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
-        UID customerUID = document.getCustomer().getUID();
+        StringID<com.premiumminds.billy.core.services.entities.Customer> customerUID = document.getCustomer().getUID();
         String customerID = customerUID.equals(this.config
                 .getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
                 : document.getCustomer().getID().toString();

@@ -18,36 +18,41 @@
  */
 package com.premiumminds.billy.portugal.services.export.qrcode;
 
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Context;
 
 public class PTContexts {
 
-    private final UID portugalUID;
-    private final UID continentalUID;
-    private final UID azoresUID;
-    private final UID madeiraUID;
+    private final StringID<Context> portugalUID;
+    private final StringID<Context> continentalUID;
+    private final StringID<Context> azoresUID;
+    private final StringID<Context> madeiraUID;
 
     public PTContexts(
-        final UID portugalUID, final UID continentalUID, final UID azoresUID, final UID madeiraUID) {
+        final StringID<Context> portugalUID,
+        final StringID<Context> continentalUID,
+        final StringID<Context> azoresUID,
+        final StringID<Context> madeiraUID)
+    {
         this.portugalUID = portugalUID;
         this.continentalUID = continentalUID;
         this.azoresUID = azoresUID;
         this.madeiraUID = madeiraUID;
     }
 
-    public UID getPortugalUID() {
+    public StringID<Context> getPortugalUID() {
         return portugalUID;
     }
 
-    public UID getContinentalUID() {
+    public StringID<Context> getContinentalUID() {
         return continentalUID;
     }
 
-    public UID getAzoresUID() {
+    public StringID<Context> getAzoresUID() {
         return azoresUID;
     }
 
-    public UID getMadeiraUID() {
+    public StringID<Context> getMadeiraUID() {
         return madeiraUID;
     }
 }

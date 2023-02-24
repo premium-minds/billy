@@ -19,7 +19,8 @@
 package com.premiumminds.billy.core.persistence.dao;
 
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
+import com.premiumminds.billy.core.services.entities.Contact;
 
-public interface DAOContact extends DAO<ContactEntity> {
+public interface DAOContact extends DAO<Contact, ContactEntity> {
 
 }

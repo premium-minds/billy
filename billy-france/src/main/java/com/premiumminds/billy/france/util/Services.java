@@ -21,9 +21,10 @@ package com.premiumminds.billy.france.util;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
-import com.premiumminds.billy.core.services.documents.IssuingParams;
 import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
+import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.france.persistence.entities.FRCreditNoteEntity;
@@ -87,7 +88,7 @@ public class Services {
     }
 
     public <T extends FRGenericInvoice> T issueDocument(Builder<T> builder, FRIssuingParams issuingParameters,
-            String ticketUID)
+            StringID<Ticket> ticketUID)
         throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         return this.issuingService.issue(builder, issuingParameters, ticketUID);

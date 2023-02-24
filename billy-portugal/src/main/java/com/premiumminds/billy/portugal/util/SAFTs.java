@@ -29,7 +29,9 @@ import java.io.OutputStream;
 import java.util.Date;
 
 import com.google.inject.Injector;
-import com.premiumminds.billy.core.services.UID;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Application;
+import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
@@ -46,13 +48,24 @@ public class SAFTs {
         this.generator = this.getInstance(PTSAFTFileGenerator.class);
     }
 
-    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
-                              SAFTVersion version) throws SAFTPTExportException, IOException {
+    public InputStream export(
+        StringID<Application> uidApplication,
+        StringID<Business> uidBusiness,
+        Date from,
+        Date to,
+        SAFTVersion version) throws SAFTPTExportException, IOException
+    {
         return this.export(uidApplication, uidBusiness, from, to, version, false);
     }
 
-    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
-                              SAFTVersion version, boolean validate) throws SAFTPTExportException, IOException {
+    public InputStream export(
+        StringID<Application> uidApplication,
+        StringID<Business> uidBusiness,
+        Date from,
+        Date to,
+        SAFTVersion version,
+        boolean validate) throws SAFTPTExportException, IOException
+    {
         try (ByteArrayOutputStream oStream = new ByteArrayOutputStream()) {
             this.generator.generateSAFTFile(oStream, this.getInstance(DAOPTBusiness.class).get(uidBusiness),
                     this.getInstance(DAOPTApplication.class).get(uidApplication), from, to, version, validate);
@@ -61,13 +74,26 @@ public class SAFTs {
 
     }
 
-    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
-                              String resultPath, SAFTVersion version) throws SAFTPTExportException, IOException {
+    public InputStream export(
+        StringID<Application> uidApplication,
+        StringID<Business> uidBusiness,
+        Date from,
+        Date to,
+        String resultPath,
+        SAFTVersion version) throws SAFTPTExportException, IOException
+    {
         return this.export(uidApplication, uidBusiness, from, to, resultPath, version, false);
     }
 
-    public InputStream export(UID uidApplication, UID uidBusiness, Date from, Date to,
-                              String resultPath, SAFTVersion version, boolean validate) throws SAFTPTExportException, IOException {
+    public InputStream export(
+        StringID<Application> uidApplication,
+        StringID<Business> uidBusiness,
+        Date from,
+        Date to,
+        String resultPath,
+        SAFTVersion version,
+        boolean validate) throws SAFTPTExportException, IOException
+    {
         File outputFile = new File(resultPath);
         try (OutputStream oStream = new FileOutputStream(outputFile)) {
             this.generator.generateSAFTFile(oStream, this.getInstance(DAOPTBusiness.class).get(uidBusiness),

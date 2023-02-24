@@ -30,8 +30,8 @@ import com.premiumminds.billy.france.services.builders.impl.FRGenericInvoiceEntr
 
 public interface FRGenericInvoiceEntry extends GenericInvoiceEntry {
 
-    public static class Builder extends
-            FRGenericInvoiceEntryBuilderImpl<Builder, FRGenericInvoiceEntry, DAOFRGenericInvoiceEntry, DAOFRGenericInvoice> {
+    class Builder extends
+            FRGenericInvoiceEntryBuilderImpl<Builder, FRGenericInvoiceEntry, FRGenericInvoice,  DAOFRGenericInvoiceEntry, DAOFRGenericInvoice> {
 
         @Inject
         public Builder(DAOFRGenericInvoiceEntry daoFRGenericInvoiceEntry, DAOFRGenericInvoice daoFRGenericInvoice,
