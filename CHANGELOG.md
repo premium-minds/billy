@@ -3,6 +3,10 @@
 
 ## [Unreleased v7]
 
+### Changed
+
+ - [Replace UID with StringID typification](https://github.com/premium-minds/billy/pull/359)
+
 ## [7.1.1] 2023-02-16
 
 ### Changed
