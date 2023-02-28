@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.entities.documents;
 
 import java.util.Collection;
 
+@Deprecated
 public interface InvoiceEntry extends GenericInvoiceEntry {
 
     @Override
