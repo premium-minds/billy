@@ -24,6 +24,7 @@ import java.io.FileReader;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.mockito.Mockito;
+import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
@@ -32,6 +33,7 @@ import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.CoreDependencyModule;
 import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
+import org.yaml.snakeyaml.inspector.TrustedTagInspector;
 
 public class AbstractTest {
 
@@ -54,7 +56,9 @@ public class AbstractTest {
 
     @SuppressWarnings("unchecked")
     public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz, String path) {
-        Yaml yaml = new Yaml(new Constructor(clazz));
+        final LoaderOptions loadingConfig = new LoaderOptions();
+        loadingConfig.setTagInspector(new TrustedTagInspector());
+        Yaml yaml = new Yaml(new Constructor(clazz, loadingConfig));
 
         try {
             return (T) yaml.load(new BufferedReader(new FileReader(path)));
