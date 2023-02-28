@@ -23,12 +23,10 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditReceipt;
@@ -39,12 +37,10 @@ import com.premiumminds.billy.persistence.services.PersistenceService;
 public class FRCreditReceiptPersistenceService implements PersistenceService<GenericInvoice, FRCreditReceipt> {
 
     protected final DAOFRCreditReceipt daoCreditReceipt;
-    protected final DAOTicket daoTicket;
 
     @Inject
-    public FRCreditReceiptPersistenceService(DAOFRCreditReceipt daoCreditReceipt, DAOTicket daoTicket) {
+    public FRCreditReceiptPersistenceService(DAOFRCreditReceipt daoCreditReceipt) {
         this.daoCreditReceipt = daoCreditReceipt;
-        this.daoTicket = daoTicket;
     }
 
     @Override
@@ -81,27 +77,6 @@ public class FRCreditReceiptPersistenceService implements PersistenceService<Gen
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public FRCreditReceipt getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
-
-        try {
-            return new TransactionWrapper<FRCreditReceipt>(this.daoCreditReceipt) {
-
-                @Override
-                public FRCreditReceipt runTransaction() throws Exception {
-                    StringID<GenericInvoice> objectUID =
-                            FRCreditReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return FRCreditReceiptPersistenceService.this.daoCreditReceipt.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

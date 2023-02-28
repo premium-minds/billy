@@ -23,23 +23,18 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.premiumminds.billy.core.exceptions.InvalidTicketException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.TicketManager;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingHandler;
 import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
 import com.premiumminds.billy.core.services.documents.IssuingParams;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DocumentIssuingServiceImpl implements DocumentIssuingService {
 
@@ -49,14 +44,12 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
             extends IssuingParams>>
             handlers;
     protected DAOGenericInvoice daoInvoice;
-    protected TicketManager ticketManager;
 
     @Inject
-    public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice, TicketManager ticketManager) {
+    public DocumentIssuingServiceImpl(DAOGenericInvoice daoInvoice) {
 
         this.handlers = new HashMap<>();
         this.daoInvoice = daoInvoice;
-        this.ticketManager = ticketManager;
     }
 
     @Override
@@ -82,45 +75,6 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
         } catch (SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
             throw e;
-        } catch (Exception e) {
-            DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
-            throw new DocumentIssuingException(e);
-        }
-    }
-
-    @Deprecated
-    @Override
-    public synchronized <T extends GenericInvoice> T issue(final Builder<T> documentBuilder,
-            final IssuingParams parameters, final StringID<Ticket> ticketUID)
-            throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
-
-        try {
-            return new TransactionWrapper<T>(this.daoInvoice) {
-
-                @Override
-                public T runTransaction() throws Exception {
-
-                    if (!DocumentIssuingServiceImpl.this.ticketManager.ticketIssued(ticketUID)) {
-                        throw new InvalidTicketException();
-                    }
-
-                    T result = DocumentIssuingServiceImpl.this.issueDocument(documentBuilder, parameters);
-
-                    DocumentIssuingServiceImpl.this.ticketManager.updateTicket(ticketUID,
-                            result.getUID(),
-                            result.getDate(),
-                            result.getCreateTimestamp());
-
-                    return result;
-                }
-            }.execute();
-        } catch (SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
-            throw e;
-        } catch (InvalidTicketException e) {
-            throw e;
-        } catch (RuntimeException e) {
-            throw new DocumentIssuingException(e);
         } catch (Exception e) {
             DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
             throw new DocumentIssuingException(e);

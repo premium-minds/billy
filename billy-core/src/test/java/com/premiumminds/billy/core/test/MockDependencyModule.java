@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.core.test;
 
-import org.mockito.Mockito;
-
 import com.google.inject.AbstractModule;
 import com.premiumminds.billy.core.persistence.dao.DAOAddress;
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
@@ -36,7 +34,7 @@ import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
+import org.mockito.Mockito;
 
 public class MockDependencyModule extends AbstractModule {
 
@@ -56,7 +54,6 @@ public class MockDependencyModule extends AbstractModule {
         this.bind(DAOSupplier.class).toInstance(Mockito.mock(DAOSupplier.class));
         this.bind(DAOTax.class).toInstance(Mockito.mock(DAOTax.class));
         this.bind(DAOPayment.class).toInstance(Mockito.mock(DAOPayment.class));
-        this.bind(DAOTicket.class).toInstance(Mockito.mock(DAOTicket.class));
         this.bind(DAOInvoiceSeries.class).toInstance(Mockito.mock(DAOInvoiceSeries.class));
     }
 

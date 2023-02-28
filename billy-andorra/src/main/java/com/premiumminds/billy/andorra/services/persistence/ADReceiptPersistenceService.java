@@ -18,29 +18,25 @@
  */
 package com.premiumminds.billy.andorra.services.persistence;
 
+import javax.inject.Inject;
+
+import com.premiumminds.billy.andorra.persistence.dao.DAOADReceipt;
 import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
 import com.premiumminds.billy.andorra.services.entities.ADReceipt;
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADReceipt;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 public class ADReceiptPersistenceService {
 
     private final DAOADReceipt daoReceipt;
-    private final DAOTicket daoTicket;
 
     @Inject
-    public ADReceiptPersistenceService(DAOADReceipt daoReceipt, DAOTicket daoTicket) {
+    public ADReceiptPersistenceService(DAOADReceipt daoReceipt) {
         this.daoReceipt = daoReceipt;
-        this.daoTicket = daoTicket;
     }
 
     public ADReceipt update(final Builder<ADReceipt> builder) {
@@ -67,25 +63,6 @@ public class ADReceiptPersistenceService {
                     return ADReceiptPersistenceService.this.daoReceipt.get(uid);
                 }
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public ADReceipt getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException {
-        try {
-            return new TransactionWrapper<ADReceipt>(this.daoReceipt) {
-
-                @Override
-                public ADReceipt runTransaction() throws Exception {
-                    StringID<GenericInvoice> receiptUID =
-                            ADReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return ADReceiptPersistenceService.this.daoReceipt.get(receiptUID);
-                }
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

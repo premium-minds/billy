@@ -18,34 +18,29 @@
  */
 package com.premiumminds.billy.andorra.services.persistence;
 
-import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
-import com.premiumminds.billy.andorra.services.entities.ADCreditNote;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
-import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditNote;
+import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
+import com.premiumminds.billy.andorra.services.entities.ADCreditNote;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
+import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 
 public class ADCreditNotePersistenceService implements PersistenceService<GenericInvoice, ADCreditNote> {
 
     protected final DAOADCreditNote daoCreditNote;
-    protected final DAOTicket daoTicket;
 
     @Inject
-    public ADCreditNotePersistenceService(DAOADCreditNote daoCreditNote, DAOTicket daoTicket) {
+    public ADCreditNotePersistenceService(DAOADCreditNote daoCreditNote) {
         this.daoCreditNote = daoCreditNote;
-        this.daoTicket = daoTicket;
     }
 
     @Override
@@ -82,27 +77,6 @@ public class ADCreditNotePersistenceService implements PersistenceService<Generi
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public ADCreditNote getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
-
-        try {
-            return new TransactionWrapper<ADCreditNote>(this.daoCreditNote) {
-
-                @Override
-                public ADCreditNote runTransaction() throws Exception {
-                    StringID<GenericInvoice> objectUID =
-                            ADCreditNotePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return ADCreditNotePersistenceService.this.daoCreditNote.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }
