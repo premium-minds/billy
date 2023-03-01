@@ -34,12 +34,12 @@ import com.premiumminds.billy.andorra.test.fixtures.MockADSupplierEntity;
 
 public class TestADSupplierBuilder extends ADAbstractTest {
 
-    private static final String ESSUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR + "ESSupplier.yml";
+    private static final String AD_SUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR + "ADSupplier.yml";
 
     @Test
     public void doTest() {
         MockADSupplierEntity mockSupplier =
-                this.createMockEntity(MockADSupplierEntity.class, TestADSupplierBuilder.ESSUPPLIER_YML);
+                this.createMockEntity(MockADSupplierEntity.class, TestADSupplierBuilder.AD_SUPPLIER_YML);
 
         Mockito.when(this.getInstance(DAOADSupplier.class).getEntityInstance()).thenReturn(new MockADSupplierEntity());
 

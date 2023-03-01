@@ -35,12 +35,12 @@ import org.mockito.Mockito;
 
 public class TestADCustomerBuilder extends ADAbstractTest {
 
-    private static final String ESCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "ESCustomer.yml";
+    private static final String AD_CUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "ADCustomer.yml";
 
     @Test
     public void doTest() {
         MockADCustomerEntity mockCustomer =
-                this.createMockEntity(MockADCustomerEntity.class, TestADCustomerBuilder.ESCUSTOMER_YML);
+                this.createMockEntity(MockADCustomerEntity.class, TestADCustomerBuilder.AD_CUSTOMER_YML);
 
         Mockito.when(this.getInstance(DAOADCustomer.class).getEntityInstance()).thenReturn(new MockADCustomerEntity());
 

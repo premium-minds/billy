@@ -20,6 +20,8 @@ package com.premiumminds.billy.andorra.util;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.Config;
+import com.premiumminds.billy.andorra.Config.Key.Context.Andorra;
+import com.premiumminds.billy.andorra.Config.Key.Context.Andorra.VAT;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADTax;
 import com.premiumminds.billy.andorra.services.entities.ADTax;
 import com.premiumminds.billy.andorra.services.persistence.ADTaxPersistenceService;
@@ -31,102 +33,55 @@ public class Taxes {
 
     Config configuration = new Config();
 
-    /**
-     * Provides Continent tax information
-     */
-    public class Continent {
+	/**
+	 * @return Increased VAT value for Andorra.
+	 */
+	public ADTax increased() {
+		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+		return (ADTax) dao
+			.get(Taxes.this.configuration.getUID(VAT.INCREASED_UUID));
+	}
 
-        /**
-         * @return Normal VAT value for Continent.
-         */
-        public ADTax normal() {
-            DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-            return (ADTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.NORMAL_UUID));
-        }
+	/**
+	 * @return Normal VAT value for Andorra.
+	 */
+	public ADTax normal() {
+		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+		return (ADTax) dao
+			.get(Taxes.this.configuration.getUID(VAT.NORMAL_UUID));
+	}
 
-        /**
-         * @return Intermediate VAT value for Continent.
-         */
-        public ADTax intermediate() {
-            DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-            return (ADTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.INTERMEDIATE_UUID));
-        }
+	/**
+	 * @return Intermediate VAT value for Andorra.
+	 */
+	public ADTax intermediate() {
+		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+		return (ADTax) dao
+			.get(Taxes.this.configuration.getUID(VAT.INTERMEDIATE_UUID));
+	}
 
-        /**
-         * @return Reduced VAT value for Continent.
-         */
-        public ADTax reduced() {
-            DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-            return (ADTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.Continental.VAT.REDUCED_UUID));
-        }
-
-    }
-
-    public class CanaryIslands {
-
-        /**
-         * @return Normal IGIC value for the Canary Islands.
-         */
-        public ADTax normal() {
-            DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-            return (ADTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.NORMAL_UUID));
-        }
-
-        /**
-         * @return Intermediate IGIC value for the Canary Islands.
-         */
-        public ADTax intermediate() {
-            DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-            return (ADTax) dao.get(
-                    Taxes.this.configuration.getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.INTERMEDIATE_UUID));
-        }
-
-        /**
-         * @return Reduced IGIC value for the Canary Islands.
-         */
-        public ADTax reduced() {
-            DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-            return (ADTax) dao
-                    .get(Taxes.this.configuration.getUID(Config.Key.Context.Spain.CanaryIslands.IGIC.REDUCED_UUID));
-        }
-    }
+	/**
+	 * @return Reduced VAT value for Andorra.
+	 */
+	public ADTax reduced() {
+		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+		return (ADTax) dao
+			.get(Taxes.this.configuration.getUID(VAT.REDUCED_UUID));
+	}
 
     /**
      * @return Exemption tax value.
      */
     public ADTax exempt() {
         DAOADTax dao = this.getInstance(DAOADTax.class);
-        return (ADTax) dao.get(this.configuration.getUID(Config.Key.Context.Spain.TAX_EXEMPT_UUID));
+        return (ADTax) dao.get(this.configuration.getUID(Andorra.TAX_EXEMPT_UUID));
     }
-
-    private final Continent continent;
-    private final CanaryIslands canaryIslands;
     private final Injector injector;
     private final ADTaxPersistenceService persistenceService;
 
     public Taxes(Injector injector) {
-        this.continent = new Continent();
-        this.canaryIslands = new CanaryIslands();
         this.injector = injector;
         this.persistenceService = this.getInstance(ADTaxPersistenceService.class);
-    }
-
-    /**
-     * @return Spanish tax information from {@link Continent} region.
-     */
-    public Continent continent() {
-        return this.continent;
-    }
-
-    /**
-     * @return Spanish tax information from {@link CanaryIslands} region.
-     */
-    public CanaryIslands canaryIslands() {
-        return this.canaryIslands;
     }
 
     public ADTaxPersistenceService persistence() {

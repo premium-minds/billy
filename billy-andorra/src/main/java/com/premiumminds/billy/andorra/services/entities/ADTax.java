@@ -36,7 +36,7 @@ public interface ADTax extends Tax {
 
     }
 
-    public static class ESVATCode {
+    public static class ADVATCode {
 
         public static final String REDUCED = "RED";
         public static final String INTERMEDIATE = "INT";

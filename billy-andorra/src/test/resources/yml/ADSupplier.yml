@@ -17,11 +17,11 @@
 # along with billy andorra (AD Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-uid : uid
+uid : supplier_uid
 name : name
 taxRegistrationNumber : 11111111H
 taxRegistrationNumberCountry : ES
-mainAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
+mainAddress : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name
   number : number
   details : details
@@ -30,7 +30,7 @@ mainAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
   postalCode : postal_code
   region : region
   country : country
-billingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
+billingAddress : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name_billing
   number : number_billing
   details : details_billing
@@ -39,7 +39,7 @@ billingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntit
   postalCode : postal_code_billing
   region : region_billing
   country : country_billing
-shippingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
+shippingAddress : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name_shipping
   number : number_shipping
   details : details_shipping
@@ -48,16 +48,16 @@ shippingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEnti
   postalCode : postal_code_shipping
   region : region_shipping
   country : country_shipping
-mainContact : !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
-  uid : uid_mainContact
+mainContact : !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
   name : contact_main
   telephone : telephone_main
   mobile : mobile_main
   fax : fax_main
   email : email_main
   website : website_main
+selfBillingAgreement : false
 contacts :
-  - !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
+  - !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
     uid : uid_contact_1
     name : contact_1
     telephone : telephone_1
@@ -65,7 +65,7 @@ contacts :
     fax : fax_1
     email : email_1
     website : website_1
-  - !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
+  - !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
     uid : uid_contact_2
     name : contact_2
     telephone : telephone_2
@@ -73,4 +73,3 @@ contacts :
     fax : fax_2
     email : email_2
     website : website_2
-hasSelfBillingAgreement : false

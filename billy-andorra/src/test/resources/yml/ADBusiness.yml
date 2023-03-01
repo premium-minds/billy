@@ -17,16 +17,16 @@
 # along with billy andorra (AD Pack). If not, see <http://www.gnu.org/licenses/>.
 #
 
-operationalContext : !!com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity
+operationalContext : !!com.premiumminds.billy.andorra.test.fixtures.MockADRegionContextEntity
   uid : opContext_uid
   name : opContext_name
   description : opContext_description
   regionCode : region_code
-taxId : 11111111H
-taxIdCountry: ES
+taxId : L-123456-Z
+taxIdCountry: AD
 name : name
 commercialName : commercial_name
-address : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
+address : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name
   number : number
   details : details
@@ -35,7 +35,7 @@ address : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
   postalCode : 10000
   region : region
   country : country
-billingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
+billingAddress : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name_billing
   number : number_billing
   details : details_billing
@@ -44,7 +44,7 @@ billingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntit
   postalCode : postal_code_billing
   region : region_billing
   country : country_billing
-shippingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
+shippingAddress : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name_shipping
   number : number_shipping
   details : details_shipping
@@ -53,7 +53,7 @@ shippingAddress : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEnti
   postalCode : postal_code_shipping
   region : region_shipping
   country : country_shipping
-mainContact : !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
+mainContact : !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
   name : contact_main
   telephone : telephone_main
   mobile : mobile_main
@@ -62,13 +62,13 @@ mainContact : !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
   website : website_main
 website : website
 applications :
-  - !!com.premiumminds.billy.spain.test.fixtures.MockESApplicationEntity
+  - !!com.premiumminds.billy.spain.test.fixtures.MockADApplicationEntity
     name : name_1
     version : version_1
     developerCompanyName : company_name_1
     developerCompanyTaxIdentifier : company_tax_id_1
     websiteAddress : website
-    mainContact : !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
+    mainContact : !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
       name : contact_main
       telephone : telephone_main
       mobile : mobile_main
@@ -76,14 +76,14 @@ applications :
       email : email_main
       website : website_main
     contacts :
-      - !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
+      - !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
         name : contact_1
         telephone : telephone_1
         mobile : mobile_1
         fax : fax_1
         email : email_1
         website : website_1
-      - !!com.premiumminds.billy.spain.test.fixtures.MockESContactEntity
+      - !!com.premiumminds.billy.spain.andorra.fixtures.MockADContactEntity
         name : contact_2
         telephone : telephone_2
         mobile : mobile_2

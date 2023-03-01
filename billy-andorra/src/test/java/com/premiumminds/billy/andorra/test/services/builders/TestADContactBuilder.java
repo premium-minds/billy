@@ -30,12 +30,12 @@ import com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity;
 
 public class TestADContactBuilder extends ADAbstractTest {
 
-    private static final String ESCONTACT_YML = AbstractTest.YML_CONFIGS_DIR + "ESContact.yml";
+    private static final String AD_CONTACT_YML = AbstractTest.YML_CONFIGS_DIR + "ADContact.yml";
 
     @Test
     public void doTest() {
         MockADContactEntity mockContact =
-                this.createMockEntity(MockADContactEntity.class, TestADContactBuilder.ESCONTACT_YML);
+                this.createMockEntity(MockADContactEntity.class, TestADContactBuilder.AD_CONTACT_YML);
 
         Mockito.when(this.getInstance(DAOADContact.class).getEntityInstance()).thenReturn(new MockADContactEntity());
 

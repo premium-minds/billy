@@ -26,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.premiumminds.billy.andorra.BillyAndorra;
 import com.premiumminds.billy.andorra.persistence.entities.ADRegionContextEntity;
-import com.premiumminds.billy.andorra.services.entities.ADTax;
+import com.premiumminds.billy.andorra.services.entities.ADTax.ADVATCode;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.StringID;
@@ -40,24 +40,24 @@ public class TestDAOADTax extends ADPersistencyAbstractTest {
     @Test
     public void testGetTaxes() {
         final BillyAndorra billy = this.getInstance(BillyAndorra.class);
-        final ADRegionContextEntity context = (ADRegionContextEntity)billy.contexts().continent().barcelona();
+        final ADRegionContextEntity context = (ADRegionContextEntity)billy.contexts().andorra().allRegions();
 
         final DAOADTax daoTax = this.getInstance(DAOADTax.class);
 
-        final StringID<Tax> taxUID = billy.taxes().continent().normal().getUID();
+        final StringID<Tax> taxUID = billy.taxes().normal().getUID();
 
         final TaxEntity tax = assertDoesNotThrow(() -> daoTax.get(taxUID));
         assertNotNull(tax);
         assertTrue(daoTax.exists(taxUID));
 
         assertAll(
-                () -> assertEquals(1, daoTax.getTaxes(context, ADTax.ESVATCode.NORMAL, new Date(1661973810L*1000L), new Date(1661973810L*1000L)).size()),
-                () -> assertEquals(1, daoTax.getTaxes(context, ADTax.ESVATCode.NORMAL, null, new Date(1661973810L*1000L)).size()),
-                () -> assertEquals(1, daoTax.getTaxes(context, ADTax.ESVATCode.NORMAL, new Date(1661973810L*1000L), null).size()),
-                () -> assertEquals(1, daoTax.getTaxes(context, ADTax.ESVATCode.NORMAL, null, null).size()),
-                () -> assertEquals(1, daoTax.getTaxes(context, ADTax.ESVATCode.NORMAL, new Date(0), new Date(Integer.MAX_VALUE * 1000L)).size()),
-                () -> assertEquals(1, daoTax.getTaxes(context, ADTax.ESVATCode.NORMAL, tax.getValidFrom(), tax.getValidTo()).size()),
-                () -> assertTrue(daoTax.getTaxes(context, ADTax.ESVATCode.NORMAL, new Date(1L), new Date(0L)).isEmpty())
+                () -> assertEquals(1, daoTax.getTaxes(context, ADVATCode.NORMAL, new Date(1661973810L*1000L), new Date(1661973810L*1000L)).size()),
+                () -> assertEquals(1, daoTax.getTaxes(context, ADVATCode.NORMAL, null, new Date(1661973810L*1000L)).size()),
+                () -> assertEquals(1, daoTax.getTaxes(context, ADVATCode.NORMAL, new Date(1661973810L*1000L), null).size()),
+                () -> assertEquals(1, daoTax.getTaxes(context, ADVATCode.NORMAL, null, null).size()),
+                () -> assertEquals(1, daoTax.getTaxes(context, ADVATCode.NORMAL, new Date(0), new Date(Integer.MAX_VALUE * 1000L)).size()),
+                () -> assertEquals(1, daoTax.getTaxes(context, ADVATCode.NORMAL, tax.getValidFrom(), tax.getValidTo()).size()),
+                () -> assertTrue(daoTax.getTaxes(context, ADVATCode.NORMAL, new Date(1L), new Date(0L)).isEmpty())
         );
 
     }

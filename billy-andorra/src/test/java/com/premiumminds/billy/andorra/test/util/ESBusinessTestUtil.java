@@ -54,7 +54,7 @@ public class ESBusinessTestUtil {
         this.contact = new ESContactTestUtil(injector);
         this.address = new ESAddressTestUtil(injector);
 
-        this.context = new Contexts(injector).spain().allRegions();
+        this.context = new Contexts(injector).andorra().allRegions();
     }
 
     public ADBusinessEntity getBusinessEntity() {

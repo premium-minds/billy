@@ -44,7 +44,7 @@ public class ESProductTestUtil {
     public ESProductTestUtil(Injector injector) {
         this.injector = injector;
         this.taxes = new Taxes(injector);
-        this.tax = (ADTaxEntity) this.taxes.continent().normal();
+        this.tax = (ADTaxEntity) this.taxes.normal();
         this.setExpireOneMonthAhead(this.tax);
     }
 
@@ -85,7 +85,7 @@ public class ESProductTestUtil {
     public ADProductEntity getOtherRegionProductEntity() {
         ADProduct.Builder productBuilder = this.injector.getInstance(ADProduct.Builder.class);
 
-        ADTaxEntity taxRegion = (ADTaxEntity) this.taxes.canaryIslands().normal();
+        ADTaxEntity taxRegion = (ADTaxEntity) this.taxes.normal();
         this.setExpireOneMonthAhead(taxRegion);
 
         productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ESProductTestUtil.NUMBER_CODE)

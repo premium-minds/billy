@@ -38,12 +38,12 @@ import org.mockito.Mockito;
 
 public class TestADBusinessBuilder extends ADAbstractTest {
 
-    private static final String ESBUSINESS_YML = AbstractTest.YML_CONFIGS_DIR + "ESBusiness.yml";
+    private static final String AD_BUSINESS_YML = AbstractTest.YML_CONFIGS_DIR + "ADBusiness.yml";
 
     @Test
     public void doTest() {
         MockADBusinessEntity mockBusiness =
-                this.createMockEntity(MockADBusinessEntity.class, TestADBusinessBuilder.ESBUSINESS_YML);
+                this.createMockEntity(MockADBusinessEntity.class, TestADBusinessBuilder.AD_BUSINESS_YML);
 
         Mockito.when(this.getInstance(DAOADBusiness.class).getEntityInstance()).thenReturn(new MockADBusinessEntity());
 

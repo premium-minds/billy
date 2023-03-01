@@ -38,20 +38,20 @@ import org.mockito.Mockito;
 
 public class TestADReceiptEntryBuilder extends ADAbstractTest {
 
-    private static final String ES_RECEIPT_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "ESInvoiceEntry.yml";
-    private static final String ES_RECEIPT_YML = AbstractTest.YML_CONFIGS_DIR + "ESInvoice.yml";
+    private static final String AD_RECEIPT_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "ADInvoiceEntry.yml";
+    private static final String AD_RECEIPT_YML = AbstractTest.YML_CONFIGS_DIR + "ADInvoice.yml";
 
     @Test
     public void doTest() {
         MockADReceiptEntryEntity mockEntry =
-                this.createMockEntity(MockADReceiptEntryEntity.class, TestADReceiptEntryBuilder.ES_RECEIPT_ENTRY_YML);
+                this.createMockEntity(MockADReceiptEntryEntity.class, TestADReceiptEntryBuilder.AD_RECEIPT_ENTRY_YML);
         mockEntry.setCurrency(Currency.getInstance("EUR"));
 
         Mockito.when(this.getInstance(DAOADReceiptEntry.class).getEntityInstance())
                 .thenReturn(new MockADReceiptEntryEntity());
 
         MockADReceiptEntity mockReceipt =
-                this.createMockEntity(MockADReceiptEntity.class, TestADReceiptEntryBuilder.ES_RECEIPT_YML);
+                this.createMockEntity(MockADReceiptEntity.class, TestADReceiptEntryBuilder.AD_RECEIPT_YML);
 
         Mockito.when(this.getInstance(DAOADReceipt.class).get(Mockito.any())).thenReturn(mockReceipt);
 

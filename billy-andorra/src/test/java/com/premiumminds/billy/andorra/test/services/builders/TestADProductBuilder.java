@@ -33,13 +33,13 @@ import org.mockito.Mockito;
 
 public class TestADProductBuilder extends ADAbstractTest {
 
-    private static final String ESPRODUCT_YML = AbstractTest.YML_CONFIGS_DIR + "ESProduct.yml";
+    private static final String AD_PRODUCT_YML = AbstractTest.YML_CONFIGS_DIR + "ADProduct.yml";
 
     @Test
     public void doTest() {
 
         MockADProductEntity mockProduct =
-                this.createMockEntity(MockADProductEntity.class, TestADProductBuilder.ESPRODUCT_YML);
+                this.createMockEntity(MockADProductEntity.class, TestADProductBuilder.AD_PRODUCT_YML);
 
         Mockito.when(this.getInstance(DAOADProduct.class).getEntityInstance()).thenReturn(new MockADProductEntity());
 

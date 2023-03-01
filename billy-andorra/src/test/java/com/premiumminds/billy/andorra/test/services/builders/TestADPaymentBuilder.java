@@ -31,12 +31,12 @@ import com.premiumminds.billy.core.test.AbstractTest;
 
 public class TestADPaymentBuilder extends ADAbstractTest {
 
-    private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "ESPayment.yml";
+    private static final String AD_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "ADPayment.yml";
 
     @Test
     public void doTest() {
         MockADPaymentEntity mock =
-                this.createMockEntity(MockADPaymentEntity.class, TestADPaymentBuilder.ES_PAYMENT_YML);
+                this.createMockEntity(MockADPaymentEntity.class, TestADPaymentBuilder.AD_PAYMENT_YML);
 
         Mockito.when(this.getInstance(DAOADPayment.class).getEntityInstance()).thenReturn(new MockADPaymentEntity());
 

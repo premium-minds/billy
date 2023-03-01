@@ -38,14 +38,14 @@ import org.mockito.Mockito;
 
 public class TestADCreditNoteEntryBuilder extends ADAbstractTest {
 
-    private static final String ES_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "ESCreditNoteEntry.yml";
-    private static final String ES_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "ESInvoice.yml";
+    private static final String AD_CREDIT_NOTE_ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "ADCreditNoteEntry.yml";
+    private static final String AD_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "ADInvoice.yml";
 
     @Test
     public void doTest() {
         MockADCreditNoteEntryEntity mock = this.createMockEntity(
 			MockADCreditNoteEntryEntity.class,
-			TestADCreditNoteEntryBuilder.ES_CREDIT_NOTE_ENTRY_YML);
+			TestADCreditNoteEntryBuilder.AD_CREDIT_NOTE_ENTRY_YML);
 
         mock.setCurrency(Currency.getInstance("EUR"));
 
@@ -53,7 +53,7 @@ public class TestADCreditNoteEntryBuilder extends ADAbstractTest {
                 .thenReturn(new MockADCreditNoteEntryEntity());
 
         MockADInvoiceEntity mockInvoiceEntity =
-                this.createMockEntity(MockADInvoiceEntity.class, TestADCreditNoteEntryBuilder.ES_INVOICE_YML);
+                this.createMockEntity(MockADInvoiceEntity.class, TestADCreditNoteEntryBuilder.AD_INVOICE_YML);
 
         Mockito.when(this.getInstance(DAOADInvoice.class).get(Mockito.any())).thenReturn(mockInvoiceEntity);
 

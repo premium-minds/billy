@@ -19,7 +19,7 @@
 package com.premiumminds.billy.andorra.its;
 
 import com.premiumminds.billy.andorra.BillyAndorra;
-import com.premiumminds.billy.andorra.SpainBootstrap;
+import com.premiumminds.billy.andorra.AndorraBootstrap;
 import com.premiumminds.billy.andorra.AndorraDependencyModule;
 import com.premiumminds.billy.andorra.AndorraPersistenceDependencyModule;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
@@ -67,37 +67,46 @@ public class InvoiceIT {
     public void test() throws Exception {
 
         injector = Guice.createInjector(new AndorraDependencyModule(),
-                new AndorraPersistenceDependencyModule("BillySpainTestPersistenceUnit"));
+                new AndorraPersistenceDependencyModule("BillyAndorraTestPersistenceUnit"));
         injector.getInstance(AndorraDependencyModule.Initializer.class);
         injector.getInstance(AndorraPersistenceDependencyModule.Initializer.class);
-        SpainBootstrap.execute(injector);
+        AndorraBootstrap.execute(injector);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
         BillyAndorra billyAndorra = new BillyAndorra(injector);
-        ADIssuingParams invoiceParameters = getEsInvoiceIssuingParams();
-        ADIssuingParams creditNoteParameters = getEsCreditNoteIssuingParams();
+        ADIssuingParams invoiceParameters = getAdInvoiceIssuingParams();
+        ADIssuingParams creditNoteParameters = getAdCreditNoteIssuingParams();
 
-        ADApplication.Builder applicationBuilder = getEsApplicationBuilder(billyAndorra);
-        ADBusiness business = createEsBusiness(billyAndorra, applicationBuilder);
-        ADCustomer customer = createEsCustomer(billyAndorra);
+        ADApplication.Builder applicationBuilder = getAdApplicationBuilder(billyAndorra);
+        ADBusiness business = createAdBusiness(billyAndorra, applicationBuilder);
+        ADCustomer customer = createAdCustomer(billyAndorra);
 
         createSeries(invoiceParameters.getInvoiceSeries(), business, "CCCC2345");
         createSeries(creditNoteParameters.getInvoiceSeries(), business, "CCCC2346");
 
         final ADTax flatTax = createFlatTax(billyAndorra);
 
-        ADProduct product = createEsProduct(billyAndorra);
-        ADProduct productExempt = createEsProductExempt(billyAndorra);
-        ADProduct productFlat = createEsProductFlat(billyAndorra, flatTax);
-        ADInvoice invoice = createEsInvoice(dateFormat,
-											billyAndorra, business, invoiceParameters, customer, product, productExempt, productFlat);
-        ADCreditNote creditNote = createEsCreditNote(dateFormat, billyAndorra,
-													 business,
-													 creditNoteParameters,
-													 customer,
-													 product,
-													 invoice);
+        ADProduct product = createAdProduct(billyAndorra);
+        ADProduct productExempt = createAdProductExempt(billyAndorra);
+        ADProduct productFlat = createAdProductFlat(billyAndorra, flatTax);
+        ADInvoice invoice = createAdInvoice(
+			dateFormat,
+			billyAndorra,
+			business,
+			invoiceParameters,
+			customer,
+			product,
+			productExempt,
+			productFlat);
+        ADCreditNote creditNote = createAdCreditNote(
+			dateFormat,
+			billyAndorra,
+			business,
+			creditNoteParameters,
+			customer,
+			product,
+			invoice);
 
         final DAOADInvoice daoInvoice = injector.getInstance(DAOADInvoice.class);
         final DAOADCreditNote daoCreditNote = injector.getInstance(DAOADCreditNote.class);
@@ -118,7 +127,7 @@ public class InvoiceIT {
     private ADTax createFlatTax(BillyAndorra billyAndorra) {
         final ADTax.Builder taxBuilder = this.injector.getInstance(ADTax.Builder.class);
         taxBuilder.setTaxRate(Tax.TaxRateType.FLAT, new BigDecimal("3.14"))
-                .setContextUID(billyAndorra.contexts().continent().allContinentRegions().getUID())
+                .setContextUID(billyAndorra.contexts().andorra().allRegions().getUID())
                 .setCode("code1")
                 .setDescription("description 1")
                 .setValidFrom(new Date(0))
@@ -129,14 +138,14 @@ public class InvoiceIT {
         return billyAndorra.taxes().persistence().create(taxBuilder);
     }
 
-    private ADApplication.Builder getEsApplicationBuilder(BillyAndorra billyAndorra) {
+    private ADApplication.Builder getAdApplicationBuilder(BillyAndorra billyAndorra) {
         ADContact.Builder contactBuilder = billyAndorra.contacts().builder();
         contactBuilder.setName("Developer 1")
                 .setTelephone("2000000001");
 
         ADApplication.Builder applicationBuilder = billyAndorra.applications().builder();
         applicationBuilder.setDeveloperCompanyName("Developer Company Name")
-                .setDeveloperCompanyTaxIdentifier("1000000001", "ES")
+                .setDeveloperCompanyTaxIdentifier("L-123456-Z", "AD")
                 .setName("Billy")
                 .setVersion("1.0")
                 .addContact(contactBuilder)
@@ -144,11 +153,11 @@ public class InvoiceIT {
         return applicationBuilder;
     }
 
-    private ADApplication createEsApplication(BillyAndorra billyAndorra, ADApplication.Builder applicationBuilder) {
+    private ADApplication createAdApplication(BillyAndorra billyAndorra, ADApplication.Builder applicationBuilder) {
         return billyAndorra.applications().persistence().create(applicationBuilder);
     }
 
-    private ADBusiness createEsBusiness(BillyAndorra billyAndorra, ADApplication.Builder applicationBuilder) {
+    private ADBusiness createAdBusiness(BillyAndorra billyAndorra, ADApplication.Builder applicationBuilder) {
         ADContact.Builder contactBuilder = billyAndorra.contacts().builder();
         contactBuilder.setName("CEO 1")
                 .setTelephone("200000002");
@@ -157,9 +166,9 @@ public class InvoiceIT {
         addressBuilder.setStreetName("Street name 2")
                 .setNumber("2")
                 .setPostalCode("10000")
-                .setCity("Madrid")
-                .setISOCountry("ES")
-                .setDetails("C. de Bailén, s/n, 28071 Madrid");
+                .setCity("Andorra la Vieja")
+                .setISOCountry("AD")
+                .setDetails("Carrer de la Vall, 6, AD500");
 
         ADBusiness.Builder businessBuilder = billyAndorra.businesses().builder();
         businessBuilder.addApplication(applicationBuilder)
@@ -167,22 +176,22 @@ public class InvoiceIT {
                 .setMainContactUID(contactBuilder.build().getUID())
                 .setName("Business 1")
                 .setCommercialName("Business, INC")
-                .setFinancialID("A58250606", "ES")
+                .setFinancialID("L-123456-Z", "AD")
                 .setAddress(addressBuilder)
                 .setBillingAddress(addressBuilder);
 
         return billyAndorra.businesses().persistence().create(businessBuilder);
     }
 
-    private ADInvoice createEsInvoice(SimpleDateFormat dateFormat,
-									  BillyAndorra billyAndorra,
-									  ADBusiness business,
-									  ADIssuingParams invoiceParameters,
-									  ADCustomer customer,
-									  ADProduct product,
-									  ADProduct productExempt,
-									  ADProduct productTax)
-        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    private ADInvoice createAdInvoice(
+		SimpleDateFormat dateFormat,
+		BillyAndorra billyAndorra,
+		ADBusiness business,
+		ADIssuingParams invoiceParameters,
+		ADCustomer customer,
+		ADProduct product,
+		ADProduct productExempt,
+		ADProduct productTax) throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         Date invoiceDate = dateFormat.parse("01-03-2013");
 
@@ -210,7 +219,7 @@ public class InvoiceIT {
                 .setQuantity(new BigDecimal("10"))
                 .setTaxPointDate(dateFormat.parse("01-02-2013"))
                 .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, new BigDecimal("100"))
-                .setContextUID(billyAndorra.contexts().continent().allContinentRegions().getUID())
+                .setContextUID(billyAndorra.contexts().andorra().allRegions().getUID())
                 .setProductUID(product.getUID())
                 .setDescription(product.getDescription())
                 .setUnitOfMeasure(product.getUnitOfMeasure());
@@ -223,7 +232,7 @@ public class InvoiceIT {
                 .setQuantity(new BigDecimal("10.0"))
                 .setTaxPointDate(dateFormat.parse("01-02-2013"))
                 .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, new BigDecimal("100"))
-                .setContextUID(billyAndorra.contexts().continent().allContinentRegions().getUID())
+                .setContextUID(billyAndorra.contexts().andorra().allRegions().getUID())
                 .setProductUID(productExempt.getUID())
                 .setDescription(productExempt.getDescription())
                 .setUnitOfMeasure(productExempt.getUnitOfMeasure())
@@ -238,7 +247,7 @@ public class InvoiceIT {
                 .setQuantity(new BigDecimal("10.0"))
                 .setTaxPointDate(dateFormat.parse("01-02-2013"))
                 .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, new BigDecimal("100"))
-                .setContextUID(billyAndorra.contexts().continent().allContinentRegions().getUID())
+                .setContextUID(billyAndorra.contexts().andorra().allRegions().getUID())
                 .setProductUID(productTax.getUID())
                 .setDescription(productTax.getDescription())
                 .setUnitOfMeasure(productTax.getUnitOfMeasure())
@@ -250,14 +259,14 @@ public class InvoiceIT {
         return billyAndorra.invoices().issue(invoiceBuilder, invoiceParameters);
     }
 
-    private ADCreditNote createEsCreditNote(SimpleDateFormat dateFormat,
-											BillyAndorra billyAndorra,
-											ADBusiness business,
-											ADIssuingParams invoiceParameters,
-											ADCustomer customer,
-											ADProduct product,
-											ADInvoice invoice)
-        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    private ADCreditNote createAdCreditNote(
+		SimpleDateFormat dateFormat,
+		BillyAndorra billyAndorra,
+		ADBusiness business,
+		ADIssuingParams invoiceParameters,
+		ADCustomer customer,
+		ADProduct product,
+		ADInvoice invoice) throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         Date creditNoteDate = dateFormat.parse("01-03-2013");
 
@@ -285,7 +294,7 @@ public class InvoiceIT {
                 .setQuantity(new BigDecimal("10"))
                 .setTaxPointDate(dateFormat.parse("01-02-2013"))
                 .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, new BigDecimal("100"))
-                .setContextUID(billyAndorra.contexts().continent().allContinentRegions().getUID())
+                .setContextUID(billyAndorra.contexts().andorra().allRegions().getUID())
                 .setProductUID(product.getUID())
                 .setDescription(product.getDescription())
                 .setUnitOfMeasure(product.getUnitOfMeasure())
@@ -297,7 +306,7 @@ public class InvoiceIT {
         return billyAndorra.creditNotes().issue(creditNoteBuilder, invoiceParameters);
     }
 
-    private ADProduct createEsProduct(BillyAndorra billyAndorra) {
+    private ADProduct createAdProduct(BillyAndorra billyAndorra) {
         ADProduct.Builder productBuilder = billyAndorra.products().builder();
         productBuilder.setDescription("product 1")
                 .setNumberCode("1")
@@ -305,12 +314,12 @@ public class InvoiceIT {
                 .setType(Product.ProductType.GOODS)
                 .setUnitOfMeasure("kg")
                 .setProductGroup("group 1")
-                .addTaxUID(billyAndorra.taxes().continent().normal().getUID());
+                .addTaxUID(billyAndorra.taxes().normal().getUID());
 
         return billyAndorra.products().persistence().create(productBuilder);
     }
 
-    private ADProduct createEsProductExempt(BillyAndorra billyAndorra) {
+    private ADProduct createAdProductExempt(BillyAndorra billyAndorra) {
         ADProduct.Builder productBuilder = billyAndorra.products().builder();
         productBuilder.setDescription("product 2")
                 .setNumberCode("2")
@@ -323,7 +332,7 @@ public class InvoiceIT {
         return billyAndorra.products().persistence().create(productBuilder);
     }
 
-    private ADProduct createEsProductFlat(BillyAndorra billyAndorra, ADTax flatTax) {
+    private ADProduct createAdProductFlat(BillyAndorra billyAndorra, ADTax flatTax) {
         ADProduct.Builder productBuilder = billyAndorra.products().builder();
         productBuilder.setDescription("product 3")
                 .setNumberCode("3")
@@ -336,19 +345,19 @@ public class InvoiceIT {
         return billyAndorra.products().persistence().create(productBuilder);
     }
 
-    private ADIssuingParams getEsInvoiceIssuingParams() {
+    private ADIssuingParams getAdInvoiceIssuingParams() {
         ADIssuingParams invoiceParameters = ADIssuingParams.Util.newInstance();
         invoiceParameters.setInvoiceSeries("A");
         return invoiceParameters;
     }
 
-    private ADIssuingParams getEsCreditNoteIssuingParams() {
+    private ADIssuingParams getAdCreditNoteIssuingParams() {
         ADIssuingParams invoiceParameters = ADIssuingParams.Util.newInstance();
         invoiceParameters.setInvoiceSeries("B");
         return invoiceParameters;
     }
 
-    private ADCustomer createEsCustomer(BillyAndorra billyAndorra) {
+    private ADCustomer createAdCustomer(BillyAndorra billyAndorra) {
         ADContact.Builder contactBuilder = billyAndorra.contacts().builder();
         contactBuilder.setName("Customer 1")
                 .setTelephone("telephone 1");
@@ -357,13 +366,13 @@ public class InvoiceIT {
         addressBuilder.setStreetName("Customer 1 street name 1")
                 .setNumber("2")
                 .setPostalCode("10000")
-                .setCity("Madrid")
-                .setISOCountry("ES")
-                .setDetails("C. de Bailén, s/n, 28071 Madrid");
+			    .setCity("Andorra la Vieja")
+				.setISOCountry("AD")
+				.setDetails("Carrer de la Vall, 6, AD500");
 
         ADCustomer.Builder customerBuilder = billyAndorra.customers().builder();
         customerBuilder.setName("Customer name 1")
-                .setTaxRegistrationNumber("12825060F", "ES")
+                .setTaxRegistrationNumber("F-123456-Z", "AD")
                 .addAddress(addressBuilder, true)
                 .setBillingAddress(addressBuilder)
                 .setShippingAddress(addressBuilder)

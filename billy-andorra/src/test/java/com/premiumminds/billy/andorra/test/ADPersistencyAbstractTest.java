@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.andorra.test;
 
-import com.premiumminds.billy.andorra.SpainBootstrap;
+import com.premiumminds.billy.andorra.AndorraBootstrap;
 import com.premiumminds.billy.andorra.AndorraDependencyModule;
 import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADCreditReceiptEntity;
@@ -60,7 +60,7 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
                 Guice.createInjector(new AndorraDependencyModule(), new AndorraTestPersistenceDependencyModule());
         ADAbstractTest.injector.getInstance(AndorraDependencyModule.Initializer.class);
         ADAbstractTest.injector.getInstance(AndorraTestPersistenceDependencyModule.Initializer.class);
-        SpainBootstrap.execute(ADAbstractTest.injector);
+        AndorraBootstrap.execute(ADAbstractTest.injector);
     }
 
     @AfterEach

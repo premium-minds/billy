@@ -35,13 +35,13 @@ import com.premiumminds.billy.core.test.AbstractTest;
 
 public class TestADApplicationBuilder extends ADAbstractTest {
 
-    private static final String ESAPPLICATION_YML = AbstractTest.YML_CONFIGS_DIR + "ESApplication.yml";
+    private static final String AD_APPLICATION_YML = AbstractTest.YML_CONFIGS_DIR + "ADApplication.yml";
 
     @Test
     public void doTest() throws MalformedURLException {
 
         MockADApplicationEntity mockApplication =
-                this.createMockEntity(MockADApplicationEntity.class, TestADApplicationBuilder.ESAPPLICATION_YML);
+                this.createMockEntity(MockADApplicationEntity.class, TestADApplicationBuilder.AD_APPLICATION_YML);
 
         Mockito.when(this.getInstance(DAOADApplication.class).getEntityInstance())
                 .thenReturn(new MockADApplicationEntity());

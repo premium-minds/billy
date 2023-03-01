@@ -31,13 +31,13 @@ import com.premiumminds.billy.core.test.AbstractTest;
 
 public class TestADAddressBuilder extends ADAbstractTest {
 
-    private static final String ESADDRESS_YML = AbstractTest.YML_CONFIGS_DIR + "ESAddress.yml";
+    private static final String AD_ADDRESS_YML = AbstractTest.YML_CONFIGS_DIR + "ADAddress.yml";
 
     @Test
     public void doTest() {
 
         MockADAddressEntity mockAddress =
-                this.createMockEntity(MockADAddressEntity.class, TestADAddressBuilder.ESADDRESS_YML);
+                this.createMockEntity(MockADAddressEntity.class, TestADAddressBuilder.AD_ADDRESS_YML);
 
         Mockito.when(this.getInstance(DAOADAddress.class).getEntityInstance()).thenReturn(new MockADAddressEntity());
 

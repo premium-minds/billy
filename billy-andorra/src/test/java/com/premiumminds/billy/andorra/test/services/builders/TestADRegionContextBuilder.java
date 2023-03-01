@@ -31,12 +31,12 @@ import org.mockito.Mockito;
 
 public class TestADRegionContextBuilder extends ADAbstractTest {
 
-    private static final String ESCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "ESContext.yml";
+    private static final String AD_CONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "ADContext.yml";
 
     @Test
     public void testRegionCode() {
         MockADRegionContextEntity mockRegionContextEntity =
-                this.createMockEntity(MockADRegionContextEntity.class, TestADRegionContextBuilder.ESCONTEXT_YML);
+                this.createMockEntity(MockADRegionContextEntity.class, TestADRegionContextBuilder.AD_CONTEXT_YML);
 
         Mockito.when(this.getInstance(DAOADRegionContext.class).getEntityInstance())
                 .thenReturn(new MockADRegionContextEntity());

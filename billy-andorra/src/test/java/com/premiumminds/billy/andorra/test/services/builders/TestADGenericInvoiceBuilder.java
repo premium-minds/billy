@@ -41,21 +41,21 @@ import org.mockito.Mockito;
 
 public class TestADGenericInvoiceBuilder extends ADAbstractTest {
 
-    private static final String ES_GENERIC_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "ESGenericInvoice.yml";
-    private static final String ES_GENERIC_INVOICE_ENTRY_YML =
-            AbstractTest.YML_CONFIGS_DIR + "ESGenericInvoiceEntry.yml";
-    private static final String ESCUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "ESCustomer.yml";
+    private static final String AD_GENERIC_INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "ADGenericInvoice.yml";
+    private static final String AD_GENERIC_INVOICE_ENTRY_YML =
+            AbstractTest.YML_CONFIGS_DIR + "ADGenericInvoiceEntry.yml";
+    private static final String AD_CUSTOMER_YML = AbstractTest.YML_CONFIGS_DIR + "ADCustomer.yml";
 
-    private static final String ES_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "ESPayment.yml";
+    private static final String AD_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "ADPayment.yml";
 
     @Test
     public void doTest() {
         MockADGenericInvoiceEntity mock = this.createMockEntity(
 			MockADGenericInvoiceEntity.class,
-			TestADGenericInvoiceBuilder.ES_GENERIC_INVOICE_YML);
+			TestADGenericInvoiceBuilder.AD_GENERIC_INVOICE_YML);
 
         MockADCustomerEntity mockCustomerEntity =
-                this.createMockEntity(MockADCustomerEntity.class, TestADGenericInvoiceBuilder.ESCUSTOMER_YML);
+                this.createMockEntity(MockADCustomerEntity.class, TestADGenericInvoiceBuilder.AD_CUSTOMER_YML);
 
         mock.setCurrency(Currency.getInstance("EUR"));
 
@@ -66,7 +66,7 @@ public class TestADGenericInvoiceBuilder extends ADAbstractTest {
 
         MockADGenericInvoiceEntryEntity entryMock = this.createMockEntity(
 			MockADGenericInvoiceEntryEntity.class,
-			TestADGenericInvoiceBuilder.ES_GENERIC_INVOICE_ENTRY_YML);
+			TestADGenericInvoiceBuilder.AD_GENERIC_INVOICE_ENTRY_YML);
 
         Mockito.when(this.getInstance(DAOADGenericInvoiceEntry.class).get(Mockito.any()))
                 .thenReturn(entryMock);
@@ -82,7 +82,7 @@ public class TestADGenericInvoiceBuilder extends ADAbstractTest {
         Mockito.when(entry.build()).thenReturn(entries.get(0));
 
         MockADPaymentEntity mockPayment =
-                this.createMockEntity(MockADPaymentEntity.class, TestADGenericInvoiceBuilder.ES_PAYMENT_YML);
+                this.createMockEntity(MockADPaymentEntity.class, TestADGenericInvoiceBuilder.AD_PAYMENT_YML);
 
         Mockito.when(this.getInstance(DAOADPayment.class).getEntityInstance()).thenReturn(new MockADPaymentEntity());
 

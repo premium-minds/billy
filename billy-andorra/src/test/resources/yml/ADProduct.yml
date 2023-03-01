@@ -23,10 +23,10 @@ unitOfMeasure : unit_of_measure
 numberCode : number_code
 comodityCode : comodity_code
 type : GOODS
-description : product_description  
+description : product_description
 valuationMethod : valuation_method
 taxes:
-  - !!com.premiumminds.billy.spain.test.fixtures.MockESTaxEntity
+  - !!com.premiumminds.billy.andorra.test.fixtures.MockADTaxEntity
     uid : tax_uid_1
     designation : desgination_1
     description : description_1
@@ -37,17 +37,17 @@ taxes:
     taxRateType : FLAT
     percentageRateValue : 23
     flatRateAmount : 13
-    context : !!com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity
+    context : !!com.premiumminds.billy.andorra.test.fixtures.MockADRegionContextEntity
       uid : context_uid
       name : name
       regionCode : 3166-2:PT
       description : description
-      parentContext : !!com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity
+      parentContext : !!com.premiumminds.billy.andorra.test.fixtures.MockADRegionContextEntity
         uid : context_parent_uid
         name : parent_name
         regionCode : 3166-2:PT
         description : parent_description
-  - !!com.premiumminds.billy.spain.test.fixtures.MockESTaxEntity
+  - !!com.premiumminds.billy.andorra.test.fixtures.MockADTaxEntity
     uid : tax_uid_2
     designation : desgination_2
     description : description_2
@@ -58,14 +58,13 @@ taxes:
     taxRateType : FLAT
     percentageRateValue : 23
     flatRateAmount : 12
-    context : !!com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity
+    context : !!com.premiumminds.billy.andorra.test.fixtures.MockADRegionContextEntity
       uid : context_uid
       name : name
       regionCode : 3166-2:PT
       description : description
-      parentContext : !!com.premiumminds.billy.spain.test.fixtures.MockESRegionContextEntity
+      parentContext : !!com.premiumminds.billy.andorra.test.fixtures.MockADRegionContextEntity
         uid : context_parent_uid
         name : parent_name
         regionCode : 3166-2:PT
         description : parent_description
-      

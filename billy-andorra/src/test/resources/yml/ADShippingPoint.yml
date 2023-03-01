@@ -19,9 +19,9 @@
 
 deliveryId : delivery_id
 warehouseId : warehouse_id
-locationId : location_id 
+locationId : location_id
 date : 2013-01-01
-address : !!com.premiumminds.billy.spain.test.fixtures.MockESAddressEntity
+address : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name
   number : number
   details : details

@@ -36,12 +36,12 @@ import org.mockito.Mockito;
 
 public class TestADTaxBuilder extends ADAbstractTest {
 
-    private static final String ESTAX_YML = AbstractTest.YML_CONFIGS_DIR + "ESTax.yml";
-    private static final String REGIONCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "ESContext.yml";
+    private static final String AD_TAX_YML = AbstractTest.YML_CONFIGS_DIR + "ADTax.yml";
+    private static final String REGIONCONTEXT_YML = AbstractTest.YML_CONFIGS_DIR + "ADContext.yml";
 
     @Test
     public void doTestFlat() {
-        MockADTaxEntity mockTax = this.loadFixture(MockADTaxEntity.class, TestADTaxBuilder.ESTAX_YML);
+        MockADTaxEntity mockTax = this.loadFixture(MockADTaxEntity.class, TestADTaxBuilder.AD_TAX_YML);
         Mockito.when(this.getInstance(DAOADTax.class).getEntityInstance()).thenReturn(new MockADTaxEntity());
 
         Builder builder = this.getInstance(Builder.class);

@@ -33,12 +33,12 @@ import com.premiumminds.billy.core.test.AbstractTest;
 
 public class TestADShippingPointBuilder extends ADAbstractTest {
 
-    private static final String ESSHIPPINGPOINT_YML = AbstractTest.YML_CONFIGS_DIR + "ESShippingPoint.yml";
+    private static final String AD_SHIPPINGPOINT_YML = AbstractTest.YML_CONFIGS_DIR + "ADShippingPoint.yml";
 
     @Test
     public void doTest() {
         MockADShippingPointEntity mockShippingPoint =
-                this.createMockEntity(MockADShippingPointEntity.class, TestADShippingPointBuilder.ESSHIPPINGPOINT_YML);
+                this.createMockEntity(MockADShippingPointEntity.class, TestADShippingPointBuilder.AD_SHIPPINGPOINT_YML);
 
         Mockito.when(this.getInstance(DAOADShippingPoint.class).getEntityInstance())
                 .thenReturn(new MockADShippingPointEntity());
