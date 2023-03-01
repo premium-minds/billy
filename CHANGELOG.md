@@ -6,6 +6,7 @@
 ### Changed
 
  - [Replace UID with StringID typification](https://github.com/premium-minds/billy/pull/359)
+ - [Deprecate unused interfaces Invoice and CreditNote](https://github.com/premium-minds/billy/pull/391)
  - [Bump snakeyaml from 1.33 to 2.0](https://github.com/premium-minds/billy/pull/385)
  - [Bump maven-compiler-plugin from 3.10.1 to 3.11.0](https://github.com/premium-minds/billy/pull/386)
 
