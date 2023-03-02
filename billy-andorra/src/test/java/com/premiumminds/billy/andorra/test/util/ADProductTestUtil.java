@@ -28,7 +28,7 @@ import com.premiumminds.billy.andorra.persistence.entities.ADTaxEntity;
 import com.premiumminds.billy.andorra.services.entities.ADProduct;
 import com.premiumminds.billy.andorra.util.Taxes;
 
-public class ESProductTestUtil {
+public class ADProductTestUtil {
 
     private static final String NUMBER_CODE = "123";
     private static final String UNIT_OF_MEASURE = "Kg";
@@ -41,7 +41,7 @@ public class ESProductTestUtil {
     private Taxes taxes;
     private ADTaxEntity tax;
 
-    public ESProductTestUtil(Injector injector) {
+    public ADProductTestUtil(Injector injector) {
         this.injector = injector;
         this.taxes = new Taxes(injector);
         this.tax = (ADTaxEntity) this.taxes.normal();
@@ -69,15 +69,15 @@ public class ESProductTestUtil {
     }
 
     public ADProduct.Builder getProductBuilder() {
-        return this.getProductBuilder(ESProductTestUtil.PRODUCT_CODE, ESProductTestUtil.UNIT_OF_MEASURE,
-                ESProductTestUtil.NUMBER_CODE, ESProductTestUtil.GROUP, ESProductTestUtil.DESCRIPTION,
-                ESProductTestUtil.TYPE);
+        return this.getProductBuilder(ADProductTestUtil.PRODUCT_CODE, ADProductTestUtil.UNIT_OF_MEASURE,
+									  ADProductTestUtil.NUMBER_CODE, ADProductTestUtil.GROUP, ADProductTestUtil.DESCRIPTION,
+									  ADProductTestUtil.TYPE);
     }
 
     public ADProductEntity getProductEntity(String productCode, String unitMesure, String numberCode, String group,
                                             ProductType type) {
         return (ADProductEntity) this
-                .getProductBuilder(productCode, unitMesure, numberCode, group, ESProductTestUtil.DESCRIPTION, type)
+                .getProductBuilder(productCode, unitMesure, numberCode, group, ADProductTestUtil.DESCRIPTION, type)
                 .build();
 
     }
@@ -88,10 +88,10 @@ public class ESProductTestUtil {
         ADTaxEntity taxRegion = (ADTaxEntity) this.taxes.normal();
         this.setExpireOneMonthAhead(taxRegion);
 
-        productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ESProductTestUtil.NUMBER_CODE)
-                .setUnitOfMeasure(ESProductTestUtil.UNIT_OF_MEASURE).setProductCode(ESProductTestUtil.PRODUCT_CODE)
-                .setDescription(ESProductTestUtil.DESCRIPTION).setType(ESProductTestUtil.TYPE)
-                .setProductGroup(ESProductTestUtil.GROUP);
+        productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ADProductTestUtil.NUMBER_CODE)
+					  .setUnitOfMeasure(ADProductTestUtil.UNIT_OF_MEASURE).setProductCode(ADProductTestUtil.PRODUCT_CODE)
+					  .setDescription(ADProductTestUtil.DESCRIPTION).setType(ADProductTestUtil.TYPE)
+					  .setProductGroup(ADProductTestUtil.GROUP);
 
         return (ADProductEntity) productBuilder.build();
     }

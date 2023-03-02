@@ -28,7 +28,7 @@ import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADMockDependencyModule;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
-import com.premiumminds.billy.andorra.test.util.ESInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADInvoiceTestUtil;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -58,7 +58,7 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
     public static final String XSL_PATH = "src/main/resources/templates/es_invoice.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-    ESInvoiceTestUtil test;
+    ADInvoiceTestUtil test;
     private Injector mockedInjector;
     private ADInvoicePDFFOPTransformer transformer;
     private ADInvoiceDataExtractor extractor;
@@ -73,7 +73,7 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
 
         this.transformer = new ADInvoicePDFFOPTransformer(TestADInvoicePDFTransformer.LOGO_PATH, xsl);
         this.extractor = this.mockedInjector.getInstance(ADInvoiceDataExtractor.class);
-        this.test = new ESInvoiceTestUtil(ADAbstractTest.injector);
+        this.test = new ADInvoiceTestUtil(ADAbstractTest.injector);
     }
 
     @Test

@@ -25,8 +25,8 @@ import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.services.entities.ADInvoice;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.util.ConcurrentTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESBusinessTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADBusinessTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADInvoiceTestUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -75,7 +75,7 @@ public class TestConcurrentIssuing extends ADDocumentAbstractTest {
             TestConcurrentIssuing.this.parameters.setInvoiceSeries(this.series);
             try {
                 ADInvoice invoice = TestConcurrentIssuing.this.service.issue(
-                        new ESInvoiceTestUtil(this.injector).getInvoiceBuilder(this.business),
+                        new ADInvoiceTestUtil(this.injector).getInvoiceBuilder(this.business),
                         TestConcurrentIssuing.this.parameters);
                 return invoice;
             } catch (DocumentIssuingException e) {
@@ -90,10 +90,10 @@ public class TestConcurrentIssuing extends ADDocumentAbstractTest {
         ConcurrentTestUtil test = new ConcurrentTestUtil(10);
         StringID<Business> B1 = StringID.fromValue("Business 1");
         this.createSeries(B1, "A");
-        ADBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+        ADBusinessEntity businessEntity1 = new ADBusinessTestUtil(injector).getBusinessEntity(B1);
         StringID<Business> B2 = StringID.fromValue("Business 2");
         this.createSeries(B2, "A");
-        ADBusinessEntity businessEntity2 = new ESBusinessTestUtil(injector).getBusinessEntity(B2);
+        ADBusinessEntity businessEntity2 = new ADBusinessTestUtil(injector).getBusinessEntity(B2);
 
         List<Future<?>> results1 = test.runThreads(new TestRunner(injector, "A", businessEntity1));
 
@@ -125,7 +125,7 @@ public class TestConcurrentIssuing extends ADDocumentAbstractTest {
     public void testConcurrentIssuing2() throws InterruptedException, ExecutionException {
         StringID<Business> B1 = StringID.fromValue("Business 1");
         this.createSeries(B1, "A");
-        ADBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+        ADBusinessEntity businessEntity1 = new ADBusinessTestUtil(injector).getBusinessEntity(B1);
         ConcurrentTestUtil test = new ConcurrentTestUtil(10);
         List<Future<?>> results1 = test.runThreads(new TestRunner(injector, "A", businessEntity1));
         List<Future<?>> results2 = test.runThreads(new TestRunner(injector, "A", businessEntity1));
@@ -150,12 +150,12 @@ public class TestConcurrentIssuing extends ADDocumentAbstractTest {
         this.createSeries(B1, "A");
         this.createSeries(B1, "B");
         this.createSeries(B1, "C");
-        ADBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+        ADBusinessEntity businessEntity1 = new ADBusinessTestUtil(injector).getBusinessEntity(B1);
         StringID<Business> B2 = StringID.fromValue("Business 2");
         this.createSeries(B2, "A");
         this.createSeries(B2, "B");
         this.createSeries(B2, "C");
-        ADBusinessEntity businessEntity2 = new ESBusinessTestUtil(injector).getBusinessEntity(B2);
+        ADBusinessEntity businessEntity2 = new ADBusinessTestUtil(injector).getBusinessEntity(B2);
 
         List<Future<?>> results1 = test.runThreads(new TestRunner(injector, "A", businessEntity1));
 
@@ -183,7 +183,7 @@ public class TestConcurrentIssuing extends ADDocumentAbstractTest {
         this.createSeries(B1, "A");
         this.createSeries(B1, "B");
         this.createSeries(B1, "C");
-        ADBusinessEntity businessEntity1 = new ESBusinessTestUtil(injector).getBusinessEntity(B1);
+        ADBusinessEntity businessEntity1 = new ADBusinessTestUtil(injector).getBusinessEntity(B1);
         Integer totalThreads = 10;
         ConcurrentTestUtil test = new ConcurrentTestUtil(totalThreads);
 

@@ -29,7 +29,7 @@ import com.premiumminds.billy.core.test.AbstractTest;
 public class ADAbstractTest extends AbstractTest {
 
     protected static Injector injector;
-    protected static final String ES_COUNTRY_CODE = "ES";
+    protected static final String AD_COUNTRY_CODE = "ES";
 
     @BeforeAll
     public static void setUpClass() {

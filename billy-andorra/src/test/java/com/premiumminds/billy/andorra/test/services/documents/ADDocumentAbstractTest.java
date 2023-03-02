@@ -24,9 +24,9 @@ import com.premiumminds.billy.andorra.services.documents.util.ADIssuingParams;
 import com.premiumminds.billy.andorra.services.documents.util.ADIssuingParamsImpl;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
-import com.premiumminds.billy.andorra.test.util.ESInvoiceTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESReceiptTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESSimpleInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADReceiptTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADSimpleInvoiceTestUtil;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import java.util.Date;
@@ -67,11 +67,11 @@ public class ADDocumentAbstractTest extends ADPersistencyAbstractTest {
 
         switch (type) {
             case FT:
-                return (T) new ESInvoiceTestUtil(ADAbstractTest.injector).getInvoiceEntity(source);
+                return (T) new ADInvoiceTestUtil(ADAbstractTest.injector).getInvoiceEntity(source);
             case RC:
-                return (T) new ESReceiptTestUtil(ADAbstractTest.injector).getReceiptEntity();
+                return (T) new ADReceiptTestUtil(ADAbstractTest.injector).getReceiptEntity();
             case FS:
-                return (T) new ESSimpleInvoiceTestUtil(ADAbstractTest.injector).getSimpleInvoiceEntity();
+                return (T) new ADSimpleInvoiceTestUtil(ADAbstractTest.injector).getSimpleInvoiceEntity();
             case NC:
                 throw new NotImplementedException();
             default:

@@ -18,20 +18,20 @@
  */
 package com.premiumminds.billy.andorra.test.util;
 
-import com.premiumminds.billy.andorra.persistence.dao.DAOADProduct;
-import com.premiumminds.billy.andorra.persistence.entities.ADProductEntity;
-import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
-import com.premiumminds.billy.andorra.services.entities.ADCreditReceiptEntry.Builder;
-import com.premiumminds.billy.andorra.services.entities.ADRegionContext;
-import com.premiumminds.billy.andorra.util.Contexts;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
 
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.andorra.persistence.dao.DAOADProduct;
+import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
+import com.premiumminds.billy.andorra.persistence.entities.ADProductEntity;
+import com.premiumminds.billy.andorra.services.entities.ADCreditNoteEntry;
+import com.premiumminds.billy.andorra.services.entities.ADRegionContext;
+import com.premiumminds.billy.andorra.util.Contexts;
 
-public class ESCreditReceiptEntryTestUtil {
+public class ADCreditNoteEntryTestUtil {
 
     private static final BigDecimal AMOUNT = new BigDecimal(20);
     private static final Currency CURRENCY = Currency.getInstance("EUR");
@@ -42,28 +42,27 @@ public class ESCreditReceiptEntryTestUtil {
     private Contexts contexts;
     private ADRegionContext context;
 
-    public ESCreditReceiptEntryTestUtil(Injector injector) {
+    public ADCreditNoteEntryTestUtil(Injector injector) {
         this.injector = injector;
         this.contexts = new Contexts(injector);
     }
 
-    public Builder getCreditReceiptEntryBuilder(ADReceiptEntity reference) {
-        Builder creditReceiptEntryBuilder =
-                this.injector.getInstance(Builder.class);
+    public ADCreditNoteEntry.Builder getCreditNoteEntryBuilder(ADInvoiceEntity reference) {
+        ADCreditNoteEntry.Builder creditNoteEntryBuilder = this.injector.getInstance(ADCreditNoteEntry.Builder.class);
 
         ADProductEntity newProduct = (ADProductEntity) this.injector.getInstance(DAOADProduct.class)
-                                                                    .create(new ESProductTestUtil(this.injector).getProductEntity());
+                                                                    .create(new ADProductTestUtil(this.injector).getProductEntity());
 
-        this.context = this.contexts.continent().almeria();
+        this.context = this.contexts.andorra().canillo();
 
-        creditReceiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESCreditReceiptEntryTestUtil.AMOUNT)
-                .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())
-                .setQuantity(ESCreditReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
-                .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
-                .setReason(ESCreditReceiptEntryTestUtil.REASON).setReferenceUID(reference.getUID())
-                .setCurrency(Currency.getInstance("EUR"));
+        creditNoteEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ADCreditNoteEntryTestUtil.AMOUNT)
+							  .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())
+							  .setQuantity(ADCreditNoteEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
+							  .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
+							  .setReason(ADCreditNoteEntryTestUtil.REASON).setReferenceUID(reference.getUID())
+							  .setCurrency(Currency.getInstance("EUR"));
 
-        return creditReceiptEntryBuilder;
+        return creditNoteEntryBuilder;
     }
 
 }

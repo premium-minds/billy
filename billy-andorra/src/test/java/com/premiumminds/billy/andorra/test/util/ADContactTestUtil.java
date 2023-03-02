@@ -23,7 +23,7 @@ import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.andorra.persistence.entities.ADContactEntity;
 import com.premiumminds.billy.andorra.services.entities.ADContact;
 
-public class ESContactTestUtil {
+public class ADContactTestUtil {
 
     private static final String NAME = "name";
     private static final String TELEPHONE = "998887999";
@@ -34,7 +34,7 @@ public class ESContactTestUtil {
 
     private Injector injector;
 
-    public ESContactTestUtil(Injector injector) {
+    public ADContactTestUtil(Injector injector) {
         this.injector = injector;
     }
 
@@ -60,7 +60,7 @@ public class ESContactTestUtil {
     }
 
     public ADContact.Builder getContactBuilder() {
-        return this.getContactBuilder(ESContactTestUtil.NAME, ESContactTestUtil.TELEPHONE, ESContactTestUtil.MOBILE,
-                ESContactTestUtil.FAX, ESContactTestUtil.EMAIL, ESContactTestUtil.WEBSITE);
+        return this.getContactBuilder(ADContactTestUtil.NAME, ADContactTestUtil.TELEPHONE, ADContactTestUtil.MOBILE,
+									  ADContactTestUtil.FAX, ADContactTestUtil.EMAIL, ADContactTestUtil.WEBSITE);
     }
 }

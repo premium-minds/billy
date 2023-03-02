@@ -24,22 +24,22 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.services.entities.ADApplication;
 import com.premiumminds.billy.andorra.services.entities.ADContact;
 
-public class ESApplicationTestUtil {
+public class ADApplicationTestUtil {
 
     private static final String KEYS_PATH = "http://url";
     private static final String COMPANY_NAME = "company_name";
     private static final String COMPANY_TAX_ID = "12432353426435";
-    private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "ES";
+    private static final String COMPANY_TAX_ID_ISO_COUNTRY_CODE = "AD";
     private static final String APP_NAME = "APP";
     private static final String VERSION = "1";
     private static final String WEBSITE = "http://app.ex";
 
     private Injector injector;
-    private ESContactTestUtil contact;
+    private ADContactTestUtil contact;
 
-    public ESApplicationTestUtil(Injector injector) {
+    public ADApplicationTestUtil(Injector injector) {
         this.injector = injector;
-        this.contact = new ESContactTestUtil(injector);
+        this.contact = new ADContactTestUtil(injector);
     }
 
     public ADApplication.Builder getApplicationBuilder(String appName, String version, String companyName,
@@ -62,8 +62,8 @@ public class ESApplicationTestUtil {
     public ADApplication.Builder getApplicationBuilder() throws MalformedURLException {
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-        return this.getApplicationBuilder(ESApplicationTestUtil.APP_NAME, ESApplicationTestUtil.VERSION,
-                ESApplicationTestUtil.COMPANY_NAME, ESApplicationTestUtil.COMPANY_TAX_ID,
-                ESApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, ESApplicationTestUtil.WEBSITE, contactBuilder);
+        return this.getApplicationBuilder(ADApplicationTestUtil.APP_NAME, ADApplicationTestUtil.VERSION,
+										  ADApplicationTestUtil.COMPANY_NAME, ADApplicationTestUtil.COMPANY_TAX_ID,
+										  ADApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, ADApplicationTestUtil.WEBSITE, contactBuilder);
     }
 }

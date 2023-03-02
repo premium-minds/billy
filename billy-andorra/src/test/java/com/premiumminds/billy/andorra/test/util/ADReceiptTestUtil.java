@@ -29,7 +29,7 @@ import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
 import com.premiumminds.billy.andorra.services.entities.ADReceipt;
 import com.premiumminds.billy.andorra.services.entities.ADReceiptEntry;
 
-public class ESReceiptTestUtil {
+public class ADReceiptTestUtil {
 
     protected static final Boolean BILLED = false;
     protected static final Boolean CANCELLED = false;
@@ -40,15 +40,15 @@ public class ESReceiptTestUtil {
     protected static final int MAX_PRODUCTS = 5;
 
     protected final Injector injector;
-    protected final ESReceiptEntryTestUtil receiptEntry;
-    protected final ESBusinessTestUtil businesses;
-    protected final ESPaymentTestUtil payments;
+    protected final ADReceiptEntryTestUtil receiptEntry;
+    protected final ADBusinessTestUtil businesses;
+    protected final ADPaymentTestUtil payments;
 
-    public ESReceiptTestUtil(Injector injector) {
+    public ADReceiptTestUtil(Injector injector) {
         this.injector = injector;
-        this.receiptEntry = new ESReceiptEntryTestUtil(injector);
-        this.businesses = new ESBusinessTestUtil(injector);
-        this.payments = new ESPaymentTestUtil(injector);
+        this.receiptEntry = new ADReceiptEntryTestUtil(injector);
+        this.businesses = new ADBusinessTestUtil(injector);
+        this.payments = new ADPaymentTestUtil(injector);
     }
 
     public ADReceiptEntity getReceiptEntity() {
@@ -60,9 +60,9 @@ public class ESReceiptTestUtil {
         ADReceiptEntry.Builder entryBuilder =
                 this.receiptEntry.getReceiptEntryBuilder().setUnitAmount(AmountType.WITH_TAX, new BigDecimal("0.45"));
 
-        return receiptBuilder.setBilled(ESReceiptTestUtil.BILLED).setCancelled(ESReceiptTestUtil.CANCELLED)
-                .setSelfBilled(ESReceiptTestUtil.SELFBILL).setSourceId(ESReceiptTestUtil.SOURCE_ID).setDate(new Date())
-                .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
-                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+        return receiptBuilder.setBilled(ADReceiptTestUtil.BILLED).setCancelled(ADReceiptTestUtil.CANCELLED)
+							 .setSelfBilled(ADReceiptTestUtil.SELFBILL).setSourceId(ADReceiptTestUtil.SOURCE_ID).setDate(new Date())
+							 .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
+							 .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
     }
 }

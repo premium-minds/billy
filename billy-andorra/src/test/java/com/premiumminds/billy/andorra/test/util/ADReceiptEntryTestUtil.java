@@ -30,33 +30,33 @@ import com.premiumminds.billy.andorra.services.entities.ADReceiptEntry;
 import com.premiumminds.billy.andorra.services.entities.ADRegionContext;
 import com.premiumminds.billy.andorra.util.Contexts;
 
-public class ESReceiptEntryTestUtil {
+public class ADReceiptEntryTestUtil {
 
     private static final BigDecimal AMOUNT = new BigDecimal(20);
     private static final Currency CURRENCY = Currency.getInstance("EUR");
     private static final BigDecimal QUANTITY = new BigDecimal("1");
 
     private Injector injector;
-    private ESProductTestUtil product;
+    private ADProductTestUtil product;
     private Contexts contexts;
     private ADRegionContext context;
 
-    public ESReceiptEntryTestUtil(Injector injector) {
+    public ADReceiptEntryTestUtil(Injector injector) {
         this.injector = injector;
-        this.product = new ESProductTestUtil(injector);
+        this.product = new ADProductTestUtil(injector);
         this.contexts = new Contexts(injector);
     }
 
     public ADReceiptEntry.Builder getReceiptEntryBuilder(ADProductEntity product) {
         ADReceiptEntry.Builder receiptEntryBuilder = this.injector.getInstance(ADReceiptEntry.Builder.class);
-        this.context = this.contexts.continent().asturias();
+        this.context = this.contexts.andorra().lasEscaldasEngordany();
 
         receiptEntryBuilder.clear();
-        receiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ESReceiptEntryTestUtil.AMOUNT)
-                .setTaxPointDate(new Date()).setDescription(product.getDescription())
-                .setQuantity(ESReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-                .setProductUID(product.getUID()).setContextUID(this.context.getUID())
-                .setCurrency(ESReceiptEntryTestUtil.CURRENCY);
+        receiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ADReceiptEntryTestUtil.AMOUNT)
+						   .setTaxPointDate(new Date()).setDescription(product.getDescription())
+						   .setQuantity(ADReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
+						   .setProductUID(product.getUID()).setContextUID(this.context.getUID())
+						   .setCurrency(ADReceiptEntryTestUtil.CURRENCY);
 
         return receiptEntryBuilder;
     }

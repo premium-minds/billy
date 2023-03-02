@@ -136,22 +136,28 @@ public class AndorraBootstrap {
                     final ZoneId madrid = ZoneId.of("Europe/Madrid");
                     final Date from = Date.from(LocalDate.of(2020,1,1).atStartOfDay().atZone(madrid).toInstant());
                     final Date to = Date.from(LocalDate.of(2114,1,1).atStartOfDay().atZone(madrid).toInstant());
-                    final ADTaxEntity VAT_NORMAL_CONTINENTAL_SPAIN = this.buildTaxEntity(
-						daoADTax, taxBuilder, ADVATCode.NORMAL, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
-						"IVA General Continente", "IVA", Tax.TaxRateType.PERCENTAGE, from, to,
-						Config.Key.Context.Andorra.VAT.NORMAL_PERCENT, Config.Key.Context.Andorra.VAT.NORMAL_UUID);
 
 					final ADTaxEntity VAT_INCREASED_ANDORRA = this.buildTaxEntity(
 						daoADTax, taxBuilder, ADVATCode.OTHER, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
 						"IGI Incrementado", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
 						Config.Key.Context.Andorra.VAT.INCREASED_PERCENT, Config.Key.Context.Andorra.VAT.INCREASED_UUID);
 
-					final ADTaxEntity VAT_INTERMEDIATE_ANDORRA = this.buildTaxEntity(
+                    final ADTaxEntity VAT_NORMAL_CONTINENTAL_SPAIN = this.buildTaxEntity(
+						daoADTax, taxBuilder, ADVATCode.NORMAL, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+						"IVA General Continente", "IVA", Tax.TaxRateType.PERCENTAGE, from, to,
+						Config.Key.Context.Andorra.VAT.NORMAL_PERCENT, Config.Key.Context.Andorra.VAT.NORMAL_UUID);
+
+					final ADTaxEntity VAT_SPECIAL_ANDORRA = this.buildTaxEntity(
+						daoADTax, taxBuilder, ADVATCode.OTHER, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+						"IGI Special", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
+					Config.Key.Context.Andorra.VAT.SPECIAL_PERCENT, Config.Key.Context.Andorra.VAT.SPECIAL_UUID);
+
+					final ADTaxEntity VAT_REDUCED_ANDORRA = this.buildTaxEntity(
 						daoADTax, taxBuilder, ADVATCode.INTERMEDIATE, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
 						"IGI Reducido", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
 						Config.Key.Context.Andorra.VAT.INTERMEDIATE_PERCENT, Config.Key.Context.Andorra.VAT.INTERMEDIATE_UUID);
 
-                    final ADTaxEntity VAT_REDUCED_ANDORRA = this.buildTaxEntity(
+                    final ADTaxEntity VAT_SUPER_REDUCED_ANDORRA = this.buildTaxEntity(
 						daoADTax, taxBuilder, ADVATCode.REDUCED, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
 						"IGI Superreducido", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
 						Config.Key.Context.Andorra.VAT.REDUCED_PERCENT, Config.Key.Context.Andorra.VAT.REDUCED_UUID);

@@ -25,7 +25,7 @@ import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice;
 import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice.CLIENTTYPE;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
-import com.premiumminds.billy.andorra.test.util.ESSimpleInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADSimpleInvoiceTestUtil;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -72,7 +72,7 @@ public class TestADSimpleInvoiceIssuingHandler extends ADDocumentAbstractTest {
 
     @Test
     public void testBusinessSimpleInvoice() {
-        ESSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ESSimpleInvoiceTestUtil(ADAbstractTest.injector);
+        ADSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector);
 
         Assertions.assertThrows(BillySimpleInvoiceException.class, () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(
 			CLIENTTYPE.BUSINESS));

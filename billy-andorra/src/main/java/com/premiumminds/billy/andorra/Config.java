@@ -87,15 +87,12 @@ public class Config {
 					public static final String INCREASED_PERCENT = "context.andorra.tax.vat.increased.percent";
 					public static final String NORMAL_UUID = "context.andorra.tax.vat.normal.uuid";
 					public static final String NORMAL_PERCENT = "context.andorra.tax.vat.normal.percent";
-
-					public static final String INTERMEDIATE_UUID =
-						"context.andorra.tax.vat.intermediate.uuid";
-					public static final String INTERMEDIATE_PERCENT =
-						"context.andorra.tax.vat.intermediate.percent";
-
+					public static final String SPECIAL_UUID = "context.andorra.tax.vat.special.uuid";
+					public static final String SPECIAL_PERCENT = "context.andorra.tax.vat.special.percent";
+					public static final String INTERMEDIATE_UUID = "context.andorra.tax.vat.intermediate.uuid";
+					public static final String INTERMEDIATE_PERCENT = "context.andorra.tax.vat.intermediate.percent";
 					public static final String REDUCED_UUID = "context.andorra.tax.vat.reduced.uuid";
-					public static final String REDUCED_PERCENT =
-						"context.andorra.tax.vat.reduced.percent";
+					public static final String REDUCED_PERCENT = "context.andorra.tax.vat.reduced.percent";
 				}
 
 				public static class AndorraLaVieja {

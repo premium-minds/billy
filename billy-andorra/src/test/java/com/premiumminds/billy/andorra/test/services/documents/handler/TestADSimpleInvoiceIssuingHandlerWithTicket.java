@@ -30,8 +30,8 @@ import com.premiumminds.billy.andorra.services.persistence.ADSimpleInvoicePersis
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADMockDependencyModule;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
-import com.premiumminds.billy.andorra.test.util.ESBusinessTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESSimpleInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADBusinessTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADSimpleInvoiceTestUtil;
 import com.premiumminds.billy.andorra.util.Services;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -66,8 +66,8 @@ public class TestADSimpleInvoiceIssuingHandlerWithTicket extends ADDocumentAbstr
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
             ADBusinessEntity
-				business = new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
-            Builder simpleInvoiceBuilder = new ESSimpleInvoiceTestUtil(ADAbstractTest.injector)
+				business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+            Builder simpleInvoiceBuilder = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector)
                     .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
             this.ticketManager = this.getInstance(TicketManager.class);
@@ -148,8 +148,8 @@ public class TestADSimpleInvoiceIssuingHandlerWithTicket extends ADDocumentAbstr
         this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
         ADBusinessEntity
-			business = new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
-        ADSimpleInvoice.Builder builder = new ESSimpleInvoiceTestUtil(ADAbstractTest.injector)
+			business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+        ADSimpleInvoice.Builder builder = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
         try {
@@ -171,8 +171,8 @@ public class TestADSimpleInvoiceIssuingHandlerWithTicket extends ADDocumentAbstr
         ADSimpleInvoicePersistenceService persistenceService =
                 ADAbstractTest.injector.getInstance(ADSimpleInvoicePersistenceService.class);
         ADBusinessEntity
-			business = new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
-        ADSimpleInvoice.Builder testinvoice = new ESSimpleInvoiceTestUtil(ADAbstractTest.injector)
+			business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+        ADSimpleInvoice.Builder testinvoice = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
         EntityManager em = ADAbstractTest.injector.getInstance(EntityManager.class);

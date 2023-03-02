@@ -35,24 +35,24 @@ import com.premiumminds.billy.andorra.services.entities.ADContact;
 import com.premiumminds.billy.andorra.services.entities.ADRegionContext;
 import com.premiumminds.billy.andorra.util.Contexts;
 
-public class ESBusinessTestUtil {
+public class ADBusinessTestUtil {
 
     private static final String NAME = "Business";
-    private static final String FINANCIAL_ID = "11111111H";
+    private static final String FINANCIAL_ID = "L-123456-Z";
     private static final String WEBSITE = "http://business.com";
-    protected static final String ES_COUNTRY_CODE = "ES";
+    protected static final String AD_COUNTRY_CODE = "AD";
 
     private Injector injector;
-    private ESApplicationTestUtil application;
-    private ESContactTestUtil contact;
-    private ESAddressTestUtil address;
+    private ADApplicationTestUtil application;
+    private ADContactTestUtil contact;
+    private ADAddressTestUtil address;
     private ADRegionContext context;
 
-    public ESBusinessTestUtil(Injector injector) {
+    public ADBusinessTestUtil(Injector injector) {
         this.injector = injector;
-        this.application = new ESApplicationTestUtil(injector);
-        this.contact = new ESContactTestUtil(injector);
-        this.address = new ESAddressTestUtil(injector);
+        this.application = new ADApplicationTestUtil(injector);
+        this.contact = new ADContactTestUtil(injector);
+        this.address = new ADAddressTestUtil(injector);
 
         this.context = new Contexts(injector).andorra().allRegions();
     }
@@ -88,10 +88,10 @@ public class ESBusinessTestUtil {
         ADAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
         businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true).setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder).setCommercialName(ESBusinessTestUtil.NAME)
-                .setFinancialID(ESBusinessTestUtil.FINANCIAL_ID, ESBusinessTestUtil.ES_COUNTRY_CODE)
-                .setOperationalContextUID(this.context.getUID()).setWebsite(ESBusinessTestUtil.WEBSITE)
-                .setName(ESBusinessTestUtil.NAME);
+                .setBillingAddress(addressBuilder).setCommercialName(ADBusinessTestUtil.NAME)
+                .setFinancialID(ADBusinessTestUtil.FINANCIAL_ID, ADBusinessTestUtil.AD_COUNTRY_CODE)
+                .setOperationalContextUID(this.context.getUID()).setWebsite(ADBusinessTestUtil.WEBSITE)
+                .setName(ADBusinessTestUtil.NAME);
 
         return businessBuilder;
     }

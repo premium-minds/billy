@@ -21,8 +21,8 @@ package com.premiumminds.billy.andorra.test.services.documents;
 import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.services.entities.ADInvoice.Builder;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
-import com.premiumminds.billy.andorra.test.util.ESBusinessTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADBusinessTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADInvoiceTestUtil;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +54,7 @@ public class TestDocumentIssuingService extends ADDocumentAbstractTest {
     {
 
         final Builder invoiceBuilder =
-            new ESInvoiceTestUtil(injector).getInvoiceBuilder(new ESBusinessTestUtil(injector).getBusinessEntity());
+            new ADInvoiceTestUtil(injector).getInvoiceBuilder(new ADBusinessTestUtil(injector).getBusinessEntity());
         this.createSeries(invoiceBuilder.build(), "A");
         this.service.issue(invoiceBuilder, this.parameters);
     }

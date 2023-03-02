@@ -21,20 +21,20 @@ package com.premiumminds.billy.andorra.test.util;
 import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.services.entities.ADAddress;
 
-public class ESAddressTestUtil {
+public class ADAddressTestUtil {
 
     private static final String NUMBER = "1";
     private static final String STREET = "street";
     private static final String BUILDING = "building";
     private static final String CITY = "city";
     private static final String REGION = "region";
-    private static final String ISOCODE = "ES";
+    private static final String ISOCODE = "AD";
     private static final String DETAILS = "details";
     private static final String POSTAL_CODE = "10000";
 
     private Injector injector;
 
-    public ESAddressTestUtil(Injector injector) {
+    public ADAddressTestUtil(Injector injector) {
         this.injector = injector;
     }
 
@@ -52,8 +52,8 @@ public class ESAddressTestUtil {
     }
 
     public ADAddress.Builder getAddressBuilder() {
-        return this.getAddressBuilder(ESAddressTestUtil.STREET, ESAddressTestUtil.NUMBER, ESAddressTestUtil.DETAILS,
-                ESAddressTestUtil.BUILDING, ESAddressTestUtil.CITY, ESAddressTestUtil.POSTAL_CODE,
-                ESAddressTestUtil.REGION, ESAddressTestUtil.ISOCODE);
+        return this.getAddressBuilder(ADAddressTestUtil.STREET, ADAddressTestUtil.NUMBER, ADAddressTestUtil.DETAILS,
+									  ADAddressTestUtil.BUILDING, ADAddressTestUtil.CITY, ADAddressTestUtil.POSTAL_CODE,
+									  ADAddressTestUtil.REGION, ADAddressTestUtil.ISOCODE);
     }
 }

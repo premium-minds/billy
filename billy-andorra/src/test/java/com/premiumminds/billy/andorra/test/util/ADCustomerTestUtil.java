@@ -25,21 +25,21 @@ import com.premiumminds.billy.andorra.services.entities.ADAddress;
 import com.premiumminds.billy.andorra.services.entities.ADContact;
 import com.premiumminds.billy.andorra.services.entities.ADCustomer;
 
-public class ESCustomerTestUtil {
+public class ADCustomerTestUtil {
 
     private static final String NAME = "Name";
-    private static final String TAX_NUMBER = "11111111H";
+    private static final String TAX_NUMBER = "F-123456-Z";
     private static final Boolean SELF_BILLING_AGREE = false;
-    protected static final String ES_COUNTRY_CODE = "ES";
+    protected static final String AD_COUNTRY_CODE = "AD";
 
     private Injector injector;
-    private ESAddressTestUtil address;
-    private ESContactTestUtil contact;
+    private ADAddressTestUtil address;
+    private ADContactTestUtil contact;
 
-    public ESCustomerTestUtil(Injector injector) {
+    public ADCustomerTestUtil(Injector injector) {
         this.injector = injector;
-        this.address = new ESAddressTestUtil(injector);
-        this.contact = new ESContactTestUtil(injector);
+        this.address = new ADAddressTestUtil(injector);
+        this.contact = new ADContactTestUtil(injector);
     }
 
     public ADCustomerEntity getCustomerEntity(String uid) {
@@ -56,8 +56,8 @@ public class ESCustomerTestUtil {
         ADAddress.Builder addressBuilder = this.address.getAddressBuilder();
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-        return this.getCustomerBuilder(ESCustomerTestUtil.NAME, ESCustomerTestUtil.TAX_NUMBER,
-                ESCustomerTestUtil.SELF_BILLING_AGREE, addressBuilder, contactBuilder);
+        return this.getCustomerBuilder(ADCustomerTestUtil.NAME, ADCustomerTestUtil.TAX_NUMBER,
+									   ADCustomerTestUtil.SELF_BILLING_AGREE, addressBuilder, contactBuilder);
     }
 
     public ADCustomer.Builder getCustomerBuilder(String name, String taxNumber, Boolean selfBilling,
@@ -67,7 +67,7 @@ public class ESCustomerTestUtil {
 
         return customerBuilder.addAddress(addressBuilder, true).addContact(contactBuilder)
                 .setBillingAddress(addressBuilder).setName(name).setHasSelfBillingAgreement(selfBilling)
-                .setTaxRegistrationNumber(taxNumber, ESCustomerTestUtil.ES_COUNTRY_CODE);
+                .setTaxRegistrationNumber(taxNumber, ADCustomerTestUtil.AD_COUNTRY_CODE);
     }
 
     public ADCustomerEntity getCustomerEntity(String name, String taxNumber, boolean selfBilling,

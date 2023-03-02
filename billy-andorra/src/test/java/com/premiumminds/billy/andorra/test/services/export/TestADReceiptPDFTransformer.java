@@ -28,7 +28,7 @@ import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
 import com.premiumminds.billy.andorra.services.export.ADReceiptDataExtractor;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADMockDependencyModule;
-import com.premiumminds.billy.andorra.test.util.ESReceiptTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADReceiptTestUtil;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
@@ -58,7 +58,7 @@ public class TestADReceiptPDFTransformer extends ADPersistencyAbstractTest {
     private static final String XSL_PATH = "src/main/resources/templates/es_receipt.xsl";
     private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-    private ESReceiptTestUtil receipts;
+    private ADReceiptTestUtil receipts;
     private Injector mockedInjector;
     private ADReceiptPDFFOPTransformer transformer;
     private ADReceiptDataExtractor extractor;
@@ -66,7 +66,7 @@ public class TestADReceiptPDFTransformer extends ADPersistencyAbstractTest {
     @BeforeEach
     public void setUp() throws FileNotFoundException {
 
-        this.receipts = new ESReceiptTestUtil(ADAbstractTest.injector);
+        this.receipts = new ADReceiptTestUtil(ADAbstractTest.injector);
 
         this.mockedInjector =
                 Guice.createInjector(Modules.override(new AndorraDependencyModule()).with(new ADMockDependencyModule()));

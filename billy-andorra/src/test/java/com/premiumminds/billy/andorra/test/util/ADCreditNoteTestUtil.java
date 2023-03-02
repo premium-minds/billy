@@ -27,7 +27,7 @@ import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.services.entities.ADCreditNote;
 import com.premiumminds.billy.andorra.services.entities.ADCreditNoteEntry;
 
-public class ESCreditNoteTestUtil {
+public class ADCreditNoteTestUtil {
 
     private static final Boolean BILLED = false;
     private static final Boolean CANCELLED = false;
@@ -35,13 +35,13 @@ public class ESCreditNoteTestUtil {
     private static final String SOURCEID = "SOURCE";
 
     private Injector injector;
-    private ESCreditNoteEntryTestUtil creditNoteEntry;
-    protected ESPaymentTestUtil payment;
+    private ADCreditNoteEntryTestUtil creditNoteEntry;
+    protected ADPaymentTestUtil payment;
 
-    public ESCreditNoteTestUtil(Injector injector) {
+    public ADCreditNoteTestUtil(Injector injector) {
         this.injector = injector;
-        this.creditNoteEntry = new ESCreditNoteEntryTestUtil(injector);
-        this.payment = new ESPaymentTestUtil(injector);
+        this.creditNoteEntry = new ADCreditNoteEntryTestUtil(injector);
+        this.payment = new ADPaymentTestUtil(injector);
     }
 
     public ADCreditNoteEntity getCreditNoteEntity(ADInvoiceEntity reference) {
@@ -60,10 +60,10 @@ public class ESCreditNoteTestUtil {
 
         ADCreditNoteEntry.Builder creditNoteEntryBuilder = this.creditNoteEntry.getCreditNoteEntryBuilder(reference);
 
-        return creditNoteBuilder.setBilled(ESCreditNoteTestUtil.BILLED).setCancelled(ESCreditNoteTestUtil.CANCELLED)
-                .setSelfBilled(ESCreditNoteTestUtil.SELFBILL).setDate(new Date())
-                .setSourceId(ESCreditNoteTestUtil.SOURCEID).addEntry(creditNoteEntryBuilder)
-                .setBusinessUID(reference.getBusiness().getUID()).setCustomerUID(reference.getCustomer().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+        return creditNoteBuilder.setBilled(ADCreditNoteTestUtil.BILLED).setCancelled(ADCreditNoteTestUtil.CANCELLED)
+								.setSelfBilled(ADCreditNoteTestUtil.SELFBILL).setDate(new Date())
+								.setSourceId(ADCreditNoteTestUtil.SOURCEID).addEntry(creditNoteEntryBuilder)
+								.setBusinessUID(reference.getBusiness().getUID()).setCustomerUID(reference.getCustomer().getUID())
+								.addPayment(this.payment.getPaymentBuilder());
     }
 }

@@ -52,6 +52,15 @@ public class Taxes {
 	}
 
 	/**
+	 * @return Special VAT value for Andorra.
+	 */
+	public ADTax special() {
+		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+		return (ADTax) dao
+			.get(Taxes.this.configuration.getUID(VAT.SPECIAL_UUID));
+	}
+
+	/**
 	 * @return Intermediate VAT value for Andorra.
 	 */
 	public ADTax intermediate() {

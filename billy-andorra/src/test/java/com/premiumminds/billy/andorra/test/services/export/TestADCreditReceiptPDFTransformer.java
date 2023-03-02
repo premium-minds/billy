@@ -26,7 +26,7 @@ import com.google.inject.util.Modules;
 import com.premiumminds.billy.andorra.AndorraDependencyModule;
 import com.premiumminds.billy.andorra.persistence.entities.ADCreditReceiptEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
-import com.premiumminds.billy.andorra.test.util.ESCreditReceiptTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADCreditReceiptTestUtil;
 import com.premiumminds.billy.andorra.util.Services;
 import java.io.File;
 import java.io.FileInputStream;
@@ -156,7 +156,7 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
         this.createSeries(reference, "AC");
 
         ADCreditReceiptEntity creditReceipt = (ADCreditReceiptEntity) services.issueDocument(
-			new ESCreditReceiptTestUtil(ADAbstractTest.injector).getCreditReceiptBuilder(reference), params);
+			new ADCreditReceiptTestUtil(ADAbstractTest.injector).getCreditReceiptBuilder(reference), params);
 
         creditReceipt.setBusiness((BusinessEntity) reference.getBusiness());
         creditReceipt.setCreditOrDebit(CreditOrDebit.DEBIT);

@@ -24,21 +24,21 @@ import com.premiumminds.billy.andorra.services.entities.ADAddress;
 import com.premiumminds.billy.andorra.services.entities.ADContact;
 import com.premiumminds.billy.andorra.services.entities.ADSupplier;
 
-public class ESSupplierTestUtil {
+public class ADSupplierTestUtil {
 
     private static final Boolean SELF_BILLING = false;
-    private static final String NUMBER = "11111111H";
+    private static final String NUMBER = "A-123456-Z";
     private static final String NAME = "Supplier";
-    protected static final String ES_COUNTRY_CODE = "ES";
+    protected static final String AD_COUNTRY_CODE = "AD";
 
     private Injector injector;
-    private ESAddressTestUtil address;
-    private ESContactTestUtil contact;
+    private ADAddressTestUtil address;
+    private ADContactTestUtil contact;
 
-    public ESSupplierTestUtil(Injector injector) {
+    public ADSupplierTestUtil(Injector injector) {
         this.injector = injector;
-        this.address = new ESAddressTestUtil(injector);
-        this.contact = new ESContactTestUtil(injector);
+        this.address = new ADAddressTestUtil(injector);
+        this.contact = new ADContactTestUtil(injector);
     }
 
     public ADSupplierEntity getSupplierEntity() {
@@ -46,8 +46,8 @@ public class ESSupplierTestUtil {
         ADAddress.Builder addressBuilder = this.address.getAddressBuilder();
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();
 
-        return this.getSupplierEntity(ESSupplierTestUtil.NAME, ESSupplierTestUtil.NUMBER,
-                ESSupplierTestUtil.SELF_BILLING, addressBuilder, contactBuilder);
+        return this.getSupplierEntity(ADSupplierTestUtil.NAME, ADSupplierTestUtil.NUMBER,
+									  ADSupplierTestUtil.SELF_BILLING, addressBuilder, contactBuilder);
     }
 
     public ADSupplierEntity getSupplierEntity(String name, String taxNumber, boolean selfBillingAgree,
@@ -62,9 +62,9 @@ public class ESSupplierTestUtil {
         ADSupplier.Builder supplierBuilder = this.injector.getInstance(ADSupplier.Builder.class);
 
         supplierBuilder.addAddress(addressBuilder).addContact(contactBuilder).setBillingAddress(addressBuilder)
-                .setMainContact(contactBuilder).setSelfBillingAgreement(selfBillingAgree)
-                .setTaxRegistrationNumber(taxNumber, ESSupplierTestUtil.ES_COUNTRY_CODE).setName(name)
-                .setMainAddress(addressBuilder);
+					   .setMainContact(contactBuilder).setSelfBillingAgreement(selfBillingAgree)
+					   .setTaxRegistrationNumber(taxNumber, ADSupplierTestUtil.AD_COUNTRY_CODE).setName(name)
+					   .setMainAddress(addressBuilder);
         return supplierBuilder;
     }
 }

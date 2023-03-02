@@ -21,7 +21,7 @@ package com.premiumminds.billy.andorra.test.services.jpa;
 import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.util.ConcurrentTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESBusinessTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADBusinessTestUtil;
 import java.util.concurrent.Callable;
 
 import org.junit.jupiter.api.Assertions;
@@ -61,7 +61,7 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
 
             @Override
             public Void runTransaction() throws Exception {
-                new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(TestJPAESBusiness.BUSINESS_UID);
+                new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(TestJPAESBusiness.BUSINESS_UID);
                 return null;
             }
         };

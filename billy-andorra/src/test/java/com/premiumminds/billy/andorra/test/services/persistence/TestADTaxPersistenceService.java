@@ -35,10 +35,10 @@ public class TestADTaxPersistenceService extends ADPersistenceServiceAbstractTes
     @Test
     public void testDuplicateFails() {
 
-        final ADRegionContext barcelona = billy.contexts().continent().barcelona();
+        final ADRegionContext andorraLaVieja = billy.contexts().andorra().andorraLaVieja();
 
-        Builder builder1 = createBuilder(barcelona);
-        Builder builder2 = createBuilder(barcelona);
+        Builder builder1 = createBuilder(andorraLaVieja);
+        Builder builder2 = createBuilder(andorraLaVieja);
 
         final ADTax tax = this.billy.taxes().persistence().create(builder1);
         Assertions.assertNotNull(tax);
@@ -50,13 +50,13 @@ public class TestADTaxPersistenceService extends ADPersistenceServiceAbstractTes
     @Test
     public void testSameCodeDifferentDatesSuccess() {
 
-        final ADRegionContext barcelona = billy.contexts().continent().barcelona();
+		final ADRegionContext andorraLaVieja = billy.contexts().andorra().andorraLaVieja();
 
-        ADTax.Builder builder1 = createBuilder(barcelona)
+        ADTax.Builder builder1 = createBuilder(andorraLaVieja)
                 .setValidFrom(new java.util.Date(0))
                 .setValidTo(new java.util.Date(100L));
 
-        ADTax.Builder builder2 = createBuilder(barcelona)
+        ADTax.Builder builder2 = createBuilder(andorraLaVieja)
                 .setValidFrom(new java.util.Date(100L))
                 .setValidTo(new java.util.Date(200L));
 
@@ -71,12 +71,12 @@ public class TestADTaxPersistenceService extends ADPersistenceServiceAbstractTes
     @Test
     public void testSameDatesDiferentCodesSuccess() {
 
-        final ADRegionContext barcelona = billy.contexts().continent().barcelona();
+		final ADRegionContext andorraLaVieja = billy.contexts().andorra().andorraLaVieja();
 
-        ADTax.Builder builder1 = createBuilder(barcelona)
+        ADTax.Builder builder1 = createBuilder(andorraLaVieja)
                 .setCode("code1");
 
-        ADTax.Builder builder2 = createBuilder(barcelona)
+        ADTax.Builder builder2 = createBuilder(andorraLaVieja)
                 .setCode("code2");
 
         final ADTax tax1 = this.billy.taxes().persistence().create(builder1);

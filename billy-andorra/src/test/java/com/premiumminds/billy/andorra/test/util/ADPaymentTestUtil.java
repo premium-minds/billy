@@ -26,7 +26,7 @@ import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.andorra.persistence.entities.ADPaymentEntity;
 import com.premiumminds.billy.andorra.services.entities.ADPayment;
 
-public class ESPaymentTestUtil {
+public class ADPaymentTestUtil {
 
     private static final BigDecimal AMOUNT = new BigDecimal(20);
     private static final Date DATE = new Date();
@@ -34,7 +34,7 @@ public class ESPaymentTestUtil {
 
     private Injector injector;
 
-    public ESPaymentTestUtil(Injector injector) {
+    public ADPaymentTestUtil(Injector injector) {
         this.injector = injector;
     }
 
@@ -46,7 +46,7 @@ public class ESPaymentTestUtil {
     }
 
     public ADPayment.Builder getPaymentBuilder() {
-        return this.getPaymentBuilder(ESPaymentTestUtil.AMOUNT, ESPaymentTestUtil.DATE, ESPaymentTestUtil.METHOD);
+        return this.getPaymentBuilder(ADPaymentTestUtil.AMOUNT, ADPaymentTestUtil.DATE, ADPaymentTestUtil.METHOD);
     }
 
     public ADPaymentEntity getPaymentEntity(BigDecimal amount, Date date, Enum<?> method) {

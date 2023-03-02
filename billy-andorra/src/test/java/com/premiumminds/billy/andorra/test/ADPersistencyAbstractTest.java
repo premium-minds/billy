@@ -24,11 +24,11 @@ import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADCreditReceiptEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
-import com.premiumminds.billy.andorra.test.util.ESBusinessTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESCreditNoteTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESCreditReceiptTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESInvoiceTestUtil;
-import com.premiumminds.billy.andorra.test.util.ESReceiptTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADBusinessTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADCreditNoteTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADCreditReceiptTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADReceiptTestUtil;
 import com.premiumminds.billy.andorra.util.Services;
 import java.util.UUID;
 
@@ -81,8 +81,8 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
 
         try {
             return (ADInvoiceEntity) service.issueDocument(
-                    new ESInvoiceTestUtil(ADAbstractTest.injector).getInvoiceBuilder(
-                            new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)),
+                    new ADInvoiceTestUtil(ADAbstractTest.injector).getInvoiceBuilder(
+                            new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
@@ -99,8 +99,8 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
 
         try {
             return (ADReceiptEntity) service.issueDocument(
-                    new ESReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
-                            new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)),
+                    new ADReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
+                            new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
@@ -118,7 +118,7 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
 
         try {
             return (ADCreditReceiptEntity) service.issueDocument(
-                    new ESCreditReceiptTestUtil(ADAbstractTest.injector).getCreditReceiptBuilder((ADReceiptEntity) receipt),
+                    new ADCreditReceiptTestUtil(ADAbstractTest.injector).getCreditReceiptBuilder((ADReceiptEntity) receipt),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
@@ -137,7 +137,7 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
 
         try {
             return (ADCreditNoteEntity) service.issueDocument(
-                    new ESCreditNoteTestUtil(ADAbstractTest.injector).getCreditNoteBuilder((ADInvoiceEntity) reference),
+                    new ADCreditNoteTestUtil(ADAbstractTest.injector).getCreditNoteBuilder((ADInvoiceEntity) reference),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
             e.printStackTrace();
@@ -155,15 +155,15 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
 
     protected void createSeries(StringID<Business> businessUID) {
         this.createSeries(
-			new ESReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
-                new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+			new ADReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
+                new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)).build(),
 			ADPersistencyAbstractTest.DEFAULT_SERIES);
     }
 
     protected void createSeries(StringID<Business> businessUID, String series) {
         this.createSeries(
-            new ESReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
-                new ESBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)).build(),
+            new ADReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
+                new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)).build(),
             series);
     }
 

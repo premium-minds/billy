@@ -24,18 +24,18 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.services.entities.ADAddress;
 import com.premiumminds.billy.andorra.services.entities.ADShippingPoint;
 
-public class ESShippingPointTestUtil {
+public class ADShippingPointTestUtil {
 
     private final String deliveryId = "delivery_spot";
     private final String locationId = "location_spot";
     private final String warehouseId = "warehouse1";
 
     private Injector injector;
-    private ESAddressTestUtil address;
+    private ADAddressTestUtil address;
 
-    public ESShippingPointTestUtil(Injector injector) {
+    public ADShippingPointTestUtil(Injector injector) {
         this.injector = injector;
-        this.address = new ESAddressTestUtil(injector);
+        this.address = new ADAddressTestUtil(injector);
     }
 
     public ADShippingPoint.Builder getShippingPointBuilder() {

@@ -27,7 +27,7 @@ import com.premiumminds.billy.andorra.AndorraDependencyModule;
 import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.test.ADMockDependencyModule;
-import com.premiumminds.billy.andorra.test.util.ESCreditNoteTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADCreditNoteTestUtil;
 import com.premiumminds.billy.andorra.util.Services;
 import java.io.File;
 import java.io.FileInputStream;
@@ -171,7 +171,7 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
 
         ADCreditNoteEntity creditNote = null;
         creditNote = (ADCreditNoteEntity) services.issueDocument(
-			new ESCreditNoteTestUtil(ADAbstractTest.injector).getCreditNoteBuilder(reference), params);
+			new ADCreditNoteTestUtil(ADAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
         creditNote.setCustomer((CustomerEntity) reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());

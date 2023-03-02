@@ -26,7 +26,7 @@ import com.google.inject.util.Modules;
 import com.premiumminds.billy.andorra.AndorraDependencyModule;
 import com.premiumminds.billy.andorra.persistence.entities.ADSimpleInvoiceEntity;
 import com.premiumminds.billy.andorra.services.export.ADSimpleInvoiceData;
-import com.premiumminds.billy.andorra.test.util.ESSimpleInvoiceTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADSimpleInvoiceTestUtil;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.PaymentMechanism;
@@ -124,7 +124,7 @@ public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest
     private ADSimpleInvoiceEntity generateESSimpleInvoice(PaymentMechanism paymentMechanism) {
 
         ADSimpleInvoiceEntity simpleInvoice =
-                new ESSimpleInvoiceTestUtil(ADAbstractTest.injector).getSimpleInvoiceEntity();
+                new ADSimpleInvoiceTestUtil(ADAbstractTest.injector).getSimpleInvoiceEntity();
 
         return simpleInvoice;
     }

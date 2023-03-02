@@ -20,7 +20,7 @@ package com.premiumminds.billy.andorra.test.services.jpa;
 
 import com.premiumminds.billy.andorra.persistence.entities.ADCustomerEntity;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
-import com.premiumminds.billy.andorra.test.util.ESCustomerTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADCustomerTestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +38,7 @@ public class TestJPAESCustomer extends ESJPAAbstractTest {
 
             @Override
             public Void runTransaction() throws Exception {
-                final ESCustomerTestUtil customer = new ESCustomerTestUtil(ADAbstractTest.injector);
+                final ADCustomerTestUtil customer = new ADCustomerTestUtil(ADAbstractTest.injector);
                 DAOADCustomer daoESCustomer = ADAbstractTest.injector.getInstance(DAOADCustomer.class);
 
                 ADCustomerEntity newCustomer = customer.getCustomerEntity();
