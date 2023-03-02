@@ -20,7 +20,7 @@ package com.premiumminds.billy.andorra.services.builders.impl;
 
 import com.premiumminds.billy.andorra.persistence.entities.ADBusinessEntity;
 import com.premiumminds.billy.andorra.services.entities.ADBusiness;
-import com.premiumminds.billy.andorra.util.ESFinancialValidator;
+import com.premiumminds.billy.andorra.util.ADFinancialValidator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -52,11 +52,11 @@ public class ADBusinessBuilderImpl<TBuilder extends ADBusinessBuilderImpl<TBuild
     @NotOnUpdate
     public TBuilder setFinancialID(String id, String isoCountryCode) throws InvalidTaxIdentificationNumberException {
         BillyValidator.notBlank(id, BusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
-        ESFinancialValidator validator = new ESFinancialValidator(id);
+        ADFinancialValidator validator = new ADFinancialValidator(id);
 
         BillyValidator.notBlank(isoCountryCode, BusinessBuilderImpl.LOCALIZER.getString("field.financial_id_iso_country_code"));
 
-        if (ESFinancialValidator.ES_COUNTRY_CODE.equals(isoCountryCode) && !validator.isValid()) {
+        if (ADFinancialValidator.AD_COUNTRY_CODE.equals(isoCountryCode) && !validator.isValid()) {
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setFinancialID(id);

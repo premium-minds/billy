@@ -19,7 +19,7 @@
 package com.premiumminds.billy.andorra.services.builders.impl;
 
 import com.premiumminds.billy.andorra.persistence.entities.ADCustomerEntity;
-import com.premiumminds.billy.andorra.util.ESFinancialValidator;
+import com.premiumminds.billy.andorra.util.ADFinancialValidator;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
@@ -54,9 +54,9 @@ public class ADCustomerBuilderImpl<TBuilder extends ADCustomerBuilderImpl<TBuild
         BillyValidator.notBlank(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
         BillyValidator.notBlank(number, CustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number_iso_country_code"));
 
-        ESFinancialValidator validator = new ESFinancialValidator(number);
+        ADFinancialValidator validator = new ADFinancialValidator(number);
 
-        if (ESFinancialValidator.ES_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
+        if (ADFinancialValidator.AD_COUNTRY_CODE.equals(countryCode) && !validator.isValid()) {
             throw new InvalidTaxIdentificationNumberException();
         }
         this.getTypeInstance().setTaxRegistrationNumber(number);
