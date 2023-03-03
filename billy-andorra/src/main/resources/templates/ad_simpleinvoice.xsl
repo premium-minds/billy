@@ -20,12 +20,12 @@
 
 -->
 <xsl:stylesheet version="1.1"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:fo="http://www.w3.org/1999/XSL/Format"
 	exclude-result-prefixes="fo">
 <xsl:template match="invoice">
 <fo:root xmlns:fo="http://www.w3.org/1999/XSL/Format">
-  <fo:layout-master-set> 
+  <fo:layout-master-set>
      <fo:simple-page-master master-name="A4" page-height="297mm" page-width="210mm" margin-top="5mm" margin-bottom="1cm" margin-left="1cm" margin-right="1cm">
       <fo:region-body margin-top="1cm" margin-left="1.5cm" margin-right="1.5cm" margin-bottom="1.5cm"/>
       <fo:region-before extent="0.5cm"/>
@@ -53,10 +53,10 @@
         &#xa0;<xsl:value-of select="./business/address/region" />
         <fo:block />
         NIF: <xsl:value-of select="./business/financialId" />
-        
+
         <!-- business contacts -->
         <fo:block font-size="8pt">
-          Tel: <xsl:value-of select="./business/contacts/phNo" /> - 
+          Tel: <xsl:value-of select="./business/contacts/phNo" /> -
           Fax: <xsl:value-of select="./business/contacts/faxNo" />
           <fo:block />
           Email: <xsl:value-of select="./business/contacts/email" />
@@ -76,13 +76,13 @@
                   <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentMechanism">
-                      Medio de Pago: <xsl:value-of select="paymentMechanism" />
+                      Mitjà de Pagament: <xsl:value-of select="paymentMechanism" />
                     </xsl:when>
                   </xsl:choose>
                   <!-- <fo:block />
                   <xsl:choose>
                     <xsl:when test="paymentSettlement">
-                      Condiciones de Pago: <xsl:value-of select="paymentSettlement" />
+                      Condicions de Pagament: <xsl:value-of select="paymentSettlement" />
                     </xsl:when>
                   </xsl:choose>-->
                 </fo:block>
@@ -97,7 +97,7 @@
                       <xsl:value-of select="./customer/address/details" />
                       <fo:block />
                       <xsl:value-of select="./customer/address/postalcode" /> &#xa0;
-                      <xsl:value-of select="./customer/address/region" /> &#xa0; 
+                      <xsl:value-of select="./customer/address/region" /> &#xa0;
                       <xsl:value-of select="./customer/address/country" />
                     </fo:block>
                   </fo:table-cell>
@@ -111,7 +111,7 @@
       <!--invoice info block-->
       <fo:block margin-top="6mm" margin-bottom="4mm" font-size="9pt">
         <fo:block margin-bottom="2mm" font-weight="bold">
-          Factura Simplificada nº: <xsl:value-of select="id" />
+          Factura Simplificada núm.: <xsl:value-of select="id" />
         </fo:block>
         <fo:table width="100%">
           <fo:table-body>
@@ -119,13 +119,13 @@
             <fo:table-row text-align="center" font-size="8pt">
                   <fo:table-cell>
                     <fo:block>
-                      Fecha de emisión:
+                      Data d’emissió:
                     </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
                       <xsl:choose>
-                        <xsl:when test="dueDate">Fecha de vencimiento:</xsl:when>
+                        <xsl:when test="dueDate">Data de venciment:</xsl:when>
                         <xsl:otherwise>&#xa0;</xsl:otherwise>
                       </xsl:choose>
                     </fo:block>
@@ -173,27 +173,27 @@
             <fo:table-row border-bottom-style="solid" border-top-style="solid" text-align="center" font-weight="bold">
                   <fo:table-cell>
                     <fo:block>
-                        Código
+                        Codi
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Descripción
+                        Descripció
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Cant.
+                        Quant.
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        Precio Unit.
+                        Preu Unit.
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
                     <fo:block>
-                        IVA
+                        IGI
                       </fo:block>
                   </fo:table-cell>
                   <fo:table-cell>
@@ -260,17 +260,17 @@
                   <fo:table-row border-bottom-style="solid" text-align="center">
                     <fo:table-cell>
                       <fo:block text-align="left">
-                          Base Imponible
+                          Base Imposable
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block text-align="right">
-                          Importe del IVA
+                          Import de l'IGI
                         </fo:block>
                     </fo:table-cell>
                     <fo:table-cell>
                       <fo:block>
-                          Tipo
+                          Tipus
                         </fo:block>
                     </fo:table-cell>
                   </fo:table-row>
@@ -305,14 +305,14 @@
                     <fo:table-row border-bottom="solid">
                       <fo:table-cell text-align="left">
                         <fo:block>
-                          Resumo da Fatura:
+                          Resum de la Factura Simplificada:
                         </fo:block>
                       </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
                       <fo:table-cell padding-top="1mm" text-align="left">
                         <fo:block>
-                          Total Líquido
+                          Total Líquid
                         </fo:block>
                       </fo:table-cell>
                       <fo:table-cell padding-top="1mm" text-align="right">
@@ -324,7 +324,7 @@
                     <fo:table-row>
                       <fo:table-cell padding-top="1mm" text-align="left">
                         <fo:block>
-                          Total IVA
+                          Total IGI
                         </fo:block>
                       </fo:table-cell>
                       <fo:table-cell padding-top="1mm" text-align="right">
@@ -357,10 +357,10 @@
           <fo:inline/>
           <fo:footnote-body>
             <fo:block text-align="center" font-size="6pt">
-              PROCESADO POR PROGRAMA
+              PROCESSAT PER PROGRAMA
             </fo:block>
           </fo:footnote-body>
-      </fo:footnote>  
+      </fo:footnote>
     </fo:block>
     </fo:flow>
   </fo:page-sequence>

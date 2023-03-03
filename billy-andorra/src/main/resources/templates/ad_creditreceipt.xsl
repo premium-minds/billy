@@ -84,7 +84,7 @@
 											<fo:block />
 											<xsl:choose>
 												<xsl:when test="paymentMechanism">
-													Medio de Pago:
+													Mitjà de Pagament:
 													<xsl:value-of select="paymentMechanism" />
 												</xsl:when>
 											</xsl:choose>
@@ -98,7 +98,7 @@
 					<!--credit receipt info block -->
 					<fo:block margin-top="6mm" margin-bottom="4mm" font-size="9pt">
 						<fo:block margin-bottom="2mm" font-weight="bold">
-							Recibo de Abono nº:
+							Rebut d'Abonament núm.:
 							<xsl:value-of select="id" />
 						</fo:block>
 						<fo:table width="100%">
@@ -107,14 +107,14 @@
 								<fo:table-row text-align="center" font-size="8pt">
 									<fo:table-cell text-align="left">
 										<fo:block>
-											Fecha de emisión:
+											Data d’emissió:
 										</fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
 										<fo:block>
 											<xsl:choose>
 												<xsl:when test="dueDate">
-													Fecha de vencimiento:
+													Data de venciment:
 												</xsl:when>
 												<xsl:otherwise>
 													&#xa0;
@@ -154,8 +154,7 @@
 
 					<!--products info block -->
 					<fo:block font-size="8pt" margin-top="3mm" margin-bottom="4mm">
-						<fo:block font-weight="bold" font-size="6pt">Detalles de
-							Pago</fo:block>
+						<fo:block font-weight="bold" font-size="6pt">Detalls del pagament</fo:block>
 						<fo:table width="100%">
 							<fo:table-column column-width="25mm" />
 							<fo:table-column column-width="65mm" />
@@ -169,27 +168,27 @@
 									border-top-style="solid" text-align="center" font-weight="bold">
 									<fo:table-cell>
 										<fo:block>
-											Código
+											Codi
 										</fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
 										<fo:block>
-											Descripción
+											Descripció
 										</fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
 										<fo:block>
-											Cant.
+											Quant.
 										</fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
 										<fo:block>
-											Precio Unit.
+											Preu Unit.
 										</fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
 										<fo:block>
-											IVA
+											IGI
 										</fo:block>
 									</fo:table-cell>
 									<fo:table-cell>
@@ -213,7 +212,7 @@
 											text-align="left">
 											<fo:block vertical-align="middle">
 												<xsl:value-of select="description" />
-												 - Recibo de Abono para el recibo nº 
+												 - Rebut d'Abonament per al rebut núm.
 												<xsl:value-of select="./receipt/id" />
 											</fo:block>
 										</fo:table-cell>

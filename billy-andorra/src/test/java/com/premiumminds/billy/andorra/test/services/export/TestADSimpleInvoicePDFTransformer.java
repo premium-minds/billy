@@ -55,7 +55,7 @@ import org.mockito.Mockito;
 
 public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/es_simpleinvoice.xsl";
+    public static final String XSL_PATH = "src/main/resources/templates/ad_simpleinvoice.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private Injector mockedInjector;

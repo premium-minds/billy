@@ -68,7 +68,7 @@ import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
 
 public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/es_creditreceipt.xsl";
+    public static final String XSL_PATH = "src/main/resources/templates/ad_creditreceipt.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private Injector mockedInjector;

@@ -69,7 +69,7 @@ import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
 
 public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/es_creditnote.xsl";
+    public static final String XSL_PATH = "src/main/resources/templates/ad_creditnote.xsl";
     public static final String LOGO_PATH = "src/main/resources/logoBig.png";
     private Injector mockedInjector;
     private ADCreditNotePDFFOPTransformer transformer;

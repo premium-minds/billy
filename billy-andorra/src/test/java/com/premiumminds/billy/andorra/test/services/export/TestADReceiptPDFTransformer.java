@@ -55,7 +55,7 @@ import org.mockito.Mockito;
 
 public class TestADReceiptPDFTransformer extends ADPersistencyAbstractTest {
 
-    private static final String XSL_PATH = "src/main/resources/templates/es_receipt.xsl";
+    private static final String XSL_PATH = "src/main/resources/templates/ad_receipt.xsl";
     private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private ADReceiptTestUtil receipts;
