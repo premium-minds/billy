@@ -37,9 +37,12 @@ public class ADManualCreditReceiptBuilderImpl<TBuilder extends ADManualCreditRec
 {
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADManualCreditReceiptBuilderImpl(
-		TDAO daoESCreditReceipt, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-		DAOADSupplier daoESSupplier) {
-        super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
+		TDAO daoADCreditReceipt,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADCreditReceipt, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override
@@ -55,7 +58,7 @@ public class ADManualCreditReceiptBuilderImpl<TBuilder extends ADManualCreditRec
     }
 
     @Override
-    protected void validateESInstance(ADGenericInvoiceEntity i) {
+    protected void validateADInstance(ADGenericInvoiceEntity i) {
         super.validateDate();
 
         BillyValidator.mandatory(i.getSourceId(), LOCALIZER.getString("field.source"));

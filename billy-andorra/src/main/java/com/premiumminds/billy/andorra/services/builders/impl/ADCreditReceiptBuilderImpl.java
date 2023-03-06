@@ -40,9 +40,12 @@ public class ADCreditReceiptBuilderImpl<TBuilder extends ADCreditReceiptBuilderI
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADCreditReceiptBuilderImpl(
-		TDAO daoESCreditReceipt, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-		DAOADSupplier daoESSupplier) {
-        super(daoESCreditReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
+		TDAO daoADCreditReceipt,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADCreditReceipt, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override
@@ -58,7 +61,7 @@ public class ADCreditReceiptBuilderImpl<TBuilder extends ADCreditReceiptBuilderI
     }
 
     @Override
-    protected void validateESInstance(ADGenericInvoiceEntity i) {
+    protected void validateADInstance(ADGenericInvoiceEntity i) {
         super.validateDate();
 
         BillyValidator.mandatory(i.getSourceId(), ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.source"));

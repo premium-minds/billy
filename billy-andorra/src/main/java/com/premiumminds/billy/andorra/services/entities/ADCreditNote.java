@@ -33,9 +33,12 @@ public interface ADCreditNote extends ADGenericInvoice {
 
         @Inject
         public Builder(
-			DAOADCreditNote daoESCreditNote, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-			DAOADSupplier daoESSupplier) {
-            super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
+			DAOADCreditNote daoADCreditNote,
+			DAOADBusiness daoADBusiness,
+			DAOADCustomer daoADCustomer,
+			DAOADSupplier daoADSupplier)
+		{
+            super(daoADCreditNote, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }
 
@@ -45,9 +48,12 @@ public interface ADCreditNote extends ADGenericInvoice {
 
         @Inject
         public ManualBuilder(
-			DAOADCreditNote daoESCreditNote, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-			DAOADSupplier daoESSupplier) {
-            super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
+			DAOADCreditNote daoADCreditNote,
+			DAOADBusiness daoADBusiness,
+			DAOADCustomer daoADCustomer,
+			DAOADSupplier daoADSupplier)
+		{
+            super(daoADCreditNote, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }
 

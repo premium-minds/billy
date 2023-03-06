@@ -29,8 +29,8 @@ public interface ADShippingPoint extends ShippingPoint {
     public static class Builder extends ADShippingPointBuilderImpl<Builder, ADShippingPoint> {
 
         @Inject
-        public Builder(DAOADShippingPoint daoESShippingPoint) {
-            super(daoESShippingPoint);
+        public Builder(DAOADShippingPoint daoADShippingPoint) {
+            super(daoADShippingPoint);
         }
     }
 }

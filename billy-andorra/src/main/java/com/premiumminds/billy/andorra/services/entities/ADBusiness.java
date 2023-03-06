@@ -30,8 +30,8 @@ public interface ADBusiness extends Business {
     public static class Builder extends ADBusinessBuilderImpl<Builder, ADBusiness> {
 
         @Inject
-        public Builder(DAOADBusiness daoESBusiness, DAOADRegionContext daoESRegionContext) {
-            super(daoESBusiness, daoESRegionContext);
+        public Builder(DAOADBusiness daoADBusiness, DAOADRegionContext daoADRegionContext) {
+            super(daoADBusiness, daoADRegionContext);
         }
     }
 }

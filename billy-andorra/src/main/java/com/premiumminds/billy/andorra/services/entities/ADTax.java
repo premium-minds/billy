@@ -30,8 +30,8 @@ public interface ADTax extends Tax {
     public static class Builder extends ADTaxBuilderImpl<Builder, ADTax> {
 
         @Inject
-        public Builder(DAOADTax daoESTax, DAOADRegionContext daoESRegionContext) {
-            super(daoESTax, daoESRegionContext);
+        public Builder(DAOADTax daoADTax, DAOADRegionContext daoADRegionContext) {
+            super(daoADTax, daoADRegionContext);
         }
 
     }

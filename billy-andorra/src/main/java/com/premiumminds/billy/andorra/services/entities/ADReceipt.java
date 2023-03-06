@@ -36,9 +36,12 @@ public interface ADReceipt extends ADGenericInvoice {
 
         @Inject
         public Builder(
-			DAOADReceipt daoESInvoice, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-			DAOADSupplier daoESSupplier) {
-            super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+			DAOADReceipt daoADInvoice,
+			DAOADBusiness daoADBusiness,
+			DAOADCustomer daoADCustomer,
+			DAOADSupplier daoADSupplier)
+		{
+            super(daoADInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }
 

@@ -45,9 +45,13 @@ public class ADCreditReceiptEntryBuilderImpl<TBuilder extends ADCreditReceiptEnt
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public ADCreditReceiptEntryBuilderImpl(
-		DAOADCreditReceiptEntry daoESCreditReceiptEntry, DAOADReceipt daoESReceipt,
-		DAOADTax daoESTax, DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-        super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct, daoESRegionContext);
+		DAOADCreditReceiptEntry daoADCreditReceiptEntry,
+		DAOADReceipt daoADReceipt,
+		DAOADTax daoADTax,
+		DAOADProduct daoADProduct,
+		DAOADRegionContext daoADRegionContext)
+	{
+        super(daoADCreditReceiptEntry, daoADReceipt, daoADTax, daoADProduct, daoADRegionContext);
     }
 
     @Override

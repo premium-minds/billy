@@ -49,9 +49,9 @@ public class ADFinancialValidator extends FinancialValidator {
 			}
 
 			if((firstLetter == 'A' || firstLetter == 'L')
-				&& !(numeroIdentificacionAdministrativo >= 700.000 && numeroIdentificacionAdministrativo < 800.000)){
+				&& !(numeroIdentificacionAdministrativo >= 700_000 && numeroIdentificacionAdministrativo < 800_000)){
 				return false;
-			} else if (firstLetter == 'F' && !(numeroIdentificacionAdministrativo >= 0 && numeroIdentificacionAdministrativo < 700.000)) {
+			} else if (firstLetter == 'F' && !(numeroIdentificacionAdministrativo >= 0 && numeroIdentificacionAdministrativo < 700_000)) {
 				return false;
 			} else {
 				return true;

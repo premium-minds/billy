@@ -35,8 +35,8 @@ public class ADContactBuilderImpl<TBuilder extends ADContactBuilderImpl<TBuilder
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    public ADContactBuilderImpl(DAOADContact daoESContact) {
-        super(daoESContact);
+    public ADContactBuilderImpl(DAOADContact daoADContact) {
+        super(daoADContact);
     }
 
     @Override

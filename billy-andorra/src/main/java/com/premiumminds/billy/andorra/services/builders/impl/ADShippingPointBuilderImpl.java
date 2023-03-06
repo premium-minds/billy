@@ -36,8 +36,8 @@ public class ADShippingPointBuilderImpl<TBuilder extends ADShippingPointBuilderI
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    public ADShippingPointBuilderImpl(DAOADShippingPoint daoESShippingPoint) {
-        super(daoESShippingPoint);
+    public ADShippingPointBuilderImpl(DAOADShippingPoint daoADShippingPoint) {
+        super(daoADShippingPoint);
     }
 
     @Override

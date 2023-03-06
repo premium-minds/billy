@@ -45,9 +45,14 @@ public class ADManualEntryBuilderImpl<TBuilder extends ADManualEntryBuilderImpl<
     implements ADManualInvoiceEntryBuilder<TBuilder, TEntry, TInvoice>
 {
 
-    public ADManualEntryBuilderImpl(TDAOEntry daoESEntry, TDAOInvoice daoESInvoice, DAOADTax daoESTax,
-									DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-        super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
+    public ADManualEntryBuilderImpl(
+		TDAOEntry daoADEntry,
+		TDAOInvoice daoADInvoice,
+		DAOADTax daoADTax,
+		DAOADProduct daoADProduct,
+		DAOADRegionContext daoADRegionContext)
+	{
+        super(daoADEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
     @Override

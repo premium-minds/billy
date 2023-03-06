@@ -32,8 +32,8 @@ public interface ADPayment extends Payment {
     public static class Builder extends ADPaymentBuilderImpl<Builder, ADPayment> {
 
         @Inject
-        public Builder(DAOADPayment daoESPayment) {
-            super(daoESPayment);
+        public Builder(DAOADPayment daoADPayment) {
+            super(daoADPayment);
         }
 
     }

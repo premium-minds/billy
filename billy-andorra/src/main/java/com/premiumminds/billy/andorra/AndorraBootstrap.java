@@ -99,7 +99,7 @@ public class AndorraBootstrap {
                     ADAddress.Builder addressBuilder = dependencyInjector.getInstance(ADAddress.Builder.class);
                     ADContact.Builder contactBuilder = dependencyInjector.getInstance(ADContact.Builder.class);
 
-                    // Spain Contexts
+                    // Andorra Contexts
                     final ADRegionContextEntity CONTEXT_ANDORRA = this.buildContextEntity(
 						daoADRegionContext, contextBuilder, "Andorra", "The Context for the country Andorra",
 						null, Config.Key.Context.Andorra.UUID);
@@ -171,9 +171,19 @@ public class AndorraBootstrap {
                 }
 
                 private ADTaxEntity buildTaxEntity(
-					DAOADTax daoESTax, ADTax.Builder taxBuilder, String taxCode,
-					ADRegionContextEntity context, Currency currency, String description, String designation,
-					Tax.TaxRateType type, Date validFrom, Date validTo, String valueKey, String key) {
+					DAOADTax daoADTax,
+					ADTax.Builder taxBuilder,
+					String taxCode,
+					ADRegionContextEntity context,
+					Currency currency,
+					String description,
+					String designation,
+					Tax.TaxRateType type,
+					Date validFrom,
+					Date validTo,
+					String valueKey,
+					String key)
+				{
 
                     BigDecimal amount = new BigDecimal(configuration.get(valueKey));
 
@@ -186,15 +196,19 @@ public class AndorraBootstrap {
 
                     tax.setUID(configuration.getUID(key));
 
-                    daoESTax.create(tax);
+                    daoADTax.create(tax);
 
                     return tax;
                 }
 
                 private ADRegionContextEntity buildContextEntity(
-					DAOADRegionContext daoESRegionContext,
-					Builder contextBuilder, String name, String description, StringID<Context> parentUID,
-					String key) {
+					DAOADRegionContext daoADRegionContext,
+					Builder contextBuilder,
+					String name,
+					String description,
+					StringID<Context> parentUID,
+					String key)
+				{
 
                     contextBuilder.clear();
 
@@ -204,7 +218,7 @@ public class AndorraBootstrap {
 
                     context.setUID(configuration.getUID(key));
 
-                    daoESRegionContext.create(context);
+                    daoADRegionContext.create(context);
 
                     return context;
                 }

@@ -30,8 +30,8 @@ public interface ADCustomer extends Customer {
     public static class Builder extends ADCustomerBuilderImpl<Builder, ADCustomer> {
 
         @Inject
-        public Builder(DAOADCustomer daoESCustomer, DAOADContact daoESContact) {
-            super(daoESCustomer, daoESContact);
+        public Builder(DAOADCustomer daoADCustomer, DAOADContact daoADContact) {
+            super(daoADCustomer, daoADContact);
         }
     }
 

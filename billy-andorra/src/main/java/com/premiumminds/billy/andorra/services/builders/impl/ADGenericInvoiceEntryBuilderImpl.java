@@ -44,9 +44,14 @@ public class ADGenericInvoiceEntryBuilderImpl<TBuilder extends ADGenericInvoiceE
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    public ADGenericInvoiceEntryBuilderImpl(TDAOEntry daoESGenericInvoiceEntry, TDAOInvoice daoESGenericInvoice,
-											DAOADTax daoESTax, DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-        super(daoESGenericInvoiceEntry, daoESGenericInvoice, daoESTax, daoESProduct, daoESRegionContext);
+    public ADGenericInvoiceEntryBuilderImpl(
+		TDAOEntry daoADGenericInvoiceEntry,
+		TDAOInvoice daoADGenericInvoice,
+		DAOADTax daoADTax,
+		DAOADProduct daoADProduct,
+		DAOADRegionContext daoADRegionContext)
+	{
+        super(daoADGenericInvoiceEntry, daoADGenericInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
     @Override

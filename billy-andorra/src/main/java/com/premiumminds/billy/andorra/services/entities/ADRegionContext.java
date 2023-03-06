@@ -29,8 +29,8 @@ public interface ADRegionContext extends Context {
     public static class Builder extends ADRegionContextBuilderImpl<Builder, ADRegionContext> {
 
         @Inject
-        public Builder(DAOADRegionContext daoESRegionContext) {
-            super(daoESRegionContext);
+        public Builder(DAOADRegionContext daoADRegionContext) {
+            super(daoADRegionContext);
         }
     }
 

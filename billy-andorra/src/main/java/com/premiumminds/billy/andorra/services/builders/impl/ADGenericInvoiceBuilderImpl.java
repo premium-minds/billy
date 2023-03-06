@@ -41,9 +41,12 @@ public class ADGenericInvoiceBuilderImpl<TBuilder extends ADGenericInvoiceBuilde
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADGenericInvoiceBuilderImpl(
-		TDAO daoESGenericInvoice, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-		DAOADSupplier daoESSupplier) {
-        super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+		TDAO daoADGenericInvoice,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADGenericInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override
@@ -94,10 +97,10 @@ public class ADGenericInvoiceBuilderImpl<TBuilder extends ADGenericInvoiceBuilde
     protected void validateInstance() throws BillyValidationException {
         ADGenericInvoiceEntity i = this.getTypeInstance();
         super.validateValues();
-        this.validateESInstance(i);
+        this.validateADInstance(i);
     }
 
-    protected void validateESInstance(ADGenericInvoiceEntity i) {
+    protected void validateADInstance(ADGenericInvoiceEntity i) {
         super.validateDate();
         BillyValidator.<Object>mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
 

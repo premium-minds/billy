@@ -36,8 +36,8 @@ public class ADAddressBuilderImpl<TBuilder extends ADAddressBuilderImpl<TBuilder
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    protected ADAddressBuilderImpl(DAOADAddress daoESAddress) {
-        super(daoESAddress);
+    protected ADAddressBuilderImpl(DAOADAddress daoADAddress) {
+        super(daoADAddress);
     }
 
     @Override

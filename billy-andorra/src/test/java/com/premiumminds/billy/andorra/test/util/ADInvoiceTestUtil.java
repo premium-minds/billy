@@ -80,10 +80,10 @@ public class ADInvoiceTestUtil {
         BigDecimal price = new BigDecimal("0.450");
         ADInvoice.Builder invoiceBuilder = this.injector.getInstance(ADInvoice.Builder.class);
 
-        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+        DAOADCustomer daoADCustomer = this.injector.getInstance(DAOADCustomer.class);
 
         ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoADCustomer.create(customerEntity).getUID();
 
         ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
         invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, price);
@@ -101,10 +101,10 @@ public class ADInvoiceTestUtil {
         BigDecimal tax = new BigDecimal("0.078");
         ADInvoice.ManualBuilder invoiceBuilder = this.injector.getInstance(ADInvoice.ManualBuilder.class);
 
-        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+        DAOADCustomer daoADCustomer = this.injector.getInstance(DAOADCustomer.class);
 
         ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoADCustomer.create(customerEntity).getUID();
 
         ADInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry.getManualInvoiceEntryBuilder()
 																			.setUnitAmount(AmountType.WITH_TAX, price).setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
@@ -124,10 +124,10 @@ public class ADInvoiceTestUtil {
         BigDecimal entriesPrice = new BigDecimal("16.0145");
         ADInvoice.Builder invoiceBuilder = this.injector.getInstance(ADInvoice.Builder.class);
 
-        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+        DAOADCustomer daoADCustomer = this.injector.getInstance(DAOADCustomer.class);
 
         ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoADCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
@@ -147,10 +147,10 @@ public class ADInvoiceTestUtil {
         BigDecimal entriesPrice = new BigDecimal("16.0145");
         ADInvoice.Builder invoiceBuilder = this.injector.getInstance(ADInvoice.Builder.class);
 
-        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+        DAOADCustomer daoADCustomer = this.injector.getInstance(DAOADCustomer.class);
 
         ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoADCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
@@ -170,10 +170,10 @@ public class ADInvoiceTestUtil {
         BigDecimal entriesPrice = new BigDecimal("0.355555");
         ADInvoice.Builder invoiceBuilder = this.injector.getInstance(ADInvoice.Builder.class);
 
-        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+        DAOADCustomer daoADCustomer = this.injector.getInstance(DAOADCustomer.class);
 
         ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoADCustomer.create(customerEntity).getUID();
 
         for (int i = 0; i < 9; i++) {
             ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();

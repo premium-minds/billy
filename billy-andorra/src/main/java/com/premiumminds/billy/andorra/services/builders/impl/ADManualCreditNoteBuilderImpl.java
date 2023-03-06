@@ -35,9 +35,12 @@ public class ADManualCreditNoteBuilderImpl<TBuilder extends ADManualCreditNoteBu
 {
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADManualCreditNoteBuilderImpl(
-		TDAO daoESCreditNote, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-		DAOADSupplier daoESSupplier) {
-        super(daoESCreditNote, daoESBusiness, daoESCustomer, daoESSupplier);
+		TDAO daoADCreditNote,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADCreditNote, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override

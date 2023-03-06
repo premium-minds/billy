@@ -42,9 +42,12 @@ public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderI
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADSimpleInvoiceBuilderImpl(
-		TDAO daoESSimpleInvoice, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-		DAOADSupplier daoESSupplier) {
-        super(daoESSimpleInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+		TDAO daoADSimpleInvoice,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADSimpleInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override

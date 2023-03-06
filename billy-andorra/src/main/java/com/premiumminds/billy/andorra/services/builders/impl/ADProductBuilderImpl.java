@@ -37,8 +37,8 @@ public class ADProductBuilderImpl<TBuilder extends ADProductBuilderImpl<TBuilder
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    public ADProductBuilderImpl(DAOADProduct daoESProduct, DAOADTax daoESTax) {
-        super(daoESProduct, daoESTax);
+    public ADProductBuilderImpl(DAOADProduct daoADProduct, DAOADTax daoADTax) {
+        super(daoADProduct, daoADTax);
     }
 
     @Override

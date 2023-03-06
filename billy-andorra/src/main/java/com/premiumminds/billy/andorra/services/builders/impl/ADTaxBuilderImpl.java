@@ -39,8 +39,8 @@ public class ADTaxBuilderImpl<TBuilder extends ADTaxBuilderImpl<TBuilder, TTax>,
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    public ADTaxBuilderImpl(DAOADTax daoESTax, DAOADRegionContext daoESContext) {
-        super(daoESTax, daoESContext);
+    public ADTaxBuilderImpl(DAOADTax daoADTax, DAOADRegionContext daoADContext) {
+        super(daoADTax, daoADContext);
     }
 
     @Override

@@ -43,8 +43,8 @@ public class ADSupplierBuilderImpl<TBuilder extends ADSupplierBuilderImpl<TBuild
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    public ADSupplierBuilderImpl(DAOADSupplier daoESSupplier) {
-        super(daoESSupplier);
+    public ADSupplierBuilderImpl(DAOADSupplier daoADSupplier) {
+        super(daoADSupplier);
     }
 
     @Override

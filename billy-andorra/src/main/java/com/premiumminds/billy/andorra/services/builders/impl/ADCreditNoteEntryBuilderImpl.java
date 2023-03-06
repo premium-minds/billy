@@ -45,9 +45,13 @@ public class ADCreditNoteEntryBuilderImpl<TBuilder extends ADCreditNoteEntryBuil
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public ADCreditNoteEntryBuilderImpl(
-		DAOADCreditNoteEntry daoESCreditNoteEntry, DAOADInvoice daoESInvoice,
-		DAOADTax daoESTax, DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-        super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
+		DAOADCreditNoteEntry daoADCreditNoteEntry,
+		DAOADInvoice daoADInvoice,
+		DAOADTax daoADTax,
+		DAOADProduct daoADProduct,
+		DAOADRegionContext daoADRegionContext)
+	{
+        super(daoADCreditNoteEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
     @Override
@@ -80,10 +84,10 @@ public class ADCreditNoteEntryBuilderImpl<TBuilder extends ADCreditNoteEntryBuil
 
         BillyValidator.mandatory(cn.getReason(), ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
 
-        this.ValidateESCreditNoteEntry(cn);
+        this.ValidateADCreditNoteEntry(cn);
     }
 
-    private void ValidateESCreditNoteEntry(ADCreditNoteEntryEntity cn) {
+    private void ValidateADCreditNoteEntry(ADCreditNoteEntryEntity cn) {
         if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
             throw new DuplicateCreditNoteException();
         }

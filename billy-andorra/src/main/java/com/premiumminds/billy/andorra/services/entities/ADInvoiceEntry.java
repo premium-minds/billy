@@ -33,9 +33,13 @@ public interface ADInvoiceEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public Builder(
-			DAOADInvoiceEntry daoESEntry, DAOADInvoice daoESInvoice, DAOADTax daoESTax,
-			DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-            super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
+			DAOADInvoiceEntry daoADEntry,
+			DAOADInvoice daoADInvoice,
+			DAOADTax daoADTax,
+			DAOADProduct daoADProduct,
+			DAOADRegionContext daoADRegionContext)
+		{
+            super(daoADEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
         }
     }
 
@@ -43,9 +47,13 @@ public interface ADInvoiceEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public ManualBuilder(
-			DAOADInvoiceEntry daoESEntry, DAOADInvoice daoESInvoice, DAOADTax daoESTax,
-			DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-            super(daoESEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
+			DAOADInvoiceEntry daoADEntry,
+			DAOADInvoice daoADInvoice,
+			DAOADTax daoADTax,
+			DAOADProduct daoADProduct,
+			DAOADRegionContext daoADRegionContext)
+		{
+            super(daoADEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
         }
     }
 }

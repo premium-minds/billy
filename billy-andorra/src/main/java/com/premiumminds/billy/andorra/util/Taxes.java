@@ -27,7 +27,7 @@ import com.premiumminds.billy.andorra.services.entities.ADTax;
 import com.premiumminds.billy.andorra.services.persistence.ADTaxPersistenceService;
 
 /**
- * Encapsulates all tax information for Billy ES-Module.
+ * Encapsulates all tax information for Billy AD-Module.
  */
 public class Taxes {
 

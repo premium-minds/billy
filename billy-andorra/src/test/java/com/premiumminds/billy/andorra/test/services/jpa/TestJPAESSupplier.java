@@ -39,11 +39,11 @@ public class TestJPAESSupplier extends ESJPAAbstractTest {
             @Override
             public Void runTransaction() throws Exception {
                 final ADSupplierTestUtil supplier = new ADSupplierTestUtil(ADAbstractTest.injector);
-                DAOADSupplier daoESSupplier = ADAbstractTest.injector.getInstance(DAOADSupplier.class);
+                DAOADSupplier daoADSupplier = ADAbstractTest.injector.getInstance(DAOADSupplier.class);
 
                 ADSupplierEntity newSupplier = supplier.getSupplierEntity();
 
-                daoESSupplier.create(newSupplier);
+                daoADSupplier.create(newSupplier);
 
                 return null;
             }

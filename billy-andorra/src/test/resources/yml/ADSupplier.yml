@@ -20,7 +20,7 @@
 uid : supplier_uid
 name : name
 taxRegistrationNumber : 11111111H
-taxRegistrationNumberCountry : ES
+taxRegistrationNumberCountry : AD
 mainAddress : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name
   number : number

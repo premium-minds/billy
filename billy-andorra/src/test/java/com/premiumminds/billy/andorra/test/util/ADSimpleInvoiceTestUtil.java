@@ -70,10 +70,10 @@ public class ADSimpleInvoiceTestUtil {
     public ADSimpleInvoice.Builder getSimpleInvoiceBuilder(ADBusinessEntity businessEntity, CLIENTTYPE clientType) {
         ADSimpleInvoice.Builder invoiceBuilder = this.injector.getInstance(ADSimpleInvoice.Builder.class);
 
-        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+        DAOADCustomer daoADCustomer = this.injector.getInstance(DAOADCustomer.class);
 
         ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
-        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        StringID<Customer> customerUID = daoADCustomer.create(customerEntity).getUID();
         for (int i = 0; i < ADSimpleInvoiceTestUtil.MAX_PRODUCTS; ++i) {
             ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
             invoiceBuilder.addEntry(invoiceEntryBuilder);

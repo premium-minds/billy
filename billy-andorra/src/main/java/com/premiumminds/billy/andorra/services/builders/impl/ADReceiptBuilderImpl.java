@@ -35,9 +35,13 @@ public class ADReceiptBuilderImpl<TBuilder extends ADReceiptBuilderImpl<TBuilder
         implements ADReceiptBuilder<TBuilder, TEntry, TDocument>
 {
 
-    public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADReceiptBuilderImpl(TDAO daoESReceipt,
-																								DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer, DAOADSupplier daoESSupplier) {
-        super(daoESReceipt, daoESBusiness, daoESCustomer, daoESSupplier);
+    public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADReceiptBuilderImpl(
+		TDAO daoADReceipt,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADReceipt, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override
@@ -53,7 +57,7 @@ public class ADReceiptBuilderImpl<TBuilder extends ADReceiptBuilderImpl<TBuilder
     }
 
     @Override
-    protected void validateESInstance(ADGenericInvoiceEntity i) {
+    protected void validateADInstance(ADGenericInvoiceEntity i) {
         super.validateDate();
 
         BillyValidator.mandatory(i.getSourceId(), LOCALIZER.getString("field.source"));

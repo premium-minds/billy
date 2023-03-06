@@ -29,8 +29,8 @@ public interface ADApplication extends Application {
     public static class Builder extends ADApplicationBuilderImpl<Builder, ADApplication> {
 
         @Inject
-        public Builder(DAOADApplication daoESApplication) {
-            super(daoESApplication);
+        public Builder(DAOADApplication daoADApplication) {
+            super(daoADApplication);
         }
 
     }

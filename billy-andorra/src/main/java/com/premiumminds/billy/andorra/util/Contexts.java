@@ -25,7 +25,7 @@ import com.premiumminds.billy.andorra.services.entities.ADRegionContext;
 import com.premiumminds.billy.andorra.services.persistence.ADRegionContextPersistenceService;
 
 /**
- * Encapsulates all Context information for Spain.
+ * Encapsulates all Context information for Andorra.
  */
 public class Contexts {
 

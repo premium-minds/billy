@@ -34,9 +34,13 @@ public interface ADCreditReceiptEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public Builder(
-			DAOADCreditReceiptEntry daoESCreditReceiptEntry, DAOADReceipt daoESReceipt, DAOADTax daoESTax,
-			DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-            super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct, daoESRegionContext);
+			DAOADCreditReceiptEntry daoADCreditReceiptEntry,
+			DAOADReceipt daoADReceipt,
+			DAOADTax daoADTax,
+			DAOADProduct daoADProduct,
+			DAOADRegionContext daoADRegionContext)
+		{
+            super(daoADCreditReceiptEntry, daoADReceipt, daoADTax, daoADProduct, daoADRegionContext);
         }
     }
 
@@ -46,9 +50,13 @@ public interface ADCreditReceiptEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public ManualBuilder(
-			DAOADCreditReceiptEntry daoESCreditReceiptEntry, DAOADReceipt daoESReceipt,
-			DAOADTax daoESTax, DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-            super(daoESCreditReceiptEntry, daoESReceipt, daoESTax, daoESProduct, daoESRegionContext);
+			DAOADCreditReceiptEntry daoADCreditReceiptEntry,
+			DAOADReceipt daoADReceipt,
+			DAOADTax daoADTax,
+			DAOADProduct daoADProduct,
+			DAOADRegionContext daoADRegionContext)
+		{
+            super(daoADCreditReceiptEntry, daoADReceipt, daoADTax, daoADProduct, daoADRegionContext);
         }
     }
 

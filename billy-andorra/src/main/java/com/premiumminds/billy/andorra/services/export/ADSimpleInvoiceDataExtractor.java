@@ -37,16 +37,16 @@ import com.premiumminds.billy.gin.services.export.impl.AbstractBillyDataExtracto
 public class ADSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<ADSimpleInvoiceData> {
 
-    private final DAOADSimpleInvoice daoESSimpleInvoice;
+    private final DAOADSimpleInvoice daoADSimpleInvoice;
 
     @Inject
     public ADSimpleInvoiceDataExtractor(DAOADSimpleInvoice daoADSimpleInvoice) {
-        this.daoESSimpleInvoice = daoADSimpleInvoice;
+        this.daoADSimpleInvoice = daoADSimpleInvoice;
     }
 
     @Override
     public ADSimpleInvoiceData extract(StringID<GenericInvoice> uid) throws ExportServiceException {
-        ADSimpleInvoiceEntity entity = this.daoESSimpleInvoice.get(uid);
+        ADSimpleInvoiceEntity entity = this.daoADSimpleInvoice.get(uid);
 
         if (entity == null) {
             throw new ExportServiceException("Unable to find entity with uid " + uid.toString() + " to be extracted");

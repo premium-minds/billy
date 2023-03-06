@@ -35,8 +35,8 @@ public class ADApplicationBuilderImpl<TBuilder extends ADApplicationBuilderImpl<
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    public ADApplicationBuilderImpl(DAOADApplication daoESApplication) {
-        super(daoESApplication);
+    public ADApplicationBuilderImpl(DAOADApplication daoADApplication) {
+        super(daoADApplication);
     }
 
     @Override

@@ -29,8 +29,8 @@ public interface ADSupplier extends Supplier {
     public static class Builder extends ADSupplierBuilderImpl<Builder, ADSupplier> {
 
         @Inject
-        public Builder(DAOADSupplier daoESSupplier) {
-            super(daoESSupplier);
+        public Builder(DAOADSupplier daoADSupplier) {
+            super(daoADSupplier);
         }
     }
 

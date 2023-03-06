@@ -43,9 +43,13 @@ public class ADManualCreditNoteEntryBuilderImpl<TBuilder extends ADManualCreditN
 {
 
     public ADManualCreditNoteEntryBuilderImpl(
-		DAOADCreditNoteEntry daoESCreditNoteEntry, DAOADInvoice daoESInvoice,
-		DAOADTax daoESTax, DAOADProduct daoESProduct, DAOADRegionContext daoESRegionContext) {
-        super(daoESCreditNoteEntry, daoESInvoice, daoESTax, daoESProduct, daoESRegionContext);
+		DAOADCreditNoteEntry daoADCreditNoteEntry,
+		DAOADInvoice daoADInvoice,
+		DAOADTax daoADTax,
+		DAOADProduct daoADProduct,
+		DAOADRegionContext daoADRegionContext)
+	{
+        super(daoADCreditNoteEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
     @Override

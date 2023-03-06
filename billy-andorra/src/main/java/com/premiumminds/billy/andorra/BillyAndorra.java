@@ -81,7 +81,7 @@ public class BillyAndorra {
     }
 
     /**
-     * Provides access to predefined taxes for Billy-Spain module.
+     * Provides access to predefined taxes for Billy-Andorra module.
      *
      * @return {@link Taxes}
      */

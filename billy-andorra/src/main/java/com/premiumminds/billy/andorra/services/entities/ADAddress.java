@@ -29,8 +29,8 @@ public interface ADAddress extends Address {
     public static class Builder extends ADAddressBuilderImpl<Builder, ADAddress> {
 
         @Inject
-        public Builder(DAOADAddress daoESAddress) {
-            super(daoESAddress);
+        public Builder(DAOADAddress daoADAddress) {
+            super(daoADAddress);
         }
     }
 }

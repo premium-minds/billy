@@ -62,7 +62,7 @@ mainContact : !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
   website : website_main
 website : website
 applications :
-  - !!com.premiumminds.billy.spain.test.fixtures.MockADApplicationEntity
+  - !!com.premiumminds.billy.andorra.test.fixtures.MockADApplicationEntity
     name : name_1
     version : version_1
     developerCompanyName : company_name_1
@@ -83,7 +83,7 @@ applications :
         fax : fax_1
         email : email_1
         website : website_1
-      - !!com.premiumminds.billy.spain.andorra.fixtures.MockADContactEntity
+      - !!com.premiumminds.billy.andorra.andorra.fixtures.MockADContactEntity
         name : contact_2
         telephone : telephone_2
         mobile : mobile_2

@@ -39,11 +39,11 @@ public class TestJPAESCustomer extends ESJPAAbstractTest {
             @Override
             public Void runTransaction() throws Exception {
                 final ADCustomerTestUtil customer = new ADCustomerTestUtil(ADAbstractTest.injector);
-                DAOADCustomer daoESCustomer = ADAbstractTest.injector.getInstance(DAOADCustomer.class);
+                DAOADCustomer daoADCustomer = ADAbstractTest.injector.getInstance(DAOADCustomer.class);
 
                 ADCustomerEntity newCustomer = customer.getCustomerEntity();
 
-                daoESCustomer.create(newCustomer);
+                daoADCustomer.create(newCustomer);
 
                 return null;
             }

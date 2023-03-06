@@ -44,9 +44,13 @@ public abstract class ADManualBuilderImpl<TBuilder extends ADManualBuilderImpl<T
         implements ADManualInvoiceBuilder<TBuilder, TEntry, TDocument>
 {
 
-    public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADManualBuilderImpl(TDAO daoESGenericInvoice,
-																							   DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer, DAOADSupplier daoESSupplier) {
-        super(daoESGenericInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+    public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADManualBuilderImpl(
+		TDAO daoADGenericInvoice,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADGenericInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override
@@ -92,7 +96,7 @@ public abstract class ADManualBuilderImpl<TBuilder extends ADManualBuilderImpl<T
     @Override
     protected void validateInstance() throws BillyValidationException {
         ADGenericInvoiceEntity i = this.getTypeInstance();
-        this.validateESInstance(i);
+        this.validateADInstance(i);
     }
 
 }

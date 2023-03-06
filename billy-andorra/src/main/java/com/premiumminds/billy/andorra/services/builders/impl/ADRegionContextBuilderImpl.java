@@ -34,8 +34,8 @@ public class ADRegionContextBuilderImpl<TBuilder extends ADRegionContextBuilderI
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    public ADRegionContextBuilderImpl(DAOADRegionContext daoESContext) {
-        super(daoESContext);
+    public ADRegionContextBuilderImpl(DAOADRegionContext daoADContext) {
+        super(daoADContext);
     }
 
     @Override

@@ -29,8 +29,8 @@ public interface ADContact extends Contact {
     public static class Builder extends ADContactBuilderImpl<Builder, ADContact> {
 
         @Inject
-        public Builder(DAOADContact daoESContact) {
-            super(daoESContact);
+        public Builder(DAOADContact daoADContact) {
+            super(daoADContact);
         }
 
     }

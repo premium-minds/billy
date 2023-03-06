@@ -36,11 +36,11 @@ public class ADPaymentBuilderImpl<TBuilder extends ADPaymentBuilderImpl<TBuilder
         extends PaymentBuilderImpl<TBuilder, TPayment> implements ADPaymentBuilder<TBuilder, TPayment>
 {
 
-    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/spain/i18n/FieldNames");
+    protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/andorra/i18n/FieldNames");
 
     @Inject
-    public ADPaymentBuilderImpl(DAOADPayment daoESPayment) {
-        super(daoESPayment);
+    public ADPaymentBuilderImpl(DAOADPayment daoADPayment) {
+        super(daoADPayment);
     }
 
     @Override

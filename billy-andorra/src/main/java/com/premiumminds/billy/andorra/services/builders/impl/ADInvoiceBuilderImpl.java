@@ -37,9 +37,13 @@ public class ADInvoiceBuilderImpl<TBuilder extends ADInvoiceBuilderImpl<TBuilder
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
-    public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADInvoiceBuilderImpl(TDAO daoESInvoice,
-																								DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer, DAOADSupplier daoESSupplier) {
-        super(daoESInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+    public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADInvoiceBuilderImpl(
+		TDAO daoADInvoice,
+		DAOADBusiness daoADBusiness,
+		DAOADCustomer daoADCustomer,
+		DAOADSupplier daoADSupplier)
+	{
+        super(daoADInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
     @Override

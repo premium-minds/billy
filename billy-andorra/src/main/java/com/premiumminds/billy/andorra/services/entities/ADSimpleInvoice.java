@@ -36,9 +36,12 @@ public interface ADSimpleInvoice extends ADInvoice {
 
         @Inject
         public Builder(
-			DAOADSimpleInvoice daoESSimpleInvoice, DAOADBusiness daoESBusiness, DAOADCustomer daoESCustomer,
-			DAOADSupplier daoESSupplier) {
-            super(daoESSimpleInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+			DAOADSimpleInvoice daoADSimpleInvoice,
+			DAOADBusiness daoADBusiness,
+			DAOADCustomer daoADCustomer,
+			DAOADSupplier daoADSupplier)
+		{
+            super(daoADSimpleInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }
 

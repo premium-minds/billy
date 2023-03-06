@@ -43,8 +43,8 @@ public class ADCustomerBuilderImpl<TBuilder extends ADCustomerBuilderImpl<TBuild
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     @Inject
-    protected ADCustomerBuilderImpl(DAOADCustomer daoESCustomer, DAOADContact daoESContact) {
-        super(daoESCustomer, daoESContact);
+    protected ADCustomerBuilderImpl(DAOADCustomer daoADCustomer, DAOADContact daoADContact) {
+        super(daoADCustomer, daoADContact);
     }
 
     @Override

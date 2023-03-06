@@ -30,8 +30,8 @@ public interface ADProduct extends Product {
     public static class Builder extends ADProductBuilderImpl<Builder, ADProduct> {
 
         @Inject
-        public Builder(DAOADProduct daoESProduct, DAOADTax daoESTax) {
-            super(daoESProduct, daoESTax);
+        public Builder(DAOADProduct daoADProduct, DAOADTax daoADTax) {
+            super(daoADProduct, daoADTax);
         }
     }
 }
