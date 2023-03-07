@@ -22,7 +22,7 @@ import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 
-public class ESJPAAbstractTest extends ADPersistencyAbstractTest {
+public class ADJPAAbstractTest extends ADPersistencyAbstractTest {
 
     public static void execute(final Injector injector, TransactionWrapper<?> transactionWrapper) throws Exception {
         transactionWrapper.execute();

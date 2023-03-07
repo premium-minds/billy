@@ -34,7 +34,7 @@ import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADInvoice;
 
-public class TestJPAESBusiness extends ESJPAAbstractTest {
+public class TestJPAADBusiness extends ADJPAAbstractTest {
 
     private TransactionWrapper<Void> transaction;
     private static final StringID<Business> BUSINESS_UID = StringID.fromValue("Biz");
@@ -50,7 +50,7 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
 
         @Override
         public Void call() throws Exception {
-            ESJPAAbstractTest.execute(this.injector, TestJPAESBusiness.this.transaction);
+            ADJPAAbstractTest.execute(this.injector, TestJPAADBusiness.this.transaction);
             return null;
         }
     }
@@ -61,7 +61,7 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
 
             @Override
             public Void runTransaction() throws Exception {
-                new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(TestJPAESBusiness.BUSINESS_UID);
+                new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(TestJPAADBusiness.BUSINESS_UID);
                 return null;
             }
         };
@@ -69,7 +69,7 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
 
     @Test
     public void doTest() throws Exception {
-        ESJPAAbstractTest.execute(ADAbstractTest.injector, this.transaction);
+        ADJPAAbstractTest.execute(ADAbstractTest.injector, this.transaction);
     }
 
     @Test
@@ -79,6 +79,6 @@ public class TestJPAESBusiness extends ESJPAAbstractTest {
         test.runThreads(new TestRunner(ADAbstractTest.injector));
 
         DAOADBusiness biz = ADAbstractTest.injector.getInstance(DAOADBusiness.class);
-        Assertions.assertTrue(biz.exists(TestJPAESBusiness.BUSINESS_UID));
+        Assertions.assertTrue(biz.exists(TestJPAADBusiness.BUSINESS_UID));
     }
 }

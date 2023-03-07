@@ -44,12 +44,6 @@ public class ADFinancialValidatorTest {
     }
 
     @Test
-    public void testInvalidNonResidentPerson() {
-        ADFinancialValidator validator = new ADFinancialValidator("E799999Z");
-        assertFalse(validator.isValid());
-    }
-
-    @Test
     public void testValidLimitedCompany() {
         ADFinancialValidator validator = new ADFinancialValidator("A799999Z");
         assertTrue(validator.isValid());

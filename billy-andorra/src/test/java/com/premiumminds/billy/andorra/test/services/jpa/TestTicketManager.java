@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestTicketManager extends ESJPAAbstractTest {
+public class TestTicketManager extends ADJPAAbstractTest {
 
     private static final String OBJECT_UID = "object_uid";
     private static final Date CREATION_DATE = new Date();

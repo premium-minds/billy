@@ -145,7 +145,7 @@ public class InvoiceIT {
 
         ADApplication.Builder applicationBuilder = billyAndorra.applications().builder();
         applicationBuilder.setDeveloperCompanyName("Developer Company Name")
-                .setDeveloperCompanyTaxIdentifier("L-123456-Z", "AD")
+                .setDeveloperCompanyTaxIdentifier("L700000Z", "AD")
                 .setName("Billy")
                 .setVersion("1.0")
                 .addContact(contactBuilder)
@@ -176,7 +176,7 @@ public class InvoiceIT {
                 .setMainContactUID(contactBuilder.build().getUID())
                 .setName("Business 1")
                 .setCommercialName("Business, INC")
-                .setFinancialID("L-123456-Z", "AD")
+                .setFinancialID("L723456Z", "AD")
                 .setAddress(addressBuilder)
                 .setBillingAddress(addressBuilder);
 
@@ -372,7 +372,7 @@ public class InvoiceIT {
 
         ADCustomer.Builder customerBuilder = billyAndorra.customers().builder();
         customerBuilder.setName("Customer name 1")
-                .setTaxRegistrationNumber("F-123456-Z", "AD")
+                .setTaxRegistrationNumber("F123456Z", "AD")
                 .addAddress(addressBuilder, true)
                 .setBillingAddress(addressBuilder)
                 .setShippingAddress(addressBuilder)

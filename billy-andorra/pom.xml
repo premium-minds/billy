@@ -29,7 +29,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- BILLY -->
 		<dependency>
 			<groupId>com.premiumminds</groupId>

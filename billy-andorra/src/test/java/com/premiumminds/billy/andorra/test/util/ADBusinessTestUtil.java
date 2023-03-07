@@ -38,7 +38,7 @@ import com.premiumminds.billy.andorra.util.Contexts;
 public class ADBusinessTestUtil {
 
     private static final String NAME = "Business";
-    private static final String FINANCIAL_ID = "L-123456-Z";
+    private static final String FINANCIAL_ID = "L799999Z";
     private static final String WEBSITE = "http://business.com";
     protected static final String AD_COUNTRY_CODE = "AD";
 

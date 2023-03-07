@@ -18,17 +18,17 @@
  */
 package com.premiumminds.billy.andorra.test.services.jpa;
 
-import com.premiumminds.billy.andorra.persistence.entities.ADCustomerEntity;
+import com.premiumminds.billy.andorra.persistence.entities.ADSupplierEntity;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
-import com.premiumminds.billy.andorra.test.util.ADCustomerTestUtil;
+import com.premiumminds.billy.andorra.test.util.ADSupplierTestUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADCustomer;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADInvoice;
+import com.premiumminds.billy.andorra.persistence.dao.DAOADSupplier;
 
-public class TestJPAESCustomer extends ESJPAAbstractTest {
+public class TestJPAADSupplier extends ADJPAAbstractTest {
 
     private TransactionWrapper<Void> transaction;
 
@@ -38,12 +38,12 @@ public class TestJPAESCustomer extends ESJPAAbstractTest {
 
             @Override
             public Void runTransaction() throws Exception {
-                final ADCustomerTestUtil customer = new ADCustomerTestUtil(ADAbstractTest.injector);
-                DAOADCustomer daoADCustomer = ADAbstractTest.injector.getInstance(DAOADCustomer.class);
+                final ADSupplierTestUtil supplier = new ADSupplierTestUtil(ADAbstractTest.injector);
+                DAOADSupplier daoADSupplier = ADAbstractTest.injector.getInstance(DAOADSupplier.class);
 
-                ADCustomerEntity newCustomer = customer.getCustomerEntity();
+                ADSupplierEntity newSupplier = supplier.getSupplierEntity();
 
-                daoADCustomer.create(newCustomer);
+                daoADSupplier.create(newSupplier);
 
                 return null;
             }
@@ -52,8 +52,8 @@ public class TestJPAESCustomer extends ESJPAAbstractTest {
     }
 
     @Test
-    public void testSimpleCustomerCreate() throws Exception {
-        ESJPAAbstractTest.execute(ADAbstractTest.injector, this.transaction);
+    public void doTest() throws Exception {
+        ADJPAAbstractTest.execute(ADAbstractTest.injector, this.transaction);
     }
 
 }

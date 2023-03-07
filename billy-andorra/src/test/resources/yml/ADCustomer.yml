@@ -19,7 +19,7 @@
 
 uid : uid
 name : name
-taxRegistrationNumber : F-123456-Z
+taxRegistrationNumber : F123456Z
 taxRegistrationNumberCountry : AD
 mainAddress : !!com.premiumminds.billy.andorra.test.fixtures.MockADAddressEntity
   streetName : street_name

@@ -22,7 +22,7 @@ operationalContext : !!com.premiumminds.billy.andorra.test.fixtures.MockADRegion
   name : opContext_name
   description : opContext_description
   regionCode : region_code
-taxId : L-123456-Z
+taxId : L799999Z
 taxIdCountry: AD
 name : name
 commercialName : commercial_name
@@ -83,7 +83,7 @@ applications :
         fax : fax_1
         email : email_1
         website : website_1
-      - !!com.premiumminds.billy.andorra.andorra.fixtures.MockADContactEntity
+      - !!com.premiumminds.billy.andorra.test.fixtures.MockADContactEntity
         name : contact_2
         telephone : telephone_2
         mobile : mobile_2

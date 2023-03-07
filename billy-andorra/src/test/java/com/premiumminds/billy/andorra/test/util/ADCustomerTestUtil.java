@@ -28,7 +28,7 @@ import com.premiumminds.billy.andorra.services.entities.ADCustomer;
 public class ADCustomerTestUtil {
 
     private static final String NAME = "Name";
-    private static final String TAX_NUMBER = "F-123456-Z";
+    private static final String TAX_NUMBER = "F123456Z";
     private static final Boolean SELF_BILLING_AGREE = false;
     protected static final String AD_COUNTRY_CODE = "AD";
 

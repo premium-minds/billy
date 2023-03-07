@@ -27,7 +27,7 @@ import com.premiumminds.billy.andorra.services.entities.ADSupplier;
 public class ADSupplierTestUtil {
 
     private static final Boolean SELF_BILLING = false;
-    private static final String NUMBER = "A-123456-Z";
+    private static final String NUMBER = "A798765Z";
     private static final String NAME = "Supplier";
     protected static final String AD_COUNTRY_CODE = "AD";
 
