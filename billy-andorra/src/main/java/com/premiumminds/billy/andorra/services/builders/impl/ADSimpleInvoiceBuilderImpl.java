@@ -42,11 +42,11 @@ public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderI
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADSimpleInvoiceBuilderImpl(
-		TDAO daoADSimpleInvoice,
-		DAOADBusiness daoADBusiness,
-		DAOADCustomer daoADCustomer,
-		DAOADSupplier daoADSupplier)
-	{
+        TDAO daoADSimpleInvoice,
+        DAOADBusiness daoADBusiness,
+        DAOADCustomer daoADCustomer,
+        DAOADSupplier daoADSupplier)
+    {
         super(daoADSimpleInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
@@ -66,7 +66,7 @@ public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderI
     protected void validateInstance() throws BillyValidationException {
         ADSimpleInvoiceEntity i = this.getTypeInstance();
         BillyValidator.mandatory(i.getClientType(),
-								 ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
+                                 ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();
 
         if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal(1000)) >= 0) {

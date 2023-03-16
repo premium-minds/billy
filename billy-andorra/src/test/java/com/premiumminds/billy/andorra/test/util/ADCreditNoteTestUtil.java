@@ -61,9 +61,9 @@ public class ADCreditNoteTestUtil {
         ADCreditNoteEntry.Builder creditNoteEntryBuilder = this.creditNoteEntry.getCreditNoteEntryBuilder(reference);
 
         return creditNoteBuilder.setBilled(ADCreditNoteTestUtil.BILLED).setCancelled(ADCreditNoteTestUtil.CANCELLED)
-								.setSelfBilled(ADCreditNoteTestUtil.SELFBILL).setDate(new Date())
-								.setSourceId(ADCreditNoteTestUtil.SOURCEID).addEntry(creditNoteEntryBuilder)
-								.setBusinessUID(reference.getBusiness().getUID()).setCustomerUID(reference.getCustomer().getUID())
-								.addPayment(this.payment.getPaymentBuilder());
+                                .setSelfBilled(ADCreditNoteTestUtil.SELFBILL).setDate(new Date())
+                                .setSourceId(ADCreditNoteTestUtil.SOURCEID).addEntry(creditNoteEntryBuilder)
+                                .setBusinessUID(reference.getBusiness().getUID()).setCustomerUID(reference.getCustomer().getUID())
+                                .addPayment(this.payment.getPaymentBuilder());
     }
 }

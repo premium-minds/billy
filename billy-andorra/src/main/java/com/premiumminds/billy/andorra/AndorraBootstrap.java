@@ -100,89 +100,89 @@ public class AndorraBootstrap {
 
                     // Andorra Contexts
                     final ADRegionContextEntity CONTEXT_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "Andorra", "The Context for the country Andorra",
-						null, Config.Key.Context.Andorra.UUID);
+                        daoADRegionContext, contextBuilder, "Andorra", "The Context for the country Andorra",
+                        null, Config.Key.Context.Andorra.UUID);
 
                     final ADRegionContextEntity CONTEXT_ANDORRALAVIEJA_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "Álava", "The Context for the Andorra La Vieja region",
-						CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.AndorraLaVieja.UUID);
+                        daoADRegionContext, contextBuilder, "Álava", "The Context for the Andorra La Vieja region",
+                        CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.AndorraLaVieja.UUID);
 
-					final ADRegionContextEntity CONTEXT_CANILLO_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "Canillo", "The Context for the Andorra Canillo region",
-						CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.Canillo.UUID);
+                    final ADRegionContextEntity CONTEXT_CANILLO_ANDORRA = this.buildContextEntity(
+                        daoADRegionContext, contextBuilder, "Canillo", "The Context for the Andorra Canillo region",
+                        CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.Canillo.UUID);
 
-					final ADRegionContextEntity CONTEXT_ENCAMP_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "Encamp", "The Context for the Andorra Encamp region",
-						CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.Encamp.UUID);
+                    final ADRegionContextEntity CONTEXT_ENCAMP_ANDORRA = this.buildContextEntity(
+                        daoADRegionContext, contextBuilder, "Encamp", "The Context for the Andorra Encamp region",
+                        CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.Encamp.UUID);
 
-					final ADRegionContextEntity CONTEXT_LASESCALDAS_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "Las Escaldas Engordany", "The Context for the Andorra Las Escaldas Engordany region",
-						CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.LasEscaldasEngordany.UUID);
+                    final ADRegionContextEntity CONTEXT_LASESCALDAS_ANDORRA = this.buildContextEntity(
+                        daoADRegionContext, contextBuilder, "Las Escaldas Engordany", "The Context for the Andorra Las Escaldas Engordany region",
+                        CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.LasEscaldasEngordany.UUID);
 
-					final ADRegionContextEntity CONTEXT_LAMASSANA_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "La Massana", "The Context for the Andorra La Massana region",
-						CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.LaMassana.UUID);
+                    final ADRegionContextEntity CONTEXT_LAMASSANA_ANDORRA = this.buildContextEntity(
+                        daoADRegionContext, contextBuilder, "La Massana", "The Context for the Andorra La Massana region",
+                        CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.LaMassana.UUID);
 
-					final ADRegionContextEntity CONTEXT_ORDINO_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "Ordino", "The Context for the Andorra Ordino region",
-						CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.Ordino.UUID);
+                    final ADRegionContextEntity CONTEXT_ORDINO_ANDORRA = this.buildContextEntity(
+                        daoADRegionContext, contextBuilder, "Ordino", "The Context for the Andorra Ordino region",
+                        CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.Ordino.UUID);
 
-					final ADRegionContextEntity CONTEXT_SANJULIANDELORIA_ANDORRA = this.buildContextEntity(
-						daoADRegionContext, contextBuilder, "San Julian De Loria", "The Context for the Andorra San Julian De Loria region",
-						CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.SanJulianDeLoria.UUID);
+                    final ADRegionContextEntity CONTEXT_SANJULIANDELORIA_ANDORRA = this.buildContextEntity(
+                        daoADRegionContext, contextBuilder, "San Julian De Loria", "The Context for the Andorra San Julian De Loria region",
+                        CONTEXT_ANDORRA.getUID(), Config.Key.Context.Andorra.SanJulianDeLoria.UUID);
 
                     // Taxes
                     final ZoneId madrid = ZoneId.of("Europe/Madrid");
                     final Date from = Date.from(LocalDate.of(2020,1,1).atStartOfDay().atZone(madrid).toInstant());
                     final Date to = Date.from(LocalDate.of(2114,1,1).atStartOfDay().atZone(madrid).toInstant());
 
-					final ADTaxEntity VAT_INCREASED_ANDORRA = this.buildTaxEntity(
-						daoADTax, taxBuilder, ADVATCode.INCREASED, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
-						"IGI Incrementado", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
-						Config.Key.Context.Andorra.VAT.INCREASED_PERCENT, Config.Key.Context.Andorra.VAT.INCREASED_UUID);
+                    final ADTaxEntity VAT_INCREASED_ANDORRA = this.buildTaxEntity(
+                        daoADTax, taxBuilder, ADVATCode.INCREASED, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+                        "IGI Incrementado", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
+                        Config.Key.Context.Andorra.VAT.INCREASED_PERCENT, Config.Key.Context.Andorra.VAT.INCREASED_UUID);
 
                     final ADTaxEntity VAT_NORMAL_CONTINENTAL_ANDORRA = this.buildTaxEntity(
-						daoADTax, taxBuilder, ADVATCode.NORMAL, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
-						"IGI Normal", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
-						Config.Key.Context.Andorra.VAT.NORMAL_PERCENT, Config.Key.Context.Andorra.VAT.NORMAL_UUID);
+                        daoADTax, taxBuilder, ADVATCode.NORMAL, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+                        "IGI Normal", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
+                        Config.Key.Context.Andorra.VAT.NORMAL_PERCENT, Config.Key.Context.Andorra.VAT.NORMAL_UUID);
 
-					final ADTaxEntity VAT_SPECIAL_ANDORRA = this.buildTaxEntity(
-						daoADTax, taxBuilder, ADVATCode.SPECIAL, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
-						"IGI Special", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
-					Config.Key.Context.Andorra.VAT.SPECIAL_PERCENT, Config.Key.Context.Andorra.VAT.SPECIAL_UUID);
+                    final ADTaxEntity VAT_SPECIAL_ANDORRA = this.buildTaxEntity(
+                        daoADTax, taxBuilder, ADVATCode.SPECIAL, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+                        "IGI Special", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
+                    Config.Key.Context.Andorra.VAT.SPECIAL_PERCENT, Config.Key.Context.Andorra.VAT.SPECIAL_UUID);
 
-					final ADTaxEntity VAT_REDUCED_ANDORRA = this.buildTaxEntity(
-						daoADTax, taxBuilder, ADVATCode.REDUCED, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
-						"IGI Reducido", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
-						Config.Key.Context.Andorra.VAT.INTERMEDIATE_PERCENT, Config.Key.Context.Andorra.VAT.INTERMEDIATE_UUID);
+                    final ADTaxEntity VAT_REDUCED_ANDORRA = this.buildTaxEntity(
+                        daoADTax, taxBuilder, ADVATCode.REDUCED, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+                        "IGI Reducido", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
+                        Config.Key.Context.Andorra.VAT.INTERMEDIATE_PERCENT, Config.Key.Context.Andorra.VAT.INTERMEDIATE_UUID);
 
                     final ADTaxEntity VAT_SUPER_REDUCED_ANDORRA = this.buildTaxEntity(
-						daoADTax, taxBuilder, ADVATCode.SUPER_REDUCED, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
-						"IGI Superreducido", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
-						Config.Key.Context.Andorra.VAT.REDUCED_PERCENT, Config.Key.Context.Andorra.VAT.REDUCED_UUID);
+                        daoADTax, taxBuilder, ADVATCode.SUPER_REDUCED, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+                        "IGI Superreducido", "IGI", Tax.TaxRateType.PERCENTAGE, from, to,
+                        Config.Key.Context.Andorra.VAT.REDUCED_PERCENT, Config.Key.Context.Andorra.VAT.REDUCED_UUID);
 
                     final ADTaxEntity TAX_EXEMPT_ANDORRA = this.buildTaxEntity(
-						daoADTax, taxBuilder, ADVATCode.EXEMPT, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
-						"Isento de IGI", "IGI", Tax.TaxRateType.NONE, from, to,
-						Config.Key.Context.Andorra.TAX_EXEMPT_VALUE, Config.Key.Context.Andorra.TAX_EXEMPT_UUID);
+                        daoADTax, taxBuilder, ADVATCode.EXEMPT, CONTEXT_ANDORRA, Currency.getInstance("EUR"),
+                        "Isento de IGI", "IGI", Tax.TaxRateType.NONE, from, to,
+                        Config.Key.Context.Andorra.TAX_EXEMPT_VALUE, Config.Key.Context.Andorra.TAX_EXEMPT_UUID);
 
                     return null;
                 }
 
                 private ADTaxEntity buildTaxEntity(
-					DAOADTax daoADTax,
-					ADTax.Builder taxBuilder,
-					String taxCode,
-					ADRegionContextEntity context,
-					Currency currency,
-					String description,
-					String designation,
-					Tax.TaxRateType type,
-					Date validFrom,
-					Date validTo,
-					String valueKey,
-					String key)
-				{
+                    DAOADTax daoADTax,
+                    ADTax.Builder taxBuilder,
+                    String taxCode,
+                    ADRegionContextEntity context,
+                    Currency currency,
+                    String description,
+                    String designation,
+                    Tax.TaxRateType type,
+                    Date validFrom,
+                    Date validTo,
+                    String valueKey,
+                    String key)
+                {
 
                     BigDecimal amount = new BigDecimal(configuration.get(valueKey));
 
@@ -201,13 +201,13 @@ public class AndorraBootstrap {
                 }
 
                 private ADRegionContextEntity buildContextEntity(
-					DAOADRegionContext daoADRegionContext,
-					Builder contextBuilder,
-					String name,
-					String description,
-					StringID<Context> parentUID,
-					String key)
-				{
+                    DAOADRegionContext daoADRegionContext,
+                    Builder contextBuilder,
+                    String name,
+                    String description,
+                    StringID<Context> parentUID,
+                    String key)
+                {
 
                     contextBuilder.clear();
 

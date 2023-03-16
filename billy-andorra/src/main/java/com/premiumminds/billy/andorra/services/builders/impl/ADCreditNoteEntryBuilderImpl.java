@@ -45,12 +45,12 @@ public class ADCreditNoteEntryBuilderImpl<TBuilder extends ADCreditNoteEntryBuil
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public ADCreditNoteEntryBuilderImpl(
-		DAOADCreditNoteEntry daoADCreditNoteEntry,
-		DAOADInvoice daoADInvoice,
-		DAOADTax daoADTax,
-		DAOADProduct daoADProduct,
-		DAOADRegionContext daoADRegionContext)
-	{
+        DAOADCreditNoteEntry daoADCreditNoteEntry,
+        DAOADInvoice daoADInvoice,
+        DAOADTax daoADTax,
+        DAOADProduct daoADProduct,
+        DAOADRegionContext daoADRegionContext)
+    {
         super(daoADCreditNoteEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
@@ -58,7 +58,7 @@ public class ADCreditNoteEntryBuilderImpl<TBuilder extends ADCreditNoteEntryBuil
     @NotOnUpdate
     public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
-							   ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+                               ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         ADInvoiceEntity i = this.daoInvoice.get(referenceUID);
         BillyValidator.found(i, ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         this.getTypeInstance().setReference(i);
@@ -80,7 +80,7 @@ public class ADCreditNoteEntryBuilderImpl<TBuilder extends ADCreditNoteEntryBuil
         super.validateInstance();
         ADCreditNoteEntryEntity cn = this.getTypeInstance();
         BillyValidator.mandatory(cn.getReference(),
-								 ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+                                 ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
         BillyValidator.mandatory(cn.getReason(), ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
 

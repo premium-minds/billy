@@ -33,26 +33,26 @@ public interface ADCreditNote extends ADGenericInvoice {
 
         @Inject
         public Builder(
-			DAOADCreditNote daoADCreditNote,
-			DAOADBusiness daoADBusiness,
-			DAOADCustomer daoADCustomer,
-			DAOADSupplier daoADSupplier)
-		{
+            DAOADCreditNote daoADCreditNote,
+            DAOADBusiness daoADBusiness,
+            DAOADCustomer daoADCustomer,
+            DAOADSupplier daoADSupplier)
+        {
             super(daoADCreditNote, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }
 
     public static class ManualBuilder
             extends ADManualCreditNoteBuilderImpl<ManualBuilder, ADCreditNoteEntry, ADCreditNote>
-	{
+    {
 
         @Inject
         public ManualBuilder(
-			DAOADCreditNote daoADCreditNote,
-			DAOADBusiness daoADBusiness,
-			DAOADCustomer daoADCustomer,
-			DAOADSupplier daoADSupplier)
-		{
+            DAOADCreditNote daoADCreditNote,
+            DAOADBusiness daoADBusiness,
+            DAOADCustomer daoADCustomer,
+            DAOADSupplier daoADSupplier)
+        {
             super(daoADCreditNote, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }

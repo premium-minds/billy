@@ -41,11 +41,11 @@ public class ADGenericInvoiceBuilderImpl<TBuilder extends ADGenericInvoiceBuilde
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADGenericInvoiceBuilderImpl(
-		TDAO daoADGenericInvoice,
-		DAOADBusiness daoADBusiness,
-		DAOADCustomer daoADCustomer,
-		DAOADSupplier daoADSupplier)
-	{
+        TDAO daoADGenericInvoice,
+        DAOADBusiness daoADBusiness,
+        DAOADCustomer daoADCustomer,
+        DAOADSupplier daoADSupplier)
+    {
         super(daoADGenericInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
@@ -108,16 +108,16 @@ public class ADGenericInvoiceBuilderImpl<TBuilder extends ADGenericInvoiceBuilde
         BillyValidator.mandatory(i.getDate(), ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.date"));
         if (i.isSelfBilled() != null) {
             BillyValidator.mandatory(i.isSelfBilled(),
-									 ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
+                                     ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.self_billed"));
         } else {
             i.setSelfBilled(false);
         }
         BillyValidator.mandatory(i.isCancelled(), ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.cancelled"));
         BillyValidator.mandatory(i.isBilled(), ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.billed"));
         BillyValidator.notEmpty(i.getPayments(),
-								ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
+                                ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.payment_mechanism"));
         BillyValidator.mandatory(i.getCreditOrDebit(),
-								 ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.credit_or_debit"));
+                                 ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.credit_or_debit"));
     }
 
 }

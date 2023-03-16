@@ -31,9 +31,9 @@ public class ADCreditNoteEntryData extends InvoiceEntryData {
     private final ADInvoiceData reference;
 
     public ADCreditNoteEntryData(
-		ProductData productCode, String description, BigDecimal quantity, BigDecimal taxAmount,
-		BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
-		ADInvoiceData reference, String unitOfMeasure, TaxExemption exemption) {
+        ProductData productCode, String description, BigDecimal quantity, BigDecimal taxAmount,
+        BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax, List<TaxData> taxes,
+        ADInvoiceData reference, String unitOfMeasure, TaxExemption exemption) {
         super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes,
               unitOfMeasure, exemption);
 

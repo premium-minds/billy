@@ -33,12 +33,12 @@ public interface ADReceiptEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public Builder(
-			DAOADReceiptEntry daoADReceiptEntry,
-			DAOADReceipt daoADReceipt,
-			DAOADTax daoADTax,
-			DAOADProduct daoADProduct,
-			DAOADRegionContext daoADRegionContext)
-		{
+            DAOADReceiptEntry daoADReceiptEntry,
+            DAOADReceipt daoADReceipt,
+            DAOADTax daoADTax,
+            DAOADProduct daoADProduct,
+            DAOADRegionContext daoADRegionContext)
+        {
             super(daoADReceiptEntry, daoADReceipt, daoADTax, daoADProduct, daoADRegionContext);
         }
     }

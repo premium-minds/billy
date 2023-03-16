@@ -43,8 +43,8 @@ public class TestADCreditReceiptEntryBuilder extends ADAbstractTest {
     @Test
     public void doTest() {
         MockADCreditReceiptEntryEntity mock = this.createMockEntity(
-			MockADCreditReceiptEntryEntity.class,
-			TestADCreditReceiptEntryBuilder.AD_CREDIT_RECEIPT_ENTRY_YML);
+            MockADCreditReceiptEntryEntity.class,
+            TestADCreditReceiptEntryBuilder.AD_CREDIT_RECEIPT_ENTRY_YML);
 
         mock.setCurrency(Currency.getInstance("EUR"));
 

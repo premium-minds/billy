@@ -47,11 +47,11 @@ public class ADSupplierTestUtil {
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();
 
         return this.getSupplierEntity(ADSupplierTestUtil.NAME, ADSupplierTestUtil.NUMBER,
-									  ADSupplierTestUtil.SELF_BILLING, addressBuilder, contactBuilder);
+                                      ADSupplierTestUtil.SELF_BILLING, addressBuilder, contactBuilder);
     }
 
     public ADSupplierEntity getSupplierEntity(String name, String taxNumber, boolean selfBillingAgree,
-											  ADAddress.Builder addressBuilder, ADContact.Builder contactBuilder) {
+                                              ADAddress.Builder addressBuilder, ADContact.Builder contactBuilder) {
 
         return (ADSupplierEntity) this
                 .getSupplierBuilder(name, taxNumber, selfBillingAgree, addressBuilder, contactBuilder).build();
@@ -62,9 +62,9 @@ public class ADSupplierTestUtil {
         ADSupplier.Builder supplierBuilder = this.injector.getInstance(ADSupplier.Builder.class);
 
         supplierBuilder.addAddress(addressBuilder).addContact(contactBuilder).setBillingAddress(addressBuilder)
-					   .setMainContact(contactBuilder).setSelfBillingAgreement(selfBillingAgree)
-					   .setTaxRegistrationNumber(taxNumber, ADSupplierTestUtil.AD_COUNTRY_CODE).setName(name)
-					   .setMainAddress(addressBuilder);
+                       .setMainContact(contactBuilder).setSelfBillingAgreement(selfBillingAgree)
+                       .setTaxRegistrationNumber(taxNumber, ADSupplierTestUtil.AD_COUNTRY_CODE).setName(name)
+                       .setMainAddress(addressBuilder);
         return supplierBuilder;
     }
 }

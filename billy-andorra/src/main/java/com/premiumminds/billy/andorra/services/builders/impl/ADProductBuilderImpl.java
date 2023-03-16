@@ -65,6 +65,6 @@ public class ADProductBuilderImpl<TBuilder extends ADProductBuilderImpl<TBuilder
         super.validateInstance();
         ADProduct p = this.getTypeInstance();
         BillyValidator.mandatory(p.getNumberCode(),
-								 ADProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
+                                 ADProductBuilderImpl.LOCALIZER.getString("field.product_number_code"));
     }
 }

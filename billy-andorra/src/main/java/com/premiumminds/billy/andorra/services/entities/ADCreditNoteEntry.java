@@ -34,12 +34,12 @@ public interface ADCreditNoteEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public Builder(
-			DAOADCreditNoteEntry daoADCreditNoteEntry,
-			DAOADInvoice daoADInvoice,
-			DAOADTax daoADTax,
-			DAOADProduct daoADProduct,
-			DAOADRegionContext daoADRegionContext)
-		{
+            DAOADCreditNoteEntry daoADCreditNoteEntry,
+            DAOADInvoice daoADInvoice,
+            DAOADTax daoADTax,
+            DAOADProduct daoADProduct,
+            DAOADRegionContext daoADRegionContext)
+        {
             super(daoADCreditNoteEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
         }
     }
@@ -48,12 +48,12 @@ public interface ADCreditNoteEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public ManualBuilder(
-			DAOADCreditNoteEntry daoADCreditNoteEntry,
-			DAOADInvoice daoADInvoice,
-			DAOADTax daoADTax,
-			DAOADProduct daoADProduct,
-			DAOADRegionContext daoADRegionContext)
-		{
+            DAOADCreditNoteEntry daoADCreditNoteEntry,
+            DAOADInvoice daoADInvoice,
+            DAOADTax daoADTax,
+            DAOADProduct daoADProduct,
+            DAOADRegionContext daoADRegionContext)
+        {
             super(daoADCreditNoteEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
         }
     }

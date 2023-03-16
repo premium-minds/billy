@@ -53,16 +53,16 @@ public class SimpleInvoices {
         this.persistenceService = this.getInstance(ADSimpleInvoicePersistenceService.class);
         this.issuingService = injector.getInstance(DocumentIssuingService.class);
         this.issuingService.addHandler(
-			ADSimpleInvoiceEntity.class,
-			this.injector.getInstance(ADSimpleInvoiceIssuingHandler.class));
+            ADSimpleInvoiceEntity.class,
+            this.injector.getInstance(ADSimpleInvoiceIssuingHandler.class));
         this.exportService = this.getInstance(ExportService.class);
 
         this.exportService.addDataExtractor(
-			ADSimpleInvoiceData.class,
-			this.getInstance(ADSimpleInvoiceDataExtractor.class));
+            ADSimpleInvoiceData.class,
+            this.getInstance(ADSimpleInvoiceDataExtractor.class));
         this.exportService.addTransformerMapper(
-			ADSimpleInvoicePDFExportRequest.class,
-			ADSimpleInvoicePDFFOPTransformer.class);
+            ADSimpleInvoicePDFExportRequest.class,
+            ADSimpleInvoicePDFFOPTransformer.class);
     }
 
     public ADSimpleInvoice.Builder builder() {

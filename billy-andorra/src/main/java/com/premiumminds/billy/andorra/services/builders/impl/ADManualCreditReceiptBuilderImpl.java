@@ -37,11 +37,11 @@ public class ADManualCreditReceiptBuilderImpl<TBuilder extends ADManualCreditRec
 {
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADManualCreditReceiptBuilderImpl(
-		TDAO daoADCreditReceipt,
-		DAOADBusiness daoADBusiness,
-		DAOADCustomer daoADCustomer,
-		DAOADSupplier daoADSupplier)
-	{
+        TDAO daoADCreditReceipt,
+        DAOADBusiness daoADBusiness,
+        DAOADCustomer daoADCustomer,
+        DAOADSupplier daoADSupplier)
+    {
         super(daoADCreditReceipt, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 
@@ -65,14 +65,14 @@ public class ADManualCreditReceiptBuilderImpl<TBuilder extends ADManualCreditRec
         BillyValidator.mandatory(i.getDate(), LOCALIZER.getString("field.date"));
         if (i.isSelfBilled() != null) {
             BillyValidator.mandatory(i.isSelfBilled(),
-									 LOCALIZER.getString("field.self_billed"));
+                                     LOCALIZER.getString("field.self_billed"));
         } else {
             i.setSelfBilled(false);
         }
         BillyValidator.mandatory(i.isCancelled(), LOCALIZER.getString("field.cancelled"));
         BillyValidator.mandatory(i.isBilled(), LOCALIZER.getString("field.billed"));
         BillyValidator.notEmpty(i.getPayments(),
-								LOCALIZER.getString("field.payment_mechanism"));
+                                LOCALIZER.getString("field.payment_mechanism"));
         return;
     }
 }

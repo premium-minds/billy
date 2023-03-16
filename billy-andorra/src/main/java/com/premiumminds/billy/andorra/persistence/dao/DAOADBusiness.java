@@ -26,9 +26,9 @@ import com.premiumminds.billy.core.services.entities.Business;
 public interface DAOADBusiness extends DAOBusiness {
 
     @Override
-	ADBusinessEntity getEntityInstance();
+    ADBusinessEntity getEntityInstance();
 
     @Override
-	ADBusinessEntity get(StringID<Business> uid);
+    ADBusinessEntity get(StringID<Business> uid);
 
 }

@@ -52,8 +52,8 @@ public class TestADCreditReceiptBuilder extends ADAbstractTest {
     @Test
     public void doTest() {
         MockADCreditReceiptEntity mock = this.createMockEntity(
-			MockADCreditReceiptEntity.class,
-			TestADCreditReceiptBuilder.AD_CREDIT_RECEIPT_YML);
+            MockADCreditReceiptEntity.class,
+            TestADCreditReceiptBuilder.AD_CREDIT_RECEIPT_YML);
 
         mock.setCurrency(Currency.getInstance("EUR"));
 
@@ -68,8 +68,8 @@ public class TestADCreditReceiptBuilder extends ADAbstractTest {
                 .thenReturn(new MockADCreditReceiptEntity());
 
         MockADCreditReceiptEntryEntity entryMock = this.createMockEntity(
-			MockADCreditReceiptEntryEntity.class,
-			TestADCreditReceiptBuilder.AD_CREDIT_RECEIPT_ENTRY_YML);
+            MockADCreditReceiptEntryEntity.class,
+            TestADCreditReceiptBuilder.AD_CREDIT_RECEIPT_ENTRY_YML);
 
         Mockito.when(this.getInstance(DAOADCreditReceiptEntry.class).get(Mockito.any()))
                 .thenReturn(entryMock);

@@ -38,11 +38,11 @@ public class ADCreditNoteBuilderImpl<TBuilder extends ADCreditNoteBuilderImpl<TB
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADCreditNoteBuilderImpl(
-		TDAO daoADCreditNote,
-		DAOADBusiness daoADBusiness,
-		DAOADCustomer daoADCustomer,
-		DAOADSupplier daoADSupplier)
-	{
+        TDAO daoADCreditNote,
+        DAOADBusiness daoADBusiness,
+        DAOADCustomer daoADCustomer,
+        DAOADSupplier daoADSupplier)
+    {
         super(daoADCreditNote, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 

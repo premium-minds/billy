@@ -26,9 +26,9 @@ import com.premiumminds.billy.core.services.entities.Application;
 public interface DAOADApplication extends DAOApplication {
 
     @Override
-	ADApplicationEntity getEntityInstance();
+    ADApplicationEntity getEntityInstance();
 
     @Override
-	ADApplicationEntity get(StringID<Application> uid);
+    ADApplicationEntity get(StringID<Application> uid);
 
 }

@@ -72,7 +72,7 @@ public class ADSupplierBuilderImpl<TBuilder extends ADSupplierBuilderImpl<TBuild
     @Override
     public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
         BillyValidator.mandatory(addressBuilder,
-								 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
+                                 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
         this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
         return this.getBuilder();
     }
@@ -80,7 +80,7 @@ public class ADSupplierBuilderImpl<TBuilder extends ADSupplierBuilderImpl<TBuild
     @Override
     public TBuilder setSelfBillingAgreement(boolean selfBilling) {
         BillyValidator.mandatory(selfBilling,
-								 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
+                                 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
         this.getTypeInstance().setSelfBillingAgreement(selfBilling);
         return this.getBuilder();
     }
@@ -102,10 +102,10 @@ public class ADSupplierBuilderImpl<TBuilder extends ADSupplierBuilderImpl<TBuild
         super.validateInstance();
         ADSupplier s = this.getTypeInstance();
         BillyValidator.mandatory(s.getTaxRegistrationNumber(),
-								 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
+                                 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_tax_number"));
         BillyValidator.mandatory(s.getBillingAddress(),
-								 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
+                                 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_billing_address"));
         BillyValidator.mandatory(s.hasSelfBillingAgreement(),
-								 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
+                                 ADSupplierBuilderImpl.LOCALIZER.getString("field.supplier_self_billing_agreement"));
     }
 }

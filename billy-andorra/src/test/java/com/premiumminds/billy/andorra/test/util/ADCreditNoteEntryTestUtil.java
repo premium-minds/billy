@@ -56,11 +56,11 @@ public class ADCreditNoteEntryTestUtil {
         this.context = this.contexts.andorra().canillo();
 
         creditNoteEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ADCreditNoteEntryTestUtil.AMOUNT)
-							  .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())
-							  .setQuantity(ADCreditNoteEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
-							  .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
-							  .setReason(ADCreditNoteEntryTestUtil.REASON).setReferenceUID(reference.getUID())
-							  .setCurrency(Currency.getInstance("EUR"));
+                              .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())
+                              .setQuantity(ADCreditNoteEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
+                              .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
+                              .setReason(ADCreditNoteEntryTestUtil.REASON).setReferenceUID(reference.getUID())
+                              .setCurrency(Currency.getInstance("EUR"));
 
         return creditNoteEntryBuilder;
     }

@@ -40,22 +40,22 @@ public class ADFinancialValidator extends FinancialValidator {
                 return false;
             }
 
-			final char firstLetter = tin.charAt(0);
-			final int numeroIdentificacionAdministrativo;
-			try {
-				numeroIdentificacionAdministrativo = Integer.parseInt(tin.substring(1, tin.length() - 1));
-			} catch (NumberFormatException e) {
-				return false;
-			}
+            final char firstLetter = tin.charAt(0);
+            final int numeroIdentificacionAdministrativo;
+            try {
+                numeroIdentificacionAdministrativo = Integer.parseInt(tin.substring(1, tin.length() - 1));
+            } catch (NumberFormatException e) {
+                return false;
+            }
 
-			if((firstLetter == 'A' || firstLetter == 'L')
-				&& !(numeroIdentificacionAdministrativo >= 700_000 && numeroIdentificacionAdministrativo < 800_000)){
-				return false;
-			} else if (firstLetter == 'F' && !(numeroIdentificacionAdministrativo >= 0 && numeroIdentificacionAdministrativo < 700_000)) {
-				return false;
-			} else {
-				return true;
-			}
+            if((firstLetter == 'A' || firstLetter == 'L')
+                && !(numeroIdentificacionAdministrativo >= 700_000 && numeroIdentificacionAdministrativo < 800_000)){
+                return false;
+            } else if (firstLetter == 'F' && !(numeroIdentificacionAdministrativo >= 0 && numeroIdentificacionAdministrativo < 700_000)) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 

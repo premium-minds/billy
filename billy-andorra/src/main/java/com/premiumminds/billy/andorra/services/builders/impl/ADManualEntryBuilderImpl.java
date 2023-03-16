@@ -46,12 +46,12 @@ public class ADManualEntryBuilderImpl<TBuilder extends ADManualEntryBuilderImpl<
 {
 
     public ADManualEntryBuilderImpl(
-		TDAOEntry daoADEntry,
-		TDAOInvoice daoADInvoice,
-		DAOADTax daoADTax,
-		DAOADProduct daoADProduct,
-		DAOADRegionContext daoADRegionContext)
-	{
+        TDAOEntry daoADEntry,
+        TDAOInvoice daoADInvoice,
+        DAOADTax daoADTax,
+        DAOADProduct daoADProduct,
+        DAOADRegionContext daoADRegionContext)
+    {
         super(daoADEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
@@ -61,14 +61,14 @@ public class ADManualEntryBuilderImpl<TBuilder extends ADManualEntryBuilderImpl<
 
         ADGenericInvoiceEntryEntity i = this.getTypeInstance();
         BillyValidator.mandatory(i.getQuantity(),
-								 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
+                                 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(i.getUnitOfMeasure(),
-								 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
+                                 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
         BillyValidator.<Object>mandatory(i.getProduct(), ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(i.getTaxes(), ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxAmount(), ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxPointDate(),
-								 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+                                 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
     }
 
     @Override

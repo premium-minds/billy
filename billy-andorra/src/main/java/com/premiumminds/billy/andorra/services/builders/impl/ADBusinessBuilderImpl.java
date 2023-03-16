@@ -83,7 +83,7 @@ public class ADBusinessBuilderImpl<TBuilder extends ADBusinessBuilderImpl<TBuild
         BillyValidator.mandatory(b.getFinancialID(), ADBusinessBuilderImpl.LOCALIZER.getString("field.financial_id"));
         BillyValidator.mandatory(b.getName(), ADBusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
         BillyValidator.mandatory(b.getCommercialName(),
-								 ADBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
+                                 ADBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
         BillyValidator.<Object>mandatory(b.getAddress(), ADBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
 
         Pattern pattern;

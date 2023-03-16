@@ -36,11 +36,11 @@ public class ADManualInvoiceBuilderImpl<TBuilder extends ADManualInvoiceBuilderI
 {
 
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADManualInvoiceBuilderImpl(
-		TDAO daoADGenericInvoice,
-		DAOADBusiness daoADBusiness,
-		DAOADCustomer daoADCustomer,
-		DAOADSupplier daoADSupplier)
-	{
+        TDAO daoADGenericInvoice,
+        DAOADBusiness daoADBusiness,
+        DAOADCustomer daoADCustomer,
+        DAOADSupplier daoADSupplier)
+    {
         super(daoADGenericInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
     }
 

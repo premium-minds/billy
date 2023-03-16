@@ -66,7 +66,7 @@ public class TestADSimpleInvoiceIssuingHandlerWithTicket extends ADDocumentAbstr
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
             ADBusinessEntity
-				business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+                business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
             Builder simpleInvoiceBuilder = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector)
                     .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
@@ -148,14 +148,14 @@ public class TestADSimpleInvoiceIssuingHandlerWithTicket extends ADDocumentAbstr
         this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
         ADBusinessEntity
-			business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+            business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ADSimpleInvoice.Builder builder = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 
         try {
 
             entity = (ADSimpleInvoiceEntity) services.issueDocument(builder, this.parameters,
-																	StringID.fromValue(this.issuedInvoiceUID.getIdentifier()));
+                                                                    StringID.fromValue(this.issuedInvoiceUID.getIdentifier()));
         } catch (InvalidTicketException e) {
 
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
@@ -171,7 +171,7 @@ public class TestADSimpleInvoiceIssuingHandlerWithTicket extends ADDocumentAbstr
         ADSimpleInvoicePersistenceService persistenceService =
                 ADAbstractTest.injector.getInstance(ADSimpleInvoicePersistenceService.class);
         ADBusinessEntity
-			business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+            business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ADSimpleInvoice.Builder testinvoice = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector)
                 .getSimpleInvoiceBuilder(business, CLIENTTYPE.CUSTOMER);
 

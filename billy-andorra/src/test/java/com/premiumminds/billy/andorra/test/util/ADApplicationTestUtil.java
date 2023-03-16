@@ -43,7 +43,7 @@ public class ADApplicationTestUtil {
     }
 
     public ADApplication.Builder getApplicationBuilder(String appName, String version, String companyName,
-													   String companyTaxId, String companyTaxIdIsoCountryCode, String website, ADContact.Builder contactBuilder)
+                                                       String companyTaxId, String companyTaxIdIsoCountryCode, String website, ADContact.Builder contactBuilder)
         throws MalformedURLException {
 
         ADApplication.Builder applicationBuilder = this.injector.getInstance(ADApplication.Builder.class);
@@ -63,7 +63,7 @@ public class ADApplicationTestUtil {
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();
 
         return this.getApplicationBuilder(ADApplicationTestUtil.APP_NAME, ADApplicationTestUtil.VERSION,
-										  ADApplicationTestUtil.COMPANY_NAME, ADApplicationTestUtil.COMPANY_TAX_ID,
-										  ADApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, ADApplicationTestUtil.WEBSITE, contactBuilder);
+                                          ADApplicationTestUtil.COMPANY_NAME, ADApplicationTestUtil.COMPANY_TAX_ID,
+                                          ADApplicationTestUtil.COMPANY_TAX_ID_ISO_COUNTRY_CODE, ADApplicationTestUtil.WEBSITE, contactBuilder);
     }
 }

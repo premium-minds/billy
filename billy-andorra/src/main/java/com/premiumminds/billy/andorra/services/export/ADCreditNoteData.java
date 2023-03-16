@@ -34,8 +34,8 @@ public class ADCreditNoteData extends GenericInvoiceData {
     private final List<ADCreditNoteEntryData> entries;
 
     public ADCreditNoteData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-							CostumerData customer, BusinessData business, List<ADCreditNoteEntryData> entries, BigDecimal taxAmount,
-							BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+                            CostumerData customer, BusinessData business, List<ADCreditNoteEntryData> entries, BigDecimal taxAmount,
+                            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
 
         super(number, date, settlementDate, payments, customer, business, new ArrayList<InvoiceEntryData>(0), taxAmount,
                 amountWithTax, amountWithoutTax, settlementDescription);

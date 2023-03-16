@@ -91,22 +91,22 @@ public class InvoiceIT {
         ADProduct productExempt = createAdProductExempt(billyAndorra);
         ADProduct productFlat = createAdProductFlat(billyAndorra, flatTax);
         ADInvoice invoice = createAdInvoice(
-			dateFormat,
-			billyAndorra,
-			business,
-			invoiceParameters,
-			customer,
-			product,
-			productExempt,
-			productFlat);
+            dateFormat,
+            billyAndorra,
+            business,
+            invoiceParameters,
+            customer,
+            product,
+            productExempt,
+            productFlat);
         ADCreditNote creditNote = createAdCreditNote(
-			dateFormat,
-			billyAndorra,
-			business,
-			creditNoteParameters,
-			customer,
-			product,
-			invoice);
+            dateFormat,
+            billyAndorra,
+            business,
+            creditNoteParameters,
+            customer,
+            product,
+            invoice);
 
         final DAOADInvoice daoInvoice = injector.getInstance(DAOADInvoice.class);
         final DAOADCreditNote daoCreditNote = injector.getInstance(DAOADCreditNote.class);
@@ -184,14 +184,14 @@ public class InvoiceIT {
     }
 
     private ADInvoice createAdInvoice(
-		SimpleDateFormat dateFormat,
-		BillyAndorra billyAndorra,
-		ADBusiness business,
-		ADIssuingParams invoiceParameters,
-		ADCustomer customer,
-		ADProduct product,
-		ADProduct productExempt,
-		ADProduct productTax) throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+        SimpleDateFormat dateFormat,
+        BillyAndorra billyAndorra,
+        ADBusiness business,
+        ADIssuingParams invoiceParameters,
+        ADCustomer customer,
+        ADProduct product,
+        ADProduct productExempt,
+        ADProduct productTax) throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         Date invoiceDate = dateFormat.parse("01-03-2013");
 
@@ -260,13 +260,13 @@ public class InvoiceIT {
     }
 
     private ADCreditNote createAdCreditNote(
-		SimpleDateFormat dateFormat,
-		BillyAndorra billyAndorra,
-		ADBusiness business,
-		ADIssuingParams invoiceParameters,
-		ADCustomer customer,
-		ADProduct product,
-		ADInvoice invoice) throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+        SimpleDateFormat dateFormat,
+        BillyAndorra billyAndorra,
+        ADBusiness business,
+        ADIssuingParams invoiceParameters,
+        ADCustomer customer,
+        ADProduct product,
+        ADInvoice invoice) throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         Date creditNoteDate = dateFormat.parse("01-03-2013");
 
@@ -366,9 +366,9 @@ public class InvoiceIT {
         addressBuilder.setStreetName("Customer 1 street name 1")
                 .setNumber("2")
                 .setPostalCode("10000")
-			    .setCity("Andorra la Vieja")
-				.setISOCountry("AD")
-				.setDetails("Carrer de la Vall, 6, AD500");
+                .setCity("Andorra la Vieja")
+                .setISOCountry("AD")
+                .setDetails("Carrer de la Vall, 6, AD500");
 
         ADCustomer.Builder customerBuilder = billyAndorra.customers().builder();
         customerBuilder.setName("Customer name 1")

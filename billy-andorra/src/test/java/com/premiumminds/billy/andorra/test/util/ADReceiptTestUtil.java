@@ -61,8 +61,8 @@ public class ADReceiptTestUtil {
                 this.receiptEntry.getReceiptEntryBuilder().setUnitAmount(AmountType.WITH_TAX, new BigDecimal("0.45"));
 
         return receiptBuilder.setBilled(ADReceiptTestUtil.BILLED).setCancelled(ADReceiptTestUtil.CANCELLED)
-							 .setSelfBilled(ADReceiptTestUtil.SELFBILL).setSourceId(ADReceiptTestUtil.SOURCE_ID).setDate(new Date())
-							 .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
-							 .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                             .setSelfBilled(ADReceiptTestUtil.SELFBILL).setSourceId(ADReceiptTestUtil.SOURCE_ID).setDate(new Date())
+                             .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
+                             .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
     }
 }

@@ -93,7 +93,7 @@ public class ADCreditNotePDFFOPTransformer extends ADAbstractFOPPDFTransformer<A
             }
 
             entryNode.addChild(ADCreditNotePDFFOPTransformer.PARAM_KEYS_INVOICE).addChild(ParamKeys.ID,
-																						  entry.getReference().getNumber());
+                                                                                          entry.getReference().getNumber());
         }
     }
 

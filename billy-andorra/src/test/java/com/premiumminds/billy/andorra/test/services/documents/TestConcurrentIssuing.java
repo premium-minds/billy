@@ -53,8 +53,8 @@ public class TestConcurrentIssuing extends ADDocumentAbstractTest {
 
         this.service = ADAbstractTest.injector.getInstance(DocumentIssuingServiceImpl.class);
         this.service.addHandler(
-			ADInvoiceEntity.class,
-			injector.getInstance(ADInvoiceIssuingHandler.class));
+            ADInvoiceEntity.class,
+            injector.getInstance(ADInvoiceIssuingHandler.class));
         this.parameters.setInvoiceSeries("A");
     }
 

@@ -42,7 +42,7 @@ public abstract class ADAbstractFOPPDFTransformer<T extends GenericInvoiceData> 
     private final ADTemplateBundle externalTranslator;
 
     public ADAbstractFOPPDFTransformer(Class<T> transformableClass, MathContext mc, String logoImagePath,
-									   InputStream xsltFileStream) {
+                                       InputStream xsltFileStream) {
 
         super(transformableClass, mc, logoImagePath, xsltFileStream);
         this.externalTranslator = null;

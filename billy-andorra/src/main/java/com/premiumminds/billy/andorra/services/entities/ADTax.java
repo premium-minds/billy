@@ -38,13 +38,13 @@ public interface ADTax extends Tax {
 
     public static class ADVATCode {
 
-		public static final String INCREASED = "INC";
+        public static final String INCREASED = "INC";
         public static final String NORMAL = "NOR";
-		public static final String SPECIAL = "SPC";
-		public static final String REDUCED = "RED";
-		public static final String SUPER_REDUCED = "SUP";
+        public static final String SPECIAL = "SPC";
+        public static final String REDUCED = "RED";
+        public static final String SUPER_REDUCED = "SUP";
         public static final String EXEMPT = "ISE";
-		public static final String OTHER = "OUT";
+        public static final String OTHER = "OUT";
     }
 
 }

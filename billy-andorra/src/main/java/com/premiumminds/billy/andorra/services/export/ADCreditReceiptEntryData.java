@@ -31,8 +31,8 @@ public class ADCreditReceiptEntryData extends InvoiceEntryData {
     private final ADReceiptData reference;
 
     public ADCreditReceiptEntryData(ProductData productCode, String description, BigDecimal quantity,
-									BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
-									List<TaxData> taxes, ADReceiptData reference, String unitOfMeasure, TaxExemption exemption) {
+                                    BigDecimal taxAmount, BigDecimal unitAmountWithTax, BigDecimal amountWithTax, BigDecimal amountWithoutTax,
+                                    List<TaxData> taxes, ADReceiptData reference, String unitOfMeasure, TaxExemption exemption) {
         super(productCode, description, quantity, taxAmount, unitAmountWithTax, amountWithTax, amountWithoutTax, taxes,
               unitOfMeasure, exemption);
 

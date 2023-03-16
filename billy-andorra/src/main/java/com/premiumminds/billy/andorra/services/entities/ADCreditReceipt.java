@@ -33,26 +33,26 @@ public interface ADCreditReceipt extends ADGenericInvoice {
 
         @Inject
         public Builder(
-			DAOADCreditReceipt daoADCreditReceipt,
-			DAOADBusiness daoADBusiness,
-			DAOADCustomer daoADCustomer,
-			DAOADSupplier daoADSupplier)
-		{
+            DAOADCreditReceipt daoADCreditReceipt,
+            DAOADBusiness daoADBusiness,
+            DAOADCustomer daoADCustomer,
+            DAOADSupplier daoADSupplier)
+        {
             super(daoADCreditReceipt, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }
 
     public static class ManualBuilder
             extends ADManualCreditReceiptBuilderImpl<ManualBuilder, ADCreditReceiptEntry, ADCreditReceipt>
-	{
+    {
 
         @Inject
         public ManualBuilder(
-			DAOADCreditReceipt daoADCreditReceipt,
-			DAOADBusiness daoADBusiness,
-			DAOADCustomer daoADCustomer,
-			DAOADSupplier daoADSupplier)
-		{
+            DAOADCreditReceipt daoADCreditReceipt,
+            DAOADBusiness daoADBusiness,
+            DAOADCustomer daoADCustomer,
+            DAOADSupplier daoADSupplier)
+        {
             super(daoADCreditReceipt, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }

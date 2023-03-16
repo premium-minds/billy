@@ -34,28 +34,28 @@ public interface ADCreditReceiptEntry extends ADGenericInvoiceEntry {
 
         @Inject
         public Builder(
-			DAOADCreditReceiptEntry daoADCreditReceiptEntry,
-			DAOADReceipt daoADReceipt,
-			DAOADTax daoADTax,
-			DAOADProduct daoADProduct,
-			DAOADRegionContext daoADRegionContext)
-		{
+            DAOADCreditReceiptEntry daoADCreditReceiptEntry,
+            DAOADReceipt daoADReceipt,
+            DAOADTax daoADTax,
+            DAOADProduct daoADProduct,
+            DAOADRegionContext daoADRegionContext)
+        {
             super(daoADCreditReceiptEntry, daoADReceipt, daoADTax, daoADProduct, daoADRegionContext);
         }
     }
 
     public static class ManualBuilder
             extends ADManualCreditReceiptEntryBuilderImpl<ManualBuilder, ADCreditReceiptEntry>
-	{
+    {
 
         @Inject
         public ManualBuilder(
-			DAOADCreditReceiptEntry daoADCreditReceiptEntry,
-			DAOADReceipt daoADReceipt,
-			DAOADTax daoADTax,
-			DAOADProduct daoADProduct,
-			DAOADRegionContext daoADRegionContext)
-		{
+            DAOADCreditReceiptEntry daoADCreditReceiptEntry,
+            DAOADReceipt daoADReceipt,
+            DAOADTax daoADTax,
+            DAOADProduct daoADProduct,
+            DAOADRegionContext daoADRegionContext)
+        {
             super(daoADCreditReceiptEntry, daoADReceipt, daoADTax, daoADProduct, daoADRegionContext);
         }
     }

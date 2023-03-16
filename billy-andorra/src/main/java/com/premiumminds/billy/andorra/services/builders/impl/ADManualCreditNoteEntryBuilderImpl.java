@@ -43,12 +43,12 @@ public class ADManualCreditNoteEntryBuilderImpl<TBuilder extends ADManualCreditN
 {
 
     public ADManualCreditNoteEntryBuilderImpl(
-		DAOADCreditNoteEntry daoADCreditNoteEntry,
-		DAOADInvoice daoADInvoice,
-		DAOADTax daoADTax,
-		DAOADProduct daoADProduct,
-		DAOADRegionContext daoADRegionContext)
-	{
+        DAOADCreditNoteEntry daoADCreditNoteEntry,
+        DAOADInvoice daoADInvoice,
+        DAOADTax daoADTax,
+        DAOADProduct daoADProduct,
+        DAOADRegionContext daoADRegionContext)
+    {
         super(daoADCreditNoteEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
@@ -56,7 +56,7 @@ public class ADManualCreditNoteEntryBuilderImpl<TBuilder extends ADManualCreditN
     @NotOnUpdate
     public TBuilder setReferenceUID(StringID<GenericInvoice> referenceUID) {
         BillyValidator.notNull(referenceUID,
-							   ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+                               ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         ADInvoice i = this.daoInvoice.get(referenceUID);
         BillyValidator.found(i, ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
         this.getTypeInstance().setReference(i);
@@ -83,17 +83,17 @@ public class ADManualCreditNoteEntryBuilderImpl<TBuilder extends ADManualCreditN
         super.validateInstance();
         ADCreditNoteEntryEntity cn = this.getTypeInstance();
         BillyValidator.mandatory(cn.getQuantity(),
-								 LOCALIZER.getString("field.quantity"));
+                                 LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(cn.getUnitOfMeasure(),
-								 LOCALIZER.getString("field.unit"));
+                                 LOCALIZER.getString("field.unit"));
         BillyValidator.<Object>mandatory(cn.getProduct(),
-										 LOCALIZER.getString("field.product"));
+                                         LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(cn.getTaxes(), LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(cn.getTaxAmount(), LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(cn.getTaxPointDate(),
-								 LOCALIZER.getString("field.tax_point_date"));
+                                 LOCALIZER.getString("field.tax_point_date"));
         BillyValidator.mandatory(cn.getReference(),
-								 ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
+                                 ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
         BillyValidator.mandatory(cn.getReason(), ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
 

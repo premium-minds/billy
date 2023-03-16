@@ -42,12 +42,12 @@ public class ADManualInvoiceEntryBuilderImpl<TBuilder extends ADManualInvoiceEnt
 {
 
     public ADManualInvoiceEntryBuilderImpl(
-		DAOADInvoiceEntry daoADEntry,
-		DAOADInvoice daoADInvoice,
-		DAOADTax daoADTax,
-		DAOADProduct daoADProduct,
-		DAOADRegionContext daoADRegionContext)
-	{
+        DAOADInvoiceEntry daoADEntry,
+        DAOADInvoice daoADInvoice,
+        DAOADTax daoADTax,
+        DAOADProduct daoADProduct,
+        DAOADRegionContext daoADRegionContext)
+    {
         super(daoADEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 

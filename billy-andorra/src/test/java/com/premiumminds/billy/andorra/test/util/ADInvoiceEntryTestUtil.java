@@ -59,10 +59,10 @@ public class ADInvoiceEntryTestUtil {
         invoiceEntryBuilder.clear();
 
         invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ADInvoiceEntryTestUtil.AMOUNT)
-						   .setTaxPointDate(new Date()).setDescription(product.getDescription())
-						   .setQuantity(ADInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-						   .setProductUID(product.getUID()).setContextUID(this.context.getUID()).setShippingOrigin(originBuilder)
-						   .setCurrency(ADInvoiceEntryTestUtil.CURRENCY);
+                           .setTaxPointDate(new Date()).setDescription(product.getDescription())
+                           .setQuantity(ADInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
+                           .setProductUID(product.getUID()).setContextUID(this.context.getUID()).setShippingOrigin(originBuilder)
+                           .setCurrency(ADInvoiceEntryTestUtil.CURRENCY);
 
         return invoiceEntryBuilder;
 
@@ -77,10 +77,10 @@ public class ADInvoiceEntryTestUtil {
         invoiceEntryBuilder.clear();
 
         invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ADInvoiceEntryTestUtil.AMOUNT)
-						   .setTaxPointDate(new Date()).setDescription(product.getDescription())
-						   .setQuantity(ADInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-						   .setProductUID(product.getUID()).setContextUID(this.context.getUID()).setShippingOrigin(originBuilder)
-						   .setCurrency(ADInvoiceEntryTestUtil.CURRENCY);
+                           .setTaxPointDate(new Date()).setDescription(product.getDescription())
+                           .setQuantity(ADInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
+                           .setProductUID(product.getUID()).setContextUID(this.context.getUID()).setShippingOrigin(originBuilder)
+                           .setCurrency(ADInvoiceEntryTestUtil.CURRENCY);
 
         return invoiceEntryBuilder;
     }
@@ -108,10 +108,10 @@ public class ADInvoiceEntryTestUtil {
         invoiceEntryBuilder.clear();
 
         invoiceEntryBuilder.setUnitAmount(AmountType.WITHOUT_TAX, ADInvoiceEntryTestUtil.AMOUNT)
-						   .setTaxPointDate(new Date()).setDescription(product.getDescription())
-						   .setQuantity(ADInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-						   .setProductUID(product.getUID()).setContextUID(this.context.getUID()).setShippingOrigin(originBuilder)
-						   .setCurrency(Currency.getInstance("EUR"));
+                           .setTaxPointDate(new Date()).setDescription(product.getDescription())
+                           .setQuantity(ADInvoiceEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
+                           .setProductUID(product.getUID()).setContextUID(this.context.getUID()).setShippingOrigin(originBuilder)
+                           .setCurrency(Currency.getInstance("EUR"));
 
         return invoiceEntryBuilder;
     }

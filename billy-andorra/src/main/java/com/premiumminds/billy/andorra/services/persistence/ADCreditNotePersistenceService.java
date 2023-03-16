@@ -133,7 +133,7 @@ public class ADCreditNotePersistenceService implements PersistenceService<Generi
                 @Override
                 public List<ADCreditNote> runTransaction() throws Exception {
                     return ADCreditNotePersistenceService.this.daoCreditNote.findByReferencedDocument(uidCompany,
-																									  uidInvoice);
+                                                                                                      uidInvoice);
                 }
 
             }.execute();

@@ -59,7 +59,7 @@ public class TestADReceiptEntryBuilder extends ADAbstractTest {
                 .thenReturn((ADProductEntity) mockEntry.getProduct());
 
         Mockito.when(this.getInstance(DAOADRegionContext.class).isSameOrSubContext(Mockito.any(),
-																				   Mockito.any(Context.class))).thenReturn(true);
+                                                                                   Mockito.any(Context.class))).thenReturn(true);
 
         mockEntry.getDocumentReferences().add(mockReceipt);
 

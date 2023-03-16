@@ -54,16 +54,16 @@ public class CreditReceipts {
         this.persistenceService = this.getInstance(ADCreditReceiptPersistenceService.class);
         this.issuingService = injector.getInstance(DocumentIssuingService.class);
         this.issuingService.addHandler(
-			ADCreditReceiptEntity.class,
-			this.injector.getInstance(ADCreditReceiptIssuingHandler.class));
+            ADCreditReceiptEntity.class,
+            this.injector.getInstance(ADCreditReceiptIssuingHandler.class));
         this.exportService = this.getInstance(ExportService.class);
 
         this.exportService.addDataExtractor(
-			ADCreditReceiptData.class,
-			this.getInstance(ADCreditReceiptDataExtractor.class));
+            ADCreditReceiptData.class,
+            this.getInstance(ADCreditReceiptDataExtractor.class));
         this.exportService.addTransformerMapper(
-			ADCreditReceiptPDFExportRequest.class,
-			ADCreditReceiptPDFFOPTransformer.class);
+            ADCreditReceiptPDFExportRequest.class,
+            ADCreditReceiptPDFFOPTransformer.class);
     }
 
     public ADCreditReceipt.Builder builder() {

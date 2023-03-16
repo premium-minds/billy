@@ -33,8 +33,8 @@ public class ADCreditReceiptData extends GenericInvoiceData {
     private final List<ADCreditReceiptEntryData> entries;
 
     public ADCreditReceiptData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-							   BusinessData business, List<ADCreditReceiptEntryData> entries, BigDecimal taxAmount,
-							   BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+                               BusinessData business, List<ADCreditReceiptEntryData> entries, BigDecimal taxAmount,
+                               BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
 
         super(number, date, settlementDate, payments, null, business, new ArrayList<InvoiceEntryData>(0), taxAmount,
                 amountWithTax, amountWithoutTax, settlementDescription);

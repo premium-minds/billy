@@ -81,54 +81,54 @@ public class Config {
                 public static final String TAX_EXEMPT_UUID = "context.andorra.tax.exempt.uuid";
                 public static final String TAX_EXEMPT_VALUE = "context.andorra.tax.exempt.value";
 
-				public static class VAT {
+                public static class VAT {
 
-					public static final String INCREASED_UUID = "context.andorra.tax.vat.increased.uuid";
-					public static final String INCREASED_PERCENT = "context.andorra.tax.vat.increased.percent";
-					public static final String NORMAL_UUID = "context.andorra.tax.vat.normal.uuid";
-					public static final String NORMAL_PERCENT = "context.andorra.tax.vat.normal.percent";
-					public static final String SPECIAL_UUID = "context.andorra.tax.vat.special.uuid";
-					public static final String SPECIAL_PERCENT = "context.andorra.tax.vat.special.percent";
-					public static final String INTERMEDIATE_UUID = "context.andorra.tax.vat.intermediate.uuid";
-					public static final String INTERMEDIATE_PERCENT = "context.andorra.tax.vat.intermediate.percent";
-					public static final String REDUCED_UUID = "context.andorra.tax.vat.reduced.uuid";
-					public static final String REDUCED_PERCENT = "context.andorra.tax.vat.reduced.percent";
-				}
+                    public static final String INCREASED_UUID = "context.andorra.tax.vat.increased.uuid";
+                    public static final String INCREASED_PERCENT = "context.andorra.tax.vat.increased.percent";
+                    public static final String NORMAL_UUID = "context.andorra.tax.vat.normal.uuid";
+                    public static final String NORMAL_PERCENT = "context.andorra.tax.vat.normal.percent";
+                    public static final String SPECIAL_UUID = "context.andorra.tax.vat.special.uuid";
+                    public static final String SPECIAL_PERCENT = "context.andorra.tax.vat.special.percent";
+                    public static final String INTERMEDIATE_UUID = "context.andorra.tax.vat.intermediate.uuid";
+                    public static final String INTERMEDIATE_PERCENT = "context.andorra.tax.vat.intermediate.percent";
+                    public static final String REDUCED_UUID = "context.andorra.tax.vat.reduced.uuid";
+                    public static final String REDUCED_PERCENT = "context.andorra.tax.vat.reduced.percent";
+                }
 
-				public static class AndorraLaVieja {
+                public static class AndorraLaVieja {
 
-					public static final String UUID = "context.andorra.andorralavieja.uuid";
-				}
+                    public static final String UUID = "context.andorra.andorralavieja.uuid";
+                }
 
-				public static class Canillo {
+                public static class Canillo {
 
-					public static final String UUID = "context.andorra.canillo.uuid";
-				}
+                    public static final String UUID = "context.andorra.canillo.uuid";
+                }
 
-				public static class Encamp {
+                public static class Encamp {
 
-					public static final String UUID = "context.andorra.encamp.uuid";
-				}
+                    public static final String UUID = "context.andorra.encamp.uuid";
+                }
 
-				public static class LasEscaldasEngordany {
+                public static class LasEscaldasEngordany {
 
-					public static final String UUID = "context.andorra.lasescaldasengordany.uuid";
-				}
+                    public static final String UUID = "context.andorra.lasescaldasengordany.uuid";
+                }
 
-				public static class LaMassana {
+                public static class LaMassana {
 
-					public static final String UUID = "context.andorra.lamassana.uuid";
-				}
+                    public static final String UUID = "context.andorra.lamassana.uuid";
+                }
 
-				public static class Ordino {
+                public static class Ordino {
 
-					public static final String UUID = "context.andorra.ordino.uuid";
-				}
+                    public static final String UUID = "context.andorra.ordino.uuid";
+                }
 
-				public static class SanJulianDeLoria {
+                public static class SanJulianDeLoria {
 
-					public static final String UUID = "context.andorra.sanjuliandeloria.uuid";
-				}
+                    public static final String UUID = "context.andorra.sanjuliandeloria.uuid";
+                }
             }
         }
     }

@@ -42,47 +42,47 @@ public class Contexts {
             return (ADRegionContext) dao.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.UUID));
         }
 
-		public ADRegionContext andorraLaVieja() {
-			DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
-			return (ADRegionContext) dao
-				.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.AndorraLaVieja.UUID));
-		}
+        public ADRegionContext andorraLaVieja() {
+            DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
+            return (ADRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.AndorraLaVieja.UUID));
+        }
 
-		public ADRegionContext canillo() {
-			DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
-			return (ADRegionContext) dao
-				.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.Canillo.UUID));
-		}
+        public ADRegionContext canillo() {
+            DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
+            return (ADRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.Canillo.UUID));
+        }
 
-		public ADRegionContext encamp() {
-			DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
-			return (ADRegionContext) dao
-				.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.Encamp.UUID));
-		}
+        public ADRegionContext encamp() {
+            DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
+            return (ADRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.Encamp.UUID));
+        }
 
-		public ADRegionContext lasEscaldasEngordany() {
-			DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
-			return (ADRegionContext) dao
-				.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.LasEscaldasEngordany.UUID));
-		}
+        public ADRegionContext lasEscaldasEngordany() {
+            DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
+            return (ADRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.LasEscaldasEngordany.UUID));
+        }
 
-		public ADRegionContext laMassana() {
-			DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
-			return (ADRegionContext) dao
-				.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.LaMassana.UUID));
-		}
+        public ADRegionContext laMassana() {
+            DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
+            return (ADRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.LaMassana.UUID));
+        }
 
-		public ADRegionContext ordino() {
-			DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
-			return (ADRegionContext) dao
-				.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.Ordino.UUID));
-		}
+        public ADRegionContext ordino() {
+            DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
+            return (ADRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.Ordino.UUID));
+        }
 
-		public ADRegionContext sanJulianDeLoria() {
-			DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
-			return (ADRegionContext) dao
-				.get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.SanJulianDeLoria.UUID));
-		}
+        public ADRegionContext sanJulianDeLoria() {
+            DAOADRegionContext dao = Contexts.this.getInstance(DAOADRegionContext.class);
+            return (ADRegionContext) dao
+                .get(Contexts.this.configuration.getUID(Config.Key.Context.Andorra.SanJulianDeLoria.UUID));
+        }
     }
 
     public Contexts(Injector injector) {

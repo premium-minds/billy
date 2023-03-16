@@ -24,5 +24,5 @@ import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 public interface DAOADSupplier extends DAOSupplier {
 
     @Override
-	ADSupplierEntity getEntityInstance();
+    ADSupplierEntity getEntityInstance();
 }

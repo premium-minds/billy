@@ -32,16 +32,16 @@ import com.premiumminds.billy.andorra.persistence.dao.DAOADTax;
 public interface ADGenericInvoiceEntry extends GenericInvoiceEntry {
 
     class Builder extends ADGenericInvoiceEntryBuilderImpl<Builder, ADGenericInvoiceEntry, ADGenericInvoiceEntity, DAOADGenericInvoiceEntry, DAOADGenericInvoice>
-	{
+    {
 
         @Inject
         public Builder(
-			DAOADGenericInvoiceEntry daoADGenericInvoiceEntry,
-			DAOADGenericInvoice daoADGenericInvoice,
-			DAOADTax daoADTax,
-			DAOADProduct daoADProduct,
-			DAOADRegionContext daoADRegionContext)
-		{
+            DAOADGenericInvoiceEntry daoADGenericInvoiceEntry,
+            DAOADGenericInvoice daoADGenericInvoice,
+            DAOADTax daoADTax,
+            DAOADProduct daoADProduct,
+            DAOADRegionContext daoADRegionContext)
+        {
             super(daoADGenericInvoiceEntry, daoADGenericInvoice, daoADTax, daoADProduct, daoADRegionContext);
         }
     }

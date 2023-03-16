@@ -61,9 +61,9 @@ public class TestDAOADInvoice extends ADPersistencyAbstractTest {
         ADInvoiceEntity inv2 = this.getNewIssuedInvoice(B2);
 
         ADInvoiceEntity resultInvoice1 = this.getInstance(DAOADInvoice.class)
-											 .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID());
+                                             .getLatestInvoiceFromSeries(inv1.getSeries(), inv1.getBusiness().getUID());
         ADInvoiceEntity resultInvoice2 = this.getInstance(DAOADInvoice.class)
-											 .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID());
+                                             .getLatestInvoiceFromSeries(inv2.getSeries(), inv2.getBusiness().getUID());
 
         ADInvoiceEntity inv3 = this.getNewIssuedInvoice(B1);
         ADInvoiceEntity inv4 = this.getNewIssuedInvoice(B2);
@@ -103,10 +103,10 @@ public class TestDAOADInvoice extends ADPersistencyAbstractTest {
         ADCreditNote cc1 = this.getNewIssuedCreditnote(inv1);
 
         List<ADCreditNote> cn1 = this.getInstance(DAOADCreditNote.class)
-									 .findByReferencedDocument(cc1.getBusiness().getUID(), inv1.getUID());
+                                     .findByReferencedDocument(cc1.getBusiness().getUID(), inv1.getUID());
 
         List<ADCreditNote> cn0 = this.getInstance(DAOADCreditNote.class).findByReferencedDocument(StringID.fromValue("B1"),
-																								  StringID.fromValue("INEXISTENT_CN"));
+                                                                                                  StringID.fromValue("INEXISTENT_CN"));
 
         Assertions.assertEquals(0, cn0.size());
         Assertions.assertEquals(1, cn1.size());

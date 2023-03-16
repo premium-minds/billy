@@ -109,7 +109,7 @@ public class ADCreditReceiptPDFFOPTransformer extends ADAbstractFOPPDFTransforme
             }
 
             entryNode.addChild(ADCreditReceiptPDFFOPTransformer.PARAM_KEYS_RECEIPT).addChild(ParamKeys.ID,
-																							 entry.getReference().getNumber());
+                                                                                             entry.getReference().getNumber());
         }
     }
 

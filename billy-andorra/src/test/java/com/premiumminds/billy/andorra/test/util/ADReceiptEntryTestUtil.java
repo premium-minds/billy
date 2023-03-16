@@ -53,10 +53,10 @@ public class ADReceiptEntryTestUtil {
 
         receiptEntryBuilder.clear();
         receiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ADReceiptEntryTestUtil.AMOUNT)
-						   .setTaxPointDate(new Date()).setDescription(product.getDescription())
-						   .setQuantity(ADReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
-						   .setProductUID(product.getUID()).setContextUID(this.context.getUID())
-						   .setCurrency(ADReceiptEntryTestUtil.CURRENCY);
+                           .setTaxPointDate(new Date()).setDescription(product.getDescription())
+                           .setQuantity(ADReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(product.getUnitOfMeasure())
+                           .setProductUID(product.getUID()).setContextUID(this.context.getUID())
+                           .setCurrency(ADReceiptEntryTestUtil.CURRENCY);
 
         return receiptEntryBuilder;
     }

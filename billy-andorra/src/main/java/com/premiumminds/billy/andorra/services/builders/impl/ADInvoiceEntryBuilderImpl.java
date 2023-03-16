@@ -42,12 +42,12 @@ public class ADInvoiceEntryBuilderImpl<TBuilder extends ADInvoiceEntryBuilderImp
 
     @Inject
     public ADInvoiceEntryBuilderImpl(
-		DAOADInvoiceEntry daoADEntry,
-		DAOADInvoice daoADInvoice,
-		DAOADTax daoADTax,
-		DAOADProduct daoADProduct,
-		DAOADRegionContext daoADRegionContext)
-	{
+        DAOADInvoiceEntry daoADEntry,
+        DAOADInvoice daoADInvoice,
+        DAOADTax daoADTax,
+        DAOADProduct daoADProduct,
+        DAOADRegionContext daoADRegionContext)
+    {
         super(daoADEntry, daoADInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 

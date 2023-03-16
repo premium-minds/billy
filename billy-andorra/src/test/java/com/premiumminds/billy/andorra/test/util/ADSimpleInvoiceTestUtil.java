@@ -80,11 +80,11 @@ public class ADSimpleInvoiceTestUtil {
         }
 
         return invoiceBuilder.setBilled(ADInvoiceTestUtil.BILLED).setCancelled(ADInvoiceTestUtil.CANCELLED)
-							 .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(
-				ADInvoiceTestUtil.SOURCE_ID)
-							 .setCustomerUID(customerUID).setBusinessUID(businessEntity.getUID())
-							 .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
-							 .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                             .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(
+                ADInvoiceTestUtil.SOURCE_ID)
+                             .setCustomerUID(customerUID).setBusinessUID(businessEntity.getUID())
+                             .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
+                             .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
     }
 
 }

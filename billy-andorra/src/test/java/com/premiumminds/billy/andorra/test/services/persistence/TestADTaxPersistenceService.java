@@ -50,7 +50,7 @@ public class TestADTaxPersistenceService extends ADPersistenceServiceAbstractTes
     @Test
     public void testSameCodeDifferentDatesSuccess() {
 
-		final ADRegionContext andorraLaVieja = billy.contexts().andorra().andorraLaVieja();
+        final ADRegionContext andorraLaVieja = billy.contexts().andorra().andorraLaVieja();
 
         ADTax.Builder builder1 = createBuilder(andorraLaVieja)
                 .setValidFrom(new java.util.Date(0))
@@ -71,7 +71,7 @@ public class TestADTaxPersistenceService extends ADPersistenceServiceAbstractTes
     @Test
     public void testSameDatesDiferentCodesSuccess() {
 
-		final ADRegionContext andorraLaVieja = billy.contexts().andorra().andorraLaVieja();
+        final ADRegionContext andorraLaVieja = billy.contexts().andorra().andorraLaVieja();
 
         ADTax.Builder builder1 = createBuilder(andorraLaVieja)
                 .setCode("code1");

@@ -56,7 +56,7 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
 
     @BeforeEach
     public void setUpModules() {
-		ADAbstractTest.injector =
+        ADAbstractTest.injector =
                 Guice.createInjector(new AndorraDependencyModule(), new AndorraTestPersistenceDependencyModule());
         ADAbstractTest.injector.getInstance(AndorraDependencyModule.Initializer.class);
         ADAbstractTest.injector.getInstance(AndorraTestPersistenceDependencyModule.Initializer.class);
@@ -155,9 +155,9 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
 
     protected void createSeries(StringID<Business> businessUID) {
         this.createSeries(
-			new ADReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
+            new ADReceiptTestUtil(ADAbstractTest.injector).getReceiptBuilder(
                 new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)).build(),
-			ADPersistencyAbstractTest.DEFAULT_SERIES);
+            ADPersistencyAbstractTest.DEFAULT_SERIES);
     }
 
     protected void createSeries(StringID<Business> businessUID, String series) {

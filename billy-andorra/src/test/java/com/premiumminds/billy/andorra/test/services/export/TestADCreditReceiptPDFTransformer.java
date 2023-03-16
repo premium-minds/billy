@@ -135,7 +135,7 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
 
         InputStream xsl = Files.newInputStream(Paths.get(TestADCreditReceiptPDFTransformer.XSL_PATH));
         ADCreditReceiptTemplateBundle bundle = new ADCreditReceiptTemplateBundle(
-			TestADCreditReceiptPDFTransformer.LOGO_PATH, xsl);
+            TestADCreditReceiptPDFTransformer.LOGO_PATH, xsl);
         ADCreditReceiptPDFFOPTransformer transformerBundle = new ADCreditReceiptPDFFOPTransformer(bundle);
 
         ADCreditReceiptData entityData = this.extractor.extract(uidEntity);
@@ -156,7 +156,7 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
         this.createSeries(reference, "AC");
 
         ADCreditReceiptEntity creditReceipt = (ADCreditReceiptEntity) services.issueDocument(
-			new ADCreditReceiptTestUtil(ADAbstractTest.injector).getCreditReceiptBuilder(reference), params);
+            new ADCreditReceiptTestUtil(ADAbstractTest.injector).getCreditReceiptBuilder(reference), params);
 
         creditReceipt.setBusiness((BusinessEntity) reference.getBusiness());
         creditReceipt.setCreditOrDebit(CreditOrDebit.DEBIT);

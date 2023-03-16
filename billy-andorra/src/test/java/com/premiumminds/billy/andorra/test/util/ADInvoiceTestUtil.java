@@ -90,10 +90,10 @@ public class ADInvoiceTestUtil {
         invoiceBuilder.addEntry(invoiceEntryBuilder);
 
         return invoiceBuilder.setBilled(ADInvoiceTestUtil.BILLED).setCancelled(ADInvoiceTestUtil.CANCELLED)
-							 .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(
-				ADInvoiceTestUtil.SOURCE_ID)
-							 .setCustomerUID(customerUID).setBusinessUID(business.getUID())
-							 .addPayment(this.payment.getPaymentBuilder()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                             .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(
+                ADInvoiceTestUtil.SOURCE_ID)
+                             .setCustomerUID(customerUID).setBusinessUID(business.getUID())
+                             .addPayment(this.payment.getPaymentBuilder()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
     }
 
     public ADInvoice.ManualBuilder getManualInvoiceBuilder(ADBusinessEntity business) {
@@ -107,17 +107,17 @@ public class ADInvoiceTestUtil {
         StringID<Customer> customerUID = daoADCustomer.create(customerEntity).getUID();
 
         ADInvoiceEntry.ManualBuilder invoiceEntryBuilder = this.invoiceEntry.getManualInvoiceEntryBuilder()
-																			.setUnitAmount(AmountType.WITH_TAX, price).setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
-																			.setUnitTaxAmount(tax).setAmount(AmountType.WITH_TAX, price)
-																			.setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax);
+                                                                            .setUnitAmount(AmountType.WITH_TAX, price).setUnitAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
+                                                                            .setUnitTaxAmount(tax).setAmount(AmountType.WITH_TAX, price)
+                                                                            .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax);
         invoiceBuilder.addEntry(invoiceEntryBuilder);
 
         return invoiceBuilder.setBilled(ADInvoiceTestUtil.BILLED).setCancelled(ADInvoiceTestUtil.CANCELLED)
-							 .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(
-				ADInvoiceTestUtil.SOURCE_ID)
-							 .setCustomerUID(customerUID).setBusinessUID(business.getUID()).setAmount(AmountType.WITH_TAX, price)
-							 .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax)
-							 .addPayment(this.payment.getPaymentBuilder());
+                             .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(
+                ADInvoiceTestUtil.SOURCE_ID)
+                             .setCustomerUID(customerUID).setBusinessUID(business.getUID()).setAmount(AmountType.WITH_TAX, price)
+                             .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax)
+                             .addPayment(this.payment.getPaymentBuilder());
     }
 
     public ADInvoiceEntity getDifferentRegionsInvoice() {
@@ -136,9 +136,9 @@ public class ADInvoiceTestUtil {
         }
 
         invoiceBuilder.setBilled(ADInvoiceTestUtil.BILLED).setCancelled(ADInvoiceTestUtil.CANCELLED)
-					  .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ADInvoiceTestUtil.SOURCE_ID)
-					  .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-					  .addPayment(this.payment.getPaymentBuilder());
+                      .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ADInvoiceTestUtil.SOURCE_ID)
+                      .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
+                      .addPayment(this.payment.getPaymentBuilder());
 
         return (ADInvoiceEntity) invoiceBuilder.build();
     }
@@ -159,9 +159,9 @@ public class ADInvoiceTestUtil {
         }
 
         invoiceBuilder.setBilled(ADInvoiceTestUtil.BILLED).setCancelled(ADInvoiceTestUtil.CANCELLED)
-					  .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ADInvoiceTestUtil.SOURCE_ID)
-					  .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-					  .addPayment(this.payment.getPaymentBuilder());
+                      .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ADInvoiceTestUtil.SOURCE_ID)
+                      .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
+                      .addPayment(this.payment.getPaymentBuilder());
 
         return (ADInvoiceEntity) invoiceBuilder.build();
     }
@@ -188,9 +188,9 @@ public class ADInvoiceTestUtil {
         }
 
         invoiceBuilder.setBilled(ADInvoiceTestUtil.BILLED).setCancelled(ADInvoiceTestUtil.CANCELLED)
-					  .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ADInvoiceTestUtil.SOURCE_ID)
-					  .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-					  .addPayment(this.payment.getPaymentBuilder());
+                      .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ADInvoiceTestUtil.SOURCE_ID)
+                      .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
+                      .addPayment(this.payment.getPaymentBuilder());
 
         return (ADInvoiceEntity) invoiceBuilder.build();
     }

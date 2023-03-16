@@ -56,15 +56,15 @@ public class Services {
     private void setupServices() {
         this.issuingService.addHandler(ADInvoiceEntity.class, this.injector.getInstance(ADInvoiceIssuingHandler.class));
         this.issuingService.addHandler(
-			ADCreditNoteEntity.class,
-			this.injector.getInstance(ADCreditNoteIssuingHandler.class));
+            ADCreditNoteEntity.class,
+            this.injector.getInstance(ADCreditNoteIssuingHandler.class));
         this.issuingService.addHandler(
-			ADSimpleInvoiceEntity.class,
-			this.injector.getInstance(ADSimpleInvoiceIssuingHandler.class));
+            ADSimpleInvoiceEntity.class,
+            this.injector.getInstance(ADSimpleInvoiceIssuingHandler.class));
         this.issuingService.addHandler(ADReceiptEntity.class, this.injector.getInstance(ADReceiptIssuingHandler.class));
         this.issuingService.addHandler(
-			ADCreditReceiptEntity.class,
-			this.injector.getInstance(ADCreditReceiptIssuingHandler.class));
+            ADCreditReceiptEntity.class,
+            this.injector.getInstance(ADCreditReceiptIssuingHandler.class));
     }
 
     /**
@@ -91,7 +91,7 @@ public class Services {
     }
 
     public <T extends ADGenericInvoice> T issueDocument(Builder<T> builder, ADIssuingParams issuingParameters,
-														StringID<Ticket> ticketUID)
+                                                        StringID<Ticket> ticketUID)
         throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         return this.issuingService.issue(builder, issuingParameters, ticketUID);

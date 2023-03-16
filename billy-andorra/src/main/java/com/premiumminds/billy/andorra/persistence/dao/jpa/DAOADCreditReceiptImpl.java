@@ -38,7 +38,7 @@ import javax.inject.Provider;
 import javax.persistence.EntityManager;
 
 public class DAOADCreditReceiptImpl extends AbstractDAOADGenericInvoiceImpl<ADCreditReceiptEntity, JPAADCreditReceiptEntity>
-	implements DAOADCreditReceipt
+    implements DAOADCreditReceipt
 {
 
     @Inject
@@ -57,7 +57,7 @@ public class DAOADCreditReceiptImpl extends AbstractDAOADGenericInvoiceImpl<ADCr
     }
 
     @Override public List<ADCreditReceipt> findByReferencedDocument(StringID<Business> uidCompany,
-																	StringID<GenericInvoice> uidInvoice) {
+                                                                    StringID<GenericInvoice> uidInvoice) {
         QJPAADCreditReceiptEntity creditReceipt = QJPAADCreditReceiptEntity.jPAADCreditReceiptEntity;
         QJPAADCreditReceiptEntryEntity entry = QJPAADCreditReceiptEntryEntity.jPAADCreditReceiptEntryEntity;
         QJPAADGenericInvoiceEntity receipt = QJPAADGenericInvoiceEntity.jPAADGenericInvoiceEntity;

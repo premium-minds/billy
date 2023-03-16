@@ -39,7 +39,7 @@ public class ADAddressTestUtil {
     }
 
     public ADAddress.Builder getAddressBuilder(String streetName, String number, String details, String building,
-											   String city, String postalCode, String region, String isoCountry) {
+                                               String city, String postalCode, String region, String isoCountry) {
 
         ADAddress.Builder addressBuilder = this.injector.getInstance(ADAddress.Builder.class);
 
@@ -53,7 +53,7 @@ public class ADAddressTestUtil {
 
     public ADAddress.Builder getAddressBuilder() {
         return this.getAddressBuilder(ADAddressTestUtil.STREET, ADAddressTestUtil.NUMBER, ADAddressTestUtil.DETAILS,
-									  ADAddressTestUtil.BUILDING, ADAddressTestUtil.CITY, ADAddressTestUtil.POSTAL_CODE,
-									  ADAddressTestUtil.REGION, ADAddressTestUtil.ISOCODE);
+                                      ADAddressTestUtil.BUILDING, ADAddressTestUtil.CITY, ADAddressTestUtil.POSTAL_CODE,
+                                      ADAddressTestUtil.REGION, ADAddressTestUtil.ISOCODE);
     }
 }

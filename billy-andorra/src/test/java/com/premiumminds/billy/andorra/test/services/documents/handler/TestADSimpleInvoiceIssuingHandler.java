@@ -75,7 +75,7 @@ public class TestADSimpleInvoiceIssuingHandler extends ADDocumentAbstractTest {
         ADSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector);
 
         Assertions.assertThrows(BillySimpleInvoiceException.class, () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(
-			CLIENTTYPE.BUSINESS));
+            CLIENTTYPE.BUSINESS));
     }
 
 }

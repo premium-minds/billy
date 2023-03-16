@@ -60,7 +60,7 @@ public class ADProductTestUtil {
     }
 
     public ADProduct.Builder getProductBuilder(String productCode, String unitMesure, String numberCode, String group,
-											   String description, ProductType type) {
+                                               String description, ProductType type) {
         ADProduct.Builder productBuilder = this.injector.getInstance(ADProduct.Builder.class);
 
         return productBuilder.addTaxUID(this.tax.getUID()).setNumberCode(numberCode).setUnitOfMeasure(unitMesure)
@@ -70,8 +70,8 @@ public class ADProductTestUtil {
 
     public ADProduct.Builder getProductBuilder() {
         return this.getProductBuilder(ADProductTestUtil.PRODUCT_CODE, ADProductTestUtil.UNIT_OF_MEASURE,
-									  ADProductTestUtil.NUMBER_CODE, ADProductTestUtil.GROUP, ADProductTestUtil.DESCRIPTION,
-									  ADProductTestUtil.TYPE);
+                                      ADProductTestUtil.NUMBER_CODE, ADProductTestUtil.GROUP, ADProductTestUtil.DESCRIPTION,
+                                      ADProductTestUtil.TYPE);
     }
 
     public ADProductEntity getProductEntity(String productCode, String unitMesure, String numberCode, String group,
@@ -89,9 +89,9 @@ public class ADProductTestUtil {
         this.setExpireOneMonthAhead(taxRegion);
 
         productBuilder.addTaxUID(taxRegion.getUID()).setNumberCode(ADProductTestUtil.NUMBER_CODE)
-					  .setUnitOfMeasure(ADProductTestUtil.UNIT_OF_MEASURE).setProductCode(ADProductTestUtil.PRODUCT_CODE)
-					  .setDescription(ADProductTestUtil.DESCRIPTION).setType(ADProductTestUtil.TYPE)
-					  .setProductGroup(ADProductTestUtil.GROUP);
+                      .setUnitOfMeasure(ADProductTestUtil.UNIT_OF_MEASURE).setProductCode(ADProductTestUtil.PRODUCT_CODE)
+                      .setDescription(ADProductTestUtil.DESCRIPTION).setType(ADProductTestUtil.TYPE)
+                      .setProductGroup(ADProductTestUtil.GROUP);
 
         return (ADProductEntity) productBuilder.build();
     }

@@ -33,50 +33,50 @@ public class Taxes {
 
     Config configuration = new Config();
 
-	/**
-	 * @return Increased VAT value for Andorra.
-	 */
-	public ADTax increased() {
-		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-		return (ADTax) dao
-			.get(Taxes.this.configuration.getUID(VAT.INCREASED_UUID));
-	}
+    /**
+     * @return Increased VAT value for Andorra.
+     */
+    public ADTax increased() {
+        DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+        return (ADTax) dao
+            .get(Taxes.this.configuration.getUID(VAT.INCREASED_UUID));
+    }
 
-	/**
-	 * @return Normal VAT value for Andorra.
-	 */
-	public ADTax normal() {
-		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-		return (ADTax) dao
-			.get(Taxes.this.configuration.getUID(VAT.NORMAL_UUID));
-	}
+    /**
+     * @return Normal VAT value for Andorra.
+     */
+    public ADTax normal() {
+        DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+        return (ADTax) dao
+            .get(Taxes.this.configuration.getUID(VAT.NORMAL_UUID));
+    }
 
-	/**
-	 * @return Special VAT value for Andorra.
-	 */
-	public ADTax special() {
-		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-		return (ADTax) dao
-			.get(Taxes.this.configuration.getUID(VAT.SPECIAL_UUID));
-	}
+    /**
+     * @return Special VAT value for Andorra.
+     */
+    public ADTax special() {
+        DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+        return (ADTax) dao
+            .get(Taxes.this.configuration.getUID(VAT.SPECIAL_UUID));
+    }
 
-	/**
-	 * @return Intermediate VAT value for Andorra.
-	 */
-	public ADTax intermediate() {
-		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-		return (ADTax) dao
-			.get(Taxes.this.configuration.getUID(VAT.INTERMEDIATE_UUID));
-	}
+    /**
+     * @return Intermediate VAT value for Andorra.
+     */
+    public ADTax intermediate() {
+        DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+        return (ADTax) dao
+            .get(Taxes.this.configuration.getUID(VAT.INTERMEDIATE_UUID));
+    }
 
-	/**
-	 * @return Reduced VAT value for Andorra.
-	 */
-	public ADTax reduced() {
-		DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
-		return (ADTax) dao
-			.get(Taxes.this.configuration.getUID(VAT.REDUCED_UUID));
-	}
+    /**
+     * @return Reduced VAT value for Andorra.
+     */
+    public ADTax reduced() {
+        DAOADTax dao = Taxes.this.getInstance(DAOADTax.class);
+        return (ADTax) dao
+            .get(Taxes.this.configuration.getUID(VAT.REDUCED_UUID));
+    }
 
     /**
      * @return Exemption tax value.

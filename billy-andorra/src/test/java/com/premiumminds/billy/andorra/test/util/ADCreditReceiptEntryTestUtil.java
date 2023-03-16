@@ -57,11 +57,11 @@ public class ADCreditReceiptEntryTestUtil {
         this.context = this.contexts.andorra().canillo();
 
         creditReceiptEntryBuilder.setUnitAmount(AmountType.WITH_TAX, ADCreditReceiptEntryTestUtil.AMOUNT)
-								 .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())
-								 .setQuantity(ADCreditReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
-								 .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
-								 .setReason(ADCreditReceiptEntryTestUtil.REASON).setReferenceUID(reference.getUID())
-								 .setCurrency(Currency.getInstance("EUR"));
+                                 .setTaxPointDate(new Date()).setDescription(newProduct.getDescription())
+                                 .setQuantity(ADCreditReceiptEntryTestUtil.QUANTITY).setUnitOfMeasure(newProduct.getUnitOfMeasure())
+                                 .setProductUID(newProduct.getUID()).setContextUID(this.context.getUID())
+                                 .setReason(ADCreditReceiptEntryTestUtil.REASON).setReferenceUID(reference.getUID())
+                                 .setCurrency(Currency.getInstance("EUR"));
 
         return creditReceiptEntryBuilder;
     }

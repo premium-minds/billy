@@ -122,14 +122,14 @@ public class ADCreditReceiptPersistenceService implements PersistenceService<Gen
     }
 
     public List<ADCreditReceipt> findByReferencedDocument(final StringID<Business> uidCompany,
-														  final StringID<GenericInvoice> uidInvoice) {
+                                                          final StringID<GenericInvoice> uidInvoice) {
         try {
             return new TransactionWrapper<List<ADCreditReceipt>>(this.daoCreditReceipt) {
 
                 @Override
                 public List<ADCreditReceipt> runTransaction() throws Exception {
                     return ADCreditReceiptPersistenceService.this.daoCreditReceipt.findByReferencedDocument(uidCompany,
-																											uidInvoice);
+                                                                                                            uidInvoice);
                 }
 
             }.execute();

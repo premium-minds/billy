@@ -37,12 +37,12 @@ public class ADReceiptEntryBuilderImpl<TBuilder extends ADReceiptEntryBuilderImp
 {
 
     public ADReceiptEntryBuilderImpl(
-		DAOADReceiptEntry daoADReceiptEntry,
-		DAOADReceipt daoADReceipt,
-		DAOADTax daoADTax,
-		DAOADProduct daoADProduct,
-		DAOADRegionContext daoADRegionContext)
-	{
+        DAOADReceiptEntry daoADReceiptEntry,
+        DAOADReceipt daoADReceipt,
+        DAOADTax daoADTax,
+        DAOADProduct daoADProduct,
+        DAOADRegionContext daoADRegionContext)
+    {
         super(daoADReceiptEntry, daoADReceipt, daoADTax, daoADProduct, daoADRegionContext);
     }
 

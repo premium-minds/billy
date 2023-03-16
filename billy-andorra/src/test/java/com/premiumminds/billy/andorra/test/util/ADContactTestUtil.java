@@ -39,7 +39,7 @@ public class ADContactTestUtil {
     }
 
     public ADContact.Builder getContactBuilder(String name, String telephone, String mobile, String fax, String email,
-											   String website) {
+                                               String website) {
         ADContact.Builder contactBuilder = this.injector.getInstance(ADContact.Builder.class);
 
         contactBuilder.setName(name).setEmail(email).setMobile(mobile).setFax(fax).setTelephone(telephone)
@@ -61,6 +61,6 @@ public class ADContactTestUtil {
 
     public ADContact.Builder getContactBuilder() {
         return this.getContactBuilder(ADContactTestUtil.NAME, ADContactTestUtil.TELEPHONE, ADContactTestUtil.MOBILE,
-									  ADContactTestUtil.FAX, ADContactTestUtil.EMAIL, ADContactTestUtil.WEBSITE);
+                                      ADContactTestUtil.FAX, ADContactTestUtil.EMAIL, ADContactTestUtil.WEBSITE);
     }
 }

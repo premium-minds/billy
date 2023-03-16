@@ -57,8 +57,8 @@ public class ADInvoicePDFFOPTransformer extends ADAbstractFOPPDFTransformer<ADIn
     protected void setHeader(ParamsTree<String, String> params, ADInvoiceData entity) {
         if (null != entity.getSettlementDescription()) {
             params.getRoot().addChild(
-				ADInvoicePDFFOPTransformer.PARAM_KEYS_INVOICE_PAYSETTLEMENT,
-				entity.getSettlementDescription());
+                ADInvoicePDFFOPTransformer.PARAM_KEYS_INVOICE_PAYSETTLEMENT,
+                entity.getSettlementDescription());
         }
         super.setHeader(params, entity);
     }

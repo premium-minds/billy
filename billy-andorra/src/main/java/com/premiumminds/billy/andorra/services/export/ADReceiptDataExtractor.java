@@ -54,8 +54,8 @@ public class ADReceiptDataExtractor extends AbstractBillyDataExtractor implement
         List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
 
         return new ADReceiptData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments, business,
-								 entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
-								 entity.getSettlementDescription());
+                                 entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
+                                 entity.getSettlementDescription());
     }
 
 }

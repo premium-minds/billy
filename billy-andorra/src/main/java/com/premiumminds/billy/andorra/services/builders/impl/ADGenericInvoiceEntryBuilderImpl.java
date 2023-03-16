@@ -45,12 +45,12 @@ public class ADGenericInvoiceEntryBuilderImpl<TBuilder extends ADGenericInvoiceE
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
     public ADGenericInvoiceEntryBuilderImpl(
-		TDAOEntry daoADGenericInvoiceEntry,
-		TDAOInvoice daoADGenericInvoice,
-		DAOADTax daoADTax,
-		DAOADProduct daoADProduct,
-		DAOADRegionContext daoADRegionContext)
-	{
+        TDAOEntry daoADGenericInvoiceEntry,
+        TDAOInvoice daoADGenericInvoice,
+        DAOADTax daoADTax,
+        DAOADProduct daoADProduct,
+        DAOADRegionContext daoADRegionContext)
+    {
         super(daoADGenericInvoiceEntry, daoADGenericInvoice, daoADTax, daoADProduct, daoADRegionContext);
     }
 
@@ -72,17 +72,17 @@ public class ADGenericInvoiceEntryBuilderImpl<TBuilder extends ADGenericInvoiceE
         super.validateInstance();
         ADGenericInvoiceEntryEntity i = this.getTypeInstance();
         BillyValidator.mandatory(i.getQuantity(),
-								 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
+                                 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.quantity"));
         BillyValidator.mandatory(i.getUnitOfMeasure(),
-								 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
+                                 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.unit"));
         BillyValidator.<Object>mandatory(i.getProduct(), ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.product"));
         BillyValidator.notEmpty(i.getTaxes(), ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxAmount(), ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax"));
         BillyValidator.mandatory(i.getTaxPointDate(),
-								 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+                                 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
         if (i.getTaxAmount().compareTo(BigDecimal.ZERO) == 0) {
             BillyValidator.mandatory(i.getTaxExemptionReason(),
-									 ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
+                                     ADGenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_exemption_reason"));
         }
     }
 

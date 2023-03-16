@@ -30,8 +30,8 @@ import com.premiumminds.billy.gin.services.export.PaymentData;
 public class ADReceiptData extends GenericInvoiceData {
 
     public ADReceiptData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-						 BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount, BigDecimal amountWithTax,
-						 BigDecimal amountWithoutTax, String settlementDescription) {
+                         BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount, BigDecimal amountWithTax,
+                         BigDecimal amountWithoutTax, String settlementDescription) {
 
         super(number, date, settlementDate, payments, null, business, entries, taxAmount, amountWithTax,
                 amountWithoutTax, settlementDescription);

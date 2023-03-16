@@ -57,11 +57,11 @@ public class ADCustomerTestUtil {
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();
 
         return this.getCustomerBuilder(ADCustomerTestUtil.NAME, ADCustomerTestUtil.TAX_NUMBER,
-									   ADCustomerTestUtil.SELF_BILLING_AGREE, addressBuilder, contactBuilder);
+                                       ADCustomerTestUtil.SELF_BILLING_AGREE, addressBuilder, contactBuilder);
     }
 
     public ADCustomer.Builder getCustomerBuilder(String name, String taxNumber, Boolean selfBilling,
-												 ADAddress.Builder addressBuilder, ADContact.Builder contactBuilder) {
+                                                 ADAddress.Builder addressBuilder, ADContact.Builder contactBuilder) {
 
         ADCustomer.Builder customerBuilder = this.injector.getInstance(ADCustomer.Builder.class);
 
@@ -71,7 +71,7 @@ public class ADCustomerTestUtil {
     }
 
     public ADCustomerEntity getCustomerEntity(String name, String taxNumber, boolean selfBilling,
-											  ADAddress.Builder addressBuilder, ADContact.Builder contactBuilder) {
+                                              ADAddress.Builder addressBuilder, ADContact.Builder contactBuilder) {
 
         ADCustomerEntity customer = (ADCustomerEntity) this.getCustomerBuilder().build();
 

@@ -54,14 +54,14 @@ public class CreditNotes {
         this.persistenceService = this.getInstance(ADCreditNotePersistenceService.class);
         this.issuingService = injector.getInstance(DocumentIssuingService.class);
         this.issuingService.addHandler(
-			ADCreditNoteEntity.class,
-			this.injector.getInstance(ADCreditNoteIssuingHandler.class));
+            ADCreditNoteEntity.class,
+            this.injector.getInstance(ADCreditNoteIssuingHandler.class));
         this.exportService = this.getInstance(ExportService.class);
 
         this.exportService.addDataExtractor(ADCreditNoteData.class, this.getInstance(ADCreditNoteDataExtractor.class));
         this.exportService.addTransformerMapper(
-			ADCreditNotePDFExportRequest.class,
-			ADCreditNotePDFFOPTransformer.class);
+            ADCreditNotePDFExportRequest.class,
+            ADCreditNotePDFFOPTransformer.class);
     }
 
     public ADCreditNote.Builder builder() {

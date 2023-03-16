@@ -65,7 +65,7 @@ public class TestADInvoiceIssuingHandlerWithTicket extends ADDocumentAbstractTes
             this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
             ADBusinessEntity
-				business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+                business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
             Builder invoiceBuilder =
                     new ADInvoiceTestUtil(ADAbstractTest.injector).getInvoiceBuilder(business);
 
@@ -144,13 +144,13 @@ public class TestADInvoiceIssuingHandlerWithTicket extends ADDocumentAbstractTes
         this.parameters.setInvoiceSeries(this.DEFAULT_SERIES);
 
         ADBusinessEntity
-			business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+            business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ADInvoice.Builder builder = new ADInvoiceTestUtil(ADAbstractTest.injector).getInvoiceBuilder(business);
 
         try {
 
             entity = (ADInvoiceEntity) services.issueDocument(builder, this.parameters,
-															  StringID.fromValue(this.issuedInvoiceUID.getIdentifier()));
+                                                              StringID.fromValue(this.issuedInvoiceUID.getIdentifier()));
         } catch (InvalidTicketException e) {
 
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
@@ -164,7 +164,7 @@ public class TestADInvoiceIssuingHandlerWithTicket extends ADDocumentAbstractTes
         ADInvoicePersistenceService persistenceService =
                 ADAbstractTest.injector.getInstance(ADInvoicePersistenceService.class);
         ADBusinessEntity
-			business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
+            business = new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(StringID.fromValue("business"));
         ADInvoice.Builder testinvoice = new ADInvoiceTestUtil(ADAbstractTest.injector).getInvoiceBuilder(business);
 
         EntityManager em = ADAbstractTest.injector.getInstance(EntityManager.class);

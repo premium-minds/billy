@@ -33,7 +33,7 @@ public class ADAbstractTest extends AbstractTest {
 
     @BeforeAll
     public static void setUpClass() {
-		ADAbstractTest.injector =
+        ADAbstractTest.injector =
                 Guice.createInjector(Modules.override(new AndorraDependencyModule()).with(new ADMockDependencyModule()));
     }
 

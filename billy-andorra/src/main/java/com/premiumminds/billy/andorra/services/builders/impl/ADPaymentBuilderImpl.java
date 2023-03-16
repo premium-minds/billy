@@ -74,9 +74,9 @@ public class ADPaymentBuilderImpl<TBuilder extends ADPaymentBuilderImpl<TBuilder
         super.validateInstance();
         ADPaymentEntity p = this.getTypeInstance();
         BillyValidator.mandatory(p.getPaymentAmount(),
-								 ADPaymentBuilderImpl.LOCALIZER.getString("field.payment_amount"));
+                                 ADPaymentBuilderImpl.LOCALIZER.getString("field.payment_amount"));
         BillyValidator.mandatory(p.getPaymentMethod(),
-								 ADPaymentBuilderImpl.LOCALIZER.getString("field.payment_method"));
+                                 ADPaymentBuilderImpl.LOCALIZER.getString("field.payment_method"));
         BillyValidator.mandatory(p.getPaymentDate(), ADPaymentBuilderImpl.LOCALIZER.getString("field.payment_date"));
     }
 

@@ -27,7 +27,7 @@ import javax.persistence.EntityManager;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADSimpleInvoice;
 
 public class DAOADSimpleInvoiceImpl extends AbstractDAOADGenericInvoiceImpl<ADSimpleInvoiceEntity, JPAADSimpleInvoiceEntity>
-	implements DAOADSimpleInvoice
+    implements DAOADSimpleInvoice
 {
 
     @Inject

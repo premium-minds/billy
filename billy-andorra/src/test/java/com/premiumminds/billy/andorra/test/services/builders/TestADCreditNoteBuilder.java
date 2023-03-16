@@ -68,8 +68,8 @@ public class TestADCreditNoteBuilder extends ADAbstractTest {
                 .thenReturn(new MockADCreditNoteEntity());
 
         MockADCreditNoteEntryEntity entryMock = this.createMockEntity(
-			MockADCreditNoteEntryEntity.class,
-			TestADCreditNoteBuilder.AD_CREDIT_NOTE_ENTRY_YML);
+            MockADCreditNoteEntryEntity.class,
+            TestADCreditNoteBuilder.AD_CREDIT_NOTE_ENTRY_YML);
 
         Mockito.when(this.getInstance(DAOADCreditNoteEntry.class).get(Mockito.any())).thenReturn(entryMock);
 

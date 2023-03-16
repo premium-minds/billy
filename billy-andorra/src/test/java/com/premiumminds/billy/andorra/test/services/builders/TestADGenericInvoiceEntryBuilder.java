@@ -44,8 +44,8 @@ public class TestADGenericInvoiceEntryBuilder extends ADAbstractTest {
     @Test
     public void doTest() {
         MockADGenericInvoiceEntryEntity mock = this.createMockEntity(
-			MockADGenericInvoiceEntryEntity.class,
-			TestADGenericInvoiceEntryBuilder.AD_GENERIC_INVOICE_ENTRY_YML);
+            MockADGenericInvoiceEntryEntity.class,
+            TestADGenericInvoiceEntryBuilder.AD_GENERIC_INVOICE_ENTRY_YML);
 
         mock.currency = Currency.getInstance("EUR");
 
@@ -53,8 +53,8 @@ public class TestADGenericInvoiceEntryBuilder extends ADAbstractTest {
                 .thenReturn(new MockADGenericInvoiceEntryEntity());
 
         MockADGenericInvoiceEntity mockInvoice = this.createMockEntity(
-			MockADGenericInvoiceEntity.class,
-			TestADGenericInvoiceEntryBuilder.AD_GENERIC_INVOICE_YML);
+            MockADGenericInvoiceEntity.class,
+            TestADGenericInvoiceEntryBuilder.AD_GENERIC_INVOICE_YML);
 
         Mockito.when(this.getInstance(DAOADGenericInvoice.class).get(Mockito.any())).thenReturn(mockInvoice);
 

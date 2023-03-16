@@ -60,7 +60,7 @@ public class TestADInvoiceEntryBuilder extends ADAbstractTest {
                 .thenReturn((ADProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOADRegionContext.class).isSameOrSubContext(Mockito.any(),
-																				   Mockito.any(Context.class))).thenReturn(true);
+                                                                                   Mockito.any(Context.class))).thenReturn(true);
 
         mock.getDocumentReferences().add(mockInvoice);
 

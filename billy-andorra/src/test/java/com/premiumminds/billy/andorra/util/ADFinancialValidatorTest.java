@@ -49,70 +49,70 @@ public class ADFinancialValidatorTest {
         assertTrue(validator.isValid());
     }
 
-	@Test
-	public void testInvalidLimitedCompany() {
-		ADFinancialValidator validator = new ADFinancialValidator("A699999Z");
-		assertFalse(validator.isValid());
-	}
+    @Test
+    public void testInvalidLimitedCompany() {
+        ADFinancialValidator validator = new ADFinancialValidator("A699999Z");
+        assertFalse(validator.isValid());
+    }
 
-	@Test
-	public void testValidPrivateLimitedCompany() {
-		ADFinancialValidator validator = new ADFinancialValidator("L700000Z");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidPrivateLimitedCompany() {
+        ADFinancialValidator validator = new ADFinancialValidator("L700000Z");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testInvalidPrivateLimitedCompany() {
-		ADFinancialValidator validator = new ADFinancialValidator("L800000Z");
-		assertFalse(validator.isValid());
-	}
+    @Test
+    public void testInvalidPrivateLimitedCompany() {
+        ADFinancialValidator validator = new ADFinancialValidator("L800000Z");
+        assertFalse(validator.isValid());
+    }
 
-	@Test
-	public void testValidNonResidentLegalEntity() {
-		ADFinancialValidator validator = new ADFinancialValidator("E000000Z");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidNonResidentLegalEntity() {
+        ADFinancialValidator validator = new ADFinancialValidator("E000000Z");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testValidJointOwnershipArrangements() {
-		ADFinancialValidator validator = new ADFinancialValidator("C999999H");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidJointOwnershipArrangements() {
+        ADFinancialValidator validator = new ADFinancialValidator("C999999H");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testValidPublicEntity() {
-		ADFinancialValidator validator = new ADFinancialValidator("D000000A");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidPublicEntity() {
+        ADFinancialValidator validator = new ADFinancialValidator("D000000A");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testValidTaxGroup() {
-		ADFinancialValidator validator = new ADFinancialValidator("G192837L");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidTaxGroup() {
+        ADFinancialValidator validator = new ADFinancialValidator("G192837L");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testValidCollectiveInvestmentScheme() {
-		ADFinancialValidator validator = new ADFinancialValidator("O675849O");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidCollectiveInvestmentScheme() {
+        ADFinancialValidator validator = new ADFinancialValidator("O675849O");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testValidAssociationOrFoundation() {
-		ADFinancialValidator validator = new ADFinancialValidator("P194826Y");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidAssociationOrFoundation() {
+        ADFinancialValidator validator = new ADFinancialValidator("P194826Y");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testValidParapublicEntity() {
-		ADFinancialValidator validator = new ADFinancialValidator("U741852W");
-		assertTrue(validator.isValid());
-	}
+    @Test
+    public void testValidParapublicEntity() {
+        ADFinancialValidator validator = new ADFinancialValidator("U741852W");
+        assertTrue(validator.isValid());
+    }
 
-	@Test
-	public void testInvalidRegex() {
-		ADFinancialValidator validator = new ADFinancialValidator("A12Z456H");
-		assertFalse(validator.isValid());
-	}
+    @Test
+    public void testInvalidRegex() {
+        ADFinancialValidator validator = new ADFinancialValidator("A12Z456H");
+        assertFalse(validator.isValid());
+    }
 
 }

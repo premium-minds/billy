@@ -44,8 +44,8 @@ public class TestADCreditNoteEntryBuilder extends ADAbstractTest {
     @Test
     public void doTest() {
         MockADCreditNoteEntryEntity mock = this.createMockEntity(
-			MockADCreditNoteEntryEntity.class,
-			TestADCreditNoteEntryBuilder.AD_CREDIT_NOTE_ENTRY_YML);
+            MockADCreditNoteEntryEntity.class,
+            TestADCreditNoteEntryBuilder.AD_CREDIT_NOTE_ENTRY_YML);
 
         mock.setCurrency(Currency.getInstance("EUR"));
 
@@ -61,7 +61,7 @@ public class TestADCreditNoteEntryBuilder extends ADAbstractTest {
                 .thenReturn((ADProductEntity) mock.getProduct());
 
         Mockito.when(this.getInstance(DAOADRegionContext.class).isSameOrSubContext(Mockito.any(),
-																				   Mockito.any(Context.class))).thenReturn(true);
+                                                                                   Mockito.any(Context.class))).thenReturn(true);
 
         mock.setReference(mockInvoiceEntity);
 

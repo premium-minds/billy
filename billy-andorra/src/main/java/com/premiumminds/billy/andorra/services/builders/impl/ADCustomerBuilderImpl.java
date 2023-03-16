@@ -72,7 +72,7 @@ public class ADCustomerBuilderImpl<TBuilder extends ADCustomerBuilderImpl<TBuild
     @Override
     public <T extends Address> TBuilder setBillingAddress(Builder<T> addressBuilder) {
         BillyValidator.notNull(addressBuilder,
-							   ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
+                               ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
         this.getTypeInstance().setBillingAddress((AddressEntity) addressBuilder.build());
         return this.getBuilder();
     }
@@ -80,7 +80,7 @@ public class ADCustomerBuilderImpl<TBuilder extends ADCustomerBuilderImpl<TBuild
     @Override
     public TBuilder setHasSelfBillingAgreement(boolean selfBiling) {
         BillyValidator.notNull(selfBiling,
-							   ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
+                               ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
         this.getTypeInstance().setHasSelfBillingAgreement(selfBiling);
         return this.getBuilder();
     }
@@ -96,13 +96,13 @@ public class ADCustomerBuilderImpl<TBuilder extends ADCustomerBuilderImpl<TBuild
         ADCustomerEntity c = this.getTypeInstance();
         BillyValidator.mandatory(c.getName(), ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_name"));
         BillyValidator.mandatory(c.getTaxRegistrationNumber(),
-								 ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
+                                 ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_tax_number"));
         BillyValidator.<Object>mandatory(c.getMainAddress(),
-										 ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
+                                         ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_main_address"));
         BillyValidator.<Object>mandatory(c.getBillingAddress(),
-										 ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
+                                         ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_billing_address"));
         BillyValidator.mandatory(c.hasSelfBillingAgreement(),
-								 ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
+                                 ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_self_billing_agreement"));
         BillyValidator.notEmpty(c.getAddresses(), ADCustomerBuilderImpl.LOCALIZER.getString("field.customer_address"));
     }
 }

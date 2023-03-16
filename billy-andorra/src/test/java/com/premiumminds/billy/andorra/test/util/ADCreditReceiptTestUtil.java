@@ -62,9 +62,9 @@ public class ADCreditReceiptTestUtil {
                 this.creditReceiptEntry.getCreditReceiptEntryBuilder(reference);
 
         return creditReceiptBuilder.setBilled(ADCreditReceiptTestUtil.BILLED)
-								   .setCancelled(ADCreditReceiptTestUtil.CANCELLED).setSelfBilled(
-				ADCreditReceiptTestUtil.SELFBILL)
-								   .setDate(new Date()).setSourceId(ADCreditReceiptTestUtil.SOURCEID).addEntry(creditReceiptEntryBuilder)
-								   .setBusinessUID(reference.getBusiness().getUID()).addPayment(this.payment.getPaymentBuilder());
+                                   .setCancelled(ADCreditReceiptTestUtil.CANCELLED).setSelfBilled(
+                ADCreditReceiptTestUtil.SELFBILL)
+                                   .setDate(new Date()).setSourceId(ADCreditReceiptTestUtil.SOURCEID).addEntry(creditReceiptEntryBuilder)
+                                   .setBusinessUID(reference.getBusiness().getUID()).addPayment(this.payment.getPaymentBuilder());
     }
 }

@@ -37,11 +37,11 @@ public interface ADGenericInvoice extends GenericInvoice {
 
         @Inject
         public Builder(
-			DAOADGenericInvoice daoADGenericInvoice,
-			DAOADBusiness daoADBusiness,
-			DAOADCustomer daoADCustomer,
-			DAOADSupplier daoADSupplier)
-		{
+            DAOADGenericInvoice daoADGenericInvoice,
+            DAOADBusiness daoADBusiness,
+            DAOADCustomer daoADCustomer,
+            DAOADSupplier daoADSupplier)
+        {
             super(daoADGenericInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
         }
     }
