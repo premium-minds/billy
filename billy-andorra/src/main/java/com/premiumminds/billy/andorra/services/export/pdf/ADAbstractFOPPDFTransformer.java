@@ -27,17 +27,17 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
 
 public abstract class ADAbstractFOPPDFTransformer<T extends GenericInvoiceData> extends AbstractFOPPDFTransformer<T> {
 
-    static final String BANK_TRANSFER_TEXT = "Transferencia Bancaria";
-    static final String CASH_TEXT = "Metálico";
-    static final String CREDIT_CARD_TEXT = "Tarjeta Crédito";
-    static final String CHECK_TEXT = "Cheque";
-    static final String DEBIT_CARD_TEXT = "Tarjeta Débito";
-    static final String COMPENSATION_TEXT = "Compensación de saldos en cuenta corriente";
-    static final String COMMERCIAL_LETTER_TEXT = "Letra Comercial";
-    static final String RESTAURANT_TICKET_TEXT = "Ticket Restaurante";
-    static final String ATM_TEXT = "Datáfono";
+    static final String BANK_TRANSFER_TEXT = "Transferència Bancària";
+    static final String CASH_TEXT = "Efectiu";
+    static final String CREDIT_CARD_TEXT = "Targeta de Crèdit";
+    static final String CHECK_TEXT = "Xec";
+    static final String DEBIT_CARD_TEXT = "Targeta Dèbit";
+    static final String COMPENSATION_TEXT = "Compensació de saldos en compte corrent";
+    static final String COMMERCIAL_LETTER_TEXT = "Lletra Comercial";
+    static final String RESTAURANT_TICKET_TEXT = "Tiquet Restaurant";
+    static final String ATM_TEXT = "Datàfon";
     static final String EXCHANGE_TEXT = "Permuta";
-    static final String ELECTRONIC_MONEY_TEXT = "Dinero Electrónico";
+    static final String ELECTRONIC_MONEY_TEXT = "Diners Electrònic";
 
     private final ADTemplateBundle externalTranslator;
 

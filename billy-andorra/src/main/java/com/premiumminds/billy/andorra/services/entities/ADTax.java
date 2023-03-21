@@ -44,7 +44,6 @@ public interface ADTax extends Tax {
         public static final String REDUCED = "RED";
         public static final String SUPER_REDUCED = "SUP";
         public static final String EXEMPT = "ISE";
-        public static final String OTHER = "OUT";
     }
 
 }
