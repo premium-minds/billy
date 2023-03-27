@@ -14,6 +14,7 @@
  - [Bump maven-failsafe-plugin from 2.22.2 to 3.0.0](https://github.com/premium-minds/billy/pull/396)
  - [Bump maven-scm-api from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/399)
  - [Bump maven-scm-provider-gitexe from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/397)
+ - [Bump license-maven-plugin from 4.1 to 4.2](https://github.com/premium-minds/billy/pull/402)
 
 ## [7.1.1] 2023-02-16
 
