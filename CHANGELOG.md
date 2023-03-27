@@ -7,10 +7,13 @@
 
  - [Replace UID with StringID typification](https://github.com/premium-minds/billy/pull/359)
  - [Deprecate unused interfaces Invoice and CreditNote](https://github.com/premium-minds/billy/pull/391)
+ - [Bump slf4j-api from 2.0.6 to 2.0.7](https://github.com/premium-minds/billy/pull/398)
  - [Bump snakeyaml from 1.33 to 2.0](https://github.com/premium-minds/billy/pull/385)
  - [Bump maven-compiler-plugin from 3.10.1 to 3.11.0](https://github.com/premium-minds/billy/pull/386)
  - [Bump maven-surefire-plugin from 2.22.2 to 3.0.0](https://github.com/premium-minds/billy/pull/395)
  - [Bump maven-failsafe-plugin from 2.22.2 to 3.0.0](https://github.com/premium-minds/billy/pull/396)
+ - [Bump maven-scm-api from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/399)
+ - [Bump maven-scm-provider-gitexe from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/397)
 
 ## [7.1.1] 2023-02-16
 
