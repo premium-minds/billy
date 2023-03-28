@@ -22,7 +22,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<main.dir>${basedir}</main.dir>
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<guice.version>5.1.0</guice.version>
 		<querydsl.version>5.0.0</querydsl.version>
 		<hibernate.version>5.6.15.Final</hibernate.version>
@@ -312,6 +312,7 @@
 					<configuration>
 						<source>${java.version}</source>
 						<target>${java.version}</target>
+						<release>${java.version}</release>
 					</configuration>
 				</plugin>
 				<!--This plugin's configuration is used to store Eclipse m2e settings
