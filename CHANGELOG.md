@@ -9,6 +9,7 @@
 
 ### Changed
 
+ - [Bumps Java from 1.8 to 11](https://github.com/premium-minds/billy/pull/387)
  - [Replace UID with StringID typification](https://github.com/premium-minds/billy/pull/359)
  - [Deprecate unused interfaces Invoice and CreditNote](https://github.com/premium-minds/billy/pull/391)
  - [Bump slf4j-api from 2.0.6 to 2.0.7](https://github.com/premium-minds/billy/pull/398)
