@@ -3,6 +3,10 @@
 
 ## [Unreleased v7]
 
+### Added
+
+ - [Add Andorra support](https://github.com/premium-minds/billy/pull/401)
+
 ### Changed
 
  - [Replace UID with StringID typification](https://github.com/premium-minds/billy/pull/359)
