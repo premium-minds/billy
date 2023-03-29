@@ -17,9 +17,6 @@
  - [Bump maven-compiler-plugin from 3.10.1 to 3.11.0](https://github.com/premium-minds/billy/pull/386)
  - [Bump maven-surefire-plugin from 2.22.2 to 3.0.0](https://github.com/premium-minds/billy/pull/395)
  - [Bump maven-failsafe-plugin from 2.22.2 to 3.0.0](https://github.com/premium-minds/billy/pull/396)
- - [Bump maven-release-plugin from 2.5.3 to 3.0.0](https://github.com/premium-minds/billy/pull/400)
- - [Bump maven-scm-api from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/399)
- - [Bump maven-scm-provider-gitexe from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/397)
  - [Bump license-maven-plugin from 4.1 to 4.2](https://github.com/premium-minds/billy/pull/402)
  - [Bump spotless-maven-plugin from 2.30.0 to 2.35.0](https://github.com/premium-minds/billy/pull/394)
 
@@ -42,10 +39,10 @@
 
  - [Changes DAO\*CreditReceiptEntryImpl to use single query](https://github.com/premium-minds/billy/pull/382) fixes [
 checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/issues/381)
- 
+
 ## [7.1.0] 2023-02-15
 
-### Changed 
+### Changed
 
  - [Bump hibernate.version from 5.6.12.Final to 5.6.14.Final](https://github.com/premium-minds/billy/pull/353)
  - [Bump hibernate.version from 5.6.14.Final to 5.6.15.Final](https://github.com/premium-minds/billy/pull/373)
@@ -82,8 +79,8 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  - [Bump mockito-core from 4.8.0 to 4.8.1](https://github.com/premium-minds/billy/pull/350)
  - [Bump spotless-maven-plugin from 2.27.0 to 2.27.1](https://github.com/premium-minds/billy/pull/347)
  - [Bump spotless-maven-plugin from 2.27.1 to 2.27.2](https://github.com/premium-minds/billy/pull/349)
- 
-## [Unreleased v6] 
+
+## [Unreleased v6]
 
 ## [6.0.1] 2022-09-22
 
