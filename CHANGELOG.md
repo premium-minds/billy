@@ -11,7 +11,6 @@
 
  - [Bumps Java from 1.8 to 11](https://github.com/premium-minds/billy/pull/387)
  - [Replace UID with StringID typification](https://github.com/premium-minds/billy/pull/359)
- - [Deprecate unused interfaces Invoice and CreditNote](https://github.com/premium-minds/billy/pull/391)
  - [Bump slf4j-api from 2.0.6 to 2.0.7](https://github.com/premium-minds/billy/pull/398)
  - [Bump snakeyaml from 1.33 to 2.0](https://github.com/premium-minds/billy/pull/385)
  - [Bump maven-compiler-plugin from 3.10.1 to 3.11.0](https://github.com/premium-minds/billy/pull/386)
@@ -21,6 +20,14 @@
  - [Bump maven-scm-provider-gitexe from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/397)
  - [Bump license-maven-plugin from 4.1 to 4.2](https://github.com/premium-minds/billy/pull/402)
  - [Bump spotless-maven-plugin from 2.30.0 to 2.35.0](https://github.com/premium-minds/billy/pull/394)
+
+### Deprecated
+
+ - [Deprecate unused interfaces Invoice and CreditNote](https://github.com/premium-minds/billy/pull/391)
+
+### Removed
+
+ - [Removes dependency querydsl-apt](https://github.com/premium-minds/billy/pull/388)
 
 ## [7.1.1] 2023-02-16
 
