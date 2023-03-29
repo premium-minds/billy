@@ -30,6 +30,7 @@
 ### Removed
 
  - [Removes dependency querydsl-apt](https://github.com/premium-minds/billy/pull/388)
+ - [Removes deprecated Ticket concept](https://github.com/premium-minds/billy/pull/390)
 
 ## [7.1.1] 2023-02-16
 
