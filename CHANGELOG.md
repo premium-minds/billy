@@ -20,6 +20,7 @@
  - [Bump maven-scm-api from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/399)
  - [Bump maven-scm-provider-gitexe from 1.13.0 to 2.0.0](https://github.com/premium-minds/billy/pull/397)
  - [Bump license-maven-plugin from 4.1 to 4.2](https://github.com/premium-minds/billy/pull/402)
+ - [Bump spotless-maven-plugin from 2.30.0 to 2.35.0](https://github.com/premium-minds/billy/pull/394)
 
 ## [7.1.1] 2023-02-16
 
