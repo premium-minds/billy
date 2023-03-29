@@ -6,6 +6,7 @@
 ### Added
 
  - [Add Andorra support](https://github.com/premium-minds/billy/pull/401)
+ - [Adds Automatic-Module-Name to all billy modules](https://github.com/premium-minds/billy/pull/389)
 
 ### Changed
 
