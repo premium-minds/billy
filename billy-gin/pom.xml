@@ -25,7 +25,7 @@
 	<parent>
 		<groupId>com.premiumminds</groupId>
 		<artifactId>billy</artifactId>
-		<version>7.1.2-SNAPSHOT</version>
+		<version>8.0.0</version>
 	</parent>
 
 	<properties>
