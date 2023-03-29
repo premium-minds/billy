@@ -20,8 +20,6 @@ package com.premiumminds.billy.core.services.documents;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
@@ -29,10 +27,6 @@ import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExis
 public interface DocumentIssuingService {
 
     public <T extends GenericInvoice> T issue(Builder<T> documentBuilder, IssuingParams parameters)
-            throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException;
-
-    @Deprecated
-    public <T extends GenericInvoice> T issue(Builder<T> documentBuilder, IssuingParams parameters, StringID<Ticket> ticketUID)
             throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException;
 
     public <T extends GenericInvoice, P extends IssuingParams> void addHandler(Class<T> handledClass,

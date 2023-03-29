@@ -19,19 +19,11 @@
 package com.premiumminds.billy.andorra.util;
 
 import com.google.inject.Injector;
+import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADCreditReceiptEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADSimpleInvoiceEntity;
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
-import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
 import com.premiumminds.billy.andorra.services.documents.ADCreditNoteIssuingHandler;
 import com.premiumminds.billy.andorra.services.documents.ADCreditReceiptIssuingHandler;
 import com.premiumminds.billy.andorra.services.documents.ADInvoiceIssuingHandler;
@@ -39,6 +31,12 @@ import com.premiumminds.billy.andorra.services.documents.ADReceiptIssuingHandler
 import com.premiumminds.billy.andorra.services.documents.ADSimpleInvoiceIssuingHandler;
 import com.premiumminds.billy.andorra.services.documents.util.ADIssuingParams;
 import com.premiumminds.billy.andorra.services.entities.ADGenericInvoice;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.documents.DocumentIssuingService;
+import com.premiumminds.billy.core.services.documents.impl.DocumentIssuingServiceImpl;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 
 public class Services {
 
@@ -88,13 +86,6 @@ public class Services {
         throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
     {
         return this.issuingService.issue(builder, issuingParameters);
-    }
-
-    public <T extends ADGenericInvoice> T issueDocument(Builder<T> builder, ADIssuingParams issuingParameters,
-                                                        StringID<Ticket> ticketUID)
-        throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
-    {
-        return this.issuingService.issue(builder, issuingParameters, ticketUID);
     }
 
 }

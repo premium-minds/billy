@@ -34,7 +34,6 @@ import com.premiumminds.billy.core.persistence.dao.DAOProduct;
 import com.premiumminds.billy.core.persistence.dao.DAOShippingPoint;
 import com.premiumminds.billy.core.persistence.dao.DAOSupplier;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.persistence.dao.jpa.DAOAddressImpl;
 import com.premiumminds.billy.persistence.dao.jpa.DAOApplicationImpl;
 import com.premiumminds.billy.persistence.dao.jpa.DAOBankAccountImpl;
@@ -50,7 +49,6 @@ import com.premiumminds.billy.persistence.dao.jpa.DAOProductImpl;
 import com.premiumminds.billy.persistence.dao.jpa.DAOShippingPointImpl;
 import com.premiumminds.billy.persistence.dao.jpa.DAOSupplierImpl;
 import com.premiumminds.billy.persistence.dao.jpa.DAOTaxImpl;
-import com.premiumminds.billy.persistence.dao.jpa.DAOTicketImpl;
 
 public class CoreJPADependencyModule extends AbstractModule {
 
@@ -70,7 +68,6 @@ public class CoreJPADependencyModule extends AbstractModule {
         this.bind(DAOShippingPoint.class).to(DAOShippingPointImpl.class);
         this.bind(DAOSupplier.class).to(DAOSupplierImpl.class);
         this.bind(DAOTax.class).to(DAOTaxImpl.class);
-        this.bind(DAOTicket.class).to(DAOTicketImpl.class);
         this.bind(DAOPayment.class).to(DAOPaymentImpl.class);
         this.bind(DAOInvoiceSeries.class).to(DAOInvoiceSeriesImpl.class);
     }

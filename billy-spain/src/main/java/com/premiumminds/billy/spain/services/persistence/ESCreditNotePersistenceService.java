@@ -18,21 +18,18 @@
  */
 package com.premiumminds.billy.spain.services.persistence;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.List;
-
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.entities.ESCreditNoteEntity;
 import com.premiumminds.billy.spain.services.entities.ESCreditNote;
@@ -40,12 +37,10 @@ import com.premiumminds.billy.spain.services.entities.ESCreditNote;
 public class ESCreditNotePersistenceService implements PersistenceService<GenericInvoice, ESCreditNote> {
 
     protected final DAOESCreditNote daoCreditNote;
-    protected final DAOTicket daoTicket;
 
     @Inject
-    public ESCreditNotePersistenceService(DAOESCreditNote daoCreditNote, DAOTicket daoTicket) {
+    public ESCreditNotePersistenceService(DAOESCreditNote daoCreditNote) {
         this.daoCreditNote = daoCreditNote;
-        this.daoTicket = daoTicket;
     }
 
     @Override
@@ -82,27 +77,6 @@ public class ESCreditNotePersistenceService implements PersistenceService<Generi
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public ESCreditNote getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
-
-        try {
-            return new TransactionWrapper<ESCreditNote>(this.daoCreditNote) {
-
-                @Override
-                public ESCreditNote runTransaction() throws Exception {
-                    StringID<GenericInvoice> objectUID =
-                            ESCreditNotePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return ESCreditNotePersistenceService.this.daoCreditNote.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

@@ -18,32 +18,29 @@
  */
 package com.premiumminds.billy.andorra.services.persistence;
 
-import com.premiumminds.billy.andorra.persistence.entities.ADCreditReceiptEntity;
-import com.premiumminds.billy.andorra.services.entities.ADCreditReceipt;
-import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
-import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
-import com.premiumminds.billy.core.services.Builder;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.util.NotImplemented;
-import com.premiumminds.billy.persistence.services.PersistenceService;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditReceipt;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
+import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditReceipt;
+import com.premiumminds.billy.andorra.persistence.entities.ADCreditReceiptEntity;
+import com.premiumminds.billy.andorra.services.entities.ADCreditReceipt;
+import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
+import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
+import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.util.NotImplemented;
+import com.premiumminds.billy.persistence.services.PersistenceService;
+
 public class ADCreditReceiptPersistenceService implements PersistenceService<GenericInvoice, ADCreditReceipt> {
 
     protected final DAOADCreditReceipt daoCreditReceipt;
-    protected final DAOTicket daoTicket;
 
     @Inject
-    public ADCreditReceiptPersistenceService(DAOADCreditReceipt daoCreditReceipt, DAOTicket daoTicket) {
+    public ADCreditReceiptPersistenceService(DAOADCreditReceipt daoCreditReceipt) {
         this.daoCreditReceipt = daoCreditReceipt;
-        this.daoTicket = daoTicket;
     }
 
     @Override
@@ -80,27 +77,6 @@ public class ADCreditReceiptPersistenceService implements PersistenceService<Gen
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public ADCreditReceipt getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
-
-        try {
-            return new TransactionWrapper<ADCreditReceipt>(this.daoCreditReceipt) {
-
-                @Override
-                public ADCreditReceipt runTransaction() throws Exception {
-                    StringID<GenericInvoice> objectUID =
-                            ADCreditReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return ADCreditReceiptPersistenceService.this.daoCreditReceipt.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

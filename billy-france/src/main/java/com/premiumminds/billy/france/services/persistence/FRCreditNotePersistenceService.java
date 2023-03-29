@@ -23,12 +23,10 @@ import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.NotImplemented;
 import com.premiumminds.billy.france.persistence.dao.DAOFRCreditNote;
@@ -39,12 +37,10 @@ import com.premiumminds.billy.persistence.services.PersistenceService;
 public class FRCreditNotePersistenceService implements PersistenceService<GenericInvoice, FRCreditNote> {
 
     protected final DAOFRCreditNote daoCreditNote;
-    protected final DAOTicket daoTicket;
 
     @Inject
-    public FRCreditNotePersistenceService(DAOFRCreditNote daoCreditNote, DAOTicket daoTicket) {
+    public FRCreditNotePersistenceService(DAOFRCreditNote daoCreditNote) {
         this.daoCreditNote = daoCreditNote;
-        this.daoTicket = daoTicket;
     }
 
     @Override
@@ -81,27 +77,6 @@ public class FRCreditNotePersistenceService implements PersistenceService<Generi
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public FRCreditNote getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
-
-        try {
-            return new TransactionWrapper<FRCreditNote>(this.daoCreditNote) {
-
-                @Override
-                public FRCreditNote runTransaction() throws Exception {
-                    StringID<GenericInvoice> objectUID =
-                            FRCreditNotePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return FRCreditNotePersistenceService.this.daoCreditNote.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

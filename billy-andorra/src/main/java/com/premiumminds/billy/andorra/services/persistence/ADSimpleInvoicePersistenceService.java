@@ -18,29 +18,24 @@
  */
 package com.premiumminds.billy.andorra.services.persistence;
 
+import javax.inject.Inject;
+
+import com.premiumminds.billy.andorra.persistence.dao.DAOADSimpleInvoice;
 import com.premiumminds.billy.andorra.persistence.entities.ADSimpleInvoiceEntity;
 import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice;
-import javax.inject.Inject;
-import javax.persistence.NoResultException;
-
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADSimpleInvoice;
 
 public class ADSimpleInvoicePersistenceService {
 
     protected final DAOADSimpleInvoice daoInvoice;
-    protected final DAOTicket daoTicket;
 
     @Inject
-    public ADSimpleInvoicePersistenceService(DAOADSimpleInvoice daoInvoice, DAOTicket daoTicket) {
+    public ADSimpleInvoicePersistenceService(DAOADSimpleInvoice daoInvoice) {
         this.daoInvoice = daoInvoice;
-        this.daoTicket = daoTicket;
     }
 
     public ADSimpleInvoice update(final Builder<ADSimpleInvoice> builder) {
@@ -69,27 +64,6 @@ public class ADSimpleInvoicePersistenceService {
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public ADSimpleInvoice getWithTicket(final StringID<Ticket> ticketUID) {
-
-        try {
-            return new TransactionWrapper<ADSimpleInvoice>(this.daoInvoice) {
-
-                @Override
-                public ADSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
-                    StringID<GenericInvoice> objectUID =
-                            ADSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return ADSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

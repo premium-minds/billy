@@ -18,17 +18,14 @@
  */
 package com.premiumminds.billy.spain.services.persistence;
 
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.services.entities.ESInvoice;
@@ -36,12 +33,10 @@ import com.premiumminds.billy.spain.services.entities.ESInvoice;
 public class ESInvoicePersistenceService {
 
     protected final DAOESInvoice daoInvoice;
-    protected final DAOTicket daoTicket;
 
     @Inject
-    public ESInvoicePersistenceService(DAOESInvoice daoInvoice, DAOTicket daoTicket) {
+    public ESInvoicePersistenceService(DAOESInvoice daoInvoice) {
         this.daoInvoice = daoInvoice;
-        this.daoTicket = daoTicket;
     }
 
     public ESInvoice update(final Builder<ESInvoice> builder) {
@@ -70,27 +65,6 @@ public class ESInvoicePersistenceService {
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public ESInvoice getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException, BillyRuntimeException {
-
-        try {
-            return new TransactionWrapper<ESInvoice>(this.daoInvoice) {
-
-                @Override
-                public ESInvoice runTransaction() throws Exception {
-                    StringID<GenericInvoice>
-                        objectUID = ESInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return ESInvoicePersistenceService.this.daoInvoice.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

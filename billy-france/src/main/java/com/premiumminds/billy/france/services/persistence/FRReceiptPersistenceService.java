@@ -19,15 +19,12 @@
 package com.premiumminds.billy.france.services.persistence;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRReceipt;
 import com.premiumminds.billy.france.persistence.entities.FRReceiptEntity;
@@ -36,12 +33,10 @@ import com.premiumminds.billy.france.services.entities.FRReceipt;
 public class FRReceiptPersistenceService {
 
     private final DAOFRReceipt daoReceipt;
-    private final DAOTicket daoTicket;
 
     @Inject
-    public FRReceiptPersistenceService(DAOFRReceipt daoReceipt, DAOTicket daoTicket) {
+    public FRReceiptPersistenceService(DAOFRReceipt daoReceipt) {
         this.daoReceipt = daoReceipt;
-        this.daoTicket = daoTicket;
     }
 
     public FRReceipt update(final Builder<FRReceipt> builder) {
@@ -68,25 +63,6 @@ public class FRReceiptPersistenceService {
                     return FRReceiptPersistenceService.this.daoReceipt.get(uid);
                 }
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public FRReceipt getWithTicket(final StringID<Ticket> ticketUID) throws NoResultException {
-        try {
-            return new TransactionWrapper<FRReceipt>(this.daoReceipt) {
-
-                @Override
-                public FRReceipt runTransaction() {
-                    StringID<GenericInvoice> receiptUID =
-                            FRReceiptPersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return FRReceiptPersistenceService.this.daoReceipt.get(receiptUID);
-                }
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }

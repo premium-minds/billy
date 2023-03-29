@@ -19,14 +19,11 @@
 package com.premiumminds.billy.france.services.persistence;
 
 import javax.inject.Inject;
-import javax.persistence.NoResultException;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
-import com.premiumminds.billy.core.persistence.dao.DAOTicket;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Ticket;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.france.persistence.dao.DAOFRSimpleInvoice;
 import com.premiumminds.billy.france.persistence.entities.FRSimpleInvoiceEntity;
@@ -35,12 +32,9 @@ import com.premiumminds.billy.france.services.entities.FRSimpleInvoice;
 public class FRSimpleInvoicePersistenceService {
 
     protected final DAOFRSimpleInvoice daoInvoice;
-    protected final DAOTicket daoTicket;
-
     @Inject
-    public FRSimpleInvoicePersistenceService(DAOFRSimpleInvoice daoInvoice, DAOTicket daoTicket) {
+    public FRSimpleInvoicePersistenceService(DAOFRSimpleInvoice daoInvoice) {
         this.daoInvoice = daoInvoice;
-        this.daoTicket = daoTicket;
     }
 
     public FRSimpleInvoice update(final Builder<FRSimpleInvoice> builder) {
@@ -69,27 +63,6 @@ public class FRSimpleInvoicePersistenceService {
                 }
 
             }.execute();
-        } catch (Exception e) {
-            throw new BillyRuntimeException(e);
-        }
-    }
-
-    @Deprecated
-    public FRSimpleInvoice getWithTicket(final StringID<Ticket> ticketUID) {
-
-        try {
-            return new TransactionWrapper<FRSimpleInvoice>(this.daoInvoice) {
-
-                @Override
-                public FRSimpleInvoice runTransaction() throws NoResultException, BillyRuntimeException {
-                    StringID<GenericInvoice> objectUID =
-                            FRSimpleInvoicePersistenceService.this.daoTicket.getObjectEntityUID(ticketUID);
-                    return FRSimpleInvoicePersistenceService.this.daoInvoice.get(objectUID);
-                }
-
-            }.execute();
-        } catch (NoResultException e) {
-            throw e;
         } catch (Exception e) {
             throw new BillyRuntimeException(e);
         }
