@@ -1,7 +1,9 @@
 <!-- https://keepachangelog.com/en/1.0.0/ -->
 # Changelog
 
-## [Unreleased v7]
+## [Unreleased v8]
+
+## [8.0.0] 2023-03-29
 
 ### Added
 
@@ -79,8 +81,6 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  - [Bump mockito-core from 4.8.0 to 4.8.1](https://github.com/premium-minds/billy/pull/350)
  - [Bump spotless-maven-plugin from 2.27.0 to 2.27.1](https://github.com/premium-minds/billy/pull/347)
  - [Bump spotless-maven-plugin from 2.27.1 to 2.27.2](https://github.com/premium-minds/billy/pull/349)
-
-## [Unreleased v6]
 
 ## [6.0.1] 2022-09-22
 
@@ -196,8 +196,6 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  - [Compare BigDecimal with compateTo and not equals](https://github.com/premium-minds/billy/pull/304)
  - [Fixes non working getTaxes method in DAO taxes implementations](https://github.com/premium-minds/billy/pull/332)
 
-## [Unreleased v5]
-
 ## [5.4.2] - 2022-05-05
 
 ### Fixed
@@ -310,15 +308,6 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
         )
   ```
   - [Corrects credit notes to use debit amount and not credit amount in SAFT](https://github.com/premium-minds/billy/pull/131)
-
-## [Unreleased v4]
-
-## [Unreleased v3]
-
-### Changed
-
- - [Adds export SAFT methods without certificate number](https://github.com/premium-minds/billy/pull/108)
- - [Replaces Base64 from commons-codec with Base64 from Java 8](https://github.com/premium-minds/billy/pull/111)
 
 ## [5.2.0] - 2020-11-05
 
@@ -449,24 +438,21 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v7]: https://github.com/premium-minds/billy/compare/v7.1.1...HEAD
-[unreleased v6]: https://github.com/premium-minds/billy/compare/v6.0.1...release-6.x
-[unreleased v5]: https://github.com/premium-minds/billy/compare/v5.4.2...release-5.x
-[unreleased v4]: https://github.com/premium-minds/billy/compare/v4.0.0...release-4.x
-[unreleased v3]: https://github.com/premium-minds/billy/compare/v3.3.1...release-3.x
+[unreleased v8]: https://github.com/premium-minds/billy/compare/v8.0.0...HEAD
+[8.0.0]: https://github.com/premium-minds/billy/compare/v7.1.1...v8.0.0
 [7.1.1]: https://github.com/premium-minds/billy/compare/v7.1.0...v7.1.1
 [7.1.0]: https://github.com/premium-minds/billy/compare/v7.0.0...v7.1.0
-[7.0.0]: https://github.com/premium-minds/billy/compare/release-6.x...v7.0.0
+[7.0.0]: https://github.com/premium-minds/billy/compare/v6.0.1...v7.0.0
 [6.0.1]: https://github.com/premium-minds/billy/compare/v6.0.0...v6.0.1
-[6.0.0]: https://github.com/premium-minds/billy/compare/release-5.x...v6.0.0
+[6.0.0]: https://github.com/premium-minds/billy/compare/v5.4.2...v6.0.0
 [5.4.2]: https://github.com/premium-minds/billy/compare/v5.4.1...v5.4.2
 [5.4.1]: https://github.com/premium-minds/billy/compare/v5.4.0...v5.4.1
 [5.4.0]: https://github.com/premium-minds/billy/compare/v5.3.0...v5.4.0
 [5.3.0]: https://github.com/premium-minds/billy/compare/v5.2.0...v5.3.0
 [5.2.0]: https://github.com/premium-minds/billy/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/premium-minds/billy/compare/v5.0.0...v5.1.0
-[5.0.0]: https://github.com/premium-minds/billy/compare/release-4.x...v5.0.0
-[4.0.0]: https://github.com/premium-minds/billy/compare/release-3.x...v4.0.0
+[5.0.0]: https://github.com/premium-minds/billy/compare/v4.0.0...v5.0.0
+[4.0.0]: https://github.com/premium-minds/billy/compare/v3.3.1...v4.0.0
 [3.3.1]: https://github.com/premium-minds/billy/compare/v3.3.0...v3.3.1
 [3.3.0]: https://github.com/premium-minds/billy/compare/v3.2.1...v3.3.0
 [3.2.1]: https://github.com/premium-minds/billy/compare/v3.2.0...v3.2.1
