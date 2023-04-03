@@ -77,13 +77,7 @@ public class FRSimpleInvoicePDFFOPTransformer extends FRAbstractFOPPDFTransforme
     }
 
     @Override
-    protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
-        // Do nothing
-    }
-
-    @Override
     public String getCustomerFinancialId(FRSimpleInvoiceData entity) {
         return entity.getCustomer().getTaxRegistrationNumber();
     }
-
 }
