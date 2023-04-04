@@ -787,9 +787,10 @@ public class PTSAFTFileGenerator {
             throw new RequiredFieldNotFoundException(this.context + " Line");
         }
 
-        entries.sort(Comparator.comparing(GenericInvoiceEntry::getEntryNumber));
+        final ArrayList<PTGenericInvoiceEntryEntity> sortedEntries = new ArrayList<>(entries);
+        sortedEntries.sort(Comparator.comparing(GenericInvoiceEntry::getEntryNumber));
 
-        for (PTGenericInvoiceEntryEntity entry : entries) {
+        for (PTGenericInvoiceEntryEntity entry : sortedEntries) {
             /* REQUIRED - One Invoice.Line per IPTFinancialDocumentEntryEntity */
             Line line = new Line();
             line.setLineNumber(new BigInteger(Integer.toString(entry.getEntryNumber())));
