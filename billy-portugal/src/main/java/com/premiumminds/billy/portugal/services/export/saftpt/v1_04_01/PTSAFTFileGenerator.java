@@ -817,8 +817,8 @@ public class PTSAFTFileGenerator {
         if (document.getShippingOrigin() != null) {
             saftInv.setShipFrom(this
                     .getShippingPointStructure(document
-                            .getShippingDestination().getDeliveryId(), document
-                            .getShippingDestination().getDate(),
+                            .getShippingOrigin().getDeliveryId(), document
+                            .getShippingOrigin().getDate(),
                             (PTAddressEntity) document.getShippingOrigin()
                                     .getAddress()));
         }
