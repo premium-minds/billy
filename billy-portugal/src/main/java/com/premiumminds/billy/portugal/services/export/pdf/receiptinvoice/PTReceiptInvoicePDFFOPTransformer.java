@@ -87,10 +87,4 @@ public class PTReceiptInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransform
 
         customer.addChild(ParamKeys.CUSTOMER_FINANCIAL_ID, this.getCustomerFinancialId(document));
     }
-
-    @Override
-    protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
-        // Do nothing
-    }
-
 }

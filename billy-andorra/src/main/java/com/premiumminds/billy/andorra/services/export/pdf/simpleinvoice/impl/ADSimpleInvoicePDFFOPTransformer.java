@@ -78,13 +78,7 @@ public class ADSimpleInvoicePDFFOPTransformer extends ADAbstractFOPPDFTransforme
     }
 
     @Override
-    protected void setTaxDetails(TaxTotals taxTotals, ParamsTree<String, String> params) {
-        // Do nothing
-    }
-
-    @Override
     public String getCustomerFinancialId(ADSimpleInvoiceData entity) {
         return entity.getCustomer().getTaxRegistrationNumber();
     }
-
 }
