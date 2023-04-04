@@ -3,7 +3,7 @@
 
 ## [Unreleased v8]
 
-### Added
+### Fixed
  
  - [Remove tax detail override in simple invoice and receipt invoice](https://github.com/premium-minds/billy/pull/407)
 
