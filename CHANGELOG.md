@@ -6,6 +6,8 @@
 ### Fixed
  
  - [Remove tax detail override in simple invoice and receipt invoice](https://github.com/premium-minds/billy/pull/407)
+ - [Fixes ShipFrom in SAFT export to use ShippingOrigin and not ShippingDestination](https://github.com/premium-minds/billy/pull/411)
+ - [Changes sorting of invoices entries to be performed on a temporary list](https://github.com/premium-minds/billy/pull/410)
 
 ## [8.0.0] 2023-03-29
 
