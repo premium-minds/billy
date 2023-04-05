@@ -3,6 +3,8 @@
 
 ## [Unreleased v8]
 
+## [8.0.1] 2023-04-05
+
 ### Fixed
  
  - [Remove tax detail override in simple invoice and receipt invoice](https://github.com/premium-minds/billy/pull/407)
@@ -444,7 +446,8 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v8]: https://github.com/premium-minds/billy/compare/v8.0.0...HEAD
+[unreleased v8]: https://github.com/premium-minds/billy/compare/v8.0.1...HEAD
+[8.0.1]: https://github.com/premium-minds/billy/compare/v8.0.0...v8.0.1
 [8.0.0]: https://github.com/premium-minds/billy/compare/v7.1.1...v8.0.0
 [7.1.1]: https://github.com/premium-minds/billy/compare/v7.1.0...v7.1.1
 [7.1.0]: https://github.com/premium-minds/billy/compare/v7.0.0...v7.1.0
