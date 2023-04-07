@@ -3,6 +3,10 @@
 
 ## [Unreleased v8]
 
+### Changed
+
+ - [Bump spotless-maven-plugin from 2.35.0 to 2.36.0](https://github.com/premium-minds/billy/pull/412)
+
 ## [8.0.1] 2023-04-05
 
 ### Fixed
