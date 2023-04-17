@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [Bump pdfbox from 2.0.27 to 2.0.28](https://github.com/premium-minds/billy/pull/414)
  - [Bump mockito-core from 4.11.0 to 5.3.0](https://github.com/premium-minds/billy/pull/413)
  - [Bump spotless-maven-plugin from 2.35.0 to 2.36.0](https://github.com/premium-minds/billy/pull/412)
 
