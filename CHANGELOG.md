@@ -13,6 +13,7 @@
  - [Bump build-helper-maven-plugin from 3.3.0 to 3.4.0](https://github.com/premium-minds/billy/pull/421)
  - [Bump maven-surefire-plugin from 3.0.0 to 3.1.0](https://github.com/premium-minds/billy/pull/420)
  - [Bump maven-surefire-plugin from 3.0.0 to 3.1.0](https://github.com/premium-minds/billy/pull/419)
+ - [Bump maven-jaxb2-plugin from 0.15.2 to 0.15.3](https://github.com/premium-minds/billy/pull/423)
 
 ## [8.0.1] 2023-04-05
 
