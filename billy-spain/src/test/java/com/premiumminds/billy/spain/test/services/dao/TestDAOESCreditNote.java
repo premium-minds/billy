@@ -42,6 +42,7 @@ public class TestDAOESCreditNote extends ESPersistencyAbstractTest {
         final DAOESCreditNoteEntry underTest = this.getInstance(DAOESCreditNoteEntry.class);
 
         Assertions.assertNull(underTest.checkCreditNote(inv1));
+        Assertions.assertFalse(underTest.existsCreditNote(inv1));
     }
 
     @Test
@@ -59,5 +60,6 @@ public class TestDAOESCreditNote extends ESPersistencyAbstractTest {
                 .stream()
                 .map(x -> x.getReference().getUID())
                 .collect(MoreCollectors.onlyElement()));
+        Assertions.assertTrue(underTest.existsCreditNote(inv1));
     }
 }

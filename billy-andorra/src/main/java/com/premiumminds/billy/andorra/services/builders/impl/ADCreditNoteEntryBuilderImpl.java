@@ -88,7 +88,7 @@ public class ADCreditNoteEntryBuilderImpl<TBuilder extends ADCreditNoteEntryBuil
     }
 
     private void ValidateADCreditNoteEntry(ADCreditNoteEntryEntity cn) {
-        if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditNote(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

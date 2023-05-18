@@ -26,4 +26,5 @@ public interface DAOADCreditReceiptEntry extends AbstractDAOADGenericInvoiceEntr
 
     public ADCreditReceiptEntity checkCreditReceipt(ADReceipt invoice);
 
+    public boolean existsCreditReceipt(ADReceipt invoice);
 }

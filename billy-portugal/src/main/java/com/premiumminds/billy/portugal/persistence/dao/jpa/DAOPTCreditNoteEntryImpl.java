@@ -64,4 +64,17 @@ public class DAOPTCreditNoteEntryImpl
                 .select(creditNoteEntity)
                 .fetchFirst();
     }
+
+    @Override
+    public boolean existsCreditNote(PTInvoice invoice) {
+
+        QJPAPTCreditNoteEntity creditNoteEntity = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
+
+        return new JPAQuery<JPAPTCreditNoteEntity>(this.getEntityManager())
+            .from(creditNoteEntity)
+            .where(new QJPAPTCreditNoteEntryEntity(JPAPTCreditNoteEntryEntity.class, creditNoteEntity.entries.any().getMetadata(), PathInits.DIRECT2)
+                       .reference.id.eq(invoice.getID()))
+            .select(creditNoteEntity.id)
+            .fetchFirst() != null;
+    }
 }
