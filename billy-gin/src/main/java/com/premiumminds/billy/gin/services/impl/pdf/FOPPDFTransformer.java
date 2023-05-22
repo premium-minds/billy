@@ -178,7 +178,7 @@ public abstract class FOPPDFTransformer {
         EnumMap<EncodeHintType, String> hints = new EnumMap<> (EncodeHintType.class);
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M.name());
         hints.put(EncodeHintType.MARGIN, String.valueOf(4));
-        hints.put(EncodeHintType.QR_VERSION, String.valueOf(9));
+        hints.put(EncodeHintType.QR_VERSION, String.valueOf(calculateMinimumQrCodeVersion(data)));
         BitMatrix bitMatrix = qrCodeWriter.encode(
             new String(data.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8),
             BarcodeFormat.QR_CODE,
@@ -191,6 +191,56 @@ public abstract class FOPPDFTransformer {
             file);
 
         return file;
+    }
+
+    /*
+    https://www.qrcode.com/en/about/version.html
+    maximum values for ECC = M and binary mode
+     */
+    private int calculateMinimumQrCodeVersion(String data){
+        if (data.length() <= 180){
+            return 9;
+        }
+        if (data.length() <= 213){
+            return 10;
+        }
+        if (data.length() <= 251){
+            return 11;
+        }
+        if (data.length() <= 287){
+            return 12;
+        }
+        if (data.length() <= 331){
+            return 13;
+        }
+        if (data.length() <= 362){
+            return 14;
+        }
+        if (data.length() <= 412){
+            return 15;
+        }
+        if (data.length() <= 450){
+            return 16;
+        }
+        if (data.length() <= 504){
+            return 17;
+        }
+        if (data.length() <= 560){
+            return 18;
+        }
+        if (data.length() <= 624){
+            return 19;
+        }
+        if (data.length() <= 666){
+            return 20;
+        }
+        if (data.length() <= 711){
+            return 21;
+        }
+        if (data.length() <= 779){
+            return 22;
+        }
+        return 23;
     }
 
     private void deleteTempFileIfExists(Path path) {
