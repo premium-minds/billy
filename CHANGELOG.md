@@ -3,6 +3,10 @@
 
 ## [Unreleased v8]
 
+### Added
+
+ - [Adds new method to check for existence of credit notes](https://github.com/premium-minds/billy/pull/426)
+
 ### Changed
 
  - [Bump pdfbox from 2.0.27 to 2.0.28](https://github.com/premium-minds/billy/pull/414)
