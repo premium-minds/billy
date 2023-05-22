@@ -178,7 +178,7 @@ public abstract class FOPPDFTransformer {
         EnumMap<EncodeHintType, String> hints = new EnumMap<> (EncodeHintType.class);
         hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M.name());
         hints.put(EncodeHintType.MARGIN, String.valueOf(4));
-        hints.put(EncodeHintType.QR_VERSION, String.valueOf(9));
+        hints.put(EncodeHintType.QR_VERSION, String.valueOf("22"));
         BitMatrix bitMatrix = qrCodeWriter.encode(
             new String(data.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8),
             BarcodeFormat.QR_CODE,
