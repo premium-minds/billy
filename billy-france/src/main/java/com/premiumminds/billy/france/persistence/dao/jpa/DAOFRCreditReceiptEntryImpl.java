@@ -63,4 +63,16 @@ public class DAOFRCreditReceiptEntryImpl
                 .select(creditReceiptEntity)
                 .fetchFirst();
     }
+
+    @Override
+    public boolean existsCreditReceipt(FRReceipt receipt) {
+        QJPAFRCreditReceiptEntity creditReceiptEntity = QJPAFRCreditReceiptEntity.jPAFRCreditReceiptEntity;
+
+        return new JPAQuery<JPAFRCreditReceiptEntity>(this.getEntityManager())
+                .from(creditReceiptEntity)
+                .where(new QJPAFRCreditReceiptEntryEntity(JPAFRCreditReceiptEntryEntity.class, creditReceiptEntity.entries.any().getMetadata(), PathInits.DIRECT2)
+                        .receiptReference.id.eq(receipt.getID()))
+                .select(creditReceiptEntity.id)
+                .fetchFirst() != null;
+    }
 }

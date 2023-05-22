@@ -82,7 +82,7 @@ public class FRCreditReceiptEntryBuilderImpl<TBuilder extends FRCreditReceiptEnt
     }
 
     private void ValidateFRCreditReceiptEntry(FRCreditReceiptEntryEntity cn) {
-        if (this.daoEntry.checkCreditReceipt(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditReceipt(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

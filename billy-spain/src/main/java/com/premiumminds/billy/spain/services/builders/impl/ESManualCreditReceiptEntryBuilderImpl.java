@@ -95,7 +95,7 @@ public class ESManualCreditReceiptEntryBuilderImpl<TBuilder extends ESManualCred
     }
 
     private void ValidateESCreditReceiptEntry(ESCreditReceiptEntryEntity cn) {
-        if (this.daoEntry.checkCreditReceipt(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditReceipt(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

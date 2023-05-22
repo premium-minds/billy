@@ -26,4 +26,6 @@ public interface DAOPTCreditNoteEntry extends AbstractDAOPTGenericInvoiceEntry<P
 
     public PTCreditNoteEntity checkCreditNote(PTInvoice invoice);
 
+    public boolean existsCreditNote(PTInvoice invoice);
+
 }

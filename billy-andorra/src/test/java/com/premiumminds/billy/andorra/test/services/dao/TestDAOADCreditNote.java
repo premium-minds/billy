@@ -42,6 +42,7 @@ public class TestDAOADCreditNote extends ADPersistencyAbstractTest {
         final DAOADCreditNoteEntry underTest = this.getInstance(DAOADCreditNoteEntry.class);
 
         Assertions.assertNull(underTest.checkCreditNote(inv1));
+        Assertions.assertFalse(underTest.existsCreditNote(inv1));
     }
 
     @Test
@@ -59,5 +60,6 @@ public class TestDAOADCreditNote extends ADPersistencyAbstractTest {
                 .stream()
                 .map(x -> x.getReference().getUID())
                 .collect(MoreCollectors.onlyElement()));
+        Assertions.assertTrue(underTest.existsCreditNote(inv1));
     }
 }

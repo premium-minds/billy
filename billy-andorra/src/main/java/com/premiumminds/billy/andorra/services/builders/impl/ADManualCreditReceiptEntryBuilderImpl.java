@@ -100,7 +100,7 @@ public class ADManualCreditReceiptEntryBuilderImpl<TBuilder extends ADManualCred
     }
 
     private void ValidateESCreditReceiptEntry(ADCreditReceiptEntryEntity cn) {
-        if (this.daoEntry.checkCreditReceipt(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditReceipt(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

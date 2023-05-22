@@ -82,7 +82,7 @@ public class ESCreditReceiptEntryBuilderImpl<TBuilder extends ESCreditReceiptEnt
     }
 
     private void ValidateESCreditReceiptEntry(ESCreditReceiptEntryEntity cn) {
-        if (this.daoEntry.checkCreditReceipt(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditReceipt(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

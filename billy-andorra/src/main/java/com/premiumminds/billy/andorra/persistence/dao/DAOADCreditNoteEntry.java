@@ -26,4 +26,6 @@ public interface DAOADCreditNoteEntry extends AbstractDAOADGenericInvoiceEntry<A
 
     public ADCreditNoteEntity checkCreditNote(ADInvoice invoice);
 
+    public boolean existsCreditNote(ADInvoice invoice);
+
 }

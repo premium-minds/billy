@@ -26,4 +26,6 @@ public interface DAOFRCreditNoteEntry extends AbstractDAOFRGenericInvoiceEntry<F
 
     public FRCreditNoteEntity checkCreditNote(FRInvoice invoice);
 
+    public boolean existsCreditNote(FRInvoice invoice);
+
 }

@@ -42,6 +42,7 @@ public class TestDAOFRCreditNote extends FRPersistencyAbstractTest {
         final DAOFRCreditNoteEntry underTest = this.getInstance(DAOFRCreditNoteEntry.class);
 
         Assertions.assertNull(underTest.checkCreditNote(inv1));
+        Assertions.assertFalse(underTest.existsCreditNote(inv1));
     }
 
     @Test
@@ -59,5 +60,6 @@ public class TestDAOFRCreditNote extends FRPersistencyAbstractTest {
                 .stream()
                 .map(x -> x.getReference().getUID())
                 .collect(MoreCollectors.onlyElement()));
+        Assertions.assertTrue(underTest.existsCreditNote(inv1));
     }
 }

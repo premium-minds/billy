@@ -41,6 +41,7 @@ public class TestDAOADCreditReceipt extends ADPersistencyAbstractTest {
         final DAOADCreditReceiptEntry underTest = this.getInstance(DAOADCreditReceiptEntry.class);
 
         Assertions.assertNull(underTest.checkCreditReceipt(rec1));
+        Assertions.assertFalse(underTest.existsCreditReceipt(rec1));
     }
 
     @Test
@@ -59,5 +60,6 @@ public class TestDAOADCreditReceipt extends ADPersistencyAbstractTest {
                 .stream()
                 .map(x -> x.getReference().getUID())
                 .collect(MoreCollectors.onlyElement()));
+        Assertions.assertTrue(underTest.existsCreditReceipt(rec1));
     }
 }

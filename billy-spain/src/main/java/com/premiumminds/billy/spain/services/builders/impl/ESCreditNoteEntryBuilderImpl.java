@@ -82,7 +82,7 @@ public class ESCreditNoteEntryBuilderImpl<TBuilder extends ESCreditNoteEntryBuil
     }
 
     private void ValidateESCreditNoteEntry(ESCreditNoteEntryEntity cn) {
-        if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditNote(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

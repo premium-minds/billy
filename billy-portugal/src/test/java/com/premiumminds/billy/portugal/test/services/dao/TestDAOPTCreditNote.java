@@ -42,6 +42,7 @@ public class TestDAOPTCreditNote extends PTPersistencyAbstractTest {
         final DAOPTCreditNoteEntry underTest = this.getInstance(DAOPTCreditNoteEntry.class);
 
         Assertions.assertNull(underTest.checkCreditNote(inv1));
+        Assertions.assertFalse(underTest.existsCreditNote(inv1));
     }
 
     @Test
@@ -59,6 +60,7 @@ public class TestDAOPTCreditNote extends PTPersistencyAbstractTest {
                 .stream()
                 .map(x -> x.getReference().getUID())
                 .collect(MoreCollectors.onlyElement()));
+        Assertions.assertTrue(underTest.existsCreditNote(inv1));
     }
 
 }

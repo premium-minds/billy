@@ -95,7 +95,7 @@ public class PTManualCreditNoteEntryBuilderImpl<TBuilder extends PTManualCreditN
     }
 
     private void ValidatePTCreditNoteEntry(PTCreditNoteEntryEntity cn) {
-        if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditNote(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

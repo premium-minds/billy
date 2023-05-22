@@ -26,4 +26,6 @@ public interface DAOESCreditNoteEntry extends AbstractDAOESGenericInvoiceEntry<E
 
     public ESCreditNoteEntity checkCreditNote(ESInvoice invoice);
 
+    public boolean existsCreditNote(ESInvoice invoice);
+
 }

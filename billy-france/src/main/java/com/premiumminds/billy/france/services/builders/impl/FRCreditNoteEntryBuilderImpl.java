@@ -82,7 +82,7 @@ public class FRCreditNoteEntryBuilderImpl<TBuilder extends FRCreditNoteEntryBuil
     }
 
     private void ValidateFRCreditNoteEntry(FRCreditNoteEntryEntity cn) {
-        if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditNote(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }

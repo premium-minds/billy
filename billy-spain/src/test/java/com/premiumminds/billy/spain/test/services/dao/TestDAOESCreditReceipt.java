@@ -41,6 +41,7 @@ public class TestDAOESCreditReceipt extends ESPersistencyAbstractTest {
         final DAOESCreditReceiptEntry underTest = this.getInstance(DAOESCreditReceiptEntry.class);
 
         Assertions.assertNull(underTest.checkCreditReceipt(rec1));
+        Assertions.assertFalse(underTest.existsCreditReceipt(rec1));
     }
 
     @Test
@@ -59,5 +60,6 @@ public class TestDAOESCreditReceipt extends ESPersistencyAbstractTest {
                 .stream()
                 .map(x -> x.getReference().getUID())
                 .collect(MoreCollectors.onlyElement()));
+        Assertions.assertTrue(underTest.existsCreditReceipt(rec1));
     }
 }

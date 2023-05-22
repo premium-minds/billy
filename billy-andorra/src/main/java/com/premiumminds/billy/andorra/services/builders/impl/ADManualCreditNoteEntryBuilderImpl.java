@@ -101,7 +101,7 @@ public class ADManualCreditNoteEntryBuilderImpl<TBuilder extends ADManualCreditN
     }
 
     private void ValidateESCreditNoteEntry(ADCreditNoteEntryEntity cn) {
-        if (this.daoEntry.checkCreditNote(cn.getReference()) != null) {
+        if (this.daoEntry.existsCreditNote(cn.getReference())) {
             throw new DuplicateCreditNoteException();
         }
     }
