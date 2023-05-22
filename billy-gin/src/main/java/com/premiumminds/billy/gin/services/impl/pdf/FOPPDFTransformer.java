@@ -18,6 +18,13 @@
  */
 package com.premiumminds.billy.gin.services.impl.pdf;
 
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
+import com.premiumminds.billy.gin.services.export.ParamsTree;
+import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
+import io.nayuki.qrcodegen.QrCode;
+import io.nayuki.qrcodegen.QrCode.Ecc;
+import io.nayuki.qrcodegen.QrSegment;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -28,9 +35,11 @@ import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.EnumMap;
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,17 +52,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
-
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.client.j2se.MatrixToImageWriter;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.gin.services.export.ParamsTree;
-import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
@@ -146,7 +144,7 @@ public abstract class FOPPDFTransformer {
             throw new ExportServiceException("Error using FOP to open the template", e);
         } catch (TransformerException|ParserConfigurationException e) {
             throw new ExportServiceException("Error generating pdf from template and data source", e);
-        } catch (IOException | WriterException e) {
+        } catch (IOException e) {
             throw new ExportServiceException("Error generating qrCode", e);
         } finally {
             deleteTempFileIfExists(qr);
@@ -171,27 +169,62 @@ public abstract class FOPPDFTransformer {
         return this.transformerFactory.newTransformer(streamSource);
     }
 
-    private Path createQR(String data)
-        throws WriterException, IOException
+    private Path createQR(String data) throws IOException
     {
-        QRCodeWriter qrCodeWriter = new QRCodeWriter();
-        EnumMap<EncodeHintType, String> hints = new EnumMap<> (EncodeHintType.class);
-        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.M.name());
-        hints.put(EncodeHintType.MARGIN, String.valueOf(4));
-        hints.put(EncodeHintType.QR_VERSION, String.valueOf(9));
-        BitMatrix bitMatrix = qrCodeWriter.encode(
-            new String(data.getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8),
-            BarcodeFormat.QR_CODE,
-            350, 350,hints);
+        final QrCode.Ecc errCorLvl = Ecc.MEDIUM;
+        final QrCode qr = QrCode.encodeSegments(
+            Arrays.asList(QrSegment.makeBytes(data.getBytes(StandardCharsets.UTF_8))),
+            errCorLvl,
+            9,
+            QrCode.MAX_VERSION,
+            -1,
+            false);
 
         final Path file = Files.createTempFile(UUID.randomUUID().toString().replace("-", ""), ".png");
-        MatrixToImageWriter.writeToPath(
-            bitMatrix,
-            "png",
-            file);
+
+        writePng(toImage(qr, 10, 4), file.toFile());
 
         return file;
     }
+
+    private static BufferedImage toImage(QrCode qr, int scale, int border) {
+        return toImage(qr, scale, border, 0xFFFFFF, 0x000000);
+    }
+    /**
+     * Returns a raster image depicting the specified QR Code, with
+     * the specified module scale, border modules, and module colors.
+     * <p>For example, scale=10 and border=4 means to pad the QR Code with 4 light border
+     * modules on all four sides, and use 10&#xD7;10 pixels to represent each module.
+     * @param qr the QR Code to render (not {@code null})
+     * @param scale the side length (measured in pixels, must be positive) of each module
+     * @param border the number of border modules to add, which must be non-negative
+     * @param lightColor the color to use for light modules, in 0xRRGGBB format
+     * @param darkColor the color to use for dark modules, in 0xRRGGBB format
+     * @return a new image representing the QR Code, with padding and scaling
+     * @throws NullPointerException if the QR Code is {@code null}
+     * @throws IllegalArgumentException if the scale or border is out of range, or if
+     * {scale, border, size} cause the image dimensions to exceed Integer.MAX_VALUE
+     */
+    private static BufferedImage toImage(QrCode qr, int scale, int border, int lightColor, int darkColor) {
+        Objects.requireNonNull(qr);
+        if (scale <= 0 || border < 0)
+            throw new IllegalArgumentException("Value out of range");
+        if (border > Integer.MAX_VALUE / 2 || qr.size + border * 2L > Integer.MAX_VALUE / scale)
+            throw new IllegalArgumentException("Scale or border too large");
+
+        BufferedImage result = new BufferedImage((qr.size + border * 2) * scale, (qr.size + border * 2) * scale, BufferedImage.TYPE_INT_RGB);
+        for (int y = 0; y < result.getHeight(); y++) {
+            for (int x = 0; x < result.getWidth(); x++) {
+                boolean color = qr.getModule(x / scale - border, y / scale - border);
+                result.setRGB(x, y, color ? darkColor : lightColor);
+            }
+        }
+        return result;
+    }
+    private static void writePng(BufferedImage img, File file) throws IOException {
+        ImageIO.write(img, "png", file);
+    }
+
 
     private void deleteTempFileIfExists(Path path) {
         if(path != null) {
