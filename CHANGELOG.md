@@ -14,6 +14,7 @@
  - [Bump mockito-core from 4.11.0 to 5.3.0](https://github.com/premium-minds/billy/pull/413)
  - [Bump mockito-core from 5.3.0 to 5.3.1](https://github.com/premium-minds/billy/pull/415)
  - [Bump spotless-maven-plugin from 2.35.0 to 2.36.0](https://github.com/premium-minds/billy/pull/412)
+ - [Bump spotless-maven-plugin from 2.36.0 to 2.37.0](https://github.com/premium-minds/billy/pull/436)
  - [Bump build-helper-maven-plugin from 3.3.0 to 3.4.0](https://github.com/premium-minds/billy/pull/421)
  - [Bump maven-surefire-plugin from 3.0.0 to 3.1.0](https://github.com/premium-minds/billy/pull/420)
  - [Bump maven-surefire-plugin from 3.0.0 to 3.1.0](https://github.com/premium-minds/billy/pull/419)
