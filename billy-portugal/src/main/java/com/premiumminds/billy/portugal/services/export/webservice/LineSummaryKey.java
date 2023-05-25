@@ -21,8 +21,9 @@ package com.premiumminds.billy.portugal.services.export.webservice;
 import java.util.Objects;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import com.premiumminds.billy.portugal.ws.client.DebitCreditIndicator;
-import com.premiumminds.billy.portugal.ws.client.TaxType;
+import com.premiumminds.billy.portugal.webservices.documents.DebitCreditIndicator;
+import com.premiumminds.billy.portugal.webservices.documents.TaxType;
+
 
 class LineSummaryKey {
 

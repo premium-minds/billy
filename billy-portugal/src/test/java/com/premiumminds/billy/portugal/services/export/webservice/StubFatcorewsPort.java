@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.export.webservice;
 
-import com.premiumminds.billy.portugal.ws.client.DeleteInvoiceRequest;
-import com.premiumminds.billy.portugal.ws.client.DeleteInvoiceResponse;
 import java.util.function.Function;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -28,9 +26,11 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-import com.premiumminds.billy.portugal.ws.client.ObjectFactory;
-import com.premiumminds.billy.portugal.ws.client.RegisterInvoiceRequest;
-import com.premiumminds.billy.portugal.ws.client.RegisterInvoiceResponse;
+import com.premiumminds.billy.portugal.webservices.documents.DeleteInvoiceRequest;
+import com.premiumminds.billy.portugal.webservices.documents.DeleteInvoiceResponse;
+import com.premiumminds.billy.portugal.webservices.documents.ObjectFactory;
+import com.premiumminds.billy.portugal.webservices.documents.RegisterInvoiceRequest;
+import com.premiumminds.billy.portugal.webservices.documents.RegisterInvoiceResponse;
 
 @WebService(name = "fatcorewsPort", targetNamespace = "http://factemi.at.min_financas.pt/documents")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
