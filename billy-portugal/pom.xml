@@ -302,6 +302,20 @@
 							<sourceDestDir>src-generated/main/java</sourceDestDir>
 						</configuration>
 					</execution>
+					<execution>
+						<id>series</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlDirectory>${project.basedir}/src/main/resources/</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>Comunicacao_Series.wsdl</wsdlFile>
+							</wsdlFiles>
+							<packageName>com.premiumminds.billy.portugal.webservices.series</packageName>
+							<sourceDestDir>src-generated/main/java</sourceDestDir>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 			<plugin>

@@ -171,6 +171,7 @@
 						<exclude>target/**</exclude>
 						<exclude>**/test/resources/keys/**</exclude>
 						<exclude>**/Fatcorews.wsdl</exclude>
+						<exclude>**/Comunicacao_Series.wsdl</exclude>
 					</excludes>
 					<mapping>
 						<java>SLASHSTAR_STYLE</java>
