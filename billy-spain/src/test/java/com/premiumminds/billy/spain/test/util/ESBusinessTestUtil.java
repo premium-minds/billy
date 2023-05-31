@@ -23,7 +23,11 @@ import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
-import com.premiumminds.billy.spain.services.entities.*;
+import com.premiumminds.billy.spain.services.entities.ESAddress;
+import com.premiumminds.billy.spain.services.entities.ESApplication;
+import com.premiumminds.billy.spain.services.entities.ESBusiness;
+import com.premiumminds.billy.spain.services.entities.ESContact;
+import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 import com.premiumminds.billy.spain.util.Contexts;
 
 import javax.persistence.NoResultException;
@@ -38,11 +42,11 @@ public class ESBusinessTestUtil {
     private static final String WEBSITE = "http://business.com";
     protected static final String ES_COUNTRY_CODE = "ES";
 
-    private Injector injector;
-    private ESApplicationTestUtil application;
-    private ESContactTestUtil contact;
-    private ESAddressTestUtil address;
-    private ESRegionContext context;
+    private final Injector injector;
+    private final ESApplicationTestUtil application;
+    private final ESContactTestUtil contact;
+    private final ESAddressTestUtil address;
+    private final ESRegionContext context;
 
     public ESBusinessTestUtil(Injector injector) {
         this.injector = injector;
@@ -58,7 +62,7 @@ public class ESBusinessTestUtil {
     }
 
     public ESBusinessEntity getBusinessEntity(StringID<Business> businessID) {
-        ESBusinessEntity business = null;
+        ESBusinessEntity business;
         try {
             business = this.injector.getInstance(DAOESBusiness.class).get(businessID);
         } catch (NoResultException e) {

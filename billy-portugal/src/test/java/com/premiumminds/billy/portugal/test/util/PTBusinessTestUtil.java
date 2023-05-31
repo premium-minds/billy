@@ -23,7 +23,11 @@ import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;
-import com.premiumminds.billy.portugal.services.entities.*;
+import com.premiumminds.billy.portugal.services.entities.PTAddress;
+import com.premiumminds.billy.portugal.services.entities.PTApplication;
+import com.premiumminds.billy.portugal.services.entities.PTBusiness;
+import com.premiumminds.billy.portugal.services.entities.PTContact;
+import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.util.Contexts;
 
 import javax.persistence.NoResultException;

@@ -21,7 +21,11 @@ package com.premiumminds.billy.andorra.test.util;
 import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
 import com.premiumminds.billy.andorra.persistence.entities.ADBusinessEntity;
-import com.premiumminds.billy.andorra.services.entities.*;
+import com.premiumminds.billy.andorra.services.entities.ADAddress;
+import com.premiumminds.billy.andorra.services.entities.ADApplication;
+import com.premiumminds.billy.andorra.services.entities.ADBusiness;
+import com.premiumminds.billy.andorra.services.entities.ADContact;
+import com.premiumminds.billy.andorra.services.entities.ADRegionContext;
 import com.premiumminds.billy.andorra.util.Contexts;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
@@ -38,11 +42,11 @@ public class ADBusinessTestUtil {
     private static final String WEBSITE = "http://business.com";
     protected static final String AD_COUNTRY_CODE = "AD";
 
-    private Injector injector;
-    private ADApplicationTestUtil application;
-    private ADContactTestUtil contact;
-    private ADAddressTestUtil address;
-    private ADRegionContext context;
+    private final Injector injector;
+    private final ADApplicationTestUtil application;
+    private final ADContactTestUtil contact;
+    private final ADAddressTestUtil address;
+    private final ADRegionContext context;
 
     public ADBusinessTestUtil(Injector injector) {
         this.injector = injector;
@@ -58,7 +62,7 @@ public class ADBusinessTestUtil {
     }
 
     public ADBusinessEntity getBusinessEntity(StringID<Business> businessID) {
-        ADBusinessEntity business = null;
+        ADBusinessEntity business;
         try {
             business = this.injector.getInstance(DAOADBusiness.class).get(businessID);
         } catch (NoResultException e) {
