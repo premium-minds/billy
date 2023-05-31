@@ -75,21 +75,22 @@ public class TestESBusinessBuilder extends ESAbstractTest {
                 .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
                 .setWebsite(mockBusiness.getWebsiteAddress())
                 .setOperationalContextUID(mockBusiness.getOperationalContext().getUID())
-                .setCommercialName(mockBusiness.getCommercialName());
+                .setCommercialName(mockBusiness.getCommercialName())
+                .setTimezone(mockBusiness.getTimezone());
 
         Business business = builder.build();
 
-        Assertions.assertTrue(business != null);
+        Assertions.assertNotNull(business);
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
-        Assertions.assertEquals(mockBusiness.getFinancialIdISOCountryCode(), mockBusiness.getFinancialIdISOCountryCode());
+        Assertions.assertEquals(mockBusiness.getFinancialIdISOCountryCode(), business.getFinancialIdISOCountryCode());
         Assertions.assertEquals(mockBusiness.getName(), business.getName());
         Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
         Assertions.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
 
-        Assertions.assertTrue(business.getContacts() != null);
+        Assertions.assertNotNull(business.getContacts());
 
-        Assertions.assertTrue(business.getApplications() != null);
+        Assertions.assertNotNull(business.getApplications());
         Assertions.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
     }
 }

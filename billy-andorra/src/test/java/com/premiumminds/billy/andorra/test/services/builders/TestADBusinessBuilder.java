@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.andorra.test.services.builders;
 
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADRegionContext;
 import com.premiumminds.billy.andorra.persistence.entities.ADAddressEntity;
@@ -32,6 +30,8 @@ import com.premiumminds.billy.andorra.services.entities.ADBusiness;
 import com.premiumminds.billy.andorra.services.entities.ADContact;
 import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.fixtures.MockADBusinessEntity;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.test.AbstractTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -75,21 +75,22 @@ public class TestADBusinessBuilder extends ADAbstractTest {
                 .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
                 .setWebsite(mockBusiness.getWebsiteAddress())
                 .setOperationalContextUID(mockBusiness.getOperationalContext().getUID())
-                .setCommercialName(mockBusiness.getCommercialName());
+                .setCommercialName(mockBusiness.getCommercialName())
+                .setTimezone(mockBusiness.getTimezone());
 
         Business business = builder.build();
 
-        Assertions.assertTrue(business != null);
+        Assertions.assertNotNull(business);
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
-        Assertions.assertEquals(mockBusiness.getFinancialIdISOCountryCode(), mockBusiness.getFinancialIdISOCountryCode());
+        Assertions.assertEquals(mockBusiness.getFinancialIdISOCountryCode(), business.getFinancialIdISOCountryCode());
         Assertions.assertEquals(mockBusiness.getName(), business.getName());
         Assertions.assertEquals(mockBusiness.getWebsiteAddress(), business.getWebsiteAddress());
         Assertions.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
 
-        Assertions.assertTrue(business.getContacts() != null);
+        Assertions.assertNotNull(business.getContacts());
 
-        Assertions.assertTrue(business.getApplications() != null);
+        Assertions.assertNotNull(business.getApplications());
         Assertions.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
     }
 }

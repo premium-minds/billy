@@ -18,19 +18,12 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.premiumminds.billy.persistence.converters.ZoneIdAttributeConverter;
 import org.hibernate.envers.Audited;
 
 import com.premiumminds.billy.core.Config;
@@ -102,6 +95,10 @@ public class JPABusinessEntity extends JPABaseEntity<Business> implements Busine
             inverseJoinColumns = { @JoinColumn(name = "ID_APPLICATION", referencedColumnName = "ID", unique = true) })
     protected List<Application> applications;
 
+    @Column(name = "timezone")
+    @Convert(converter = ZoneIdAttributeConverter.class)
+    protected ZoneId timezone;
+
     public JPABusinessEntity() {
         this.contacts = new ArrayList<>();
         this.applications = new ArrayList<>();
@@ -163,6 +160,11 @@ public class JPABusinessEntity extends JPABaseEntity<Business> implements Busine
     }
 
     @Override
+    public ZoneId getTimezone() {
+        return this.timezone;
+    }
+
+    @Override
     public <T extends ContextEntity> void setOperationalContext(T context) {
         this.operationalContext = context;
     }
@@ -215,6 +217,11 @@ public class JPABusinessEntity extends JPABaseEntity<Business> implements Busine
     @Override
     public <T extends ContactEntity> void setMainContact(T contact) {
         this.mainContact = contact;
+    }
+
+    @Override
+    public void setTimezone(ZoneId timezone) {
+        this.timezone = timezone;
     }
 
     @Override

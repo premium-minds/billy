@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.persistence.entities;
 
+import java.time.ZoneId;
 import java.util.List;
 
 import com.premiumminds.billy.core.services.entities.Application;
@@ -57,5 +58,7 @@ public interface BusinessEntity extends Business {
 
     @Override
     public <T extends Application> List<T> getApplications();
+
+    public void setTimezone(ZoneId timezone);
 
 }

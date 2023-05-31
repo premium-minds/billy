@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,7 @@ public class MockBusinessEntity extends MockBaseEntity<Business> implements Busi
     public List<ContactEntity> contacts;
     public String website;
     public List<ApplicationEntity> applications;
+    public ZoneId timezone;
 
     public MockBusinessEntity() {
         this.contacts = new ArrayList<>();
@@ -108,6 +110,11 @@ public class MockBusinessEntity extends MockBaseEntity<Business> implements Busi
     }
 
     @Override
+    public ZoneId getTimezone() {
+        return this.timezone;
+    }
+
+    @Override
     public <T extends ContextEntity> void setOperationalContext(T context) {
         this.operationalContext = context;
     }
@@ -160,6 +167,11 @@ public class MockBusinessEntity extends MockBaseEntity<Business> implements Busi
     @Override
     public <T extends ContactEntity> void setMainContact(T contact) {
         this.mainContact = contact;
+    }
+
+    @Override
+    public void setTimezone(ZoneId timezone) {
+        this.timezone = timezone;
     }
 
     @Override

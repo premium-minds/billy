@@ -19,21 +19,17 @@
 package com.premiumminds.billy.andorra.test.util;
 
 import com.google.inject.Injector;
-import java.net.MalformedURLException;
-import java.util.UUID;
-
-import javax.persistence.NoResultException;
-
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
 import com.premiumminds.billy.andorra.persistence.entities.ADBusinessEntity;
-import com.premiumminds.billy.andorra.services.entities.ADAddress;
-import com.premiumminds.billy.andorra.services.entities.ADApplication;
-import com.premiumminds.billy.andorra.services.entities.ADBusiness;
-import com.premiumminds.billy.andorra.services.entities.ADContact;
-import com.premiumminds.billy.andorra.services.entities.ADRegionContext;
+import com.premiumminds.billy.andorra.services.entities.*;
 import com.premiumminds.billy.andorra.util.Contexts;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+
+import javax.persistence.NoResultException;
+import java.net.MalformedURLException;
+import java.time.ZoneId;
+import java.util.UUID;
 
 public class ADBusinessTestUtil {
 
@@ -87,11 +83,17 @@ public class ADBusinessTestUtil {
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();
         ADAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-        businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true).setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder).setCommercialName(ADBusinessTestUtil.NAME)
+        businessBuilder
+                .addApplication(applicationBuilder)
+                .addContact(contactBuilder, true)
+                .setAddress(addressBuilder)
+                .setBillingAddress(addressBuilder)
+                .setCommercialName(ADBusinessTestUtil.NAME)
                 .setFinancialID(ADBusinessTestUtil.FINANCIAL_ID, ADBusinessTestUtil.AD_COUNTRY_CODE)
-                .setOperationalContextUID(this.context.getUID()).setWebsite(ADBusinessTestUtil.WEBSITE)
-                .setName(ADBusinessTestUtil.NAME);
+                .setOperationalContextUID(this.context.getUID())
+                .setWebsite(ADBusinessTestUtil.WEBSITE)
+                .setName(ADBusinessTestUtil.NAME)
+                .setTimezone(ZoneId.of("Europe/Madrid"));
 
         return businessBuilder;
     }

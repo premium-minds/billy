@@ -18,22 +18,16 @@
  */
 package com.premiumminds.billy.spain.its;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Currency;
-import java.util.Date;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.spain.BillySpain;
@@ -43,28 +37,24 @@ import com.premiumminds.billy.spain.SpainPersistenceDependencyModule;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditNote;
 import com.premiumminds.billy.spain.persistence.dao.DAOESInvoice;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
-import com.premiumminds.billy.spain.services.entities.ESAddress;
-import com.premiumminds.billy.spain.services.entities.ESApplication;
-import com.premiumminds.billy.spain.services.entities.ESBusiness;
-import com.premiumminds.billy.spain.services.entities.ESContact;
-import com.premiumminds.billy.spain.services.entities.ESCreditNote;
-import com.premiumminds.billy.spain.services.entities.ESCreditNoteEntry;
-import com.premiumminds.billy.spain.services.entities.ESCustomer;
-import com.premiumminds.billy.spain.services.entities.ESInvoice;
-import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
-import com.premiumminds.billy.spain.services.entities.ESPayment;
-import com.premiumminds.billy.spain.services.entities.ESProduct;
-import com.premiumminds.billy.spain.services.entities.ESTax;
+import com.premiumminds.billy.spain.services.entities.*;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Currency;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class InvoiceIT {
+class InvoiceIT {
 
     private Injector injector;
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
 
         injector = Guice.createInjector(new SpainDependencyModule(),
                 new SpainPersistenceDependencyModule("BillySpainTestPersistenceUnit"));
@@ -144,10 +134,6 @@ public class InvoiceIT {
         return applicationBuilder;
     }
 
-    private ESApplication createEsApplication(BillySpain billySpain, ESApplication.Builder applicationBuilder) {
-        return billySpain.applications().persistence().create(applicationBuilder);
-    }
-
     private ESBusiness createEsBusiness(BillySpain billySpain, ESApplication.Builder applicationBuilder) {
         ESContact.Builder contactBuilder = billySpain.contacts().builder();
         contactBuilder.setName("CEO 1")
@@ -169,7 +155,8 @@ public class InvoiceIT {
                 .setCommercialName("Business, INC")
                 .setFinancialID("A58250606", "ES")
                 .setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder);
+                .setBillingAddress(addressBuilder)
+                .setTimezone(ZoneId.of("Europe/Madrid"));
 
         return billySpain.businesses().persistence().create(businessBuilder);
     }

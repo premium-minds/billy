@@ -18,22 +18,27 @@
  */
 package com.premiumminds.billy.core.test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-
-import org.junit.jupiter.api.BeforeAll;
-import org.mockito.Mockito;
-import org.yaml.snakeyaml.LoaderOptions;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.CoreDependencyModule;
+import com.premiumminds.billy.core.test.fixtures.JavaZoneIdConstruct;
 import com.premiumminds.billy.core.test.fixtures.MockBaseEntity;
+import org.junit.jupiter.api.BeforeAll;
+import org.mockito.Mockito;
+import org.yaml.snakeyaml.DumperOptions;
+import org.yaml.snakeyaml.LoaderOptions;
+import org.yaml.snakeyaml.TypeDescription;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.inspector.TrustedTagInspector;
+import org.yaml.snakeyaml.nodes.Tag;
+import org.yaml.snakeyaml.representer.Representer;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.time.ZoneId;
 
 public class AbstractTest {
 
@@ -54,14 +59,25 @@ public class AbstractTest {
         return Mockito.mock(clazz);
     }
 
-    @SuppressWarnings("unchecked")
     public <T extends MockBaseEntity> T createMockEntity(Class<T> clazz, String path) {
         final LoaderOptions loadingConfig = new LoaderOptions();
         loadingConfig.setTagInspector(new TrustedTagInspector());
-        Yaml yaml = new Yaml(new Constructor(clazz, loadingConfig));
+
+
+        final Representer representer = new Representer(new DumperOptions());
+        final Tag zoneIdTag = new Tag("!ZoneId");
+        representer.addClassTag(ZoneId.class, zoneIdTag);
+
+        final Constructor constructor = new Constructor(clazz, loadingConfig) {{
+            this.addTypeDescription(new TypeDescription(ZoneId.class, "ZoneId"));
+
+            this.yamlConstructors.put(zoneIdTag, new JavaZoneIdConstruct());
+        }};
+
+        Yaml yaml = new Yaml(constructor, representer);
 
         try {
-            return (T) yaml.load(new BufferedReader(new FileReader(path)));
+            return yaml.load(new BufferedReader(new FileReader(path)));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

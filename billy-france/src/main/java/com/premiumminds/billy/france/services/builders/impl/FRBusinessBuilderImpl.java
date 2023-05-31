@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.france.services.builders.impl;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.InvalidTaxIdentificationNumberException;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
@@ -36,6 +31,10 @@ import com.premiumminds.billy.france.persistence.entities.FRBusinessEntity;
 import com.premiumminds.billy.france.services.builders.FRBusinessBuilder;
 import com.premiumminds.billy.france.services.entities.FRBusiness;
 import com.premiumminds.billy.france.util.FRFinancialValidator;
+
+import javax.inject.Inject;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FRBusinessBuilderImpl<TBuilder extends FRBusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends FRBusiness>
         extends BusinessBuilderImpl<TBuilder, TBusiness> implements FRBusinessBuilder<TBuilder, TBusiness> {
@@ -84,9 +83,9 @@ public class FRBusinessBuilderImpl<TBuilder extends FRBusinessBuilderImpl<TBuild
         BillyValidator.mandatory(b.getCommercialName(),
                 FRBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
         BillyValidator.<Object>mandatory(b.getAddress(), FRBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+        BillyValidator.mandatory(b.getTimezone(), BusinessBuilderImpl.LOCALIZER.getString("field.timezone"));
 
-        Pattern pattern;
-        pattern = Pattern.compile("[0-9]{5}");
+        Pattern pattern = Pattern.compile("[0-9]{5}");
 
         Matcher matcher = pattern.matcher(b.getAddress().getPostalCode());
         if (!matcher.find()) {

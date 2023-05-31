@@ -18,30 +18,16 @@
  */
 package com.premiumminds.billy.portugal.its;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Currency;
-import java.util.Date;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import com.premiumminds.billy.portugal.BillyPortugal;
 import com.premiumminds.billy.portugal.PortugalBootstrap;
@@ -50,22 +36,26 @@ import com.premiumminds.billy.portugal.PortugalPersistenceDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
-import com.premiumminds.billy.portugal.services.entities.PTAddress;
-import com.premiumminds.billy.portugal.services.entities.PTApplication;
-import com.premiumminds.billy.portugal.services.entities.PTBusiness;
-import com.premiumminds.billy.portugal.services.entities.PTContact;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
-import com.premiumminds.billy.portugal.services.entities.PTCreditNoteEntry;
-import com.premiumminds.billy.portugal.services.entities.PTCustomer;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoice;
-import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
-import com.premiumminds.billy.portugal.services.entities.PTProduct;
-import com.premiumminds.billy.portugal.services.entities.PTTax;
+import com.premiumminds.billy.portugal.services.entities.*;
 import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Currency;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -79,7 +69,7 @@ public class InvoiceIT {
     private Injector injector;
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
 
         injector = Guice.createInjector(new PortugalDependencyModule(),
                 new PortugalPersistenceDependencyModule("BillyPortugalTestPersistenceUnit"));
@@ -207,7 +197,8 @@ public class InvoiceIT {
                 .setCommercialName("Business, INC")
                 .setFinancialID("500003564", "PT")
                 .setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder);
+                .setBillingAddress(addressBuilder)
+                .setTimezone(ZoneId.of("Europe/Lisbon"));
 
         return billyPortugal.businesses().persistence().create(businessBuilder);
     }

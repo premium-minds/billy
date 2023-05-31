@@ -18,14 +18,12 @@
  */
 package com.premiumminds.billy.andorra.services.builders.impl;
 
+import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
+import com.premiumminds.billy.andorra.persistence.dao.DAOADRegionContext;
 import com.premiumminds.billy.andorra.persistence.entities.ADBusinessEntity;
+import com.premiumminds.billy.andorra.services.builders.ADBusinessBuilder;
 import com.premiumminds.billy.andorra.services.entities.ADBusiness;
 import com.premiumminds.billy.andorra.util.ADFinancialValidator;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.InvalidTaxIdentificationNumberException;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
@@ -33,9 +31,10 @@ import com.premiumminds.billy.core.services.builders.impl.BusinessBuilderImpl;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADRegionContext;
-import com.premiumminds.billy.andorra.services.builders.ADBusinessBuilder;
+
+import javax.inject.Inject;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ADBusinessBuilderImpl<TBuilder extends ADBusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends ADBusiness>
         extends BusinessBuilderImpl<TBuilder, TBusiness> implements ADBusinessBuilder<TBuilder, TBusiness>
@@ -85,9 +84,9 @@ public class ADBusinessBuilderImpl<TBuilder extends ADBusinessBuilderImpl<TBuild
         BillyValidator.mandatory(b.getCommercialName(),
                                  ADBusinessBuilderImpl.LOCALIZER.getString("field.commercial_name"));
         BillyValidator.<Object>mandatory(b.getAddress(), ADBusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
+        BillyValidator.mandatory(b.getTimezone(), BusinessBuilderImpl.LOCALIZER.getString("field.timezone"));
 
-        Pattern pattern;
-        pattern = Pattern.compile("[0-9]{5}");
+        Pattern pattern = Pattern.compile("[0-9]{5}");
 
         Matcher matcher = pattern.matcher(b.getAddress().getPostalCode());
         if (!matcher.find()) {

@@ -18,32 +18,28 @@
  */
 package com.premiumminds.billy.core.jpa;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
-
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.premiumminds.billy.persistence.CoreJPADependencyModule;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOTax;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
-import com.premiumminds.billy.core.services.entities.Address;
-import com.premiumminds.billy.core.services.entities.Application;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Contact;
-import com.premiumminds.billy.core.services.entities.Context;
-import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.*;
 import com.premiumminds.billy.core.services.entities.Tax.TaxRateType;
+import com.premiumminds.billy.persistence.CoreJPADependencyModule;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class GenericTest {
+import java.math.BigDecimal;
+import java.time.ZoneId;
+import java.util.Currency;
+import java.util.Date;
+
+class GenericTest {
 
     static Injector injector;
 
@@ -60,7 +56,7 @@ public class GenericTest {
     }
 
     @Test
-    public void test1() {
+    void test1() {
         Business.Builder builder = GenericTest.injector.getInstance(Business.Builder.class);
         Contact.Builder contactBuilder = GenericTest.injector.getInstance(Contact.Builder.class);
         Contact.Builder contactBuilder2 = GenericTest.injector.getInstance(Contact.Builder.class);
@@ -79,10 +75,14 @@ public class GenericTest {
                 .setParentContextUID(null).build();
         parent = daoContext.create((ContextEntity) parent);
 
+        Assertions.assertNotNull(parent);
+
         contextBuilder.clear();
         Context child = contextBuilder.setName("child name").setDescription("the child description")
                 .setParentContextUID(parent.getUID()).build();
         child = daoContext.create((ContextEntity) child);
+
+        Assertions.assertNotNull(child);
 
         builder.setOperationalContextUID(child.getUID()).setName("name").setCommercialName("commercial name")
                 .addContact(contactBuilder.setName("name").setEmail("email").setFax("fax").setMobile("mobile")
@@ -97,16 +97,22 @@ public class GenericTest {
                         .setDeveloperCompanyTaxIdentifier("taxid","country")
                         .setVersion("1.0").addContact(contactBuilder2.setName("name").setEmail("email").setFax("fax")
                                 .setMobile("mobile").setTelephone("phone").setWebsite("website")))
-                .setFinancialID("financial id", "country");
+                .setFinancialID("financial id", "country")
+                .setTimezone(ZoneId.of("Europe/Lisbon"));
 
-        GenericTest.injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
+        final BusinessEntity businessEntity =
+                GenericTest.injector.getInstance(DAOBusiness.class).create((BusinessEntity) builder.build());
+
+        Assertions.assertNotNull(businessEntity);
 
         taxBuilder.setCode("PT").setContextUID(child.getUID()).setCurrency(Currency.getInstance("EUR"))
                 .setDescription("description").setDesignation("designation")
                 .setTaxRate(TaxRateType.PERCENTAGE, BigDecimal.TEN).setValidFrom(new Date()).setValidTo(new Date())
                 .setValue(BigDecimal.TEN);
 
-        daoTax.create((TaxEntity) taxBuilder.build());
+        final TaxEntity taxEntity = daoTax.create((TaxEntity) taxBuilder.build());
+
+        Assertions.assertNotNull(taxEntity);
     }
 
 }
