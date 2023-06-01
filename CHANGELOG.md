@@ -6,6 +6,7 @@
 ### Added
 
  - [Adds new method to check for existence of credit notes](https://github.com/premium-minds/billy/pull/426)
+ - [Add timezone to business entity](https://github.com/premium-minds/billy/pull/439) - requires SQL schema changes
 
 ### Changed
 
