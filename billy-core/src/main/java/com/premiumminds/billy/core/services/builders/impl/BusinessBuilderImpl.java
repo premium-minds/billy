@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.exceptions.BillyUpdateException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
@@ -39,6 +37,9 @@ import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
+
+import javax.inject.Inject;
+import java.time.ZoneId;
 
 public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends Business>
         extends AbstractBuilder<TBuilder, TBusiness> implements BusinessBuilder<TBuilder, TBusiness> {
@@ -157,6 +158,12 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
         return this.getBuilder();
     }
 
+    @Override public TBuilder setTimezone(ZoneId timezone) {
+        BillyValidator.notNull(timezone, BusinessBuilderImpl.LOCALIZER.getString("field.timezone"));
+        this.getTypeInstance().setTimezone(timezone);
+        return this.getBuilder();
+    }
+
     @Override
     protected void validateInstance() throws BillyValidationException {
         BusinessEntity b = this.getTypeInstance();
@@ -164,12 +171,13 @@ public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, 
         BillyValidator.mandatory(b.getName(), BusinessBuilderImpl.LOCALIZER.getString("field.business_name"));
         BillyValidator.<Object>mandatory(b.getAddress(), BusinessBuilderImpl.LOCALIZER.getString("field.business_address"));
         BillyValidator.notEmpty(b.getContacts(), BusinessBuilderImpl.LOCALIZER.getString("field.business_contact"));
+        BillyValidator.mandatory(b.getTimezone(), BusinessBuilderImpl.LOCALIZER.getString("field.timezone"));
     }
 
     @SuppressWarnings("unchecked")
     @Override
     protected BusinessEntity getTypeInstance() {
-        return (BusinessEntity) super.getTypeInstance();
+        return super.getTypeInstance();
     }
 
 }

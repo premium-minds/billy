@@ -18,28 +18,12 @@
  */
 package com.premiumminds.billy.andorra.its;
 
-import com.premiumminds.billy.andorra.BillyAndorra;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.AndorraBootstrap;
 import com.premiumminds.billy.andorra.AndorraDependencyModule;
 import com.premiumminds.billy.andorra.AndorraPersistenceDependencyModule;
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Currency;
-import java.util.Date;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
-import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
-import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
-import com.premiumminds.billy.core.services.entities.Product;
-import com.premiumminds.billy.core.services.entities.Tax;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.core.util.PaymentMechanism;
-import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import com.premiumminds.billy.andorra.BillyAndorra;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditNote;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADInvoice;
 import com.premiumminds.billy.andorra.services.documents.util.ADIssuingParams;
@@ -55,16 +39,33 @@ import com.premiumminds.billy.andorra.services.entities.ADInvoiceEntry;
 import com.premiumminds.billy.andorra.services.entities.ADPayment;
 import com.premiumminds.billy.andorra.services.entities.ADProduct;
 import com.premiumminds.billy.andorra.services.entities.ADTax;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
+import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
+import com.premiumminds.billy.core.services.entities.Product;
+import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.core.util.PaymentMechanism;
+import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.util.Currency;
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class InvoiceIT {
+class InvoiceIT {
 
     private Injector injector;
 
     @Test
-    public void test() throws Exception {
+    void test() throws Exception {
 
         injector = Guice.createInjector(new AndorraDependencyModule(),
                 new AndorraPersistenceDependencyModule("BillyAndorraTestPersistenceUnit"));
@@ -153,10 +154,6 @@ public class InvoiceIT {
         return applicationBuilder;
     }
 
-    private ADApplication createAdApplication(BillyAndorra billyAndorra, ADApplication.Builder applicationBuilder) {
-        return billyAndorra.applications().persistence().create(applicationBuilder);
-    }
-
     private ADBusiness createAdBusiness(BillyAndorra billyAndorra, ADApplication.Builder applicationBuilder) {
         ADContact.Builder contactBuilder = billyAndorra.contacts().builder();
         contactBuilder.setName("CEO 1")
@@ -178,7 +175,8 @@ public class InvoiceIT {
                 .setCommercialName("Business, INC")
                 .setFinancialID("L723456Z", "AD")
                 .setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder);
+                .setBillingAddress(addressBuilder)
+                .setTimezone(ZoneId.of("Europe/Madrid"));
 
         return billyAndorra.businesses().persistence().create(businessBuilder);
     }

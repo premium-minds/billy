@@ -89,3 +89,4 @@ applications :
         fax : fax_2
         email : email_2
         website : website_2
+timezone: !ZoneId Europe/Madrid

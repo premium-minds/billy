@@ -19,11 +19,6 @@
 package com.premiumminds.billy.france.test.util;
 
 import com.google.inject.Injector;
-import java.net.MalformedURLException;
-import java.util.UUID;
-
-import javax.persistence.NoResultException;
-
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.france.persistence.dao.DAOFRBusiness;
@@ -34,6 +29,11 @@ import com.premiumminds.billy.france.services.entities.FRBusiness;
 import com.premiumminds.billy.france.services.entities.FRContact;
 import com.premiumminds.billy.france.services.entities.FRRegionContext;
 import com.premiumminds.billy.france.util.Contexts;
+
+import javax.persistence.NoResultException;
+import java.net.MalformedURLException;
+import java.time.ZoneId;
+import java.util.UUID;
 
 public class FRBusinessTestUtil {
 
@@ -87,11 +87,17 @@ public class FRBusinessTestUtil {
         FRContact.Builder contactBuilder = this.contact.getContactBuilder();
         FRAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-        businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true).setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder).setCommercialName(FRBusinessTestUtil.NAME)
+        businessBuilder
+                .addApplication(applicationBuilder)
+                .addContact(contactBuilder, true)
+                .setAddress(addressBuilder)
+                .setBillingAddress(addressBuilder)
+                .setCommercialName(FRBusinessTestUtil.NAME)
                 .setFinancialID(FRBusinessTestUtil.FINANCIAL_ID, FRBusinessTestUtil.FR_COUNTRY_CODE)
-                .setOperationalContextUID(this.context.getUID()).setWebsite(FRBusinessTestUtil.WEBSITE)
-                .setName(FRBusinessTestUtil.NAME);
+                .setOperationalContextUID(this.context.getUID())
+                .setWebsite(FRBusinessTestUtil.WEBSITE)
+                .setName(FRBusinessTestUtil.NAME)
+                .setTimezone(ZoneId.of("Europe/Madrid"));
 
         return businessBuilder;
     }

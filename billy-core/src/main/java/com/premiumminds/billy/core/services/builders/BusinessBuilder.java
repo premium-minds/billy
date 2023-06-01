@@ -26,6 +26,8 @@ import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
 
+import java.time.ZoneId;
+
 public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBusiness>, TBusiness extends Business>
         extends Builder<TBusiness> {
 
@@ -50,5 +52,7 @@ public interface BusinessBuilder<TBuilder extends BusinessBuilder<TBuilder, TBus
     public TBuilder setMainContactUID(StringID<Contact> contactUID);
 
     public <T extends Application> TBuilder addApplication(Builder<T> applicationBuilder);
+
+    public TBuilder setTimezone(ZoneId timezone);
 
 }

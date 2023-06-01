@@ -18,21 +18,6 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
@@ -43,6 +28,23 @@ import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.services.entities.Context;
+import com.premiumminds.billy.persistence.converters.ZoneIdAttributeConverter;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Audited
@@ -101,6 +103,10 @@ public class JPABusinessEntity extends JPABaseEntity<Business> implements Busine
             joinColumns = { @JoinColumn(name = "ID_BUSINESS", referencedColumnName = "ID") },
             inverseJoinColumns = { @JoinColumn(name = "ID_APPLICATION", referencedColumnName = "ID", unique = true) })
     protected List<Application> applications;
+
+    @Column(name = "timezone")
+    @Convert(converter = ZoneIdAttributeConverter.class)
+    protected ZoneId timezone;
 
     public JPABusinessEntity() {
         this.contacts = new ArrayList<>();
@@ -163,6 +169,11 @@ public class JPABusinessEntity extends JPABaseEntity<Business> implements Busine
     }
 
     @Override
+    public ZoneId getTimezone() {
+        return this.timezone;
+    }
+
+    @Override
     public <T extends ContextEntity> void setOperationalContext(T context) {
         this.operationalContext = context;
     }
@@ -215,6 +226,11 @@ public class JPABusinessEntity extends JPABaseEntity<Business> implements Busine
     @Override
     public <T extends ContactEntity> void setMainContact(T contact) {
         this.mainContact = contact;
+    }
+
+    @Override
+    public void setTimezone(ZoneId timezone) {
+        this.timezone = timezone;
     }
 
     @Override

@@ -18,12 +18,13 @@
  */
 package com.premiumminds.billy.core.services.entities;
 
-import java.util.Collection;
-
 import com.google.inject.Inject;
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.services.builders.impl.BusinessBuilderImpl;
+
+import java.time.ZoneId;
+import java.util.Collection;
 
 /**
  * @author Francisco Vargas
@@ -69,5 +70,7 @@ public interface Business extends Entity<Business> {
     public String getWebsiteAddress();
 
     public <T extends Application> Collection<T> getApplications();
+
+    public ZoneId getTimezone();
 
 }

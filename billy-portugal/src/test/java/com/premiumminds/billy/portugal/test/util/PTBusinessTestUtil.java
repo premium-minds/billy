@@ -19,11 +19,6 @@
 package com.premiumminds.billy.portugal.test.util;
 
 import com.google.inject.Injector;
-import java.net.MalformedURLException;
-import java.util.UUID;
-
-import javax.persistence.NoResultException;
-
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
@@ -35,6 +30,11 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.util.Contexts;
 
+import javax.persistence.NoResultException;
+import java.net.MalformedURLException;
+import java.time.ZoneId;
+import java.util.UUID;
+
 public class PTBusinessTestUtil {
 
     private static final String NAME = "Business";
@@ -42,11 +42,11 @@ public class PTBusinessTestUtil {
     private static final String WEBSITE = "http://business.com";
     protected static final String PT_COUNTRY_CODE = "PT";
 
-    private Injector injector;
-    private PTApplicationTestUtil application;
-    private PTContactTestUtil contact;
-    private PTAddressTestUtil address;
-    private PTRegionContext context;
+    private final Injector injector;
+    private final PTApplicationTestUtil application;
+    private final PTContactTestUtil contact;
+    private final PTAddressTestUtil address;
+    private final PTRegionContext context;
 
     public PTBusinessTestUtil(Injector injector) {
         this.injector = injector;
@@ -62,7 +62,7 @@ public class PTBusinessTestUtil {
     }
 
     public PTBusinessEntity getBusinessEntity(StringID<Business> businessID) {
-        PTBusinessEntity business = null;
+        PTBusinessEntity business;
         try {
             business = this.injector.getInstance(DAOPTBusiness.class).get(businessID);
         } catch (NoResultException e) {
@@ -87,11 +87,17 @@ public class PTBusinessTestUtil {
         PTContact.Builder contactBuilder = this.contact.getContactBuilder();
         PTAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-        businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true).setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder).setCommercialName(PTBusinessTestUtil.NAME)
+        businessBuilder
+                .addApplication(applicationBuilder)
+                .addContact(contactBuilder, true)
+                .setAddress(addressBuilder)
+                .setBillingAddress(addressBuilder)
+                .setCommercialName(PTBusinessTestUtil.NAME)
                 .setFinancialID(PTBusinessTestUtil.FINANCIAL_ID, PTBusinessTestUtil.PT_COUNTRY_CODE)
-                .setOperationalContextUID(this.context.getUID()).setWebsite(PTBusinessTestUtil.WEBSITE)
-                .setName(PTBusinessTestUtil.NAME);
+                .setOperationalContextUID(this.context.getUID())
+                .setWebsite(PTBusinessTestUtil.WEBSITE)
+                .setName(PTBusinessTestUtil.NAME)
+                .setTimezone(ZoneId.of("Europe/Lisbon"));
 
         return businessBuilder;
     }

@@ -32,12 +32,12 @@ import com.premiumminds.billy.core.services.entities.Contact;
 import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockBusinessEntity;
 
-public class TestBusinessBuilder extends AbstractTest {
+class TestBusinessBuilder extends AbstractTest {
 
     private static final String BUSINESS_YML = AbstractTest.YML_CONFIGS_DIR + "Business.yml";
 
     @Test
-    public void doTest() {
+    void doTest() {
         MockBusinessEntity mockBusiness =
                 this.createMockEntity(MockBusinessEntity.class, TestBusinessBuilder.BUSINESS_YML);
 
@@ -68,11 +68,12 @@ public class TestBusinessBuilder extends AbstractTest {
                .setBillingAddress(mockBillingAddressBuilder).setShippingAddress(mockShippingAddressBuilder)
                .addApplication(mockApplicationBuilder).addContact(mockMainContactBuilder, true)
                .setWebsite(mockBusiness.getWebsiteAddress())
-               .setOperationalContextUID(mockBusiness.getOperationalContext().getUID());
+               .setOperationalContextUID(mockBusiness.getOperationalContext().getUID())
+               .setTimezone(mockBusiness.getTimezone());
 
         Business business = builder.build();
 
-        Assertions.assertTrue(business != null);
+        Assertions.assertNotNull(business);
 
         Assertions.assertEquals(mockBusiness.getFinancialID(), business.getFinancialID());
 
@@ -82,9 +83,11 @@ public class TestBusinessBuilder extends AbstractTest {
         Assertions.assertEquals(mockBusiness.getCommercialName(), business.getCommercialName());
         Assertions.assertEquals(mockBusiness.getAddress().getNumber(), business.getAddress().getNumber());
 
-        Assertions.assertTrue(business.getContacts() != null);
+        Assertions.assertNotNull(business.getContacts());
 
-        Assertions.assertTrue(business.getApplications() != null);
+        Assertions.assertNotNull(business.getApplications());
         Assertions.assertEquals(mockBusiness.getApplications().size(), business.getApplications().size());
+
+        Assertions.assertEquals(mockBusiness.getTimezone(), business.getTimezone());
     }
 }

@@ -19,11 +19,6 @@
 package com.premiumminds.billy.spain.test.util;
 
 import com.google.inject.Injector;
-import java.net.MalformedURLException;
-import java.util.UUID;
-
-import javax.persistence.NoResultException;
-
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
@@ -35,6 +30,11 @@ import com.premiumminds.billy.spain.services.entities.ESContact;
 import com.premiumminds.billy.spain.services.entities.ESRegionContext;
 import com.premiumminds.billy.spain.util.Contexts;
 
+import javax.persistence.NoResultException;
+import java.net.MalformedURLException;
+import java.time.ZoneId;
+import java.util.UUID;
+
 public class ESBusinessTestUtil {
 
     private static final String NAME = "Business";
@@ -42,11 +42,11 @@ public class ESBusinessTestUtil {
     private static final String WEBSITE = "http://business.com";
     protected static final String ES_COUNTRY_CODE = "ES";
 
-    private Injector injector;
-    private ESApplicationTestUtil application;
-    private ESContactTestUtil contact;
-    private ESAddressTestUtil address;
-    private ESRegionContext context;
+    private final Injector injector;
+    private final ESApplicationTestUtil application;
+    private final ESContactTestUtil contact;
+    private final ESAddressTestUtil address;
+    private final ESRegionContext context;
 
     public ESBusinessTestUtil(Injector injector) {
         this.injector = injector;
@@ -62,7 +62,7 @@ public class ESBusinessTestUtil {
     }
 
     public ESBusinessEntity getBusinessEntity(StringID<Business> businessID) {
-        ESBusinessEntity business = null;
+        ESBusinessEntity business;
         try {
             business = this.injector.getInstance(DAOESBusiness.class).get(businessID);
         } catch (NoResultException e) {
@@ -87,11 +87,17 @@ public class ESBusinessTestUtil {
         ESContact.Builder contactBuilder = this.contact.getContactBuilder();
         ESAddress.Builder addressBuilder = this.address.getAddressBuilder();
 
-        businessBuilder.addApplication(applicationBuilder).addContact(contactBuilder, true).setAddress(addressBuilder)
-                .setBillingAddress(addressBuilder).setCommercialName(ESBusinessTestUtil.NAME)
+        businessBuilder
+                .addApplication(applicationBuilder)
+                .addContact(contactBuilder, true)
+                .setAddress(addressBuilder)
+                .setBillingAddress(addressBuilder)
+                .setCommercialName(ESBusinessTestUtil.NAME)
                 .setFinancialID(ESBusinessTestUtil.FINANCIAL_ID, ESBusinessTestUtil.ES_COUNTRY_CODE)
-                .setOperationalContextUID(this.context.getUID()).setWebsite(ESBusinessTestUtil.WEBSITE)
-                .setName(ESBusinessTestUtil.NAME);
+                .setOperationalContextUID(this.context.getUID())
+                .setWebsite(ESBusinessTestUtil.WEBSITE)
+                .setName(ESBusinessTestUtil.NAME)
+                .setTimezone(ZoneId.of("Europe/Madrid"));
 
         return businessBuilder;
     }
