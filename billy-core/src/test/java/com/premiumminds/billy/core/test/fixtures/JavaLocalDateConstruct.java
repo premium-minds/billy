@@ -26,17 +26,17 @@ import org.yaml.snakeyaml.nodes.ScalarNode;
 
 public class JavaLocalDateConstruct extends AbstractConstruct {
 
-	@Override
-	public Object construct(final Node node) {
-		ScalarNode snode = (ScalarNode) node;
-		try {
-			return LocalDate.parse(snode.getValue());
-		} catch (IllegalAccessError ignored) {
-		}
+    @Override
+    public Object construct(final Node node) {
+        ScalarNode snode = (ScalarNode) node;
+        try {
+            return LocalDate.parse(snode.getValue());
+        } catch (IllegalAccessError ignored) {
+        }
 
-		throw new YAMLException(String.format(
-			"Can't construct a java object for scalar %s (node value: %s)",
-			node.getTag(),
-			snode.getValue()));
-	}
+        throw new YAMLException(String.format(
+            "Can't construct a java object for scalar %s (node value: %s)",
+            node.getTag(),
+            snode.getValue()));
+    }
 }
