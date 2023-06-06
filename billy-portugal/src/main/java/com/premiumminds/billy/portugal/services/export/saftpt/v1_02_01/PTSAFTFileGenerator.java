@@ -99,6 +99,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -254,18 +256,22 @@ public class PTSAFTFileGenerator {
                     /* MASTER FILES */
                     MasterFiles mf = new MasterFiles();
 
+                    final ZoneId businessTimezone = businessEntity.getTimezone();
+                    final LocalDate localFrom = LocalDate.ofInstant(fromDate.toInstant(), businessTimezone);
+                    final LocalDate localTo = LocalDate.ofInstant(toDate.toInstant(), businessTimezone);
+
                     /* SOURCE DOCUMENTS */
                     List<PTInvoiceEntity> invoices = daoPTInvoice
-                            .getBusinessInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                        .getBusinessInvoicesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
                     List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
-                            .getBusinessSimpleInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                        .getBusinessSimpleInvoicesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
                     List<PTReceiptInvoiceEntity> receiptInvoices = daoPTReceiptInvoice
-                            .getBusinessReceiptInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                        .getBusinessReceiptInvoicesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
                     List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
-                            .getBusinessCreditNotesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                        .getBusinessCreditNotesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
                     Map<Long, PTCustomerEntity> customers = new HashMap<>();
                     Map<Long, PTProductEntity> products = new HashMap<>();

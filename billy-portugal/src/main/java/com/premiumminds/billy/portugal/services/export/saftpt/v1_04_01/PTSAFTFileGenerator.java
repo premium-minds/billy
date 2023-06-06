@@ -31,13 +31,10 @@ import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.Config.Key;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNote;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTProduct;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTReceiptInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTRegionContext;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
-import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTTax;
 import com.premiumminds.billy.portugal.persistence.entities.PTAddressEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
@@ -53,19 +50,14 @@ import com.premiumminds.billy.portugal.persistence.entities.PTProductEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTReceiptInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTRegionContextEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
-import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTTaxEntity;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTPayment;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
-import com.premiumminds.billy.portugal.services.export.exceptions.InvalidContactTypeException;
-import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentStateException;
-import com.premiumminds.billy.portugal.services.export.exceptions.InvalidDocumentTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidPaymentMechanismException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidProductTypeException;
-import com.premiumminds.billy.portugal.services.export.exceptions.InvalidTaxCodeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.InvalidTaxTypeException;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
 import com.premiumminds.billy.portugal.services.export.exceptions.SAFTPTExportException;
@@ -89,8 +81,6 @@ import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.So
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.DocumentTotals;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SourceDocuments.SalesInvoices.Invoice.Line;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SpecialRegimes;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Supplier;
-import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.SupplierAddressStructure;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.Tax;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTable;
 import com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema.TaxTableEntry;
@@ -101,6 +91,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -127,7 +119,7 @@ public class PTSAFTFileGenerator {
 
     private static final Logger log = LoggerFactory.getLogger(PTSAFTFileGenerator.class);
 
-    private Config						config					= null;
+    private Config						config;
     private JAXBContext					jaxbContext;
     private Marshaller					marshaller;
     private MathContext					mc						= BillyMathContext
@@ -167,9 +159,6 @@ public class PTSAFTFileGenerator {
     private final String				SELF_BILLING_INDICATOR	= "0";
     private final String				UNIT_OF_MEASURE			= "Unidade";
 
-    private final DAOPTCustomer			daoCustomer;
-    private final DAOPTSupplier			daoSupplier;
-    private final DAOPTProduct			daoProduct;
     private final DAOPTTax				daoPTTax;
     private final DAOPTRegionContext	daoPTRegionContext;
     private final DAOPTInvoice			daoPTInvoice;
@@ -179,19 +168,14 @@ public class PTSAFTFileGenerator {
 
     @Inject
     public PTSAFTFileGenerator(
-        DAOPTCustomer daoCustomer,
-        DAOPTSupplier daoSupplier,
-        DAOPTProduct daoProduct,
         DAOPTTax daoPTTax,
         DAOPTRegionContext daoPTRegionContext,
         DAOPTInvoice daoPTInvoice,
         DAOPTSimpleInvoice daoPTSimpleInvoice,
         DAOPTReceiptInvoice daoPTReceiptInvoice,
-        DAOPTCreditNote daoPTCreditNote) {
+        DAOPTCreditNote daoPTCreditNote)
+    {
 
-        this.daoCustomer = daoCustomer;
-        this.daoSupplier = daoSupplier;
-        this.daoProduct = daoProduct;
         this.daoPTTax = daoPTTax;
         this.daoPTRegionContext = daoPTRegionContext;
         this.daoPTInvoice = daoPTInvoice;
@@ -262,6 +246,7 @@ public class PTSAFTFileGenerator {
                 public AuditFile runTransaction() throws Exception {
                     AuditFile SAFTFile = new AuditFile();
 
+
                     /* HEADER */
                     Header hdr = PTSAFTFileGenerator.this.generateHeader(
                             businessEntity, application,
@@ -271,18 +256,22 @@ public class PTSAFTFileGenerator {
                     /* MASTER FILES */
                     MasterFiles mf = new MasterFiles();
 
+                    final ZoneId businessTimezone = businessEntity.getTimezone();
+                    final LocalDate localFrom = LocalDate.ofInstant(fromDate.toInstant(), businessTimezone);
+                    final LocalDate localTo = LocalDate.ofInstant(toDate.toInstant(), businessTimezone);
+
                     /* SOURCE DOCUMENTS */
                     List<PTInvoiceEntity> invoices = daoPTInvoice
-                            .getBusinessInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                            .getBusinessInvoicesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
                     List<PTSimpleInvoiceEntity> simpleInvoices = daoPTSimpleInvoice
-                            .getBusinessSimpleInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                            .getBusinessSimpleInvoicesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
                     List<PTReceiptInvoiceEntity> receiptInvoices = daoPTReceiptInvoice
-                            .getBusinessReceiptInvoicesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                            .getBusinessReceiptInvoicesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
                     List<PTCreditNoteEntity> creditNotes = daoPTCreditNote
-                            .getBusinessCreditNotesForSAFTPT(businessEntity.getUID(), fromDate, toDate);
+                            .getBusinessCreditNotesForSAFTPT(businessEntity.getUID(), localFrom, localTo);
 
 
                     Map<Long, PTCustomerEntity> customers = new HashMap<>();
@@ -394,13 +383,12 @@ public class PTSAFTFileGenerator {
      *             - problems with dates
      * @throws RequiredFieldNotFoundException
      *             - if a required field in the SAFT file could not be assigned
-     * @throws InvalidContactTypeException
      */
     private Header generateHeader(PTBusinessEntity businessEntity,
             PTApplicationEntity application,
             Date startDate, Date endDate)
-        throws DatatypeConfigurationException, RequiredFieldNotFoundException,
-        InvalidContactTypeException {
+        throws DatatypeConfigurationException, RequiredFieldNotFoundException
+    {
         this.context = "Header.";
 
         Header hdr = new Header();
@@ -422,9 +410,7 @@ public class PTSAFTFileGenerator {
             hdr.setBusinessName(this.optionalParam);
         }
 
-        hdr.setCompanyAddress(this
-                .generateAddressStructurePT((AddressEntity) businessEntity
-                        .getAddress()));
+        hdr.setCompanyAddress(this.generateAddressStructurePT(businessEntity.getAddress()));
 
         hdr.setFiscalYear(this.getDateField(startDate, Calendar.YEAR));
         hdr.setStartDate(this.formatDate(startDate));
@@ -461,10 +447,9 @@ public class PTSAFTFileGenerator {
      *            - the customer
      * @return an instance of Customer
      * @throws RequiredFieldNotFoundException
-     * @throws InvalidContactTypeException
      */
     private Customer generateCustomer(PTCustomerEntity customerEntity)
-        throws RequiredFieldNotFoundException, InvalidContactTypeException {
+        throws RequiredFieldNotFoundException {
         this.context = "Customer.";
         Customer customer = new Customer();
 
@@ -491,9 +476,7 @@ public class PTSAFTFileGenerator {
             }
 
             if (customerEntity.getShippingAddress() != null) {
-                customer
-                    .getShipToAddress()
-                    .add(this.generateAddressStructure((PTAddressEntity) customerEntity.getShippingAddress()));
+                customer.getShipToAddress().add(this.generateAddressStructure(customerEntity.getShippingAddress()));
             }
 
             List<PTContactEntity> contacts = customerEntity.getContacts();
@@ -526,62 +509,6 @@ public class PTSAFTFileGenerator {
             true));
 
         return customer;
-    }
-
-    /**
-     * Generates an instance of Supplier to be inserted in the table 2.3
-     * (Supplier)
-     *
-     * @param supplierEntity
-     *            - the supplier
-     * @return an instance of Supplier
-     * @throws RequiredFieldNotFoundException
-     * @throws InvalidContactTypeException
-     */
-    private Supplier generateSupplier(PTSupplierEntity supplierEntity)
-        throws RequiredFieldNotFoundException, InvalidContactTypeException {
-        this.context = "Supplier.";
-        Supplier supplier = new Supplier();
-
-        supplier.setSupplierID(this.validateString("SupplierID", supplierEntity
-                .getID().toString(), this.MAX_LENGTH_30, true));
-        // No accounting support
-        supplier.setAccountID(this.validateString("AccountID", this.ACCOUNT_ID,
-                this.MAX_LENGTH_30, true));
-
-        supplier.setSupplierTaxID(this.validateString("SupplierTaxID",
-                supplierEntity.getTaxRegistrationNumber(), this.MAX_LENGTH_20,
-                true));
-
-        supplier.setCompanyName(this.validateString("CompanyName",
-                supplierEntity.getName(), this.MAX_LENGTH_100, true));
-
-        if ((this.optionalParam = this.validateString("Contact",
-                supplierEntity.getReferralName(), this.MAX_LENGTH_50, false))
-                .length() > 0) {
-            supplier.setContact(this.optionalParam);
-        }
-
-        supplier.setBillingAddress(this
-                .generateSupplierAddressStructure((PTAddressEntity) supplierEntity
-                        .getBillingAddress()));
-
-        if (supplierEntity.getShippingAddress() != null) {
-            supplier.getShipFromAddress()
-                    .add(this
-                            .generateSupplierAddressStructure((PTAddressEntity) supplierEntity
-                                    .getShippingAddress()));
-        }
-
-        supplier.setSelfBillingIndicator(this.validateInteger(
-                "SelfBillingIndicator", this.SELF_BILLING_INDICATOR,
-                this.MAX_LENGTH_1, true));
-
-        List<PTContactEntity> contacts = supplierEntity.getContacts();
-
-        this.setContacts(supplier, contacts);
-
-        return supplier;
     }
 
     /**
@@ -633,11 +560,11 @@ public class PTSAFTFileGenerator {
      * @throws DatatypeConfigurationException
      * @throws RequiredFieldNotFoundException
      * @throws InvalidTaxTypeException
-     * @throws InvalidTaxCodeException
      */
     private TaxTable generateTaxTable(List<PTTaxEntity> taxEntities)
         throws DatatypeConfigurationException, RequiredFieldNotFoundException,
-        InvalidTaxTypeException, InvalidTaxCodeException {
+        InvalidTaxTypeException
+    {
         this.context = "TaxTable.";
 
         TaxTable taxTable = new TaxTable();
@@ -686,10 +613,7 @@ public class PTSAFTFileGenerator {
      * @return
      * @throws DatatypeConfigurationException
      * @throws RequiredFieldNotFoundException
-     * @throws InvalidDocumentTypeException
-     * @throws InvalidDocumentStateException
      * @throws InvalidTaxTypeException
-     * @throws InvalidTaxCodeException
      * @throws InvalidPaymentMechanismException
      * @throws InvalidInvoiceTypeException
      */
@@ -699,9 +623,7 @@ public class PTSAFTFileGenerator {
             List<PTReceiptInvoiceEntity> receiptInvoices,
             List<PTCreditNoteEntity> creditNotes)
         throws DatatypeConfigurationException, RequiredFieldNotFoundException,
-        InvalidDocumentTypeException, InvalidDocumentStateException,
-        InvalidTaxTypeException, InvalidTaxCodeException,
-        InvalidPaymentMechanismException, InvalidInvoiceTypeException {
+               InvalidTaxTypeException, InvalidPaymentMechanismException, InvalidInvoiceTypeException {
         this.context = "SourceDocuments.";
 
         SourceDocuments srcDocs = new SourceDocuments();
@@ -730,11 +652,9 @@ public class PTSAFTFileGenerator {
 
     private <T extends PTGenericInvoiceEntity> BigDecimal processInvoices(
             List<T> invoices, SalesInvoices salesInvoices,
-            BigDecimal totalCredit) throws DatatypeConfigurationException,
-        RequiredFieldNotFoundException, InvalidDocumentTypeException,
-        InvalidDocumentStateException, InvalidInvoiceTypeException,
-        InvalidTaxTypeException, InvalidTaxCodeException,
-        InvalidPaymentMechanismException {
+            BigDecimal totalCredit)
+        throws DatatypeConfigurationException, RequiredFieldNotFoundException, InvalidInvoiceTypeException,
+               InvalidTaxTypeException, InvalidPaymentMechanismException {
 
         for (T invoice : invoices) {
             Invoice saftInvoice = this.generateSAFTInvoice(invoice);
@@ -760,14 +680,10 @@ public class PTSAFTFileGenerator {
      *
      * @throws DatatypeConfigurationException
      * @throws RequiredFieldNotFoundException
-     * @throws InvalidDocumentTypeException
-     * @throws InvalidDocumentStateException
      * @throws InvalidInvoiceTypeException
      */
     private Invoice generateSAFTInvoice(PTGenericInvoiceEntity document)
-        throws DatatypeConfigurationException, RequiredFieldNotFoundException,
-        InvalidDocumentTypeException, InvalidDocumentStateException,
-        InvalidInvoiceTypeException {
+        throws DatatypeConfigurationException, RequiredFieldNotFoundException, InvalidInvoiceTypeException {
         Invoice saftInv = new Invoice();
 
         saftInv.setDocumentStatus(this.getDocumentStatus(document));
@@ -866,16 +782,13 @@ public class PTSAFTFileGenerator {
      *
      * @throws RequiredFieldNotFoundException
      * @throws DatatypeConfigurationException
-     * @throws InvalidDocumentTypeException
      * @throws InvalidTaxTypeException
-     * @throws InvalidTaxCodeException
      * @throws InvalidPaymentMechanismException
      */
     private void processDocument(Invoice saftInvoice,
             PTGenericInvoiceEntity document)
-        throws RequiredFieldNotFoundException, DatatypeConfigurationException,
-        InvalidDocumentTypeException, InvalidTaxTypeException,
-        InvalidTaxCodeException, InvalidPaymentMechanismException {
+        throws RequiredFieldNotFoundException, DatatypeConfigurationException, InvalidTaxTypeException,
+               InvalidPaymentMechanismException {
         List<PTGenericInvoiceEntryEntity> entries = document.getEntries();
         if (entries == null || entries.size() < 1) {
             throw new RequiredFieldNotFoundException(this.context + " Line");
@@ -983,47 +896,17 @@ public class PTSAFTFileGenerator {
     }
 
     /**
-     * Generates the field OrderReferences (4.1.4.18.2) of document entry
-     *
-     * @param entry
-     * @return an instance of OrderReferences
-     *
-     * @throws RequiredFieldNotFoundException
-     * @throws DatatypeConfigurationException
-     */
-    // private OrderReferences getOrderReferencesForDocumentEntry(
-    // PTGenericInvoiceEntryEntity entry)
-    // throws RequiredFieldNotFoundException,
-    // DatatypeConfigurationException {
-    // OrderReferences or = new OrderReferences();
-    // if ((optionalParam = validateString("OriginatingON", entry.get,
-    // MAX_LENGTH_30, false)).length() > 0) {
-    // or.setOriginatingON(optionalParam);
-    // }
-    // if (entry.getOrderDate() != null) {
-    // or.setOrderDate(formatDate(entry.getOrderDate()));
-    // }
-    // if (entry.getOrderId() != null || entry.getOrderDate() != null) {
-    // return or;
-    // } else {
-    // return null;
-    // }
-    // }
-
-    /**
      * Generates the field References (4.1.4.18.9) of document entry
      *
      * @param entry
      * @param document
      * @return an instance of References
      * @throws RequiredFieldNotFoundException
-     * @throws DatatypeConfigurationException
-     * @throws InvalidDocumentTypeException
      */
     private References getReferencesForDocumentEntry(
             PTGenericInvoiceEntryEntity entry, PTGenericInvoiceEntity document)
-        throws RequiredFieldNotFoundException, DatatypeConfigurationException,
-        InvalidDocumentTypeException {
+        throws RequiredFieldNotFoundException
+    {
         References ref = null;
         PTInvoice referencedDocument = null;
         if (PTCreditNoteEntryEntity.class.isInstance(entry)) {
@@ -1117,11 +1000,10 @@ public class PTSAFTFileGenerator {
      * @return
      * @throws RequiredFieldNotFoundException
      * @throws DatatypeConfigurationException
-     * @throws InvalidPaymentMechanismException
      */
     private Settlement getSettlement(PTGenericInvoiceEntity document)
-        throws RequiredFieldNotFoundException, DatatypeConfigurationException,
-        InvalidPaymentMechanismException {
+        throws RequiredFieldNotFoundException, DatatypeConfigurationException
+    {
         if (document.getSettlementDiscount() != null) {
             Settlement settlement = new Settlement();
             settlement.setSettlementAmount(this.validateBigDecimal(document
@@ -1234,13 +1116,11 @@ public class PTSAFTFileGenerator {
      *
      * @param document
      * @return
-     * @throws InvalidDocumentStateException
      * @throws DatatypeConfigurationException
      * @throws RequiredFieldNotFoundException
      */
     private DocumentStatus getDocumentStatus(PTGenericInvoiceEntity document)
-        throws InvalidDocumentStateException, DatatypeConfigurationException,
-        RequiredFieldNotFoundException {
+        throws DatatypeConfigurationException, RequiredFieldNotFoundException {
         DocumentStatus status = new DocumentStatus();
 
         if (document.isCancelled()) {
@@ -1264,21 +1144,19 @@ public class PTSAFTFileGenerator {
         return status;
     }
 
-    @SuppressWarnings("unchecked")
     private List<PaymentMethod> getPaymentsList(PTGenericInvoiceEntity document)
         throws RequiredFieldNotFoundException,
         InvalidPaymentMechanismException, DatatypeConfigurationException {
 
         if (document.getPayments() != null) {
-            List<PaymentMethod> payments = new ArrayList<PaymentMethod>();
+            List<PaymentMethod> payments = new ArrayList<>();
             for (com.premiumminds.billy.core.services.entities.Payment p : document
                     .getPayments()) {
                 PaymentMethod payment = new PaymentMethod();
 
                 payment.setPaymentMechanism(this.validateString(
                         "PaymentMechanism", this
-                                .getPaymentMechanism((Enum<PaymentMechanism>) p
-                                        .getPaymentMethod()),
+                                .getPaymentMechanism(p.getPaymentMethod()),
                         this.MAX_LENGTH_2, true));
                 payment.setPaymentAmount(this
                         .validateBigDecimal(((PTPayment) p).getPaymentAmount()));
@@ -1418,48 +1296,6 @@ public class PTSAFTFileGenerator {
     }
 
     /**
-     * Constructs an SupplierAddressStructures that is used in the Supplier of
-     * the SAFT file
-     *
-     * @param addressEntity
-     * @return
-     * @throws RequiredFieldNotFoundException
-     */
-    private SupplierAddressStructure generateSupplierAddressStructure(
-            PTAddressEntity addressEntity)
-        throws RequiredFieldNotFoundException {
-        SupplierAddressStructure address = new SupplierAddressStructure();
-
-        if ((this.optionalParam = this.validateString("StreetName",
-                addressEntity.getStreetName(), this.MAX_LENGTH_90, false))
-                .length() > 0) {
-            address.setStreetName(this.optionalParam);
-        }
-        if ((this.optionalParam = this.validateString("BuildingNumber",
-                addressEntity.getNumber(), this.MAX_LENGTH_10, false)).length() > 0) {
-            address.setBuildingNumber(this.optionalParam);
-        }
-
-        address.setAddressDetail(this.validateString("AddressDetail",
-                addressEntity.getDetails(), this.MAX_LENGTH_100, true));
-
-        address.setCity(this.validateString("City", addressEntity.getCity(),
-                this.MAX_LENGTH_50, true));
-
-        address.setPostalCode(this.validateString("PostalCode",
-                addressEntity.getPostalCode(), this.MAX_LENGTH_20, true));
-
-        address.setCountry(this.validateString("Country",
-                addressEntity.getISOCountry(), this.MAX_LENGTH_2, true));
-
-        if ((this.optionalParam = this.validateString("Region",
-                addressEntity.getRegion(), this.MAX_LENGTH_50, false)).length() > 0) {
-            address.setRegion(this.optionalParam);
-        }
-        return address;
-    }
-
-    /**
      * Converts the ISO code of a region to the code defined in the SAFT file
      * rules
      *
@@ -1486,10 +1322,9 @@ public class PTSAFTFileGenerator {
      * @param contacts
      *            - the company's list of contacts
      * @throws RequiredFieldNotFoundException
-     * @throws InvalidContactTypeException
      */
     private void setContacts(Header hdr, List<PTContactEntity> contacts)
-        throws RequiredFieldNotFoundException, InvalidContactTypeException {
+        throws RequiredFieldNotFoundException {
 
         for (ContactEntity ce : contacts) {
 
@@ -1527,10 +1362,9 @@ public class PTSAFTFileGenerator {
      * @param contacts
      *            - the customer's list of contacts
      * @throws RequiredFieldNotFoundException
-     * @throws InvalidContactTypeException
      */
     private void setContacts(Customer customer, List<PTContactEntity> contacts)
-        throws RequiredFieldNotFoundException, InvalidContactTypeException {
+        throws RequiredFieldNotFoundException {
         for (PTContactEntity ce : contacts) {
 
             if ((this.optionalParam = this.validateString("Telephone",
@@ -1555,45 +1389,6 @@ public class PTSAFTFileGenerator {
             if ((this.optionalParam = this.validateString("Website",
                     ce.getWebsite(), this.MAX_LENGTH_60, false)).length() > 0) {
                 customer.setWebsite(this.optionalParam);
-            }
-        }
-    }
-
-    /**
-     * Sets the contacts of a supplier
-     *
-     * @param supplier
-     * @param contacts
-     *            - the supplier's list of contacts
-     * @throws RequiredFieldNotFoundException
-     * @throws InvalidContactTypeException
-     */
-    private void setContacts(Supplier supplier, List<PTContactEntity> contacts)
-        throws RequiredFieldNotFoundException, InvalidContactTypeException {
-        for (PTContactEntity ce : contacts) {
-            if ((this.optionalParam = this.validateString("Email",
-                    ce.getEmail(), this.MAX_LENGTH_60, false)).length() > 0) {
-                supplier.setEmail(this.optionalParam);
-            }
-
-            if ((this.optionalParam = this.validateString("Fax", ce.getFax(),
-                    this.MAX_LENGTH_20, false)).length() > 0) {
-                supplier.setFax(this.optionalParam);
-            }
-
-            if ((this.optionalParam = this.validateString("Telephone",
-                    ce.getTelephone(), this.MAX_LENGTH_20, false)).length() > 0) {
-                supplier.setTelephone(this.optionalParam);
-            } else {
-                if ((this.optionalParam = this.validateString("Telephone",
-                        ce.getMobile(), this.MAX_LENGTH_20, false)).length() > 0) {
-                    supplier.setTelephone(this.optionalParam);
-                }
-            }
-
-            if ((this.optionalParam = this.validateString("Website",
-                    ce.getWebsite(), this.MAX_LENGTH_60, false)).length() > 0) {
-                supplier.setWebsite(this.optionalParam);
             }
         }
     }

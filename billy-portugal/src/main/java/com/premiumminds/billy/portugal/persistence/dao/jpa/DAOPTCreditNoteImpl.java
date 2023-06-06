@@ -18,13 +18,6 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -39,6 +32,12 @@ import com.premiumminds.billy.portugal.services.entities.PTCreditNote;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
 public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity>
         implements DAOPTCreditNote {
@@ -59,13 +58,13 @@ public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCredi
     }
 
     @Override
-    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(StringID<Business> uid, Date from, Date to) {
+    public List<PTCreditNoteEntity> getBusinessCreditNotesForSAFTPT(StringID<Business> uid, LocalDate from, LocalDate to) {
         QJPAPTCreditNoteEntity creditNote = QJPAPTCreditNoteEntity.jPAPTCreditNoteEntity;
 
         JPAQuery<PTCreditNoteEntity> query = this.createQuery();
 
         query.from(creditNote)
-                .where(creditNote.instanceOf(JPAPTCreditNoteEntity.class).and(creditNote.date.between(from, to))
+                .where(creditNote.instanceOf(JPAPTCreditNoteEntity.class).and(creditNote.localDate.between(from, to))
                         .and(this.toDSL(creditNote.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
 
         return this.checkEntityList(query.select(creditNote).fetch(), PTCreditNoteEntity.class);
