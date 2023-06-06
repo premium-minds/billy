@@ -3,6 +3,11 @@
 
 ## [Unreleased v8]
 
+### Changed
+
+ - [Bump maven-surefire-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/billy/pull/442)
+ - [Bump maven-failsafe-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/billy/pull/443)
+
 ## [8.1.0] 2023-06-05
 
 ### Added
