@@ -18,14 +18,6 @@
  */
 package com.premiumminds.billy.core.services.entities.documents;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Currency;
-import java.util.Date;
-import java.util.List;
-
-import javax.inject.Inject;
-
 import com.premiumminds.billy.core.persistence.dao.DAOBusiness;
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
@@ -38,6 +30,14 @@ import com.premiumminds.billy.core.services.entities.Entity;
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Currency;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+import javax.inject.Inject;
 
 public interface GenericInvoice extends Entity<GenericInvoice> {
 
@@ -115,5 +115,7 @@ public interface GenericInvoice extends Entity<GenericInvoice> {
     public CreditOrDebit getCreditOrDebit();
 
     public Integer getScale();
+
+    public Optional<LocalDate> getLocalDate();
 
 }

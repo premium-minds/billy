@@ -18,26 +18,35 @@
  */
 package com.premiumminds.billy.france.services.export;
 
+import com.premiumminds.billy.gin.services.export.BusinessData;
+import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
+import com.premiumminds.billy.gin.services.export.PaymentData;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.premiumminds.billy.gin.services.export.BusinessData;
-import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
-import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
-import com.premiumminds.billy.gin.services.export.PaymentData;
+import java.util.Optional;
 
 public class FRCreditReceiptData extends GenericInvoiceData {
 
     private final List<FRCreditReceiptEntryData> entries;
 
-    public FRCreditReceiptData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            BusinessData business, List<FRCreditReceiptEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+    public FRCreditReceiptData(
+        final String number,
+        final Date date,
+        final Optional<LocalDate> localDate,
+        final Date settlementDate,
+        final List<PaymentData> payments,
+        final BusinessData business,
+        final List<FRCreditReceiptEntryData> entries,
+        final BigDecimal taxAmount,
+        final BigDecimal amountWithTax,
+        final BigDecimal amountWithoutTax,
+        final String settlementDescription) {
 
-        super(number, date, settlementDate, payments, null, business, new ArrayList<InvoiceEntryData>(0), taxAmount,
-                amountWithTax, amountWithoutTax, settlementDescription);
+        super(number, date, localDate, settlementDate, payments, null, business, new ArrayList<>(0),
+              taxAmount, amountWithTax, amountWithoutTax, settlementDescription);
 
         this.entries = entries;
     }

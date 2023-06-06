@@ -19,7 +19,7 @@
 
 
 uid : uid_invoice
-number : invoice_1 
+number : invoice_1
 officeNumber : office_1
 date : 2013-08-30
 amountWithTax : !!java.math.BigDecimal
@@ -74,3 +74,4 @@ settlementDiscount : !!java.math.BigDecimal
   0
 settlementDate : 2013-12-24
 creditOrDebit : CREDIT
+localDate: !LocalDate 2013-01-01

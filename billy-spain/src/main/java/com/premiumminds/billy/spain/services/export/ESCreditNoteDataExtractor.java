@@ -62,9 +62,10 @@ public class ESCreditNoteDataExtractor extends AbstractBillyDataExtractor
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<ESCreditNoteEntryData> entries = this.extractCreditEntries(entity.getEntries());
 
-        return new ESCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
-                costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-                entity.getAmountWithoutTax(), entity.getSettlementDescription());
+        return new ESCreditNoteData(entity.getNumber(), entity.getDate(), entity.getLocalDate(),
+                                    entity.getSettlementDate(), payments, costumer, business, entries,
+                                    entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
+                                    entity.getSettlementDescription());
     }
 
     private List<ESCreditNoteEntryData> extractCreditEntries(List<ESCreditNoteEntry> entryEntities)

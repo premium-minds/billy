@@ -19,6 +19,7 @@
 package com.premiumminds.billy.portugal.services.export;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +40,7 @@ public class PTGenericInvoiceData extends GenericInvoiceData {
     public PTGenericInvoiceData(
         final String number,
         final Date date,
+        final Optional<LocalDate> localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final CostumerData customer,
@@ -52,7 +54,7 @@ public class PTGenericInvoiceData extends GenericInvoiceData {
         final String qrCodeString,
         final String atcud) {
 
-        super(number, date, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
+        super(number, date, localDate, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
                 amountWithoutTax, settlementDescription);
 
         this.hash = hash;

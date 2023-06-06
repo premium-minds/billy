@@ -61,8 +61,9 @@ public class ADCreditReceiptDataExtractor extends AbstractBillyDataExtractor
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<ADCreditReceiptEntryData> entries = this.extractCreditEntries(entity.getEntries());
 
-        return new ADCreditReceiptData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
-                                       business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
+        return new ADCreditReceiptData(entity.getNumber(), entity.getDate(), entity.getLocalDate(),
+                                       entity.getSettlementDate(), payments, business, entries, entity.getTaxAmount(),
+                                       entity.getAmountWithTax(), entity.getAmountWithoutTax(),
                                        entity.getSettlementDescription());
     }
 

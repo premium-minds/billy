@@ -30,6 +30,7 @@ import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceData;
 import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransformer;
 import com.premiumminds.billy.spain.services.export.pdf.ESSimpleInvoicePDFTransformer;
 import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoiceTemplateBundle;
+import java.time.format.DateTimeFormatter;
 
 public class ESSimpleInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESSimpleInvoiceData>
         implements ESSimpleInvoicePDFTransformer {
@@ -66,8 +67,12 @@ public class ESSimpleInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransforme
             }
         }
 
-        params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-                AbstractFOPPDFTransformer.DATE_FORMAT.format(entity.getDate()));
+        params.getRoot().addChild(
+            ParamKeys.EMISSION_DATE,
+            entity
+                .getLocalDate()
+                .map(DateTimeFormatter.ISO_LOCAL_DATE::format)
+                .orElse(AbstractFOPPDFTransformer.DATE_FORMAT.format(entity.getDate())));
     }
 
     @Override

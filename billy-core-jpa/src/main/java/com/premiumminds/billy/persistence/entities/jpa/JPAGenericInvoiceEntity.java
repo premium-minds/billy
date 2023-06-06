@@ -18,11 +18,21 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Date;
-import java.util.List;
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
+import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
+import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.Customer;
+import com.premiumminds.billy.core.services.entities.Payment;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Supplier;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import java.util.Optional;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -39,21 +49,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-
-import org.hibernate.envers.Audited;
-
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntity;
-import com.premiumminds.billy.core.persistence.entities.ShippingPointEntity;
-import com.premiumminds.billy.core.persistence.entities.SupplierEntity;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.Customer;
-import com.premiumminds.billy.core.services.entities.Payment;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
-import com.premiumminds.billy.core.services.entities.Supplier;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Audited
@@ -157,6 +158,9 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity<GenericInvoice> imple
     @Column(name = "SCALE")
     protected Integer scale;
 
+    @Column(name = "LOCAL_DATE")
+    protected LocalDate localDate;
+
     @ElementCollection
     @CollectionTable(name = Config.TABLE_PREFIX + "INVOICE_RECEIPT_NUMBER",
             joinColumns = @JoinColumn(name = "ID_INVOICE"))
@@ -183,7 +187,12 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity<GenericInvoice> imple
 
     @Override
     public Integer getScale() {
-        return this.getScale();
+        return this.scale;
+    }
+
+    @Override
+    public Optional<LocalDate> getLocalDate() {
+        return Optional.ofNullable(this.localDate);
     }
 
     @Override
@@ -453,6 +462,11 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity<GenericInvoice> imple
     @Override
     public void setScale(Integer scale) {
         this.scale = scale;
+    }
+
+    @Override
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
     }
 
     @SuppressWarnings("unchecked")

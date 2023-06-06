@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDate;
 import java.util.Currency;
 import java.util.Date;
 
@@ -263,6 +264,13 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
     }
 
     @Override
+    public TBuilder setLocalDate(final LocalDate localDate) {
+        BillyValidator.notNull(localDate, GenericInvoiceBuilderImpl.LOCALIZER.getString("field.local_date"));
+        this.getTypeInstance().setLocalDate(localDate);
+        return this.getBuilder();
+    }
+
+    @Override
     public TBuilder setCreditOrDebit(GenericInvoice.CreditOrDebit creditOrDebit) {
         Validate.notNull(creditOrDebit);
         this.getTypeInstance().setCreditOrDebit(creditOrDebit);
@@ -279,6 +287,7 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
         BillyValidator.mandatory(i.getCreditOrDebit(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.credit_or_debit"));
         BillyValidator.<Object>mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
         BillyValidator.<Object>mandatory(i.getSupplier(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));
+        BillyValidator.mandatory(i.getLocalDate(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.local_date"));
         this.validateDate();
         this.validateValues();
     }
@@ -312,7 +321,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
             if (e.getCurrency() == null) {
                 GenericInvoiceEntryEntity entry = (GenericInvoiceEntryEntity) e;
                 entry.setCurrency(i.getCurrency());
-                e = entry;
             } else {
                 Validate.isTrue(i.getCurrency().getCurrencyCode().equals(e.getCurrency().getCurrencyCode()));
             }

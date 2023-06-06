@@ -19,13 +19,16 @@
 package com.premiumminds.billy.gin.services.export;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class GenericInvoiceData {
 
     private final String number;
     private final Date date;
+    private final Optional<LocalDate> localDate;
     private final Date settlementDate;
     private final List<PaymentData> payments;
     private final CostumerData customer;
@@ -36,12 +39,23 @@ public class GenericInvoiceData {
     private final BigDecimal amountWithoutTax;
     private final String settlementDescription;
 
-    public GenericInvoiceData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            CostumerData customer, BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+    public GenericInvoiceData(
+        final String number,
+        final Date date,
+        final Optional<LocalDate> localDate,
+        final Date settlementDate,
+        final List<PaymentData> payments,
+        final CostumerData customer,
+        final BusinessData business,
+        final List<InvoiceEntryData> entries,
+        final BigDecimal taxAmount,
+        final BigDecimal amountWithTax,
+        final BigDecimal amountWithoutTax,
+        final String settlementDescription) {
 
         this.number = number;
         this.date = date;
+        this.localDate = localDate;
         this.settlementDate = settlementDate;
         this.payments = payments;
         this.customer = customer;
@@ -59,6 +73,10 @@ public class GenericInvoiceData {
 
     public Date getDate() {
         return this.date;
+    }
+
+    public Optional<LocalDate> getLocalDate() {
+        return localDate;
     }
 
     public Date getSettlementDate() {

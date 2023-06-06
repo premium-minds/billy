@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.spain.services.documents;
 
-import java.util.Date;
-
-import javax.inject.Inject;
-import javax.persistence.LockModeType;
-
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
@@ -32,6 +27,11 @@ import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExis
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.exceptions.InvalidInvoiceDateException;
 import com.premiumminds.billy.spain.services.documents.util.ESIssuingParams;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.inject.Inject;
+import javax.persistence.LockModeType;
 
 public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceEntity, P extends ESIssuingParams>
         implements DocumentIssuingHandler<T, P> {
@@ -73,6 +73,9 @@ public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceE
 
         String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
 
+        ZoneId timezone = document.getBusiness().getTimezone();
+        LocalDate issueLocalDate = document.getLocalDate().orElse(LocalDate.ofInstant(invoiceDate.toInstant(), timezone));
+
         document.setDate(invoiceDate);
         document.setNumber(formatedNumber);
         document.setSeries(invoiceSeriesEntity.getSeries());
@@ -81,6 +84,7 @@ public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceE
         document.setCancelled(false);
         document.setEACCode(parametersES.getEACCode());
         document.setCurrency(document.getCurrency());
+        document.setLocalDate(issueLocalDate);
 
         daoInvoice.create(document);
 

@@ -22,9 +22,11 @@ import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public class PTCreditNoteData extends PTGenericInvoiceData {
 
@@ -33,6 +35,7 @@ public class PTCreditNoteData extends PTGenericInvoiceData {
     public PTCreditNoteData(
         final String number,
         final Date date,
+        final Optional<LocalDate> localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final CostumerData customer,
@@ -46,7 +49,7 @@ public class PTCreditNoteData extends PTGenericInvoiceData {
         final String qrCodeString,
         final String atcud) {
 
-        super(number, date, settlementDate, payments, customer, business, new ArrayList<>(0),
+        super(number, date, localDate, settlementDate, payments, customer, business, new ArrayList<>(0),
               taxAmount, amountWithTax, amountWithoutTax, settlementDescription, hash, qrCodeString, atcud);
         this.entries = entries;
     }

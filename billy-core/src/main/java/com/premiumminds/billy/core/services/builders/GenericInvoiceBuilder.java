@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.services.builders;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Currency;
 import java.util.Date;
 
@@ -81,5 +82,7 @@ public interface GenericInvoiceBuilder<TBuilder extends GenericInvoiceBuilder<TB
     TBuilder setCurrency(Currency currency);
 
     TBuilder setScale(int scale);
+
+    TBuilder setLocalDate(LocalDate localDate);
 
 }

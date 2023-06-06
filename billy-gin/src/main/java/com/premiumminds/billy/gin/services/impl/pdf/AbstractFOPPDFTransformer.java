@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -159,8 +160,12 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
             }
         }
 
-        params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-                AbstractFOPPDFTransformer.DATE_FORMAT.format(document.getDate()));
+        params.getRoot().addChild(
+            ParamKeys.EMISSION_DATE,
+            document
+                .getLocalDate()
+                .map(DateTimeFormatter.ISO_LOCAL_DATE::format)
+                .orElse(AbstractFOPPDFTransformer.DATE_FORMAT.format(document.getDate())));
 
         if (null != document.getSettlementDate()) {
             params.getRoot().addChild(ParamKeys.DUE_DATE,

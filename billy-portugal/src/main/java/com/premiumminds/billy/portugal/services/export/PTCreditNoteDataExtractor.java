@@ -74,10 +74,11 @@ public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
         } catch (RequiredFieldNotFoundException e) {
             throw new ExportServiceException(e);
         }
-        return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments,
-                                    costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
-                                    entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash(),
-                                    qrCodeString, entity.getATCUD());
+        return new PTCreditNoteData(entity.getNumber(), entity.getDate(), entity.getLocalDate(),
+                                    entity.getSettlementDate(), payments, costumer, business, entries,
+                                    entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
+                                    entity.getSettlementDescription(), entity.getHash(), qrCodeString,
+                                    entity.getATCUD());
     }
 
     private List<PTCreditNoteEntryData> extractCreditEntries(List<PTCreditNoteEntry> entryEntities)
