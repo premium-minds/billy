@@ -3,6 +3,10 @@
 
 ## [Unreleased v8]
 
+### Added
+
+ - [Save document issue local date](https://github.com/premium-minds/billy/pull/441) 
+
 ### Changed
 
  - [Bump maven-surefire-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/billy/pull/442)
