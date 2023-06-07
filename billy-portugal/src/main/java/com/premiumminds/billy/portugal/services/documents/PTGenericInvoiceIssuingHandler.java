@@ -18,11 +18,6 @@
  */
 package com.premiumminds.billy.portugal.services.documents;
 
-import java.util.Date;
-
-import javax.inject.Inject;
-import javax.persistence.LockModeType;
-
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
@@ -36,10 +31,14 @@ import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvo
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidInvoiceTypeException;
 import com.premiumminds.billy.portugal.services.documents.exceptions.InvalidSourceBillingException;
 import com.premiumminds.billy.portugal.services.documents.util.PTIssuingParams;
-import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.util.GenerateHash;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.inject.Inject;
+import javax.persistence.LockModeType;
 
 public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceEntity, P extends PTIssuingParams>
         implements DocumentIssuingHandler<T, P> {
@@ -68,7 +67,7 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         InvoiceSeriesEntity invoiceSeriesEntity =
                 this.getInvoiceSeries(document, series, LockModeType.PESSIMISTIC_WRITE);
 
-        SourceBilling sourceBilling = ((PTGenericInvoice) document).getSourceBilling();
+        SourceBilling sourceBilling = document.getSourceBilling();
 
         document.initializeEntityDates();
 
@@ -127,6 +126,9 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
                                                                 + " does not have a series unique code specified"))
             .toString();
 
+        ZoneId timezone = document.getBusiness().getTimezone();
+        LocalDate issueLocalDate = document.getLocalDate().orElse(LocalDate.ofInstant(invoiceDate.toInstant(), timezone));
+
         document.setDate(invoiceDate);
         document.setNumber(formattedNumber);
         document.setSeries(invoiceSeriesEntity.getSeries());
@@ -140,6 +142,7 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         document.setEACCode(parametersPT.getEACCode());
         document.setCurrency(document.getCurrency());
         document.setATCUD(atcud);
+        document.setLocalDate(issueLocalDate);
 
         daoInvoice.create(document);
 

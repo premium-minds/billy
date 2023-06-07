@@ -30,6 +30,7 @@ import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
 import com.premiumminds.billy.andorra.services.export.pdf.ADAbstractFOPPDFTransformer;
 import com.premiumminds.billy.andorra.services.export.pdf.ADSimpleInvoicePDFTransformer;
 import com.premiumminds.billy.andorra.services.export.pdf.simpleinvoice.ADSimpleInvoiceTemplateBundle;
+import java.time.format.DateTimeFormatter;
 
 public class ADSimpleInvoicePDFFOPTransformer extends ADAbstractFOPPDFTransformer<ADSimpleInvoiceData>
         implements ADSimpleInvoicePDFTransformer
@@ -67,8 +68,12 @@ public class ADSimpleInvoicePDFFOPTransformer extends ADAbstractFOPPDFTransforme
             }
         }
 
-        params.getRoot().addChild(ParamKeys.EMISSION_DATE,
-                AbstractFOPPDFTransformer.DATE_FORMAT.format(entity.getDate()));
+        params.getRoot().addChild(
+            ParamKeys.EMISSION_DATE,
+            entity
+                .getLocalDate()
+                .map(DateTimeFormatter.ISO_LOCAL_DATE::format)
+                .orElse(AbstractFOPPDFTransformer.DATE_FORMAT.format(entity.getDate())));
     }
 
     @Override

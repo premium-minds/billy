@@ -19,6 +19,7 @@
 package com.premiumminds.billy.france.services.export;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -26,15 +27,25 @@ import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
+import java.util.Optional;
 
 public class FRReceiptData extends GenericInvoiceData {
 
-    public FRReceiptData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            BusinessData business, List<InvoiceEntryData> entries, BigDecimal taxAmount, BigDecimal amountWithTax,
-            BigDecimal amountWithoutTax, String settlementDescription) {
+    public FRReceiptData(
+        final String number,
+        final Date date,
+        final Optional<LocalDate> localDate,
+        final Date settlementDate,
+        final List<PaymentData> payments,
+        final BusinessData business,
+        final List<InvoiceEntryData> entries,
+        final BigDecimal taxAmount,
+        final BigDecimal amountWithTax,
+        final BigDecimal amountWithoutTax,
+        final String settlementDescription) {
 
-        super(number, date, settlementDate, payments, null, business, entries, taxAmount, amountWithTax,
-                amountWithoutTax, settlementDescription);
+        super(number, date, localDate, settlementDate, payments, null, business, entries, taxAmount,
+              amountWithTax, amountWithoutTax, settlementDescription);
     }
 
 }

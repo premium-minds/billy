@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.andorra.services.documents;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -73,6 +75,9 @@ public abstract class ADGenericInvoiceIssuingHandler<T extends ADGenericInvoiceE
 
         String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
 
+        ZoneId timezone = document.getBusiness().getTimezone();
+        LocalDate issueLocalDate = document.getLocalDate().orElse(LocalDate.ofInstant(invoiceDate.toInstant(), timezone));
+
         document.setDate(invoiceDate);
         document.setNumber(formatedNumber);
         document.setSeries(invoiceSeriesEntity.getSeries());
@@ -81,6 +86,7 @@ public abstract class ADGenericInvoiceIssuingHandler<T extends ADGenericInvoiceE
         document.setCancelled(false);
         document.setEACCode(parametersES.getEACCode());
         document.setCurrency(document.getCurrency());
+        document.setLocalDate(issueLocalDate);
 
         daoInvoice.create(document);
 

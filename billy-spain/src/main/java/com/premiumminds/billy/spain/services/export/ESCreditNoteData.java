@@ -18,27 +18,37 @@
  */
 package com.premiumminds.billy.spain.services.export;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
-import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 public class ESCreditNoteData extends GenericInvoiceData {
 
     private final List<ESCreditNoteEntryData> entries;
 
-    public ESCreditNoteData(String number, Date date, Date settlementDate, List<PaymentData> payments,
-            CostumerData customer, BusinessData business, List<ESCreditNoteEntryData> entries, BigDecimal taxAmount,
-            BigDecimal amountWithTax, BigDecimal amountWithoutTax, String settlementDescription) {
+    public ESCreditNoteData(
+        final String number,
+        final Date date,
+        final Optional<LocalDate> localDate,
+        final Date settlementDate,
+        final List<PaymentData> payments,
+        final CostumerData customer,
+        final BusinessData business,
+        final List<ESCreditNoteEntryData> entries,
+        final BigDecimal taxAmount,
+        final BigDecimal amountWithTax,
+        final BigDecimal amountWithoutTax,
+        final String settlementDescription) {
 
-        super(number, date, settlementDate, payments, customer, business, new ArrayList<InvoiceEntryData>(0), taxAmount,
-                amountWithTax, amountWithoutTax, settlementDescription);
+        super(number, date, localDate, settlementDate, payments, customer, business, new ArrayList<>(0),
+              taxAmount, amountWithTax, amountWithoutTax, settlementDescription);
 
         this.entries = entries;
     }

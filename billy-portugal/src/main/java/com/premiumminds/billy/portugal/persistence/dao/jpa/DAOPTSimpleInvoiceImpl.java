@@ -18,12 +18,6 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import java.util.Date;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
@@ -32,6 +26,11 @@ import com.premiumminds.billy.portugal.persistence.entities.jpa.JPAPTSimpleInvoi
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTBusinessEntity;
 import com.premiumminds.billy.portugal.persistence.entities.jpa.QJPAPTSimpleInvoiceEntity;
 import com.querydsl.jpa.impl.JPAQuery;
+import java.time.LocalDate;
+import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.persistence.EntityManager;
 
 public class DAOPTSimpleInvoiceImpl extends
         AbstractDAOPTGenericInvoiceImpl<PTSimpleInvoiceEntity, JPAPTSimpleInvoiceEntity> implements DAOPTSimpleInvoice {
@@ -52,12 +51,12 @@ public class DAOPTSimpleInvoiceImpl extends
     }
 
     @Override
-    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(StringID<Business> uid, Date from, Date to) {
+    public List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(StringID<Business> uid, LocalDate from, LocalDate to) {
         QJPAPTSimpleInvoiceEntity invoice = QJPAPTSimpleInvoiceEntity.jPAPTSimpleInvoiceEntity;
 
         JPAQuery<PTSimpleInvoiceEntity> query = this.createQuery();
 
-        query.from(invoice).where(invoice.instanceOf(JPAPTSimpleInvoiceEntity.class).and(invoice.date.between(from, to))
+        query.from(invoice).where(invoice.instanceOf(JPAPTSimpleInvoiceEntity.class).and(invoice.localDate.between(from, to))
                 .and(this.toDSL(invoice.business, QJPAPTBusinessEntity.class).uid.eq(uid.toString())));
 
         return this.checkEntityList(query.select(invoice).fetch(), PTSimpleInvoiceEntity.class);

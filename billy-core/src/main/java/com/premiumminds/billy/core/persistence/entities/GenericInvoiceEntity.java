@@ -18,15 +18,16 @@
  */
 package com.premiumminds.billy.core.persistence.entities;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
-import java.util.List;
-
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Currency;
+import java.util.Date;
+import java.util.List;
 
 public interface GenericInvoiceEntity extends GenericInvoice {
 
@@ -87,5 +88,7 @@ public interface GenericInvoiceEntity extends GenericInvoice {
     void setCreditOrDebit(CreditOrDebit creditOrDebit);
 
     void setScale(Integer scale);
+
+    void setLocalDate(LocalDate localDate);
 
 }

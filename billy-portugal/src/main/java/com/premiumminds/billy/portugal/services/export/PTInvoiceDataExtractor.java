@@ -66,9 +66,10 @@ public class PTInvoiceDataExtractor extends AbstractBillyDataExtractor implement
         } catch (RequiredFieldNotFoundException e) {
             throw new ExportServiceException(e);
         }
-        return new PTInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments, costumer,
-                                 business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
-                                 entity.getSettlementDescription(), entity.getHash(), qrCodeString, entity.getATCUD());
+        return new PTInvoiceData(entity.getNumber(), entity.getDate(), entity.getLocalDate(), entity.getSettlementDate(),
+                                 payments, costumer, business, entries, entity.getTaxAmount(), entity.getAmountWithTax(),
+                                 entity.getAmountWithoutTax(), entity.getSettlementDescription(), entity.getHash(),
+                                 qrCodeString, entity.getATCUD());
     }
 
 }

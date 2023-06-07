@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.test.fixtures;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Date;
@@ -35,6 +36,7 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import java.util.Optional;
 
 public class MockGenericInvoiceEntity extends MockBaseEntity<GenericInvoice> implements GenericInvoiceEntity {
 
@@ -71,6 +73,7 @@ public class MockGenericInvoiceEntity extends MockBaseEntity<GenericInvoice> imp
     public Date settlementDate;
     public CreditOrDebit creditOrDebit;
     public List<Payment> payments;
+    public LocalDate localDate;
 
     public MockGenericInvoiceEntity() {
         this.entries = new ArrayList<>();
@@ -199,8 +202,18 @@ public class MockGenericInvoiceEntity extends MockBaseEntity<GenericInvoice> imp
     }
 
     @Override
+    public Optional<LocalDate> getLocalDate() {
+        return Optional.ofNullable(localDate);
+    }
+
+    @Override
     public void setScale(Integer scale) {
         this.scale = scale;
+    }
+
+    @Override
+    public void setLocalDate(final LocalDate localDate) {
+        this.localDate = localDate;
     }
 
     @Override

@@ -18,13 +18,6 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import java.util.ArrayList;
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.dao.DAOCustomer;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
@@ -36,8 +29,13 @@ import com.premiumminds.billy.core.test.fixtures.MockCustomerEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.test.fixtures.MockSupplierEntity;
+import java.util.ArrayList;
+import java.util.Currency;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-public class TestGenericInvoiceBuilder extends AbstractTest {
+class TestGenericInvoiceBuilder extends AbstractTest {
 
     private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "GenericInvoice.yml";
     private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "GenericInvoiceEntry.yml";
@@ -45,7 +43,7 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
     private static final String SUPPLIER_YML = AbstractTest.YML_CONFIGS_DIR + "Supplier.yml";
 
     @Test
-    public void doTest() {
+    void doTest() {
         MockGenericInvoiceEntity mock =
                 this.createMockEntity(MockGenericInvoiceEntity.class, TestGenericInvoiceBuilder.INVOICE_YML);
 
@@ -83,22 +81,25 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
                 .setSettlementDate(mock.getSettlementDate()).setSettlementDescription(mock.getSettlementDescription())
                 .setSettlementDiscount(mock.getSettlementDiscount()).setSourceId(mock.getSourceId())
                 .setTransactionId(mock.getTransactionId()).setCustomerUID(mockCustomerEntity.getUID())
-                .setSupplierUID(mockSupplierEntity.getUID()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                .setSupplierUID(mockSupplierEntity.getUID()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(mock.getLocalDate().orElseThrow());
 
         GenericInvoice invoice = builder.build();
 
-        Assertions.assertTrue(invoice != null);
-        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
-        Assertions.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
-        Assertions.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
+        Assertions.assertNotNull(invoice);
+        Assertions.assertEquals(0, mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()));
+        Assertions.assertEquals(0, mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()));
+        Assertions.assertEquals(0, mock.getTaxAmount().compareTo(invoice.getTaxAmount()));
 
         Assertions.assertEquals(mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
         Assertions.assertEquals(mock.getBatchId(), invoice.getBatchId());
         Assertions.assertEquals(mock.getDate(), invoice.getDate());
         Assertions.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
 
-        Assertions.assertTrue(invoice.getEntries() != null);
+        Assertions.assertNotNull(invoice.getEntries());
         Assertions.assertEquals(invoice.getEntries().size(), mock.getEntries().size());
+
+        Assertions.assertEquals(mock.getLocalDate(), invoice.getLocalDate());
 
         for (int i = 0; i < invoice.getEntries().size(); i++) {
             ArrayList<GenericInvoiceEntry> invoices = (ArrayList<GenericInvoiceEntry>) invoice.getEntries();
@@ -107,7 +108,7 @@ public class TestGenericInvoiceBuilder extends AbstractTest {
                     mockInvoices.get(i).getUnitAmountWithoutTax());
             Assertions.assertEquals(invoices.get(i).getUnitAmountWithTax(), mockInvoices.get(i).getUnitAmountWithTax());
             Assertions.assertEquals(invoices.get(i).getUnitTaxAmount(), mockInvoices.get(i).getUnitTaxAmount());
-            Assertions.assertTrue(invoices.get(i).equals(mockInvoices.get(i)));
+            Assertions.assertEquals(invoices.get(i), mockInvoices.get(i));
         }
 
     }

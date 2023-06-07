@@ -54,9 +54,10 @@ public class FRInvoiceDataExtractor extends AbstractBillyDataExtractor implement
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
 
-        return new FRInvoiceData(entity.getNumber(), entity.getDate(), entity.getSettlementDate(), payments, costumer,
-                business, entries, entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
-                entity.getSettlementDescription());
+        return new FRInvoiceData(entity.getNumber(), entity.getDate(), entity.getLocalDate(),
+                                 entity.getSettlementDate(), payments, costumer, business, entries,
+                                 entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
+                                 entity.getSettlementDescription());
     }
 
 }

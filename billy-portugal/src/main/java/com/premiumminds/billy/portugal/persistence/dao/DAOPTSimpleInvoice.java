@@ -18,14 +18,13 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao;
 
-import java.util.Date;
-import java.util.List;
-
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
+import java.time.LocalDate;
+import java.util.List;
 
 public interface DAOPTSimpleInvoice extends AbstractDAOPTGenericInvoice<PTSimpleInvoiceEntity> {
 
-    List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(StringID<Business> uid, Date from, Date to);
+    List<PTSimpleInvoiceEntity> getBusinessSimpleInvoicesForSAFTPT(StringID<Business> uid, LocalDate from, LocalDate to);
 }
