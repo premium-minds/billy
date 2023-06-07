@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class TestGenericInvoiceBuilder extends AbstractTest {
+class TestGenericInvoiceBuilder extends AbstractTest {
 
     private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "GenericInvoice.yml";
     private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "GenericInvoiceEntry.yml";

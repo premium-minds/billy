@@ -287,7 +287,6 @@ public class GenericInvoiceBuilderImpl<TBuilder extends GenericInvoiceBuilderImp
         BillyValidator.mandatory(i.getCreditOrDebit(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.credit_or_debit"));
         BillyValidator.<Object>mandatory(i.getCustomer(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.customer"));
         BillyValidator.<Object>mandatory(i.getSupplier(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.supplier"));
-        BillyValidator.mandatory(i.getLocalDate(), GenericInvoiceBuilderImpl.LOCALIZER.getString("field.local_date"));
         this.validateDate();
         this.validateValues();
     }
