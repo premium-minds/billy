@@ -92,7 +92,9 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
@@ -700,9 +702,10 @@ public class PTSAFTFileGenerator {
                     document.getHashControl(), MAX_LENGTH_40, false));
         }
         saftInv.setPeriod(validateInteger("Period", Integer
-                .toString(getDateField(document.getDate(), Calendar.MONTH)+1),
+                .toString(document.getLocalDate().orElseThrow().getMonthValue()),
                 MAX_LENGTH_2, true));
-        saftInv.setInvoiceDate(formatDate(document.getDate()));
+        saftInv.setInvoiceDate(
+            formatLocalDate(LocalDate.ofInstant(document.getDate().toInstant(), document.getBusiness().getTimezone())));
         saftInv.setSpecialRegimes(
                 getSpecialRegimes(document.isSelfBilled(),
                         document.isCashVATEndorser(),
@@ -713,7 +716,8 @@ public class PTSAFTFileGenerator {
             saftInv.setEACCode(validateString("EACCode", document.getEACCode(),
                     MAX_LENGTH_5, false));
         }
-        saftInv.setSystemEntryDate(formatDateTime(document.getCreateTimestamp()));
+        saftInv.setSystemEntryDate(formatLocalDateTime(
+            LocalDateTime.ofInstant(document.getCreateTimestamp().toInstant(), document.getBusiness().getTimezone())));
         StringID<com.premiumminds.billy.core.services.entities.Customer> customerUID = document.getCustomer().getUID();
         String customerID = customerUID.equals(this.config
                 .getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
@@ -815,7 +819,8 @@ public class PTSAFTFileGenerator {
             line.setUnitPrice(entry
                     .getAmountWithoutTax().divide(entry.getQuantity(),
                             this.mc.getRoundingMode()));
-            line.setTaxPointDate(this.formatDate(entry.getTaxPointDate()));
+            line.setTaxPointDate(this.formatLocalDate(
+                LocalDate.ofInstant(entry.getTaxPointDate().toInstant(), document.getBusiness().getTimezone())));
 
             /* NOT REQUIRED - Invoice.Line.References */
             References ref = this
@@ -1133,7 +1138,8 @@ public class PTSAFTFileGenerator {
             status.setInvoiceStatus("N");
         }
 
-        status.setInvoiceStatusDate(formatDateTime(document.getDate()));
+        status.setInvoiceStatusDate(formatLocalDateTime(
+            LocalDateTime.ofInstant(document.getDate().toInstant(), document.getBusiness().getTimezone())));
         if (document.getChangeReason() != null) {
             status.setReason(validateString("Reason",
                     document.getChangeReason(), MAX_LENGTH_50, false));
@@ -1160,7 +1166,8 @@ public class PTSAFTFileGenerator {
                         this.MAX_LENGTH_2, true));
                 payment.setPaymentAmount(this
                         .validateBigDecimal(((PTPayment) p).getPaymentAmount()));
-                payment.setPaymentDate(this.formatDate(p.getPaymentDate()));
+                payment.setPaymentDate(this.formatLocalDate(
+                    LocalDate.ofInstant(p.getPaymentDate().toInstant(), document.getBusiness().getTimezone())));
                 payments.add(payment);
             }
 
@@ -1549,22 +1556,29 @@ public class PTSAFTFileGenerator {
     }
 
     /**
-     * Returns a datetime in the format YYYY-MM-ddThh-mm-ss
+     * Returns a local date in the format YYYY-MM-dd
      *
      * @param date
      * @return
      * @throws DatatypeConfigurationException
      */
-    private XMLGregorianCalendar formatDateTime(Date date)
-        throws DatatypeConfigurationException {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return DatatypeFactory.newInstance().newXMLGregorianCalendar(
-                cal.get(Calendar.YEAR), (cal.get(Calendar.MONTH) + 1),
-                cal.get(Calendar.DAY_OF_MONTH), cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND),
-                DatatypeConstants.FIELD_UNDEFINED,
-                DatatypeConstants.FIELD_UNDEFINED);
+    private XMLGregorianCalendar formatLocalDate(LocalDate date) throws DatatypeConfigurationException {
+        return DatatypeFactory
+            .newInstance()
+            .newXMLGregorianCalendar(DateTimeFormatter.ISO_LOCAL_DATE.format(date));
+    }
+
+    /**
+     * Returns a local date in the format YYYY-MM-dd
+     *
+     * @param date
+     * @return
+     * @throws DatatypeConfigurationException
+     */
+    private XMLGregorianCalendar formatLocalDateTime(LocalDateTime date) throws DatatypeConfigurationException {
+        return DatatypeFactory
+            .newInstance()
+            .newXMLGregorianCalendar(DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(date));
     }
 
     /**
