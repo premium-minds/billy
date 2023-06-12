@@ -5,7 +5,8 @@
 
 ### Added
 
- - [Save document issue local date](https://github.com/premium-minds/billy/pull/441) 
+ - [Save document issue local date](https://github.com/premium-minds/billy/pull/441) - requires SQL schema changes
+ - [Use business timezone info when filling in SAFT info](https://github.com/premium-minds/billy/pull/444)
 
 ### Changed
 
