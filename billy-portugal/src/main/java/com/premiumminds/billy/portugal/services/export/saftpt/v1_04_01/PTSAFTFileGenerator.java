@@ -717,7 +717,7 @@ public class PTSAFTFileGenerator {
                     MAX_LENGTH_5, false));
         }
         saftInv.setSystemEntryDate(formatLocalDateTime(
-            LocalDateTime.ofInstant(document.getDate().toInstant(), document.getBusiness().getTimezone())));
+            LocalDateTime.ofInstant(document.getCreateTimestamp().toInstant(), document.getBusiness().getTimezone())));
         StringID<com.premiumminds.billy.core.services.entities.Customer> customerUID = document.getCustomer().getUID();
         String customerID = customerUID.equals(this.config
                 .getUID(Config.Key.Customer.Generic.UUID)) ? "Consumidor final"
@@ -1166,8 +1166,8 @@ public class PTSAFTFileGenerator {
                         this.MAX_LENGTH_2, true));
                 payment.setPaymentAmount(this
                         .validateBigDecimal(((PTPayment) p).getPaymentAmount()));
-                payment.setPaymentDate(this.formatLocalDate(LocalDate
-                                                           .ofInstant(document.getDate().toInstant(), document.getBusiness().getTimezone())));
+                payment.setPaymentDate(this.formatLocalDate(
+                    LocalDate.ofInstant(p.getPaymentDate().toInstant(), document.getBusiness().getTimezone())));
                 payments.add(payment);
             }
 
