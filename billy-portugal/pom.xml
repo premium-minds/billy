@@ -93,6 +93,24 @@
 			<version>0.13.1</version>
 		</dependency>
 
+		<!-- support for webservices generated code -->
+		<dependency>
+			<groupId>jakarta.xml.ws</groupId>
+			<artifactId>jakarta.xml.ws-api</artifactId>
+			<version>2.3.3</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jakarta.activation</groupId>
+					<artifactId>jakarta.activation-api</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.jws</groupId>
+			<artifactId>jakarta.jws-api</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
 		<!-- JUNIT -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -127,6 +145,19 @@
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.xml.ws</groupId>
+			<artifactId>jaxws-rt</artifactId>
+			<version>2.3.6</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.activation</groupId>
+					<artifactId>jakarta.activation</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 	</dependencies>
@@ -248,6 +279,27 @@
 						<configuration>
 							<schemaIncludes><include>SAFTPT1.04_01.xsd</include></schemaIncludes>
 							<generatePackage>com.premiumminds.billy.portugal.services.export.saftpt.v1_04_01.schema</generatePackage>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>documents</id>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>
+							<wsdlDirectory>${project.basedir}/src/main/resources/</wsdlDirectory>
+							<wsdlFiles>
+								<wsdlFile>Fatcorews.wsdl</wsdlFile>
+							</wsdlFiles>
+							<packageName>com.premiumminds.billy.portugal.webservices.documents</packageName>
+							<sourceDestDir>src-generated/main/java</sourceDestDir>
 						</configuration>
 					</execution>
 				</executions>

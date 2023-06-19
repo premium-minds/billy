@@ -1,0 +1,968 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://factemi.at.min_financas.pt/documents" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://factemi.at.min_financas.pt/documents" targetNamespace="http://factemi.at.min_financas.pt/documents">
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://factemi.at.min_financas.pt/documents">
+            <element name="RegisterInvoiceRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:AuditFileVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <element ref="tns:TaxEntity"/>
+                        <element ref="tns:SoftwareCertificateNumber"/>
+                        <element name="InvoiceData" type="tns:InvoiceDataType"/>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ChangeInvoiceStatusRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <element name="InvoiceHeader" type="tns:InvoiceHeaderType"/>
+                        <element name="InvoiceStatus" type="tns:NewInvoiceStatusType"/>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="DeleteInvoiceRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <choice>
+                            <element name="documentsList" type="tns:ListInvoiceDocumentsType"/>
+                            <element name="dateRange" type="tns:DateRangeType"/>
+                        </choice>
+                        <element name="reason">
+                            <simpleType>
+                                <restriction base="string">
+                                    <minLength value="10"/>
+                                    <maxLength value="500"/>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="RegisterInvoiceResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ChangeInvoiceStatusResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="DeleteInvoiceResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="RegisterWorkRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:AuditFileVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <element ref="tns:TaxEntity"/>
+                        <element ref="tns:SoftwareCertificateNumber"/>
+                        <element name="WorkData" type="tns:WorkDataType"/>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ChangeWorkStatusRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <element name="WorkHeader" type="tns:WorkHeaderType"/>
+                        <element name="WorkStatus" type="tns:NewWorkStatusType"/>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="DeleteWorkRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <choice>
+                            <element name="documentsList" type="tns:ListWorkDocumentsType"/>
+                            <element name="dateRange" type="tns:DateRangeType"/>
+                        </choice>
+                        <element name="reason">
+                            <simpleType>
+                                <restriction base="string">
+                                    <minLength value="10"/>
+                                    <maxLength value="500"/>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ChangeWorkStatusResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="DeleteWorkResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="RegisterWorkResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="RegisterPaymentRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:AuditFileVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <element ref="tns:TaxEntity"/>
+                        <element ref="tns:SoftwareCertificateNumber"/>
+                        <element name="PaymentData" type="tns:PaymentDataType"/>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ChangePaymentStatusRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <element name="PaymentHeader" type="tns:PaymentHeaderType"/>
+                        <element name="PaymentStatus" type="tns:NewPaymentStatusType"/>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="DeletePaymentRequest">
+                <complexType>
+                    <sequence>
+                        <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+                        <element ref="tns:TaxRegistrationNumber"/>
+                        <choice>
+                            <element name="documentsList" type="tns:ListPaymentDocumentsType"/>
+                            <element name="dateRange" type="tns:DateRangeType"/>
+                        </choice>
+                        <element name="reason">
+                            <simpleType>
+                                <restriction base="string">
+                                    <minLength value="10"/>
+                                    <maxLength value="500"/>
+                                </restriction>
+                            </simpleType>
+                        </element>
+                        <element maxOccurs="1" minOccurs="0" name="CanalRegisto" type="tns:ChannelType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="RegisterPaymentResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="ChangePaymentStatusResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <element name="DeletePaymentResponse">
+                <complexType>
+                    <sequence>
+                        <element name="Response" type="tns:ResponseType"/>
+                    </sequence>
+                </complexType>
+            </element>
+            <complexType name="InvoiceHeaderType">
+                <sequence>
+                    <element ref="tns:InvoiceNo"/>
+                    <element ref="tns:ATCUD"/>
+                    <element ref="tns:InvoiceDate"/>
+                    <element ref="tns:InvoiceType"/>
+                    <element name="SelfBillingIndicator" type="tns:SelfBillingIndicator"/>
+                    <element ref="tns:CustomerTaxID"/>
+                    <element ref="tns:CustomerTaxIDCountry"/>
+                </sequence>
+            </complexType>
+            <complexType name="InvoiceDataType">
+                <complexContent>
+                    <extension base="tns:InvoiceHeaderType">
+                        <sequence>
+                            <element name="DocumentStatus" type="tns:InvoiceStatus"/>
+                            <element ref="tns:HashCharacters"/>
+                            <element ref="tns:CashVATSchemeIndicator"/>
+                            <element ref="tns:PaperLessIndicator"/>
+                            <element minOccurs="0" ref="tns:EACCode"/>
+                            <element ref="tns:SystemEntryDate"/>
+                            <element maxOccurs="unbounded" name="LineSummary">
+                                <complexType>
+                                    <sequence>
+                                        <element maxOccurs="unbounded" minOccurs="0" ref="tns:OrderReferences"/>
+                                        <element ref="tns:TaxPointDate"/>
+                                        <element maxOccurs="unbounded" minOccurs="0" ref="tns:Reference"/>
+                                        <element ref="tns:DebitCreditIndicator"/>
+                                        <choice>
+                                            <element ref="tns:TotalTaxBase"/>
+                                            <element ref="tns:Amount"/>
+                                        </choice>
+                                        <element ref="tns:Tax"/>
+                                        <element minOccurs="0" ref="tns:TaxExemptionCode"/>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                            <element name="DocumentTotals" type="tns:DocumentTotals"/>
+                            <element maxOccurs="unbounded" minOccurs="0" name="WithholdingTax" type="tns:WithholdingTax"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="WorkHeaderType">
+                <sequence>
+                    <element ref="tns:DocumentNumber"/>
+                    <element ref="tns:ATCUD"/>
+                    <element ref="tns:WorkDate"/>
+                    <element ref="tns:WorkType"/>
+                    <element ref="tns:CustomerTaxID"/>
+                    <element ref="tns:CustomerTaxIDCountry"/>
+                </sequence>
+            </complexType>
+            <complexType name="WorkDataType">
+                <complexContent>
+                    <extension base="tns:WorkHeaderType">
+                        <sequence>
+                            <element name="DocumentStatus" type="tns:WorkStatus"/>
+                            <element ref="tns:HashCharacters"/>
+                            <element minOccurs="0" ref="tns:EACCode"/>
+                            <element ref="tns:SystemEntryDate"/>
+                            <element maxOccurs="unbounded" name="LineSummary">
+                                <complexType>
+                                    <sequence>
+                                        <element maxOccurs="unbounded" minOccurs="0" ref="tns:OrderReferences"/>
+                                        <element ref="tns:TaxPointDate"/>
+                                        <element maxOccurs="unbounded" minOccurs="0" ref="tns:Reference"/>
+                                        <element ref="tns:DebitCreditIndicator"/>
+                                        <choice>
+                                            <element ref="tns:TotalTaxBase"/>
+                                            <element ref="tns:Amount"/>
+                                        </choice>
+                                        <element minOccurs="0" ref="tns:Tax"/>
+                                        <element minOccurs="0" ref="tns:TaxExemptionCode"/>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                            <element name="DocumentTotals" type="tns:DocumentTotals"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+            <complexType name="PaymentHeaderType">
+                <sequence>
+                    <element ref="tns:PaymentRefNo"/>
+                    <element ref="tns:ATCUD"/>
+                    <element ref="tns:TransactionDate"/>
+                    <element ref="tns:PaymentType"/>
+                    <element ref="tns:CustomerTaxID"/>
+                    <element ref="tns:CustomerTaxIDCountry"/>
+                </sequence>
+            </complexType>
+            <complexType name="PaymentDataType">
+                <complexContent>
+                    <extension base="tns:PaymentHeaderType">
+                        <sequence>
+                            <element name="DocumentStatus" type="tns:PaymentStatus"/>
+                            <element ref="tns:SystemEntryDate"/>
+                            <element maxOccurs="unbounded" name="LineSummary">
+                                <complexType>
+                                    <sequence>
+                                        <element maxOccurs="unbounded" ref="tns:SourceDocumentID"/>
+                                        <element minOccurs="0" name="SettlementAmount" type="tns:MonetaryType"/>
+                                        <element ref="tns:DebitCreditIndicator"/>
+                                        <choice>
+                                            <element ref="tns:Amount"/>
+                                        </choice>
+                                        <element minOccurs="0" ref="tns:Tax"/>
+                                        <element minOccurs="0" ref="tns:TaxExemptionCode"/>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                            <element name="DocumentTotals" type="tns:DocumentTotals"/>
+                            <element maxOccurs="unbounded" minOccurs="0" name="WithholdingTax" type="tns:WithholdingTax"/>
+                        </sequence>
+                    </extension>
+                </complexContent>
+            </complexType>
+
+<!-- Definicao dos elementos/tipos 
+-->
+
+<!-- Elementos comuns 
+-->
+            <element name="eFaturaMDVersion" type="tns:eFaturaMDVersion"/>
+
+<!-- Cabecalho documento 
+-->
+            <element name="AuditFileVersion" type="tns:AuditFileVersion"/>
+            <element name="TaxRegistrationNumber" type="tns:SAFPTPortugueseVatNumber"/>
+            <element name="TaxEntity" type="tns:SAFPTtextTypeMandatoryMax20Car"/>
+            <element name="SoftwareCertificateNumber" type="nonNegativeInteger"/>
+            <element name="DocumentNumber" type="tns:DocumentNumber"/>
+            <element name="ATCUD" type="tns:SAFPTtextTypeMandatoryMax100Car"/>
+            <element name="HashCharacters" type="tns:HashCharacters"/>
+            <element name="InvoiceDate" type="date"/>
+            <element name="InvoiceType" type="tns:InvoiceTypeType"/>
+            <element name="TransactionDate" type="date"/>
+            <element name="PaymentType" type="tns:PaymentTypeType"/>
+            <element name="WorkDate" type="date"/>
+            <element name="WorkType" type="tns:WorkTypeType"/>
+            <element name="EACCode" type="tns:EACCode"/>
+            <element name="CashVATSchemeIndicator" type="tns:CashVATSchemeIndicator"/>
+            <element default="0" name="PaperLessIndicator" type="tns:PaperLessIndicator"/>
+            <element name="SystemEntryDate" type="dateTime"/>
+            <element name="CustomerTaxID" type="tns:SAFPTtextTypeMandatoryMax30Car"/>
+            <element name="CustomerTaxIDCountry" type="tns:TaxIDCountry"/>
+
+<!-- Linhas documento 
+-->
+            <element name="SourceDocumentID" type="tns:SourceDocumentID"/>
+            <element name="OrderReferences" type="tns:OrderReferences"/>
+            <element name="OriginatingON" type="tns:SAFPTtextTypeMandatoryMax60Car"/>
+            <element name="TaxPointDate" type="date"/>
+            <element name="Reference" type="tns:SAFPTtextTypeMandatoryMax60Car"/>
+            <element name="DebitCreditIndicator" type="tns:DebitCreditIndicator"/>
+            <element name="TotalTaxBase" type="tns:MonetaryType"/>
+            <element name="Amount" type="tns:MonetaryType"/>
+            <element name="Tax" type="tns:Tax"/>
+            <element name="TaxExemptionCode" type="tns:TaxExemptionCode"/>
+
+<!-- Tipos comuns 
+-->
+            <simpleType name="AuditFileVersion">
+                <annotation>
+                    <documentation>Campo para indicacao da mais recente versao do
+				SAF-T
+				que consegue criar
+				o software que processa as faturas
+				e
+				comunica por
+				webservice.</documentation>
+                </annotation>
+                <restriction base="string">
+                    <pattern value="1\.04_01|1\.03_01|1\.02_01|1\.01_01|1\.00_01|inexistente"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="eFaturaMDVersion">
+                <annotation>
+                    <documentation>Versao do webservice.</documentation>
+                </annotation>
+                <restriction base="string">
+                    <pattern value="0.0.1"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="SAFPTPortugueseVatNumber">
+                <restriction base="integer">
+                    <minInclusive value="100000000"/>
+                    <maxInclusive value="999999999"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="SAFPTtextTypeMandatoryMax20Car">
+                <restriction base="string">
+                    <minLength value="1"/>
+                    <maxLength value="20"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="SAFPTtextTypeMandatoryMax30Car">
+                <restriction base="string">
+                    <minLength value="1"/>
+                    <maxLength value="30"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="SAFPTtextTypeMandatoryMax60Car">
+                <restriction base="string">
+                    <minLength value="1"/>
+                    <maxLength value="60"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="SAFPTtextTypeMandatoryMax100Car">
+                <restriction base="string">
+                    <minLength value="1"/>
+                    <maxLength value="100"/>
+                </restriction>
+            </simpleType>
+            <element name="InvoiceNo">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[^ ]+ [^/^ ]+/[0-9]+"/>
+                        <minLength value="1"/>
+                        <maxLength value="60"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <simpleType name="DocumentNumber">
+                <restriction base="string">
+                    <pattern value="[^ ]+ [^/^ ]+/[0-9]+"/>
+                    <minLength value="1"/>
+                    <maxLength value="60"/>
+                </restriction>
+            </simpleType>
+            <element name="PaymentRefNo">
+                <simpleType>
+                    <restriction base="string">
+                        <pattern value="[^ ]+ [^/^ ]+/[0-9]+"/>
+                        <minLength value="1"/>
+                        <maxLength value="60"/>
+                    </restriction>
+                </simpleType>
+            </element>
+            <complexType name="InvoiceStatus">
+                <sequence>
+                    <element name="InvoiceStatus">
+                        <annotation>
+                            <documentation>N para Normal, A anulado, F faturado, S Autofaturado</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="N"/>
+                                <enumeration value="A"/>
+                                <enumeration value="F"/>
+                                <enumeration value="S"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="InvoiceStatusDate" type="dateTime"/>
+                </sequence>
+            </complexType>
+            <complexType name="WorkStatus">
+                <sequence>
+                    <element name="WorkStatus">
+                        <annotation>
+                            <documentation>N para Normal, A anulado, F faturado</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="N"/>
+                                <enumeration value="A"/>
+                                <enumeration value="F"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="WorkStatusDate" type="dateTime"/>
+                </sequence>
+            </complexType>
+            <complexType name="PaymentStatus">
+                <sequence>
+                    <element name="PaymentStatus">
+                        <annotation>
+                            <documentation>N para Normal, A anulado</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="N"/>
+                                <enumeration value="A"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="PaymentStatusDate" type="dateTime"/>
+                </sequence>
+            </complexType>
+            <complexType name="NewInvoiceStatusType">
+                <sequence>
+                    <element name="InvoiceStatus">
+                        <annotation>
+                            <documentation>N para Normal, A anulado, F faturado</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="N"/>
+                                <enumeration value="A"/>
+                                <enumeration value="F"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="InvoiceStatusDate" type="dateTime"/>
+                </sequence>
+            </complexType>
+            <complexType name="NewWorkStatusType">
+                <sequence>
+                    <element name="WorkStatus">
+                        <annotation>
+                            <documentation>N para Normal, A anulado, F faturado</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="N"/>
+                                <enumeration value="A"/>
+                                <enumeration value="F"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="WorkStatusDate" type="dateTime"/>
+                </sequence>
+            </complexType>
+            <complexType name="NewPaymentStatusType">
+                <sequence>
+                    <element name="PaymentStatus">
+                        <annotation>
+                            <documentation>N para Normal, A anulado</documentation>
+                        </annotation>
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="N"/>
+                                <enumeration value="A"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="PaymentStatusDate" type="dateTime"/>
+                </sequence>
+            </complexType>
+            <simpleType name="HashCharacters">
+                <restriction base="string">
+                    <pattern value="[0]|[^^]{4}"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="InvoiceTypeType">
+                <annotation>
+                    <documentation>Restricao: Tipos de Documento fatura (FT - Fatura,
+				NC-Nota de
+				Credito, ND - Nota de Debito, FS - Fatura Simplificada, FR
+				- Fatura-recibo).
+				Para o setor Segurador (a), ainda pode ser
+				preenchido com: RP para
+				Premio ou
+				recibo de premio, RE para Estorno ou
+				recibo de estorno, CS para Imputacao
+				a
+				co-seguradoras, LD para
+				Imputacao a co-seguradora lider, RA para Resseguro
+				aceite. (a) Para
+				os dados ate 2019-12-31.</documentation>
+                </annotation>
+                <restriction base="string">
+                    <enumeration value="FT"/>
+                    <enumeration value="NC"/>
+                    <enumeration value="ND"/>
+                    <enumeration value="FS"/>
+                    <enumeration value="FR"/>
+                    <enumeration value="RP"/>
+                    <enumeration value="RE"/>
+                    <enumeration value="CS"/>
+                    <enumeration value="LD"/>
+                    <enumeration value="RA"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="WorkTypeType">
+                <annotation>
+                    <documentation>Deve ser preenchido com: CM Consultas de mesa; CC
+				Credito de
+				consignacao; FC Fatura de consignacao nos termos do art 38
+				do codigo do IVA;
+				FO Folhas de obra; NE Nota de Encomenda; OU Outros;
+				OR Orcamentos; PF
+				Proforma.
+				Para o setor Segurador, ainda pode ser
+				preenchido
+				com: RP para Premio ou recibo de premio, RE para Estorno
+				ou recibo de
+				estorno, CS para Imputacao a co-seguradoras, LD para
+				Imputacao a
+				co-seguradora lider, RA para Resseguro aceite.</documentation>
+                </annotation>
+                <restriction base="string">
+                    <enumeration value="CM"/>
+                    <enumeration value="CC"/>
+                    <enumeration value="FC"/>
+                    <enumeration value="FO"/>
+                    <enumeration value="NE"/>
+                    <enumeration value="OU"/>
+                    <enumeration value="OR"/>
+                    <enumeration value="PF"/>
+                    <enumeration value="RP"/>
+                    <enumeration value="RE"/>
+                    <enumeration value="CS"/>
+                    <enumeration value="LD"/>
+                    <enumeration value="RA"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="PaymentTypeType">
+                <annotation>
+                    <documentation>Deve ser preenchido com: RC Recibo emitido no ambito
+				do regime de
+				IVA de Caixa (incluindo os relativos a adiantamentos
+				desse
+				regime)</documentation>
+                </annotation>
+                <restriction base="string">
+                    <enumeration value="RC"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="DebitCreditIndicator">
+                <annotation>
+                    <documentation>D para Débito, C para Crédito</documentation>
+                </annotation>
+                <restriction base="string">
+                    <enumeration value="D"/>
+                    <enumeration value="C"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="EACCode">
+                <restriction base="string">
+                    <pattern value="(([0-9]*))"/>
+                    <length value="5"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="SelfBillingIndicator">
+                <restriction base="integer">
+                    <enumeration value="0"/>
+                    <enumeration value="1"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="CashVATSchemeIndicator">
+                <restriction base="integer">
+                    <minInclusive value="0"/>
+                    <maxInclusive value="1"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="PaperLessIndicator">
+                <restriction base="integer">
+                    <minInclusive value="0"/>
+                    <maxInclusive value="1"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="TaxIDCountry">
+                <restriction base="string">
+                    <pattern value="[A-Z]{2}|Desconhecido"/>
+                </restriction>
+            </simpleType>
+            <complexType name="SourceDocumentID">
+                <sequence>
+                    <element ref="tns:OriginatingON"/>
+                    <element ref="tns:InvoiceDate"/>
+                </sequence>
+            </complexType>
+            <complexType name="OrderReferences">
+                <sequence>
+                    <element minOccurs="0" ref="tns:OriginatingON"/>
+                    <element minOccurs="0" name="OrderDate" type="date"/>
+                </sequence>
+            </complexType>
+            <simpleType name="MonetaryType">
+                <annotation>
+                    <documentation>Elemento do SAF-T alterado, com a inclusão do valor
+				máximo permitido.</documentation>
+                </annotation>
+                <restriction base="decimal">
+                    <minInclusive value="0.00"/>
+                    <maxInclusive value="9999999999999.99"/>
+                </restriction>
+            </simpleType>
+            <complexType name="Tax">
+                <sequence>
+                    <element name="TaxType" type="tns:TaxType"/>
+                    <element name="TaxCountryRegion" type="tns:TaxCountryRegion"/>
+                    <element name="TaxCode" type="tns:TaxCode"/>
+                    <choice>
+                        <element name="TaxPercentage" type="tns:PercentageType"/>
+                        <element name="TotalTaxAmount" type="tns:MonetaryType"/>
+                    </choice>
+                </sequence>
+            </complexType>
+            <simpleType name="TaxType">
+                <restriction base="string">
+                    <enumeration value="IVA"/>
+                    <enumeration value="IS"/>
+                    <enumeration value="NS"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="TaxCountryRegion">
+                <restriction base="string">
+                    <pattern value="[A-Z]{2}|PT-MA|PT-AC"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="TaxCode">
+                <restriction base="string">
+                    <minLength value="1"/>
+                    <maxLength value="10"/>
+                    <pattern value="RED|INT|NOR|ISE|OUT|([a-zA-Z0-9.])*|NS|NA"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="PercentageType">
+                <restriction base="decimal">
+                    <minInclusive value="0.00"/>
+                    <maxInclusive value="100.00"/>
+                </restriction>
+            </simpleType>
+            <simpleType name="TaxExemptionCode">
+                <restriction base="string">
+                    <pattern value="(M[0-9]{2})+"/>
+                </restriction>
+            </simpleType>
+            <complexType name="DocumentTotals">
+                <sequence>
+                    <element name="TaxPayable" type="tns:MonetaryType"/>
+                    <element name="NetTotal" type="tns:MonetaryType"/>
+                    <element name="GrossTotal" type="tns:MonetaryType"/>
+                </sequence>
+            </complexType>
+            <complexType name="WithholdingTax">
+                <sequence>
+                    <element minOccurs="0" name="WithholdingTaxType">
+                        <simpleType>
+                            <restriction base="string">
+                                <enumeration value="IRS"/>
+                                <enumeration value="IRC"/>
+                                <enumeration value="IS"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="WithholdingTaxAmount" type="tns:MonetaryType"/>
+                </sequence>
+            </complexType>
+            <complexType name="DateRangeType">
+                <sequence>
+                    <element name="StartDate" type="date"/>
+                    <element name="EndDate" type="date"/>
+                </sequence>
+            </complexType>
+            <complexType name="ListInvoiceDocumentsType">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="1" name="invoice" type="tns:InvoiceHeaderType"/>
+                </sequence>
+            </complexType>
+            <complexType name="ListWorkDocumentsType">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="1" name="work" type="tns:WorkHeaderType"/>
+                </sequence>
+            </complexType>
+            <complexType name="ListPaymentDocumentsType">
+                <sequence>
+                    <element maxOccurs="unbounded" minOccurs="1" name="payment" type="tns:PaymentHeaderType"/>
+                </sequence>
+            </complexType>
+            <complexType name="ResponseType">
+                <sequence>
+                    <element name="CodigoResposta" type="int"/>
+                    <element name="Mensagem">
+                        <simpleType>
+                            <restriction base="string">
+                                <maxLength value="256"/>
+                            </restriction>
+                        </simpleType>
+                    </element>
+                    <element name="DataOperacao" type="dateTime"/>
+                </sequence>
+            </complexType>
+            <complexType name="ChannelType">
+                <sequence>
+                    <element maxOccurs="1" minOccurs="1" name="Sistema" type="string"/>
+                    <element maxOccurs="1" minOccurs="0" name="Versao" type="string"/>
+                </sequence>
+            </complexType>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="RegisterInvoiceRequest">
+        <wsdl:part element="tns:RegisterInvoiceRequest" name="RegisterInvoiceRequest"/>
+    </wsdl:message>
+    <wsdl:message name="RegisterInvoiceResponse">
+        <wsdl:part element="tns:RegisterInvoiceResponse" name="RegisterInvoiceResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ChangeInvoiceStatusRequest">
+        <wsdl:part element="tns:ChangeInvoiceStatusRequest" name="ChangeInvoiceStatusRequest"/>
+    </wsdl:message>
+    <wsdl:message name="ChangeInvoiceStatusResponse">
+        <wsdl:part element="tns:ChangeInvoiceStatusResponse" name="ChangeInvoiceStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteInvoiceRequest">
+        <wsdl:part element="tns:DeleteInvoiceRequest" name="DeleteInvoiceRequest"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteInvoiceResponse">
+        <wsdl:part element="tns:DeleteInvoiceResponse" name="DeleteInvoiceResponse"/>
+    </wsdl:message>
+    <wsdl:message name="RegisterWorkRequest">
+        <wsdl:part element="tns:RegisterWorkRequest" name="RegisterWorkRequest"/>
+    </wsdl:message>
+    <wsdl:message name="RegisterWorkResponse">
+        <wsdl:part element="tns:RegisterWorkResponse" name="RegisterWorkResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ChangeWorkStatusRequest">
+        <wsdl:part element="tns:ChangeWorkStatusRequest" name="ChangeWorkStatusRequest"/>
+    </wsdl:message>
+    <wsdl:message name="ChangeWorkStatusResponse">
+        <wsdl:part element="tns:ChangeWorkStatusResponse" name="ChangeWorkStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteWorkRequest">
+        <wsdl:part element="tns:DeleteWorkRequest" name="DeleteWorkRequest"/>
+    </wsdl:message>
+    <wsdl:message name="DeleteWorkResponse">
+        <wsdl:part element="tns:DeleteWorkResponse" name="DeleteWorkResponse"/>
+    </wsdl:message>
+    <wsdl:message name="RegisterPaymentRequest">
+        <wsdl:part element="tns:RegisterPaymentRequest" name="RegisterPaymentRequest"/>
+    </wsdl:message>
+    <wsdl:message name="RegisterPaymentResponse">
+        <wsdl:part element="tns:RegisterPaymentResponse" name="RegisterPaymentResponse"/>
+    </wsdl:message>
+    <wsdl:message name="ChangePaymentStatusRequest">
+        <wsdl:part element="tns:ChangePaymentStatusRequest" name="ChangePaymentStatusRequest"/>
+    </wsdl:message>
+    <wsdl:message name="ChangePaymentStatusResponse">
+        <wsdl:part element="tns:ChangePaymentStatusResponse" name="ChangePaymentStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="DeletePaymentRequest">
+        <wsdl:part element="tns:DeletePaymentRequest" name="DeletePaymentRequest"/>
+    </wsdl:message>
+    <wsdl:message name="DeletePaymentResponse">
+        <wsdl:part element="tns:DeletePaymentResponse" name="DeletePaymentResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="fatcorewsPort">
+        <wsdl:operation name="RegisterInvoice">
+            <wsdl:input message="tns:RegisterInvoiceRequest" name="RegisterInvoiceRequest"/>
+            <wsdl:output message="tns:RegisterInvoiceResponse" name="RegisterInvoiceResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ChangeInvoiceStatus">
+            <wsdl:input message="tns:ChangeInvoiceStatusRequest" name="ChangeInvoiceStatusRequest"/>
+            <wsdl:output message="tns:ChangeInvoiceStatusResponse" name="ChangeInvoiceStatusResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteInvoice">
+            <wsdl:input message="tns:DeleteInvoiceRequest" name="DeleteInvoiceRequest"/>
+            <wsdl:output message="tns:DeleteInvoiceResponse" name="DeleteInvoiceResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="RegisterWork">
+            <wsdl:input message="tns:RegisterWorkRequest" name="RegisterWorkRequest"/>
+            <wsdl:output message="tns:RegisterWorkResponse" name="RegisterWorkResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ChangeWorkStatus">
+            <wsdl:input message="tns:ChangeWorkStatusRequest" name="ChangeWorkStatusRequest"/>
+            <wsdl:output message="tns:ChangeWorkStatusResponse" name="ChangeWorkStatusResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteWork">
+            <wsdl:input message="tns:DeleteWorkRequest" name="DeleteWorkRequest"/>
+            <wsdl:output message="tns:DeleteWorkResponse" name="DeleteWorkResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="RegisterPayment">
+            <wsdl:input message="tns:RegisterPaymentRequest" name="RegisterPaymentRequest"/>
+            <wsdl:output message="tns:RegisterPaymentResponse" name="RegisterPaymentResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ChangePaymentStatus">
+            <wsdl:input message="tns:ChangePaymentStatusRequest" name="ChangePaymentStatusRequest"/>
+            <wsdl:output message="tns:ChangePaymentStatusResponse" name="ChangePaymentStatusResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="DeletePayment">
+            <wsdl:input message="tns:DeletePaymentRequest" name="DeletePaymentRequest"/>
+            <wsdl:output message="tns:DeletePaymentResponse" name="DeletePaymentResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="fatcorewsPortSoap11" type="tns:fatcorewsPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="RegisterInvoice">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="RegisterInvoiceRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="RegisterInvoiceResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ChangeInvoiceStatus">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="ChangeInvoiceStatusRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ChangeInvoiceStatusResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteInvoice">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="DeleteInvoiceRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="DeleteInvoiceResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RegisterWork">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="RegisterWorkRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="RegisterWorkResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ChangeWorkStatus">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="ChangeWorkStatusRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ChangeWorkStatusResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DeleteWork">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="DeleteWorkRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="DeleteWorkResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="RegisterPayment">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="RegisterPaymentRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="RegisterPaymentResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ChangePaymentStatus">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="ChangePaymentStatusRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="ChangePaymentStatusResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="DeletePayment">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="DeletePaymentRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="DeletePaymentResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="fatcorewsPortService">
+        <wsdl:port binding="tns:fatcorewsPortSoap11" name="fatcorewsPortSoap11">
+            <soap:address location="http://fatcorews.gdcontfsimpostosdev.ritta.local:80/fatcorews/ws/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
