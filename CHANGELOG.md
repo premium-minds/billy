@@ -10,6 +10,7 @@
 
 ### Changed
 
+ - [Replaces zxing with qrcodegen](https://github.com/premium-minds/billy/pull/434)
  - [Bump maven-surefire-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/billy/pull/442)
  - [Bump maven-failsafe-plugin from 3.1.0 to 3.1.2](https://github.com/premium-minds/billy/pull/443)
 
