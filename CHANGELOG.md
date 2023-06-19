@@ -3,6 +3,8 @@
 
 ## [Unreleased v8]
 
+## [8.2.0] 2023-06-19
+
 ### Added
 
  - [Save document issue local date](https://github.com/premium-minds/billy/pull/441) - requires SQL schema changes
@@ -480,7 +482,8 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v8]: https://github.com/premium-minds/billy/compare/v8.1.0...HEAD
+[unreleased v8]: https://github.com/premium-minds/billy/compare/v8.2.0...HEAD
+[8.2.0]: https://github.com/premium-minds/billy/compare/v8.1.0...v8.2.0
 [8.1.0]: https://github.com/premium-minds/billy/compare/v8.0.1...v8.1.0
 [8.0.1]: https://github.com/premium-minds/billy/compare/v8.0.0...v8.0.1
 [8.0.0]: https://github.com/premium-minds/billy/compare/v7.1.1...v8.0.0
