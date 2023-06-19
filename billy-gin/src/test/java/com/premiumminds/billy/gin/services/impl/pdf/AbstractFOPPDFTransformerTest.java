@@ -34,9 +34,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 
 class AbstractFOPPDFTransformerTest {
@@ -116,6 +119,7 @@ class AbstractFOPPDFTransformerTest {
         GenericInvoiceData genericInvoiceData = new GenericInvoiceData(
             "number1",
             new Date(),
+            Optional.of(LocalDate.now()),
             new Date(),
             new ArrayList<>(), customer, business, List.of(new InvoiceEntryData(
             new ProductData("productCode1", "description1"),
@@ -169,6 +173,7 @@ class AbstractFOPPDFTransformerTest {
         GenericInvoiceData genericInvoiceData = new GenericInvoiceData(
             "number1",
             new Date(),
+            Optional.of(LocalDate.now()),
             new Date(),
             new ArrayList<>(), customer, business, List.of(new InvoiceEntryData(
             new ProductData("productCode1", "description1"),
