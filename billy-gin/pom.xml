@@ -73,21 +73,18 @@
 
 		<!-- QRCode -->
 		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-			<version>${zxing.version}</version>
+			<groupId>io.nayuki</groupId>
+			<artifactId>qrcodegen</artifactId>
+			<version>1.8.0</version>
 		</dependency>
+
+		<!-- JUNIT -->
 		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>javase</artifactId>
-			<version>${zxing.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.beust</groupId>
-					<artifactId>jcommander</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 
 	<build>
