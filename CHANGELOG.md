@@ -8,6 +8,7 @@
  - [Save document issue local date](https://github.com/premium-minds/billy/pull/441) - requires SQL schema changes
  - [Use business timezone info when filling in SAFT info](https://github.com/premium-minds/billy/pull/444)
  - [add support to send invoices by webservices to portuguese AT](https://github.com/premium-minds/billy/pull/435)
+ - [Add support for series registration by webservices to Portuguese AT (ATCUD)](https://github.com/premium-minds/billy/pull/438)
 
 ### Changed
 
