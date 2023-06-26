@@ -55,10 +55,10 @@ import org.mockito.Mockito;
 
 public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/ad_invoice.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private static final String XSL_PATH = "src/main/resources/templates/ad_invoice.xsl";
+    private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-    ADInvoiceTestUtil test;
+    private ADInvoiceTestUtil test;
     private Injector mockedInjector;
     private ADInvoicePDFFOPTransformer transformer;
     private ADInvoiceDataExtractor extractor;
@@ -77,10 +77,9 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
     }
 
     @Test
-    public void testPdfCreation()
-            throws ExportServiceException, IOException {
+    void testPdfCreation() throws ExportServiceException, IOException {
 
-        ADInvoiceEntity entity = this.generateESInvoice();
+        ADInvoiceEntity entity = this.test.getInvoiceEntity();
         DAOADInvoice dao = this.mockedInjector.getInstance(DAOADInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -102,10 +101,9 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
     }
 
     @Test
-    public void testDifferentRegion()
-            throws ExportServiceException, IOException {
+    void testDifferentRegion() throws ExportServiceException, IOException {
 
-        ADInvoiceEntity entity = this.generateOtherRegionsInvoice();
+        ADInvoiceEntity entity = this.test.getDifferentRegionsInvoice();
         DAOADInvoice dao = this.mockedInjector.getInstance(DAOADInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -121,10 +119,9 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
     }
 
     @Test
-    public void testManyEntries()
-            throws ExportServiceException, IOException {
+    void testManyEntries() throws ExportServiceException, IOException {
 
-        ADInvoiceEntity entity = this.generateManyEntriesInvoice();
+        ADInvoiceEntity entity = this.test.getManyEntriesInvoice();
         DAOADInvoice dao = this.mockedInjector.getInstance(DAOADInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -140,10 +137,9 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
     }
 
     @Test
-    public void testManyEntriesWithDifrentRegions()
-            throws ExportServiceException, IOException {
+    void testManyEntriesWithDifrentRegions() throws ExportServiceException, IOException {
 
-        ADInvoiceEntity entity = this.generateManyEntriesWithDifferentRegionsInvoice();
+        ADInvoiceEntity entity = this.test.getManyEntriesWithDifferentRegionsInvoice();
         DAOADInvoice dao = this.mockedInjector.getInstance(DAOADInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -159,8 +155,8 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
     }
 
     @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
-        ADInvoiceEntity entity = this.generateESInvoice();
+    void testPdfCreationFromBundle() throws ExportServiceException, IOException {
+        ADInvoiceEntity entity = this.test.getInvoiceEntity();
         DAOADInvoice dao = this.mockedInjector.getInstance(DAOADInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -177,25 +173,5 @@ public class TestADInvoicePDFTransformer extends ADPersistencyAbstractTest {
         try (PDDocument doc = PDDocument.load(result)) {
             assertEquals(1, doc.getNumberOfPages());
         }
-    }
-
-    private ADInvoiceEntity generateESInvoice() {
-        ADInvoiceEntity invoice = this.test.getInvoiceEntity();
-        return invoice;
-    }
-
-    private ADInvoiceEntity generateManyEntriesInvoice() {
-        ADInvoiceEntity invoice = this.test.getManyEntriesInvoice();
-        return invoice;
-    }
-
-    private ADInvoiceEntity generateOtherRegionsInvoice() {
-        ADInvoiceEntity invoice = this.test.getDifferentRegionsInvoice();
-        return invoice;
-    }
-
-    private ADInvoiceEntity generateManyEntriesWithDifferentRegionsInvoice() {
-        ADInvoiceEntity invoice = this.test.getManyEntriesWithDifferentRegionsInvoice();
-        return invoice;
     }
 }

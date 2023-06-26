@@ -19,6 +19,7 @@
 package com.premiumminds.billy.andorra.test.util;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -31,13 +32,10 @@ import com.premiumminds.billy.andorra.services.entities.ADReceiptEntry;
 
 public class ADReceiptTestUtil {
 
-    protected static final Boolean BILLED = false;
-    protected static final Boolean CANCELLED = false;
-    protected static final Boolean SELFBILL = false;
-    protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIES = "A";
-    protected static final Integer SERIES_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
+    private static final Boolean BILLED = false;
+    private static final Boolean CANCELLED = false;
+    private static final Boolean SELFBILL = false;
+    private static final String SOURCE_ID = "SOURCE";
 
     protected final Injector injector;
     protected final ADReceiptEntryTestUtil receiptEntry;
@@ -63,6 +61,7 @@ public class ADReceiptTestUtil {
         return receiptBuilder.setBilled(ADReceiptTestUtil.BILLED).setCancelled(ADReceiptTestUtil.CANCELLED)
                              .setSelfBilled(ADReceiptTestUtil.SELFBILL).setSourceId(ADReceiptTestUtil.SOURCE_ID).setDate(new Date())
                              .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
-                             .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                             .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                             .setLocalDate(LocalDate.now());
     }
 }

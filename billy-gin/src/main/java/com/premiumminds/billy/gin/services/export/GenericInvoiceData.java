@@ -22,13 +22,11 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public class GenericInvoiceData {
 
     private final String number;
-    private final Date date;
-    private final Optional<LocalDate> localDate;
+    private final LocalDate localDate;
     private final Date settlementDate;
     private final List<PaymentData> payments;
     private final CostumerData customer;
@@ -41,8 +39,7 @@ public class GenericInvoiceData {
 
     public GenericInvoiceData(
         final String number,
-        final Date date,
-        final Optional<LocalDate> localDate,
+        final LocalDate localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final CostumerData customer,
@@ -54,7 +51,6 @@ public class GenericInvoiceData {
         final String settlementDescription) {
 
         this.number = number;
-        this.date = date;
         this.localDate = localDate;
         this.settlementDate = settlementDate;
         this.payments = payments;
@@ -71,11 +67,7 @@ public class GenericInvoiceData {
         return this.number;
     }
 
-    public Date getDate() {
-        return this.date;
-    }
-
-    public Optional<LocalDate> getLocalDate() {
+    public LocalDate getLocalDate() {
         return localDate;
     }
 

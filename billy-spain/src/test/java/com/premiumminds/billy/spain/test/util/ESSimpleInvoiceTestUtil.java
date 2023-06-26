@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.spain.test.util;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -34,13 +35,7 @@ import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice.CLIENTTYPE
 
 public class ESSimpleInvoiceTestUtil {
 
-    protected static final Boolean BILLED = false;
-    protected static final Boolean CANCELLED = false;
-    protected static final Boolean SELFBILL = false;
-    protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIE = "A";
-    protected static final Integer SERIE_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
+    private static final int MAX_PRODUCTS = 5;
 
     protected Injector injector;
     protected ESInvoiceEntryTestUtil invoiceEntry;
@@ -61,10 +56,8 @@ public class ESSimpleInvoiceTestUtil {
     }
 
     public ESSimpleInvoiceEntity getSimpleInvoiceEntity(CLIENTTYPE clientType) {
-        ESSimpleInvoiceEntity invoice = (ESSimpleInvoiceEntity) this
-                .getSimpleInvoiceBuilder(this.business.getBusinessEntity(), clientType).build();
-
-        return invoice;
+        return (ESSimpleInvoiceEntity) this
+            .getSimpleInvoiceBuilder(this.business.getBusinessEntity(), clientType).build();
     }
 
     public ESSimpleInvoice.Builder getSimpleInvoiceBuilder(ESBusinessEntity businessEntity, CLIENTTYPE clientType) {
@@ -83,7 +76,8 @@ public class ESSimpleInvoiceTestUtil {
                 .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(businessEntity.getUID())
                 .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
-                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(LocalDate.now());
     }
 
 }

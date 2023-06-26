@@ -18,24 +18,21 @@
  */
 package com.premiumminds.billy.spain.services.export;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-
 import com.premiumminds.billy.gin.services.export.BusinessData;
 import com.premiumminds.billy.gin.services.export.CostumerData;
 import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
 import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
 import com.premiumminds.billy.gin.services.export.PaymentData;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
 
 public class ESSimpleInvoiceData extends GenericInvoiceData {
 
     public ESSimpleInvoiceData(
         final String number,
-        final Date date,
-        final Optional<LocalDate> localDate,
+        final LocalDate localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final CostumerData customer,
@@ -46,7 +43,7 @@ public class ESSimpleInvoiceData extends GenericInvoiceData {
         final BigDecimal amountWithoutTax,
         final String settlementDescription) {
 
-        super(number, date, localDate, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
+        super(number, localDate, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
               amountWithoutTax, settlementDescription);
     }
 

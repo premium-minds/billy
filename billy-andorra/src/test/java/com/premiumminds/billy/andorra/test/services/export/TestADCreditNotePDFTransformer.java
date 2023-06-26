@@ -24,11 +24,29 @@ import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.andorra.AndorraDependencyModule;
+import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditNote;
+import com.premiumminds.billy.andorra.persistence.dao.DAOADInvoice;
 import com.premiumminds.billy.andorra.persistence.entities.ADCreditNoteEntity;
 import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
+import com.premiumminds.billy.andorra.services.documents.util.ADIssuingParams;
+import com.premiumminds.billy.andorra.services.export.ADCreditNoteData;
+import com.premiumminds.billy.andorra.services.export.ADCreditNoteDataExtractor;
+import com.premiumminds.billy.andorra.services.export.pdf.creditnote.ADCreditNotePDFFOPTransformer;
+import com.premiumminds.billy.andorra.services.export.pdf.creditnote.ADCreditNoteTemplateBundle;
+import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADMockDependencyModule;
+import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
 import com.premiumminds.billy.andorra.test.util.ADCreditNoteTestUtil;
 import com.premiumminds.billy.andorra.util.Services;
+import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
+import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
+import com.premiumminds.billy.core.services.StringID;
+import com.premiumminds.billy.core.services.entities.Business;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
+import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
+import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -38,7 +56,6 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.UUID;
-
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -46,31 +63,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
-import com.premiumminds.billy.core.persistence.entities.BusinessEntity;
-import com.premiumminds.billy.core.persistence.entities.CustomerEntity;
-import com.premiumminds.billy.core.services.StringID;
-import com.premiumminds.billy.core.services.entities.Business;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
-import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.core.util.PaymentMechanism;
-import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditNote;
-import com.premiumminds.billy.andorra.persistence.dao.DAOADInvoice;
-import com.premiumminds.billy.andorra.services.documents.util.ADIssuingParams;
-import com.premiumminds.billy.andorra.services.export.ADCreditNoteData;
-import com.premiumminds.billy.andorra.services.export.ADCreditNoteDataExtractor;
-import com.premiumminds.billy.andorra.services.export.pdf.creditnote.ADCreditNotePDFFOPTransformer;
-import com.premiumminds.billy.andorra.services.export.pdf.creditnote.ADCreditNoteTemplateBundle;
-import com.premiumminds.billy.andorra.test.ADAbstractTest;
-import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
-
 public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/ad_creditnote.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private static final String XSL_PATH = "src/main/resources/templates/ad_creditnote.xsl";
+    private static final String LOGO_PATH = "src/main/resources/logoBig.png";
     private Injector mockedInjector;
     private ADCreditNotePDFFOPTransformer transformer;
     private ADCreditNoteDataExtractor extractor;
@@ -86,7 +82,8 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
         this.extractor = this.mockedInjector.getInstance(ADCreditNoteDataExtractor.class);
     }
 
-    @Test public void testPdfCreation()
+    @Test
+    void testPdfCreation()
             throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
             DocumentSeriesDoesNotExistException {
 
@@ -94,7 +91,7 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
         final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ADInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-        ADCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
+        ADCreditNoteEntity entity = this.generateESCreditNote(invoice);
         DAOADCreditNote dao = this.mockedInjector.getInstance(DAOADCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOADInvoice daoInvoice = this.mockedInjector.getInstance(DAOADInvoice.class);
@@ -111,26 +108,29 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
         }
     }
 
-    @Test public void testNonExistentEntity() {
+    @Test
+    void testNonExistentEntity() {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test public void testNonExistentInvoice()
+    @Test
+    void testNonExistentInvoice()
             throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ADInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-        ADCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
+        ADCreditNoteEntity entity = this.generateESCreditNote(invoice);
         DAOADCreditNote dao = this.mockedInjector.getInstance(DAOADCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
 
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test public void testPdfCreationFromBundle()
+    @Test
+    void testPdfCreationFromBundle()
             throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
             DocumentSeriesDoesNotExistException {
 
@@ -138,7 +138,7 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
         final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ADInvoiceEntity invoice = this.getNewIssuedInvoice(businessUID);
-        ADCreditNoteEntity entity = this.generateESCreditNote(PaymentMechanism.CASH, invoice);
+        ADCreditNoteEntity entity = this.generateESCreditNote(invoice);
         DAOADCreditNote dao = this.mockedInjector.getInstance(DAOADCreditNote.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOADInvoice daoInvoice = this.mockedInjector.getInstance(DAOADInvoice.class);
@@ -160,7 +160,7 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
         }
     }
 
-    private ADCreditNoteEntity generateESCreditNote(PaymentMechanism paymentMechanism, ADInvoiceEntity reference)
+    private ADCreditNoteEntity generateESCreditNote(ADInvoiceEntity reference)
             throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         Services services = new Services(ADAbstractTest.injector);
@@ -169,11 +169,10 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
 
         this.createSeries(reference, "AC");
 
-        ADCreditNoteEntity creditNote = null;
-        creditNote = (ADCreditNoteEntity) services.issueDocument(
-            new ADCreditNoteTestUtil(ADAbstractTest.injector).getCreditNoteBuilder(reference), params);
+        ADCreditNoteEntity creditNote = (ADCreditNoteEntity) services.issueDocument(new ADCreditNoteTestUtil(
+            ADAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
-        creditNote.setCustomer((CustomerEntity) reference.getCustomer());
+        creditNote.setCustomer(reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());
         creditNote.setCreditOrDebit(CreditOrDebit.DEBIT);
 

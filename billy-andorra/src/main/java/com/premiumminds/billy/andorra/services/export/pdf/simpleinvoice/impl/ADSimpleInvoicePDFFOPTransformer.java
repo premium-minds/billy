@@ -19,17 +19,15 @@
 package com.premiumminds.billy.andorra.services.export.pdf.simpleinvoice.impl;
 
 import com.premiumminds.billy.andorra.services.export.ADSimpleInvoiceData;
-import java.io.InputStream;
-import java.math.MathContext;
-
+import com.premiumminds.billy.andorra.services.export.pdf.ADAbstractFOPPDFTransformer;
+import com.premiumminds.billy.andorra.services.export.pdf.ADSimpleInvoicePDFTransformer;
+import com.premiumminds.billy.andorra.services.export.pdf.simpleinvoice.ADSimpleInvoiceTemplateBundle;
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.PaymentData;
-import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
-import com.premiumminds.billy.andorra.services.export.pdf.ADAbstractFOPPDFTransformer;
-import com.premiumminds.billy.andorra.services.export.pdf.ADSimpleInvoicePDFTransformer;
-import com.premiumminds.billy.andorra.services.export.pdf.simpleinvoice.ADSimpleInvoiceTemplateBundle;
+import java.io.InputStream;
+import java.math.MathContext;
 import java.time.format.DateTimeFormatter;
 
 public class ADSimpleInvoicePDFFOPTransformer extends ADAbstractFOPPDFTransformer<ADSimpleInvoiceData>
@@ -68,12 +66,8 @@ public class ADSimpleInvoicePDFFOPTransformer extends ADAbstractFOPPDFTransforme
             }
         }
 
-        params.getRoot().addChild(
-            ParamKeys.EMISSION_DATE,
-            entity
-                .getLocalDate()
-                .map(DateTimeFormatter.ISO_LOCAL_DATE::format)
-                .orElse(AbstractFOPPDFTransformer.DATE_FORMAT.format(entity.getDate())));
+        params.getRoot()
+              .addChild(ParamKeys.EMISSION_DATE, DateTimeFormatter.ISO_LOCAL_DATE.format(entity.getLocalDate()));
     }
 
     @Override

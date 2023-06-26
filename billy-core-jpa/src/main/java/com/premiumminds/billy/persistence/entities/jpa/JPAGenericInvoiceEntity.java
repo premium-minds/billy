@@ -30,9 +30,12 @@ import com.premiumminds.billy.core.services.entities.ShippingPoint;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
-import java.util.Optional;
-import org.hibernate.envers.Audited;
-
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -49,12 +52,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Date;
-import java.util.List;
+import org.hibernate.envers.Audited;
 
 @Entity
 @Audited
@@ -191,8 +189,8 @@ public class JPAGenericInvoiceEntity extends JPABaseEntity<GenericInvoice> imple
     }
 
     @Override
-    public Optional<LocalDate> getLocalDate() {
-        return Optional.ofNullable(this.localDate);
+    public LocalDate getLocalDate() {
+        return this.localDate;
     }
 
     @Override

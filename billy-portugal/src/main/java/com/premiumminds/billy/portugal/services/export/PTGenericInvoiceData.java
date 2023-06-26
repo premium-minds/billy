@@ -39,8 +39,7 @@ public class PTGenericInvoiceData extends GenericInvoiceData {
 
     public PTGenericInvoiceData(
         final String number,
-        final Date date,
-        final Optional<LocalDate> localDate,
+        final LocalDate localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final CostumerData customer,
@@ -54,7 +53,7 @@ public class PTGenericInvoiceData extends GenericInvoiceData {
         final String qrCodeString,
         final String atcud) {
 
-        super(number, date, localDate, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
+        super(number, localDate, settlementDate, payments, customer, business, entries, taxAmount, amountWithTax,
                 amountWithoutTax, settlementDescription);
 
         this.hash = hash;

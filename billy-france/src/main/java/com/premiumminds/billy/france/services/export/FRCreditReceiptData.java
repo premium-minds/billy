@@ -26,7 +26,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 public class FRCreditReceiptData extends GenericInvoiceData {
 
@@ -34,8 +33,7 @@ public class FRCreditReceiptData extends GenericInvoiceData {
 
     public FRCreditReceiptData(
         final String number,
-        final Date date,
-        final Optional<LocalDate> localDate,
+        final LocalDate localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final BusinessData business,
@@ -45,7 +43,7 @@ public class FRCreditReceiptData extends GenericInvoiceData {
         final BigDecimal amountWithoutTax,
         final String settlementDescription) {
 
-        super(number, date, localDate, settlementDate, payments, null, business, new ArrayList<>(0),
+        super(number, localDate, settlementDate, payments, null, business, new ArrayList<>(0),
               taxAmount, amountWithTax, amountWithoutTax, settlementDescription);
 
         this.entries = entries;

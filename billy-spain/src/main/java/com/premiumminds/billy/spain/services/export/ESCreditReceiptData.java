@@ -18,17 +18,15 @@
  */
 package com.premiumminds.billy.spain.services.export;
 
+import com.premiumminds.billy.gin.services.export.BusinessData;
+import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
+import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
+import com.premiumminds.billy.gin.services.export.PaymentData;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import com.premiumminds.billy.gin.services.export.BusinessData;
-import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
-import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
-import com.premiumminds.billy.gin.services.export.PaymentData;
-import java.util.Optional;
 
 public class ESCreditReceiptData extends GenericInvoiceData {
 
@@ -36,8 +34,7 @@ public class ESCreditReceiptData extends GenericInvoiceData {
 
     public ESCreditReceiptData(
         final String number,
-        final Date date,
-        final Optional<LocalDate> localDate,
+        final LocalDate localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final BusinessData business,
@@ -47,7 +44,7 @@ public class ESCreditReceiptData extends GenericInvoiceData {
         final BigDecimal amountWithoutTax,
         final String settlementDescription) {
 
-        super(number, date, localDate, settlementDate, payments, null, business, new ArrayList<InvoiceEntryData>(0), taxAmount,
+        super(number, localDate, settlementDate, payments, null, business, new ArrayList<InvoiceEntryData>(0), taxAmount,
                 amountWithTax, amountWithoutTax, settlementDescription);
 
         this.entries = entries;

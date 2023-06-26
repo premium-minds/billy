@@ -29,7 +29,6 @@ import com.premiumminds.billy.andorra.services.export.ADSimpleInvoiceData;
 import com.premiumminds.billy.andorra.test.util.ADSimpleInvoiceTestUtil;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADSimpleInvoice;
 import com.premiumminds.billy.andorra.services.export.ADSimpleInvoiceDataExtractor;
@@ -55,8 +54,8 @@ import org.mockito.Mockito;
 
 public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/ad_simpleinvoice.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private static final String XSL_PATH = "src/main/resources/templates/ad_simpleinvoice.xsl";
+    private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private Injector mockedInjector;
     private ADSimpleInvoicePDFFOPTransformer transformer;
@@ -75,10 +74,10 @@ public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest
     }
 
     @Test
-    public void testPdfCreation()
+    void testPdfCreation()
             throws ExportServiceException, IOException {
 
-        ADSimpleInvoiceEntity entity = this.generateESSimpleInvoice(PaymentMechanism.CASH);
+        ADSimpleInvoiceEntity entity = this.generateESSimpleInvoice();
         DAOADSimpleInvoice dao = this.mockedInjector.getInstance(DAOADSimpleInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -94,14 +93,14 @@ public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest
     }
 
     @Test
-    public void testNonExistentEntity() {
+    void testNonExistentEntity() {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
-        ADSimpleInvoiceEntity entity = this.generateESSimpleInvoice(PaymentMechanism.CASH);
+    void testPdfCreationFromBundle() throws ExportServiceException, IOException {
+        ADSimpleInvoiceEntity entity = this.generateESSimpleInvoice();
         DAOADSimpleInvoice dao = this.mockedInjector.getInstance(DAOADSimpleInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -121,11 +120,7 @@ public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest
         }
     }
 
-    private ADSimpleInvoiceEntity generateESSimpleInvoice(PaymentMechanism paymentMechanism) {
-
-        ADSimpleInvoiceEntity simpleInvoice =
-                new ADSimpleInvoiceTestUtil(ADAbstractTest.injector).getSimpleInvoiceEntity();
-
-        return simpleInvoice;
+    private ADSimpleInvoiceEntity generateESSimpleInvoice() {
+        return new ADSimpleInvoiceTestUtil(ADAbstractTest.injector).getSimpleInvoiceEntity();
     }
 }

@@ -76,7 +76,10 @@ public abstract class FRGenericInvoiceIssuingHandler<T extends FRGenericInvoiceE
         String formatedNumber = parametersFR.getInvoiceSeries() + "/" + seriesNumber;
 
         ZoneId timezone = document.getBusiness().getTimezone();
-        LocalDate issueLocalDate = document.getLocalDate().orElse(LocalDate.ofInstant(invoiceDate.toInstant(), timezone));
+        LocalDate issueLocalDate =
+            document.getLocalDate() == null ?
+                LocalDate.ofInstant(invoiceDate.toInstant(), timezone) :
+                document.getLocalDate();
 
         document.setDate(invoiceDate);
         document.setNumber(formatedNumber);

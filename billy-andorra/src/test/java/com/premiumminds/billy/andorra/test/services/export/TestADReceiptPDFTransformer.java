@@ -53,7 +53,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-public class TestADReceiptPDFTransformer extends ADPersistencyAbstractTest {
+class TestADReceiptPDFTransformer extends ADPersistencyAbstractTest {
 
     private static final String XSL_PATH = "src/main/resources/templates/ad_receipt.xsl";
     private static final String LOGO_PATH = "src/main/resources/logoBig.png";
@@ -78,7 +78,7 @@ public class TestADReceiptPDFTransformer extends ADPersistencyAbstractTest {
     }
 
     @Test
-    public void testPdfCreation() throws ExportServiceException, IOException {
+    void testPdfCreation() throws ExportServiceException, IOException {
         ADReceiptEntity entity = this.receipts.getReceiptEntity();
         DAOADReceipt dao = this.mockedInjector.getInstance(DAOADReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
@@ -95,13 +95,13 @@ public class TestADReceiptPDFTransformer extends ADPersistencyAbstractTest {
     }
 
     @Test
-    public void testNonExistentEntity() {
+    void testNonExistentEntity() {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
+    void testPdfCreationFromBundle() throws ExportServiceException, IOException {
         ADReceiptEntity entity = this.receipts.getReceiptEntity();
         DAOADReceipt dao = this.mockedInjector.getInstance(DAOADReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);

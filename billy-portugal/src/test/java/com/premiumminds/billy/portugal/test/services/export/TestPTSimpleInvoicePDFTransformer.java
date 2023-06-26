@@ -25,7 +25,6 @@ import com.google.inject.Injector;
 import com.google.inject.util.Modules;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.portugal.PortugalDependencyModule;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
@@ -56,11 +55,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-public class TestPTSimpleInvoicePDFTransformer extends PTPersistencyAbstractTest {
+class TestPTSimpleInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/pt_simpleinvoice.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-    public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
+    private static final String XSL_PATH = "src/main/resources/templates/pt_simpleinvoice.xsl";
+    private static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 
     private Injector mockedInjector;
     private PTSimpleInvoicePDFFOPTransformer transformer;
@@ -80,11 +79,11 @@ public class TestPTSimpleInvoicePDFTransformer extends PTPersistencyAbstractTest
     }
 
     @Test
-    public void testPdfCreation()
+    void testPdfCreation()
             throws ExportServiceException, IOException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
-        PTSimpleInvoiceEntity invoice = this.generatePTSimpleInvoice(PaymentMechanism.CASH);
+        PTSimpleInvoiceEntity invoice = this.generatePTSimpleInvoice();
         DAOPTSimpleInvoice dao = this.mockedInjector.getInstance(DAOPTSimpleInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
@@ -100,16 +99,16 @@ public class TestPTSimpleInvoicePDFTransformer extends PTPersistencyAbstractTest
     }
 
     @Test
-    public void testNonExistentEntity() {
+    void testNonExistentEntity() {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
+    void testPdfCreationFromBundle() throws ExportServiceException, IOException {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
-        PTSimpleInvoiceEntity invoice = this.generatePTSimpleInvoice(PaymentMechanism.CASH);
+        PTSimpleInvoiceEntity invoice = this.generatePTSimpleInvoice();
         DAOPTSimpleInvoice dao = this.mockedInjector.getInstance(DAOPTSimpleInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(invoice);
 
@@ -130,7 +129,7 @@ public class TestPTSimpleInvoicePDFTransformer extends PTPersistencyAbstractTest
         }
     }
 
-    private PTSimpleInvoiceEntity generatePTSimpleInvoice(PaymentMechanism paymentMechanism) {
+    private PTSimpleInvoiceEntity generatePTSimpleInvoice() {
 
         PTSimpleInvoiceEntity simpleInvoice =
                 new PTSimpleInvoiceTestUtil(PTAbstractTest.injector).getSimpleInvoiceEntity();

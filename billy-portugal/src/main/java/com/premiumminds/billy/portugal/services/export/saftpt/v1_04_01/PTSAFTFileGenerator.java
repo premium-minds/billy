@@ -702,7 +702,7 @@ public class PTSAFTFileGenerator {
                     document.getHashControl(), MAX_LENGTH_40, false));
         }
         saftInv.setPeriod(validateInteger("Period", Integer
-                .toString(document.getLocalDate().orElseThrow().getMonthValue()),
+                .toString(document.getLocalDate().getMonthValue()),
                 MAX_LENGTH_2, true));
         saftInv.setInvoiceDate(
             formatLocalDate(LocalDate.ofInstant(document.getDate().toInstant(), document.getBusiness().getTimezone())));

@@ -18,18 +18,16 @@
  */
 package com.premiumminds.billy.portugal.services.export.pdf.receiptinvoice;
 
-import java.io.InputStream;
-import java.math.MathContext;
-
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.PaymentData;
-import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.services.export.PTReceiptInvoiceData;
 import com.premiumminds.billy.portugal.services.export.pdf.PTAbstractFOPPDFTransformer;
 import com.premiumminds.billy.portugal.services.export.pdf.PTReceiptInvoicePDFTransformer;
+import java.io.InputStream;
+import java.math.MathContext;
 import java.time.format.DateTimeFormatter;
 
 public class PTReceiptInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransformer<PTReceiptInvoiceData>
@@ -77,12 +75,8 @@ public class PTReceiptInvoicePDFFOPTransformer extends PTAbstractFOPPDFTransform
             }
         }
 
-        params.getRoot().addChild(
-            ParamKeys.EMISSION_DATE,
-            document
-                .getLocalDate()
-                .map(DateTimeFormatter.ISO_LOCAL_DATE::format)
-                .orElse(AbstractFOPPDFTransformer.DATE_FORMAT.format(document.getDate())));
+        params.getRoot()
+              .addChild(ParamKeys.EMISSION_DATE, DateTimeFormatter.ISO_LOCAL_DATE.format(document.getLocalDate()));
     }
 
     @Override

@@ -57,8 +57,8 @@ public class ESSimpleInvoiceDataExtractor extends AbstractBillyDataExtractor
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<InvoiceEntryData> entries = this.extractEntries(entity.getEntries());
 
-        return new ESSimpleInvoiceData(entity.getNumber(), entity.getDate(), entity.getLocalDate(),
-                                       entity.getSettlementDate(), payments, costumer, business, entries,
+        return new ESSimpleInvoiceData(entity.getNumber(), entity.getLocalDate(), entity.getSettlementDate(),
+                                       payments, costumer, business, entries,
                                        entity.getTaxAmount(), entity.getAmountWithTax(), entity.getAmountWithoutTax(),
                                        entity.getSettlementDescription());
     }

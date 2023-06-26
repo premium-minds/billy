@@ -160,12 +160,8 @@ public abstract class AbstractFOPPDFTransformer<T extends GenericInvoiceData> ex
             }
         }
 
-        params.getRoot().addChild(
-            ParamKeys.EMISSION_DATE,
-            document
-                .getLocalDate()
-                .map(DateTimeFormatter.ISO_LOCAL_DATE::format)
-                .orElse(AbstractFOPPDFTransformer.DATE_FORMAT.format(document.getDate())));
+        params.getRoot()
+              .addChild(ParamKeys.EMISSION_DATE, DateTimeFormatter.ISO_LOCAL_DATE.format(document.getLocalDate()));
 
         if (null != document.getSettlementDate()) {
             params.getRoot().addChild(ParamKeys.DUE_DATE,
