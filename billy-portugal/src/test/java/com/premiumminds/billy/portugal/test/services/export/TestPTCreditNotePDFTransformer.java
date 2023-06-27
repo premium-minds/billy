@@ -160,8 +160,8 @@ class TestPTCreditNotePDFTransformer extends PTPersistencyAbstractTest {
 
         this.createSeries(reference, "AC");
 
-        PTCreditNoteEntity creditNote = (PTCreditNoteEntity) services.issueDocument(new PTCreditNoteTestUtil(
-            PTAbstractTest.injector).getCreditNoteBuilder(reference), params);
+        PTCreditNoteEntity creditNote = (PTCreditNoteEntity) services.issueDocument(
+            new PTCreditNoteTestUtil(PTAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
         creditNote.setCustomer(reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());

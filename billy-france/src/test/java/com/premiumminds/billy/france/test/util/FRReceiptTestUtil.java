@@ -64,6 +64,7 @@ public class FRReceiptTestUtil {
         return receiptBuilder.setBilled(FRReceiptTestUtil.BILLED).setCancelled(FRReceiptTestUtil.CANCELLED)
                 .setSelfBilled(FRReceiptTestUtil.SELFBILL).setSourceId(FRReceiptTestUtil.SOURCE_ID).setDate(new Date())
                 .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
-                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT).setLocalDate(LocalDate.now());
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(LocalDate.now());
     }
 }

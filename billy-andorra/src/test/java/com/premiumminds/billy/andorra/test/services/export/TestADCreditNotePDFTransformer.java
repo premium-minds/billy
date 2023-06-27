@@ -169,8 +169,8 @@ public class TestADCreditNotePDFTransformer extends ADPersistencyAbstractTest {
 
         this.createSeries(reference, "AC");
 
-        ADCreditNoteEntity creditNote = (ADCreditNoteEntity) services.issueDocument(new ADCreditNoteTestUtil(
-            ADAbstractTest.injector).getCreditNoteBuilder(reference), params);
+        ADCreditNoteEntity creditNote = (ADCreditNoteEntity) services.issueDocument(
+            new ADCreditNoteTestUtil(ADAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
         creditNote.setCustomer(reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());

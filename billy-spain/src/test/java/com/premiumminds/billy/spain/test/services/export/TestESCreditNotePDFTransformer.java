@@ -169,8 +169,8 @@ class TestESCreditNotePDFTransformer extends ESPersistencyAbstractTest {
 
         this.createSeries(reference, "AC");
 
-        ESCreditNoteEntity creditNote = (ESCreditNoteEntity) services.issueDocument(new ESCreditNoteTestUtil(
-            ESAbstractTest.injector).getCreditNoteBuilder(reference), params);
+        ESCreditNoteEntity creditNote = (ESCreditNoteEntity) services.issueDocument(
+            new ESCreditNoteTestUtil(ESAbstractTest.injector).getCreditNoteBuilder(reference), params);
 
         creditNote.setCustomer(reference.getCustomer());
         creditNote.setBusiness((BusinessEntity) reference.getBusiness());

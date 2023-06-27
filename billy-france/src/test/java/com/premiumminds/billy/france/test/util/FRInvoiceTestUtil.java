@@ -94,7 +94,8 @@ public class FRInvoiceTestUtil {
         return invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(business.getUID())
-                .addPayment(this.payment.getPaymentBuilder()).setLocalDate(LocalDate.now());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
     }
 
     public FRInvoice.ManualBuilder getManualInvoiceBuilder(FRBusinessEntity business) {

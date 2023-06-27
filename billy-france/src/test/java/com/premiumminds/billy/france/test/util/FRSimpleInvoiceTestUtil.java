@@ -84,7 +84,8 @@ public class FRSimpleInvoiceTestUtil {
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(businessEntity.getUID())
                 .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
-                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT).setLocalDate(LocalDate.now());
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(LocalDate.now());
     }
 
 }
