@@ -140,7 +140,8 @@ public class FRInvoiceTestUtil {
         invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder()).setLocalDate(LocalDate.now());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (FRInvoiceEntity) invoiceBuilder.build();
     }
@@ -163,7 +164,8 @@ public class FRInvoiceTestUtil {
         invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder()).setLocalDate(LocalDate.now());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (FRInvoiceEntity) invoiceBuilder.build();
     }
@@ -186,7 +188,8 @@ public class FRInvoiceTestUtil {
         invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder()).setLocalDate(LocalDate.now());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (FRInvoiceEntity) invoiceBuilder.build();
     }
