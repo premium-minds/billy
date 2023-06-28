@@ -1,7 +1,9 @@
 <!-- https://keepachangelog.com/en/1.0.0/ -->
 # Changelog
 
-## [Unreleased v8]
+## [Unreleased v9]
+
+## [9.0.0] 2023-06-28
 
 ### Changed
 
@@ -490,7 +492,8 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v8]: https://github.com/premium-minds/billy/compare/v8.2.0...HEAD
+[unreleased v9]: https://github.com/premium-minds/billy/compare/v9.0.0...HEAD
+[9.0.0]: https://github.com/premium-minds/billy/compare/v8.2.0...v9.0.0
 [8.2.0]: https://github.com/premium-minds/billy/compare/v8.1.0...v8.2.0
 [8.1.0]: https://github.com/premium-minds/billy/compare/v8.0.1...v8.1.0
 [8.0.1]: https://github.com/premium-minds/billy/compare/v8.0.0...v8.0.1
