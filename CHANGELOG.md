@@ -7,6 +7,10 @@
 
  - [Bump mockito-core from 5.3.1 to 5.4.0](https://github.com/premium-minds/billy/pull/446)
 
+### Removed
+
+ - [Remove fallbacks for local date field](https://github.com/premium-minds/billy/pull/450)
+
 ## [8.2.0] 2023-06-19
 
 ### Added
