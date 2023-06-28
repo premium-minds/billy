@@ -54,16 +54,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
+class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/pt_invoice.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
-    public static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
+    private static final String XSL_PATH = "src/main/resources/templates/pt_invoice.xsl";
+    private static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private static final String SOFTWARE_CERTIFICATE_NUMBER = "4321";
 
-    Injector mockedInjector;
-    PTInvoiceDataExtractor extractor;
-    PTInvoicePDFFOPTransformer transformer;
-    PTInvoiceTestUtil test;
+    private Injector mockedInjector;
+    private PTInvoiceDataExtractor extractor;
+    private PTInvoicePDFFOPTransformer transformer;
+    private PTInvoiceTestUtil test;
 
     @BeforeEach public void setUp() throws FileNotFoundException {
 
@@ -78,7 +78,8 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         this.test = new PTInvoiceTestUtil(PTAbstractTest.injector);
     }
 
-    @Test public void testPdfCreation() throws ExportServiceException, IOException {
+    @Test
+    void testPdfCreation() throws ExportServiceException, IOException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generatePTInvoice();
@@ -96,13 +97,15 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test public void testNonExistentEntity() {
+    @Test
+    void testNonExistentEntity() {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test public void testDifferentRegion() throws ExportServiceException, IOException {
+    @Test
+    void testDifferentRegion() throws ExportServiceException, IOException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generateOtherRegionsInvoice();
@@ -120,7 +123,8 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test public void testManyEntries() throws ExportServiceException, IOException {
+    @Test
+    void testManyEntries() throws ExportServiceException, IOException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generateManyEntriesInvoice();
@@ -138,7 +142,8 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test public void testManyEntriesWithDifrentRegions() throws ExportServiceException, IOException {
+    @Test
+    void testManyEntriesWithDifrentRegions() throws ExportServiceException, IOException {
 
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generateManyEntriesWithDifferentRegionsInvoice();
@@ -156,7 +161,8 @@ public class TestPTInvoicePDFTransformer extends PTPersistencyAbstractTest {
         }
     }
 
-    @Test public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
+    @Test
+    void testPdfCreationFromBundle() throws ExportServiceException, IOException {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         PTInvoiceEntity invoice = this.generatePTInvoice();
         DAOPTInvoice dao = this.mockedInjector.getInstance(DAOPTInvoice.class);

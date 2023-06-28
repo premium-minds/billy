@@ -19,6 +19,7 @@
 package com.premiumminds.billy.france.test.util;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -93,7 +94,8 @@ public class FRInvoiceTestUtil {
         return invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(business.getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
     }
 
     public FRInvoice.ManualBuilder getManualInvoiceBuilder(FRBusinessEntity business) {
@@ -116,7 +118,8 @@ public class FRInvoiceTestUtil {
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(business.getUID()).setAmount(AmountType.WITH_TAX, price)
                 .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax)
-                .addPayment(this.payment.getPaymentBuilder()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                .addPayment(this.payment.getPaymentBuilder()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(LocalDate.now());
     }
 
     public FRInvoiceEntity getDifferentRegionsInvoice() {
@@ -137,7 +140,8 @@ public class FRInvoiceTestUtil {
         invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (FRInvoiceEntity) invoiceBuilder.build();
     }
@@ -160,7 +164,8 @@ public class FRInvoiceTestUtil {
         invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (FRInvoiceEntity) invoiceBuilder.build();
     }
@@ -183,7 +188,8 @@ public class FRInvoiceTestUtil {
         invoiceBuilder.setBilled(FRInvoiceTestUtil.BILLED).setCancelled(FRInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (FRInvoiceEntity) invoiceBuilder.build();
     }

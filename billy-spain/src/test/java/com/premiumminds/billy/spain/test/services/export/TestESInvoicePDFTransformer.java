@@ -53,12 +53,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
-public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
+class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/es_invoice.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private static final String XSL_PATH = "src/main/resources/templates/es_invoice.xsl";
+    private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
-    ESInvoiceTestUtil test;
+    private ESInvoiceTestUtil test;
     private Injector mockedInjector;
     private ESInvoicePDFFOPTransformer transformer;
     private ESInvoiceDataExtractor extractor;
@@ -77,10 +77,10 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testPdfCreation()
+    void testPdfCreation()
             throws ExportServiceException, IOException {
 
-        ESInvoiceEntity entity = this.generateESInvoice();
+        ESInvoiceEntity entity = this.test.getInvoiceEntity();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -96,16 +96,16 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testNonExistentEntity() {
+    void testNonExistentEntity() {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
     @Test
-    public void testDifferentRegion()
+    void testDifferentRegion()
             throws ExportServiceException, IOException {
 
-        ESInvoiceEntity entity = this.generateOtherRegionsInvoice();
+        ESInvoiceEntity entity = this.test.getDifferentRegionsInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -121,10 +121,10 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testManyEntries()
+    void testManyEntries()
             throws ExportServiceException, IOException {
 
-        ESInvoiceEntity entity = this.generateManyEntriesInvoice();
+        ESInvoiceEntity entity = this.test.getManyEntriesInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -140,10 +140,10 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testManyEntriesWithDifrentRegions()
+    void testManyEntriesWithDifrentRegions()
             throws ExportServiceException, IOException {
 
-        ESInvoiceEntity entity = this.generateManyEntriesWithDifferentRegionsInvoice();
+        ESInvoiceEntity entity = this.test.getManyEntriesWithDifferentRegionsInvoice();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -159,8 +159,8 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
     }
 
     @Test
-    public void testPdfCreationFromBundle() throws ExportServiceException, IOException {
-        ESInvoiceEntity entity = this.generateESInvoice();
+    void testPdfCreationFromBundle() throws ExportServiceException, IOException {
+        ESInvoiceEntity entity = this.test.getInvoiceEntity();
         DAOESInvoice dao = this.mockedInjector.getInstance(DAOESInvoice.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(entity.getUID()))).thenReturn(entity);
 
@@ -177,25 +177,5 @@ public class TestESInvoicePDFTransformer extends ESPersistencyAbstractTest {
         try (PDDocument doc = PDDocument.load(result)) {
             assertEquals(1, doc.getNumberOfPages());
         }
-    }
-
-    private ESInvoiceEntity generateESInvoice() {
-        ESInvoiceEntity invoice = this.test.getInvoiceEntity();
-        return invoice;
-    }
-
-    private ESInvoiceEntity generateManyEntriesInvoice() {
-        ESInvoiceEntity invoice = this.test.getManyEntriesInvoice();
-        return invoice;
-    }
-
-    private ESInvoiceEntity generateOtherRegionsInvoice() {
-        ESInvoiceEntity invoice = this.test.getDifferentRegionsInvoice();
-        return invoice;
-    }
-
-    private ESInvoiceEntity generateManyEntriesWithDifferentRegionsInvoice() {
-        ESInvoiceEntity invoice = this.test.getManyEntriesWithDifferentRegionsInvoice();
-        return invoice;
     }
 }

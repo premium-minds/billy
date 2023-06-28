@@ -82,7 +82,7 @@ class TestGenericInvoiceBuilder extends AbstractTest {
                 .setSettlementDiscount(mock.getSettlementDiscount()).setSourceId(mock.getSourceId())
                 .setTransactionId(mock.getTransactionId()).setCustomerUID(mockCustomerEntity.getUID())
                 .setSupplierUID(mockSupplierEntity.getUID()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
-                .setLocalDate(mock.getLocalDate().orElseThrow());
+                .setLocalDate(mock.getLocalDate());
 
         GenericInvoice invoice = builder.build();
 

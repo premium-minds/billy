@@ -18,18 +18,16 @@
  */
 package com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.impl;
 
-import java.io.InputStream;
-import java.math.MathContext;
-
 import com.premiumminds.billy.core.util.BillyMathContext;
 import com.premiumminds.billy.gin.services.export.ParamsTree;
 import com.premiumminds.billy.gin.services.export.ParamsTree.Node;
 import com.premiumminds.billy.gin.services.export.PaymentData;
-import com.premiumminds.billy.gin.services.impl.pdf.AbstractFOPPDFTransformer;
 import com.premiumminds.billy.spain.services.export.ESSimpleInvoiceData;
 import com.premiumminds.billy.spain.services.export.pdf.ESAbstractFOPPDFTransformer;
 import com.premiumminds.billy.spain.services.export.pdf.ESSimpleInvoicePDFTransformer;
 import com.premiumminds.billy.spain.services.export.pdf.simpleinvoice.ESSimpleInvoiceTemplateBundle;
+import java.io.InputStream;
+import java.math.MathContext;
 import java.time.format.DateTimeFormatter;
 
 public class ESSimpleInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransformer<ESSimpleInvoiceData>
@@ -67,12 +65,8 @@ public class ESSimpleInvoicePDFFOPTransformer extends ESAbstractFOPPDFTransforme
             }
         }
 
-        params.getRoot().addChild(
-            ParamKeys.EMISSION_DATE,
-            entity
-                .getLocalDate()
-                .map(DateTimeFormatter.ISO_LOCAL_DATE::format)
-                .orElse(AbstractFOPPDFTransformer.DATE_FORMAT.format(entity.getDate())));
+        params.getRoot()
+              .addChild(ParamKeys.EMISSION_DATE, DateTimeFormatter.ISO_LOCAL_DATE.format(entity.getLocalDate()));
     }
 
     @Override

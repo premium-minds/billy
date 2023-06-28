@@ -31,6 +31,7 @@ import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.TYPE;
 import com.premiumminds.billy.portugal.services.entities.PTInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class PTInvoiceTestUtil {
@@ -39,9 +40,6 @@ public class PTInvoiceTestUtil {
     protected static final Boolean CANCELLED = false;
     protected static final Boolean SELFBILL = false;
     protected static final String SOURCE_ID = "SOURCE";
-    public static final String SERIE = "A";
-    public static final Integer SERIE_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
 
     protected TYPE INVOICE_TYPE;
     protected Injector injector;
@@ -97,7 +95,8 @@ public class PTInvoiceTestUtil {
         return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED).setCancelled(PTInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setSourceBilling(billing).setBusinessUID(business.getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
     }
 
     public PTInvoice.ManualBuilder getManualInvoiceBuilder(PTBusinessEntity business, SourceBilling billing) {
@@ -120,7 +119,8 @@ public class PTInvoiceTestUtil {
                 .setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setSourceBilling(billing).setBusinessUID(business.getUID())
                 .setAmount(AmountType.WITH_TAX, price).setAmount(AmountType.WITHOUT_TAX, price.subtract(tax))
-                .setTaxAmount(tax).addPayment(this.payment.getPaymentBuilder());
+                .setTaxAmount(tax).addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
     }
 
     public PTInvoiceEntity getDifferentRegionsInvoice() {
@@ -149,7 +149,8 @@ public class PTInvoiceTestUtil {
                 .setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
                 .setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (PTInvoiceEntity) invoiceBuilder.build();
     }
@@ -173,7 +174,8 @@ public class PTInvoiceTestUtil {
                 .setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
                 .setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (PTInvoiceEntity) invoiceBuilder.build();
     }
@@ -203,7 +205,8 @@ public class PTInvoiceTestUtil {
                 .setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setSourceBilling(SourceBilling.P)
                 .setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (PTInvoiceEntity) invoiceBuilder.build();
     }

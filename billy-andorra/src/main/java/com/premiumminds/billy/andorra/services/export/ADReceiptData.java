@@ -18,23 +18,20 @@
  */
 package com.premiumminds.billy.andorra.services.export;
 
+import com.premiumminds.billy.gin.services.export.BusinessData;
+import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
+import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
+import com.premiumminds.billy.gin.services.export.PaymentData;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-import com.premiumminds.billy.gin.services.export.BusinessData;
-import com.premiumminds.billy.gin.services.export.GenericInvoiceData;
-import com.premiumminds.billy.gin.services.export.InvoiceEntryData;
-import com.premiumminds.billy.gin.services.export.PaymentData;
-import java.util.Optional;
-
 public class ADReceiptData extends GenericInvoiceData {
 
     public ADReceiptData(
         final String number,
-        final Date date,
-        final Optional<LocalDate> localDate,
+        final LocalDate localDate,
         final Date settlementDate,
         final List<PaymentData> payments,
         final BusinessData business,
@@ -44,7 +41,7 @@ public class ADReceiptData extends GenericInvoiceData {
         final BigDecimal amountWithoutTax,
         final String settlementDescription) {
 
-        super(number, date, localDate, settlementDate, payments, null, business, entries, taxAmount, amountWithTax,
+        super(number, localDate, settlementDate, payments, null, business, entries, taxAmount, amountWithTax,
               amountWithoutTax, settlementDescription);
     }
 

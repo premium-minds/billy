@@ -19,6 +19,7 @@
 package com.premiumminds.billy.spain.test.util;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -35,9 +36,6 @@ public class ESReceiptTestUtil {
     protected static final Boolean CANCELLED = false;
     protected static final Boolean SELFBILL = false;
     protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIES = "A";
-    protected static final Integer SERIES_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
 
     protected final Injector injector;
     protected final ESReceiptEntryTestUtil receiptEntry;
@@ -60,9 +58,16 @@ public class ESReceiptTestUtil {
         ESReceiptEntry.Builder entryBuilder =
                 this.receiptEntry.getReceiptEntryBuilder().setUnitAmount(AmountType.WITH_TAX, new BigDecimal("0.45"));
 
-        return receiptBuilder.setBilled(ESReceiptTestUtil.BILLED).setCancelled(ESReceiptTestUtil.CANCELLED)
-                .setSelfBilled(ESReceiptTestUtil.SELFBILL).setSourceId(ESReceiptTestUtil.SOURCE_ID).setDate(new Date())
-                .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
-                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+        return receiptBuilder
+                    .setBilled(ESReceiptTestUtil.BILLED)
+                    .setCancelled(ESReceiptTestUtil.CANCELLED)
+                    .setSelfBilled(ESReceiptTestUtil.SELFBILL)
+                    .setSourceId(ESReceiptTestUtil.SOURCE_ID)
+                    .setDate(new Date())
+                    .setBusinessUID(business.getUID())
+                    .addPayment(this.payments.getPaymentBuilder())
+                    .addEntry(entryBuilder)
+                    .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                    .setLocalDate(LocalDate.now());
     }
 }

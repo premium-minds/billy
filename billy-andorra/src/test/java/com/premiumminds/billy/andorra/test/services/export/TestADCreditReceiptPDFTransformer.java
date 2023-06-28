@@ -53,7 +53,6 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditReceipt;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADReceipt;
@@ -66,10 +65,10 @@ import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADMockDependencyModule;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
 
-public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest {
+class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest {
 
-    public static final String XSL_PATH = "src/main/resources/templates/ad_creditreceipt.xsl";
-    public static final String LOGO_PATH = "src/main/resources/logoBig.png";
+    private static final String XSL_PATH = "src/main/resources/templates/ad_creditreceipt.xsl";
+    private static final String LOGO_PATH = "src/main/resources/logoBig.png";
 
     private Injector mockedInjector;
     private ADCreditReceiptPDFFOPTransformer transformer;
@@ -86,7 +85,8 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
         this.extractor = this.mockedInjector.getInstance(ADCreditReceiptDataExtractor.class);
     }
 
-    @Test public void testPdfCreation()
+    @Test
+    void testPdfCreation()
         throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
 
@@ -94,7 +94,7 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
         final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ADReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        ADCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
+        ADCreditReceiptEntity entity = this.generateESCreditReceipt(receipt);
         DAOADCreditReceipt dao = this.mockedInjector.getInstance(DAOADCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOADReceipt daoReceipt = this.mockedInjector.getInstance(DAOADReceipt.class);
@@ -111,12 +111,14 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
         }
     }
 
-    @Test public void testNonExistentEntity() {
+    @Test
+    void testNonExistentEntity() {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test public void testPdfCreationFromBundle()
+    @Test
+    void testPdfCreationFromBundle()
         throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
 
@@ -124,7 +126,7 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
         final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ADReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        ADCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
+        ADCreditReceiptEntity entity = this.generateESCreditReceipt(receipt);
         DAOADCreditReceipt dao = this.mockedInjector.getInstance(DAOADCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOADReceipt daoReceipt = this.mockedInjector.getInstance(DAOADReceipt.class);
@@ -146,7 +148,7 @@ public class TestADCreditReceiptPDFTransformer extends ADPersistencyAbstractTest
         }
     }
 
-    private ADCreditReceiptEntity generateESCreditReceipt(PaymentMechanism paymentMechanism, ADReceiptEntity reference)
+    private ADCreditReceiptEntity generateESCreditReceipt(ADReceiptEntity reference)
         throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         Services services = new Services(ADAbstractTest.injector);

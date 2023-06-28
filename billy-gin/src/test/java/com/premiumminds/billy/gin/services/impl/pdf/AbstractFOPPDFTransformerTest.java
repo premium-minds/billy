@@ -38,8 +38,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 class AbstractFOPPDFTransformerTest {
@@ -96,7 +94,7 @@ class AbstractFOPPDFTransformerTest {
     }
 
     @Test
-    public void testTransform() throws Exception {
+    void testTransform() throws Exception {
 
         final CostumerData customer = new CostumerData(
             StringID.fromValue("uid1"),
@@ -118,8 +116,7 @@ class AbstractFOPPDFTransformerTest {
             new ContactData("phone2", "fax2", "email2"));
         GenericInvoiceData genericInvoiceData = new GenericInvoiceData(
             "number1",
-            new Date(),
-            Optional.of(LocalDate.now()),
+            LocalDate.now(),
             new Date(),
             new ArrayList<>(), customer, business, List.of(new InvoiceEntryData(
             new ProductData("productCode1", "description1"),
@@ -150,7 +147,7 @@ class AbstractFOPPDFTransformerTest {
     }
 
     @Test
-    public void testTransformWithBigQrCode() throws Exception {
+    void testTransformWithBigQrCode() throws Exception {
 
         final CostumerData customer = new CostumerData(
             StringID.fromValue("uid1"),
@@ -172,8 +169,7 @@ class AbstractFOPPDFTransformerTest {
             new ContactData("phone2", "fax2", "email2"));
         GenericInvoiceData genericInvoiceData = new GenericInvoiceData(
             "number1",
-            new Date(),
-            Optional.of(LocalDate.now()),
+            LocalDate.now(),
             new Date(),
             new ArrayList<>(), customer, business, List.of(new InvoiceEntryData(
             new ProductData("productCode1", "description1"),

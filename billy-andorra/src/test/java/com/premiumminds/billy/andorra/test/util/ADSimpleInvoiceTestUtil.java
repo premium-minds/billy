@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.andorra.test.util;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -34,13 +35,7 @@ import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice.CLIENTTY
 
 public class ADSimpleInvoiceTestUtil {
 
-    protected static final Boolean BILLED = false;
-    protected static final Boolean CANCELLED = false;
-    protected static final Boolean SELFBILL = false;
-    protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIE = "A";
-    protected static final Integer SERIE_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
+    private static final int MAX_PRODUCTS = 5;
 
     protected Injector injector;
     protected ADInvoiceEntryTestUtil invoiceEntry;
@@ -80,11 +75,12 @@ public class ADSimpleInvoiceTestUtil {
         }
 
         return invoiceBuilder.setBilled(ADInvoiceTestUtil.BILLED).setCancelled(ADInvoiceTestUtil.CANCELLED)
-                             .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(
-                ADInvoiceTestUtil.SOURCE_ID)
+                             .setSelfBilled(ADInvoiceTestUtil.SELFBILL).setDate(new Date())
+                             .setSourceId(ADInvoiceTestUtil.SOURCE_ID)
                              .setCustomerUID(customerUID).setBusinessUID(businessEntity.getUID())
                              .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
-                             .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                             .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                             .setLocalDate(LocalDate.now());
     }
 
 }

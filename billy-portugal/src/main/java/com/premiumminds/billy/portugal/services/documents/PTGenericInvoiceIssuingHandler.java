@@ -127,7 +127,10 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
             .toString();
 
         ZoneId timezone = document.getBusiness().getTimezone();
-        LocalDate issueLocalDate = document.getLocalDate().orElse(LocalDate.ofInstant(invoiceDate.toInstant(), timezone));
+        LocalDate issueLocalDate =
+            document.getLocalDate() == null ?
+                LocalDate.ofInstant(invoiceDate.toInstant(), timezone) :
+                document.getLocalDate();
 
         document.setDate(invoiceDate);
         document.setNumber(formattedNumber);

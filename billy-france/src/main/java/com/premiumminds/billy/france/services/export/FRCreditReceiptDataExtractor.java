@@ -60,8 +60,8 @@ public class FRCreditReceiptDataExtractor extends AbstractBillyDataExtractor
         BusinessData business = this.extractBusiness(entity.getBusiness());
         List<FRCreditReceiptEntryData> entries = this.extractCreditEntries(entity.getEntries());
 
-        return new FRCreditReceiptData(entity.getNumber(), entity.getDate(), entity.getLocalDate(),
-                                       entity.getSettlementDate(), payments, business, entries, entity.getTaxAmount(),
+        return new FRCreditReceiptData(entity.getNumber(), entity.getLocalDate(), entity.getSettlementDate(),
+                                       payments, business, entries, entity.getTaxAmount(),
                                        entity.getAmountWithTax(), entity.getAmountWithoutTax(),
                                        entity.getSettlementDescription());
     }

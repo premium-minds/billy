@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.test.util;
 
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Customer;
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -82,10 +83,17 @@ public class PTReceiptInvoiceTestUtil {
             invoiceBuilder.addEntry(invoiceEntryBuilder);
         }
 
-        return invoiceBuilder.setBilled(PTInvoiceTestUtil.BILLED).setCancelled(PTInvoiceTestUtil.CANCELLED)
-                .setSelfBilled(PTInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(PTInvoiceTestUtil.SOURCE_ID)
-                .setCustomerUID(customerUID).setSourceBilling(billing).setBusinessUID(businessEntity.getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+        return invoiceBuilder
+                    .setBilled(PTInvoiceTestUtil.BILLED)
+                    .setCancelled(PTInvoiceTestUtil.CANCELLED)
+                    .setSelfBilled(PTInvoiceTestUtil.SELFBILL)
+                    .setDate(new Date())
+                    .setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+                    .setCustomerUID(customerUID)
+                    .setSourceBilling(billing)
+                    .setBusinessUID(businessEntity.getUID())
+                    .addPayment(this.payment.getPaymentBuilder())
+                    .setLocalDate(LocalDate.now());
     }
 
 }

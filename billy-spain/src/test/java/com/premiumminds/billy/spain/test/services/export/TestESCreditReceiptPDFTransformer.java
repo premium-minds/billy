@@ -48,7 +48,6 @@ import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.spain.SpainDependencyModule;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCreditReceipt;
@@ -86,7 +85,8 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         this.extractor = this.mockedInjector.getInstance(ESCreditReceiptDataExtractor.class);
     }
 
-    @Test public void testPdfCreation()
+    @Test
+    void testPdfCreation()
         throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
 
@@ -94,7 +94,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ESReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
+        ESCreditReceiptEntity entity = this.generateESCreditReceipt(receipt);
         DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
@@ -111,12 +111,14 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         }
     }
 
-    @Test public void testNonExistentEntity() {
+    @Test
+    void testNonExistentEntity() {
         StringID<GenericInvoice> uidEntity = StringID.fromValue("12345");
         Assertions.assertThrows(ExportServiceException.class, () -> this.extractor.extract(uidEntity));
     }
 
-    @Test public void testPdfCreationFromBundle()
+    @Test
+    void testPdfCreationFromBundle()
         throws ExportServiceException, DocumentIssuingException, IOException, SeriesUniqueCodeNotFilled,
         DocumentSeriesDoesNotExistException {
 
@@ -124,7 +126,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         final StringID<Business> businessUID = StringID.fromValue(UUID.randomUUID().toString());
         this.createSeries(businessUID);
         ESReceiptEntity receipt = this.getNewIssuedReceipt(businessUID);
-        ESCreditReceiptEntity entity = this.generateESCreditReceipt(PaymentMechanism.CASH, receipt);
+        ESCreditReceiptEntity entity = this.generateESCreditReceipt(receipt);
         DAOESCreditReceipt dao = this.mockedInjector.getInstance(DAOESCreditReceipt.class);
         Mockito.when(dao.get(ArgumentMatchers.eq(uidEntity))).thenReturn(entity);
         DAOESReceipt daoReceipt = this.mockedInjector.getInstance(DAOESReceipt.class);
@@ -146,7 +148,7 @@ public class TestESCreditReceiptPDFTransformer extends ESPersistencyAbstractTest
         }
     }
 
-    private ESCreditReceiptEntity generateESCreditReceipt(PaymentMechanism paymentMechanism, ESReceiptEntity reference)
+    private ESCreditReceiptEntity generateESCreditReceipt(ESReceiptEntity reference)
         throws DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException {
 
         Services services = new Services(ESAbstractTest.injector);

@@ -31,6 +31,7 @@ import com.premiumminds.billy.spain.services.entities.ESInvoice;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.test.services.documents.ESDocumentAbstractTest.SOURCE_BILLING;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class ESInvoiceTestUtil {
@@ -39,9 +40,6 @@ public class ESInvoiceTestUtil {
     protected static final Boolean CANCELLED = false;
     protected static final Boolean SELFBILL = false;
     protected static final String SOURCE_ID = "SOURCE";
-    protected static final String SERIE = "A";
-    protected static final Integer SERIE_NUMBER = 1;
-    protected static final int MAX_PRODUCTS = 5;
 
     protected Injector injector;
     protected ESInvoiceEntryTestUtil invoiceEntry;
@@ -92,7 +90,8 @@ public class ESInvoiceTestUtil {
         return invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(business.getUID())
-                .addPayment(this.payment.getPaymentBuilder()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                .addPayment(this.payment.getPaymentBuilder()).setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(LocalDate.now());
     }
 
     public ESInvoice.ManualBuilder getManualInvoiceBuilder(ESBusinessEntity business) {
@@ -115,7 +114,8 @@ public class ESInvoiceTestUtil {
                 .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(business.getUID()).setAmount(AmountType.WITH_TAX, price)
                 .setAmount(AmountType.WITHOUT_TAX, price.subtract(tax)).setTaxAmount(tax)
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
     }
 
     public ESInvoiceEntity getDifferentRegionsInvoice() {
@@ -136,7 +136,8 @@ public class ESInvoiceTestUtil {
         invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (ESInvoiceEntity) invoiceBuilder.build();
     }
@@ -159,7 +160,8 @@ public class ESInvoiceTestUtil {
         invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (ESInvoiceEntity) invoiceBuilder.build();
     }
@@ -188,7 +190,8 @@ public class ESInvoiceTestUtil {
         invoiceBuilder.setBilled(ESInvoiceTestUtil.BILLED).setCancelled(ESInvoiceTestUtil.CANCELLED)
                 .setSelfBilled(ESInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(ESInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(this.business.getBusinessEntity().getUID())
-                .addPayment(this.payment.getPaymentBuilder());
+                .addPayment(this.payment.getPaymentBuilder())
+                .setLocalDate(LocalDate.now());
 
         return (ESInvoiceEntity) invoiceBuilder.build();
     }

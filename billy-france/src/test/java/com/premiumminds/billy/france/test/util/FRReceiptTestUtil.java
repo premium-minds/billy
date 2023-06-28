@@ -19,6 +19,7 @@
 package com.premiumminds.billy.france.test.util;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -63,6 +64,7 @@ public class FRReceiptTestUtil {
         return receiptBuilder.setBilled(FRReceiptTestUtil.BILLED).setCancelled(FRReceiptTestUtil.CANCELLED)
                 .setSelfBilled(FRReceiptTestUtil.SELFBILL).setSourceId(FRReceiptTestUtil.SOURCE_ID).setDate(new Date())
                 .setBusinessUID(business.getUID()).addPayment(this.payments.getPaymentBuilder()).addEntry(entryBuilder)
-                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(LocalDate.now());
     }
 }

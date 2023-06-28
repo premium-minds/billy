@@ -36,7 +36,6 @@ import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import javax.inject.Inject;
 
 public interface GenericInvoice extends Entity<GenericInvoice> {
@@ -116,6 +115,6 @@ public interface GenericInvoice extends Entity<GenericInvoice> {
 
     public Integer getScale();
 
-    public Optional<LocalDate> getLocalDate();
+    public LocalDate getLocalDate();
 
 }

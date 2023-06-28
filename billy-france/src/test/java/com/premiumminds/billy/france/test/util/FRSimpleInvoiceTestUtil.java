@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.france.test.util;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import com.google.inject.Injector;
@@ -83,7 +84,8 @@ public class FRSimpleInvoiceTestUtil {
                 .setSelfBilled(FRInvoiceTestUtil.SELFBILL).setDate(new Date()).setSourceId(FRInvoiceTestUtil.SOURCE_ID)
                 .setCustomerUID(customerUID).setBusinessUID(businessEntity.getUID())
                 .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
-                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT);
+                .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+                .setLocalDate(LocalDate.now());
     }
 
 }
