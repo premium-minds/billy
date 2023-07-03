@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 import javax.inject.Inject;
@@ -113,6 +114,14 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     public TBuilder setCurrency(Currency currency) {
         BillyValidator.notNull(currency, "field.currency");
         this.getTypeInstance().setCurrency(currency);
+
+        return this.getBuilder();
+    }
+
+    @Override
+    public <T extends Tax> TBuilder setTaxes(final Collection<T> taxes) {
+        BillyValidator.notNull(taxes, "field.taxes");
+        this.getTypeInstance().setTaxes(taxes);
 
         return this.getBuilder();
     }
@@ -237,14 +246,15 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
     @Override
     protected void validateInstance() throws BillyValidationException {
-        this.validateValues();
-
         GenericInvoiceEntry i = this.getTypeInstance();
-        BillyValidator.mandatory(i.getDescription(),
-                                 GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.description"));
+
         BillyValidator.mandatory(i.getTaxPointDate(),
                                  GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.tax_point_date"));
+        BillyValidator.mandatory(i.getDescription(),
+                                 GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.description"));
         BillyValidator.mandatory(i.getCurrency(), GenericInvoiceEntryBuilderImpl.LOCALIZER.getString("field.currency"));
+
+        this.validateValues();
 
         if (i.getAmountType().compareTo(AmountType.WITH_TAX) == 0) {
             BillyValidator.mandatory(i.getUnitAmountWithoutTax(),
@@ -260,18 +270,29 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
 
         GenericInvoiceEntryEntity e = this.getTypeInstance();
 
-        for (Tax t : e.getProduct().getTaxes()) {
-            if (this.daoContext.isSameOrSubContext(this.context, t.getContext())) {
-                Date taxDate = e.getTaxPointDate() == null ? new Date() : e.getTaxPointDate();
-                if (t.getValidTo() == null || DateUtils.isSameDay(t.getValidTo(), taxDate) ||
-                        t.getValidTo().after(taxDate)) {
-                    e.getTaxes().add(t);
+        if (e.getTaxes().isEmpty()) {
+            for (Tax t : e.getProduct().getTaxes()) {
+                if (this.daoContext.isSameOrSubContext(this.context, t.getContext())) {
+                    Date taxDate = e.getTaxPointDate();
+                    if (t.getValidTo() == null || DateUtils.isSameDay(t.getValidTo(), taxDate) || t.getValidTo().after(
+                        taxDate)) {
+                        e.getTaxes().add(t);
+                    }
                 }
             }
-        }
-        if (e.getTaxes().isEmpty()) {
-            throw new BillyValidationException(GenericInvoiceEntryBuilderImpl.LOCALIZER.getString(
+
+            if (e.getTaxes().isEmpty()) {
+                throw new BillyValidationException(GenericInvoiceEntryBuilderImpl.LOCALIZER.getString(
                     "exception.invalid_taxes"));
+            }
+        }
+        else {
+            e.getTaxes().forEach(t -> {
+                if (t.getValidTo() != null && t.getValidTo().before(e.getTaxPointDate())) {
+                    throw new BillyValidationException(GenericInvoiceEntryBuilderImpl.LOCALIZER.getString(
+                        "exception.invalid_taxes"));
+                }
+            });
         }
 
         e.setUnitDiscountAmount(BigDecimal.ZERO); // TODO
@@ -337,7 +358,7 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
     @SuppressWarnings("unchecked")
     @Override
     protected GenericInvoiceEntryEntity getTypeInstance() {
-        return (GenericInvoiceEntryEntity) super.getTypeInstance();
+        return super.getTypeInstance();
     }
 
 }

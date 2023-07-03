@@ -19,6 +19,7 @@
 package com.premiumminds.billy.core.persistence.entities;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
@@ -78,6 +79,8 @@ public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry {
 
     @Override
     public <T extends Tax> List<T> getTaxes();
+
+    public <T extends Tax> void setTaxes(Collection<T> taxes);
 
     public void setTaxExemptionReason(String exemptionReason);
 

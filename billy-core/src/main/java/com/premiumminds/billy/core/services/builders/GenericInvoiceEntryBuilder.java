@@ -23,10 +23,12 @@ import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.util.DiscountType;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 
@@ -69,5 +71,7 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
     TBuilder setAmountType(AmountType type);
 
     TBuilder setCurrency(Currency currency);
+
+    <T extends Tax> TBuilder setTaxes(Collection<T> taxes);
 
 }

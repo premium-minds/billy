@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.andorra.its;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.AndorraBootstrap;
@@ -45,20 +47,18 @@ import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
-import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 class InvoiceIT {
 
@@ -107,6 +107,56 @@ class InvoiceIT {
             creditNoteParameters,
             customer,
             product,
+            invoice);
+
+        final DAOADInvoice daoInvoice = injector.getInstance(DAOADInvoice.class);
+        final DAOADCreditNote daoCreditNote = injector.getInstance(DAOADCreditNote.class);
+        assertTrue(daoInvoice.exists(invoice.getUID()));
+        assertTrue(daoCreditNote.exists(creditNote.getUID()));
+    }
+
+    @Test
+    void testIssueCreditNoteFromInvoiceData() throws Exception {
+
+        injector = Guice.createInjector(new AndorraDependencyModule(),
+                                        new AndorraPersistenceDependencyModule("BillyAndorraTestPersistenceUnit"));
+        injector.getInstance(AndorraDependencyModule.Initializer.class);
+        injector.getInstance(AndorraPersistenceDependencyModule.Initializer.class);
+        AndorraBootstrap.execute(injector);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        BillyAndorra billyAndorra = new BillyAndorra(injector);
+        ADIssuingParams invoiceParameters = getAdInvoiceIssuingParams();
+        ADIssuingParams creditNoteParameters = getAdCreditNoteIssuingParams();
+
+        ADApplication.Builder applicationBuilder = getAdApplicationBuilder(billyAndorra);
+        ADBusiness business = createAdBusiness(billyAndorra, applicationBuilder);
+        ADCustomer customer = createAdCustomer(billyAndorra);
+
+        createSeries(invoiceParameters.getInvoiceSeries(), business, "CCCC2345");
+        createSeries(creditNoteParameters.getInvoiceSeries(), business, "CCCC2346");
+
+        final ADTax flatTax = createFlatTax(billyAndorra);
+
+        ADProduct product = createAdProduct(billyAndorra);
+        ADProduct productExempt = createAdProductExempt(billyAndorra);
+        ADProduct productFlat = createAdProductFlat(billyAndorra, flatTax);
+        ADInvoice invoice = createAdInvoice(
+            dateFormat,
+            billyAndorra,
+            business,
+            invoiceParameters,
+            customer,
+            product,
+            productExempt,
+            productFlat);
+        ADCreditNote creditNote = createAdCreditNoteFromInvoice(
+            dateFormat,
+            billyAndorra,
+            business,
+            creditNoteParameters,
+            customer,
             invoice);
 
         final DAOADInvoice daoInvoice = injector.getInstance(DAOADInvoice.class);
@@ -298,6 +348,54 @@ class InvoiceIT {
                 .setUnitOfMeasure(product.getUnitOfMeasure())
                 .setReferenceUID(invoice.getUID())
                 .setReason("some reason 1");
+
+        creditNoteBuilder.addEntry(entryBuilder);
+
+        return billyAndorra.creditNotes().issue(creditNoteBuilder, invoiceParameters);
+    }
+
+    private ADCreditNote createAdCreditNoteFromInvoice(
+        SimpleDateFormat dateFormat,
+        BillyAndorra billyAndorra,
+        ADBusiness business,
+        ADIssuingParams invoiceParameters,
+        ADCustomer customer,
+        ADInvoice invoice) throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
+        Date creditNoteDate = dateFormat.parse("01-03-2013");
+
+        final ADPayment.Builder paymentBuilder = billyAndorra
+            .payments()
+            .builder()
+            .setPaymentAmount(new BigDecimal("1.1"))
+            .setPaymentMethod(PaymentMechanism.CASH)
+            .setPaymentDate(creditNoteDate);
+
+        ADCreditNote.Builder creditNoteBuilder = billyAndorra.creditNotes().builder();
+
+        creditNoteBuilder.setSelfBilled(false)
+                         .setCancelled(false)
+                         .setBilled(false)
+                         .setDate(creditNoteDate)
+                         .setSourceId("User 2")
+                         .addPayment(paymentBuilder)
+                         .setBusinessUID(business.getUID())
+                         .setCustomerUID(customer.getUID());
+
+        final GenericInvoiceEntry entry = invoice.getEntries().get(0);
+
+        ADCreditNoteEntry.Builder entryBuilder = billyAndorra.creditNotes().entryBuilder();
+        entryBuilder.setAmountType(GenericInvoiceEntryBuilder.AmountType.WITH_TAX)
+                    .setCurrency(Currency.getInstance("EUR"))
+                    .setQuantity(entry.getQuantity())
+                    .setTaxPointDate(entry.getTaxPointDate())
+                    .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, entry.getUnitAmountWithTax())
+                    .setTaxes(entry.getTaxes())
+                    .setProductUID(entry.getProduct().getUID())
+                    .setDescription(entry.getProduct().getDescription())
+                    .setUnitOfMeasure(entry.getProduct().getUnitOfMeasure())
+                    .setReferenceUID(invoice.getUID())
+                    .setReason("some reason 1");
 
         creditNoteBuilder.addEntry(entryBuilder);
 
