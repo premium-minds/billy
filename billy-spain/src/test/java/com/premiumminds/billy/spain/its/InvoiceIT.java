@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.its;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
@@ -26,6 +28,7 @@ import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.PaymentMechanism;
@@ -49,16 +52,13 @@ import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.services.entities.ESPayment;
 import com.premiumminds.billy.spain.services.entities.ESProduct;
 import com.premiumminds.billy.spain.services.entities.ESTax;
-import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 class InvoiceIT {
 
@@ -99,6 +99,47 @@ class InvoiceIT {
                 customer,
                 product,
                 invoice);
+
+        final DAOESInvoice daoInvoice = injector.getInstance(DAOESInvoice.class);
+        final DAOESCreditNote daoCreditNote = injector.getInstance(DAOESCreditNote.class);
+        assertTrue(daoInvoice.exists(invoice.getUID()));
+        assertTrue(daoCreditNote.exists(creditNote.getUID()));
+    }
+
+    @Test
+    void testIssueCreditNoteFromInvoiceData() throws Exception {
+
+        injector = Guice.createInjector(new SpainDependencyModule(),
+                                        new SpainPersistenceDependencyModule("BillySpainTestPersistenceUnit"));
+        injector.getInstance(SpainDependencyModule.Initializer.class);
+        injector.getInstance(SpainPersistenceDependencyModule.Initializer.class);
+        SpainBootstrap.execute(injector);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        BillySpain billySpain = new BillySpain(injector);
+        ESIssuingParams invoiceParameters = getEsInvoiceIssuingParams();
+        ESIssuingParams creditNoteParameters = getEsCreditNoteIssuingParams();
+
+        ESApplication.Builder applicationBuilder = getEsApplicationBuilder(billySpain);
+        ESBusiness business = createEsBusiness(billySpain, applicationBuilder);
+        ESCustomer customer = createEsCustomer(billySpain);
+
+        createSeries(invoiceParameters.getInvoiceSeries(), business, "CCCC2345");
+        createSeries(creditNoteParameters.getInvoiceSeries(), business, "CCCC2346");
+
+        final ESTax flatTax = createFlatTax(billySpain);
+
+        ESProduct product = createEsProduct(billySpain);
+        ESProduct productExempt = createEsProductExempt(billySpain);
+        ESProduct productFlat = createEsProductFlat(billySpain, flatTax);
+        ESInvoice invoice = createEsInvoice(dateFormat, billySpain, business, invoiceParameters, customer, product, productExempt, productFlat);
+        ESCreditNote creditNote = createEsCreditNoteFromInvoice(dateFormat,
+                                                                billySpain,
+                                                                business,
+                                                                creditNoteParameters,
+                                                                customer,
+                                                                invoice);
 
         final DAOESInvoice daoInvoice = injector.getInstance(DAOESInvoice.class);
         final DAOESCreditNote daoCreditNote = injector.getInstance(DAOESCreditNote.class);
@@ -289,6 +330,54 @@ class InvoiceIT {
                 .setUnitOfMeasure(product.getUnitOfMeasure())
                 .setReferenceUID(invoice.getUID())
                 .setReason("some reason 1");
+
+        creditNoteBuilder.addEntry(entryBuilder);
+
+        return billySpain.creditNotes().issue(creditNoteBuilder, invoiceParameters);
+    }
+
+    private ESCreditNote createEsCreditNoteFromInvoice(SimpleDateFormat dateFormat,
+                                                       BillySpain billySpain,
+                                                       ESBusiness business,
+                                                       ESIssuingParams invoiceParameters,
+                                                       ESCustomer customer,
+                                                       ESInvoice invoice)
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
+        Date creditNoteDate = dateFormat.parse("01-03-2013");
+
+        final ESPayment.Builder paymentBuilder = billySpain
+            .payments()
+            .builder()
+            .setPaymentAmount(new BigDecimal("1.1"))
+            .setPaymentMethod(PaymentMechanism.CASH)
+            .setPaymentDate(creditNoteDate);
+
+        ESCreditNote.Builder creditNoteBuilder = billySpain.creditNotes().builder();
+
+        creditNoteBuilder.setSelfBilled(false)
+                         .setCancelled(false)
+                         .setBilled(false)
+                         .setDate(creditNoteDate)
+                         .setSourceId("User 2")
+                         .addPayment(paymentBuilder)
+                         .setBusinessUID(business.getUID())
+                         .setCustomerUID(customer.getUID());
+
+        final GenericInvoiceEntry entry = invoice.getEntries().get(0);
+
+        ESCreditNoteEntry.Builder entryBuilder = billySpain.creditNotes().entryBuilder();
+        entryBuilder.setAmountType(GenericInvoiceEntryBuilder.AmountType.WITH_TAX)
+                    .setCurrency(Currency.getInstance("EUR"))
+                    .setQuantity(entry.getQuantity())
+                    .setTaxPointDate(entry.getTaxPointDate())
+                    .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, entry.getUnitAmountWithTax())
+                    .setTaxes(entry.getTaxes())
+                    .setProductUID(entry.getProduct().getUID())
+                    .setDescription(entry.getProduct().getDescription())
+                    .setUnitOfMeasure(entry.getProduct().getUnitOfMeasure())
+                    .setReferenceUID(invoice.getUID())
+                    .setReason("some reason 1");
 
         creditNoteBuilder.addEntry(entryBuilder);
 

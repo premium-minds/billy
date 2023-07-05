@@ -20,6 +20,7 @@ package com.premiumminds.billy.core.test.fixtures;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
@@ -286,6 +287,12 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity<GenericInvoice
     @Override
     public void setExchangeRateToDocumentCurrency(BigDecimal rate) {
         this.exchangeRateToDocumentCurrency = rate;
+    }
+
+    @Override
+    public <T extends Tax> void setTaxes(final Collection<T> taxes) {
+        this.taxes.clear();
+        this.taxes.addAll(taxes);
     }
 
     @Override

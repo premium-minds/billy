@@ -18,6 +18,9 @@
  */
 package com.premiumminds.billy.portugal.its;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
@@ -26,6 +29,7 @@ import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder;
 import com.premiumminds.billy.core.services.entities.Product;
 import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
@@ -50,14 +54,6 @@ import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
-import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -67,9 +63,13 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
+import org.junit.jupiter.api.Test;
+import org.w3c.dom.Document;
 
 public class InvoiceIT {
 
@@ -129,6 +129,69 @@ public class InvoiceIT {
                 startDate,
                 endDate,
                 PTSAFTFileGenerator.SAFTVersion.CURRENT, true)) {
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document document = db.parse(inputStream);
+
+            XPathFactory xpathFactory = XPathFactory.newInstance();
+            XPath xpath = xpathFactory.newXPath();
+
+            assertEquals("2", xpath.evaluate("//SourceDocuments/SalesInvoices/NumberOfEntries", document, XPathConstants.STRING));
+            assertEquals("813.01", xpath.evaluate("//SourceDocuments/SalesInvoices/TotalDebit", document, XPathConstants.STRING));
+            assertEquals("2757.51", xpath.evaluate("//SourceDocuments/SalesInvoices/TotalCredit", document, XPathConstants.STRING));
+        }
+    }
+
+    @Test
+    void testIssueCreditNoteFromInvoiceData() throws Exception {
+
+        injector = Guice.createInjector(new PortugalDependencyModule(),
+                                        new PortugalPersistenceDependencyModule("BillyPortugalTestPersistenceUnit"));
+        injector.getInstance(PortugalDependencyModule.Initializer.class);
+        injector.getInstance(PortugalPersistenceDependencyModule.Initializer.class);
+        PortugalBootstrap.execute(injector);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        BillyPortugal billyPortugal = new BillyPortugal(injector);
+        PTIssuingParams invoiceParameters = getPtInvoiceIssuingParams();
+        PTIssuingParams creditNoteParameters = getPtCreditNoteIssuingParams();
+
+        PTApplication.Builder applicationBuilder = getPTApplicationBuilder(billyPortugal);
+        PTApplication application = createPtApplication(billyPortugal, applicationBuilder);
+        PTBusiness business = createPtBusiness(billyPortugal, applicationBuilder);
+        PTCustomer customer = createPtCustomer(billyPortugal);
+
+        createSeries(invoiceParameters.getInvoiceSeries(), business, "CCCC2345");
+        createSeries(creditNoteParameters.getInvoiceSeries(), business, "CCCC2346");
+
+        final PTTax flatTax = createFlatTax(billyPortugal);
+
+        PTProduct product = createPtProduct(billyPortugal);
+        PTProduct productExempt = createPtProductExempt(billyPortugal);
+        PTProduct productFlat = createPtProductFlat(billyPortugal, flatTax);
+        PTInvoice invoice = createPtInvoice(dateFormat, billyPortugal, business, invoiceParameters, customer, product, productExempt, productFlat);
+        PTCreditNote creditNote = createPtCreditNoteFromInvoice(dateFormat,
+                                                                billyPortugal,
+                                                                business,
+                                                                creditNoteParameters,
+                                                                customer,
+                                                                invoice);
+
+        final DAOPTInvoice daoInvoice = injector.getInstance(DAOPTInvoice.class);
+        final DAOPTCreditNote daoCreditNote = injector.getInstance(DAOPTCreditNote.class);
+        assertTrue(daoInvoice.exists(invoice.getUID()));
+        assertTrue(daoCreditNote.exists(creditNote.getUID()));
+
+        Date startDate = dateFormat.parse("01-01-2013");
+        Date endDate = dateFormat.parse("01-01-2014");
+
+        try (InputStream inputStream = billyPortugal.saft().export(application.getUID(),
+                                                                   business.getUID(),
+                                                                   startDate,
+                                                                   endDate,
+                                                                   PTSAFTFileGenerator.SAFTVersion.CURRENT, true)) {
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();
@@ -316,6 +379,45 @@ public class InvoiceIT {
                 .setReferenceUID(invoice.getUID())
                 .setReason("some reason 1");
 
+        creditNoteBuilder.addEntry(entryBuilder);
+
+        return billyPortugal.creditNotes().issue(creditNoteBuilder, invoiceParameters);
+    }
+
+    private PTCreditNote createPtCreditNoteFromInvoice(SimpleDateFormat dateFormat,
+                                                       BillyPortugal billyPortugal,
+                                                       PTBusiness business,
+                                                       PTIssuingParams invoiceParameters,
+                                                       PTCustomer customer,
+                                                       PTInvoice invoice)
+        throws ParseException, DocumentIssuingException, SeriesUniqueCodeNotFilled, DocumentSeriesDoesNotExistException
+    {
+        PTCreditNote.Builder creditNoteBuilder = billyPortugal.creditNotes().builder();
+
+        Date creditNoteDate = dateFormat.parse("01-03-2013");
+        creditNoteBuilder.setSelfBilled(false)
+                         .setCancelled(false)
+                         .setBilled(false)
+                         .setDate(creditNoteDate)
+                         .setSourceId("User 2")
+                         .setSourceBilling(PTGenericInvoice.SourceBilling.P)
+                         .setBusinessUID(business.getUID())
+                         .setCustomerUID(customer.getUID());
+
+        final GenericInvoiceEntry entry = invoice.getEntries().get(0);
+
+        PTCreditNoteEntry.Builder entryBuilder = billyPortugal.creditNotes().entryBuilder();
+        entryBuilder.setAmountType(GenericInvoiceEntryBuilder.AmountType.WITH_TAX)
+                    .setCurrency(Currency.getInstance("EUR"))
+                    .setQuantity(entry.getQuantity())
+                    .setTaxPointDate(entry.getTaxPointDate())
+                    .setUnitAmount(GenericInvoiceEntryBuilder.AmountType.WITH_TAX, entry.getUnitAmountWithTax())
+                    .setTaxes(entry.getTaxes())
+                    .setProductUID(entry.getProduct().getUID())
+                    .setDescription(entry.getProduct().getDescription())
+                    .setUnitOfMeasure(entry.getProduct().getUnitOfMeasure())
+                    .setReferenceUID(invoice.getUID())
+                    .setReason("some reason 1");
         creditNoteBuilder.addEntry(entryBuilder);
 
         return billyPortugal.creditNotes().issue(creditNoteBuilder, invoiceParameters);
