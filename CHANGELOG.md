@@ -3,6 +3,10 @@
 
 ## [Unreleased v9]
 
+### Added
+
+ - [Allow the manual setting of invoice entry taxes via builder](https://github.com/premium-minds/billy/pull/452)
+
 ## [9.0.0] 2023-06-28
 
 ### Changed
