@@ -7,6 +7,11 @@
 
  - [Allow the manual setting of invoice entry taxes via builder](https://github.com/premium-minds/billy/pull/452)
 
+ ### Changed
+
+  - [Bump h2 from 2.1.214 to 2.2.220](https://github.com/premium-minds/billy/pull/453)
+  - [Bump pdfbox from 2.0.28 to 2.0.29](https://github.com/premium-minds/billy/pull/451)
+
 ## [9.0.0] 2023-06-28
 
 ### Changed
