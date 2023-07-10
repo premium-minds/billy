@@ -107,4 +107,41 @@ public class PTSimpleInvoiceTestUtil {
                     .setLocalDate(LocalDate.now());
     }
 
+    public PTSimpleInvoiceEntity getSimpleInvoiceEntityOverMaxForCustomer(SourceBilling billing) {
+        PTSimpleInvoiceEntity invoice = (PTSimpleInvoiceEntity) this
+            .getSimpleInvoiceBuilderOverMaxForCustomer(this.business.getBusinessEntity(), billing).build();
+        invoice.setType(this.INVOICE_TYPE);
+
+        return invoice;
+    }
+
+    public PTSimpleInvoice.Builder getSimpleInvoiceBuilderOverMaxForCustomer(
+        PTBusinessEntity businessEntity,
+        SourceBilling billing)
+    {
+        PTSimpleInvoice.Builder invoiceBuilder = this.injector.getInstance(PTSimpleInvoice.Builder.class);
+
+        DAOPTCustomer daoPTCustomer = this.injector.getInstance(DAOPTCustomer.class);
+
+        PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+        StringID<Customer> customerUID = daoPTCustomer.create(customerEntity).getUID();
+        for (int i = 0; i < 151; ++i) {
+            PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+            invoiceBuilder.addEntry(invoiceEntryBuilder);
+        }
+
+        return invoiceBuilder
+            .setBilled(PTInvoiceTestUtil.BILLED)
+            .setCancelled(PTInvoiceTestUtil.CANCELLED)
+            .setSelfBilled(PTInvoiceTestUtil.SELFBILL)
+            .setDate(new Date())
+            .setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+            .setCustomerUID(customerUID)
+            .setSourceBilling(billing)
+            .setBusinessUID(businessEntity.getUID())
+            .addPayment(this.payment.getPaymentBuilder())
+            .setClientType(CLIENTTYPE.CUSTOMER)
+            .setLocalDate(LocalDate.now());
+    }
+
 }

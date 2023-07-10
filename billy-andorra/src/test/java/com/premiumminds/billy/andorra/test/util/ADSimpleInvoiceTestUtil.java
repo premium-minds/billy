@@ -83,4 +83,35 @@ public class ADSimpleInvoiceTestUtil {
                              .setLocalDate(LocalDate.now());
     }
 
+    public ADSimpleInvoiceEntity getSimpleInvoiceEntityOverMaxForCustomer() {
+        return (ADSimpleInvoiceEntity) this
+            .getSimpleInvoiceBuilderOverMaxForCustomer(this.business.getBusinessEntity()).build();
+    }
+
+    public ADSimpleInvoice.Builder getSimpleInvoiceBuilderOverMaxForCustomer(ADBusinessEntity businessEntity) {
+        ADSimpleInvoice.Builder invoiceBuilder = this.injector.getInstance(ADSimpleInvoice.Builder.class);
+
+        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+
+        ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        for (int i = 0; i < 2001; ++i) {
+            ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+            invoiceBuilder.addEntry(invoiceEntryBuilder);
+        }
+
+        return invoiceBuilder
+            .setBilled(ADInvoiceTestUtil.BILLED)
+            .setCancelled(ADInvoiceTestUtil.CANCELLED)
+            .setSelfBilled(ADInvoiceTestUtil.SELFBILL)
+            .setDate(new Date())
+            .setSourceId(ADInvoiceTestUtil.SOURCE_ID)
+            .setCustomerUID(customerUID)
+            .setBusinessUID(businessEntity.getUID())
+            .addPayment(this.payment.getPaymentBuilder())
+            .setClientType(CLIENTTYPE.CUSTOMER)
+            .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+            .setLocalDate(LocalDate.now());
+    }
+
 }

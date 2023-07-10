@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
+import com.premiumminds.billy.core.exceptions.AmountTooLargeForSimpleInvoiceException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.spain.exceptions.BillySimpleInvoiceException;
 import com.premiumminds.billy.spain.persistence.dao.DAOESSimpleInvoice;
 import com.premiumminds.billy.spain.persistence.entities.ESSimpleInvoiceEntity;
 import com.premiumminds.billy.spain.services.documents.ESSimpleInvoiceIssuingHandler;
@@ -37,9 +37,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
+class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
 
-    private String DEFAULT_SERIES = INVOICE_TYPE.FS + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
+    private static final String DEFAULT_SERIES = INVOICE_TYPE.FS + " " + ESPersistencyAbstractTest.DEFAULT_SERIES;
 
     private ESSimpleInvoiceIssuingHandler handler;
     private StringID<GenericInvoice> issuedInvoiceUID;
@@ -51,9 +51,9 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
         try {
             ESSimpleInvoiceEntity invoice = this.newInvoice(INVOICE_TYPE.FS, SOURCE_BILLING.APPLICATION);
 
-            this.createSeries(invoice, this.DEFAULT_SERIES);
+            this.createSeries(invoice, DEFAULT_SERIES);
 
-            this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
+            this.issueNewInvoice(this.handler, invoice, DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
         } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
             e.printStackTrace();
@@ -61,20 +61,29 @@ public class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSimple() {
+    void testIssuedInvoiceSimple() {
         ESSimpleInvoice issuedInvoice = this.getInstance(DAOESSimpleInvoice.class).get(this.issuedInvoiceUID);
 
-        Assertions.assertEquals(this.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
-        String formatedNumber = this.DEFAULT_SERIES + "/1";
+        Assertions.assertEquals(DEFAULT_SERIES, issuedInvoice.getSeries());
+        Assertions.assertEquals(1, issuedInvoice.getSeriesNumber());
+        String formatedNumber = DEFAULT_SERIES + "/1";
         Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
     }
 
     @Test
-    public void testBusinessSimpleInvoice() {
+    void testCustomerOverMaxAmountSimpleInvoice() {
         ESSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector);
 
-        Assertions.assertThrows(BillySimpleInvoiceException.class, () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS));
+        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class,
+                                simpleInvoiceTestUtil::getSimpleInvoiceEntityOverMaxForCustomer);
+    }
+
+    @Test
+    void testBusinessSimpleInvoice() {
+        ESSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector);
+
+        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class,
+                                () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS));
     }
 
 }

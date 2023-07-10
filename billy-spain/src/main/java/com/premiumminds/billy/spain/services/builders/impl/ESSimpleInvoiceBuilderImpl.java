@@ -18,12 +18,10 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import java.math.BigDecimal;
-
+import com.premiumminds.billy.core.exceptions.AmountTooLargeForSimpleInvoiceException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
-import com.premiumminds.billy.spain.exceptions.BillySimpleInvoiceException;
 import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
@@ -33,6 +31,7 @@ import com.premiumminds.billy.spain.services.builders.ESSimpleInvoiceBuilder;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice;
 import com.premiumminds.billy.spain.services.entities.ESSimpleInvoice.CLIENTTYPE;
+import java.math.BigDecimal;
 
 public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ESInvoiceEntry, TDocument extends ESSimpleInvoice>
         extends ESGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
@@ -65,11 +64,11 @@ public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderI
                 ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();
 
-        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal(1000)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 1000 for customer simple invoice. Issue invoice");
+        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal("1000")) >= 0) {
+            throw new AmountTooLargeForSimpleInvoiceException("Amount > 1000 for customer simple invoice. Issue invoice");
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 100 for business simple invoice. Issue invoice");
+            throw new AmountTooLargeForSimpleInvoiceException("Amount > 100 for business simple invoice. Issue invoice");
         }
     }
 
