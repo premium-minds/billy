@@ -27,7 +27,7 @@ import com.premiumminds.billy.andorra.services.builders.ADSimpleInvoiceBuilder;
 import com.premiumminds.billy.andorra.services.entities.ADInvoiceEntry;
 import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice;
 import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice.CLIENTTYPE;
-import com.premiumminds.billy.core.exceptions.AmountTooLargeForSimpleInvoiceException;
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -69,10 +69,10 @@ public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderI
         super.validateInstance();
 
         if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal("40000")) >= 0) {
-            throw new AmountTooLargeForSimpleInvoiceException("Amount > 40000 for customer simple invoice. Issue invoice");
+            throw new InvalidAmountForDocumentTypeException("Amount > 40000 for customer simple invoice. Issue invoice");
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
-            throw new AmountTooLargeForSimpleInvoiceException("Amount > 100 for business simple invoice. Issue invoice");
+            throw new InvalidAmountForDocumentTypeException("Amount > 100 for business simple invoice. Issue invoice");
         }
     }
 

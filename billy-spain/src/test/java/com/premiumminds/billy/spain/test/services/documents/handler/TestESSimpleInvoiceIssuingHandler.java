@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.spain.test.services.documents.handler;
 
-import com.premiumminds.billy.core.exceptions.AmountTooLargeForSimpleInvoiceException;
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -74,16 +74,18 @@ class TestESSimpleInvoiceIssuingHandler extends ESDocumentAbstractTest {
     void testCustomerOverMaxAmountSimpleInvoice() {
         ESSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector);
 
-        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class,
-                                simpleInvoiceTestUtil::getSimpleInvoiceEntityOverMaxForCustomer);
+        Assertions.assertThrows(
+            InvalidAmountForDocumentTypeException.class,
+            simpleInvoiceTestUtil::getSimpleInvoiceEntityOverMaxForCustomer);
     }
 
     @Test
     void testBusinessSimpleInvoice() {
         ESSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ESSimpleInvoiceTestUtil(ESAbstractTest.injector);
 
-        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class,
-                                () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS));
+        Assertions.assertThrows(
+            InvalidAmountForDocumentTypeException.class,
+            () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS));
     }
 
 }

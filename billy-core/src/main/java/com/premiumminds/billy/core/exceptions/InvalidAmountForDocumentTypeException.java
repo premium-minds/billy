@@ -18,11 +18,11 @@
  */
 package com.premiumminds.billy.core.exceptions;
 
-public class AmountTooLargeForSimpleInvoiceException extends BillyValidationException {
+public class InvalidAmountForDocumentTypeException extends BillyValidationException {
 
     private static final long serialVersionUID = 1L;
 
-    public AmountTooLargeForSimpleInvoiceException(String message) {
+    public InvalidAmountForDocumentTypeException(String message) {
         super(message);
     }
 }

@@ -27,7 +27,7 @@ import com.premiumminds.billy.andorra.test.ADAbstractTest;
 import com.premiumminds.billy.andorra.test.ADPersistencyAbstractTest;
 import com.premiumminds.billy.andorra.test.services.documents.ADDocumentAbstractTest;
 import com.premiumminds.billy.andorra.test.util.ADSimpleInvoiceTestUtil;
-import com.premiumminds.billy.core.exceptions.AmountTooLargeForSimpleInvoiceException;
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -74,16 +74,18 @@ class TestADSimpleInvoiceIssuingHandler extends ADDocumentAbstractTest {
     void testCustomerOverMaxAmountSimpleInvoice() {
         ADSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector);
 
-        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class,
-                                simpleInvoiceTestUtil::getSimpleInvoiceEntityOverMaxForCustomer);
+        Assertions.assertThrows(
+            InvalidAmountForDocumentTypeException.class,
+            simpleInvoiceTestUtil::getSimpleInvoiceEntityOverMaxForCustomer);
     }
 
     @Test
     void testBusinessSimpleInvoice() {
         ADSimpleInvoiceTestUtil simpleInvoiceTestUtil = new ADSimpleInvoiceTestUtil(ADAbstractTest.injector);
 
-        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class,
-                                () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS));
+        Assertions.assertThrows(
+            InvalidAmountForDocumentTypeException.class,
+            () -> simpleInvoiceTestUtil.getSimpleInvoiceEntity(CLIENTTYPE.BUSINESS));
     }
 
 }

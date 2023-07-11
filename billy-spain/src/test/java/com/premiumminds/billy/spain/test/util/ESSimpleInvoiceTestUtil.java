@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.spain.test.util;
 
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -92,10 +94,9 @@ public class ESSimpleInvoiceTestUtil {
 
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
         StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
-        for (int i = 0; i < 51; ++i) {
-            ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
+        ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("1001"));
+        invoiceBuilder.addEntry(invoiceEntryBuilder);
 
         return invoiceBuilder
             .setBilled(ESInvoiceTestUtil.BILLED)

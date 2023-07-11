@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -125,10 +127,11 @@ public class PTSimpleInvoiceTestUtil {
 
         PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
         StringID<Customer> customerUID = daoPTCustomer.create(customerEntity).getUID();
-        for (int i = 0; i < 151; ++i) {
-            PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
+
+        PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("3001"));
+        invoiceBuilder.addEntry(invoiceEntryBuilder);
+
 
         return invoiceBuilder
             .setBilled(PTInvoiceTestUtil.BILLED)

@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
-import com.premiumminds.billy.core.exceptions.AmountTooLargeForSimpleInvoiceException;
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
@@ -79,7 +79,7 @@ class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
     void testCustomerOverMaxAmountSimpleInvoice() {
         PTSimpleInvoiceTestUtil simpleInvoiceTestUtil = new PTSimpleInvoiceTestUtil(PTAbstractTest.injector);
 
-        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class, () -> simpleInvoiceTestUtil
+        Assertions.assertThrows(InvalidAmountForDocumentTypeException.class, () -> simpleInvoiceTestUtil
             .getSimpleInvoiceEntityOverMaxForCustomer(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING));
     }
 
@@ -87,7 +87,7 @@ class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
     void testBusinessSimpleInvoice() {
         PTSimpleInvoiceTestUtil simpleInvoiceTestUtil = new PTSimpleInvoiceTestUtil(PTAbstractTest.injector);
 
-        Assertions.assertThrows(AmountTooLargeForSimpleInvoiceException.class, () -> simpleInvoiceTestUtil
+        Assertions.assertThrows(InvalidAmountForDocumentTypeException.class, () -> simpleInvoiceTestUtil
                 .getSimpleInvoiceEntity(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING, CLIENTTYPE.BUSINESS));
     }
 

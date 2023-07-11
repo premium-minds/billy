@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.services.documents.impl;
 
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -72,7 +73,8 @@ public class DocumentIssuingServiceImpl implements DocumentIssuingService {
                     return DocumentIssuingServiceImpl.this.issueDocument(documentBuilder, parameters);
                 }
             }.execute();
-        } catch (SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
+        } catch (SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException |
+                 InvalidAmountForDocumentTypeException e) {
             DocumentIssuingServiceImpl.log.error(e.getMessage(), e);
             throw e;
         } catch (Exception e) {

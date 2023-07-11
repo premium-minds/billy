@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.builders.impl;
 
-import com.premiumminds.billy.core.exceptions.AmountTooLargeForSimpleInvoiceException;
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
@@ -65,10 +65,10 @@ public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderI
         super.validateInstance();
 
         if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal("1000")) >= 0) {
-            throw new AmountTooLargeForSimpleInvoiceException("Amount > 1000 for customer simple invoice. Issue invoice");
+            throw new InvalidAmountForDocumentTypeException("Amount > 1000 for customer simple invoice. Issue invoice");
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
-            throw new AmountTooLargeForSimpleInvoiceException("Amount > 100 for business simple invoice. Issue invoice");
+            throw new InvalidAmountForDocumentTypeException("Amount > 100 for business simple invoice. Issue invoice");
         }
     }
 

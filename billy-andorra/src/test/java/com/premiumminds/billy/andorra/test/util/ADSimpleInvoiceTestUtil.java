@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.andorra.test.util;
 
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -95,10 +97,9 @@ public class ADSimpleInvoiceTestUtil {
 
         ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
         StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
-        for (int i = 0; i < 2001; ++i) {
-            ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-            invoiceBuilder.addEntry(invoiceEntryBuilder);
-        }
+        ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("40001"));
+        invoiceBuilder.addEntry(invoiceEntryBuilder);
 
         return invoiceBuilder
             .setBilled(ADInvoiceTestUtil.BILLED)
