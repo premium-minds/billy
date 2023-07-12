@@ -95,7 +95,7 @@ public class ESSimpleInvoiceTestUtil {
         ESCustomerEntity customerEntity = this.customer.getCustomerEntity();
         StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
         ESInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("1001"));
+        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("3001"));
         invoiceBuilder.addEntry(invoiceEntryBuilder);
 
         return invoiceBuilder

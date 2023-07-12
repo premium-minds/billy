@@ -64,8 +64,8 @@ public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderI
                 ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();
 
-        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal("1000")) >= 0) {
-            throw new InvalidAmountForDocumentTypeException("Amount > 1000 for customer simple invoice. Issue invoice");
+        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal("3000")) >= 0) {
+            throw new InvalidAmountForDocumentTypeException("Amount > 3000 for customer simple invoice. Issue invoice");
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
             throw new InvalidAmountForDocumentTypeException("Amount > 100 for business simple invoice. Issue invoice");

@@ -129,7 +129,7 @@ public class PTSimpleInvoiceTestUtil {
         StringID<Customer> customerUID = daoPTCustomer.create(customerEntity).getUID();
 
         PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
-        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("3001"));
+        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("1001"));
         invoiceBuilder.addEntry(invoiceEntryBuilder);
 
 

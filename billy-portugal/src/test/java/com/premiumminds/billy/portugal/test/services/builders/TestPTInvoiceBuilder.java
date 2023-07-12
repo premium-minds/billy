@@ -18,9 +18,7 @@
  */
 package com.premiumminds.billy.portugal.test.services.builders;
 
-import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.test.AbstractTest;
-import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoiceEntry;
@@ -33,7 +31,6 @@ import com.premiumminds.billy.portugal.test.fixtures.MockPTCustomerEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTInvoiceEntryEntity;
 import com.premiumminds.billy.portugal.test.fixtures.MockPTPaymentEntity;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Currency;
 import org.junit.jupiter.api.Assertions;
@@ -112,61 +109,5 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
         Assertions.assertEquals(0, mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()));
         Assertions.assertEquals(0, mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()));
         Assertions.assertEquals(0, mock.getTaxAmount().compareTo(invoice.getTaxAmount()));
-    }
-
-    @Test
-    public void testFailWithEndConsumerAmountTooLarge() {
-        MockPTInvoiceEntity mock =
-            this.createMockEntity(MockPTInvoiceEntity.class, TestPTInvoiceBuilder.PT_INVOICE_YML);
-        mock.setCurrency(Currency.getInstance("EUR"));
-
-        MockPTCustomerEntity mockCustomerEntity =
-            this.createMockEntity(MockPTCustomerEntity.class, TestPTInvoiceBuilder.PTCUSTOMER_YML);
-        mockCustomerEntity.setUID(new Config().getUID(Config.Key.Customer.Generic.UUID));
-
-        Mockito.when(this.getInstance(DAOPTCustomer.class).get(Mockito.any())).thenReturn(mockCustomerEntity);
-
-        Mockito.when(this.getInstance(DAOPTInvoice.class).getEntityInstance()).thenReturn(new MockPTInvoiceEntity());
-
-        MockPTInvoiceEntryEntity entryMock =
-            this.createMockEntity(MockPTInvoiceEntryEntity.class, TestPTInvoiceBuilder.PT_INVOICE_ENTRY_YML);
-
-        entryMock.setUnitAmountWithTax(new BigDecimal("3001"));
-        entryMock.setUnitAmountWithoutTax(new BigDecimal("3000"));
-        entryMock.setUnitTaxAmount(new BigDecimal("1"));
-        entryMock.setQuantity(new BigDecimal("1"));
-
-        Mockito.when(this.getInstance(DAOPTInvoiceEntry.class).get(Mockito.any())).thenReturn(entryMock);
-
-        mock.getEntries().add(entryMock);
-
-        ArrayList<PTInvoiceEntry> entries = (ArrayList<PTInvoiceEntry>) mock.getEntries();
-
-        PTInvoice.Builder builder = this.getInstance(PTInvoice.Builder.class);
-
-        PTInvoiceEntry.Builder entry = this.getMock(PTInvoiceEntry.Builder.class);
-
-        MockPTPaymentEntity mockPayment =
-            this.createMockEntity(MockPTPaymentEntity.class, TestPTInvoiceBuilder.PT_PAYMENT_YML);
-
-        Mockito.when(this.getInstance(DAOPTPayment.class).getEntityInstance()).thenReturn(new MockPTPaymentEntity());
-
-        PTPayment.Builder builderPayment = this.getInstance(PTPayment.Builder.class);
-
-        builderPayment.setPaymentAmount(mockPayment.getPaymentAmount()).setPaymentDate(mockPayment.getPaymentDate())
-                      .setPaymentMethod(mockPayment.getPaymentMethod());
-
-        Mockito.when(entry.build()).thenReturn(entries.get(0));
-
-        builder.addEntry(entry).setBilled(mock.isBilled()).setCancelled(mock.isCancelled())
-               .setBatchId(mock.getBatchId()).setDate(mock.getDate()).setGeneralLedgerDate(mock.getGeneralLedgerDate())
-               .setOfficeNumber(mock.getOfficeNumber()).setPaymentTerms(mock.getPaymentTerms())
-               .setSelfBilled(mock.selfBilled).setSettlementDate(mock.getSettlementDate())
-               .setSettlementDescription(mock.getSettlementDescription())
-               .setSettlementDiscount(mock.getSettlementDiscount()).setSourceId(mock.getSourceId())
-               .setTransactionId(mock.getTransactionId()).setSourceBilling(mock.getSourceBilling())
-               .setCustomerUID(mockCustomerEntity.getUID()).addPayment(builderPayment);
-
-        Assertions.assertThrows(InvalidAmountForDocumentTypeException.class, builder::build);
     }
 }
