@@ -22,6 +22,7 @@ import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeExcept
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.spain.Config;
 import com.premiumminds.billy.spain.persistence.dao.AbstractDAOESGenericInvoice;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
@@ -39,10 +40,13 @@ public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderI
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
+    private final Config config;
+
     public <TDAO extends AbstractDAOESGenericInvoice<? extends TDocument>> ESSimpleInvoiceBuilderImpl(
             TDAO daoESSimpleInvoice, DAOESBusiness daoESBusiness, DAOESCustomer daoESCustomer,
             DAOESSupplier daoESSupplier) {
         super(daoESSimpleInvoice, daoESBusiness, daoESCustomer, daoESSupplier);
+        this.config = new Config();
     }
 
     @Override
@@ -64,7 +68,9 @@ public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderI
                 ESGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();
 
-        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal("3000")) >= 0) {
+        BigDecimal limit = new BigDecimal(config.get(Config.Key.SimpleInvoice.LIMIT_VALUE));
+
+        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(limit) >= 0) {
             throw new InvalidAmountForDocumentTypeException("Amount > 3000 for customer simple invoice. Issue invoice");
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
