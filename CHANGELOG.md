@@ -3,6 +3,8 @@
 
 ## [Unreleased v9]
 
+## [9.1.1] 2023-07-13
+
 ### Fixed
 
  - [Correct simple invoice amount limits](https://github.com/premium-minds/billy/pull/454)
@@ -507,7 +509,8 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v9]: https://github.com/premium-minds/billy/compare/v9.1.0...HEAD
+[unreleased v9]: https://github.com/premium-minds/billy/compare/v9.1.1...HEAD
+[9.1.1]: https://github.com/premium-minds/billy/compare/v9.1.0...v9.1.1
 [9.1.0]: https://github.com/premium-minds/billy/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/premium-minds/billy/compare/v8.2.0...v9.0.0
 [8.2.0]: https://github.com/premium-minds/billy/compare/v8.1.0...v8.2.0
