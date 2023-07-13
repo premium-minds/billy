@@ -71,7 +71,8 @@ public class ESSimpleInvoiceBuilderImpl<TBuilder extends ESSimpleInvoiceBuilderI
         BigDecimal limit = new BigDecimal(config.get(Config.Key.SimpleInvoice.LIMIT_VALUE));
 
         if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(limit) >= 0) {
-            throw new InvalidAmountForDocumentTypeException("Amount > 3000 for customer simple invoice. Issue invoice");
+            throw new InvalidAmountForDocumentTypeException(String.format(
+                "Amount > %s for customer simple invoice. Issue invoice", limit));
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
             throw new InvalidAmountForDocumentTypeException("Amount > 100 for business simple invoice. Issue invoice");
