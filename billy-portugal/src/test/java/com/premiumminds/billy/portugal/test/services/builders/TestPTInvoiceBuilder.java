@@ -46,7 +46,7 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
     private static final String PT_PAYMENT_YML = AbstractTest.YML_CONFIGS_DIR + "PTPayment.yml";
 
     @Test
-    public void doTest() {
+    public void testSuccess() {
         MockPTInvoiceEntity mock =
                 this.createMockEntity(MockPTInvoiceEntity.class, TestPTInvoiceBuilder.PT_INVOICE_YML);
         mock.setCurrency(Currency.getInstance("EUR"));
@@ -94,20 +94,20 @@ public class TestPTInvoiceBuilder extends PTAbstractTest {
 
         PTInvoice invoice = builder.build();
 
-        Assertions.assertTrue(invoice != null);
-        Assertions.assertTrue(invoice.getEntries() != null);
+        Assertions.assertNotNull(invoice);
+        Assertions.assertNotNull(invoice.getEntries());
         Assertions.assertEquals(invoice.getEntries().size(), mock.getEntries().size());
 
-        Assertions.assertTrue(invoice.isBilled() == mock.isBilled());
-        Assertions.assertTrue(invoice.isCancelled() == mock.isCancelled());
+        Assertions.assertEquals(invoice.isBilled(), mock.isBilled());
+        Assertions.assertEquals(invoice.isCancelled(), mock.isCancelled());
 
         Assertions.assertEquals(mock.getGeneralLedgerDate(), invoice.getGeneralLedgerDate());
         Assertions.assertEquals(mock.getBatchId(), invoice.getBatchId());
         Assertions.assertEquals(mock.getDate(), invoice.getDate());
         Assertions.assertEquals(mock.getPaymentTerms(), invoice.getPaymentTerms());
 
-        Assertions.assertTrue(mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()) == 0);
-        Assertions.assertTrue(mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()) == 0);
-        Assertions.assertTrue(mock.getTaxAmount().compareTo(invoice.getTaxAmount()) == 0);
+        Assertions.assertEquals(0, mock.getAmountWithoutTax().compareTo(invoice.getAmountWithoutTax()));
+        Assertions.assertEquals(0, mock.getAmountWithTax().compareTo(invoice.getAmountWithTax()));
+        Assertions.assertEquals(0, mock.getTaxAmount().compareTo(invoice.getTaxAmount()));
     }
 }

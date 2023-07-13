@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.andorra.test.util;
 
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -81,6 +83,36 @@ public class ADSimpleInvoiceTestUtil {
                              .addPayment(this.payment.getPaymentBuilder()).setClientType(clientType)
                              .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
                              .setLocalDate(LocalDate.now());
+    }
+
+    public ADSimpleInvoiceEntity getSimpleInvoiceEntityOverMaxForCustomer() {
+        return (ADSimpleInvoiceEntity) this
+            .getSimpleInvoiceBuilderOverMaxForCustomer(this.business.getBusinessEntity()).build();
+    }
+
+    public ADSimpleInvoice.Builder getSimpleInvoiceBuilderOverMaxForCustomer(ADBusinessEntity businessEntity) {
+        ADSimpleInvoice.Builder invoiceBuilder = this.injector.getInstance(ADSimpleInvoice.Builder.class);
+
+        DAOADCustomer daoESCustomer = this.injector.getInstance(DAOADCustomer.class);
+
+        ADCustomerEntity customerEntity = this.customer.getCustomerEntity();
+        StringID<Customer> customerUID = daoESCustomer.create(customerEntity).getUID();
+        ADInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("40001"));
+        invoiceBuilder.addEntry(invoiceEntryBuilder);
+
+        return invoiceBuilder
+            .setBilled(ADInvoiceTestUtil.BILLED)
+            .setCancelled(ADInvoiceTestUtil.CANCELLED)
+            .setSelfBilled(ADInvoiceTestUtil.SELFBILL)
+            .setDate(new Date())
+            .setSourceId(ADInvoiceTestUtil.SOURCE_ID)
+            .setCustomerUID(customerUID)
+            .setBusinessUID(businessEntity.getUID())
+            .addPayment(this.payment.getPaymentBuilder())
+            .setClientType(CLIENTTYPE.CUSTOMER)
+            .setCreditOrDebit(GenericInvoice.CreditOrDebit.CREDIT)
+            .setLocalDate(LocalDate.now());
     }
 
 }

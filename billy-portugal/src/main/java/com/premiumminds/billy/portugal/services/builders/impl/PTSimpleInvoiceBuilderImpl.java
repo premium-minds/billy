@@ -18,25 +18,24 @@
  */
 package com.premiumminds.billy.portugal.services.builders.impl;
 
-import java.math.BigDecimal;
-
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
-import com.premiumminds.billy.portugal.exceptions.BillySimpleInvoiceException;
+import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.persistence.dao.AbstractDAOPTGenericInvoice;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTBusiness;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCustomer;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
-import com.premiumminds.billy.portugal.persistence.entities.PTInvoiceEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.builders.PTSimpleInvoiceBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice.SourceBilling;
 import com.premiumminds.billy.portugal.services.entities.PTInvoiceEntry;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice;
 import com.premiumminds.billy.portugal.services.entities.PTSimpleInvoice.CLIENTTYPE;
+import java.math.BigDecimal;
 
 public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends PTInvoiceEntry, TDocument extends PTSimpleInvoice>
         extends PTGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
@@ -44,11 +43,14 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
+    private final Config config;
+
     public <TDAO extends AbstractDAOPTGenericInvoice<? extends TDocument>> PTSimpleInvoiceBuilderImpl(
             TDAO daoPTSimpleInvoice, DAOPTBusiness daoPTBusiness, DAOPTCustomer daoPTCustomer,
             DAOPTSupplier daoPTSupplier) {
         super(daoPTSimpleInvoice, daoPTBusiness, daoPTCustomer, daoPTSupplier);
         this.setSourceBilling(SourceBilling.P);
+        this.config = new Config();
     }
 
     @Override
@@ -74,11 +76,13 @@ public class PTSimpleInvoiceBuilderImpl<TBuilder extends PTSimpleInvoiceBuilderI
                 PTGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();
 
-        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal(1000)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 1000 for customer simple invoice. Issue invoice");
+        BigDecimal limit = new BigDecimal(config.get(Config.Key.SimpleInvoice.LIMIT_VALUE));
+
+        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(limit) >= 0) {
+            throw new InvalidAmountForDocumentTypeException("Amount > 1000 for customer simple invoice. Issue invoice");
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 100 for business simple invoice. Issue invoice");
+            throw new InvalidAmountForDocumentTypeException("Amount > 100 for business simple invoice. Issue invoice");
         }
     }
 

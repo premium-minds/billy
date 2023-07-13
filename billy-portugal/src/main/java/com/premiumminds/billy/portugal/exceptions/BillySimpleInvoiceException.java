@@ -20,6 +20,7 @@ package com.premiumminds.billy.portugal.exceptions;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 
+@Deprecated(forRemoval=true)
 public class BillySimpleInvoiceException extends BillyRuntimeException {
 
     /**

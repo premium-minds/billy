@@ -18,12 +18,12 @@
  */
 package com.premiumminds.billy.portugal.test.services.documents.handler;
 
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import com.premiumminds.billy.portugal.exceptions.BillySimpleInvoiceException;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSimpleInvoice;
 import com.premiumminds.billy.portugal.persistence.entities.PTSimpleInvoiceEntity;
 import com.premiumminds.billy.portugal.services.documents.PTSimpleInvoiceIssuingHandler;
@@ -39,7 +39,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
+class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
 
     private static final TYPE DEFAULT_TYPE = TYPE.FS;
     private static final SourceBilling SOURCE_BILLING = SourceBilling.P;
@@ -64,11 +64,11 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
     }
 
     @Test
-    public void testIssuedInvoiceSimple() {
+    void testIssuedInvoiceSimple() {
         PTSimpleInvoice issuedInvoice = this.getInstance(DAOPTSimpleInvoice.class).get(this.issuedInvoiceUID);
 
         Assertions.assertEquals(PTPersistencyAbstractTest.DEFAULT_SERIES, issuedInvoice.getSeries());
-        Assertions.assertTrue(1 == issuedInvoice.getSeriesNumber());
+        Assertions.assertEquals(1, issuedInvoice.getSeriesNumber());
         String formatedNumber =
                 TestPTSimpleInvoiceIssuingHandler.DEFAULT_TYPE + " " + PTPersistencyAbstractTest.DEFAULT_SERIES + "/1";
         Assertions.assertEquals(formatedNumber, issuedInvoice.getNumber());
@@ -76,10 +76,18 @@ public class TestPTSimpleInvoiceIssuingHandler extends PTDocumentAbstractTest {
     }
 
     @Test
-    public void testBusinessSimpleInvoice() {
+    void testCustomerOverMaxAmountSimpleInvoice() {
         PTSimpleInvoiceTestUtil simpleInvoiceTestUtil = new PTSimpleInvoiceTestUtil(PTAbstractTest.injector);
 
-        Assertions.assertThrows(BillySimpleInvoiceException.class, () -> simpleInvoiceTestUtil
+        Assertions.assertThrows(InvalidAmountForDocumentTypeException.class, () -> simpleInvoiceTestUtil
+            .getSimpleInvoiceEntityOverMaxForCustomer(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING));
+    }
+
+    @Test
+    void testBusinessSimpleInvoice() {
+        PTSimpleInvoiceTestUtil simpleInvoiceTestUtil = new PTSimpleInvoiceTestUtil(PTAbstractTest.injector);
+
+        Assertions.assertThrows(InvalidAmountForDocumentTypeException.class, () -> simpleInvoiceTestUtil
                 .getSimpleInvoiceEntity(TestPTSimpleInvoiceIssuingHandler.SOURCE_BILLING, CLIENTTYPE.BUSINESS));
     }
 

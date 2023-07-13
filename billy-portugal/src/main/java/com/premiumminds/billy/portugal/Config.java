@@ -102,6 +102,11 @@ public class Config {
             }
         }
 
+        public static class SimpleInvoice {
+
+            public static final String LIMIT_VALUE = "simpleinvoice.limit.value";
+        }
+
         public static class Context {
 
             public static class Portugal {

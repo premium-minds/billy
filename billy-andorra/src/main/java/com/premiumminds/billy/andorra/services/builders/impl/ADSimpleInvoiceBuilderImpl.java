@@ -18,21 +18,21 @@
  */
 package com.premiumminds.billy.andorra.services.builders.impl;
 
-import com.premiumminds.billy.andorra.exceptions.BillySimpleInvoiceException;
-import com.premiumminds.billy.andorra.persistence.entities.ADSimpleInvoiceEntity;
-import java.math.BigDecimal;
-
-import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.util.BillyValidator;
-import com.premiumminds.billy.core.util.Localizer;
+import com.premiumminds.billy.andorra.Config;
 import com.premiumminds.billy.andorra.persistence.dao.AbstractDAOADGenericInvoice;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADCustomer;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADSupplier;
+import com.premiumminds.billy.andorra.persistence.entities.ADSimpleInvoiceEntity;
 import com.premiumminds.billy.andorra.services.builders.ADSimpleInvoiceBuilder;
 import com.premiumminds.billy.andorra.services.entities.ADInvoiceEntry;
 import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice;
 import com.premiumminds.billy.andorra.services.entities.ADSimpleInvoice.CLIENTTYPE;
+import com.premiumminds.billy.core.exceptions.BillyValidationException;
+import com.premiumminds.billy.core.exceptions.InvalidAmountForDocumentTypeException;
+import com.premiumminds.billy.core.util.BillyValidator;
+import com.premiumminds.billy.core.util.Localizer;
+import java.math.BigDecimal;
 
 public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderImpl<TBuilder, TEntry, TDocument>, TEntry extends ADInvoiceEntry, TDocument extends ADSimpleInvoice>
         extends ADGenericInvoiceBuilderImpl<TBuilder, TEntry, TDocument>
@@ -41,6 +41,8 @@ public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderI
 
     protected static final Localizer LOCALIZER = new Localizer("com/premiumminds/billy/core/i18n/FieldNames");
 
+    private final Config config;
+
     public <TDAO extends AbstractDAOADGenericInvoice<? extends TDocument>> ADSimpleInvoiceBuilderImpl(
         TDAO daoADSimpleInvoice,
         DAOADBusiness daoADBusiness,
@@ -48,6 +50,7 @@ public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderI
         DAOADSupplier daoADSupplier)
     {
         super(daoADSimpleInvoice, daoADBusiness, daoADCustomer, daoADSupplier);
+        this.config = new Config();
     }
 
     @Override
@@ -69,11 +72,13 @@ public class ADSimpleInvoiceBuilderImpl<TBuilder extends ADSimpleInvoiceBuilderI
                                  ADGenericInvoiceBuilderImpl.LOCALIZER.getString("field.clientType"));
         super.validateInstance();
 
-        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(new BigDecimal(1000)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 1000 for customer simple invoice. Issue invoice");
+        BigDecimal limit = new BigDecimal(config.get(Config.Key.SimpleInvoice.LIMIT_VALUE));
+
+        if (i.getClientType() == CLIENTTYPE.CUSTOMER && i.getAmountWithTax().compareTo(limit) >= 0) {
+            throw new InvalidAmountForDocumentTypeException("Amount > 40000 for customer simple invoice. Issue invoice");
         } else if (i.getClientType() == CLIENTTYPE.BUSINESS &&
                 i.getAmountWithTax().compareTo(new BigDecimal(100)) >= 0) {
-            throw new BillySimpleInvoiceException("Amount > 100 for business simple invoice. Issue invoice");
+            throw new InvalidAmountForDocumentTypeException("Amount > 100 for business simple invoice. Issue invoice");
         }
     }
 

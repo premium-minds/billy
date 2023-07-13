@@ -18,6 +18,8 @@
  */
 package com.premiumminds.billy.portugal.test.util;
 
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -105,6 +107,44 @@ public class PTSimpleInvoiceTestUtil {
                     .addPayment(this.payment.getPaymentBuilder())
                     .setClientType(clientType)
                     .setLocalDate(LocalDate.now());
+    }
+
+    public PTSimpleInvoiceEntity getSimpleInvoiceEntityOverMaxForCustomer(SourceBilling billing) {
+        PTSimpleInvoiceEntity invoice = (PTSimpleInvoiceEntity) this
+            .getSimpleInvoiceBuilderOverMaxForCustomer(this.business.getBusinessEntity(), billing).build();
+        invoice.setType(this.INVOICE_TYPE);
+
+        return invoice;
+    }
+
+    public PTSimpleInvoice.Builder getSimpleInvoiceBuilderOverMaxForCustomer(
+        PTBusinessEntity businessEntity,
+        SourceBilling billing)
+    {
+        PTSimpleInvoice.Builder invoiceBuilder = this.injector.getInstance(PTSimpleInvoice.Builder.class);
+
+        DAOPTCustomer daoPTCustomer = this.injector.getInstance(DAOPTCustomer.class);
+
+        PTCustomerEntity customerEntity = this.customer.getCustomerEntity();
+        StringID<Customer> customerUID = daoPTCustomer.create(customerEntity).getUID();
+
+        PTInvoiceEntry.Builder invoiceEntryBuilder = this.invoiceEntry.getInvoiceEntryBuilder();
+        invoiceEntryBuilder.setUnitAmount(AmountType.WITH_TAX, new BigDecimal("1001"));
+        invoiceBuilder.addEntry(invoiceEntryBuilder);
+
+
+        return invoiceBuilder
+            .setBilled(PTInvoiceTestUtil.BILLED)
+            .setCancelled(PTInvoiceTestUtil.CANCELLED)
+            .setSelfBilled(PTInvoiceTestUtil.SELFBILL)
+            .setDate(new Date())
+            .setSourceId(PTInvoiceTestUtil.SOURCE_ID)
+            .setCustomerUID(customerUID)
+            .setSourceBilling(billing)
+            .setBusinessUID(businessEntity.getUID())
+            .addPayment(this.payment.getPaymentBuilder())
+            .setClientType(CLIENTTYPE.CUSTOMER)
+            .setLocalDate(LocalDate.now());
     }
 
 }

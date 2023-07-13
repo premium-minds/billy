@@ -54,6 +54,7 @@ public class PTInvoiceBuilderImpl<TBuilder extends PTInvoiceBuilderImpl<TBuilder
         PTInvoiceEntity i = this.getTypeInstance();
         i.setSourceBilling(SourceBilling.P);
         i.setCreditOrDebit(CreditOrDebit.CREDIT);
+
         super.validateInstance();
     }
 
