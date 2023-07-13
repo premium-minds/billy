@@ -3,6 +3,10 @@
 
 ## [Unreleased v9]
 
+### Fixed
+
+ - [Correct simple invoice amount limits](https://github.com/premium-minds/billy/pull/454)
+
 ## [9.1.0] 2023-07-06
 
 ### Added
