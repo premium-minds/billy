@@ -22,6 +22,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
@@ -58,6 +59,10 @@ public abstract class ADGenericInvoiceIssuingHandler<T extends ADGenericInvoiceE
 
         // If the date is null then the invoice date is the current date
         Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
+        ZoneId timezone = document.getBusiness().getTimezone();
+        LocalDate issueLocalDate = document.getLocalDate() == null ?
+            LocalDate.ofInstant(invoiceDate.toInstant(), timezone) :
+            document.getLocalDate();
 
         Integer seriesNumber = 1;
 
@@ -66,20 +71,20 @@ public abstract class ADGenericInvoiceIssuingHandler<T extends ADGenericInvoiceE
 
         if (null != latestInvoice) {
             seriesNumber = latestInvoice.getSeriesNumber() + 1;
-            Date latestInvoiceDate = latestInvoice.getDate();
 
-            if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+            final LocalDate latestLocalDate = Optional
+                .ofNullable(latestInvoice.getLocalDate())
+                .orElseGet(() -> latestInvoice
+                    .getDate()
+                    .toInstant()
+                    .atZone(latestInvoice.getBusiness().getTimezone())
+                    .toLocalDate());
+            if (latestLocalDate.isAfter(issueLocalDate)) {
                 throw new InvalidInvoiceDateException();
             }
         }
 
         String formatedNumber = parametersES.getInvoiceSeries() + "/" + seriesNumber;
-
-        ZoneId timezone = document.getBusiness().getTimezone();
-        LocalDate issueLocalDate =
-            document.getLocalDate() == null ?
-                LocalDate.ofInstant(invoiceDate.toInstant(), timezone) :
-                document.getLocalDate();
 
         document.setDate(invoiceDate);
         document.setNumber(formatedNumber);

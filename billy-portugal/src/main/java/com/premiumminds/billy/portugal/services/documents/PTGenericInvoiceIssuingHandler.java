@@ -37,6 +37,7 @@ import com.premiumminds.billy.portugal.util.GenerateHash;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 import javax.inject.Inject;
 import javax.persistence.LockModeType;
 
@@ -73,6 +74,10 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
 
         // If the date is null then the invoice date is the current date
         Date invoiceDate = document.getDate() == null ? new Date() : document.getDate();
+        ZoneId timezone = document.getBusiness().getTimezone();
+        LocalDate issueLocalDate = document.getLocalDate() == null ?
+            LocalDate.ofInstant(invoiceDate.toInstant(), timezone) :
+            document.getLocalDate();
         Date systemDate = document.getCreateTimestamp();
 
         final Integer seriesNumber;
@@ -84,7 +89,6 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         if (null != latestInvoice) {
             seriesNumber = latestInvoice.getSeriesNumber() + 1;
             previousHash = latestInvoice.getHash();
-            Date latestInvoiceDate = latestInvoice.getDate();
 
             this.validateDocumentType(invoiceType, latestInvoice.getType(), invoiceSeriesEntity.getSeries());
 
@@ -93,7 +97,14 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
                         latestInvoice.getSourceBilling().toString());
             }
 
-            if (latestInvoiceDate.compareTo(invoiceDate) > 0) {
+            final LocalDate latestLocalDate = Optional
+                .ofNullable(latestInvoice.getLocalDate())
+                .orElseGet(() -> latestInvoice
+                    .getDate()
+                    .toInstant()
+                    .atZone(latestInvoice.getBusiness().getTimezone())
+                    .toLocalDate());
+            if (latestLocalDate.isAfter(issueLocalDate)) {
                 throw new InvalidInvoiceDateException();
             }
         } else {
@@ -105,11 +116,11 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
         validatePTInvoiceNumber(formattedNumber);
 
         String newHash =
-                GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(), invoiceDate,
+                GenerateHash.generateHash(parametersPT.getPrivateKey(), parametersPT.getPublicKey(), issueLocalDate,
                         systemDate, formattedNumber, document.getAmountWithTax(), previousHash);
 
         String sourceHash =
-                GenerateHash.generateSourceHash(invoiceDate, systemDate, formattedNumber, document.getAmountWithTax(),
+                GenerateHash.generateSourceHash(issueLocalDate, systemDate, formattedNumber, document.getAmountWithTax(),
                         previousHash);
 
         if (invoiceSeriesEntity.getSeriesUniqueCode().isPresent()) {
@@ -125,12 +136,6 @@ public abstract class PTGenericInvoiceIssuingHandler<T extends PTGenericInvoiceE
             .orElseThrow(() -> new SeriesUniqueCodeNotFilled("The series " + invoiceSeriesEntity.getSeries()
                                                                 + " does not have a series unique code specified"))
             .toString();
-
-        ZoneId timezone = document.getBusiness().getTimezone();
-        LocalDate issueLocalDate =
-            document.getLocalDate() == null ?
-                LocalDate.ofInstant(invoiceDate.toInstant(), timezone) :
-                document.getLocalDate();
 
         document.setDate(invoiceDate);
         document.setNumber(formattedNumber);
