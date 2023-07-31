@@ -5,6 +5,7 @@
 
  ### Changed
 
+ - [Bump org.apache.commons:commons-lang3 from 3.12.0 to 3.13.0](https://github.com/premium-minds/billy/pull/462)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.9.3 to 5.10.0](https://github.com/premium-minds/billy/pull/461)
  - [Bump spotless-maven-plugin from 2.37.0 to 2.38.0](https://github.com/premium-minds/billy/pull/455)
  
