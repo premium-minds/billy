@@ -3,11 +3,13 @@
 
 ## [Unreleased v9]
 
+## [9.2.0] 2023-08-03
+
 ### Changed
 
- - [Bump org.apache.commons:commons-lang3 from 3.12.0 to 3.13.0](https://github.com/premium-minds/billy/pull/462)
- - [Bump org.junit.jupiter:junit-jupiter-engine from 5.9.3 to 5.10.0](https://github.com/premium-minds/billy/pull/461)
- - [Bump spotless-maven-plugin from 2.37.0 to 2.38.0](https://github.com/premium-minds/billy/pull/455)
+- [Bump org.apache.commons:commons-lang3 from 3.12.0 to 3.13.0](https://github.com/premium-minds/billy/pull/462)
+- [Bump org.junit.jupiter:junit-jupiter-engine from 5.9.3 to 5.10.0](https://github.com/premium-minds/billy/pull/461)
+- [Bump spotless-maven-plugin from 2.37.0 to 2.38.0](https://github.com/premium-minds/billy/pull/455)
 
 ### Fixed
 
@@ -79,7 +81,7 @@
 ## [8.0.1] 2023-04-05
 
 ### Fixed
- 
+
  - [Remove tax detail override in simple invoice and receipt invoice](https://github.com/premium-minds/billy/pull/407)
  - [Fixes ShipFrom in SAFT export to use ShippingOrigin and not ShippingDestination](https://github.com/premium-minds/billy/pull/411)
  - [Changes sorting of invoices entries to be performed on a temporary list](https://github.com/premium-minds/billy/pull/410)
@@ -519,7 +521,8 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v9]: https://github.com/premium-minds/billy/compare/v9.1.1...HEAD
+[unreleased v9]: https://github.com/premium-minds/billy/compare/v9.2.0...HEAD
+[9.2.0]: https://github.com/premium-minds/billy/compare/v9.1.1...v9.2.0
 [9.1.1]: https://github.com/premium-minds/billy/compare/v9.1.0...v9.1.1
 [9.1.0]: https://github.com/premium-minds/billy/compare/v9.0.0...v9.1.0
 [9.0.0]: https://github.com/premium-minds/billy/compare/v8.2.0...v9.0.0
