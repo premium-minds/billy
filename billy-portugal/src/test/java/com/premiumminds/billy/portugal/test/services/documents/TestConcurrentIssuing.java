@@ -79,8 +79,7 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
                         TestConcurrentIssuing.this.parameters);
                 return invoice;
             } catch (DocumentIssuingException e) {
-                System.out.println(e.getMessage());
-                return null;
+                throw new RuntimeException(e);
             }
         }
     }
@@ -115,12 +114,14 @@ public class TestConcurrentIssuing extends PTDocumentAbstractTest {
         PTInvoiceEntity latestInvoice1 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B1);
         Assertions.assertNotNull(entity1);
         Assertions.assertEquals(entity1.getSeriesNumber(), latestInvoice1.getSeriesNumber());
+        Assertions.assertEquals(entity1.getLocalDate(), latestInvoice1.getLocalDate());
         Assertions.assertEquals(entity1.getBusiness().getUID(), B1);
 
         PTInvoiceEntity entity2 = this.getLatestInvoice(invoices2);
         PTInvoiceEntity latestInvoice2 = this.getInstance(DAOPTInvoice.class).getLatestInvoiceFromSeries("A", B2);
         Assertions.assertNotNull(entity2);
         Assertions.assertEquals(entity2.getSeriesNumber(), latestInvoice2.getSeriesNumber());
+        Assertions.assertEquals(entity2.getLocalDate(), latestInvoice2.getLocalDate());
         Assertions.assertEquals(entity2.getBusiness().getUID(), B2);
     }
 
