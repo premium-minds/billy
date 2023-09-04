@@ -3,6 +3,10 @@
 
 ## [Unreleased v9]
 
+### Changed
+
+ - [Bump org.mockito:mockito-core from 5.4.0 to 5.5.0](https://github.com/premium-minds/billy/pull/467)
+
 ## [9.2.0] 2023-08-03
 
 ### Changed
