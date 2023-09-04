@@ -7,6 +7,7 @@
 
  - [Bump org.mockito:mockito-core from 5.4.0 to 5.5.0](https://github.com/premium-minds/billy/pull/467)
  - [Bump org.apache.xmlgraphics:fop from 2.8 to 2.9](https://github.com/premium-minds/billy/pull/466)
+ - [Bump org.apache.pdfbox:pdfbox from 2.0.29 to 3.0.0](https://github.com/premium-minds/billy/pull/465)
 
 ## [9.2.0] 2023-08-03
 
