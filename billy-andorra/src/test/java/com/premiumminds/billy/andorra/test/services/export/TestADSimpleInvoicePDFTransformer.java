@@ -45,6 +45,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -87,7 +89,7 @@ public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest
         ADSimpleInvoiceData entityData = this.extractor.extract(entity.getUID());
         this.transformer.transform(entityData, os);
 
-        try (PDDocument doc = PDDocument.load(result)) {
+        try (PDDocument doc = Loader.loadPDF(result)) {
             assertEquals(1, doc.getNumberOfPages());
         }
     }
@@ -115,7 +117,7 @@ public class TestADSimpleInvoicePDFTransformer extends ADPersistencyAbstractTest
         ADSimpleInvoiceData entityData = this.extractor.extract(entity.getUID());
         transformerBundle.transform(entityData, os);
 
-        try (PDDocument doc = PDDocument.load(result)) {
+        try (PDDocument doc = Loader.loadPDF(result)) {
             assertEquals(1, doc.getNumberOfPages());
         }
     }
