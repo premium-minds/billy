@@ -8,6 +8,7 @@
  - [Bump org.slf4j:slf4j-api from 2.0.7 to 2.0.9](https://github.com/premium-minds/billy/pull/469)
  - [Bump org.mockito:mockito-core from 5.4.0 to 5.5.0](https://github.com/premium-minds/billy/pull/467)
  - [Bump com.h2database:h2 from 2.2.220 to 2.2.222](https://github.com/premium-minds/billy/pull/470)
+ - [Bump com.h2database:h2 from 2.2.222 to 2.2.224](https://github.com/premium-minds/billy/pull/473)
  - [Bump org.apache.xmlgraphics:fop from 2.8 to 2.9](https://github.com/premium-minds/billy/pull/466)
  - [Bump org.apache.pdfbox:pdfbox from 2.0.29 to 3.0.0](https://github.com/premium-minds/billy/pull/465)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.38.0 to 2.39.0](https://github.com/premium-minds/billy/pull/471)
