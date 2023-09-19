@@ -12,6 +12,7 @@
  - [Bump org.apache.xmlgraphics:fop from 2.8 to 2.9](https://github.com/premium-minds/billy/pull/466)
  - [Bump org.apache.pdfbox:pdfbox from 2.0.29 to 3.0.0](https://github.com/premium-minds/billy/pull/465)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.38.0 to 2.39.0](https://github.com/premium-minds/billy/pull/471)
+ - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/billy/pull/472)
 
 ## [9.2.0] 2023-08-03
 
