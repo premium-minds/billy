@@ -298,6 +298,7 @@
 							<wsdlFiles>
 								<wsdlFile>Fatcorews.wsdl</wsdlFile>
 							</wsdlFiles>
+							<wsdlLocation>/Fatcorews.wsdl</wsdlLocation>
 							<packageName>com.premiumminds.billy.portugal.webservices.documents</packageName>
 							<sourceDestDir>src-generated/main/java</sourceDestDir>
 						</configuration>
@@ -312,6 +313,7 @@
 							<wsdlFiles>
 								<wsdlFile>Comunicacao_Series.wsdl</wsdlFile>
 							</wsdlFiles>
+							<wsdlLocation>/Comunicacao_Series.wsdl</wsdlLocation>
 							<packageName>com.premiumminds.billy.portugal.webservices.series</packageName>
 							<sourceDestDir>src-generated/main/java</sourceDestDir>
 						</configuration>
