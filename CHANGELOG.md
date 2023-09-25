@@ -3,6 +3,10 @@
 
 ## [Unreleased v9]
 
+### Fixed
+
+ - [Set wsdl file location with wsdlLocation parameter](https://github.com/premium-minds/billy/pull/474)
+
 ### Changed
 
  - [Bump org.slf4j:slf4j-api from 2.0.7 to 2.0.9](https://github.com/premium-minds/billy/pull/469)
