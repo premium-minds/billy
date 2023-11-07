@@ -22,8 +22,8 @@ import com.premiumminds.billy.andorra.Config;
 import com.premiumminds.billy.andorra.persistence.entities.ADApplicationEntity;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import org.hibernate.envers.Audited;
 

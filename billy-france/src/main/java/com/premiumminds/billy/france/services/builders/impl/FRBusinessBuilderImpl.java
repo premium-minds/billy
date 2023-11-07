@@ -32,7 +32,7 @@ import com.premiumminds.billy.france.services.builders.FRBusinessBuilder;
 import com.premiumminds.billy.france.services.entities.FRBusiness;
 import com.premiumminds.billy.france.util.FRFinancialValidator;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

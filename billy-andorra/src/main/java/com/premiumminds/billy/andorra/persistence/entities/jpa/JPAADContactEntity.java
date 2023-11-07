@@ -20,8 +20,8 @@ package com.premiumminds.billy.andorra.persistence.entities.jpa;
 
 import com.premiumminds.billy.andorra.Config;
 import com.premiumminds.billy.andorra.persistence.entities.ADContactEntity;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import org.hibernate.envers.Audited;
 

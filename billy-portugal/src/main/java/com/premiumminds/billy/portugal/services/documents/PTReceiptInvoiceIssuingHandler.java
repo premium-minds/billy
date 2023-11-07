@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.documents;
 
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;

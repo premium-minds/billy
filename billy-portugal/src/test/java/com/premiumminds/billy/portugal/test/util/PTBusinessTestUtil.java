@@ -30,7 +30,7 @@ import com.premiumminds.billy.portugal.services.entities.PTContact;
 import com.premiumminds.billy.portugal.services.entities.PTRegionContext;
 import com.premiumminds.billy.portugal.util.Contexts;
 
-import javax.persistence.NoResultException;
+import jakarta.persistence.NoResultException;
 import java.net.MalformedURLException;
 import java.time.ZoneId;
 import java.util.UUID;

@@ -18,10 +18,10 @@
  */
 package com.premiumminds.billy.portugal.persistence.dao.jpa;
 
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;

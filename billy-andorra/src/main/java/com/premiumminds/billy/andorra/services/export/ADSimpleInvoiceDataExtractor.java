@@ -24,7 +24,7 @@ import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import java.util.List;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.gin.services.exceptions.ExportServiceException;
 import com.premiumminds.billy.gin.services.export.BillyDataExtractor;

@@ -19,7 +19,7 @@
 package com.premiumminds.billy.andorra.services.entities;
 
 import com.premiumminds.billy.andorra.services.builders.impl.ADRegionContextBuilderImpl;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADRegionContext;

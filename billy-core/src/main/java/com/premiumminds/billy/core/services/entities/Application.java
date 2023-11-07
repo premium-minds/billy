@@ -20,7 +20,7 @@ package com.premiumminds.billy.core.services.entities;
 
 import java.util.Collection;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOApplication;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;

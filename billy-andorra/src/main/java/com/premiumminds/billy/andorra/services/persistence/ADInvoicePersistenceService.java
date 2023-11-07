@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.andorra.services.persistence;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.andorra.persistence.dao.DAOADInvoice;
 import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;

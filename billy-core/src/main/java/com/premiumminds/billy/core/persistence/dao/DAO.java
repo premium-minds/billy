@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.core.persistence.dao;
 
-import javax.persistence.LockModeType;
+import jakarta.persistence.LockModeType;
 
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Entity;

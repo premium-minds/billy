@@ -41,14 +41,13 @@
 		<mapping-file>META-INF/orm-core.xml</mapping-file>
 		<mapping-file>META-INF/orm-france.xml</mapping-file>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.h2.Driver" />
-			<property name="javax.persistence.jdbc.url" value="jdbc:h2:/tmp/h2db" />
-			<property name="javax.persistence.jdbc.user" value="billytest" />
-			<property name="javax.persistence.jdbc.password" value="billytest" />
+			<property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver" />
+			<property name="jakarta.persistence.jdbc.url" value="jdbc:h2:/tmp/h2db" />
+			<property name="jakarta.persistence.jdbc.user" value="billytest" />
+			<property name="jakarta.persistence.jdbc.password" value="billytest" />
 
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.hbm2ddl.auto" value="create" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.globally_quoted_identifiers" value="true"/>
 		</properties>
 	</persistence-unit>

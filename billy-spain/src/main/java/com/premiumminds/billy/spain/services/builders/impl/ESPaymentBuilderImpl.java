@@ -21,7 +21,7 @@ package com.premiumminds.billy.spain.services.builders.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.PaymentBuilderImpl;

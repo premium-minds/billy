@@ -23,8 +23,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import java.util.Optional;
-import javax.inject.Inject;
-import javax.persistence.LockModeType;
+import jakarta.inject.Inject;
+import jakarta.persistence.LockModeType;
 
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;

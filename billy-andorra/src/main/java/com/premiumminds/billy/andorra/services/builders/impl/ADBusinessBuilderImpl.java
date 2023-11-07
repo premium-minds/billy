@@ -32,7 +32,7 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

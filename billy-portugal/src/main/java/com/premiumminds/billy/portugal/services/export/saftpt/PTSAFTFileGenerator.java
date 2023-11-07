@@ -21,7 +21,7 @@ package com.premiumminds.billy.portugal.services.export.saftpt;
 import java.io.OutputStream;
 import java.util.Date;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.portugal.persistence.entities.PTApplicationEntity;
 import com.premiumminds.billy.portugal.persistence.entities.PTBusinessEntity;

@@ -27,7 +27,7 @@ import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.spain.persistence.dao.DAOESBusiness;
 import com.premiumminds.billy.spain.persistence.entities.ESBusinessEntity;
 import com.premiumminds.billy.spain.services.entities.ESBusiness;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ESBusinessPersistenceService implements PersistenceService<Business, ESBusiness> {
 

@@ -22,12 +22,14 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import com.google.inject.persist.jpa.JpaPersistOptions;
 
 public class CoreJPATestPersistenceDependencyModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        this.install(new JpaPersistModule("BillyCoreJPATestPersistenceUnit"));
+        final var options = JpaPersistOptions.builder().setAutoBeginWorkOnEntityManagerCreation(true).build();
+        this.install(new JpaPersistModule("BillyCoreJPATestPersistenceUnit", options));
     }
 
     public static class Initializer {

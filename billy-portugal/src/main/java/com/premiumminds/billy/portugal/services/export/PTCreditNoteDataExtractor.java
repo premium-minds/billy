@@ -36,7 +36,7 @@ import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldN
 import com.premiumminds.billy.portugal.services.export.qrcode.QRCodeStringGenerator;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class PTCreditNoteDataExtractor extends AbstractBillyDataExtractor
         implements BillyDataExtractor<PTCreditNoteData> {

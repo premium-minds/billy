@@ -19,8 +19,8 @@
 package com.premiumminds.billy.portugal;
 
 import com.premiumminds.billy.portugal.util.ReceiptInvoices;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

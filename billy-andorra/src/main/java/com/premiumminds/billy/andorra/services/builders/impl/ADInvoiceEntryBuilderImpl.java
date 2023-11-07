@@ -30,7 +30,7 @@ import com.premiumminds.billy.andorra.persistence.dao.DAOADRegionContext;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADTax;
 import com.premiumminds.billy.andorra.services.builders.ADInvoiceEntryBuilder;
 import com.premiumminds.billy.andorra.services.entities.ADInvoiceEntry;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ADInvoiceEntryBuilderImpl<TBuilder extends ADInvoiceEntryBuilderImpl<TBuilder, TEntry>,
     TEntry extends ADInvoiceEntry>

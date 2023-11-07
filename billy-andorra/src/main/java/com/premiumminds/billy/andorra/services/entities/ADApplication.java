@@ -19,7 +19,7 @@
 package com.premiumminds.billy.andorra.services.entities;
 
 import com.premiumminds.billy.andorra.services.builders.impl.ADApplicationBuilderImpl;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADApplication;

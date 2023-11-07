@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.entities;
 
 import java.math.BigDecimal;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.util.PaymentMechanism;

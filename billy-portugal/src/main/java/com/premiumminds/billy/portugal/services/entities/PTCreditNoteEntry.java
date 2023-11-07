@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.entities;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTCreditNoteEntry;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTInvoice;

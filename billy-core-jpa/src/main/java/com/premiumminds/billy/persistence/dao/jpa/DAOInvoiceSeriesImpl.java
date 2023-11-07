@@ -25,10 +25,10 @@ import com.premiumminds.billy.persistence.entities.jpa.QJPABusinessEntity;
 import com.premiumminds.billy.persistence.entities.jpa.QJPAInvoiceSeriesEntity;
 import com.premiumminds.billy.core.services.entities.InvoiceSeries;
 import com.querydsl.jpa.impl.JPAQuery;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.LockModeType;
 
 public class DAOInvoiceSeriesImpl extends AbstractDAO<InvoiceSeries, InvoiceSeriesEntity, JPAInvoiceSeriesEntity>
         implements DAOInvoiceSeries {

@@ -21,12 +21,12 @@ package com.premiumminds.billy.persistence.dao.jpa;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
-import javax.persistence.FlushModeType;
-import javax.persistence.LockModeType;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.FlushModeType;
+import jakarta.persistence.LockModeType;
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

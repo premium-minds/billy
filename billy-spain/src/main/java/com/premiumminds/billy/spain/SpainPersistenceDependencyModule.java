@@ -22,6 +22,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import com.google.inject.persist.jpa.JpaPersistOptions;
 
 public class SpainPersistenceDependencyModule extends AbstractModule {
 
@@ -33,7 +34,8 @@ public class SpainPersistenceDependencyModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        JpaPersistModule persistModule = new JpaPersistModule(this.persistenceUnitId);
+        final var options = JpaPersistOptions.builder().setAutoBeginWorkOnEntityManagerCreation(true).build();
+        JpaPersistModule persistModule = new JpaPersistModule(this.persistenceUnitId, options);
         this.install(persistModule);
     }
 

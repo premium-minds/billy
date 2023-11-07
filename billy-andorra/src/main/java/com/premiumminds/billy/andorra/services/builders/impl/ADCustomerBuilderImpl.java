@@ -20,7 +20,7 @@ package com.premiumminds.billy.andorra.services.builders.impl;
 
 import com.premiumminds.billy.andorra.persistence.entities.ADCustomerEntity;
 import com.premiumminds.billy.andorra.util.ADFinancialValidator;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.exceptions.InvalidTaxIdentificationNumberException;

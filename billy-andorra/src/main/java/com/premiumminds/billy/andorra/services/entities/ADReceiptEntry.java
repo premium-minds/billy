@@ -19,7 +19,7 @@
 package com.premiumminds.billy.andorra.services.entities;
 
 import com.premiumminds.billy.andorra.services.builders.impl.ADReceiptEntryBuilderImpl;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.andorra.persistence.dao.DAOADProduct;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADReceipt;

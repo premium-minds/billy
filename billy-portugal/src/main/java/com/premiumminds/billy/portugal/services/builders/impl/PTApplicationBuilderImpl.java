@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.builders.impl;
 
 import java.net.URL;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ApplicationBuilderImpl;

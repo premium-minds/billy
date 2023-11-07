@@ -20,7 +20,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 
 import java.util.Date;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.persistence.dao.DAOPayment;

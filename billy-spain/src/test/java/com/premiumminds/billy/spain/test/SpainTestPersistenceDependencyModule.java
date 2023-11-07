@@ -22,12 +22,14 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
+import com.google.inject.persist.jpa.JpaPersistOptions;
 
 public class SpainTestPersistenceDependencyModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        JpaPersistModule persistModule = new JpaPersistModule("BillySpainTestPersistenceUnit");
+        final var options = JpaPersistOptions.builder().setAutoBeginWorkOnEntityManagerCreation(true).build();
+        JpaPersistModule persistModule = new JpaPersistModule("BillySpainTestPersistenceUnit", options);
         this.install(persistModule);
     }
 

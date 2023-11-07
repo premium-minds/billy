@@ -38,7 +38,7 @@ import com.premiumminds.billy.core.util.BillyValidator;
 import com.premiumminds.billy.core.util.Localizer;
 import com.premiumminds.billy.core.util.NotOnUpdate;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.time.ZoneId;
 
 public class BusinessBuilderImpl<TBuilder extends BusinessBuilderImpl<TBuilder, TBusiness>, TBusiness extends Business>

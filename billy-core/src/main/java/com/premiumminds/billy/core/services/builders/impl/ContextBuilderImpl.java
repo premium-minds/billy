@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;

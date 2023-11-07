@@ -35,9 +35,9 @@ import com.querydsl.jpa.impl.JPAQuery;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
 
 public class DAOPTCreditNoteImpl extends AbstractDAOPTGenericInvoiceImpl<PTCreditNoteEntity, JPAPTCreditNoteEntity>
         implements DAOPTCreditNote {

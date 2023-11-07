@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.france.services.entities;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.france.persistence.dao.DAOFRRegionContext;

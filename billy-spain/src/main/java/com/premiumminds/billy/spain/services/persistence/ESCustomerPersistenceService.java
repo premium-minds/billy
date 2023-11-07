@@ -27,7 +27,7 @@ import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.spain.persistence.dao.DAOESCustomer;
 import com.premiumminds.billy.spain.persistence.entities.ESCustomerEntity;
 import com.premiumminds.billy.spain.services.entities.ESCustomer;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ESCustomerPersistenceService implements PersistenceService<Customer, ESCustomer> {
 

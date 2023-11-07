@@ -27,7 +27,7 @@ import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTSupplier;
 import com.premiumminds.billy.portugal.persistence.entities.PTSupplierEntity;
 import com.premiumminds.billy.portugal.services.entities.PTSupplier;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class PTSupplierPersistenceService implements PersistenceService<Supplier, PTSupplier> {
 

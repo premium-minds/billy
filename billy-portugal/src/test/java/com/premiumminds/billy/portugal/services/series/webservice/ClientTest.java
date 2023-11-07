@@ -28,7 +28,7 @@ import java.net.ServerSocket;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
-import javax.xml.ws.Endpoint;
+import jakarta.xml.ws.Endpoint;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
