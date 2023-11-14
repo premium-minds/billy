@@ -24,7 +24,9 @@
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.0 to 3.6.2](https://github.com/premium-minds/billy/pull/484)
  - [Bump com.mycila:license-maven-plugin from 4.2 to 4.3](https://github.com/premium-minds/billy/pull/476)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.1.2 to 3.2.1](https://github.com/premium-minds/billy/pull/479)
+ - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.1 to 3.2.2](https://github.com/premium-minds/billy/pull/488)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.1.2 to 3.2.1](https://github.com/premium-minds/billy/pull/478)
+ - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.1 to 3.2.2](https://github.com/premium-minds/billy/pull/487)
 
 ## [9.2.0] 2023-08-03
 
