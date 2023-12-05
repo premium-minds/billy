@@ -11,6 +11,7 @@
 
  - [Bump org.apache.commons:commons-lang3 from 3.13.0 to 3.14.0](https://github.com/premium-minds/billy/pull/491)
  - [Bump org.slf4j:slf4j-api from 2.0.7 to 2.0.9](https://github.com/premium-minds/billy/pull/469)
+ - [Bump org.apache.pdfbox:pdfbox from 3.0.0 to 3.0.1](https://github.com/premium-minds/billy/pull/492)
  - [Bump org.mockito:mockito-core from 5.4.0 to 5.5.0](https://github.com/premium-minds/billy/pull/467)
  - [Bump org.mockito:mockito-core from 5.5.0 to 5.6.0](https://github.com/premium-minds/billy/pull/477)
  - [Bump org.mockito:mockito-core from 5.6.0 to 5.7.0](https://github.com/premium-minds/billy/pull/485)
@@ -22,8 +23,10 @@
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.38.0 to 2.39.0](https://github.com/premium-minds/billy/pull/471)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.39.0 to 2.40.0](https://github.com/premium-minds/billy/pull/475)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.40.0 to 2.41.0](https://github.com/premium-minds/billy/pull/490)
+ - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.41.0 to 2.41.1](https://github.com/premium-minds/billy/pull/494)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/billy/pull/472)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.0 to 3.6.2](https://github.com/premium-minds/billy/pull/484)
+ - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.2 to 3.6.3](https://github.com/premium-minds/billy/pull/493)
  - [Bump com.mycila:license-maven-plugin from 4.2 to 4.3](https://github.com/premium-minds/billy/pull/476)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.1.2 to 3.2.1](https://github.com/premium-minds/billy/pull/479)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.1 to 3.2.2](https://github.com/premium-minds/billy/pull/488)
