@@ -81,7 +81,7 @@ public class ADBusinessTestUtil {
         try {
             applicationBuilder = this.application.getApplicationBuilder();
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         ADContact.Builder contactBuilder = this.contact.getContactBuilder();

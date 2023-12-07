@@ -49,7 +49,12 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 class AuthenticationHandler implements SOAPHandler<SOAPMessageContext>  {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationHandler.class);
 
     private static final String AUTH_NS = "http://schemas.xmlsoap.org/ws/2002/12/secext";
     private static final String AUTH_PREFIX = "wss";
@@ -94,7 +99,7 @@ class AuthenticationHandler implements SOAPHandler<SOAPMessageContext>  {
                         webserviceCredentials.getUsername());
 
             } catch (Exception e){
-                e.printStackTrace();
+                LOGGER.error("problem with authentication", e);
                 return false;
             }
         }

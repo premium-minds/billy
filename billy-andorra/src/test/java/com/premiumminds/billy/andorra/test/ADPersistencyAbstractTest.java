@@ -85,10 +85,8 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
                             new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     public ADReceiptEntity getNewIssuedReceipt(StringID<Business> businessUID) {
@@ -103,9 +101,8 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
                             new ADBusinessTestUtil(ADAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return null;
     }
 
     public ADCreditReceiptEntity getNewIssuedCreditReceipt(ADReceipt receipt) {
@@ -121,10 +118,8 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
                     new ADCreditReceiptTestUtil(ADAbstractTest.injector).getCreditReceiptBuilder((ADReceiptEntity) receipt),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     public ADCreditNoteEntity getNewIssuedCreditnote(ADInvoice reference) {
@@ -140,10 +135,8 @@ public class ADPersistencyAbstractTest extends ADAbstractTest {
                     new ADCreditNoteTestUtil(ADAbstractTest.injector).getCreditNoteBuilder((ADInvoiceEntity) reference),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     protected ADIssuingParams getParameters(String series, String EACCode) {

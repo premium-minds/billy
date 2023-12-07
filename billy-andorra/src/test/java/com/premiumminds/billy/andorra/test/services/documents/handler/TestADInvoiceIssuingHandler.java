@@ -52,9 +52,8 @@ public class TestADInvoiceIssuingHandler extends ADDocumentAbstractTest {
             this.issueNewInvoice(this.handler, invoice, this.DEFAULT_SERIES);
             this.issuedInvoiceUID = invoice.getUID();
         } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
     }
 
     @Test

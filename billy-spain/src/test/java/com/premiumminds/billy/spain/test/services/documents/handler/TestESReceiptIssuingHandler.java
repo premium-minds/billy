@@ -52,7 +52,7 @@ public class TestESReceiptIssuingHandler extends ESDocumentAbstractTest {
 
             this.issuedReceiptUID = receipt.getUID();
         } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

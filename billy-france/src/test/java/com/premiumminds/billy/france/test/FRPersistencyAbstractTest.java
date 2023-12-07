@@ -85,10 +85,8 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
                             new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     public FRReceiptEntity getNewIssuedReceipt(StringID<Business> businessUID) {
@@ -103,9 +101,8 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
                             new FRBusinessTestUtil(FRAbstractTest.injector).getBusinessEntity(businessUID)),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-      return null;
     }
 
     public FRCreditReceiptEntity getNewIssuedCreditReceipt(FRReceipt receipt) {
@@ -121,10 +118,8 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
                     new FRCreditReceiptTestUtil(FRAbstractTest.injector).getCreditReceiptBuilder((FRReceiptEntity) receipt),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     public FRCreditNoteEntity getNewIssuedCreditnote(FRInvoice reference) {
@@ -139,10 +134,8 @@ public class FRPersistencyAbstractTest extends FRAbstractTest {
                     new FRCreditNoteTestUtil(FRAbstractTest.injector).getCreditNoteBuilder((FRInvoiceEntity) reference),
                     parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     protected FRIssuingParams getParameters(String series, String EACCode) {
