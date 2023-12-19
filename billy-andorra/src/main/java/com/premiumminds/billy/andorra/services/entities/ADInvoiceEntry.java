@@ -25,7 +25,7 @@ import com.premiumminds.billy.andorra.persistence.dao.DAOADProduct;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADRegionContext;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADTax;
 import com.premiumminds.billy.andorra.services.builders.impl.ADManualInvoiceEntryBuilderImpl;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public interface ADInvoiceEntry extends ADGenericInvoiceEntry {
 

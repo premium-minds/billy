@@ -51,12 +51,12 @@
 
 		<!-- PERSISTENCE -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-envers</artifactId>
 		</dependency>
 
@@ -65,6 +65,7 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
+			<classifier>jakarta</classifier>
 			<scope>provided</scope>
 		</dependency>
 
@@ -170,6 +171,7 @@
 						<groupId>com.querydsl</groupId>
 						<artifactId>querydsl-apt</artifactId>
 						<version>${querydsl.version}</version>
+						<classifier>jakarta</classifier>
 					</dependency>
 				</dependencies>
 			</plugin>

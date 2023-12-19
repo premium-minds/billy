@@ -30,7 +30,7 @@ import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntity;
 import com.premiumminds.billy.spain.persistence.entities.ESInvoiceEntryEntity;
 import com.premiumminds.billy.spain.services.builders.ESInvoiceEntryBuilder;
 import com.premiumminds.billy.spain.services.entities.ESInvoiceEntry;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ESInvoiceEntryBuilderImpl<TBuilder extends ESInvoiceEntryBuilderImpl<TBuilder, TEntry>,
     TEntry extends ESInvoiceEntry>

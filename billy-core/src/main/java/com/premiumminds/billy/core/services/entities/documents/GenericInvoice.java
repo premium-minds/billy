@@ -36,7 +36,7 @@ import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
 import java.util.List;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public interface GenericInvoice extends Entity<GenericInvoice> {
 

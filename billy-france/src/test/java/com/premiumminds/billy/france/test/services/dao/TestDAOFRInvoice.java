@@ -20,7 +20,7 @@ package com.premiumminds.billy.france.test.services.dao;
 
 import java.util.List;
 import java.util.UUID;
-import javax.persistence.NoResultException;
+import jakarta.persistence.NoResultException;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

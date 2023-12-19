@@ -22,7 +22,7 @@ import com.premiumminds.billy.andorra.services.builders.impl.ADInvoiceBuilderImp
 import com.premiumminds.billy.andorra.services.builders.impl.ADManualInvoiceBuilderImpl;
 import java.util.List;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;

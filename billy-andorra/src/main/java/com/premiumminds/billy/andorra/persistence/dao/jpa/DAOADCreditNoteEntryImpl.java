@@ -24,9 +24,9 @@ import com.premiumminds.billy.andorra.persistence.entities.jpa.JPAADCreditNoteEn
 import com.premiumminds.billy.andorra.persistence.entities.jpa.QJPAADCreditNoteEntity;
 import com.premiumminds.billy.andorra.persistence.entities.jpa.QJPAADCreditNoteEntryEntity;
 import com.premiumminds.billy.andorra.services.entities.ADInvoice;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
 
 import com.premiumminds.billy.andorra.persistence.dao.DAOADCreditNoteEntry;
 import com.premiumminds.billy.andorra.persistence.entities.jpa.JPAADCreditNoteEntity;

@@ -21,7 +21,7 @@ package com.premiumminds.billy.andorra.services.builders.impl;
 import com.premiumminds.billy.andorra.persistence.entities.ADShippingPointEntity;
 import com.premiumminds.billy.andorra.services.builders.ADShippingPointBuilder;
 import com.premiumminds.billy.andorra.services.entities.ADShippingPoint;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
 import com.premiumminds.billy.core.services.builders.impl.ShippingPointBuilderImpl;

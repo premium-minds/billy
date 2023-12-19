@@ -27,7 +27,7 @@ import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADSupplier;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ADSupplierPersistenceService implements PersistenceService<Supplier, ADSupplier> {
 

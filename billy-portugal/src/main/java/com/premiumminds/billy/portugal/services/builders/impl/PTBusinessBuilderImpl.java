@@ -32,7 +32,7 @@ import com.premiumminds.billy.portugal.services.builders.PTBusinessBuilder;
 import com.premiumminds.billy.portugal.services.entities.PTBusiness;
 import com.premiumminds.billy.portugal.util.PTFinancialValidator;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

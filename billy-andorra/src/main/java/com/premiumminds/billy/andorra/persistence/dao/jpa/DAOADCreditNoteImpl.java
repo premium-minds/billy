@@ -26,9 +26,9 @@ import com.premiumminds.billy.andorra.persistence.entities.jpa.QJPAADGenericInvo
 import com.premiumminds.billy.andorra.services.entities.ADCreditNote;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
 
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;

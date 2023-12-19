@@ -27,7 +27,7 @@ import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADBusiness;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ADBusinessPersistenceService implements PersistenceService<Business, ADBusiness> {
 

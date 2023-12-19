@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.andorra.services.entities;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Supplier;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADSupplier;

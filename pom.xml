@@ -23,9 +23,9 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<main.dir>${basedir}</main.dir>
 		<java.version>11</java.version>
-		<guice.version>5.1.0</guice.version>
+		<guice.version>7.0.0</guice.version>
 		<querydsl.version>5.0.0</querydsl.version>
-		<hibernate.version>5.6.15.Final</hibernate.version>
+		<hibernate.version>6.3.1.Final</hibernate.version>
 	</properties>
 
 	<modules>
@@ -71,14 +71,14 @@
 
 			<!-- PERSISTENCE -->
 			<dependency>
-				<groupId>org.hibernate</groupId>
+				<groupId>org.hibernate.orm</groupId>
 				<artifactId>hibernate-core</artifactId>
 				<version>${hibernate.version}</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
-				<groupId>org.hibernate</groupId>
+				<groupId>org.hibernate.orm</groupId>
 				<artifactId>hibernate-envers</artifactId>
 				<version>${hibernate.version}</version>
 				<scope>provided</scope>
@@ -154,6 +154,43 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.4.1</version>
+				<executions>
+					<execution>
+						<id>enforce-banned-dependencies</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<bannedDependencies>
+									<excludes>
+										<exclude>javax*</exclude>
+										<exclude>jakarta.inject:jakarta.inject-api:(,2)</exclude>
+										<exclude>jakarta.activation:jakarta.activation-api:(,2)</exclude>
+										<exclude>jakarta.annotation:jakarta.annotation-api:(,2)</exclude>
+										<exclude>jakarta.el:jakarta.el-api:(,4)</exclude>
+										<exclude>jakarta.json:jakarta.json-api:(,2)</exclude>
+										<exclude>jakarta.jws:jakarta.jws-api:(,3)</exclude>
+										<exclude>jakarta.persistence:jakarta.persistence-api:(,3)</exclude>
+										<exclude>jakarta.servlet:jakarta.servlet-api:(,5)</exclude>
+										<exclude>jakarta.xml.bind:jakarta.xml.bind-api:(,3)</exclude>
+										<exclude>jakarta.xml.soap:jakarta.xml.soap-api:(,2)</exclude>
+										<exclude>jakarta.xml.ws:jakarta.xml.ws-api:(,3]</exclude>
+										<exclude>jakarta.validation:jakarta.validation-api:(,3)</exclude>
+										<exclude>org.hibernate.javax.persistence:hibernate-jpa-2.1-api</exclude>
+										<exclude>org.hibernate:hibernate-core</exclude>
+									</excludes>
+								</bannedDependencies>
+							</rules>
+							<fail>true</fail>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<inherited>true</inherited>
 				<groupId>com.mycila</groupId>
@@ -294,9 +331,9 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.jvnet.jaxb2.maven2</groupId>
-					<artifactId>maven-jaxb2-plugin</artifactId>
-					<version>0.15.3</version>
+					<groupId>org.jvnet.jaxb</groupId>
+					<artifactId>jaxb-maven-plugin</artifactId>
+					<version>3.0.1</version>
 				</plugin>
 				<plugin>
 					<groupId>com.mysema.maven</groupId>

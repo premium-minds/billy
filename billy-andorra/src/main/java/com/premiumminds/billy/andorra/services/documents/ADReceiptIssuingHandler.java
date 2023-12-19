@@ -22,7 +22,7 @@ import com.premiumminds.billy.andorra.persistence.dao.DAOADReceipt;
 import com.premiumminds.billy.andorra.persistence.entities.ADReceiptEntity;
 import com.premiumminds.billy.andorra.services.documents.util.ADIssuingParams;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;

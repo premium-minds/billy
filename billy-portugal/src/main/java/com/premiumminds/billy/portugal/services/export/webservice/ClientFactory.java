@@ -20,7 +20,7 @@ package com.premiumminds.billy.portugal.services.export.webservice;
 
 import java.net.URL;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.portugal.Config;
 

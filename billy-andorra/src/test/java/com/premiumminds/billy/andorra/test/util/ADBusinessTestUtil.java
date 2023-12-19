@@ -30,7 +30,7 @@ import com.premiumminds.billy.andorra.util.Contexts;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Business;
 
-import javax.persistence.NoResultException;
+import jakarta.persistence.NoResultException;
 import java.net.MalformedURLException;
 import java.time.ZoneId;
 import java.util.UUID;

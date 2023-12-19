@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.persistence.dao.jpa;
 
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
 
 import com.premiumminds.billy.core.persistence.dao.AbstractDAOGenericInvoiceEntry;
 import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;

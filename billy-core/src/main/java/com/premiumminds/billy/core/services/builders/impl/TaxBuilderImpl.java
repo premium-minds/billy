@@ -21,7 +21,7 @@ package com.premiumminds.billy.core.services.builders.impl;
 import java.math.BigDecimal;
 import java.util.Currency;
 import java.util.Date;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.apache.commons.lang3.Validate;
 

@@ -38,7 +38,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.ws.Endpoint;
+import jakarta.xml.ws.Endpoint;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

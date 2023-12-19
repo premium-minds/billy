@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.spain.services.entities;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.spain.persistence.dao.DAOESProduct;
 import com.premiumminds.billy.spain.persistence.dao.DAOESReceipt;

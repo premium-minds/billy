@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.spain;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

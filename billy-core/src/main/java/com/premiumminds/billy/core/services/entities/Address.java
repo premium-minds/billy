@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.core.services.entities;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOAddress;
 import com.premiumminds.billy.core.services.builders.impl.AddressBuilderImpl;

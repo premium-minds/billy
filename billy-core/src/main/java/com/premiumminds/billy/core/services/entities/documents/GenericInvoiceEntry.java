@@ -22,7 +22,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;

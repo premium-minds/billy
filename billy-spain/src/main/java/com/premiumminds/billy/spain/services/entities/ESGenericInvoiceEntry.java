@@ -19,7 +19,7 @@
 package com.premiumminds.billy.spain.services.entities;
 
 import com.premiumminds.billy.spain.persistence.entities.ESGenericInvoiceEntity;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.spain.persistence.dao.DAOESGenericInvoice;

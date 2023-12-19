@@ -20,9 +20,9 @@ package com.premiumminds.billy.andorra.persistence.dao.jpa;
 
 import com.premiumminds.billy.andorra.persistence.entities.ADProductEntity;
 import com.premiumminds.billy.andorra.persistence.entities.jpa.JPAADProductEntity;
-import javax.inject.Inject;
-import javax.inject.Provider;
-import javax.persistence.EntityManager;
+import jakarta.inject.Inject;
+import jakarta.inject.Provider;
+import jakarta.persistence.EntityManager;
 
 import com.premiumminds.billy.persistence.dao.jpa.DAOProductImpl;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADProduct;

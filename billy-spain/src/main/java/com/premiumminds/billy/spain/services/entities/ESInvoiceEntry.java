@@ -25,7 +25,7 @@ import com.premiumminds.billy.spain.persistence.dao.DAOESRegionContext;
 import com.premiumminds.billy.spain.persistence.dao.DAOESTax;
 import com.premiumminds.billy.spain.services.builders.impl.ESInvoiceEntryBuilderImpl;
 import com.premiumminds.billy.spain.services.builders.impl.ESManualInvoiceEntryBuilderImpl;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public interface ESInvoiceEntry extends ESGenericInvoiceEntry {
 

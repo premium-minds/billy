@@ -21,7 +21,7 @@ package com.premiumminds.billy.andorra.services.entities;
 import com.premiumminds.billy.andorra.services.builders.impl.ADPaymentBuilderImpl;
 import java.math.BigDecimal;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Payment;
 import com.premiumminds.billy.core.util.PaymentMechanism;

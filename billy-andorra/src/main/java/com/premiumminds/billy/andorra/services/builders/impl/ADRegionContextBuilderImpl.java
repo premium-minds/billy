@@ -19,7 +19,7 @@
 package com.premiumminds.billy.andorra.services.builders.impl;
 
 import com.premiumminds.billy.andorra.persistence.entities.ADRegionContextEntity;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.builders.impl.ContextBuilderImpl;
 import com.premiumminds.billy.core.util.Localizer;

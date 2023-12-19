@@ -20,7 +20,7 @@ package com.premiumminds.billy.andorra.services.entities;
 
 import com.premiumminds.billy.andorra.persistence.entities.ADGenericInvoiceEntity;
 import com.premiumminds.billy.andorra.services.builders.impl.ADGenericInvoiceEntryBuilderImpl;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
 import com.premiumminds.billy.andorra.persistence.dao.DAOADGenericInvoice;

@@ -32,8 +32,8 @@ import com.premiumminds.billy.andorra.util.Products;
 import com.premiumminds.billy.andorra.util.Receipts;
 import com.premiumminds.billy.andorra.util.SimpleInvoices;
 import com.premiumminds.billy.andorra.util.Taxes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

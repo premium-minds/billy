@@ -22,7 +22,7 @@ import com.premiumminds.billy.portugal.Config;
 import com.premiumminds.billy.portugal.Config.Key;
 import com.premiumminds.billy.portugal.services.entities.PTGenericInvoice;
 import com.premiumminds.billy.portugal.services.export.exceptions.RequiredFieldNotFoundException;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class QRCodeStringGenerator {
 

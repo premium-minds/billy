@@ -18,10 +18,10 @@
  */
 package com.premiumminds.billy.spain.persistence.entities.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 
 import org.hibernate.envers.Audited;
 

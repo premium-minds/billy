@@ -118,6 +118,8 @@ class GenericTest {
         final TaxEntity taxEntity = daoTax.create((TaxEntity) taxBuilder.build());
 
         Assertions.assertNotNull(taxEntity);
+
+        daoContext.commit();
     }
 
 }

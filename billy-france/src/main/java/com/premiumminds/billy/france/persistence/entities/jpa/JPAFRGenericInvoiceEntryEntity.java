@@ -18,8 +18,8 @@
  */
 package com.premiumminds.billy.france.persistence.entities.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import org.hibernate.envers.Audited;
 

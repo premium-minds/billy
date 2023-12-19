@@ -18,7 +18,7 @@
  */
 package com.premiumminds.billy.portugal.services.persistence;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.exceptions.BillyRuntimeException;
 import com.premiumminds.billy.core.persistence.dao.TransactionWrapper;

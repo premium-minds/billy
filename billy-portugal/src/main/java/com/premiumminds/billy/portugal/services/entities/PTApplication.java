@@ -21,7 +21,7 @@ package com.premiumminds.billy.portugal.services.entities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.portugal.persistence.dao.DAOPTApplication;

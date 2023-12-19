@@ -31,8 +31,8 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.Optional;
-import javax.inject.Inject;
-import javax.persistence.LockModeType;
+import jakarta.inject.Inject;
+import jakarta.persistence.LockModeType;
 
 public abstract class ESGenericInvoiceIssuingHandler<T extends ESGenericInvoiceEntity, P extends ESIssuingParams>
         implements DocumentIssuingHandler<T, P> {

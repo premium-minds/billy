@@ -20,7 +20,7 @@ package com.premiumminds.billy.core;
 
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.matcher.AbstractMatcher;

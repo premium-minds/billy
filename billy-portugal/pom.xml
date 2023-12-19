@@ -52,12 +52,12 @@
 
 		<!-- PERSISTENCE -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate</groupId>
+			<groupId>org.hibernate.orm</groupId>
 			<artifactId>hibernate-envers</artifactId>
 		</dependency>
 
@@ -66,6 +66,7 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
+			<classifier>jakarta</classifier>
 			<scope>provided</scope>
 		</dependency>
 
@@ -97,18 +98,12 @@
 		<dependency>
 			<groupId>jakarta.xml.ws</groupId>
 			<artifactId>jakarta.xml.ws-api</artifactId>
-			<version>2.3.3</version>
-			<exclusions>
-				<exclusion>
-					<groupId>jakarta.activation</groupId>
-					<artifactId>jakarta.activation-api</artifactId>
-				</exclusion>
-			</exclusions>
+			<version>3.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>jakarta.jws</groupId>
 			<artifactId>jakarta.jws-api</artifactId>
-			<version>2.1.0</version>
+			<version>3.0.0</version>
 		</dependency>
 
 		<!-- JUNIT -->
@@ -150,14 +145,8 @@
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
 			<artifactId>jaxws-rt</artifactId>
-			<version>2.3.6</version>
+			<version>3.0.2</version>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>com.sun.activation</groupId>
-					<artifactId>jakarta.activation</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 	</dependencies>
@@ -209,20 +198,14 @@
 						<groupId>com.querydsl</groupId>
 						<artifactId>querydsl-apt</artifactId>
 						<version>${querydsl.version}</version>
+						<classifier>jakarta</classifier>
 					</dependency>
 				</dependencies>
 			</plugin>
 			<plugin>
 				<!-- When adding support for additional SAFT version via .xsd, create a separate execution element, as done below -->
-				<groupId>org.jvnet.jaxb2.maven2</groupId>
-				<artifactId>maven-jaxb2-plugin</artifactId>
-				<dependencies>
-					<dependency>
-						<groupId>org.glassfish.jaxb</groupId>
-						<artifactId>jaxb-runtime</artifactId>
-						<version>2.3.5</version>
-					</dependency>
-				</dependencies>
+				<groupId>org.jvnet.jaxb</groupId>
+				<artifactId>jaxb-maven-plugin</artifactId>
 				<configuration>
 					<schemaDirectory>src/main/resources/documents</schemaDirectory>
 					<bindingDirectory>src/main/resources/documents</bindingDirectory>
@@ -230,22 +213,6 @@
 					<strict>false</strict>
 					<extension>true</extension>
 					<forceRegenerate>true</forceRegenerate>
-					<plugins>
-						<plugin>
-							<groupId>org.jvnet.jaxb2_commons</groupId>
-							<artifactId>jaxb2-basics</artifactId>
-							<version>0.13.1</version>
-						</plugin>
-						<plugin>
-							<groupId>org.jvnet.jaxb2_commons</groupId>
-							<artifactId>jaxb2-basics-annotate</artifactId>
-							<version>1.1.0</version>
-						</plugin>
-					</plugins>
-					<args>
-						<arg>-Xannotate</arg>
-						<arg>-XtoString</arg>
-					</args>
 				</configuration>
 				<executions>
 					<execution>
@@ -284,9 +251,9 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>com.sun.xml.ws</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>2.6</version>
+				<version>3.0.2</version>
 				<executions>
 					<execution>
 						<id>documents</id>

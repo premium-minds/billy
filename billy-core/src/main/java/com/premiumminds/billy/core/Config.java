@@ -21,7 +21,7 @@ package com.premiumminds.billy.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

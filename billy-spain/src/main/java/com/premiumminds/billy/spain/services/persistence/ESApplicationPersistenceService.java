@@ -27,7 +27,7 @@ import com.premiumminds.billy.persistence.services.PersistenceService;
 import com.premiumminds.billy.spain.persistence.dao.DAOESApplication;
 import com.premiumminds.billy.spain.persistence.entities.ESApplicationEntity;
 import com.premiumminds.billy.spain.services.entities.ESApplication;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 public class ESApplicationPersistenceService implements PersistenceService<Application, ESApplication> {
 
