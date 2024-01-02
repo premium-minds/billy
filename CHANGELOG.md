@@ -22,6 +22,7 @@
  - [Bump org.apache.xmlgraphics:fop from 2.8 to 2.9](https://github.com/premium-minds/billy/pull/466)
  - [Bump org.apache.pdfbox:pdfbox from 2.0.29 to 3.0.0](https://github.com/premium-minds/billy/pull/465)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.0 to 5.10.1](https://github.com/premium-minds/billy/pull/483)
+ - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.11.0 to 3.12.1](https://github.com/premium-minds/billy/pull/505)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.38.0 to 2.39.0](https://github.com/premium-minds/billy/pull/471)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.39.0 to 2.40.0](https://github.com/premium-minds/billy/pull/475)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.40.0 to 2.41.0](https://github.com/premium-minds/billy/pull/490)
