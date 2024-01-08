@@ -33,7 +33,13 @@ public final class ExternalID<I> implements Serializable {
     }
 
     public static <I> ExternalID<I> fromValue(String value) {
-        return new ExternalID<>(value);
+        final ExternalID<I> result;
+        if (value == null) {
+            result = null;
+        } else {
+            result = new ExternalID<>(value);
+        }
+        return result;
     }
 
     public boolean equals(Object obj) {

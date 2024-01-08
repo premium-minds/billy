@@ -272,7 +272,7 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEn
 
     @Override
     public Optional<ExternalID<GenericInvoiceEntry>> getExternalID() {
-        return Optional.of(ExternalID.fromValue(externalID));
+        return Optional.ofNullable(ExternalID.fromValue(externalID));
     }
 
     @Override
@@ -408,7 +408,7 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEn
 
     @Override
     public void setExternalID(final ExternalID<GenericInvoiceEntry> externalID) {
-        this.externalID = externalID.toString();
+        this.externalID = externalID.getIdentifier();
     }
 
 }
