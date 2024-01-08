@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.services.builders.impl;
 
+import com.premiumminds.billy.core.ExternalID;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Collection;
@@ -123,6 +124,13 @@ public class GenericInvoiceEntryBuilderImpl<TBuilder extends GenericInvoiceEntry
         BillyValidator.notNull(taxes, "field.taxes");
         this.getTypeInstance().setTaxes(taxes);
 
+        return this.getBuilder();
+    }
+
+    @Override
+    public TBuilder setExternalID(final ExternalID<GenericInvoiceEntry> externalID) {
+        BillyValidator.notNull(externalID, "field.external_id");
+        this.getTypeInstance().setExternalID(externalID);
         return this.getBuilder();
     }
 

@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.services.builders;
 
+import com.premiumminds.billy.core.ExternalID;
 import com.premiumminds.billy.core.services.Builder;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Context;
@@ -74,4 +75,5 @@ public interface GenericInvoiceEntryBuilder<TBuilder extends GenericInvoiceEntry
 
     <T extends Tax> TBuilder setTaxes(Collection<T> taxes);
 
+    TBuilder setExternalID(ExternalID<GenericInvoiceEntry> externalID);
 }

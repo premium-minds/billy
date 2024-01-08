@@ -73,7 +73,8 @@ class TestGenericInvoiceEntryBuilder extends AbstractTest {
                 .setShippingCostsAmount(mock.getShippingCostsAmount())
                 .setUnitAmount(AmountType.WITH_TAX, mock.getUnitAmountWithTax())
                 .setUnitOfMeasure(mock.getUnitOfMeasure()).setProductUID(mock.getProduct().getUID())
-                .setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"));
+                .setTaxPointDate(mock.getTaxPointDate()).setCurrency(Currency.getInstance("EUR"))
+                .setExternalID(mock.getExternalID().orElseThrow());
 
         GenericInvoiceEntry entry = builder.build();
 
@@ -90,6 +91,7 @@ class TestGenericInvoiceEntryBuilder extends AbstractTest {
         Assertions.assertEquals(0, mock.getAmountWithoutTax().compareTo(entry.getAmountWithoutTax()));
         Assertions.assertEquals(0, mock.getTaxAmount().compareTo(entry.getTaxAmount()));
         Assertions.assertEquals(0, mock.getDiscountAmount().compareTo(entry.getDiscountAmount()));
+        Assertions.assertEquals(mock.getExternalID().orElseThrow(), entry.getExternalID().orElseThrow());
 
     }
 

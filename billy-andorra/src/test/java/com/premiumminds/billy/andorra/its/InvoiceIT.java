@@ -18,8 +18,6 @@
  */
 package com.premiumminds.billy.andorra.its;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.premiumminds.billy.andorra.AndorraBootstrap;
@@ -41,6 +39,7 @@ import com.premiumminds.billy.andorra.services.entities.ADInvoiceEntry;
 import com.premiumminds.billy.andorra.services.entities.ADPayment;
 import com.premiumminds.billy.andorra.services.entities.ADProduct;
 import com.premiumminds.billy.andorra.services.entities.ADTax;
+import com.premiumminds.billy.core.ExternalID;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
@@ -52,13 +51,16 @@ import com.premiumminds.billy.core.services.exceptions.DocumentIssuingException;
 import com.premiumminds.billy.core.services.exceptions.DocumentSeriesDoesNotExistException;
 import com.premiumminds.billy.core.util.PaymentMechanism;
 import com.premiumminds.billy.persistence.entities.jpa.JPAInvoiceSeriesEntity;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InvoiceIT {
 
@@ -270,7 +272,8 @@ class InvoiceIT {
                 .setContextUID(billyAndorra.contexts().andorra().allRegions().getUID())
                 .setProductUID(product.getUID())
                 .setDescription(product.getDescription())
-                .setUnitOfMeasure(product.getUnitOfMeasure());
+                .setUnitOfMeasure(product.getUnitOfMeasure())
+                .setExternalID(ExternalID.fromValue("externalID1"));
 
         invoiceBuilder.addEntry(entryBuilder);
 
@@ -285,7 +288,8 @@ class InvoiceIT {
                 .setDescription(productExempt.getDescription())
                 .setUnitOfMeasure(productExempt.getUnitOfMeasure())
                 .setTaxExemptionCode("M99")
-                .setTaxExemptionReason("reason 1");
+                .setTaxExemptionReason("reason 1")
+                .setExternalID(ExternalID.fromValue("externalID2"));
 
         invoiceBuilder.addEntry(entryBuilder);
 
@@ -300,7 +304,8 @@ class InvoiceIT {
                 .setDescription(productTax.getDescription())
                 .setUnitOfMeasure(productTax.getUnitOfMeasure())
                 .setTaxExemptionCode("M99")
-                .setTaxExemptionReason("reason 1");
+                .setTaxExemptionReason("reason 1")
+                .setExternalID(ExternalID.fromValue("externalID3"));
 
         invoiceBuilder.addEntry(entryBuilder);
 

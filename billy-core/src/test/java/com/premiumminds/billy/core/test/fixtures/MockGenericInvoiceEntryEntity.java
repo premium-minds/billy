@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.test.fixtures;
 
+import com.premiumminds.billy.core.ExternalID;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -33,6 +34,7 @@ import com.premiumminds.billy.core.services.entities.Tax;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import java.util.Optional;
 
 public class MockGenericInvoiceEntryEntity extends MockBaseEntity<GenericInvoiceEntry> implements GenericInvoiceEntryEntity {
 
@@ -63,6 +65,7 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity<GenericInvoice
     public BigDecimal unitDiscountAmount;
     public String unitOfMeasure;
     public AmountType type;
+    public ExternalID<GenericInvoiceEntry> externalID;
 
     public MockGenericInvoiceEntryEntity() {
         this.references = new ArrayList<>();
@@ -182,6 +185,11 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity<GenericInvoice
     @Override
     public AmountType getAmountType() {
         return this.type;
+    }
+
+    @Override
+    public Optional<ExternalID<GenericInvoiceEntry>> getExternalID() {
+        return Optional.ofNullable(externalID);
     }
 
     @Override
@@ -313,5 +321,10 @@ public class MockGenericInvoiceEntryEntity extends MockBaseEntity<GenericInvoice
     @Override
     public void setAmountType(AmountType type) {
         this.type = type;
+    }
+
+    @Override
+    public void setExternalID(final ExternalID<GenericInvoiceEntry> externalID) {
+        this.externalID = externalID;
     }
 }

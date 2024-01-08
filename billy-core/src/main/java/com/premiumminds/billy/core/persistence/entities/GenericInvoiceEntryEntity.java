@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.persistence.entities;
 
+import com.premiumminds.billy.core.ExternalID;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Currency;
@@ -87,5 +88,7 @@ public interface GenericInvoiceEntryEntity extends GenericInvoiceEntry {
     public void setTaxExemptionCode(String exemptionCode);
 
     public void setAmountType(AmountType type);
+
+    public void setExternalID(ExternalID<GenericInvoiceEntry> externalID);
 
 }
