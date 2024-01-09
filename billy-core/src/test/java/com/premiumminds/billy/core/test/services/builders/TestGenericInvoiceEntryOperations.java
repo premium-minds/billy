@@ -18,15 +18,6 @@
  */
 package com.premiumminds.billy.core.test.services.builders;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.util.Currency;
-
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoice;
 import com.premiumminds.billy.core.persistence.dao.DAOGenericInvoiceEntry;
@@ -39,11 +30,19 @@ import com.premiumminds.billy.core.test.AbstractTest;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntity;
 import com.premiumminds.billy.core.test.fixtures.MockGenericInvoiceEntryEntity;
 import com.premiumminds.billy.core.util.BillyMathContext;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-public class TestGenericInvoiceEntryOperations extends AbstractTest {
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Currency;
 
-    private MathContext mc = BillyMathContext.get();
-    private BigDecimal qnt = new BigDecimal("46");
+class TestGenericInvoiceEntryOperations extends AbstractTest {
+
+    private final MathContext mc = BillyMathContext.get();
+    private final BigDecimal qnt = new BigDecimal("46");
     private static final String INVOICE_YML = AbstractTest.YML_CONFIGS_DIR + "GenericInvoice.yml";
     private static final String ENTRY_YML = AbstractTest.YML_CONFIGS_DIR + "GenericInvoiceEntry.yml";
     MockGenericInvoiceEntryEntity mock;
@@ -73,54 +72,54 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
         Mockito.when(this.getInstance(DAOProduct.class).get(Mockito.any()))
                 .thenReturn((ProductEntity) this.mock.getProduct());
 
-        this.builder = this.getEntryEntityBuilder(this.invoiceMock, this.mock);
+        this.builder = this.getEntryEntityBuilder(this.mock);
 
-        this.entry = this.getEntryEntityBuilder(this.invoiceMock, this.mock).build();
+        this.entry = this.getEntryEntityBuilder(this.mock).build();
 
     }
 
     @Test
-    public void testOperations() {
+    void testOperations() {
 
-        Assertions.assertTrue(this.entry.getAmountWithoutTax().compareTo(this.mock.getAmountWithoutTax()) == 0);
+        Assertions.assertEquals(0, this.entry.getAmountWithoutTax().compareTo(this.mock.getAmountWithoutTax()));
 
-        Assertions.assertTrue(this.entry.getAmountWithoutTax()
-                .compareTo(this.mock.getUnitAmountWithoutTax().multiply(this.qnt, this.mc)) == 0);
+        Assertions.assertEquals(0, this.entry.getAmountWithoutTax()
+                .compareTo(this.mock.getUnitAmountWithoutTax().multiply(this.qnt, this.mc)));
 
-        Assertions.assertTrue(this.entry.getAmountWithoutTax()
-                .compareTo((this.mock.getAmountWithTax().subtract(this.mock.getTaxAmount(), this.mc))) == 0);
+        Assertions.assertEquals(0, this.entry.getAmountWithoutTax()
+                .compareTo((this.mock.getAmountWithTax().subtract(this.mock.getTaxAmount(), this.mc))));
 
-        Assertions.assertTrue(this.entry.getAmountWithTax()
-                .compareTo(this.mock.getAmountWithTax().setScale(7, this.mc.getRoundingMode())) == 0);
+        Assertions.assertEquals(0, this.entry.getAmountWithTax()
+                .compareTo(this.mock.getAmountWithTax().setScale(7, this.mc.getRoundingMode())));
 
-        Assertions.assertTrue(this.entry.getAmountWithTax()
-                .compareTo(this.mock.getUnitAmountWithTax().multiply(this.qnt, this.mc)) == 0);
+        Assertions.assertEquals(0,
+                this.entry.getAmountWithTax().compareTo(this.mock.getUnitAmountWithTax().multiply(this.qnt, this.mc)));
 
-        Assertions.assertTrue(this.entry.getAmountWithTax()
-                .compareTo((this.mock.getTaxAmount().add(this.mock.getAmountWithoutTax(), this.mc))) == 0);
+        Assertions.assertEquals(0, this.entry.getAmountWithTax()
+                .compareTo((this.mock.getTaxAmount().add(this.mock.getAmountWithoutTax(), this.mc))));
 
-        Assertions.assertTrue(this.entry.getTaxAmount().compareTo(this.mock.getTaxAmount()) == 0);
+        Assertions.assertEquals(0, this.entry.getTaxAmount().compareTo(this.mock.getTaxAmount()));
 
-        Assertions.assertTrue(this.entry.getTaxAmount()
-                .compareTo((this.mock.getAmountWithTax().subtract(this.mock.getAmountWithoutTax()))) == 0);
+        Assertions.assertEquals(0, this.entry.getTaxAmount()
+                .compareTo((this.mock.getAmountWithTax().subtract(this.mock.getAmountWithoutTax()))));
 
-        Assertions.assertTrue(
-                this.entry.getTaxAmount().compareTo(this.mock.getUnitTaxAmount().multiply(this.qnt, this.mc)) == 0);
+        Assertions.assertEquals(0,
+                this.entry.getTaxAmount().compareTo(this.mock.getUnitTaxAmount().multiply(this.qnt, this.mc)));
 
-        Assertions.assertTrue(this.entry.getUnitAmountWithTax().compareTo(this.mock.getUnitAmountWithTax()) == 0);
+        Assertions.assertEquals(0, this.entry.getUnitAmountWithTax().compareTo(this.mock.getUnitAmountWithTax()));
 
-        Assertions.assertTrue(this.entry.getUnitAmountWithTax().compareTo((this.mock.getUnitAmountWithoutTax()
-                .add(this.mock.getUnitAmountWithoutTax().multiply(new BigDecimal("0.23"), this.mc), this.mc))) == 0);
+        Assertions.assertEquals(0, this.entry.getUnitAmountWithTax().compareTo((this.mock.getUnitAmountWithoutTax()
+                .add(this.mock.getUnitAmountWithoutTax().multiply(new BigDecimal("0.23"), this.mc), this.mc))));
 
-        Assertions.assertTrue(this.entry.getUnitAmountWithoutTax().compareTo(this.mock.getUnitAmountWithoutTax()) == 0);
+        Assertions.assertEquals(0, this.entry.getUnitAmountWithoutTax().compareTo(this.mock.getUnitAmountWithoutTax()));
 
-        Assertions.assertTrue(this.entry.getUnitAmountWithoutTax()
-                .compareTo((this.mock.getUnitAmountWithTax().subtract(this.mock.getUnitTaxAmount(), this.mc))) == 0);
+        Assertions.assertEquals(0, this.entry.getUnitAmountWithoutTax()
+                .compareTo((this.mock.getUnitAmountWithTax().subtract(this.mock.getUnitTaxAmount(), this.mc))));
 
-        Assertions.assertTrue(this.entry.getUnitTaxAmount().compareTo(this.mock.getUnitTaxAmount()) == 0);
+        Assertions.assertEquals(0, this.entry.getUnitTaxAmount().compareTo(this.mock.getUnitTaxAmount()));
 
-        Assertions.assertTrue(this.entry.getUnitTaxAmount().compareTo(
-                (this.mock.getUnitAmountWithTax().subtract(this.mock.getUnitAmountWithoutTax(), this.mc))) == 0);
+        Assertions.assertEquals(0, this.entry.getUnitTaxAmount()
+                .compareTo((this.mock.getUnitAmountWithTax().subtract(this.mock.getUnitAmountWithoutTax(), this.mc))));
 
         try {
             this.builder.setQuantity(new BigDecimal("-1"));
@@ -128,14 +127,14 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
         } catch (IllegalArgumentException e) {
         }
 
-        Assertions.assertTrue(this.entry.getUnitAmountWithoutTax().compareTo(this.mock.getUnitAmountWithoutTax()) == 0);
-        Assertions.assertTrue(this.entry.getUnitAmountWithTax().compareTo(this.mock.getUnitAmountWithTax()) == 0);
-        Assertions.assertTrue(this.entry.getUnitTaxAmount().compareTo(this.mock.getUnitTaxAmount()) == 0);
-        Assertions.assertTrue(this.entry.getTaxAmount().compareTo(this.mock.getTaxAmount()) == 0);
-        Assertions.assertTrue(this.entry.getAmountWithoutTax().compareTo(this.mock.getAmountWithoutTax()) == 0);
-        Assertions.assertTrue(this.entry.getAmountWithTax().compareTo(this.mock.getAmountWithTax()) == 0);
+        Assertions.assertEquals(0, this.entry.getUnitAmountWithoutTax().compareTo(this.mock.getUnitAmountWithoutTax()));
+        Assertions.assertEquals(0, this.entry.getUnitAmountWithTax().compareTo(this.mock.getUnitAmountWithTax()));
+        Assertions.assertEquals(0, this.entry.getUnitTaxAmount().compareTo(this.mock.getUnitTaxAmount()));
+        Assertions.assertEquals(0, this.entry.getTaxAmount().compareTo(this.mock.getTaxAmount()));
+        Assertions.assertEquals(0, this.entry.getAmountWithoutTax().compareTo(this.mock.getAmountWithoutTax()));
+        Assertions.assertEquals(0, this.entry.getAmountWithTax().compareTo(this.mock.getAmountWithTax()));
 
-        return;
+        Assertions.assertEquals(this.mock.getExternalID().orElseThrow(), this.entry.getExternalID().orElseThrow());
     }
 
     public MockGenericInvoiceEntryEntity getMockEntryEntity(MockGenericInvoiceEntity invoice, BigDecimal unitValue) {
@@ -157,8 +156,7 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
         return result;
     }
 
-    public GenericInvoiceEntry.Builder getEntryEntityBuilder(MockGenericInvoiceEntity invoice,
-            MockGenericInvoiceEntryEntity mockEntry) {
+    public GenericInvoiceEntry.Builder getEntryEntityBuilder(MockGenericInvoiceEntryEntity mockEntry) {
 
         GenericInvoiceEntry.Builder builder = this.getInstance(GenericInvoiceEntry.Builder.class);
 
@@ -167,7 +165,8 @@ public class TestGenericInvoiceEntryOperations extends AbstractTest {
                 .setQuantity(mockEntry.getQuantity()).setShippingCostsAmount(mockEntry.getShippingCostsAmount())
                 .setUnitAmount(AmountType.WITHOUT_TAX, mockEntry.getUnitAmountWithoutTax())
                 .setUnitOfMeasure(mockEntry.getUnitOfMeasure()).setProductUID(mockEntry.getProduct().getUID())
-                .setTaxPointDate(mockEntry.getTaxPointDate()).setCurrency(mockEntry.getCurrency());
+                .setTaxPointDate(mockEntry.getTaxPointDate()).setCurrency(mockEntry.getCurrency())
+                .setExternalID(mockEntry.getExternalID().orElseThrow());
 
         return builder;
     }

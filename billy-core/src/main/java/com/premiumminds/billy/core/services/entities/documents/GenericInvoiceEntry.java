@@ -18,10 +18,12 @@
  */
 package com.premiumminds.billy.core.services.entities.documents;
 
+import com.premiumminds.billy.core.ExternalID;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Currency;
 import java.util.Date;
+import java.util.Optional;
 import javax.inject.Inject;
 
 import com.premiumminds.billy.core.persistence.dao.DAOContext;
@@ -101,4 +103,5 @@ public interface GenericInvoiceEntry extends Entity<GenericInvoiceEntry> {
 
     AmountType getAmountType();
 
+    Optional<ExternalID<GenericInvoiceEntry>> getExternalID();
 }

@@ -18,12 +18,18 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Currency;
-import java.util.Date;
-import java.util.List;
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.ExternalID;
+import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
+import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
+import com.premiumminds.billy.core.services.entities.Product;
+import com.premiumminds.billy.core.services.entities.ShippingPoint;
+import com.premiumminds.billy.core.services.entities.Tax;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
+import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -37,18 +43,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.hibernate.envers.Audited;
-
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.GenericInvoiceEntryEntity;
-import com.premiumminds.billy.core.services.builders.GenericInvoiceEntryBuilder.AmountType;
-import com.premiumminds.billy.core.services.entities.Product;
-import com.premiumminds.billy.core.services.entities.ShippingPoint;
-import com.premiumminds.billy.core.services.entities.Tax;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
-import com.premiumminds.billy.core.services.entities.documents.GenericInvoiceEntry;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Currency;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Audited
@@ -142,6 +143,9 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEn
 
     @Column(name = "AMOUNT_TYPE")
     protected AmountType type;
+
+    @Column(name = "EXTERNAL_ID", unique = true)
+    protected String externalID;
 
     public JPAGenericInvoiceEntryEntity() {
         this.references = new ArrayList<>();
@@ -264,6 +268,11 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEn
     @Override
     public AmountType getAmountType() {
         return this.type;
+    }
+
+    @Override
+    public Optional<ExternalID<GenericInvoiceEntry>> getExternalID() {
+        return Optional.ofNullable(ExternalID.fromValue(externalID));
     }
 
     @Override
@@ -395,6 +404,11 @@ public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEn
     @Override
     public void setAmountType(AmountType type) {
         this.type = type;
+    }
+
+    @Override
+    public void setExternalID(final ExternalID<GenericInvoiceEntry> externalID) {
+        this.externalID = externalID.getIdentifier();
     }
 
 }

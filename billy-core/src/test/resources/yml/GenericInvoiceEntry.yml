@@ -61,7 +61,7 @@ product : !!com.premiumminds.billy.core.test.fixtures.MockProductEntity
             uid : context_parent_uid
             name : PT
             description : PT
-            
+
 quantity : !!java.math.BigDecimal
   46
 shippingCostsAmount : !!java.math.BigDecimal
@@ -127,3 +127,4 @@ unitTaxAmount : !!java.math.BigDecimal
 unitDiscountAmount : !!java.math.BigDecimal
   0
 unitOfMeasure : kg
+externalID: externalID

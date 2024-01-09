@@ -18,11 +18,9 @@
  */
 package com.premiumminds.billy.portugal.its;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.premiumminds.billy.core.ExternalID;
 import com.premiumminds.billy.core.exceptions.SeriesUniqueCodeNotFilled;
 import com.premiumminds.billy.core.persistence.dao.DAOInvoiceSeries;
 import com.premiumminds.billy.core.persistence.entities.InvoiceSeriesEntity;
@@ -54,6 +52,14 @@ import com.premiumminds.billy.portugal.services.entities.PTProduct;
 import com.premiumminds.billy.portugal.services.entities.PTTax;
 import com.premiumminds.billy.portugal.services.export.saftpt.PTSAFTFileGenerator;
 import com.premiumminds.billy.portugal.util.KeyGenerator;
+import org.junit.jupiter.api.Test;
+import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
@@ -63,13 +69,9 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.Currency;
 import java.util.Date;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
-import org.junit.jupiter.api.Test;
-import org.w3c.dom.Document;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InvoiceIT {
 
@@ -308,7 +310,8 @@ public class InvoiceIT {
                 .setContextUID(billyPortugal.contexts().continent().allContinentRegions().getUID())
                 .setProductUID(product.getUID())
                 .setDescription(product.getDescription())
-                .setUnitOfMeasure(product.getUnitOfMeasure());
+                .setUnitOfMeasure(product.getUnitOfMeasure())
+                .setExternalID(ExternalID.fromValue("externalID1"));
 
         invoiceBuilder.addEntry(entryBuilder);
 
@@ -323,7 +326,8 @@ public class InvoiceIT {
                 .setDescription(productExempt.getDescription())
                 .setUnitOfMeasure(productExempt.getUnitOfMeasure())
                 .setTaxExemptionCode("M99")
-                .setTaxExemptionReason("reason 1");
+                .setTaxExemptionReason("reason 1")
+                .setExternalID(ExternalID.fromValue("externalID2"));
 
         invoiceBuilder.addEntry(entryBuilder);
 
@@ -338,7 +342,8 @@ public class InvoiceIT {
                 .setDescription(productTax.getDescription())
                 .setUnitOfMeasure(productTax.getUnitOfMeasure())
                 .setTaxExemptionCode("M99")
-                .setTaxExemptionReason("reason 1");
+                .setTaxExemptionReason("reason 1")
+                .setExternalID(ExternalID.fromValue("externalID3"));
 
         invoiceBuilder.addEntry(entryBuilder);
 
