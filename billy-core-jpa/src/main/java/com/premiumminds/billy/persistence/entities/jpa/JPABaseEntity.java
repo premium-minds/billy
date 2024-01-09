@@ -25,19 +25,16 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.apache.commons.lang3.Validate;
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.Entity;
+import org.apache.commons.lang3.Validate;
+import org.hibernate.envers.Audited;
 
 /**
  * @author Francisco Vargas
@@ -46,7 +43,6 @@ import com.premiumminds.billy.core.services.entities.Entity;
  */
 @MappedSuperclass
 @Audited
-@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class JPABaseEntity<E> implements Entity<E> {
 
     private static final long serialVersionUID = 1L;
