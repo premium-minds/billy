@@ -3,6 +3,10 @@
 
 ## [Unreleased v9]
 
+### Added
+
+ - [Adds external id field to generic invoice entry](https://github.com/premium-minds/billy/pull/507)
+
 ### Fixed
 
  - [Set wsdl file location with wsdlLocation parameter](https://github.com/premium-minds/billy/pull/474)
