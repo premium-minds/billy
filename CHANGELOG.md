@@ -12,6 +12,7 @@
  - [Bump org.apache.commons:commons-lang3 from 3.13.0 to 3.14.0](https://github.com/premium-minds/billy/pull/491)
  - [Bump org.slf4j:slf4j-api from 2.0.7 to 2.0.9](https://github.com/premium-minds/billy/pull/469)
  - [Bump org.slf4j:slf4j-api from 2.0.9 to 2.0.10](https://github.com/premium-minds/billy/pull/506)
+ - [Bump org.slf4j:slf4j-api from 2.0.10 to 2.0.11](https://github.com/premium-minds/billy/pull/508)
  - [Bump org.apache.pdfbox:pdfbox from 3.0.0 to 3.0.1](https://github.com/premium-minds/billy/pull/492)
  - [Bump org.mockito:mockito-core from 5.4.0 to 5.5.0](https://github.com/premium-minds/billy/pull/467)
  - [Bump org.mockito:mockito-core from 5.5.0 to 5.6.0](https://github.com/premium-minds/billy/pull/477)
