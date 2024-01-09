@@ -155,7 +155,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<inherited>true</inherited>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>4.3</version>
@@ -172,6 +171,7 @@
 						<exclude>**/test/resources/keys/**</exclude>
 						<exclude>**/Fatcorews.wsdl</exclude>
 						<exclude>**/Comunicacao_Series.wsdl</exclude>
+						<exclude>**/TesteWebservices.pfx</exclude>
 					</excludes>
 					<mapping>
 						<java>SLASHSTAR_STYLE</java>
