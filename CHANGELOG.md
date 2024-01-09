@@ -10,6 +10,9 @@
 ### Fixed
 
  - [Set wsdl file location with wsdlLocation parameter](https://github.com/premium-minds/billy/pull/474)
+ - [A class should not be annotated with both @Inheritance and @MappedSuperclass](https://github.com/premium-minds/billy/pull/498) fixed by [Removes @Inheritance from JPABaseEntity](https://github.com/premium-minds/billy/pull/498)
+ - [Remove e.printStackTrace()](https://github.com/premium-minds/billy/issues/379) fixed by [Removes e.printStackTrace() ](https://github.com/premium-minds/billy/pull/499)
+ - [Removes binary pfx file from license maven plugin](https://github.com/premium-minds/billy/pull/501)
 
 ### Changed
 
