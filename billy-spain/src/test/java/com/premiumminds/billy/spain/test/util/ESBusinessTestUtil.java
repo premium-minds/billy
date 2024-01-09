@@ -81,7 +81,7 @@ public class ESBusinessTestUtil {
         try {
             applicationBuilder = this.application.getApplicationBuilder();
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         ESContact.Builder contactBuilder = this.contact.getContactBuilder();

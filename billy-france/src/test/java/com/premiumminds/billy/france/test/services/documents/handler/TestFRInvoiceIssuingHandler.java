@@ -54,7 +54,7 @@ public class TestFRInvoiceIssuingHandler extends FRDocumentAbstractTest {
             this.issuedInvoiceUID = invoice.getUID();
 
         } catch (DocumentIssuingException | DocumentSeriesDoesNotExistException | SeriesUniqueCodeNotFilled e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
     }

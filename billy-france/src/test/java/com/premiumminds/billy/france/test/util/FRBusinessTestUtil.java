@@ -81,7 +81,7 @@ public class FRBusinessTestUtil {
         try {
             applicationBuilder = this.application.getApplicationBuilder();
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         FRContact.Builder contactBuilder = this.contact.getContactBuilder();

@@ -81,7 +81,7 @@ public class PTBusinessTestUtil {
         try {
             applicationBuilder = this.application.getApplicationBuilder();
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         PTContact.Builder contactBuilder = this.contact.getContactBuilder();

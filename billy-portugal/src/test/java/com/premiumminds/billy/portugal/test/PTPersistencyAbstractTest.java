@@ -80,10 +80,8 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
                     new PTBusinessTestUtil(PTAbstractTest.injector).getBusinessEntity(businessUID), SourceBilling.P),
                 parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     public PTCreditNoteEntity getNewIssuedCreditnote(PTInvoice reference) {
@@ -97,10 +95,8 @@ public class PTPersistencyAbstractTest extends PTAbstractTest {
                 new PTCreditNoteTestUtil(PTAbstractTest.injector).getCreditNoteBuilder((PTInvoiceEntity) reference),
                 parameters);
         } catch (DocumentIssuingException | SeriesUniqueCodeNotFilled | DocumentSeriesDoesNotExistException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
     protected PTIssuingParams getParameters(String series, String EACCode, String privateKeyVersion) {
