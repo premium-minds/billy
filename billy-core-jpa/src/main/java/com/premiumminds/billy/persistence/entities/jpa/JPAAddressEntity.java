@@ -18,19 +18,21 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.AddressEntity;
 import com.premiumminds.billy.core.services.entities.Address;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "ADDRESS")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class JPAAddressEntity extends JPABaseEntity<Address> implements AddressEntity {
 
     private static final long serialVersionUID = 1L;
