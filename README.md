@@ -17,7 +17,7 @@ Add the following maven dependency to your project `pom.xml`:
 <dependency>
    <groupId>com.premiumminds</groupId>
    <artifactId>billy-portugal</artifactId>
-   <version>9.3.0</version>
+   <version>9.3.1</version>
 </dependency>
 ```
 Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search;quick~billy) for latest snapshots and releases.
