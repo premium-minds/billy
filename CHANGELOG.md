@@ -3,6 +3,10 @@
 
 ## [Unreleased v9]
 
+### Fixed
+
+ - [Add inheritance annotation to all core entities that are extended in country modules](https://github.com/premium-minds/billy/pull/509)
+
 ## [9.3.0] 2024-01-09
 
 ### Added
