@@ -18,21 +18,23 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
+import com.premiumminds.billy.core.Config;
+import com.premiumminds.billy.core.persistence.entities.ContextEntity;
+import com.premiumminds.billy.core.services.entities.Context;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.envers.Audited;
-
-import com.premiumminds.billy.core.Config;
-import com.premiumminds.billy.core.persistence.entities.ContextEntity;
-import com.premiumminds.billy.core.services.entities.Context;
-
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTEXT")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class JPAContextEntity extends JPABaseEntity<Context> implements ContextEntity {
 
     private static final long serialVersionUID = 1L;

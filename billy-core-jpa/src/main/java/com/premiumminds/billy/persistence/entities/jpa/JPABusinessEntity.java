@@ -36,6 +36,8 @@ import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
@@ -49,6 +51,7 @@ import java.util.List;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "BUSINESS")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class JPABusinessEntity extends JPABaseEntity<Business> implements BusinessEntity {
 
     private static final long serialVersionUID = 1L;

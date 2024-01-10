@@ -18,29 +18,31 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ApplicationEntity;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Application;
 import com.premiumminds.billy.core.services.entities.Contact;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "APPLICATION")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class JPAApplicationEntity extends JPABaseEntity<Application> implements ApplicationEntity {
 
     private static final long serialVersionUID = 1L;

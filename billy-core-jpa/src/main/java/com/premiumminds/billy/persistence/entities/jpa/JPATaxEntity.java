@@ -18,30 +18,32 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import java.math.BigDecimal;
-import java.util.Currency;
-import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContextEntity;
 import com.premiumminds.billy.core.persistence.entities.TaxEntity;
 import com.premiumminds.billy.core.services.entities.Context;
 import com.premiumminds.billy.core.services.entities.Tax;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.math.BigDecimal;
+import java.util.Currency;
+import java.util.Date;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "TAX")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class JPATaxEntity extends JPABaseEntity<Tax> implements TaxEntity {
 
     private static final long serialVersionUID = 1L;

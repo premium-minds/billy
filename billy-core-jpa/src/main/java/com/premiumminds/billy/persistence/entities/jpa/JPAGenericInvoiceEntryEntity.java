@@ -35,6 +35,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -54,6 +56,7 @@ import java.util.Optional;
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "GENERIC_INVOICE_ENTRY")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class JPAGenericInvoiceEntryEntity extends JPABaseEntity<GenericInvoiceEntry> implements GenericInvoiceEntryEntity {
 
     private static final long serialVersionUID = 1L;

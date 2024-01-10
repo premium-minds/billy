@@ -18,19 +18,21 @@
  */
 package com.premiumminds.billy.persistence.entities.jpa;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.hibernate.envers.Audited;
-
 import com.premiumminds.billy.core.Config;
 import com.premiumminds.billy.core.persistence.entities.ContactEntity;
 import com.premiumminds.billy.core.services.entities.Contact;
+import org.hibernate.envers.Audited;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
 @Entity
 @Audited
 @Table(name = Config.TABLE_PREFIX + "CONTACT")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class JPAContactEntity extends JPABaseEntity<Contact> implements ContactEntity {
 
     private static final long serialVersionUID = 1L;
