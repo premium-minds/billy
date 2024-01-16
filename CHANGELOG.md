@@ -3,6 +3,12 @@
 
 ## [Unreleased v9]
 
+### Changed
+
+ - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.41.1 to 2.42.0](https://github.com/premium-minds/billy/pull/511)
+ - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.3 to 3.2.5](https://github.com/premium-minds/billy/pull/510)
+ - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.3 to 3.2.5](https://github.com/premium-minds/billy/pull/512)
+
 ## [9.3.1] 2024-01-10
 
 ### Fixed
