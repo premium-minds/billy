@@ -19,7 +19,6 @@
 package com.premiumminds.billy.spain.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
@@ -77,19 +76,10 @@ public class ESCreditNoteEntryBuilderImpl<TBuilder extends ESCreditNoteEntryBuil
                 ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
         BillyValidator.mandatory(cn.getReason(), ESCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
-
-        this.ValidateESCreditNoteEntry(cn);
-    }
-
-    private void ValidateESCreditNoteEntry(ESCreditNoteEntryEntity cn) {
-        if (this.daoEntry.existsCreditNote(cn.getReference())) {
-            throw new DuplicateCreditNoteException();
-        }
     }
 
     @Override
     protected ESCreditNoteEntryEntity getTypeInstance() {
         return (ESCreditNoteEntryEntity) super.getTypeInstance();
     }
-
 }
