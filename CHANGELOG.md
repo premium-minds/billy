@@ -3,6 +3,8 @@
 
 ## [Unreleased v9]
 
+## [9.4.0] 2024-01-30
+
 ### Changed
 
  - [Bump querydsl.version from 5.0.0 to 5.1.0](https://github.com/premium-minds/billy/pull/515)
@@ -587,7 +589,8 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
  -  [Update Canary islands 2019 IGIC normal tax value](https://github.com/premium-minds/billy/pull/33)
 
 
-[unreleased v9]: https://github.com/premium-minds/billy/compare/v9.3.1...HEAD
+[unreleased v9]: https://github.com/premium-minds/billy/compare/v9.4.0...HEAD
+[9.4.0]: https://github.com/premium-minds/billy/compare/v9.3.1...v9.4.0
 [9.3.1]: https://github.com/premium-minds/billy/compare/v9.3.0...v9.3.1
 [9.3.0]: https://github.com/premium-minds/billy/compare/v9.2.0...v9.3.0
 [9.2.0]: https://github.com/premium-minds/billy/compare/v9.1.1...v9.2.0
