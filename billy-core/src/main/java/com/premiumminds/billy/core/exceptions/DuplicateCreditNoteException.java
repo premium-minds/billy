@@ -18,6 +18,7 @@
  */
 package com.premiumminds.billy.core.exceptions;
 
+@Deprecated(forRemoval = true)
 public class DuplicateCreditNoteException extends BillyValidationException {
 
     private static final long serialVersionUID = 1L;

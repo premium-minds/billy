@@ -19,7 +19,6 @@
 package com.premiumminds.billy.france.services.builders.impl;
 
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
@@ -92,13 +91,5 @@ public class FRManualCreditReceiptEntryBuilderImpl<TBuilder extends FRManualCred
                 FRCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
         BillyValidator.mandatory(cn.getReason(), FRCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
-
-        this.ValidateFRCreditReceiptEntry(cn);
-    }
-
-    private void ValidateFRCreditReceiptEntry(FRCreditReceiptEntryEntity cn) {
-        if (this.daoEntry.existsCreditReceipt(cn.getReference())) {
-            throw new DuplicateCreditNoteException();
-        }
     }
 }

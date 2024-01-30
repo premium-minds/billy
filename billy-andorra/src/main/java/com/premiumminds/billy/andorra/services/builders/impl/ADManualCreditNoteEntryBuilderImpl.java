@@ -23,7 +23,6 @@ import com.premiumminds.billy.andorra.persistence.entities.ADInvoiceEntity;
 import com.premiumminds.billy.andorra.services.entities.ADCreditNoteEntry;
 import com.premiumminds.billy.andorra.services.entities.ADInvoice;
 import com.premiumminds.billy.core.exceptions.BillyValidationException;
-import com.premiumminds.billy.core.exceptions.DuplicateCreditNoteException;
 import com.premiumminds.billy.core.services.StringID;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice;
 import com.premiumminds.billy.core.services.entities.documents.GenericInvoice.CreditOrDebit;
@@ -96,13 +95,5 @@ public class ADManualCreditNoteEntryBuilderImpl<TBuilder extends ADManualCreditN
                                  ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.invoice_reference"));
 
         BillyValidator.mandatory(cn.getReason(), ADCreditNoteEntryBuilderImpl.LOCALIZER.getString("field.reason"));
-
-        this.ValidateESCreditNoteEntry(cn);
-    }
-
-    private void ValidateESCreditNoteEntry(ADCreditNoteEntryEntity cn) {
-        if (this.daoEntry.existsCreditNote(cn.getReference())) {
-            throw new DuplicateCreditNoteException();
-        }
     }
 }
