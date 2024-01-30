@@ -13,6 +13,10 @@
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.3 to 3.2.5](https://github.com/premium-minds/billy/pull/510)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.3 to 3.2.5](https://github.com/premium-minds/billy/pull/512)
 
+### Deprecated
+
+ - [Removed DuplicateCreditNoteException from billy with all its references](https://github.com/premium-minds/billy/pull/514)
+
 ## [9.3.1] 2024-01-10
 
 ### Fixed
