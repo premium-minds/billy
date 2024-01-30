@@ -5,8 +5,11 @@
 
 ### Changed
 
+ - [Bump querydsl.version from 5.0.0 to 5.1.0](https://github.com/premium-minds/billy/pull/515)
  - [Bump org.mockito:mockito-core from 5.8.0 to 5.9.0](https://github.com/premium-minds/billy/pull/513)
+ - [Bump org.mockito:mockito-core from 5.9.0 to 5.10.0](https://github.com/premium-minds/billy/pull/516)
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.41.1 to 2.42.0](https://github.com/premium-minds/billy/pull/511)
+ - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.42.0 to 2.43.0](https://github.com/premium-minds/billy/pull/517)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.3 to 3.2.5](https://github.com/premium-minds/billy/pull/510)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.3 to 3.2.5](https://github.com/premium-minds/billy/pull/512)
 
