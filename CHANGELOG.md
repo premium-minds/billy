@@ -3,6 +3,10 @@
 
 ## [Unreleased v9]
 
+### Changed
+
+ - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.1 to 5.10.2 ](https://github.com/premium-minds/billy/pull/518)
+
 ## [9.4.0] 2024-01-30
 
 ### Changed
