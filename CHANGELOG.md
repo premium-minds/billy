@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [Bump org.slf4j:slf4j-api from 2.0.11 to 2.0.12](https://github.com/premium-minds/billy/pull/519)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.1 to 5.10.2 ](https://github.com/premium-minds/billy/pull/518)
 
 ## [9.4.0] 2024-01-30
