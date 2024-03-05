@@ -7,6 +7,7 @@
 
  - [Bump org.slf4j:slf4j-api from 2.0.11 to 2.0.12](https://github.com/premium-minds/billy/pull/519)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.1 to 5.10.2 ](https://github.com/premium-minds/billy/pull/518)
+ - [Bump org.mockito:mockito-core from 5.10.0 to 5.11.0](https://github.com/premium-minds/billy/pull/520)
 
 ## [9.4.0] 2024-01-30
 
