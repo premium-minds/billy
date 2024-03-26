@@ -90,7 +90,7 @@
 		<dependency>
 			<groupId>org.jvnet.jaxb2_commons</groupId>
 			<artifactId>jaxb2-basics-runtime</artifactId>
-			<version>0.13.1</version>
+			<version>1.11.1</version>
 		</dependency>
 
 		<!-- support for webservices generated code -->
