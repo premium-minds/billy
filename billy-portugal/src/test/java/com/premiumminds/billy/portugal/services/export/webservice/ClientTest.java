@@ -89,6 +89,7 @@ public class ClientTest {
 
     private Injector injector;
     private PTApplication application;
+    private PTBusiness business;
     private PTInvoice invoice;
     private PTCreditNote creditNote;
 
@@ -113,7 +114,7 @@ public class ClientTest {
 
         PTApplication.Builder applicationBuilder = getPTApplicationBuilder(billyPortugal);
         application = createPtApplication(billyPortugal, applicationBuilder);
-        PTBusiness business = createPtBusiness(billyPortugal, applicationBuilder);
+        business = createPtBusiness(billyPortugal, applicationBuilder);
         PTCustomer customer = createPtCustomer(billyPortugal);
 
         createSeries(invoiceParameters.getInvoiceSeries(), business, "CCCC2345");
@@ -299,7 +300,7 @@ public class ClientTest {
         Config config = new Config();
         final var client = new Client(config, stubServerUrl, webserviceCredentials, webserviceKeys, sslClientCertificate);
 
-        final Response responseInvoice = client.deleteInvoice(application, Arrays.asList(invoice), "some reason 1");
+        final Response responseInvoice = client.deleteInvoice(business.getFinancialID(), Arrays.asList(invoice), "some reason 1");
         Assertions.assertNotNull(responseInvoice);
         Assertions.assertEquals(-1, responseInvoice.getCode());
         Assertions.assertFalse(responseInvoice.isSuccess());

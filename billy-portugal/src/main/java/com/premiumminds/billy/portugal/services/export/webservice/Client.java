@@ -108,13 +108,13 @@ public class Client {
         }
     }
 
-    public Response deleteInvoice(PTApplication application, List<PTGenericInvoice> ptGenericInvoices, String reason){
+    public Response deleteInvoice(String taxRegistrationNumber, List<PTGenericInvoice> ptGenericInvoices, String reason){
         try{
             final FatcorewsPort fatcorewsPortSoap = getFatcorewsPortSoap();
 
             final DeleteInvoiceRequest request = new DeleteInvoiceRequest();
             request.setEFaturaMDVersion(EFATURA_MD_VERSION);
-            request.setTaxRegistrationNumber(application.getSoftwareCertificationNumber());
+            request.setTaxRegistrationNumber(Integer.parseInt(taxRegistrationNumber));
             request.setReason(reason);
 
             final ListInvoiceDocumentsType invoiceDocumentsType = new ListInvoiceDocumentsType();
@@ -151,14 +151,14 @@ public class Client {
         }
     }
 
-    public Response deleteInvoice(PTApplication application, LocalDate from, LocalDate to, String reason){
+    public Response deleteInvoice(String taxRegistrationNumber, LocalDate from, LocalDate to, String reason){
 
         try {
             final FatcorewsPort fatcorewsPortSoap = getFatcorewsPortSoap();
 
             final DeleteInvoiceRequest request = new DeleteInvoiceRequest();
             request.setEFaturaMDVersion(EFATURA_MD_VERSION);
-            request.setTaxRegistrationNumber(application.getSoftwareCertificationNumber());
+            request.setTaxRegistrationNumber(Integer.parseInt(taxRegistrationNumber));
             request.setReason(reason);
             final DateRangeType dateRangeType = new DateRangeType();
             dateRangeType.setStartDate(formatLocalDate(from));
