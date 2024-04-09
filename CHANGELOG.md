@@ -10,6 +10,7 @@
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.1 to 5.10.2 ](https://github.com/premium-minds/billy/pull/518)
  - [Bump org.mockito:mockito-core from 5.10.0 to 5.11.0](https://github.com/premium-minds/billy/pull/520)
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0](https://github.com/premium-minds/billy/pull/525)
+ - [Bump org.apache.maven.plugins:maven-source-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/531)
 
 ## [9.4.0] 2024-01-30
 
