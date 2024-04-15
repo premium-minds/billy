@@ -108,6 +108,7 @@ public class Client {
         }
     }
 
+    @Deprecated(forRemoval = true)
     public Response deleteInvoice(PTApplication application, List<PTGenericInvoice> ptGenericInvoices, String reason){
         try{
             final FatcorewsPort fatcorewsPortSoap = getFatcorewsPortSoap();
@@ -151,6 +152,50 @@ public class Client {
         }
     }
 
+    public Response deleteInvoice(String taxRegistrationNumber, List<PTGenericInvoice> ptGenericInvoices, String reason){
+        try{
+            final FatcorewsPort fatcorewsPortSoap = getFatcorewsPortSoap();
+
+            final DeleteInvoiceRequest request = new DeleteInvoiceRequest();
+            request.setEFaturaMDVersion(EFATURA_MD_VERSION);
+            request.setTaxRegistrationNumber(Integer.parseInt(taxRegistrationNumber));
+            request.setReason(reason);
+
+            final ListInvoiceDocumentsType invoiceDocumentsType = new ListInvoiceDocumentsType();
+            for (PTGenericInvoice ptGenericInvoice : ptGenericInvoices) {
+
+                final InvoiceDataType invoiceData = new InvoiceDataType();
+                invoiceData.setInvoiceNo(ptGenericInvoice.getNumber());
+                invoiceData.setATCUD(ptGenericInvoice.getATCUD());
+                invoiceData.setInvoiceDate(formatLocalDateTime(
+                        LocalDateTime.ofInstant(ptGenericInvoice.getDate().toInstant(), ptGenericInvoice.getBusiness().getTimezone())));
+                invoiceData.setInvoiceType(processInvoiceType(ptGenericInvoice));
+                invoiceData.setSelfBillingIndicator(BigInteger.ZERO);
+                if (this.config.getUID(Config.Key.Customer.Generic.UUID).equals(ptGenericInvoice.getCustomer().getUID())) {
+                    invoiceData.setCustomerTaxID("999999990");
+                    invoiceData.setCustomerTaxIDCountry("PT");
+                } else {
+                    invoiceData.setCustomerTaxID(ptGenericInvoice.getCustomer().getTaxRegistrationNumber());
+                    invoiceData.setCustomerTaxIDCountry(ptGenericInvoice.getCustomer().getTaxRegistrationNumberISOCountryCode());
+                }
+                invoiceData.setDocumentStatus(processStatus(ptGenericInvoice));
+                invoiceDocumentsType.getInvoice().add(invoiceData);
+            }
+            request.setDocumentsList(invoiceDocumentsType);
+
+            final ResponseType response = fatcorewsPortSoap.deleteInvoice(request).getResponse();
+
+            return new Response(
+                    response.getCodigoResposta(),
+                    response.getDataOperacao().toGregorianCalendar().toZonedDateTime(),
+                    response.getMensagem(),
+                    response.getCodigoResposta() == SUCCESS_CODE);
+        } catch (DatatypeConfigurationException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Deprecated(forRemoval = true)
     public Response deleteInvoice(PTApplication application, LocalDate from, LocalDate to, String reason){
 
         try {
@@ -159,6 +204,31 @@ public class Client {
             final DeleteInvoiceRequest request = new DeleteInvoiceRequest();
             request.setEFaturaMDVersion(EFATURA_MD_VERSION);
             request.setTaxRegistrationNumber(application.getSoftwareCertificationNumber());
+            request.setReason(reason);
+            final DateRangeType dateRangeType = new DateRangeType();
+            dateRangeType.setStartDate(formatLocalDate(from));
+            dateRangeType.setEndDate(formatLocalDate(to));
+            request.setDateRange(dateRangeType);
+            final ResponseType response = fatcorewsPortSoap.deleteInvoice(request).getResponse();
+
+            return new Response(
+                    response.getCodigoResposta(),
+                    response.getDataOperacao().toGregorianCalendar().toZonedDateTime(),
+                    response.getMensagem(),
+                    response.getCodigoResposta() == SUCCESS_CODE);
+        } catch (DatatypeConfigurationException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Response deleteInvoice(String taxRegistrationNumber, LocalDate from, LocalDate to, String reason){
+
+        try {
+            final FatcorewsPort fatcorewsPortSoap = getFatcorewsPortSoap();
+
+            final DeleteInvoiceRequest request = new DeleteInvoiceRequest();
+            request.setEFaturaMDVersion(EFATURA_MD_VERSION);
+            request.setTaxRegistrationNumber(Integer.parseInt(taxRegistrationNumber));
             request.setReason(reason);
             final DateRangeType dateRangeType = new DateRangeType();
             dateRangeType.setStartDate(formatLocalDate(from));
