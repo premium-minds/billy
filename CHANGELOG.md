@@ -7,10 +7,12 @@
 
  - [Bump org.apache.pdfbox:pdfbox from 3.0.1 to 3.0.2](https://github.com/premium-minds/billy/pull/523)
  - [Bump org.slf4j:slf4j-api from 2.0.11 to 2.0.12](https://github.com/premium-minds/billy/pull/519)
+ - [Bump org.slf4j:slf4j-api from 2.0.12 to 2.0.13](https://github.com/premium-minds/billy/pull/536)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.1 to 5.10.2 ](https://github.com/premium-minds/billy/pull/518)
  - [Bump org.mockito:mockito-core from 5.10.0 to 5.11.0](https://github.com/premium-minds/billy/pull/520)
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0](https://github.com/premium-minds/billy/pull/525)
  - [Bump org.apache.maven.plugins:maven-source-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/531)
+ - [Bump org.apache.maven.plugins:maven-jar-plugin from 3.3.0 to 3.4.0](https://github.com/premium-minds/billy/pull/535)
 
 ## [9.4.0] 2024-01-30
 
