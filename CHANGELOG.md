@@ -608,7 +608,7 @@ checkCreditReceipt has bad performance](https://github.com/premium-minds/billy/i
 
 
 [unreleased v9]: https://github.com/premium-minds/billy/compare/v9.5.0...HEAD
-[9.4.0]: https://github.com/premium-minds/billy/compare/v9.4.0...v9.5.0
+[9.5.0]: https://github.com/premium-minds/billy/compare/v9.4.0...v9.5.0
 [9.4.0]: https://github.com/premium-minds/billy/compare/v9.3.1...v9.4.0
 [9.3.1]: https://github.com/premium-minds/billy/compare/v9.3.0...v9.3.1
 [9.3.0]: https://github.com/premium-minds/billy/compare/v9.2.0...v9.3.0
