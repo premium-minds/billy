@@ -13,6 +13,11 @@
  - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.12.1 to 3.13.0](https://github.com/premium-minds/billy/pull/525)
  - [Bump org.apache.maven.plugins:maven-source-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/531)
  - [Bump org.apache.maven.plugins:maven-jar-plugin from 3.3.0 to 3.4.0](https://github.com/premium-minds/billy/pull/535)
+ - [Bump org.apache.maven.plugins:maven-jar-plugin from 3.4.0 to 3.4.1](https://github.com/premium-minds/billy/pull/540)
+
+### Fixed
+
+ - [Fix TaxRegistrationNumber PT AT webservice method to delete invoices](https://github.com/premium-minds/billy/pull/534)
 
 ## [9.4.0] 2024-01-30
 
