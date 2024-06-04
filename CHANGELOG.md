@@ -9,6 +9,7 @@
  - [Bump com.mycila:license-maven-plugin from 4.3 to 4.5](https://github.com/premium-minds/billy/pull/542)
  - [Bump org.codehaus.mojo:build-helper-maven-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/billy/pull/544)
  - [Bump org.sonatype.plugins:nexus-staging-maven-plugin from 1.6.13 to 1.7.0 ](https://github.com/premium-minds/billy/pull/546)
+ - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.3 to 3.7.0](https://github.com/premium-minds/billy/pull/548)
 
 ## [9.5.0] 2024-04-23
 
