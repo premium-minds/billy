@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.2 to 5.10.3](https://github.com/premium-minds/billy/pull/553)
  - [Bump org.mockito:mockito-core from 5.11.0 to 5.12.0](https://github.com/premium-minds/billy/pull/543)
  - [Bump com.mycila:license-maven-plugin from 4.3 to 4.5](https://github.com/premium-minds/billy/pull/542)
  - [Bump org.codehaus.mojo:build-helper-maven-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/billy/pull/544)
