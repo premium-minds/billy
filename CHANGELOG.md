@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [Bump org.apache.commons:commons-lang3 from 3.14.0 to 3.15.0](https://github.com/premium-minds/billy/pull/559)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.2 to 5.10.3](https://github.com/premium-minds/billy/pull/553)
  - [Bump org.mockito:mockito-core from 5.11.0 to 5.12.0](https://github.com/premium-minds/billy/pull/543)
  - [Bump com.h2database:h2 from 2.2.224 to 2.3.230](https://github.com/premium-minds/billy/pull/556)
@@ -12,6 +13,7 @@
  - [Bump org.codehaus.mojo:build-helper-maven-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/billy/pull/544)
  - [Bump org.sonatype.plugins:nexus-staging-maven-plugin from 1.6.13 to 1.7.0 ](https://github.com/premium-minds/billy/pull/546)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.3 to 3.7.0](https://github.com/premium-minds/billy/pull/548)
+ - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.7.0 to 3.8.0](https://github.com/premium-minds/billy/pull/560)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.5 to 3.3.0](https://github.com/premium-minds/billy/pull/551)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/557)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.5 to 3.3.0](https://github.com/premium-minds/billy/pull/549)
