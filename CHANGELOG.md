@@ -13,6 +13,7 @@
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.3 to 5.11.0](https://github.com/premium-minds/billy/pull/569)
  - [Bump org.mockito:mockito-core from 5.11.0 to 5.12.0](https://github.com/premium-minds/billy/pull/543)
  - [Bump com.h2database:h2 from 2.2.224 to 2.3.230](https://github.com/premium-minds/billy/pull/556)
+ - [Bump com.h2database:h2 from 2.3.230 to 2.3.232](https://github.com/premium-minds/billy/pull/575)
  - [Bump com.mycila:license-maven-plugin from 4.3 to 4.5](https://github.com/premium-minds/billy/pull/542)
  - [Bump com.mycila:license-maven-plugin from 4.5 to 4.6](https://github.com/premium-minds/billy/pull/573)
  - [Bump org.codehaus.mojo:build-helper-maven-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/billy/pull/544)
