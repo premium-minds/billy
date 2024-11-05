@@ -21,6 +21,7 @@
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.3 to 3.7.0](https://github.com/premium-minds/billy/pull/548)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.7.0 to 3.8.0](https://github.com/premium-minds/billy/pull/560)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.8.0 to 3.10.0](https://github.com/premium-minds/billy/pull/567)
+ - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.10.0 to 3.11.1](https://github.com/premium-minds/billy/pull/576)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.5 to 3.3.0](https://github.com/premium-minds/billy/pull/551)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/557)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.3.1 to 3.5.1](https://github.com/premium-minds/billy/pull/572)
