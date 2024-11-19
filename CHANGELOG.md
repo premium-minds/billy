@@ -5,6 +5,7 @@
 
 ### Changed
 
+ - [Bump org.slf4j:slf4j-api from 2.0.13 to 2.0.16](https://github.com/premium-minds/billy/pull/578)
  - [Bump org.apache.pdfbox:pdfbox from 3.0.2 to 3.0.3](https://github.com/premium-minds/billy/pull/566)
  - [Bump org.apache.xmlgraphics:fop from 2.9 to 2.10](https://github.com/premium-minds/billy/pull/574)
  - [Bump org.apache.commons:commons-lang3 from 3.14.0 to 3.15.0](https://github.com/premium-minds/billy/pull/559)
