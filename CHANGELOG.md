@@ -30,6 +30,7 @@
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.5 to 3.3.0](https://github.com/premium-minds/billy/pull/549)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/554)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.3.1 to 3.5.0](https://github.com/premium-minds/billy/pull/570)
+ - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.5.0 to 3.5.2](https://github.com/premium-minds/billy/pull/579)
  - [Bump org.apache.maven.plugins:maven-release-plugin from 2.5.3 to 3.1.1](https://github.com/premium-minds/billy/pull/555)
 
 ## [9.5.0] 2024-04-23
