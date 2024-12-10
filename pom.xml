@@ -122,6 +122,16 @@
 				<artifactId>mockito-core</artifactId>
 				<version>5.14.2</version>
 			</dependency>
+			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy</artifactId>
+				<version>1.15.10</version>
+			</dependency>
+			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy-agent</artifactId>
+				<version>1.15.10</version>
+			</dependency>
 
 			<!-- H2 -->
 			<dependency>
