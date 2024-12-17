@@ -10,6 +10,7 @@
  - [Bump org.apache.xmlgraphics:fop from 2.9 to 2.10](https://github.com/premium-minds/billy/pull/574)
  - [Bump org.apache.commons:commons-lang3 from 3.14.0 to 3.15.0](https://github.com/premium-minds/billy/pull/559)
  - [Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.17.0](https://github.com/premium-minds/billy/pull/564)
+ - [Bump net.bytebuddy:byte-buddy from 1.15.10 to 1.15.11](https://github.com/premium-minds/billy/pull/581)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.2 to 5.10.3](https://github.com/premium-minds/billy/pull/553)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.3 to 5.11.0](https://github.com/premium-minds/billy/pull/569)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.11.0 to 5.11.3](https://github.com/premium-minds/billy/pull/577)
