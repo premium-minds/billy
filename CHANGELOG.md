@@ -14,6 +14,7 @@
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.2 to 5.10.3](https://github.com/premium-minds/billy/pull/553)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.3 to 5.11.0](https://github.com/premium-minds/billy/pull/569)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.11.0 to 5.11.3](https://github.com/premium-minds/billy/pull/577)
+ - [Bump org.junit.jupiter:junit-jupiter-engine from 5.11.3 to 5.11.4](https://github.com/premium-minds/billy/pull/582)
  - [Bump org.mockito:mockito-core from 5.11.0 to 5.12.0](https://github.com/premium-minds/billy/pull/543)
  - [Bump org.mockito:mockito-core from 5.12.0 to 5.14.2](https://github.com/premium-minds/billy/pull/580)
  - [Bump com.h2database:h2 from 2.2.224 to 2.3.230](https://github.com/premium-minds/billy/pull/556)
