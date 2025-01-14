@@ -31,6 +31,7 @@
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.2.5 to 3.3.0](https://github.com/premium-minds/billy/pull/551)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/557)
  - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.3.1 to 3.5.1](https://github.com/premium-minds/billy/pull/572)
+ - [Bump org.apache.maven.plugins:maven-surefire-plugin from 3.5.1 to 3.5.2](https://github.com/premium-minds/billy/pull/584)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.2.5 to 3.3.0](https://github.com/premium-minds/billy/pull/549)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.3.0 to 3.3.1](https://github.com/premium-minds/billy/pull/554)
  - [Bump org.apache.maven.plugins:maven-failsafe-plugin from 3.3.1 to 3.5.0](https://github.com/premium-minds/billy/pull/570)
