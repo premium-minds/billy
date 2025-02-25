@@ -13,6 +13,7 @@
  - [Bump org.apache.commons:commons-lang3 from 3.15.0 to 3.17.0](https://github.com/premium-minds/billy/pull/564)
  - [Bump net.bytebuddy:byte-buddy from 1.15.10 to 1.15.11](https://github.com/premium-minds/billy/pull/581)
  - [Bump net.bytebuddy:byte-buddy from 1.15.11 to 1.17.0](https://github.com/premium-minds/billy/pull/588)
+ - [Bump net.bytebuddy:byte-buddy from 1.17.0 to 1.17.1](https://github.com/premium-minds/billy/pull/591)
  - [Bump net.bytebuddy:byte-buddy-agent from 1.15.10 to 1.15.11](https://github.com/premium-minds/billy/pull/583)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.2 to 5.10.3](https://github.com/premium-minds/billy/pull/553)
  - [Bump org.junit.jupiter:junit-jupiter-engine from 5.10.3 to 5.11.0](https://github.com/premium-minds/billy/pull/569)
