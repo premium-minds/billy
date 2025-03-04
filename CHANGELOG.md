@@ -29,6 +29,7 @@
  - [Bump com.diffplug.spotless:spotless-maven-plugin from 2.43.0 to 2.44.2](https://github.com/premium-minds/billy/pull/585)
  - [Bump org.codehaus.mojo:build-helper-maven-plugin from 3.5.0 to 3.6.0](https://github.com/premium-minds/billy/pull/544)
  - [Bump org.sonatype.plugins:nexus-staging-maven-plugin from 1.6.13 to 1.7.0 ](https://github.com/premium-minds/billy/pull/546)
+ - [Bump org.apache.maven.plugins:maven-compiler-plugin from 3.13.0 to 3.14.0](https://github.com/premium-minds/billy/pull/592)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.6.3 to 3.7.0](https://github.com/premium-minds/billy/pull/548)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.7.0 to 3.8.0](https://github.com/premium-minds/billy/pull/560)
  - [Bump org.apache.maven.plugins:maven-javadoc-plugin from 3.8.0 to 3.10.0](https://github.com/premium-minds/billy/pull/567)
